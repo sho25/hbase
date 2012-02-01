@@ -993,6 +993,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|out
+operator|.
+name|setWriteToWAL
+argument_list|(
+name|in
+operator|.
+name|isWriteToWal
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|out
 return|;

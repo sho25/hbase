@@ -43140,15 +43140,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -54961,7 +54952,7 @@ block|{
 name|ByteBuffer
 name|_elem28
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem28
 operator|=
 name|iprot
@@ -55598,7 +55589,7 @@ block|{
 name|ByteBuffer
 name|_elem33
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem33
 operator|=
 name|iprot
@@ -59867,7 +59858,7 @@ comment|// required
 name|ColumnDescriptor
 name|_val37
 decl_stmt|;
-comment|// optional
+comment|// required
 name|_key36
 operator|=
 name|iprot
@@ -60597,7 +60588,7 @@ comment|// required
 name|ColumnDescriptor
 name|_val43
 decl_stmt|;
-comment|// optional
+comment|// required
 name|_key42
 operator|=
 name|iprot
@@ -64819,7 +64810,7 @@ block|{
 name|TRegionInfo
 name|_elem46
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem46
 operator|=
 operator|new
@@ -65462,7 +65453,7 @@ block|{
 name|TRegionInfo
 name|_elem51
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem51
 operator|=
 operator|new
@@ -67863,7 +67854,7 @@ block|{
 name|ColumnDescriptor
 name|_elem54
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem54
 operator|=
 operator|new
@@ -68462,7 +68453,7 @@ block|{
 name|ColumnDescriptor
 name|_elem59
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem59
 operator|=
 operator|new
@@ -80978,7 +80969,7 @@ block|{
 name|TCell
 name|_elem62
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem62
 operator|=
 operator|new
@@ -81621,7 +81612,7 @@ block|{
 name|TCell
 name|_elem67
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem67
 operator|=
 operator|new
@@ -87801,7 +87792,7 @@ block|{
 name|TCell
 name|_elem70
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem70
 operator|=
 operator|new
@@ -88444,7 +88435,7 @@ block|{
 name|TCell
 name|_elem75
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem75
 operator|=
 operator|new
@@ -95197,7 +95188,7 @@ block|{
 name|TCell
 name|_elem78
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem78
 operator|=
 operator|new
@@ -95840,7 +95831,7 @@ block|{
 name|TCell
 name|_elem83
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem83
 operator|=
 operator|new
@@ -100729,7 +100720,7 @@ block|{
 name|TRowResult
 name|_elem86
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem86
 operator|=
 operator|new
@@ -101372,7 +101363,7 @@ block|{
 name|TRowResult
 name|_elem91
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem91
 operator|=
 operator|new
@@ -104351,7 +104342,7 @@ block|{
 name|ByteBuffer
 name|_elem94
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem94
 operator|=
 name|iprot
@@ -105036,7 +105027,7 @@ block|{
 name|ByteBuffer
 name|_elem99
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem99
 operator|=
 name|iprot
@@ -107262,7 +107253,7 @@ block|{
 name|TRowResult
 name|_elem102
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem102
 operator|=
 operator|new
@@ -107905,7 +107896,7 @@ block|{
 name|TRowResult
 name|_elem107
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem107
 operator|=
 operator|new
@@ -113409,7 +113400,7 @@ block|{
 name|TRowResult
 name|_elem110
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem110
 operator|=
 operator|new
@@ -114052,7 +114043,7 @@ block|{
 name|TRowResult
 name|_elem115
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem115
 operator|=
 operator|new
@@ -117497,7 +117488,7 @@ block|{
 name|ByteBuffer
 name|_elem118
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem118
 operator|=
 name|iprot
@@ -118300,7 +118291,7 @@ block|{
 name|ByteBuffer
 name|_elem123
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem123
 operator|=
 name|iprot
@@ -120553,7 +120544,7 @@ block|{
 name|TRowResult
 name|_elem126
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem126
 operator|=
 operator|new
@@ -121196,7 +121187,7 @@ block|{
 name|TRowResult
 name|_elem131
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem131
 operator|=
 operator|new
@@ -123591,7 +123582,7 @@ block|{
 name|ByteBuffer
 name|_elem134
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem134
 operator|=
 name|iprot
@@ -124184,7 +124175,7 @@ block|{
 name|ByteBuffer
 name|_elem139
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem139
 operator|=
 name|iprot
@@ -126410,7 +126401,7 @@ block|{
 name|TRowResult
 name|_elem142
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem142
 operator|=
 operator|new
@@ -127053,7 +127044,7 @@ block|{
 name|TRowResult
 name|_elem147
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem147
 operator|=
 operator|new
@@ -130066,7 +130057,7 @@ block|{
 name|ByteBuffer
 name|_elem150
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem150
 operator|=
 name|iprot
@@ -130196,7 +130187,7 @@ block|{
 name|ByteBuffer
 name|_elem153
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem153
 operator|=
 name|iprot
@@ -130929,7 +130920,7 @@ block|{
 name|ByteBuffer
 name|_elem160
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem160
 operator|=
 name|iprot
@@ -131042,7 +131033,7 @@ block|{
 name|ByteBuffer
 name|_elem163
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem163
 operator|=
 name|iprot
@@ -133268,7 +133259,7 @@ block|{
 name|TRowResult
 name|_elem166
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem166
 operator|=
 operator|new
@@ -133911,7 +133902,7 @@ block|{
 name|TRowResult
 name|_elem171
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem171
 operator|=
 operator|new
@@ -136776,7 +136767,7 @@ block|{
 name|ByteBuffer
 name|_elem174
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem174
 operator|=
 name|iprot
@@ -137487,7 +137478,7 @@ block|{
 name|ByteBuffer
 name|_elem179
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem179
 operator|=
 name|iprot
@@ -139740,7 +139731,7 @@ block|{
 name|TRowResult
 name|_elem182
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem182
 operator|=
 operator|new
@@ -140383,7 +140374,7 @@ block|{
 name|TRowResult
 name|_elem187
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem187
 operator|=
 operator|new
@@ -143862,7 +143853,7 @@ block|{
 name|ByteBuffer
 name|_elem190
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem190
 operator|=
 name|iprot
@@ -143992,7 +143983,7 @@ block|{
 name|ByteBuffer
 name|_elem193
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem193
 operator|=
 name|iprot
@@ -144843,7 +144834,7 @@ block|{
 name|ByteBuffer
 name|_elem200
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem200
 operator|=
 name|iprot
@@ -144956,7 +144947,7 @@ block|{
 name|ByteBuffer
 name|_elem203
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem203
 operator|=
 name|iprot
@@ -147209,7 +147200,7 @@ block|{
 name|TRowResult
 name|_elem206
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem206
 operator|=
 operator|new
@@ -147852,7 +147843,7 @@ block|{
 name|TRowResult
 name|_elem211
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem211
 operator|=
 operator|new
@@ -150837,7 +150828,7 @@ block|{
 name|Mutation
 name|_elem214
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem214
 operator|=
 operator|new
@@ -151528,7 +151519,7 @@ block|{
 name|Mutation
 name|_elem219
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem219
 operator|=
 operator|new
@@ -157468,7 +157459,7 @@ block|{
 name|Mutation
 name|_elem222
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem222
 operator|=
 operator|new
@@ -158277,7 +158268,7 @@ block|{
 name|Mutation
 name|_elem227
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem227
 operator|=
 operator|new
@@ -163190,7 +163181,7 @@ block|{
 name|BatchMutation
 name|_elem230
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem230
 operator|=
 operator|new
@@ -163789,7 +163780,7 @@ block|{
 name|BatchMutation
 name|_elem235
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem235
 operator|=
 operator|new
@@ -169136,7 +169127,7 @@ block|{
 name|BatchMutation
 name|_elem238
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem238
 operator|=
 operator|new
@@ -169853,7 +169844,7 @@ block|{
 name|BatchMutation
 name|_elem243
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem243
 operator|=
 operator|new
@@ -178594,15 +178585,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -204502,15 +204484,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -208125,7 +208098,7 @@ block|{
 name|ByteBuffer
 name|_elem246
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem246
 operator|=
 name|iprot
@@ -208810,7 +208783,7 @@ block|{
 name|ByteBuffer
 name|_elem251
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem251
 operator|=
 name|iprot
@@ -210633,15 +210606,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -214840,7 +214804,7 @@ block|{
 name|ByteBuffer
 name|_elem254
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem254
 operator|=
 name|iprot
@@ -215617,7 +215581,7 @@ block|{
 name|ByteBuffer
 name|_elem259
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem259
 operator|=
 name|iprot
@@ -217440,15 +217404,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -221063,7 +221018,7 @@ block|{
 name|ByteBuffer
 name|_elem262
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem262
 operator|=
 name|iprot
@@ -221748,7 +221703,7 @@ block|{
 name|ByteBuffer
 name|_elem267
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem267
 operator|=
 name|iprot
@@ -223571,15 +223526,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -227655,7 +227601,7 @@ block|{
 name|ByteBuffer
 name|_elem270
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem270
 operator|=
 name|iprot
@@ -228458,7 +228404,7 @@ block|{
 name|ByteBuffer
 name|_elem275
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem275
 operator|=
 name|iprot
@@ -230308,15 +230254,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -234976,7 +234913,7 @@ block|{
 name|ByteBuffer
 name|_elem278
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem278
 operator|=
 name|iprot
@@ -235871,7 +235808,7 @@ block|{
 name|ByteBuffer
 name|_elem283
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem283
 operator|=
 name|iprot
@@ -237721,15 +237658,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -242973,7 +242901,7 @@ block|{
 name|TRowResult
 name|_elem286
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem286
 operator|=
 operator|new
@@ -243752,7 +243680,7 @@ block|{
 name|TRowResult
 name|_elem291
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem291
 operator|=
 operator|new
@@ -248968,7 +248896,7 @@ block|{
 name|TRowResult
 name|_elem294
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem294
 operator|=
 operator|new
@@ -249747,7 +249675,7 @@ block|{
 name|TRowResult
 name|_elem299
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem299
 operator|=
 operator|new
@@ -259754,7 +259682,7 @@ block|{
 name|TCell
 name|_elem302
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem302
 operator|=
 operator|new
@@ -260397,7 +260325,7 @@ block|{
 name|TCell
 name|_elem307
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem307
 operator|=
 operator|new

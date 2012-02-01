@@ -14861,15 +14861,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -23055,7 +23046,7 @@ block|{
 name|TGet
 name|_elem50
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem50
 operator|=
 operator|new
@@ -23557,7 +23548,7 @@ block|{
 name|TGet
 name|_elem55
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem55
 operator|=
 operator|new
@@ -25788,7 +25779,7 @@ block|{
 name|TResult
 name|_elem58
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem58
 operator|=
 operator|new
@@ -26431,7 +26422,7 @@ block|{
 name|TResult
 name|_elem63
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem63
 operator|=
 operator|new
@@ -38074,15 +38065,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -41191,7 +41173,7 @@ block|{
 name|TPut
 name|_elem66
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem66
 operator|=
 operator|new
@@ -41693,7 +41675,7 @@ block|{
 name|TPut
 name|_elem71
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem71
 operator|=
 operator|new
@@ -50473,7 +50455,7 @@ block|{
 name|TDelete
 name|_elem74
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem74
 operator|=
 operator|new
@@ -50975,7 +50957,7 @@ block|{
 name|TDelete
 name|_elem79
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem79
 operator|=
 operator|new
@@ -53206,7 +53188,7 @@ block|{
 name|TDelete
 name|_elem82
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem82
 operator|=
 operator|new
@@ -53849,7 +53831,7 @@ block|{
 name|TDelete
 name|_elem87
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem87
 operator|=
 operator|new
@@ -61044,15 +61026,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -71180,15 +71153,6 @@ name|ClassNotFoundException
 block|{
 try|try
 block|{
-comment|// it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-name|__isset_bit_vector
-operator|=
-operator|new
-name|BitSet
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 name|read
 argument_list|(
 operator|new
@@ -77011,7 +76975,7 @@ block|{
 name|TResult
 name|_elem90
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem90
 operator|=
 operator|new
@@ -77790,7 +77754,7 @@ block|{
 name|TResult
 name|_elem95
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem95
 operator|=
 operator|new

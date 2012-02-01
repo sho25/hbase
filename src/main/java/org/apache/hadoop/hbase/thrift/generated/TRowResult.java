@@ -2617,7 +2617,7 @@ comment|// required
 name|TCell
 name|_val11
 decl_stmt|;
-comment|// optional
+comment|// required
 name|_key10
 operator|=
 name|iprot
@@ -3303,7 +3303,7 @@ comment|// required
 name|TCell
 name|_val17
 decl_stmt|;
-comment|// optional
+comment|// required
 name|_key16
 operator|=
 name|iprot

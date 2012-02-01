@@ -4626,7 +4626,7 @@ block|{
 name|ByteBuffer
 name|_elem20
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem20
 operator|=
 name|iprot
@@ -5693,7 +5693,7 @@ block|{
 name|ByteBuffer
 name|_elem25
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem25
 operator|=
 name|iprot

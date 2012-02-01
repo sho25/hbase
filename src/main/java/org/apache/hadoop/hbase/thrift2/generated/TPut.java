@@ -3549,7 +3549,7 @@ block|{
 name|TColumnValue
 name|_elem18
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem18
 operator|=
 operator|new
@@ -4321,7 +4321,7 @@ block|{
 name|TColumnValue
 name|_elem23
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem23
 operator|=
 operator|new

@@ -3109,7 +3109,7 @@ block|{
 name|TColumnIncrement
 name|_elem34
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem34
 operator|=
 operator|new
@@ -3754,7 +3754,7 @@ block|{
 name|TColumnIncrement
 name|_elem39
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_elem39
 operator|=
 operator|new
