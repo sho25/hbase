@@ -5271,10 +5271,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
+name|getHostnamePort
 argument_list|()
 operator|.
 name|equals
@@ -5549,10 +5546,7 @@ name|add
 argument_list|(
 name|location
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
+name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;

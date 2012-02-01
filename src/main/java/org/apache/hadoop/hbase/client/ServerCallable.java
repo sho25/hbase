@@ -756,10 +756,7 @@ name|clearCaches
 argument_list|(
 name|hrl
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
+name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;
