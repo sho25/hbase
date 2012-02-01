@@ -437,12 +437,12 @@ name|storefileIndexSizeMB
 decl_stmt|;
 comment|/** the current total read requests made to region */
 specifier|private
-name|int
+name|long
 name|readRequestsCount
 decl_stmt|;
 comment|/** the current total write requests made to region */
 specifier|private
-name|int
+name|long
 name|writeRequestsCount
 decl_stmt|;
 comment|/** the total compacting key values in currently running compaction */
@@ -539,11 +539,11 @@ name|int
 name|totalStaticBloomSizeKB
 parameter_list|,
 specifier|final
-name|int
+name|long
 name|readRequestsCount
 parameter_list|,
 specifier|final
-name|int
+name|long
 name|writeRequestsCount
 parameter_list|,
 specifier|final
@@ -1089,7 +1089,7 @@ name|readRequestsCount
 operator|=
 name|WritableUtils
 operator|.
-name|readVInt
+name|readVLong
 argument_list|(
 name|in
 argument_list|)
@@ -1100,7 +1100,7 @@ name|writeRequestsCount
 operator|=
 name|WritableUtils
 operator|.
-name|readVInt
+name|readVLong
 argument_list|(
 name|in
 argument_list|)
@@ -1304,7 +1304,7 @@ argument_list|)
 expr_stmt|;
 name|WritableUtils
 operator|.
-name|writeVInt
+name|writeVLong
 argument_list|(
 name|out
 argument_list|,
@@ -1313,7 +1313,7 @@ argument_list|)
 expr_stmt|;
 name|WritableUtils
 operator|.
-name|writeVInt
+name|writeVLong
 argument_list|(
 name|out
 argument_list|,
