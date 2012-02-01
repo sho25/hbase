@@ -5541,6 +5541,16 @@ literal|"mapred.job.tracker"
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|/* this for mrv2 support */
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"mapreduce.framework.name"
+argument_list|,
+literal|"yarn"
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Stops the previously started<code>MiniMRCluster</code>.    */
 specifier|public

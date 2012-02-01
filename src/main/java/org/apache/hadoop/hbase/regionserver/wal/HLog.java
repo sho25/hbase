@@ -2041,7 +2041,7 @@ operator|.
 name|getClass
 argument_list|()
 operator|.
-name|getMethod
+name|getDeclaredMethod
 argument_list|(
 literal|"getNumCurrentReplicas"
 argument_list|,
@@ -2116,13 +2116,8 @@ argument_list|(
 literal|"getNumCurrentReplicas--HDFS-826 not available; hdfs_out="
 operator|+
 name|os
-operator|+
-literal|", exception="
-operator|+
+argument_list|,
 name|exception
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
