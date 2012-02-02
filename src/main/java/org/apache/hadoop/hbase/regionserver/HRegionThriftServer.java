@@ -273,14 +273,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_LISTEN_PORT
-init|=
-literal|9090
-decl_stmt|;
 specifier|private
 specifier|final
 name|HRegionServer
