@@ -302,7 +302,7 @@ name|FAMILIES
 init|=
 literal|"FAMILIES"
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String

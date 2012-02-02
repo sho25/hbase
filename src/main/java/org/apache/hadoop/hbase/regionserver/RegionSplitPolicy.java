@@ -126,6 +126,7 @@ comment|/**  * A split policy determines when a region should be split.  * {@see
 end_comment
 
 begin_class
+specifier|public
 specifier|abstract
 class|class
 name|RegionSplitPolicy
@@ -151,6 +152,7 @@ name|HRegion
 name|region
 decl_stmt|;
 comment|/**    * Upon construction, this method will be called with the region    * to be governed. It will be called once and only once.    */
+specifier|protected
 name|void
 name|configureForRegion
 parameter_list|(
@@ -183,17 +185,41 @@ name|region
 expr_stmt|;
 block|}
 comment|/**    * @return true if the specified region should be split.    */
+specifier|protected
 specifier|abstract
 name|boolean
 name|shouldSplit
 parameter_list|()
 function_decl|;
 comment|/**    * @return the key at which the region should be split, or null    * if it cannot be split. This will only be called if shouldSplit    * previously returned true.    */
+specifier|protected
 name|byte
 index|[]
 name|getSplitPoint
 parameter_list|()
 block|{
+name|byte
+index|[]
+name|explicitSplitPoint
+init|=
+name|this
+operator|.
+name|region
+operator|.
+name|getExplicitSplitPoint
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|explicitSplitPoint
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|explicitSplitPoint
+return|;
+block|}
 name|Map
 argument_list|<
 name|byte
