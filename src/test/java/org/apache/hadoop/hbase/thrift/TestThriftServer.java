@@ -1138,6 +1138,8 @@ name|rowAname
 argument_list|,
 name|getMutations
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Assert that the changes were made
@@ -1154,6 +1156,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnAname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1174,6 +1178,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowAname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1222,6 +1228,8 @@ name|tableAname
 argument_list|,
 name|getBatchMutations
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Assert that changes were made to rowA
@@ -1240,6 +1248,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnAname
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertFalse
@@ -1265,6 +1275,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1292,6 +1304,8 @@ argument_list|,
 name|columnBname
 argument_list|,
 name|MAXVERSIONS
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1333,6 +1347,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1391,6 +1407,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnBname
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|handler
@@ -1400,6 +1418,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowBname
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Assert that the deletes were applied
@@ -1415,6 +1435,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -1436,6 +1458,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -1488,6 +1512,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|mutations
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|TRowResult
@@ -1500,6 +1526,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowAname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1609,6 +1637,8 @@ name|getMutations
 argument_list|()
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1637,6 +1667,8 @@ name|getBatchMutations
 argument_list|()
 argument_list|,
 name|time2
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Apply an overlapping timestamped mutation to rowB
@@ -1652,6 +1684,8 @@ name|getMutations
 argument_list|()
 argument_list|,
 name|time2
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// the getVerTs is [inf, ts) so you need to increment one.
@@ -1681,6 +1715,8 @@ argument_list|,
 name|time2
 argument_list|,
 name|MAXVERSIONS
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -1704,6 +1740,8 @@ argument_list|,
 name|time1
 argument_list|,
 name|MAXVERSIONS
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -1722,6 +1760,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1741,6 +1781,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|time2
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1826,6 +1868,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columns
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1874,6 +1918,8 @@ argument_list|,
 name|columns
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -1923,6 +1969,8 @@ argument_list|,
 name|columnBname
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|handler
@@ -1934,6 +1982,8 @@ argument_list|,
 name|rowBname
 argument_list|,
 name|time2
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Assert that the timestamp-related methods retrieve the correct data
@@ -1953,6 +2003,8 @@ argument_list|,
 name|time1
 argument_list|,
 name|MAXVERSIONS
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -1980,6 +2032,8 @@ argument_list|,
 name|time2
 argument_list|,
 name|MAXVERSIONS
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -2004,6 +2058,8 @@ argument_list|,
 name|rowAname
 argument_list|,
 name|columnBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|get
@@ -2027,6 +2083,8 @@ argument_list|(
 name|tableAname
 argument_list|,
 name|rowBname
+argument_list|,
+literal|null
 argument_list|)
 operator|.
 name|size
@@ -2105,6 +2163,8 @@ name|getMutations
 argument_list|()
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Sleep to assure that 'time1' and 'time2' will be different even with a
@@ -2135,6 +2195,8 @@ name|getBatchMutations
 argument_list|()
 argument_list|,
 name|time2
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|time1
@@ -2159,6 +2221,8 @@ literal|true
 argument_list|,
 literal|true
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|TRowResult
@@ -2311,6 +2375,8 @@ literal|true
 argument_list|)
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|TRowResult
@@ -2385,6 +2451,8 @@ literal|true
 argument_list|,
 literal|false
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|closeScanner
@@ -2416,6 +2484,8 @@ literal|true
 argument_list|)
 argument_list|,
 name|time1
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|TRowResult

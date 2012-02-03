@@ -49,6 +49,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -429,6 +439,14 @@ name|columns
 parameter_list|,
 name|long
 name|timestamp
+parameter_list|,
+name|Map
+argument_list|<
+name|ByteBuffer
+argument_list|,
+name|ByteBuffer
+argument_list|>
+name|attributes
 parameter_list|)
 throws|throws
 name|IOError
@@ -690,6 +708,8 @@ argument_list|,
 name|columns
 argument_list|,
 name|timestamp
+argument_list|,
+name|attributes
 argument_list|)
 return|;
 block|}
