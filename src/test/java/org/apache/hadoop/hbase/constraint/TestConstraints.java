@@ -54,6 +54,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -522,7 +534,9 @@ name|class
 argument_list|,
 operator|new
 name|Configuration
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -543,11 +557,9 @@ name|getClassLoader
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|fail
 argument_list|(
 literal|"No exception thrown  - configuration not overwritten"
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}

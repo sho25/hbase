@@ -1102,7 +1102,9 @@ name|conf
 init|=
 operator|new
 name|Configuration
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
 name|conf
 operator|.

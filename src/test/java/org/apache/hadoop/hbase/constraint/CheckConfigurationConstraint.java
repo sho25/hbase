@@ -83,7 +83,9 @@ name|conf
 init|=
 operator|new
 name|Configuration
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
 name|conf
 operator|.
@@ -163,6 +165,30 @@ operator|new
 name|IllegalArgumentException
 argument_list|(
 literal|"Configuration was not passed correctly"
+argument_list|)
+throw|;
+comment|// and then check to make sure we got a fresh config by checking for a
+comment|// hadoop-based config value, and if we don't find it, its fine
+if|if
+condition|(
+name|conf
+operator|.
+name|getRaw
+argument_list|(
+literal|"fs.file.impl"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Configuration was created using 'new Configuration()', should be "
+operator|+
+literal|"done via 'new Configuration(false) to exclude defaut hadoop "
+operator|+
+literal|"configurations values."
 argument_list|)
 throw|;
 block|}
