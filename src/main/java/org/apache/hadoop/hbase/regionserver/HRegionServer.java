@@ -13182,19 +13182,6 @@ name|void
 name|leaseExpired
 parameter_list|()
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Scanner "
-operator|+
-name|this
-operator|.
-name|scannerName
-operator|+
-literal|" lease expired"
-argument_list|)
-expr_stmt|;
 name|RegionScanner
 name|s
 init|=
@@ -13214,6 +13201,27 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Scanner "
+operator|+
+name|this
+operator|.
+name|scannerName
+operator|+
+literal|" lease expired on region "
+operator|+
+name|s
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|HRegion
@@ -13310,6 +13318,22 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Scanner "
+operator|+
+name|this
+operator|.
+name|scannerName
+operator|+
+literal|" lease expired"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
