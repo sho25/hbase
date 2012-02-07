@@ -977,7 +977,7 @@ name|HConstants
 operator|.
 name|HFILE_BLOCK_CACHE_SIZE_KEY
 operator|+
-literal|" must be between 0.0 and 1.0, not> 1.0"
+literal|" must be between 0.0 and 1.0, and not> 1.0"
 argument_list|)
 throw|;
 block|}
@@ -1038,7 +1038,7 @@ argument_list|,
 operator|(
 name|float
 operator|)
-literal|0.95
+literal|0
 argument_list|)
 operator|*
 name|DirectMemoryUtils
