@@ -16855,7 +16855,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid arguments to atomicMutation "
+literal|"Invalid arguments to mutateRow "
 operator|+
 literal|"regionName is null"
 argument_list|)
@@ -16901,8 +16901,6 @@ operator|.
 name|mutateRow
 argument_list|(
 name|rm
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
