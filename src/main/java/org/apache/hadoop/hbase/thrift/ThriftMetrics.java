@@ -377,6 +377,12 @@ name|port
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|iface
 parameter_list|)
 block|{
 name|slowResponseTime
@@ -439,11 +445,7 @@ argument_list|)
 expr_stmt|;
 name|createMetricsForMethods
 argument_list|(
-name|Hbase
-operator|.
-name|Iface
-operator|.
-name|class
+name|iface
 argument_list|)
 expr_stmt|;
 block|}

@@ -658,18 +658,6 @@ operator|=
 name|options
 expr_stmt|;
 block|}
-comment|/**    * Return the server working queue    */
-specifier|public
-name|CallQueue
-name|getCallQueue
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|callQueue
-return|;
-block|}
 specifier|public
 name|void
 name|serve

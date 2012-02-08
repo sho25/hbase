@@ -791,6 +791,12 @@ operator|.
 name|DEFAULT_LISTEN_PORT
 argument_list|,
 name|conf
+argument_list|,
+name|Hbase
+operator|.
+name|Iface
+operator|.
+name|class
 argument_list|)
 return|;
 block|}
