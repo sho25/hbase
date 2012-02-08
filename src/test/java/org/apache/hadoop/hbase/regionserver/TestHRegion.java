@@ -4695,7 +4695,7 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|//Putting data in key
+comment|//Putting empty data in key
 name|Put
 name|put
 init|=
@@ -4713,10 +4713,10 @@ name|fam1
 argument_list|,
 name|qf1
 argument_list|,
-name|val1
+name|emptyVal
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with correct value
+comment|//checkAndPut with empty value
 name|boolean
 name|res
 init|=
@@ -4747,6 +4747,61 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+name|assertTrue
+argument_list|(
+name|res
+argument_list|)
+expr_stmt|;
+comment|//Putting data in key
+name|put
+operator|=
+operator|new
+name|Put
+argument_list|(
+name|row1
+argument_list|)
+expr_stmt|;
+name|put
+operator|.
+name|add
+argument_list|(
+name|fam1
+argument_list|,
+name|qf1
+argument_list|,
+name|val1
+argument_list|)
+expr_stmt|;
+comment|//checkAndPut with correct value
+name|res
+operator|=
+name|region
+operator|.
+name|checkAndMutate
+argument_list|(
+name|row1
+argument_list|,
+name|fam1
+argument_list|,
+name|qf1
+argument_list|,
+name|CompareOp
+operator|.
+name|EQUAL
+argument_list|,
+operator|new
+name|BinaryComparator
+argument_list|(
+name|emptyVal
+argument_list|)
+argument_list|,
+name|put
+argument_list|,
+name|lockId
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|res
