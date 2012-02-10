@@ -393,7 +393,7 @@ name|HTableDescriptor
 operator|.
 name|SPLIT_POLICY
 argument_list|,
-name|PrefixSplitKeyPolicy
+name|KeyPrefixRegionSplitPolicy
 operator|.
 name|class
 operator|.
@@ -405,7 +405,7 @@ name|myHtd
 operator|.
 name|setValue
 argument_list|(
-name|PrefixSplitKeyPolicy
+name|KeyPrefixRegionSplitPolicy
 operator|.
 name|PREFIX_LENGTH_KEY
 argument_list|,
@@ -535,11 +535,11 @@ argument_list|,
 name|mockStore
 argument_list|)
 expr_stmt|;
-name|PrefixSplitKeyPolicy
+name|KeyPrefixRegionSplitPolicy
 name|policy
 init|=
 operator|(
-name|PrefixSplitKeyPolicy
+name|KeyPrefixRegionSplitPolicy
 operator|)
 name|RegionSplitPolicy
 operator|.
@@ -603,7 +603,7 @@ expr_stmt|;
 name|policy
 operator|=
 operator|(
-name|PrefixSplitKeyPolicy
+name|KeyPrefixRegionSplitPolicy
 operator|)
 name|RegionSplitPolicy
 operator|.
