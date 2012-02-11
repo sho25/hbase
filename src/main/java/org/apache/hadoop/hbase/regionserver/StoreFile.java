@@ -1296,6 +1296,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return Path or null if this StoreFile was made with a Stream.    */
+specifier|public
 name|Path
 name|getPath
 parameter_list|()

@@ -36451,7 +36451,7 @@ literal|2
 argument_list|,
 name|store
 operator|.
-name|getNumberOfstorefiles
+name|getNumberOfStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -36481,7 +36481,7 @@ literal|1
 argument_list|,
 name|store
 operator|.
-name|getNumberOfstorefiles
+name|getNumberOfStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -36663,7 +36663,7 @@ argument_list|()
 operator|&&
 name|store
 operator|.
-name|getNumberOfstorefiles
+name|getNumberOfStoreFiles
 argument_list|()
 operator|!=
 name|count
@@ -36698,7 +36698,7 @@ literal|", cur="
 operator|+
 name|store
 operator|.
-name|getNumberOfstorefiles
+name|getNumberOfStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -36708,7 +36708,7 @@ name|count
 argument_list|,
 name|store
 operator|.
-name|getNumberOfstorefiles
+name|getNumberOfStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
