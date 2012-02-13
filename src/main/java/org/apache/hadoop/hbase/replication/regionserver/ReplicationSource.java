@@ -53,6 +53,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -697,8 +707,13 @@ name|deadRegionServers
 decl_stmt|;
 comment|// Maximum number of retries before taking bold actions
 specifier|private
-name|long
+name|int
 name|maxRetriesMultiplier
+decl_stmt|;
+comment|// Socket timeouts require even bolder actions since we don't want to DDOS
+specifier|private
+name|int
+name|socketTimeoutMultiplier
 decl_stmt|;
 comment|// Current number of entries that we need to replicate
 specifier|private
@@ -868,12 +883,20 @@ name|this
 operator|.
 name|conf
 operator|.
-name|getLong
+name|getInt
 argument_list|(
 literal|"replication.source.maxretriesmultiplier"
 argument_list|,
 literal|10
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|socketTimeoutMultiplier
+operator|=
+name|maxRetriesMultiplier
+operator|*
+name|maxRetriesMultiplier
 expr_stmt|;
 name|this
 operator|.
@@ -3195,6 +3218,32 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|SocketTimeoutException
+condition|)
+block|{
+comment|// This exception means we waited for more than 60s and nothing
+comment|// happened, the cluster is alive and calling it right away
+comment|// even for a test just makes things worse.
+name|sleepForRetries
+argument_list|(
+literal|"Encountered a SocketTimeoutException. Since the"
+operator|+
+literal|"call to the remote cluster timed out, which is usually "
+operator|+
+literal|"caused by a machine failure or a massive slowdown"
+argument_list|,
+name|this
+operator|.
+name|socketTimeoutMultiplier
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|warn
@@ -3204,6 +3253,7 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 try|try
 block|{
