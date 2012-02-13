@@ -429,6 +429,22 @@ name|io
 operator|.
 name|compress
 operator|.
+name|CompressionOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|compress
+operator|.
 name|Compressor
 import|;
 end_import
@@ -597,19 +613,6 @@ init|=
 block|{
 name|NONE
 block|,
-name|GZ
-block|}
-decl_stmt|;
-comment|// In case we need to temporarily switch some test cases to just test gzip.
-specifier|static
-specifier|final
-name|Compression
-operator|.
-name|Algorithm
-index|[]
-name|GZIP_ONLY
-init|=
-block|{
 name|GZ
 block|}
 decl_stmt|;
@@ -1380,6 +1383,9 @@ name|Compression
 operator|.
 name|Algorithm
 name|algo
+parameter_list|,
+name|int
+name|correctLength
 parameter_list|)
 throws|throws
 name|IOException
@@ -1404,16 +1410,18 @@ literal|9
 decl_stmt|;
 if|if
 condition|(
-name|osOffset
-operator|<
 name|testV2Block
 operator|.
 name|length
+operator|==
+name|correctLength
 condition|)
 block|{
 comment|// Force-set the "OS" field of the gzip header to 3 (Unix) to avoid
 comment|// variations across operating systems.
 comment|// See http://www.gzip.org/zlib/rfc-gzip.html for gzip format.
+comment|// We only make this change when the compressed block length matches.
+comment|// Otherwise, there are obviously other inconsistencies.
 name|testV2Block
 index|[
 name|osOffset
@@ -1466,8 +1474,10 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|assertEquals
-argument_list|(
+specifier|final
+name|String
+name|correctTestBlockStr
+init|=
 literal|"DATABLK*\\x00\\x00\\x00:\\x00\\x00\\x0F\\xA0\\xFF\\xFF\\xFF\\xFF"
 operator|+
 literal|"\\xFF\\xFF\\xFF\\xFF"
@@ -1497,10 +1507,22 @@ operator|+
 literal|"\\xD6\\xE8\\xA3\\xB9K\\x84`\\x96Q\\xD3\\xA8\\xDB\\xA8e\\xD4c"
 operator|+
 literal|"\\xD46\\xEA5\\xEA3\\xEA7\\xE7\\x00LI\\s\\xA0\\x0F\\x00\\x00"
+decl_stmt|;
+specifier|final
+name|int
+name|correctGzipBlockLength
+init|=
+literal|82
+decl_stmt|;
+name|assertEquals
+argument_list|(
+name|correctTestBlockStr
 argument_list|,
 name|createTestBlockStr
 argument_list|(
 name|GZ
+argument_list|,
+name|correctGzipBlockLength
 argument_list|)
 argument_list|)
 expr_stmt|;
