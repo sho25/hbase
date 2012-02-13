@@ -709,25 +709,13 @@ name|this
 operator|.
 name|oldLogDir
 operator|=
-operator|new
-name|Path
-argument_list|(
-name|this
-operator|.
-name|rootdir
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_OLDLOGDIR_NAME
-argument_list|)
-expr_stmt|;
 name|createInitialFileSystemLayout
 argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the root region exists and is readable, if not create it.    * Create hbase.version and the -ROOT- directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
 specifier|private
-name|void
+name|Path
 name|createInitialFileSystemLayout
 parameter_list|()
 throws|throws
@@ -747,6 +735,21 @@ operator|.
 name|fs
 argument_list|)
 expr_stmt|;
+name|Path
+name|oldLogDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|this
+operator|.
+name|rootdir
+argument_list|,
+name|HConstants
+operator|.
+name|HREGION_OLDLOGDIR_NAME
+argument_list|)
+decl_stmt|;
 comment|// Make sure the region servers can archive their old logs
 if|if
 condition|(
@@ -757,8 +760,6 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|this
-operator|.
 name|oldLogDir
 argument_list|)
 condition|)
@@ -769,12 +770,13 @@ name|fs
 operator|.
 name|mkdirs
 argument_list|(
-name|this
-operator|.
 name|oldLogDir
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|oldLogDir
+return|;
 block|}
 specifier|public
 name|FileSystem
@@ -1685,6 +1687,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Filesystem is good. Go ahead and check for hbase.rootdir.
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -1735,6 +1739,30 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|isDirectory
+argument_list|(
+name|rd
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|rd
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" is not a directory"
+argument_list|)
+throw|;
+block|}
 comment|// as above
 name|FSUtils
 operator|.
@@ -1760,6 +1788,37 @@ literal|1000
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|iae
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Please fix invalid configuration for "
+operator|+
+name|HConstants
+operator|.
+name|HBASE_DIR
+operator|+
+literal|" "
+operator|+
+name|rd
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|iae
+argument_list|)
+expr_stmt|;
+throw|throw
+name|iae
+throw|;
 block|}
 comment|// Make sure cluster ID exists
 if|if
