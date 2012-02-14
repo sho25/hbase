@@ -2292,7 +2292,7 @@ name|Map
 argument_list|<
 name|Integer
 argument_list|,
-name|SortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -2307,7 +2307,7 @@ name|HashMap
 argument_list|<
 name|Integer
 argument_list|,
-name|SortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -4860,7 +4860,7 @@ index|[]
 name|row
 parameter_list|)
 block|{
-name|SortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -4889,7 +4889,7 @@ literal|null
 return|;
 block|}
 name|HRegionLocation
-name|rl
+name|possibleRegion
 init|=
 name|tableLocations
 operator|.
@@ -4900,90 +4900,40 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|rl
+name|possibleRegion
 operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|possibleRegion
+return|;
+block|}
+name|possibleRegion
+operator|=
+name|tableLocations
+operator|.
+name|lowerValueByKey
+argument_list|(
+name|row
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|possibleRegion
+operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|rl
+literal|null
 return|;
 block|}
-comment|// Cut the cache so that we only get the part that could contain
-comment|// regions that match our key
-name|SortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-name|matchingRegions
-init|=
-name|tableLocations
-operator|.
-name|headMap
-argument_list|(
-name|row
-argument_list|)
-decl_stmt|;
-comment|// if that portion of the map is empty, then we're done. otherwise,
-comment|// we need to examine the cached location to verify that it is
-comment|// a match by end key as well.
-if|if
-condition|(
-operator|!
-name|matchingRegions
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-name|HRegionLocation
-name|possibleRegion
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|possibleRegion
-operator|=
-name|matchingRegions
-operator|.
-name|get
-argument_list|(
-name|matchingRegions
-operator|.
-name|lastKey
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NoSuchElementException
-name|nsee
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"checkReferences() might have removed the key"
-argument_list|,
-name|nsee
-argument_list|)
-expr_stmt|;
-block|}
-comment|// there is a possibility that the reference was garbage collected
-comment|// in the instant since we checked isEmpty().
-if|if
-condition|(
-name|possibleRegion
-operator|!=
-literal|null
-condition|)
-block|{
+comment|// make sure that the end key is greater than the row we're looking
+comment|// for, otherwise the row actually belongs in the next region, not
+comment|// this one. the exception case is when the endkey is
+comment|// HConstants.EMPTY_END_ROW, signifying that the region we're
+comment|// checking is actually the last region in the table.
 name|byte
 index|[]
 name|endKey
@@ -4996,11 +4946,6 @@ operator|.
 name|getEndKey
 argument_list|()
 decl_stmt|;
-comment|// make sure that the end key is greater than the row we're looking
-comment|// for, otherwise the row actually belongs in the next region, not
-comment|// this one. the exception case is when the endkey is
-comment|// HConstants.EMPTY_START_ROW, signifying that the region we're
-comment|// checking is actually the last region in the table.
 if|if
 condition|(
 name|Bytes
@@ -5046,8 +4991,6 @@ block|{
 return|return
 name|possibleRegion
 return|;
-block|}
-block|}
 block|}
 comment|// Passed all the way through, so we got nothin - complete cache miss
 return|return
@@ -5328,7 +5271,7 @@ block|}
 block|}
 comment|/*      * @param tableName      * @return Map of cached locations for passed<code>tableName</code>      */
 specifier|private
-name|SortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -5354,7 +5297,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
