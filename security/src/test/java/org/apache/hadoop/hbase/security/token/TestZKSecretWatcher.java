@@ -27,31 +27,55 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
 import|;
 end_import
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|util
+name|junit
 operator|.
-name|Map
+name|Assert
+operator|.
+name|assertFalse
 import|;
 end_import
 
 begin_import
-import|import
-name|com
+import|import static
+name|org
 operator|.
-name|google
+name|junit
 operator|.
-name|common
+name|Assert
 operator|.
-name|collect
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
 operator|.
-name|Maps
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -149,6 +173,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -201,11 +239,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test the synchronization of token authentication master keys through  * ZKSecretWatcher  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|LargeTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestZKSecretWatcher
