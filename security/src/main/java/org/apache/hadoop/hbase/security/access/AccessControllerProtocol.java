@@ -21,22 +21,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|CoprocessorProtocol
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -55,6 +39,22 @@ name|List
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|CoprocessorProtocol
+import|;
+end_import
+
 begin_comment
 comment|/**  * A custom protocol defined for maintaining and querying access control lists.  */
 end_comment
@@ -66,6 +66,15 @@ name|AccessControllerProtocol
 extends|extends
 name|CoprocessorProtocol
 block|{
+comment|/* V2: Added {@link #checkPermissions(Permission...)}) */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|2L
+decl_stmt|;
 comment|/**    * Grants the given user or group the privilege to perform the given actions    * over the specified scope contained in {@link TablePermission}    * @param user the user name, or, if prefixed with "@", group name receiving    * the grant    * @param permission the details of the provided permissions    * @throws IOException if the grant could not be applied    */
 specifier|public
 name|void
@@ -107,6 +116,18 @@ parameter_list|(
 name|byte
 index|[]
 name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Checks whether the given Permissions will pass the access checks for the    * current user. Global permissions can be checked from the -acl- table    * or any other table, however TablePermissions can only be checked by    * the table's regions. If access control checks fail this method throws    * AccessDeniedException.    * @param permissions to check for. Permission subclasses can be used    * to do more specific checks at the table/family/column level.    * @throws IOException if there is an error checking the permissions    */
+specifier|public
+name|void
+name|checkPermissions
+parameter_list|(
+name|Permission
+index|[]
+name|permissions
 parameter_list|)
 throws|throws
 name|IOException
