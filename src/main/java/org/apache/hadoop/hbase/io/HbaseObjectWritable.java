@@ -561,7 +561,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RowMutation
+name|RowMutations
 import|;
 end_import
 
@@ -2082,7 +2082,7 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
-name|RowMutation
+name|RowMutations
 operator|.
 name|class
 argument_list|,

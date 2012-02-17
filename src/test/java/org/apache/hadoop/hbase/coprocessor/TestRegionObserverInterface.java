@@ -1000,11 +1000,11 @@ argument_list|,
 name|C
 argument_list|)
 expr_stmt|;
-name|RowMutation
+name|RowMutations
 name|arm
 init|=
 operator|new
-name|RowMutation
+name|RowMutations
 argument_list|(
 name|ROW
 argument_list|)

@@ -843,7 +843,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RowMutation
+name|RowMutations
 import|;
 end_import
 
@@ -16835,7 +16835,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|RowMutation
+name|RowMutations
 name|rm
 parameter_list|)
 throws|throws
@@ -17813,7 +17813,7 @@ if|if
 condition|(
 name|action
 operator|instanceof
-name|RowMutation
+name|RowMutations
 condition|)
 block|{
 name|mutateRow
@@ -17821,7 +17821,7 @@ argument_list|(
 name|regionName
 argument_list|,
 operator|(
-name|RowMutation
+name|RowMutations
 operator|)
 name|action
 argument_list|)

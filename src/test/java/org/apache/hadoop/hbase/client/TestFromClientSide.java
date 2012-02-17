@@ -33193,11 +33193,11 @@ literal|"b"
 argument_list|)
 block|}
 decl_stmt|;
-name|RowMutation
+name|RowMutations
 name|arm
 init|=
 operator|new
-name|RowMutation
+name|RowMutations
 argument_list|(
 name|ROW
 argument_list|)
@@ -33285,7 +33285,7 @@ expr_stmt|;
 name|arm
 operator|=
 operator|new
-name|RowMutation
+name|RowMutations
 argument_list|(
 name|ROW
 argument_list|)

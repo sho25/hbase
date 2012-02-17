@@ -2790,7 +2790,7 @@ name|void
 name|mutateRow
 parameter_list|(
 specifier|final
-name|RowMutation
+name|RowMutations
 name|rm
 parameter_list|)
 throws|throws

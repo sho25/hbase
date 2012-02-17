@@ -145,7 +145,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RowMutation
+name|RowMutations
 import|;
 end_import
 
@@ -886,7 +886,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|RowMutation
+name|RowMutations
 name|rm
 parameter_list|)
 throws|throws

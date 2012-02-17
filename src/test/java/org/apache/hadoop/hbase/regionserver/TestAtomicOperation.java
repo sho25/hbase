@@ -209,7 +209,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RowMutation
+name|RowMutations
 import|;
 end_import
 
@@ -1655,11 +1655,11 @@ operator|.
 name|incrementAndGet
 argument_list|()
 decl_stmt|;
-name|RowMutation
+name|RowMutations
 name|rm
 init|=
 operator|new
-name|RowMutation
+name|RowMutations
 argument_list|(
 name|row
 argument_list|)

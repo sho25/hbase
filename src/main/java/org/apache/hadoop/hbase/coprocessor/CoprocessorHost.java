@@ -2410,7 +2410,7 @@ specifier|public
 name|void
 name|mutateRow
 parameter_list|(
-name|RowMutation
+name|RowMutations
 name|rm
 parameter_list|)
 throws|throws
