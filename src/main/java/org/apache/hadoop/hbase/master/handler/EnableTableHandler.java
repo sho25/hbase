@@ -1033,9 +1033,7 @@ decl_stmt|;
 name|int
 name|lastNumberOfRegions
 init|=
-name|this
-operator|.
-name|countOfRegionsInTable
+literal|0
 decl_stmt|;
 while|while
 condition|(
