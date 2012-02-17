@@ -17978,6 +17978,15 @@ name|results
 return|;
 block|}
 block|}
+name|Scan
+name|scan
+init|=
+operator|new
+name|Scan
+argument_list|(
+name|get
+argument_list|)
+decl_stmt|;
 name|RegionScanner
 name|scanner
 init|=

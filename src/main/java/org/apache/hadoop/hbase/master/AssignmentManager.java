@@ -9910,6 +9910,13 @@ operator|.
 name|getSecond
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|regionInfo
+operator|==
+literal|null
+condition|)
+continue|continue;
 name|String
 name|tableName
 init|=
