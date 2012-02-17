@@ -1836,9 +1836,9 @@ argument_list|(
 name|context
 argument_list|)
 expr_stmt|;
-comment|// the generated file lives 3 directories down and is the only file,
-comment|// so we traverse the dirs to get to the file
-comment|// ./_temporary/_attempt__0000_r_000000_0/b/1979617994050536795
+comment|// the generated file lives 1 directory down from the attempt directory
+comment|// and is the only file, e.g.
+comment|// _attempt__0000_r_000000_0/b/1979617994050536795
 name|FileSystem
 name|fs
 init|=
@@ -1850,14 +1850,19 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|Path
-name|path
+name|attemptDirectory
 init|=
-name|HFileOutputFormat
+name|hof
 operator|.
-name|getOutputPath
+name|getDefaultWorkFile
 argument_list|(
-name|job
+name|context
+argument_list|,
+literal|""
 argument_list|)
+operator|.
+name|getParent
+argument_list|()
 decl_stmt|;
 name|FileStatus
 index|[]
@@ -1867,41 +1872,7 @@ name|fs
 operator|.
 name|listStatus
 argument_list|(
-name|path
-argument_list|)
-decl_stmt|;
-name|FileStatus
-index|[]
-name|sub2
-init|=
-name|fs
-operator|.
-name|listStatus
-argument_list|(
-name|sub1
-index|[
-literal|0
-index|]
-operator|.
-name|getPath
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|FileStatus
-index|[]
-name|sub3
-init|=
-name|fs
-operator|.
-name|listStatus
-argument_list|(
-name|sub2
-index|[
-literal|0
-index|]
-operator|.
-name|getPath
-argument_list|()
+name|attemptDirectory
 argument_list|)
 decl_stmt|;
 name|FileStatus
@@ -1912,7 +1883,7 @@ name|fs
 operator|.
 name|listStatus
 argument_list|(
-name|sub3
+name|sub1
 index|[
 literal|0
 index|]
@@ -3825,6 +3796,18 @@ name|context
 argument_list|)
 operator|.
 name|commitTask
+argument_list|(
+name|context
+argument_list|)
+expr_stmt|;
+name|hof
+operator|.
+name|getOutputCommitter
+argument_list|(
+name|context
+argument_list|)
+operator|.
+name|commitJob
 argument_list|(
 name|context
 argument_list|)
