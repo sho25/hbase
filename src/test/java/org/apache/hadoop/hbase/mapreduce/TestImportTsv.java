@@ -1784,6 +1784,11 @@ finally|finally
 block|{
 name|htu1
 operator|.
+name|shutdownMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
+name|htu1
+operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
