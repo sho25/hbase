@@ -6551,6 +6551,32 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|ClosedChannelException
+name|cce
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|" caught a ClosedChannelException, "
+operator|+
+literal|"this means that the server was processing a "
+operator|+
+literal|"request but the client went away. The error message was: "
+operator|+
+name|cce
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|Exception
 name|e
 parameter_list|)
