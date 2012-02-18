@@ -981,10 +981,14 @@ argument_list|,
 name|message
 argument_list|,
 literal|0
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval for retry if> 0    *    * @throws IOException e    */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -1001,6 +1005,9 @@ name|message
 parameter_list|,
 name|int
 name|wait
+parameter_list|,
+name|int
+name|retries
 parameter_list|)
 throws|throws
 name|IOException
@@ -1044,6 +1051,8 @@ argument_list|,
 name|rootdir
 argument_list|,
 name|wait
+argument_list|,
+name|retries
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1134,10 +1143,14 @@ operator|.
 name|FILE_SYSTEM_VERSION
 argument_list|,
 literal|0
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @param wait time to wait for retry    * @throws IOException e    */
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @param wait time to wait for retry    * @param retries number of times to retry before failing    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -1151,6 +1164,9 @@ name|rootdir
 parameter_list|,
 name|int
 name|wait
+parameter_list|,
+name|int
+name|retries
 parameter_list|)
 throws|throws
 name|IOException
@@ -1166,10 +1182,12 @@ operator|.
 name|FILE_SYSTEM_VERSION
 argument_list|,
 name|wait
+argument_list|,
+name|retries
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @param wait time to wait for retry    * @throws IOException e    */
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @param wait time to wait for retry    * @param retries number of times to retry before throwing an IOException    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -1186,6 +1204,9 @@ name|version
 parameter_list|,
 name|int
 name|wait
+parameter_list|,
+name|int
+name|retries
 parameter_list|)
 throws|throws
 name|IOException
@@ -1258,7 +1279,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|wait
+name|retries
 operator|>
 literal|0
 condition|)
@@ -1293,6 +1314,13 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|wait
+operator|>
+literal|0
+condition|)
+block|{
 name|Thread
 operator|.
 name|sleep
@@ -1300,6 +1328,7 @@ argument_list|(
 name|wait
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1309,6 +1338,15 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
+name|retries
+operator|--
+expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 block|}

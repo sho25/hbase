@@ -514,6 +514,24 @@ literal|10
 operator|*
 literal|1000
 decl_stmt|;
+comment|/** Parameter name for how often we should try to write a version file, before failing */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VERSION_FILE_WRITE_ATTEMPTS
+init|=
+literal|"hbase.server.versionfile.writeattempts"
+decl_stmt|;
+comment|/** Parameter name for how often we should try to write a version file, before failing */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
+init|=
+literal|3
+decl_stmt|;
 comment|/** Parameter name for how often a region should should perform a major compaction */
 specifier|public
 specifier|static
