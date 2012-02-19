@@ -1466,6 +1466,67 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Print the current master name and state
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"Master: "
+operator|+
+name|status
+operator|.
+name|getMaster
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Print the list of all backup masters
+name|Collection
+argument_list|<
+name|ServerName
+argument_list|>
+name|backupMasters
+init|=
+name|status
+operator|.
+name|getBackupMasters
+argument_list|()
+decl_stmt|;
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"Number of backup masters: "
+operator|+
+name|backupMasters
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|details
+condition|)
+block|{
+for|for
+control|(
+name|ServerName
+name|name
+range|:
+name|backupMasters
+control|)
+block|{
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"  "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Determine what's deployed
 name|processRegionServers
 argument_list|(

@@ -371,6 +371,11 @@ specifier|public
 name|String
 name|masterAddressZNode
 decl_stmt|;
+comment|// znode of this master in backup master directory, if not the active master
+specifier|public
+name|String
+name|backupMasterAddressesZNode
+decl_stmt|;
 comment|// znode containing the current cluster state
 specifier|public
 name|String
@@ -682,6 +687,15 @@ argument_list|,
 name|schemaZNode
 argument_list|)
 expr_stmt|;
+name|ZKUtil
+operator|.
+name|createAndFailSilent
+argument_list|(
+name|this
+argument_list|,
+name|backupMasterAddressesZNode
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -848,6 +862,24 @@ argument_list|(
 literal|"zookeeper.znode.master"
 argument_list|,
 literal|"master"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|backupMasterAddressesZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.backup.masters"
+argument_list|,
+literal|"backup-masters"
 argument_list|)
 argument_list|)
 expr_stmt|;

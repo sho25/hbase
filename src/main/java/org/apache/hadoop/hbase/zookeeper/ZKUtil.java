@@ -3814,7 +3814,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\nMaster address: "
+literal|"\nActive master address: "
 argument_list|)
 operator|.
 name|append
@@ -3834,6 +3834,41 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"\nBackup master addresses:"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|String
+name|child
+range|:
+name|listChildrenNoWatch
+argument_list|(
+name|zkw
+argument_list|,
+name|zkw
+operator|.
+name|backupMasterAddressesZNode
+argument_list|)
+control|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"\n "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|child
+argument_list|)
+expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append

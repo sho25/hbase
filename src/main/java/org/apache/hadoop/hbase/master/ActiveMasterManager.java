@@ -69,6 +69,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -432,6 +446,27 @@ comment|// Try to become the active master, watch if there is another master.
 comment|// Write out our ServerName as versioned bytes.
 try|try
 block|{
+name|String
+name|backupZNode
+init|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|this
+operator|.
+name|watcher
+operator|.
+name|backupMasterAddressesZNode
+argument_list|,
+name|this
+operator|.
+name|sn
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|ZKUtil
@@ -448,6 +483,8 @@ name|watcher
 operator|.
 name|masterAddressZNode
 argument_list|,
+name|this
+operator|.
 name|sn
 operator|.
 name|getVersionedBytes
@@ -455,6 +492,30 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// If we were a backup master before, delete our ZNode from the backup
+comment|// master directory since we are the active now
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Deleting ZNode for "
+operator|+
+name|backupZNode
+operator|+
+literal|" from backup master directory"
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|backupZNode
+argument_list|)
+expr_stmt|;
 comment|// We are the master, return
 name|startupStatus
 operator|.
@@ -502,6 +563,36 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|/*        * Add a ZNode for ourselves in the backup master directory since we are        * not the active master.        *        * If we become the active master later, ActiveMasterManager will delete        * this node explicitly.  If we crash before then, ZooKeeper will delete        * this node for us since it is ephemeral.        */
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Adding ZNode for "
+operator|+
+name|backupZNode
+operator|+
+literal|" in backup master directory"
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|createEphemeralNodeAndWatch
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|backupZNode
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+argument_list|)
+expr_stmt|;
+name|String
+name|msg
+decl_stmt|;
 name|byte
 index|[]
 name|bytes
@@ -521,6 +612,24 @@ operator|.
 name|masterAddressZNode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|bytes
+operator|==
+literal|null
+condition|)
+block|{
+name|msg
+operator|=
+operator|(
+literal|"A master was detected, but went down before its address "
+operator|+
+literal|"could be read.  Attempting to become the next active master"
+operator|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|ServerName
 name|currentMaster
 init|=
@@ -545,30 +654,17 @@ name|sn
 argument_list|)
 condition|)
 block|{
-name|String
 name|msg
-init|=
+operator|=
 operator|(
 literal|"Current master has this master's address, "
 operator|+
 name|currentMaster
 operator|+
-literal|"; master was restarted?  Waiting on znode to expire..."
+literal|"; master was restarted?  Waiting on znode "
+operator|+
+literal|"to expire..."
 operator|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
-name|startupStatus
-operator|.
-name|setStatus
-argument_list|(
-name|msg
-argument_list|)
 expr_stmt|;
 comment|// Hurry along the expiration of the znode.
 name|ZKUtil
@@ -589,15 +685,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|String
 name|msg
-init|=
+operator|=
 literal|"Another master is the active master, "
 operator|+
 name|currentMaster
 operator|+
 literal|"; waiting to become the next active master"
-decl_stmt|;
+expr_stmt|;
+block|}
+block|}
 name|LOG
 operator|.
 name|info
@@ -612,7 +709,6 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
