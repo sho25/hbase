@@ -377,6 +377,11 @@ name|put
 init|=
 literal|null
 decl_stmt|;
+name|Delete
+name|delete
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|KeyValue
@@ -509,6 +514,7 @@ expr_stmt|;
 comment|// value length
 block|}
 block|}
+comment|// Deletes and Puts are gathered and written when finished
 if|if
 condition|(
 name|kv
@@ -517,26 +523,35 @@ name|isDelete
 argument_list|()
 condition|)
 block|{
-comment|// Deletes need to be written one-by-one,
-comment|// since family deletes overwrite column(s) deletes
-name|context
-operator|.
-name|write
-argument_list|(
-name|key
-argument_list|,
+if|if
+condition|(
+name|delete
+operator|==
+literal|null
+condition|)
+block|{
+name|delete
+operator|=
 operator|new
 name|Delete
 argument_list|(
-name|kv
+name|key
+operator|.
+name|get
+argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+name|delete
+operator|.
+name|addDeleteMarker
+argument_list|(
+name|kv
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Puts are gathered into a single Put object
-comment|// and written when finished
 if|if
 condition|(
 name|put
@@ -579,6 +594,23 @@ argument_list|(
 name|key
 argument_list|,
 name|put
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|delete
+operator|!=
+literal|null
+condition|)
+block|{
+name|context
+operator|.
+name|write
+argument_list|(
+name|key
+argument_list|,
+name|delete
 argument_list|)
 expr_stmt|;
 block|}
