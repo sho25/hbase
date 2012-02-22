@@ -1384,13 +1384,29 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// trigger an aged major compaction
-name|store
+name|conf
 operator|.
-name|majorCompactionTime
-operator|=
+name|setLong
+argument_list|(
+name|HConstants
+operator|.
+name|MAJOR_COMPACTION_PERIOD
+argument_list|,
 literal|1
+argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.hregion.majorcompaction.jitter"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// trigger an aged major compaction
 name|compactEquals
 argument_list|(
 name|sfCreate
@@ -1414,12 +1430,6 @@ literal|12
 argument_list|)
 expr_stmt|;
 comment|// major sure exceeding maxCompactSize also downgrades aged minors
-name|store
-operator|.
-name|majorCompactionTime
-operator|=
-literal|1
-expr_stmt|;
 name|compactEquals
 argument_list|(
 name|sfCreate
@@ -1442,6 +1452,36 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|conf
+operator|.
+name|setLong
+argument_list|(
+name|HConstants
+operator|.
+name|MAJOR_COMPACTION_PERIOD
+argument_list|,
+literal|1000
+operator|*
+literal|60
+operator|*
+literal|60
+operator|*
+literal|24
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.hregion.majorcompaction.jitter"
+argument_list|,
+literal|0.20F
+argument_list|)
+expr_stmt|;
+block|}
 comment|/* REFERENCES == file is from a region that was split */
 comment|// treat storefiles that have references like a major compaction
 name|compactEquals
