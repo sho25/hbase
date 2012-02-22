@@ -464,8 +464,9 @@ name|WALEdit
 operator|.
 name|class
 block|,
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|fs
 operator|.
@@ -480,8 +481,9 @@ literal|4096
 argument_list|)
 argument_list|)
 block|,
-operator|new
 name|Short
+operator|.
+name|valueOf
 argument_list|(
 operator|(
 name|short
@@ -499,8 +501,9 @@ argument_list|()
 argument_list|)
 argument_list|)
 block|,
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|conf
 operator|.
@@ -515,8 +518,9 @@ argument_list|()
 argument_list|)
 argument_list|)
 block|,
-operator|new
 name|Boolean
+operator|.
+name|valueOf
 argument_list|(
 literal|false
 argument_list|)

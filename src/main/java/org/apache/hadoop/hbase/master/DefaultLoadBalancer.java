@@ -542,6 +542,7 @@ return|;
 block|}
 comment|/*   * The following comparator assumes that RegionId from HRegionInfo can   * represent the age of the region - larger RegionId means the region   * is younger.   * This comparator is used in balanceCluster() to account for the out-of-band   * regions which were assigned to the server after some other region server   * crashed.   */
 specifier|private
+specifier|static
 class|class
 name|RegionInfoComparator
 implements|implements

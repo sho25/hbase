@@ -595,8 +595,9 @@ name|getStrings
 argument_list|(
 literal|"hbase.offheapcache.slab.sizes"
 argument_list|,
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|avgBlockSize
 operator|*
@@ -608,8 +609,9 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|avgBlockSize
 operator|*

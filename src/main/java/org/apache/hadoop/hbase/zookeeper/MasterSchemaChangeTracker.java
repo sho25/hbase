@@ -3042,11 +3042,7 @@ argument_list|)
 expr_stmt|;
 name|hostsToProcess
 operator|=
-operator|new
-name|String
-argument_list|(
 name|hostsToProcess
-argument_list|)
 operator|.
 name|replaceAll
 argument_list|(

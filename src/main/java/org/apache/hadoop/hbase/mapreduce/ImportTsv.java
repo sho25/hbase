@@ -1012,9 +1012,6 @@ name|set
 argument_list|(
 name|SEPARATOR_CONF_KEY
 argument_list|,
-operator|new
-name|String
-argument_list|(
 name|Base64
 operator|.
 name|encodeBytes
@@ -1023,7 +1020,6 @@ name|actualSeparator
 operator|.
 name|getBytes
 argument_list|()
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
