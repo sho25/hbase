@@ -79,7 +79,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setValue(byte[],
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -103,7 +103,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setValue(java.la
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -125,7 +125,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMaxVersions(i
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setMaxVersions
 parameter_list|(
 name|int
@@ -144,7 +144,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(bool
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setInMemory
 parameter_list|(
 name|boolean
@@ -163,7 +163,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setBlockCacheEna
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setBlockCacheEnabled
 parameter_list|(
 name|boolean
@@ -182,7 +182,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setTimeToLive(in
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setTimeToLive
 parameter_list|(
 name|int
@@ -201,7 +201,7 @@ comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setCompressionTy
 annotation|@
 name|Override
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setCompressionType
 parameter_list|(
 name|Compression

@@ -864,7 +864,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -920,7 +922,9 @@ name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller block sizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -992,7 +996,9 @@ name|scope
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param minVersions Minimum number of versions to keep    * @param maxVersions Maximum number of versions to keep    * @param keepDeletedCells Whether to retain deleted cells until they expire    *        up to maxVersions versions.    * @param compression Compression type    * @param encodeOnDisk whether to use the specified data block encoding    *        on disk. If false, the encoding will be used in cache only.    * @param dataBlockEncoding data block encoding    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated use {@link #HColumnDescriptor(String)} and setters    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1468,9 +1474,9 @@ name|values
 argument_list|)
 return|;
 block|}
-comment|/**    * @param key The key.    * @param value The value.    */
+comment|/**    * @param key The key.    * @param value The value.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setValue
 parameter_list|(
 name|byte
@@ -1499,6 +1505,9 @@ name|value
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @param key Key whose key and value we're to remove from HCD parameters.    */
 specifier|public
@@ -1523,9 +1532,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param key The key.    * @param value The value.    */
+comment|/**    * @param key The key.    * @param value The value.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setValue
 parameter_list|(
 name|String
@@ -1552,6 +1561,9 @@ name|value
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/** @return compression type being used for the column family */
 specifier|public
@@ -1652,9 +1664,9 @@ operator|.
 name|cachedMaxVersions
 return|;
 block|}
-comment|/**    * @param maxVersions maximum number of versions    */
+comment|/**    * @param maxVersions maximum number of versions    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setMaxVersions
 parameter_list|(
 name|int
@@ -1679,6 +1691,9 @@ name|cachedMaxVersions
 operator|=
 name|maxVersions
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return The storefile/hfile blocksize for this column family.    */
 specifier|public
@@ -1738,9 +1753,9 @@ name|intValue
 argument_list|()
 return|;
 block|}
-comment|/**    * @param s Blocksize to use when writing out storefiles/hfiles on this    * column family.    */
+comment|/**    * @param s Blocksize to use when writing out storefiles/hfiles on this    * column family.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setBlocksize
 parameter_list|(
 name|int
@@ -1765,6 +1780,9 @@ name|blocksize
 operator|=
 literal|null
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return Compression type setting.    */
 specifier|public
@@ -1779,9 +1797,9 @@ name|getCompression
 argument_list|()
 return|;
 block|}
-comment|/**    * Compression types supported in hbase.    * LZO is not bundled as part of the hbase distribution.    * See<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO Compression</a>    * for how to enable it.    * @param type Compression type setting.    */
+comment|/**    * Compression types supported in hbase.    * LZO is not bundled as part of the hbase distribution.    * See<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO Compression</a>    * for how to enable it.    * @param type Compression type setting.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setCompressionType
 parameter_list|(
 name|Compression
@@ -1829,13 +1847,14 @@ literal|"NONE"
 expr_stmt|;
 break|break;
 block|}
+return|return
 name|setValue
 argument_list|(
 name|COMPRESSION
 argument_list|,
 name|compressionType
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/** @return data block encoding algorithm used on disk */
 specifier|public
@@ -1896,15 +1915,16 @@ name|getDataBlockEncoding
 argument_list|()
 return|;
 block|}
-comment|/**    * Set the flag indicating that we only want to encode data block in cache    * but not on disk.    */
+comment|/**    * Set the flag indicating that we only want to encode data block in cache    * but not on disk.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setEncodeOnDisk
 parameter_list|(
 name|boolean
 name|encodeOnDisk
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|ENCODE_ON_DISK
@@ -1916,7 +1936,7 @@ argument_list|(
 name|encodeOnDisk
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return the data block encoding algorithm used in block cache and    *         optionally on disk    */
 specifier|public
@@ -1953,9 +1973,9 @@ name|type
 argument_list|)
 return|;
 block|}
-comment|/**    * Set data block encoding algorithm used in block cache.    * @param type What kind of data block encoding will be used.    */
+comment|/**    * Set data block encoding algorithm used in block cache.    * @param type What kind of data block encoding will be used.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setDataBlockEncoding
 parameter_list|(
 name|DataBlockEncoding
@@ -1992,13 +2012,14 @@ name|toString
 argument_list|()
 expr_stmt|;
 block|}
+return|return
 name|setValue
 argument_list|(
 name|DATA_BLOCK_ENCODING
 argument_list|,
 name|name
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return Compression type setting.    */
 specifier|public
@@ -2013,9 +2034,9 @@ name|getCompactionCompression
 argument_list|()
 return|;
 block|}
-comment|/**    * Compression types supported in hbase.    * LZO is not bundled as part of the hbase distribution.    * See<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO Compression</a>    * for how to enable it.    * @param type Compression type setting.    */
+comment|/**    * Compression types supported in hbase.    * LZO is not bundled as part of the hbase distribution.    * See<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO Compression</a>    * for how to enable it.    * @param type Compression type setting.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setCompactionCompressionType
 parameter_list|(
 name|Compression
@@ -2063,13 +2084,14 @@ literal|"NONE"
 expr_stmt|;
 break|break;
 block|}
+return|return
 name|setValue
 argument_list|(
 name|COMPRESSION_COMPACT
 argument_list|,
 name|compressionType
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return True if we are to keep all in use HRegionServer cache.    */
 specifier|public
@@ -2108,15 +2130,16 @@ return|return
 name|DEFAULT_IN_MEMORY
 return|;
 block|}
-comment|/**    * @param inMemory True if we are to keep all values in the HRegionServer    * cache    */
+comment|/**    * @param inMemory True if we are to keep all values in the HRegionServer    * cache    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setInMemory
 parameter_list|(
 name|boolean
 name|inMemory
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|HConstants
@@ -2130,7 +2153,7 @@ argument_list|(
 name|inMemory
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 specifier|public
 name|boolean
@@ -2168,15 +2191,16 @@ return|return
 name|DEFAULT_KEEP_DELETED
 return|;
 block|}
-comment|/**    * @param keepDeletedCells True if deleted rows should not be collected    * immediately.    */
+comment|/**    * @param keepDeletedCells True if deleted rows should not be collected    * immediately.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setKeepDeletedCells
 parameter_list|(
 name|boolean
 name|keepDeletedCells
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|KEEP_DELETED_CELLS
@@ -2188,7 +2212,7 @@ argument_list|(
 name|keepDeletedCells
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return Time-to-live of cell contents, in seconds.    */
 specifier|public
@@ -2224,15 +2248,16 @@ else|:
 name|DEFAULT_TTL
 return|;
 block|}
-comment|/**    * @param timeToLive Time-to-live of cell contents, in seconds.    */
+comment|/**    * @param timeToLive Time-to-live of cell contents, in seconds.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setTimeToLive
 parameter_list|(
 name|int
 name|timeToLive
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|TTL
@@ -2244,7 +2269,7 @@ argument_list|(
 name|timeToLive
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return The minimum number of versions to keep.    */
 specifier|public
@@ -2280,15 +2305,16 @@ else|:
 literal|0
 return|;
 block|}
-comment|/**    * @param minVersions The minimum number of versions to keep.    * (used when timeToLive is set)    */
+comment|/**    * @param minVersions The minimum number of versions to keep.    * (used when timeToLive is set)    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setMinVersions
 parameter_list|(
 name|int
 name|minVersions
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|MIN_VERSIONS
@@ -2300,7 +2326,7 @@ argument_list|(
 name|minVersions
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return True if MapFile blocks should be cached.    */
 specifier|public
@@ -2337,15 +2363,16 @@ return|return
 name|DEFAULT_BLOCKCACHE
 return|;
 block|}
-comment|/**    * @param blockCacheEnabled True if MapFile blocks should be cached.    */
+comment|/**    * @param blockCacheEnabled True if MapFile blocks should be cached.    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setBlockCacheEnabled
 parameter_list|(
 name|boolean
 name|blockCacheEnabled
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|BLOCKCACHE
@@ -2357,7 +2384,7 @@ argument_list|(
 name|blockCacheEnabled
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @return bloom filter type used for new StoreFiles in ColumnFamily    */
 specifier|public
@@ -2401,9 +2428,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bt bloom filter type    */
+comment|/**    * @param bt bloom filter type    * @return this (for chained invocation)    */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setBloomFilterType
 parameter_list|(
 specifier|final
@@ -2413,6 +2440,7 @@ name|BloomType
 name|bt
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|BLOOMFILTER
@@ -2422,7 +2450,7 @@ operator|.
 name|toString
 argument_list|()
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**     * @return the scope tag     */
 specifier|public
@@ -2461,15 +2489,16 @@ return|return
 name|DEFAULT_REPLICATION_SCOPE
 return|;
 block|}
-comment|/**   * @param scope the scope tag   */
+comment|/**   * @param scope the scope tag   * @return this (for chained invocation)   */
 specifier|public
-name|void
+name|HColumnDescriptor
 name|setScope
 parameter_list|(
 name|int
 name|scope
 parameter_list|)
 block|{
+return|return
 name|setValue
 argument_list|(
 name|REPLICATION_SCOPE
@@ -2481,7 +2510,7 @@ argument_list|(
 name|scope
 argument_list|)
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
