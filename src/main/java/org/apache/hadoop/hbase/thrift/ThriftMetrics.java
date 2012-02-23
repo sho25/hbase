@@ -620,6 +620,18 @@ argument_list|>
 name|iface
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Creating metrics for interface "
+operator|+
+name|iface
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Method
