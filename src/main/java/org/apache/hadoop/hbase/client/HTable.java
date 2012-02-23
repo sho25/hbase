@@ -1658,7 +1658,7 @@ name|info
 init|=
 name|Writables
 operator|.
-name|getHRegionInfo
+name|getHRegionInfoOrNull
 argument_list|(
 name|rowResult
 operator|.
@@ -1674,6 +1674,13 @@ name|REGIONINFO_QUALIFIER
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|info
+operator|!=
+literal|null
+condition|)
+block|{
 if|if
 condition|(
 operator|!
@@ -1787,6 +1794,7 @@ argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true
