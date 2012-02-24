@@ -14160,6 +14160,15 @@ name|region
 return|;
 block|}
 specifier|public
+name|ServerName
+name|getServerName
+parameter_list|()
+block|{
+return|return
+name|serverName
+return|;
+block|}
+specifier|public
 name|boolean
 name|isClosing
 parameter_list|()

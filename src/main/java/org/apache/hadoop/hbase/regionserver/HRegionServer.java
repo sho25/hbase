@@ -351,6 +351,16 @@ end_import
 
 begin_import
 import|import
+name|javax
+operator|.
+name|management
+operator|.
+name|ObjectName
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1963,6 +1973,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MBeanUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|net
 operator|.
 name|DNS
@@ -2475,6 +2501,13 @@ name|String
 name|CLOSE
 init|=
 literal|"CLOSE"
+decl_stmt|;
+comment|/**    * MX Bean for RegionServerInfo    */
+specifier|private
+name|ObjectName
+name|mxBean
+init|=
+literal|null
 decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    *    * @param conf    * @throws IOException    * @throws InterruptedException    */
 specifier|public
@@ -3940,6 +3973,11 @@ comment|/**    * The HRegionServer sticks in this loop until closed.    */
 end_comment
 
 begin_function
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|run
@@ -4014,6 +4052,9 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+name|registerMBean
+argument_list|()
+expr_stmt|;
 comment|// We registered with the Master.  Go into run mode.
 name|long
 name|lastMsg
@@ -4242,6 +4283,25 @@ expr_stmt|;
 block|}
 block|}
 comment|// Run shutdown.
+if|if
+condition|(
+name|mxBean
+operator|!=
+literal|null
+condition|)
+block|{
+name|MBeanUtil
+operator|.
+name|unregisterMBean
+argument_list|(
+name|mxBean
+argument_list|)
+expr_stmt|;
+name|mxBean
+operator|=
+literal|null
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -19432,6 +19492,53 @@ operator|.
 name|getCoprocessors
 argument_list|()
 return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Register bean with platform management server    */
+end_comment
+
+begin_function
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+name|void
+name|registerMBean
+parameter_list|()
+block|{
+name|MXBeanImpl
+name|mxBeanInfo
+init|=
+name|MXBeanImpl
+operator|.
+name|init
+argument_list|(
+name|this
+argument_list|)
+decl_stmt|;
+name|mxBean
+operator|=
+name|MBeanUtil
+operator|.
+name|registerMBean
+argument_list|(
+literal|"org.apache.hbase"
+argument_list|,
+literal|"RegionServer"
+argument_list|,
+name|mxBeanInfo
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Registered RegionServer MXBean"
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 
