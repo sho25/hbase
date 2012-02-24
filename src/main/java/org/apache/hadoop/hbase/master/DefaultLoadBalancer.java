@@ -3202,26 +3202,6 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|TableExistsException
-name|tee
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"TableExistsException during getTableDescriptors."
-operator|+
-literal|" Current table name = "
-operator|+
-name|tableName
-argument_list|,
-name|tee
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
 name|FileNotFoundException
 name|fnfe
 parameter_list|)

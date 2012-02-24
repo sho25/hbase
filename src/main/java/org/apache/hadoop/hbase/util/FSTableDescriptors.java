@@ -535,8 +535,6 @@ index|[]
 name|tablename
 parameter_list|)
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException
@@ -565,8 +563,6 @@ name|String
 name|tablename
 parameter_list|)
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException
@@ -727,17 +723,22 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// More likely is above will throw a FileNotFoundException
-throw|throw
-operator|new
-name|TableExistsException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"No descriptor for "
+literal|"The following folder is in HBase's root directory and "
+operator|+
+literal|"doesn't contain a table descriptor, "
+operator|+
+literal|"do consider deleting it: "
 operator|+
 name|tablename
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
+else|else
+block|{
 name|this
 operator|.
 name|cache
@@ -755,6 +756,7 @@ name|htd
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|htd
 return|;

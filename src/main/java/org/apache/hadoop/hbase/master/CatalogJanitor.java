@@ -1693,8 +1693,6 @@ index|[]
 name|tableName
 parameter_list|)
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException

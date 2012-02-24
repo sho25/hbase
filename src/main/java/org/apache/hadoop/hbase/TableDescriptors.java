@@ -64,8 +64,6 @@ name|String
 name|tablename
 parameter_list|)
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException
@@ -81,8 +79,6 @@ index|[]
 name|tablename
 parameter_list|)
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException

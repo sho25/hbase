@@ -1529,8 +1529,6 @@ name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()
 throws|throws
-name|TableExistsException
-throws|,
 name|FileNotFoundException
 throws|,
 name|IOException
