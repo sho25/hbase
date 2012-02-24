@@ -237,16 +237,18 @@ argument_list|(
 name|conf
 argument_list|)
 operator|.
-name|createWriter
+name|withOutputStream
 argument_list|(
 name|fout
-argument_list|,
-name|blocksize
-argument_list|,
-literal|"none"
-argument_list|,
-literal|null
 argument_list|)
+operator|.
+name|withBlockSize
+argument_list|(
+name|blocksize
+argument_list|)
+operator|.
+name|create
+argument_list|()
 decl_stmt|;
 comment|// 4 bytes * 3 * 2 for each key/value +
 comment|// 3 for keys, 15 for values = 42 (woot)
