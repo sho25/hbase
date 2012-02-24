@@ -1929,7 +1929,7 @@ return|return;
 block|}
 block|}
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.    *    * @param desc table descriptor for table    *    * @throws IllegalArgumentException Bad table name.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.  To check if the table exists, use    * {@link: #isTableAvailable} -- it is not safe to create an HTable    * instance to this table before it is available.    *    * @param desc table descriptor for table    *    * @throws IllegalArgumentException Bad table name.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 name|void
 name|createTableAsync
