@@ -641,6 +641,21 @@ name|HREGION_MAX_FILESIZE
 init|=
 literal|"hbase.hregion.max.filesize"
 decl_stmt|;
+comment|/** Default maximum file size */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MAX_FILE_SIZE
+init|=
+literal|10
+operator|*
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
 comment|/**    * The max number of threads used for opening and closing stores or store    * files in parallel    */
 specifier|public
 specifier|static
@@ -658,19 +673,6 @@ name|int
 name|DEFAULT_HSTORE_OPEN_AND_CLOSE_THREADS_MAX
 init|=
 literal|1
-decl_stmt|;
-comment|/** Default maximum file size */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|DEFAULT_MAX_FILE_SIZE
-init|=
-literal|256
-operator|*
-literal|1024
-operator|*
-literal|1024
 decl_stmt|;
 comment|/** Conf key for the memstore size at which we flush the memstore */
 specifier|public

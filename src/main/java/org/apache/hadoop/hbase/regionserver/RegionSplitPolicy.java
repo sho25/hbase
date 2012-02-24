@@ -138,11 +138,13 @@ specifier|static
 specifier|final
 name|Class
 argument_list|<
-name|ConstantSizeRegionSplitPolicy
+name|?
+extends|extends
+name|RegionSplitPolicy
 argument_list|>
 name|DEFAULT_SPLIT_POLICY_CLASS
 init|=
-name|ConstantSizeRegionSplitPolicy
+name|IncreasingToUpperBoundRegionSplitPolicy
 operator|.
 name|class
 decl_stmt|;

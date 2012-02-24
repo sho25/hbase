@@ -564,7 +564,7 @@ literal|1024
 operator|*
 literal|1024
 operator|*
-literal|64L
+literal|128L
 decl_stmt|;
 specifier|private
 specifier|volatile

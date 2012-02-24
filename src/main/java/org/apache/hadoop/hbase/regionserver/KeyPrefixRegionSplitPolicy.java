@@ -64,7 +64,7 @@ specifier|public
 class|class
 name|KeyPrefixRegionSplitPolicy
 extends|extends
-name|ConstantSizeRegionSplitPolicy
+name|IncreasingToUpperBoundRegionSplitPolicy
 block|{
 specifier|private
 specifier|static

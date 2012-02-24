@@ -4062,6 +4062,17 @@ operator|.
 name|regionInfo
 return|;
 block|}
+comment|/**    * @return Instance of {@link RegionServerServices} used by this HRegion.    * Can be null.    */
+name|RegionServerServices
+name|getRegionServerServices
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|rsServices
+return|;
+block|}
 comment|/** @return requestsCount for this region */
 specifier|public
 name|long
