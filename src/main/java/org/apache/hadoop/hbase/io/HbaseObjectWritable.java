@@ -1251,6 +1251,12 @@ specifier|final
 name|int
 name|GENERIC_ARRAY_CODE
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|NEXT_CLASS_CODE
+decl_stmt|;
 static|static
 block|{
 comment|////////////////////////////////////////////////////////////////////////////
@@ -2115,6 +2121,11 @@ argument_list|,
 name|GENERIC_ARRAY_CODE
 argument_list|)
 expr_stmt|;
+comment|// make sure that this is the last statement in this static block
+name|NEXT_CLASS_CODE
+operator|=
+name|code
+expr_stmt|;
 block|}
 specifier|private
 name|Class
@@ -2568,6 +2579,16 @@ block|}
 block|}
 return|return
 name|code
+return|;
+block|}
+comment|/**    * @return the next object code in the list.  Used in testing to verify that additional fields are not added     */
+specifier|static
+name|int
+name|getNextClassCode
+parameter_list|()
+block|{
+return|return
+name|NEXT_CLASS_CODE
 return|;
 block|}
 comment|/**    * Write out the code for passed Class.    * @param out    * @param c    * @throws IOException    */
