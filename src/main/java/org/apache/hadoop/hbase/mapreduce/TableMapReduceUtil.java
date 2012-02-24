@@ -71,6 +71,30 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|InvocationTargetException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|URL
@@ -1806,7 +1830,7 @@ continue|continue;
 name|String
 name|pathStr
 init|=
-name|findContainingJar
+name|findOrCreateJar
 argument_list|(
 name|clazz
 argument_list|)
@@ -1914,7 +1938,110 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Find a jar that contains a class of the same name, if any.    * It will return a jar file, even if that is not the first thing    * on the class path that has a class with the same name.    *     * This is shamelessly copied from JobConf    *     * @param my_class the class to find.    * @return a jar file that contains the class, or null.    * @throws IOException    */
+comment|/**    * If org.apache.hadoop.util.JarFinder is available (0.23+ hadoop),    * finds the Jar for a class or creates it if it doesn't exist. If    * the class is in a directory in the classpath, it creates a Jar    * on the fly with the contents of the directory and returns the path    * to that Jar. If a Jar is created, it is created in    * the system temporary directory.    *    * Otherwise, returns an existing jar that contains a class of the    * same name.    *    * @param my_class the class to find.    * @return a jar file that contains the class, or null.    * @throws IOException    */
+specifier|private
+specifier|static
+name|String
+name|findOrCreateJar
+parameter_list|(
+name|Class
+name|my_class
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+try|try
+block|{
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|jarFinder
+init|=
+name|Class
+operator|.
+name|forName
+argument_list|(
+literal|"org.apache.hadoop.util.JarFinder"
+argument_list|)
+decl_stmt|;
+comment|// hadoop-0.23 has a JarFinder class that will create the jar
+comment|// if it doesn't exist.  Note that this is needed to run the mapreduce
+comment|// unit tests post-0.23, because mapreduce v2 requires the relevant jars
+comment|// to be in the mr cluster to do output, split, etc.  At unit test time,
+comment|// the hbase jars do not exist, so we need to create some.  Note that we
+comment|// can safely fall back to findContainingJars for pre-0.23 mapreduce.
+name|Method
+name|m
+init|=
+name|jarFinder
+operator|.
+name|getMethod
+argument_list|(
+literal|"getJar"
+argument_list|,
+name|Class
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+return|return
+operator|(
+name|String
+operator|)
+name|m
+operator|.
+name|invoke
+argument_list|(
+literal|null
+argument_list|,
+name|my_class
+argument_list|)
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|InvocationTargetException
+name|ite
+parameter_list|)
+block|{
+comment|// function was properly called, but threw it's own exception
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|ite
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// ignore all other exceptions. related to reflection failure
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"New JarFinder: org.apache.hadoop.util.JarFinder.getJar "
+operator|+
+literal|"not available.  Using old findContainingJar"
+argument_list|)
+expr_stmt|;
+return|return
+name|findContainingJar
+argument_list|(
+name|my_class
+argument_list|)
+return|;
+block|}
+comment|/**    * Find a jar that contains a class of the same name, if any.    * It will return a jar file, even if that is not the first thing    * on the class path that has a class with the same name.    *     * This is shamelessly copied from JobConf    *     * @param my_class the class to find.    * @return a jar file that contains the class, or null.    * @throws IOException    */
 specifier|private
 specifier|static
 name|String

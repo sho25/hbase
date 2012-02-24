@@ -496,13 +496,13 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// Minihbase roots itself in user home directory up in minidfs.
+comment|// find where hbase will root itself, so we can copy filesystem there
 name|Path
-name|homedir
+name|hbaseRootDir
 init|=
-name|fs
+name|TEST_UTIL
 operator|.
-name|getHomeDirectory
+name|getDefaultRootDirPath
 argument_list|()
 decl_stmt|;
 name|doFsCommand
@@ -523,7 +523,7 @@ operator|.
 name|toString
 argument_list|()
 block|,
-name|homedir
+name|hbaseRootDir
 operator|.
 name|toString
 argument_list|()

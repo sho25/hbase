@@ -1972,6 +1972,13 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|TableMapReduceUtil
+operator|.
+name|addDependencyJars
+argument_list|(
+name|job
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
