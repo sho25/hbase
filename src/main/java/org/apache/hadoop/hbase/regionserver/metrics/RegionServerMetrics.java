@@ -1640,6 +1640,17 @@ comment|/* NOTE: removed HFile write latency.  2 reasons:        * 1) Mixing HLo
 comment|// push the result
 name|this
 operator|.
+name|fsPreadLatency
+operator|.
+name|pushMetric
+argument_list|(
+name|this
+operator|.
+name|metricsRecord
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|fsReadLatency
 operator|.
 name|pushMetric
