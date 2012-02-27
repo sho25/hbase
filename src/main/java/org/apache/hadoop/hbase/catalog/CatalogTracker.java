@@ -2130,6 +2130,14 @@ parameter_list|)
 block|{
 comment|// Pass -- remote server is not up so can't be carrying root
 block|}
+catch|catch
+parameter_list|(
+name|UnknownHostException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- server name doesn't resolve so it can't be assigned anything.
+block|}
 return|return
 operator|(
 name|connection
@@ -2198,6 +2206,14 @@ name|e
 parameter_list|)
 block|{
 comment|// Pass -- remote server is not up so can't be carrying .META.
+block|}
+catch|catch
+parameter_list|(
+name|UnknownHostException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- server name doesn't resolve so it can't be assigned anything.
 block|}
 catch|catch
 parameter_list|(
