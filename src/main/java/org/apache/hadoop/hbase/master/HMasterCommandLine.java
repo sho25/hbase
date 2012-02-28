@@ -720,17 +720,17 @@ block|{
 name|String
 name|errorMsg
 init|=
-literal|"Couldnt start ZK at requested address of "
+literal|"Could not start ZK at requested port of "
 operator|+
 name|zkClientPort
 operator|+
-literal|", instead got: "
+literal|".  ZK was started at port: "
 operator|+
 name|clientPort
 operator|+
-literal|". Aborting. Why? "
+literal|".  Aborting as clients (e.g. shell) will not be able to find "
 operator|+
-literal|"Because clients (eg shell) wont be able to find this ZK quorum"
+literal|"this ZK quorum."
 decl_stmt|;
 name|System
 operator|.
