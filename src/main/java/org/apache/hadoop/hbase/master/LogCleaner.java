@@ -337,7 +337,7 @@ name|initLogCleanersChain
 argument_list|()
 expr_stmt|;
 block|}
-comment|/*    * Initialize the chain of log cleaners from the configuration. The default    * three LogCleanerDelegates in this chain are: TimeToLiveLogCleaner,    * ReplicationLogCleaner and SnapshotLogCleaner.    */
+comment|/*    * Initialize the chain of log cleaners from the configuration. The default    * in this chain are: TimeToLiveLogCleaner and ReplicationLogCleaner.    */
 specifier|private
 name|void
 name|initLogCleanersChain
