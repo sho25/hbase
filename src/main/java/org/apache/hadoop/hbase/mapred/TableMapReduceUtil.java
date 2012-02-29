@@ -1028,6 +1028,16 @@ name|Function
 operator|.
 name|class
 argument_list|,
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Message
+operator|.
+name|class
+argument_list|,
 name|job
 operator|.
 name|getMapOutputKeyClass
