@@ -198,15 +198,6 @@ name|Invocation
 implements|implements
 name|Row
 block|{
-specifier|private
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 comment|/** Row key used as a reference for any region lookups */
 specifier|private
 name|byte
