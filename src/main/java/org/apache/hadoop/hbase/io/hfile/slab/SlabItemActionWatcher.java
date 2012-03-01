@@ -29,6 +29,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|io
@@ -44,6 +58,10 @@ comment|/**  * Interface for objects that want to know when actions occur in a S
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 interface|interface
 name|SlabItemActionWatcher
 block|{

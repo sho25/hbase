@@ -49,11 +49,47 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Produces 32-bit hash for hash table lookup.  *  *<pre>lookup3.c, by Bob Jenkins, May 2006, Public Domain.  *  * You can use this free for any purpose.  It's in the public domain.  * It has no warranty.  *</pre>  *  * @see<a href="http://burtleburtle.net/bob/c/lookup3.c">lookup3.c</a>  * @see<a href="http://www.ddj.com/184410284">Hash Functions (and how this  * function compares to others such as CRC, MD?, etc</a>  * @see<a href="http://burtleburtle.net/bob/hash/doobs.html">Has update on the  * Dr. Dobbs Article</a>  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 class|class
 name|JenkinsHash

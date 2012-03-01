@@ -17,11 +17,29 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * LeaseListener is an interface meant to be implemented by users of the Leases  * class.  *  * It receives events from the Leases class about the status of its accompanying  * lease.  Users of the Leases class can use a LeaseListener subclass to, for  * example, clean up resources after a lease has expired.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|LeaseListener

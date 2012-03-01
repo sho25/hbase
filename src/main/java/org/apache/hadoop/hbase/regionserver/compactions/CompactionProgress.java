@@ -19,11 +19,29 @@ name|compactions
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class holds information relevant for tracking the progress of a  * compaction.  *  *<p>The metrics tracked allow one to calculate the percent completion of the  * compaction based on the number of Key/Value pairs already compacted vs.  * total amount scheduled to be compacted.  *  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|CompactionProgress

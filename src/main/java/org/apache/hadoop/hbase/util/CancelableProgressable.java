@@ -17,11 +17,29 @@ name|util
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Similar interface as {@link org.apache.hadoop.util.Progressable} but returns  * a boolean to support canceling the operation.  *<p>  * Used for doing updating of OPENING znode during log replay on region open.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|CancelableProgressable

@@ -15,11 +15,29 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface to support the aborting of a given server or client.  *<p>  * This is used primarily for ZooKeeper usage when we could get an unexpected  * and fatal exception, requiring an abort.  *<p>  * Implemented by the Master, RegionServer, and TableServers (client).  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|Abortable

@@ -65,6 +65,20 @@ name|Target
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Indicates Token related information to be used in authorizing connections  * over a given RPC protocol interface.  */
 end_comment
@@ -84,6 +98,10 @@ name|ElementType
 operator|.
 name|TYPE
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 annotation_defn|@interface
 name|TokenInfo

@@ -27,11 +27,29 @@ name|*
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Static Interface.  * Instead of having this code in the the HbaseMapWritable code, where it  * blocks the possibility of altering the variables and changing their types,  * it is put here in this static interface where the static final Maps are  * loaded one time. Only byte[] and Cell are supported at this time.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|CodeToClassAndBack

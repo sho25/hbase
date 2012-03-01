@@ -57,6 +57,20 @@ name|XmlValue
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Simple representation of the version of the storage cluster  *   *<pre>  *&lt;complexType name="StorageClusterVersion"&gt;  *&lt;attribute name="version" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
@@ -69,6 +83,10 @@ name|name
 operator|=
 literal|"ClusterVersion"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|StorageClusterVersionModel

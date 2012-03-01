@@ -15,11 +15,47 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown if a region server is passed an unknown scanner id.  * Usually means the client has take too long between checkins and so the  * scanner lease on the serverside has expired OR the serverside is closing  * down and has cancelled all leases.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 class|class
 name|UnknownScannerException

@@ -27,6 +27,20 @@ name|*
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A package attribute that captures the version of hbase that was compiled.  * Copied down from hadoop.  All is same except name of interface.  */
 end_comment
@@ -46,6 +60,10 @@ name|ElementType
 operator|.
 name|PACKAGE
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 annotation_defn|@interface
 name|VersionAnnotation

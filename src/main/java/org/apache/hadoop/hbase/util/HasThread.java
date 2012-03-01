@@ -29,11 +29,29 @@ name|UncaughtExceptionHandler
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Abstract class which contains a Thread and delegates the common Thread  * methods to that instance.  *   * The purpose of this class is to workaround Sun JVM bug #6915621, in which  * something internal to the JDK uses Thread.currentThread() as a monitor  * lock. This can produce deadlocks like HBASE-4367, HBASE-4101, etc.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|abstract
 class|class

@@ -17,11 +17,29 @@ name|ipc
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility for managing the flag byte passed in response to a  * {@link HBaseServer.Call}  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|ResponseFlag
 block|{

@@ -55,11 +55,29 @@ name|LogFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A custom RegionSplitPolicy implementing a SplitPolicy that groups  * rows by a prefix of the row-key  *  * This ensures that a region is not split "inside" a prefix of a row key.  * I.e. rows can be co-located in a regionb by their prefix.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|KeyPrefixRegionSplitPolicy

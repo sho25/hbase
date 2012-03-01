@@ -93,6 +93,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|DoNotRetryIOException
@@ -214,6 +228,10 @@ comment|/**  * Scanner scans both the memstore and the HStore. Coalesce KeyValue
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|StoreScanner
 extends|extends

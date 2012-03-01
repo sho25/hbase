@@ -17,11 +17,47 @@ name|ipc
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * All custom RPC protocols to be exported by Coprocessors must extend this interface.  *  *<p>  *<strong>Note that all callable methods must have a return type handled by  * {@link org.apache.hadoop.hbase.io.HbaseObjectWritable#writeObject(java.io.DataOutput, Object, Class, org.apache.hadoop.conf.Configuration)}.</strong>  * That is:  *<ul>  *<li>a Java primitive type ({@code int}, {@code float}, etc)</li>  *<li>a Java {@code String}</li>  *<li>a {@link org.apache.hadoop.io.Writable}</li>  *<li>an array or {@code java.util.List} of one of the above</li>  *</ul>  *</p>  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|CoprocessorProtocol

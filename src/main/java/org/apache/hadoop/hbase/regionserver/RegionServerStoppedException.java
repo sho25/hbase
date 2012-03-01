@@ -27,6 +27,20 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown by the region server when it is in shutting down state.  */
 end_comment
@@ -37,6 +51,10 @@ name|SuppressWarnings
 argument_list|(
 literal|"serial"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|RegionServerStoppedException

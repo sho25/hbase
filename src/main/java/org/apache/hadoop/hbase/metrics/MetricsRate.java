@@ -53,6 +53,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|metrics
 operator|.
 name|MetricsRecord
@@ -110,6 +124,10 @@ comment|/**  * Publishes a rate based on a counter - you increment the counter e
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|MetricsRate

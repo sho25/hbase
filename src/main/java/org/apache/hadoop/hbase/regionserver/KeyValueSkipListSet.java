@@ -25,6 +25,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|KeyValue
@@ -110,6 +124,10 @@ comment|/**  * A {@link java.util.Set} of {@link KeyValue}s implemented on top o
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|KeyValueSkipListSet
 implements|implements

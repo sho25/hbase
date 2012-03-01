@@ -65,6 +65,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -122,6 +136,10 @@ comment|/**  * State and utility processing {@link HRegion#getClosestRowBefore(b
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|GetClosestRowBeforeTracker
 block|{

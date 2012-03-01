@@ -17,11 +17,29 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Simple wrapper for a byte buffer and a counter.  Does not copy.  *<p>  * NOT thread-safe because it is not used in a multi-threaded context, yet.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ColumnCount

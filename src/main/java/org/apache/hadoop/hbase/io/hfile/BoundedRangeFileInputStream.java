@@ -47,6 +47,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FSDataInputStream
@@ -58,6 +72,10 @@ comment|/**  * BoundedRangeFIleInputStream abstracts a contiguous region of a Ha
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|BoundedRangeFileInputStream
 extends|extends

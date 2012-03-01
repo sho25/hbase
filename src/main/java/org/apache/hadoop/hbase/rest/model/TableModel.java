@@ -57,6 +57,20 @@ name|XmlRootElement
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Simple representation of a table name.  *   *<pre>  *&lt;complexType name="Table"&gt;  *&lt;sequence&gt;  *&lt;element name="name" type="string"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
@@ -69,6 +83,10 @@ name|name
 operator|=
 literal|"table"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|TableModel

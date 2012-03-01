@@ -37,11 +37,29 @@ name|OutputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * An output stream that writes to two streams on each operation. Does not  * attempt to handle exceptions gracefully. If any operation other than  * {@link #close()} fails on the first stream, it is not called on the second  * stream.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|DoubleOutputStream

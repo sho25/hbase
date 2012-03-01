@@ -17,11 +17,47 @@ name|util
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is a very fast, non-cryptographic hash suitable for general hash-based  * lookup.  See http://murmurhash.googlepages.com/ for more details.  *  *<p>The C version of MurmurHash 2.0 found at that site was ported  * to Java by Andrzej Bialecki (ab at getopt org).</p>  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 class|class
 name|MurmurHash
