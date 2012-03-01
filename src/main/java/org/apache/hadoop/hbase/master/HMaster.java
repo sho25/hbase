@@ -97,16 +97,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -128,20 +118,6 @@ operator|.
 name|util
 operator|.
 name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicReference
 import|;
 end_import
 
@@ -202,6 +178,20 @@ operator|.
 name|concurrent
 operator|.
 name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicReference
 import|;
 end_import
 
@@ -366,6 +356,20 @@ operator|.
 name|hbase
 operator|.
 name|MasterNotRunningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PleaseHoldException
 import|;
 end_import
 
@@ -6255,6 +6259,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -6537,6 +6544,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -6613,6 +6623,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -6692,6 +6705,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -6766,6 +6782,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -6833,6 +6852,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -7080,6 +7102,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -8363,6 +8388,32 @@ return|;
 block|}
 end_function
 
+begin_function
+name|void
+name|checkInitialized
+parameter_list|()
+throws|throws
+name|PleaseHoldException
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|initialized
+condition|)
+block|{
+throw|throw
+operator|new
+name|PleaseHoldException
+argument_list|(
+literal|"Master is initializing"
+argument_list|)
+throw|;
+block|}
+block|}
+end_function
+
 begin_comment
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
 end_comment
@@ -8439,6 +8490,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -8568,6 +8622,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 name|Pair
 argument_list|<
 name|HRegionInfo
