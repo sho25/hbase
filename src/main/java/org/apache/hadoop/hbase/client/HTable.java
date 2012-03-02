@@ -1502,7 +1502,7 @@ literal|"Null "
 operator|+
 name|HConstants
 operator|.
-name|REGIONINFO_QUALIFIER
+name|REGIONINFO_QUALIFIER_STR
 operator|+
 literal|" cell in "
 operator|+

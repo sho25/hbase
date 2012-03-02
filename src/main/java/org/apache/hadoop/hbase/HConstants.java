@@ -841,6 +841,15 @@ argument_list|(
 name|CATALOG_FAMILY_STR
 argument_list|)
 decl_stmt|;
+comment|/** The RegionInfo qualifier as a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONINFO_QUALIFIER_STR
+init|=
+literal|"regioninfo"
+decl_stmt|;
 comment|/** The regioninfo column qualifier */
 specifier|public
 specifier|static
@@ -853,7 +862,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"regioninfo"
+name|REGIONINFO_QUALIFIER_STR
 argument_list|)
 decl_stmt|;
 comment|/** The server column qualifier */
