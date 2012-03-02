@@ -1873,7 +1873,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startRow Starting row in range, inclusive    * @param endRow Ending row in range, inclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startRow Starting row in range, inclusive    * @param endRow Ending row in range, exclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|List
 argument_list|<
