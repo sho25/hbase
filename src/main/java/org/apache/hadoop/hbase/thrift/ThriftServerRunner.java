@@ -8634,7 +8634,7 @@ literal|"Cannot find row in .META., row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|searchRow
 operator|.
@@ -8685,7 +8685,7 @@ literal|" empty in Meta for row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|searchRow
 operator|.
