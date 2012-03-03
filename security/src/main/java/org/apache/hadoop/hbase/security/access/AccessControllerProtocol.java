@@ -66,14 +66,13 @@ name|AccessControllerProtocol
 extends|extends
 name|CoprocessorProtocol
 block|{
-comment|/* V2: Added {@link #checkPermissions(Permission...)}) */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|VERSION
 init|=
-literal|2L
+literal|1L
 decl_stmt|;
 comment|/**    * Grants the given user or group the privilege to perform the given actions    * over the specified scope contained in {@link TablePermission}    * @param user the user name, or, if prefixed with "@", group name receiving    * the grant    * @param permission the details of the provided permissions    * @throws IOException if the grant could not be applied    */
 specifier|public

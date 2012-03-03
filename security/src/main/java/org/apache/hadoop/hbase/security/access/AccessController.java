@@ -1138,7 +1138,7 @@ specifier|final
 name|long
 name|PROTOCOL_VERSION
 init|=
-literal|2L
+literal|1L
 decl_stmt|;
 name|TableAuthManager
 name|authManager
