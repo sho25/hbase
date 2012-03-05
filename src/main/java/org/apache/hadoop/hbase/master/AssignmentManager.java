@@ -8268,6 +8268,11 @@ name|balancer
 operator|.
 name|randomAssignment
 argument_list|(
+name|state
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
 name|servers
 argument_list|)
 argument_list|)

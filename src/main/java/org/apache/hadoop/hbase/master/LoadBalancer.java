@@ -115,7 +115,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 specifier|public
 interface|interface
 name|LoadBalancer
@@ -237,11 +237,14 @@ argument_list|>
 name|servers
 parameter_list|)
 function_decl|;
-comment|/**    * Get a random region server from the list    * @param servers    * @return Servername    */
+comment|/**    * Get a random region server from the list    * @param regionInfo Region for which this selection is being done.    * @param servers    * @return Servername    */
 specifier|public
 name|ServerName
 name|randomAssignment
 parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
 name|List
 argument_list|<
 name|ServerName

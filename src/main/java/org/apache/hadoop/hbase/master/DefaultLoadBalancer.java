@@ -3454,6 +3454,9 @@ specifier|public
 name|ServerName
 name|randomAssignment
 parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
 name|List
 argument_list|<
 name|ServerName
