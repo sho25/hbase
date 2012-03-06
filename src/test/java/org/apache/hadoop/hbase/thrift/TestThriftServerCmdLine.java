@@ -564,30 +564,6 @@ literal|true
 block|}
 control|)
 block|{
-comment|// TODO: We observed that when
-comment|// (specifyFramed, specifyCompact) == (true, false).
-comment|// The method getRegionInfo() gets a corrupted parameter. This may
-comment|// be a thrift bug that needs further investigation. In this test we
-comment|// temporarily exclude these cases to avoid test failures.
-if|if
-condition|(
-operator|(
-name|specifyFramed
-operator|==
-literal|true
-operator|||
-name|implType
-operator|.
-name|isAlwaysFramed
-operator|)
-operator|&&
-name|specifyCompact
-operator|==
-literal|false
-condition|)
-block|{
-continue|continue;
-block|}
 name|parameters
 operator|.
 name|add
@@ -1215,6 +1191,13 @@ expr_stmt|;
 name|TestThriftServer
 operator|.
 name|doTestGetRegionInfo
+argument_list|(
+name|client
+argument_list|)
+expr_stmt|;
+name|TestThriftServer
+operator|.
+name|doTestGetTableRegions
 argument_list|(
 name|client
 argument_list|)
