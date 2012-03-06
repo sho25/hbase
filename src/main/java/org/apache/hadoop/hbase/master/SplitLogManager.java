@@ -2611,19 +2611,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"got dup heartbeat for "
-operator|+
-name|path
-operator|+
-literal|" ver = "
-operator|+
-name|new_version
-argument_list|)
-expr_stmt|;
+comment|// duplicate heartbeats - heartbeats w/o zk node version
+comment|// changing - are possible. The timeout thread does
+comment|// getDataSetWatch() just to check whether a node still
+comment|// exists or not
 block|}
 return|return;
 block|}
