@@ -962,14 +962,11 @@ name|includeDeleteMarker
 init|=
 name|seePastDeleteMarkers
 condition|?
-comment|// +1, to allow a range between a delete and put of same TS
 name|tr
 operator|.
 name|withinTimeRange
 argument_list|(
 name|timestamp
-operator|+
-literal|1
 argument_list|)
 else|:
 name|tr

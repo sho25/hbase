@@ -2813,7 +2813,7 @@ name|T1
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|,
 literal|null
 argument_list|)
@@ -2828,7 +2828,7 @@ name|c0
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|region
@@ -2851,7 +2851,7 @@ name|T1
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|,
 literal|null
 argument_list|)
@@ -2864,7 +2864,7 @@ name|c1
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|region
@@ -2887,7 +2887,7 @@ name|T2
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|,
 literal|null
 argument_list|)
@@ -2900,7 +2900,7 @@ name|c0
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|region
@@ -2951,7 +2951,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// ts + 2 does NOT include the delete at ts+1
+comment|// ts + 2 does NOT include the delete at ts+2
 name|checkGet
 argument_list|(
 name|region
@@ -3900,6 +3900,8 @@ argument_list|(
 name|T1
 argument_list|,
 name|ts
+operator|+
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -3924,7 +3926,7 @@ name|T2
 argument_list|,
 name|ts
 operator|+
-literal|1
+literal|2
 argument_list|,
 literal|null
 argument_list|)

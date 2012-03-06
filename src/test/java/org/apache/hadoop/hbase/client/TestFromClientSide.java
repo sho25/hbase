@@ -1417,7 +1417,7 @@ name|T1
 argument_list|,
 name|ts
 operator|+
-literal|2
+literal|3
 argument_list|,
 literal|null
 argument_list|)
