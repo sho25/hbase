@@ -59,6 +59,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|catalog
@@ -196,6 +210,12 @@ argument_list|,
 name|Boolean
 argument_list|>
 name|getRegionsInTransitionInRS
+parameter_list|()
+function_decl|;
+comment|/**    * @return Return the FileSystem object used by the regionserver    */
+specifier|public
+name|FileSystem
+name|getFileSystem
 parameter_list|()
 function_decl|;
 block|}

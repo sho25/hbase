@@ -1187,6 +1187,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|fs
+operator|.
+name|HFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -2182,9 +2198,14 @@ literal|false
 argument_list|)
 decl_stmt|;
 specifier|private
-name|FileSystem
+name|HFileSystem
 name|fs
 decl_stmt|;
+specifier|private
+name|boolean
+name|useHBaseChecksum
+decl_stmt|;
+comment|// verify hbase checksums?
 specifier|private
 name|Path
 name|rootDir
@@ -2574,6 +2595,23 @@ argument_list|(
 name|this
 operator|.
 name|conf
+argument_list|)
+expr_stmt|;
+comment|// do we use checksum verfication in the hbase? If hbase checksum verification
+comment|// is enabled, then we automatically switch off hdfs checksum verification.
+name|this
+operator|.
+name|useHBaseChecksum
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CHECKSUM_VERIFICATION
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Config'ed params
@@ -5678,13 +5716,16 @@ name|this
 operator|.
 name|fs
 operator|=
-name|FileSystem
-operator|.
-name|get
+operator|new
+name|HFileSystem
 argument_list|(
 name|this
 operator|.
 name|conf
+argument_list|,
+name|this
+operator|.
+name|useHBaseChecksum
 argument_list|)
 expr_stmt|;
 name|this
@@ -7078,6 +7119,9 @@ argument_list|(
 name|this
 operator|.
 name|fs
+operator|.
+name|getBackingFs
+argument_list|()
 argument_list|,
 name|logdir
 argument_list|,
@@ -16924,7 +16968,7 @@ comment|/**    * @return Return the fs.    */
 end_comment
 
 begin_function
-specifier|protected
+specifier|public
 name|FileSystem
 name|getFileSystem
 parameter_list|()

@@ -493,9 +493,10 @@ operator|.
 name|arrayOffset
 argument_list|()
 operator|+
-name|HFileBlock
+name|bloomBlock
 operator|.
-name|HEADER_SIZE
+name|headerSize
+argument_list|()
 argument_list|,
 name|bloomBlock
 operator|.

@@ -341,6 +341,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ChecksumType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|BloomFilterWriter
 import|;
 end_import
@@ -565,10 +581,19 @@ name|dataBlockEncoder
 parameter_list|,
 name|KeyComparator
 name|comparator
+parameter_list|,
+specifier|final
+name|ChecksumType
+name|checksumType
+parameter_list|,
+specifier|final
+name|int
+name|bytesPerChecksum
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// version 1 does not implement checksums
 return|return
 operator|new
 name|HFileWriterV1
@@ -875,8 +900,41 @@ argument_list|,
 name|MemStore
 operator|.
 name|NO_PERSISTENT_TS
+argument_list|,
+name|HFileBlock
+operator|.
+name|MINOR_VERSION_NO_CHECKSUM
+argument_list|,
+comment|// minor version
+literal|0
+argument_list|,
+comment|// bytesPerChecksum
+name|ChecksumType
+operator|.
+name|NULL
+operator|.
+name|getCode
+argument_list|()
+argument_list|,
+comment|// checksum type
+call|(
+name|int
+call|)
+argument_list|(
+name|outputStream
+operator|.
+name|getPos
+argument_list|()
+operator|-
+name|blockBegin
+argument_list|)
+operator|+
+name|HFileBlock
+operator|.
+name|HEADER_SIZE_NO_CHECKSUM
 argument_list|)
 decl_stmt|;
+comment|// onDiskDataSizeWithHeader
 name|block
 operator|=
 name|blockEncoder
@@ -998,7 +1056,7 @@ name|write
 argument_list|(
 name|HFileBlock
 operator|.
-name|DUMMY_HEADER
+name|DUMMY_HEADER_NO_CHECKSUM
 argument_list|)
 expr_stmt|;
 block|}
@@ -1551,6 +1609,10 @@ operator|new
 name|FixedFileTrailer
 argument_list|(
 literal|1
+argument_list|,
+name|HFileBlock
+operator|.
+name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
 decl_stmt|;
 comment|// Write out the metadata blocks if any.

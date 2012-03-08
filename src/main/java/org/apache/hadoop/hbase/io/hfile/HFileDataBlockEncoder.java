@@ -128,7 +128,7 @@ name|boolean
 name|isCompaction
 parameter_list|)
 function_decl|;
-comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @return a non-null on-heap buffer containing the contents of the    *         HFileBlock with unfilled header and block type    */
+comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @param dummyHeader A dummy header to be written as a placeholder    * @return a non-null on-heap buffer containing the contents of the    *         HFileBlock with unfilled header and block type    */
 specifier|public
 name|Pair
 argument_list|<
@@ -143,6 +143,10 @@ name|in
 parameter_list|,
 name|boolean
 name|includesMemstoreTS
+parameter_list|,
+name|byte
+index|[]
+name|dummyHeader
 parameter_list|)
 function_decl|;
 comment|/**    * Decides whether we should use a scanner over encoded blocks.    * @param isCompaction whether we are in a compaction.    * @return Whether to use encoded scanner.    */

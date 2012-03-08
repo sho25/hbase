@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The {@link HFile} has a fixed trailer which contains offsets to other  * variable parts of the file. Also includes basic metadata on this file. The  * trailer size is fixed within a given {@link HFile} format version only, but  * we always store the version number as the last four-byte integer of the file.  */
+comment|/**  * The {@link HFile} has a fixed trailer which contains offsets to other  * variable parts of the file. Also includes basic metadata on this file. The  * trailer size is fixed within a given {@link HFile} format version only, but  * we always store the version number as the last four-byte integer of the file.  * The version number itself is split into two portions, a major   * version and a minor version.   * The last three bytes of a file is the major  * version and a single preceding byte is the minor number. The major version  * determines which readers/writers to use to read/write a hfile while a minor  * version determines smaller changes in hfile format that do not need a new  * reader/writer type.  */
 end_comment
 
 begin_class
@@ -341,29 +341,44 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|/** The {@link HFile} format version. */
+comment|/** The {@link HFile} format major version. */
 specifier|private
 specifier|final
 name|int
-name|version
+name|majorVersion
+decl_stmt|;
+comment|/** The {@link HFile} format minor version. */
+specifier|private
+specifier|final
+name|int
+name|minorVersion
 decl_stmt|;
 name|FixedFileTrailer
 parameter_list|(
 name|int
-name|version
+name|majorVersion
+parameter_list|,
+name|int
+name|minorVersion
 parameter_list|)
 block|{
 name|this
 operator|.
-name|version
+name|majorVersion
 operator|=
-name|version
+name|majorVersion
+expr_stmt|;
+name|this
+operator|.
+name|minorVersion
+operator|=
+name|minorVersion
 expr_stmt|;
 name|HFile
 operator|.
 name|checkFormatVersion
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 expr_stmt|;
 block|}
@@ -410,6 +425,10 @@ operator|new
 name|FixedFileTrailer
 argument_list|(
 name|version
+argument_list|,
+name|HFileBlock
+operator|.
+name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
 decl_stmt|;
 name|DataOutputStream
@@ -548,7 +567,7 @@ block|{
 return|return
 name|getTrailerSize
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 return|;
 block|}
@@ -566,7 +585,7 @@ name|HFile
 operator|.
 name|checkFormatVersion
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 expr_stmt|;
 name|ByteArrayOutputStream
@@ -617,7 +636,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|)
@@ -657,7 +676,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|)
@@ -705,7 +724,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|>
 literal|1
 condition|)
@@ -743,11 +762,17 @@ name|MAX_COMPARATOR_NAME_LENGTH
 argument_list|)
 expr_stmt|;
 block|}
+comment|// serialize the major and minor versions
 name|baosDos
 operator|.
 name|writeInt
 argument_list|(
-name|version
+name|materializeVersion
+argument_list|(
+name|majorVersion
+argument_list|,
+name|minorVersion
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|outputStream
@@ -775,7 +800,7 @@ name|HFile
 operator|.
 name|checkFormatVersion
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 expr_stmt|;
 name|BlockType
@@ -810,7 +835,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|)
@@ -848,7 +873,7 @@ argument_list|()
 expr_stmt|;
 name|entryCount
 operator|=
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|?
@@ -879,7 +904,7 @@ index|]
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|>
 literal|1
 condition|)
@@ -917,12 +942,28 @@ name|MAX_COMPARATOR_NAME_LENGTH
 argument_list|)
 expr_stmt|;
 block|}
-name|expectVersion
-argument_list|(
+name|int
+name|version
+init|=
 name|inputStream
 operator|.
 name|readInt
 argument_list|()
+decl_stmt|;
+name|expectMajorVersion
+argument_list|(
+name|extractMajorVersion
+argument_list|(
+name|version
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|expectMinorVersion
+argument_list|(
+name|extractMinorVersion
+argument_list|(
+name|version
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1040,7 +1081,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|2
 condition|)
@@ -1095,9 +1136,18 @@ name|append
 argument_list|(
 name|sb
 argument_list|,
-literal|"version="
+literal|"majorVersion="
 operator|+
-name|version
+name|majorVersion
+argument_list|)
+expr_stmt|;
+name|append
+argument_list|(
+name|sb
+argument_list|,
+literal|"minorVersion="
+operator|+
+name|minorVersion
 argument_list|)
 expr_stmt|;
 return|return
@@ -1219,13 +1269,30 @@ operator|.
 name|getInt
 argument_list|()
 decl_stmt|;
+comment|// Extract the major and minor versions.
+name|int
+name|majorVersion
+init|=
+name|extractMajorVersion
+argument_list|(
+name|version
+argument_list|)
+decl_stmt|;
+name|int
+name|minorVersion
+init|=
+name|extractMinorVersion
+argument_list|(
+name|version
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|HFile
 operator|.
 name|checkFormatVersion
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 expr_stmt|;
 block|}
@@ -1249,7 +1316,7 @@ name|trailerSize
 init|=
 name|getTrailerSize
 argument_list|(
-name|version
+name|majorVersion
 argument_list|)
 decl_stmt|;
 name|FixedFileTrailer
@@ -1258,7 +1325,9 @@ init|=
 operator|new
 name|FixedFileTrailer
 argument_list|(
-name|version
+name|majorVersion
+argument_list|,
+name|minorVersion
 argument_list|)
 decl_stmt|;
 name|fft
@@ -1296,7 +1365,7 @@ return|;
 block|}
 specifier|public
 name|void
-name|expectVersion
+name|expectMajorVersion
 parameter_list|(
 name|int
 name|expected
@@ -1304,7 +1373,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|!=
 name|expected
 condition|)
@@ -1313,9 +1382,9 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Invalid HFile version: "
+literal|"Invalid HFile major version: "
 operator|+
-name|version
+name|majorVersion
 operator|+
 literal|" (expected: "
 operator|+
@@ -1328,7 +1397,39 @@ block|}
 block|}
 specifier|public
 name|void
-name|expectAtLeastVersion
+name|expectMinorVersion
+parameter_list|(
+name|int
+name|expected
+parameter_list|)
+block|{
+if|if
+condition|(
+name|minorVersion
+operator|!=
+name|expected
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid HFile minor version: "
+operator|+
+name|minorVersion
+operator|+
+literal|" (expected: "
+operator|+
+name|expected
+operator|+
+literal|")"
+argument_list|)
+throw|;
+block|}
+block|}
+specifier|public
+name|void
+name|expectAtLeastMajorVersion
 parameter_list|(
 name|int
 name|lowerBound
@@ -1336,7 +1437,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|<
 name|lowerBound
 condition|)
@@ -1345,9 +1446,9 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Invalid HFile version: "
+literal|"Invalid HFile major version: "
 operator|+
-name|version
+name|majorVersion
 operator|+
 literal|" (expected: "
 operator|+
@@ -1497,7 +1598,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|)
@@ -1540,7 +1641,7 @@ name|intEntryCount
 operator|+
 literal|" into the version "
 operator|+
-name|version
+name|majorVersion
 operator|+
 literal|" trailer"
 argument_list|)
@@ -1590,7 +1691,7 @@ name|int
 name|getNumDataIndexLevels
 parameter_list|()
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1607,7 +1708,7 @@ name|int
 name|numDataIndexLevels
 parameter_list|)
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1624,7 +1725,7 @@ name|long
 name|getLastDataBlockOffset
 parameter_list|()
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1641,7 +1742,7 @@ name|long
 name|lastDataBlockOffset
 parameter_list|)
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1658,7 +1759,7 @@ name|long
 name|getFirstDataBlockOffset
 parameter_list|()
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1675,7 +1776,7 @@ name|long
 name|firstDataBlockOffset
 parameter_list|)
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1687,13 +1788,23 @@ operator|=
 name|firstDataBlockOffset
 expr_stmt|;
 block|}
+comment|/**    * Returns the major version of this HFile format    */
 specifier|public
 name|int
-name|getVersion
+name|getMajorVersion
 parameter_list|()
 block|{
 return|return
-name|version
+name|majorVersion
+return|;
+block|}
+comment|/**    * Returns the minor version of this HFile format    */
+name|int
+name|getMinorVersion
+parameter_list|()
+block|{
+return|return
+name|minorVersion
 return|;
 block|}
 annotation|@
@@ -1714,7 +1825,7 @@ argument_list|>
 name|klass
 parameter_list|)
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1856,7 +1967,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1875,7 +1986,7 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|version
+name|majorVersion
 operator|==
 literal|1
 condition|)
@@ -1894,7 +2005,7 @@ name|long
 name|uncompressedDataIndexSize
 parameter_list|)
 block|{
-name|expectAtLeastVersion
+name|expectAtLeastMajorVersion
 argument_list|(
 literal|2
 argument_list|)
@@ -1905,6 +2016,71 @@ name|uncompressedDataIndexSize
 operator|=
 name|uncompressedDataIndexSize
 expr_stmt|;
+block|}
+comment|/**    * Extracts the major version for a 4-byte serialized version data.    * The major version is the 3 least significant bytes    */
+specifier|private
+specifier|static
+name|int
+name|extractMajorVersion
+parameter_list|(
+name|int
+name|serializedVersion
+parameter_list|)
+block|{
+return|return
+operator|(
+name|serializedVersion
+operator|&
+literal|0x00ffffff
+operator|)
+return|;
+block|}
+comment|/**    * Extracts the minor version for a 4-byte serialized version data.    * The major version are the 3 the most significant bytes    */
+specifier|private
+specifier|static
+name|int
+name|extractMinorVersion
+parameter_list|(
+name|int
+name|serializedVersion
+parameter_list|)
+block|{
+return|return
+operator|(
+name|serializedVersion
+operator|>>>
+literal|24
+operator|)
+return|;
+block|}
+comment|/**    * Create a 4 byte serialized version number by combining the    * minor and major version numbers.    */
+specifier|private
+specifier|static
+name|int
+name|materializeVersion
+parameter_list|(
+name|int
+name|majorVersion
+parameter_list|,
+name|int
+name|minorVersion
+parameter_list|)
+block|{
+return|return
+operator|(
+operator|(
+name|majorVersion
+operator|&
+literal|0x00ffffff
+operator|)
+operator||
+operator|(
+name|minorVersion
+operator|<<
+literal|24
+operator|)
+operator|)
+return|;
 block|}
 block|}
 end_class

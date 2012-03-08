@@ -1015,6 +1015,20 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
+comment|/**    * Number of times checksum verification failed.    */
+specifier|public
+specifier|final
+name|MetricsLongValue
+name|checksumFailuresCount
+init|=
+operator|new
+name|MetricsLongValue
+argument_list|(
+literal|"checksumFailuresCount"
+argument_list|,
+name|registry
+argument_list|)
+decl_stmt|;
 specifier|public
 name|RegionServerMetrics
 parameter_list|()
@@ -1654,6 +1668,18 @@ name|getPreadTimeMs
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|checksumFailuresCount
+operator|.
+name|set
+argument_list|(
+name|HFile
+operator|.
+name|getChecksumFailuresCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|/* NOTE: removed HFile write latency.  2 reasons:        * 1) Mixing HLog latencies are far higher priority since they're         *      on-demand and HFile is used in background (compact/flush)        * 2) HFile metrics are being handled at a higher level         *      by compaction& flush metrics.        */
 comment|// push the result
 name|this
@@ -1780,6 +1806,17 @@ expr_stmt|;
 name|this
 operator|.
 name|regionSplitFailureCount
+operator|.
+name|pushMetric
+argument_list|(
+name|this
+operator|.
+name|metricsRecord
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|checksumFailuresCount
 operator|.
 name|pushMetric
 argument_list|(

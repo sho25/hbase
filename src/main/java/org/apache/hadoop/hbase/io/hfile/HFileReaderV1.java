@@ -370,6 +370,8 @@ specifier|final
 name|CacheConfig
 name|cacheConf
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -388,7 +390,7 @@ argument_list|)
 expr_stmt|;
 name|trailer
 operator|.
-name|expectVersion
+name|expectMajorVersion
 argument_list|(
 literal|1
 argument_list|)

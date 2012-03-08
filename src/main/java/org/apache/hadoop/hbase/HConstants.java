@@ -1584,6 +1584,33 @@ name|LOCALHOST
 init|=
 literal|"localhost"
 decl_stmt|;
+comment|/**     * If this parameter is set to true, then hbase will read    * data and then verify checksums. Checksum verification     * inside hdfs will be switched off.  However, if the hbase-checksum     * verification fails, then it will switch back to using    * hdfs checksums for verifiying data that is being read from storage.    *    * If this parameter is set to false, then hbase will not    * verify any checksums, instead it will depend on checksum verification    * being done in the hdfs client.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CHECKSUM_VERIFICATION
+init|=
+literal|"hbase.regionserver.checksum.verify"
+decl_stmt|;
+comment|/**    * The name of the configuration parameter that specifies    * the number of bytes in a newly created checksum chunk.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BYTES_PER_CHECKSUM
+init|=
+literal|"hbase.hstore.bytes.per.checksum"
+decl_stmt|;
+comment|/**    * The name of the configuration parameter that specifies    * the name of an algorithm that is used to compute checksums    * for newly created blocks.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CHECKSUM_TYPE_NAME
+init|=
+literal|"hbase.hstore.checksum.algorithm"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

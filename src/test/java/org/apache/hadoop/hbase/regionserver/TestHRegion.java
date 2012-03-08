@@ -21626,6 +21626,8 @@ expr_stmt|;
 comment|// set up a cluster with 3 nodes
 name|MiniHBaseCluster
 name|cluster
+init|=
+literal|null
 decl_stmt|;
 name|String
 name|dataNodeHosts
@@ -21900,11 +21902,19 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|cluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|htu
 operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private

@@ -176,6 +176,10 @@ name|in
 parameter_list|,
 name|boolean
 name|includesMemstoreTS
+parameter_list|,
+name|byte
+index|[]
+name|dummyHeader
 parameter_list|)
 block|{
 return|return

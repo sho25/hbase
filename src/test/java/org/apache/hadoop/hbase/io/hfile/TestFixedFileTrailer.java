@@ -327,9 +327,9 @@ operator|new
 name|int
 index|[]
 block|{
-literal|8
+literal|9
 block|,
-literal|13
+literal|14
 block|}
 decl_stmt|;
 specifier|private
@@ -487,6 +487,10 @@ operator|new
 name|FixedFileTrailer
 argument_list|(
 name|version
+argument_list|,
+name|HFileBlock
+operator|.
+name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
 decl_stmt|;
 name|t
@@ -692,6 +696,10 @@ operator|new
 name|FixedFileTrailer
 argument_list|(
 name|version
+argument_list|,
+name|HFileBlock
+operator|.
+name|MINOR_VERSION_NO_CHECKSUM
 argument_list|)
 decl_stmt|;
 name|t2
@@ -1076,7 +1084,7 @@ name|version
 argument_list|,
 name|loaded
 operator|.
-name|getVersion
+name|getMajorVersion
 argument_list|()
 argument_list|)
 expr_stmt|;

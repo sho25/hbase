@@ -405,7 +405,7 @@ literal|1
 argument_list|,
 name|trailer
 operator|.
-name|getVersion
+name|getMajorVersion
 argument_list|()
 argument_list|)
 expr_stmt|;

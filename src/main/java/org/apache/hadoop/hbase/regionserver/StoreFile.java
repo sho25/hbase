@@ -597,6 +597,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ChecksumType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|BloomFilter
 import|;
 end_import
@@ -3023,6 +3039,22 @@ specifier|private
 name|Path
 name|filePath
 decl_stmt|;
+specifier|private
+name|ChecksumType
+name|checksumType
+init|=
+name|HFile
+operator|.
+name|DEFAULT_CHECKSUM_TYPE
+decl_stmt|;
+specifier|private
+name|int
+name|bytesPerChecksum
+init|=
+name|HFile
+operator|.
+name|DEFAULT_BYTES_PER_CHECKSUM
+decl_stmt|;
 specifier|public
 name|WriterBuilder
 parameter_list|(
@@ -3239,6 +3271,44 @@ return|return
 name|this
 return|;
 block|}
+comment|/**      * @param checksumType the type of checksum      * @return this (for chained invocation)      */
+specifier|public
+name|WriterBuilder
+name|withChecksumType
+parameter_list|(
+name|ChecksumType
+name|checksumType
+parameter_list|)
+block|{
+name|this
+operator|.
+name|checksumType
+operator|=
+name|checksumType
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**      * @param bytesPerChecksum the number of bytes per checksum chunk      * @return this (for chained invocation)      */
+specifier|public
+name|WriterBuilder
+name|withBytesPerChecksum
+parameter_list|(
+name|int
+name|bytesPerChecksum
+parameter_list|)
+block|{
+name|this
+operator|.
+name|bytesPerChecksum
+operator|=
+name|bytesPerChecksum
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|/**      * Create a store file writer. Client is responsible for closing file when      * done. If metadata, add BEFORE closing using      * {@link Writer#appendMetadata}.      */
 specifier|public
 name|Writer
@@ -3402,6 +3472,10 @@ argument_list|,
 name|bloomType
 argument_list|,
 name|maxKeyCount
+argument_list|,
+name|checksumType
+argument_list|,
+name|bytesPerChecksum
 argument_list|)
 return|;
 block|}
@@ -3705,6 +3779,16 @@ specifier|protected
 name|HFileDataBlockEncoder
 name|dataBlockEncoder
 decl_stmt|;
+comment|/** Checksum type */
+specifier|protected
+name|ChecksumType
+name|checksumType
+decl_stmt|;
+comment|/** Bytes per Checksum */
+specifier|protected
+name|int
+name|bytesPerChecksum
+decl_stmt|;
 name|TimeRangeTracker
 name|timeRangeTracker
 init|=
@@ -3724,7 +3808,7 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
-comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @throws IOException problem writing to FS      */
+comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param checksumType the checksum type      * @param bytesPerChecksum the number of bytes per checksum value      * @throws IOException problem writing to FS      */
 specifier|private
 name|Writer
 parameter_list|(
@@ -3761,6 +3845,14 @@ name|bloomType
 parameter_list|,
 name|long
 name|maxKeys
+parameter_list|,
+specifier|final
+name|ChecksumType
+name|checksumType
+parameter_list|,
+specifier|final
+name|int
+name|bytesPerChecksum
 parameter_list|)
 throws|throws
 name|IOException
@@ -3818,6 +3910,16 @@ name|comparator
 operator|.
 name|getRawComparator
 argument_list|()
+argument_list|)
+operator|.
+name|withChecksumType
+argument_list|(
+name|checksumType
+argument_list|)
+operator|.
+name|withBytesPerChecksum
+argument_list|(
+name|bytesPerChecksum
 argument_list|)
 operator|.
 name|create
@@ -3986,6 +4088,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|checksumType
+operator|=
+name|checksumType
+expr_stmt|;
+name|this
+operator|.
+name|bytesPerChecksum
+operator|=
+name|bytesPerChecksum
+expr_stmt|;
 block|}
 comment|/**      * Writes meta data.      * Call before {@link #close()} since its written as meta data to this file.      * @param maxSequenceId Maximum sequence id.      * @param majorCompaction True if this file is product of a major compaction      * @throws IOException problem writing to FS      */
 specifier|public
@@ -6510,7 +6624,7 @@ operator|.
 name|getTrailer
 argument_list|()
 operator|.
-name|getVersion
+name|getMajorVersion
 argument_list|()
 return|;
 block|}
