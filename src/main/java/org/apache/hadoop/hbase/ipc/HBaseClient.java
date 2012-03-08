@@ -2727,14 +2727,53 @@ operator|>=
 name|rpcTimeout
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|closeException
+operator|==
+literal|null
+condition|)
+block|{
+comment|// There may be no exception in the case that there are many calls
+comment|// being multiplexed over this connection and these are succeeding
+comment|// fine while this Call object is taking a long time to finish
+comment|// over on the server; e.g. I just asked the regionserver to bulk
+comment|// open 3k regions or its a big fat multiput into a heavily-loaded
+comment|// server (Perhaps this only happens at the extremes?)
+name|this
+operator|.
+name|closeException
+operator|=
+operator|new
+name|CallTimeoutException
+argument_list|(
+literal|"Call id="
+operator|+
+name|c
+operator|.
+name|id
+operator|+
+literal|", waitTime="
+operator|+
+name|waitTime
+operator|+
+literal|", rpcTimetout="
+operator|+
+name|rpcTimeout
+argument_list|)
+expr_stmt|;
+block|}
 name|c
 operator|.
 name|setException
 argument_list|(
+name|this
+operator|.
 name|closeException
 argument_list|)
 expr_stmt|;
-comment|// local exception
 synchronized|synchronized
 init|(
 name|c
@@ -2854,6 +2893,29 @@ literal|"Couldn't lower timeout, which may result in longer than expected calls"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
+comment|/**    * Client-side call timeout    */
+specifier|public
+specifier|static
+class|class
+name|CallTimeoutException
+extends|extends
+name|IOException
+block|{
+specifier|public
+name|CallTimeoutException
+parameter_list|(
+specifier|final
+name|String
+name|msg
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/** Call implementation used for parallel calls. */
