@@ -577,6 +577,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|permission
+operator|.
+name|FsPermission
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|DoNotRetryIOException
@@ -4019,6 +4035,24 @@ comment|// Create in tmpdir and then move into place in case we crash after
 comment|// create but before close.  If we don't successfully close the file,
 comment|// subsequent region reopens will fail the below because create is
 comment|// registered in NN.
+comment|// first check to get the permissions
+name|FsPermission
+name|perms
+init|=
+name|FSUtils
+operator|.
+name|getFilePermissions
+argument_list|(
+name|fs
+argument_list|,
+name|conf
+argument_list|,
+name|HConstants
+operator|.
+name|DATA_FILE_UMASK_KEY
+argument_list|)
+decl_stmt|;
+comment|// and then create the file
 name|Path
 name|tmpPath
 init|=
@@ -4034,15 +4068,15 @@ decl_stmt|;
 name|FSDataOutputStream
 name|out
 init|=
-name|this
-operator|.
-name|fs
+name|FSUtils
 operator|.
 name|create
 argument_list|(
+name|fs
+argument_list|,
 name|tmpPath
 argument_list|,
-literal|true
+name|perms
 argument_list|)
 decl_stmt|;
 try|try

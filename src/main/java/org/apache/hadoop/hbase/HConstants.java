@@ -1611,6 +1611,24 @@ name|CHECKSUM_TYPE_NAME
 init|=
 literal|"hbase.hstore.checksum.algorithm"
 decl_stmt|;
+comment|/** Enable file permission modification from standard hbase */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENABLE_DATA_FILE_UMASK
+init|=
+literal|"hbase.data.umask.enable"
+decl_stmt|;
+comment|/** File permission umask to use when creating hbase data files */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DATA_FILE_UMASK_KEY
+init|=
+literal|"hbase.data.umask"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
