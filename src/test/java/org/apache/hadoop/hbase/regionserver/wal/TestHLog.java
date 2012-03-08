@@ -56,6 +56,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1482,11 +1494,96 @@ argument_list|(
 name|bytes
 argument_list|)
 expr_stmt|;
+name|Method
+name|syncMethod
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|syncMethod
+operator|=
 name|out
 operator|.
-name|sync
+name|getClass
 argument_list|()
+operator|.
+name|getMethod
+argument_list|(
+literal|"hflush"
+argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{}
+block|)
+empty_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchMethodException
+name|e
+parameter_list|)
+block|{
+try|try
+block|{
+name|syncMethod
+operator|=
+name|out
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getMethod
+argument_list|(
+literal|"sync"
+argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{}
+block|)
+empty_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchMethodException
+name|ex
+parameter_list|)
+block|{
+name|fail
+argument_list|(
+literal|"This version of Hadoop supports neither Syncable.sync() "
+operator|+
+literal|"nor Syncable.hflush()."
+argument_list|)
 expr_stmt|;
+block|}
+block|}
+end_class
+
+begin_expr_stmt
+name|syncMethod
+operator|.
+name|invoke
+argument_list|(
+name|out
+argument_list|,
+operator|new
+name|Object
+index|[]
+block|{}
+argument_list|)
+expr_stmt|;
+end_expr_stmt
+
+begin_decl_stmt
 name|FSDataInputStream
 name|in
 init|=
@@ -1497,6 +1594,9 @@ argument_list|(
 name|p
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_expr_stmt
 name|assertTrue
 argument_list|(
 name|in
@@ -1507,6 +1607,9 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_decl_stmt
 name|byte
 index|[]
 name|buffer
@@ -1517,6 +1620,9 @@ index|[
 literal|1024
 index|]
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 name|int
 name|read
 init|=
@@ -1527,6 +1633,9 @@ argument_list|(
 name|buffer
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_expr_stmt
 name|assertEquals
 argument_list|(
 name|bytes
@@ -1536,16 +1645,25 @@ argument_list|,
 name|read
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
 name|out
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
 name|in
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+end_expr_stmt
+
+begin_decl_stmt
 name|Path
 name|subdir
 init|=
@@ -1557,6 +1675,9 @@ argument_list|,
 literal|"hlogdir"
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 name|HLog
 name|wal
 init|=
@@ -1572,12 +1693,18 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|final
 name|int
 name|total
 init|=
 literal|20
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 name|HLog
 operator|.
 name|Reader
@@ -1585,6 +1712,9 @@ name|reader
 init|=
 literal|null
 decl_stmt|;
+end_decl_stmt
+
+begin_try
 try|try
 block|{
 name|HRegionInfo
@@ -2129,9 +2259,15 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-block|}
+end_try
+
+begin_comment
+unit|}
 comment|/**    * Test the findMemstoresWithEditsEqualOrOlderThan method.    * @throws IOException    */
-annotation|@
+end_comment
+
+begin_function
+unit|@
 name|Test
 specifier|public
 name|void
@@ -2362,6 +2498,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|verifySplits
@@ -2585,11 +2724,29 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|// For this test to pass, requires:
+end_comment
+
+begin_comment
 comment|// 1. HDFS-200 (append support)
+end_comment
+
+begin_comment
 comment|// 2. HDFS-988 (SafeMode should freeze file operations
+end_comment
+
+begin_comment
 comment|//              [FSNamesystem.nextGenerationStampForBlock])
+end_comment
+
+begin_comment
 comment|// 3. HDFS-142 (on restart, maintain pendingCreates)
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -3223,7 +3380,13 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Tests that we can write out an edit, close, and then read it back in again.    * @throws IOException    */
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -3835,7 +3998,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @throws IOException    */
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -4400,7 +4569,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Test that we can visit entries before they are appended    * @throws Exception    */
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -4713,6 +4888,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -5027,7 +5205,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * A loaded WAL coprocessor won't break existing HLog test cases.    */
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -5099,6 +5283,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|addEdits
@@ -5215,6 +5402,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_class
 specifier|static
 class|class
 name|DumbWALActionsListener
@@ -5346,6 +5536,9 @@ block|{
 comment|// not interested
 block|}
 block|}
+end_class
+
+begin_decl_stmt
 annotation|@
 name|org
 operator|.
@@ -5376,8 +5569,8 @@ operator|.
 name|ResourceCheckerJUnitRule
 argument_list|()
 decl_stmt|;
-block|}
-end_class
+end_decl_stmt
 
+unit|}
 end_unit
 
