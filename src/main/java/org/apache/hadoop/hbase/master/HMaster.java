@@ -2350,6 +2350,29 @@ operator|.
 name|activeMasterManager
 argument_list|)
 expr_stmt|;
+comment|// The ClusterStatusTracker is setup before the other
+comment|// ZKBasedSystemTrackers because it's needed by the activeMasterManager
+comment|// to check if the cluster should be shutdown.
+name|this
+operator|.
+name|clusterStatusTracker
+operator|=
+operator|new
+name|ClusterStatusTracker
+argument_list|(
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|clusterStatusTracker
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 return|return
 name|this
 operator|.
@@ -2358,6 +2381,10 @@ operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
 name|startupStatus
+argument_list|,
+name|this
+operator|.
+name|clusterStatusTracker
 argument_list|)
 return|;
 block|}
@@ -2501,26 +2528,6 @@ argument_list|()
 expr_stmt|;
 comment|// Set the cluster as up.  If new RSs, they'll be waiting on this before
 comment|// going ahead with their startup.
-name|this
-operator|.
-name|clusterStatusTracker
-operator|=
-operator|new
-name|ClusterStatusTracker
-argument_list|(
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|this
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|clusterStatusTracker
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 name|boolean
 name|wasUp
 init|=

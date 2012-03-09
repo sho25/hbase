@@ -207,6 +207,22 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ClusterStatusTracker
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handles everything on master-side related to master election.  *  *<p>Listens and responds to ZooKeeper notifications on the master znode,  * both<code>nodeCreated</code> and<code>nodeDeleted</code>.  *  *<p>Contains blocking methods which will hold up backup masters, waiting  * for the active master to fail.  *  *<p>This class is instantiated in the HMaster constructor and the method  * #blockUntilBecomingActiveMaster() is called to wait until becoming  * the active master of the cluster.  */
 end_comment
@@ -446,6 +462,9 @@ name|blockUntilBecomingActiveMaster
 parameter_list|(
 name|MonitoredTask
 name|startupStatus
+parameter_list|,
+name|ClusterStatusTracker
+name|clusterStatusTracker
 parameter_list|)
 block|{
 name|startupStatus
@@ -802,6 +821,25 @@ block|}
 block|}
 if|if
 condition|(
+operator|!
+name|clusterStatusTracker
+operator|.
+name|isClusterUp
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|master
+operator|.
+name|stop
+argument_list|(
+literal|"Cluster went down before this master became active"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|this
 operator|.
 name|master
@@ -818,6 +856,8 @@ comment|// Try to become active master again now that there is no active master
 name|blockUntilBecomingActiveMaster
 argument_list|(
 name|startupStatus
+argument_list|,
+name|clusterStatusTracker
 argument_list|)
 expr_stmt|;
 block|}
