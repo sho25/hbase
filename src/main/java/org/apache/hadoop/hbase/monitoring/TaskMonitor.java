@@ -268,6 +268,7 @@ name|instance
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|MonitoredTask
 name|createStatus
 parameter_list|(
@@ -361,6 +362,7 @@ end_class
 
 begin_function
 specifier|public
+specifier|synchronized
 name|MonitoredRPCHandler
 name|createRPCStatus
 parameter_list|(
