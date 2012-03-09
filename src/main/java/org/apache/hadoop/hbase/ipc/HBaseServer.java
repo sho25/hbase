@@ -1095,6 +1095,12 @@ name|int
 name|highPriorityLevel
 decl_stmt|;
 comment|// what level a high priority call is at
+specifier|private
+specifier|volatile
+name|int
+name|responseQueueLen
+decl_stmt|;
+comment|// size of response queue for this server
 specifier|protected
 specifier|final
 name|List
@@ -4473,6 +4479,9 @@ name|hasRemaining
 argument_list|()
 condition|)
 block|{
+name|responseQueueLen
+operator|--
+expr_stmt|;
 name|call
 operator|.
 name|connection
@@ -4765,6 +4774,9 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+expr_stmt|;
+name|responseQueueLen
+operator|++
 expr_stmt|;
 name|boolean
 name|doRegister
@@ -6042,6 +6054,15 @@ literal|"Unknown call queue"
 argument_list|)
 expr_stmt|;
 block|}
+name|rpcMetrics
+operator|.
+name|responseQueueLen
+operator|.
+name|set
+argument_list|(
+name|responseQueueLen
+argument_list|)
+expr_stmt|;
 block|}
 comment|/** Handles queued calls . */
 specifier|private
