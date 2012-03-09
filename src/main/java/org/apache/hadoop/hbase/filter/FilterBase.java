@@ -246,6 +246,22 @@ literal|"This method has not been implemented"
 argument_list|)
 throw|;
 block|}
+comment|/**    * Return filter's info for debugging and logging purpose.    */
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

@@ -450,6 +450,32 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|this
+operator|.
+name|filter
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

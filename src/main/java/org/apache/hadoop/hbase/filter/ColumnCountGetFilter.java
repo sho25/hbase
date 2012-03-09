@@ -348,6 +348,29 @@ name|limit
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|this
+operator|.
+name|limit
+return|;
+block|}
 block|}
 end_class
 

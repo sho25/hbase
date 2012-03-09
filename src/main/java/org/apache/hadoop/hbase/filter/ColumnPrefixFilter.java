@@ -534,6 +534,34 @@ name|length
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|this
+operator|.
+name|prefix
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 
