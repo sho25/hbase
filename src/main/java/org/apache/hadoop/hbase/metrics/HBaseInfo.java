@@ -170,9 +170,12 @@ name|super
 argument_list|(
 name|registry
 argument_list|,
-literal|"HBaseInfo"
+literal|"HBase cluster information"
 argument_list|)
 expr_stmt|;
+comment|// The name seems wrong to me; should include clusterid IMO.
+comment|// That would make it harder to locate and rare we have
+comment|// two clusters up on single machine. St.Ack 20120309
 name|mbeanName
 operator|=
 name|MBeanUtil

@@ -19587,7 +19587,7 @@ name|MBeanUtil
 operator|.
 name|registerMBean
 argument_list|(
-literal|"org.apache.hbase"
+literal|"RegionServer"
 argument_list|,
 literal|"RegionServer"
 argument_list|,

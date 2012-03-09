@@ -133,7 +133,7 @@ name|super
 argument_list|(
 name|registry
 argument_list|,
-literal|"HBaseRPCStatistics"
+literal|"Metrics for RPC server instance"
 argument_list|)
 expr_stmt|;
 name|String

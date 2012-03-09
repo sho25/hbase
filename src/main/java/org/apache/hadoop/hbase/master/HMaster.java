@@ -9189,7 +9189,7 @@ name|MBeanUtil
 operator|.
 name|registerMBean
 argument_list|(
-literal|"org.apache.hbase"
+literal|"Master"
 argument_list|,
 literal|"Master"
 argument_list|,
