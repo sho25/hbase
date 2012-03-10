@@ -12983,6 +12983,10 @@ operator|.
 name|next
 argument_list|(
 name|values
+argument_list|,
+name|HRegion
+operator|.
+name|METRIC_NEXTSIZE
 argument_list|)
 decl_stmt|;
 if|if
