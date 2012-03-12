@@ -23,6 +23,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -301,6 +311,8 @@ implements|implements
 name|Watcher
 implements|,
 name|Abortable
+implements|,
+name|Closeable
 block|{
 specifier|private
 specifier|static
@@ -334,7 +346,7 @@ name|RecoverableZooKeeper
 name|recoverableZooKeeper
 decl_stmt|;
 comment|// abortable in case of zk failure
-specifier|private
+specifier|protected
 name|Abortable
 name|abortable
 decl_stmt|;
@@ -1600,7 +1612,7 @@ argument_list|()
 expr_stmt|;
 comment|// no-op
 block|}
-comment|/**    * Close the connection to ZooKeeper.    * @throws InterruptedException    */
+comment|/**    * Close the connection to ZooKeeper.    *    * @throws InterruptedException    */
 specifier|public
 name|void
 name|close
@@ -1620,7 +1632,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|//        super.close();
 block|}
 block|}
 catch|catch
@@ -1628,7 +1639,16 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{     }
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|public
 name|Configuration

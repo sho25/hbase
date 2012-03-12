@@ -5690,6 +5690,26 @@ name|expireSession
 parameter_list|(
 name|ZooKeeperWatcher
 name|nodeZK
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|expireSession
+argument_list|(
+name|nodeZK
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|expireSession
+parameter_list|(
+name|ZooKeeperWatcher
+name|nodeZK
 parameter_list|,
 name|Server
 name|server
@@ -5701,21 +5721,17 @@ name|expireSession
 argument_list|(
 name|nodeZK
 argument_list|,
-name|server
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Expire a ZooKeeer session as recommended in ZooKeeper documentation    * http://wiki.apache.org/hadoop/ZooKeeper/FAQ#A4    */
 specifier|public
 name|void
 name|expireSession
 parameter_list|(
 name|ZooKeeperWatcher
 name|nodeZK
-parameter_list|,
-name|Server
-name|server
 parameter_list|,
 name|boolean
 name|checkStatus
@@ -5743,11 +5759,6 @@ name|getZKQuorumServersString
 argument_list|(
 name|c
 argument_list|)
-decl_stmt|;
-name|int
-name|sessionTimeout
-init|=
-literal|500
 decl_stmt|;
 name|ZooKeeper
 name|zk
@@ -5785,7 +5796,7 @@ name|ZooKeeper
 argument_list|(
 name|quorumServers
 argument_list|,
-name|sessionTimeout
+literal|1000
 argument_list|,
 name|EmptyWatcher
 operator|.
@@ -5801,13 +5812,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-specifier|final
-name|long
-name|sleep
-init|=
-literal|7000
-decl_stmt|;
-comment|// 7s seems enough to manage the timeout
 name|LOG
 operator|.
 name|info
@@ -5820,19 +5824,11 @@ name|toHexString
 argument_list|(
 name|sessionID
 argument_list|)
-operator|+
-literal|"; sleeping="
-operator|+
-name|sleep
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|sleep
-argument_list|)
-expr_stmt|;
+comment|// There is actually no reason to sleep here. Session is expired.
+comment|//  May be for old ZK versions?
+comment|// Thread.sleep(sleep);
 if|if
 condition|(
 name|checkStatus
@@ -5867,7 +5863,7 @@ return|return
 name|hbaseCluster
 return|;
 block|}
-comment|/**    * Returns a HBaseAdmin instance.    * This instance is shared between HBaseTestingUtility intance users.    * Don't close it, it will be closed automatically when the    * cluster shutdowns    *    * @return The HBaseAdmin instance.    * @throws IOException    */
+comment|/**    * Returns a HBaseAdmin instance.    * This instance is shared between HBaseTestingUtility instance users.    * Don't close it, it will be closed automatically when the    * cluster shutdowns    *    * @return The HBaseAdmin instance.    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|HBaseAdmin
@@ -5888,12 +5884,8 @@ operator|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-operator|new
-name|Configuration
-argument_list|(
 name|getConfiguration
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

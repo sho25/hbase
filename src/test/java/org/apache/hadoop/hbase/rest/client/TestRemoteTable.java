@@ -641,28 +641,6 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Admin Connection="
-operator|+
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -737,28 +715,6 @@ argument_list|,
 name|TABLE
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Table connection="
-operator|+
-name|table
-operator|.
-name|getConnection
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|Put
 name|put
 init|=

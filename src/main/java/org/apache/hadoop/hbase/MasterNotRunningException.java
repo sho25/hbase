@@ -121,6 +121,24 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|MasterNotRunningException
+parameter_list|(
+name|String
+name|s
+parameter_list|,
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|s
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

@@ -307,7 +307,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|300000
+literal|500000
 argument_list|)
 specifier|public
 name|void
@@ -1125,7 +1125,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|2000
+literal|1000
 argument_list|)
 expr_stmt|;
 name|assertRegionsAssigned

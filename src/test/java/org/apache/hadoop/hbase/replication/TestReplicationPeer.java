@@ -275,10 +275,6 @@ operator|.
 name|expireSession
 argument_list|(
 name|zkw
-argument_list|,
-literal|null
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 try|try

@@ -1115,7 +1115,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	 * @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1146,7 +1146,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link HBaseAdmin#isTableEnabled(byte[] tableName)}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
@@ -1304,6 +1306,8 @@ return|;
 block|}
 comment|/**    *<em>INTERNAL</em> Used by unit tests and tools to do low-level    * manipulations.    * @return An HConnection instance.    * @deprecated This method will be changed from public to package protected.    */
 comment|// TODO(tsuna): Remove this.  Unit tests shouldn't require public helpers.
+annotation|@
+name|Deprecated
 specifier|public
 name|HConnection
 name|getConnection
@@ -1316,6 +1320,8 @@ name|connection
 return|;
 block|}
 comment|/**    * Gets the number of rows that a scanner will fetch at once.    *<p>    * The default value comes from {@code hbase.client.scanner.caching}.    * @deprecated Use {@link Scan#setCaching(int)} and {@link Scan#getCaching()}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getScannerCaching
@@ -1326,6 +1332,8 @@ name|scannerCaching
 return|;
 block|}
 comment|/**    * Sets the number of rows that a scanner will fetch at once.    *<p>    * This will override the value specified by    * {@code hbase.client.scanner.caching}.    * Increasing this value will reduce the amount of work needed each time    * {@code next()} is called on a scanner, at the expense of memory use    * (since more rows will need to be maintained in memory by the scanners).    * @param scannerCaching the number of rows a scanner will fetch at once.    * @deprecated Use {@link Scan#setCaching(int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setScannerCaching
@@ -1642,6 +1650,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Gets all the regions and their address for this table.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getRegionLocations()} or {@link #getStartEndKeys()}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Map
 argument_list|<

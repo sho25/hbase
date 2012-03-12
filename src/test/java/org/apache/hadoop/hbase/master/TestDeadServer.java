@@ -51,21 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
+name|*
 import|;
 end_import
 
@@ -97,7 +83,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)

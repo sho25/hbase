@@ -684,11 +684,7 @@ init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-operator|new
-name|Configuration
-argument_list|(
 name|c
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|admin

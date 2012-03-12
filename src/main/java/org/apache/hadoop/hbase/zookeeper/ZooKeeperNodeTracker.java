@@ -376,6 +376,7 @@ condition|)
 block|{
 try|try
 block|{
+comment|// This does not create a watch if the node does not exists
 name|this
 operator|.
 name|data
@@ -396,6 +397,17 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+comment|// We use to abort here, but in some cases the abort is ignored (
+comment|//  (empty Abortable), so it's better to log...
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected exception handling blockUntilAvailable"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|abortable
 operator|.
 name|abort
@@ -407,6 +419,18 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|boolean
+name|nodeExistsChecked
+init|=
+operator|(
+operator|!
+name|refresh
+operator|||
+name|data
+operator|!=
+literal|null
+operator|)
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -429,6 +453,114 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+operator|!
+name|nodeExistsChecked
+condition|)
+block|{
+try|try
+block|{
+name|nodeExistsChecked
+operator|=
+operator|(
+name|ZKUtil
+operator|.
+name|checkExists
+argument_list|(
+name|watcher
+argument_list|,
+name|node
+argument_list|)
+operator|!=
+operator|-
+literal|1
+operator|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Got exception while trying to check existence in  ZooKeeper"
+operator|+
+literal|" of the node: "
+operator|+
+name|node
+operator|+
+literal|", retrying if timeout not reached"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// It did not exists, and now it does.
+if|if
+condition|(
+name|nodeExistsChecked
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Node "
+operator|+
+name|node
+operator|+
+literal|" now exists, resetting a watcher"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// This does not create a watch if the node does not exists
+name|this
+operator|.
+name|data
+operator|=
+name|ZKUtil
+operator|.
+name|getDataAndWatch
+argument_list|(
+name|watcher
+argument_list|,
+name|node
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected exception handling blockUntilAvailable"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|abortable
+operator|.
+name|abort
+argument_list|(
+literal|"Unexpected exception handling blockUntilAvailable"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 comment|// We expect a notification; but we wait with a
 comment|//  a timeout to lower the impact of a race condition if any
 name|wait
@@ -739,7 +871,13 @@ name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Exception while checking if basenode exists."
+literal|"Exception while checking if basenode ("
+operator|+
+name|watcher
+operator|.
+name|baseZNode
+operator|+
+literal|") exists in ZooKeeper."
 argument_list|,
 name|e
 argument_list|)

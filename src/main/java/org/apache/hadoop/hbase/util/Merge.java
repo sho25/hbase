@@ -586,7 +586,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"HBase cluster must be off-line."
+literal|"HBase cluster must be off-line, and is not. Aborting."
 argument_list|)
 expr_stmt|;
 return|return

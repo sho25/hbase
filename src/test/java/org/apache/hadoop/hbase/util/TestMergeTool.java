@@ -380,7 +380,7 @@ name|setLong
 argument_list|(
 literal|"hbase.zookeeper.recoverable.waittime"
 argument_list|,
-literal|1000
+literal|10
 argument_list|)
 expr_stmt|;
 comment|// Make it so we try and connect to a zk that is not there (else we might
@@ -1067,11 +1067,9 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"fs2="
 operator|+

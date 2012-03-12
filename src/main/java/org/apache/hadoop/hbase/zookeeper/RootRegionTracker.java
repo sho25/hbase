@@ -250,7 +250,7 @@ argument_list|)
 return|;
 block|}
 comment|/*    * @param data    * @return Returns null if<code>data</code> is null else converts passed data    * to a ServerName instance.    */
-specifier|private
+specifier|public
 specifier|static
 name|ServerName
 name|dataToServerName

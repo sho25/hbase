@@ -334,7 +334,9 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    * @deprecated Removed because it was a mistake exposing zookeeper in this    * interface (ZooKeeper is an implementation detail).    */
+comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    * @deprecated Removed because it was a mistake exposing zookeeper in this    * interface (ZooKeeper is an implementation detail).    * Deprecated in HBase 0.94    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeperWatcher
@@ -342,7 +344,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
+comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    * @deprecated Removed because it was a mistake exposing master in this    * interface (master is an implementation detail). Master functions are    * available from HConnection or HBaseAdmin, without having to use    * directly the master.    * Deprecated in HBase 0.94    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HMasterInterface
 name|getMaster
@@ -501,6 +505,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(String, int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -527,7 +533,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(HServerAddress, boolean)}    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(String, int)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -579,6 +587,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -598,6 +608,8 @@ throws|,
 name|RuntimeException
 function_decl|;
 comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -792,6 +804,8 @@ name|regions
 parameter_list|)
 function_decl|;
 comment|/**    * Scan zookeeper to get the number of region servers    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    * @deprecated This method will be changed from public to package protected.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getCurrentNrHRS
