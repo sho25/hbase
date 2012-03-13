@@ -606,24 +606,6 @@ operator|.
 name|AssignmentManager
 operator|.
 name|RegionState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|AssignmentManager
-operator|.
-name|RegionState
 operator|.
 name|State
 import|;
@@ -1773,10 +1755,17 @@ name|assignmentZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @param onlineServers onlined servers when master started    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 name|void
 name|joinCluster
-parameter_list|()
+parameter_list|(
+specifier|final
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+parameter_list|)
 throws|throws
 name|IOException
 throws|,
@@ -1809,7 +1798,9 @@ argument_list|>
 name|deadServers
 init|=
 name|rebuildUserRegions
-argument_list|()
+argument_list|(
+name|onlineServers
+argument_list|)
 decl_stmt|;
 name|processDeadServersAndRegionsInTransition
 argument_list|(
@@ -1835,6 +1826,29 @@ operator|.
 name|enablingTables
 argument_list|,
 name|isWatcherCreated
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Only used for tests    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+name|void
+name|joinCluster
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
+block|{
+name|joinCluster
+argument_list|(
+name|serverManager
+operator|.
+name|getOnlineServers
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2003,6 +2017,24 @@ literal|true
 expr_stmt|;
 break|break;
 block|}
+block|}
+comment|// Remove regions in RIT, they are possibly being processed by
+comment|// ServerShutdownHandler.
+synchronized|synchronized
+init|(
+name|regionsInTransition
+init|)
+block|{
+name|nodes
+operator|.
+name|removeAll
+argument_list|(
+name|regionsInTransition
+operator|.
+name|keySet
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|// If we found user regions out on cluster, its a failover.
 if|if
@@ -8241,6 +8273,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Remove the deadNotExpired servers from the server list.
+name|removeDeadNotExpiredServers
+argument_list|(
+name|servers
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|servers
@@ -8430,9 +8468,9 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|", exclude="
+literal|", available="
 operator|+
-name|drainingServers
+name|servers
 operator|.
 name|size
 argument_list|()
@@ -8466,6 +8504,69 @@ expr_stmt|;
 return|return
 name|existingPlan
 return|;
+block|}
+comment|/**    * Loop through the deadNotExpired server list and remove them from the    * servers.    * @param servers    */
+specifier|public
+name|void
+name|removeDeadNotExpiredServers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+block|{
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|deadNotExpiredServers
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getDeadNotExpiredServers
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|deadNotExpiredServers
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+for|for
+control|(
+name|ServerName
+name|server
+range|:
+name|deadNotExpiredServers
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing dead but not expired server: "
+operator|+
+name|server
+operator|+
+literal|" from eligible server pool."
+argument_list|)
+expr_stmt|;
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Unassign the list of regions. Configuration knobs:    * hbase.bulk.waitbetween.reopen indicates the number of milliseconds to    * wait before unassigning another region from this region server    *    * @param regions    * @throws InterruptedException    */
 specifier|public
@@ -9622,6 +9723,11 @@ operator|.
 name|getOnlineServersList
 argument_list|()
 decl_stmt|;
+name|removeDeadNotExpiredServers
+argument_list|(
+name|servers
+argument_list|)
+expr_stmt|;
 name|assignUserRegions
 argument_list|(
 name|regions
@@ -9756,6 +9862,12 @@ operator|.
 name|getOnlineServersList
 argument_list|()
 decl_stmt|;
+comment|// Remove the deadNotExpired servers from the server list.
+name|removeDeadNotExpiredServers
+argument_list|(
+name|servers
+argument_list|)
+expr_stmt|;
 comment|// If there are no servers we need not proceed with region assignment.
 if|if
 condition|(
@@ -10645,7 +10757,7 @@ return|return
 name|stillInTransition
 return|;
 block|}
-comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
+comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @param onlineServers if one region's location belongs to onlineServers, it    *          doesn't need to be assigned.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
 name|Map
 argument_list|<
 name|ServerName
@@ -10661,7 +10773,14 @@ argument_list|>
 argument_list|>
 argument_list|>
 name|rebuildUserRegions
-parameter_list|()
+parameter_list|(
+specifier|final
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+parameter_list|)
 throws|throws
 name|IOException
 throws|,
@@ -10847,11 +10966,9 @@ elseif|else
 if|if
 condition|(
 operator|!
-name|this
+name|onlineServers
 operator|.
-name|serverManager
-operator|.
-name|isServerOnline
+name|contains
 argument_list|(
 name|regionLocation
 argument_list|)

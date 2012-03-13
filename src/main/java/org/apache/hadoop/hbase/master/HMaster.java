@@ -97,6 +97,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -1481,6 +1491,14 @@ specifier|private
 specifier|volatile
 name|boolean
 name|initialized
+init|=
+literal|false
+decl_stmt|;
+comment|// flag set after we complete assignRootAndMeta.
+specifier|private
+specifier|volatile
+name|boolean
+name|serverShutdownHandlerEnabled
 init|=
 literal|false
 decl_stmt|;
@@ -2891,22 +2909,18 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// TODO: Should do this in background rather than block master startup
-name|status
-operator|.
-name|setStatus
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|ServerName
+argument_list|>
 argument_list|(
-literal|"Splitting logs after master startup"
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|fileSystemManager
-operator|.
-name|splitLogAfterStartup
-argument_list|(
-name|this
-operator|.
 name|serverManager
 operator|.
 name|getOnlineServers
@@ -2915,12 +2929,40 @@ operator|.
 name|keySet
 argument_list|()
 argument_list|)
+decl_stmt|;
+comment|// TODO: Should do this in background rather than block master startup
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Splitting logs after master startup"
+argument_list|)
+expr_stmt|;
+name|splitLogAfterStartup
+argument_list|(
+name|this
+operator|.
+name|fileSystemManager
+argument_list|,
+name|onlineServers
+argument_list|)
 expr_stmt|;
 comment|// Make sure root and meta assigned before proceeding.
 name|assignRootAndMeta
 argument_list|(
 name|status
 argument_list|)
+expr_stmt|;
+name|serverShutdownHandlerEnabled
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|serverManager
+operator|.
+name|expireDeadNotExpiredServers
+argument_list|()
 expr_stmt|;
 comment|// Update meta with new HRI if required. i.e migrate all HRI with HTD to
 comment|// HRI with out HTD in meta and update the status in ROOT. This must happen
@@ -2956,7 +2998,9 @@ operator|.
 name|assignmentManager
 operator|.
 name|joinCluster
-argument_list|()
+argument_list|(
+name|onlineServers
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3102,6 +3146,36 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Override to change master's splitLogAfterStartup. Used testing    * @param mfs    * @param onlineServers    */
+end_comment
+
+begin_function
+specifier|protected
+name|void
+name|splitLogAfterStartup
+parameter_list|(
+specifier|final
+name|MasterFileSystem
+name|mfs
+parameter_list|,
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+parameter_list|)
+block|{
+name|mfs
+operator|.
+name|splitLogAfterStartup
+argument_list|(
+name|onlineServers
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return Count of regions we assigned.    */
 end_comment
 
@@ -3161,7 +3235,7 @@ name|ROOT_REGIONINFO
 argument_list|)
 decl_stmt|;
 name|ServerName
-name|expiredServer
+name|currentRootServer
 init|=
 literal|null
 decl_stmt|;
@@ -3176,34 +3250,20 @@ name|timeout
 argument_list|)
 condition|)
 block|{
-name|ServerName
 name|currentRootServer
-init|=
+operator|=
 name|this
 operator|.
 name|catalogTracker
 operator|.
 name|getRootLocation
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|expireIfOnline
+expr_stmt|;
+name|splitLogAndExpireIfOnline
 argument_list|(
 name|currentRootServer
 argument_list|)
-condition|)
-block|{
-comment|// We are expiring this server. The processing of expiration will assign
-comment|// root so don't do it here.
-name|expiredServer
-operator|=
-name|currentRootServer
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Root was not on an online server when we failed verification
 name|this
 operator|.
 name|assignmentManager
@@ -3211,7 +3271,6 @@ operator|.
 name|assignRoot
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|catalogTracker
@@ -3327,32 +3386,26 @@ name|currentMetaServer
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|currentMetaServer
 operator|.
 name|equals
 argument_list|(
-name|expiredServer
+name|currentRootServer
 argument_list|)
 condition|)
 block|{
-comment|// We are expiring the server that is carrying meta already.
-comment|// The expiration processing will take care of reassigning meta.
-name|expireIfOnline
+name|splitLogAndExpireIfOnline
 argument_list|(
 name|currentMetaServer
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-name|this
-operator|.
 name|assignmentManager
 operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|catalogTracker
@@ -3629,33 +3682,28 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Expire a server if we find it is one of the online servers set.    * @param sn ServerName to check.    * @return True if server was online and so we expired it as unreachable.    */
+comment|/**    * Split a server's log and expire it if we find it is one of the online    * servers.    * @param sn ServerName to check.    * @throws IOException    */
 end_comment
 
 begin_function
 specifier|private
-name|boolean
-name|expireIfOnline
+name|void
+name|splitLogAndExpireIfOnline
 parameter_list|(
 specifier|final
 name|ServerName
 name|sn
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
 name|sn
 operator|==
 literal|null
-condition|)
-return|return
-literal|false
-return|;
-if|if
-condition|(
+operator|||
 operator|!
-name|this
-operator|.
 name|serverManager
 operator|.
 name|isServerOnline
@@ -3663,20 +3711,25 @@ argument_list|(
 name|sn
 argument_list|)
 condition|)
-return|return
-literal|false
-return|;
+block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Forcing expiration of "
+literal|"Forcing splitLog and expire of "
 operator|+
 name|sn
 argument_list|)
 expr_stmt|;
-name|this
+name|fileSystemManager
 operator|.
+name|splitLog
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
 name|serverManager
 operator|.
 name|expireServer
@@ -3684,9 +3737,6 @@ argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
-return|return
-literal|true
-return|;
 block|}
 end_function
 
@@ -8467,6 +8517,24 @@ parameter_list|()
 block|{
 return|return
 name|initialized
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * ServerShutdownHandlerEnabled is set false before completing    * assignRootAndMeta to prevent processing of ServerShutdownHandler.    * @return true if assignRootAndMeta has completed;    */
+end_comment
+
+begin_function
+specifier|public
+name|boolean
+name|isServerShutdownHandlerEnabled
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|serverShutdownHandlerEnabled
 return|;
 block|}
 end_function
