@@ -690,7 +690,7 @@ literal|1024
 operator|*
 literal|1024
 operator|*
-literal|1024
+literal|1024L
 decl_stmt|;
 comment|/**    * The max number of threads used for opening and closing stores or store    * files in parallel    */
 specifier|public
