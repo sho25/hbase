@@ -728,6 +728,17 @@ init|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
+name|cache
+operator|.
+name|get
+argument_list|(
+name|tableName
+argument_list|)
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|isEnabledTable
 argument_list|(
@@ -960,26 +971,16 @@ name|String
 name|tableName
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|cache
-init|)
-block|{
-comment|// No entry in cache means enabled table.
 return|return
-operator|!
-name|this
-operator|.
-name|cache
-operator|.
-name|containsKey
+name|isTableState
 argument_list|(
 name|tableName
+argument_list|,
+name|TableState
+operator|.
+name|ENABLED
 argument_list|)
 return|;
-block|}
 block|}
 comment|/**    * Go to zookeeper and see if state of table is {@link TableState#ENABLED}.    * This method does not use cache as {@link #isEnabledTable(String)} does.    * This method is for clients other than {@link AssignmentManager}    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
@@ -1006,7 +1007,9 @@ argument_list|,
 name|tableName
 argument_list|)
 operator|==
-literal|null
+name|TableState
+operator|.
+name|ENABLED
 return|;
 block|}
 specifier|public
@@ -1212,10 +1215,10 @@ name|expectedState
 argument_list|)
 return|;
 block|}
-comment|/**    * Enables the table in zookeeper.  Fails silently if the    * table is not currently disabled in zookeeper.  Sets no watches.    * @param tableName    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Deletes the table in zookeeper.  Fails silently if the    * table is not currently disabled in zookeeper.  Sets no watches.    * @param tableName    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 name|void
-name|setEnabledTable
+name|setDeletedTable
 parameter_list|(
 specifier|final
 name|String
@@ -1253,9 +1256,9 @@ literal|"Moving table "
 operator|+
 name|tableName
 operator|+
-literal|" state to enabled but was "
+literal|" state to deleted but was "
 operator|+
-literal|"already enabled"
+literal|"already deleted"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1281,6 +1284,67 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|/**    * Sets the ENABLED state in the cache and deletes the zookeeper node. Fails    * silently if the node is not in enabled in zookeeper    *     * @param tableName    * @throws KeeperException    */
+specifier|public
+name|void
+name|setEnabledTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+name|setTableState
+argument_list|(
+name|tableName
+argument_list|,
+name|TableState
+operator|.
+name|ENABLED
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * check if table is present .    *     * @param tableName    * @return True if the table is present    */
+specifier|public
+name|boolean
+name|isTablePresent
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|cache
+init|)
+block|{
+name|TableState
+name|state
+init|=
+name|this
+operator|.
+name|cache
+operator|.
+name|get
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+return|return
+operator|!
+operator|(
+name|state
+operator|==
+literal|null
+operator|)
+return|;
 block|}
 block|}
 comment|/**    * Gets a list of all the tables set as disabled in zookeeper.    * @return Set of disabled tables, empty Set if none    */

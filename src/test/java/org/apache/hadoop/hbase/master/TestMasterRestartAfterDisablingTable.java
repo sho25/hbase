@@ -30,6 +30,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -615,6 +627,27 @@ operator|.
 name|waitForActiveAndReadyMaster
 argument_list|()
 expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"The table should not be in enabled state"
+argument_list|,
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|isDisablingOrDisabledTable
+argument_list|(
+literal|"tableRestart"
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|log
 argument_list|(
 literal|"Enabling table\n"
@@ -683,6 +716,27 @@ name|regions
 operator|.
 name|size
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"The table should be in enabled state"
+argument_list|,
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|isEnabledTable
+argument_list|(
+literal|"tableRestart"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ht

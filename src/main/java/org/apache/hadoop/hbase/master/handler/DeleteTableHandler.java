@@ -504,13 +504,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// If entry for this table in zk, and up in AssignmentManager, remove it.
-comment|// Call to undisableTable does this. TODO: Make a more formal purge table.
 name|am
 operator|.
 name|getZKTable
 argument_list|()
 operator|.
-name|setEnabledTable
+name|setDeletedTable
 argument_list|(
 name|Bytes
 operator|.
