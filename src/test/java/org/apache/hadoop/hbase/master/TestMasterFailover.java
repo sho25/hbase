@@ -3574,24 +3574,6 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-name|assertTrue
-argument_list|(
-literal|" Table must be enabled."
-argument_list|,
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getZKTable
-argument_list|()
-operator|.
-name|isEnabledTable
-argument_list|(
-literal|"enabledTable"
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// we also need regions assigned out on the dead server
 name|List
 argument_list|<
@@ -3842,18 +3824,6 @@ operator|.
 name|toString
 argument_list|(
 name|disabledTable
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-literal|" The enabled table should be identified on master fail over."
-argument_list|,
-name|zktable
-operator|.
-name|isEnabledTable
-argument_list|(
-literal|"enabledTable"
 argument_list|)
 argument_list|)
 expr_stmt|;
