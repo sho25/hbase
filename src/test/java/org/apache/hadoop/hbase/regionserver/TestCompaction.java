@@ -2274,12 +2274,12 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|/*      * the table has 4 versions: 0, 1, 2, and 3.      * 0 does not count.      * We delete 1.      * Should have 2 remaining.      */
+comment|/*      * the table has 4 versions: 0, 1, 2, and 3.      * We delete 1.      * Should have 3 remaining.      */
 name|testMinorCompactionWithDelete
 argument_list|(
 name|deleteVersion
 argument_list|,
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 block|}
