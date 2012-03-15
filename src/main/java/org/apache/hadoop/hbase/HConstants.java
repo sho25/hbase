@@ -1629,6 +1629,15 @@ name|DATA_FILE_UMASK_KEY
 init|=
 literal|"hbase.data.umask"
 decl_stmt|;
+comment|/** Configuration name of HLog Compression */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENABLE_WAL_COMPRESSION
+init|=
+literal|"hbase.regionserver.wal.enablecompression"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

@@ -496,9 +496,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
 specifier|static
+specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
