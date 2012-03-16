@@ -12299,6 +12299,8 @@ name|HRegionInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// boundary needs to have table's name but regionID 0 so that it is sorted
+comment|// before all table's regions.
 name|HRegionInfo
 name|boundary
 init|=
@@ -12310,6 +12312,10 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|false
+argument_list|,
+literal|0L
 argument_list|)
 decl_stmt|;
 synchronized|synchronized
