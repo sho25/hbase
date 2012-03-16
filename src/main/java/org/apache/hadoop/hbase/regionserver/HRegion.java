@@ -6084,8 +6084,6 @@ name|preFlush
 argument_list|()
 expr_stmt|;
 block|}
-try|try
-block|{
 synchronized|synchronized
 init|(
 name|writestate
@@ -6166,6 +6164,8 @@ literal|false
 return|;
 block|}
 block|}
+try|try
+block|{
 name|boolean
 name|result
 init|=

@@ -1169,7 +1169,7 @@ decl_stmt|;
 name|int
 name|ttl
 init|=
-literal|1
+literal|4
 decl_stmt|;
 name|Configuration
 name|conf
