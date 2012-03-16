@@ -456,7 +456,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @param startupStatus     * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
+comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @param startupStatus    * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
 name|boolean
 name|blockUntilBecomingActiveMaster
 parameter_list|(
@@ -467,6 +467,11 @@ name|ClusterStatusTracker
 name|clusterStatusTracker
 parameter_list|)
 block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
 name|startupStatus
 operator|.
 name|setStatus
@@ -474,11 +479,6 @@ argument_list|(
 literal|"Trying to register in ZK as active master"
 argument_list|)
 expr_stmt|;
-name|boolean
-name|cleanSetOfActiveMaster
-init|=
-literal|true
-decl_stmt|;
 comment|// Try to become the active master, watch if there is another master.
 comment|// Write out our ServerName as versioned bytes.
 try|try
@@ -582,13 +582,9 @@ name|sn
 argument_list|)
 expr_stmt|;
 return|return
-name|cleanSetOfActiveMaster
+literal|true
 return|;
 block|}
-name|cleanSetOfActiveMaster
-operator|=
-literal|false
-expr_stmt|;
 comment|// There is another active master running elsewhere or this is a restart
 comment|// and the master ephemeral node has not expired yet.
 name|this
@@ -600,7 +596,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|/*        * Add a ZNode for ourselves in the backup master directory since we are        * not the active master.        *        * If we become the active master later, ActiveMasterManager will delete        * this node explicitly.  If we crash before then, ZooKeeper will delete        * this node for us since it is ephemeral.        */
+comment|/*         * Add a ZNode for ourselves in the backup master directory since we are         * not the active master.         *         * If we become the active master later, ActiveMasterManager will delete         * this node explicitly.  If we crash before then, ZooKeeper will delete         * this node for us since it is ephemeral.         */
 name|LOG
 operator|.
 name|info
@@ -698,9 +694,7 @@ literal|"Current master has this master's address, "
 operator|+
 name|currentMaster
 operator|+
-literal|"; master was restarted?  Waiting on znode "
-operator|+
-literal|"to expire..."
+literal|"; master was restarted? Deleting node."
 operator|)
 expr_stmt|;
 comment|// Hurry along the expiration of the znode.
@@ -807,7 +801,8 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// We expect to be interrupted when a master dies, will fall out if so
+comment|// We expect to be interrupted when a master dies,
+comment|//  will fall out if so
 name|LOG
 operator|.
 name|debug
@@ -849,21 +844,12 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|cleanSetOfActiveMaster
+literal|false
 return|;
 block|}
-comment|// Try to become active master again now that there is no active master
-name|blockUntilBecomingActiveMaster
-argument_list|(
-name|startupStatus
-argument_list|,
-name|clusterStatusTracker
-argument_list|)
-expr_stmt|;
+comment|// there is no active master so we can try to become active master again
 block|}
-return|return
-name|cleanSetOfActiveMaster
-return|;
+block|}
 block|}
 comment|/**    * @return True if cluster has an active master.    */
 specifier|public

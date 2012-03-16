@@ -736,6 +736,16 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+comment|// Make the failure test faster
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"zookeeper.recovery.retry"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|=
 operator|new
@@ -1715,7 +1725,7 @@ decl_stmt|;
 name|long
 name|waitTime
 init|=
-literal|30000
+literal|80000
 decl_stmt|;
 name|long
 name|endt

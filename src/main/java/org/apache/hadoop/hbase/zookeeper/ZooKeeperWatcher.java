@@ -1088,6 +1088,21 @@ return|return
 name|recoverableZooKeeper
 return|;
 block|}
+specifier|public
+name|void
+name|reconnectAfterExpiration
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+name|recoverableZooKeeper
+operator|.
+name|reconnectAfterExpiration
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Get the quorum address of this instance.    * @return quorum string of this zookeeper connection instance    */
 specifier|public
 name|String

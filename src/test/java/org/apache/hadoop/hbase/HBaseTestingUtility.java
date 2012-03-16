@@ -211,6 +211,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -745,6 +759,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|JVMClusterUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|RegionSplitter
 import|;
 end_import
@@ -924,6 +954,18 @@ operator|.
 name|KeeperException
 operator|.
 name|NodeExistsException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|WatchedEvent
 import|;
 end_import
 
@@ -5648,7 +5690,7 @@ operator|.
 name|getZooKeeper
 argument_list|()
 argument_list|,
-name|master
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -5680,7 +5722,7 @@ operator|.
 name|getZooKeeper
 argument_list|()
 argument_list|,
-name|rs
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -5725,7 +5767,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Expire a ZooKeeer session as recommended in ZooKeeper documentation    * http://wiki.apache.org/hadoop/ZooKeeper/FAQ#A4    */
+comment|/**    * Expire a ZooKeeper session as recommended in ZooKeeper documentation    * http://wiki.apache.org/hadoop/ZooKeeper/FAQ#A4    * There are issues when doing this:    * [1] http://www.mail-archive.com/dev@zookeeper.apache.org/msg01942.html    * [2] https://issues.apache.org/jira/browse/ZOOKEEPER-1105    *    * @param nodeZK - the ZK watcher to expire    * @param checkStatus - true to check if we can create an HTable with the    *                    current configuration.    */
 specifier|public
 name|void
 name|expireSession
@@ -5788,6 +5830,61 @@ operator|.
 name|getSessionId
 argument_list|()
 decl_stmt|;
+comment|// Expiry seems to be asynchronous (see comment from P. Hunt in [1]),
+comment|//  so we create a first watcher to be sure that the
+comment|//  event was sent. We expect that if our watcher receives the event
+comment|//  other watchers on the same machine will get is as well.
+comment|// When we ask to close the connection, ZK does not close it before
+comment|//  we receive all the events, so don't have to capture the event, just
+comment|//  closing the connection should be enough.
+name|ZooKeeper
+name|monitor
+init|=
+operator|new
+name|ZooKeeper
+argument_list|(
+name|quorumServers
+argument_list|,
+literal|1000
+argument_list|,
+operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|process
+parameter_list|(
+name|WatchedEvent
+name|watchedEvent
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Monitor ZKW received event="
+operator|+
+name|watchedEvent
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+argument_list|,
+name|sessionID
+argument_list|,
+name|password
+argument_list|)
+decl_stmt|;
+comment|// Making it expire
 name|ZooKeeper
 name|newZK
 init|=
@@ -5826,9 +5923,12 @@ name|sessionID
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// There is actually no reason to sleep here. Session is expired.
-comment|//  May be for old ZK versions?
-comment|// Thread.sleep(sleep);
+comment|// Now closing& waiting to be sure that the clients get it.
+name|monitor
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|checkStatus
@@ -6296,7 +6396,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @return True if we started some servers    * @throws IOException    */
+comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @return true if we started some servers    * @throws IOException    */
 specifier|public
 name|boolean
 name|ensureSomeRegionServersAvailable
@@ -6350,6 +6450,91 @@ name|startedServer
 operator|=
 literal|true
 expr_stmt|;
+block|}
+return|return
+name|startedServer
+return|;
+block|}
+comment|/**    * Make sure that at least the specified number of region servers    * are running. We don't count the ones that are currently stopping or are    * stopped.    * @param num minimum number of region servers that should be running    * @return true if we started some servers    * @throws IOException    */
+specifier|public
+name|boolean
+name|ensureSomeNonStoppedRegionServersAvailable
+parameter_list|(
+specifier|final
+name|int
+name|num
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|boolean
+name|startedServer
+init|=
+name|ensureSomeRegionServersAvailable
+argument_list|(
+name|num
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|JVMClusterUtil
+operator|.
+name|RegionServerThread
+name|rst
+range|:
+name|hbaseCluster
+operator|.
+name|getRegionServerThreads
+argument_list|()
+control|)
+block|{
+name|HRegionServer
+name|hrs
+init|=
+name|rst
+operator|.
+name|getRegionServer
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|hrs
+operator|.
+name|isStopping
+argument_list|()
+operator|||
+name|hrs
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"A region server is stopped or stopping:"
+operator|+
+name|hrs
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started new server="
+operator|+
+name|hbaseCluster
+operator|.
+name|startRegionServer
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|startedServer
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 return|return
 name|startedServer

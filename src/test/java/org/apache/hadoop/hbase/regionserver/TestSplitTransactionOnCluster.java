@@ -37,6 +37,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertNotSame
 import|;
 end_import
@@ -507,7 +519,7 @@ name|IOException
 block|{
 name|TESTING_UTIL
 operator|.
-name|ensureSomeRegionServersAvailable
+name|ensureSomeNonStoppedRegionServersAvailable
 argument_list|(
 name|NB_SERVERS
 argument_list|)
@@ -2250,6 +2262,16 @@ argument_list|,
 name|metaRegionServer
 argument_list|)
 decl_stmt|;
+name|assertNotNull
+argument_list|(
+name|hrs
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info

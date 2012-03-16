@@ -668,6 +668,24 @@ argument_list|)
 expr_stmt|;
 name|conf1
 operator|.
+name|setInt
+argument_list|(
+literal|"zookeeper.recovery.retry"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|conf1
+operator|.
+name|setInt
+argument_list|(
+literal|"zookeeper.recovery.retry.intervalmill"
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
+name|conf1
+operator|.
 name|setBoolean
 argument_list|(
 name|HConstants
@@ -3735,6 +3753,15 @@ name|lastCount
 init|=
 literal|0
 decl_stmt|;
+specifier|final
+name|long
+name|start
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -3761,7 +3788,20 @@ condition|)
 block|{
 name|fail
 argument_list|(
-literal|"Waited too much time for queueFailover replication"
+literal|"Waited too much time for queueFailover replication. "
+operator|+
+literal|"Waited "
+operator|+
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|start
+operator|)
+operator|+
+literal|"ms."
 argument_list|)
 expr_stmt|;
 block|}
