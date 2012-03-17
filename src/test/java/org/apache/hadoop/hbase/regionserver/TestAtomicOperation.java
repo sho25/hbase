@@ -321,6 +321,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|EnvironmentEdgeManagerTestHelper
 import|;
 end_import
@@ -394,11 +410,18 @@ name|TEST_UTIL
 operator|.
 name|getDataTestDir
 argument_list|(
-literal|"TestAtomicOperation"
+literal|"TestIncrement"
 argument_list|)
 operator|.
 name|toString
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|MAX_VERSIONS
+init|=
+literal|2
 decl_stmt|;
 comment|// Test names
 specifier|static
@@ -1498,17 +1521,17 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|// create 50 threads, each will alternate between adding and
+comment|// create 100 threads, each will alternate between adding and
 comment|// removing a column
 name|int
 name|numThreads
 init|=
-literal|50
+literal|100
 decl_stmt|;
 name|int
 name|opsPerThread
 init|=
-literal|500
+literal|1000
 decl_stmt|;
 name|AtomicOperation
 index|[]
@@ -1942,17 +1965,17 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|// create 50 threads, each will alternate between adding and
+comment|// create 100 threads, each will alternate between adding and
 comment|// removing a column
 name|int
 name|numThreads
 init|=
-literal|50
+literal|100
 decl_stmt|;
 name|int
 name|opsPerThread
 init|=
-literal|500
+literal|1000
 decl_stmt|;
 name|AtomicOperation
 index|[]

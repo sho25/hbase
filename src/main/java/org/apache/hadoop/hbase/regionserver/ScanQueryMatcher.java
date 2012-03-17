@@ -1082,13 +1082,6 @@ name|deletes
 operator|.
 name|isEmpty
 argument_list|()
-operator|&&
-name|kv
-operator|.
-name|getMemstoreTS
-argument_list|()
-operator|<=
-name|maxReadPointToTrackVersions
 condition|)
 block|{
 name|DeleteResult
