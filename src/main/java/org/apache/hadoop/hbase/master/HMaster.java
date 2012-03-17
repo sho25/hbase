@@ -7484,7 +7484,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|clearRegionFromTransition
+name|regionOffline
 argument_list|(
 name|hri
 argument_list|)
@@ -8840,7 +8840,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|clearRegionFromTransition
+name|regionOffline
 argument_list|(
 name|hri
 argument_list|)
