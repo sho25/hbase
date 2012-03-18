@@ -2035,11 +2035,6 @@ name|m
 init|=
 literal|null
 decl_stmt|;
-name|Exception
-name|exception
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|os
@@ -2047,10 +2042,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-try|try
-block|{
-name|m
-operator|=
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|OutputStream
+argument_list|>
+name|wrappedStreamClass
+init|=
 name|os
 operator|.
 name|getWrappedStream
@@ -2058,6 +2057,12 @@ argument_list|()
 operator|.
 name|getClass
 argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|m
+operator|=
+name|wrappedStreamClass
 operator|.
 name|getDeclaredMethod
 argument_list|(
@@ -2086,10 +2091,19 @@ name|NoSuchMethodException
 name|e
 parameter_list|)
 block|{
-comment|// Thrown if getNumCurrentReplicas() function isn't available
-name|exception
-operator|=
-name|e
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"FileSystem's output stream doesn't support"
+operator|+
+literal|" getNumCurrentReplicas; --HDFS-826 not available; fsOut="
+operator|+
+name|wrappedStreamClass
+operator|.
+name|getName
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2098,10 +2112,21 @@ name|SecurityException
 name|e
 parameter_list|)
 block|{
-comment|// Thrown if we can't get access to getNumCurrentReplicas()
-name|exception
-operator|=
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Doesn't have access to getNumCurrentReplicas on "
+operator|+
+literal|"FileSystems's output stream --HDFS-826 not available; fsOut="
+operator|+
+name|wrappedStreamClass
+operator|.
+name|getName
+argument_list|()
+argument_list|,
 name|e
+argument_list|)
 expr_stmt|;
 name|m
 operator|=
@@ -2122,20 +2147,6 @@ operator|.
 name|info
 argument_list|(
 literal|"Using getNumCurrentReplicas--HDFS-826"
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"getNumCurrentReplicas--HDFS-826 not available; hdfs_out="
-operator|+
-name|os
-argument_list|,
-name|exception
 argument_list|)
 expr_stmt|;
 block|}
