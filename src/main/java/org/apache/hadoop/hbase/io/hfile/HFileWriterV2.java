@@ -1943,7 +1943,7 @@ argument_list|)
 expr_stmt|;
 name|fsBlockWriter
 operator|.
-name|releaseCompressor
+name|release
 argument_list|()
 expr_stmt|;
 block|}

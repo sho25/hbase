@@ -35,16 +35,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|DataOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -95,6 +85,26 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|Compression
+operator|.
+name|Algorithm
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|RawComparator
@@ -102,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  */
+comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  *  * After encoding, it also optionally compresses the encoded data if a  * compression algorithm is specified in HFileBlockEncodingContext argument of  * {@link #compressKeyValues(ByteBuffer, boolean, HFileBlockEncodingContext)}.  */
 end_comment
 
 begin_interface
@@ -114,19 +124,19 @@ specifier|public
 interface|interface
 name|DataBlockEncoder
 block|{
-comment|/**    * Compress KeyValues and write them to output buffer.    * @param out Where to write compressed data.    * @param in Source of KeyValue for compression.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @throws IOException If there is an error writing to output stream.    */
+comment|/**    * Compress KeyValues. It will first encode key value pairs, and then    * optionally do the compression for the encoded data.    *    * @param in    *          Source of KeyValue for compression.    * @param includesMemstoreTS    *          true if including memstore timestamp after every key-value pair    * @param encodingContext    *          the encoding context which will contain encoded uncompressed bytes    *          as well as compressed encoded bytes if compression is enabled, and    *          also it will reuse resources across multiple calls.    * @throws IOException    *           If there is an error writing to output stream.    */
 specifier|public
 name|void
 name|compressKeyValues
 parameter_list|(
-name|DataOutputStream
-name|out
-parameter_list|,
 name|ByteBuffer
 name|in
 parameter_list|,
 name|boolean
 name|includesMemstoreTS
+parameter_list|,
+name|HFileBlockEncodingContext
+name|encodingContext
 parameter_list|)
 throws|throws
 name|IOException
@@ -188,6 +198,31 @@ name|comparator
 parameter_list|,
 name|boolean
 name|includesMemstoreTS
+parameter_list|)
+function_decl|;
+comment|/**    * Creates a encoder specific encoding context    *    * @param compressionAlgorithm    *          compression algorithm used if the final data needs to be    *          compressed    * @param encoding    *          encoding strategy used    * @param headerBytes    *          header bytes to be written, put a dummy header here if the header    *          is unknown    * @return a newly created encoding context    */
+specifier|public
+name|HFileBlockEncodingContext
+name|newDataBlockEncodingContext
+parameter_list|(
+name|Algorithm
+name|compressionAlgorithm
+parameter_list|,
+name|DataBlockEncoding
+name|encoding
+parameter_list|,
+name|byte
+index|[]
+name|headerBytes
+parameter_list|)
+function_decl|;
+comment|/**    * Creates an encoder specific decoding context, which will prepare the data    * before actual decoding    *    * @param compressionAlgorithm    *          compression algorithm used if the data needs to be decompressed    * @return a newly created decoding context    */
+specifier|public
+name|HFileBlockDecodingContext
+name|newDataBlockDecodingContext
+parameter_list|(
+name|Algorithm
+name|compressionAlgorithm
 parameter_list|)
 function_decl|;
 comment|/**    * An interface which enable to seek while underlying data is encoded.    *    * It works on one HFileBlock, but it is reusable. See    * {@link #setCurrentBuffer(ByteBuffer)}.    */

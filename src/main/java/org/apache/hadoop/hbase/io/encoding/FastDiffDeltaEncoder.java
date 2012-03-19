@@ -1720,7 +1720,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|compressKeyValues
+name|internalEncodeKeyValues
 parameter_list|(
 name|DataOutputStream
 name|out

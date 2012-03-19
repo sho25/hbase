@@ -81,9 +81,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
 operator|.
-name|StoreFile
+name|encoding
+operator|.
+name|HFileBlockEncodingContext
 import|;
 end_import
 
@@ -97,9 +99,47 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
 operator|.
-name|Pair
+name|encoding
+operator|.
+name|HFileBlockDecodingContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|Compression
+operator|.
+name|Algorithm
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|StoreFile
 import|;
 end_import
 
@@ -128,14 +168,9 @@ name|boolean
 name|isCompaction
 parameter_list|)
 function_decl|;
-comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @param dummyHeader A dummy header to be written as a placeholder    * @return a non-null on-heap buffer containing the contents of the    *         HFileBlock with unfilled header and block type    */
+comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @param encodingResult the encoded result    * @param blockType block type    * @throws IOException    */
 specifier|public
-name|Pair
-argument_list|<
-name|ByteBuffer
-argument_list|,
-name|BlockType
-argument_list|>
+name|void
 name|beforeWriteToDisk
 parameter_list|(
 name|ByteBuffer
@@ -144,10 +179,14 @@ parameter_list|,
 name|boolean
 name|includesMemstoreTS
 parameter_list|,
-name|byte
-index|[]
-name|dummyHeader
+name|HFileBlockEncodingContext
+name|encodingResult
+parameter_list|,
+name|BlockType
+name|blockType
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Decides whether we should use a scanner over encoded blocks.    * @param isCompaction whether we are in a compaction.    * @return Whether to use encoded scanner.    */
 specifier|public
@@ -190,6 +229,28 @@ name|getEffectiveEncodingInCache
 parameter_list|(
 name|boolean
 name|isCompaction
+parameter_list|)
+function_decl|;
+comment|/**    * Create an encoder specific encoding context object for writing. And the    * encoding context should also perform compression if compressionAlgorithm is    * valid.    *    * @param compressionAlgorithm compression algorithm    * @param headerBytes header bytes    * @return a new {@link HFileBlockEncodingContext} object    */
+specifier|public
+name|HFileBlockEncodingContext
+name|newOnDiskDataBlockEncodingContext
+parameter_list|(
+name|Algorithm
+name|compressionAlgorithm
+parameter_list|,
+name|byte
+index|[]
+name|headerBytes
+parameter_list|)
+function_decl|;
+comment|/**    * create a encoder specific decoding context for reading. And the    * decoding context should also do decompression if compressionAlgorithm    * is valid.    *    * @param compressionAlgorithm    * @return a new {@link HFileBlockDecodingContext} object    */
+specifier|public
+name|HFileBlockDecodingContext
+name|newOnDiskDataBlockDecodingContext
+parameter_list|(
+name|Algorithm
+name|compressionAlgorithm
 parameter_list|)
 function_decl|;
 block|}
