@@ -945,6 +945,11 @@ condition|(
 literal|true
 condition|)
 do|;
+name|s
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// Flush
 name|r
 operator|.

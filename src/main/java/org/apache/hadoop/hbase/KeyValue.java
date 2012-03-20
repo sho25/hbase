@@ -2699,6 +2699,10 @@ literal|"/vlen="
 operator|+
 name|getValueLength
 argument_list|()
+operator|+
+literal|"/ts="
+operator|+
+name|memstoreTS
 return|;
 block|}
 comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String.    */

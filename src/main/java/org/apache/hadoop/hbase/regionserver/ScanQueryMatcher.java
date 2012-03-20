@@ -957,6 +957,10 @@ condition|)
 block|{
 comment|// first ignore delete markers if the scanner can do so, and the
 comment|// range does not include the marker
+comment|//
+comment|// during flushes and compactions also ignore delete markers newer
+comment|// than the readpoint of any open scanner, this prevents deleted
+comment|// rows that could still be seen by a scanner from being collected
 name|boolean
 name|includeDeleteMarker
 init|=
@@ -979,6 +983,13 @@ decl_stmt|;
 if|if
 condition|(
 name|includeDeleteMarker
+operator|&&
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|<=
+name|maxReadPointToTrackVersions
 condition|)
 block|{
 name|this

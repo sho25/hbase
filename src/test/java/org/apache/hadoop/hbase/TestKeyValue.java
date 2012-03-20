@@ -3493,7 +3493,7 @@ argument_list|()
 operator|.
 name|replaceAll
 argument_list|(
-literal|"=[0-9]+$"
+literal|"=[0-9]+"
 argument_list|,
 literal|"=0"
 argument_list|)
