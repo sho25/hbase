@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -71,6 +81,18 @@ specifier|public
 name|boolean
 name|isFilterDone
 parameter_list|()
+function_decl|;
+comment|/**    * Do a reseek to the required row. Should not be used to seek to a key which    * may come before the current position. Always seeks to the beginning of a    * row boundary.    *    * @throws IOException    * @throws IllegalArgumentException    *           if row is null    *    */
+specifier|public
+name|boolean
+name|reseek
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface
