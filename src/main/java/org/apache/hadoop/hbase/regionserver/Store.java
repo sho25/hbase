@@ -4167,6 +4167,11 @@ argument_list|(
 name|bytesPerChecksum
 argument_list|)
 operator|.
+name|withCompression
+argument_list|(
+name|compression
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;
