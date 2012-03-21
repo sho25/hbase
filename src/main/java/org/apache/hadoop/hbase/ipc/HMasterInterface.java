@@ -206,13 +206,14 @@ comment|// maintained a single global version number on all HBase Interfaces.  T
 comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
 comment|// had changed.  This has since been undone.
 comment|// 29:  4/3/2010 - changed ClusterStatus serialization
+comment|// 30: 3/20/2012 - HBASE-5589: Added offline method
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|VERSION
 init|=
-literal|29L
+literal|30L
 decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public
@@ -441,6 +442,19 @@ parameter_list|,
 specifier|final
 name|boolean
 name|force
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Offline a region from the assignment manager's in-memory state.  The    * region should be in a closed state and there will be no attempt to    * automatically reassign the region as in unassign.   This is a special    * method, and should only be used by experts or hbck.    * @param regionName Region to offline.  Will clear any existing RegionPlan    * if one found.    * @throws IOException    */
+specifier|public
+name|void
+name|offline
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException
