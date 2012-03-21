@@ -453,6 +453,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|HbaseObjectWritable
@@ -1067,6 +1081,12 @@ name|boolean
 name|tcpKeepAlive
 decl_stmt|;
 comment|// if T then use keepalives
+specifier|protected
+specifier|final
+name|long
+name|purgeTimeout
+decl_stmt|;
+comment|// in milliseconds
 specifier|volatile
 specifier|protected
 name|boolean
@@ -3639,14 +3659,6 @@ name|int
 name|pending
 decl_stmt|;
 comment|// connections waiting to register
-specifier|final
-specifier|static
-name|int
-name|PURGE_INTERVAL
-init|=
-literal|900000
-decl_stmt|;
-comment|// 15mins
 name|Responder
 parameter_list|()
 throws|throws
@@ -3782,7 +3794,7 @@ name|writeSelector
 operator|.
 name|select
 argument_list|(
-name|PURGE_INTERVAL
+name|purgeTimeout
 argument_list|)
 expr_stmt|;
 name|Iterator
@@ -3876,7 +3888,7 @@ name|now
 operator|<
 name|lastPurgeTime
 operator|+
-name|PURGE_INTERVAL
+name|purgeTimeout
 condition|)
 block|{
 continue|continue;
@@ -4306,7 +4318,7 @@ name|nextCall
 operator|.
 name|timestamp
 operator|+
-name|PURGE_INTERVAL
+name|purgeTimeout
 condition|)
 block|{
 name|closeConnection
@@ -6924,6 +6936,23 @@ argument_list|(
 literal|"ipc.client.idlethreshold"
 argument_list|,
 literal|4000
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|purgeTimeout
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"ipc.client.call.purge.timeout"
+argument_list|,
+literal|2
+operator|*
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_RPC_TIMEOUT
 argument_list|)
 expr_stmt|;
 comment|// Start the listener here and let it bind to the port
