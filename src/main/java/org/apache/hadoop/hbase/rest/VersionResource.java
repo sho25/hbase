@@ -358,6 +358,16 @@ argument_list|(
 name|cacheControl
 argument_list|)
 expr_stmt|;
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementSucessfulGetRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 return|return
 name|response
 operator|.
