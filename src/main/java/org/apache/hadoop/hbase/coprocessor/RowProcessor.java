@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|coprocessor
 package|;
 end_package
 
@@ -24,16 +24,6 @@ operator|.
 name|io
 operator|.
 name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
 import|;
 end_import
 
@@ -79,9 +69,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceStability
+name|KeyValue
 import|;
 end_import
 
@@ -95,7 +85,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|client
+operator|.
+name|Scan
 import|;
 end_import
 
@@ -117,30 +109,42 @@ name|WALEdit
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
+begin_comment
+comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on one single row. The generic type parameter T is the return type of  * RowProcessor.getResult().  */
+end_comment
+
 begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
-comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on a HRegion.  *  * This is invoked by {@link HRegion#processRowsWithLocks()}.  * This class performs scans and generates mutations and WAL edits.  * The locks and MVCC will be handled by HRegion.  *  * The generic type parameter T is the return type of  * RowProcessor.getResult().  */
 specifier|public
 interface|interface
 name|RowProcessor
 parameter_list|<
 name|T
 parameter_list|>
+extends|extends
+name|Writable
 block|{
-comment|/**    * Rows to lock while operation.    * They have to be sorted with<code>RowProcessor</code>    * to avoid deadlock.    */
-name|Collection
-argument_list|<
+comment|/**    * Which row to perform the read-write    */
 name|byte
 index|[]
-argument_list|>
-name|getRowsToLock
+name|getRow
 parameter_list|()
 function_decl|;
 comment|/**    * Obtain the processing result    */
@@ -153,15 +157,17 @@ name|boolean
 name|readOnly
 parameter_list|()
 function_decl|;
-comment|/**    * HRegion handles the locks and MVCC and invokes this method properly.    *     * You should override this to create your own RowProcessor.    *    * If you are doing read-modify-write here, you should consider using    *<code>IsolationLevel.READ_UNCOMMITTED</code> for scan because    * we advance MVCC after releasing the locks for optimization purpose.    *    * @param now the current system millisecond    * @param region the HRegion    * @param mutations the output mutations to apply to memstore    * @param walEdit the output WAL edits to apply to write ahead log    */
+comment|/**    * HRegion calls this to process a row. You should override this to create    * your own RowProcessor.    *    * @param now the current system millisecond    * @param scanner the call back object the can be used to scan the row    * @param mutations the mutations for HRegion to do    * @param walEdit the wal edit here allows inject some other meta data    */
 name|void
 name|process
 parameter_list|(
 name|long
 name|now
 parameter_list|,
-name|HRegion
-name|region
+name|RowProcessor
+operator|.
+name|RowScanner
+name|scanner
 parameter_list|,
 name|List
 argument_list|<
@@ -175,32 +181,28 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The hook to be executed before process().    *    * @param region the HRegion    * @param walEdit the output WAL edits to apply to write ahead log    */
+comment|/**    * The call back provided by HRegion to perform the scans on the row    */
+specifier|public
+interface|interface
+name|RowScanner
+block|{
+comment|/**      * @param scan The object defines what to read      * @param result The scan results will be added here      */
 name|void
-name|preProcess
+name|doScan
 parameter_list|(
-name|HRegion
-name|region
+name|Scan
+name|scan
 parameter_list|,
-name|WALEdit
-name|walEdit
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|result
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The hook to be executed after process().    *    * @param region the HRegion    * @param walEdit the output WAL edits to apply to write ahead log    */
-name|void
-name|postProcess
-parameter_list|(
-name|HRegion
-name|region
-parameter_list|,
-name|WALEdit
-name|walEdit
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
+block|}
 comment|/**    * @return The replication cluster id.    */
 name|UUID
 name|getClusterId
