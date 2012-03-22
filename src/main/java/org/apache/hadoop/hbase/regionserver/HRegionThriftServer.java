@@ -27,13 +27,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|thrift
+name|util
 operator|.
-name|ThriftServerRunner
+name|Bytes
 operator|.
-name|HBaseHandler
-operator|.
-name|toBytes
+name|getBytes
 import|;
 end_import
 
@@ -495,7 +493,7 @@ name|byte
 index|[]
 name|row
 init|=
-name|toBytes
+name|getBytes
 argument_list|(
 name|rowb
 argument_list|)
@@ -505,7 +503,7 @@ name|table
 init|=
 name|getTable
 argument_list|(
-name|toBytes
+name|getBytes
 argument_list|(
 name|tableName
 argument_list|)
@@ -609,7 +607,7 @@ name|KeyValue
 operator|.
 name|parseColumn
 argument_list|(
-name|toBytes
+name|getBytes
 argument_list|(
 name|column
 argument_list|)
