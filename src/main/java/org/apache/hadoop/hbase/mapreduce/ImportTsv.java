@@ -1408,6 +1408,12 @@ name|getName
 argument_list|()
 operator|+
 literal|"\n"
+operator|+
+literal|"For performance consider the following options:\n"
+operator|+
+literal|"  -Dmapred.map.tasks.speculative.execution=false\n"
+operator|+
+literal|"  -Dmapred.reduce.tasks.speculative.execution=false"
 decl_stmt|;
 name|System
 operator|.

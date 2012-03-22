@@ -322,6 +322,13 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|startTime
@@ -604,7 +611,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: CopyTable [--rs.class=CLASS] "
+literal|"Usage: CopyTable [general options] [--rs.class=CLASS] "
 operator|+
 literal|"[--rs.impl=IMPL] [--starttime=X] [--endtime=Y] "
 operator|+
@@ -816,6 +823,19 @@ operator|+
 literal|"--rs.impl=org.apache.hadoop.hbase.regionserver.replication.ReplicationRegionServer --starttime=1265875194289 --endtime=1265878794289 "
 operator|+
 literal|"--peer.adr=server1,server2,server3:2181:/hbase --families=myOldCf:myNewCf,cf2,cf3 TestTable "
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"For performance consider the following general options:\n"
+operator|+
+literal|"-Dhbase.client.scanner.caching=100\n"
+operator|+
+literal|"-Dmapred.map.tasks.speculative.execution=false"
 argument_list|)
 expr_stmt|;
 block|}

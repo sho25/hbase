@@ -1063,6 +1063,21 @@ operator|+
 literal|"=true"
 argument_list|)
 expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"For performance consider the following properties:\n"
+operator|+
+literal|"   -Dhbase.client.scanner.caching=100\n"
+operator|+
+literal|"   -Dmapred.map.tasks.speculative.execution=false\n"
+operator|+
+literal|"   -Dmapred.reduce.tasks.speculative.execution=false"
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Main entry point.    *    * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
 specifier|public

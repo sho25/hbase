@@ -504,6 +504,13 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|startKey
@@ -745,9 +752,22 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: RowCounter<tablename> "
+literal|"Usage: RowCounter [options]<tablename> "
 operator|+
 literal|"[--range=[startKey],[endKey]] [<column1><column2>...]"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"For performance consider the following options:\n"
+operator|+
+literal|"-Dhbase.client.scanner.caching=100\n"
+operator|+
+literal|"-Dmapred.map.tasks.speculative.execution=false"
 argument_list|)
 expr_stmt|;
 block|}
