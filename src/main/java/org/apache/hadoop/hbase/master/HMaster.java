@@ -2749,7 +2749,7 @@ block|}
 end_function
 
 begin_comment
-comment|// Check if we should stop every second.
+comment|// Check if we should stop every 100ms
 end_comment
 
 begin_decl_stmt

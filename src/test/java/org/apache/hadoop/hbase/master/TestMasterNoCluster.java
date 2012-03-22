@@ -613,6 +613,11 @@ block|}
 comment|/**    * Test starting master then stopping it before its fully up.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|30000
+argument_list|)
 specifier|public
 name|void
 name|testStopDuringStart
