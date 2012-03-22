@@ -75,6 +75,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -281,6 +291,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Chore
 import|;
 end_import
@@ -393,6 +417,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NotAllMetaRegionsOnlineException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|PleaseHoldException
 import|;
 end_import
@@ -478,6 +516,20 @@ operator|.
 name|hbase
 operator|.
 name|UnknownRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ZooKeeperConnectionException
 import|;
 end_import
 
@@ -1413,6 +1465,15 @@ specifier|final
 name|RpcServer
 name|rpcServer
 decl_stmt|;
+comment|// Set after we've called HBaseServer#openServer and ready to receive RPCs.
+comment|// Set back to false after we stop rpcServer.  Used by tests.
+specifier|private
+specifier|volatile
+name|boolean
+name|rpcServerOpen
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * This servers address.    */
 specifier|private
 specifier|final
@@ -1963,12 +2024,36 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// initialize instant schema change settings
 name|this
 operator|.
 name|supportInstantSchemaChanges
 operator|=
+name|getSupportInstantSchemaChanges
+argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+block|}
+end_class
+
+begin_comment
+comment|/**    * Get whether instant schema change is on or not.    * @param c    * @return True if instant schema enabled.    */
+end_comment
+
+begin_function
+specifier|private
+name|boolean
+name|getSupportInstantSchemaChanges
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|)
+block|{
+name|boolean
+name|b
+init|=
+name|c
 operator|.
 name|getBoolean
 argument_list|(
@@ -1976,36 +2061,23 @@ literal|"hbase.instant.schema.alter.enabled"
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|supportInstantSchemaChanges
-condition|)
-block|{
+decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Instant schema change enabled. All schema alter operations will "
+literal|"Instant schema change enabled="
 operator|+
-literal|"happen through ZK."
+name|b
+operator|+
+literal|"."
 argument_list|)
 expr_stmt|;
+return|return
+name|b
+return|;
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Instant schema change disabled. All schema alter operations will "
-operator|+
-literal|"happen normally."
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-end_class
+end_function
 
 begin_comment
 comment|/**    * Stall startup if we are designated a backup master; i.e. we want someone    * else to become the master before proceeding.    * @param c    * @param amm    * @throws InterruptedException    */
@@ -2428,8 +2500,7 @@ name|this
 operator|.
 name|catalogTracker
 operator|=
-operator|new
-name|CatalogTracker
+name|createCatalogTracker
 argument_list|(
 name|this
 operator|.
@@ -2636,6 +2707,48 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Create CatalogTracker.    * In its own method so can intercept and mock it over in tests.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our {@link Abortable}.    * @param defaultTimeout Timeout to use.  Pass zero for no timeout    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException    */
+end_comment
+
+begin_function
+name|CatalogTracker
+name|createCatalogTracker
+parameter_list|(
+specifier|final
+name|ZooKeeperWatcher
+name|zk
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+name|Abortable
+name|abortable
+parameter_list|,
+specifier|final
+name|int
+name|defaultTimeout
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+operator|new
+name|CatalogTracker
+argument_list|(
+name|zk
+argument_list|,
+name|conf
+argument_list|,
+name|abortable
+argument_list|,
+name|defaultTimeout
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|// Check if we should stop every second.
 end_comment
 
@@ -2647,7 +2760,7 @@ init|=
 operator|new
 name|Sleeper
 argument_list|(
-literal|1000
+literal|100
 argument_list|,
 name|this
 argument_list|)
@@ -2794,8 +2907,7 @@ name|this
 operator|.
 name|serverManager
 operator|=
-operator|new
-name|ServerManager
+name|createServerManager
 argument_list|(
 name|this
 argument_list|,
@@ -2948,11 +3060,15 @@ name|onlineServers
 argument_list|)
 expr_stmt|;
 comment|// Make sure root and meta assigned before proceeding.
+if|if
+condition|(
+operator|!
 name|assignRootAndMeta
 argument_list|(
 name|status
 argument_list|)
-expr_stmt|;
+condition|)
+return|return;
 name|serverShutdownHandlerEnabled
 operator|=
 literal|true
@@ -3176,11 +3292,44 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return Count of regions we assigned.    */
+comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws ZooKeeperConnectionException    * @throws IOException    */
 end_comment
 
 begin_function
-name|int
+name|ServerManager
+name|createServerManager
+parameter_list|(
+specifier|final
+name|Server
+name|master
+parameter_list|,
+specifier|final
+name|MasterServices
+name|services
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// We put this out here in a method so can do a Mockito.spy and stub it out
+comment|// w/ a mocked up ServerManager.
+return|return
+operator|new
+name|ServerManager
+argument_list|(
+name|master
+argument_list|,
+name|services
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if root and meta are healthy, assigned    */
+end_comment
+
+begin_function
+name|boolean
 name|assignRootAndMeta
 parameter_list|(
 name|MonitoredTask
@@ -3271,14 +3420,17 @@ operator|.
 name|assignRoot
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|waitForRoot
+comment|// Make sure a -ROOT- location is set.
+if|if
+condition|(
+operator|!
+name|isRootLocation
 argument_list|()
-expr_stmt|;
-comment|//This guarantees that the transition has completed
+condition|)
+return|return
+literal|false
+return|;
+comment|// This guarantees that the transition assigning -ROOT- has completed
 name|this
 operator|.
 name|assignmentManager
@@ -3330,6 +3482,16 @@ name|ROOT_TABLE_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// Check for stopped, just in case
+if|if
+condition|(
+name|this
+operator|.
+name|stopped
+condition|)
+return|return
+literal|false
+return|;
 name|LOG
 operator|.
 name|info
@@ -3506,7 +3668,65 @@ literal|"META and ROOT assigned."
 argument_list|)
 expr_stmt|;
 return|return
-name|assigned
+literal|true
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return True if there a root available    * @throws InterruptedException    */
+end_comment
+
+begin_function
+specifier|private
+name|boolean
+name|isRootLocation
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+comment|// Cycle up here in master rather than down in catalogtracker so we can
+comment|// check the master stopped flag every so often.
+while|while
+condition|(
+operator|!
+name|this
+operator|.
+name|stopped
+condition|)
+block|{
+try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|waitForRoot
+argument_list|(
+literal|100
+argument_list|)
+operator|!=
+literal|null
+condition|)
+break|break;
+block|}
+catch|catch
+parameter_list|(
+name|NotAllMetaRegionsOnlineException
+name|e
+parameter_list|)
+block|{
+comment|// Ignore.  I know -ROOT- is not online yet.
+block|}
+block|}
+comment|// We got here because we came of above loop.
+return|return
+operator|!
+name|this
+operator|.
+name|stopped
 return|;
 block|}
 end_function
@@ -4113,7 +4333,6 @@ comment|/*    * Start up all services. If any of these threads gets an unhandled
 end_comment
 
 begin_function
-specifier|private
 name|void
 name|startServiceThreads
 parameter_list|()
@@ -4391,6 +4610,12 @@ operator|.
 name|openServer
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|rpcServerOpen
+operator|=
+literal|true
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -4407,6 +4632,23 @@ literal|"Started service threads"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+end_function
+
+begin_comment
+comment|/**    * Use this when trying to figure when its ok to send in rpcs.  Used by tests.    * @return True if we have successfully run {@link HBaseServer#openServer()}    */
+end_comment
+
+begin_function
+name|boolean
+name|isRpcServerOpen
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|rpcServerOpen
+return|;
 block|}
 end_function
 
@@ -4446,6 +4688,12 @@ name|rpcServer
 operator|.
 name|stop
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|rpcServerOpen
+operator|=
+literal|false
 expr_stmt|;
 comment|// Clean up and close up shop
 if|if
@@ -4769,10 +5017,12 @@ comment|// Register with server manager
 name|InetAddress
 name|ia
 init|=
-name|HBaseServer
-operator|.
-name|getRemoteIp
-argument_list|()
+name|getRemoteInetAddress
+argument_list|(
+name|port
+argument_list|,
+name|serverStartCode
+argument_list|)
 decl_stmt|;
 name|ServerName
 name|rs
@@ -4823,6 +5073,36 @@ argument_list|)
 expr_stmt|;
 return|return
 name|mw
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return Get remote side's InetAddress    * @throws UnknownHostException     */
+end_comment
+
+begin_function
+name|InetAddress
+name|getRemoteInetAddress
+parameter_list|(
+specifier|final
+name|int
+name|port
+parameter_list|,
+specifier|final
+name|long
+name|serverStartCode
+parameter_list|)
+throws|throws
+name|UnknownHostException
+block|{
+comment|// Do it out here in its own little method so can fake an address when
+comment|// mocking up in tests.
+return|return
+name|HBaseServer
+operator|.
+name|getRemoteIp
+argument_list|()
 return|;
 block|}
 end_function
@@ -6599,19 +6879,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
-name|numberPending
-init|=
-name|alterStatus
-operator|.
-name|getNumberOfRegionsToProcess
-argument_list|()
-operator|-
-name|alterStatus
-operator|.
-name|getNumberOfRegionsProcessed
-argument_list|()
-decl_stmt|;
 return|return
 operator|new
 name|Pair

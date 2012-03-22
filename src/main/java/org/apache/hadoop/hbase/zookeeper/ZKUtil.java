@@ -2108,9 +2108,11 @@ name|NoNodeException
 name|e
 parameter_list|)
 block|{
+comment|// This log can get pretty annoying when we cycle on 100ms waits.
+comment|// Enable trace if you really want to see it.
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|zkw
 operator|.

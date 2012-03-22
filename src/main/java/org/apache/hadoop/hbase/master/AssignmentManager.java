@@ -1802,6 +1802,9 @@ argument_list|(
 name|onlineServers
 argument_list|)
 decl_stmt|;
+comment|// This method will assign all user regions if a clean server startup or
+comment|// it will reconstitute master state and cleanup any leftovers from
+comment|// previous master process.
 name|processDeadServersAndRegionsInTransition
 argument_list|(
 name|deadServers
@@ -1870,7 +1873,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.     * Used by master joining an cluster.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.     * Used by master joining an cluster.  If we figure this is a clean cluster    * startup, will assign all user regions.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|processDeadServersAndRegionsInTransition
 parameter_list|(
@@ -9630,6 +9633,14 @@ init|)
 block|{
 while|while
 condition|(
+operator|!
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+operator|&&
 operator|!
 name|regions
 operator|.

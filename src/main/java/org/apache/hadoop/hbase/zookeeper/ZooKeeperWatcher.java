@@ -53,27 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -377,21 +357,6 @@ name|CountDownLatch
 argument_list|(
 literal|1
 argument_list|)
-decl_stmt|;
-comment|// set of unassigned nodes watched
-specifier|private
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|unassignedNodes
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|()
 decl_stmt|;
 comment|// node names
 comment|// base znode for this cluster
@@ -764,24 +729,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-block|}
-specifier|private
-name|boolean
-name|isFinishedRetryingRecoverable
-parameter_list|(
-specifier|final
-name|long
-name|finished
-parameter_list|)
-block|{
-return|return
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|<
-name|finished
-return|;
 block|}
 annotation|@
 name|Override

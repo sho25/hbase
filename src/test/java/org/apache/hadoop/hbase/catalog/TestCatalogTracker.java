@@ -1775,7 +1775,7 @@ name|startWaitAliveThenWaitItLives
 argument_list|(
 name|t
 argument_list|,
-literal|1000
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// Set a root location.
@@ -2559,13 +2559,31 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
+try|try
+block|{
+while|while
+condition|(
 name|this
 operator|.
 name|ct
 operator|.
 name|waitForRoot
-argument_list|()
-expr_stmt|;
+argument_list|(
+literal|100
+argument_list|)
+operator|==
+literal|null
+condition|)
+empty_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NotAllMetaRegionsOnlineException
+name|e
+parameter_list|)
+block|{
+comment|// Ignore.
+block|}
 block|}
 block|}
 annotation|@

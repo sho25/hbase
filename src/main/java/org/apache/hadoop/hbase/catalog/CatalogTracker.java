@@ -626,6 +626,7 @@ name|defaultTimeout
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|CatalogTracker
 parameter_list|(
 specifier|final
@@ -1068,23 +1069,8 @@ name|this
 argument_list|)
 return|;
 block|}
-comment|/**    * Waits indefinitely for availability of<code>-ROOT-</code>.  Used during    * cluster startup.    * @throws InterruptedException if interrupted while waiting    */
-specifier|public
-name|void
-name|waitForRoot
-parameter_list|()
-throws|throws
-name|InterruptedException
-block|{
-name|this
-operator|.
-name|rootRegionTracker
-operator|.
-name|blockUntilAvailable
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return {@link ServerName} for server hosting<code>-ROOT-</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    * timeout    */
+specifier|public
 name|ServerName
 name|waitForRoot
 parameter_list|(
