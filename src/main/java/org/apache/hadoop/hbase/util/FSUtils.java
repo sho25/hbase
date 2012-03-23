@@ -715,11 +715,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating file:"
+literal|"Creating file="
 operator|+
 name|path
 operator|+
-literal|"with permission:"
+literal|" with permission="
 operator|+
 name|perm
 argument_list|)

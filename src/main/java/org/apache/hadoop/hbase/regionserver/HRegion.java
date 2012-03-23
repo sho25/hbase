@@ -5097,7 +5097,7 @@ name|threadNamePrefix
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|static
 name|ThreadPoolExecutor
 name|getOpenAndCloseThreadPool
 parameter_list|(
@@ -5109,9 +5109,7 @@ name|String
 name|threadNamePrefix
 parameter_list|)
 block|{
-name|ThreadPoolExecutor
-name|openAndCloseThreadPool
-init|=
+return|return
 name|Threads
 operator|.
 name|getBoundedCachedThreadPool
@@ -5142,9 +5140,7 @@ name|Runnable
 name|r
 parameter_list|)
 block|{
-name|Thread
-name|t
-init|=
+return|return
 operator|new
 name|Thread
 argument_list|(
@@ -5157,16 +5153,10 @@ operator|+
 name|count
 operator|++
 argument_list|)
-decl_stmt|;
-return|return
-name|t
 return|;
 block|}
 block|}
 argument_list|)
-decl_stmt|;
-return|return
-name|openAndCloseThreadPool
 return|;
 block|}
 comment|/**     * @return True if its worth doing a flush before we put up the close flag.     */

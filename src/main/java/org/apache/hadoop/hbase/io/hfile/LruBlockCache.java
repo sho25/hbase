@@ -2368,7 +2368,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"LRU Stats: "
+literal|"Stats: "
 operator|+
 literal|"total="
 operator|+
@@ -2459,6 +2459,8 @@ literal|", "
 operator|)
 operator|)
 operator|+
+literal|", "
+operator|+
 literal|"cachingAccesses="
 operator|+
 name|stats
@@ -2505,6 +2507,8 @@ operator|+
 literal|", "
 operator|)
 operator|)
+operator|+
+literal|", "
 operator|+
 literal|"evictions="
 operator|+

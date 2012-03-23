@@ -79,36 +79,6 @@ name|LogFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ChecksumFactory
-import|;
-end_import
-
 begin_comment
 comment|/**  * Checksum types. The Checksum type is a one byte number  * that stores a representation of the checksum algorithm  * used to encode a hfile. The ordinal of these cannot   * change or else you risk breaking all existing HFiles out there.  */
 end_comment
@@ -249,7 +219,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 name|PURECRC32
 operator|+
@@ -296,13 +266,11 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|trace
 argument_list|(
 name|JDKCRC
 operator|+
-literal|" not available. "
-argument_list|,
-name|e
+literal|" not available."
 argument_list|)
 expr_stmt|;
 block|}
@@ -443,11 +411,11 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 name|PURECRC32C
 operator|+
-literal|" not available. "
+literal|" not available."
 argument_list|)
 expr_stmt|;
 block|}
