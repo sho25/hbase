@@ -112,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  *  * After encoding, it also optionally compresses the encoded data if a  * compression algorithm is specified in HFileBlockEncodingContext argument of  * {@link #compressKeyValues(ByteBuffer, boolean, HFileBlockEncodingContext)}.  */
+comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  *  * After encoding, it also optionally compresses the encoded data if a  * compression algorithm is specified in HFileBlockEncodingContext argument of  * {@link #encodeKeyValues(ByteBuffer, boolean, HFileBlockEncodingContext)}.  */
 end_comment
 
 begin_interface
@@ -124,10 +124,10 @@ specifier|public
 interface|interface
 name|DataBlockEncoder
 block|{
-comment|/**    * Compress KeyValues. It will first encode key value pairs, and then    * optionally do the compression for the encoded data.    *    * @param in    *          Source of KeyValue for compression.    * @param includesMemstoreTS    *          true if including memstore timestamp after every key-value pair    * @param encodingContext    *          the encoding context which will contain encoded uncompressed bytes    *          as well as compressed encoded bytes if compression is enabled, and    *          also it will reuse resources across multiple calls.    * @throws IOException    *           If there is an error writing to output stream.    */
+comment|/**    * Encodes KeyValues. It will first encode key value pairs, and then    * optionally do the compression for the encoded data.    *    * @param in    *          Source of KeyValue for compression.    * @param includesMemstoreTS    *          true if including memstore timestamp after every key-value pair    * @param encodingContext    *          the encoding context which will contain encoded uncompressed bytes    *          as well as compressed encoded bytes if compression is enabled, and    *          also it will reuse resources across multiple calls.    * @throws IOException    *           If there is an error writing to output stream.    */
 specifier|public
 name|void
-name|compressKeyValues
+name|encodeKeyValues
 parameter_list|(
 name|ByteBuffer
 name|in
@@ -141,10 +141,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uncompress.    * @param source Compressed stream of KeyValues.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
+comment|/**    * Decode.    * @param source Compressed stream of KeyValues.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
 specifier|public
 name|ByteBuffer
-name|uncompressKeyValues
+name|decodeKeyValues
 parameter_list|(
 name|DataInputStream
 name|source
@@ -155,10 +155,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uncompress.    * @param source Compressed stream of KeyValues.    * @param allocateHeaderLength allocate this many bytes for the header.    * @param skipLastBytes Do not copy n last bytes.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
+comment|/**    * Uncompress.    * @param source encoded stream of KeyValues.    * @param allocateHeaderLength allocate this many bytes for the header.    * @param skipLastBytes Do not copy n last bytes.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
 specifier|public
 name|ByteBuffer
-name|uncompressKeyValues
+name|decodeKeyValues
 parameter_list|(
 name|DataInputStream
 name|source

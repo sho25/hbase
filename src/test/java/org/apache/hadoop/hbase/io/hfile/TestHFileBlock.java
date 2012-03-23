@@ -2867,7 +2867,7 @@ argument_list|)
 decl_stmt|;
 name|encoder
 operator|.
-name|compressKeyValues
+name|encodeKeyValues
 argument_list|(
 name|rawBuf
 argument_list|,

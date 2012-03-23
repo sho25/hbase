@@ -188,7 +188,7 @@ annotation|@
 name|Override
 specifier|public
 name|ByteBuffer
-name|uncompressKeyValues
+name|decodeKeyValues
 parameter_list|(
 name|DataInputStream
 name|source

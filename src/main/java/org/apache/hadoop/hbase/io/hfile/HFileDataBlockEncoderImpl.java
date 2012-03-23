@@ -892,7 +892,7 @@ try|try
 block|{
 name|encoder
 operator|.
-name|compressKeyValues
+name|encodeKeyValues
 argument_list|(
 name|in
 argument_list|,

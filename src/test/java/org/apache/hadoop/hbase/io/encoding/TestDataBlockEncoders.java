@@ -492,7 +492,7 @@ argument_list|)
 decl_stmt|;
 name|encoder
 operator|.
-name|compressKeyValues
+name|encodeKeyValues
 argument_list|(
 name|dataset
 argument_list|,
@@ -604,7 +604,7 @@ name|actualDataset
 operator|=
 name|encoder
 operator|.
-name|uncompressKeyValues
+name|decodeKeyValues
 argument_list|(
 name|dis
 argument_list|,

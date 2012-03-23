@@ -195,20 +195,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -230,6 +216,24 @@ operator|.
 name|encoding
 operator|.
 name|DataBlockEncoding
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|encoding
+operator|.
+name|HFileBlockDecodingContext
 import|;
 end_import
 
@@ -284,24 +288,6 @@ operator|.
 name|encoding
 operator|.
 name|HFileBlockEncodingContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|encoding
-operator|.
-name|HFileBlockDecodingContext
 import|;
 end_import
 
@@ -2784,7 +2770,7 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|//set the header for the uncompressed bytes (for cache-on-write)
+comment|// set the header for the uncompressed bytes (for cache-on-write)
 name|putHeader
 argument_list|(
 name|uncompressedBytesWithHeader
