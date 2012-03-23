@@ -671,6 +671,18 @@ name|ThreadFactoryBuilder
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|cliffc
+operator|.
+name|high_scale_lib
+operator|.
+name|Counter
+import|;
+end_import
+
 begin_comment
 comment|/** An abstract IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *  *  *<p>Copied local so can fix HBASE-900.  *  * @see HBaseClient  */
 end_comment
@@ -717,9 +729,22 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MAX_QUEUE_SIZE_PER_HANDLER
+name|DEFAULT_MAX_CALLQUEUE_LENGTH_PER_HANDLER
 init|=
 literal|10
+decl_stmt|;
+comment|/**    * The maximum size that we can hold in the IPC queue    */
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_CALLQUEUE_SIZE
+init|=
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|1024
 decl_stmt|;
 specifier|static
 specifier|final
@@ -1063,6 +1088,10 @@ name|conf
 decl_stmt|;
 specifier|private
 name|int
+name|maxQueueLength
+decl_stmt|;
+specifier|private
+name|int
 name|maxQueueSize
 decl_stmt|;
 specifier|protected
@@ -1103,6 +1132,15 @@ argument_list|>
 name|callQueue
 decl_stmt|;
 comment|// queued calls
+specifier|protected
+specifier|final
+name|Counter
+name|callQueueSize
+init|=
+operator|new
+name|Counter
+argument_list|()
+decl_stmt|;
 specifier|protected
 name|BlockingQueue
 argument_list|<
@@ -1333,6 +1371,11 @@ decl_stmt|;
 comment|// if the return value should be
 comment|// set at call completion
 specifier|protected
+name|long
+name|size
+decl_stmt|;
+comment|// size of current call
+specifier|protected
 name|boolean
 name|isError
 decl_stmt|;
@@ -1350,6 +1393,9 @@ name|connection
 parameter_list|,
 name|Responder
 name|responder
+parameter_list|,
+name|long
+name|size
 parameter_list|)
 block|{
 name|this
@@ -1402,6 +1448,12 @@ operator|.
 name|isError
 operator|=
 literal|false
+expr_stmt|;
+name|this
+operator|.
+name|size
+operator|=
+name|size
 expr_stmt|;
 block|}
 annotation|@
@@ -2034,6 +2086,17 @@ return|return
 name|this
 operator|.
 name|delayReturnValue
+return|;
+block|}
+specifier|public
+name|long
+name|getSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|size
 return|;
 block|}
 comment|/**      * If we have a response, and delay is not set, then respond      * immediately.  Otherwise, do not respond to client.  This is      * called the by the RPC code in the context of the Handler thread.      */
@@ -5580,6 +5643,8 @@ argument_list|,
 name|this
 argument_list|,
 name|responder
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 comment|// Versions 3 and greater can interpret this exception
@@ -5740,6 +5805,13 @@ name|readInt
 argument_list|()
 decl_stmt|;
 comment|// try to read an id
+name|long
+name|callSize
+init|=
+name|buf
+operator|.
+name|length
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -5747,6 +5819,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -5757,13 +5830,83 @@ name|id
 operator|+
 literal|", "
 operator|+
-name|buf
-operator|.
-name|length
+name|callSize
 operator|+
 literal|" bytes"
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Enforcing the call queue size, this triggers a retry in the client
+if|if
+condition|(
+operator|(
+name|callSize
+operator|+
+name|callQueueSize
+operator|.
+name|get
+argument_list|()
+operator|)
+operator|>
+name|maxQueueSize
+condition|)
+block|{
+specifier|final
+name|Call
+name|callTooBig
+init|=
+operator|new
+name|Call
+argument_list|(
+name|id
+argument_list|,
+literal|null
+argument_list|,
+name|this
+argument_list|,
+name|responder
+argument_list|,
+name|callSize
+argument_list|)
+decl_stmt|;
+name|ByteArrayOutputStream
+name|responseBuffer
+init|=
+operator|new
+name|ByteArrayOutputStream
+argument_list|()
+decl_stmt|;
+name|setupResponse
+argument_list|(
+name|responseBuffer
+argument_list|,
+name|callTooBig
+argument_list|,
+name|Status
+operator|.
+name|FATAL
+argument_list|,
+literal|null
+argument_list|,
+name|IOException
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+literal|"Call queue is full, is ipc.server.max.callqueue.size too small?"
+argument_list|)
+expr_stmt|;
+name|responder
+operator|.
+name|doRespond
+argument_list|(
+name|callTooBig
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|Writable
 name|param
 decl_stmt|;
@@ -5821,6 +5964,8 @@ argument_list|,
 name|this
 argument_list|,
 name|responder
+argument_list|,
+name|callSize
 argument_list|)
 decl_stmt|;
 name|ByteArrayOutputStream
@@ -5880,8 +6025,17 @@ argument_list|,
 name|this
 argument_list|,
 name|responder
+argument_list|,
+name|callSize
 argument_list|)
 decl_stmt|;
+name|callQueueSize
+operator|.
+name|add
+argument_list|(
+name|callSize
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|priorityCallQueue
@@ -6471,6 +6625,19 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+name|callQueueSize
+operator|.
+name|add
+argument_list|(
+name|call
+operator|.
+name|getSize
+argument_list|()
+operator|*
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// Set the response for undelayed calls and delayed calls with
 comment|// undelayed responses.
 if|if
@@ -6819,6 +6986,23 @@ literal|0
 expr_stmt|;
 name|this
 operator|.
+name|maxQueueLength
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"ipc.server.max.callqueue.length"
+argument_list|,
+name|handlerCount
+operator|*
+name|DEFAULT_MAX_CALLQUEUE_LENGTH_PER_HANDLER
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|maxQueueSize
 operator|=
 name|this
@@ -6827,11 +7011,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.max.queue.size"
+literal|"ipc.server.max.callqueue.size"
 argument_list|,
-name|handlerCount
-operator|*
-name|DEFAULT_MAX_QUEUE_SIZE_PER_HANDLER
+name|DEFAULT_MAX_CALLQUEUE_SIZE
 argument_list|)
 expr_stmt|;
 name|this
@@ -6857,7 +7039,7 @@ argument_list|<
 name|Call
 argument_list|>
 argument_list|(
-name|maxQueueSize
+name|maxQueueLength
 argument_list|)
 expr_stmt|;
 if|if
@@ -6877,7 +7059,7 @@ argument_list|<
 name|Call
 argument_list|>
 argument_list|(
-name|maxQueueSize
+name|maxQueueLength
 argument_list|)
 expr_stmt|;
 comment|// TODO hack on size
