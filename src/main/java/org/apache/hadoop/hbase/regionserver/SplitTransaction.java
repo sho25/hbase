@@ -1559,7 +1559,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-literal|null
+name|services
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MetaEditor
@@ -1576,7 +1579,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-literal|null
+name|services
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG
