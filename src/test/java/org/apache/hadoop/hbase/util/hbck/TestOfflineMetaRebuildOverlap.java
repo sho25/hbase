@@ -392,7 +392,9 @@ argument_list|(
 name|fsck
 operator|.
 name|rebuildMeta
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Multimap

@@ -1979,6 +1979,7 @@ name|hfs
 argument_list|)
 return|;
 block|}
+comment|/**    *    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null.  @see {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @return an active Reader instance.    */
 specifier|public
 specifier|static
 name|Reader
@@ -1996,6 +1997,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Preconditions
+operator|.
+name|checkNotNull
+argument_list|(
+name|cacheConf
+argument_list|,
+literal|"Cannot create Reader with null CacheConf"
+argument_list|)
+expr_stmt|;
 return|return
 name|createReaderWithEncoding
 argument_list|(

@@ -192,9 +192,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HBaseFsck
-name|fsck
-decl_stmt|;
 specifier|protected
 specifier|static
 name|void
@@ -235,6 +232,24 @@ operator|.
 name|println
 argument_list|(
 literal|"   -base<hdfs://>   Base Hbase Data directory"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -fix              Auto fix as many problems as possible"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -fixHoles         Auto fix as region holes"
 argument_list|)
 expr_stmt|;
 name|Runtime
@@ -296,6 +311,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+name|boolean
+name|fixHoles
+init|=
+literal|false
+decl_stmt|;
 comment|// Process command-line args.
 for|for
 control|(
@@ -334,7 +354,7 @@ condition|)
 block|{
 name|fsck
 operator|.
-name|displayFullReport
+name|setDisplayFullReport
 argument_list|()
 expr_stmt|;
 block|}
@@ -389,6 +409,39 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-fixHoles"
+argument_list|)
+condition|)
+block|{
+name|fixHoles
+operator|=
+literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-fix"
+argument_list|)
+condition|)
+block|{
+comment|// make all fix options true
+name|fixHoles
+operator|=
+literal|true
+expr_stmt|;
+block|}
 else|else
 block|{
 name|String
@@ -433,7 +486,9 @@ operator|=
 name|fsck
 operator|.
 name|rebuildMeta
-argument_list|()
+argument_list|(
+name|fixHoles
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
