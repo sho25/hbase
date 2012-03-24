@@ -198,15 +198,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The "
-operator|+
-name|attempts
-operator|+
-literal|" times to retry  after sleeping "
+literal|"Sleeping "
 operator|+
 name|sleepTime
 operator|+
-literal|" ms"
+literal|"ms before retry #"
+operator|+
+name|attempts
+operator|+
+literal|"..."
 argument_list|)
 expr_stmt|;
 name|timeUnit

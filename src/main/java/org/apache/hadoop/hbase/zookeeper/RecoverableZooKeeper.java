@@ -331,16 +331,12 @@ specifier|private
 name|String
 name|quorumServers
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|ID_OFFSET
-init|=
-name|Bytes
-operator|.
-name|SIZEOF_INT
-decl_stmt|;
+comment|// The metadata attached to each piece of data has the
+comment|// format:
+comment|//<magic> 1-byte constant
+comment|//<id length> 4-byte big-endian integer (length of next field)
+comment|//<id> identifier corresponding uniquely to this process
+comment|// It is prepended to the data supplied by the user.
 comment|// the magic number is to be backward compatible
 specifier|private
 specifier|static
@@ -357,11 +353,29 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|MAGIC_OFFSET
+name|MAGIC_SIZE
 init|=
 name|Bytes
 operator|.
 name|SIZEOF_BYTE
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|ID_LENGTH_OFFSET
+init|=
+name|MAGIC_SIZE
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|ID_LENGTH_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_INT
 decl_stmt|;
 specifier|public
 name|RecoverableZooKeeper
@@ -535,7 +549,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * delete is an idempotent operation. Retry before throw out exception.    * This function will not throw out NoNodeException if the path is not existed    * @param path    * @param version    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * delete is an idempotent operation. Retry before throwing exception.    * This function will not throw NoNodeException if the path does not    * exist.    */
 specifier|public
 name|void
 name|delete
@@ -645,42 +659,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"delete"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper delete failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -704,7 +691,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return A Stat instance    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * exists is an idempotent operation. Retry before throwing exception    * @return A Stat instance    */
 specifier|public
 name|Stat
 name|exists
@@ -769,42 +756,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"exists"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper exists failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -824,7 +784,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return A Stat instance    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * exists is an idempotent operation. Retry before throwing exception    * @return A Stat instance    */
 specifier|public
 name|Stat
 name|exists
@@ -889,6 +849,50 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
+name|retryOrThrow
+argument_list|(
+name|retryCounter
+argument_list|,
+name|e
+argument_list|,
+literal|"exists"
+argument_list|)
+expr_stmt|;
+break|break;
+default|default:
+throw|throw
+name|e
+throw|;
+block|}
+block|}
+name|retryCounter
+operator|.
+name|sleepUntilNextRetry
+argument_list|()
+expr_stmt|;
+name|retryCounter
+operator|.
+name|useRetry
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+specifier|private
+name|void
+name|retryOrThrow
+parameter_list|(
+name|RetryCounter
+name|retryCounter
+parameter_list|,
+name|KeeperException
+name|e
+parameter_list|,
+name|String
+name|opName
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
 name|LOG
 operator|.
 name|warn
@@ -911,7 +915,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZooKeeper exists failed after "
+literal|"ZooKeeper "
+operator|+
+name|opName
+operator|+
+literal|" failed after "
 operator|+
 name|retryCounter
 operator|.
@@ -925,26 +933,8 @@ throw|throw
 name|e
 throw|;
 block|}
-break|break;
-default|default:
-throw|throw
-name|e
-throw|;
 block|}
-block|}
-name|retryCounter
-operator|.
-name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return List of children znodes    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getChildren is an idempotent operation. Retry before throwing exception    * @return List of children znodes    */
 specifier|public
 name|List
 argument_list|<
@@ -1012,42 +1002,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"getChildren"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper getChildren failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -1067,7 +1030,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return List of children znodes    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getChildren is an idempotent operation. Retry before throwing exception    * @return List of children znodes    */
 specifier|public
 name|List
 argument_list|<
@@ -1135,42 +1098,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"getChildren"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper getChildren failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -1190,7 +1126,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getData is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @param stat    * @return Data    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getData is an idempotent operation. Retry before throwing exception    * @return Data    */
 specifier|public
 name|byte
 index|[]
@@ -1272,42 +1208,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"getData"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper getData failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -1327,7 +1236,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getData is an idemnpotent operation. Retry before throw out exception    * @param path    * @param watch    * @param stat    * @return Data    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getData is an idemnpotent operation. Retry before throwing exception    * @return Data    */
 specifier|public
 name|byte
 index|[]
@@ -1409,42 +1318,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"getData"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper getData failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -1464,7 +1346,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether     * badversion is caused by the result of previous correctly setData    * @param path    * @param data    * @param version    * @return Stat instance    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether     * badversion is caused by the result of previous correctly setData    * @return Stat instance    */
 specifier|public
 name|Stat
 name|setData
@@ -1544,42 +1426,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"setData"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper setData failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 case|case
 name|BADVERSION
@@ -1618,7 +1473,7 @@ name|toInt
 argument_list|(
 name|revData
 argument_list|,
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 argument_list|)
 decl_stmt|;
 name|int
@@ -1628,14 +1483,14 @@ name|revData
 operator|.
 name|length
 operator|-
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 operator|-
 name|idLength
 decl_stmt|;
 name|int
 name|dataOffset
 init|=
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 operator|+
 name|idLength
 decl_stmt|;
@@ -1647,7 +1502,7 @@ name|compareTo
 argument_list|(
 name|revData
 argument_list|,
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 argument_list|,
 name|id
 operator|.
@@ -1675,12 +1530,12 @@ name|KeeperException
 name|keeperException
 parameter_list|)
 block|{
-comment|// the ZK is not reliable at this moment. just throw out exception
+comment|// the ZK is not reliable at this moment. just throwing exception
 throw|throw
 name|keeperException
 throw|;
 block|}
-comment|// throw out other exceptions and verified bad version exceptions
+comment|// throw other exceptions and verified bad version exceptions
 default|default:
 throw|throw
 name|e
@@ -1699,7 +1554,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.     * Retry before throw out exceptions.    * But this function will not throw out the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add     * identifier to the path to verify, whether the previous one is successful     * or not.    *</p>    *     * @param path    * @param data    * @param acl    * @param createMode    * @return Path    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.     * Retry before throwing exceptions.    * But this function will not throw the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add     * identifier to the path to verify, whether the previous one is successful     * or not.    *</p>    *     * @return Path    */
 specifier|public
 name|String
 name|create
@@ -1967,42 +1822,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"create"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper create failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -2149,42 +1977,15 @@ case|:
 case|case
 name|OPERATIONTIMEOUT
 case|:
-name|LOG
-operator|.
-name|warn
+name|retryOrThrow
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
-operator|+
+name|retryCounter
+argument_list|,
 name|e
+argument_list|,
+literal|"create"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|retryCounter
-operator|.
-name|shouldRetry
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZooKeeper create failed after "
-operator|+
-name|retryCounter
-operator|.
-name|getMaxRetries
-argument_list|()
-operator|+
-literal|" retries"
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
 break|break;
 default|default:
 throw|throw
@@ -2387,7 +2188,7 @@ name|toInt
 argument_list|(
 name|data
 argument_list|,
-name|MAGIC_OFFSET
+name|ID_LENGTH_OFFSET
 argument_list|)
 decl_stmt|;
 name|int
@@ -2397,18 +2198,18 @@ name|data
 operator|.
 name|length
 operator|-
-name|MAGIC_OFFSET
+name|MAGIC_SIZE
 operator|-
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 operator|-
 name|idLength
 decl_stmt|;
 name|int
 name|dataOffset
 init|=
-name|MAGIC_OFFSET
+name|MAGIC_SIZE
 operator|+
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 operator|+
 name|idLength
 decl_stmt|;
@@ -2475,9 +2276,9 @@ init|=
 operator|new
 name|byte
 index|[
-name|MAGIC_OFFSET
+name|MAGIC_SIZE
 operator|+
-name|ID_OFFSET
+name|ID_LENGTH_SIZE
 operator|+
 name|id
 operator|.
