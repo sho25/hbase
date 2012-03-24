@@ -867,6 +867,10 @@ argument_list|(
 name|HConstants
 operator|.
 name|CLUSTER_DISTRIBUTED
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_DISTRIBUTED
 argument_list|)
 operator|.
 name|equals

@@ -246,6 +246,15 @@ name|CLUSTER_IS_DISTRIBUTED
 init|=
 literal|"true"
 decl_stmt|;
+comment|/** Default value for cluster distributed mode */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_CLUSTER_DISTRIBUTED
+init|=
+name|CLUSTER_IS_LOCAL
+decl_stmt|;
 comment|/** default host address */
 specifier|public
 specifier|static
