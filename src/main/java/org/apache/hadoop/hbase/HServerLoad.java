@@ -817,6 +817,36 @@ return|return
 name|writeRequestsCount
 return|;
 block|}
+comment|/**      * @return The current total size of root-level indexes for the region, in KB.      */
+specifier|public
+name|int
+name|getRootIndexSizeKB
+parameter_list|()
+block|{
+return|return
+name|rootIndexSizeKB
+return|;
+block|}
+comment|/**      * @return The total size of all index blocks, not just the root level, in KB.      */
+specifier|public
+name|int
+name|getTotalStaticIndexSizeKB
+parameter_list|()
+block|{
+return|return
+name|totalStaticIndexSizeKB
+return|;
+block|}
+comment|/**      * @return The total size of all Bloom filter blocks, not just loaded into the      * block cache, in KB.      */
+specifier|public
+name|int
+name|getTotalStaticBloomSizeKB
+parameter_list|()
+block|{
+return|return
+name|totalStaticBloomSizeKB
+return|;
+block|}
 comment|/**      * @return the total number of kvs in current compaction      */
 specifier|public
 name|long
