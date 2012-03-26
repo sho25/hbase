@@ -242,14 +242,6 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
-specifier|static
-specifier|final
-name|String
-name|UNKNOWN_SERVERNAME
-init|=
-literal|"unknown"
-decl_stmt|;
-specifier|private
 name|String
 name|hbaseVersion
 decl_stmt|;
@@ -666,7 +658,7 @@ name|this
 operator|.
 name|deadServers
 operator|.
-name|equals
+name|containsAll
 argument_list|(
 operator|(
 operator|(
@@ -716,7 +708,7 @@ name|this
 operator|.
 name|backupMasters
 operator|.
-name|equals
+name|containsAll
 argument_list|(
 operator|(
 operator|(
@@ -1585,6 +1577,8 @@ operator|=
 operator|new
 name|ServerName
 argument_list|(
+name|ServerName
+operator|.
 name|UNKNOWN_SERVERNAME
 argument_list|,
 operator|-

@@ -190,6 +190,15 @@ operator|+
 literal|"$"
 argument_list|)
 decl_stmt|;
+comment|/**    * What to use if server name is unknown.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|UNKNOWN_SERVERNAME
+init|=
+literal|"#unknown#"
+decl_stmt|;
 specifier|private
 specifier|final
 name|String

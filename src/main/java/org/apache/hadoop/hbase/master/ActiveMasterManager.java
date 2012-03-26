@@ -618,9 +618,12 @@ name|watcher
 argument_list|,
 name|backupZNode
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|EMPTY_BYTE_ARRAY
+name|sn
+operator|.
+name|getVersionedBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|String
