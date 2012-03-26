@@ -834,6 +834,7 @@ name|Path
 name|oldLogDir
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|boolean
 name|logRollRunning
 decl_stmt|;
@@ -5161,21 +5162,23 @@ name|hlogFlush
 parameter_list|(
 name|Writer
 name|writer
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// Atomically fetch all existing pending writes. New writes
-comment|// will start accumulating in a new list.
+parameter_list|,
 name|List
 argument_list|<
 name|Entry
 argument_list|>
 name|pending
-init|=
-name|getPendingWrites
-argument_list|()
-decl_stmt|;
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|pending
+operator|==
+literal|null
+condition|)
+return|return;
 comment|// write out all accumulated Entries to hdfs.
 for|for
 control|(
@@ -5247,6 +5250,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Writer
+name|tempWriter
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -5261,6 +5267,13 @@ operator|.
 name|closed
 condition|)
 return|return;
+name|tempWriter
+operator|=
+name|this
+operator|.
+name|writer
+expr_stmt|;
+comment|// guaranteed non-null
 block|}
 comment|// if the transaction that we are interested in is already
 comment|// synced, then return immediately.
@@ -5296,10 +5309,16 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Done in parallel for all writer threads, thanks to HDFS-895
-name|boolean
-name|syncSuccessful
+name|List
+argument_list|<
+name|Entry
+argument_list|>
+name|pending
 init|=
-literal|true
+name|logSyncerThread
+operator|.
+name|getPendingWrites
+argument_list|()
 decl_stmt|;
 try|try
 block|{
@@ -5311,14 +5330,16 @@ name|logSyncerThread
 operator|.
 name|hlogFlush
 argument_list|(
-name|this
-operator|.
-name|writer
+name|tempWriter
+argument_list|,
+name|pending
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|writer
+name|pending
+operator|=
+literal|null
+expr_stmt|;
+name|tempWriter
 operator|.
 name|sync
 argument_list|()
@@ -5356,17 +5377,6 @@ name|IOException
 name|io
 parameter_list|)
 block|{
-name|syncSuccessful
-operator|=
-literal|false
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|syncSuccessful
-condition|)
-block|{
 synchronized|synchronized
 init|(
 name|this
@@ -5374,10 +5384,23 @@ operator|.
 name|updateLock
 init|)
 block|{
-comment|// HBASE-4387, retry with updateLock held
+comment|// HBASE-4387, HBASE-5623, retry with updateLock held
+name|tempWriter
+operator|=
 name|this
 operator|.
 name|writer
+expr_stmt|;
+name|logSyncerThread
+operator|.
+name|hlogFlush
+argument_list|(
+name|tempWriter
+argument_list|,
+name|pending
+argument_list|)
+expr_stmt|;
+name|tempWriter
 operator|.
 name|sync
 argument_list|()
@@ -5426,11 +5449,11 @@ block|{
 name|checkLowReplication
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 if|if
 condition|(
-name|this
-operator|.
-name|writer
+name|tempWriter
 operator|.
 name|getLength
 argument_list|()
@@ -5442,6 +5465,21 @@ condition|)
 block|{
 name|requestLogRoll
 argument_list|()
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|x
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Log roll failed and will be retried. (This is not an error)"
+argument_list|)
 expr_stmt|;
 block|}
 block|}

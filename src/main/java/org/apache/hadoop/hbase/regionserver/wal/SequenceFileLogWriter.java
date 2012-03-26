@@ -1428,6 +1428,8 @@ argument_list|(
 name|compressionContext
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|writer
@@ -1445,6 +1447,22 @@ name|getEdit
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// Concurrent close...
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|npe
+argument_list|)
+throw|;
+block|}
 block|}
 end_function
 
@@ -1613,6 +1631,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 return|return
 name|this
 operator|.
@@ -1621,6 +1641,22 @@ operator|.
 name|getLength
 argument_list|()
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// Concurrent close...
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|npe
+argument_list|)
+throw|;
+block|}
 block|}
 end_function
 
