@@ -691,6 +691,9 @@ name|connection
 parameter_list|,
 name|Responder
 name|responder
+parameter_list|,
+name|long
+name|size
 parameter_list|)
 block|{
 name|super
@@ -702,6 +705,8 @@ argument_list|,
 name|connection
 argument_list|,
 name|responder
+argument_list|,
+name|size
 argument_list|)
 expr_stmt|;
 block|}
@@ -1263,6 +1268,8 @@ argument_list|,
 name|this
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -2410,6 +2417,8 @@ argument_list|,
 name|this
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 name|failedCall
@@ -3274,6 +3283,10 @@ argument_list|,
 name|this
 argument_list|,
 name|responder
+argument_list|,
+name|buf
+operator|.
+name|length
 argument_list|)
 decl_stmt|;
 if|if
@@ -3442,6 +3455,8 @@ argument_list|,
 name|this
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 name|failedCall
