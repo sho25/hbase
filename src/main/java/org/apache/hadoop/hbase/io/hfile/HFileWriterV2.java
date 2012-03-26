@@ -950,9 +950,7 @@ argument_list|()
 expr_stmt|;
 name|HFile
 operator|.
-name|writeTimeNano
-operator|.
-name|addAndGet
+name|offerWriteLatency
 argument_list|(
 name|System
 operator|.
@@ -961,13 +959,6 @@ argument_list|()
 operator|-
 name|startTimeNs
 argument_list|)
-expr_stmt|;
-name|HFile
-operator|.
-name|writeOps
-operator|.
-name|incrementAndGet
-argument_list|()
 expr_stmt|;
 if|if
 condition|(
