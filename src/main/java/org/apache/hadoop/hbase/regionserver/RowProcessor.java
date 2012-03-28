@@ -153,7 +153,7 @@ name|boolean
 name|readOnly
 parameter_list|()
 function_decl|;
-comment|/**    * HRegion handles the locks and MVCC and invokes this method properly.    *     * You should override this to create your own RowProcessor.    *    * If you are doing read-modify-write here, you should consider using    *<code>IsolationLevel.READ_UNCOMMITTED</code> for scan because    * we advance MVCC after releasing the locks for optimization purpose.    *    * @param now the current system millisecond    * @param region the HRegion    * @param mutations the output mutations to apply to memstore    * @param walEdit the output WAL edits to apply to write ahead log    */
+comment|/**    * HRegion handles the locks and MVCC and invokes this method properly.    *    * You should override this to create your own RowProcessor.    *    * If you are doing read-modify-write here, you should consider using    *<code>IsolationLevel.READ_UNCOMMITTED</code> for scan because    * we advance MVCC after releasing the locks for optimization purpose.    *    * @param now the current system millisecond    * @param region the HRegion    * @param mutations the output mutations to apply to memstore    * @param walEdit the output WAL edits to apply to write ahead log    */
 name|void
 name|process
 parameter_list|(
@@ -204,6 +204,11 @@ function_decl|;
 comment|/**    * @return The replication cluster id.    */
 name|UUID
 name|getClusterId
+parameter_list|()
+function_decl|;
+comment|/**    * Human readable name of the processor    * @return The name of the processor    */
+name|String
+name|getName
 parameter_list|()
 function_decl|;
 block|}
