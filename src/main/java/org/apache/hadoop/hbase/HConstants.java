@@ -232,25 +232,25 @@ comment|/** Cluster is standalone or pseudo-distributed */
 specifier|public
 specifier|static
 specifier|final
-name|String
+name|boolean
 name|CLUSTER_IS_LOCAL
 init|=
-literal|"false"
+literal|false
 decl_stmt|;
 comment|/** Cluster is fully-distributed */
 specifier|public
 specifier|static
 specifier|final
-name|String
+name|boolean
 name|CLUSTER_IS_DISTRIBUTED
 init|=
-literal|"true"
+literal|true
 decl_stmt|;
 comment|/** Default value for cluster distributed mode */
 specifier|public
 specifier|static
 specifier|final
-name|String
+name|boolean
 name|DEFAULT_CLUSTER_DISTRIBUTED
 init|=
 name|CLUSTER_IS_LOCAL
