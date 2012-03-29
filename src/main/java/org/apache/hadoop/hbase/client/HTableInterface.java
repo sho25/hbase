@@ -215,6 +215,8 @@ parameter_list|(
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Row
 argument_list|>
 name|actions
@@ -237,6 +239,8 @@ parameter_list|(
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Row
 argument_list|>
 name|actions

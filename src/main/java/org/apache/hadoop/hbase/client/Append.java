@@ -177,10 +177,7 @@ class|class
 name|Append
 extends|extends
 name|Mutation
-implements|implements
-name|Row
 block|{
-comment|// TODO: refactor to derive from Put?
 specifier|private
 specifier|static
 specifier|final

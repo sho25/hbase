@@ -1005,6 +1005,8 @@ name|batch
 parameter_list|(
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Row
 argument_list|>
 name|actions
@@ -1037,6 +1039,8 @@ name|batch
 parameter_list|(
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Row
 argument_list|>
 name|actions

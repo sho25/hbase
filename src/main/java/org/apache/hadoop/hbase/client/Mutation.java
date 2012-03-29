@@ -164,6 +164,8 @@ class|class
 name|Mutation
 extends|extends
 name|OperationWithAttributes
+implements|implements
+name|Row
 block|{
 comment|// Attribute used in Mutations to indicate the originating cluster.
 specifier|private
@@ -668,6 +670,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Method for retrieving the delete's row    * @return row    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]

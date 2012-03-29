@@ -238,8 +238,6 @@ name|HeapSize
 implements|,
 name|Writable
 implements|,
-name|Row
-implements|,
 name|Comparable
 argument_list|<
 name|Row
