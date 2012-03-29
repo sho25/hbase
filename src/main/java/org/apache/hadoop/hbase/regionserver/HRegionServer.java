@@ -12649,8 +12649,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|s
-operator|=
+name|RegionScanner
+name|savedScanner
+init|=
 name|r
 operator|.
 name|getCoprocessorHost
@@ -12662,7 +12663,31 @@ name|scan
 argument_list|,
 name|s
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|savedScanner
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"PostScannerOpen impl returning null. "
+operator|+
+literal|"Check the RegionObserver implementation."
+argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|s
+operator|=
+name|savedScanner
+expr_stmt|;
+block|}
 block|}
 return|return
 name|addScanner
