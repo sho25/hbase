@@ -170,7 +170,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This comparator is for use with {@link CompareFilter} implementations, such  * as {@link RowFilter}, {@link QualifierFilter}, and {@link ValueFilter}, for  * filtering based on the value of a given column. Use it to test if a given  * regular expression matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL comparisons are valid with this comparator.  *<p>  * For example:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  */
+comment|/**  * This comparator is for use with {@link CompareFilter} implementations, such  * as {@link RowFilter}, {@link QualifierFilter}, and {@link ValueFilter}, for  * filtering based on the value of a given column. Use it to test if a given  * regular expression matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL comparisons are valid with this comparator.  *<p>  * For example:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  *<p>  * Supports {@link java.util.regex.Pattern} flags as well:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator("regex", Pattern.CASE_INSENSITIVE | Pattern.DOTALL));  *</pre>  * @see java.util.regex.Pattern;  */
 end_comment
 
 begin_class
@@ -225,12 +225,33 @@ specifier|public
 name|RegexStringComparator
 parameter_list|()
 block|{ }
-comment|/**    * Constructor    * @param expr a valid regular expression    */
+comment|/**    * Constructor    * Adds Pattern.DOTALL to the underlying Pattern    * @param expr a valid regular expression    */
 specifier|public
 name|RegexStringComparator
 parameter_list|(
 name|String
 name|expr
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|expr
+argument_list|,
+name|Pattern
+operator|.
+name|DOTALL
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor    * @param expr a valid regular expression    * @param flags java.util.regex.Pattern flags    */
+specifier|public
+name|RegexStringComparator
+parameter_list|(
+name|String
+name|expr
+parameter_list|,
+name|int
+name|flags
 parameter_list|)
 block|{
 name|super
@@ -253,9 +274,7 @@ name|compile
 argument_list|(
 name|expr
 argument_list|,
-name|Pattern
-operator|.
-name|DOTALL
+name|flags
 argument_list|)
 expr_stmt|;
 block|}
@@ -353,6 +372,14 @@ argument_list|(
 name|expr
 argument_list|)
 expr_stmt|;
+name|int
+name|flags
+init|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|pattern
@@ -362,6 +389,8 @@ operator|.
 name|compile
 argument_list|(
 name|expr
+argument_list|,
+name|flags
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -434,6 +463,16 @@ argument_list|(
 name|pattern
 operator|.
 name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeInt
+argument_list|(
+name|pattern
+operator|.
+name|flags
 argument_list|()
 argument_list|)
 expr_stmt|;
