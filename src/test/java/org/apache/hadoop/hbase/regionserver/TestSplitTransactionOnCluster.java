@@ -774,10 +774,7 @@ name|ZKAssign
 operator|.
 name|getNodeName
 argument_list|(
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
@@ -791,10 +788,7 @@ decl_stmt|;
 name|Stat
 name|stats
 init|=
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
@@ -829,10 +823,7 @@ name|ZKAssign
 operator|.
 name|getData
 argument_list|(
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
@@ -948,10 +939,7 @@ block|}
 comment|// Finally assert that the ephemeral SPLIT znode was cleaned up.
 name|stats
 operator|=
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
@@ -1163,10 +1151,7 @@ name|ZKAssign
 operator|.
 name|createNodeClosing
 argument_list|(
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
@@ -1265,10 +1250,7 @@ name|ZKAssign
 operator|.
 name|deleteClosingNode
 argument_list|(
-name|t
-operator|.
-name|getConnection
-argument_list|()
+name|TESTING_UTIL
 operator|.
 name|getZooKeeperWatcher
 argument_list|()
