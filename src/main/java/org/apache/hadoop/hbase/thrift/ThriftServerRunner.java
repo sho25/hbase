@@ -5243,6 +5243,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 name|get
 operator|.
 name|setTimeRange
@@ -5254,7 +5255,6 @@ argument_list|,
 name|timestamp
 argument_list|)
 expr_stmt|;
-block|}
 name|gets
 operator|.
 name|add
