@@ -824,6 +824,14 @@ operator|.
 name|toStringMap
 argument_list|()
 decl_stmt|;
+name|long
+name|writeTime
+init|=
+name|key
+operator|.
+name|getWriteTime
+argument_list|()
+decl_stmt|;
 comment|// check output filters
 if|if
 condition|(
@@ -1064,6 +1072,14 @@ name|get
 argument_list|(
 literal|"table"
 argument_list|)
+operator|+
+literal|" at write timestamp: "
+operator|+
+operator|new
+name|Date
+argument_list|(
+name|writeTime
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for
@@ -1142,7 +1158,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"    at time: "
+literal|"    timestamp: "
 operator|+
 operator|(
 operator|new
