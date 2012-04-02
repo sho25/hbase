@@ -4308,6 +4308,37 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/** @return true if region is available (not closed and not closing) */
+specifier|public
+name|boolean
+name|isAvailable
+parameter_list|()
+block|{
+return|return
+operator|!
+name|isClosed
+argument_list|()
+operator|&&
+operator|!
+name|isClosing
+argument_list|()
+return|;
+block|}
+comment|/** @return true if region is splittable */
+specifier|public
+name|boolean
+name|isSplittable
+parameter_list|()
+block|{
+return|return
+name|isAvailable
+argument_list|()
+operator|&&
+operator|!
+name|hasReferences
+argument_list|()
+return|;
+block|}
 name|boolean
 name|areWritesEnabled
 parameter_list|()
