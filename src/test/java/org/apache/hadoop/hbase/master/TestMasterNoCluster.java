@@ -223,22 +223,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|RootLocationEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HConnection
@@ -322,6 +306,22 @@ operator|.
 name|util
 operator|.
 name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|RootRegionTracker
 import|;
 end_import
 
@@ -790,7 +790,7 @@ decl_stmt|;
 comment|// Put some data into the servers.  Make it look like sn0 has the root
 comment|// w/ an entry that points to sn1 as the host of .META.  Put data into sn2
 comment|// so it looks like it has a few regions for a table named 't'.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
@@ -1673,7 +1673,7 @@ comment|// Need to set root location as r1.  Usually the regionserver does this
 comment|// when its figured it just opened the root region by setting the root
 comment|// location up into zk.  Since we're mocking regionserver, need to do this
 comment|// ourselves.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(

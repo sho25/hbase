@@ -337,6 +337,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|RootRegionTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKUtil
 import|;
 end_import
@@ -760,7 +776,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
@@ -787,7 +803,7 @@ finally|finally
 block|{
 comment|// Clean out root location or later tests will be confused... they presume
 comment|// start fresh in zk.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|deleteRootLocation
 argument_list|(
@@ -1097,7 +1113,7 @@ decl_stmt|;
 try|try
 block|{
 comment|// Set a location for root and meta.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
@@ -1249,7 +1265,7 @@ operator|.
 name|resetMetaLocation
 argument_list|()
 expr_stmt|;
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|deleteRootLocation
 argument_list|(
@@ -1364,7 +1380,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
@@ -1407,7 +1423,7 @@ finally|finally
 block|{
 comment|// Clean out root location or later tests will be confused... they
 comment|// presume start fresh in zk.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|deleteRootLocation
 argument_list|(
@@ -1548,7 +1564,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
@@ -1587,7 +1603,7 @@ finally|finally
 block|{
 comment|// Clean out root location or later tests will be confused... they presume
 comment|// start fresh in zk.
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|deleteRootLocation
 argument_list|(
@@ -1814,7 +1830,7 @@ parameter_list|()
 throws|throws
 name|KeeperException
 block|{
-name|RootLocationEditor
+name|RootRegionTracker
 operator|.
 name|setRootLocation
 argument_list|(
