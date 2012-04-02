@@ -907,6 +907,8 @@ operator|.
 name|hTableDescriptor
 argument_list|,
 name|hlog
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
