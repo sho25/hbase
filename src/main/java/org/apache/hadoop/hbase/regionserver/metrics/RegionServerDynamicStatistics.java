@@ -131,7 +131,7 @@ name|MBeanUtil
 operator|.
 name|registerMBean
 argument_list|(
-literal|"RegionServerDynamic"
+literal|"RegionServer"
 argument_list|,
 literal|"RegionServerDynamicStatistics"
 argument_list|,
