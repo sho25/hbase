@@ -2095,6 +2095,52 @@ expr_stmt|;
 block|}
 specifier|private
 name|void
+name|tryGetDataSetWatch
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+comment|// A negative retry count will lead to ignoring all error processing.
+name|this
+operator|.
+name|watcher
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
+name|getZooKeeper
+argument_list|()
+operator|.
+name|getData
+argument_list|(
+name|path
+argument_list|,
+name|this
+operator|.
+name|watcher
+argument_list|,
+operator|new
+name|GetDataAsyncCallback
+argument_list|()
+argument_list|,
+operator|new
+name|Long
+argument_list|(
+operator|-
+literal|1
+argument_list|)
+comment|/* retry count */
+argument_list|)
+expr_stmt|;
+name|tot_mgr_get_data_queued
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
 name|getDataSetWatchSuccess
 parameter_list|(
 name|String
@@ -4443,22 +4489,30 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-comment|// we have to do this check again because tasks might have
-comment|// been asynchronously assigned.
+comment|// we have to do task.isUnassigned() check again because tasks might
+comment|// have been asynchronously assigned. There is no locking required
+comment|// for these checks ... it is OK even if tryGetDataSetWatch() is
+comment|// called unnecessarily for a task
 if|if
 condition|(
 name|task
 operator|.
 name|isUnassigned
 argument_list|()
+operator|&&
+operator|(
+name|task
+operator|.
+name|status
+operator|!=
+name|FAILURE
+operator|)
 condition|)
 block|{
 comment|// We just touch the znode to make sure its still there
-name|getDataSetWatch
+name|tryGetDataSetWatch
 argument_list|(
 name|path
-argument_list|,
-name|zkretries
 argument_list|)
 expr_stmt|;
 block|}
@@ -4763,6 +4817,37 @@ name|Long
 operator|)
 name|ctx
 decl_stmt|;
+if|if
+condition|(
+name|retry_count
+operator|<
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"getdata rc = "
+operator|+
+name|KeeperException
+operator|.
+name|Code
+operator|.
+name|get
+argument_list|(
+name|rc
+argument_list|)
+operator|+
+literal|" "
+operator|+
+name|path
+operator|+
+literal|". Ignoring error. No error handling. No retrying."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|warn
