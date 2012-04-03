@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName server = 2;
+comment|// required .ServerName server = 1;
 name|boolean
 name|hasServer
 parameter_list|()
@@ -232,14 +232,14 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 2;
+comment|// required .ServerName server = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
 name|SERVER_FIELD_NUMBER
 init|=
-literal|2
+literal|1
 decl_stmt|;
 specifier|private
 name|org
@@ -460,7 +460,7 @@ name|output
 operator|.
 name|writeMessage
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|server_
 argument_list|)
@@ -531,7 +531,7 @@ name|CodedOutputStream
 operator|.
 name|computeMessageSize
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|server_
 argument_list|)
@@ -2367,7 +2367,7 @@ block|}
 break|break;
 block|}
 case|case
-literal|18
+literal|10
 case|:
 block|{
 name|org
@@ -2449,7 +2449,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName server = 2;
+comment|// required .ServerName server = 1;
 specifier|private
 name|org
 operator|.
@@ -3233,7 +3233,7 @@ init|=
 block|{
 literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"/\n\020RootRe"
 operator|+
-literal|"gionServer\022\033\n\006server\030\002 \002(\0132\013.ServerNameB"
+literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerNameB"
 operator|+
 literal|"E\n*org.apache.hadoop.hbase.protobuf.gene"
 operator|+
