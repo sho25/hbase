@@ -212,15 +212,6 @@ name|String
 name|getPeerClusterId
 parameter_list|()
 function_decl|;
-comment|/**    * Set if this source is enabled or disabled    * @param status the new status    */
-specifier|public
-name|void
-name|setSourceEnabled
-parameter_list|(
-name|boolean
-name|status
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

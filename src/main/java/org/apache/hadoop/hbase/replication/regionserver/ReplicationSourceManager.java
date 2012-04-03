@@ -173,22 +173,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ThreadFactoryBuilder
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -342,6 +326,22 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactoryBuilder
 import|;
 end_import
 
@@ -1033,14 +1033,6 @@ argument_list|,
 name|id
 argument_list|)
 decl_stmt|;
-comment|// TODO set it to what's in ZK
-name|src
-operator|.
-name|setSourceEnabled
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -2513,14 +2505,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO set it to what's in ZK
-name|src
-operator|.
-name|setSourceEnabled
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|src
 operator|.
 name|startup
