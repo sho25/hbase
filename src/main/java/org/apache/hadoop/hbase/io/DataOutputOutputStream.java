@@ -70,6 +70,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|DataOutputOutputStream
 extends|extends
