@@ -971,6 +971,24 @@ name|master
 operator|.
 name|handler
 operator|.
+name|TableEventHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|handler
+operator|.
 name|TableModifyFamilyHandler
 import|;
 end_import
@@ -6776,6 +6794,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: currently, we query using the table name on the client side. this
+comment|// may overlap with other table operations or the table operation may
+comment|// have completed before querying this API. We need to refactor to a
+comment|// transaction system in the future to avoid these ambiguities.
 if|if
 condition|(
 name|supportInstantSchemaChanges
@@ -7548,12 +7570,9 @@ name|htd
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
+name|TableEventHandler
+name|tblHandle
+init|=
 operator|new
 name|ModifyTableHandler
 argument_list|(
@@ -7569,7 +7588,20 @@ name|this
 argument_list|,
 name|supportInstantSchemaChanges
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|executorService
+operator|.
+name|submit
+argument_list|(
+name|tblHandle
 argument_list|)
+expr_stmt|;
+name|tblHandle
+operator|.
+name|waitForPersist
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
