@@ -2788,7 +2788,7 @@ block|{
 operator|new
 name|ServerCallable
 argument_list|<
-name|Boolean
+name|Void
 argument_list|>
 argument_list|(
 name|connection
@@ -2804,7 +2804,7 @@ name|operationTimeout
 argument_list|)
 block|{
 specifier|public
-name|Boolean
+name|Void
 name|call
 parameter_list|()
 throws|throws
@@ -2828,7 +2828,6 @@ expr_stmt|;
 return|return
 literal|null
 return|;
-comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
 operator|.
@@ -4124,7 +4123,7 @@ block|{
 operator|new
 name|ServerCallable
 argument_list|<
-name|Boolean
+name|Void
 argument_list|>
 argument_list|(
 name|connection
@@ -4140,7 +4139,7 @@ name|operationTimeout
 argument_list|)
 block|{
 specifier|public
-name|Boolean
+name|Void
 name|call
 parameter_list|()
 throws|throws
@@ -4167,7 +4166,6 @@ expr_stmt|;
 return|return
 literal|null
 return|;
-comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
 operator|.

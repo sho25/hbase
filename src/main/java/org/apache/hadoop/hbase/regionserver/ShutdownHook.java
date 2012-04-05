@@ -638,6 +638,21 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+if|if
+condition|(
+name|cache
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"This should not happen. Could not find the cache class in FileSystem."
+argument_list|)
+throw|;
+block|}
 name|Field
 name|field
 init|=

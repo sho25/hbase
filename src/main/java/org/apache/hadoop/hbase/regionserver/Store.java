@@ -2456,6 +2456,17 @@ operator|.
 name|getFirstRowKey
 argument_list|()
 decl_stmt|;
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|firstKey
+operator|!=
+literal|null
+argument_list|,
+literal|"First key can not be null"
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|lk
@@ -2465,18 +2476,21 @@ operator|.
 name|getLastKey
 argument_list|()
 decl_stmt|;
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|lk
+operator|!=
+literal|null
+argument_list|,
+literal|"Last key can not be null"
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|lastKey
 init|=
-operator|(
-name|lk
-operator|==
-literal|null
-operator|)
-condition|?
-literal|null
-else|:
 name|KeyValue
 operator|.
 name|createKeyValueFromKey

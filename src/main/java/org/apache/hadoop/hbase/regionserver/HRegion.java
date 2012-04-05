@@ -3510,6 +3510,15 @@ name|MERGEDIR
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|htableDescriptor
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|writestate
@@ -3524,6 +3533,7 @@ name|isReadOnly
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|writestate
@@ -21998,7 +22008,7 @@ name|HBaseRPC
 operator|.
 name|UnknownProtocolException
 argument_list|(
-name|protocol
+literal|null
 argument_list|,
 literal|"No matching handler for protocol "
 operator|+

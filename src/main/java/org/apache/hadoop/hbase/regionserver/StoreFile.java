@@ -6897,6 +6897,21 @@ name|StoreFile
 name|sf
 parameter_list|)
 block|{
+if|if
+condition|(
+name|sf
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"StorFile can not be null"
+argument_list|)
+throw|;
+block|}
 return|return
 name|sf
 operator|.
