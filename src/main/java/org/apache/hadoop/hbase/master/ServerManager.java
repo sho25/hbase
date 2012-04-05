@@ -1455,32 +1455,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Exclude a RS from any pending schema change process.    * @param serverName    */
-specifier|private
-name|void
-name|excludeRegionServerFromSchemaChanges
-parameter_list|(
-specifier|final
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-name|this
-operator|.
-name|services
-operator|.
-name|getSchemaChangeTracker
-argument_list|()
-operator|.
-name|excludeRegionServerForSchemaChanges
-argument_list|(
-name|serverName
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/*    * Expire the passed server.  Add it to list of deadservers and queue a    * shutdown processing.    */
 specifier|public
 specifier|synchronized
@@ -1523,11 +1497,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|excludeRegionServerFromSchemaChanges
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!

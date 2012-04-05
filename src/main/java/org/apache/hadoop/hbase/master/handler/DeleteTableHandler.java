@@ -135,22 +135,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HMasterInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|master
 operator|.
 name|AssignmentManager
@@ -256,12 +240,6 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
-parameter_list|,
-name|HMasterInterface
-name|masterInterface
-parameter_list|,
-name|boolean
-name|instantChange
 parameter_list|)
 throws|throws
 name|IOException
@@ -277,10 +255,6 @@ argument_list|,
 name|server
 argument_list|,
 name|masterServices
-argument_list|,
-name|masterInterface
-argument_list|,
-name|instantChange
 argument_list|)
 expr_stmt|;
 comment|// The next call fails if no such table.

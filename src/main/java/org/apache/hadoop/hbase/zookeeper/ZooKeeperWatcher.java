@@ -414,11 +414,6 @@ specifier|public
 name|String
 name|splitLogZNode
 decl_stmt|;
-comment|// znode used to record table schema changes
-specifier|public
-name|String
-name|schemaZNode
-decl_stmt|;
 comment|// Certain ZooKeeper nodes need to be world-readable
 specifier|public
 specifier|static
@@ -697,15 +692,6 @@ name|createAndFailSilent
 argument_list|(
 name|this
 argument_list|,
-name|schemaZNode
-argument_list|)
-expr_stmt|;
-name|ZKUtil
-operator|.
-name|createAndFailSilent
-argument_list|(
-name|this
-argument_list|,
 name|backupMasterAddressesZNode
 argument_list|)
 expr_stmt|;
@@ -967,24 +953,6 @@ argument_list|,
 name|HConstants
 operator|.
 name|SPLIT_LOGDIR_NAME
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|schemaZNode
-operator|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|baseZNode
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"zookeeper.znode.schema"
-argument_list|,
-literal|"schema"
 argument_list|)
 argument_list|)
 expr_stmt|;

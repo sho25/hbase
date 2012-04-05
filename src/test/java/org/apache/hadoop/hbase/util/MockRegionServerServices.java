@@ -430,16 +430,6 @@ return|return
 literal|null
 return|;
 block|}
-specifier|public
-name|void
-name|refreshRegion
-parameter_list|(
-name|HRegion
-name|hRegion
-parameter_list|)
-throws|throws
-name|IOException
-block|{   }
 annotation|@
 name|Override
 specifier|public

@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -42,26 +62,6 @@ operator|.
 name|hbase
 operator|.
 name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -107,7 +107,7 @@ name|String
 name|encodedRegionName
 parameter_list|)
 function_decl|;
-comment|/**    * Get all online regions of a table in this RS.    * @param tableName    * @return List of HRegion    * @throws java.io.IOException    */
+comment|/**     * Get all online regions of a table in this RS.     * @param tableName     * @return List of HRegion     * @throws java.io.IOException     */
 specifier|public
 name|List
 argument_list|<
@@ -118,17 +118,6 @@ parameter_list|(
 name|byte
 index|[]
 name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Refresh a given region updating it with latest HTD info.    * @param hRegion    */
-specifier|public
-name|void
-name|refreshRegion
-parameter_list|(
-name|HRegion
-name|hRegion
 parameter_list|)
 throws|throws
 name|IOException

@@ -505,12 +505,6 @@ argument_list|>
 name|tableNames
 parameter_list|)
 function_decl|;
-comment|/**    * Returns the current running status of load balancer.    * @return True if LoadBalancer is running now else False.    */
-specifier|public
-name|boolean
-name|isLoadBalancerRunning
-parameter_list|()
-function_decl|;
 block|}
 end_interface
 
