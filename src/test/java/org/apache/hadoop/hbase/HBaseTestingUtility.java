@@ -1968,6 +1968,18 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Set the permissions for dfs data directories
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"dfs.datanode.data.dir.perm"
+argument_list|,
+literal|"700"
+argument_list|)
+expr_stmt|;
 comment|// Ok, now we can start
 name|this
 operator|.
