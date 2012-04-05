@@ -1227,6 +1227,10 @@ specifier|private
 name|ByteBuffer
 name|unwrappedDataLengthBuffer
 decl_stmt|;
+specifier|private
+name|SecureConnectionHeader
+name|header
+decl_stmt|;
 specifier|public
 name|UserGroupInformation
 name|attemptingUser
@@ -1978,7 +1982,7 @@ argument_list|(
 name|qop
 argument_list|)
 expr_stmt|;
-name|ticket
+name|user
 operator|=
 name|getAuthorizedUgi
 argument_list|(
@@ -1994,7 +1998,7 @@ name|debug
 argument_list|(
 literal|"SASL server successfully authenticated client: "
 operator|+
-name|ticket
+name|user
 argument_list|)
 expr_stmt|;
 name|rpcMetrics
@@ -2010,7 +2014,7 @@ name|trace
 argument_list|(
 name|AUTH_SUCCESSFUL_FOR
 operator|+
-name|ticket
+name|user
 argument_list|)
 expr_stmt|;
 name|saslContextEstablished
@@ -2795,18 +2799,18 @@ operator|!
 name|useSasl
 condition|)
 block|{
-name|ticket
+name|user
 operator|=
 name|protocolUser
 expr_stmt|;
 if|if
 condition|(
-name|ticket
+name|user
 operator|!=
 literal|null
 condition|)
 block|{
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
@@ -2825,7 +2829,7 @@ block|}
 else|else
 block|{
 comment|// user is authenticated
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
@@ -2857,7 +2861,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|ticket
+name|user
 operator|.
 name|getName
 argument_list|()
@@ -2881,7 +2885,7 @@ name|AccessControlException
 argument_list|(
 literal|"Authenticated user ("
 operator|+
-name|ticket
+name|user
 operator|+
 literal|") doesn't match what the client claims to be ("
 operator|+
@@ -2899,12 +2903,12 @@ comment|// The user is the real user. Now we create a proxy user
 name|UserGroupInformation
 name|realUser
 init|=
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
 decl_stmt|;
-name|ticket
+name|user
 operator|=
 name|User
 operator|.
@@ -2924,7 +2928,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Now the user is a proxy user, set Authentication method Proxy.
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
@@ -3191,7 +3195,7 @@ argument_list|()
 operator|+
 literal|" is unauthorized for user "
 operator|+
-name|ticket
+name|user
 argument_list|)
 throw|;
 block|}
@@ -3338,11 +3342,11 @@ comment|// authorize real user. doAs is allowed only for simple or kerberos
 comment|// authentication
 if|if
 condition|(
-name|ticket
+name|user
 operator|!=
 literal|null
 operator|&&
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
@@ -3365,7 +3369,7 @@ name|ProxyUsers
 operator|.
 name|authorize
 argument_list|(
-name|ticket
+name|user
 operator|.
 name|getUGI
 argument_list|()
@@ -3381,7 +3385,7 @@ expr_stmt|;
 block|}
 name|authorize
 argument_list|(
-name|ticket
+name|user
 argument_list|,
 name|header
 argument_list|,
