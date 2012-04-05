@@ -87,20 +87,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|primitives
-operator|.
-name|Longs
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -246,6 +232,20 @@ operator|.
 name|io
 operator|.
 name|Writable
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|primitives
+operator|.
+name|Longs
 import|;
 end_import
 
@@ -9356,6 +9356,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|rowCache
+operator|=
+literal|null
+expr_stmt|;
 name|this
 operator|.
 name|length
