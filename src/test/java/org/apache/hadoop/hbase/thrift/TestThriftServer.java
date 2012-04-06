@@ -1247,7 +1247,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// Setup
 name|ThriftServerRunner
 operator|.
 name|HBaseHandler
@@ -1264,6 +1263,26 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|doTestTableMutations
+argument_list|(
+name|handler
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|doTestTableMutations
+parameter_list|(
+name|Hbase
+operator|.
+name|Iface
+name|handler
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+comment|// Setup
 name|handler
 operator|.
 name|createTable
@@ -1708,10 +1727,8 @@ argument_list|)
 operator|.
 name|value
 operator|.
-name|array
+name|remaining
 argument_list|()
-operator|.
-name|length
 argument_list|)
 expr_stmt|;
 comment|// Teardown
@@ -3270,6 +3287,7 @@ return|;
 block|}
 comment|/**    *    * @return a List of BatchMutations with the following effects:    * (rowA, columnA): delete    * (rowA, columnB): place valueC    * (rowB, columnA): place valueC    * (rowB, columnB): place valueD    */
 specifier|private
+specifier|static
 name|List
 argument_list|<
 name|BatchMutation
