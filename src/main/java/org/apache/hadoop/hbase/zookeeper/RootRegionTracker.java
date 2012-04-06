@@ -383,7 +383,7 @@ name|byte
 index|[]
 name|data
 init|=
-name|getRootRegionServerZNodeContent
+name|getZNodeData
 argument_list|(
 name|location
 argument_list|)
@@ -438,7 +438,7 @@ comment|/**    * Build up the znode content.    * @param sn What to put into the
 specifier|static
 name|byte
 index|[]
-name|getRootRegionServerZNodeContent
+name|getZNodeData
 parameter_list|(
 specifier|final
 name|ServerName
