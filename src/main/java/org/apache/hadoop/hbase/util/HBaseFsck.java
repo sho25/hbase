@@ -4072,7 +4072,7 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|Path
-name|backupDir
+name|hbckDir
 init|=
 operator|new
 name|Path
@@ -4081,6 +4081,17 @@ name|hbaseDir
 operator|.
 name|getParent
 argument_list|()
+argument_list|,
+literal|"hbck"
+argument_list|)
+decl_stmt|;
+name|Path
+name|backupDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|hbckDir
 argument_list|,
 name|hbaseDir
 operator|.
