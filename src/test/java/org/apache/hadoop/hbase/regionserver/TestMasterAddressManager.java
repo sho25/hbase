@@ -107,6 +107,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|MasterAddressTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKUtil
 import|;
 end_import
@@ -336,7 +352,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|masterAddressZNode
+name|getMasterAddressZNode
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|zk
@@ -380,20 +397,18 @@ argument_list|(
 literal|"Creating master node"
 argument_list|)
 expr_stmt|;
-name|ZKUtil
+name|MasterAddressTracker
 operator|.
-name|createEphemeralNodeAndWatch
+name|setMasterAddress
 argument_list|(
 name|zk
 argument_list|,
 name|zk
 operator|.
-name|masterAddressZNode
+name|getMasterAddressZNode
+argument_list|()
 argument_list|,
 name|sn
-operator|.
-name|getVersionedBytes
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Wait for the node to be created

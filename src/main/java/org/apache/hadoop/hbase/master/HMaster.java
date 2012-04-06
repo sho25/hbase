@@ -7532,9 +7532,9 @@ name|backupMasters
 operator|.
 name|add
 argument_list|(
-name|ServerName
+name|ZKUtil
 operator|.
-name|parseVersionedServerName
+name|znodeContentToServerName
 argument_list|(
 name|bytes
 argument_list|)

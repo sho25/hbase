@@ -380,7 +380,7 @@ name|String
 name|drainingZNode
 decl_stmt|;
 comment|// znode of currently active master
-specifier|public
+specifier|private
 name|String
 name|masterAddressZNode
 decl_stmt|;
@@ -1628,6 +1628,18 @@ name|abortable
 operator|.
 name|isAborted
 argument_list|()
+return|;
+block|}
+comment|/**    * @return Path to the currently active master.    */
+specifier|public
+name|String
+name|getMasterAddressZNode
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|masterAddressZNode
 return|;
 block|}
 block|}
