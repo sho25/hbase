@@ -2210,6 +2210,52 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+comment|// HBASE-5680: Likely hadoop23 vs hadoop 20.x/1.x incompatibility
+if|if
+condition|(
+name|t
+operator|instanceof
+name|NoClassDefFoundError
+operator|&&
+name|t
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"org/apache/hadoop/hdfs/protocol/FSConstants$SafeModeAction"
+argument_list|)
+condition|)
+block|{
+comment|// improved error message for this special case
+name|abort
+argument_list|(
+literal|"HBase is having a problem with its Hadoop jars.  You may need to "
+operator|+
+literal|"recompile HBase against Hadoop version "
+operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|VersionInfo
+operator|.
+name|getVersion
+argument_list|()
+operator|+
+literal|" or change your hadoop jars to start properly"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|abort
 argument_list|(
 literal|"Unhandled exception. Starting shutdown."
@@ -2217,6 +2263,7 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
