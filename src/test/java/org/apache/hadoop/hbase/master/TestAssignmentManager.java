@@ -2004,6 +2004,8 @@ argument_list|,
 name|ct
 argument_list|,
 name|executor
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -2295,6 +2297,8 @@ argument_list|,
 name|ct
 argument_list|,
 name|executor
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -2701,6 +2705,8 @@ operator|.
 name|serverManager
 argument_list|,
 name|ct
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -3289,6 +3295,8 @@ argument_list|,
 name|catalogTracker
 argument_list|,
 name|service
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this

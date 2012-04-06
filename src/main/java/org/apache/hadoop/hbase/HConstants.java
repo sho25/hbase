@@ -1647,6 +1647,15 @@ name|ENABLE_WAL_COMPRESSION
 init|=
 literal|"hbase.regionserver.wal.enablecompression"
 decl_stmt|;
+comment|/** Region in Transition metrics threshold time */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|METRICS_RIT_STUCK_WARNING_THRESHOLD
+init|=
+literal|"hbase.metrics.rit.stuck.warning.threshold"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
