@@ -11677,11 +11677,6 @@ condition|)
 return|return
 name|seqid
 return|;
-name|boolean
-name|checkSafeToSkip
-init|=
-literal|true
-decl_stmt|;
 for|for
 control|(
 name|Path
@@ -11730,21 +11725,6 @@ name|edits
 argument_list|)
 condition|)
 continue|continue;
-if|if
-condition|(
-name|checkSafeToSkip
-condition|)
-block|{
-name|Path
-name|higher
-init|=
-name|files
-operator|.
-name|higher
-argument_list|(
-name|edits
-argument_list|)
-decl_stmt|;
 name|long
 name|maxSeqId
 init|=
@@ -11752,18 +11732,10 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-if|if
-condition|(
-name|higher
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Edit file name pattern, HLog.EDITFILES_NAME_PATTERN: "-?[0-9]+"
 name|String
 name|fileName
 init|=
-name|higher
+name|edits
 operator|.
 name|getName
 argument_list|()
@@ -11782,7 +11754,6 @@ name|fileName
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|maxSeqId
@@ -11793,9 +11764,13 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Maximum possible sequenceid for this log is "
+literal|"Maximum sequenceid for this log is "
 operator|+
 name|maxSeqId
+operator|+
+literal|" and minimum sequenceid for the region is "
+operator|+
+name|minSeqId
 operator|+
 literal|", skipped the whole file, path="
 operator|+
@@ -11809,14 +11784,6 @@ name|msg
 argument_list|)
 expr_stmt|;
 continue|continue;
-block|}
-else|else
-block|{
-name|checkSafeToSkip
-operator|=
-literal|false
-expr_stmt|;
-block|}
 block|}
 try|try
 block|{
