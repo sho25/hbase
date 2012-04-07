@@ -455,6 +455,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableSet
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|security
@@ -615,6 +629,25 @@ name|byte
 name|CURRENT_VERSION
 init|=
 literal|4
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|Set
+argument_list|<
+name|Byte
+argument_list|>
+name|INSECURE_VERSIONS
+init|=
+name|ImmutableSet
+operator|.
+name|of
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|3
+argument_list|)
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2342,6 +2375,42 @@ name|CURRENT_VERSION
 condition|)
 block|{
 comment|//Warning is ok since this is not supposed to happen.
+if|if
+condition|(
+name|INSECURE_VERSIONS
+operator|.
+name|contains
+argument_list|(
+name|version
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"An insecure client (version '"
+operator|+
+name|version
+operator|+
+literal|"') is attempting to connect "
+operator|+
+literal|" to this version '"
+operator|+
+name|CURRENT_VERSION
+operator|+
+literal|"' secure server from "
+operator|+
+name|hostAddress
+operator|+
+literal|":"
+operator|+
+name|remotePort
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|warn
@@ -2363,6 +2432,7 @@ operator|+
 name|CURRENT_VERSION
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 operator|-
 literal|1
