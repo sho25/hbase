@@ -1047,7 +1047,7 @@ operator|.
 name|getHRegion
 argument_list|()
 operator|+
-literal|" because user requested stop."
+literal|" because it was interrupted."
 argument_list|)
 throw|;
 block|}

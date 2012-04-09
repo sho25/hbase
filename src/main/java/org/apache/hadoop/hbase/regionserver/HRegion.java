@@ -6019,7 +6019,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"compaction interrupted by user"
+literal|"compaction interrupted"
 decl_stmt|;
 name|LOG
 operator|.
