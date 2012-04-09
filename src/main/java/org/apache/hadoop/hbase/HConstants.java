@@ -1124,6 +1124,14 @@ name|IN_MEMORY
 init|=
 literal|"IN_MEMORY"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CONFIG
+init|=
+literal|"CONFIG"
+decl_stmt|;
 comment|/**    * This is a retry backoff multiplier table similar to the BSD TCP syn    * backoff table, a bit more aggressive than simple exponential backoff.    */
 specifier|public
 specifier|static

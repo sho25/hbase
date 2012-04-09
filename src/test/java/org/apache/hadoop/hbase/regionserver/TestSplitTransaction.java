@@ -1494,9 +1494,9 @@ operator|.
 name|getLog
 argument_list|()
 argument_list|,
-name|r
+name|TEST_UTIL
 operator|.
-name|getConf
+name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1878,9 +1878,9 @@ operator|.
 name|getLog
 argument_list|()
 argument_list|,
-name|r
+name|TEST_UTIL
 operator|.
-name|getConf
+name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;

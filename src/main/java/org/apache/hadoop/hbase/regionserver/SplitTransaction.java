@@ -3145,7 +3145,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|getConf
+name|getBaseConf
 argument_list|()
 argument_list|,
 name|hri
