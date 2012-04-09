@@ -564,12 +564,12 @@ parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|int
+name|long
 name|time
 parameter_list|)
 block|{
 name|MetricsTimeVaryingRate
-name|methodTimeMetrc
+name|methodTimeMetric
 init|=
 name|getMethodTimeMetrics
 argument_list|(
@@ -578,7 +578,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|methodTimeMetrc
+name|methodTimeMetric
 operator|==
 literal|null
 condition|)
@@ -596,7 +596,7 @@ return|return;
 comment|// ignore methods that dont exist.
 block|}
 comment|// inc method specific processTime
-name|methodTimeMetrc
+name|methodTimeMetric
 operator|.
 name|inc
 argument_list|(
