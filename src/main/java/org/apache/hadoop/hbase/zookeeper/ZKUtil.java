@@ -2509,9 +2509,11 @@ name|NodeAndData
 argument_list|>
 name|newNodes
 init|=
-name|Collections
-operator|.
-name|emptyList
+operator|new
+name|ArrayList
+argument_list|<
+name|NodeAndData
+argument_list|>
 argument_list|()
 decl_stmt|;
 if|if
