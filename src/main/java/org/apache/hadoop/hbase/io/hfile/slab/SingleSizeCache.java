@@ -301,9 +301,9 @@ name|google
 operator|.
 name|common
 operator|.
-name|collect
+name|cache
 operator|.
-name|MapEvictionListener
+name|CacheBuilder
 import|;
 end_import
 
@@ -315,9 +315,23 @@ name|google
 operator|.
 name|common
 operator|.
-name|collect
+name|cache
 operator|.
-name|MapMaker
+name|RemovalListener
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|cache
+operator|.
+name|RemovalNotification
 import|;
 end_import
 
@@ -505,7 +519,7 @@ expr_stmt|;
 comment|// This evictionListener is called whenever the cache automatically
 comment|// evicts
 comment|// something.
-name|MapEvictionListener
+name|RemovalListener
 argument_list|<
 name|BlockCacheKey
 argument_list|,
@@ -514,7 +528,7 @@ argument_list|>
 name|listener
 init|=
 operator|new
-name|MapEvictionListener
+name|RemovalListener
 argument_list|<
 name|BlockCacheKey
 argument_list|,
@@ -526,15 +540,38 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|onEviction
+name|onRemoval
 parameter_list|(
+name|RemovalNotification
+argument_list|<
 name|BlockCacheKey
-name|key
-parameter_list|,
+argument_list|,
 name|CacheablePair
-name|value
+argument_list|>
+name|notification
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|notification
+operator|.
+name|wasEvicted
+argument_list|()
+condition|)
+block|{
+comment|// Only process removals by eviction, not by replacement or
+comment|// explicit removal
+return|return;
+block|}
+name|CacheablePair
+name|value
+init|=
+name|notification
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
 name|timeSinceLastAccess
 operator|.
 name|set
@@ -559,7 +596,10 @@ argument_list|()
 expr_stmt|;
 name|doEviction
 argument_list|(
-name|key
+name|notification
+operator|.
+name|getKey
+argument_list|()
 argument_list|,
 name|value
 argument_list|)
@@ -569,8 +609,9 @@ block|}
 decl_stmt|;
 name|backingMap
 operator|=
-operator|new
-name|MapMaker
+name|CacheBuilder
+operator|.
+name|newBuilder
 argument_list|()
 operator|.
 name|maximumSize
@@ -580,12 +621,20 @@ operator|-
 literal|1
 argument_list|)
 operator|.
-name|evictionListener
+name|removalListener
 argument_list|(
 name|listener
 argument_list|)
 operator|.
-name|makeMap
+operator|<
+name|BlockCacheKey
+operator|,
+name|CacheablePair
+operator|>
+name|build
+argument_list|()
+operator|.
+name|asMap
 argument_list|()
 expr_stmt|;
 block|}
