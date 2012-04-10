@@ -63,6 +63,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|FilterInputStream
 import|;
 end_import
@@ -2324,6 +2334,21 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|response
+operator|==
+literal|null
+condition|)
+block|{
+comment|// When the stream is closed, protobuf doesn't raise an EOFException,
+comment|// instead, it returns a null message object.
+throw|throw
+operator|new
+name|EOFException
+argument_list|()
+throw|;
+block|}
 name|int
 name|id
 init|=
