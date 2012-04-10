@@ -9607,6 +9607,12 @@ name|master
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|refresh
+init|=
+literal|false
+decl_stmt|;
+comment|// for the first time, use cached data
 while|while
 condition|(
 name|keepLooping
@@ -9624,7 +9630,9 @@ operator|.
 name|masterAddressManager
 operator|.
 name|getMasterAddress
-argument_list|()
+argument_list|(
+name|refresh
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -9666,6 +9674,11 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
+name|refresh
+operator|=
+literal|true
+expr_stmt|;
+comment|// let's try pull it from ZK directly
 name|sleeper
 operator|.
 name|sleep

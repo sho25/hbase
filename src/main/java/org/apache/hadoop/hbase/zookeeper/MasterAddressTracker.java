@@ -179,6 +179,23 @@ name|getMasterAddress
 parameter_list|()
 block|{
 return|return
+name|getMasterAddress
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the address of the current master if one is available.  Returns null    * if no current master. If refresh is set, try to load the data from ZK again,    * otherwise, cached data will be used.    *    * @param refresh whether to refresh the data by calling ZK directly.    * @return Server name or null if timed out.    */
+specifier|public
+name|ServerName
+name|getMasterAddress
+parameter_list|(
+specifier|final
+name|boolean
+name|refresh
+parameter_list|)
+block|{
+return|return
 name|ZKUtil
 operator|.
 name|znodeContentToServerName
@@ -187,7 +204,7 @@ name|super
 operator|.
 name|getData
 argument_list|(
-literal|false
+name|refresh
 argument_list|)
 argument_list|)
 return|;
