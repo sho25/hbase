@@ -21662,7 +21662,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|31
+literal|32
 operator|*
 name|ClassSize
 operator|.
