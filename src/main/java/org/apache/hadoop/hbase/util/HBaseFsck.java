@@ -1145,6 +1145,13 @@ init|=
 literal|false
 decl_stmt|;
 comment|// fix fs holes (missing .regioninfo)
+specifier|private
+name|boolean
+name|fixVersionFile
+init|=
+literal|false
+decl_stmt|;
+comment|// fix missing hbase.version file in hdfs
 comment|// limit fixes to listed tables, if empty atttempt to fix all
 specifier|private
 name|List
@@ -5035,6 +5042,64 @@ operator|+
 name|rootDir
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|shouldFixVersionFile
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Trying to create a new "
+operator|+
+name|HConstants
+operator|.
+name|VERSION_FILE_NAME
+operator|+
+literal|" file."
+argument_list|)
+expr_stmt|;
+name|setShouldRerun
+argument_list|()
+expr_stmt|;
+name|FSUtils
+operator|.
+name|setVersion
+argument_list|(
+name|fs
+argument_list|,
+name|rootDir
+argument_list|,
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|VERSION_FILE_WRITE_ATTEMPTS
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// level 1:<HBASE_DIR>/*
 name|WorkItemHdfsDir
@@ -6917,9 +6982,7 @@ name|ERROR_CODE
 operator|.
 name|SHOULD_NOT_BE_DEPLOYED
 argument_list|,
-literal|"UNHANDLED CASE:"
-operator|+
-literal|" Region "
+literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
@@ -6942,7 +7005,40 @@ name|deployedOn
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// TODO test and handle this case.
+if|if
+condition|(
+name|shouldFixAssignments
+argument_list|()
+condition|)
+block|{
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"Trying to close the region "
+operator|+
+name|descriptiveName
+argument_list|)
+expr_stmt|;
+name|setShouldRerun
+argument_list|()
+expr_stmt|;
+name|HBaseFsckRepair
+operator|.
+name|fixMultiAssignment
+argument_list|(
+name|admin
+argument_list|,
+name|hbi
+operator|.
+name|metaEntry
+argument_list|,
+name|hbi
+operator|.
+name|deployedOn
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -13325,6 +13421,28 @@ return|return
 name|fixHdfsOrphans
 return|;
 block|}
+specifier|public
+name|void
+name|setFixVersionFile
+parameter_list|(
+name|boolean
+name|shouldFix
+parameter_list|)
+block|{
+name|fixVersionFile
+operator|=
+name|shouldFix
+expr_stmt|;
+block|}
+specifier|public
+name|boolean
+name|shouldFixVersionFile
+parameter_list|()
+block|{
+return|return
+name|fixVersionFile
+return|;
+block|}
 comment|/**    * @param mm maximum number of regions to merge into a single region.    */
 specifier|public
 name|void
@@ -13579,6 +13697,15 @@ name|err
 operator|.
 name|println
 argument_list|(
+literal|"   -fixVersionFile   Try to fix missing hbase.version file in hdfs."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
 literal|"   -maxMerge<n>     When fixing region overlaps, allow at most<n> regions to merge. (n="
 operator|+
 name|DEFAULT_MAX_MERGE
@@ -13601,7 +13728,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -repair           Shortcut for -fixAssignments -fixMeta -fixHdfsHoles -fixHdfsOrphans -fixHdfsOverlaps"
+literal|"   -repair           Shortcut for -fixAssignments -fixMeta -fixHdfsHoles "
+operator|+
+literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile"
 argument_list|)
 expr_stmt|;
 name|System
@@ -14009,6 +14138,25 @@ name|cmd
 operator|.
 name|equals
 argument_list|(
+literal|"-fixVersionFile"
+argument_list|)
+condition|)
+block|{
+name|fsck
+operator|.
+name|setFixVersionFile
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
 literal|"-repair"
 argument_list|)
 condition|)
@@ -14046,6 +14194,13 @@ expr_stmt|;
 name|fsck
 operator|.
 name|setFixHdfsOverlaps
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixVersionFile
 argument_list|(
 literal|true
 argument_list|)
@@ -14338,6 +14493,13 @@ expr_stmt|;
 name|fsck
 operator|.
 name|setFixHdfsOverlaps
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixVersionFile
 argument_list|(
 literal|false
 argument_list|)

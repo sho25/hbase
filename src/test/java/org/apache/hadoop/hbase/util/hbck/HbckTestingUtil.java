@@ -144,6 +144,8 @@ argument_list|,
 name|fix
 argument_list|,
 name|fix
+argument_list|,
+name|fix
 argument_list|)
 return|;
 block|}
@@ -169,6 +171,9 @@ name|fixHdfsOverlaps
 parameter_list|,
 name|boolean
 name|fixHdfsOrphans
+parameter_list|,
+name|boolean
+name|fixVersionFile
 parameter_list|)
 throws|throws
 name|Exception
@@ -233,6 +238,13 @@ operator|.
 name|setFixHdfsOrphans
 argument_list|(
 name|fixHdfsOrphans
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixVersionFile
+argument_list|(
+name|fixVersionFile
 argument_list|)
 expr_stmt|;
 name|fsck
