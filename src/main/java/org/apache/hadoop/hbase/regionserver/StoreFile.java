@@ -3901,6 +3901,8 @@ argument_list|)
 operator|.
 name|withDataBlockEncoder
 argument_list|(
+name|this
+operator|.
 name|dataBlockEncoder
 argument_list|)
 operator|.

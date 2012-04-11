@@ -4628,10 +4628,15 @@ name|abort
 argument_list|(
 literal|"Aborting because error occoured while reading "
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|data
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" from .META."
 argument_list|,
@@ -8114,14 +8119,6 @@ name|isOffline
 argument_list|()
 condition|)
 block|{
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Unexpected state trying to OFFLINE; "
-operator|+
-name|state
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|master

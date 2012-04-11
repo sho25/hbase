@@ -734,11 +734,9 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"Allocation(data="
+literal|"Allocation("
 operator|+
-name|data
-operator|+
-literal|" with capacity="
+literal|"capacity="
 operator|+
 name|data
 operator|.

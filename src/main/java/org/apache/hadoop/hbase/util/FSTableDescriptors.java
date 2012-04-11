@@ -1366,7 +1366,7 @@ name|warn
 argument_list|(
 literal|"Failed cleanup of "
 operator|+
-name|status
+name|p
 argument_list|)
 expr_stmt|;
 block|}

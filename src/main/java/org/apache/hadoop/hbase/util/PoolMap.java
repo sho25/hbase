@@ -964,6 +964,13 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|pool
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 specifier|final
@@ -975,13 +982,6 @@ operator|.
 name|values
 argument_list|()
 control|)
-block|{
-if|if
-condition|(
-name|pool
-operator|!=
-literal|null
-condition|)
 block|{
 name|entries
 operator|.

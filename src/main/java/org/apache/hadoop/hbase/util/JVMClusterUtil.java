@@ -988,8 +988,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// regionServerThreads can never be null because they are initialized when
-comment|// the class is constructed.
+if|if
+condition|(
+name|regionservers
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|RegionServerThread
@@ -1031,6 +1036,7 @@ name|e
 parameter_list|)
 block|{
 comment|// continue
+block|}
 block|}
 block|}
 block|}

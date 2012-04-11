@@ -3233,7 +3233,12 @@ literal|"FileNotFoundException during getTableDescriptors."
 operator|+
 literal|" Current table name = "
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|,
 name|fnfe
 argument_list|)

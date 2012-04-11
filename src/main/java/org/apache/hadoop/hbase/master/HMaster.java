@@ -1786,9 +1786,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Failed resolve of "
 operator|+
-name|this
-operator|.
-name|isa
+name|initialIsa
 argument_list|)
 throw|;
 block|}

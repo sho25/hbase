@@ -2270,13 +2270,6 @@ name|fs
 expr_stmt|;
 comment|// open a stream to read data without checksum verification in
 comment|// the filesystem
-if|if
-condition|(
-name|hfs
-operator|!=
-literal|null
-condition|)
-block|{
 name|fsdisNoFsChecksum
 operator|=
 name|hfs
@@ -2289,7 +2282,6 @@ argument_list|(
 name|path
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|pickReaderVersion

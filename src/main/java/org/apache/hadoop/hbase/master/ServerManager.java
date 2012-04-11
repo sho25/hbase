@@ -2179,9 +2179,6 @@ operator|.
 name|get
 argument_list|(
 name|sn
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

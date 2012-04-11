@@ -3375,6 +3375,9 @@ operator|.
 name|contains
 argument_list|(
 name|p
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 condition|)
 block|{

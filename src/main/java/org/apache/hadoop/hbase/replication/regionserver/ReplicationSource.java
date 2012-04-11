@@ -3889,20 +3889,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|equals
-parameter_list|(
-name|Object
-name|o
-parameter_list|)
-block|{
-return|return
-literal|true
-return|;
-block|}
 comment|/**      * Split a path to get the start time      * For example: 10.20.20.171%3A60020.1277499063250      * @param p path to split      * @return start time      */
 specifier|private
 name|long
