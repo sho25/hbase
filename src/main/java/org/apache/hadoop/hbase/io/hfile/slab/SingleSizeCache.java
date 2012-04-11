@@ -1517,6 +1517,7 @@ throw|;
 block|}
 comment|/* Just a pair class, holds a reference to the parent cacheable */
 specifier|private
+specifier|static
 class|class
 name|CacheablePair
 implements|implements

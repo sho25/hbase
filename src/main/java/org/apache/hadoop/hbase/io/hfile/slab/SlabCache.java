@@ -1538,6 +1538,7 @@ block|{
 comment|// the maximum size somebody will ever try to cache, then we multiply by
 comment|// 10
 comment|// so we have finer grained stats.
+specifier|static
 specifier|final
 name|int
 name|MULTIPLIER

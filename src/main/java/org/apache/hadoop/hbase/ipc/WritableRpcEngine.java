@@ -1297,12 +1297,6 @@ specifier|private
 name|boolean
 name|verbose
 decl_stmt|;
-specifier|private
-name|boolean
-name|authorize
-init|=
-literal|false
-decl_stmt|;
 comment|// for JSON encoding
 specifier|private
 specifier|static
@@ -1542,21 +1536,6 @@ argument_list|,
 literal|false
 argument_list|,
 name|metricSuffixes
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|authorize
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|ServiceAuthorizationManager
-operator|.
-name|SERVICE_AUTHORIZATION_CONFIG
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|this

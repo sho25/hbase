@@ -197,11 +197,6 @@ operator|new
 name|MetricsRegistry
 argument_list|()
 decl_stmt|;
-specifier|private
-specifier|static
-name|ReplicationSinkMetrics
-name|instance
-decl_stmt|;
 comment|/** Rate of operations applied by the sink */
 specifier|public
 specifier|final

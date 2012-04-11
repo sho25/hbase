@@ -1049,10 +1049,6 @@ specifier|private
 name|Context
 name|subcontext
 decl_stmt|;
-specifier|private
-name|Throwable
-name|throwable
-decl_stmt|;
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1367,9 +1363,14 @@ name|Throwable
 name|ie
 parameter_list|)
 block|{
-name|throwable
-operator|=
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Problem in running map."
+argument_list|,
 name|ie
+argument_list|)
 expr_stmt|;
 block|}
 block|}

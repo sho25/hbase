@@ -1148,6 +1148,7 @@ class|class
 name|Executor
 block|{
 comment|// how long to retain excess threads
+specifier|static
 specifier|final
 name|long
 name|keepAliveTimeInMillis

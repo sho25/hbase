@@ -682,7 +682,9 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|executor
+name|ExecutorService
+operator|.
+name|Executor
 operator|.
 name|keepAliveTimeInMillis
 operator|*
