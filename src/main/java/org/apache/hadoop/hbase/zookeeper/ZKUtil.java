@@ -3757,7 +3757,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete the specified node and all of it's children.    *    * Sets no watches.  Throws all exceptions besides dealing with deletion of    * children.    */
+comment|/**    * Delete the specified node and all of it's children.    *<p>    * If the node does not exist, just returns.    *<p>    * Sets no watches. Throws all exceptions besides dealing with deletion of    * children.    */
 specifier|public
 specifier|static
 name|void
@@ -3789,6 +3789,14 @@ argument_list|,
 name|node
 argument_list|)
 decl_stmt|;
+comment|// the node is already deleted, so we just finish
+if|if
+condition|(
+name|children
+operator|==
+literal|null
+condition|)
+return|return;
 if|if
 condition|(
 operator|!

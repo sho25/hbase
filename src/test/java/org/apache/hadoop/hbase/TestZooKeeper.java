@@ -1542,6 +1542,7 @@ argument_list|,
 literal|"/l1/l2"
 argument_list|)
 expr_stmt|;
+comment|// make sure it really is deleted
 name|assertNull
 argument_list|(
 name|ZKUtil
@@ -1554,6 +1555,16 @@ literal|"/l1/l2/l3/l4"
 argument_list|,
 literal|null
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// do the same delete again and make sure it doesn't crash
+name|ZKUtil
+operator|.
+name|deleteNodeRecursively
+argument_list|(
+name|zkw
+argument_list|,
+literal|"/l1/l2"
 argument_list|)
 expr_stmt|;
 name|ZKUtil
