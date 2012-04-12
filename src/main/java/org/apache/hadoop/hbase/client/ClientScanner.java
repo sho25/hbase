@@ -1045,7 +1045,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**      * publish the scan metrics      * For now, we use scan.setAttribute to pass the metrics for application      * or TableInputFormat to consume      * Later, we could push it to other systems      * We don't use metrics framework because it doesn't support      * multi instances of the same metrics on the same machine; for scan/map      * reduce scenarios, we will have multiple scans running at the same time      */
+comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics      * framework because it doesn't support multi-instances of the same metrics on the same machine;      * for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this behavior      * can be turned on by calling calling:      *      * scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE, Bytes.toBytes(Boolean.TRUE))      */
 specifier|private
 name|void
 name|writeScanMetrics
@@ -1053,10 +1053,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// by default, scanMetrics is null
-comment|// if application wants to collect scanMetrics, it can turn it on by
-comment|// calling scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE,
-comment|// Bytes.toBytes(Boolean.TRUE))
 if|if
 condition|(
 name|this
@@ -1105,8 +1101,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// If the scanner is closed but there is some rows left in the cache,
-comment|// it will first empty it before returning null
+comment|// If the scanner is closed and there's nothing left in the cache, next is a no-op.
 if|if
 condition|(
 name|cache
@@ -1121,9 +1116,6 @@ operator|.
 name|closed
 condition|)
 block|{
-name|writeScanMetrics
-argument_list|()
-expr_stmt|;
 return|return
 literal|null
 return|;
@@ -1506,6 +1498,7 @@ name|poll
 argument_list|()
 return|;
 block|}
+comment|// if we exhausted this scanner before calling close, write out the scan metrics
 name|writeScanMetrics
 argument_list|()
 expr_stmt|;
@@ -1633,6 +1626,24 @@ comment|// We used to catch this error, interpret, and rethrow. However, we
 comment|// have since decided that it's not nice for a scanner's close to
 comment|// throw exceptions. Chances are it was just an UnknownScanner
 comment|// exception due to lease time out.
+block|}
+finally|finally
+block|{
+comment|// we want to output the scan metrics even if an error occurred on close
+try|try
+block|{
+name|writeScanMetrics
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// As above, we still don't want the scanner close() method to throw.
+block|}
 block|}
 name|callable
 operator|=
