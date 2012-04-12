@@ -403,8 +403,9 @@ name|config
 operator|==
 literal|null
 condition|?
-operator|new
-name|Configuration
+name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 else|:
 name|config
