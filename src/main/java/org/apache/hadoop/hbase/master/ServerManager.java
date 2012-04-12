@@ -561,6 +561,11 @@ specifier|final
 name|long
 name|maxSkew
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|warningSkew
+decl_stmt|;
 comment|/**    * Set of region servers which are dead but not expired immediately. If one    * server died before master enables ServerShutdownHandler, the server will be    * added to set and will be expired through calling    * {@link ServerManager#expireDeadNotExpiredServers()} by master.    */
 specifier|private
 name|Set
@@ -647,6 +652,17 @@ argument_list|(
 literal|"hbase.master.maxclockskew"
 argument_list|,
 literal|30000
+argument_list|)
+expr_stmt|;
+name|warningSkew
+operator|=
+name|c
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.master.warningclockskew"
+argument_list|,
+literal|10000
 argument_list|)
 expr_stmt|;
 name|this
@@ -913,7 +929,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Checks if the clock skew between the server and the master. If the clock    * skew is too much it will throw an Exception.    * @param serverName Incoming servers's name    * @param serverCurrentTime    * @throws ClockOutOfSyncException    */
+comment|/**    * Checks if the clock skew between the server and the master. If the clock skew exceeds the     * configured max, it will throw an exception; if it exceeds the configured warning threshold,     * it will log a warning but start normally.    * @param serverName Incoming servers's name    * @param serverCurrentTime    * @throws ClockOutOfSyncException if the skew exceeds the configured max value    */
 specifier|private
 name|void
 name|checkClockSkew
@@ -981,6 +997,47 @@ argument_list|(
 name|message
 argument_list|)
 throw|;
+block|}
+elseif|else
+if|if
+condition|(
+name|skew
+operator|>
+name|warningSkew
+condition|)
+block|{
+name|String
+name|message
+init|=
+literal|"Reported time for server "
+operator|+
+name|serverName
+operator|+
+literal|" is out of sync with master "
+operator|+
+literal|"by "
+operator|+
+name|skew
+operator|+
+literal|"ms. (Warning threshold is "
+operator|+
+name|warningSkew
+operator|+
+literal|"ms; "
+operator|+
+literal|"error threshold is "
+operator|+
+name|maxSkew
+operator|+
+literal|"ms)"
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|message
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName    * @param what START or REPORT    * @throws YouAreDeadException    */
