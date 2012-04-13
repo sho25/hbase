@@ -310,6 +310,17 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|ZOOKEEPER_SESSION_TIMEOUT
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster

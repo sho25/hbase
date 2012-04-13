@@ -494,6 +494,18 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+comment|// We don't want any region reassignments by the load balancer during the test.
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|LOAD_BALANCER_SLOP_KEY
+argument_list|,
+literal|10.0f
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Parameters

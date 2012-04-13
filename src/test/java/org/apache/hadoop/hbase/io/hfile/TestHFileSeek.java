@@ -433,6 +433,16 @@ specifier|private
 name|KVGenerator
 name|kvGen
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|HBaseTestingUtility
+name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public

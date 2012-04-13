@@ -27,43 +27,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
+name|*
 import|;
 end_import
 
@@ -432,24 +396,6 @@ operator|.
 name|datanode
 operator|.
 name|DataNode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|server
-operator|.
-name|namenode
-operator|.
-name|FSNamesystem
 import|;
 end_import
 
@@ -3026,6 +2972,14 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
+name|assertFalse
+argument_list|(
+name|cluster
+operator|.
+name|isClusterUp
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Workaround a strange issue with Hadoop's RPC system - if we don't
 comment|// sleep here, the new datanodes will pick up a cached IPC connection to
 comment|// the old (dead) NN and fail to start. Sleeping 2 seconds goes past
@@ -3037,37 +2991,27 @@ argument_list|(
 literal|2000
 argument_list|)
 expr_stmt|;
-name|cluster
-operator|=
-operator|new
-name|MiniDFSCluster
+name|LOG
+operator|.
+name|info
 argument_list|(
-name|namenodePort
-argument_list|,
-name|conf
-argument_list|,
-literal|5
-argument_list|,
-literal|false
-argument_list|,
-literal|true
-argument_list|,
-literal|true
-argument_list|,
-literal|null
-argument_list|,
-literal|null
-argument_list|,
-literal|null
-argument_list|,
-literal|null
+literal|"Waiting a few seconds before re-starting HDFS"
 argument_list|)
 expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|5000
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|=
 name|TEST_UTIL
 operator|.
-name|setDFSCluster
+name|startMiniDFSClusterForTestHLog
 argument_list|(
-name|cluster
+name|namenodePort
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -3086,7 +3030,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"START second instance."
+literal|"STARTED second instance."
 argument_list|)
 expr_stmt|;
 block|}

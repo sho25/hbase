@@ -429,7 +429,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|200
+literal|10
 argument_list|)
 expr_stmt|;
 block|}
@@ -969,7 +969,7 @@ literal|null
 decl_stmt|;
 name|outer
 label|:
-comment|// wait up to 2 secs for initial leader
+comment|// Wait up to 10 secs for initial leader
 for|for
 control|(
 name|int
@@ -979,7 +979,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|20
+literal|1000
 condition|;
 name|i
 operator|++
@@ -1062,7 +1062,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|100
+literal|10
 argument_list|)
 expr_stmt|;
 block|}

@@ -486,22 +486,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cleanup after JUnit test.    */
-annotation|@
-name|After
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|TEST_UTIL
-operator|.
-name|cleanupTestDir
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Test putting and taking out blocks into cache with different    * encoding options.    */
 annotation|@
 name|Test

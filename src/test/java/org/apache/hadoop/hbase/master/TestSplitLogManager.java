@@ -506,6 +506,15 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+comment|/**    * Additional amount of time we wait for events to happen. Added where unit    * test failures have been observed.    */
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|EXTRA_TOLERANCE_MS
+init|=
+literal|200
+decl_stmt|;
 specifier|static
 name|Stoppable
 name|stopper
@@ -583,6 +592,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|// Use a different ZK wrapper instance for each tests.
 name|zkw
 operator|=
 operator|new
@@ -591,6 +601,14 @@ argument_list|(
 name|conf
 argument_list|,
 literal|"split-log-manager-tests"
+operator|+
+name|UUID
+operator|.
+name|randomUUID
+argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 literal|null
 argument_list|)
@@ -1295,7 +1313,7 @@ literal|1
 argument_list|,
 name|to
 operator|+
-literal|100
+literal|300
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1690,7 +1708,7 @@ literal|1
 argument_list|,
 name|to
 operator|+
-literal|100
+name|EXTRA_TOLERANCE_MS
 argument_list|)
 expr_stmt|;
 name|int
@@ -1812,7 +1830,7 @@ literal|1
 argument_list|,
 name|to
 operator|+
-literal|100
+name|EXTRA_TOLERANCE_MS
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1821,7 +1839,7 @@ name|sleep
 argument_list|(
 name|to
 operator|+
-literal|100
+name|EXTRA_TOLERANCE_MS
 argument_list|)
 expr_stmt|;
 name|assertEquals

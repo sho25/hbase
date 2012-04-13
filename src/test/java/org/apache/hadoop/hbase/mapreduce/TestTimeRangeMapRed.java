@@ -1097,9 +1097,7 @@ block|{
 name|UTIL
 operator|.
 name|startMiniMapReduceCluster
-argument_list|(
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|Job
 name|job
