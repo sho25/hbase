@@ -615,7 +615,7 @@ name|HConstants
 operator|.
 name|ENABLE_WAL_COMPRESSION
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
