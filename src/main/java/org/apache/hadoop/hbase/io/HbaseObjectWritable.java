@@ -1163,6 +1163,18 @@ name|Message
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is a customized version of the polymorphic hadoop  * {@link ObjectWritable}.  It removes UTF8 (HADOOP-414).  * Using {@link Text} intead of UTF-8 saves ~2% CPU between reading and writing  * objects running a short sequentialWrite Performance Evaluation test just in  * ObjectWritable alone; more when we're doing randomRead-ing.  Other  * optimizations include our passing codes for classes instead of the  * actual class names themselves.  This makes it so this class needs amendment  * if non-Writable classes are introduced -- if passed a Writable for which we  * have no code, we just do the old-school passing of the class name, etc. --  * but passing codes the  savings are large particularly when cell  * data is small (If< a couple of kilobytes, the encoding/decoding of class  * name and reflection to instantiate class was costing in excess of the cell  * handling).  */
 end_comment
@@ -2139,6 +2151,16 @@ argument_list|,
 name|GENERIC_ARRAY_CODE
 argument_list|)
 expr_stmt|;
+name|addToMap
+argument_list|(
+name|RpcController
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 comment|// make sure that this is the last statement in this static block
 name|NEXT_CLASS_CODE
 operator|=
@@ -2443,6 +2465,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
 specifier|static
 name|Integer
 name|getClassCode
@@ -4913,7 +4936,7 @@ name|instance
 return|;
 block|}
 comment|/**    * Try to instantiate a protocol buffer of the given message class    * from the given input stream.    *    * @param protoClass the class of the generated protocol buffer    * @param dataIn the input stream to read from    * @return the instantiated Message instance    * @throws IOException if an IO problem occurs    */
-specifier|private
+specifier|public
 specifier|static
 name|Message
 name|tryInstantiateProtobuf

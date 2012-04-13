@@ -185,9 +185,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|Scan
+name|ProtobufUtil
 import|;
 end_import
 
@@ -201,9 +201,49 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|protobuf
 operator|.
-name|HRegionInterface
+name|ClientProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|ScanRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|ScanResponse
 import|;
 end_import
 
@@ -306,6 +346,30 @@ operator|.
 name|mockito
 operator|.
 name|Mockito
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
 import|;
 end_import
 
@@ -457,6 +521,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ServiceException
 block|{
 comment|// Need a zk watcher.
 name|ZooKeeperWatcher
@@ -512,97 +578,28 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|// Mock an HRegionInterface. Our mock implementation will fail a few
+comment|// Mock an ClientProtocol. Our mock implementation will fail a few
 comment|// times when we go to open a scanner.
 specifier|final
-name|HRegionInterface
+name|ClientProtocol
 name|implementation
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HRegionInterface
+name|ClientProtocol
 operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// When openScanner called throw IOE 'Server not running' a few times
+comment|// When scan called throw IOE 'Server not running' a few times
 comment|// before we return a scanner id.  Whats WEIRD is that these
 comment|// exceptions do not show in the log because they are caught and only
 comment|// printed if we FAIL.  We eventually succeed after retry so these don't
 comment|// show.  We will know if they happened or not because we will ask
-comment|// mockito at the end of this test to verify that openscanner was indeed
+comment|// mockito at the end of this test to verify that scan was indeed
 comment|// called the wanted number of times.
-specifier|final
-name|long
-name|scannerid
-init|=
-literal|123L
-decl_stmt|;
-name|Mockito
-operator|.
-name|when
-argument_list|(
-name|implementation
-operator|.
-name|openScanner
-argument_list|(
-operator|(
-name|byte
-index|[]
-operator|)
-name|Mockito
-operator|.
-name|any
-argument_list|()
-argument_list|,
-operator|(
-name|Scan
-operator|)
-name|Mockito
-operator|.
-name|any
-argument_list|()
-argument_list|)
-argument_list|)
-operator|.
-name|thenThrow
-argument_list|(
-operator|new
-name|IOException
-argument_list|(
-literal|"Server not running (1 of 3)"
-argument_list|)
-argument_list|)
-operator|.
-name|thenThrow
-argument_list|(
-operator|new
-name|IOException
-argument_list|(
-literal|"Server not running (2 of 3)"
-argument_list|)
-argument_list|)
-operator|.
-name|thenThrow
-argument_list|(
-operator|new
-name|IOException
-argument_list|(
-literal|"Server not running (3 of 3)"
-argument_list|)
-argument_list|)
-operator|.
-name|thenReturn
-argument_list|(
-name|scannerid
-argument_list|)
-expr_stmt|;
-comment|// Make it so a verifiable answer comes back when next is called.  Return
-comment|// the verifiable answer and then a null so we stop scanning.  Our
-comment|// verifiable answer is something that looks like a row in META with
-comment|// a server and startcode that is that of the above defined servername.
 name|List
 argument_list|<
 name|KeyValue
@@ -717,7 +714,7 @@ expr_stmt|;
 specifier|final
 name|Result
 index|[]
-name|result
+name|results
 init|=
 operator|new
 name|Result
@@ -730,34 +727,128 @@ name|kvs
 argument_list|)
 block|}
 decl_stmt|;
+name|ScanResponse
+operator|.
+name|Builder
+name|builder
+init|=
+name|ScanResponse
+operator|.
+name|newBuilder
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|Result
+name|result
+range|:
+name|results
+control|)
+block|{
+name|builder
+operator|.
+name|addResult
+argument_list|(
+name|ProtobufUtil
+operator|.
+name|toResult
+argument_list|(
+name|result
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|Mockito
 operator|.
 name|when
 argument_list|(
 name|implementation
 operator|.
-name|next
+name|scan
 argument_list|(
+operator|(
+name|RpcController
+operator|)
 name|Mockito
 operator|.
-name|anyLong
+name|any
 argument_list|()
 argument_list|,
+operator|(
+name|ScanRequest
+operator|)
 name|Mockito
 operator|.
-name|anyInt
+name|any
 argument_list|()
 argument_list|)
 argument_list|)
 operator|.
-name|thenReturn
+name|thenThrow
 argument_list|(
-name|result
+operator|new
+name|ServiceException
+argument_list|(
+literal|"Server not running (1 of 3)"
+argument_list|)
+argument_list|)
+operator|.
+name|thenThrow
+argument_list|(
+operator|new
+name|ServiceException
+argument_list|(
+literal|"Server not running (2 of 3)"
+argument_list|)
+argument_list|)
+operator|.
+name|thenThrow
+argument_list|(
+operator|new
+name|ServiceException
+argument_list|(
+literal|"Server not running (3 of 3)"
+argument_list|)
 argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
-literal|null
+name|ScanResponse
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|setScannerId
+argument_list|(
+literal|1234567890L
+argument_list|)
+operator|.
+name|build
+argument_list|()
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+name|builder
+operator|.
+name|build
+argument_list|()
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+name|ScanResponse
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|setMoreResults
+argument_list|(
+literal|false
+argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Associate a spied-upon HConnection with UTIL.getConfiguration.  Need
@@ -887,7 +978,7 @@ argument_list|(
 name|connection
 argument_list|)
 operator|.
-name|getHRegionConnection
+name|getClient
 argument_list|(
 name|Mockito
 operator|.
@@ -989,8 +1080,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Finally verify that openscanner was called four times -- three times
-comment|// with exception and then on 4th attempt we succeed.
+comment|// Finally verify that scan was called four times -- three times
+comment|// with exception and then on 4th, 5th and 6th attempt we succeed
 name|Mockito
 operator|.
 name|verify
@@ -1001,15 +1092,14 @@ name|Mockito
 operator|.
 name|times
 argument_list|(
-literal|4
+literal|6
 argument_list|)
 argument_list|)
 operator|.
-name|openScanner
+name|scan
 argument_list|(
 operator|(
-name|byte
-index|[]
+name|RpcController
 operator|)
 name|Mockito
 operator|.
@@ -1017,7 +1107,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|Scan
+name|ScanRequest
 operator|)
 name|Mockito
 operator|.

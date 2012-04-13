@@ -284,6 +284,16 @@ return|return
 name|maxStamp
 return|;
 block|}
+comment|/**    * Check if it is for all time    * @return true if it is for all time    */
+specifier|public
+name|boolean
+name|isAllTime
+parameter_list|()
+block|{
+return|return
+name|allTime
+return|;
+block|}
 comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false    * if not.    * @param bytes timestamp to check    * @param offset offset into the bytes    * @return true if within TimeRange, false if not    */
 specifier|public
 name|boolean

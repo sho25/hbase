@@ -184,7 +184,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|int
 name|leasePeriod

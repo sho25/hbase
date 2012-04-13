@@ -1133,6 +1133,18 @@ name|Message
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -4418,6 +4430,23 @@ name|intValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|82
+argument_list|,
+name|HbaseObjectWritable
+operator|.
+name|getClassCode
+argument_list|(
+name|RpcController
+operator|.
+name|class
+argument_list|)
+operator|.
+name|intValue
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * This test verifies that additional objects have not been added to the end of the list.    * If you are legitimately adding objects, this test will need to be updated, but see the    * note on the test above.     */
 specifier|public
@@ -4427,7 +4456,7 @@ parameter_list|()
 block|{
 name|assertEquals
 argument_list|(
-literal|82
+literal|83
 argument_list|,
 name|HbaseObjectWritable
 operator|.

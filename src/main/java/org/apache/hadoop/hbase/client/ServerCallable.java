@@ -201,9 +201,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|protobuf
 operator|.
-name|HRegionInterface
+name|ClientProtocol
 import|;
 end_import
 
@@ -285,7 +285,7 @@ name|HRegionLocation
 name|location
 decl_stmt|;
 specifier|protected
-name|HRegionInterface
+name|ClientProtocol
 name|server
 decl_stmt|;
 specifier|protected
@@ -404,7 +404,7 @@ name|server
 operator|=
 name|connection
 operator|.
-name|getHRegionConnection
+name|getClient
 argument_list|(
 name|location
 operator|.
@@ -971,7 +971,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|Throwable
 name|translateException

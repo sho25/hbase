@@ -1363,6 +1363,10 @@ name|currentRegion
 operator|=
 literal|null
 expr_stmt|;
+name|callable
+operator|=
+literal|null
+expr_stmt|;
 continue|continue;
 block|}
 name|long

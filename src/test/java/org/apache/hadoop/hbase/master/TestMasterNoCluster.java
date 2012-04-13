@@ -1149,6 +1149,8 @@ argument_list|,
 name|rs0
 argument_list|,
 name|rs0
+argument_list|,
+name|rs0
 operator|.
 name|getServerName
 argument_list|()
@@ -1529,6 +1531,8 @@ name|TESTUTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+name|rs0
 argument_list|,
 name|rs0
 argument_list|,
