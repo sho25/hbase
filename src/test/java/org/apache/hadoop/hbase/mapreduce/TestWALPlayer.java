@@ -119,6 +119,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -267,11 +281,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Basic test for the WALPlayer M/R tool  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|LargeTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestWALPlayer
