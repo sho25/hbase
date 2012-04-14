@@ -916,7 +916,9 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hbase.master.distributed.log.splitting"
+name|HConstants
+operator|.
+name|DISTRIBUTED_LOG_SPLITTING_KEY
 argument_list|,
 literal|false
 argument_list|)

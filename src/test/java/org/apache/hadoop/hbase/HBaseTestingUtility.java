@@ -177,6 +177,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -208,6 +218,16 @@ operator|.
 name|util
 operator|.
 name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -1123,6 +1143,23 @@ specifier|private
 specifier|static
 name|String
 name|FS_URI
+decl_stmt|;
+comment|/** A set of ports that have been claimed using {@link #randomFreePort()}. */
+specifier|private
+specifier|static
+specifier|final
+name|Set
+argument_list|<
+name|Integer
+argument_list|>
+name|takenRandomPorts
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|Integer
+argument_list|>
+argument_list|()
 decl_stmt|;
 comment|/** Compression algorithms to use in parameterized JUnit 4 tests */
 specifier|public
@@ -8240,6 +8277,13 @@ argument_list|,
 name|numRegions
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|hbaseCluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|hbaseCluster
 operator|.
 name|flushcache
@@ -8249,6 +8293,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -8529,6 +8574,13 @@ operator|.
 name|flushCommits
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|hbaseCluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|hbaseCluster
 operator|.
 name|flushcache
@@ -8536,6 +8588,7 @@ argument_list|(
 name|tableNameBytes
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|table
@@ -8579,6 +8632,7 @@ name|MIN_RANDOM_PORT
 argument_list|)
 return|;
 block|}
+comment|/**    * Returns a random free port and marks that port as taken. Not thread-safe. Expected to be    * called from single-threaded test setup code/    */
 specifier|public
 specifier|static
 name|int
@@ -8596,6 +8650,25 @@ name|port
 operator|=
 name|randomPort
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|takenRandomPorts
+operator|.
+name|contains
+argument_list|(
+name|port
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
+name|takenRandomPorts
+operator|.
+name|add
+argument_list|(
+name|port
+argument_list|)
 expr_stmt|;
 try|try
 block|{

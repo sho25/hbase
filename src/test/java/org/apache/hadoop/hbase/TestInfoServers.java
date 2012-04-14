@@ -16,6 +16,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -133,18 +145,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
 begin_comment
 comment|/**  * Testing, info servers are disabled.  This test enables then and checks that  * they serve pages.  */
 end_comment
@@ -204,7 +204,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.info.port"
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
 argument_list|,
 literal|0
 argument_list|)
@@ -216,7 +218,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.regionserver.info.port"
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT
 argument_list|,
 literal|0
 argument_list|)

@@ -664,7 +664,9 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.master.distributed.log.splitting"
+name|HConstants
+operator|.
+name|DISTRIBUTED_LOG_SPLITTING_KEY
 argument_list|,
 literal|true
 argument_list|)

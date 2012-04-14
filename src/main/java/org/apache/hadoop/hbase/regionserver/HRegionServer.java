@@ -8069,7 +8069,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.info.port"
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT
 argument_list|,
 literal|60030
 argument_list|)

@@ -131,9 +131,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|atomic
-operator|.
-name|AtomicLong
+name|ExecutorService
 import|;
 end_import
 
@@ -157,7 +155,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ExecutorService
+name|Future
 import|;
 end_import
 
@@ -169,7 +167,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Future
+name|TimeUnit
 import|;
 end_import
 
@@ -193,7 +191,9 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|TimeUnit
+name|atomic
+operator|.
+name|AtomicLong
 import|;
 end_import
 
@@ -487,7 +487,9 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Threads
+name|JVMClusterUtil
+operator|.
+name|RegionServerThread
 import|;
 end_import
 
@@ -503,9 +505,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|JVMClusterUtil
-operator|.
-name|RegionServerThread
+name|Threads
 import|;
 end_import
 
@@ -744,6 +744,44 @@ argument_list|(
 literal|"zookeeper.recovery.retry"
 argument_list|,
 literal|0
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|LOAD_BALANCER_SLOP_KEY
+argument_list|,
+operator|(
+name|float
+operator|)
+literal|100.0
+argument_list|)
+expr_stmt|;
+comment|// no load balancing
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|DISTRIBUTED_LOG_SPLITTING_KEY
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

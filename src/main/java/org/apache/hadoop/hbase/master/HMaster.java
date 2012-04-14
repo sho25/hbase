@@ -4557,7 +4557,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.info.port"
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
 argument_list|,
 literal|60010
 argument_list|)

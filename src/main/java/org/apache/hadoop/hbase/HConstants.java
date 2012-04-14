@@ -291,6 +291,15 @@ name|DEFAULT_MASTER_INFOPORT
 init|=
 literal|60010
 decl_stmt|;
+comment|/** Configuration key for master web API port */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_INFO_PORT
+init|=
+literal|"hbase.master.info.port"
+decl_stmt|;
 comment|/** Parameter name for the master type being backup (waits for primary to go inactive). */
 specifier|public
 specifier|static
@@ -498,6 +507,15 @@ name|DEFAULT_REGIONSERVER_INFOPORT
 init|=
 literal|60030
 decl_stmt|;
+comment|/** A configuration key for regionserver info port */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_INFO_PORT
+init|=
+literal|"hbase.regionserver.info.port"
+decl_stmt|;
 comment|/** A flag that enables automatic selection of regionserver info port */
 specifier|public
 specifier|static
@@ -505,7 +523,9 @@ specifier|final
 name|String
 name|REGIONSERVER_INFO_PORT_AUTO
 init|=
-literal|"hbase.regionserver.info.port.auto"
+name|REGIONSERVER_INFO_PORT
+operator|+
+literal|".auto"
 decl_stmt|;
 comment|/** Parameter name for what region server interface to use. */
 specifier|public
@@ -1610,7 +1630,7 @@ name|LOCALHOST
 init|=
 literal|"localhost"
 decl_stmt|;
-comment|/**     * If this parameter is set to true, then hbase will read    * data and then verify checksums. Checksum verification     * inside hdfs will be switched off.  However, if the hbase-checksum     * verification fails, then it will switch back to using    * hdfs checksums for verifiying data that is being read from storage.    *    * If this parameter is set to false, then hbase will not    * verify any checksums, instead it will depend on checksum verification    * being done in the hdfs client.    */
+comment|/**    * If this parameter is set to true, then hbase will read    * data and then verify checksums. Checksum verification    * inside hdfs will be switched off.  However, if the hbase-checksum    * verification fails, then it will switch back to using    * hdfs checksums for verifiying data that is being read from storage.    *    * If this parameter is set to false, then hbase will not    * verify any checksums, instead it will depend on checksum verification    * being done in the hdfs client.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1618,6 +1638,23 @@ name|String
 name|HBASE_CHECKSUM_VERIFICATION
 init|=
 literal|"hbase.regionserver.checksum.verify"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOCALHOST_IP
+init|=
+literal|"127.0.0.1"
+decl_stmt|;
+comment|/** Conf key that enables distributed log splitting */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DISTRIBUTED_LOG_SPLITTING_KEY
+init|=
+literal|"hbase.master.distributed.log.splitting"
 decl_stmt|;
 comment|/**    * The name of the configuration parameter that specifies    * the number of bytes in a newly created checksum chunk.    */
 specifier|public
