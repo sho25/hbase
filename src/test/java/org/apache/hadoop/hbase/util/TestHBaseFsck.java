@@ -97,6 +97,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -349,7 +361,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MiniHBaseCluster
+name|MediumTests
 import|;
 end_import
 
@@ -363,7 +375,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|MiniHBaseCluster
 import|;
 end_import
 
@@ -521,7 +533,9 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|RegionTransitionData
+name|EventHandler
+operator|.
+name|EventType
 import|;
 end_import
 
@@ -537,9 +551,7 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
-operator|.
-name|EventType
+name|RegionTransitionData
 import|;
 end_import
 
@@ -588,22 +600,6 @@ operator|.
 name|regionserver
 operator|.
 name|HRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|HBaseFsck
 import|;
 end_import
 
@@ -5029,29 +5025,23 @@ literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|0
+literal|"Table "
+operator|+
+name|table
+operator|+
+literal|" should have been deleted"
 argument_list|,
-name|countRows
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
 argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-comment|// we've actually deleted the table already. :)
-return|return;
-block|}
-name|fail
+operator|.
+name|tableExists
 argument_list|(
-literal|"Should have failed with IOException"
+name|table
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
