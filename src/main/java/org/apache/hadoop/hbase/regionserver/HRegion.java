@@ -3074,13 +3074,6 @@ operator|==
 literal|null
 condition|)
 return|return;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Setting up tabledescriptor config now ..."
-argument_list|)
-expr_stmt|;
 name|long
 name|flushSize
 init|=
