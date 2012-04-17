@@ -374,7 +374,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class runs performance benchmarks for {@link HLog}.  */
+comment|/**  * This class runs performance benchmarks for {@link HLog}.  * See usage for this tool by running:  *<code>$ hbase org.apache.hadoop.hbase.regionserver.wal.HLogPerformanceEvaluation -h</code>  */
 end_comment
 
 begin_class
@@ -1244,12 +1244,16 @@ name|dir
 argument_list|)
 control|)
 block|{
-name|verifyInSequence
+name|verify
 argument_list|(
 name|fss
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|numIterations
+operator|*
+name|numThreads
 argument_list|)
 expr_stmt|;
 block|}
@@ -1349,12 +1353,18 @@ return|return
 name|htd
 return|;
 block|}
+comment|/**    * Verify the content of the WAL file.    * Verify that sequenceids are ascending and that the file has expected number    * of edits.    * @param wal    * @param editsCount    * @throws IOException    */
+specifier|private
 name|void
-name|verifyInSequence
+name|verify
 parameter_list|(
 specifier|final
 name|Path
 name|wal
+parameter_list|,
+specifier|final
+name|long
+name|editsCount
 parameter_list|)
 throws|throws
 name|IOException
@@ -1388,6 +1398,11 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+name|long
+name|count
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 while|while
@@ -1410,6 +1425,9 @@ operator|==
 literal|null
 condition|)
 break|break;
+name|count
+operator|++
+expr_stmt|;
 name|long
 name|seqid
 init|=
@@ -1454,6 +1472,25 @@ operator|=
 name|seqid
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|count
+operator|!=
+name|editsCount
+condition|)
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Expected="
+operator|+
+name|editsCount
+operator|+
+literal|", found="
+operator|+
+name|count
+argument_list|)
+throw|;
 block|}
 finally|finally
 block|{
