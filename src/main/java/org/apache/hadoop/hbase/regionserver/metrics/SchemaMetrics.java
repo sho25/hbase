@@ -127,6 +127,46 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|ConcurrentMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Matcher
@@ -261,22 +301,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -300,7 +324,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A collection of metric names in a given column family or a (table, column  * family) combination. The following "dimensions" are supported:  *<ul>  *<li>Table name (optional; enabled based on configuration)</li>  *<li>Per-column family vs. aggregated. The aggregated mode is only supported  * when table name is not included.</li>  *<li>Block category (data, index, bloom filter, etc.)</li>  *<li>Whether the request is part of a compaction</li>  *<li>Metric type (read time, block read count, cache hits/misses, etc.)</li>  *</ul>  *<p>  * An instance of this class does not store any metric values. It just allows  * to determine the correct metric name for each combination of the above  * dimensions.  *<p>  *<table>  *<tr>  *<th rowspan="2">Metric key</th>  *<th colspan="2">Per-table metrics conf setting</th>  *<th rowspan="2">Description</th>  *</tr>  *<tr>  *<th>On</th>  *<th>Off</th>  *</th>  *<tr>  *<td> tbl.T.cf.CF.M</td><td> Include</td><td> Skip</td>  *<td> A specific column family of a specific table</td>  *</tr>  *<tr>  *<td> tbl.T.M</td><td> Skip</td><td> Skip</td>  *<td> All column families in the given table</td>  *</tr>  *<tr>  *<td> cf.CF.M</td><td> Skip</td><td> Include</td>  *<td> A specific column family in all tables</td>  *</tr>  *<tr>  *<td> M</td><td> Include</td><td> Include</td>  *<td> All column families in all tables</td>  *</tr>  *</table>  */
+comment|/**  * A names in a given column family or a (table, column  * family) combination. The following "dimensions" are supported:  *<ul>  *<li>Table name (optional; enabled based on configuration)</li>  *<li>Per-column family vs. aggregated. The aggregated mode is only supported  * when table name is not included.</li>  *<li>Block category (data, index, bloom filter, etc.)</li>  *<li>Whether the request is part of a compaction</li>  *<li>Metric type (read time, block read count, cache hits/misses, etc.)</li>  *</ul>  *<p>  * An instance of this class does not store any metric values. It just allows  * to determine the correct metric name for each combination of the above  * dimensions.  *<p>  *<table>  *<tr>  *<th rowspan="2">Metric key</th>  *<th colspan="2">Per-table metrics conf setting</th>  *<th rowspan="2">Description</th>  *</tr>  *<tr>  *<th>On</th>  *<th>Off</th>  *</th>  *<tr>  *<td> tbl.T.cf.CF.M</td><td> Include</td><td> Skip</td>  *<td> A specific column family of a specific table</td>  *</tr>  *<tr>  *<td> tbl.T.M</td><td> Skip</td><td> Skip</td>  *<td> All column families in the given table</td>  *</tr>  *<tr>  *<td> cf.CF.M</td><td> Skip</td><td> Include</td>  *<td> A specific column family in all tables</td>  *</tr>  *<tr>  *<td> M</td><td> Include</td><td> Include</td>  *<td> All column families in all tables</td>  *</tr>  *</table>  */
 end_comment
 
 begin_class
@@ -1183,6 +1207,22 @@ literal|".max"
 expr_stmt|;
 block|}
 block|}
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|METRIC_GETSIZE
+init|=
+literal|"getsize"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|METRIC_NEXTSIZE
+init|=
+literal|"nextsize"
+decl_stmt|;
 comment|/**    * Returns a {@link SchemaMetrics} object for the given table and column    * family, instantiating it if necessary.    *    * @param tableName table name (null is interpreted as "unknown"). This is    *          ignored    * @param cfName column family name (null is interpreted as "unknown")    */
 specifier|public
 specifier|static
@@ -1450,7 +1490,7 @@ name|UNKNOWN
 expr_stmt|;
 comment|// So that we see this in stats.
 block|}
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|incrNumericMetric
 argument_list|(
@@ -1502,7 +1542,7 @@ name|long
 name|timeMs
 parameter_list|)
 block|{
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|incrTimeVaryingMetric
 argument_list|(
@@ -1745,7 +1785,7 @@ name|long
 name|value
 parameter_list|)
 block|{
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|incrNumericPersistentMetric
 argument_list|(
@@ -1915,7 +1955,7 @@ operator|.
 name|ALL_CATEGORIES
 expr_stmt|;
 block|}
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|incrNumericPersistentMetric
 argument_list|(
@@ -2020,7 +2060,7 @@ name|boolean
 name|isInBloom
 parameter_list|)
 block|{
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|incrNumericMetric
 argument_list|(
@@ -2978,7 +3018,7 @@ name|Integer
 argument_list|>
 name|totalAndCount
 init|=
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|getTimeVaryingMetric
 argument_list|(
@@ -3012,7 +3052,7 @@ else|else
 block|{
 name|metricValue
 operator|=
-name|HRegion
+name|RegionMetricsStorage
 operator|.
 name|getNumericMetric
 argument_list|(
