@@ -961,9 +961,12 @@ block|{
 comment|// Run the HPE tool with three threads writing 3000 edits each concurrently.
 comment|// When done, verify that all edits were written and that the order in the
 comment|// WALs is of ascending edit sequence ids.
+name|int
+name|errCode
+init|=
 name|HLogPerformanceEvaluation
 operator|.
-name|main
+name|innerMain
 argument_list|(
 operator|new
 name|String
@@ -979,6 +982,13 @@ literal|"-iterations"
 block|,
 literal|"3000"
 block|}
+argument_list|)
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|errCode
 argument_list|)
 expr_stmt|;
 block|}
