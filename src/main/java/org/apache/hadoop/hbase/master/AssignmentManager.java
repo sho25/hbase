@@ -6205,7 +6205,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param region    * @param setOfflineInZK    * @param forceNewPlan    * @param hijack    *          - true new assignment is needed, false otherwise    */
+comment|/**    * @param region    * @param setOfflineInZK    * @param forceNewPlan    * @param hijack True if new assignment is needed, false otherwise    */
 specifier|public
 name|void
 name|assign
@@ -9938,6 +9938,10 @@ literal|"Bulk assigning done"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: This method seems way wrong.  Why would we mark a table enabled based
+comment|// off a single region?  We seem to call this on bulk assign on startup which
+comment|// isn't too bad but then its also called in assign.  It makes the enabled
+comment|// flag up in zk meaningless.  St.Ack
 specifier|private
 name|void
 name|setEnabledTable
