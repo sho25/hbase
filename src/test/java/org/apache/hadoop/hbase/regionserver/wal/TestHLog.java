@@ -948,6 +948,40 @@ return|return
 literal|"TestHLog"
 return|;
 block|}
+comment|/**    * Test that with three concurrent threads we still write edits in sequence    * edit id order.    * @throws Exception    */
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testMaintainOrderWithConcurrentWrites
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+comment|// Run the HPE tool with three threads writing 3000 edits each concurrently.
+comment|// When done, verify that all edits were written and that the order in the
+comment|// WALs is of ascending edit sequence ids.
+name|HLogPerformanceEvaluation
+operator|.
+name|main
+argument_list|(
+operator|new
+name|String
+index|[]
+block|{
+literal|"-threads"
+block|,
+literal|"3"
+block|,
+literal|"-verify"
+block|,
+literal|"-iterations"
+block|,
+literal|"3000"
+block|}
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Just write multiple logs then split.  Before fix for HADOOP-2283, this    * would fail.    * @throws IOException    */
 annotation|@
 name|Test
