@@ -1960,6 +1960,33 @@ operator|.
 name|assignmentZNode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|nodes
+operator|==
+literal|null
+condition|)
+block|{
+name|String
+name|errorMessage
+init|=
+literal|"Failed to get the children from ZK"
+decl_stmt|;
+name|master
+operator|.
+name|abort
+argument_list|(
+name|errorMessage
+argument_list|,
+operator|new
+name|IOException
+argument_list|(
+name|errorMessage
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Run through all regions.  If they are not assigned and not in RIT, then
 comment|// its a clean cluster startup, else its a failover.
 for|for
