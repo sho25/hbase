@@ -3735,6 +3735,34 @@ argument_list|,
 name|REGIONINFO_FILE
 argument_list|)
 decl_stmt|;
+comment|// if datanode crashes or if the RS goes down just before the close is called while trying to
+comment|// close the created regioninfo file in the .tmp directory then on next
+comment|// creation we will be getting AlreadyCreatedException.
+comment|// Hence delete and create the file if exists.
+if|if
+condition|(
+name|FSUtils
+operator|.
+name|isExists
+argument_list|(
+name|fs
+argument_list|,
+name|tmpPath
+argument_list|)
+condition|)
+block|{
+name|FSUtils
+operator|.
+name|delete
+argument_list|(
+name|fs
+argument_list|,
+name|tmpPath
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 name|FSDataOutputStream
 name|out
 init|=
