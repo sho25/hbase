@@ -271,6 +271,20 @@ name|WritableComparable
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *  * It is used as input when creating a table or adding a column. Once set, the  * parameters that specify a column cannot be changed without deleting the  * column and recreating it. If there is data stored in the column, it will be  * deleted when the column is deleted.  */
 end_comment
@@ -1316,7 +1330,7 @@ name|scope
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either.    */
+comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either. Also Family can not be an empty value.    */
 specifier|public
 specifier|static
 name|byte
@@ -1340,6 +1354,19 @@ return|return
 name|b
 return|;
 block|}
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|b
+operator|.
+name|length
+operator|!=
+literal|0
+argument_list|,
+literal|"Family name can not be empty"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|b
