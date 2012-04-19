@@ -2146,6 +2146,19 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+name|LoadBalancer
+name|balancer
+init|=
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
+argument_list|(
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// Create an AM.
 name|AssignmentManager
 name|am
@@ -2162,6 +2175,8 @@ operator|.
 name|serverManager
 argument_list|,
 name|ct
+argument_list|,
+name|balancer
 argument_list|,
 name|executor
 argument_list|,
@@ -2441,6 +2456,19 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+name|LoadBalancer
+name|balancer
+init|=
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
+argument_list|(
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// Create an AM.
 name|AssignmentManager
 name|am
@@ -2457,6 +2485,8 @@ operator|.
 name|serverManager
 argument_list|,
 name|ct
+argument_list|,
+name|balancer
 argument_list|,
 name|executor
 argument_list|,
@@ -2844,6 +2874,19 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+name|LoadBalancer
+name|balancer
+init|=
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
+argument_list|(
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// Create an AM.
 name|AssignmentManager
 name|am
@@ -2860,6 +2903,8 @@ operator|.
 name|serverManager
 argument_list|,
 name|ct
+argument_list|,
+name|balancer
 argument_list|,
 literal|null
 argument_list|,
@@ -3546,6 +3591,19 @@ argument_list|(
 literal|"mockedAMExecutor"
 argument_list|)
 decl_stmt|;
+name|LoadBalancer
+name|balancer
+init|=
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
+argument_list|(
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|AssignmentManagerWithExtrasForTesting
 name|am
 init|=
@@ -3557,6 +3615,8 @@ argument_list|,
 name|manager
 argument_list|,
 name|ct
+argument_list|,
+name|balancer
 argument_list|,
 name|executor
 argument_list|)
@@ -3613,6 +3673,10 @@ name|CatalogTracker
 name|catalogTracker
 parameter_list|,
 specifier|final
+name|LoadBalancer
+name|balancer
+parameter_list|,
+specifier|final
 name|ExecutorService
 name|service
 parameter_list|)
@@ -3628,6 +3692,8 @@ argument_list|,
 name|serverManager
 argument_list|,
 name|catalogTracker
+argument_list|,
+name|balancer
 argument_list|,
 name|service
 argument_list|,
