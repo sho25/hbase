@@ -470,6 +470,16 @@ parameter_list|)
 block|{
 name|max
 operator|=
+operator|(
+name|max
+operator|==
+literal|null
+operator|||
+operator|(
+name|result
+operator|!=
+literal|null
+operator|&&
 name|ci
 operator|.
 name|compare
@@ -480,6 +490,8 @@ name|result
 argument_list|)
 operator|<
 literal|0
+operator|)
+operator|)
 condition|?
 name|result
 else|:
@@ -761,6 +773,11 @@ name|min
 operator|==
 literal|null
 operator|||
+operator|(
+name|result
+operator|!=
+literal|null
+operator|&&
 name|ci
 operator|.
 name|compare
@@ -771,6 +788,7 @@ name|min
 argument_list|)
 operator|<
 literal|0
+operator|)
 operator|)
 condition|?
 name|result

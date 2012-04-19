@@ -438,6 +438,11 @@ name|max
 operator|==
 literal|null
 operator|||
+operator|(
+name|temp
+operator|!=
+literal|null
+operator|&&
 name|ci
 operator|.
 name|compare
@@ -448,6 +453,7 @@ name|max
 argument_list|)
 operator|>
 literal|0
+operator|)
 operator|)
 condition|?
 name|temp
@@ -644,6 +650,11 @@ name|min
 operator|==
 literal|null
 operator|||
+operator|(
+name|temp
+operator|!=
+literal|null
+operator|&&
 name|ci
 operator|.
 name|compare
@@ -654,6 +665,7 @@ name|min
 argument_list|)
 operator|<
 literal|0
+operator|)
 operator|)
 condition|?
 name|temp
