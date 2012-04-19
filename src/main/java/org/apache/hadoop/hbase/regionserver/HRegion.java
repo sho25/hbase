@@ -287,18 +287,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|ConcurrentSkipListMap
 import|;
 end_import
@@ -20318,7 +20306,9 @@ name|allKVs
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL    * @return The new value.    * @throws IOException    */
+comment|/**    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL    * @return The new value.    * @throws IOException    * @deprecated use {@link #increment(Increment, Integer, boolean)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|incrementColumnValue
