@@ -97,22 +97,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|RetriesExhaustedWithDetailsException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -509,8 +493,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
 comment|// below, could call instead :
@@ -519,15 +503,9 @@ comment|// But that might be too brittle if client-side
 comment|// DoNotRetryIOException-handler changes its message.
 name|assertTrue
 argument_list|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"DoNotRetryIOException"
-argument_list|)
+name|t
+operator|instanceof
+name|DoNotRetryIOException
 argument_list|)
 expr_stmt|;
 name|threwDNRE

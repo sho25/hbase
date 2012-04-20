@@ -3530,7 +3530,8 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
-comment|// we need to periodically see if the writebuffer is full instead of waiting until the end of the List
+comment|// we need to periodically see if the writebuffer is full
+comment|// instead of waiting until the end of the List
 name|n
 operator|++
 expr_stmt|;
