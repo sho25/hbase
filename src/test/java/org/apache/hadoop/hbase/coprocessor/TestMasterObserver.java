@@ -2890,7 +2890,7 @@ init|=
 literal|null
 decl_stmt|;
 name|String
-name|firstRegionHostnamePortStr
+name|serverNameForFirstRegion
 init|=
 name|firstGoodPair
 operator|.
@@ -2904,9 +2904,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"firstRegionHostnamePortStr="
+literal|"serverNameForFirstRegion="
 operator|+
-name|firstRegionHostnamePortStr
+name|serverNameForFirstRegion
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -2935,13 +2935,13 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|firstRegionHostnamePortStr
+name|serverNameForFirstRegion
 operator|.
 name|equals
 argument_list|(
 name|info
 operator|.
-name|getHostAndPort
+name|getServerName
 argument_list|()
 argument_list|)
 condition|)
