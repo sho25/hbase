@@ -365,6 +365,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|AdminProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HConnection
 import|;
 end_import
@@ -395,9 +411,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|protobuf
 operator|.
-name|HRegionInterface
+name|ProtobufUtil
 import|;
 end_import
 
@@ -3051,7 +3067,7 @@ continue|continue;
 block|}
 try|try
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|rrs
 init|=
 name|getRS
@@ -3066,10 +3082,12 @@ operator|+
 name|currentNbEntries
 argument_list|)
 expr_stmt|;
-name|rrs
+name|ProtobufUtil
 operator|.
-name|replicateLogEntries
+name|replicateWALEntry
 argument_list|(
+name|rrs
+argument_list|,
 name|Arrays
 operator|.
 name|copyOf
@@ -3600,7 +3618,7 @@ expr_stmt|;
 block|}
 comment|/**    * Get a new region server at random from this peer    * @return    * @throws IOException    */
 specifier|private
-name|HRegionInterface
+name|AdminProtocol
 name|getRS
 parameter_list|()
 throws|throws
@@ -3655,7 +3673,7 @@ name|this
 operator|.
 name|conn
 operator|.
-name|getHRegionConnection
+name|getAdmin
 argument_list|(
 name|address
 operator|.
@@ -3701,17 +3719,19 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|rrs
 init|=
 name|getRS
 argument_list|()
 decl_stmt|;
 comment|// Dummy call which should fail
-name|rrs
+name|ProtobufUtil
 operator|.
-name|getHServerInfo
-argument_list|()
+name|getServerInfo
+argument_list|(
+name|rrs
+argument_list|)
 expr_stmt|;
 name|latch
 operator|.

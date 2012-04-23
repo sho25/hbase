@@ -517,6 +517,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|AdminProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -731,9 +747,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|master
 operator|.
-name|HRegionInterface
+name|MasterFileSystem
 import|;
 end_import
 
@@ -747,9 +763,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|protobuf
 operator|.
-name|MasterFileSystem
+name|ProtobufUtil
 import|;
 end_import
 
@@ -12963,12 +12979,12 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|server
 init|=
 name|connection
 operator|.
-name|getHRegionConnection
+name|getAdmin
 argument_list|(
 name|rsinfo
 operator|.
@@ -12988,10 +13004,12 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
-name|server
+name|ProtobufUtil
 operator|.
 name|getOnlineRegions
-argument_list|()
+argument_list|(
+name|server
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

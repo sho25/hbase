@@ -185,9 +185,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|client
 operator|.
-name|HBaseRPC
+name|ClientProtocol
 import|;
 end_import
 
@@ -201,9 +201,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|ipc
 operator|.
-name|ClientProtocol
+name|HBaseRPC
 import|;
 end_import
 

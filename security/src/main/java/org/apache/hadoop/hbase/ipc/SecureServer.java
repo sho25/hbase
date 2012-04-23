@@ -646,7 +646,7 @@ argument_list|(
 operator|(
 name|byte
 operator|)
-literal|3
+literal|5
 argument_list|)
 decl_stmt|;
 specifier|public

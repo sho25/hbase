@@ -8277,6 +8277,8 @@ name|info
 operator|=
 name|regionInfo
 expr_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|closeRegionWithEncodedRegionName
@@ -8292,6 +8294,15 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NotServingRegionException
+name|nsre
+parameter_list|)
+block|{
+comment|// expected, ignore it
+block|}
 block|}
 block|}
 block|}
@@ -8785,6 +8796,8 @@ name|info
 operator|=
 name|regionInfo
 expr_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|closeRegionWithEncodedRegionName
@@ -8803,6 +8816,15 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NotServingRegionException
+name|nsre
+parameter_list|)
+block|{
+comment|// expected, ignore it.
+block|}
 block|}
 block|}
 block|}

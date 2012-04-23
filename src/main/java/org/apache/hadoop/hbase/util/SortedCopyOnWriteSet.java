@@ -121,6 +121,7 @@ name|E
 argument_list|>
 block|{
 specifier|private
+specifier|volatile
 name|SortedSet
 argument_list|<
 name|E

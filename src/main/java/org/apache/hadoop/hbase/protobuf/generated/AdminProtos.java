@@ -6280,7 +6280,7 @@ comment|// @@protoc_insertion_point(class_scope:GetRegionInfoResponse)
 block|}
 specifier|public
 interface|interface
-name|GetStoreFileListRequestOrBuilder
+name|GetStoreFileRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -6331,7 +6331,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated bytes columnFamily = 2;
+comment|// repeated bytes family = 2;
 name|java
 operator|.
 name|util
@@ -6346,11 +6346,11 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getColumnFamilyList
+name|getFamilyList
 parameter_list|()
 function_decl|;
 name|int
-name|getColumnFamilyCount
+name|getFamilyCount
 parameter_list|()
 function_decl|;
 name|com
@@ -6360,7 +6360,7 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getColumnFamily
+name|getFamily
 parameter_list|(
 name|int
 name|index
@@ -6371,7 +6371,7 @@ specifier|public
 specifier|static
 specifier|final
 class|class
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 extends|extends
 name|com
 operator|.
@@ -6381,11 +6381,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|GetStoreFileListRequestOrBuilder
+name|GetStoreFileRequestOrBuilder
 block|{
-comment|// Use GetStoreFileListRequest.newBuilder() to construct.
+comment|// Use GetStoreFileRequest.newBuilder() to construct.
 specifier|private
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 parameter_list|(
 name|Builder
 name|builder
@@ -6398,7 +6398,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -6407,12 +6407,12 @@ block|{}
 specifier|private
 specifier|static
 specifier|final
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -6421,7 +6421,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -6459,7 +6459,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListRequest_descriptor
+name|internal_static_GetStoreFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -6490,7 +6490,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListRequest_fieldAccessorTable
+name|internal_static_GetStoreFileRequest_fieldAccessorTable
 return|;
 block|}
 specifier|private
@@ -6587,12 +6587,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// repeated bytes columnFamily = 2;
+comment|// repeated bytes family = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNFAMILY_FIELD_NUMBER
+name|FAMILY_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -6611,7 +6611,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|columnFamily_
+name|family_
 decl_stmt|;
 specifier|public
 name|java
@@ -6628,20 +6628,20 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getColumnFamilyList
+name|getFamilyList
 parameter_list|()
 block|{
 return|return
-name|columnFamily_
+name|family_
 return|;
 block|}
 specifier|public
 name|int
-name|getColumnFamilyCount
+name|getFamilyCount
 parameter_list|()
 block|{
 return|return
-name|columnFamily_
+name|family_
 operator|.
 name|size
 argument_list|()
@@ -6655,14 +6655,14 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getColumnFamily
+name|getFamily
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|columnFamily_
+name|family_
 operator|.
 name|get
 argument_list|(
@@ -6696,7 +6696,7 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|=
 name|java
 operator|.
@@ -6835,7 +6835,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|columnFamily_
+name|family_
 operator|.
 name|size
 argument_list|()
@@ -6850,7 +6850,7 @@ name|writeBytes
 argument_list|(
 literal|2
 argument_list|,
-name|columnFamily_
+name|family_
 operator|.
 name|get
 argument_list|(
@@ -6945,7 +6945,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|columnFamily_
+name|family_
 operator|.
 name|size
 argument_list|()
@@ -6966,7 +6966,7 @@ name|CodedOutputStream
 operator|.
 name|computeBytesSizeNoTag
 argument_list|(
-name|columnFamily_
+name|family_
 operator|.
 name|get
 argument_list|(
@@ -6983,7 +6983,7 @@ name|size
 operator|+=
 literal|1
 operator|*
-name|getColumnFamilyList
+name|getFamilyList
 argument_list|()
 operator|.
 name|size
@@ -7092,7 +7092,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|)
 condition|)
 block|{
@@ -7119,7 +7119,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|other
 init|=
 operator|(
@@ -7137,7 +7137,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -7186,14 +7186,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getColumnFamilyList
+name|getFamilyList
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getColumnFamilyList
+name|getFamilyList
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -7279,7 +7279,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|getColumnFamilyCount
+name|getFamilyCount
 argument_list|()
 operator|>
 literal|0
@@ -7293,7 +7293,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNFAMILY_FIELD_NUMBER
+name|FAMILY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -7303,7 +7303,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getColumnFamilyList
+name|getFamilyList
 argument_list|()
 operator|.
 name|hashCode
@@ -7344,7 +7344,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -7394,7 +7394,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -7455,7 +7455,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -7500,7 +7500,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -7556,7 +7556,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -7602,7 +7602,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -7659,7 +7659,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -7722,7 +7722,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -7796,7 +7796,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -7844,7 +7844,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -7929,7 +7929,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|prototype
 parameter_list|)
 block|{
@@ -8023,7 +8023,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequestOrBuilder
+name|GetStoreFileRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -8055,7 +8055,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListRequest_descriptor
+name|internal_static_GetStoreFileRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -8086,10 +8086,10 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListRequest_fieldAccessorTable
+name|internal_static_GetStoreFileRequest_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetStoreFileListRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetStoreFileRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -8205,7 +8205,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|=
 name|java
 operator|.
@@ -8274,7 +8274,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|getDescriptor
 argument_list|()
@@ -8295,7 +8295,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -8314,7 +8314,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8335,7 +8335,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|build
 parameter_list|()
 block|{
@@ -8353,7 +8353,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|result
 init|=
 name|buildPartial
@@ -8394,7 +8394,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|buildParsed
 parameter_list|()
 throws|throws
@@ -8420,7 +8420,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|result
 init|=
 name|buildPartial
@@ -8464,7 +8464,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -8482,7 +8482,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|result
 init|=
 operator|new
@@ -8500,7 +8500,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 argument_list|(
 name|this
 argument_list|)
@@ -8572,7 +8572,7 @@ literal|0x00000002
 operator|)
 condition|)
 block|{
-name|columnFamily_
+name|family_
 operator|=
 name|java
 operator|.
@@ -8582,7 +8582,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|columnFamily_
+name|family_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -8597,9 +8597,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|columnFamily_
+name|family_
 operator|=
-name|columnFamily_
+name|family_
 expr_stmt|;
 name|result
 operator|.
@@ -8646,7 +8646,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 condition|)
 block|{
 return|return
@@ -8667,7 +8667,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|)
 name|other
 argument_list|)
@@ -8705,7 +8705,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|other
 parameter_list|)
 block|{
@@ -8727,7 +8727,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8757,7 +8757,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|columnFamily_
+name|family_
 operator|.
 name|isEmpty
 argument_list|()
@@ -8765,17 +8765,17 @@ condition|)
 block|{
 if|if
 condition|(
-name|columnFamily_
+name|family_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|columnFamily_
+name|family_
 operator|=
 name|other
 operator|.
-name|columnFamily_
+name|family_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -8789,16 +8789,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 argument_list|()
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|.
 name|addAll
 argument_list|(
 name|other
 operator|.
-name|columnFamily_
+name|family_
 argument_list|)
 expr_stmt|;
 block|}
@@ -9064,10 +9064,10 @@ case|case
 literal|18
 case|:
 block|{
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 argument_list|()
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|.
 name|add
 argument_list|(
@@ -9780,7 +9780,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// repeated bytes columnFamily = 2;
+comment|// repeated bytes family = 2;
 specifier|private
 name|java
 operator|.
@@ -9796,7 +9796,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|columnFamily_
+name|family_
 init|=
 name|java
 operator|.
@@ -9810,7 +9810,7 @@ decl_stmt|;
 empty_stmt|;
 specifier|private
 name|void
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 parameter_list|()
 block|{
 if|if
@@ -9827,7 +9827,7 @@ literal|0x00000002
 operator|)
 condition|)
 block|{
-name|columnFamily_
+name|family_
 operator|=
 operator|new
 name|java
@@ -9845,7 +9845,7 @@ operator|.
 name|ByteString
 argument_list|>
 argument_list|(
-name|columnFamily_
+name|family_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -9869,7 +9869,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getColumnFamilyList
+name|getFamilyList
 parameter_list|()
 block|{
 return|return
@@ -9881,17 +9881,17 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|columnFamily_
+name|family_
 argument_list|)
 return|;
 block|}
 specifier|public
 name|int
-name|getColumnFamilyCount
+name|getFamilyCount
 parameter_list|()
 block|{
 return|return
-name|columnFamily_
+name|family_
 operator|.
 name|size
 argument_list|()
@@ -9905,14 +9905,14 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getColumnFamily
+name|getFamily
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|columnFamily_
+name|family_
 operator|.
 name|get
 argument_list|(
@@ -9922,7 +9922,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setColumnFamily
+name|setFamily
 parameter_list|(
 name|int
 name|index
@@ -9950,10 +9950,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 argument_list|()
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|.
 name|set
 argument_list|(
@@ -9971,7 +9971,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addColumnFamily
+name|addFamily
 parameter_list|(
 name|com
 operator|.
@@ -9996,10 +9996,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 argument_list|()
 expr_stmt|;
-name|columnFamily_
+name|family_
 operator|.
 name|add
 argument_list|(
@@ -10015,7 +10015,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addAllColumnFamily
+name|addAllFamily
 parameter_list|(
 name|java
 operator|.
@@ -10036,7 +10036,7 @@ argument_list|>
 name|values
 parameter_list|)
 block|{
-name|ensureColumnFamilyIsMutable
+name|ensureFamilyIsMutable
 argument_list|()
 expr_stmt|;
 name|super
@@ -10045,7 +10045,7 @@ name|addAll
 argument_list|(
 name|values
 argument_list|,
-name|columnFamily_
+name|family_
 argument_list|)
 expr_stmt|;
 name|onChanged
@@ -10057,10 +10057,10 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearColumnFamily
+name|clearFamily
 parameter_list|()
 block|{
-name|columnFamily_
+name|family_
 operator|=
 name|java
 operator|.
@@ -10088,14 +10088,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetStoreFileListRequest)
+comment|// @@protoc_insertion_point(builder_scope:GetStoreFileRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -10106,11 +10106,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetStoreFileListRequest)
+comment|// @@protoc_insertion_point(class_scope:GetStoreFileRequest)
 block|}
 specifier|public
 interface|interface
-name|GetStoreFileListResponseOrBuilder
+name|GetStoreFileResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -10148,7 +10148,7 @@ specifier|public
 specifier|static
 specifier|final
 class|class
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 extends|extends
 name|com
 operator|.
@@ -10158,11 +10158,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|GetStoreFileListResponseOrBuilder
+name|GetStoreFileResponseOrBuilder
 block|{
-comment|// Use GetStoreFileListResponse.newBuilder() to construct.
+comment|// Use GetStoreFileResponse.newBuilder() to construct.
 specifier|private
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 parameter_list|(
 name|Builder
 name|builder
@@ -10175,7 +10175,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -10184,12 +10184,12 @@ block|{}
 specifier|private
 specifier|static
 specifier|final
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -10198,7 +10198,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -10236,7 +10236,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListResponse_descriptor
+name|internal_static_GetStoreFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -10267,7 +10267,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListResponse_fieldAccessorTable
+name|internal_static_GetStoreFileResponse_fieldAccessorTable
 return|;
 block|}
 comment|// repeated string storeFile = 1;
@@ -10648,7 +10648,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|)
 condition|)
 block|{
@@ -10675,7 +10675,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|other
 init|=
 operator|(
@@ -10693,7 +10693,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -10833,7 +10833,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -10883,7 +10883,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -10944,7 +10944,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -10989,7 +10989,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -11045,7 +11045,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -11091,7 +11091,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -11148,7 +11148,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -11211,7 +11211,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -11285,7 +11285,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -11333,7 +11333,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -11418,7 +11418,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|prototype
 parameter_list|)
 block|{
@@ -11512,7 +11512,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponseOrBuilder
+name|GetStoreFileResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -11544,7 +11544,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListResponse_descriptor
+name|internal_static_GetStoreFileResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -11575,10 +11575,10 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|internal_static_GetStoreFileListResponse_fieldAccessorTable
+name|internal_static_GetStoreFileResponse_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetStoreFileListResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetStoreFileResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -11713,7 +11713,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDescriptor
 argument_list|()
@@ -11734,7 +11734,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -11753,7 +11753,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11774,7 +11774,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|build
 parameter_list|()
 block|{
@@ -11792,7 +11792,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|result
 init|=
 name|buildPartial
@@ -11833,7 +11833,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|buildParsed
 parameter_list|()
 throws|throws
@@ -11859,7 +11859,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|result
 init|=
 name|buildPartial
@@ -11903,7 +11903,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -11921,7 +11921,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|result
 init|=
 operator|new
@@ -11939,7 +11939,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|(
 name|this
 argument_list|)
@@ -12031,7 +12031,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 condition|)
 block|{
 return|return
@@ -12052,7 +12052,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|)
 name|other
 argument_list|)
@@ -12090,7 +12090,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 name|other
 parameter_list|)
 block|{
@@ -12112,7 +12112,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -12642,14 +12642,14 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:GetStoreFileListResponse)
+comment|// @@protoc_insertion_point(builder_scope:GetStoreFileResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -12660,7 +12660,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:GetStoreFileListResponse)
+comment|// @@protoc_insertion_point(class_scope:GetStoreFileResponse)
 block|}
 specifier|public
 interface|interface
@@ -18528,7 +18528,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionSpecifier region = 1;
+comment|// repeated .RegionInfo region = 1;
 name|java
 operator|.
 name|util
@@ -18549,7 +18549,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|getRegionList
 parameter_list|()
@@ -18568,7 +18568,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|getRegion
 parameter_list|(
 name|int
@@ -18601,7 +18601,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 name|getRegionOrBuilderList
 parameter_list|()
@@ -18620,7 +18620,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 name|getRegionOrBuilder
 parameter_list|(
 name|int
@@ -18767,7 +18767,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionSpecifier region = 1;
+comment|// repeated .RegionInfo region = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -18797,7 +18797,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|region_
 decl_stmt|;
@@ -18822,7 +18822,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|getRegionList
 parameter_list|()
@@ -18854,7 +18854,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 name|getRegionOrBuilderList
 parameter_list|()
@@ -18890,7 +18890,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|getRegion
 parameter_list|(
 name|int
@@ -18921,7 +18921,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 name|getRegionOrBuilder
 parameter_list|(
 name|int
@@ -21346,7 +21346,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|subBuilder
@@ -21365,7 +21365,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|newBuilder
 argument_list|()
@@ -21413,7 +21413,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionSpecifier region = 1;
+comment|// repeated .RegionInfo region = 1;
 specifier|private
 name|java
 operator|.
@@ -21435,7 +21435,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|region_
 init|=
@@ -21490,7 +21490,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 argument_list|(
 name|region_
@@ -21525,7 +21525,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|,
 name|org
 operator|.
@@ -21541,7 +21541,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 argument_list|,
@@ -21559,7 +21559,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 name|regionBuilder_
 decl_stmt|;
@@ -21584,7 +21584,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|getRegionList
 parameter_list|()
@@ -21663,7 +21663,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|getRegion
 parameter_list|(
 name|int
@@ -21719,7 +21719,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|value
 parameter_list|)
 block|{
@@ -21796,7 +21796,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|builderForValue
@@ -21865,7 +21865,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|value
 parameter_list|)
 block|{
@@ -21938,7 +21938,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 name|value
 parameter_list|)
 block|{
@@ -22012,7 +22012,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|builderForValue
@@ -22080,7 +22080,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|builderForValue
@@ -22157,7 +22157,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|>
 name|values
 parameter_list|)
@@ -22305,7 +22305,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|getRegionBuilder
@@ -22339,7 +22339,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 name|getRegionOrBuilder
 parameter_list|(
 name|int
@@ -22397,7 +22397,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 name|getRegionOrBuilderList
 parameter_list|()
@@ -22447,7 +22447,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|addRegionBuilder
@@ -22473,7 +22473,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -22495,7 +22495,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 name|addRegionBuilder
@@ -22526,7 +22526,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -22554,7 +22554,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 argument_list|>
@@ -22592,7 +22592,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|,
 name|org
 operator|.
@@ -22608,7 +22608,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 argument_list|,
@@ -22626,7 +22626,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 name|getRegionFieldBuilder
 parameter_list|()
@@ -22663,7 +22663,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 argument_list|,
 name|org
 operator|.
@@ -22679,7 +22679,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifier
+name|RegionInfo
 operator|.
 name|Builder
 argument_list|,
@@ -22697,7 +22697,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|RegionSpecifierOrBuilder
+name|RegionInfoOrBuilder
 argument_list|>
 argument_list|(
 name|region_
@@ -51434,9 +51434,9 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .WALEntry.WALKey walKey = 1;
+comment|// required .WALEntry.WALKey key = 1;
 name|boolean
-name|hasWalKey
+name|hasKey
 parameter_list|()
 function_decl|;
 name|org
@@ -51456,7 +51456,7 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKey
-name|getWalKey
+name|getKey
 parameter_list|()
 function_decl|;
 name|org
@@ -51476,7 +51476,7 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKeyOrBuilder
-name|getWalKeyOrBuilder
+name|getKeyOrBuilder
 parameter_list|()
 function_decl|;
 comment|// required .WALEntry.WALEdit edit = 2;
@@ -56376,7 +56376,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated bytes keyValue = 1;
+comment|// repeated bytes keyValueBytes = 1;
 name|java
 operator|.
 name|util
@@ -56391,11 +56391,11 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getKeyValueList
+name|getKeyValueBytesList
 parameter_list|()
 function_decl|;
 name|int
-name|getKeyValueCount
+name|getKeyValueBytesCount
 parameter_list|()
 function_decl|;
 name|com
@@ -56405,7 +56405,7 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getKeyValue
+name|getKeyValueBytes
 parameter_list|(
 name|int
 name|index
@@ -60073,12 +60073,12 @@ expr_stmt|;
 block|}
 comment|// @@protoc_insertion_point(class_scope:WALEntry.WALEdit.FamilyScope)
 block|}
-comment|// repeated bytes keyValue = 1;
+comment|// repeated bytes keyValueBytes = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYVALUE_FIELD_NUMBER
+name|KEYVALUEBYTES_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -60097,7 +60097,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|keyValue_
+name|keyValueBytes_
 decl_stmt|;
 specifier|public
 name|java
@@ -60114,20 +60114,20 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getKeyValueList
+name|getKeyValueBytesList
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|keyValueBytes_
 return|;
 block|}
 specifier|public
 name|int
-name|getKeyValueCount
+name|getKeyValueBytesCount
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|size
 argument_list|()
@@ -60141,14 +60141,14 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getKeyValue
+name|getKeyValueBytes
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|get
 argument_list|(
@@ -60351,7 +60351,7 @@ name|void
 name|initFields
 parameter_list|()
 block|{
-name|keyValue_
+name|keyValueBytes_
 operator|=
 name|java
 operator|.
@@ -60482,7 +60482,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|size
 argument_list|()
@@ -60497,7 +60497,7 @@ name|writeBytes
 argument_list|(
 literal|1
 argument_list|,
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|get
 argument_list|(
@@ -60594,7 +60594,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|size
 argument_list|()
@@ -60615,7 +60615,7 @@ name|CodedOutputStream
 operator|.
 name|computeBytesSizeNoTag
 argument_list|(
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|get
 argument_list|(
@@ -60632,7 +60632,7 @@ name|size
 operator|+=
 literal|1
 operator|*
-name|getKeyValueList
+name|getKeyValueBytesList
 argument_list|()
 operator|.
 name|size
@@ -60846,14 +60846,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getKeyValueList
+name|getKeyValueBytesList
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getKeyValueList
+name|getKeyValueBytesList
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -60923,7 +60923,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|getKeyValueCount
+name|getKeyValueBytesCount
 argument_list|()
 operator|>
 literal|0
@@ -60937,7 +60937,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|KEYVALUE_FIELD_NUMBER
+name|KEYVALUEBYTES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -60947,7 +60947,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getKeyValueList
+name|getKeyValueBytesList
 argument_list|()
 operator|.
 name|hashCode
@@ -61860,7 +61860,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|keyValueBytes_
 operator|=
 name|java
 operator|.
@@ -62234,7 +62234,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|keyValue_
+name|keyValueBytes_
 operator|=
 name|java
 operator|.
@@ -62244,7 +62244,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|keyValue_
+name|keyValueBytes_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -62259,9 +62259,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|keyValue_
+name|keyValueBytes_
 operator|=
-name|keyValue_
+name|keyValueBytes_
 expr_stmt|;
 if|if
 condition|(
@@ -62466,7 +62466,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|isEmpty
 argument_list|()
@@ -62474,17 +62474,17 @@ condition|)
 block|{
 if|if
 condition|(
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|keyValue_
+name|keyValueBytes_
 operator|=
 name|other
 operator|.
-name|keyValue_
+name|keyValueBytes_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -62498,16 +62498,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|addAll
 argument_list|(
 name|other
 operator|.
-name|keyValue_
+name|keyValueBytes_
 argument_list|)
 expr_stmt|;
 block|}
@@ -62844,10 +62844,10 @@ case|case
 literal|10
 case|:
 block|{
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|add
 argument_list|(
@@ -62935,7 +62935,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated bytes keyValue = 1;
+comment|// repeated bytes keyValueBytes = 1;
 specifier|private
 name|java
 operator|.
@@ -62951,7 +62951,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|keyValue_
+name|keyValueBytes_
 init|=
 name|java
 operator|.
@@ -62965,7 +62965,7 @@ decl_stmt|;
 empty_stmt|;
 specifier|private
 name|void
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 parameter_list|()
 block|{
 if|if
@@ -62982,7 +62982,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|keyValue_
+name|keyValueBytes_
 operator|=
 operator|new
 name|java
@@ -63000,7 +63000,7 @@ operator|.
 name|ByteString
 argument_list|>
 argument_list|(
-name|keyValue_
+name|keyValueBytes_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -63024,7 +63024,7 @@ name|protobuf
 operator|.
 name|ByteString
 argument_list|>
-name|getKeyValueList
+name|getKeyValueBytesList
 parameter_list|()
 block|{
 return|return
@@ -63036,17 +63036,17 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|keyValue_
+name|keyValueBytes_
 argument_list|)
 return|;
 block|}
 specifier|public
 name|int
-name|getKeyValueCount
+name|getKeyValueBytesCount
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|size
 argument_list|()
@@ -63060,14 +63060,14 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getKeyValue
+name|getKeyValueBytes
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|get
 argument_list|(
@@ -63077,7 +63077,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setKeyValue
+name|setKeyValueBytes
 parameter_list|(
 name|int
 name|index
@@ -63105,10 +63105,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|set
 argument_list|(
@@ -63126,7 +63126,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addKeyValue
+name|addKeyValueBytes
 parameter_list|(
 name|com
 operator|.
@@ -63151,10 +63151,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|keyValueBytes_
 operator|.
 name|add
 argument_list|(
@@ -63170,7 +63170,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addAllKeyValue
+name|addAllKeyValueBytes
 parameter_list|(
 name|java
 operator|.
@@ -63191,7 +63191,7 @@ argument_list|>
 name|values
 parameter_list|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureKeyValueBytesIsMutable
 argument_list|()
 expr_stmt|;
 name|super
@@ -63200,7 +63200,7 @@ name|addAll
 argument_list|(
 name|values
 argument_list|,
-name|keyValue_
+name|keyValueBytes_
 argument_list|)
 expr_stmt|;
 name|onChanged
@@ -63212,10 +63212,10 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearKeyValue
+name|clearKeyValueBytes
 parameter_list|()
 block|{
-name|keyValue_
+name|keyValueBytes_
 operator|=
 name|java
 operator|.
@@ -64694,12 +64694,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .WALEntry.WALKey walKey = 1;
+comment|// required .WALEntry.WALKey key = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WALKEY_FIELD_NUMBER
+name|KEY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -64721,11 +64721,11 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKey
-name|walKey_
+name|key_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasWalKey
+name|hasKey
 parameter_list|()
 block|{
 return|return
@@ -64758,11 +64758,11 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKey
-name|getWalKey
+name|getKey
 parameter_list|()
 block|{
 return|return
-name|walKey_
+name|key_
 return|;
 block|}
 specifier|public
@@ -64783,11 +64783,11 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKeyOrBuilder
-name|getWalKeyOrBuilder
+name|getKeyOrBuilder
 parameter_list|()
 block|{
 return|return
-name|walKey_
+name|key_
 return|;
 block|}
 comment|// required .WALEntry.WALEdit edit = 2;
@@ -64891,7 +64891,7 @@ name|void
 name|initFields
 parameter_list|()
 block|{
-name|walKey_
+name|key_
 operator|=
 name|org
 operator|.
@@ -64971,7 +64971,7 @@ return|;
 if|if
 condition|(
 operator|!
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
@@ -65001,7 +65001,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|getWalKey
+name|getKey
 argument_list|()
 operator|.
 name|isInitialized
@@ -65084,7 +65084,7 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|walKey_
+name|key_
 argument_list|)
 expr_stmt|;
 block|}
@@ -65178,7 +65178,7 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|walKey_
+name|key_
 argument_list|)
 expr_stmt|;
 block|}
@@ -65374,18 +65374,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasWalKey
+name|hasKey
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasWalKey
+name|hasKey
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
@@ -65393,14 +65393,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getWalKey
+name|getKey
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getWalKey
+name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -65492,7 +65492,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
@@ -65504,7 +65504,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WALKEY_FIELD_NUMBER
+name|KEY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -65514,7 +65514,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getWalKey
+name|getKey
 argument_list|()
 operator|.
 name|hashCode
@@ -66374,7 +66374,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getWalKeyFieldBuilder
+name|getKeyFieldBuilder
 argument_list|()
 expr_stmt|;
 name|getEditFieldBuilder
@@ -66406,12 +66406,12 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walKey_
+name|key_
 operator|=
 name|org
 operator|.
@@ -66437,7 +66437,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -66809,25 +66809,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|walKey_
+name|key_
 operator|=
-name|walKey_
+name|key_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|walKey_
+name|key_
 operator|=
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|build
 argument_list|()
@@ -67015,15 +67015,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
-name|mergeWalKey
+name|mergeKey
 argument_list|(
 name|other
 operator|.
-name|getWalKey
+name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -67068,7 +67068,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
@@ -67090,7 +67090,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|getWalKey
+name|getKey
 argument_list|()
 operator|.
 name|isInitialized
@@ -67296,7 +67296,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|hasWalKey
+name|hasKey
 argument_list|()
 condition|)
 block|{
@@ -67304,7 +67304,7 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|getWalKey
+name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -67318,7 +67318,7 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|setWalKey
+name|setKey
 argument_list|(
 name|subBuilder
 operator|.
@@ -67415,7 +67415,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .WALEntry.WALKey walKey = 1;
+comment|// required .WALEntry.WALKey key = 1;
 specifier|private
 name|org
 operator|.
@@ -67434,7 +67434,7 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKey
-name|walKey_
+name|key_
 init|=
 name|org
 operator|.
@@ -67522,11 +67522,11 @@ name|WALEntry
 operator|.
 name|WALKeyOrBuilder
 argument_list|>
-name|walKeyBuilder_
+name|keyBuilder_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasWalKey
+name|hasKey
 parameter_list|()
 block|{
 return|return
@@ -67559,24 +67559,24 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKey
-name|getWalKey
+name|getKey
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|walKey_
+name|key_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|getMessage
 argument_list|()
@@ -67585,7 +67585,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setWalKey
+name|setKey
 parameter_list|(
 name|org
 operator|.
@@ -67609,7 +67609,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
@@ -67627,7 +67627,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|walKey_
+name|key_
 operator|=
 name|value
 expr_stmt|;
@@ -67637,7 +67637,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -67655,7 +67655,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setWalKey
+name|setKey
 parameter_list|(
 name|org
 operator|.
@@ -67681,12 +67681,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walKey_
+name|key_
 operator|=
 name|builderForValue
 operator|.
@@ -67699,7 +67699,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -67720,7 +67720,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|mergeWalKey
+name|mergeKey
 parameter_list|(
 name|org
 operator|.
@@ -67744,7 +67744,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
@@ -67761,7 +67761,7 @@ operator|==
 literal|0x00000001
 operator|)
 operator|&&
-name|walKey_
+name|key_
 operator|!=
 name|org
 operator|.
@@ -67785,7 +67785,7 @@ name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|walKey_
+name|key_
 operator|=
 name|org
 operator|.
@@ -67807,7 +67807,7 @@ name|WALKey
 operator|.
 name|newBuilder
 argument_list|(
-name|walKey_
+name|key_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -67821,7 +67821,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKey_
+name|key_
 operator|=
 name|value
 expr_stmt|;
@@ -67832,7 +67832,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -67850,17 +67850,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearWalKey
+name|clearKey
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walKey_
+name|key_
 operator|=
 name|org
 operator|.
@@ -67889,7 +67889,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -67928,7 +67928,7 @@ operator|.
 name|WALKey
 operator|.
 name|Builder
-name|getWalKeyBuilder
+name|getKeyBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -67939,7 +67939,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getWalKeyFieldBuilder
+name|getKeyFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -67964,18 +67964,18 @@ operator|.
 name|WALEntry
 operator|.
 name|WALKeyOrBuilder
-name|getWalKeyOrBuilder
+name|getKeyOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|walKeyBuilder_
+name|keyBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -67984,7 +67984,7 @@ block|}
 else|else
 block|{
 return|return
-name|walKey_
+name|key_
 return|;
 block|}
 block|}
@@ -68053,17 +68053,17 @@ name|WALEntry
 operator|.
 name|WALKeyOrBuilder
 argument_list|>
-name|getWalKeyFieldBuilder
+name|getKeyFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walKeyBuilder_
+name|keyBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walKeyBuilder_
+name|keyBuilder_
 operator|=
 operator|new
 name|com
@@ -68131,7 +68131,7 @@ operator|.
 name|WALKeyOrBuilder
 argument_list|>
 argument_list|(
-name|walKey_
+name|key_
 argument_list|,
 name|getParentForChildren
 argument_list|()
@@ -68140,13 +68140,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|walKey_
+name|key_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|walKeyBuilder_
+name|keyBuilder_
 return|;
 block|}
 comment|// required .WALEntry.WALEdit edit = 2;
@@ -68915,7 +68915,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .WALEntry walEntry = 1;
+comment|// repeated .WALEntry entry = 1;
 name|java
 operator|.
 name|util
@@ -68938,7 +68938,7 @@ name|AdminProtos
 operator|.
 name|WALEntry
 argument_list|>
-name|getWalEntryList
+name|getEntryList
 parameter_list|()
 function_decl|;
 name|org
@@ -68956,14 +68956,14 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntry
-name|getWalEntry
+name|getEntry
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 function_decl|;
 name|int
-name|getWalEntryCount
+name|getEntryCount
 parameter_list|()
 function_decl|;
 name|java
@@ -68990,7 +68990,7 @@ name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
 argument_list|>
-name|getWalEntryOrBuilderList
+name|getEntryOrBuilderList
 parameter_list|()
 function_decl|;
 name|org
@@ -69008,7 +69008,7 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
-name|getWalEntryOrBuilder
+name|getEntryOrBuilder
 parameter_list|(
 name|int
 name|index
@@ -69141,12 +69141,12 @@ operator|.
 name|internal_static_ReplicateWALEntryRequest_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .WALEntry walEntry = 1;
+comment|// repeated .WALEntry entry = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WALENTRY_FIELD_NUMBER
+name|ENTRY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -69173,7 +69173,7 @@ name|AdminProtos
 operator|.
 name|WALEntry
 argument_list|>
-name|walEntry_
+name|entry_
 decl_stmt|;
 specifier|public
 name|java
@@ -69198,11 +69198,11 @@ name|AdminProtos
 operator|.
 name|WALEntry
 argument_list|>
-name|getWalEntryList
+name|getEntryList
 parameter_list|()
 block|{
 return|return
-name|walEntry_
+name|entry_
 return|;
 block|}
 specifier|public
@@ -69230,20 +69230,20 @@ name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
 argument_list|>
-name|getWalEntryOrBuilderList
+name|getEntryOrBuilderList
 parameter_list|()
 block|{
 return|return
-name|walEntry_
+name|entry_
 return|;
 block|}
 specifier|public
 name|int
-name|getWalEntryCount
+name|getEntryCount
 parameter_list|()
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|size
 argument_list|()
@@ -69265,14 +69265,14 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntry
-name|getWalEntry
+name|getEntry
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -69296,14 +69296,14 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
-name|getWalEntryOrBuilder
+name|getEntryOrBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -69316,7 +69316,7 @@ name|void
 name|initFields
 parameter_list|()
 block|{
-name|walEntry_
+name|entry_
 operator|=
 name|java
 operator|.
@@ -69367,7 +69367,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|getWalEntryCount
+name|getEntryCount
 argument_list|()
 condition|;
 name|i
@@ -69377,7 +69377,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|getWalEntry
+name|getEntry
 argument_list|(
 name|i
 argument_list|)
@@ -69435,7 +69435,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|walEntry_
+name|entry_
 operator|.
 name|size
 argument_list|()
@@ -69450,7 +69450,7 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -69508,7 +69508,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|walEntry_
+name|entry_
 operator|.
 name|size
 argument_list|()
@@ -69531,7 +69531,7 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -69700,14 +69700,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getWalEntryList
+name|getEntryList
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getWalEntryList
+name|getEntryList
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -69762,7 +69762,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|getWalEntryCount
+name|getEntryCount
 argument_list|()
 operator|>
 literal|0
@@ -69776,7 +69776,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WALENTRY_FIELD_NUMBER
+name|ENTRY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -69786,7 +69786,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getWalEntryList
+name|getEntryList
 argument_list|()
 operator|.
 name|hashCode
@@ -70615,7 +70615,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -70644,12 +70644,12 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walEntry_
+name|entry_
 operator|=
 name|java
 operator|.
@@ -70672,7 +70672,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -70964,7 +70964,7 @@ name|bitField0_
 decl_stmt|;
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -70982,7 +70982,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|walEntry_
+name|entry_
 operator|=
 name|java
 operator|.
@@ -70992,7 +70992,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|walEntry_
+name|entry_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -71007,18 +71007,18 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|walEntry_
+name|entry_
 operator|=
-name|walEntry_
+name|entry_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|walEntry_
+name|entry_
 operator|=
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|build
 argument_list|()
@@ -71154,7 +71154,7 @@ name|this
 return|;
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -71164,7 +71164,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|walEntry_
+name|entry_
 operator|.
 name|isEmpty
 argument_list|()
@@ -71172,17 +71172,17 @@ condition|)
 block|{
 if|if
 condition|(
-name|walEntry_
+name|entry_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|walEntry_
+name|entry_
 operator|=
 name|other
 operator|.
-name|walEntry_
+name|entry_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -71196,16 +71196,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|addAll
 argument_list|(
 name|other
 operator|.
-name|walEntry_
+name|entry_
 argument_list|)
 expr_stmt|;
 block|}
@@ -71221,7 +71221,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|walEntry_
+name|entry_
 operator|.
 name|isEmpty
 argument_list|()
@@ -71229,26 +71229,26 @@ condition|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|dispose
 argument_list|()
 expr_stmt|;
-name|walEntryBuilder_
+name|entryBuilder_
 operator|=
 literal|null
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|=
 name|other
 operator|.
-name|walEntry_
+name|entry_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -71259,7 +71259,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|walEntryBuilder_
+name|entryBuilder_
 operator|=
 name|com
 operator|.
@@ -71271,7 +71271,7 @@ name|GeneratedMessage
 operator|.
 name|alwaysUseFieldBuilders
 condition|?
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 else|:
 literal|null
@@ -71279,13 +71279,13 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
 name|other
 operator|.
-name|walEntry_
+name|entry_
 argument_list|)
 expr_stmt|;
 block|}
@@ -71320,7 +71320,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|getWalEntryCount
+name|getEntryCount
 argument_list|()
 condition|;
 name|i
@@ -71330,7 +71330,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|getWalEntry
+name|getEntry
 argument_list|(
 name|i
 argument_list|)
@@ -71528,7 +71528,7 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|addWalEntry
+name|addEntry
 argument_list|(
 name|subBuilder
 operator|.
@@ -71545,7 +71545,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .WALEntry walEntry = 1;
+comment|// repeated .WALEntry entry = 1;
 specifier|private
 name|java
 operator|.
@@ -71569,7 +71569,7 @@ name|AdminProtos
 operator|.
 name|WALEntry
 argument_list|>
-name|walEntry_
+name|entry_
 init|=
 name|java
 operator|.
@@ -71582,7 +71582,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|void
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 parameter_list|()
 block|{
 if|if
@@ -71599,7 +71599,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|walEntry_
+name|entry_
 operator|=
 operator|new
 name|java
@@ -71625,7 +71625,7 @@ operator|.
 name|WALEntry
 argument_list|>
 argument_list|(
-name|walEntry_
+name|entry_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -71693,7 +71693,7 @@ name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
 argument_list|>
-name|walEntryBuilder_
+name|entryBuilder_
 decl_stmt|;
 specifier|public
 name|java
@@ -71718,12 +71718,12 @@ name|AdminProtos
 operator|.
 name|WALEntry
 argument_list|>
-name|getWalEntryList
+name|getEntryList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -71737,14 +71737,14 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|walEntry_
+name|entry_
 argument_list|)
 return|;
 block|}
 else|else
 block|{
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|getMessageList
 argument_list|()
@@ -71753,18 +71753,18 @@ block|}
 block|}
 specifier|public
 name|int
-name|getWalEntryCount
+name|getEntryCount
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|size
 argument_list|()
@@ -71773,7 +71773,7 @@ block|}
 else|else
 block|{
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|getCount
 argument_list|()
@@ -71796,7 +71796,7 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntry
-name|getWalEntry
+name|getEntry
 parameter_list|(
 name|int
 name|index
@@ -71804,13 +71804,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -71821,7 +71821,7 @@ block|}
 else|else
 block|{
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|getMessage
 argument_list|(
@@ -71832,7 +71832,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setWalEntry
+name|setEntry
 parameter_list|(
 name|int
 name|index
@@ -71857,7 +71857,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -71875,10 +71875,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|set
 argument_list|(
@@ -71893,7 +71893,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -71909,7 +71909,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setWalEntry
+name|setEntry
 parameter_list|(
 name|int
 name|index
@@ -71936,15 +71936,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|set
 argument_list|(
@@ -71962,7 +71962,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -71981,7 +71981,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addWalEntry
+name|addEntry
 parameter_list|(
 name|org
 operator|.
@@ -72003,7 +72003,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -72021,10 +72021,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|add
 argument_list|(
@@ -72037,7 +72037,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -72051,7 +72051,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addWalEntry
+name|addEntry
 parameter_list|(
 name|int
 name|index
@@ -72076,7 +72076,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
@@ -72094,10 +72094,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|add
 argument_list|(
@@ -72112,7 +72112,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -72128,7 +72128,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addWalEntry
+name|addEntry
 parameter_list|(
 name|org
 operator|.
@@ -72152,15 +72152,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|add
 argument_list|(
@@ -72176,7 +72176,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -72193,7 +72193,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addWalEntry
+name|addEntry
 parameter_list|(
 name|int
 name|index
@@ -72220,15 +72220,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|add
 argument_list|(
@@ -72246,7 +72246,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -72265,7 +72265,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addAllWalEntry
+name|addAllEntry
 parameter_list|(
 name|java
 operator|.
@@ -72296,12 +72296,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
 name|super
@@ -72310,7 +72310,7 @@ name|addAll
 argument_list|(
 name|values
 argument_list|,
-name|walEntry_
+name|entry_
 argument_list|)
 expr_stmt|;
 name|onChanged
@@ -72319,7 +72319,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
@@ -72333,17 +72333,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearWalEntry
+name|clearEntry
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walEntry_
+name|entry_
 operator|=
 name|java
 operator|.
@@ -72369,7 +72369,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -72381,7 +72381,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|removeWalEntry
+name|removeEntry
 parameter_list|(
 name|int
 name|index
@@ -72389,15 +72389,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureWalEntryIsMutable
+name|ensureEntryIsMutable
 argument_list|()
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|.
 name|remove
 argument_list|(
@@ -72410,7 +72410,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|remove
 argument_list|(
@@ -72440,14 +72440,14 @@ operator|.
 name|WALEntry
 operator|.
 name|Builder
-name|getWalEntryBuilder
+name|getEntryBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -72472,7 +72472,7 @@ operator|.
 name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
-name|getWalEntryOrBuilder
+name|getEntryOrBuilder
 parameter_list|(
 name|int
 name|index
@@ -72480,13 +72480,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|walEntry_
+name|entry_
 operator|.
 name|get
 argument_list|(
@@ -72497,7 +72497,7 @@ block|}
 else|else
 block|{
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|(
@@ -72531,18 +72531,18 @@ name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
 argument_list|>
-name|getWalEntryOrBuilderList
+name|getEntryOrBuilderList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 operator|.
 name|getMessageOrBuilderList
 argument_list|()
@@ -72559,7 +72559,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|walEntry_
+name|entry_
 argument_list|)
 return|;
 block|}
@@ -72582,11 +72582,11 @@ operator|.
 name|WALEntry
 operator|.
 name|Builder
-name|addWalEntryBuilder
+name|addEntryBuilder
 parameter_list|()
 block|{
 return|return
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -72630,14 +72630,14 @@ operator|.
 name|WALEntry
 operator|.
 name|Builder
-name|addWalEntryBuilder
+name|addEntryBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -72690,11 +72690,11 @@ name|WALEntry
 operator|.
 name|Builder
 argument_list|>
-name|getWalEntryBuilderList
+name|getEntryBuilderList
 parameter_list|()
 block|{
 return|return
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 argument_list|()
 operator|.
 name|getBuilderList
@@ -72760,17 +72760,17 @@ name|AdminProtos
 operator|.
 name|WALEntryOrBuilder
 argument_list|>
-name|getWalEntryFieldBuilder
+name|getEntryFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|walEntryBuilder_
+name|entryBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|walEntryBuilder_
+name|entryBuilder_
 operator|=
 operator|new
 name|com
@@ -72832,7 +72832,7 @@ operator|.
 name|WALEntryOrBuilder
 argument_list|>
 argument_list|(
-name|walEntry_
+name|entry_
 argument_list|,
 operator|(
 operator|(
@@ -72851,13 +72851,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|walEntry_
+name|entry_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|walEntryBuilder_
+name|entryBuilder_
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:ReplicateWALEntryRequest)
@@ -88698,7 +88698,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|getStoreFileList
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -88723,7 +88723,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|,
 name|com
@@ -88748,7 +88748,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -89438,7 +89438,7 @@ operator|.
 name|Override
 specifier|public
 name|void
-name|getStoreFileList
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -89463,7 +89463,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|,
 name|com
@@ -89488,14 +89488,14 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|>
 name|done
 parameter_list|)
 block|{
 name|impl
 operator|.
-name|getStoreFileList
+name|getStoreFile
 argument_list|(
 name|controller
 argument_list|,
@@ -90422,7 +90422,7 @@ case|:
 return|return
 name|impl
 operator|.
-name|getStoreFileList
+name|getStoreFile
 argument_list|(
 name|controller
 argument_list|,
@@ -90441,7 +90441,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|)
 name|request
 argument_list|)
@@ -90857,7 +90857,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -91203,7 +91203,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -91516,7 +91516,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|getStoreFileList
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -91541,7 +91541,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|,
 name|com
@@ -91566,7 +91566,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -92363,7 +92363,7 @@ literal|1
 case|:
 name|this
 operator|.
-name|getStoreFileList
+name|getStoreFile
 argument_list|(
 name|controller
 argument_list|,
@@ -92382,7 +92382,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|)
 name|request
 argument_list|,
@@ -92409,7 +92409,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -93129,7 +93129,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -93475,7 +93475,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -93966,7 +93966,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|getStoreFileList
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -93991,7 +93991,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|,
 name|com
@@ -94016,7 +94016,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -94054,7 +94054,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -94085,7 +94085,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|class
 argument_list|,
@@ -94103,7 +94103,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -95677,8 +95677,8 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
-name|getStoreFileList
+name|GetStoreFileResponse
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -95703,7 +95703,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|)
 throws|throws
@@ -96411,8 +96411,8 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
-name|getStoreFileList
+name|GetStoreFileResponse
+name|getStoreFile
 parameter_list|(
 name|com
 operator|.
@@ -96437,7 +96437,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 name|request
 parameter_list|)
 throws|throws
@@ -96465,7 +96465,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|)
 name|channel
 operator|.
@@ -96500,7 +96500,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -97682,7 +97682,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetStoreFileListRequest_descriptor
+name|internal_static_GetStoreFileRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97695,7 +97695,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetStoreFileListRequest_fieldAccessorTable
+name|internal_static_GetStoreFileRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97708,7 +97708,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_GetStoreFileListResponse_descriptor
+name|internal_static_GetStoreFileResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -97721,7 +97721,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_GetStoreFileListResponse_fieldAccessorTable
+name|internal_static_GetStoreFileResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -98421,137 +98421,135 @@ literal|"nfoRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpeci"
 operator|+
 literal|"fier\"8\n\025GetRegionInfoResponse\022\037\n\nregionI"
 operator|+
-literal|"nfo\030\001 \002(\0132\013.RegionInfo\"Q\n\027GetStoreFileLi"
+literal|"nfo\030\001 \002(\0132\013.RegionInfo\"G\n\023GetStoreFileRe"
 operator|+
-literal|"stRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
+literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
 operator|+
-literal|"ier\022\024\n\014columnFamily\030\002 \003(\014\"-\n\030GetStoreFil"
+literal|"\016\n\006family\030\002 \003(\014\")\n\024GetStoreFileResponse\022"
 operator|+
-literal|"eListResponse\022\021\n\tstoreFile\030\001 \003(\t\"\030\n\026GetO"
+literal|"\021\n\tstoreFile\030\001 \003(\t\"\030\n\026GetOnlineRegionReq"
 operator|+
-literal|"nlineRegionRequest\":\n\027GetOnlineRegionRes"
+literal|"uest\":\n\027GetOnlineRegionResponse\022\037\n\nregio"
 operator|+
-literal|"ponse\022\037\n\nregionInfo\030\001 \003(\0132\013.RegionInfo\"S"
+literal|"nInfo\030\001 \003(\0132\013.RegionInfo\"N\n\021OpenRegionRe"
 operator|+
-literal|"\n\021OpenRegionRequest\022 \n\006region\030\001 \003(\0132\020.Re"
+literal|"quest\022\033\n\006region\030\001 \003(\0132\013.RegionInfo\022\034\n\024ve"
 block|,
-literal|"gionSpecifier\022\034\n\024versionOfOfflineNode\030\002 "
+literal|"rsionOfOfflineNode\030\002 \001(\r\"\234\001\n\022OpenRegionR"
 operator|+
-literal|"\001(\r\"\234\001\n\022OpenRegionResponse\022<\n\014openingSta"
+literal|"esponse\022<\n\014openingState\030\001 \003(\0162&.OpenRegi"
 operator|+
-literal|"te\030\001 \003(\0162&.OpenRegionResponse.RegionOpen"
+literal|"onResponse.RegionOpeningState\"H\n\022RegionO"
 operator|+
-literal|"ingState\"H\n\022RegionOpeningState\022\n\n\006OPENED"
+literal|"peningState\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENE"
 operator|+
-literal|"\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING"
+literal|"D\020\001\022\022\n\016FAILED_OPENING\020\002\"r\n\022CloseRegionRe"
 operator|+
-literal|"\020\002\"r\n\022CloseRegionRequest\022 \n\006region\030\001 \002(\013"
+literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
 operator|+
-literal|"2\020.RegionSpecifier\022\034\n\024versionOfClosingNo"
+literal|"\034\n\024versionOfClosingNode\030\002 \001(\r\022\034\n\016transit"
 operator|+
-literal|"de\030\002 \001(\r\022\034\n\016transitionInZK\030\003 \001(\010:\004true\"%"
+literal|"ionInZK\030\003 \001(\010:\004true\"%\n\023CloseRegionRespon"
 operator|+
-literal|"\n\023CloseRegionResponse\022\016\n\006closed\030\001 \002(\010\"M\n"
+literal|"se\022\016\n\006closed\030\001 \002(\010\"M\n\022FlushRegionRequest"
 operator|+
-literal|"\022FlushRegionRequest\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\025\n\rif"
 block|,
-literal|"gionSpecifier\022\025\n\rifOlderThanTs\030\002 \001(\004\"=\n\023"
+literal|"OlderThanTs\030\002 \001(\004\"=\n\023FlushRegionResponse"
 operator|+
-literal|"FlushRegionResponse\022\025\n\rlastFlushTime\030\001 \002"
+literal|"\022\025\n\rlastFlushTime\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010"
 operator|+
-literal|"(\004\022\017\n\007flushed\030\002 \001(\010\"J\n\022SplitRegionReques"
+literal|"\"J\n\022SplitRegionRequest\022 \n\006region\030\001 \002(\0132\020"
 operator|+
-literal|"t\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\022\n\ns"
+literal|".RegionSpecifier\022\022\n\nsplitPoint\030\002 \001(\014\"\025\n\023"
 operator|+
-literal|"plitPoint\030\002 \001(\014\"\025\n\023SplitRegionResponse\"G"
+literal|"SplitRegionResponse\"G\n\024CompactRegionRequ"
 operator|+
-literal|"\n\024CompactRegionRequest\022 \n\006region\030\001 \002(\0132\020"
+literal|"est\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\r\n"
 operator|+
-literal|".RegionSpecifier\022\r\n\005major\030\002 \001(\010\"\027\n\025Compa"
+literal|"\005major\030\002 \001(\010\"\027\n\025CompactRegionResponse\"1\n"
 operator|+
-literal|"ctRegionResponse\"1\n\004UUID\022\024\n\014leastSigBits"
+literal|"\004UUID\022\024\n\014leastSigBits\030\001 \002(\004\022\023\n\013mostSigBi"
 operator|+
-literal|"\030\001 \002(\004\022\023\n\013mostSigBits\030\002 \002(\004\"\266\003\n\010WALEntry"
+literal|"ts\030\002 \002(\004\"\270\003\n\010WALEntry\022\035\n\003key\030\001 \002(\0132\020.WAL"
 operator|+
-literal|"\022 \n\006walKey\030\001 \002(\0132\020.WALEntry.WALKey\022\037\n\004ed"
+literal|"Entry.WALKey\022\037\n\004edit\030\002 \002(\0132\021.WALEntry.WA"
 block|,
-literal|"it\030\002 \002(\0132\021.WALEntry.WALEdit\032~\n\006WALKey\022\031\n"
+literal|"LEdit\032~\n\006WALKey\022\031\n\021encodedRegionName\030\001 \002"
 operator|+
-literal|"\021encodedRegionName\030\001 \002(\014\022\021\n\ttableName\030\002 "
+literal|"(\014\022\021\n\ttableName\030\002 \002(\014\022\031\n\021logSequenceNumb"
 operator|+
-literal|"\002(\014\022\031\n\021logSequenceNumber\030\003 \002(\004\022\021\n\twriteT"
+literal|"er\030\003 \002(\004\022\021\n\twriteTime\030\004 \002(\004\022\030\n\tclusterId"
 operator|+
-literal|"ime\030\004 \002(\004\022\030\n\tclusterId\030\005 \001(\0132\005.UUID\032\346\001\n\007"
+literal|"\030\005 \001(\0132\005.UUID\032\353\001\n\007WALEdit\022\025\n\rkeyValueByt"
 operator|+
-literal|"WALEdit\022\020\n\010keyValue\030\001 \003(\014\0222\n\013familyScope"
+literal|"es\030\001 \003(\014\0222\n\013familyScope\030\002 \003(\0132\035.WALEntry"
 operator|+
-literal|"\030\002 \003(\0132\035.WALEntry.WALEdit.FamilyScope\032M\n"
+literal|".WALEdit.FamilyScope\032M\n\013FamilyScope\022\016\n\006f"
 operator|+
-literal|"\013FamilyScope\022\016\n\006family\030\001 \002(\014\022.\n\tscopeTyp"
+literal|"amily\030\001 \002(\014\022.\n\tscopeType\030\002 \002(\0162\033.WALEntr"
 operator|+
-literal|"e\030\002 \002(\0162\033.WALEntry.WALEdit.ScopeType\"F\n\t"
+literal|"y.WALEdit.ScopeType\"F\n\tScopeType\022\033\n\027REPL"
 operator|+
-literal|"ScopeType\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034"
+literal|"ICATION_SCOPE_LOCAL\020\000\022\034\n\030REPLICATION_SCO"
 operator|+
-literal|"\n\030REPLICATION_SCOPE_GLOBAL\020\001\"7\n\030Replicat"
+literal|"PE_GLOBAL\020\001\"4\n\030ReplicateWALEntryRequest\022"
 block|,
-literal|"eWALEntryRequest\022\033\n\010walEntry\030\001 \003(\0132\t.WAL"
+literal|"\030\n\005entry\030\001 \003(\0132\t.WALEntry\"\033\n\031ReplicateWA"
 operator|+
-literal|"Entry\"\033\n\031ReplicateWALEntryResponse\"\026\n\024Ro"
+literal|"LEntryResponse\"\026\n\024RollWALWriterRequest\"."
 operator|+
-literal|"llWALWriterRequest\".\n\025RollWALWriterRespo"
+literal|"\n\025RollWALWriterResponse\022\025\n\rregionToFlush"
 operator|+
-literal|"nse\022\025\n\rregionToFlush\030\001 \003(\014\"#\n\021StopServer"
+literal|"\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 "
 operator|+
-literal|"Request\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRes"
+literal|"\002(\t\"\024\n\022StopServerResponse\"\026\n\024GetServerIn"
 operator|+
-literal|"ponse\"\026\n\024GetServerInfoRequest\"8\n\025GetServ"
+literal|"foRequest\"8\n\025GetServerInfoResponse\022\037\n\nse"
 operator|+
-literal|"erInfoResponse\022\037\n\nserverName\030\001 \002(\0132\013.Ser"
+literal|"rverName\030\001 \002(\0132\013.ServerName2\371\005\n\014AdminSer"
 operator|+
-literal|"verName2\205\006\n\014AdminService\022>\n\rgetRegionInf"
+literal|"vice\022>\n\rgetRegionInfo\022\025.GetRegionInfoReq"
 operator|+
-literal|"o\022\025.GetRegionInfoRequest\032\026.GetRegionInfo"
+literal|"uest\032\026.GetRegionInfoResponse\022;\n\014getStore"
 operator|+
-literal|"Response\022G\n\020getStoreFileList\022\030.GetStoreF"
+literal|"File\022\024.GetStoreFileRequest\032\025.GetStoreFil"
 block|,
-literal|"ileListRequest\032\031.GetStoreFileListRespons"
+literal|"eResponse\022D\n\017getOnlineRegion\022\027.GetOnline"
 operator|+
-literal|"e\022D\n\017getOnlineRegion\022\027.GetOnlineRegionRe"
+literal|"RegionRequest\032\030.GetOnlineRegionResponse\022"
 operator|+
-literal|"quest\032\030.GetOnlineRegionResponse\0225\n\nopenR"
+literal|"5\n\nopenRegion\022\022.OpenRegionRequest\032\023.Open"
 operator|+
-literal|"egion\022\022.OpenRegionRequest\032\023.OpenRegionRe"
+literal|"RegionResponse\0228\n\013closeRegion\022\023.CloseReg"
 operator|+
-literal|"sponse\0228\n\013closeRegion\022\023.CloseRegionReque"
+literal|"ionRequest\032\024.CloseRegionResponse\0228\n\013flus"
 operator|+
-literal|"st\032\024.CloseRegionResponse\0228\n\013flushRegion\022"
+literal|"hRegion\022\023.FlushRegionRequest\032\024.FlushRegi"
 operator|+
-literal|"\023.FlushRegionRequest\032\024.FlushRegionRespon"
+literal|"onResponse\0228\n\013splitRegion\022\023.SplitRegionR"
 operator|+
-literal|"se\0228\n\013splitRegion\022\023.SplitRegionRequest\032\024"
+literal|"equest\032\024.SplitRegionResponse\022>\n\rcompactR"
 operator|+
-literal|".SplitRegionResponse\022>\n\rcompactRegion\022\025."
+literal|"egion\022\025.CompactRegionRequest\032\026.CompactRe"
 operator|+
-literal|"CompactRegionRequest\032\026.CompactRegionResp"
+literal|"gionResponse\022J\n\021replicateWALEntry\022\031.Repl"
 block|,
-literal|"onse\022J\n\021replicateWALEntry\022\031.ReplicateWAL"
+literal|"icateWALEntryRequest\032\032.ReplicateWALEntry"
 operator|+
-literal|"EntryRequest\032\032.ReplicateWALEntryResponse"
+literal|"Response\022>\n\rrollWALWriter\022\025.RollWALWrite"
 operator|+
-literal|"\022>\n\rrollWALWriter\022\025.RollWALWriterRequest"
+literal|"rRequest\032\026.RollWALWriterResponse\022>\n\rgetS"
 operator|+
-literal|"\032\026.RollWALWriterResponse\022>\n\rgetServerInf"
+literal|"erverInfo\022\025.GetServerInfoRequest\032\026.GetSe"
 operator|+
-literal|"o\022\025.GetServerInfoRequest\032\026.GetServerInfo"
+literal|"rverInfoResponse\0225\n\nstopServer\022\022.StopSer"
 operator|+
-literal|"Response\0225\n\nstopServer\022\022.StopServerReque"
+literal|"verRequest\032\023.StopServerResponseBA\n*org.a"
 operator|+
-literal|"st\032\023.StopServerResponseBA\n*org.apache.ha"
+literal|"pache.hadoop.hbase.protobuf.generatedB\013A"
 operator|+
-literal|"doop.hbase.protobuf.generatedB\013AdminProt"
-operator|+
-literal|"osH\001\210\001\001\240\001\001"
+literal|"dminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -98763,7 +98761,7 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileListRequest_descriptor
+name|internal_static_GetStoreFileRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98776,7 +98774,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileListRequest_fieldAccessorTable
+name|internal_static_GetStoreFileRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98789,7 +98787,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetStoreFileListRequest_descriptor
+name|internal_static_GetStoreFileRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98801,7 +98799,7 @@ index|[]
 block|{
 literal|"Region"
 block|,
-literal|"ColumnFamily"
+literal|"Family"
 block|, }
 argument_list|,
 name|org
@@ -98818,7 +98816,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|class
 argument_list|,
@@ -98836,14 +98834,14 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListRequest
+name|GetStoreFileRequest
 operator|.
 name|Builder
 operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileListResponse_descriptor
+name|internal_static_GetStoreFileResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -98856,7 +98854,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_GetStoreFileListResponse_fieldAccessorTable
+name|internal_static_GetStoreFileResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -98869,7 +98867,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_GetStoreFileListResponse_descriptor
+name|internal_static_GetStoreFileResponse_descriptor
 argument_list|,
 operator|new
 name|java
@@ -98896,7 +98894,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|class
 argument_list|,
@@ -98914,7 +98912,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|GetStoreFileListResponse
+name|GetStoreFileResponse
 operator|.
 name|Builder
 operator|.
@@ -99981,7 +99979,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"WalKey"
+literal|"Key"
 block|,
 literal|"Edit"
 block|, }
@@ -100149,7 +100147,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"KeyValue"
+literal|"KeyValueBytes"
 block|,
 literal|"FamilyScope"
 block|, }
@@ -100320,7 +100318,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"WalEntry"
+literal|"Entry"
 block|, }
 argument_list|,
 name|org

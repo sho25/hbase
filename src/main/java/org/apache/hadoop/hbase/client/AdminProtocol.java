@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|client
 package|;
 end_package
 

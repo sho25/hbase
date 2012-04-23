@@ -9331,36 +9331,6 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|NotServingRegionException
-name|nsre
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|server
-operator|+
-literal|" returned "
-operator|+
-name|nsre
-operator|+
-literal|" for "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Presume that master has stale data.  Presume remote side just split.
-comment|// Presume that the split message when it comes in will fix up the master's
-comment|// in memory cluster state.
-block|}
-catch|catch
-parameter_list|(
 name|Throwable
 name|t
 parameter_list|)
@@ -9384,6 +9354,7 @@ operator|.
 name|unwrapRemoteException
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|t
@@ -9391,6 +9362,9 @@ operator|instanceof
 name|NotServingRegionException
 condition|)
 block|{
+comment|// Presume that master has stale data.  Presume remote side just split.
+comment|// Presume that the split message when it comes in will fix up the master's
+comment|// in memory cluster state.
 if|if
 condition|(
 name|checkIfRegionBelongsToDisabling
@@ -9463,7 +9437,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// RS is already processing this region, only need to update the timestamp
+elseif|else
 if|if
 condition|(
 name|t
@@ -9471,6 +9445,7 @@ operator|instanceof
 name|RegionAlreadyInTransitionException
 condition|)
 block|{
+comment|// RS is already processing this region, only need to update the timestamp
 name|LOG
 operator|.
 name|debug
@@ -9493,7 +9468,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 name|LOG
 operator|.
 name|info
@@ -9510,7 +9484,7 @@ literal|" for "
 operator|+
 name|region
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

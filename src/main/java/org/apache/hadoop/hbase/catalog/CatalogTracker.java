@@ -225,6 +225,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|AdminProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HConnection
 import|;
 end_import
@@ -257,6 +273,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RetriesExhaustedException
 import|;
 end_import
@@ -273,7 +305,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HRegionInterface
+name|ServerNotRunningYetException
 import|;
 end_import
 
@@ -287,9 +319,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|protobuf
 operator|.
-name|ServerNotRunningYetException
+name|ProtobufUtil
 import|;
 end_import
 
@@ -1118,7 +1150,7 @@ return|;
 block|}
 comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use #getRootServerConnection(long)    */
 specifier|public
-name|HRegionInterface
+name|AdminProtocol
 name|waitForRootServerConnection
 parameter_list|(
 name|long
@@ -1139,7 +1171,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link HTable} instead.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
-name|HRegionInterface
+name|AdminProtocol
 name|getRootServerConnection
 parameter_list|(
 name|long
@@ -1164,7 +1196,7 @@ return|;
 block|}
 comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting for the default timeout specified on instantiation.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use #getRootServerConnection(long)    */
 specifier|public
-name|HRegionInterface
+name|AdminProtocol
 name|waitForRootServerConnectionDefault
 parameter_list|()
 throws|throws
@@ -1200,7 +1232,7 @@ block|}
 block|}
 comment|/**    * Gets a connection to the server currently hosting<code>.META.</code> or    * null if location is not currently available.    *<p>    * If a location is known, a connection to the cached location is returned.    * If refresh is true, the cached connection is verified first before    * returning.  If the connection is not valid, it is reset and rechecked.    *<p>    * If no location for meta is currently known, method checks ROOT for a new    * location, verifies META is currently there, and returns a cached connection    * to the server hosting META.    *    * @return connection to server hosting meta, null if location not available    * @throws IOException    * @throws InterruptedException    */
 specifier|private
-name|HRegionInterface
+name|AdminProtocol
 name|getMetaServerConnection
 parameter_list|()
 throws|throws
@@ -1221,7 +1253,7 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|current
 init|=
 name|getCachedConnection
@@ -1279,7 +1311,7 @@ condition|)
 return|return
 literal|null
 return|;
-name|HRegionInterface
+name|AdminProtocol
 name|newConnection
 init|=
 name|getCachedConnection
@@ -1528,7 +1560,7 @@ block|}
 block|}
 comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Does not retry; use an HTable instance instead.    */
 specifier|public
-name|HRegionInterface
+name|AdminProtocol
 name|waitForMetaServerConnection
 parameter_list|(
 name|long
@@ -1553,7 +1585,7 @@ return|;
 block|}
 comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * Used in tests.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws NotAllMetaRegionsOnlineException if timed out or interrupted    * @throws IOException    * @deprecated Does not retry; use an HTable instance instead.    */
 specifier|public
-name|HRegionInterface
+name|AdminProtocol
 name|waitForMetaServerConnectionDefault
 parameter_list|()
 throws|throws
@@ -1680,9 +1712,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param sn ServerName to get a connection against.    * @return The HRegionInterface we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
+comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
 specifier|private
-name|HRegionInterface
+name|AdminProtocol
 name|getCachedConnection
 parameter_list|(
 name|ServerName
@@ -1702,7 +1734,7 @@ return|return
 literal|null
 return|;
 block|}
-name|HRegionInterface
+name|AdminProtocol
 name|protocol
 init|=
 literal|null
@@ -1713,7 +1745,7 @@ name|protocol
 operator|=
 name|connection
 operator|.
-name|getHRegionConnection
+name|getAdmin
 argument_list|(
 name|sn
 operator|.
@@ -1894,7 +1926,7 @@ name|protocol
 return|;
 block|}
 comment|/**    * Verify we can connect to<code>hostingServer</code> and that its carrying    *<code>regionName</code>.    * @param hostingServer Interface to the server hosting<code>regionName</code>    * @param serverName The servername that goes with the<code>metaServer</code>    * Interface.  Used logging.    * @param regionName The regionname we are interested in.    * @return True if we were able to verify the region located at other side of    * the Interface.    * @throws IOException    */
-comment|// TODO: We should be able to get the ServerName from the HRegionInterface
+comment|// TODO: We should be able to get the ServerName from the AdminProtocol
 comment|// rather than have to pass it in.  Its made awkward by the fact that the
 comment|// HRI is likely a proxy against remote server so the getServerName needs
 comment|// to be fixed to go to a local method or to a cache before we can do this.
@@ -1902,7 +1934,7 @@ specifier|private
 name|boolean
 name|verifyRegionLocation
 parameter_list|(
-name|HRegionInterface
+name|AdminProtocol
 name|hostingServer
 parameter_list|,
 specifier|final
@@ -1944,10 +1976,12 @@ try|try
 block|{
 comment|// Try and get regioninfo from the hosting server.
 return|return
-name|hostingServer
+name|ProtobufUtil
 operator|.
 name|getRegionInfo
 argument_list|(
+name|hostingServer
+argument_list|,
 name|regionName
 argument_list|)
 operator|!=
@@ -2103,7 +2137,7 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|connection
 init|=
 literal|null
@@ -2180,7 +2214,7 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
-name|HRegionInterface
+name|AdminProtocol
 name|connection
 init|=
 literal|null
