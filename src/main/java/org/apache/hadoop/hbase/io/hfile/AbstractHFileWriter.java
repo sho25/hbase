@@ -820,31 +820,6 @@ throw|;
 block|}
 if|if
 condition|(
-name|length
-operator|>
-name|HFile
-operator|.
-name|MAXIMUM_KEY_LENGTH
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Key length "
-operator|+
-name|length
-operator|+
-literal|"> "
-operator|+
-name|HFile
-operator|.
-name|MAXIMUM_KEY_LENGTH
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
 name|lastKeyBuffer
 operator|!=
 literal|null

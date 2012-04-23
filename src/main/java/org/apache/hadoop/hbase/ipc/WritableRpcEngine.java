@@ -966,13 +966,6 @@ name|rpcTimeout
 argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|proxy
-operator|instanceof
-name|VersionedProtocol
-condition|)
-block|{
 try|try
 block|{
 name|long
@@ -1093,7 +1086,6 @@ name|IOException
 operator|)
 name|t
 throw|;
-block|}
 block|}
 return|return
 name|proxy

@@ -203,6 +203,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|thrift
+operator|.
+name|generated
+operator|.
+name|Hbase
+operator|.
+name|deleteAll_args
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Threads
@@ -1458,6 +1478,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|ConnectedReadOnly
+case|:
+break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received event is not valid."
+argument_list|)
+throw|;
 block|}
 block|}
 comment|/**    * Forces a synchronization of this ZooKeeper client connection.    *<p>    * Executing this method before running other methods will ensure that the    * subsequent operations are up-to-date and consistent as of the time that    * the sync is complete.    *<p>    * This is used for compareAndSwap type operations where we need to read the    * data of an existing node and delete or transition that node, utilizing the    * previously read version and data.  We want to ensure that the version read    * is up-to-date from when we begin the operation.    */

@@ -308,14 +308,6 @@ name|Chunk
 name|c
 parameter_list|)
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-name|boolean
-name|weRetiredIt
-init|=
 name|curChunk
 operator|.
 name|compareAndSet
@@ -324,7 +316,7 @@ name|c
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// If the CAS succeeds, that means that we won the race
 comment|// to retire the chunk. We could use this opportunity to
 comment|// update metrics on external fragmentation.

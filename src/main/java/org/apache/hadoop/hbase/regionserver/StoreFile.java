@@ -5588,15 +5588,26 @@ name|int
 name|colLen
 parameter_list|)
 block|{
+comment|// Cache Bloom filter as a local variable in case it is set to null by
+comment|// another thread on an IO error.
+name|BloomFilter
+name|bloomFilter
+init|=
+name|this
+operator|.
+name|generalBloomFilter
+decl_stmt|;
 if|if
 condition|(
-name|generalBloomFilter
+name|bloomFilter
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 name|byte
 index|[]
 name|key
@@ -5659,7 +5670,7 @@ name|ROWCOL
 case|:
 name|key
 operator|=
-name|generalBloomFilter
+name|bloomFilter
 operator|.
 name|createBloomKey
 argument_list|(
@@ -5678,26 +5689,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 default|default:
-return|return
-literal|true
-return|;
-block|}
-comment|// Cache Bloom filter as a local variable in case it is set to null by
-comment|// another thread on an IO error.
-name|BloomFilter
-name|bloomFilter
-init|=
-name|this
-operator|.
-name|generalBloomFilter
-decl_stmt|;
-if|if
-condition|(
-name|bloomFilter
-operator|==
-literal|null
-condition|)
-block|{
 return|return
 literal|true
 return|;

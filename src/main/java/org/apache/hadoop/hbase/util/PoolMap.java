@@ -1418,6 +1418,8 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|super
+operator|.
 name|size
 argument_list|()
 operator|<
@@ -1507,6 +1509,8 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|super
+operator|.
 name|size
 argument_list|()
 operator|<
@@ -1532,6 +1536,8 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|super
+operator|.
 name|size
 argument_list|()
 operator|<
@@ -1544,6 +1550,8 @@ return|;
 block|}
 name|nextResource
 operator|%=
+name|super
+operator|.
 name|size
 argument_list|()
 expr_stmt|;

@@ -1025,14 +1025,12 @@ throws|throws
 name|IOException
 block|{
 comment|// in 0.92, the version was actually written twice, consume the second copy
-name|int
-name|version
-init|=
 name|in
 operator|.
 name|readByte
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+comment|// version
 name|int
 name|namelen
 init|=
@@ -2003,6 +2001,9 @@ name|Float
 operator|.
 name|valueOf
 argument_list|(
+operator|(
+name|float
+operator|)
 name|this
 operator|.
 name|currentCompactedKVs

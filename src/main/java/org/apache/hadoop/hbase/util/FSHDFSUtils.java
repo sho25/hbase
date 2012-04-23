@@ -361,13 +361,6 @@ try|try
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|fs
-operator|instanceof
-name|DistributedFileSystem
-condition|)
-block|{
 name|DistributedFileSystem
 name|dfs
 init|=
@@ -401,17 +394,6 @@ argument_list|,
 name|p
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|Exception
-argument_list|(
-literal|"Not a DistributedFileSystem"
-argument_list|)
-throw|;
-block|}
 block|}
 catch|catch
 parameter_list|(

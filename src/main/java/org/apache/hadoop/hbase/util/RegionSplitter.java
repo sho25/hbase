@@ -3134,17 +3134,6 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Path
-name|splitFile
-init|=
-operator|new
-name|Path
-argument_list|(
-name|tableDir
-argument_list|,
-literal|"_balancedSplit"
-argument_list|)
-decl_stmt|;
 name|FileSystem
 name|fs
 init|=

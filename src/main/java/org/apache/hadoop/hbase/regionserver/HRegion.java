@@ -9685,12 +9685,7 @@ name|KeyValue
 argument_list|>
 name|result
 init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|()
+literal|null
 decl_stmt|;
 try|try
 block|{

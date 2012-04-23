@@ -346,7 +346,7 @@ name|computeFoldableByteSize
 argument_list|(
 name|chunkByteSizeHint
 operator|*
-literal|8
+literal|8L
 argument_list|,
 name|maxFold
 argument_list|)

@@ -2964,6 +2964,14 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received event is not valid."
+argument_list|)
+throw|;
 block|}
 block|}
 block|}
@@ -4509,6 +4517,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received event is not valid."
+argument_list|)
+throw|;
 block|}
 block|}
 block|}
@@ -9039,10 +9055,6 @@ argument_list|,
 name|ke
 argument_list|)
 expr_stmt|;
-name|ke
-operator|=
-name|e
-expr_stmt|;
 block|}
 block|}
 comment|// If we get here, don't understand whats going on -- abort.
@@ -12943,6 +12955,14 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received event is not valid."
+argument_list|)
+throw|;
 block|}
 block|}
 block|}

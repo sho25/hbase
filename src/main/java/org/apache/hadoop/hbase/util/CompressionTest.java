@@ -436,14 +436,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 try|try
 block|{
 name|Compressor

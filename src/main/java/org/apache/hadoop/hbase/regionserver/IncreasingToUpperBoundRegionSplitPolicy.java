@@ -340,6 +340,9 @@ operator|*
 operator|(
 name|tableRegionsCount
 operator|*
+operator|(
+name|long
+operator|)
 name|tableRegionsCount
 operator|)
 argument_list|)

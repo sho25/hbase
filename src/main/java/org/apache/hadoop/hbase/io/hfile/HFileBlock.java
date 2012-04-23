@@ -2993,8 +2993,6 @@ argument_list|,
 name|bytesPerChecksum
 argument_list|)
 expr_stmt|;
-name|offset
-operator|=
 name|Bytes
 operator|.
 name|putInt

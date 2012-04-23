@@ -782,13 +782,32 @@ operator|.
 name|INCLUDE
 expr_stmt|;
 comment|// must continue here to evaluate all filters
+break|break;
 case|case
 name|NEXT_ROW
 case|:
+break|break;
 case|case
 name|SKIP
 case|:
 comment|// continue;
+break|break;
+case|case
+name|NEXT_COL
+case|:
+break|break;
+case|case
+name|SEEK_NEXT_USING_HINT
+case|:
+break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received code is not valid."
+argument_list|)
+throw|;
 block|}
 block|}
 block|}

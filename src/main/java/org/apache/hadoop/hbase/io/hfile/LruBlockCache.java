@@ -2647,6 +2647,9 @@ name|CONCURRENT_HASHMAP_ENTRY
 operator|)
 operator|+
 operator|(
+operator|(
+name|long
+operator|)
 name|concurrency
 operator|*
 name|ClassSize

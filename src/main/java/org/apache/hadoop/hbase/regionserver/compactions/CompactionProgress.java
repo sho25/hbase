@@ -80,6 +80,9 @@ name|getProgressPct
 parameter_list|()
 block|{
 return|return
+operator|(
+name|float
+operator|)
 name|currentCompactedKVs
 operator|/
 name|totalCompactingKVs
