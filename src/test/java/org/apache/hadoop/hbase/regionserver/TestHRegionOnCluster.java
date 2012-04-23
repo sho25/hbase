@@ -281,6 +281,20 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests that need to spin up a cluster testing an {@link HRegion}.  Use  * {@link TestHRegion} if you don't need a cluster, if you can test w/ a  * standalone {@link HRegion}.  */
 end_comment
