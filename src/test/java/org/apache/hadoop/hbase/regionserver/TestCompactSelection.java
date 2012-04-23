@@ -598,6 +598,9 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|HRegion
+name|region
+init|=
+name|HRegion
 operator|.
 name|createHRegion
 argument_list|(
@@ -608,6 +611,13 @@ argument_list|,
 name|conf
 argument_list|,
 name|htd
+argument_list|)
+decl_stmt|;
+name|HRegion
+operator|.
+name|closeHRegion
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 name|Path
@@ -629,9 +639,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HRegion
 name|region
-init|=
+operator|=
 operator|new
 name|HRegion
 argument_list|(
@@ -649,7 +658,7 @@ name|htd
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|store
 operator|=
 operator|new

@@ -533,6 +533,8 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|OpenRegionHandler
 name|handler
 init|=
@@ -655,6 +657,17 @@ operator|.
 name|process
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|HRegion
+operator|.
+name|closeHRegion
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test

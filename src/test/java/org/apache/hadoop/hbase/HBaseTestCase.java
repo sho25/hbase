@@ -807,6 +807,7 @@ name|testName
 argument_list|)
 return|;
 block|}
+comment|/**    * You must call close on the returned region and then close on the log file    * it created. Do {@link HRegion#close()} followed by {@link HRegion#getLog()}    * and on it call close.    * @param desc    * @param startKey    * @param endKey    * @return An {@link HRegion}    * @throws IOException    */
 specifier|protected
 name|HRegion
 name|createNewHRegion
@@ -2826,6 +2827,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * You must call {@link #closeRootAndMeta()} when done after calling this    * method. It does cleanup.    * @throws IOException    */
 specifier|protected
 name|void
 name|createRootAndMetaRegions

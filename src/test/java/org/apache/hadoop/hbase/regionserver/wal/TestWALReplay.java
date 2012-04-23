@@ -926,6 +926,19 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+name|region2
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region2
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 specifier|final
 name|byte
 index|[]
@@ -1239,6 +1252,19 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+name|region2
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region2
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 name|HLog
 name|wal
 init|=
@@ -1644,6 +1670,19 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+name|region3
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region3
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 comment|// Write countPerFamily edits into the three families.  Do a flush on one
 comment|// of the families during the load of edits so its seqid is not same as
 comment|// others to test we do right thing when different seqids.
@@ -2295,6 +2334,19 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+name|region3
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region3
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 comment|// Write countPerFamily edits into the three families.  Do a flush on one
 comment|// of the families during the load of edits so its seqid is not same as
 comment|// others to test we do right thing when different seqids.
@@ -2683,6 +2735,19 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+name|region2
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region2
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 specifier|final
 name|HLog
 name|wal

@@ -356,6 +356,8 @@ argument_list|,
 name|htd
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|List
 argument_list|<
 name|String
@@ -982,6 +984,17 @@ name|containsAll
 argument_list|(
 name|kvSet
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|HRegion
+operator|.
+name|closeHRegion
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 block|}

@@ -191,7 +191,15 @@ literal|1
 argument_list|,
 name|getNamedDaemonThreadFactory
 argument_list|(
-literal|"decayingSampleTick"
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|".decayingSampleTick."
 argument_list|)
 argument_list|)
 decl_stmt|;

@@ -321,6 +321,8 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 comment|// 2s in the past
 name|long
 name|ts
@@ -517,6 +519,23 @@ name|T4
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Test mixed memstore and storefile scanning    * with minimum versions.    */
 specifier|public
 name|void
@@ -566,6 +585,8 @@ argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
+try|try
+block|{
 name|Put
 name|p
 init|=
@@ -819,6 +840,23 @@ name|T1
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Make sure the Deletes behave as expected with minimum versions    */
 specifier|public
 name|void
@@ -867,6 +905,8 @@ argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
+try|try
+block|{
 name|Put
 name|p
 init|=
@@ -1153,6 +1193,23 @@ name|T3
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Make sure the memstor behaves correctly with minimum versions    */
 specifier|public
 name|void
@@ -1201,6 +1258,8 @@ argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
+try|try
+block|{
 comment|// 2nd version
 name|Put
 name|p
@@ -1559,6 +1618,23 @@ name|T4
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Verify basic minimum versions functionality    */
 specifier|public
 name|void
@@ -1597,6 +1673,8 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 comment|// 2s in the past
 name|long
 name|ts
@@ -2066,6 +2144,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Verify that basic filters still behave correctly with    * minimum versions enabled.    */
 specifier|public
 name|void
@@ -2124,6 +2219,8 @@ argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
+try|try
+block|{
 name|Put
 name|p
 init|=
@@ -2549,6 +2646,23 @@ argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void

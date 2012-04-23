@@ -14927,7 +14927,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.<b>When done with a region created using this method, you will    * need to explicitly close the {@link HLog} it created too; it will not be    * done for you.  Not closing the log will leave at least a daemon thread    * running.</b>  Call {@link #closeHRegion(HRegion)} and it will do    * necessary cleanup for you.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -14966,6 +14966,50 @@ argument_list|,
 literal|null
 argument_list|)
 return|;
+block|}
+comment|/**    * This will do the necessary cleanup a call to {@link #createHRegion(HRegionInfo, Path, Configuration, HTableDescriptor)}    * requires.  This method will close the region and then close its    * associated {@link HLog} file.  You use it if you call the other createHRegion,    * the one that takes an {@link HLog} instance but don't be surprised by the    * call to the {@link HLog#closeAndDelete()} on the {@link HLog} the    * HRegion was carrying.    * @param r    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|closeHRegion
+parameter_list|(
+specifier|final
+name|HRegion
+name|r
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|r
+operator|==
+literal|null
+condition|)
+return|return;
+name|r
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|r
+operator|.
+name|getLog
+argument_list|()
+operator|==
+literal|null
+condition|)
+return|return;
+name|r
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param boolean initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
 specifier|public
