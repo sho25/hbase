@@ -1671,7 +1671,7 @@ name|splitKeys
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new table with an initial set of empty regions defined by the    * specified split keys.  The total number of regions created will be the    * number of split keys plus one. Synchronous operation.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    *    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with an initial set of empty regions defined by the    * specified split keys.  The total number of regions created will be the    * number of split keys plus one. Synchronous operation.    * Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    *    * @throws IllegalArgumentException if the table name is reserved, if the split keys    * are repeated and if the split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 name|void
 name|createTable
@@ -2068,7 +2068,7 @@ return|return;
 block|}
 block|}
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.  To check if the table exists, use    * {@link: #isTableAvailable} -- it is not safe to create an HTable    * instance to this table before it is available.    *    * @param desc table descriptor for table    *    * @throws IllegalArgumentException Bad table name.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.  To check if the table exists, use    * {@link: #isTableAvailable} -- it is not safe to create an HTable    * instance to this table before it is available.    * Note : Avoid passing empty split key.    * @param desc table descriptor for table    *    * @throws IllegalArgumentException Bad table name, if the split keys    * are repeated and if the split key has empty byte array.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 name|void
 name|createTableAsync
@@ -2106,7 +2106,7 @@ name|splitKeys
 operator|.
 name|length
 operator|>
-literal|1
+literal|0
 condition|)
 block|{
 name|Arrays
@@ -2136,6 +2136,30 @@ range|:
 name|splitKeys
 control|)
 block|{
+if|if
+condition|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|splitKey
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+argument_list|)
+operator|==
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Empty split key must not be passed in the split keys."
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|lastKey
