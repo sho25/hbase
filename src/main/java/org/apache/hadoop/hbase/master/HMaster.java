@@ -6334,6 +6334,9 @@ argument_list|,
 name|splitKeys
 argument_list|)
 decl_stmt|;
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
