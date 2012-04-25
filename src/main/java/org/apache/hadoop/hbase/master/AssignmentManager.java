@@ -8226,6 +8226,30 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|NodeExistsException
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Node for "
+operator|+
+name|state
+operator|.
+name|getRegion
+argument_list|()
+operator|+
+literal|" already exists"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|master
 operator|.
 name|abort
@@ -8235,6 +8259,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
