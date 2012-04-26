@@ -648,6 +648,8 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+try|try
+block|{
 name|rollLog
 operator|.
 name|set
@@ -655,11 +657,15 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|rollLock
 operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 name|LOG
