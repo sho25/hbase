@@ -635,6 +635,29 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * Clear all copies of the metrics this stores.    */
+specifier|public
+specifier|static
+name|void
+name|clear
+parameter_list|()
+block|{
+name|timeVaryingMetrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|numericMetrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|numericPersistentMetrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 

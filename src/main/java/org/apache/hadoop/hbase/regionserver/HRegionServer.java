@@ -14999,6 +14999,19 @@ argument_list|(
 name|encodedName
 argument_list|)
 expr_stmt|;
+comment|//Clear all of the dynamic metrics as they are now probably useless.
+comment|//This is a clear because dynamic metrics could include metrics per cf and
+comment|//per hfile.  Figuring out which cfs, hfiles, and regions are still relevant to
+comment|//this region server would be an onerous task.  Instead just clear everything
+comment|//and on the next tick of the metrics everything that is still relevant will be
+comment|//re-added.
+name|this
+operator|.
+name|dynamicMetrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 return|return
 name|toReturn
 operator|!=

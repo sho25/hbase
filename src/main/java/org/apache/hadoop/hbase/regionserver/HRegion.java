@@ -4668,6 +4668,13 @@ name|abort
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|opMetrics
+operator|.
+name|closeMetrics
+argument_list|()
+expr_stmt|;
 name|status
 operator|.
 name|markComplete
