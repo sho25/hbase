@@ -2181,8 +2181,17 @@ name|getEvictedCount
 argument_list|()
 return|;
 block|}
+name|EvictionThread
+name|getEvictionThread
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|evictionThread
+return|;
+block|}
 comment|/*    * Eviction thread.  Sits in waiting state until an eviction is triggered    * when the cache size grows above the acceptable level.<p>    *    * Thread is triggered into action by {@link LruBlockCache#runEviction()}    */
-specifier|private
 specifier|static
 class|class
 name|EvictionThread
@@ -2201,6 +2210,13 @@ name|boolean
 name|go
 init|=
 literal|true
+decl_stmt|;
+comment|// flag set after enter the run method, used for test
+specifier|private
+name|boolean
+name|enteringRun
+init|=
+literal|false
 decl_stmt|;
 specifier|public
 name|EvictionThread
@@ -2248,6 +2264,10 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|enteringRun
+operator|=
+literal|true
+expr_stmt|;
 while|while
 condition|(
 name|this
@@ -2330,6 +2350,17 @@ expr_stmt|;
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**      * Used for the test.      */
+name|boolean
+name|isEnteringRun
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|enteringRun
+return|;
 block|}
 block|}
 comment|/*    * Statistics thread.  Periodically prints the cache statistics to the log.    */
