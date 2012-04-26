@@ -569,7 +569,7 @@ name|readMultiLevelIndexRoot
 argument_list|(
 name|blockIter
 operator|.
-name|nextBlockAsStream
+name|nextBlockWithBlockType
 argument_list|(
 name|BlockType
 operator|.
@@ -589,7 +589,7 @@ name|readRootIndex
 argument_list|(
 name|blockIter
 operator|.
-name|nextBlockAsStream
+name|nextBlockWithBlockType
 argument_list|(
 name|BlockType
 operator|.
@@ -615,12 +615,15 @@ name|readFields
 argument_list|(
 name|blockIter
 operator|.
-name|nextBlockAsStream
+name|nextBlockWithBlockType
 argument_list|(
 name|BlockType
 operator|.
 name|FILE_INFO
 argument_list|)
+operator|.
+name|getByteStream
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|lastKey

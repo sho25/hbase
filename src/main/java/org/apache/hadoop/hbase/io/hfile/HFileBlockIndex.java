@@ -1939,13 +1939,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * Read the root-level metadata of a multi-level block index. Based on      * {@link #readRootIndex(DataInput, int)}, but also reads metadata      * necessary to compute the mid-key in a multi-level index.      *      * @param in the buffered or byte input stream to read from      * @param numEntries the number of root-level index entries      * @throws IOException      */
+comment|/**      * Read in the root-level index from the given input stream. Must match      * what was written into the root level by      * {@link BlockIndexWriter#writeIndexBlocks(FSDataOutputStream)} at the      * offset that function returned.      *      * @param blk the HFile block      * @param numEntries the number of root-level index entries      * @return the buffered input stream or wrapped byte input stream      * @throws IOException      */
 specifier|public
-name|void
-name|readMultiLevelIndexRoot
-parameter_list|(
 name|DataInputStream
-name|in
+name|readRootIndex
+parameter_list|(
+name|HFileBlock
+name|blk
 parameter_list|,
 specifier|final
 name|int
@@ -1954,6 +1954,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|DataInputStream
+name|in
+init|=
+name|blk
+operator|.
+name|getByteStream
+argument_list|()
+decl_stmt|;
 name|readRootIndex
 argument_list|(
 name|in
@@ -1961,12 +1969,55 @@ argument_list|,
 name|numEntries
 argument_list|)
 expr_stmt|;
+return|return
+name|in
+return|;
+block|}
+comment|/**      * Read the root-level metadata of a multi-level block index. Based on      * {@link #readRootIndex(DataInput, int)}, but also reads metadata      * necessary to compute the mid-key in a multi-level index.      *      * @param blk the HFile block      * @param numEntries the number of root-level index entries      * @throws IOException      */
+specifier|public
+name|void
+name|readMultiLevelIndexRoot
+parameter_list|(
+name|HFileBlock
+name|blk
+parameter_list|,
+specifier|final
+name|int
+name|numEntries
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|DataInputStream
+name|in
+init|=
+name|readRootIndex
+argument_list|(
+name|blk
+argument_list|,
+name|numEntries
+argument_list|)
+decl_stmt|;
+comment|// after reading the root index the checksum bytes have to
+comment|// be subtracted to know if the mid key exists.
+name|int
+name|checkSumBytes
+init|=
+name|blk
+operator|.
+name|totalChecksumBytes
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
+operator|(
 name|in
 operator|.
 name|available
 argument_list|()
+operator|-
+name|checkSumBytes
+operator|)
 operator|<
 name|MID_KEY_METADATA_SIZE
 condition|)
@@ -2614,10 +2665,7 @@ name|numLevels
 operator|+
 literal|"-level index with root level at pos "
 operator|+
-name|out
-operator|.
-name|getPos
-argument_list|()
+name|rootLevelIndexPos
 operator|+
 literal|", "
 operator|+

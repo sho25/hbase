@@ -3500,9 +3500,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Similar to {@link #nextBlock()} but checks block type, throws an      * exception if incorrect, and returns the data portion of the block as      * an input stream.      */
-name|DataInputStream
-name|nextBlockAsStream
+comment|/**      * Similar to {@link #nextBlock()} but checks block type, throws an      * exception if incorrect, and returns the HFile block      */
+name|HFileBlock
+name|nextBlockWithBlockType
 parameter_list|(
 name|BlockType
 name|blockType
@@ -3765,8 +3765,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataInputStream
-name|nextBlockAsStream
+name|HFileBlock
+name|nextBlockWithBlockType
 parameter_list|(
 name|BlockType
 name|blockType
@@ -3809,9 +3809,6 @@ throw|;
 block|}
 return|return
 name|blk
-operator|.
-name|getByteStream
-argument_list|()
 return|;
 block|}
 block|}

@@ -1016,7 +1016,7 @@ argument_list|,
 name|fileSize
 argument_list|)
 operator|.
-name|nextBlockAsStream
+name|nextBlockWithBlockType
 argument_list|(
 name|BlockType
 operator|.
