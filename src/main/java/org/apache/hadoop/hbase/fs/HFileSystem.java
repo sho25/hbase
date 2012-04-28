@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|LocalFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|Path
 import|;
 end_import
@@ -220,9 +234,20 @@ comment|// If hbase checksum verification is switched on, then create a new
 comment|// filesystem object that has cksum verification turned off.
 comment|// We will avoid verifying checksums in the fs client, instead do it
 comment|// inside of hbase.
+comment|// If this is the local file system hadoop has a bug where seeks
+comment|// do not go to the correct location if setVerifyChecksum(false) is called.
+comment|// This manifests itself in that incorrect data is read and HFileBlocks won't be able to read
+comment|// their header magic numbers. See HBASE-5885
 if|if
 condition|(
 name|useHBaseChecksum
+operator|&&
+operator|!
+operator|(
+name|fs
+operator|instanceof
+name|LocalFileSystem
+operator|)
 condition|)
 block|{
 name|this
