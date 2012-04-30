@@ -5173,7 +5173,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testRegionShouldNotDeployed
+name|testRegionShouldNotBeDeployed
 parameter_list|()
 throws|throws
 name|Exception
@@ -5181,7 +5181,7 @@ block|{
 name|String
 name|table
 init|=
-literal|"tableRegionShouldNotDeployed"
+literal|"tableRegionShouldNotBeDeployed"
 decl_stmt|;
 try|try
 block|{
@@ -5189,7 +5189,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testRegionShouldNotDeployed."
+literal|"Starting testRegionShouldNotBeDeployed."
 argument_list|)
 expr_stmt|;
 name|MiniHBaseCluster
