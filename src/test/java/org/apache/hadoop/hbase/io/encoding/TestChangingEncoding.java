@@ -503,7 +503,7 @@ specifier|final
 name|int
 name|TIMEOUT_MS
 init|=
-literal|120000
+literal|240000
 decl_stmt|;
 specifier|private
 name|HBaseAdmin
