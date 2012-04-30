@@ -33,6 +33,20 @@ name|org
 operator|.
 name|junit
 operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -42,6 +56,13 @@ comment|/** Tests the HColumnDescriptor with appropriate arguments */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestHColumnDescriptor
