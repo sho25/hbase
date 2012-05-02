@@ -95,22 +95,6 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|RegionTransitionData
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|executor
-operator|.
 name|EventHandler
 operator|.
 name|EventType
@@ -747,9 +731,13 @@ name|process
 argument_list|()
 expr_stmt|;
 comment|// Handler should have transitioned it to FAILED_OPEN
-name|RegionTransitionData
-name|data
+name|RegionTransition
+name|rt
 init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -764,6 +752,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -771,7 +760,7 @@ name|EventType
 operator|.
 name|RS_ZK_REGION_FAILED_OPEN
 argument_list|,
-name|data
+name|rt
 operator|.
 name|getEventType
 argument_list|()
@@ -860,9 +849,13 @@ name|process
 argument_list|()
 expr_stmt|;
 comment|// Handler should have transitioned it to FAILED_OPEN
-name|RegionTransitionData
-name|data
+name|RegionTransition
+name|rt
 init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -877,6 +870,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -884,7 +878,7 @@ name|EventType
 operator|.
 name|RS_ZK_REGION_FAILED_OPEN
 argument_list|,
-name|data
+name|rt
 operator|.
 name|getEventType
 argument_list|()

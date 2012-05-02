@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2011 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**   * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -27,13 +27,113 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
+name|master
 operator|.
-name|ZKSplitLog
+name|SplitLogManager
 operator|.
-name|Counters
+name|ResubmitDirective
 operator|.
-name|*
+name|CHECK
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|ResubmitDirective
+operator|.
+name|FORCE
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|TerminationStatus
+operator|.
+name|DELETED
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|TerminationStatus
+operator|.
+name|FAILURE
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|TerminationStatus
+operator|.
+name|IN_PROGRESS
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|TerminationStatus
+operator|.
+name|SUCCESS
 import|;
 end_import
 
@@ -73,16 +173,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -94,6 +184,16 @@ operator|.
 name|util
 operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -243,7 +343,49 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|SplitLogCounters
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SplitLogTask
 import|;
 end_import
 
@@ -551,66 +693,8 @@ name|Stat
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKSplitLog
-operator|.
-name|TaskState
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|SplitLogManager
-operator|.
-name|ResubmitDirective
-operator|.
-name|*
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|SplitLogManager
-operator|.
-name|TerminationStatus
-operator|.
-name|*
-import|;
-end_import
-
 begin_comment
-comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via zookeeper. For every log file that has to be split a  * znode is created under /hbase/splitlog. SplitLogWorkers race to grab a task.  *  * SplitLogManager monitors the task znodes that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * resubmit(String, boolean) will take away the task from the owner  * {@link SplitLogWorker} and the task will be  * upforgrabs again. When the task is done then the task's znode is deleted by  * SplitLogManager.  *  * Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  * All the zookeeper calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  * There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  * It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
+comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via zookeeper. For every log file that has to be split a  * znode is created under<code>/hbase/splitlog</code>. SplitLogWorkers race to grab a task.  *  *<p>SplitLogManager monitors the task znodes that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * {@link #resubmit(String, Task, ResubmitDirective)} will take away the task from the owner  * {@link SplitLogWorker} and the task will be up for grabs again. When the task is done then the  * task's znode is deleted by SplitLogManager.  *  *<p>Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  *<p>All the zookeeper calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  *<p>There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  *<p>It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
 end_comment
 
 begin_class
@@ -639,6 +723,46 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_TIMEOUT
+init|=
+literal|25000
+decl_stmt|;
+comment|// 25 sec
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_ZK_RETRIES
+init|=
+literal|3
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_RESUBMIT
+init|=
+literal|3
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_UNASSIGNED_TIMEOUT
+init|=
+operator|(
+literal|3
+operator|*
+literal|60
+operator|*
+literal|1000
+operator|)
+decl_stmt|;
+comment|//3 min
 specifier|private
 specifier|final
 name|Stoppable
@@ -646,7 +770,7 @@ name|stopper
 decl_stmt|;
 specifier|private
 specifier|final
-name|String
+name|ServerName
 name|serverName
 decl_stmt|;
 specifier|private
@@ -715,9 +839,10 @@ name|TimeoutMonitor
 name|timeoutMonitor
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|Set
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|deadWorkers
 init|=
@@ -745,7 +870,7 @@ parameter_list|,
 name|Stoppable
 name|stopper
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 block|{
@@ -769,7 +894,7 @@ specifier|public
 name|Status
 name|finish
 parameter_list|(
-name|String
+name|ServerName
 name|workerName
 parameter_list|,
 name|String
@@ -784,6 +909,9 @@ operator|.
 name|getSplitLogDirTmpComponent
 argument_list|(
 name|workerName
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|logfile
 argument_list|)
@@ -846,7 +974,7 @@ parameter_list|,
 name|Stoppable
 name|stopper
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|TaskFinisher
@@ -886,8 +1014,6 @@ name|getLong
 argument_list|(
 literal|"hbase.splitlog.zk.retries"
 argument_list|,
-name|ZKSplitLog
-operator|.
 name|DEFAULT_ZK_RETRIES
 argument_list|)
 expr_stmt|;
@@ -901,8 +1027,6 @@ name|getLong
 argument_list|(
 literal|"hbase.splitlog.max.resubmit"
 argument_list|,
-name|ZKSplitLog
-operator|.
 name|DEFAULT_MAX_RESUBMIT
 argument_list|)
 expr_stmt|;
@@ -916,8 +1040,6 @@ name|getInt
 argument_list|(
 literal|"hbase.splitlog.manager.timeout"
 argument_list|,
-name|ZKSplitLog
-operator|.
 name|DEFAULT_TIMEOUT
 argument_list|)
 expr_stmt|;
@@ -931,8 +1053,6 @@ name|getInt
 argument_list|(
 literal|"hbase.splitlog.manager.unassigned.timeout"
 argument_list|,
-name|ZKSplitLog
-operator|.
 name|DEFAULT_UNASSIGNED_TIMEOUT
 argument_list|)
 expr_stmt|;
@@ -1209,7 +1329,7 @@ name|logDirs
 argument_list|)
 return|;
 block|}
-comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs    * @throws IOException    *          if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs List of log dirs to split    * @throws IOException If there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -1262,6 +1382,8 @@ argument_list|(
 literal|"Scheduling batch of logs to split"
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_batch_start
 operator|.
 name|incrementAndGet
@@ -1372,6 +1494,8 @@ name|isDead
 operator|=
 literal|true
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_batch_err
 operator|.
 name|incrementAndGet
@@ -1519,6 +1643,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_batch_success
 operator|.
 name|incrementAndGet
@@ -1584,11 +1710,15 @@ name|TaskBatch
 name|batch
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_start
 operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+comment|// This is a znode path under the splitlog dir with the rest of the path made up of an
+comment|// url encoding of the passed in log to split.
 name|String
 name|path
 init|=
@@ -1786,6 +1916,8 @@ name|path
 argument_list|)
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_unacquired_orphan_done
 operator|.
 name|incrementAndGet
@@ -1825,6 +1957,8 @@ operator|==
 name|SUCCESS
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_success
 operator|.
 name|incrementAndGet
@@ -1842,6 +1976,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_log_split_err
 operator|.
 name|incrementAndGet
@@ -1942,6 +2078,17 @@ name|Long
 name|retry_count
 parameter_list|)
 block|{
+name|SplitLogTask
+name|slt
+init|=
+operator|new
+name|SplitLogTask
+operator|.
+name|Unassigned
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
 name|ZKUtil
 operator|.
 name|asyncCreate
@@ -1952,14 +2099,10 @@ name|watcher
 argument_list|,
 name|path
 argument_list|,
-name|TaskState
+name|slt
 operator|.
-name|TASK_UNASSIGNED
-operator|.
-name|get
-argument_list|(
-name|serverName
-argument_list|)
+name|toByteArray
+argument_list|()
 argument_list|,
 operator|new
 name|CreateAsyncCallback
@@ -1968,6 +2111,8 @@ argument_list|,
 name|retry_count
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_create_queued
 operator|.
 name|incrementAndGet
@@ -2069,6 +2214,8 @@ argument_list|,
 name|retry_count
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_queued
 operator|.
 name|incrementAndGet
@@ -2116,6 +2263,8 @@ argument_list|)
 comment|/* retry count */
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_queued
 operator|.
 name|incrementAndGet
@@ -2136,6 +2285,8 @@ parameter_list|,
 name|int
 name|version
 parameter_list|)
+throws|throws
+name|DeserializationException
 block|{
 if|if
 condition|(
@@ -2163,6 +2314,8 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|SplitLogCounters
+operator|.
 name|tot_mgr_null_data
 operator|.
 name|incrementAndGet
@@ -2200,17 +2353,22 @@ argument_list|(
 name|data
 argument_list|)
 expr_stmt|;
-comment|// LOG.debug("set watch on " + path + " got data " + new String(data));
-if|if
-condition|(
-name|TaskState
+name|SplitLogTask
+name|slt
+init|=
+name|SplitLogTask
 operator|.
-name|TASK_UNASSIGNED
-operator|.
-name|equals
+name|parseFrom
 argument_list|(
 name|data
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|slt
+operator|.
+name|isUnassigned
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2235,14 +2393,10 @@ block|}
 elseif|else
 if|if
 condition|(
-name|TaskState
+name|slt
 operator|.
-name|TASK_OWNED
-operator|.
-name|equals
-argument_list|(
-name|data
-argument_list|)
+name|isOwned
+argument_list|()
 condition|)
 block|{
 name|heartbeat
@@ -2251,28 +2405,20 @@ name|path
 argument_list|,
 name|version
 argument_list|,
-name|TaskState
+name|slt
 operator|.
-name|TASK_OWNED
-operator|.
-name|getWriterName
-argument_list|(
-name|data
-argument_list|)
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
 elseif|else
 if|if
 condition|(
-name|TaskState
+name|slt
 operator|.
-name|TASK_RESIGNED
-operator|.
-name|equals
-argument_list|(
-name|data
-argument_list|)
+name|isResigned
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2303,14 +2449,10 @@ block|}
 elseif|else
 if|if
 condition|(
-name|TaskState
+name|slt
 operator|.
-name|TASK_DONE
-operator|.
-name|equals
-argument_list|(
-name|data
-argument_list|)
+name|isDone
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2353,14 +2495,10 @@ name|taskFinisher
 operator|.
 name|finish
 argument_list|(
-name|TaskState
+name|slt
 operator|.
-name|TASK_DONE
-operator|.
-name|getWriterName
-argument_list|(
-name|data
-argument_list|)
+name|getServerName
+argument_list|()
 argument_list|,
 name|ZKSplitLog
 operator|.
@@ -2408,14 +2546,10 @@ block|}
 elseif|else
 if|if
 condition|(
-name|TaskState
+name|slt
 operator|.
-name|TASK_ERR
-operator|.
-name|equals
-argument_list|(
-name|data
-argument_list|)
+name|isErr
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2575,7 +2709,7 @@ parameter_list|,
 name|int
 name|new_version
 parameter_list|,
-name|String
+name|ServerName
 name|workerName
 parameter_list|)
 block|{
@@ -2632,6 +2766,8 @@ argument_list|,
 name|workerName
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_heartbeat
 operator|.
 name|incrementAndGet
@@ -2661,8 +2797,7 @@ name|ResubmitDirective
 name|directive
 parameter_list|)
 block|{
-comment|// its ok if this thread misses the update to task.deleted. It will
-comment|// fail later
+comment|// its ok if this thread misses the update to task.deleted. It will fail later
 if|if
 condition|(
 name|task
@@ -2729,6 +2864,8 @@ name|resubmitThresholdReached
 operator|=
 literal|true
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit_threshold_reached
 operator|.
 name|incrementAndGet
@@ -2787,6 +2924,19 @@ expr_stmt|;
 try|try
 block|{
 comment|// blocking zk call but this is done from the timeout thread
+name|SplitLogTask
+name|slt
+init|=
+operator|new
+name|SplitLogTask
+operator|.
+name|Unassigned
+argument_list|(
+name|this
+operator|.
+name|serverName
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|ZKUtil
@@ -2799,14 +2949,10 @@ name|watcher
 argument_list|,
 name|path
 argument_list|,
-name|TaskState
+name|slt
 operator|.
-name|TASK_UNASSIGNED
-operator|.
-name|get
-argument_list|(
-name|serverName
-argument_list|)
+name|toByteArray
+argument_list|()
 argument_list|,
 name|version
 argument_list|)
@@ -2857,6 +3003,8 @@ operator|+
 literal|" task done (or forced done by removing the znode)"
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|getDataSetWatchSuccess
 argument_list|(
 name|path
@@ -2868,6 +3016,38 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DeserializationException
+name|e1
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"failed to re-resubmit task "
+operator|+
+name|path
+operator|+
+literal|" because of deserialization issue"
+argument_list|)
+expr_stmt|;
+name|task
+operator|.
+name|heartbeatNoDetails
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 return|return
 literal|false
 return|;
@@ -2911,6 +3091,8 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit_failed
 operator|.
 name|incrementAndGet
@@ -2957,6 +3139,8 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit
 operator|.
 name|incrementAndGet
@@ -3014,6 +3198,8 @@ name|Long
 name|retries
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_delete_queued
 operator|.
 name|incrementAndGet
@@ -3093,12 +3279,16 @@ name|path
 argument_list|)
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_rescan_deleted
 operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+name|SplitLogCounters
+operator|.
 name|tot_mgr_missing_state_in_delete
 operator|.
 name|incrementAndGet
@@ -3132,6 +3322,8 @@ name|notify
 argument_list|()
 expr_stmt|;
 block|}
+name|SplitLogCounters
+operator|.
 name|tot_mgr_task_deleted
 operator|.
 name|incrementAndGet
@@ -3173,6 +3365,19 @@ comment|// of RESCAN nodes. But there is also a chance that a SplitLogWorker
 comment|// might miss the watch-trigger that creation of RESCAN node provides.
 comment|// Since the TimeoutMonitor will keep resubmitting UNASSIGNED tasks
 comment|// therefore this behavior is safe.
+name|SplitLogTask
+name|slt
+init|=
+operator|new
+name|SplitLogTask
+operator|.
+name|Done
+argument_list|(
+name|this
+operator|.
+name|serverName
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|watcher
@@ -3192,14 +3397,10 @@ argument_list|(
 name|watcher
 argument_list|)
 argument_list|,
-name|TaskState
+name|slt
 operator|.
-name|TASK_DONE
-operator|.
-name|get
-argument_list|(
-name|serverName
-argument_list|)
+name|toByteArray
+argument_list|()
 argument_list|,
 name|Ids
 operator|.
@@ -3237,6 +3438,8 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_rescan
 operator|.
 name|incrementAndGet
@@ -3408,6 +3611,8 @@ operator|+
 literal|" to change to DELETED"
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_wait_for_zk_delete
 operator|.
 name|incrementAndGet
@@ -3521,9 +3726,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failure because two threads can't wait for the same task. "
-operator|+
-literal|" path="
+literal|"Failure because two threads can't wait for the same task; path="
 operator|+
 name|path
 argument_list|)
@@ -3577,6 +3780,8 @@ operator|+
 name|path
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_orphan_task_acquired
 operator|.
 name|incrementAndGet
@@ -3917,7 +4122,7 @@ name|int
 name|last_version
 decl_stmt|;
 specifier|volatile
-name|String
+name|ServerName
 name|cur_worker_name
 decl_stmt|;
 name|TaskBatch
@@ -4051,7 +4256,7 @@ parameter_list|,
 name|int
 name|version
 parameter_list|,
-name|String
+name|ServerName
 name|worker
 parameter_list|)
 block|{
@@ -4087,7 +4292,7 @@ block|}
 name|void
 name|handleDeadWorker
 parameter_list|(
-name|String
+name|ServerName
 name|workerName
 parameter_list|)
 block|{
@@ -4110,7 +4315,7 @@ operator|=
 operator|new
 name|HashSet
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 argument_list|(
 literal|100
@@ -4147,14 +4352,14 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|workerNames
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 argument_list|(
 name|serverNames
@@ -4176,9 +4381,6 @@ operator|.
 name|add
 argument_list|(
 name|serverName
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4199,7 +4401,7 @@ operator|=
 operator|new
 name|HashSet
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 argument_list|(
 literal|100
@@ -4281,7 +4483,7 @@ literal|false
 decl_stmt|;
 name|Set
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|localDeadWorkers
 decl_stmt|;
@@ -4333,7 +4535,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|String
+name|ServerName
 name|cur_worker
 init|=
 name|task
@@ -4379,6 +4581,8 @@ name|cur_worker
 argument_list|)
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit_dead_server_task
 operator|.
 name|incrementAndGet
@@ -4587,6 +4791,8 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit_unassigned
 operator|.
 name|incrementAndGet
@@ -4643,6 +4849,8 @@ name|String
 name|name
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_create_result
 operator|.
 name|incrementAndGet
@@ -4684,6 +4892,8 @@ operator|+
 name|path
 argument_list|)
 expr_stmt|;
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_already_exists
 operator|.
 name|incrementAndGet
@@ -4731,6 +4941,8 @@ operator|==
 literal|0
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_create_err
 operator|.
 name|incrementAndGet
@@ -4744,6 +4956,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_create_retry
 operator|.
 name|incrementAndGet
@@ -4814,6 +5028,8 @@ name|Stat
 name|stat
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_result
 operator|.
 name|incrementAndGet
@@ -4863,6 +5079,8 @@ name|intValue
 argument_list|()
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_nonode
 operator|.
 name|incrementAndGet
@@ -4882,6 +5100,8 @@ operator|+
 literal|" vanished."
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|getDataSetWatchSuccess
 argument_list|(
 name|path
@@ -4893,6 +5113,23 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DeserializationException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Deserialization problem"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 name|Long
@@ -4965,6 +5202,8 @@ operator|==
 literal|0
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_err
 operator|.
 name|incrementAndGet
@@ -4978,6 +5217,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_get_data_retry
 operator|.
 name|incrementAndGet
@@ -4995,6 +5236,8 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+try|try
+block|{
 name|getDataSetWatchSuccess
 argument_list|(
 name|path
@@ -5007,6 +5250,23 @@ name|getVersion
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DeserializationException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Deserialization problem"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 block|}
@@ -5048,6 +5308,8 @@ name|Object
 name|ctx
 parameter_list|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_delete_result
 operator|.
 name|incrementAndGet
@@ -5074,6 +5336,8 @@ name|intValue
 argument_list|()
 condition|)
 block|{
+name|SplitLogCounters
+operator|.
 name|tot_mgr_node_delete_err
 operator|.
 name|incrementAndGet
@@ -5348,7 +5612,7 @@ specifier|public
 name|Status
 name|finish
 parameter_list|(
-name|String
+name|ServerName
 name|workerName
 parameter_list|,
 name|String
@@ -5371,7 +5635,7 @@ enum|;
 end_enum
 
 begin_expr_stmt
-unit|}   enum
+unit|}    enum
 name|TerminationStatus
 block|{
 name|IN_PROGRESS

@@ -251,16 +251,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|BeforeClass
 import|;
 end_import
@@ -338,7 +328,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|CatalogTracker
-name|ct
+name|CT
 decl_stmt|;
 specifier|private
 specifier|final
@@ -468,7 +458,7 @@ argument_list|,
 name|ABORTABLE
 argument_list|)
 expr_stmt|;
-name|ct
+name|CT
 operator|=
 operator|new
 name|CatalogTracker
@@ -480,7 +470,7 @@ argument_list|,
 name|ABORTABLE
 argument_list|)
 expr_stmt|;
-name|ct
+name|CT
 operator|.
 name|start
 argument_list|()
@@ -505,7 +495,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|ct
+name|CT
 operator|.
 name|stop
 argument_list|()
@@ -593,9 +583,7 @@ name|regions
 init|=
 name|testGettingTableRegions
 argument_list|(
-name|this
-operator|.
-name|ct
+name|CT
 argument_list|,
 name|nameBytes
 argument_list|,
@@ -608,9 +596,7 @@ init|=
 operator|new
 name|MetaTask
 argument_list|(
-name|this
-operator|.
-name|ct
+name|CT
 argument_list|,
 literal|"reader"
 argument_list|)
@@ -663,9 +649,7 @@ init|=
 operator|new
 name|MetaTask
 argument_list|(
-name|this
-operator|.
-name|ct
+name|CT
 argument_list|,
 literal|"writer"
 argument_list|)
@@ -1222,7 +1206,7 @@ name|MetaReader
 operator|.
 name|getTableRegions
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|HConstants
 operator|.
@@ -1245,7 +1229,7 @@ name|MetaReader
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1269,7 +1253,7 @@ name|MetaReader
 operator|.
 name|getTableRegionsAndLocations
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1321,7 +1305,7 @@ name|MetaReader
 operator|.
 name|tableExists
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|name
 argument_list|)
@@ -1344,7 +1328,7 @@ name|MetaReader
 operator|.
 name|tableExists
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|name
 argument_list|)
@@ -1378,7 +1362,7 @@ name|MetaReader
 operator|.
 name|tableExists
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|name
 argument_list|)
@@ -1390,7 +1374,7 @@ name|MetaReader
 operator|.
 name|tableExists
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1409,7 +1393,7 @@ name|MetaReader
 operator|.
 name|tableExists
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1462,7 +1446,7 @@ name|MetaReader
 operator|.
 name|getRegion
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1484,7 +1468,7 @@ name|MetaReader
 operator|.
 name|getRegion
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|HRegionInfo
 operator|.
@@ -1598,7 +1582,7 @@ name|MetaReader
 operator|.
 name|getTableRegions
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|Bytes
 operator|.
@@ -1620,7 +1604,7 @@ name|MetaReader
 operator|.
 name|getTableRegions
 argument_list|(
-name|ct
+name|CT
 argument_list|,
 name|greaterName
 argument_list|)

@@ -109,6 +109,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -1334,7 +1348,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test starting master getting it up post initialized state using mocks.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * Test starting master getting it up post initialized state using mocks.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException     */
 annotation|@
 name|Test
 specifier|public
@@ -1347,6 +1361,8 @@ throws|,
 name|KeeperException
 throws|,
 name|InterruptedException
+throws|,
+name|DeserializationException
 block|{
 specifier|final
 name|Configuration

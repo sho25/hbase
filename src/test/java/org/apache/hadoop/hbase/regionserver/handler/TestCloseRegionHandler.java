@@ -103,6 +103,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -173,6 +187,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|RegionTransition
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -192,22 +220,6 @@ operator|.
 name|EventHandler
 operator|.
 name|EventType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|executor
-operator|.
-name|RegionTransitionData
 import|;
 end_import
 
@@ -748,7 +760,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**       * Test if close region can handle ZK closing node version mismatch       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException       */
+comment|/**       * Test if close region can handle ZK closing node version mismatch       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws DeserializationException        */
 annotation|@
 name|Test
 specifier|public
@@ -761,6 +773,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|DeserializationException
 block|{
 specifier|final
 name|Server
@@ -865,9 +879,13 @@ name|process
 argument_list|()
 expr_stmt|;
 comment|// Handler should remain in M_ZK_REGION_CLOSING
-name|RegionTransitionData
-name|data
+name|RegionTransition
+name|rt
 init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -882,21 +900,25 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|)
 decl_stmt|;
 name|assertTrue
+argument_list|(
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+operator|.
+name|equals
 argument_list|(
 name|EventType
 operator|.
 name|M_ZK_REGION_CLOSING
-operator|==
-name|data
-operator|.
-name|getEventType
-argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**       * Test if the region can be closed properly       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException       */
+comment|/**       * Test if the region can be closed properly       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws DeserializationException        */
 annotation|@
 name|Test
 specifier|public
@@ -909,6 +931,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|DeserializationException
 block|{
 specifier|final
 name|Server
@@ -1010,9 +1034,13 @@ name|process
 argument_list|()
 expr_stmt|;
 comment|// Handler should have transitioned it to RS_ZK_REGION_CLOSED
-name|RegionTransitionData
-name|data
+name|RegionTransition
+name|rt
 init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -1027,17 +1055,21 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|)
 decl_stmt|;
 name|assertTrue
+argument_list|(
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+operator|.
+name|equals
 argument_list|(
 name|EventType
 operator|.
 name|RS_ZK_REGION_CLOSED
-operator|==
-name|data
-operator|.
-name|getEventType
-argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1063,6 +1095,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|DeserializationException
 block|{
 comment|// Create it OFFLINE node, which is what Master set before sending OPEN RPC
 name|ZKAssign
@@ -1102,9 +1136,11 @@ operator|.
 name|process
 argument_list|()
 expr_stmt|;
-name|RegionTransitionData
-name|data
-init|=
+comment|// This parse is not used?
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -1119,7 +1155,8 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
-decl_stmt|;
+argument_list|)
+expr_stmt|;
 comment|// delete the node, which is what Master do after the region is opened
 name|ZKAssign
 operator|.

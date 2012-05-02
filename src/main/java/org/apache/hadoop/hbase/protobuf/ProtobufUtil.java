@@ -227,6 +227,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -1703,6 +1717,19 @@ block|,
 literal|'F'
 block|}
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|PB_MAGIC_STR
+init|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|PB_MAGIC
+argument_list|)
+decl_stmt|;
 comment|/**    * Prepend the passed bytes with four bytes of magic, {@link #PB_MAGIC}, to flag what    * follows as a protobuf in hbase.  Prepend these bytes to all content written to znodes, etc.    * @param bytes Bytes to decorate    * @return The passed<code>bytes</codes> with magic prepended (Creates a new    * byte array that is<code>bytes.length</code> plus {@link #PB_MAGIC}.length.    */
 specifier|public
 specifier|static
@@ -1780,6 +1807,42 @@ argument_list|)
 operator|==
 literal|0
 return|;
+block|}
+comment|/**    * @param bytes    * @throws DeserializationException if we are missing the pb magic prefix    */
+specifier|public
+specifier|static
+name|void
+name|expectPBMagicPrefix
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|bytes
+parameter_list|)
+throws|throws
+name|DeserializationException
+block|{
+if|if
+condition|(
+operator|!
+name|isPBMagicPrefix
+argument_list|(
+name|bytes
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|DeserializationException
+argument_list|(
+literal|"Missing pb magic "
+operator|+
+name|PB_MAGIC_STR
+operator|+
+literal|" prefix"
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * @return Length of {@link #PB_MAGIC}    */
 specifier|public
@@ -2165,7 +2228,7 @@ name|parameterObjects
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a ServerName to a protocol buffer ServerName    *    * @param serverName the ServerName to convert    * @return the converted protocol buffer ServerName    */
+comment|/**    * Convert a ServerName to a protocol buffer ServerName    *    * @param serverName the ServerName to convert    * @return the converted protocol buffer ServerName    * @see #toServerName(org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.ServerName)    */
 specifier|public
 specifier|static
 name|HBaseProtos

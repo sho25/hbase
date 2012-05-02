@@ -701,9 +701,6 @@ name|master
 operator|.
 name|getServerName
 argument_list|()
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -1369,7 +1366,7 @@ operator|.
 name|SPLITTING_EXT
 argument_list|)
 decl_stmt|;
-comment|// rename the directory so a rogue RS doesn't create more HLogs
+comment|// Rename the directory so a rogue RS doesn't create more HLogs
 if|if
 condition|(
 name|fs

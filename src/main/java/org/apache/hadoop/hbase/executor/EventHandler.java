@@ -202,7 +202,7 @@ name|EventType
 block|{
 comment|// Messages originating from RS (NOTE: there is NO direct communication from
 comment|// RS to Master). These are a result of RS updates into ZK.
-comment|//RS_ZK_REGION_CLOSING    (1),   // It is replaced by M_ZK_REGION_CLOSING(HBASE-4739)
+comment|// RS_ZK_REGION_CLOSING    (1),   // It is replaced by M_ZK_REGION_CLOSING(HBASE-4739)
 name|RS_ZK_REGION_CLOSED
 argument_list|(
 literal|2
@@ -352,13 +352,82 @@ literal|72
 argument_list|)
 block|;
 comment|// Master is processing shutdown of RS hosting a meta region (-ROOT- or .META.).
+specifier|private
+specifier|final
+name|int
+name|code
+decl_stmt|;
 comment|/**      * Constructor      */
 name|EventType
 parameter_list|(
+specifier|final
 name|int
-name|value
+name|code
 parameter_list|)
-block|{}
+block|{
+name|this
+operator|.
+name|code
+operator|=
+name|code
+expr_stmt|;
+block|}
+specifier|public
+name|int
+name|getCode
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|code
+return|;
+block|}
+specifier|public
+specifier|static
+name|EventType
+name|get
+parameter_list|(
+specifier|final
+name|int
+name|code
+parameter_list|)
+block|{
+comment|// Is this going to be slow?  Its used rare but still...
+for|for
+control|(
+name|EventType
+name|et
+range|:
+name|EventType
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|et
+operator|.
+name|getCode
+argument_list|()
+operator|==
+name|code
+condition|)
+return|return
+name|et
+return|;
+block|}
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Unknown code "
+operator|+
+name|code
+argument_list|)
+throw|;
+block|}
 specifier|public
 name|boolean
 name|isOnlineSchemaChangeSupported

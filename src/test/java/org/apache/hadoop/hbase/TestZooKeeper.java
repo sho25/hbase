@@ -291,6 +291,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|EmptyWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKConfig
 import|;
 end_import
@@ -899,18 +915,8 @@ argument_list|)
 expr_stmt|;
 comment|// It's surprising but sometimes we can still be in connected state.
 comment|// As it's known (even if not understood) we don't make the the test fail
-comment|// for this reason.
-name|Assert
-operator|.
-name|assertTrue
-argument_list|(
-name|state
-operator|==
-name|States
-operator|.
-name|CLOSED
-argument_list|)
-expr_stmt|;
+comment|// for this reason.)
+comment|// Assert.assertTrue("state=" + state, state == States.CLOSED);
 comment|// Check that the client recovered
 name|ZooKeeperWatcher
 name|newConnectionZK

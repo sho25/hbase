@@ -203,22 +203,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|executor
-operator|.
-name|RegionTransitionData
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|master
 operator|.
 name|handler
@@ -581,7 +565,7 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
-comment|/**    * A test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    */
+comment|/**    * A test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    * @throws DeserializationException     */
 annotation|@
 name|Test
 argument_list|(
@@ -601,6 +585,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|DeserializationException
 block|{
 specifier|final
 name|byte
@@ -816,9 +802,13 @@ operator|+
 name|stats
 argument_list|)
 expr_stmt|;
-name|RegionTransitionData
-name|rtd
+name|RegionTransition
+name|rt
 init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
 name|ZKAssign
 operator|.
 name|getData
@@ -833,11 +823,12 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|)
 decl_stmt|;
 comment|// State could be SPLIT or SPLITTING.
 name|assertTrue
 argument_list|(
-name|rtd
+name|rt
 operator|.
 name|getEventType
 argument_list|()
@@ -849,7 +840,7 @@ operator|.
 name|RS_ZK_REGION_SPLIT
 argument_list|)
 operator|||
-name|rtd
+name|rt
 operator|.
 name|getEventType
 argument_list|()
