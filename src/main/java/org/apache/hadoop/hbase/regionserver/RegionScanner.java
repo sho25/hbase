@@ -55,6 +55,22 @@ name|HRegionInfo
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Scan
+import|;
+end_import
+
 begin_comment
 comment|/**  * RegionScanner describes iterators over rows in an HRegion.  */
 end_comment
@@ -93,6 +109,12 @@ name|row
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return The preferred max buffersize. See {@link Scan#setMaxResultSize(long)}    */
+specifier|public
+name|long
+name|getMaxResultSize
+parameter_list|()
 function_decl|;
 block|}
 end_interface

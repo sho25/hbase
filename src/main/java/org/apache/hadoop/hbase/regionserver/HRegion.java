@@ -14001,6 +14001,10 @@ specifier|private
 name|long
 name|readPt
 decl_stmt|;
+specifier|private
+name|long
+name|maxResultSize
+decl_stmt|;
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -14025,6 +14029,15 @@ throws|throws
 name|IOException
 block|{
 comment|//DebugPrint.println("HRegionScanner.<init>");
+name|this
+operator|.
+name|maxResultSize
+operator|=
+name|scan
+operator|.
+name|getMaxResultSize
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|filter
@@ -14282,6 +14295,17 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getMaxResultSize
+parameter_list|()
+block|{
+return|return
+name|maxResultSize
+return|;
 block|}
 comment|/**      * Reset both the filter and the old filter.      */
 specifier|protected

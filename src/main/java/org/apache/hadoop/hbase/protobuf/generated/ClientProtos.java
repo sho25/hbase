@@ -684,14 +684,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -699,10 +691,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -731,10 +719,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -5044,14 +5028,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -5059,10 +5035,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -5091,10 +5063,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -13406,14 +13374,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -13421,10 +13381,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -13453,10 +13409,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -16480,14 +16432,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -16495,10 +16439,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -16527,10 +16467,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -21072,14 +21008,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -21087,10 +21015,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -21119,10 +21043,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -25470,14 +25390,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -25485,10 +25397,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -25517,10 +25425,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -31625,14 +31529,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -31640,10 +31536,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -31672,10 +31564,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -35068,14 +34956,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -35083,10 +34963,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -35115,10 +34991,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -40306,14 +40178,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -40321,10 +40185,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -40353,10 +40213,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -48662,14 +48518,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -48677,10 +48525,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -48709,10 +48553,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -53790,14 +53630,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -53805,10 +53637,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -53837,10 +53665,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -56940,6 +56764,15 @@ name|int
 name|getBatchSize
 parameter_list|()
 function_decl|;
+comment|// optional uint64 maxResultSize = 10;
+name|boolean
+name|hasMaxResultSize
+parameter_list|()
+function_decl|;
+name|long
+name|getMaxResultSize
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -57810,6 +57643,45 @@ return|return
 name|batchSize_
 return|;
 block|}
+comment|// optional uint64 maxResultSize = 10;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MAXRESULTSIZE_FIELD_NUMBER
+init|=
+literal|10
+decl_stmt|;
+specifier|private
+name|long
+name|maxResultSize_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasMaxResultSize
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getMaxResultSize
+parameter_list|()
+block|{
+return|return
+name|maxResultSize_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -57914,6 +57786,10 @@ expr_stmt|;
 name|batchSize_
 operator|=
 literal|0
+expr_stmt|;
+name|maxResultSize_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -58303,6 +58179,29 @@ name|batchSize_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|10
+argument_list|,
+name|maxResultSize_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -58642,6 +58541,37 @@ name|batchSize_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|10
+argument_list|,
+name|maxResultSize_
+argument_list|)
+expr_stmt|;
+block|}
 name|size
 operator|+=
 name|getUnknownFields
@@ -58658,14 +58588,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -58673,10 +58595,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -58705,10 +58623,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -59081,6 +58995,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasMaxResultSize
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMaxResultSize
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMaxResultSize
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMaxResultSize
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMaxResultSize
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -59401,6 +59350,37 @@ operator|)
 operator|+
 name|getBatchSize
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMaxResultSize
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MAXRESULTSIZE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getMaxResultSize
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -60506,6 +60486,19 @@ operator|~
 literal|0x00000100
 operator|)
 expr_stmt|;
+name|maxResultSize_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000200
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -61127,6 +61120,30 @@ name|batchSize_
 operator|=
 name|batchSize_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|maxResultSize_
+operator|=
+name|maxResultSize_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -61654,6 +61671,23 @@ argument_list|(
 name|other
 operator|.
 name|getBatchSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMaxResultSize
+argument_list|()
+condition|)
+block|{
+name|setMaxResultSize
+argument_list|(
+name|other
+operator|.
+name|getMaxResultSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -62253,6 +62287,23 @@ operator|=
 name|input
 operator|.
 name|readUInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|80
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+name|maxResultSize_
+operator|=
+name|input
+operator|.
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -66771,6 +66822,85 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional uint64 maxResultSize = 10;
+specifier|private
+name|long
+name|maxResultSize_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasMaxResultSize
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getMaxResultSize
+parameter_list|()
+block|{
+return|return
+name|maxResultSize_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setMaxResultSize
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+name|maxResultSize_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearMaxResultSize
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000200
+operator|)
+expr_stmt|;
+name|maxResultSize_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:Scan)
 block|}
 static|static
@@ -67837,14 +67967,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -67852,10 +67974,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -67884,10 +68002,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -72994,14 +73108,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -73009,10 +73115,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -73041,10 +73143,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -77669,14 +77767,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -77684,10 +77774,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -77716,10 +77802,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -81264,14 +81346,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -81279,10 +81353,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -81311,10 +81381,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -83967,14 +84033,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -83982,10 +84040,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -84014,10 +84068,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -87064,14 +87114,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -87079,10 +87121,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -87111,10 +87149,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -89196,10 +89230,6 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|path_
 decl_stmt|;
@@ -89225,10 +89255,6 @@ name|String
 name|getPath
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -89315,10 +89341,6 @@ name|ByteString
 name|getPathBytes
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -89659,14 +89681,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -89674,10 +89688,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -89706,10 +89716,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -91766,10 +91772,6 @@ return|;
 block|}
 comment|// required string path = 2;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|path_
 init|=
@@ -91797,10 +91799,6 @@ name|String
 name|getPath
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -92590,14 +92588,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -92605,10 +92595,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -92637,10 +92623,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -97344,14 +97326,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -97359,10 +97333,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -97391,10 +97361,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -99643,10 +99609,6 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|protocolName_
 decl_stmt|;
@@ -99672,10 +99634,6 @@ name|String
 name|getProtocolName
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -99762,10 +99720,6 @@ name|ByteString
 name|getProtocolNameBytes
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -99837,10 +99791,6 @@ init|=
 literal|3
 decl_stmt|;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|methodName_
 decl_stmt|;
@@ -99866,10 +99816,6 @@ name|String
 name|getMethodName
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -99956,10 +99902,6 @@ name|ByteString
 name|getMethodNameBytes
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -100959,14 +100901,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -100974,10 +100908,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -101006,10 +100936,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -103922,10 +103848,6 @@ return|;
 block|}
 comment|// required string protocolName = 2;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|protocolName_
 init|=
@@ -103953,10 +103875,6 @@ name|String
 name|getProtocolName
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -104101,10 +104019,6 @@ expr_stmt|;
 block|}
 comment|// required string methodName = 3;
 specifier|private
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|methodName_
 init|=
@@ -104132,10 +104046,6 @@ name|String
 name|getMethodName
 parameter_list|()
 block|{
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|ref
 init|=
@@ -107672,14 +107582,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -107687,10 +107589,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -107719,10 +107617,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -111759,14 +111653,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -111774,10 +111660,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -111806,10 +111688,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -115328,14 +115206,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -115343,10 +115213,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -115375,10 +115241,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -120598,14 +120460,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -120613,10 +120467,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -120645,10 +120495,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -125174,14 +125020,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -125189,10 +125027,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -125221,10 +125055,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -130350,14 +130180,6 @@ return|return
 name|size
 return|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|0L
-decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -130365,10 +130187,6 @@ name|lang
 operator|.
 name|Override
 specifier|protected
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -130397,10 +130215,6 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
-name|java
-operator|.
-name|lang
-operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -140786,7 +140600,7 @@ literal|"\007.Mutate\022\035\n\tcondition\030\003 \001(\0132\n.Condition\""
 operator|+
 literal|"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132\007.Resu"
 operator|+
-literal|"lt\022\021\n\tprocessed\030\002 \001(\010\"\352\001\n\004Scan\022\027\n\006column"
+literal|"lt\022\021\n\tprocessed\030\002 \001(\010\"\201\002\n\004Scan\022\027\n\006column"
 operator|+
 literal|"\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.Nam"
 operator|+
@@ -140798,91 +140612,93 @@ literal|"\ttimeRange\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVersi"
 operator|+
 literal|"ons\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true\022"
 operator|+
-literal|"\021\n\tbatchSize\030\t \001(\r\"\203\001\n\013ScanRequest\022 \n\006re"
+literal|"\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001("
 operator|+
-literal|"gion\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001"
+literal|"\004\"\203\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Regi"
 operator|+
-literal|"(\0132\005.Scan\022\021\n\tscannerId\030\003 \001(\004\022\024\n\014numberOf"
+literal|"onSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscan"
 operator|+
-literal|"Rows\030\004 \001(\r\022\024\n\014closeScanner\030\005 \001(\010\"\\\n\014Scan"
+literal|"nerId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014clo"
 operator|+
-literal|"Response\022\027\n\006result\030\001 \003(\0132\007.Result\022\021\n\tsca"
+literal|"seScanner\030\005 \001(\010\"\\\n\014ScanResponse\022\027\n\006resul"
 operator|+
-literal|"nnerId\030\002 \001(\004\022\023\n\013moreResults\030\003 \001(\010\022\013\n\003ttl"
+literal|"t\030\001 \003(\0132\007.Result\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013m"
 operator|+
-literal|"\030\004 \001(\r\"?\n\016LockRowRequest\022 \n\006region\030\001 \002(\013"
+literal|"oreResults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"?\n\016LockRow"
 block|,
-literal|"2\020.RegionSpecifier\022\013\n\003row\030\002 \003(\014\".\n\017LockR"
+literal|"Request\022 \n\006region\030\001 \002(\0132\020.RegionSpecifie"
 operator|+
-literal|"owResponse\022\016\n\006lockId\030\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\""
+literal|"r\022\013\n\003row\030\002 \003(\014\".\n\017LockRowResponse\022\016\n\006loc"
 operator|+
-literal|"D\n\020UnlockRowRequest\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"kId\030\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowReque"
 operator|+
-literal|"gionSpecifier\022\016\n\006lockId\030\002 \002(\004\"\023\n\021UnlockR"
+literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006"
 operator|+
-literal|"owResponse\"\232\001\n\024BulkLoadHFileRequest\022 \n\006r"
+literal|"lockId\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\232\001\n\024Bu"
 operator|+
-literal|"egion\030\001 \002(\0132\020.RegionSpecifier\0224\n\nfamilyP"
+literal|"lkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020.Reg"
 operator|+
-literal|"ath\030\002 \003(\0132 .BulkLoadHFileRequest.FamilyP"
+literal|"ionSpecifier\0224\n\nfamilyPath\030\002 \003(\0132 .BulkL"
 operator|+
-literal|"ath\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004pat"
+literal|"oadHFileRequest.FamilyPath\032*\n\nFamilyPath"
 operator|+
-literal|"h\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006load"
+literal|"\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLo"
 operator|+
-literal|"ed\030\001 \002(\010\"\203\001\n\004Exec\022\013\n\003row\030\001 \002(\014\022\024\n\014protoc"
+literal|"adHFileResponse\022\016\n\006loaded\030\001 \002(\010\"\203\001\n\004Exec"
 block|,
-literal|"olName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022!\n\010prop"
+literal|"\022\013\n\003row\030\001 \002(\014\022\024\n\014protocolName\030\002 \002(\t\022\022\n\nm"
 operator|+
-literal|"erty\030\004 \003(\0132\017.NameStringPair\022!\n\tparameter"
+literal|"ethodName\030\003 \002(\t\022!\n\010property\030\004 \003(\0132\017.Name"
 operator|+
-literal|"\030\005 \003(\0132\016.NameBytesPair\"O\n\026ExecCoprocesso"
+literal|"StringPair\022!\n\tparameter\030\005 \003(\0132\016.NameByte"
 operator|+
-literal|"rRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"sPair\"O\n\026ExecCoprocessorRequest\022 \n\006regio"
 operator|+
-literal|"er\022\023\n\004call\030\002 \002(\0132\005.Exec\"8\n\027ExecCoprocess"
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\023\n\004call\030\002 \002(\0132"
 operator|+
-literal|"orResponse\022\035\n\005value\030\001 \002(\0132\016.NameBytesPai"
+literal|"\005.Exec\"8\n\027ExecCoprocessorResponse\022\035\n\005val"
 operator|+
-literal|"r\"N\n\013MultiAction\022\027\n\006mutate\030\001 \001(\0132\007.Mutat"
+literal|"ue\030\001 \002(\0132\016.NameBytesPair\"N\n\013MultiAction\022"
 operator|+
-literal|"e\022\021\n\003get\030\002 \001(\0132\004.Get\022\023\n\004exec\030\003 \001(\0132\005.Exe"
+literal|"\027\n\006mutate\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004."
 operator|+
-literal|"c\"P\n\014ActionResult\022\035\n\005value\030\001 \001(\0132\016.NameB"
+literal|"Get\022\023\n\004exec\030\003 \001(\0132\005.Exec\"P\n\014ActionResult"
 operator|+
-literal|"ytesPair\022!\n\texception\030\002 \001(\0132\016.NameBytesP"
+literal|"\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair\022!\n\texcep"
 block|,
-literal|"air\"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"tion\030\002 \001(\0132\016.NameBytesPair\"^\n\014MultiReque"
 operator|+
-literal|"gionSpecifier\022\034\n\006action\030\002 \003(\0132\014.MultiAct"
+literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006"
 operator|+
-literal|"ion\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006"
+literal|"action\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001"
 operator|+
-literal|"result\030\001 \003(\0132\r.ActionResult2\221\003\n\rClientSe"
+literal|"(\010\".\n\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r.Ac"
 operator|+
-literal|"rvice\022 \n\003get\022\013.GetRequest\032\014.GetResponse\022"
+literal|"tionResult2\221\003\n\rClientService\022 \n\003get\022\013.Ge"
 operator|+
-literal|")\n\006mutate\022\016.MutateRequest\032\017.MutateRespon"
+literal|"tRequest\032\014.GetResponse\022)\n\006mutate\022\016.Mutat"
 operator|+
-literal|"se\022#\n\004scan\022\014.ScanRequest\032\r.ScanResponse\022"
+literal|"eRequest\032\017.MutateResponse\022#\n\004scan\022\014.Scan"
 operator|+
-literal|",\n\007lockRow\022\017.LockRowRequest\032\020.LockRowRes"
+literal|"Request\032\r.ScanResponse\022,\n\007lockRow\022\017.Lock"
 operator|+
-literal|"ponse\0222\n\tunlockRow\022\021.UnlockRowRequest\032\022."
+literal|"RowRequest\032\020.LockRowResponse\0222\n\tunlockRo"
 operator|+
-literal|"UnlockRowResponse\022>\n\rbulkLoadHFile\022\025.Bul"
+literal|"w\022\021.UnlockRowRequest\032\022.UnlockRowResponse"
 block|,
-literal|"kLoadHFileRequest\032\026.BulkLoadHFileRespons"
+literal|"\022>\n\rbulkLoadHFile\022\025.BulkLoadHFileRequest"
 operator|+
-literal|"e\022D\n\017execCoprocessor\022\027.ExecCoprocessorRe"
+literal|"\032\026.BulkLoadHFileResponse\022D\n\017execCoproces"
 operator|+
-literal|"quest\032\030.ExecCoprocessorResponse\022&\n\005multi"
+literal|"sor\022\027.ExecCoprocessorRequest\032\030.ExecCopro"
 operator|+
-literal|"\022\r.MultiRequest\032\016.MultiResponseBB\n*org.a"
+literal|"cessorResponse\022&\n\005multi\022\r.MultiRequest\032\016"
 operator|+
-literal|"pache.hadoop.hbase.protobuf.generatedB\014C"
+literal|".MultiResponseBB\n*org.apache.hadoop.hbas"
 operator|+
-literal|"lientProtosH\001\210\001\001\240\001\001"
+literal|"e.protobuf.generatedB\014ClientProtosH\001\210\001\001\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -141919,6 +141735,8 @@ block|,
 literal|"CacheBlocks"
 block|,
 literal|"BatchSize"
+block|,
+literal|"MaxResultSize"
 block|, }
 argument_list|,
 name|org

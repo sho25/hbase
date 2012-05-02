@@ -266,7 +266,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  * If caching is NOT set, we will use the caching value of the hosting  * {@link HTable}.  See {@link HTable#setScannerCaching(int)}.  *<p>  * To further define the scope of what to get when scanning, perform additional  * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(),  * execute {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,  * execute {@link #setCacheBlocks(boolean)}.  */
+comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  * If caching is NOT set, we will use the caching value of the hosting {@link HTable}.  See  * {@link HTable#setScannerCaching(int)}. In addition to row caching, it is possible to specify a  * maximum result size, using {@link #setMaxResultSize(long)}. When both are used,  * single server requests are limited by either number of rows or maximum result size, whichever  * limit comes first.  *<p>  * To further define the scope of what to get when scanning, perform additional  * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(),  * execute {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,  * execute {@link #setCacheBlocks(boolean)}.  */
 end_comment
 
 begin_class
@@ -311,7 +311,7 @@ init|=
 operator|(
 name|byte
 operator|)
-literal|2
+literal|3
 decl_stmt|;
 specifier|private
 name|byte
@@ -364,6 +364,13 @@ comment|/*    * -1 means no caching    */
 specifier|private
 name|int
 name|caching
+init|=
+operator|-
+literal|1
+decl_stmt|;
+specifier|private
+name|long
+name|maxResultSize
 init|=
 operator|-
 literal|1
@@ -533,6 +540,13 @@ operator|=
 name|scan
 operator|.
 name|getCaching
+argument_list|()
+expr_stmt|;
+name|maxResultSize
+operator|=
+name|scan
+operator|.
+name|getMaxResultSize
 argument_list|()
 expr_stmt|;
 name|cacheBlocks
@@ -1118,6 +1132,32 @@ operator|=
 name|caching
 expr_stmt|;
 block|}
+comment|/**    * @return the maximum result size in bytes. See {@link #setMaxResultSize(long)}    */
+specifier|public
+name|long
+name|getMaxResultSize
+parameter_list|()
+block|{
+return|return
+name|maxResultSize
+return|;
+block|}
+comment|/**    * Set the maximum result size. The default is -1; this means that no specific    * maximum result size will be set for this scan, and the global configured    * value will be used instead. (Defaults to unlimited).    *    * @param maxResultSize The maximum result size in bytes.    */
+specifier|public
+name|void
+name|setMaxResultSize
+parameter_list|(
+name|long
+name|maxResultSize
+parameter_list|)
+block|{
+name|this
+operator|.
+name|maxResultSize
+operator|=
+name|maxResultSize
+expr_stmt|;
+block|}
 comment|/**    * Apply the specified server-side filter when performing the Scan.    * @param filter filter to run on the server    * @return this    */
 specifier|public
 name|Scan
@@ -1640,6 +1680,17 @@ argument_list|,
 name|this
 operator|.
 name|caching
+argument_list|)
+expr_stmt|;
+name|map
+operator|.
+name|put
+argument_list|(
+literal|"maxResultSize"
+argument_list|,
+name|this
+operator|.
+name|maxResultSize
 argument_list|)
 expr_stmt|;
 name|map
@@ -2240,6 +2291,23 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|version
+operator|>
+literal|2
+condition|)
+block|{
+name|this
+operator|.
+name|maxResultSize
+operator|=
+name|in
+operator|.
+name|readLong
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
@@ -2486,6 +2554,13 @@ block|}
 name|writeAttributes
 argument_list|(
 name|out
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeLong
+argument_list|(
+name|maxResultSize
 argument_list|)
 expr_stmt|;
 block|}
