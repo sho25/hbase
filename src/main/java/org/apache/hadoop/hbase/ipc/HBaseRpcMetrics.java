@@ -149,6 +149,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RegionServerStatusProtocol
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|lang
@@ -284,7 +300,7 @@ argument_list|)
 expr_stmt|;
 name|initMethods
 argument_list|(
-name|HMasterRegionInterface
+name|RegionServerStatusProtocol
 operator|.
 name|class
 argument_list|)

@@ -79,7 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerLoad
 import|;
 end_import
 
@@ -279,7 +279,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|getRegionServers
 parameter_list|()
@@ -288,7 +288,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|data
 init|=
@@ -297,7 +297,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -308,7 +308,7 @@ name|Entry
 argument_list|<
 name|ServerName
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|entry
 range|:

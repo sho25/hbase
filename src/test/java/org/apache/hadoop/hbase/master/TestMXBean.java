@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerLoad
 import|;
 end_import
 
@@ -225,7 +225,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|regions
 parameter_list|)
@@ -302,7 +302,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|entry
 range|:

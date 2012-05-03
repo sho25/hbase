@@ -209,7 +209,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerLoad
 import|;
 end_import
 
@@ -1115,7 +1115,7 @@ name|Map
 argument_list|<
 name|ServerName
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 name|onlineServers
 init|=
@@ -1124,7 +1124,7 @@ name|HashMap
 argument_list|<
 name|ServerName
 argument_list|,
-name|HServerLoad
+name|ServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1134,9 +1134,9 @@ name|put
 argument_list|(
 name|SERVERNAME_B
 argument_list|,
-operator|new
-name|HServerLoad
-argument_list|()
+name|ServerLoad
+operator|.
+name|EMPTY_SERVERLOAD
 argument_list|)
 expr_stmt|;
 name|onlineServers
@@ -1145,9 +1145,9 @@ name|put
 argument_list|(
 name|SERVERNAME_A
 argument_list|,
-operator|new
-name|HServerLoad
-argument_list|()
+name|ServerLoad
+operator|.
+name|EMPTY_SERVERLOAD
 argument_list|)
 expr_stmt|;
 name|Mockito
