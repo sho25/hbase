@@ -7074,7 +7074,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Construct the HLog directory name    *    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative HLog directory name, e.g.<code>.logs/1.example.org,6030,12345</code>    * if<code>serverName</code> passed is<code>1.example.org,60030,12345</code>    */
+comment|/**    * Construct the HLog directory name    *    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative HLog directory name, e.g.<code>.logs/1.example.org,60030,12345</code>    * if<code>serverName</code> passed is<code>1.example.org,60030,12345</code>    */
 end_comment
 
 begin_function

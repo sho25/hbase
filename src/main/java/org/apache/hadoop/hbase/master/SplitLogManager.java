@@ -3027,11 +3027,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"failed to re-resubmit task "
+literal|"Failed to re-resubmit task "
 operator|+
 name|path
 operator|+
 literal|" because of deserialization issue"
+argument_list|,
+name|e1
 argument_list|)
 expr_stmt|;
 name|task
