@@ -59,7 +59,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HMasterRegionInterface
+name|HRegionInterface
 import|;
 end_import
 
@@ -75,7 +75,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HRegionInterface
+name|RegionServerStatusProtocol
 import|;
 end_import
 
@@ -170,7 +170,7 @@ name|Service
 argument_list|(
 literal|"security.masterregion.protocol.acl"
 argument_list|,
-name|HMasterRegionInterface
+name|RegionServerStatusProtocol
 operator|.
 name|class
 argument_list|)
