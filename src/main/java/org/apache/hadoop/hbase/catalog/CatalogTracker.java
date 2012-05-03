@@ -1873,6 +1873,16 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|ioe
+operator|instanceof
+name|ConnectException
+condition|)
+block|{
+comment|// Catch. Connect refused.
+block|}
+elseif|else
+if|if
+condition|(
 name|cause
 operator|!=
 literal|null
