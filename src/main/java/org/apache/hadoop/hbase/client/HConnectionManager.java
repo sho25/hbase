@@ -9516,7 +9516,11 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return
-literal|null
+operator|new
+name|HTableDescriptor
+index|[
+literal|0
+index|]
 return|;
 name|MasterKeepAliveConnection
 name|master

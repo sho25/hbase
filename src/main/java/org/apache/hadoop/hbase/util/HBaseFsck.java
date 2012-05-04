@@ -10544,7 +10544,11 @@ name|HTableDescriptor
 index|[]
 name|htd
 init|=
-literal|null
+operator|new
+name|HTableDescriptor
+index|[
+literal|0
+index|]
 decl_stmt|;
 try|try
 block|{
