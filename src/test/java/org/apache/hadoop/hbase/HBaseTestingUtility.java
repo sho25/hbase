@@ -2206,7 +2206,10 @@ name|createDirAndSetProperty
 argument_list|(
 literal|"mapred_output"
 argument_list|,
-literal|"mapred.output.dir"
+name|MapreduceTestingShim
+operator|.
+name|getMROutputDirProp
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|createDirAndSetProperty
@@ -5949,6 +5952,7 @@ argument_list|(
 literal|"Mini mapreduce cluster started"
 argument_list|)
 expr_stmt|;
+comment|// Needed for TestImportTsv.
 name|conf
 operator|.
 name|set
@@ -5966,7 +5970,7 @@ literal|"mapred.job.tracker"
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|/* this for mrv2 support */
+comment|// this for mrv2 support; mr1 ignores this
 name|conf
 operator|.
 name|set
