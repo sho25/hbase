@@ -2274,6 +2274,11 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|boolean
+name|tableExists
+init|=
+literal|true
+decl_stmt|;
 name|execute
 argument_list|(
 operator|new
@@ -2456,11 +2461,10 @@ operator|==
 literal|0
 condition|)
 block|{
-name|boolean
 name|tableExists
-init|=
+operator|=
 literal|false
-decl_stmt|;
+expr_stmt|;
 name|HTableDescriptor
 index|[]
 name|htds
@@ -2609,6 +2613,30 @@ parameter_list|)
 block|{
 comment|// continue
 block|}
+block|}
+if|if
+condition|(
+name|tableExists
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Retries exhausted, it took too long to wait"
+operator|+
+literal|" for the table "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|" to be deleted."
+argument_list|)
+throw|;
 block|}
 comment|// Delete cached information to prevent clients from using old locations
 name|this
