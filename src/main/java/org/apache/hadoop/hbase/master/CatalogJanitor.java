@@ -1107,7 +1107,7 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * If daughters no longer hold reference to the parents, delete the parent.    * @param server HRegionInterface of meta server to talk to     * @param parent HRegionInfo of split offlined parent    * @param rowContent Content of<code>parent</code> row in    *<code>metaRegionName</code>    * @return True if we removed<code>parent</code> from meta table and from    * the filesystem.    * @throws IOException    */
+comment|/**    * If daughters no longer hold reference to the parents, delete the parent.    * @param parent HRegionInfo of split offlined parent    * @param rowContent Content of<code>parent</code> row in    *<code>metaRegionName</code>    * @return True if we removed<code>parent</code> from meta table and from    * the filesystem.    * @throws IOException    */
 name|boolean
 name|cleanParent
 parameter_list|(

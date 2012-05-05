@@ -337,7 +337,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|RegionServer
+name|HRegionServer
 name|rs
 decl_stmt|;
 specifier|private
@@ -348,7 +348,7 @@ decl_stmt|;
 comment|/**    * Create an instance of the glue object that connects the    * RegionServer with the standard ThriftServer implementation    */
 name|HRegionThriftServer
 parameter_list|(
-name|RegionServer
+name|HRegionServer
 name|regionServer
 parameter_list|,
 name|Configuration

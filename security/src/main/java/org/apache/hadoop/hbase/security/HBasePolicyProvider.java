@@ -41,9 +41,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|client
 operator|.
-name|HMasterInterface
+name|AdminProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ClientProtocol
 import|;
 end_import
 
@@ -59,7 +75,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HRegionInterface
+name|HMasterInterface
 import|;
 end_import
 
@@ -150,7 +166,17 @@ name|Service
 argument_list|(
 literal|"security.client.protocol.acl"
 argument_list|,
-name|HRegionInterface
+name|ClientProtocol
+operator|.
+name|class
+argument_list|)
+block|,
+operator|new
+name|Service
+argument_list|(
+literal|"security.client.protocol.acl"
+argument_list|,
+name|AdminProtocol
 operator|.
 name|class
 argument_list|)

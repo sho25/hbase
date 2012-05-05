@@ -219,6 +219,10 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|effectiveUser_
 decl_stmt|;
@@ -244,6 +248,10 @@ name|String
 name|getEffectiveUser
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -330,6 +338,10 @@ name|ByteString
 name|getEffectiveUserBytes
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -401,6 +413,10 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|realUser_
 decl_stmt|;
@@ -426,6 +442,10 @@ name|String
 name|getRealUser
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -512,6 +532,10 @@ name|ByteString
 name|getRealUserBytes
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -846,6 +870,14 @@ return|return
 name|size
 return|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|0L
+decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -853,6 +885,10 @@ name|lang
 operator|.
 name|Override
 specifier|protected
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -881,6 +917,10 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -2747,6 +2787,10 @@ name|bitField0_
 decl_stmt|;
 comment|// required string effectiveUser = 1;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|effectiveUser_
 init|=
@@ -2774,6 +2818,10 @@ name|String
 name|getEffectiveUser
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -2918,6 +2966,10 @@ expr_stmt|;
 block|}
 comment|// required string realUser = 2;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|realUser_
 init|=
@@ -2945,6 +2997,10 @@ name|String
 name|getRealUser
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -3160,7 +3216,7 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.ipc.HRegionInterface"];
+comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
 name|boolean
 name|hasProtocol
 parameter_list|()
@@ -3390,7 +3446,7 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.ipc.HRegionInterface"];
+comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
 specifier|public
 specifier|static
 specifier|final
@@ -3400,6 +3456,10 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|protocol_
 decl_stmt|;
@@ -3425,6 +3485,10 @@ name|String
 name|getProtocol
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -3511,6 +3575,10 @@ name|ByteString
 name|getProtocolBytes
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -3600,7 +3668,7 @@ argument_list|()
 expr_stmt|;
 name|protocol_
 operator|=
-literal|"org.apache.hadoop.hbase.ipc.HRegionInterface"
+literal|"org.apache.hadoop.hbase.client.ClientProtocol"
 expr_stmt|;
 block|}
 specifier|private
@@ -3855,6 +3923,14 @@ return|return
 name|size
 return|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|0L
+decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -3862,6 +3938,10 @@ name|lang
 operator|.
 name|Override
 specifier|protected
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -3890,6 +3970,10 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -5059,7 +5143,7 @@ operator|)
 expr_stmt|;
 name|protocol_
 operator|=
-literal|"org.apache.hadoop.hbase.ipc.HRegionInterface"
+literal|"org.apache.hadoop.hbase.client.ClientProtocol"
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -6563,12 +6647,16 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.ipc.HRegionInterface"];
+comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|protocol_
 init|=
-literal|"org.apache.hadoop.hbase.ipc.HRegionInterface"
+literal|"org.apache.hadoop.hbase.client.ClientProtocol"
 decl_stmt|;
 specifier|public
 name|boolean
@@ -6592,6 +6680,10 @@ name|String
 name|getProtocol
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -7273,6 +7365,14 @@ return|return
 name|size
 return|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|0L
+decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -7280,6 +7380,10 @@ name|lang
 operator|.
 name|Override
 specifier|protected
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -7308,6 +7412,10 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -9559,6 +9667,10 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|exceptionName_
 decl_stmt|;
@@ -9584,6 +9696,10 @@ name|String
 name|getExceptionName
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -9670,6 +9786,10 @@ name|ByteString
 name|getExceptionNameBytes
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -9741,6 +9861,10 @@ init|=
 literal|2
 decl_stmt|;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|stackTrace_
 decl_stmt|;
@@ -9766,6 +9890,10 @@ name|String
 name|getStackTrace
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -9852,6 +9980,10 @@ name|ByteString
 name|getStackTraceBytes
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -10171,6 +10303,14 @@ return|return
 name|size
 return|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|0L
+decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -10178,6 +10318,10 @@ name|lang
 operator|.
 name|Override
 specifier|protected
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -10206,6 +10350,10 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -12061,6 +12209,10 @@ name|bitField0_
 decl_stmt|;
 comment|// required string exceptionName = 1;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|exceptionName_
 init|=
@@ -12088,6 +12240,10 @@ name|String
 name|getExceptionName
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -12232,6 +12388,10 @@ expr_stmt|;
 block|}
 comment|// optional string stackTrace = 2;
 specifier|private
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|stackTrace_
 init|=
@@ -12259,6 +12419,10 @@ name|String
 name|getStackTrace
 parameter_list|()
 block|{
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|ref
 init|=
@@ -13292,6 +13456,14 @@ return|return
 name|size
 return|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|0L
+decl_stmt|;
 annotation|@
 name|java
 operator|.
@@ -13299,6 +13471,10 @@ name|lang
 operator|.
 name|Override
 specifier|protected
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|writeReplace
 parameter_list|()
@@ -13327,6 +13503,10 @@ name|boolean
 name|equals
 parameter_list|(
 specifier|final
+name|java
+operator|.
+name|lang
+operator|.
 name|Object
 name|obj
 parameter_list|)
@@ -16777,27 +16957,27 @@ init|=
 block|{
 literal|"\n\tRPC.proto\":\n\017UserInformation\022\025\n\reffect"
 operator|+
-literal|"iveUser\030\001 \002(\t\022\020\n\010realUser\030\002 \002(\t\"v\n\020Conne"
+literal|"iveUser\030\001 \002(\t\022\020\n\010realUser\030\002 \002(\t\"w\n\020Conne"
 operator|+
 literal|"ctionHeader\022\"\n\010userInfo\030\001 \001(\0132\020.UserInfo"
 operator|+
-literal|"rmation\022>\n\010protocol\030\002 \001(\t:,org.apache.ha"
+literal|"rmation\022?\n\010protocol\030\002 \001(\t:-org.apache.ha"
 operator|+
-literal|"doop.hbase.ipc.HRegionInterface\"-\n\nRpcRe"
+literal|"doop.hbase.client.ClientProtocol\"-\n\nRpcR"
 operator|+
-literal|"quest\022\016\n\006callId\030\001 \002(\005\022\017\n\007request\030\002 \001(\014\"9"
+literal|"equest\022\016\n\006callId\030\001 \002(\005\022\017\n\007request\030\002 \001(\014\""
 operator|+
-literal|"\n\014RpcException\022\025\n\rexceptionName\030\001 \002(\t\022\022\n"
+literal|"9\n\014RpcException\022\025\n\rexceptionName\030\001 \002(\t\022\022"
 operator|+
-literal|"\nstackTrace\030\002 \001(\t\"`\n\013RpcResponse\022\016\n\006call"
+literal|"\n\nstackTrace\030\002 \001(\t\"`\n\013RpcResponse\022\016\n\006cal"
 operator|+
-literal|"Id\030\001 \002(\005\022\r\n\005error\030\002 \002(\010\022\020\n\010response\030\003 \001("
+literal|"lId\030\001 \002(\005\022\r\n\005error\030\002 \002(\010\022\020\n\010response\030\003 \001"
 operator|+
-literal|"\014\022 \n\texception\030\004 \001(\0132\r.RpcExceptionB<\n*o"
+literal|"(\014\022 \n\texception\030\004 \001(\0132\r.RpcExceptionB<\n*"
 block|,
-literal|"rg.apache.hadoop.hbase.protobuf.generate"
+literal|"org.apache.hadoop.hbase.protobuf.generat"
 operator|+
-literal|"dB\tRPCProtosH\001\240\001\001"
+literal|"edB\tRPCProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

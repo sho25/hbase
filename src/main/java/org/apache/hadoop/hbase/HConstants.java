@@ -105,22 +105,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -527,15 +511,6 @@ name|REGIONSERVER_INFO_PORT
 operator|+
 literal|".auto"
 decl_stmt|;
-comment|/** Parameter name for what region server interface to use. */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REGION_SERVER_CLASS
-init|=
-literal|"hbase.regionserver.class"
-decl_stmt|;
 comment|/** Parameter name for what region server implementation to use. */
 specifier|public
 specifier|static
@@ -544,20 +519,6 @@ name|String
 name|REGION_SERVER_IMPL
 init|=
 literal|"hbase.regionserver.impl"
-decl_stmt|;
-comment|/** Default region server interface class name. */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_REGION_SERVER_CLASS
-init|=
-name|HRegionInterface
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
 decl_stmt|;
 comment|/** Parameter name for what master implementation to use. */
 specifier|public

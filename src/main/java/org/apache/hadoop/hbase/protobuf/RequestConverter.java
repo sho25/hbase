@@ -1175,18 +1175,6 @@ name|ByteString
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-import|;
-end_import
-
 begin_comment
 comment|/**  * Helper utility to build protocol buffer requests,  * or build components for protocol buffer requests.  */
 end_comment

@@ -5422,10 +5422,12 @@ argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
-name|hrs
+name|ProtobufUtil
 operator|.
 name|openRegion
 argument_list|(
+name|hrs
+argument_list|,
 name|region
 argument_list|)
 expr_stmt|;

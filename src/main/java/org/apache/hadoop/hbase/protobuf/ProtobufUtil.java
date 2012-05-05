@@ -907,7 +907,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|OpenRegionResponse
+name|ReplicateWALEntryRequest
 import|;
 end_import
 
@@ -927,7 +927,27 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|ReplicateWALEntryRequest
+name|ServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|SplitRegionRequest
 import|;
 end_import
 
@@ -1400,22 +1420,6 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionLoad
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionOpeningState
 import|;
 end_import
 
@@ -8002,10 +8006,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to open a region using admin protocol.    *    * @param admin    * @param region    * @param versionOfOfflineNode    * @return the region opening state    * @throws IOException    */
+comment|/**    * A helper to open a region using admin protocol.    *    * @param admin    * @param region    * @throws IOException    */
 specifier|public
 specifier|static
-name|RegionOpeningState
+name|void
 name|openRegion
 parameter_list|(
 specifier|final
@@ -8015,10 +8019,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|region
-parameter_list|,
-specifier|final
-name|int
-name|versionOfOfflineNode
 parameter_list|)
 throws|throws
 name|IOException
@@ -8032,14 +8032,12 @@ name|buildOpenRegionRequest
 argument_list|(
 name|region
 argument_list|,
-name|versionOfOfflineNode
+operator|-
+literal|1
 argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|OpenRegionResponse
-name|response
-init|=
 name|admin
 operator|.
 name|openRegion
@@ -8048,15 +8046,7 @@ literal|null
 argument_list|,
 name|request
 argument_list|)
-decl_stmt|;
-return|return
-name|ResponseConverter
-operator|.
-name|getRegionOpeningState
-argument_list|(
-name|response
-argument_list|)
-return|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -8065,6 +8055,8 @@ name|se
 parameter_list|)
 block|{
 throw|throw
+name|ProtobufUtil
+operator|.
 name|getRemoteException
 argument_list|(
 name|se
@@ -8183,6 +8175,14 @@ name|HRegionInfo
 argument_list|>
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|response
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// it can be null only mockup testing region sever
 for|for
 control|(
 name|RegionInfo
@@ -8205,6 +8205,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 return|return
 name|regions
 return|;
@@ -8226,7 +8227,7 @@ block|}
 comment|/**    * A helper to get the info of a region server using admin protocol.    *    * @param admin    * @return the server name    * @throws IOException    */
 specifier|public
 specifier|static
-name|ServerName
+name|ServerInfo
 name|getServerInfo
 parameter_list|(
 specifier|final
@@ -8259,13 +8260,10 @@ name|request
 argument_list|)
 decl_stmt|;
 return|return
-name|toServerName
-argument_list|(
 name|response
 operator|.
-name|getServerName
+name|getServerInfo
 argument_list|()
-argument_list|)
 return|;
 block|}
 catch|catch
@@ -8415,6 +8413,71 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * A helper to split a region using admin protocol.    *    * @param admin    * @param hri    * @param splitPoint    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|split
+parameter_list|(
+specifier|final
+name|AdminProtocol
+name|admin
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|,
+name|byte
+index|[]
+name|splitPoint
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|SplitRegionRequest
+name|request
+init|=
+name|RequestConverter
+operator|.
+name|buildSplitRegionRequest
+argument_list|(
+name|hri
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|splitPoint
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|admin
+operator|.
+name|splitRegion
+argument_list|(
+literal|null
+argument_list|,
+name|request
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ServiceException
+name|se
+parameter_list|)
+block|{
+throw|throw
+name|ProtobufUtil
+operator|.
+name|getRemoteException
+argument_list|(
+name|se
+argument_list|)
+throw|;
+block|}
+block|}
+comment|// End helpers for Admin
 comment|/*    * Get the total (read + write) requests from a RegionLoad pb    * @param rl - RegionLoad pb    * @return total (read + write) requests    */
 specifier|public
 specifier|static
@@ -8448,7 +8511,6 @@ name|getWriteRequestsCount
 argument_list|()
 return|;
 block|}
-comment|// End helpers for Admin
 block|}
 end_class
 
