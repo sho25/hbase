@@ -88,7 +88,7 @@ name|MasterObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
 name|void
 name|preCreateTable
 parameter_list|(
@@ -109,7 +109,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the createTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
 name|void
 name|postCreateTable
 parameter_list|(
@@ -130,7 +130,49 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table handler and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+name|void
+name|preCreateTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the createTable operation has been requested.  Called as part    * of create table RPC call.  Called as part of create table handler and    * it is async to the create RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
+name|void
+name|postCreateTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preDeleteTable
 parameter_list|(
@@ -148,7 +190,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the deleteTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the deleteTable operation has been requested.  Called as part    * of delete table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postDeleteTable
 parameter_list|(
@@ -166,7 +208,43 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a table's properties.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|preDeleteTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table handler and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|postDeleteTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
 name|void
 name|preModifyTable
 parameter_list|(
@@ -188,7 +266,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the modifyTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+comment|/**    * Called after the modifyTable operation has been requested.  Called as part    * of modify table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
 name|void
 name|postModifyTable
 parameter_list|(
@@ -210,7 +288,51 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+name|void
+name|preModifyTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table handler and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
+name|void
+name|postModifyTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
 name|void
 name|preAddColumn
 parameter_list|(
@@ -231,7 +353,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
 name|void
 name|postAddColumn
 parameter_list|(
@@ -252,7 +374,49 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
+comment|/**    * Called prior to adding a new column family to the table.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
+name|void
+name|preAddColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|column
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the new column family has been created.  Called as part of    * add column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
+name|void
+name|postAddColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|column
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
 name|void
 name|preModifyColumn
 parameter_list|(
@@ -273,7 +437,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
 name|void
 name|postModifyColumn
 parameter_list|(
@@ -294,7 +458,49 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
+comment|/**    * Called prior to modifying a column family's attributes.  Called as part of    * modify column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
+name|void
+name|preModifyColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the column family has been updated.  Called as part of modify    * column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
+name|void
+name|postModifyColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HColumnDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
 name|void
 name|preDeleteColumn
 parameter_list|(
@@ -318,7 +524,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
+comment|/**    * Called after the column family has been deleted.  Called as part of delete    * column RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
 name|void
 name|postDeleteColumn
 parameter_list|(
@@ -342,7 +548,55 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to enabling a table.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to deleting the entire column family.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
+name|void
+name|preDeleteColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the column family has been deleted.  Called as part of    * delete column handler.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
+name|void
+name|postDeleteColumnHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to enabling a table.  Called as part of enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preEnableTable
 parameter_list|(
@@ -361,7 +615,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the enableTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postEnableTable
 parameter_list|(
@@ -380,7 +634,45 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to disabling a table.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table handler    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|preEnableTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the enableTable operation has been requested.  Called as part    * of enable table handler and it is async to the enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|postEnableTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to disabling a table.  Called as part of disable table RPC    * call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preDisableTable
 parameter_list|(
@@ -399,9 +691,47 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the disableTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postDisableTable
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to disabling a table.  Called as part of disable table handler    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|preDisableTableHandler
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the disableTable operation has been requested.  Called as part    * of disable table handler and it is asyn to the disable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+name|void
+name|postDisableTableHandler
 parameter_list|(
 specifier|final
 name|ObserverContext
