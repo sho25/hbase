@@ -1888,6 +1888,9 @@ name|removeFromOnlineRegions
 parameter_list|(
 name|String
 name|encodedRegionName
+parameter_list|,
+name|ServerName
+name|destination
 parameter_list|)
 block|{
 comment|// TODO Auto-generated method stub

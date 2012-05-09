@@ -2264,7 +2264,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @param versionOfClosingNode    *   the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @return true if server acknowledged close, false if not    * @throws IOException    */
+comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @param versionOfClosingNode    *   the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @param dest - if the region is moved to another server, the destination server. null otherwise.    * @return true if server acknowledged close, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|sendRegionClose
@@ -2277,6 +2277,9 @@ name|region
 parameter_list|,
 name|int
 name|versionOfClosingNode
+parameter_list|,
+name|ServerName
+name|dest
 parameter_list|)
 throws|throws
 name|IOException
@@ -2344,10 +2347,41 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|versionOfClosingNode
+argument_list|,
+name|dest
 argument_list|)
 return|;
 block|}
-comment|/**    * @param sn    * @return    * @throws IOException    * @throws RetriesExhaustedException wrapping a ConnectException if failed    * putting up proxy.    */
+specifier|public
+name|boolean
+name|sendRegionClose
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|,
+name|HRegionInfo
+name|region
+parameter_list|,
+name|int
+name|versionOfClosingNode
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|sendRegionClose
+argument_list|(
+name|server
+argument_list|,
+name|region
+argument_list|,
+name|versionOfClosingNode
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/**     * @param sn     * @return     * @throws IOException     * @throws RetriesExhaustedException wrapping a ConnectException if failed     * putting up proxy.     */
 specifier|private
 name|AdminProtocol
 name|getServerConnection

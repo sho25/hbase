@@ -8785,6 +8785,9 @@ name|region
 parameter_list|,
 name|boolean
 name|force
+parameter_list|,
+name|ServerName
+name|dest
 parameter_list|)
 block|{
 comment|// TODO: Method needs refactoring.  Ugly buried returns throughout.  Beware!
@@ -9283,6 +9286,8 @@ name|getRegion
 argument_list|()
 argument_list|,
 name|versionOfClosingNode
+argument_list|,
+name|dest
 argument_list|)
 condition|)
 block|{
@@ -9519,10 +9524,33 @@ name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|t
 argument_list|)
 expr_stmt|;
 comment|// Presume retry or server will expire.
 block|}
+block|}
+specifier|public
+name|void
+name|unassign
+parameter_list|(
+name|HRegionInfo
+name|region
+parameter_list|,
+name|boolean
+name|force
+parameter_list|)
+block|{
+name|unassign
+argument_list|(
+name|region
+argument_list|,
+name|force
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|void
@@ -14513,6 +14541,13 @@ argument_list|(
 name|plan
 operator|.
 name|getRegionInfo
+argument_list|()
+argument_list|,
+literal|false
+argument_list|,
+name|plan
+operator|.
+name|getDestination
 argument_list|()
 argument_list|)
 expr_stmt|;

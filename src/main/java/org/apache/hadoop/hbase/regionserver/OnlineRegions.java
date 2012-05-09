@@ -61,7 +61,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -89,13 +117,16 @@ name|HRegion
 name|r
 parameter_list|)
 function_decl|;
-comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param encodedRegionName    * @return True if we removed a region from online list.    */
+comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param encodedRegionName    * @param destination - destination, if any. Null otherwise    * @return True if we removed a region from online list.    */
 specifier|public
 name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
 name|String
 name|encodedRegionName
+parameter_list|,
+name|ServerName
+name|destination
 parameter_list|)
 function_decl|;
 comment|/**    * Return {@link HRegion} instance.    * Only works if caller is in same context, in same JVM. HRegion is not    * serializable.    * @param encodedRegionName    * @return HRegion for the passed encoded<code>encodedRegionName</code> or    * null if named region is not member of the online regions.    */

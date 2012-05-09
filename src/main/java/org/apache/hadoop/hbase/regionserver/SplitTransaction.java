@@ -1320,6 +1320,8 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
