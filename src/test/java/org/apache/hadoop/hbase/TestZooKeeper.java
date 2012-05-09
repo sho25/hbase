@@ -662,8 +662,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// We don't want to share the connection as we will check
-comment|//  its state
+comment|// We don't want to share the connection as we will check its state
 name|c
 operator|.
 name|set

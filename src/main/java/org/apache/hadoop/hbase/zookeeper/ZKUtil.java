@@ -3923,22 +3923,12 @@ operator|.
 name|append
 argument_list|(
 literal|"\nRegion server holding ROOT: "
-argument_list|)
+operator|+
+name|RootRegionTracker
 operator|.
-name|append
-argument_list|(
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|getData
+name|getRootRegionLocation
 argument_list|(
 name|zkw
-argument_list|,
-name|zkw
-operator|.
-name|rootServerZNode
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

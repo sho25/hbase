@@ -312,6 +312,8 @@ name|ServerLoad
 argument_list|>
 name|entry
 range|:
+name|this
+operator|.
 name|master
 operator|.
 name|getServerManager
