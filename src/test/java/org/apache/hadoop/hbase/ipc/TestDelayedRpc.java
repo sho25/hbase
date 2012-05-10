@@ -1057,7 +1057,7 @@ specifier|final
 name|Delayable
 name|call
 init|=
-name|rpcServer
+name|HBaseServer
 operator|.
 name|getCurrentCall
 argument_list|()
@@ -1600,7 +1600,7 @@ return|;
 name|Delayable
 name|call
 init|=
-name|rpcServer
+name|HBaseServer
 operator|.
 name|getCurrentCall
 argument_list|()

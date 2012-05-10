@@ -200,11 +200,6 @@ name|void
 name|startThreads
 parameter_list|()
 function_decl|;
-comment|/**    * Needed for delayed calls.  We need to be able to store the current call    * so that we can complete it later.    * @return Call the server is currently handling.    */
-name|Delayable
-name|getCurrentCall
-parameter_list|()
-function_decl|;
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
 name|HBaseRpcMetrics
 name|getRpcMetrics

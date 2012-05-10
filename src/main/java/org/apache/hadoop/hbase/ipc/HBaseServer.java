@@ -1473,7 +1473,7 @@ specifier|protected
 class|class
 name|Call
 implements|implements
-name|Delayable
+name|RpcCallContext
 block|{
 specifier|protected
 name|int
@@ -2206,6 +2206,55 @@ name|this
 operator|.
 name|delayReturnValue
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|throwExceptionIfCallerDisconnected
+parameter_list|()
+throws|throws
+name|CallerDisconnectedException
+block|{
+if|if
+condition|(
+operator|!
+name|connection
+operator|.
+name|channel
+operator|.
+name|isOpen
+argument_list|()
+condition|)
+block|{
+name|long
+name|afterTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|timestamp
+decl_stmt|;
+throw|throw
+operator|new
+name|CallerDisconnectedException
+argument_list|(
+literal|"Aborting call "
+operator|+
+name|this
+operator|+
+literal|" after "
+operator|+
+name|afterTime
+operator|+
+literal|" ms, since "
+operator|+
+literal|"caller disconnected"
+argument_list|)
+throw|;
+block|}
 block|}
 specifier|public
 name|long
@@ -8175,8 +8224,10 @@ else|:
 name|ret
 return|;
 block|}
+comment|/**    * Needed for delayed calls.  We need to be able to store the current call    * so that we can complete it later.    * @return Call the server is currently handling.    */
 specifier|public
-name|Delayable
+specifier|static
+name|RpcCallContext
 name|getCurrentCall
 parameter_list|()
 block|{
