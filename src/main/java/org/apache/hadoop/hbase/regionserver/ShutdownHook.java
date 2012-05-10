@@ -249,7 +249,7 @@ specifier|final
 specifier|static
 name|Map
 argument_list|<
-name|Thread
+name|Runnable
 argument_list|,
 name|Integer
 argument_list|>
@@ -258,7 +258,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Thread
+name|Runnable
 argument_list|,
 name|Integer
 argument_list|>
@@ -287,7 +287,7 @@ name|Thread
 name|threadToJoin
 parameter_list|)
 block|{
-name|Thread
+name|Runnable
 name|fsShutdownHook
 init|=
 name|suppressHdfsShutdownHook
@@ -352,7 +352,7 @@ name|threadToJoin
 decl_stmt|;
 specifier|private
 specifier|final
-name|Thread
+name|Runnable
 name|fsShutdownHook
 decl_stmt|;
 specifier|private
@@ -375,7 +375,7 @@ name|Thread
 name|threadToJoin
 parameter_list|,
 specifier|final
-name|Thread
+name|Runnable
 name|fsShutdownHook
 parameter_list|)
 block|{
@@ -515,9 +515,27 @@ argument_list|(
 literal|"Starting fs shutdown hook thread."
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
+name|Thread
+name|fsShutdownHookThread
+init|=
+operator|(
 name|fsShutdownHook
+operator|instanceof
+name|Thread
+operator|)
+condition|?
+operator|(
+name|Thread
+operator|)
+name|fsShutdownHook
+else|:
+operator|new
+name|Thread
+argument_list|(
+name|fsShutdownHook
+argument_list|)
+decl_stmt|;
+name|fsShutdownHookThread
 operator|.
 name|start
 argument_list|()
@@ -526,9 +544,7 @@ name|Threads
 operator|.
 name|shutdown
 argument_list|(
-name|this
-operator|.
-name|fsShutdownHook
+name|fsShutdownHookThread
 argument_list|,
 name|this
 operator|.
@@ -577,7 +593,7 @@ block|}
 comment|/*    * So, HDFS keeps a static map of all FS instances. In order to make sure    * things are cleaned up on our way out, it also creates a shutdown hook    * so that all filesystems can be closed when the process is terminated; it    * calls FileSystem.closeAll. This inconveniently runs concurrently with our    * own shutdown handler, and therefore causes all the filesystems to be closed    * before the server can do all its necessary cleanup.    *    *<p>The dirty reflection in this method sneaks into the FileSystem class    * and grabs the shutdown hook, removes it from the list of active shutdown    * hooks, and returns the hook for the caller to run at its convenience.    *    *<p>This seems quite fragile and susceptible to breaking if Hadoop changes    * anything about the way this cleanup is managed. Keep an eye on things.    * @return The fs shutdown hook    * @throws RuntimeException if we fail to find or grap the shutdown hook.    */
 specifier|private
 specifier|static
-name|Thread
+name|Runnable
 name|suppressHdfsShutdownHook
 parameter_list|(
 specifier|final
@@ -594,7 +610,7 @@ comment|// instances of the data member clientFinalizer; an uninstalled one in
 comment|// FileSystem and one in the innner class named Cache that actually gets
 comment|// registered as a shutdown hook.  If the latter is present, then we are
 comment|// on 0.21 or cloudera patched 0.20.
-name|Thread
+name|Runnable
 name|hdfsClientFinalizer
 init|=
 literal|null
@@ -737,9 +753,8 @@ argument_list|(
 name|fs
 argument_list|)
 decl_stmt|;
-name|Runnable
-name|finalizerRunnable
-init|=
+name|hdfsClientFinalizer
+operator|=
 operator|(
 name|Runnable
 operator|)
@@ -749,33 +764,6 @@ name|get
 argument_list|(
 name|cacheInstance
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-operator|!
-operator|(
-name|finalizerRunnable
-operator|instanceof
-name|Thread
-operator|)
-condition|)
-block|{
-name|hdfsClientFinalizer
-operator|=
-operator|new
-name|Thread
-argument_list|(
-name|finalizerRunnable
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-name|hdfsClientFinalizer
-operator|=
-operator|(
-name|Thread
-operator|)
-name|finalizerRunnable
 expr_stmt|;
 block|}
 else|else
@@ -802,7 +790,7 @@ expr_stmt|;
 name|hdfsClientFinalizer
 operator|=
 operator|(
-name|Thread
+name|Runnable
 operator|)
 name|field
 operator|.
