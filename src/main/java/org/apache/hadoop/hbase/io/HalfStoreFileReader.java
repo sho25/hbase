@@ -643,6 +643,7 @@ block|}
 block|}
 else|else
 block|{
+comment|// The equals sign isn't strictly necessary just here to be consistent with seekTo
 if|if
 condition|(
 name|getComparator
@@ -669,6 +670,10 @@ literal|0
 condition|)
 block|{
 return|return
+name|this
+operator|.
+name|delegate
+operator|.
 name|seekBefore
 argument_list|(
 name|splitkey
