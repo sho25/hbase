@@ -1122,6 +1122,17 @@ block|}
 block|}
 block|}
 specifier|synchronized
+name|boolean
+name|isCurrentKeyRolled
+parameter_list|()
+block|{
+return|return
+name|currentKey
+operator|!=
+literal|null
+return|;
+block|}
+specifier|synchronized
 name|void
 name|rollCurrentKey
 parameter_list|()
