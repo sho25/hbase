@@ -280,6 +280,15 @@ operator|.
 name|substring
 argument_list|(
 name|posPort
+argument_list|,
+name|s
+operator|.
+name|indexOf
+argument_list|(
+literal|'.'
+argument_list|,
+name|posPort
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -332,6 +341,8 @@ operator|+
 name|PORT_FIELD
 operator|+
 name|port
+operator|+
+literal|"."
 return|;
 block|}
 comment|/**    * Look for a RegionMovedException in the exception:    *  - hadoop.ipc wrapped exceptions    *  - nested exceptions    * Returns null if we didn't find the exception or if it was not readable.    */
