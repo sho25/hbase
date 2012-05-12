@@ -1095,17 +1095,9 @@ name|servers
 init|=
 name|serverManager
 operator|.
-name|getOnlineServersList
+name|createDestinationServersList
 argument_list|()
 decl_stmt|;
-comment|// Remove the deadNotExpired servers from the server list.
-name|assignmentManager
-operator|.
-name|removeDeadNotExpiredServers
-argument_list|(
-name|servers
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|this

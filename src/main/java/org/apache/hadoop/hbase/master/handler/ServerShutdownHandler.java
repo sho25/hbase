@@ -1589,7 +1589,7 @@ operator|.
 name|getServerManager
 argument_list|()
 operator|.
-name|getOnlineServersList
+name|createDestinationServersList
 argument_list|()
 decl_stmt|;
 name|this
