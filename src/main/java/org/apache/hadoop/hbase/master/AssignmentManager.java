@@ -2944,12 +2944,42 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|RS_ZK_REGION_SPLITTING
+case|:
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Processed region in state : "
+operator|+
+name|et
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|RS_ZK_REGION_SPLIT
+case|:
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Processed region in state : "
+operator|+
+name|et
+argument_list|)
+expr_stmt|;
+break|break;
 default|default:
 throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Received event is not valid."
+literal|"Received region in state :"
+operator|+
+name|et
+operator|+
+literal|" is not valid"
 argument_list|)
 throw|;
 block|}
@@ -11518,6 +11548,86 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// If region is in offline and split state check the ZKNode
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|isOffline
+argument_list|()
+operator|&&
+name|regionInfo
+operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
+name|String
+name|node
+init|=
+name|ZKAssign
+operator|.
+name|getNodeName
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|Stat
+name|stat
+init|=
+operator|new
+name|Stat
+argument_list|()
+decl_stmt|;
+name|byte
+index|[]
+name|data
+init|=
+name|ZKUtil
+operator|.
+name|getDataNoWatch
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|node
+argument_list|,
+name|stat
+argument_list|)
+decl_stmt|;
+comment|// If znode does not exist dont consider this region
+if|if
+condition|(
+name|data
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" split is completed. Hence need not add to regions list"
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+block|}
 comment|// Region is being served and on an active server
 comment|// add only if region not in disabled and enabling table
 if|if

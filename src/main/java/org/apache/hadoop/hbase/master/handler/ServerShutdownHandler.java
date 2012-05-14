@@ -1292,6 +1292,12 @@ name|rit
 operator|.
 name|isPendingClose
 argument_list|()
+operator|&&
+operator|!
+name|rit
+operator|.
+name|isSplitting
+argument_list|()
 condition|)
 block|{
 name|LOG

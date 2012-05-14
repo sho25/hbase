@@ -3449,15 +3449,8 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
-name|catalogJanitorChore
-operator|.
-name|getThread
+name|startCatalogJanitorChore
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|registerMBean
 argument_list|()
@@ -3517,6 +3510,29 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+end_function
+
+begin_comment
+comment|/**    * Useful for testing purpose also where we have    * master restart scenarios.    */
+end_comment
+
+begin_function
+specifier|protected
+name|void
+name|startCatalogJanitorChore
+parameter_list|()
+block|{
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
+name|catalogJanitorChore
+operator|.
+name|getThread
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 
