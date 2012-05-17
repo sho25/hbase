@@ -165,6 +165,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|protobuf
+operator|.
+name|RequestConverter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|ServerManager
@@ -368,6 +384,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
 import|;
 end_import
 
@@ -851,6 +879,10 @@ throws|throws
 name|IOException
 throws|,
 name|KeeperException
+throws|,
+name|ServiceException
+throws|,
+name|DeserializationException
 block|{
 comment|// I need master in the below.
 name|HMaster
@@ -931,7 +963,13 @@ comment|// Pass null and AssignmentManager will chose a random server BUT it
 comment|// should exclude draining servers.
 name|master
 operator|.
-name|move
+name|moveRegion
+argument_list|(
+literal|null
+argument_list|,
+name|RequestConverter
+operator|.
+name|buildMoveRegionRequest
 argument_list|(
 name|hri
 operator|.
@@ -939,6 +977,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 literal|null
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Save off region to move back.
@@ -976,7 +1015,13 @@ comment|// Now we've unset the draining server, we should be able to move a regi
 comment|// to what was the draining server.
 name|master
 operator|.
-name|move
+name|moveRegion
+argument_list|(
+literal|null
+argument_list|,
+name|RequestConverter
+operator|.
+name|buildMoveRegionRequest
 argument_list|(
 name|hriToMoveBack
 operator|.
@@ -994,6 +1039,7 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
