@@ -1257,6 +1257,14 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|writer
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|writer
