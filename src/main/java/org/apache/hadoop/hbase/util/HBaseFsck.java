@@ -1956,9 +1956,14 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|onlineConsistencyRepair
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|admin
 operator|.
 name|balanceSwitch
@@ -1966,6 +1971,7 @@ argument_list|(
 name|oldBalancer
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Print table summary
 name|printTableSummary
 argument_list|(
