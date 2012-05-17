@@ -1528,7 +1528,11 @@ name|compressStr
 operator|==
 literal|null
 condition|?
-literal|null
+name|Compression
+operator|.
+name|Algorithm
+operator|.
+name|NONE
 else|:
 name|Compression
 operator|.
