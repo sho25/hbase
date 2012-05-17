@@ -6825,7 +6825,7 @@ argument_list|()
 expr_stmt|;
 name|AUDITLOG
 operator|.
-name|trace
+name|info
 argument_list|(
 name|AUTH_SUCCESSFUL_FOR
 operator|+
