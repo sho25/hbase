@@ -9777,7 +9777,8 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+comment|/**    *     * @param region regioninfo of znode to be deleted.    */
+specifier|public
 name|void
 name|deleteClosingOrClosedNode
 parameter_list|(
