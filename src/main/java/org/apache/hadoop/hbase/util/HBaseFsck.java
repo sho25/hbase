@@ -189,7 +189,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|SynchronousQueue
+name|LinkedBlockingQueue
 import|;
 end_import
 
@@ -1399,7 +1399,7 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-literal|1
+name|numThreads
 argument_list|,
 name|numThreads
 argument_list|,
@@ -1410,7 +1410,7 @@ operator|.
 name|SECONDS
 argument_list|,
 operator|new
-name|SynchronousQueue
+name|LinkedBlockingQueue
 argument_list|<
 name|Runnable
 argument_list|>
