@@ -259,25 +259,6 @@ specifier|final
 name|ThreadPoolExecutor
 name|splits
 decl_stmt|;
-comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|PRIORITY_USER
-init|=
-literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|NO_PRIORITY
-init|=
-name|Integer
-operator|.
-name|MIN_VALUE
-decl_stmt|;
 comment|/**    * Splitting should not take place if the total number of regions exceed this.    * This is not a hard limit to the number of regions but it is a guideline to    * stop splitting after number of online regions is greater than this.    */
 specifier|private
 name|int
@@ -674,6 +655,8 @@ operator|.
 name|getCompactPriority
 argument_list|()
 operator|>=
+name|Store
+operator|.
 name|PRIORITY_USER
 condition|)
 block|{
@@ -845,6 +828,8 @@ name|s
 argument_list|,
 name|why
 argument_list|,
+name|Store
+operator|.
 name|NO_PRIORITY
 argument_list|)
 expr_stmt|;
@@ -876,6 +861,8 @@ name|s
 argument_list|,
 name|why
 argument_list|,
+name|Store
+operator|.
 name|NO_PRIORITY
 argument_list|)
 expr_stmt|;
@@ -964,7 +951,9 @@ init|=
 name|s
 operator|.
 name|requestCompaction
-argument_list|()
+argument_list|(
+name|priority
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -984,6 +973,8 @@ if|if
 condition|(
 name|priority
 operator|!=
+name|Store
+operator|.
 name|NO_PRIORITY
 condition|)
 block|{
@@ -1071,6 +1062,32 @@ operator|+
 literal|"; "
 operator|+
 name|this
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Not compacting "
+operator|+
+name|r
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" because compaction request was cancelled"
 argument_list|)
 expr_stmt|;
 block|}

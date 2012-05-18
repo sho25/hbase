@@ -1036,6 +1036,25 @@ specifier|final
 name|boolean
 name|verifyBulkLoads
 decl_stmt|;
+comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PRIORITY_USER
+init|=
+literal|1
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NO_PRIORITY
+init|=
+name|Integer
+operator|.
+name|MIN_VALUE
+decl_stmt|;
 comment|// not private for testing
 comment|/* package */
 name|ScanInfo
@@ -1108,7 +1127,7 @@ specifier|final
 name|Compactor
 name|compactor
 decl_stmt|;
-comment|/**    * Constructor    * @param basedir qualified path under which the region directory lives;    * generally the table subdirectory    * @param region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param conf configuration object    * failed.  Can be null.    * @throws IOException    */
+comment|/**    * Constructor    * @param basedir qualified path under which the region directory lives;    * generally the table subdirectory    * @param region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param confParam configuration object    * failed.  Can be null.    * @throws IOException    */
 specifier|protected
 name|Store
 parameter_list|(
@@ -2370,7 +2389,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Removes a kv from the memstore. The KeyValue is removed only    * if its key& memstoreTS matches the key& memstoreTS value of the     * kv parameter.    *    * @param kv    */
+comment|/**    * Removes a kv from the memstore. The KeyValue is removed only    * if its key& memstoreTS matches the key& memstoreTS value of the    * kv parameter.    *    * @param kv    */
 specifier|protected
 name|void
 name|rollback
@@ -2864,7 +2883,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This method should only be called from HRegion.  It is assumed that the     * ranges of values in the HFile fit within the stores assigned region.     * (assertBulkLoadHFileOk checks this)    */
+comment|/**    * This method should only be called from HRegion.  It is assumed that the    * ranges of values in the HFile fit within the stores assigned region.    * (assertBulkLoadHFileOk checks this)    */
 name|void
 name|bulkLoadHFile
 parameter_list|(
@@ -4550,7 +4569,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param CompactionRequest    *          compaction details obtained from requestCompaction()    * @throws IOException    * @return Storefile we compacted into or null if we failed or opted out early.    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param cr    *          compaction details obtained from requestCompaction()    * @throws IOException    * @return Storefile we compacted into or null if we failed or opted out early.    */
 name|StoreFile
 name|compact
 parameter_list|(
@@ -5917,6 +5936,21 @@ name|CompactionRequest
 name|requestCompaction
 parameter_list|()
 block|{
+return|return
+name|requestCompaction
+argument_list|(
+name|NO_PRIORITY
+argument_list|)
+return|;
+block|}
+specifier|public
+name|CompactionRequest
+name|requestCompaction
+parameter_list|(
+name|int
+name|priority
+parameter_list|)
+block|{
 comment|// don't even select for compaction if writes are disabled
 if|if
 condition|(
@@ -6087,6 +6121,8 @@ operator|=
 name|compactSelection
 argument_list|(
 name|candidates
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 block|}
@@ -6231,7 +6267,9 @@ name|int
 name|pri
 init|=
 name|getCompactPriority
-argument_list|()
+argument_list|(
+name|priority
+argument_list|)
 decl_stmt|;
 name|ret
 operator|=
@@ -6325,6 +6363,28 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Algorithm to choose which files to compact, see {@link #compactSelection(java.util.List, int)}    * @param candidates    * @return    * @throws IOException    */
+name|CompactSelection
+name|compactSelection
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|candidates
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|compactSelection
+argument_list|(
+name|candidates
+argument_list|,
+name|NO_PRIORITY
+argument_list|)
+return|;
+block|}
 comment|/**    * Algorithm to choose which files to compact    *    * Configuration knobs:    *  "hbase.hstore.compaction.ratio"    *    normal case: minor compact when file<= sum(smaller_files) * ratio    *  "hbase.hstore.compaction.min.size"    *    unconditionally compact individual files below this size    *  "hbase.hstore.compaction.max.size"    *    never compact individual files above this size (unless splitting)    *  "hbase.hstore.compaction.min"    *    min files needed to minor compact    *  "hbase.hstore.compaction.max"    *    max files to compact at once (avoids OOM)    *    * @param candidates candidate files, ordered from oldest to newest    * @return subset copy of candidate list that meets compaction criteria    * @throws IOException    */
 name|CompactSelection
 name|compactSelection
@@ -6334,6 +6394,9 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|candidates
+parameter_list|,
+name|int
+name|priority
 parameter_list|)
 throws|throws
 name|IOException
@@ -6539,10 +6602,20 @@ return|return
 name|compactSelection
 return|;
 block|}
-comment|// major compact on user action or age (caveat: we have too many files)
+comment|// Force a major compaction if this is a user-requested major compaction,
+comment|// or if we do not have too many files to compact and this was requested
+comment|// as a major compaction
 name|boolean
 name|majorcompaction
 init|=
+operator|(
+name|forcemajor
+operator|&&
+name|priority
+operator|==
+name|PRIORITY_USER
+operator|)
+operator|||
 operator|(
 name|forcemajor
 operator|||
@@ -6555,6 +6628,7 @@ argument_list|()
 argument_list|)
 operator|)
 operator|&&
+operator|(
 name|compactSelection
 operator|.
 name|getFilesToCompact
@@ -6566,7 +6640,40 @@ operator|<
 name|this
 operator|.
 name|maxFilesToCompact
+operator|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|this
+operator|.
+name|getHRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" - "
+operator|+
+name|this
+operator|.
+name|getColumnFamilyName
+argument_list|()
+operator|+
+literal|": Initiating "
+operator|+
+operator|(
+name|majorcompaction
+condition|?
+literal|"major"
+else|:
+literal|"minor"
+operator|)
+operator|+
+literal|"compaction"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -6612,6 +6719,38 @@ operator|.
 name|minFilesToCompact
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Not compacting files because we only have "
+operator|+
+name|compactSelection
+operator|.
+name|getFilesToCompact
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" files ready for compaction.  Need "
+operator|+
+name|this
+operator|.
+name|minFilesToCompact
+operator|+
+literal|" to initiate."
+argument_list|)
+expr_stmt|;
+block|}
 name|compactSelection
 operator|.
 name|emptyFileList
@@ -6958,7 +7097,11 @@ block|}
 block|}
 else|else
 block|{
-comment|// all files included in this compaction, up to max
+if|if
+condition|(
+name|majorcompaction
+condition|)
+block|{
 if|if
 condition|(
 name|compactSelection
@@ -6974,6 +7117,53 @@ operator|.
 name|maxFilesToCompact
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Warning, compacting more than "
+operator|+
+name|this
+operator|.
+name|maxFilesToCompact
+operator|+
+literal|" files, probably because of a user-requested major compaction"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|priority
+operator|!=
+name|PRIORITY_USER
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Compacting more than max files on a non user-requested compaction"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|compactSelection
+operator|.
+name|getFilesToCompact
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|>
+name|this
+operator|.
+name|maxFilesToCompact
+condition|)
+block|{
+comment|// all files included in this compaction, up to max
 name|int
 name|pastMax
 init|=
@@ -6991,12 +7181,18 @@ name|maxFilesToCompact
 decl_stmt|;
 name|compactSelection
 operator|.
-name|clearSubList
+name|getFilesToCompact
+argument_list|()
+operator|.
+name|subList
 argument_list|(
 literal|0
 argument_list|,
 name|pastMax
 argument_list|)
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -9024,11 +9220,40 @@ name|heapSize
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The priority that this store should have in the compaction queue    */
 specifier|public
 name|int
 name|getCompactPriority
 parameter_list|()
+block|{
+return|return
+name|getCompactPriority
+argument_list|(
+name|NO_PRIORITY
+argument_list|)
+return|;
+block|}
+comment|/**    * @return The priority that this store should have in the compaction queue    * @param priority    */
+specifier|public
+name|int
+name|getCompactPriority
+parameter_list|(
+name|int
+name|priority
+parameter_list|)
+block|{
+comment|// If this is a user-requested compaction, leave this at the highest priority
+if|if
+condition|(
+name|priority
+operator|==
+name|PRIORITY_USER
+condition|)
+block|{
+return|return
+name|PRIORITY_USER
+return|;
+block|}
+else|else
 block|{
 return|return
 name|this
@@ -9042,6 +9267,7 @@ operator|.
 name|size
 argument_list|()
 return|;
+block|}
 block|}
 name|boolean
 name|throttleCompaction

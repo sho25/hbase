@@ -19422,6 +19422,18 @@ name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"User-triggered compaction requested for region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|compactSplitThread
 operator|.
 name|requestCompaction
@@ -19440,7 +19452,7 @@ operator|)
 operator|+
 literal|"compaction"
 argument_list|,
-name|CompactSplitThread
+name|Store
 operator|.
 name|PRIORITY_USER
 argument_list|)
