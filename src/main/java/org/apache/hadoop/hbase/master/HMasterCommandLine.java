@@ -169,6 +169,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZNodeClearer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -339,11 +353,13 @@ specifier|final
 name|String
 name|USAGE
 init|=
-literal|"Usage: Master [opts] start|stop\n"
+literal|"Usage: Master [opts] start|stop|clear\n"
 operator|+
 literal|" start  Start Master. If local mode, start Master and RegionServer in same JVM\n"
 operator|+
 literal|" stop   Start cluster shutdown; Master signals RegionServer shutdown\n"
+operator|+
+literal|" clear  Delete the master znode in ZooKeeper after a master crashes\n "
 operator|+
 literal|" where [opts] are:\n"
 operator|+
@@ -612,6 +628,34 @@ block|{
 return|return
 name|stopMaster
 argument_list|()
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+literal|"clear"
+operator|.
+name|equals
+argument_list|(
+name|command
+argument_list|)
+condition|)
+block|{
+return|return
+operator|(
+name|ZNodeClearer
+operator|.
+name|clear
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+condition|?
+literal|0
+else|:
+operator|-
+literal|1
+operator|)
 return|;
 block|}
 else|else

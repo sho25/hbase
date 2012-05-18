@@ -93,6 +93,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZNodeClearer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -560,6 +574,19 @@ argument_list|,
 name|backupZNode
 argument_list|)
 expr_stmt|;
+comment|// Save the znode in a file, this will allow to check if we crash in the launch scripts
+name|ZNodeClearer
+operator|.
+name|writeMyEphemeralNodeOnDisk
+argument_list|(
+name|this
+operator|.
+name|sn
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// We are the master, return
 name|startupStatus
 operator|.
@@ -744,6 +771,13 @@ operator|.
 name|getMasterAddressZNode
 argument_list|()
 argument_list|)
+expr_stmt|;
+comment|// We may have failed to delete the znode at the previous step, but
+comment|//  we delete the file anyway: a second attempt to delete the znode is likely to fail again.
+name|ZNodeClearer
+operator|.
+name|deleteMyEphemeralNodeOnDisk
+argument_list|()
 expr_stmt|;
 block|}
 else|else
@@ -1008,6 +1042,13 @@ operator|.
 name|getMasterAddressZNode
 argument_list|()
 argument_list|)
+expr_stmt|;
+comment|// We may have failed to delete the znode at the previous step, but
+comment|//  we delete the file anyway: a second attempt to delete the znode is likely to fail again.
+name|ZNodeClearer
+operator|.
+name|deleteMyEphemeralNodeOnDisk
+argument_list|()
 expr_stmt|;
 block|}
 block|}
