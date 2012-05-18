@@ -4186,6 +4186,17 @@ argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
+comment|// When there are more than one region server a new RS is selected as the
+comment|// destination and the same is updated in the regionplan. (HBASE-5546)
+name|getRegionPlan
+argument_list|(
+name|regionState
+argument_list|,
+name|sn
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
