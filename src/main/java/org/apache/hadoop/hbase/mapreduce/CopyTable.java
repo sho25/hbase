@@ -667,7 +667,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" starttime    beginning of the time range"
+literal|" starttime    beginning of the time range (unixtime in millis)"
 argument_list|)
 expr_stmt|;
 name|System
@@ -685,7 +685,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" endtime      end of the time range"
+literal|" endtime      end of the time range.  Ignored if no starttime specified."
 argument_list|)
 expr_stmt|;
 name|System
@@ -1210,6 +1210,21 @@ operator|=
 name|cmd
 expr_stmt|;
 block|}
+else|else
+block|{
+name|printUsage
+argument_list|(
+literal|"Invalid argument '"
+operator|+
+name|cmd
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 block|}
 if|if
 condition|(
@@ -1227,6 +1242,28 @@ argument_list|(
 literal|"At least a new table name or a "
 operator|+
 literal|"peer address must be specified"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|startTime
+operator|>
+name|endTime
+condition|)
+block|{
+name|printUsage
+argument_list|(
+literal|"Invalid time range filter: starttime="
+operator|+
+name|startTime
+operator|+
+literal|">  endtime="
+operator|+
+name|endTime
 argument_list|)
 expr_stmt|;
 return|return
