@@ -1249,7 +1249,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ClusterId
+name|ZKClusterId
 import|;
 end_import
 
@@ -3279,7 +3279,7 @@ argument_list|(
 literal|"Publishing Cluster ID in ZooKeeper"
 argument_list|)
 expr_stmt|;
-name|ClusterId
+name|ZKClusterId
 operator|.
 name|setClusterId
 argument_list|(
@@ -8306,6 +8306,9 @@ name|fileSystemManager
 operator|.
 name|getClusterId
 argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|this
 operator|.
@@ -8353,6 +8356,9 @@ return|return
 name|fileSystemManager
 operator|.
 name|getClusterId
+argument_list|()
+operator|.
+name|toString
 argument_list|()
 return|;
 block|}

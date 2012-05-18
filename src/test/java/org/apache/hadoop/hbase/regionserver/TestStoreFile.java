@@ -261,24 +261,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|Reference
-operator|.
-name|Range
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|encoding
 operator|.
 name|DataBlockEncoding
@@ -1140,9 +1122,7 @@ name|hsf
 argument_list|,
 name|midRow
 argument_list|,
-name|Range
-operator|.
-name|top
+literal|true
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -1389,9 +1369,7 @@ name|f
 argument_list|,
 name|midRow
 argument_list|,
-name|Range
-operator|.
-name|top
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// Create bottom split.
@@ -1466,9 +1444,7 @@ name|f
 argument_list|,
 name|midRow
 argument_list|,
-name|Range
-operator|.
-name|bottom
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Make readers on top and bottom.
@@ -1905,9 +1881,7 @@ name|f
 argument_list|,
 name|badmidkey
 argument_list|,
-name|Range
-operator|.
-name|top
+literal|true
 argument_list|)
 expr_stmt|;
 name|bottomPath
@@ -1926,9 +1900,7 @@ name|f
 argument_list|,
 name|badmidkey
 argument_list|,
-name|Range
-operator|.
-name|bottom
+literal|false
 argument_list|)
 expr_stmt|;
 name|top
@@ -2307,9 +2279,7 @@ name|f
 argument_list|,
 name|badmidkey
 argument_list|,
-name|Range
-operator|.
-name|top
+literal|true
 argument_list|)
 expr_stmt|;
 name|bottomPath
@@ -2328,9 +2298,7 @@ name|f
 argument_list|,
 name|badmidkey
 argument_list|,
-name|Range
-operator|.
-name|bottom
+literal|false
 argument_list|)
 expr_stmt|;
 name|top

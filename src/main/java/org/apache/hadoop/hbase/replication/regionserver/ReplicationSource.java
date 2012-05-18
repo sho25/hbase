@@ -531,7 +531,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ClusterId
+name|ZKClusterId
 import|;
 end_import
 
@@ -1053,7 +1053,7 @@ name|UUID
 operator|.
 name|fromString
 argument_list|(
-name|ClusterId
+name|ZKClusterId
 operator|.
 name|readClusterIdZNode
 argument_list|(
@@ -1409,7 +1409,7 @@ name|UUID
 operator|.
 name|fromString
 argument_list|(
-name|ClusterId
+name|ZKClusterId
 operator|.
 name|readClusterIdZNode
 argument_list|(

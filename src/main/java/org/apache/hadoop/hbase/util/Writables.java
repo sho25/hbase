@@ -53,22 +53,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|migration
-operator|.
-name|HRegionInfo090x
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|DataInputBuffer
@@ -512,7 +496,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param bytes serialized bytes    * @return A HRegionInfo instance built out of passed<code>bytes</code>.    * @throws IOException e    */
+comment|/**    * @param bytes serialized bytes    * @return A HRegionInfo instance built out of passed<code>bytes</code>.    * @throws IOException e    * @deprecated Use {@link HRegionInfo#parseFrom(byte[])}    */
 specifier|public
 specifier|static
 name|HRegionInfo
@@ -660,7 +644,7 @@ return|return
 name|hris
 return|;
 block|}
-comment|/**    * @param bytes serialized bytes    * @return A HRegionInfo instance built out of passed<code>bytes</code>    * or<code>null</code> if passed bytes are null or an empty array.    * @throws IOException e    */
+comment|/**    * @param bytes serialized bytes    * @return A HRegionInfo instance built out of passed<code>bytes</code>    * or<code>null</code> if passed bytes are null or an empty array.    * @throws IOException e    * @deprecated Use {@link HRegionInfo#parseFromOrNull(byte[])}    */
 specifier|public
 specifier|static
 name|HRegionInfo

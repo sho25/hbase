@@ -3341,9 +3341,9 @@ name|builder
 operator|.
 name|addRegion
 argument_list|(
-name|ProtobufUtil
+name|HRegionInfo
 operator|.
-name|toRegionInfo
+name|convert
 argument_list|(
 name|region
 argument_list|)
@@ -3407,9 +3407,9 @@ name|builder
 operator|.
 name|addRegion
 argument_list|(
-name|ProtobufUtil
+name|HRegionInfo
 operator|.
-name|toRegionInfo
+name|convert
 argument_list|(
 name|region
 argument_list|)

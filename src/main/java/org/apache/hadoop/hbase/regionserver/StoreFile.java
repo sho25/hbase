@@ -3615,7 +3615,7 @@ operator|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Write out a split reference.    *    * Package local so it doesnt leak out of regionserver.    *    * @param fs    * @param splitDir Presumes path format is actually    *<code>SOME_DIRECTORY/REGIONNAME/FAMILY</code>.    * @param f File to split.    * @param splitRow    * @param range    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a split reference.    *    * Package local so it doesnt leak out of regionserver.    *    * @param fs    * @param splitDir Presumes path format is actually    *<code>SOME_DIRECTORY/REGIONNAME/FAMILY</code>.    * @param f File to split.    * @param splitRow    * @param top True if we are referring to the top half of the hfile.    * @return Path to created reference.    * @throws IOException    */
 specifier|static
 name|Path
 name|split
@@ -3638,10 +3638,8 @@ index|[]
 name|splitRow
 parameter_list|,
 specifier|final
-name|Reference
-operator|.
-name|Range
-name|range
+name|boolean
+name|top
 parameter_list|)
 throws|throws
 name|IOException
@@ -3650,12 +3648,20 @@ comment|// A reference to the bottom half of the hsf store file.
 name|Reference
 name|r
 init|=
-operator|new
+name|top
+condition|?
 name|Reference
+operator|.
+name|createTopReference
 argument_list|(
 name|splitRow
-argument_list|,
-name|range
+argument_list|)
+else|:
+name|Reference
+operator|.
+name|createBottomReference
+argument_list|(
+name|splitRow
 argument_list|)
 decl_stmt|;
 comment|// Add the referred-to regions name as a dot separated suffix.

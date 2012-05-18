@@ -1422,11 +1422,14 @@ argument_list|(
 name|riPath
 argument_list|)
 decl_stmt|;
-name|hri
+name|out
 operator|.
 name|write
 argument_list|(
-name|out
+name|hri
+operator|.
+name|toDelimitedByteArray
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|out

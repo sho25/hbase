@@ -875,7 +875,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ClusterId
+name|ZKClusterId
 import|;
 end_import
 
@@ -2919,7 +2919,7 @@ name|this
 operator|.
 name|clusterId
 operator|=
-name|ClusterId
+name|ZKClusterId
 operator|.
 name|readClusterIdZNode
 argument_list|(

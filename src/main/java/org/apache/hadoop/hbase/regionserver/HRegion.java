@@ -33,6 +33,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -532,6 +542,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FSDataInputStream
 import|;
 end_import
 
@@ -3832,8 +3856,26 @@ argument_list|,
 name|REGIONINFO_FILE
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+comment|// Compose the content of the file so we can compare to length in filesystem.  If not same,
+comment|// rewrite it (it may have been written in the old format using Writables instead of pb).  The
+comment|// pb version is much shorter -- we write now w/o the toString version -- so checking length
+comment|// only should be sufficient.  I don't want to read the file every time to check if it pb
+comment|// serialized.
+name|byte
+index|[]
+name|content
+init|=
+name|getDotRegionInfoFileContent
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|boolean
+name|exists
+init|=
 name|this
 operator|.
 name|fs
@@ -3842,7 +3884,12 @@ name|exists
 argument_list|(
 name|regioninfoPath
 argument_list|)
-operator|&&
+decl_stmt|;
+name|FileStatus
+name|status
+init|=
+name|exists
+condition|?
 name|this
 operator|.
 name|fs
@@ -3851,20 +3898,33 @@ name|getFileStatus
 argument_list|(
 name|regioninfoPath
 argument_list|)
+else|:
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|status
+operator|!=
+literal|null
+operator|&&
+name|status
 operator|.
 name|getLen
 argument_list|()
-operator|>
-literal|0
+operator|==
+name|content
+operator|.
+name|length
 condition|)
 block|{
+comment|// Then assume the content good and move on.
 return|return;
 block|}
 comment|// Create in tmpdir and then move into place in case we crash after
 comment|// create but before close.  If we don't successfully close the file,
 comment|// subsequent region reopens will fail the below because create is
 comment|// registered in NN.
-comment|// first check to get the permissions
+comment|// First check to get the permissions
 name|FsPermission
 name|perms
 init|=
@@ -3881,7 +3941,7 @@ operator|.
 name|DATA_FILE_UMASK_KEY
 argument_list|)
 decl_stmt|;
-comment|// and then create the file
+comment|// And then create the file
 name|Path
 name|tmpPath
 init|=
@@ -3894,7 +3954,7 @@ argument_list|,
 name|REGIONINFO_FILE
 argument_list|)
 decl_stmt|;
-comment|// if datanode crashes or if the RS goes down just before the close is called while trying to
+comment|// If datanode crashes or if the RS goes down just before the close is called while trying to
 comment|// close the created regioninfo file in the .tmp directory then on next
 comment|// creation we will be getting AlreadyCreatedException.
 comment|// Hence delete and create the file if exists.
@@ -3938,44 +3998,15 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|write
-argument_list|(
-name|out
-argument_list|)
-expr_stmt|;
+comment|// We used to write out this file as serialized Writable followed by '\n\n' and then the
+comment|// toString of the HRegionInfo but now we just write out the pb serialized bytes so we can
+comment|// for sure tell whether the content has been pb'd or not just by looking at file length; the
+comment|// pb version will be shorter.
 name|out
 operator|.
 name|write
 argument_list|(
-literal|'\n'
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|write
-argument_list|(
-literal|'\n'
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|write
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|toString
-argument_list|()
-argument_list|)
+name|content
 argument_list|)
 expr_stmt|;
 block|}
@@ -3986,6 +4017,44 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|exists
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Rewriting .regioninfo file at "
+operator|+
+name|regioninfoPath
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|regioninfoPath
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to remove existing "
+operator|+
+name|regioninfoPath
+argument_list|)
+throw|;
+block|}
 block|}
 if|if
 condition|(
@@ -4013,6 +4082,107 @@ operator|+
 name|regioninfoPath
 argument_list|)
 throw|;
+block|}
+block|}
+comment|/**    * @param hri    * @return Content of the file we write out to the filesystem under a region    * @throws IOException     */
+specifier|private
+specifier|static
+name|byte
+index|[]
+name|getDotRegionInfoFileContent
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|hri
+operator|.
+name|toDelimitedByteArray
+argument_list|()
+return|;
+block|}
+comment|/**    * @param fs    * @param dir    * @return An HRegionInfo instance gotten from the<code>.regioninfo</code> file under region dir    * @throws IOException    */
+specifier|public
+specifier|static
+name|HRegionInfo
+name|loadDotRegionInfoFileContent
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|dir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|regioninfo
+init|=
+operator|new
+name|Path
+argument_list|(
+name|dir
+argument_list|,
+name|HRegion
+operator|.
+name|REGIONINFO_FILE
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|regioninfo
+argument_list|)
+condition|)
+throw|throw
+operator|new
+name|FileNotFoundException
+argument_list|(
+name|regioninfo
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
+name|FSDataInputStream
+name|in
+init|=
+name|fs
+operator|.
+name|open
+argument_list|(
+name|regioninfo
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+return|return
+name|HRegionInfo
+operator|.
+name|parseFrom
+argument_list|(
+name|in
+argument_list|)
+return|;
+block|}
+finally|finally
+block|{
+name|in
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|/** @return a HRegionInfo object for this region */

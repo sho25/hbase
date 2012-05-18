@@ -18084,9 +18084,9 @@ name|builder
 operator|.
 name|setRegionInfo
 argument_list|(
-name|ProtobufUtil
+name|HRegionInfo
 operator|.
-name|toRegionInfo
+name|convert
 argument_list|(
 name|info
 argument_list|)
@@ -18523,9 +18523,9 @@ block|{
 name|HRegionInfo
 name|region
 init|=
-name|ProtobufUtil
+name|HRegionInfo
 operator|.
-name|toRegionInfo
+name|convert
 argument_list|(
 name|regionInfo
 argument_list|)

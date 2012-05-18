@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ClusterId
+name|ZKClusterId
 import|;
 end_import
 
@@ -365,7 +365,7 @@ name|LeaderElector
 name|leaderElector
 decl_stmt|;
 specifier|private
-name|ClusterId
+name|ZKClusterId
 name|clusterId
 decl_stmt|;
 specifier|private
@@ -478,7 +478,7 @@ operator|.
 name|clusterId
 operator|=
 operator|new
-name|ClusterId
+name|ZKClusterId
 argument_list|(
 name|zk
 argument_list|,

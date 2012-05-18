@@ -2508,9 +2508,9 @@ name|builder
 operator|.
 name|setRegionInfo
 argument_list|(
-name|ProtobufUtil
+name|HRegionInfo
 operator|.
-name|toRegionInfo
+name|convert
 argument_list|(
 name|HRegionInfo
 operator|.
