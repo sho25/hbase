@@ -2794,6 +2794,29 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+elseif|else
+if|if
+condition|(
+name|deadServers
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+comment|// if the region is found on a dead server, we can assign
+comment|// it to a new RS. (HBASE-5882)
+name|processOpeningState
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 name|regionsInTransition
 operator|.
 name|put
