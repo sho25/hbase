@@ -79,20 +79,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HTable
@@ -884,20 +870,12 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|DoNotRetryIOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-name|e
-throw|;
-block|}
-catch|catch
-parameter_list|(
 name|IOException
 name|e
 parameter_list|)
 block|{
+comment|// try to handle all IOExceptions by restarting
+comment|// the scanner, if the second call fails, it will be rethrown
 name|LOG
 operator|.
 name|debug
