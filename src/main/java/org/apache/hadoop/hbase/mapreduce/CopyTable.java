@@ -202,18 +202,6 @@ init|=
 literal|"copytable"
 decl_stmt|;
 specifier|static
-name|String
-name|rsClass
-init|=
-literal|null
-decl_stmt|;
-specifier|static
-name|String
-name|rsImpl
-init|=
-literal|null
-decl_stmt|;
-specifier|static
 name|long
 name|startTime
 init|=
@@ -552,9 +540,9 @@ literal|null
 argument_list|,
 name|peerAddress
 argument_list|,
-name|rsClass
+literal|null
 argument_list|,
-name|rsImpl
+literal|null
 argument_list|)
 expr_stmt|;
 name|job
@@ -611,9 +599,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: CopyTable [general options] [--rs.class=CLASS] "
-operator|+
-literal|"[--rs.impl=IMPL] [--starttime=X] [--endtime=Y] "
+literal|"Usage: CopyTable [general options] [--starttime=X] [--endtime=Y] "
 operator|+
 literal|"[--new.name=NEW] [--peer.adr=ADR]<tablename>"
 argument_list|)
@@ -818,9 +804,7 @@ name|println
 argument_list|(
 literal|" $ bin/hbase "
 operator|+
-literal|"org.apache.hadoop.hbase.mapreduce.CopyTable --rs.class=org.apache.hadoop.hbase.ipc.ReplicationRegionInterface "
-operator|+
-literal|"--rs.impl=org.apache.hadoop.hbase.regionserver.replication.ReplicationRegionServer --starttime=1265875194289 --endtime=1265878794289 "
+literal|"org.apache.hadoop.hbase.mapreduce.CopyTable --starttime=1265875194289 --endtime=1265878794289 "
 operator|+
 literal|"--peer.adr=server1,server2,server3:2181:/hbase --families=myOldCf:myNewCf,cf2,cf3 TestTable "
 argument_list|)
@@ -922,66 +906,6 @@ expr_stmt|;
 return|return
 literal|false
 return|;
-block|}
-specifier|final
-name|String
-name|rsClassArgKey
-init|=
-literal|"--rs.class="
-decl_stmt|;
-if|if
-condition|(
-name|cmd
-operator|.
-name|startsWith
-argument_list|(
-name|rsClassArgKey
-argument_list|)
-condition|)
-block|{
-name|rsClass
-operator|=
-name|cmd
-operator|.
-name|substring
-argument_list|(
-name|rsClassArgKey
-operator|.
-name|length
-argument_list|()
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-specifier|final
-name|String
-name|rsImplArgKey
-init|=
-literal|"--rs.impl="
-decl_stmt|;
-if|if
-condition|(
-name|cmd
-operator|.
-name|startsWith
-argument_list|(
-name|rsImplArgKey
-argument_list|)
-condition|)
-block|{
-name|rsImpl
-operator|=
-name|cmd
-operator|.
-name|substring
-argument_list|(
-name|rsImplArgKey
-operator|.
-name|length
-argument_list|()
-argument_list|)
-expr_stmt|;
-continue|continue;
 block|}
 specifier|final
 name|String
