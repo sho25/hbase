@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|SmallTests
 import|;
 end_import
 
@@ -282,7 +282,7 @@ argument_list|)
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)

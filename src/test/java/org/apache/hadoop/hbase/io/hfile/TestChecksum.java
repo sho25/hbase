@@ -281,7 +281,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|KeyValue
 import|;
 end_import
 
@@ -295,7 +295,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|SmallTests
 import|;
 end_import
 
@@ -457,7 +457,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)

@@ -103,20 +103,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|SmallTests
 import|;
 end_import
@@ -213,7 +199,7 @@ argument_list|)
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)
@@ -417,7 +403,7 @@ block|}
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)
@@ -802,7 +788,7 @@ block|}
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)
@@ -1105,7 +1091,7 @@ block|}
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)

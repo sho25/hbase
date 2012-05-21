@@ -292,7 +292,7 @@ argument_list|)
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)
