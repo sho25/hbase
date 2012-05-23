@@ -342,6 +342,20 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|id
+return|;
+block|}
 block|}
 end_class
 
