@@ -3187,7 +3187,7 @@ return|;
 block|}
 comment|// End utilities for Client
 comment|//Start utilities for Admin
-comment|/**   * Create a protocol buffer GetRegionInfoRequest for a given region name   *   * @param regionName the name of the region to get info   * @return a protocol buffer GetRegionInfoRequest   */
+comment|/**    * Create a protocol buffer GetRegionInfoRequest for a given region name    *    * @param regionName the name of the region to get info    * @return a protocol buffer GetRegionInfoRequest    */
 specifier|public
 specifier|static
 name|GetRegionInfoRequest
@@ -3197,6 +3197,31 @@ specifier|final
 name|byte
 index|[]
 name|regionName
+parameter_list|)
+block|{
+return|return
+name|buildGetRegionInfoRequest
+argument_list|(
+name|regionName
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a protocol buffer GetRegionInfoRequest for a given region name    *    * @param regionName the name of the region to get info    * @param includeCompactionState indicate if the compaction state is requested    * @return a protocol buffer GetRegionInfoRequest    */
+specifier|public
+specifier|static
+name|GetRegionInfoRequest
+name|buildGetRegionInfoRequest
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|boolean
+name|includeCompactionState
 parameter_list|)
 block|{
 name|GetRegionInfoRequest
@@ -3228,6 +3253,19 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|includeCompactionState
+condition|)
+block|{
+name|builder
+operator|.
+name|setCompactionState
+argument_list|(
+name|includeCompactionState
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|builder
 operator|.
@@ -4629,16 +4667,6 @@ name|Builder
 name|builder
 init|=
 name|UnassignRegionRequest
-operator|.
-name|newBuilder
-argument_list|()
-decl_stmt|;
-name|RegionSpecifier
-operator|.
-name|Builder
-name|rspec
-init|=
-name|RegionSpecifier
 operator|.
 name|newBuilder
 argument_list|()
