@@ -133,7 +133,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -245,22 +245,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|TestRegionSplitCalculator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|junit
 operator|.
 name|AfterClass
@@ -309,7 +293,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 argument_list|)
