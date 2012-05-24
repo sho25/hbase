@@ -479,6 +479,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class to test HBaseAdmin.  * Spins up the minicluster once at test start and then takes it down afterward.  * Add any testing of HBaseAdmin functionality here.  */
 end_comment
@@ -10205,6 +10217,12 @@ block|{     }
 catch|catch
 parameter_list|(
 name|ZooKeeperConnectionException
+name|ignored
+parameter_list|)
+block|{     }
+catch|catch
+parameter_list|(
+name|ServiceException
 name|ignored
 parameter_list|)
 block|{     }

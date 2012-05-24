@@ -433,6 +433,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Like {@link TestSplitTransaction} in that we're testing {@link SplitTransaction}  * only the below tests are against a running cluster where {@link TestSplitTransaction}  * is tests against a bare {@link HRegion}.  */
 end_comment
@@ -649,6 +661,8 @@ throws|,
 name|KeeperException
 throws|,
 name|DeserializationException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte
@@ -1077,6 +1091,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte
@@ -1390,6 +1406,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte
@@ -1676,6 +1694,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte
@@ -2094,6 +2114,8 @@ throws|,
 name|KeeperException
 throws|,
 name|DeserializationException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte
@@ -2504,6 +2526,8 @@ throws|,
 name|NodeExistsException
 throws|,
 name|KeeperException
+throws|,
+name|ServiceException
 block|{
 specifier|final
 name|byte

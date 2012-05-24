@@ -1015,6 +1015,18 @@ name|TreeMultimap
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
 begin_comment
 comment|/**  * HBaseFsck (hbck) is a tool for checking and repairing region consistency and  * table integrity problems in a corrupted HBase.  *<p>  * Region consistency checks verify that .META., region deployment on region  * servers and the state of data in HDFS (.regioninfo files) all are in  * accordance.  *<p>  * Table integrity checks verify that all possible row keys resolve to exactly  * one region of a table.  This means there are no individual degenerate  * or backwards regions; no holes between regions; and that there are no  * overlapping regions.  *<p>  * The general repair strategy works in two phases:  *<ol>  *<li> Repair Table Integrity on HDFS. (merge or fabricate regions)  *<li> Repair Region Consistency with .META. and assignments  *</ol>  *<p>  * For table integrity repairs, the tables' region directories are scanned  * for .regioninfo files.  Each table's integrity is then verified.  If there  * are any orphan regions (regions with no .regioninfo files) or holes, new  * regions are fabricated.  Backwards regions are sidelined as well as empty  * degenerate (endkey==startkey) regions.  If there are any overlapping regions,  * a new region is created and all data is merged into the new region.  *<p>  * Table integrity repairs deal solely with HDFS and could potentially be done  * offline -- the hbase region servers or master do not need to be running.  * This phase can eventually be used to completely reconstruct the META table in  * an offline fashion.  *<p>  * Region consistency requires three conditions -- 1) valid .regioninfo file  * present in an HDFS region dir,  2) valid row with .regioninfo data in META,  * and 3) a region is deployed only at the regionserver that was assigned to  * with proper state in the master.  *<p>  * Region consistency repairs require hbase to be online so that hbck can  * contact the HBase master and region servers.  The hbck#connect() method must  * first be called successfully.  Much of the region consistency information  * is transient and less risky to repair.  *<p>  * If hbck is run from the command line, there are a handful of arguments that  * can be used to limit the kinds of repairs hbck will do.  See the code in  * {@link #printUsageAndExit()} for more details.  */
 end_comment
@@ -1932,6 +1944,8 @@ throws|,
 name|KeeperException
 throws|,
 name|InterruptedException
+throws|,
+name|ServiceException
 block|{
 comment|// print hbase server version
 name|errors
