@@ -5414,11 +5414,6 @@ if|if
 condition|(
 name|rs
 operator|.
-name|isSplitting
-argument_list|()
-operator|||
-name|rs
-operator|.
 name|isSplit
 argument_list|()
 condition|)

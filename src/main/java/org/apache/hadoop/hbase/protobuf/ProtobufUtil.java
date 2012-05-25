@@ -6956,6 +6956,15 @@ argument_list|,
 name|request
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|response
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|toResult
 argument_list|(

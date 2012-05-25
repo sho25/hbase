@@ -1510,6 +1510,12 @@ name|rit
 operator|.
 name|isPendingClose
 argument_list|()
+operator|&&
+operator|!
+name|rit
+operator|.
+name|isSplitting
+argument_list|()
 condition|)
 block|{
 comment|// Skip regions that were in transition unless CLOSING or
@@ -1581,6 +1587,58 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|rit
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|rit
+operator|.
+name|isSplitting
+argument_list|()
+operator|||
+name|rit
+operator|.
+name|isSplit
+argument_list|()
+operator|)
+condition|)
+block|{
+comment|// This will happen when the RS went down and the call back for the SPLIITING or SPLIT
+comment|// has not yet happened for node Deleted event. In that case if the region was actually
+comment|// split
+comment|// but the RS had gone down before completing the split process then will not try to
+comment|// assign the parent region again. In that case we should make the region offline and
+comment|// also delete the region from RIT.
+name|HRegionInfo
+name|region
+init|=
+name|rit
+operator|.
+name|getRegion
+argument_list|()
+decl_stmt|;
+name|AssignmentManager
+name|am
+init|=
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+decl_stmt|;
+name|am
+operator|.
+name|regionOffline
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 block|}
 comment|// If the table was partially disabled and the RS went down, we should clear the RIT
 comment|// and remove the node for the region.
