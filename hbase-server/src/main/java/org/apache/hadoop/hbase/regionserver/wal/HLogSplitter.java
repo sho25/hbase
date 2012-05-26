@@ -3031,6 +3031,46 @@ block|}
 else|else
 block|{
 name|Path
+name|regionDir
+init|=
+name|dst
+operator|.
+name|getParent
+argument_list|()
+operator|.
+name|getParent
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|regionDir
+argument_list|)
+condition|)
+block|{
+comment|// See HBASE-6050.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not move recovered edits from "
+operator|+
+name|src
+operator|+
+literal|" to destination "
+operator|+
+name|regionDir
+operator|+
+literal|" as it doesn't exist."
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+name|Path
 name|dstdir
 init|=
 name|dst
