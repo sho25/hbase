@@ -934,14 +934,7 @@ block|}
 comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Set of online servers keyed by    * {@link ServerName}    */
 name|void
 name|splitLogAfterStartup
-parameter_list|(
-specifier|final
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|onlineServers
-parameter_list|)
+parameter_list|()
 block|{
 name|boolean
 name|retrySplitting
@@ -1019,6 +1012,30 @@ name|logsDirPath
 argument_list|,
 literal|null
 argument_list|)
+decl_stmt|;
+comment|// Get online servers after getting log folders to avoid log folder deletion of newly
+comment|// checked in region servers . see HBASE-5916
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+init|=
+operator|(
+operator|(
+name|HMaster
+operator|)
+name|master
+operator|)
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|getOnlineServers
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
 decl_stmt|;
 if|if
 condition|(

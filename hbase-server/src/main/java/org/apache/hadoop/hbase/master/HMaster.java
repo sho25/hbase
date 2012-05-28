@@ -3666,27 +3666,6 @@ operator|.
 name|startTimeOutMonitor
 argument_list|()
 expr_stmt|;
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|onlineServers
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
-argument_list|(
-name|serverManager
-operator|.
-name|getOnlineServers
-argument_list|()
-operator|.
-name|keySet
-argument_list|()
-argument_list|)
-decl_stmt|;
 comment|// TODO: Should do this in background rather than block master startup
 name|status
 operator|.
@@ -3700,8 +3679,6 @@ argument_list|(
 name|this
 operator|.
 name|fileSystemManager
-argument_list|,
-name|onlineServers
 argument_list|)
 expr_stmt|;
 comment|// Make sure root and meta assigned before proceeding.
@@ -3768,9 +3745,7 @@ operator|.
 name|assignmentManager
 operator|.
 name|joinCluster
-argument_list|(
-name|onlineServers
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -3849,6 +3824,16 @@ name|initialized
 operator|=
 literal|true
 expr_stmt|;
+comment|// clear the dead servers with same host name and port of online server because we are not
+comment|// removing dead server with same hostname and port of rs which is trying to check in before
+comment|// master initialization. See HBASE-5916.
+name|this
+operator|.
+name|serverManager
+operator|.
+name|clearDeadServersWithSameHostNameAndPortOfOnlineServer
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3924,20 +3909,12 @@ parameter_list|(
 specifier|final
 name|MasterFileSystem
 name|mfs
-parameter_list|,
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|onlineServers
 parameter_list|)
 block|{
 name|mfs
 operator|.
 name|splitLogAfterStartup
-argument_list|(
-name|onlineServers
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 end_function

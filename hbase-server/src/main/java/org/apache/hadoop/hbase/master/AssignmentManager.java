@@ -1816,14 +1816,7 @@ block|}
 comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @param onlineServers onlined servers when master started    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 name|void
 name|joinCluster
-parameter_list|(
-specifier|final
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|onlineServers
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 throws|,
@@ -1856,9 +1849,7 @@ argument_list|>
 name|deadServers
 init|=
 name|rebuildUserRegions
-argument_list|(
-name|onlineServers
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// This method will assign all user regions if a clean server startup or
 comment|// it will reconstitute master state and cleanup any leftovers from
@@ -1887,29 +1878,6 @@ operator|.
 name|enablingTables
 argument_list|,
 name|isWatcherCreated
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Only used for tests    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
-name|void
-name|joinCluster
-parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|KeeperException
-throws|,
-name|InterruptedException
-block|{
-name|joinCluster
-argument_list|(
-name|serverManager
-operator|.
-name|getOnlineServers
-argument_list|()
-operator|.
-name|keySet
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -11259,14 +11227,7 @@ argument_list|>
 argument_list|>
 argument_list|>
 name|rebuildUserRegions
-parameter_list|(
-specifier|final
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|onlineServers
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 throws|,
@@ -11287,6 +11248,21 @@ name|this
 operator|.
 name|catalogTracker
 argument_list|)
+decl_stmt|;
+comment|// Get any new but slow to checkin region server that joined the cluster
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|onlineServers
+init|=
+name|serverManager
+operator|.
+name|getOnlineServers
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
 decl_stmt|;
 comment|// Map of offline servers and their regions to be returned
 name|Map
@@ -12223,6 +12199,19 @@ operator|==
 literal|null
 condition|)
 return|return;
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|actualDeadServers
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getDeadServers
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -12249,6 +12238,23 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+comment|// skip regions of dead servers because SSH will process regions during rs expiration.
+comment|// see HBASE-5916
+if|if
+condition|(
+name|actualDeadServers
+operator|.
+name|contains
+argument_list|(
+name|deadServer
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 name|List
 argument_list|<
 name|Pair
