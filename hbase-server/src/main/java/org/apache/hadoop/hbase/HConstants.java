@@ -1679,6 +1679,21 @@ name|LOAD_BALANCER_SLOP_KEY
 init|=
 literal|"hbase.regions.slop"
 decl_stmt|;
+comment|/**    * The byte array represents for NO_NEXT_INDEXED_KEY;    * The actual value is irrelevant because this is always compared by reference.    */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|NO_NEXT_INDEXED_KEY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"NO_NEXT_INDEXED_KEY"
+argument_list|)
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

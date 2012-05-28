@@ -2313,6 +2313,7 @@ comment|// higher-level API function.s
 name|boolean
 name|locateBlockResult
 init|=
+operator|(
 name|BlockIndexReader
 operator|.
 name|locateNonRootIndexEntry
@@ -2335,6 +2336,10 @@ name|Bytes
 operator|.
 name|BYTES_RAWCOMPARATOR
 argument_list|)
+operator|!=
+operator|-
+literal|1
+operator|)
 decl_stmt|;
 if|if
 condition|(
