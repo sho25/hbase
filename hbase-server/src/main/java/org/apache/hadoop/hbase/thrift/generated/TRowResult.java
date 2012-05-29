@@ -2617,7 +2617,7 @@ comment|// required
 name|TCell
 name|_val11
 decl_stmt|;
-comment|// required
+comment|// optional
 name|_key10
 operator|=
 name|iprot
