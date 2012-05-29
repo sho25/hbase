@@ -609,6 +609,9 @@ comment|/**    * Types to add to the transaction journal.    * Each enum is a st
 enum|enum
 name|JournalEntry
 block|{
+comment|/**      * Before creating node in splitting state.      */
+name|STARTED_SPLITTING
+block|,
 comment|/**      * Set region as in transition, set it into SPLITTING state.      */
 name|SET_SPLITTING_IN_ZK
 block|,
@@ -1073,6 +1076,17 @@ argument_list|,
 name|this
 operator|.
 name|fileSplitTimeout
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|journal
+operator|.
+name|add
+argument_list|(
+name|JournalEntry
+operator|.
+name|STARTED_SPLITTING
 argument_list|)
 expr_stmt|;
 comment|// Set ephemeral SPLITTING znode up in zk.  Mocked servers sometimes don't
@@ -3339,6 +3353,39 @@ name|je
 condition|)
 block|{
 case|case
+name|STARTED_SPLITTING
+case|:
+if|if
+condition|(
+name|server
+operator|!=
+literal|null
+operator|&&
+name|server
+operator|.
+name|getZooKeeper
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|cleanZK
+argument_list|(
+name|server
+argument_list|,
+name|this
+operator|.
+name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+case|case
 name|SET_SPLITTING_IN_ZK
 case|:
 if|if
@@ -3365,6 +3412,8 @@ name|parent
 operator|.
 name|getRegionInfo
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -3695,6 +3744,9 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|hri
+parameter_list|,
+name|boolean
+name|abort
 parameter_list|)
 block|{
 try|try
@@ -3723,6 +3775,35 @@ block|}
 catch|catch
 parameter_list|(
 name|KeeperException
+operator|.
+name|NoNodeException
+name|nn
+parameter_list|)
+block|{
+if|if
+condition|(
+name|abort
+condition|)
+block|{
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Failed cleanup of "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|nn
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
 name|e
 parameter_list|)
 block|{
@@ -3743,8 +3824,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Creates a new ephemeral node in the SPLITTING state for the specified region.    * Create it ephemeral in case regionserver dies mid-split.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return Version of znode created.    * @throws KeeperException     * @throws IOException     */
-specifier|private
-specifier|static
 name|int
 name|createNodeSplitting
 parameter_list|(
@@ -3930,8 +4009,7 @@ name|payload
 argument_list|)
 return|;
 block|}
-specifier|private
-specifier|static
+comment|/**    *     * @param zkw zk reference    * @param parent region to be transitioned to splitting    * @param serverName server event originates from    * @param version znode version    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException    * @throws IOException    */
 name|int
 name|transitionNodeSplitting
 parameter_list|(
