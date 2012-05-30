@@ -4872,7 +4872,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Convert the current {@link HTableDescriptor} into a pb TableSchema instance.    */
-specifier|public
 name|TableSchema
 name|convert
 parameter_list|()
@@ -5009,7 +5008,6 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @param ts A pb TableSchema instance.    * @return An {@link HTableDescriptor} made from the passed in pb<code>ts</code>.    */
-specifier|public
 specifier|static
 name|HTableDescriptor
 name|convert
