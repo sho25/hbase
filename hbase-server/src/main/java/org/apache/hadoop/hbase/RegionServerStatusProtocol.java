@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|ipc
 package|;
 end_package
 
