@@ -576,7 +576,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attemping to enable the table "
+literal|"Attempting to enable the table "
 operator|+
 name|this
 operator|.
@@ -774,11 +774,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Table has "
+literal|"Table '"
+operator|+
+name|this
+operator|.
+name|tableNameStr
+operator|+
+literal|"' has "
 operator|+
 name|countOfRegionsInTable
 operator|+
-literal|" regions of which "
+literal|" regions, of which "
 operator|+
 name|regionsCount
 operator|+
@@ -826,7 +832,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Enable was interrupted"
+literal|"Enable operation was interrupted when enabling table '"
+operator|+
+name|this
+operator|.
+name|tableNameStr
+operator|+
+literal|"'"
 argument_list|)
 expr_stmt|;
 comment|// Preserve the interrupt.
@@ -839,11 +851,12 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Flip the table to enabled.
 if|if
 condition|(
 name|done
 condition|)
+block|{
+comment|// Flip the table to enabled.
 name|this
 operator|.
 name|assignmentManager
@@ -862,11 +875,36 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Enabled table is done="
+literal|"Table '"
+operator|+
+name|this
+operator|.
+name|tableNameStr
+operator|+
+literal|"' was successfully enabled. Status: done="
 operator|+
 name|done
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Table '"
+operator|+
+name|this
+operator|.
+name|tableNameStr
+operator|+
+literal|"' wasn't successfully enabled. Status: done="
+operator|+
+name|done
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @param regionsInMeta This datastructure is edited by this method.    * @return The<code>regionsInMeta</code> list minus the regions that have    * been onlined; i.e. List of regions that need onlining.    * @throws IOException    */
 specifier|private

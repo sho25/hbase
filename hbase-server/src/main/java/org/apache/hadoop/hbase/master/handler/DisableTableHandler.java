@@ -567,7 +567,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attemping to disable table "
+literal|"Attempting to disable table "
 operator|+
 name|this
 operator|.

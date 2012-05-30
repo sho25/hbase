@@ -779,7 +779,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attemping to create the table "
+literal|"Attempting to create the table "
 operator|+
 name|tableName
 argument_list|)
