@@ -10824,6 +10824,15 @@ operator|.
 name|rpcTimeout
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Connected to master at "
+operator|+
+name|isa
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -10938,15 +10947,6 @@ parameter_list|)
 block|{         }
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Connected to master at "
-operator|+
-name|isa
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|hbaseMaster
