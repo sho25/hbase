@@ -1147,6 +1147,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return the on-disk size of the block with header size included. This    * includes the header, the data and the checksum data.    */
+specifier|public
 name|int
 name|getOnDiskSizeWithHeader
 parameter_list|()

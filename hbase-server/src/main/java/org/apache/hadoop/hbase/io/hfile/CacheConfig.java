@@ -401,6 +401,8 @@ operator|.
 name|isInMemory
 argument_list|()
 argument_list|,
+comment|// For the following flags we enable them regardless of per-schema settings
+comment|// if they are enabled in the global configuration.
 name|conf
 operator|.
 name|getBoolean
@@ -409,6 +411,11 @@ name|CACHE_BLOCKS_ON_WRITE_KEY
 argument_list|,
 name|DEFAULT_CACHE_DATA_ON_WRITE
 argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldCacheDataOnWrite
+argument_list|()
 argument_list|,
 name|conf
 operator|.
@@ -418,6 +425,11 @@ name|CACHE_INDEX_BLOCKS_ON_WRITE_KEY
 argument_list|,
 name|DEFAULT_CACHE_INDEXES_ON_WRITE
 argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldCacheIndexesOnWrite
+argument_list|()
 argument_list|,
 name|conf
 operator|.
@@ -427,6 +439,11 @@ name|CACHE_BLOOM_BLOCKS_ON_WRITE_KEY
 argument_list|,
 name|DEFAULT_CACHE_BLOOMS_ON_WRITE
 argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldCacheBloomsOnWrite
+argument_list|()
 argument_list|,
 name|conf
 operator|.
@@ -436,6 +453,11 @@ name|EVICT_BLOCKS_ON_CLOSE_KEY
 argument_list|,
 name|DEFAULT_EVICT_ON_CLOSE
 argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldEvictBlocksOnClose
+argument_list|()
 argument_list|,
 name|conf
 operator|.
