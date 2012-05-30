@@ -1780,7 +1780,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process a dead region from a dead RS.  Checks if the region is disabled    * or if the region has a partially completed split.    * @param hri    * @param result    * @param assignmentManager    * @param catalogTracker    * @return Returns true if specified region should be assigned, false if not.    * @throws IOException    */
+comment|/**    * Process a dead region from a dead RS. Checks if the region is disabled or    * disabling or if the region has a partially completed split.    * @param hri    * @param result    * @param assignmentManager    * @param catalogTracker    * @return Returns true if specified region should be assigned, false if not.    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -1936,6 +1936,50 @@ argument_list|,
 name|assignmentManager
 argument_list|,
 name|catalogTracker
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+name|boolean
+name|disabling
+init|=
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|isDisablingTable
+argument_list|(
+name|hri
+operator|.
+name|getTableNameAsString
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|disabling
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The table "
+operator|+
+name|hri
+operator|.
+name|getTableNameAsString
+argument_list|()
+operator|+
+literal|" is disabled.  Hence not assigning region"
+operator|+
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
