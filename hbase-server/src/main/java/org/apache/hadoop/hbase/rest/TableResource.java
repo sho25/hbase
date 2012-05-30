@@ -328,6 +328,15 @@ literal|"v"
 argument_list|)
 name|String
 name|versions
+parameter_list|,
+specifier|final
+annotation|@
+name|QueryParam
+argument_list|(
+literal|"check"
+argument_list|)
+name|String
+name|check
 parameter_list|)
 throws|throws
 name|IOException
@@ -341,6 +350,8 @@ argument_list|,
 name|rowspec
 argument_list|,
 name|versions
+argument_list|,
+name|check
 argument_list|)
 return|;
 block|}
