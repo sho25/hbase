@@ -207,17 +207,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|yammer
 operator|.
 name|metrics
 operator|.
-name|histogram
+name|stats
 operator|.
 name|Snapshot
 import|;
