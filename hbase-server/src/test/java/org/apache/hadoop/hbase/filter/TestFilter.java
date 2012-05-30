@@ -79,16 +79,6 @@ end_import
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -301,11 +291,77 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -338,8 +394,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestFilter
-extends|extends
-name|HBaseTestCase
 block|{
 specifier|private
 specifier|final
@@ -359,6 +413,16 @@ decl_stmt|;
 specifier|private
 name|HRegion
 name|region
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|HBaseTestingUtility
+name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 decl_stmt|;
 comment|//
 comment|// Rows, Qualifiers, and Values are in two groups, One and Two.
@@ -784,26 +848,22 @@ name|QUALIFIERS_ONE
 operator|.
 name|length
 decl_stmt|;
-specifier|protected
+annotation|@
+name|Before
+specifier|public
 name|void
 name|setUp
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|getName
-argument_list|()
+literal|"TestFilter"
 argument_list|)
 decl_stmt|;
 name|htd
@@ -932,13 +992,15 @@ name|createHRegion
 argument_list|(
 name|info
 argument_list|,
-name|this
+name|TEST_UTIL
 operator|.
-name|testDir
+name|getDataTestDir
+argument_list|()
 argument_list|,
-name|this
+name|TEST_UTIL
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 argument_list|,
 name|htd
 argument_list|)
@@ -1454,7 +1516,9 @@ operator|-=
 literal|2
 expr_stmt|;
 block|}
-specifier|protected
+annotation|@
+name|After
+specifier|public
 name|void
 name|tearDown
 parameter_list|()
@@ -1479,12 +1543,9 @@ operator|.
 name|closeAndDelete
 argument_list|()
 expr_stmt|;
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRegionScannerReseek
@@ -1902,6 +1963,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testNoFilter
@@ -1970,6 +2033,8 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPrefixFilter
@@ -2027,6 +2092,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPageFilter
@@ -3157,6 +3224,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRow()} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRow
@@ -3244,8 +3313,6 @@ operator|>=
 name|pageSize
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"The WhileMatchFilter should now filter all remaining"
@@ -3266,8 +3333,6 @@ block|{
 break|break;
 block|}
 block|}
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|"The page filter returned more rows than expected"
@@ -3279,6 +3344,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRowKey(byte[], int, int)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRowKey
@@ -3390,8 +3457,6 @@ name|prefix
 argument_list|)
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"The WhileMatchFilter should now filter all remaining"
@@ -3414,6 +3479,8 @@ block|}
 block|}
 block|}
 comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.KeyValue)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterKeyValue
@@ -3507,8 +3574,6 @@ argument_list|(
 name|values
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"The WhileMatchFilter should now filter all remaining"
@@ -3529,6 +3594,8 @@ break|break;
 block|}
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testInclusiveStopFilter
@@ -3732,6 +3799,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testQualifierFilter
@@ -5523,6 +5592,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFamilyFilter
@@ -6886,6 +6957,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRowFilter
@@ -8399,6 +8472,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testValueFilter
@@ -9413,6 +9488,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSkipFilter
@@ -9913,6 +9990,8 @@ expr_stmt|;
 block|}
 comment|// TODO: This is important... need many more tests for ordering, etc
 comment|// There are limited tests elsewhere but we need HRegion level ones here
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterList
@@ -10170,6 +10249,8 @@ name|colsPerRow
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFirstKeyOnlyFilter
@@ -10352,6 +10433,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterListWithSingleColumnValueFilter
@@ -11457,6 +11540,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSingleColumnValueFilter
@@ -13564,6 +13649,8 @@ name|idx
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testColumnPaginationFilter
@@ -14353,6 +14440,8 @@ name|expectedKVs4
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testKeyOnlyFilter

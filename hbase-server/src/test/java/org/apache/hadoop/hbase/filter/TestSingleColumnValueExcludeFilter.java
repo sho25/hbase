@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -95,6 +85,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -103,8 +103,20 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|*
+import|;
+end_import
+
 begin_comment
-comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *  * @author ferdy  *  */
+comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *  */
 end_comment
 
 begin_class
@@ -118,8 +130,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestSingleColumnValueExcludeFilter
-extends|extends
-name|TestCase
 block|{
 specifier|private
 specifier|static
@@ -206,6 +216,8 @@ literal|"ab"
 argument_list|)
 decl_stmt|;
 comment|/**    * Test the overridden functionality of filterKeyValue(KeyValue)    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterKeyValue

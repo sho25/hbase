@@ -59,16 +59,6 @@ end_import
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -87,11 +77,33 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|*
 import|;
 end_import
 
@@ -110,8 +122,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestPageFilter
-extends|extends
-name|TestCase
 block|{
 specifier|static
 specifier|final
@@ -121,6 +131,8 @@ init|=
 literal|3
 decl_stmt|;
 comment|/**    * test page size filter    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPageSize
@@ -144,6 +156,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test filter serialization    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSerialization

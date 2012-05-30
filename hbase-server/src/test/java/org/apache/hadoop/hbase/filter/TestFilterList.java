@@ -118,12 +118,50 @@ import|;
 end_import
 
 begin_import
-import|import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
-name|framework
+name|Assert
 operator|.
-name|TestCase
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
 import|;
 end_import
 
@@ -195,6 +233,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -218,8 +266,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestFilterList
-extends|extends
-name|TestCase
 block|{
 specifier|static
 specifier|final
@@ -267,6 +313,8 @@ literal|"def"
 argument_list|)
 decl_stmt|;
 comment|/**    * Test "must pass one"    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMPONE
@@ -635,6 +683,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test "must pass all"    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMPALL
@@ -874,6 +924,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test list ordering    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testOrdering
@@ -1227,6 +1279,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Test serialization    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSerialization
@@ -1362,6 +1416,8 @@ expr_stmt|;
 comment|// TODO: Run TESTS!!!
 block|}
 comment|/**    * Test pass-thru of hints.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testHintPassThru

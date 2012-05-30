@@ -103,11 +103,21 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
 name|junit
 operator|.
-name|framework
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|TestCase
+name|junit
+operator|.
+name|Test
 import|;
 end_import
 
@@ -122,6 +132,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -140,8 +162,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestColumnPaginationFilter
-extends|extends
-name|TestCase
 block|{
 specifier|private
 specifier|static
@@ -204,19 +224,14 @@ name|Filter
 name|columnPaginationFilter
 decl_stmt|;
 annotation|@
-name|Override
-specifier|protected
+name|Before
+specifier|public
 name|void
 name|setUp
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|columnPaginationFilter
 operator|=
 name|getColumnPaginationFilter
@@ -362,6 +377,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Tests serialization      * @throws Exception      */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSerialization
