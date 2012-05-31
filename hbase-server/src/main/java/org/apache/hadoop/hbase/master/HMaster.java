@@ -3914,7 +3914,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Override to change master's splitLogAfterStartup. Used testing    * @param mfs    * @param onlineServers    */
+comment|/**    * Override to change master's splitLogAfterStartup. Used testing    * @param mfs    */
 end_comment
 
 begin_function

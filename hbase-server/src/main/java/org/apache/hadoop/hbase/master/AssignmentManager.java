@@ -1933,7 +1933,7 @@ name|assignmentZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @param onlineServers onlined servers when master started    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 name|void
 name|joinCluster
 parameter_list|()
@@ -2093,6 +2093,13 @@ return|return;
 block|}
 comment|// Run through all regions.  If they are not assigned and not in RIT, then
 comment|// its a clean cluster startup, else its a failover.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
 for|for
 control|(
 name|Map
@@ -2192,6 +2199,7 @@ operator|=
 literal|true
 expr_stmt|;
 break|break;
+block|}
 block|}
 block|}
 comment|// Remove regions in RIT, they are possibly being processed by
@@ -11329,7 +11337,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @param onlineServers if one region's location belongs to onlineServers, it    *          doesn't need to be assigned.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
+comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
 name|Map
 argument_list|<
 name|ServerName
@@ -11771,6 +11779,13 @@ name|regionInfo
 argument_list|)
 condition|)
 block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
 name|regions
 operator|.
 name|put
@@ -11787,6 +11802,7 @@ argument_list|,
 name|regionInfo
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|disablingOrEnabling
 operator|=
@@ -15081,13 +15097,6 @@ name|void
 name|unassignCatalogRegions
 parameter_list|()
 block|{
-name|this
-operator|.
-name|servers
-operator|.
-name|entrySet
-argument_list|()
-expr_stmt|;
 synchronized|synchronized
 init|(
 name|this

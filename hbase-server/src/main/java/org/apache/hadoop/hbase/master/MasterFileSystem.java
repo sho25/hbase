@@ -931,7 +931,7 @@ return|return
 name|clusterId
 return|;
 block|}
-comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Set of online servers keyed by    * {@link ServerName}    */
+comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    */
 name|void
 name|splitLogAfterStartup
 parameter_list|()
