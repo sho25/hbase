@@ -37,7 +37,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|master
+operator|.
+name|HMaster
 import|;
 end_import
 
@@ -87,7 +89,7 @@ block|{
 name|String
 name|className
 init|=
-name|HConstants
+name|HMaster
 operator|.
 name|class
 operator|.
