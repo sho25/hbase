@@ -811,17 +811,14 @@ argument_list|,
 name|compactionKVMax
 argument_list|)
 expr_stmt|;
+comment|// Create the writer even if no kv(Empty store file is also ok),
+comment|// because we need record the max seq id for the store file, see
+comment|// HBASE-6059
 if|if
 condition|(
 name|writer
 operator|==
 literal|null
-operator|&&
-operator|!
-name|kvs
-operator|.
-name|isEmpty
-argument_list|()
 condition|)
 block|{
 name|writer

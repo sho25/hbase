@@ -2961,26 +2961,33 @@ name|cleanupTmpDir
 argument_list|()
 expr_stmt|;
 comment|// Load in all the HStores.
-comment|// Get minimum of the maxSeqId across all the store.
 comment|//
 comment|// Context: During replay we want to ensure that we do not lose any data. So, we
 comment|// have to be conservative in how we replay logs. For each store, we calculate
-comment|// the maxSeqId up to which the store was flushed. But, since different stores
-comment|// could have a different maxSeqId, we choose the
-comment|// minimum across all the stores.
-comment|// This could potentially result in duplication of data for stores that are ahead
-comment|// of others. ColumnTrackers in the ScanQueryMatchers do the de-duplication, so we
-comment|// do not have to worry.
-comment|// TODO: If there is a store that was never flushed in a long time, we could replay
-comment|// a lot of data. Currently, this is not a problem because we flush all the stores at
-comment|// the same time. If we move to per-cf flushing, we might want to revisit this and send
-comment|// in a vector of maxSeqIds instead of sending in a single number, which has to be the
-comment|// min across all the max.
-name|long
-name|minSeqId
+comment|// the maxSeqId up to which the store was flushed. And, skip the edits which
+comment|// is equal to or lower than maxSeqId for each store.
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|maxSeqIdInStores
 init|=
-operator|-
-literal|1
+operator|new
+name|TreeMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|long
 name|maxSeqId
@@ -3164,23 +3171,21 @@ operator|.
 name|getMaxSequenceId
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|minSeqId
-operator|==
-operator|-
-literal|1
-operator|||
+name|maxSeqIdInStores
+operator|.
+name|put
+argument_list|(
+name|store
+operator|.
+name|getColumnFamilyName
+argument_list|()
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
 name|storeSeqId
-operator|<
-name|minSeqId
-condition|)
-block|{
-name|minSeqId
-operator|=
-name|storeSeqId
+argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|maxSeqId
@@ -3284,7 +3289,7 @@ name|this
 operator|.
 name|regiondir
 argument_list|,
-name|minSeqId
+name|maxSeqIdInStores
 argument_list|,
 name|reporter
 argument_list|,
@@ -11700,7 +11705,7 @@ operator|.
 name|memstoreFlushSize
 return|;
 block|}
-comment|/**    * Read the edits log put under this region by wal log splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any log message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such log messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * HLog sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/hlog sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver log with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param regiondir    * @param minSeqId Any edit found in split editlogs needs to be in excess of    * this minSeqId to be applied, else its skipped.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
+comment|/**    * Read the edits log put under this region by wal log splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any log message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such log messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * HLog sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/hlog sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver log with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param regiondir    * @param maxSeqIdInStores Any edit found in split editlogs needs to be in excess of    * the maxSeqId for the store to be applied, else its skipped.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
 specifier|protected
 name|long
 name|replayRecoveredEditsIfAny
@@ -11709,9 +11714,14 @@ specifier|final
 name|Path
 name|regiondir
 parameter_list|,
-specifier|final
-name|long
-name|minSeqId
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|maxSeqIdInStores
 parameter_list|,
 specifier|final
 name|CancelableProgressable
@@ -11727,9 +11737,44 @@ throws|,
 name|IOException
 block|{
 name|long
+name|minSeqIdForTheRegion
+init|=
+operator|-
+literal|1
+decl_stmt|;
+for|for
+control|(
+name|Long
+name|maxSeqIdInStore
+range|:
+name|maxSeqIdInStores
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|maxSeqIdInStore
+operator|<
+name|minSeqIdForTheRegion
+operator|||
+name|minSeqIdForTheRegion
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|minSeqIdForTheRegion
+operator|=
+name|maxSeqIdInStore
+expr_stmt|;
+block|}
+block|}
+name|long
 name|seqid
 init|=
-name|minSeqId
+name|minSeqIdForTheRegion
 decl_stmt|;
 name|NavigableSet
 argument_list|<
@@ -11843,7 +11888,7 @@ if|if
 condition|(
 name|maxSeqId
 operator|<=
-name|minSeqId
+name|minSeqIdForTheRegion
 condition|)
 block|{
 name|String
@@ -11855,7 +11900,7 @@ name|maxSeqId
 operator|+
 literal|" and minimum sequenceid for the region is "
 operator|+
-name|minSeqId
+name|minSeqIdForTheRegion
 operator|+
 literal|", skipped the whole file, path="
 operator|+
@@ -11878,7 +11923,7 @@ name|replayRecoveredEdits
 argument_list|(
 name|edits
 argument_list|,
-name|seqid
+name|maxSeqIdInStores
 argument_list|,
 name|reporter
 argument_list|)
@@ -11973,7 +12018,7 @@ if|if
 condition|(
 name|seqid
 operator|>
-name|minSeqId
+name|minSeqIdForTheRegion
 condition|)
 block|{
 comment|// Then we added some edits to memory. Flush and cleanup split edit files.
@@ -12038,7 +12083,7 @@ return|return
 name|seqid
 return|;
 block|}
-comment|/*    * @param edits File of recovered edits.    * @param minSeqId Minimum sequenceid found in a store file.  Edits in log    * must be larger than this to be replayed.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws IOException    */
+comment|/*    * @param edits File of recovered edits.    * @param maxSeqIdInStores Maximum sequenceid found in each store.  Edits in log    * must be larger than this to be replayed for each store.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws IOException    */
 specifier|private
 name|long
 name|replayRecoveredEdits
@@ -12047,9 +12092,14 @@ specifier|final
 name|Path
 name|edits
 parameter_list|,
-specifier|final
-name|long
-name|minSeqId
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|maxSeqIdInStores
 parameter_list|,
 specifier|final
 name|CancelableProgressable
@@ -12062,14 +12112,6 @@ name|String
 name|msg
 init|=
 literal|"Replaying edits from "
-operator|+
-name|edits
-operator|+
-literal|"; minSequenceid="
-operator|+
-name|minSeqId
-operator|+
-literal|"; path="
 operator|+
 name|edits
 decl_stmt|;
@@ -12127,7 +12169,8 @@ expr_stmt|;
 name|long
 name|currentEditSeqId
 init|=
-name|minSeqId
+operator|-
+literal|1
 decl_stmt|;
 name|long
 name|firstSeqIdInLog
@@ -12404,29 +12447,6 @@ name|getLogSeqNum
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Now, figure if we should skip this edit.
-if|if
-condition|(
-name|key
-operator|.
-name|getLogSeqNum
-argument_list|()
-operator|<=
-name|currentEditSeqId
-condition|)
-block|{
-name|skippedEdits
-operator|++
-expr_stmt|;
-continue|continue;
-block|}
-name|currentEditSeqId
-operator|=
-name|key
-operator|.
-name|getLogSeqNum
-argument_list|()
-expr_stmt|;
 name|boolean
 name|flush
 init|=
@@ -12540,6 +12560,40 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
+comment|// Now, figure if we should skip this edit.
+if|if
+condition|(
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+operator|<=
+name|maxSeqIdInStores
+operator|.
+name|get
+argument_list|(
+name|store
+operator|.
+name|getFamily
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|skippedEdits
+operator|++
+expr_stmt|;
+continue|continue;
+block|}
+name|currentEditSeqId
+operator|=
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+expr_stmt|;
 comment|// Once we are over the limit, restoreEdit will keep returning true to
 comment|// flush -- but don't flush until we've played all the kvs that make up
 comment|// the WALEdit.

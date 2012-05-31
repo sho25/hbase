@@ -1397,9 +1397,18 @@ operator|.
 name|requestCompaction
 argument_list|()
 decl_stmt|;
+comment|// the first is expired normally.
+comment|// If not the first compaction, there is another empty store file,
 name|assertEquals
 argument_list|(
-literal|1
+name|Math
+operator|.
+name|min
+argument_list|(
+name|i
+argument_list|,
+literal|2
+argument_list|)
 argument_list|,
 name|cr
 operator|.
@@ -1410,6 +1419,27 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|int
+name|j
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|cr
+operator|.
+name|getFiles
+argument_list|()
+operator|.
+name|size
+argument_list|()
+condition|;
+name|j
+operator|++
+control|)
+block|{
 name|assertTrue
 argument_list|(
 name|cr
@@ -1419,7 +1449,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|0
+name|j
 argument_list|)
 operator|.
 name|getReader
@@ -1445,7 +1475,11 @@ argument_list|()
 operator|)
 argument_list|)
 expr_stmt|;
-comment|// Verify that the expired the store has been deleted.
+block|}
+comment|// Verify that the expired store file is compacted to an empty store file.
+name|StoreFile
+name|compactedFile
+init|=
 name|this
 operator|.
 name|store
@@ -1454,21 +1488,18 @@ name|compact
 argument_list|(
 name|cr
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+comment|// It is an empty store file.
 name|assertEquals
 argument_list|(
-name|storeFileNum
-operator|-
-name|i
+literal|0
 argument_list|,
-name|this
+name|compactedFile
 operator|.
-name|store
-operator|.
-name|getStorefiles
+name|getReader
 argument_list|()
 operator|.
-name|size
+name|getEntries
 argument_list|()
 argument_list|)
 expr_stmt|;

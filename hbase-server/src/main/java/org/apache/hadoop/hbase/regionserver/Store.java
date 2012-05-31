@@ -8038,6 +8038,29 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|r
+operator|.
+name|getEntries
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"StoreFile "
+operator|+
+name|f
+operator|+
+literal|" is a empty store file"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// TODO: Cache these keys rather than make each time?
 name|byte
 index|[]
