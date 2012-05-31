@@ -207,18 +207,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentSkipListMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|ConcurrentSkipListSet
 import|;
 end_import
@@ -260,6 +248,34 @@ operator|.
 name|atomic
 operator|.
 name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|Lock
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
 import|;
 end_import
 
@@ -809,6 +825,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|KeyLocker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -1095,6 +1127,21 @@ specifier|private
 name|LoadBalancer
 name|balancer
 decl_stmt|;
+specifier|final
+specifier|private
+name|KeyLocker
+argument_list|<
+name|String
+argument_list|>
+name|locker
+init|=
+operator|new
+name|KeyLocker
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|/**    * Map of regions to reopen after the schema of a table is changed. Key -    * encoded region name, value - HRegionInfo    */
 specifier|private
 specifier|final
@@ -1114,7 +1161,7 @@ name|maximumAssignmentAttempts
 decl_stmt|;
 comment|/**    * Regions currently in transition.  Map of encoded region names to the master    * in-memory state for that region.    */
 specifier|final
-name|ConcurrentSkipListMap
+name|NotifiableConcurrentSkipListMap
 argument_list|<
 name|String
 argument_list|,
@@ -1123,7 +1170,7 @@ argument_list|>
 name|regionsInTransition
 init|=
 operator|new
-name|ConcurrentSkipListMap
+name|NotifiableConcurrentSkipListMap
 argument_list|<
 name|String
 argument_list|,
@@ -1170,9 +1217,7 @@ name|HashSet
 argument_list|<
 name|String
 argument_list|>
-argument_list|(
-literal|1
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// store all the enabling state tablenames.
 name|Set
@@ -1186,9 +1231,7 @@ name|HashSet
 argument_list|<
 name|String
 argument_list|>
-argument_list|(
-literal|1
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|/**    * Server to regions assignment map.    * Contains the set of regions currently assigned to a given server.    * This Map and {@link #regions} are tied.  Always update this in tandem    * with the other under a lock on {@link #regions}.    * @see #regions    */
 specifier|private
@@ -1816,6 +1859,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+comment|// no lock concurrent access ok: sequential consistency respected.
 if|if
 condition|(
 name|regionsToReopen
@@ -2152,11 +2196,7 @@ block|}
 block|}
 comment|// Remove regions in RIT, they are possibly being processed by
 comment|// ServerShutdownHandler.
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent access ok: some threads may be adding/removing items but its java-valid
 name|nodes
 operator|.
 name|removeAll
@@ -2167,7 +2207,6 @@ name|keySet
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// If we found user regions out on cluster, its a failover.
 if|if
 condition|(
@@ -2277,13 +2316,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
 while|while
 condition|(
 operator|!
@@ -2294,6 +2326,7 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
+comment|// no lock concurrent access ok: sequentially consistent
 name|this
 operator|.
 name|regionsInTransition
@@ -2307,17 +2340,17 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// We expect a notify, but by security we set a timout
+comment|// We put a timeout because we may have the region getting in just between the test
+comment|//  and the waitForUpdate
 name|this
 operator|.
 name|regionsInTransition
 operator|.
-name|wait
+name|waitForUpdate
 argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|intransistion
@@ -2547,10 +2580,21 @@ operator|+
 name|et
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
+comment|// We need a lock here to ensure that we will not put the same region twice
+comment|// It has no reason to be a lock shared with the other operations.
+comment|// We can do the lock on the region only, instead of a global lock: what we want to ensure
+comment|// is that we don't have two threads working on the same region.
+name|Lock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedRegionName
+argument_list|)
+decl_stmt|;
+try|try
 block|{
 name|RegionState
 name|regionState
@@ -3051,8 +3095,16 @@ argument_list|)
 throw|;
 block|}
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * Put the region<code>hri</code> into an offline state up in zk.    * @param hri    * @param oldRt    * @throws KeeperException    */
+block|}
+comment|/**    * Put the region<code>hri</code> into an offline state up in zk.    *    * You need to have lock on the region before calling this method.    *    * @param hri    * @param oldRt    * @throws KeeperException    */
 specifier|private
 name|void
 name|forceOffline
@@ -3143,6 +3195,9 @@ name|RegionTransition
 name|oldData
 parameter_list|)
 block|{
+comment|// No lock concurrency: adding a synchronized here would not prevent to have two
+comment|//  entries as we don't check if the region is already there. This must be ensured by the
+comment|//  method callers.
 name|this
 operator|.
 name|regionsInTransition
@@ -3230,15 +3285,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-operator|!
-name|regionsToReopen
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
 name|regionsToReopen
 operator|.
 name|remove
@@ -3259,7 +3305,6 @@ argument_list|(
 literal|"Removed region from reopening regions because it was closed"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * @param regionInfo    * @param deadServers Map of deadServers and the regions they were carrying;    * can be null.    * @return True if the passed regionInfo in the passed map of deadServers?    */
@@ -3373,11 +3418,6 @@ parameter_list|,
 name|int
 name|expectedVersion
 parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
 block|{
 name|HRegionInfo
 name|hri
@@ -3535,6 +3575,19 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// We need a lock on the region as we could update it
+name|Lock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
 comment|// Printing if the event was created a long time ago helps debugging
 name|boolean
 name|lateEvent
@@ -3549,6 +3602,16 @@ argument_list|()
 operator|-
 literal|15000
 operator|)
+decl_stmt|;
+name|RegionState
+name|regionState
+init|=
+name|regionsInTransition
+operator|.
+name|get
+argument_list|(
+name|encodedName
+argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
@@ -3584,18 +3647,12 @@ literal|", which is more than 15 seconds late"
 else|:
 literal|""
 operator|)
+operator|+
+literal|", current state from RIT="
+operator|+
+name|regionState
 argument_list|)
 expr_stmt|;
-name|RegionState
-name|regionState
-init|=
-name|regionsInTransition
-operator|.
-name|get
-argument_list|(
-name|encodedName
-argument_list|)
-decl_stmt|;
 switch|switch
 condition|(
 name|rt
@@ -4584,6 +4641,14 @@ argument_list|)
 throw|;
 block|}
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Checks whether the callback came while RIT was not yet populated during    * master failover.    * @param regionState    * @param encodedName    * @param data    * @return hri    */
 specifier|private
@@ -5425,6 +5490,8 @@ argument_list|,
 name|path
 argument_list|)
 decl_stmt|;
+comment|// no lock concurrency ok: sequentially consistent if someone adds/removes the region in
+comment|//  the same time
 name|RegionState
 name|rs
 init|=
@@ -5660,16 +5727,7 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
-name|RegionState
-name|rs
-init|=
+comment|// no lock concurrency ok.
 name|this
 operator|.
 name|regionsInTransition
@@ -5681,23 +5739,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|rs
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|regionsInTransition
-operator|.
-name|notifyAll
-argument_list|()
 expr_stmt|;
-block|}
-block|}
 synchronized|synchronized
 init|(
 name|this
@@ -5844,26 +5886,29 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
+if|if
+condition|(
+name|sn
+operator|==
+literal|null
+condition|)
+return|return;
 comment|// This loop could be expensive.
 comment|// First make a copy of current regionPlan rather than hold sync while
 comment|// looping because holding sync can cause deadlock.  Its ok in this loop
 comment|// if the Map we're going against is a little stale
+name|List
+argument_list|<
 name|Map
+operator|.
+name|Entry
 argument_list|<
 name|String
 argument_list|,
 name|RegionPlan
 argument_list|>
-name|copy
-init|=
-operator|new
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|RegionPlan
 argument_list|>
-argument_list|()
+name|rps
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -5872,13 +5917,25 @@ operator|.
 name|regionPlans
 init|)
 block|{
-name|copy
+name|rps
+operator|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Map
 operator|.
-name|putAll
+name|Entry
+argument_list|<
+name|String
+argument_list|,
+name|RegionPlan
+argument_list|>
+argument_list|>
 argument_list|(
-name|this
-operator|.
 name|regionPlans
+operator|.
+name|entrySet
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5894,10 +5951,7 @@ name|RegionPlan
 argument_list|>
 name|e
 range|:
-name|copy
-operator|.
-name|entrySet
-argument_list|()
+name|rps
 control|)
 block|{
 if|if
@@ -5906,51 +5960,33 @@ name|e
 operator|.
 name|getValue
 argument_list|()
-operator|==
+operator|!=
 literal|null
-operator|||
+operator|&&
 name|e
 operator|.
-name|getValue
+name|getKey
 argument_list|()
-operator|.
-name|getDestination
-argument_list|()
-operator|==
+operator|!=
 literal|null
-condition|)
-continue|continue;
-if|if
-condition|(
-operator|!
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|getDestination
-argument_list|()
+operator|&&
+name|sn
 operator|.
 name|equals
 argument_list|(
-name|sn
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getDestination
+argument_list|()
 argument_list|)
 condition|)
-continue|continue;
+block|{
 name|RegionState
 name|rs
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
-name|rs
-operator|=
 name|this
 operator|.
 name|regionsInTransition
@@ -5962,20 +5998,23 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|rs
-operator|==
+operator|!=
 literal|null
 condition|)
-continue|continue;
+block|{
+comment|// no lock concurrency ok: there is a write when we update the timestamp but it's ok
+comment|//  as it's an AtomicLong
 name|rs
 operator|.
 name|updateTimestampToNow
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 comment|/**    * Marks the region as offline.  Removes it from regions in transition and    * removes in-memory assignment information.    *<p>    * Used when a region has been closed and should remain closed.    * @param regionInfo    */
@@ -5988,15 +6027,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
-if|if
-condition|(
+comment|// no lock concurrency ok
 name|this
 operator|.
 name|regionsInTransition
@@ -6008,19 +6039,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|regionsInTransition
-operator|.
-name|notifyAll
-argument_list|()
 expr_stmt|;
-block|}
-block|}
 comment|// remove the region plan as well just in case.
 name|clearRegionPlan
 argument_list|(
@@ -6415,13 +6434,6 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
 for|for
 control|(
 name|HRegionInfo
@@ -6441,7 +6453,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 comment|// Add region plans, so we can updateTimers when one region is opened so
 comment|// that unnecessary timeout on RIT is reduced.
 name|Map
@@ -6459,7 +6470,12 @@ name|String
 argument_list|,
 name|RegionPlan
 argument_list|>
+argument_list|(
+name|regions
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -7483,11 +7499,6 @@ name|boolean
 name|hijack
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
 return|return
 name|forceRegionStateToOffline
 argument_list|(
@@ -7497,8 +7508,7 @@ name|hijack
 argument_list|)
 return|;
 block|}
-block|}
-comment|/**    * Sets regions {@link RegionState} to {@link RegionState.State#OFFLINE}.    * Caller must hold lock on this.regionsInTransition.    * @param region    * @return Amended RegionState.    */
+comment|/**    * Sets regions {@link RegionState} to {@link RegionState.State#OFFLINE}.    * @param region    * @return Amended RegionState.    */
 specifier|private
 name|RegionState
 name|forceRegionStateToOffline
@@ -7517,7 +7527,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Sets regions {@link RegionState} to {@link RegionState.State#OFFLINE}.    * Caller must hold lock on this.regionsInTransition.    * @param region    * @param hijack    * @return Amended RegionState.    */
+comment|/**    * Sets regions {@link RegionState} to {@link RegionState.State#OFFLINE}.    * @param region    * @param hijack    * @return Amended RegionState.    */
 specifier|private
 name|RegionState
 name|forceRegionStateToOffline
@@ -7538,6 +7548,18 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+name|Lock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
 name|RegionState
 name|state
 init|=
@@ -7621,6 +7643,15 @@ block|}
 return|return
 name|state
 return|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Caller must hold lock on the passed<code>state</code> object.    * @param state    * @param setOfflineInZK    * @param forceNewPlan    * @param hijack    */
 specifier|private
@@ -7965,13 +7996,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent ok -> sequentially consistent
 name|this
 operator|.
 name|regionsInTransition
@@ -7987,7 +8012,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 synchronized|synchronized
 init|(
 name|this
@@ -9177,10 +9201,19 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
+comment|// We need a lock here as we're going to do a put later and we don't want multiple states
+comment|//  creation
+name|ReentrantLock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+try|try
 block|{
 name|state
 operator|=
@@ -9487,6 +9520,14 @@ expr_stmt|;
 return|return;
 block|}
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Send CLOSE RPC
 name|ServerName
 name|server
@@ -9519,10 +9560,16 @@ literal|null
 condition|)
 block|{
 comment|// Possibility of disable flow removing from RIT.
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
+name|lock
+operator|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedName
+argument_list|)
+expr_stmt|;
+try|try
 block|{
 name|state
 operator|=
@@ -9541,6 +9588,8 @@ literal|null
 condition|)
 block|{
 comment|// remove only if the state is PENDING_CLOSE or CLOSING
+name|RegionState
+operator|.
 name|State
 name|presentState
 init|=
@@ -9553,12 +9602,16 @@ if|if
 condition|(
 name|presentState
 operator|==
+name|RegionState
+operator|.
 name|State
 operator|.
 name|PENDING_CLOSE
 operator|||
 name|presentState
 operator|==
+name|RegionState
+operator|.
 name|State
 operator|.
 name|CLOSING
@@ -9575,6 +9628,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 comment|// delete the node. if no node exists need not bother.
 name|deleteClosingOrClosedNode
@@ -9706,13 +9767,6 @@ operator|+
 literal|" was offlined but the table was in DISABLING state"
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
 name|this
 operator|.
 name|regionsInTransition
@@ -9725,7 +9779,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Remove from the regionsMap
 synchronized|synchronized
 init|(
@@ -10782,6 +10835,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**      *      * @param timeout How long to wait.      * @return true if done.      */
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|waitUntilDone
@@ -11097,33 +11153,19 @@ comment|// are regions in transition immediately after this returns but guarante
 comment|// that if it returns without an exception that there was a period of time
 comment|// with no regions in transition from the point-of-view of the in-memory
 comment|// state of the Master.
+specifier|final
 name|long
-name|startTime
+name|endTime
 init|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
-name|long
-name|remaining
-init|=
+operator|+
 name|timeout
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
 while|while
 condition|(
-name|regionsInTransition
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-operator|&&
 operator|!
 name|this
 operator|.
@@ -11132,32 +11174,27 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
-name|remaining
-operator|>
-literal|0
-condition|)
-block|{
+operator|!
 name|regionsInTransition
 operator|.
-name|wait
-argument_list|(
-name|remaining
-argument_list|)
-expr_stmt|;
-name|remaining
-operator|=
-name|timeout
-operator|-
-operator|(
+name|isEmpty
+argument_list|()
+operator|&&
+name|endTime
+operator|>
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-operator|-
-name|startTime
-operator|)
+condition|)
+block|{
+name|regionsInTransition
+operator|.
+name|waitForUpdate
+argument_list|(
+literal|100
+argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|regionsInTransition
@@ -11166,7 +11203,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/**    * Wait until no regions from set regions are in transition.    * @param timeout How long to wait.    * @param regions set of regions to wait for    * @return True if nothing in regions in transition.    * @throws InterruptedException    */
+comment|/**    * Wait until no regions from set regions are in transition.    * @param timeout How long to wait.    * @param regions set of regions to wait for. It will be modified by this method.    * @return True if none of the regions in the set is in transition    * @throws InterruptedException    */
 name|boolean
 name|waitUntilNoRegionsInTransition
 parameter_list|(
@@ -11183,38 +11220,25 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-comment|// Blocks until there are no regions in transition.
+specifier|final
 name|long
-name|startTime
+name|endTime
 init|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
-name|long
-name|remaining
-init|=
+operator|+
 name|timeout
 decl_stmt|;
-name|boolean
-name|stillInTransition
-init|=
-literal|true
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
+comment|// We're not synchronizing on regionsInTransition now because we don't use any iterator.
 while|while
 condition|(
-name|regionsInTransition
+operator|!
+name|regions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 operator|&&
 operator|!
 name|this
@@ -11224,85 +11248,85 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
-name|remaining
+name|endTime
 operator|>
-literal|0
-operator|&&
-name|stillInTransition
-condition|)
-block|{
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
-for|for
-control|(
-name|RegionState
-name|rs
-range|:
-name|regionsInTransition
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|regions
-operator|.
-name|contains
-argument_list|(
-name|rs
-operator|.
-name|getRegion
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|count
-operator|++
-expr_stmt|;
-break|break;
-block|}
-block|}
-if|if
-condition|(
-name|count
-operator|==
-literal|0
-condition|)
-block|{
-name|stillInTransition
-operator|=
-literal|false
-expr_stmt|;
-break|break;
-block|}
-name|regionsInTransition
-operator|.
-name|wait
-argument_list|(
-name|remaining
-argument_list|)
-expr_stmt|;
-name|remaining
-operator|=
-name|timeout
-operator|-
-operator|(
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-operator|-
-name|startTime
-operator|)
+condition|)
+block|{
+name|Iterator
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionInfoIterator
+init|=
+name|regions
+operator|.
+name|iterator
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|regionInfoIterator
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
+name|HRegionInfo
+name|hri
+init|=
+name|regionInfoIterator
+operator|.
+name|next
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|regionsInTransition
+operator|.
+name|containsKey
+argument_list|(
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|regionInfoIterator
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|regions
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|regionsInTransition
+operator|.
+name|waitForUpdate
+argument_list|(
+literal|100
+argument_list|)
 expr_stmt|;
 block|}
 block|}
 return|return
-name|stillInTransition
+name|regions
+operator|.
+name|isEmpty
+argument_list|()
 return|;
 block|}
 comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @param onlineServers if one region's location belongs to onlineServers, it    *          doesn't need to be assigned.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
@@ -12696,31 +12720,29 @@ name|String
 argument_list|,
 name|RegionState
 argument_list|>
-name|getRegionsInTransition
+name|copyRegionsInTransition
 parameter_list|()
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent access ok
 return|return
-operator|new
-name|TreeMap
+name|regionsInTransition
+operator|.
+name|copyMap
+argument_list|()
+return|;
+block|}
+name|NotifiableConcurrentSkipListMap
 argument_list|<
 name|String
 argument_list|,
 name|RegionState
 argument_list|>
-argument_list|(
-name|this
-operator|.
+name|getRegionsInTransition
+parameter_list|()
+block|{
+return|return
 name|regionsInTransition
-argument_list|)
 return|;
-block|}
 block|}
 comment|/**    * Set Regions in transitions metrics.    * This takes an iterator on the RegionInTransition map (CLSM), and is not synchronized.    * This iterator is not fail fast, wich may lead to stale read; but that's better than    * creating a copy of the map for metrics computation, as this method will be invoked    * on a frequent interval.    */
 specifier|public
@@ -12786,7 +12808,7 @@ name|this
 operator|.
 name|regionsInTransition
 operator|.
-name|entrySet
+name|copyEntrySet
 argument_list|()
 control|)
 block|{
@@ -12875,23 +12897,19 @@ name|boolean
 name|isRegionsInTransition
 parameter_list|()
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent access ok: we could imagine that someone is currently going to remove
+comment|//  it or add a region, but it's sequentially consistent.
 return|return
 operator|!
+operator|(
 name|this
 operator|.
 name|regionsInTransition
 operator|.
 name|isEmpty
 argument_list|()
+operator|)
 return|;
-block|}
 block|}
 comment|/**    * @param hri Region to check.    * @return Returns null if passed region is not in transition else the current    * RegionState    */
 specifier|public
@@ -12903,13 +12921,8 @@ name|HRegionInfo
 name|hri
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent access ok: we could imagine that someone is currently going to remove
+comment|//  it or add it, but it's sequentially consistent.
 return|return
 name|this
 operator|.
@@ -12923,7 +12936,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 return|;
-block|}
 block|}
 comment|/**    * @param region Region whose plan we are to clear.    */
 name|void
@@ -13397,11 +13409,6 @@ operator|.
 name|isEmpty
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
 comment|// Iterate all regions in transition checking for time outs
 name|long
 name|now
@@ -13411,6 +13418,8 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+comment|// no lock concurrent access ok: we will be working on a copy, and it's java-valid to do
+comment|//  a copy while another thread is adding/removing items
 for|for
 control|(
 name|RegionState
@@ -13418,7 +13427,7 @@ name|regionState
 range|:
 name|regionsInTransition
 operator|.
-name|values
+name|copyValues
 argument_list|()
 control|)
 block|{
@@ -13432,34 +13441,24 @@ operator|+
 name|timeout
 operator|<=
 name|now
-condition|)
-block|{
-comment|//decide on action upon timeout
-name|actOnTimeOut
-argument_list|(
-name|regionState
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
+operator|||
+operator|(
 name|this
 operator|.
 name|allRegionServersOffline
 operator|&&
 operator|!
 name|noRSAvailable
+operator|)
 condition|)
 block|{
-comment|// if some RSs just came back online, we can start the
-comment|// the assignment right away
+comment|//decide on action upon timeout or, if some RSs just came back online, we can start the
+comment|// the assignment
 name|actOnTimeOut
 argument_list|(
 name|regionState
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 name|setAllRegionServersOffline
@@ -14348,11 +14347,8 @@ block|}
 comment|// See if any of the regions that were online on this server were in RIT
 comment|// If they are, normal timeouts will deal with them appropriately so
 comment|// let's skip a manual re-assignment.
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
+comment|// no lock concurrent access ok: we will be working on a copy, and it's java-valid to do
+comment|//  a copy while another thread is adding/removing items
 for|for
 control|(
 name|RegionState
@@ -14362,7 +14358,7 @@ name|this
 operator|.
 name|regionsInTransition
 operator|.
-name|values
+name|copyValues
 argument_list|()
 control|)
 block|{
@@ -14386,7 +14382,6 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 return|return

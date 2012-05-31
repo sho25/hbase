@@ -583,6 +583,26 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Standup the master and fake it to test various aspects of master function.  * Does NOT spin up a mini hbase nor mini dfs cluster testing master (it does  * put up a zk cluster but this is usually pretty fast compared).  Also, should  * be possible to inject faults at points difficult to get at in cluster context.  * TODO: Speed up the zk connection by Master.  It pauses 5 seconds establishing  * session.  */
 end_comment
@@ -599,6 +619,20 @@ specifier|public
 class|class
 name|TestMasterNoCluster
 block|{
+specifier|private
+specifier|static
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|TestMasterNoCluster
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1517,6 +1551,24 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.wait.on.regionservers.mintostart"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.wait.on.regionservers.maxtostart"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 specifier|final
 name|long
 name|now
@@ -1764,6 +1816,13 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master has started"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 comment|// Wait till master is up ready for RPCs.
@@ -1780,6 +1839,13 @@ operator|.
 name|sleep
 argument_list|(
 literal|10
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"RpcServerOpen has started"
 argument_list|)
 expr_stmt|;
 comment|// Fake master that there is a regionserver out there.  Report in.
@@ -1911,6 +1977,8 @@ name|Mocking
 operator|.
 name|fakeRegionServerRegionOpenInZK
 argument_list|(
+name|master
+argument_list|,
 name|rs0
 operator|.
 name|getZooKeeper
@@ -1924,6 +1992,13 @@ argument_list|,
 name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"fakeRegionServerRegionOpenInZK has started"
 argument_list|)
 expr_stmt|;
 comment|// Need to set root location as r1.  Usually the regionserver does this
@@ -1951,6 +2026,8 @@ name|Mocking
 operator|.
 name|fakeRegionServerRegionOpenInZK
 argument_list|(
+name|master
+argument_list|,
 name|rs0
 operator|.
 name|getZooKeeper

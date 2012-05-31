@@ -977,7 +977,6 @@ expr_stmt|;
 comment|// We can wait for all regions to be onlines, that makes log reading easier when debugging
 while|while
 condition|(
-operator|!
 name|TEST_UTIL
 operator|.
 name|getMiniHBaseCluster
@@ -989,10 +988,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|getRegionsInTransition
-argument_list|()
-operator|.
-name|isEmpty
+name|isRegionsInTransition
 argument_list|()
 condition|)
 block|{     }

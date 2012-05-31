@@ -1595,33 +1595,18 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
 name|Mocking
 operator|.
-name|verifyRegionState
+name|waitForRegionPendingOpenInRIT
 argument_list|(
-name|this
-operator|.
-name|watcher
+name|am
 argument_list|,
 name|REGIONINFO
-argument_list|,
-name|EventType
 operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Get current versionid else will fail on transition from OFFLINE to
 comment|// OPENING below
 name|versionid
@@ -1854,33 +1839,18 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
 name|Mocking
 operator|.
-name|verifyRegionState
+name|waitForRegionPendingOpenInRIT
 argument_list|(
-name|this
-operator|.
-name|watcher
+name|am
 argument_list|,
 name|REGIONINFO
-argument_list|,
-name|EventType
 operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Get current versionid else will fail on transition from OFFLINE to
 comment|// OPENING below
 name|versionid
@@ -2095,33 +2065,18 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
 name|Mocking
 operator|.
-name|verifyRegionState
+name|waitForRegionPendingOpenInRIT
 argument_list|(
-name|this
-operator|.
-name|watcher
+name|am
 argument_list|,
 name|REGIONINFO
-argument_list|,
-name|EventType
 operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|am
 operator|.
 name|gate
@@ -2304,6 +2259,8 @@ throws|,
 name|KeeperException
 throws|,
 name|DeserializationException
+throws|,
+name|InterruptedException
 block|{
 comment|// Create and startup an executor.  This is used by AssignmentManager
 comment|// handling zk callbacks.
@@ -2447,33 +2404,18 @@ comment|// assign will go to open the region in the new location set by the
 comment|// balancer.  The zk node will be OFFLINE waiting for regionserver to
 comment|// transition it through OPENING, OPENED.  Wait till we see the OFFLINE
 comment|// zk node before we proceed.
-while|while
-condition|(
-operator|!
 name|Mocking
 operator|.
-name|verifyRegionState
+name|waitForRegionPendingOpenInRIT
 argument_list|(
-name|this
-operator|.
-name|watcher
+name|am
 argument_list|,
 name|REGIONINFO
-argument_list|,
-name|EventType
 operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Get current versionid else will fail on transition from OFFLINE to OPENING below
 name|versionid
 operator|=
@@ -4074,8 +4016,6 @@ name|ServiceException
 throws|,
 name|InterruptedException
 block|{
-try|try
-block|{
 name|this
 operator|.
 name|server
@@ -4112,6 +4052,8 @@ operator|.
 name|serverManager
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 comment|// Boolean variable used for waiting until randomAssignment is called and
 comment|// new
 comment|// plan is generated.
@@ -4412,7 +4354,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Destnation servers should be different."
+literal|"Destination servers should be different."
 argument_list|,
 operator|!
 operator|(
@@ -4429,6 +4371,18 @@ name|getDestination
 argument_list|()
 argument_list|)
 operator|)
+argument_list|)
+expr_stmt|;
+name|Mocking
+operator|.
+name|waitForRegionPendingOpenInRIT
+argument_list|(
+name|am
+argument_list|,
+name|REGIONINFO
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4455,6 +4409,19 @@ name|LoadBalancer
 operator|.
 name|class
 argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getExecutorService
+argument_list|()
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+name|am
+operator|.
+name|shutdown
+argument_list|()
 expr_stmt|;
 block|}
 block|}

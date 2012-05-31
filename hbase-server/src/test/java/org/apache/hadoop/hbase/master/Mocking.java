@@ -423,7 +423,7 @@ name|kvs
 argument_list|)
 return|;
 block|}
-comment|/**    * @param sn    *          ServerName to use making startcode and server in meta    * @param hri    *          Region to serialize into HRegionInfo    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * @param sn  ServerName to use making startcode and server in meta    * @param hri Region to serialize into HRegionInfo    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
 specifier|static
 name|Result
 name|getMetaTableRowResultAsSplitRegion
@@ -462,11 +462,87 @@ name|sn
 argument_list|)
 return|;
 block|}
+specifier|static
+name|void
+name|waitForRegionPendingOpenInRIT
+parameter_list|(
+name|AssignmentManager
+name|am
+parameter_list|,
+name|String
+name|encodedName
+parameter_list|)
+throws|throws
+name|InterruptedException
+block|{
+comment|// We used to do a check like this:
+comment|//!Mocking.verifyRegionState(this.watcher, REGIONINFO, EventType.M_ZK_REGION_OFFLINE)) {
+comment|// There is a race condition with this: because we may do the transition to
+comment|// RS_ZK_REGION_OPENING before the RIT is internally updated. We need to wait for the
+comment|// RIT to be as we need it to be instead. This cannot happen in a real cluster as we
+comment|// update the RIT before sending the openRegion request.
+name|boolean
+name|wait
+init|=
+literal|true
+decl_stmt|;
+while|while
+condition|(
+name|wait
+condition|)
+block|{
+name|AssignmentManager
+operator|.
+name|RegionState
+name|state
+init|=
+name|am
+operator|.
+name|getRegionsInTransition
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|state
+operator|!=
+literal|null
+operator|&&
+name|state
+operator|.
+name|isPendingOpen
+argument_list|()
+condition|)
+block|{
+name|wait
+operator|=
+literal|false
+expr_stmt|;
+block|}
+else|else
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 comment|/**    * Fakes the regionserver-side zk transitions of a region open.    * @param w ZooKeeperWatcher to use.    * @param sn Name of the regionserver doing the 'opening'    * @param hri Region we're 'opening'.    * @throws KeeperException    * @throws DeserializationException     */
 specifier|static
 name|void
 name|fakeRegionServerRegionOpenInZK
 parameter_list|(
+name|HMaster
+name|master
+parameter_list|,
 specifier|final
 name|ZooKeeperWatcher
 name|w
@@ -483,31 +559,23 @@ throws|throws
 name|KeeperException
 throws|,
 name|DeserializationException
+throws|,
+name|InterruptedException
 block|{
-comment|// Wait till we see the OFFLINE zk node before we proceed.
-while|while
-condition|(
-operator|!
-name|verifyRegionState
+comment|// Wait till the we region is ready to be open in RIT.
+name|waitForRegionPendingOpenInRIT
 argument_list|(
-name|w
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
 argument_list|,
 name|hri
-argument_list|,
-name|EventType
 operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Get current versionid else will fail on transition from OFFLINE to OPENING below
 name|int
 name|versionid

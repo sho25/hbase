@@ -4272,7 +4272,7 @@ name|transRegions
 init|=
 name|mgr
 operator|.
-name|getRegionsInTransition
+name|copyRegionsInTransition
 argument_list|()
 operator|.
 name|values

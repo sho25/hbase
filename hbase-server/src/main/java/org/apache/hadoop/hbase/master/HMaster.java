@@ -8691,7 +8691,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|getRegionsInTransition
+name|copyRegionsInTransition
 argument_list|()
 argument_list|,
 name|this

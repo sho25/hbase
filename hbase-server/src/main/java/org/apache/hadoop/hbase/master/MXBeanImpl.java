@@ -445,7 +445,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|getRegionsInTransition
+name|copyRegionsInTransition
 argument_list|()
 operator|.
 name|entrySet
