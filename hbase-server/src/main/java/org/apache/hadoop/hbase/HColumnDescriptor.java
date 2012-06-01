@@ -4406,6 +4406,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param cfs    * @return An {@link HColumnDescriptor} made from the passed in<code>cfs</code>    */
+specifier|public
 specifier|static
 name|HColumnDescriptor
 name|convert
@@ -4477,6 +4478,7 @@ name|hcd
 return|;
 block|}
 comment|/**    * @return Convert this instance to a the pb column family type    */
+specifier|public
 name|ColumnFamilySchema
 name|convert
 parameter_list|()

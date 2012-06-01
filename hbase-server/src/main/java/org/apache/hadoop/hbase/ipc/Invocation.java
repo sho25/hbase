@@ -494,6 +494,15 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|PROTOBUF_PROTOCOLS
+operator|.
+name|add
+argument_list|(
+name|HMasterInterface
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 specifier|static

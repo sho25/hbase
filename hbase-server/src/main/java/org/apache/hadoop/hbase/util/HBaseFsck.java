@@ -5917,9 +5917,6 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|getMaster
-argument_list|()
-operator|.
 name|offline
 argument_list|(
 name|regionName
