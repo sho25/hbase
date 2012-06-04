@@ -1714,12 +1714,13 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|String
 name|MERGEDIR
 init|=
-literal|"merges"
+literal|".merges"
 decl_stmt|;
 specifier|final
 name|AtomicBoolean

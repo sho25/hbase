@@ -565,7 +565,7 @@ specifier|final
 name|String
 name|SPLITDIR
 init|=
-literal|"splits"
+literal|".splits"
 decl_stmt|;
 comment|/*    * Region to split    */
 specifier|private
