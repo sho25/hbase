@@ -2037,7 +2037,7 @@ name|m
 operator|=
 name|cls
 operator|.
-name|getDeclaredMethod
+name|getMethod
 argument_list|(
 literal|"getDefaultBlockSize"
 argument_list|,
@@ -2054,13 +2054,6 @@ name|class
 block|}
 block|)
 empty_stmt|;
-name|m
-operator|.
-name|setAccessible
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
