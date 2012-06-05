@@ -1908,6 +1908,8 @@ operator|.
 name|fatal
 argument_list|(
 literal|"Cannot run ThriftServer"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 comment|// Crash the process if the ThriftServer is not running
