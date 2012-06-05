@@ -3216,6 +3216,8 @@ block|{
 name|finishInitialization
 argument_list|(
 name|startupStatus
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|loop
@@ -3885,7 +3887,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of root and meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Finish initialization of HMaster after becoming the primary master.    *     *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of root and meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *     * @param masterRecovery    *     * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 end_comment
 
 begin_function
@@ -3895,6 +3897,9 @@ name|finishInitialization
 parameter_list|(
 name|MonitoredTask
 name|status
+parameter_list|,
+name|boolean
+name|masterRecovery
 parameter_list|)
 throws|throws
 name|IOException
@@ -3937,6 +3942,8 @@ argument_list|,
 name|this
 argument_list|,
 name|metrics
+argument_list|,
+name|masterRecovery
 argument_list|)
 expr_stmt|;
 name|this
@@ -3983,6 +3990,12 @@ name|getClusterId
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
 name|this
 operator|.
 name|executorService
@@ -4008,6 +4021,7 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+block|}
 name|status
 operator|.
 name|setStatus
@@ -4018,6 +4032,12 @@ expr_stmt|;
 name|initializeZKBasedSystemTrackers
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
 comment|// initialize master side coprocessors before we start handling requests
 name|status
 operator|.
@@ -4051,6 +4071,7 @@ expr_stmt|;
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Wait for region servers to report in.
 name|this
 operator|.
@@ -4115,6 +4136,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -4122,6 +4149,7 @@ operator|.
 name|startTimeOutMonitor
 argument_list|()
 expr_stmt|;
+block|}
 comment|// TODO: Should do this in background rather than block master startup
 name|status
 operator|.
@@ -4226,6 +4254,12 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
 comment|// Start balancer and meta catalog janitor after meta and regions have
 comment|// been assigned.
 name|status
@@ -4262,6 +4296,7 @@ expr_stmt|;
 name|registerMBean
 argument_list|()
 expr_stmt|;
+block|}
 name|status
 operator|.
 name|markComplete
@@ -4290,6 +4325,12 @@ operator|.
 name|clearDeadServersWithSameHostNameAndPortOfOnlineServer
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
 if|if
 condition|(
 name|this
@@ -4325,6 +4366,7 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -9909,22 +9951,20 @@ operator|.
 name|FALSE
 return|;
 block|}
-name|initializeZKBasedSystemTrackers
-argument_list|()
+name|serverShutdownHandlerEnabled
+operator|=
+literal|false
 expr_stmt|;
-comment|// Update in-memory structures to reflect our earlier Root/Meta assignment.
-name|assignRootAndMeta
+name|initialized
+operator|=
+literal|false
+expr_stmt|;
+name|finishInitialization
 argument_list|(
 name|status
+argument_list|,
+literal|true
 argument_list|)
-expr_stmt|;
-comment|// process RIT if any
-comment|// TODO: Why does this not call AssignmentManager.joinCluster?  Otherwise
-comment|// we are not processing dead servers if any.
-name|assignmentManager
-operator|.
-name|processDeadServersAndRegionsInTransition
-argument_list|()
 expr_stmt|;
 return|return
 name|Boolean

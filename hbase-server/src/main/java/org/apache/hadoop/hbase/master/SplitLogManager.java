@@ -1103,7 +1103,16 @@ block|}
 specifier|public
 name|void
 name|finishInitialization
-parameter_list|()
+parameter_list|(
+name|boolean
+name|masterRecovery
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
 block|{
 name|Threads
 operator|.
@@ -1119,6 +1128,7 @@ operator|+
 literal|".splitLogManagerTimeoutMonitor"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Watcher can be null during tests with Mock'd servers.
 if|if
 condition|(
@@ -5931,6 +5941,25 @@ return|;
 block|}
 end_expr_stmt
 
-unit|} }
+begin_comment
+unit|}
+comment|/**    * Completes the initialization    */
+end_comment
+
+begin_function
+unit|public
+name|void
+name|finishInitialization
+parameter_list|()
+block|{
+name|finishInitialization
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+unit|}
 end_unit
 

@@ -592,6 +592,9 @@ name|services
 parameter_list|,
 name|MasterMetrics
 name|metrics
+parameter_list|,
+name|boolean
+name|masterRecovery
 parameter_list|)
 throws|throws
 name|IOException
@@ -736,7 +739,9 @@ operator|.
 name|splitLogManager
 operator|.
 name|finishInitialization
-argument_list|()
+argument_list|(
+name|masterRecovery
+argument_list|)
 expr_stmt|;
 block|}
 else|else
