@@ -1926,6 +1926,26 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// add the id if set
+if|if
+condition|(
+name|getId
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|map
+operator|.
+name|put
+argument_list|(
+literal|"id"
+argument_list|,
+name|getId
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|map
 return|;
