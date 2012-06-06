@@ -2690,9 +2690,6 @@ name|status
 init|=
 name|admin
 operator|.
-name|getMaster
-argument_list|()
-operator|.
 name|getClusterStatus
 argument_list|()
 decl_stmt|;

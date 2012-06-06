@@ -1306,7 +1306,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param serverName    * @return HServerLoad if serverName is known else null    */
+comment|/**    * @param serverName    * @return ServerLoad if serverName is known else null    */
 specifier|public
 name|ServerLoad
 name|getLoad
@@ -1327,7 +1327,7 @@ name|serverName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param address    * @return HServerLoad if serverName is known else null    * @deprecated Use {@link #getLoad(HServerAddress)}    */
+comment|/**    * @param address    * @return ServerLoad if serverName is known else null    * @deprecated Use {@link #getLoad(HServerAddress)}    */
 specifier|public
 name|ServerLoad
 name|getLoad

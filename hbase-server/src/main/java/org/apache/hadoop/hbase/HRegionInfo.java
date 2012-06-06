@@ -3599,7 +3599,7 @@ operator|.
 name|COMPARATOR
 return|;
 block|}
-comment|/**    * Convert a HRegionInfo to a RegionInfo    *    * @param info the HRegionInfo to convert    * @return the converted RegionInfo    */
+comment|/**    * Convert a HRegionInfo to a RegionInfo    *    * @return the converted RegionInfo    */
 name|RegionInfo
 name|convert
 parameter_list|()

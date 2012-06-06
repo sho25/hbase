@@ -1473,9 +1473,6 @@ name|status
 operator|=
 name|admin
 operator|.
-name|getMaster
-argument_list|()
-operator|.
 name|getClusterStatus
 argument_list|()
 expr_stmt|;
