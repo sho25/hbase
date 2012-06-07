@@ -670,15 +670,6 @@ return|return
 name|encodedRegionName
 return|;
 block|}
-comment|/** delimiter used between portions of a region name */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DELIMITER
-init|=
-literal|','
-decl_stmt|;
 comment|/** HRegionInfo for root region */
 specifier|public
 specifier|static
@@ -1608,7 +1599,9 @@ name|offset
 operator|++
 index|]
 operator|=
-name|DELIMITER
+name|HConstants
+operator|.
+name|REGIONINFO_DELIMITER
 expr_stmt|;
 if|if
 condition|(
@@ -1653,7 +1646,9 @@ name|offset
 operator|++
 index|]
 operator|=
-name|DELIMITER
+name|HConstants
+operator|.
+name|REGIONINFO_DELIMITER
 expr_stmt|;
 name|System
 operator|.
@@ -1823,7 +1818,9 @@ index|[
 name|i
 index|]
 operator|==
-name|DELIMITER
+name|HConstants
+operator|.
+name|REGIONINFO_DELIMITER
 condition|)
 block|{
 name|offset
@@ -1908,7 +1905,9 @@ index|[
 name|i
 index|]
 operator|==
-name|DELIMITER
+name|HConstants
+operator|.
+name|REGIONINFO_DELIMITER
 condition|)
 block|{
 name|offset
@@ -1988,7 +1987,9 @@ index|[
 name|i
 index|]
 operator|==
-name|DELIMITER
+name|HConstants
+operator|.
+name|REGIONINFO_DELIMITER
 condition|)
 block|{
 name|offset

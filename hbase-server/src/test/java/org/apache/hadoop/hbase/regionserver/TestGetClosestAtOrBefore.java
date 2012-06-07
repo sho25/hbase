@@ -1193,9 +1193,9 @@ name|b
 operator|.
 name|length
 argument_list|,
-name|HRegionInfo
+name|HConstants
 operator|.
-name|DELIMITER
+name|REGIONINFO_DELIMITER
 argument_list|)
 decl_stmt|;
 name|int
@@ -1213,9 +1213,9 @@ name|b
 operator|.
 name|length
 argument_list|,
-name|HRegionInfo
+name|HConstants
 operator|.
-name|DELIMITER
+name|REGIONINFO_DELIMITER
 argument_list|)
 decl_stmt|;
 name|int
