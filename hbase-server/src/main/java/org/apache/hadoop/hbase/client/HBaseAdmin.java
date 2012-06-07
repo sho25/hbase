@@ -3545,6 +3545,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HTableDescriptor
+operator|.
+name|isLegalTableName
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|execute
 argument_list|(
 operator|new
@@ -3767,6 +3774,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HTableDescriptor
+operator|.
+name|isLegalTableName
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|execute
 argument_list|(
 operator|new
