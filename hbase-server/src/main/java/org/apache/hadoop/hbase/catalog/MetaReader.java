@@ -1831,9 +1831,9 @@ operator|-
 literal|2
 index|]
 operator|=
-name|HConstants
+name|HRegionInfo
 operator|.
-name|REGIONINFO_DELIMITER
+name|DELIMITER
 expr_stmt|;
 name|startRow
 index|[
@@ -1844,9 +1844,9 @@ operator|-
 literal|1
 index|]
 operator|=
-name|HConstants
+name|HRegionInfo
 operator|.
-name|REGIONINFO_DELIMITER
+name|DELIMITER
 expr_stmt|;
 return|return
 name|startRow
