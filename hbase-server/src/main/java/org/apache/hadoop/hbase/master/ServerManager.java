@@ -2238,9 +2238,12 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regions regions to open    */
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regions regions to open    * @return a list of region opening states    */
 specifier|public
-name|void
+name|List
+argument_list|<
+name|RegionOpeningState
+argument_list|>
 name|sendRegionOpen
 parameter_list|(
 name|ServerName
@@ -2284,8 +2287,13 @@ operator|+
 literal|" failed because no RPC connection found to this server"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|null
+return|;
 block|}
+name|OpenRegionResponse
+name|response
+init|=
 name|ProtobufUtil
 operator|.
 name|openRegion
@@ -2294,7 +2302,15 @@ name|admin
 argument_list|,
 name|regions
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+return|return
+name|ResponseConverter
+operator|.
+name|getRegionOpeningStateList
+argument_list|(
+name|response
+argument_list|)
+return|;
 block|}
 comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @param versionOfClosingNode    *   the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @param dest - if the region is moved to another server, the destination server. null otherwise.    * @return true if server acknowledged close, false if not    * @throws IOException    */
 specifier|public

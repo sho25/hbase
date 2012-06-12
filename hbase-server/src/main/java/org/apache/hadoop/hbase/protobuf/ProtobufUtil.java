@@ -921,6 +921,26 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
+name|OpenRegionResponse
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
 name|ReplicateWALEntryRequest
 import|;
 end_import
@@ -7993,7 +8013,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to open a region using admin protocol.    *    * @param admin    * @param region    * @throws IOException    */
+comment|/**    * A helper to open a region using admin protocol.    * @param admin    * @param region    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -8051,10 +8071,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to open a list of regions using admin protocol.    *    * @param admin    * @param regions    * @throws IOException    */
+comment|/**    * A helper to open a list of regions using admin protocol.    *     * @param admin    * @param regions    * @return OpenRegionResponse    * @throws IOException    */
 specifier|public
 specifier|static
-name|void
+name|OpenRegionResponse
 name|openRegion
 parameter_list|(
 specifier|final
@@ -8083,6 +8103,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+return|return
 name|admin
 operator|.
 name|openRegion
@@ -8091,7 +8112,7 @@ literal|null
 argument_list|,
 name|request
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
