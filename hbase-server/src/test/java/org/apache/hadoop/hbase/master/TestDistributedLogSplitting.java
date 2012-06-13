@@ -2630,6 +2630,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// remove root and meta region
+name|hris
+operator|.
+name|remove
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
+argument_list|)
+expr_stmt|;
+name|hris
+operator|.
+name|remove
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|table
