@@ -23966,7 +23966,7 @@ decl_stmt|;
 name|String
 name|method
 init|=
-literal|"testParallelismIncrementWithMemStoreFlush"
+literal|"testParallelIncrementWithMemStoreFlush"
 decl_stmt|;
 name|byte
 index|[]
