@@ -507,7 +507,9 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|)
-block|{ }
+throws|throws
+name|IOException
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -520,7 +522,9 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|)
-block|{ }
+throws|throws
+name|IOException
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -533,7 +537,9 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|)
-block|{ }
+throws|throws
+name|IOException
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -552,7 +558,9 @@ parameter_list|,
 name|HRegion
 name|r
 parameter_list|)
-block|{ }
+throws|throws
+name|IOException
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -623,6 +631,8 @@ specifier|final
 name|InternalScanner
 name|scanner
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|scanner
@@ -648,7 +658,9 @@ specifier|final
 name|StoreFile
 name|resultFile
 parameter_list|)
-block|{ }
+throws|throws
+name|IOException
+block|{   }
 annotation|@
 name|Override
 specifier|public

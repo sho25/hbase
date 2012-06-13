@@ -1742,7 +1742,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    */
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @throws IOException     */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -1753,6 +1753,8 @@ parameter_list|,
 name|InternalScanner
 name|scanner
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -1826,7 +1828,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -1861,7 +1863,7 @@ else|:
 name|scanner
 return|;
 block|}
-comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    */
+comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    * @throws IOException     */
 specifier|public
 name|void
 name|postCompact
@@ -1872,6 +1874,8 @@ parameter_list|,
 name|StoreFile
 name|resultFile
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -1938,7 +1942,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -1959,11 +1963,13 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Invoked before a memstore flush    */
+comment|/**    * Invoked before a memstore flush    * @throws IOException     */
 specifier|public
 name|void
 name|preFlush
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -2026,7 +2032,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -2047,11 +2053,13 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Invoked after a memstore flush    */
+comment|/**    * Invoked after a memstore flush    * @throws IOException     */
 specifier|public
 name|void
 name|postFlush
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -2114,7 +2122,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -2135,11 +2143,13 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Invoked just before a split    */
+comment|/**    * Invoked just before a split    * @throws IOException     */
 specifier|public
 name|void
 name|preSplit
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -2202,7 +2212,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -2223,7 +2233,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    */
+comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    * @throws IOException     */
 specifier|public
 name|void
 name|postSplit
@@ -2234,6 +2244,8 @@ parameter_list|,
 name|HRegion
 name|r
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -2300,7 +2312,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,

@@ -426,7 +426,7 @@ argument_list|>
 name|c
 parameter_list|)
 function_decl|;
-comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    */
+comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preFlush
 parameter_list|(
@@ -437,8 +437,10 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    */
+comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postFlush
 parameter_list|(
@@ -449,6 +451,8 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Called prior to selecting the {@link StoreFile}s to compact from the list    * of available candidates.  To alter the files used for compaction, you may    * mutate the passed in list of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    */
 name|void
@@ -496,7 +500,7 @@ argument_list|>
 name|selected
 parameter_list|)
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into    * a new {@code StoreFile}.  To override or modify the compaction process,    * implementing classes have two options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom    *   implementation that is returned from this method.  The custom scanner    *   can then inspect {@link KeyValue}s from the wrapped scanner, applying    *   its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()}    *   and provide a custom implementation for writing of new    *   {@link StoreFile}s.<strong>Note: any implementations bypassing    *   core compaction using this approach must write out new store files    *   themselves or the existing data will no longer be available after    *   compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file    * rewriting    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into    * a new {@code StoreFile}.  To override or modify the compaction process,    * implementing classes have two options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom    *   implementation that is returned from this method.  The custom scanner    *   can then inspect {@link KeyValue}s from the wrapped scanner, applying    *   its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()}    *   and provide a custom implementation for writing of new    *   {@link StoreFile}s.<strong>Note: any implementations bypassing    *   core compaction using this approach must write out new store files    *   themselves or the existing data will no longer be available after    *   compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file    * rewriting    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
 name|InternalScanner
 name|preCompact
 parameter_list|(
@@ -515,8 +519,10 @@ specifier|final
 name|InternalScanner
 name|scanner
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Called after compaction has completed and the new store file has been    * moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    */
+comment|/**    * Called after compaction has completed and the new store file has been    * moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postCompact
 parameter_list|(
@@ -534,8 +540,10 @@ parameter_list|,
 name|StoreFile
 name|resultFile
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preSplit
 parameter_list|(
@@ -546,8 +554,10 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    */
+comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postSplit
 parameter_list|(
@@ -566,6 +576,8 @@ specifier|final
 name|HRegion
 name|r
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    */
 name|void
