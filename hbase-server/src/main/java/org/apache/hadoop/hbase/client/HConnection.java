@@ -631,7 +631,9 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call.    *    *    * @param actions The collection of actions.    * @param tableName Name of the hbase table    * @param pool thread pool for parallel execution    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    */
+comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call.    *    *    * @param actions The collection of actions.    * @param tableName Name of the hbase table    * @param pool thread pool for parallel execution    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    * @deprecated since 0.96 - Use {@link HTableInterface#batch} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|processBatch
@@ -661,7 +663,9 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Parameterized batch processing, allowing varying return types for different    * {@link Row} implementations.    */
+comment|/**    * Parameterized batch processing, allowing varying return types for different    * {@link Row} implementations.    * @deprecated since 0.96 - Use {@link HTableInterface#batchCallback} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|R
