@@ -1676,6 +1676,15 @@ argument_list|(
 literal|"NO_NEXT_INDEXED_KEY"
 argument_list|)
 decl_stmt|;
+comment|/** delimiter used between portions of a region name */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DELIMITER
+init|=
+literal|','
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

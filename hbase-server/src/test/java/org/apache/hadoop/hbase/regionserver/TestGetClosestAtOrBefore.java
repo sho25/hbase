@@ -1193,7 +1193,7 @@ name|b
 operator|.
 name|length
 argument_list|,
-name|HRegionInfo
+name|HConstants
 operator|.
 name|DELIMITER
 argument_list|)
@@ -1213,7 +1213,7 @@ name|b
 operator|.
 name|length
 argument_list|,
-name|HRegionInfo
+name|HConstants
 operator|.
 name|DELIMITER
 argument_list|)

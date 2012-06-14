@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HConstants
 import|;
 end_import
 
@@ -271,7 +271,7 @@ operator|.
 name|getRowLength
 argument_list|()
 argument_list|,
-name|HRegionInfo
+name|HConstants
 operator|.
 name|DELIMITER
 argument_list|)

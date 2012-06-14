@@ -1831,7 +1831,7 @@ operator|-
 literal|2
 index|]
 operator|=
-name|HRegionInfo
+name|HConstants
 operator|.
 name|DELIMITER
 expr_stmt|;
@@ -1844,7 +1844,7 @@ operator|-
 literal|1
 index|]
 operator|=
-name|HRegionInfo
+name|HConstants
 operator|.
 name|DELIMITER
 expr_stmt|;
