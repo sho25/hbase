@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A split policy determines when a region should be split.  * {@see ConstantSizeRegionSplitPolicy}  */
+comment|/**  * A split policy determines when a region should be split.  * @see IncreasingToUpperBoundRegionSplitPolicy Default split policy since  *      0.94.0  * @see ConstantSizeRegionSplitPolicy Default split policy before 0.94.0  */
 end_comment
 
 begin_class

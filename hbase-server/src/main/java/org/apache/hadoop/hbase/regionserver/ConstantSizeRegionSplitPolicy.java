@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link RegionSplitPolicy} implementation which splits a region  * as soon as any of its store files exceeds a maximum configurable  * size.  *<p>This is the default split policy.</p>  */
+comment|/**  * A {@link RegionSplitPolicy} implementation which splits a region  * as soon as any of its store files exceeds a maximum configurable  * size.  *<p>  * This is the default split policy. From 0.94.0 on the default split policy has  * changed to {@link IncreasingToUpperBoundRegionSplitPolicy}  *</p>  */
 end_comment
 
 begin_class
