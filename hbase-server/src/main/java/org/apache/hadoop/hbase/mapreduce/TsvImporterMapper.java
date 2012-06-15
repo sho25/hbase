@@ -408,6 +408,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Should never get 0 as we are setting this to a valid value in job
+comment|// configuration.
 name|ts
 operator|=
 name|conf
@@ -418,10 +420,7 @@ name|ImportTsv
 operator|.
 name|TIMESTAMP_CONF_KEY
 argument_list|,
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+literal|0
 argument_list|)
 expr_stmt|;
 name|skipBadLines
@@ -520,6 +519,16 @@ name|getRowKeyLength
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Retrieve timestamp if exists
+name|ts
+operator|=
+name|parsed
+operator|.
+name|getTimestamp
+argument_list|(
+name|ts
+argument_list|)
+expr_stmt|;
 name|Put
 name|put
 init|=
@@ -558,8 +567,17 @@ name|parser
 operator|.
 name|getRowKeyColumnIndex
 argument_list|()
+operator|||
+name|i
+operator|==
+name|parser
+operator|.
+name|getTimestampKeyColumnIndex
+argument_list|()
 condition|)
+block|{
 continue|continue;
+block|}
 name|KeyValue
 name|kv
 init|=
