@@ -1785,7 +1785,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Make sure the orginals for our compression libs doesn't change on us.    */
+comment|/**    * Make sure the ordinals for our compression algorithms do not change on us.    */
 specifier|public
 name|void
 name|testCompressionOrdinance
@@ -1831,6 +1831,34 @@ name|ordinal
 argument_list|()
 operator|==
 literal|2
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|Compression
+operator|.
+name|Algorithm
+operator|.
+name|SNAPPY
+operator|.
+name|ordinal
+argument_list|()
+operator|==
+literal|3
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|Compression
+operator|.
+name|Algorithm
+operator|.
+name|LZ4
+operator|.
+name|ordinal
+argument_list|()
+operator|==
+literal|4
 argument_list|)
 expr_stmt|;
 block|}
