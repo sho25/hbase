@@ -290,7 +290,9 @@ init|=
 name|UTIL
 operator|.
 name|getDataTestDir
-argument_list|()
+argument_list|(
+literal|"testCreateAndUpdate"
+argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|htd

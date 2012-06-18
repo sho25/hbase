@@ -158,6 +158,11 @@ name|void
 name|testManageSingleton
 parameter_list|()
 block|{
+name|EnvironmentEdgeManager
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
 name|EnvironmentEdge
 name|edge
 init|=
