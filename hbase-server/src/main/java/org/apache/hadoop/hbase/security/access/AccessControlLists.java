@@ -1565,6 +1565,29 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Returns {@code true} if the given table is {@code _acl_} metadata table.    */
+specifier|static
+name|boolean
+name|isAclTable
+parameter_list|(
+name|HTableDescriptor
+name|desc
+parameter_list|)
+block|{
+return|return
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|ACL_TABLE_NAME
+argument_list|,
+name|desc
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Loads all of the permission grants stored in a region of the {@code _acl_}    * table.    *    * @param aclRegion    * @return    * @throws IOException    */
 specifier|static
 name|Map

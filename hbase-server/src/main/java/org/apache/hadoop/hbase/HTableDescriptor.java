@@ -4645,6 +4645,8 @@ argument_list|)
 block|}
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setOwner
@@ -4669,6 +4671,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// used by admin.rb:alter(table_name,*args) to update owner.
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setOwnerString
@@ -4708,6 +4712,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 name|String
 name|getOwnerString
@@ -4736,7 +4742,8 @@ argument_list|)
 return|;
 block|}
 comment|// Note that every table should have an owner (i.e. should have OWNER_KEY set).
-comment|// .META. and -ROOT- should return system user as owner, not null (see MasterFileSystem.java:bootstrap()).
+comment|// .META. and -ROOT- should return system user as owner, not null (see
+comment|// MasterFileSystem.java:bootstrap()).
 return|return
 literal|null
 return|;
