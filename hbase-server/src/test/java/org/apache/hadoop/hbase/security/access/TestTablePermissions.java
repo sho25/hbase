@@ -595,6 +595,18 @@ operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
+comment|// Wait for the ACL table to become available
+name|UTIL
+operator|.
+name|waitTableAvailable
+argument_list|(
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+argument_list|,
+literal|5000
+argument_list|)
+expr_stmt|;
 name|ZKW
 operator|=
 operator|new
