@@ -7896,11 +7896,56 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// In case of assignment from EnableTableHandler table state is ENABLING. Any how
+comment|// EnableTableHandler will set ENABLED after assigning all the table regions. If we
+comment|// try to set to ENABLED directly then client api may think table is enabled.
+comment|// When we have a case such as all the regions are added directly into .META. and we call
+comment|// assignRegion then we need to make the table ENABLED. Hence in such case the table
+comment|// will not be in ENABLING or ENABLED state.
+name|String
+name|tableName
+init|=
+name|region
+operator|.
+name|getTableNameAsString
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|zkTable
+operator|.
+name|isEnablingTable
+argument_list|(
+name|tableName
+argument_list|)
+operator|&&
+operator|!
+name|zkTable
+operator|.
+name|isEnabledTable
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting table "
+operator|+
+name|tableName
+operator|+
+literal|" to ENABLED state."
+argument_list|)
+expr_stmt|;
 name|setEnabledTable
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if
