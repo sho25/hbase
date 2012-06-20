@@ -4215,15 +4215,7 @@ name|status
 argument_list|)
 condition|)
 return|return;
-name|serverShutdownHandlerEnabled
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|serverManager
-operator|.
-name|expireDeadNotExpiredServers
+name|enableServerShutdownHandler
 argument_list|()
 expr_stmt|;
 comment|// Update meta with new HRI if required. i.e migrate all HRI with HTD to
@@ -4491,6 +4483,39 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * If ServerShutdownHandler is disabled, we enable it and expire those dead    * but not expired servers.    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|private
+name|void
+name|enableServerShutdownHandler
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|serverShutdownHandlerEnabled
+condition|)
+block|{
+name|serverShutdownHandlerEnabled
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|serverManager
+operator|.
+name|expireDeadNotExpiredServers
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+end_function
+
+begin_comment
 comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if root and meta are healthy, assigned    */
 end_comment
 
@@ -4746,6 +4771,9 @@ block|}
 name|assignmentManager
 operator|.
 name|assignMeta
+argument_list|()
+expr_stmt|;
+name|enableServerShutdownHandler
 argument_list|()
 expr_stmt|;
 name|this
