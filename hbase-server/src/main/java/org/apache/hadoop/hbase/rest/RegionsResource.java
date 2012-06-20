@@ -448,12 +448,10 @@ return|;
 block|}
 finally|finally
 block|{
-name|pool
-operator|.
-name|putTable
-argument_list|(
 name|table
-argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 block|}
