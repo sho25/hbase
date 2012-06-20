@@ -137,9 +137,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|util
 operator|.
-name|StoreFile
+name|Bytes
 import|;
 end_import
 
@@ -156,6 +156,18 @@ specifier|public
 interface|interface
 name|HFileDataBlockEncoder
 block|{
+comment|/** Type of encoding used for data blocks in HFile. Stored in file info. */
+name|byte
+index|[]
+name|DATA_BLOCK_ENCODING
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"DATA_BLOCK_ENCODING"
+argument_list|)
+decl_stmt|;
 comment|/**    * Converts a block from the on-disk format to the in-cache format. Called in    * the following cases:    *<ul>    *<li>After an encoded or unencoded data block is read from disk, but before    * it is put into the cache.</li>    *<li>To convert brand-new blocks to the in-cache format when doing    * cache-on-write.</li>    *</ul>    * @param block a block in an on-disk format (read from HFile or freshly    *          generated).    * @return non null block which is coded according to the settings.    */
 specifier|public
 name|HFileBlock
@@ -197,15 +209,15 @@ name|boolean
 name|isCompaction
 parameter_list|)
 function_decl|;
-comment|/**    * Save metadata in StoreFile which will be written to disk    * @param storeFileWriter writer for a given StoreFile    * @exception IOException on disk problems    */
+comment|/**    * Save metadata in HFile which will be written to disk    * @param writer writer for a given HFile    * @exception IOException on disk problems    */
 specifier|public
 name|void
 name|saveMetadata
 parameter_list|(
-name|StoreFile
+name|HFile
 operator|.
 name|Writer
-name|storeFileWriter
+name|writer
 parameter_list|)
 throws|throws
 name|IOException

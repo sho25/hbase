@@ -6707,7 +6707,7 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|StoreFile
+name|HFileDataBlockEncoder
 operator|.
 name|DATA_BLOCK_ENCODING
 argument_list|)

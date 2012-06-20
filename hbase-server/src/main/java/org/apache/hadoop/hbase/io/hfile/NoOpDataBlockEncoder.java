@@ -163,22 +163,6 @@ name|Algorithm
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-import|;
-end_import
-
 begin_comment
 comment|/**  * Does not perform any kind of encoding/decoding.  */
 end_comment
@@ -357,10 +341,10 @@ specifier|public
 name|void
 name|saveMetadata
 parameter_list|(
-name|StoreFile
+name|HFile
 operator|.
 name|Writer
-name|storeFileWriter
+name|writer
 parameter_list|)
 block|{   }
 annotation|@

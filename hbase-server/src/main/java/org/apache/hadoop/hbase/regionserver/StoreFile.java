@@ -947,21 +947,6 @@ argument_list|(
 literal|"EARLIEST_PUT_TS"
 argument_list|)
 decl_stmt|;
-comment|/** Type of encoding used for data blocks in HFile. Stored in file info. */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|DATA_BLOCK_ENCODING
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"DATA_BLOCK_ENCODING"
-argument_list|)
-decl_stmt|;
 comment|// Make default block size for StoreFiles 8k while testing.  TODO: FIX!
 comment|// Need to make it 8k for testing.
 specifier|public
@@ -4909,14 +4894,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Save data block encoder metadata in the file info.
-name|dataBlockEncoder
-operator|.
-name|saveMetadata
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 name|boolean
 name|hasGeneralBloom
 init|=

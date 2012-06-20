@@ -1609,6 +1609,14 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// Save data block encoder metadata in the file info.
+name|blockEncoder
+operator|.
+name|saveMetadata
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 comment|// Write out the end of the data blocks, then write meta data blocks.
 comment|// followed by fileinfo, data block index and meta block index.
 name|finishBlock
