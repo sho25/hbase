@@ -59,6 +59,16 @@ name|HConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility used by client connections such as {@link HConnection} and  * {@link ServerCallable}  */
 end_comment
@@ -76,6 +86,16 @@ specifier|public
 class|class
 name|ConnectionUtils
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Random
+name|RANDOM
+init|=
+operator|new
+name|Random
+argument_list|()
+decl_stmt|;
 comment|/**    * Calculate pause time.    * Built on {@link HConstants#RETRY_BACKOFF}.    * @param pause    * @param tries    * @return How long to wait after<code>tries</code> retries    */
 specifier|public
 specifier|static
@@ -118,7 +138,9 @@ operator|-
 literal|1
 expr_stmt|;
 block|}
-return|return
+name|long
+name|normalPause
+init|=
 name|pause
 operator|*
 name|HConstants
@@ -127,6 +149,29 @@ name|RETRY_BACKOFF
 index|[
 name|ntries
 index|]
+decl_stmt|;
+name|long
+name|jitter
+init|=
+call|(
+name|long
+call|)
+argument_list|(
+name|normalPause
+operator|*
+name|RANDOM
+operator|.
+name|nextFloat
+argument_list|()
+operator|*
+literal|0.01f
+argument_list|)
+decl_stmt|;
+comment|// 1% possible jitter
+return|return
+name|normalPause
+operator|+
+name|jitter
 return|;
 block|}
 block|}
