@@ -530,6 +530,10 @@ name|String
 index|[]
 name|masterCoprocessors
 decl_stmt|;
+specifier|private
+name|boolean
+name|balancerOn
+decl_stmt|;
 comment|/**    * Constructor, for Writable    * @deprecated Used by Writables and Writables are going away.    */
 annotation|@
 name|Deprecated
@@ -592,6 +596,10 @@ specifier|final
 name|String
 index|[]
 name|masterCoprocessors
+parameter_list|,
+specifier|final
+name|boolean
+name|balancerOn
 parameter_list|)
 block|{
 name|this
@@ -641,6 +649,12 @@ operator|.
 name|masterCoprocessors
 operator|=
 name|masterCoprocessors
+expr_stmt|;
+name|this
+operator|.
+name|balancerOn
+operator|=
+name|balancerOn
 expr_stmt|;
 block|}
 comment|/**    * @return the names of region servers on the dead list    */
@@ -1163,6 +1177,15 @@ return|return
 name|masterCoprocessors
 return|;
 block|}
+specifier|public
+name|boolean
+name|isBalancerOn
+parameter_list|()
+block|{
+return|return
+name|balancerOn
+return|;
+block|}
 comment|/**     * Convert a ClutserStatus to a protobuf ClusterStatus     *     * @return the protobuf ClusterStatus     */
 specifier|public
 name|ClusterStatusProtos
@@ -1466,6 +1489,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setBalancerOn
+argument_list|(
+name|balancerOn
+argument_list|)
+expr_stmt|;
 return|return
 name|builder
 operator|.
@@ -1749,6 +1779,11 @@ argument_list|,
 name|rit
 argument_list|,
 name|masterCoprocessors
+argument_list|,
+name|proto
+operator|.
+name|getBalancerOn
+argument_list|()
 argument_list|)
 return|;
 block|}

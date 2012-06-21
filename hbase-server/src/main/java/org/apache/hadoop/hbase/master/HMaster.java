@@ -9787,6 +9787,10 @@ name|this
 operator|.
 name|getCoprocessors
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|balanceSwitch
 argument_list|)
 return|;
 block|}
