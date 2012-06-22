@@ -6576,7 +6576,11 @@ index|[]
 argument_list|,
 name|Integer
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 for|for
 control|(

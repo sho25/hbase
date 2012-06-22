@@ -508,6 +508,13 @@ name|BYTES_COMPARATOR
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|qualifier
+operator|!=
+literal|null
+condition|)
+block|{
 name|set
 operator|.
 name|add
@@ -515,6 +522,7 @@ argument_list|(
 name|qualifier
 argument_list|)
 expr_stmt|;
+block|}
 name|familyMap
 operator|.
 name|put
