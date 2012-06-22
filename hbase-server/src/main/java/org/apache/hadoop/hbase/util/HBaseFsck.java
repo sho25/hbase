@@ -1131,6 +1131,19 @@ name|DEFAULT_MAX_MERGE
 init|=
 literal|5
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_SIDELINE_DIR
+init|=
+literal|".hbcktmp-"
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 comment|/**********************    * Internal resources    **********************/
 specifier|private
 specifier|static
@@ -1175,15 +1188,6 @@ name|ScheduledThreadPoolExecutor
 name|executor
 decl_stmt|;
 comment|// threads to retrieve data from regionservers
-specifier|private
-name|long
-name|startMillis
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 comment|/***********    * Options    ***********/
 specifier|private
 specifier|static
@@ -1286,6 +1290,12 @@ init|=
 literal|false
 decl_stmt|;
 comment|// sideline overlaps with>maxMerge regions
+specifier|private
+name|Path
+name|sidelineDir
+init|=
+literal|null
+decl_stmt|;
 specifier|private
 name|boolean
 name|rerun
@@ -4017,9 +4027,12 @@ argument_list|(
 literal|"HDFS regioninfo's seems good.  Sidelining old .META."
 argument_list|)
 expr_stmt|;
+name|Path
+name|backupDir
+init|=
 name|sidelineOldRootAndMeta
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -4093,6 +4106,15 @@ operator|.
 name|info
 argument_list|(
 literal|"Success! .META. table rebuilt."
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Old -ROOT- and .META. are moved into "
+operator|+
+name|backupDir
 argument_list|)
 expr_stmt|;
 return|return
@@ -4216,6 +4238,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|sidelineDir
+operator|==
+literal|null
+condition|)
+block|{
 name|Path
 name|hbaseDir
 init|=
@@ -4226,40 +4255,19 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|Path
-name|hbckDir
-init|=
+name|sidelineDir
+operator|=
 operator|new
 name|Path
 argument_list|(
 name|hbaseDir
-operator|.
-name|getParent
-argument_list|()
 argument_list|,
-literal|"hbck"
+name|DEFAULT_SIDELINE_DIR
 argument_list|)
-decl_stmt|;
-name|Path
-name|backupDir
-init|=
-operator|new
-name|Path
-argument_list|(
-name|hbckDir
-argument_list|,
-name|hbaseDir
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|"-"
-operator|+
-name|startMillis
-argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 return|return
-name|backupDir
+name|sidelineDir
 return|;
 block|}
 comment|/**    * Sideline a region dir (instead of deleting it)    */
@@ -4804,23 +4812,8 @@ decl_stmt|;
 name|Path
 name|backupDir
 init|=
-operator|new
-name|Path
-argument_list|(
-name|hbaseDir
-operator|.
-name|getParent
+name|getSidelineDir
 argument_list|()
-argument_list|,
-name|hbaseDir
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|"-"
-operator|+
-name|startMillis
-argument_list|)
 decl_stmt|;
 name|fs
 operator|.
@@ -14530,6 +14523,26 @@ operator|*
 literal|1000
 expr_stmt|;
 comment|// convert to milliseconds
+block|}
+comment|/**    *     * @param sidelineDir - HDFS path to sideline data    */
+specifier|public
+name|void
+name|setSidelineDir
+parameter_list|(
+name|String
+name|sidelineDir
+parameter_list|)
+block|{
+name|this
+operator|.
+name|sidelineDir
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|sidelineDir
+argument_list|)
+expr_stmt|;
 block|}
 specifier|protected
 specifier|static
