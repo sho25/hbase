@@ -240,15 +240,6 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta and root."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
 literal|"   -fix              Auto fix as many problems as possible"
 argument_list|)
 expr_stmt|;
@@ -449,31 +440,6 @@ name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|cmd
-operator|.
-name|equals
-argument_list|(
-literal|"-sidelineDir"
-argument_list|)
-condition|)
-block|{
-name|i
-operator|++
-expr_stmt|;
-name|fsck
-operator|.
-name|setSidelineDir
-argument_list|(
-name|args
-index|[
-name|i
-index|]
 argument_list|)
 expr_stmt|;
 block|}
