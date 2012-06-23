@@ -197,7 +197,11 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+literal|"Coprocessor"
+argument_list|)
+specifier|public
 class|class
 name|StoreFileScanner
 implements|implements

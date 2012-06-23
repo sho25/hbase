@@ -789,7 +789,10 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+literal|"Coprocessor"
+argument_list|)
 specifier|public
 class|class
 name|StoreFile
@@ -1130,6 +1133,7 @@ init|=
 literal|0L
 decl_stmt|;
 comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
+specifier|public
 name|StoreFile
 parameter_list|(
 specifier|final
