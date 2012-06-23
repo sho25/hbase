@@ -1287,6 +1287,12 @@ literal|false
 decl_stmt|;
 comment|// sideline overlaps with>maxMerge regions
 specifier|private
+name|Path
+name|sidelineDir
+init|=
+literal|null
+decl_stmt|;
+specifier|private
 name|boolean
 name|rerun
 init|=
@@ -4021,9 +4027,12 @@ argument_list|(
 literal|"HDFS regioninfo's seems good.  Sidelining old .META."
 argument_list|)
 expr_stmt|;
+name|Path
+name|backupDir
+init|=
 name|sidelineOldRootAndMeta
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -4097,6 +4106,15 @@ operator|.
 name|info
 argument_list|(
 literal|"Success! .META. table rebuilt."
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Old -ROOT- and .META. are moved into "
+operator|+
+name|backupDir
 argument_list|)
 expr_stmt|;
 return|return
@@ -4220,6 +4238,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|sidelineDir
+operator|==
+literal|null
+condition|)
+block|{
 name|Path
 name|hbaseDir
 init|=
@@ -4237,16 +4262,14 @@ operator|new
 name|Path
 argument_list|(
 name|hbaseDir
-operator|.
-name|getParent
-argument_list|()
 argument_list|,
-literal|"hbck"
+name|HConstants
+operator|.
+name|HBCK_SIDELINEDIR_NAME
 argument_list|)
 decl_stmt|;
-name|Path
-name|backupDir
-init|=
+name|sidelineDir
+operator|=
 operator|new
 name|Path
 argument_list|(
@@ -4261,9 +4284,10 @@ literal|"-"
 operator|+
 name|startMillis
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 return|return
-name|backupDir
+name|sidelineDir
 return|;
 block|}
 comment|/**    * Sideline a region dir (instead of deleting it)    */
@@ -4808,23 +4832,8 @@ decl_stmt|;
 name|Path
 name|backupDir
 init|=
-operator|new
-name|Path
-argument_list|(
-name|hbaseDir
-operator|.
-name|getParent
+name|getSidelineDir
 argument_list|()
-argument_list|,
-name|hbaseDir
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|"-"
-operator|+
-name|startMillis
-argument_list|)
 decl_stmt|;
 name|fs
 operator|.
@@ -14535,6 +14544,26 @@ literal|1000
 expr_stmt|;
 comment|// convert to milliseconds
 block|}
+comment|/**    *     * @param sidelineDir - HDFS path to sideline data    */
+specifier|public
+name|void
+name|setSidelineDir
+parameter_list|(
+name|String
+name|sidelineDir
+parameter_list|)
+block|{
+name|this
+operator|.
+name|sidelineDir
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|sidelineDir
+argument_list|)
+expr_stmt|;
+block|}
 specifier|protected
 specifier|static
 name|void
@@ -14583,11 +14612,11 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -timelag {timeInSeconds}  Process only regions that "
+literal|"   -timelag<timeInSeconds>  Process only regions that "
 operator|+
 literal|" have not experienced any metadata updates in the last "
 operator|+
-literal|" {{timeInSeconds} seconds."
+literal|"<timeInSeconds> seconds."
 argument_list|)
 expr_stmt|;
 name|System
@@ -14596,7 +14625,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -sleepBeforeRerun {timeInSeconds} Sleep this many seconds"
+literal|"   -sleepBeforeRerun<timeInSeconds> Sleep this many seconds"
 operator|+
 literal|" before checking if the fix worked if run with -fix"
 argument_list|)
@@ -14617,6 +14646,15 @@ operator|.
 name|println
 argument_list|(
 literal|"   -metaonly Only check the state of ROOT and META tables."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta and root."
 argument_list|)
 expr_stmt|;
 name|System
@@ -15087,6 +15125,55 @@ expr_stmt|;
 block|}
 name|i
 operator|++
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-sidelineDir"
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|i
+operator|==
+name|args
+operator|.
+name|length
+operator|-
+literal|1
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"HBaseFsck: -sidelineDir needs a value."
+argument_list|)
+expr_stmt|;
+name|printUsageAndExit
+argument_list|()
+expr_stmt|;
+block|}
+name|i
+operator|++
+expr_stmt|;
+name|fsck
+operator|.
+name|setSidelineDir
+argument_list|(
+name|args
+index|[
+name|i
+index|]
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else

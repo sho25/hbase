@@ -658,6 +658,15 @@ name|HREGION_OLDLOGDIR_NAME
 init|=
 literal|".oldlogs"
 decl_stmt|;
+comment|/** Used by HBCK to sideline backup data */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBCK_SIDELINEDIR_NAME
+init|=
+literal|".hbck"
+decl_stmt|;
 comment|/** Used to construct the name of the compaction directory during compaction */
 specifier|public
 specifier|static
@@ -1484,6 +1493,8 @@ name|ROOT_TABLE_NAME
 argument_list|)
 block|,
 name|SPLIT_LOGDIR_NAME
+block|,
+name|HBCK_SIDELINEDIR_NAME
 block|}
 argument_list|)
 argument_list|)

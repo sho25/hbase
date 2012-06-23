@@ -198,13 +198,48 @@ name|void
 name|printUsageAndExit
 parameter_list|()
 block|{
-name|System
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+name|sb
 operator|.
-name|err
-operator|.
-name|println
+name|append
 argument_list|(
-literal|"Usage: OfflineMetaRepair [opts] "
+literal|"Usage: OfflineMetaRepair [opts]\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" where [opts] are:\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"   -details               Display full report of all regions.\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"   -base<hdfs://>        Base Hbase Data directory.\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta and root.\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"   -fix                   Auto fix as many problems as possible.\n"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"   -fixHoles              Auto fix as region holes."
 argument_list|)
 expr_stmt|;
 name|System
@@ -213,43 +248,10 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" where [opts] are:"
-argument_list|)
-expr_stmt|;
-name|System
+name|sb
 operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -details          Display full report of all regions."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -base<hdfs://>   Base Hbase Data directory"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -fix              Auto fix as many problems as possible"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -fixHoles         Auto fix as region holes"
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Runtime
@@ -387,6 +389,30 @@ literal|"-base"
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|i
+operator|==
+name|args
+operator|.
+name|length
+operator|-
+literal|1
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"OfflineMetaRepair: -base needs an HDFS path."
+argument_list|)
+expr_stmt|;
+name|printUsageAndExit
+argument_list|()
+expr_stmt|;
+block|}
 comment|// update hbase root dir to user-specified base
 name|i
 operator|++
@@ -440,6 +466,56 @@ name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-sidelineDir"
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|i
+operator|==
+name|args
+operator|.
+name|length
+operator|-
+literal|1
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"OfflineMetaRepair: -sidelineDir needs an HDFS path."
+argument_list|)
+expr_stmt|;
+name|printUsageAndExit
+argument_list|()
+expr_stmt|;
+block|}
+comment|// set the hbck sideline dir to user-specified one
+name|i
+operator|++
+expr_stmt|;
+name|fsck
+operator|.
+name|setSidelineDir
+argument_list|(
+name|args
+index|[
+name|i
+index|]
 argument_list|)
 expr_stmt|;
 block|}
