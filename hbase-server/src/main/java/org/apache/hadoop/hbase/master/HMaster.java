@@ -7291,7 +7291,7 @@ annotation|@
 name|Override
 specifier|public
 name|SetBalancerRunningResponse
-name|loadBalancerIs
+name|setBalancerRunning
 parameter_list|(
 name|RpcController
 name|controller

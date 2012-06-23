@@ -6201,14 +6201,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Turn the load balancer on or off.    * @param b If true, enable balancer. If false, disable balancer.    * @return Previous balancer value    */
+comment|/**    * Turn the load balancer on or off.    * @param on If true, enable balancer. If false, disable balancer.    * @param synchronous If true, it waits until current balance() call, if outstanding, to return.    * @return Previous balancer value    */
 specifier|public
 name|boolean
-name|balanceSwitch
+name|setBalancerRunning
 parameter_list|(
 specifier|final
 name|boolean
-name|b
+name|on
+parameter_list|,
+specifier|final
+name|boolean
+name|synchronous
 parameter_list|)
 throws|throws
 name|MasterNotRunningException
@@ -6230,17 +6234,17 @@ name|req
 init|=
 name|RequestConverter
 operator|.
-name|buildLoadBalancerIsRequest
+name|buildSetBalancerRunningRequest
 argument_list|(
-name|b
+name|on
 argument_list|,
-literal|false
+name|synchronous
 argument_list|)
 decl_stmt|;
 return|return
 name|master
 operator|.
-name|loadBalancerIs
+name|setBalancerRunning
 argument_list|(
 literal|null
 argument_list|,

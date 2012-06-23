@@ -988,8 +988,10 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
+literal|false
+argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;

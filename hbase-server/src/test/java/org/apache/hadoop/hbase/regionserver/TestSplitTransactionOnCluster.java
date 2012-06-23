@@ -755,9 +755,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -1083,9 +1085,11 @@ literal|false
 expr_stmt|;
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1185,9 +1189,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -1401,9 +1407,11 @@ finally|finally
 block|{
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1500,9 +1508,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -1689,9 +1699,11 @@ finally|finally
 block|{
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1788,9 +1800,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -2118,9 +2132,11 @@ finally|finally
 block|{
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -2223,9 +2239,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -2532,9 +2550,11 @@ literal|false
 expr_stmt|;
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -2635,9 +2655,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Turn off the meta scanner so it don't remove parent on us.
@@ -2959,9 +2981,11 @@ name|this
 operator|.
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster

@@ -1254,7 +1254,7 @@ function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param controller Unused (set to null).    * @param req SetBalancerRunningRequest that contains:<br>    * - on: If true, enable balancer. If false, disable balancer.<br>    * - synchronous: if true, wait until current balance() call, if outstanding, to return.    * @return SetBalancerRunningResponse that contains:<br>    * - prevBalanceValue: Previous balancer value    * @throws ServiceException    */
 specifier|public
 name|SetBalancerRunningResponse
-name|loadBalancerIs
+name|setBalancerRunning
 parameter_list|(
 name|RpcController
 name|controller

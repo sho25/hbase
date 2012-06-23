@@ -5564,7 +5564,7 @@ comment|/**    * Creates a protocol buffer SetBalancerRunningRequest    *    * @
 specifier|public
 specifier|static
 name|SetBalancerRunningRequest
-name|buildLoadBalancerIsRequest
+name|buildSetBalancerRunningRequest
 parameter_list|(
 name|boolean
 name|on

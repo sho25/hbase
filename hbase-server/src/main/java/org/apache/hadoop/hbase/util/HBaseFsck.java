@@ -1980,9 +1980,11 @@ name|oldBalancer
 init|=
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 try|try
@@ -1995,9 +1997,11 @@ finally|finally
 block|{
 name|admin
 operator|.
-name|balanceSwitch
+name|setBalancerRunning
 argument_list|(
 name|oldBalancer
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
