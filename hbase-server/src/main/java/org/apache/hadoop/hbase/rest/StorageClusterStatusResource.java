@@ -201,7 +201,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerLoad
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|RegionLoad
 import|;
 end_import
 
@@ -444,7 +458,7 @@ name|getServers
 argument_list|()
 control|)
 block|{
-name|HServerLoad
+name|ServerLoad
 name|load
 init|=
 name|status
@@ -508,8 +522,6 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HServerLoad
-operator|.
 name|RegionLoad
 name|region
 range|:

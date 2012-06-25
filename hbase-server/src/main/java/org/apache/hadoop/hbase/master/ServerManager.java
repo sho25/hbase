@@ -1422,7 +1422,7 @@ name|totalLoad
 operator|+=
 name|sl
 operator|.
-name|getRegionLoadsCount
+name|getNumberOfRegions
 argument_list|()
 expr_stmt|;
 block|}

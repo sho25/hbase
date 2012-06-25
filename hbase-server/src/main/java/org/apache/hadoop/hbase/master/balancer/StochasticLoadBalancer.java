@@ -147,7 +147,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerLoad
 import|;
 end_import
 
@@ -160,8 +160,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|HServerLoad
 operator|.
 name|RegionLoad
 import|;
@@ -1442,8 +1440,8 @@ name|getServers
 argument_list|()
 control|)
 block|{
-name|HServerLoad
-name|hsl
+name|ServerLoad
+name|sl
 init|=
 name|clusterStatus
 operator|.
@@ -1454,7 +1452,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hsl
+name|sl
 operator|==
 literal|null
 condition|)
@@ -1470,7 +1468,7 @@ name|RegionLoad
 argument_list|>
 name|entry
 range|:
-name|hsl
+name|sl
 operator|.
 name|getRegionsLoad
 argument_list|()

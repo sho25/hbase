@@ -156,7 +156,7 @@ literal|820
 argument_list|,
 name|sl
 operator|.
-name|getStorefileSizeMB
+name|getStorefileSizeInMB
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -166,7 +166,7 @@ literal|82
 argument_list|,
 name|sl
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeInMB
 argument_list|()
 argument_list|)
 expr_stmt|;

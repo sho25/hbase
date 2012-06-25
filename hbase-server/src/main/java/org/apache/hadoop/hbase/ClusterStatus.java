@@ -155,20 +155,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -364,8 +350,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|HServerLoad
 operator|.
 name|RegionLoad
 import|;
@@ -764,7 +748,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getRegionLoadsCount
+name|getNumberOfRegions
 argument_list|()
 expr_stmt|;
 block|}
@@ -1118,7 +1102,7 @@ return|;
 block|}
 comment|/**    * @param sn    * @return Server's load or null if not found.    */
 specifier|public
-name|HServerLoad
+name|ServerLoad
 name|getLoad
 parameter_list|(
 specifier|final
@@ -1127,10 +1111,6 @@ name|sn
 parameter_list|)
 block|{
 return|return
-name|HServerLoad
-operator|.
-name|convert
-argument_list|(
 name|this
 operator|.
 name|liveServers
@@ -1138,7 +1118,6 @@ operator|.
 name|get
 argument_list|(
 name|sn
-argument_list|)
 argument_list|)
 return|;
 block|}

@@ -371,20 +371,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -2075,16 +2061,11 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
-name|addToMap
-argument_list|(
-name|HServerLoad
-operator|.
-name|class
-argument_list|,
+comment|// HServerLoad no longer exists; increase code so other classes stay the same.
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
+comment|//addToMap(HServerLoad.class, code++);
 name|addToMap
 argument_list|(
 name|RegionOpeningState
