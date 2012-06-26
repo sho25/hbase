@@ -6463,7 +6463,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.store.delete.expired.storefile"
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 operator|&&
 operator|(
