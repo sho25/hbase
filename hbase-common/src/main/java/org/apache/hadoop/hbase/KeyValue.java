@@ -9763,7 +9763,7 @@ name|lrowlength
 argument_list|)
 return|;
 block|}
-comment|/**      * Compare column, timestamp, and key type (everything except the row).      * This method is used both in the normal comparator and the "same-prefix"      * comparator. Note that we are assuming that row portions of both KVs have      * already been parsed and found identical, and we don't validate that      * assumption here.      * @param commonPrefix the length of the common prefix of the two      *          key-values being compared, including row length and row      */
+comment|/**      * Compare columnFamily, qualifier, timestamp, and key type (everything      * except the row). This method is used both in the normal comparator and      * the "same-prefix" comparator. Note that we are assuming that row portions      * of both KVs have already been parsed and found identical, and we don't      * validate that assumption here.      * @param commonPrefix      *          the length of the common prefix of the two key-values being      *          compared, including row length and row      */
 specifier|private
 name|int
 name|compareWithoutRow
@@ -9795,61 +9795,39 @@ name|short
 name|rowlength
 parameter_list|)
 block|{
-comment|// Compare column family. Start comparing past row and family length.
+comment|/***        * KeyValue Format and commonLength:        * |_keyLen_|_valLen_|_rowLen_|_rowKey_|_famiLen_|_fami_|_Quali_|....        * ------------------|-------commonLength--------|--------------        */
 name|int
-name|lcolumnoffset
+name|commonLength
 init|=
 name|ROW_LENGTH_SIZE
 operator|+
 name|FAMILY_LENGTH_SIZE
 operator|+
 name|rowlength
-operator|+
-name|loffset
 decl_stmt|;
+comment|// commonLength + TIMESTAMP_TYPE_SIZE
 name|int
-name|rcolumnoffset
+name|commonLengthWithTSAndType
 init|=
-name|ROW_LENGTH_SIZE
+name|TIMESTAMP_TYPE_SIZE
 operator|+
-name|FAMILY_LENGTH_SIZE
-operator|+
-name|rowlength
-operator|+
-name|roffset
+name|commonLength
 decl_stmt|;
+comment|// ColumnFamily + Qualifier length.
 name|int
 name|lcolumnlength
 init|=
 name|llength
 operator|-
-name|TIMESTAMP_TYPE_SIZE
-operator|-
-operator|(
-name|lcolumnoffset
-operator|-
-name|loffset
-operator|)
+name|commonLengthWithTSAndType
 decl_stmt|;
 name|int
 name|rcolumnlength
 init|=
 name|rlength
 operator|-
-name|TIMESTAMP_TYPE_SIZE
-operator|-
-operator|(
-name|rcolumnoffset
-operator|-
-name|roffset
-operator|)
+name|commonLengthWithTSAndType
 decl_stmt|;
-comment|// If row matches, and no column in the 'left' AND put type is 'minimum',
-comment|// then return that left is larger than right.
-comment|// This supports 'last key on a row' - the magic is if there is no column
-comment|// in the left operand, and the left operand has a type of '0' - magical
-comment|// value, then we say the left is bigger.  This will let us seek to the
-comment|// last key in a row.
 name|byte
 name|ltype
 init|=
@@ -9881,7 +9859,7 @@ decl_stmt|;
 comment|// If the column is not specified, the "minimum" key type appears the
 comment|// latest in the sorted order, regardless of the timestamp. This is used
 comment|// for specifying the last key/value in a given row, because there is no
-comment|// "lexicographically last column" (it would be infinitely long).  The
+comment|// "lexicographically last column" (it would be infinitely long). The
 comment|// "maximum" key type does not need this behavior.
 if|if
 condition|(
@@ -9926,6 +9904,52 @@ literal|1
 return|;
 block|}
 name|int
+name|lfamilyoffset
+init|=
+name|commonLength
+operator|+
+name|loffset
+decl_stmt|;
+name|int
+name|rfamilyoffset
+init|=
+name|commonLength
+operator|+
+name|roffset
+decl_stmt|;
+comment|// Column family length.
+name|int
+name|lfamilylength
+init|=
+name|left
+index|[
+name|lfamilyoffset
+operator|-
+literal|1
+index|]
+decl_stmt|;
+name|int
+name|rfamilylength
+init|=
+name|right
+index|[
+name|rfamilyoffset
+operator|-
+literal|1
+index|]
+decl_stmt|;
+comment|// If left family size is not equal to right family size, we need not
+comment|// compare the qualifiers.
+name|boolean
+name|sameFamilySize
+init|=
+operator|(
+name|lfamilylength
+operator|==
+name|rfamilylength
+operator|)
+decl_stmt|;
+name|int
 name|common
 init|=
 literal|0
@@ -9947,13 +9971,38 @@ literal|0
 argument_list|,
 name|commonPrefix
 operator|-
-name|rowlength
-operator|-
-name|ROW_LENGTH_SIZE
-operator|-
-name|FAMILY_LENGTH_SIZE
+name|commonLength
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|sameFamilySize
+condition|)
+block|{
+comment|// Common should not be larger than Math.min(lfamilylength,
+comment|// rfamilylength).
+name|common
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|common
+argument_list|,
+name|Math
+operator|.
+name|min
+argument_list|(
+name|lfamilylength
+argument_list|,
+name|rfamilylength
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|common
 operator|=
 name|Math
@@ -9973,9 +10022,45 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+operator|!
+name|sameFamilySize
+condition|)
+block|{
+comment|// comparing column family is enough.
+return|return
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|left
+argument_list|,
+name|lfamilyoffset
+operator|+
+name|common
+argument_list|,
+name|lfamilylength
+operator|-
+name|common
+argument_list|,
+name|right
+argument_list|,
+name|rfamilyoffset
+operator|+
+name|common
+argument_list|,
+name|rfamilylength
+operator|-
+name|common
+argument_list|)
+return|;
+block|}
+comment|// Compare family& qualifier together.
 specifier|final
 name|int
-name|comparisonResult
+name|comparison
 init|=
 name|Bytes
 operator|.
@@ -9983,7 +10068,7 @@ name|compareTo
 argument_list|(
 name|left
 argument_list|,
-name|lcolumnoffset
+name|lfamilyoffset
 operator|+
 name|common
 argument_list|,
@@ -9993,7 +10078,7 @@ name|common
 argument_list|,
 name|right
 argument_list|,
-name|rcolumnoffset
+name|rfamilyoffset
 operator|+
 name|common
 argument_list|,
@@ -10004,13 +10089,13 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|comparisonResult
+name|comparison
 operator|!=
 literal|0
 condition|)
 block|{
 return|return
-name|comparisonResult
+name|comparison
 return|;
 block|}
 return|return
