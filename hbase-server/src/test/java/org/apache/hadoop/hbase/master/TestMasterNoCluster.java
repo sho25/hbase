@@ -1431,7 +1431,7 @@ name|ServerLoad
 operator|.
 name|EMPTY_SERVERLOAD
 operator|.
-name|getServerLoadPB
+name|obtainServerLoadPB
 argument_list|()
 argument_list|)
 expr_stmt|;

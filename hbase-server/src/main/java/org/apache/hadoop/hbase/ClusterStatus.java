@@ -1253,7 +1253,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getServerLoadPB
+name|obtainServerLoadPB
 argument_list|()
 argument_list|)
 expr_stmt|;

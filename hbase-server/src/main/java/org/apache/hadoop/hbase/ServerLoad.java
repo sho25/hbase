@@ -403,12 +403,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// NOTE: Function name cannot start with "get" because then an OpenDataException is thrown because
+comment|// HBaseProtos.ServerLoad cannot be converted to an open data type(see HBASE-5967).
 comment|/* @return the underlying ServerLoad protobuf object */
 specifier|public
 name|HBaseProtos
 operator|.
 name|ServerLoad
-name|getServerLoadPB
+name|obtainServerLoadPB
 parameter_list|()
 block|{
 return|return
@@ -753,7 +755,7 @@ name|Coprocessor
 argument_list|>
 name|list
 init|=
-name|getServerLoadPB
+name|obtainServerLoadPB
 argument_list|()
 operator|.
 name|getCoprocessorsList
@@ -828,7 +830,7 @@ control|(
 name|Coprocessor
 name|coprocessor
 range|:
-name|getServerLoadPB
+name|obtainServerLoadPB
 argument_list|()
 operator|.
 name|getCoprocessorsList
@@ -853,7 +855,7 @@ operator|.
 name|RegionLoad
 name|rl
 range|:
-name|getServerLoadPB
+name|obtainServerLoadPB
 argument_list|()
 operator|.
 name|getRegionLoadsList
