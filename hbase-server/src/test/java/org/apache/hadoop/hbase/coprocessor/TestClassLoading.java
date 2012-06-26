@@ -1690,7 +1690,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|tableName
+name|cpName3
 argument_list|)
 decl_stmt|;
 name|htd
