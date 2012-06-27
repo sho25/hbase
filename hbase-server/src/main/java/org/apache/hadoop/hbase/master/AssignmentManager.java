@@ -2233,6 +2233,30 @@ name|keySet
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// If some dead servers are processed by ServerShutdownHandler, we shouldn't
+comment|// assign all user regions( some would be assigned by
+comment|// ServerShutdownHandler), consider it as a failover
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getDeadServers
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|failover
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|// If we found user regions out on cluster, its a failover.
 if|if
 condition|(
@@ -12604,6 +12628,36 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+for|for
+control|(
+name|Pair
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Result
+argument_list|>
+name|deadRegion
+range|:
+name|deadServer
+operator|.
+name|getValue
+argument_list|()
+control|)
+block|{
+name|nodes
+operator|.
+name|remove
+argument_list|(
+name|deadRegion
+operator|.
+name|getFirst
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 continue|continue;
 block|}
 name|List
