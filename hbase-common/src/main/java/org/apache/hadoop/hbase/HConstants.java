@@ -1325,19 +1325,35 @@ name|HBASE_CLIENT_INSTANCE_ID
 init|=
 literal|"hbase.client.instance.id"
 decl_stmt|;
-comment|/**    * HRegion server lease period in milliseconds. Clients must report in within this period    * else they are considered dead. Unit measured in ms (milliseconds).    */
+comment|/**    * The row lock timeout period in milliseconds.    */
 specifier|public
 specifier|static
 name|String
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
 init|=
-literal|"hbase.regionserver.lease.period"
+literal|"hbase.regionserver.rowlock.timeout.period"
 decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_REGIONSERVER_LEASE_PERIOD_KEY}.    */
+comment|/**    * Default value of {@link #HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD}.    */
 specifier|public
 specifier|static
-name|long
-name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
+name|int
+name|DEFAULT_HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
+init|=
+literal|60000
+decl_stmt|;
+comment|/**    * The client scanner timeout period in milliseconds.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
+init|=
+literal|"hbase.client.scanner.timeout.period"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
 literal|60000
 decl_stmt|;

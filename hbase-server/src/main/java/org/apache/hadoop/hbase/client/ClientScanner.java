@@ -549,20 +549,17 @@ name|this
 operator|.
 name|scannerTimeout
 operator|=
-operator|(
-name|int
-operator|)
 name|conf
 operator|.
-name|getLong
+name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
+name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|)
 expr_stmt|;
 comment|// check if application wants to collect scan metrics

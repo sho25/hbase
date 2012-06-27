@@ -93,7 +93,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|LargeTests
 import|;
 end_import
 
@@ -273,7 +301,7 @@ name|NB_ROWS
 init|=
 literal|10
 decl_stmt|;
-comment|// Be careful w/ what you set this timer too... it can get in the way of
+comment|// Be careful w/ what you set this timer to... it can get in the way of
 comment|// the mini cluster coming up -- the verification in particular.
 specifier|private
 specifier|final
@@ -314,7 +342,9 @@ name|c
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.regionserver.lease.period"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|SCANNER_TIMEOUT
 argument_list|)
@@ -641,7 +671,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|SCANNER_TIMEOUT
 operator|*
@@ -961,7 +991,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|SCANNER_TIMEOUT
 operator|*
