@@ -10693,6 +10693,38 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
+comment|// Skip assignment for regions of tables in DISABLING state because during clean cluster startup
+comment|// no RS is alive and regions map also doesn't have any information about the regions.
+comment|// See HBASE-6281.
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|disablingAndDisabledTables
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+name|this
+operator|.
+name|disablingTables
+argument_list|)
+decl_stmt|;
+name|disablingAndDisabledTables
+operator|.
+name|addAll
+argument_list|(
+name|this
+operator|.
+name|zkTable
+operator|.
+name|getDisabledTables
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Scan META for all user regions, skipping any disabled tables
 name|Map
 argument_list|<
@@ -10708,12 +10740,7 @@ name|fullScan
 argument_list|(
 name|catalogTracker
 argument_list|,
-name|this
-operator|.
-name|zkTable
-operator|.
-name|getDisabledTables
-argument_list|()
+name|disablingAndDisabledTables
 argument_list|,
 literal|true
 argument_list|)
