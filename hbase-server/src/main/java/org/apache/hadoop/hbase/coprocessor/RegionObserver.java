@@ -470,7 +470,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to selecting the {@link StoreFile}s to compact from the list    * of available candidates.  To alter the files used for compaction, you may    * mutate the passed in list of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    */
+comment|/**    * Called prior to selecting the {@link StoreFile}s to compact from the list    * of available candidates.  To alter the files used for compaction, you may    * mutate the passed in list of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preCompactSelection
 parameter_list|(
@@ -492,6 +492,8 @@ name|StoreFile
 argument_list|>
 name|candidates
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Called after the {@link StoreFile}s to compact have been selected from the    * available candidates.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param selected the store files selected to compact    */
 name|void

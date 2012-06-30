@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -40,7 +50,7 @@ specifier|public
 interface|interface
 name|CompactionRequestor
 block|{
-comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    */
+comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @throws IOException    */
 specifier|public
 name|void
 name|requestCompaction
@@ -53,8 +63,10 @@ specifier|final
 name|String
 name|why
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    */
+comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @throws IOException    */
 specifier|public
 name|void
 name|requestCompaction
@@ -71,8 +83,10 @@ specifier|final
 name|String
 name|why
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    */
+comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    * @throws IOException    */
 specifier|public
 name|void
 name|requestCompaction
@@ -88,8 +102,10 @@ parameter_list|,
 name|int
 name|pri
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    */
+comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    * @throws IOException    */
 specifier|public
 name|void
 name|requestCompaction
@@ -109,6 +125,8 @@ parameter_list|,
 name|int
 name|pri
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

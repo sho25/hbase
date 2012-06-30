@@ -1558,7 +1558,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Called prior to selecting the {@link StoreFile}s for compaction from    * the list of currently available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @return If {@code true}, skip the normal selection process and use the current list    */
+comment|/**    * Called prior to selecting the {@link StoreFile}s for compaction from    * the list of currently available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
 specifier|public
 name|boolean
 name|preCompactSelection
@@ -1572,6 +1572,8 @@ name|StoreFile
 argument_list|>
 name|candidates
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -1615,6 +1617,8 @@ argument_list|,
 name|ctx
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 operator|(
 operator|(
 name|RegionObserver
@@ -1634,6 +1638,21 @@ argument_list|,
 name|candidates
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|handleCoprocessorThrowable
+argument_list|(
+name|env
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|bypass
 operator||=
 name|ctx

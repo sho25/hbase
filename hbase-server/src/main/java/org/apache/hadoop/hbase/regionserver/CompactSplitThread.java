@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -777,6 +787,8 @@ specifier|final
 name|String
 name|why
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
@@ -824,6 +836,8 @@ specifier|final
 name|String
 name|why
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|requestCompaction
 argument_list|(
@@ -855,6 +869,8 @@ parameter_list|,
 name|int
 name|p
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
@@ -904,6 +920,8 @@ parameter_list|,
 name|int
 name|priority
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(

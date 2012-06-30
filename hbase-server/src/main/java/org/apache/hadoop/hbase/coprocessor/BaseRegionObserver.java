@@ -601,6 +601,8 @@ name|StoreFile
 argument_list|>
 name|candidates
 parameter_list|)
+throws|throws
+name|IOException
 block|{ }
 annotation|@
 name|Override

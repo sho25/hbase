@@ -5935,6 +5935,8 @@ specifier|public
 name|CompactionRequest
 name|requestCompaction
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|requestCompaction
@@ -5950,6 +5952,8 @@ parameter_list|(
 name|int
 name|priority
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|// don't even select for compaction if writes are disabled
 if|if
@@ -6288,33 +6292,6 @@ name|pri
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ex
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Compaction Request failed for region "
-operator|+
-name|region
-operator|+
-literal|", store "
-operator|+
-name|this
-argument_list|,
-name|RemoteExceptionHandler
-operator|.
-name|checkIOException
-argument_list|(
-name|ex
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 finally|finally
 block|{
