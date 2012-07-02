@@ -4379,6 +4379,12 @@ operator|.
 name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
+comment|// clear cache or else getTimestamp() possibly returns an old value
+name|timestampCache
+operator|=
+operator|-
+literal|1L
+expr_stmt|;
 return|return
 literal|true
 return|;
