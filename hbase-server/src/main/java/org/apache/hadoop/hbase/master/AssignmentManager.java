@@ -8047,7 +8047,7 @@ try|try
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Assigning region "
 operator|+
