@@ -301,22 +301,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HMasterInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWatcher
@@ -359,18 +343,6 @@ name|getZooKeeperWatcher
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    * @deprecated Removed because it was a mistake exposing master in this    * interface (master is an implementation detail). Master functions are    * available from HConnection or HBaseAdmin, without having to use    * directly the master.    * Deprecated in HBase 0.94    */
-annotation|@
-name|Deprecated
-specifier|public
-name|HMasterInterface
-name|getMaster
-parameter_list|()
-throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
 function_decl|;
 comment|/** @return - true if the master server is running */
 specifier|public

@@ -1491,7 +1491,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|CreateTableRequest
 import|;
@@ -1511,7 +1511,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetTableDescriptorsResponse
 import|;

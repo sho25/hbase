@@ -105,9 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HMasterInterface
+name|MasterMonitorProtocol
 import|;
 end_import
 
@@ -269,21 +267,21 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|HMasterInterface
+name|MasterMonitorProtocol
 name|inf
 init|=
 operator|(
-name|HMasterInterface
+name|MasterMonitorProtocol
 operator|)
 name|HBaseRPC
 operator|.
 name|getProxy
 argument_list|(
-name|HMasterInterface
+name|MasterMonitorProtocol
 operator|.
 name|class
 argument_list|,
-name|HMasterInterface
+name|MasterMonitorProtocol
 operator|.
 name|VERSION
 argument_list|,

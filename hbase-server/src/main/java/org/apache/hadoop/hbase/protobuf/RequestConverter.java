@@ -1147,7 +1147,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AddColumnRequest
 import|;
@@ -1167,7 +1167,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AssignRegionRequest
 import|;
@@ -1187,7 +1187,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|CreateTableRequest
 import|;
@@ -1207,7 +1207,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteColumnRequest
 import|;
@@ -1227,7 +1227,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteTableRequest
 import|;
@@ -1247,7 +1247,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DisableTableRequest
 import|;
@@ -1267,7 +1267,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|EnableTableRequest
 import|;
@@ -1287,7 +1287,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetSchemaAlterStatusRequest
 import|;
@@ -1307,7 +1307,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetTableDescriptorsRequest
 import|;
@@ -1327,7 +1327,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyColumnRequest
 import|;
@@ -1347,7 +1347,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyTableRequest
 import|;
@@ -1367,7 +1367,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|MoveRegionRequest
 import|;
@@ -1387,7 +1387,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|OfflineRegionRequest
 import|;
@@ -1407,7 +1407,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|UnassignRegionRequest
 import|;
@@ -1427,7 +1427,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|BalanceRequest
 import|;
@@ -1467,7 +1467,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|SetBalancerRunningRequest
 import|;
@@ -1487,7 +1487,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetClusterStatusRequest
 import|;

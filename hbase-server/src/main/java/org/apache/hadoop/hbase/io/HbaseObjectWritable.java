@@ -1197,7 +1197,7 @@ argument_list|)
 decl_stmt|;
 comment|// Here we maintain two static maps of classes to code and vice versa.
 comment|// Add new classes+codes as wanted or figure way to auto-generate these
-comment|// maps from the HMasterInterface.
+comment|// maps.
 specifier|static
 specifier|final
 name|Map

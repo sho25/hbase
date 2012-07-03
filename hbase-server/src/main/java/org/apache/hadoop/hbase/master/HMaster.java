@@ -761,9 +761,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|MasterMonitorProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|HMasterInterface
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MasterAdminProtocol
 import|;
 end_import
 
@@ -1537,7 +1549,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AddColumnRequest
 import|;
@@ -1557,7 +1569,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AddColumnResponse
 import|;
@@ -1577,7 +1589,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AssignRegionRequest
 import|;
@@ -1597,7 +1609,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|AssignRegionResponse
 import|;
@@ -1617,7 +1629,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|CreateTableRequest
 import|;
@@ -1637,7 +1649,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|CreateTableResponse
 import|;
@@ -1657,7 +1669,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteColumnRequest
 import|;
@@ -1677,7 +1689,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteColumnResponse
 import|;
@@ -1697,7 +1709,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteTableRequest
 import|;
@@ -1717,7 +1729,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DeleteTableResponse
 import|;
@@ -1737,7 +1749,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DisableTableRequest
 import|;
@@ -1757,7 +1769,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|DisableTableResponse
 import|;
@@ -1777,7 +1789,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|EnableTableRequest
 import|;
@@ -1797,7 +1809,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|EnableTableResponse
 import|;
@@ -1817,7 +1829,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetSchemaAlterStatusRequest
 import|;
@@ -1837,7 +1849,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetSchemaAlterStatusResponse
 import|;
@@ -1857,7 +1869,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetTableDescriptorsRequest
 import|;
@@ -1877,7 +1889,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetTableDescriptorsResponse
 import|;
@@ -1897,7 +1909,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyColumnRequest
 import|;
@@ -1917,7 +1929,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyColumnResponse
 import|;
@@ -1937,7 +1949,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyTableRequest
 import|;
@@ -1957,7 +1969,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ModifyTableResponse
 import|;
@@ -1977,7 +1989,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|MoveRegionRequest
 import|;
@@ -1997,7 +2009,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|MoveRegionResponse
 import|;
@@ -2017,7 +2029,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|OfflineRegionRequest
 import|;
@@ -2037,7 +2049,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|OfflineRegionResponse
 import|;
@@ -2057,7 +2069,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|UnassignRegionRequest
 import|;
@@ -2077,7 +2089,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|UnassignRegionResponse
 import|;
@@ -2217,7 +2229,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|BalanceRequest
 import|;
@@ -2237,7 +2249,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|BalanceResponse
 import|;
@@ -2297,7 +2309,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|SetBalancerRunningRequest
 import|;
@@ -2317,7 +2329,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|SetBalancerRunningResponse
 import|;
@@ -2337,7 +2349,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ShutdownRequest
 import|;
@@ -2357,7 +2369,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|ShutdownResponse
 import|;
@@ -2377,7 +2389,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|StopMasterRequest
 import|;
@@ -2397,7 +2409,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterAdminProtos
 operator|.
 name|StopMasterResponse
 import|;
@@ -2417,7 +2429,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetClusterStatusRequest
 import|;
@@ -2437,7 +2449,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterProtos
+name|MasterMonitorProtos
 operator|.
 name|GetClusterStatusResponse
 import|;
@@ -2456,7 +2468,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see HMasterInterface  * @see MasterRegionInterface  * @see Watcher  */
+comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see MasterMonitorProtocol  * @see MasterAdminProtocol  * @see RegionServerStatusProtocol  * @see Watcher  */
 end_comment
 
 begin_class
@@ -2470,7 +2482,9 @@ name|HMaster
 extends|extends
 name|HasThread
 implements|implements
-name|HMasterInterface
+name|MasterMonitorProtocol
+implements|,
+name|MasterAdminProtocol
 implements|,
 name|RegionServerStatusProtocol
 implements|,
@@ -2866,7 +2880,11 @@ name|?
 argument_list|>
 index|[]
 block|{
-name|HMasterInterface
+name|MasterMonitorProtocol
+operator|.
+name|class
+operator|,
+name|MasterAdminProtocol
 operator|.
 name|class
 operator|,
@@ -5327,7 +5345,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|HMasterInterface
+name|MasterMonitorProtocol
 operator|.
 name|class
 operator|.
@@ -5344,7 +5362,35 @@ return|return
 operator|new
 name|ProtocolSignature
 argument_list|(
-name|HMasterInterface
+name|MasterMonitorProtocol
+operator|.
+name|VERSION
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|MasterAdminProtocol
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|protocol
+argument_list|)
+condition|)
+block|{
+return|return
+operator|new
+name|ProtocolSignature
+argument_list|(
+name|MasterAdminProtocol
 operator|.
 name|VERSION
 argument_list|,
@@ -5406,7 +5452,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|HMasterInterface
+name|MasterMonitorProtocol
 operator|.
 name|class
 operator|.
@@ -5420,7 +5466,29 @@ argument_list|)
 condition|)
 block|{
 return|return
-name|HMasterInterface
+name|MasterMonitorProtocol
+operator|.
+name|VERSION
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|MasterAdminProtocol
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|protocol
+argument_list|)
+condition|)
+block|{
+return|return
+name|MasterAdminProtocol
 operator|.
 name|VERSION
 return|;
