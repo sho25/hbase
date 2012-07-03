@@ -7645,20 +7645,10 @@ name|writeToWAL
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup a Delete object with correct timestamps.    * Caller should the row and region locks.    * @param delete    * @param now    * @throws IOException    */
+comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @param familyMap    * @param now    * @throws IOException    */
 name|void
 name|prepareDeleteTimestamps
 parameter_list|(
-name|Delete
-name|delete
-parameter_list|,
-name|byte
-index|[]
-name|byteNow
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 name|Map
 argument_list|<
 name|byte
@@ -7670,12 +7660,14 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
-init|=
-name|delete
-operator|.
-name|getFamilyMap
-argument_list|()
-decl_stmt|;
+parameter_list|,
+name|byte
+index|[]
+name|byteNow
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 for|for
 control|(
 name|Map
@@ -8077,6 +8069,9 @@ block|{
 name|prepareDeleteTimestamps
 argument_list|(
 name|delete
+operator|.
+name|getFamilyMap
+argument_list|()
 argument_list|,
 name|byteNow
 argument_list|)
@@ -8518,7 +8513,7 @@ literal|"unchecked"
 argument_list|)
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8558,7 +8553,7 @@ operator|=
 operator|new
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8573,26 +8568,26 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|put
+name|batchMutate
 argument_list|(
 name|putsAndLocks
 argument_list|)
 return|;
 block|}
-comment|/**    * Perform a batch of puts.    *    * @param putsAndLocks    *          the list of puts paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
+comment|/**    * Perform a batch of mutations.    * It supports only Put and Delete mutations and will ignore other types passed.    * @param putsAndLocks    *          the list of mutations paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
 specifier|public
 name|OperationStatus
 index|[]
-name|put
+name|batchMutate
 parameter_list|(
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
 index|[]
-name|putsAndLocks
+name|mutationsAndLocks
 parameter_list|)
 throws|throws
 name|IOException
@@ -8601,7 +8596,7 @@ name|BatchOperationInProgress
 argument_list|<
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8613,13 +8608,13 @@ name|BatchOperationInProgress
 argument_list|<
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
 argument_list|>
 argument_list|(
-name|putsAndLocks
+name|mutationsAndLocks
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -8663,7 +8658,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|doPrePutHook
+name|doPreMutationHook
 argument_list|(
 name|batchOp
 argument_list|)
@@ -8676,7 +8671,7 @@ block|}
 name|long
 name|addedSize
 init|=
-name|doMiniBatchPut
+name|doMiniBatchMutation
 argument_list|(
 name|batchOp
 argument_list|)
@@ -8718,13 +8713,13 @@ return|;
 block|}
 specifier|private
 name|void
-name|doPrePutHook
+name|doPreMutationHook
 parameter_list|(
 name|BatchOperationInProgress
 argument_list|<
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8770,7 +8765,7 @@ control|)
 block|{
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8783,8 +8778,8 @@ index|[
 name|i
 index|]
 decl_stmt|;
-name|Put
-name|put
+name|Mutation
+name|m
 init|=
 name|nextPair
 operator|.
@@ -8793,15 +8788,25 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|m
+operator|instanceof
+name|Put
+condition|)
+block|{
+if|if
+condition|(
 name|coprocessorHost
 operator|.
 name|prePut
 argument_list|(
-name|put
+operator|(
+name|Put
+operator|)
+name|m
 argument_list|,
 name|walEdit
 argument_list|,
-name|put
+name|m
 operator|.
 name|getWriteToWAL
 argument_list|()
@@ -8809,7 +8814,7 @@ argument_list|)
 condition|)
 block|{
 comment|// pre hook says skip this Put
-comment|// mark as success and skip in doMiniBatchPut
+comment|// mark as success and skip in doMiniBatchMutation
 name|batchOp
 operator|.
 name|retCodeDetails
@@ -8820,6 +8825,73 @@ operator|=
 name|OperationStatus
 operator|.
 name|SUCCESS
+expr_stmt|;
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|m
+operator|instanceof
+name|Delete
+condition|)
+block|{
+if|if
+condition|(
+name|coprocessorHost
+operator|.
+name|preDelete
+argument_list|(
+operator|(
+name|Delete
+operator|)
+name|m
+argument_list|,
+name|walEdit
+argument_list|,
+name|m
+operator|.
+name|getWriteToWAL
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// pre hook says skip this Delete
+comment|// mark as success and skip in doMiniBatchMutation
+name|batchOp
+operator|.
+name|retCodeDetails
+index|[
+name|i
+index|]
+operator|=
+name|OperationStatus
+operator|.
+name|SUCCESS
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// In case of passing Append mutations along with the Puts and Deletes in batchMutate
+comment|// mark the operation return code as failure so that it will not be considered in
+comment|// the doMiniBatchMutation
+name|batchOp
+operator|.
+name|retCodeDetails
+index|[
+name|i
+index|]
+operator|=
+operator|new
+name|OperationStatus
+argument_list|(
+name|OperationStatusCode
+operator|.
+name|FAILURE
+argument_list|,
+literal|"Put/Delete mutations only supported in batchMutate() now"
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -8857,13 +8929,13 @@ literal|"unchecked"
 argument_list|)
 specifier|private
 name|long
-name|doMiniBatchPut
+name|doMiniBatchMutation
 parameter_list|(
 name|BatchOperationInProgress
 argument_list|<
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -8875,17 +8947,33 @@ name|IOException
 block|{
 comment|// variable to note if all Put items are for the same CF -- metrics related
 name|boolean
-name|cfSetConsistent
+name|putsCfSetConsistent
 init|=
 literal|true
 decl_stmt|;
-comment|//The set of columnFamilies first seen.
+comment|//The set of columnFamilies first seen for Put.
 name|Set
 argument_list|<
 name|byte
 index|[]
 argument_list|>
-name|cfSet
+name|putsCfSet
+init|=
+literal|null
+decl_stmt|;
+comment|// variable to note if all Delete items are for the same CF -- metrics related
+name|boolean
+name|deletesCfSetConsistent
+init|=
+literal|true
+decl_stmt|;
+comment|//The set of columnFamilies first seen for Delete.
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|deletesCfSet
 init|=
 literal|null
 decl_stmt|;
@@ -8986,6 +9074,15 @@ name|success
 init|=
 literal|false
 decl_stmt|;
+name|int
+name|noOfPuts
+init|=
+literal|0
+decl_stmt|,
+name|noOfDeletes
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 comment|// ------------------------------------
@@ -9018,7 +9115,7 @@ condition|)
 block|{
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -9031,13 +9128,20 @@ index|[
 name|lastIndexExclusive
 index|]
 decl_stmt|;
-name|Put
-name|put
+name|Mutation
+name|mutation
 init|=
 name|nextPair
 operator|.
 name|getFirst
 argument_list|()
+decl_stmt|;
+name|boolean
+name|isPutMutation
+init|=
+name|mutation
+operator|instanceof
+name|Put
 decl_stmt|;
 name|Integer
 name|providedLockId
@@ -9059,7 +9163,7 @@ argument_list|>
 argument_list|>
 name|familyMap
 init|=
-name|put
+name|mutation
 operator|.
 name|getFamilyMap
 argument_list|()
@@ -9095,9 +9199,14 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Check the families in the put. If bad, skip this one.
 try|try
 block|{
+if|if
+condition|(
+name|isPutMutation
+condition|)
+block|{
+comment|// Check the families in the put. If bad, skip this one.
 name|checkFamilies
 argument_list|(
 name|familyMap
@@ -9108,11 +9217,26 @@ argument_list|)
 expr_stmt|;
 name|checkTimestamps
 argument_list|(
-name|put
+name|mutation
+operator|.
+name|getFamilyMap
+argument_list|()
 argument_list|,
 name|now
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|prepareDelete
+argument_list|(
+operator|(
+name|Delete
+operator|)
+name|mutation
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -9124,7 +9248,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No such column family in batch put"
+literal|"No such column family in batch mutation"
 argument_list|,
 name|dnrioe
 argument_list|)
@@ -9170,7 +9294,7 @@ name|getLock
 argument_list|(
 name|providedLockId
 argument_list|,
-name|put
+name|mutation
 operator|.
 name|getRow
 argument_list|()
@@ -9216,19 +9340,24 @@ expr_stmt|;
 name|numReadyToWrite
 operator|++
 expr_stmt|;
-comment|//If Column Families stay consistent through out all of the
-comment|//individual puts then metrics can be reported as a mutliput across
-comment|//column families in the first put.
 if|if
 condition|(
-name|cfSet
+name|isPutMutation
+condition|)
+block|{
+comment|// If Column Families stay consistent through out all of the
+comment|// individual puts then metrics can be reported as a mutliput across
+comment|// column families in the first put.
+if|if
+condition|(
+name|putsCfSet
 operator|==
 literal|null
 condition|)
 block|{
-name|cfSet
+name|putsCfSet
 operator|=
-name|put
+name|mutation
 operator|.
 name|getFamilyMap
 argument_list|()
@@ -9239,11 +9368,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|cfSetConsistent
+name|putsCfSetConsistent
 operator|=
-name|cfSetConsistent
+name|putsCfSetConsistent
 operator|&&
-name|put
+name|mutation
 operator|.
 name|getFamilyMap
 argument_list|()
@@ -9253,13 +9382,55 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|cfSet
+name|putsCfSet
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+else|else
+block|{
+if|if
+condition|(
+name|deletesCfSet
+operator|==
+literal|null
+condition|)
+block|{
+name|deletesCfSet
+operator|=
+name|mutation
+operator|.
+name|getFamilyMap
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|deletesCfSetConsistent
+operator|=
+name|deletesCfSetConsistent
+operator|&&
+name|mutation
+operator|.
+name|getFamilyMap
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|deletesCfSet
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 comment|// we should record the timestamp only after we have acquired the rowLock,
-comment|// otherwise, newer puts are not guaranteed to have a newer timestamp
+comment|// otherwise, newer puts/deletes are not guaranteed to have a newer timestamp
 name|now
 operator|=
 name|EnvironmentEdgeManager
@@ -9278,7 +9449,7 @@ argument_list|(
 name|now
 argument_list|)
 decl_stmt|;
-comment|// Nothing to put -- an exception in the above such as NoSuchColumnFamily?
+comment|// Nothing to put/delete -- an exception in the above such as NoSuchColumnFamily?
 if|if
 condition|(
 name|numReadyToWrite
@@ -9288,7 +9459,7 @@ condition|)
 return|return
 literal|0L
 return|;
-comment|// We've now grabbed as many puts off the list as we can
+comment|// We've now grabbed as many mutations off the list as we can
 comment|// ------------------------------------
 comment|// STEP 2. Update any LATEST_TIMESTAMP timestamps
 comment|// ----------------------------------
@@ -9325,6 +9496,26 @@ operator|.
 name|NOT_RUN
 condition|)
 continue|continue;
+name|Mutation
+name|mutation
+init|=
+name|batchOp
+operator|.
+name|operations
+index|[
+name|i
+index|]
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|mutation
+operator|instanceof
+name|Put
+condition|)
+block|{
 name|updateKVTimestamps
 argument_list|(
 name|familyMaps
@@ -9338,6 +9529,26 @@ argument_list|,
 name|byteNow
 argument_list|)
 expr_stmt|;
+name|noOfPuts
+operator|++
+expr_stmt|;
+block|}
+else|else
+block|{
+name|prepareDeleteTimestamps
+argument_list|(
+name|familyMaps
+index|[
+name|i
+index|]
+argument_list|,
+name|byteNow
+argument_list|)
+expr_stmt|;
+name|noOfDeletes
+operator|++
+expr_stmt|;
+block|}
 block|}
 name|this
 operator|.
@@ -9474,8 +9685,8 @@ name|OperationStatus
 operator|.
 name|SUCCESS
 expr_stmt|;
-name|Put
-name|p
+name|Mutation
+name|m
 init|=
 name|batchOp
 operator|.
@@ -9490,20 +9701,28 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|p
+name|m
 operator|.
 name|getWriteToWAL
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|m
+operator|instanceof
+name|Put
+condition|)
+block|{
 name|recordPutWithoutWal
 argument_list|(
-name|p
+name|m
 operator|.
 name|getFamilyMap
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 comment|// Add WAL edits by CP
@@ -9558,7 +9777,7 @@ block|}
 comment|// -------------------------
 comment|// STEP 5. Append the edit to WAL. Do not sync wal.
 comment|// -------------------------
-name|Put
+name|Mutation
 name|first
 init|=
 name|batchOp
@@ -9719,7 +9938,7 @@ expr_stmt|;
 block|}
 comment|// ------------------------------------
 comment|// STEP 9. Run coprocessor post hooks. This should be done after the wal is
-comment|// sycned so that the coprocessor contract is adhered to.
+comment|// synced so that the coprocessor contract is adhered to.
 comment|// ------------------------------------
 if|if
 condition|(
@@ -9763,8 +9982,8 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|Put
-name|p
+name|Mutation
+name|m
 init|=
 name|batchOp
 operator|.
@@ -9776,20 +9995,51 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|m
+operator|instanceof
+name|Put
+condition|)
+block|{
 name|coprocessorHost
 operator|.
 name|postPut
 argument_list|(
-name|p
+operator|(
+name|Put
+operator|)
+name|m
 argument_list|,
 name|walEdit
 argument_list|,
-name|p
+name|m
 operator|.
 name|getWriteToWAL
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|coprocessorHost
+operator|.
+name|postDelete
+argument_list|(
+operator|(
+name|Delete
+operator|)
+name|m
+argument_list|,
+name|walEdit
+argument_list|,
+name|m
+operator|.
+name|getWriteToWAL
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 name|success
@@ -9875,16 +10125,55 @@ block|}
 comment|// do after lock
 specifier|final
 name|long
-name|endTimeMs
+name|netTimeMs
 init|=
 name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
+operator|-
+name|startTimeMs
 decl_stmt|;
-comment|//See if the column families were consistent through the whole thing.
-comment|//if they were then keep them.  If they were not then pass a null.
-comment|//null will be treated as unknown.
+comment|// See if the column families were consistent through the whole thing.
+comment|// if they were then keep them. If they were not then pass a null.
+comment|// null will be treated as unknown.
+comment|// Total time taken might be involving Puts and Deletes.
+comment|// Split the time for puts and deletes based on the total number of Puts and Deletes.
+name|long
+name|timeTakenForPuts
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|noOfPuts
+operator|>
+literal|0
+condition|)
+block|{
+comment|// There were some Puts in the batch.
+name|double
+name|noOfMutations
+init|=
+name|noOfPuts
+operator|+
+name|noOfDeletes
+decl_stmt|;
+name|timeTakenForPuts
+operator|=
+call|(
+name|long
+call|)
+argument_list|(
+name|netTimeMs
+operator|*
+operator|(
+name|noOfPuts
+operator|/
+name|noOfMutations
+operator|)
+argument_list|)
+expr_stmt|;
 specifier|final
 name|Set
 argument_list|<
@@ -9893,9 +10182,9 @@ index|[]
 argument_list|>
 name|keptCfs
 init|=
-name|cfSetConsistent
+name|putsCfSetConsistent
 condition|?
-name|cfSet
+name|putsCfSet
 else|:
 literal|null
 decl_stmt|;
@@ -9907,11 +10196,46 @@ name|updateMultiPutMetrics
 argument_list|(
 name|keptCfs
 argument_list|,
-name|endTimeMs
-operator|-
-name|startTimeMs
+name|timeTakenForPuts
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|noOfDeletes
+operator|>
+literal|0
+condition|)
+block|{
+comment|// There were some Deletes in the batch.
+specifier|final
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|keptCfs
+init|=
+name|deletesCfSetConsistent
+condition|?
+name|deletesCfSet
+else|:
+literal|null
+decl_stmt|;
+name|this
+operator|.
+name|opMetrics
+operator|.
+name|updateMultiDeleteMetrics
+argument_list|(
+name|keptCfs
+argument_list|,
+name|netTimeMs
+operator|-
+name|timeTakenForPuts
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -11225,7 +11549,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put has updated memstore but subequently fails to update    * the wal. This method is then invoked to rollback the memstore.    */
+comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put/Delete has updated memstore but subequently fails to update    * the wal. This method is then invoked to rollback the memstore.    */
 specifier|private
 name|void
 name|rollbackMemstore
@@ -11234,7 +11558,7 @@ name|BatchOperationInProgress
 argument_list|<
 name|Pair
 argument_list|<
-name|Put
+name|Mutation
 argument_list|,
 name|Integer
 argument_list|>
@@ -11440,30 +11764,6 @@ name|family
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-specifier|private
-name|void
-name|checkTimestamps
-parameter_list|(
-name|Put
-name|p
-parameter_list|,
-name|long
-name|now
-parameter_list|)
-throws|throws
-name|DoNotRetryIOException
-block|{
-name|checkTimestamps
-argument_list|(
-name|p
-operator|.
-name|getFamilyMap
-argument_list|()
-argument_list|,
-name|now
-argument_list|)
-expr_stmt|;
 block|}
 name|void
 name|checkTimestamps

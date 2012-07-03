@@ -376,6 +376,9 @@ operator|.
 name|prepareDeleteTimestamps
 argument_list|(
 name|d
+operator|.
+name|getFamilyMap
+argument_list|()
 argument_list|,
 name|byteNow
 argument_list|)
