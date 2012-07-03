@@ -31,19 +31,11 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|nio
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|Compression
+name|ByteBuffer
 import|;
 end_import
 
@@ -61,7 +53,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileBlock
+name|Compression
 import|;
 end_import
 
@@ -82,13 +74,19 @@ name|Algorithm
 name|getCompression
 parameter_list|()
 function_decl|;
-comment|/**    * Perform all actions that need to be done before the encoder's real    * decoding process. Decompression needs to be done if    * {@link #getCompression()} returns a valid compression algorithm.    *    * @param block HFile block object    * @param onDiskBlock on disk bytes to be decoded    * @param offset data start offset in onDiskBlock    * @throws IOException    */
+comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link #getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk bytes to be decoded    * @param offset data start offset in onDiskBlock    * @throws IOException    */
 specifier|public
 name|void
 name|prepareDecoding
 parameter_list|(
-name|HFileBlock
-name|block
+name|int
+name|onDiskSizeWithoutHeader
+parameter_list|,
+name|int
+name|uncompressedSizeWithoutHeader
+parameter_list|,
+name|ByteBuffer
+name|blockBufferWithoutHeader
 parameter_list|,
 name|byte
 index|[]
