@@ -1246,13 +1246,32 @@ name|FileStatus
 index|[]
 name|status
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// hadoop 2.0 throws FNFE if directory does not exist.
+comment|// hadoop 1.0 returns null if directory does not exist.
+name|status
+operator|=
 name|fs
 operator|.
 name|listStatus
 argument_list|(
 name|versionFile
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 name|status
