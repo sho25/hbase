@@ -97,6 +97,24 @@ name|Server
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|executor
+operator|.
+name|ExecutorService
+operator|.
+name|ExecutorType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Abstract base class for all HBase event handlers. Subclasses should  * implement the {@link #process()} method.  Subclasses should also do all  * necessary checks up in their constructor if possible -- check table exists,  * is disabled, etc. -- so they fail fast rather than later when process is  * running.  Do it this way because process be invoked directly but event  * handlers are also  * run in an executor context -- i.e. asynchronously -- and in this case,  * exceptions thrown at process time will not be seen by the invoker, not till  * we implement a call-back mechanism so the client can pick them up later.  *<p>  * Event handlers have an {@link EventType}.  * {@link EventType} is a list of ALL handler event types.  We need to keep  * a full list in one place -- and as enums is a good shorthand for an  * implemenations -- because event handlers can be passed to executors when  * they are to be run asynchronously. The  * hbase executor, see {@link ExecutorService}, has a switch for passing  * event type to executor.  *<p>  * Event listeners can be installed and will be called pre- and post- process if  * this EventHandler is run in a Thread (its a Runnable so if its {@link #run()}  * method gets called).  Implement  * {@link EventHandlerListener}s, and registering using  * {@link #setListener(EventHandlerListener)}.  * @see ExecutorService  */
 end_comment
@@ -206,36 +224,56 @@ comment|// RS_ZK_REGION_CLOSING    (1),   // It is replaced by M_ZK_REGION_CLOSI
 name|RS_ZK_REGION_CLOSED
 argument_list|(
 literal|2
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_CLOSE_REGION
 argument_list|)
 block|,
 comment|// RS has finished closing a region
 name|RS_ZK_REGION_OPENING
 argument_list|(
 literal|3
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// RS is in process of opening a region
 name|RS_ZK_REGION_OPENED
 argument_list|(
 literal|4
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_OPEN_REGION
 argument_list|)
 block|,
 comment|// RS has finished opening a region
 name|RS_ZK_REGION_SPLITTING
 argument_list|(
 literal|5
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// RS has started a region split
 name|RS_ZK_REGION_SPLIT
 argument_list|(
 literal|6
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
 comment|// RS split has completed.
 name|RS_ZK_REGION_FAILED_OPEN
 argument_list|(
 literal|7
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_CLOSE_REGION
 argument_list|)
 block|,
 comment|// RS failed to open a region
@@ -243,36 +281,60 @@ comment|// Messages originating from Master to RS
 name|M_RS_OPEN_REGION
 argument_list|(
 literal|20
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_OPEN_REGION
 argument_list|)
 block|,
 comment|// Master asking RS to open a region
 name|M_RS_OPEN_ROOT
 argument_list|(
 literal|21
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_OPEN_REGION
 argument_list|)
 block|,
 comment|// Master asking RS to open root
 name|M_RS_OPEN_META
 argument_list|(
 literal|22
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_OPEN_META
 argument_list|)
 block|,
 comment|// Master asking RS to open meta
 name|M_RS_CLOSE_REGION
 argument_list|(
 literal|23
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_CLOSE_REGION
 argument_list|)
 block|,
 comment|// Master asking RS to close a region
 name|M_RS_CLOSE_ROOT
 argument_list|(
 literal|24
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_CLOSE_ROOT
 argument_list|)
 block|,
 comment|// Master asking RS to close root
 name|M_RS_CLOSE_META
 argument_list|(
 literal|25
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_CLOSE_META
 argument_list|)
 block|,
 comment|// Master asking RS to close meta
@@ -280,48 +342,74 @@ comment|// Messages originating from Client to Master
 name|C_M_DELETE_TABLE
 argument_list|(
 literal|40
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to delete a table
 name|C_M_DISABLE_TABLE
 argument_list|(
 literal|41
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to disable a table
 name|C_M_ENABLE_TABLE
 argument_list|(
 literal|42
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to enable a table
 name|C_M_MODIFY_TABLE
 argument_list|(
 literal|43
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to modify a table
 name|C_M_ADD_FAMILY
 argument_list|(
 literal|44
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// Client asking Master to add family to table
 name|C_M_DELETE_FAMILY
 argument_list|(
 literal|45
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// Client asking Master to delete family of table
 name|C_M_MODIFY_FAMILY
 argument_list|(
 literal|46
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// Client asking Master to modify family of table
 name|C_M_CREATE_TABLE
 argument_list|(
 literal|47
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to create a table
@@ -330,12 +418,16 @@ comment|// nothing to process by either Master or RS
 name|M_ZK_REGION_OFFLINE
 argument_list|(
 literal|50
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// Master adds this region as offline in ZK
 name|M_ZK_REGION_CLOSING
 argument_list|(
 literal|51
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|// Master adds this region as closing in ZK
@@ -343,12 +435,20 @@ comment|// Master controlled events to be executed on the master
 name|M_SERVER_SHUTDOWN
 argument_list|(
 literal|70
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
 comment|// Master is processing shutdown of a RS
 name|M_META_SERVER_SHUTDOWN
 argument_list|(
 literal|72
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_META_SERVER_OPERATIONS
 argument_list|)
 block|;
 comment|// Master is processing shutdown of RS hosting a meta region (-ROOT- or .META.).
@@ -357,12 +457,23 @@ specifier|final
 name|int
 name|code
 decl_stmt|;
+specifier|private
+specifier|final
+name|ExecutorService
+operator|.
+name|ExecutorType
+name|executor
+decl_stmt|;
 comment|/**      * Constructor      */
 name|EventType
 parameter_list|(
 specifier|final
 name|int
 name|code
+parameter_list|,
+specifier|final
+name|ExecutorType
+name|executor
 parameter_list|)
 block|{
 name|this
@@ -370,6 +481,12 @@ operator|.
 name|code
 operator|=
 name|code
+expr_stmt|;
+name|this
+operator|.
+name|executor
+operator|=
+name|executor
 expr_stmt|;
 block|}
 specifier|public
@@ -471,6 +588,16 @@ operator|.
 name|C_M_MODIFY_TABLE
 argument_list|)
 operator|)
+return|;
+block|}
+name|ExecutorType
+name|getExecutorServiceType
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|executor
 return|;
 block|}
 block|}
