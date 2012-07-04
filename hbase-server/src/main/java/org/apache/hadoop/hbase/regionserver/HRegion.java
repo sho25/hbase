@@ -8574,7 +8574,7 @@ name|putsAndLocks
 argument_list|)
 return|;
 block|}
-comment|/**    * Perform a batch of mutations.    * It supports only Put and Delete mutations and will ignore other types passed.    * @param putsAndLocks    *          the list of mutations paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
+comment|/**    * Perform a batch of mutations.    * It supports only Put and Delete mutations and will ignore other types passed.    * @param mutationsAndLocks    *          the list of mutations paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
 specifier|public
 name|OperationStatus
 index|[]
