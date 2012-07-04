@@ -13965,6 +13965,13 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|SPLIT
+case|:
+case|case
+name|SPLITTING
+case|:
+break|break;
 default|default:
 throw|throw
 operator|new
