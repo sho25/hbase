@@ -440,6 +440,11 @@ operator|new
 name|ThreadFactoryBuilder
 argument_list|()
 operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+operator|.
 name|setNameFormat
 argument_list|(
 literal|"Slab Statistics #%d"
