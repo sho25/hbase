@@ -4044,6 +4044,8 @@ argument_list|,
 name|row
 argument_list|,
 literal|true
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -4074,6 +4076,8 @@ argument_list|,
 name|row
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -4093,6 +4097,9 @@ name|row
 parameter_list|,
 name|boolean
 name|useCache
+parameter_list|,
+name|boolean
+name|retry
 parameter_list|)
 throws|throws
 name|IOException
@@ -4289,6 +4296,8 @@ argument_list|,
 name|useCache
 argument_list|,
 name|metaRegionLock
+argument_list|,
+name|retry
 argument_list|)
 return|;
 block|}
@@ -4309,6 +4318,8 @@ argument_list|,
 name|useCache
 argument_list|,
 name|userRegionLock
+argument_list|,
+name|retry
 argument_list|)
 return|;
 block|}
@@ -4604,6 +4615,9 @@ name|useCache
 parameter_list|,
 name|Object
 name|regionLockObject
+parameter_list|,
+name|boolean
+name|retry
 parameter_list|)
 throws|throws
 name|IOException
@@ -4639,6 +4653,15 @@ name|location
 return|;
 block|}
 block|}
+name|int
+name|localNumRetries
+init|=
+name|retry
+condition|?
+name|numRetries
+else|:
+literal|1
+decl_stmt|;
 comment|// build the key of the meta region we should be looking for.
 comment|// the extra 9's on the end are necessary to allow "exact" matches
 comment|// without knowing the precise region names.
@@ -4678,7 +4701,7 @@ if|if
 condition|(
 name|tries
 operator|>=
-name|numRetries
+name|localNumRetries
 condition|)
 block|{
 throw|throw
@@ -4717,6 +4740,10 @@ argument_list|(
 name|parentTable
 argument_list|,
 name|metaKey
+argument_list|,
+literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// If null still, go around again.
@@ -8469,8 +8496,6 @@ name|row
 operator|.
 name|getRow
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 if|if
