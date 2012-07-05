@@ -973,6 +973,23 @@ argument_list|)
 decl_stmt|;
 do|do
 block|{
+if|if
+condition|(
+name|master
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Master stopped while splitting logs"
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 name|List
 argument_list|<
 name|ServerName
