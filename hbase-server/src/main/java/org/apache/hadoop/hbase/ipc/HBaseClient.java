@@ -281,6 +281,18 @@ end_import
 
 begin_import
 import|import
+name|javax
+operator|.
+name|security
+operator|.
+name|sasl
+operator|.
+name|SaslException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2905,7 +2917,7 @@ name|out2
 argument_list|)
 return|;
 block|}
-comment|/**      * If multiple clients with the same principal try to connect      * to the same server at the same time, the server assumes a      * replay attack is in progress. This is a feature of kerberos.      * In order to work around this, what is done is that the client      * backs off randomly and tries to initiate the connection      * again.      * The other problem is to do with ticket expiry. To handle that,      * a relogin is attempted.      */
+comment|/**      * If multiple clients with the same principal try to connect      * to the same server at the same time, the server assumes a      * replay attack is in progress. This is a feature of kerberos.      * In order to work around this, what is done is that the client      * backs off randomly and tries to initiate the connection      * again.      * The other problem is to do with ticket expiry. To handle that,      * a relogin is attempted.      *<p>      * The retry logic is governed by the {@link #shouldAuthenticateOverKrb}      * method. In case when the user doesn't have valid credentials, we don't      * need to retry (from cache or ticket). In such cases, it is prudent to      * throw a runtime exception when we receive a SaslException from the      * underlying authentication implementation, so there is no retry from       * other high level (for eg, HCM or HBaseAdmin).      *</p>      */
 specifier|private
 specifier|synchronized
 name|void
@@ -3102,12 +3114,49 @@ name|ex
 operator|instanceof
 name|RemoteException
 condition|)
+block|{
 throw|throw
 operator|(
 name|RemoteException
 operator|)
 name|ex
 throw|;
+block|}
+if|if
+condition|(
+name|ex
+operator|instanceof
+name|SaslException
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"SASL authentication failed."
+operator|+
+literal|" The most likely cause is missing or invalid credentials."
+operator|+
+literal|" Consider 'kinit'."
+decl_stmt|;
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+name|msg
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|msg
+argument_list|,
+name|ex
+argument_list|)
+throw|;
+block|}
 throw|throw
 operator|new
 name|IOException
