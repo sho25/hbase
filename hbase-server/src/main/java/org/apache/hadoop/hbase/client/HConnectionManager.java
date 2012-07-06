@@ -1806,6 +1806,7 @@ block|}
 block|}
 block|}
 comment|/**    * Denotes a unique key to a {@link HConnection} instance.    *    * In essence, this class captures the properties in {@link Configuration}    * that may be used in the process of establishing a connection. In light of    * that, if any new such properties are introduced into the mix, they must be    * added to the {@link HConnectionKey#properties} list.    *    */
+specifier|public
 specifier|static
 class|class
 name|HConnectionKey
