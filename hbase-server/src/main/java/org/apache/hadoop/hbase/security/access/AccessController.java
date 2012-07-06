@@ -4002,6 +4002,34 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|tableName
+argument_list|,
+name|AccessControlLists
+operator|.
+name|ACL_GLOBAL_NAME
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|AccessDeniedException
+argument_list|(
+literal|"Not allowed to disable "
+operator|+
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME_STR
+operator|+
+literal|" table."
+argument_list|)
+throw|;
+block|}
 name|requirePermission
 argument_list|(
 name|tableName
