@@ -2677,11 +2677,11 @@ argument_list|>
 name|snapshotIt
 decl_stmt|;
 comment|// The kvset and snapshot at the time of creating this scanner
-specifier|volatile
+specifier|private
 name|KeyValueSkipListSet
 name|kvsetAtCreation
 decl_stmt|;
-specifier|volatile
+specifier|private
 name|KeyValueSkipListSet
 name|snapshotAtCreation
 decl_stmt|;
