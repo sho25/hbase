@@ -115,7 +115,9 @@ name|hbase
 operator|.
 name|metrics
 operator|.
-name|PersistentMetricsTimeVaryingRate
+name|histogram
+operator|.
+name|MetricsHistogram
 import|;
 end_import
 
@@ -342,11 +344,11 @@ argument_list|)
 decl_stmt|;
 comment|/** Time it takes to finish HLog.splitLog() */
 specifier|final
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 name|splitTime
 init|=
 operator|new
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 argument_list|(
 literal|"splitTime"
 argument_list|,
@@ -355,11 +357,11 @@ argument_list|)
 decl_stmt|;
 comment|/** Size of HLog files being split */
 specifier|final
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 name|splitSize
 init|=
 operator|new
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 argument_list|(
 literal|"splitSize"
 argument_list|,
@@ -613,14 +615,14 @@ name|this
 operator|.
 name|splitTime
 operator|.
-name|resetMinMaxAvg
+name|clear
 argument_list|()
 expr_stmt|;
 name|this
 operator|.
 name|splitSize
 operator|.
-name|resetMinMaxAvg
+name|clear
 argument_list|()
 expr_stmt|;
 name|this
@@ -714,14 +716,14 @@ parameter_list|)
 block|{
 name|splitTime
 operator|.
-name|inc
+name|update
 argument_list|(
 name|time
 argument_list|)
 expr_stmt|;
 name|splitSize
 operator|.
-name|inc
+name|update
 argument_list|(
 name|size
 argument_list|)

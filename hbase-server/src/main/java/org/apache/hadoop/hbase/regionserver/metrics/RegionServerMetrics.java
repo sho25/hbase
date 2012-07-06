@@ -1072,11 +1072,11 @@ decl_stmt|;
 comment|/**    * time each scheduled compaction takes    */
 specifier|protected
 specifier|final
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 name|compactionTime
 init|=
 operator|new
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 argument_list|(
 literal|"compactionTime"
 argument_list|,
@@ -1085,11 +1085,11 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 name|compactionSize
 init|=
 operator|new
-name|PersistentMetricsTimeVaryingRate
+name|MetricsHistogram
 argument_list|(
 literal|"compactionSize"
 argument_list|,
@@ -1407,14 +1407,14 @@ name|this
 operator|.
 name|compactionTime
 operator|.
-name|resetMinMaxAvg
+name|clear
 argument_list|()
 expr_stmt|;
 name|this
 operator|.
 name|compactionSize
 operator|.
-name|resetMinMaxAvg
+name|clear
 argument_list|()
 expr_stmt|;
 name|this
@@ -2311,7 +2311,7 @@ name|this
 operator|.
 name|compactionTime
 operator|.
-name|inc
+name|update
 argument_list|(
 name|time
 argument_list|)
@@ -2320,7 +2320,7 @@ name|this
 operator|.
 name|compactionSize
 operator|.
-name|inc
+name|update
 argument_list|(
 name|size
 argument_list|)
