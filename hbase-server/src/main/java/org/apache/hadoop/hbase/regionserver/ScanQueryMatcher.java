@@ -1031,6 +1031,13 @@ operator|)
 operator|<=
 name|timeToPurgeDeletes
 operator|)
+operator|||
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|>
+name|maxReadPointToTrackVersions
 condition|)
 block|{
 comment|// always include or it is not time yet to check whether it is OK
