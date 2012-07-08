@@ -1142,6 +1142,8 @@ name|transitionZKNode
 argument_list|(
 name|server
 argument_list|,
+name|server
+argument_list|,
 name|regions
 operator|.
 name|getFirst

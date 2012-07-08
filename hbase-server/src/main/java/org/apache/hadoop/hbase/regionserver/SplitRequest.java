@@ -346,6 +346,54 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|server
+operator|.
+name|isStopping
+argument_list|()
+operator|||
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skip rollback/cleanup of failed split of "
+operator|+
+name|parent
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" because server is"
+operator|+
+operator|(
+name|this
+operator|.
+name|server
+operator|.
+name|isStopping
+argument_list|()
+condition|?
+literal|" stopping"
+else|:
+literal|" stopped"
+operator|)
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 try|try
 block|{
 name|LOG

@@ -5893,6 +5893,16 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|killed
+condition|)
+block|{
+name|join
+argument_list|()
+expr_stmt|;
+block|}
 try|try
 block|{
 name|deleteMyEphemeralNode
@@ -5942,16 +5952,6 @@ operator|+
 literal|"; zookeeper connection closed."
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|killed
-condition|)
-block|{
-name|join
-argument_list|()
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
@@ -10064,6 +10064,9 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
