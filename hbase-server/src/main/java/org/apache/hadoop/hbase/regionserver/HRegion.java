@@ -14357,22 +14357,27 @@ operator|!=
 literal|0
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"There were IO errors when checking if bulk load is ok.  "
-operator|+
-literal|"throwing exception!"
-argument_list|)
-expr_stmt|;
-throw|throw
+name|IOException
+name|e
+init|=
 name|MultipleIOException
 operator|.
 name|createIOException
 argument_list|(
 name|ioes
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"There were one or more IO errors when checking if the bulk load is ok."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
 throw|;
 block|}
 for|for
@@ -14430,8 +14435,8 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-comment|// a failure here causes an atomicity violation that we currently
-comment|// cannot recover from since it is likely a failed hdfs operation.
+comment|// A failure here can cause an atomicity violation that we currently
+comment|// cannot recover from since it is likely a failed HDFS operation.
 comment|// TODO Need a better story for reverting partial failures due to HDFS.
 name|LOG
 operator|.
@@ -14457,6 +14462,8 @@ name|p
 operator|.
 name|getSecond
 argument_list|()
+argument_list|,
+name|ioe
 argument_list|)
 expr_stmt|;
 throw|throw

@@ -2902,7 +2902,7 @@ argument_list|(
 name|srcPathStr
 argument_list|)
 decl_stmt|;
-comment|// Move the file if it's on another filesystem
+comment|// Copy the file if it's on another filesystem
 name|FileSystem
 name|srcFs
 init|=
@@ -2928,13 +2928,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"File "
+literal|"Bulk-load file "
 operator|+
 name|srcPath
 operator|+
-literal|" on different filesystem than "
+literal|" is on different filesystem than "
 operator|+
-literal|"destination store - moving to this filesystem."
+literal|"the destination store. Copying file over to destination filesystem."
 argument_list|)
 expr_stmt|;
 name|Path
@@ -2964,7 +2964,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Copied to temporary path on dst filesystem: "
+literal|"Copied "
+operator|+
+name|srcPath
+operator|+
+literal|" to temporary path on destination filesystem: "
 operator|+
 name|tmpPath
 argument_list|)
@@ -3054,7 +3058,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moved hfile "
+literal|"Moved HFile "
 operator|+
 name|srcPath
 operator|+
