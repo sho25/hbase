@@ -138,6 +138,20 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|handleRegionEndKeyNotEmpty
+parameter_list|(
+name|byte
+index|[]
+name|curEndKey
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
+specifier|public
+name|void
 name|handleDegenerateRegion
 parameter_list|(
 name|HbckInfo

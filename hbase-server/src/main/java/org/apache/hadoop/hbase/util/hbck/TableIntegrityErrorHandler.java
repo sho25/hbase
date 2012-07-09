@@ -106,6 +106,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Callback for handling case where a Table has a last region that does not    * have an empty end key.    *    * @param curEndKey The end key of the current last region. There should be a new region    *    with start key as this and an empty end key.    */
+name|void
+name|handleRegionEndKeyNotEmpty
+parameter_list|(
+name|byte
+index|[]
+name|curEndKey
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Callback for handling a region that has the same start and end key.    *    * @param hi An HbckInfo for a degenerate key.    */
 name|void
 name|handleDegenerateRegion
