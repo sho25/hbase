@@ -1534,17 +1534,29 @@ operator|+
 literal|" done"
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"error or interrupt while splitting logs in "
+name|String
+name|msg
+init|=
+literal|"error or interrupted while splitting logs in "
 operator|+
 name|logDirs
 operator|+
 literal|" Task = "
 operator|+
 name|batch
+decl_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
 argument_list|)
 throw|;
 block|}
