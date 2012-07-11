@@ -12243,11 +12243,48 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
+name|HConstants
+operator|.
+name|HREGION_EDITS_REPLAY_SKIP_ERRORS
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
 literal|"hbase.skip.errors"
 argument_list|,
-literal|false
+name|HConstants
+operator|.
+name|DEFAULT_HREGION_EDITS_REPLAY_SKIP_ERRORS
+argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.skip.errors"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The property 'hbase.skip.errors' has been deprecated. Please use "
+operator|+
+name|HConstants
+operator|.
+name|HREGION_EDITS_REPLAY_SKIP_ERRORS
+operator|+
+literal|" instead."
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|skipErrors
@@ -12269,7 +12306,10 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"hbase.skip.errors=true so continuing. Renamed "
+name|HConstants
+operator|.
+name|HREGION_EDITS_REPLAY_SKIP_ERRORS
+literal|"=true so continuing. Renamed "
 operator|+
 name|edits
 operator|+

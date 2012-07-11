@@ -727,6 +727,22 @@ name|HREGION_MEMSTORE_FLUSH_SIZE
 init|=
 literal|"hbase.hregion.memstore.flush.size"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HREGION_EDITS_REPLAY_SKIP_ERRORS
+init|=
+literal|"hbase.hregion.edits.replay.skip.errors"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_HREGION_EDITS_REPLAY_SKIP_ERRORS
+init|=
+literal|false
+decl_stmt|;
 comment|/** Default size of a reservation block   */
 specifier|public
 specifier|static
