@@ -4223,13 +4223,9 @@ argument_list|)
 decl_stmt|;
 name|HLogSplitter
 operator|.
-name|splitLogFileToTemp
+name|splitLogFile
 argument_list|(
 name|hbaseRootDir
-argument_list|,
-name|hbaseRootDir
-operator|+
-literal|"/temp"
 argument_list|,
 name|listStatus
 index|[
@@ -4262,7 +4258,7 @@ name|Path
 argument_list|(
 name|hbaseRootDir
 operator|+
-literal|"/temp/"
+literal|"/"
 operator|+
 name|tableNameStr
 operator|+
