@@ -12309,6 +12309,7 @@ argument_list|(
 name|HConstants
 operator|.
 name|HREGION_EDITS_REPLAY_SKIP_ERRORS
+operator|+
 literal|"=true so continuing. Renamed "
 operator|+
 name|edits
