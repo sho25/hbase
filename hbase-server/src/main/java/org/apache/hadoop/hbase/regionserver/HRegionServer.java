@@ -3672,6 +3672,15 @@ name|REGIONSERVER
 init|=
 literal|"regionserver"
 decl_stmt|;
+comment|/** region server configuration name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_CONF
+init|=
+literal|"regionserver_conf"
+decl_stmt|;
 comment|/*    * Space is reserved in HRS constructor and then released when aborting to    * recover from an OOME. See HBASE-706. TODO: Make this percentage of the heap    * or a minimum.    */
 specifier|private
 specifier|final
@@ -9832,6 +9841,17 @@ argument_list|(
 name|REGIONSERVER
 argument_list|,
 name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|infoServer
+operator|.
+name|setAttribute
+argument_list|(
+name|REGIONSERVER_CONF
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 name|this
