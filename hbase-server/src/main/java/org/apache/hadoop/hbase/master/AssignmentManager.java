@@ -10672,27 +10672,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// Get all available servers
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|destServers
-init|=
-name|serverManager
-operator|.
-name|createDestinationServersList
-argument_list|()
-decl_stmt|;
-comment|// If there are no servers we need not proceed with region assignment.
-if|if
-condition|(
-name|destServers
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-return|return;
 comment|// Skip assignment for regions of tables in DISABLING state because during clean cluster startup
 comment|// no RS is alive and regions map also doesn't have any information about the regions.
 comment|// See HBASE-6281.
@@ -10752,6 +10731,27 @@ operator|==
 literal|null
 operator|||
 name|allRegions
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+return|return;
+comment|// Get all available servers
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|destServers
+init|=
+name|serverManager
+operator|.
+name|createDestinationServersList
+argument_list|()
+decl_stmt|;
+comment|// If there are no servers we need not proceed with region assignment.
+if|if
+condition|(
+name|destServers
 operator|.
 name|isEmpty
 argument_list|()
