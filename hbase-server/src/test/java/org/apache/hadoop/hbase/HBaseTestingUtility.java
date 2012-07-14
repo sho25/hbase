@@ -2739,22 +2739,32 @@ argument_list|()
 expr_stmt|;
 comment|// These settings will make the server waits until this exact number of
 comment|//  regions servers are connected.
+name|String
+name|count
+init|=
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|numSlaves
+argument_list|)
+decl_stmt|;
 name|conf
 operator|.
-name|setInt
+name|setIfUnset
 argument_list|(
 literal|"hbase.master.wait.on.regionservers.mintostart"
 argument_list|,
-name|numSlaves
+name|count
 argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|setInt
+name|setIfUnset
 argument_list|(
 literal|"hbase.master.wait.on.regionservers.maxtostart"
 argument_list|,
-name|numSlaves
+name|count
 argument_list|)
 expr_stmt|;
 name|Configuration

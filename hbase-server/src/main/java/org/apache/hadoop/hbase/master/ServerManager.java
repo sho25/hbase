@@ -2510,7 +2510,7 @@ return|return
 name|admin
 return|;
 block|}
-comment|/**    * Wait for the region servers to report in.    * We will wait until one of this condition is met:    *  - the master is stopped    *  - the 'hbase.master.wait.on.regionservers.timeout' is reached    *  - the 'hbase.master.wait.on.regionservers.maxtostart' number of    *    region servers is reached    *  - the 'hbase.master.wait.on.regionservers.mintostart' is reached AND    *   there have been no new region server in for    *      'hbase.master.wait.on.regionservers.interval' time    *    * @throws InterruptedException    */
+comment|/**    * Wait for the region servers to report in.    * We will wait until one of this condition is met:    *  - the master is stopped    *  - the 'hbase.master.wait.on.regionservers.maxtostart' number of    *    region servers is reached    *  - the 'hbase.master.wait.on.regionservers.mintostart' is reached AND    *   there have been no new region server in for    *      'hbase.master.wait.on.regionservers.interval' time AND    *   the 'hbase.master.wait.on.regionservers.timeout' is reached    *    * @throws InterruptedException    */
 specifier|public
 name|void
 name|waitForRegionServers
@@ -2575,7 +2575,6 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
-specifier|final
 name|int
 name|maxToStart
 init|=
@@ -2595,6 +2594,40 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|maxToStart
+operator|<
+name|minToStart
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"The value of 'hbase.master.wait.on.regionservers.maxtostart' (%d)"
+operator|+
+literal|" is set less than 'hbase.master.wait.on.regionservers.mintostart'"
+operator|+
+literal|" (%d), ignoring."
+argument_list|,
+name|maxToStart
+argument_list|,
+name|minToStart
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|maxToStart
+operator|=
+name|Integer
+operator|.
+name|MAX_VALUE
+expr_stmt|;
+block|}
 name|long
 name|now
 init|=
@@ -2645,10 +2678,6 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
-name|slept
-operator|<
-name|timeout
-operator|&&
 name|count
 operator|<
 name|maxToStart
@@ -2659,6 +2688,10 @@ operator|+
 name|interval
 operator|>
 name|now
+operator|||
+name|timeout
+operator|>
+name|slept
 operator|||
 name|count
 operator|<
