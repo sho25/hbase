@@ -8829,7 +8829,7 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
-comment|// if the midkey is the same as the first and last keys, then we cannot
+comment|// if the midkey is the same as the first or last keys, then we cannot
 comment|// (ever) split this region.
 if|if
 condition|(
@@ -8845,7 +8845,7 @@ name|firstKey
 argument_list|)
 operator|==
 literal|0
-operator|&&
+operator|||
 name|this
 operator|.
 name|comparator
