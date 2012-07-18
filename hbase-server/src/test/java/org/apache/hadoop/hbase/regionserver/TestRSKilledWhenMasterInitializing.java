@@ -581,15 +581,10 @@ throws|throws
 name|Exception
 block|{
 comment|// Set it so that this test runs with my custom master
-name|Configuration
-name|conf
-init|=
 name|TESTUTIL
 operator|.
 name|getConfiguration
 argument_list|()
-decl_stmt|;
-name|conf
 operator|.
 name|setClass
 argument_list|(
@@ -604,24 +599,6 @@ argument_list|,
 name|HMaster
 operator|.
 name|class
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.wait.on.regionservers.mintostart"
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.wait.on.regionservers.maxtostart"
-argument_list|,
-literal|4
 argument_list|)
 expr_stmt|;
 comment|// Start up the cluster.
