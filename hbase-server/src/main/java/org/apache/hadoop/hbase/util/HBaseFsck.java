@@ -6364,6 +6364,11 @@ block|}
 block|}
 block|}
 comment|/**    * Attempts to undeploy a region from a region server based in information in    * META.  Any operations that modify the file system should make sure that    * its corresponding region is not deployed to prevent data races.    *    * A separate call is required to update the master in-memory region state    * kept in the AssignementManager.  Because disable uses this state instead of    * that found in META, we can't seem to cleanly disable/delete tables that    * have been hbck fixed.  When used on a version of HBase that does not have    * the offline ipc call exposed on the master (<0.90.5,<0.92.0) a master    * restart or failover may be required.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|void
 name|closeRegion
@@ -9543,6 +9548,15 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Closing region: "
+operator|+
+name|hi
+argument_list|)
+expr_stmt|;
 name|closeRegion
 argument_list|(
 name|hi
@@ -9555,7 +9569,6 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-comment|// TODO exercise this
 name|LOG
 operator|.
 name|warn
@@ -9563,11 +9576,10 @@ argument_list|(
 literal|"Was unable to close region "
 operator|+
 name|hi
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
 literal|".  Just continuing... "
+argument_list|,
+name|ioe
 argument_list|)
 expr_stmt|;
 block|}
@@ -9577,7 +9589,6 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// TODO exercise this
 name|LOG
 operator|.
 name|warn
@@ -9585,11 +9596,10 @@ argument_list|(
 literal|"Was unable to close region "
 operator|+
 name|hi
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
 literal|".  Just continuing... "
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -9626,6 +9636,8 @@ argument_list|(
 literal|"Unable to offline region from master: "
 operator|+
 name|hi
+operator|+
+literal|".  Just continuing... "
 argument_list|,
 name|ioe
 argument_list|)
@@ -9865,8 +9877,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InterruptedException
-name|ie
+name|IOException
+name|ioe
 parameter_list|)
 block|{
 name|LOG
@@ -9876,21 +9888,35 @@ argument_list|(
 literal|"Was unable to close region "
 operator|+
 name|regionToSideline
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
-literal|".  Interrupted."
+literal|".  Just continuing... "
+argument_list|,
+name|ioe
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|ie
-argument_list|)
-throw|;
 block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Was unable to close region "
+operator|+
+name|regionToSideline
+operator|+
+literal|".  Just continuing... "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+try|try
+block|{
 name|LOG
 operator|.
 name|info
@@ -9908,6 +9934,27 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to offline region from master: "
+operator|+
+name|regionToSideline
+operator|+
+literal|".  Just continuing... "
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
