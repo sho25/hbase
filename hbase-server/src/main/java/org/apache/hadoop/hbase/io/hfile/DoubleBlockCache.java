@@ -247,6 +247,8 @@ argument_list|(
 name|onHeapSize
 argument_list|,
 name|onHeapBlockSize
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 name|LOG

@@ -1118,6 +1118,8 @@ argument_list|,
 name|StoreFile
 operator|.
 name|DEFAULT_BLOCKSIZE_SMALL
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}

@@ -957,7 +957,7 @@ name|DEFAULT_ACCEPTABLE_FACTOR
 operator|)
 argument_list|)
 expr_stmt|;
-comment|// All blocks except block 0 and 1 should be in the cache
+comment|// All blocks except block 0  should be in the cache
 name|assertTrue
 argument_list|(
 name|cache
@@ -977,31 +977,12 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|cache
-operator|.
-name|getBlock
-argument_list|(
-name|blocks
-index|[
-literal|1
-index|]
-operator|.
-name|cacheKey
-argument_list|,
-literal|true
-argument_list|)
-operator|==
-literal|null
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int
 name|i
 init|=
-literal|2
+literal|1
 init|;
 name|i
 operator|<
