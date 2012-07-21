@@ -542,6 +542,32 @@ return|return
 name|isShowConf
 return|;
 block|}
+comment|/** For debugging.  Dump configurations to system output as xml format.    * Master and RS configurations can also be dumped using    * http services. e.g. "curl http://master:60010/dump"    */
+specifier|public
+specifier|static
+name|void
+name|main
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+operator|.
+name|writeXml
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
