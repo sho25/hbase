@@ -3835,6 +3835,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 name|getHBaseAdmin
 argument_list|()
 operator|.
@@ -3843,6 +3845,30 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableNotEnabledException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Table: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|" already disabled, so just deleting it."
+argument_list|)
+expr_stmt|;
+block|}
 name|getHBaseAdmin
 argument_list|()
 operator|.

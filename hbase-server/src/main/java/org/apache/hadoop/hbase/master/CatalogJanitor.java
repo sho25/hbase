@@ -297,7 +297,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableExistsException
+name|backup
+operator|.
+name|HFileArchiver
 import|;
 end_import
 
@@ -346,22 +348,6 @@ operator|.
 name|client
 operator|.
 name|Result
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegion
 import|;
 end_import
 
@@ -1464,7 +1450,7 @@ operator|+
 literal|" because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
-comment|// wipe out daughter references from parent region
+comment|// wipe out daughter references from parent region in meta
 name|removeDaughtersFromParent
 argument_list|(
 name|parent
@@ -1512,26 +1498,11 @@ operator|.
 name|getFileSystem
 argument_list|()
 decl_stmt|;
-name|Path
-name|rootdir
-init|=
-name|this
+name|HFileArchiver
 operator|.
-name|services
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getRootDir
-argument_list|()
-decl_stmt|;
-name|HRegion
-operator|.
-name|deleteRegion
+name|archiveRegion
 argument_list|(
 name|fs
-argument_list|,
-name|rootdir
 argument_list|,
 name|parent
 argument_list|)

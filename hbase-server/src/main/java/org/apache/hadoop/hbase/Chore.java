@@ -295,6 +295,9 @@ operator|+
 literal|" exiting"
 argument_list|)
 expr_stmt|;
+name|cleanup
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|/**    * If the thread is currently sleeping, trigger the core to happen immediately.    * If it's in the middle of its operation, will begin another operation    * immediately after finishing this one.    */
@@ -343,6 +346,12 @@ name|sleep
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Called when the chore has completed, allowing subclasses to cleanup any    * extra overhead    */
+specifier|protected
+name|void
+name|cleanup
+parameter_list|()
+block|{   }
 block|}
 end_class
 

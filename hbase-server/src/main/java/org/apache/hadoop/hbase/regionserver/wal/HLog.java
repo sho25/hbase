@@ -7335,6 +7335,10 @@ return|;
 block|}
 end_function
 
+begin_comment
+comment|/**    * @param filename name of the file to validate    * @return<tt>true</tt> if the filename matches an HLog,<tt>false</tt>    *         otherwise    */
+end_comment
+
 begin_function
 specifier|public
 specifier|static

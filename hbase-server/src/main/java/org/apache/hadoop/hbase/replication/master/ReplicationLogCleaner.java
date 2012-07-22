@@ -145,7 +145,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|LogCleanerDelegate
+name|cleaner
+operator|.
+name|BaseLogCleanerDelegate
 import|;
 end_import
 
@@ -245,9 +247,9 @@ name|Private
 specifier|public
 class|class
 name|ReplicationLogCleaner
+extends|extends
+name|BaseLogCleanerDelegate
 implements|implements
-name|LogCleanerDelegate
-implements|,
 name|Abortable
 block|{
 specifier|private
@@ -264,10 +266,6 @@ name|ReplicationLogCleaner
 operator|.
 name|class
 argument_list|)
-decl_stmt|;
-specifier|private
-name|Configuration
-name|conf
 decl_stmt|;
 specifier|private
 name|ReplicationZookeeper
@@ -297,11 +295,6 @@ specifier|private
 name|boolean
 name|aborted
 decl_stmt|;
-comment|/**    * Instantiates the cleaner, does nothing more.    */
-specifier|public
-name|ReplicationLogCleaner
-parameter_list|()
-block|{}
 annotation|@
 name|Override
 specifier|public
@@ -351,7 +344,8 @@ if|if
 condition|(
 name|this
 operator|.
-name|conf
+name|getConf
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -573,14 +567,14 @@ name|void
 name|setConf
 parameter_list|(
 name|Configuration
-name|conf
+name|config
 parameter_list|)
 block|{
 comment|// If replication is disabled, keep all members null
 if|if
 condition|(
 operator|!
-name|conf
+name|config
 operator|.
 name|getBoolean
 argument_list|(
@@ -596,12 +590,18 @@ return|return;
 block|}
 comment|// Make my own Configuration.  Then I'll have my own connection to zk that
 comment|// I can close myself when comes time.
-name|this
-operator|.
+name|Configuration
 name|conf
-operator|=
+init|=
 operator|new
 name|Configuration
+argument_list|(
+name|config
+argument_list|)
+decl_stmt|;
+name|super
+operator|.
+name|setConf
 argument_list|(
 name|conf
 argument_list|)
@@ -614,8 +614,6 @@ init|=
 operator|new
 name|ZooKeeperWatcher
 argument_list|(
-name|this
-operator|.
 name|conf
 argument_list|,
 literal|"replicationLogCleaner"
@@ -632,8 +630,6 @@ name|ReplicationZookeeper
 argument_list|(
 name|this
 argument_list|,
-name|this
-operator|.
 name|conf
 argument_list|,
 name|zkw
@@ -693,17 +689,6 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|Configuration
-name|getConf
-parameter_list|()
-block|{
-return|return
-name|conf
-return|;
 block|}
 annotation|@
 name|Override
@@ -769,7 +754,8 @@ name|deleteConnection
 argument_list|(
 name|this
 operator|.
-name|conf
+name|getConf
+argument_list|()
 argument_list|,
 literal|true
 argument_list|)

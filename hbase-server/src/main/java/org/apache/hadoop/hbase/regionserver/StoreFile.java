@@ -3604,7 +3604,27 @@ operator|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Write out a split reference.    *    * Package local so it doesnt leak out of regionserver.    *    * @param fs    * @param splitDir Presumes path format is actually    *<code>SOME_DIRECTORY/REGIONNAME/FAMILY</code>.    * @param f File to split.    * @param splitRow    * @param top True if we are referring to the top half of the hfile.    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Validate the store file name.    * @param fileName name of the file to validate    * @return<tt>true</tt> if the file could be a valid store file,<tt>false</tt> otherwise    */
+specifier|public
+specifier|static
+name|boolean
+name|validateStoreFileName
+parameter_list|(
+name|String
+name|fileName
+parameter_list|)
+block|{
+return|return
+operator|!
+name|fileName
+operator|.
+name|contains
+argument_list|(
+literal|"-"
+argument_list|)
+return|;
+block|}
+comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param fs    * @param splitDir Presumes path format is actually    *<code>SOME_DIRECTORY/REGIONNAME/FAMILY</code>.    * @param f File to split.    * @param splitRow    * @param top True if we are referring to the top half of the hfile.    * @return Path to created reference.    * @throws IOException    */
 specifier|static
 name|Path
 name|split

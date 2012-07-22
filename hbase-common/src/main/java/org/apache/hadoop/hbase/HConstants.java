@@ -1728,6 +1728,15 @@ name|DELIMITER
 init|=
 literal|','
 decl_stmt|;
+comment|/** Configuration key for the directory to backup HFiles for a table */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HFILE_ARCHIVE_DIRECTORY
+init|=
+literal|"hbase.table.archive.directory"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
