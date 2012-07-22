@@ -926,6 +926,8 @@ argument_list|(
 literal|"Could not finish splitting of log file "
 operator|+
 name|logfile
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 return|return
