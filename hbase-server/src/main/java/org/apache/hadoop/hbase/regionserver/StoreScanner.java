@@ -2271,7 +2271,7 @@ name|store
 operator|.
 name|comparator
 operator|.
-name|compare
+name|compareRows
 argument_list|(
 name|this
 operator|.

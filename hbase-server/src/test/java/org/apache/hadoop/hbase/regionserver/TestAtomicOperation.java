@@ -1498,7 +1498,7 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|// create 100 threads, each will alternate between adding and
+comment|// create 10 threads, each will alternate between adding and
 comment|// removing a column
 name|int
 name|numThreads
@@ -1947,7 +1947,7 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|// create 100 threads, each will alternate between adding and
+comment|// create 10 threads, each will alternate between adding and
 comment|// removing a column
 name|int
 name|numThreads
@@ -1957,7 +1957,7 @@ decl_stmt|;
 name|int
 name|opsPerThread
 init|=
-literal|1000
+literal|500
 decl_stmt|;
 name|AtomicOperation
 index|[]
