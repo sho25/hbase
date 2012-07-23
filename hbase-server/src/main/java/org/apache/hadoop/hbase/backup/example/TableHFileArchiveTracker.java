@@ -444,7 +444,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add this table to the tracker and then read a watch on that node.    *<p>    * Handles situtation where table is deleted in the time between the update and resetting the    * watch by deleting the table via {@link #safeStopTrackingTable(String)}    * @param tableZnode full zookeeper path to the table to be added    * @throws KeeperException if an unexpected zk exception occurs    */
+comment|/**    * Add this table to the tracker and then read a watch on that node.    *<p>    * Handles situation where table is deleted in the time between the update and resetting the watch    * by deleting the table via {@link #safeStopTrackingTable(String)}    * @param tableZnode full zookeeper path to the table to be added    * @throws KeeperException if an unexpected zk exception occurs    */
 specifier|private
 name|void
 name|addAndReWatchTable
@@ -625,7 +625,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the watch on the top-level archive znode, and then updates the montior with the current    * tables that should be archived (and ensures that those nodes are watched as well).    */
+comment|/**    * Sets the watch on the top-level archive znode, and then updates the monitor with the current    * tables that should be archived (and ensures that those nodes are watched as well).    */
 specifier|private
 name|void
 name|checkEnabledAndUpdate
@@ -852,7 +852,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create an archive tracker with the special passed in table monitor. Should only be used in    * special cases (eg. testing)    * @param zkw Watcher for the ZooKeeper cluster that we should track    * @param monitor Monitor for which tables need hfile archiving    * @return ZooKeeper tracker to monitor for this server if this server should archive hfiles for a    *         given table    */
+comment|/**    * Create an archive tracker with the special passed in table monitor. Should only be used in    * special cases (e.g. testing)    * @param zkw Watcher for the ZooKeeper cluster that we should track    * @param monitor Monitor for which tables need hfile archiving    * @return ZooKeeper tracker to monitor for this server if this server should archive hfiles for a    *         given table    */
 specifier|private
 specifier|static
 name|TableHFileArchiveTracker

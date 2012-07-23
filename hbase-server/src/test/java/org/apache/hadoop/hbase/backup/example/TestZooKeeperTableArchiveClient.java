@@ -83,6 +83,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -153,6 +163,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -195,7 +219,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -435,7 +459,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 argument_list|)
@@ -670,13 +694,6 @@ operator|.
 name|MASTER_HFILE_CLEANER_PLUGINS
 argument_list|,
 name|CheckedArchivingHFileCleaner
-operator|.
-name|class
-operator|.
-name|getCanonicalName
-argument_list|()
-argument_list|,
-name|TimeToLiveHFileCleaner
 operator|.
 name|class
 operator|.
@@ -1147,7 +1164,7 @@ name|tmpFile
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// make sure we wait long enough for the file to expire
+comment|// make sure we wait long enough for the files to expire
 name|Thread
 operator|.
 name|sleep
@@ -1347,6 +1364,13 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting on archive cleaners to run..."
+argument_list|)
+expr_stmt|;
 name|CheckedArchivingHFileCleaner
 operator|.
 name|resetCheck
@@ -1457,25 +1481,36 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// put data in the filesystem of the first table
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Loading data into:"
+operator|+
+name|STRING_TABLE_NAME
+argument_list|)
+expr_stmt|;
 name|loadAndCompact
 argument_list|(
 name|STRING_TABLE_NAME
 argument_list|)
 expr_stmt|;
 comment|// and some data in the other table
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Loading data into:"
+operator|+
+name|otherTable
+argument_list|)
+expr_stmt|;
 name|loadAndCompact
 argument_list|(
 name|otherTable
 argument_list|)
 expr_stmt|;
-comment|// make sure we wait long enough for the other tables files to expire
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-argument_list|)
-expr_stmt|;
+comment|// make sure we wait long enough for the other table's files to expire
 name|ensureHFileCleanersRun
 argument_list|()
 expr_stmt|;
@@ -1541,10 +1576,10 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
-name|assertNull
-argument_list|(
-literal|"Archived HFiles should have gotten deleted, but didn't"
-argument_list|,
+name|FileStatus
+index|[]
+name|otherArchiveFiles
+init|=
 name|FSUtils
 operator|.
 name|listStatus
@@ -1555,16 +1590,24 @@ name|otherStoreArchive
 argument_list|,
 literal|null
 argument_list|)
+decl_stmt|;
+name|assertNull
+argument_list|(
+literal|"Archived HFiles ("
+operator|+
+name|otherStoreArchive
+operator|+
+literal|") should have gotten deleted, but didn't, remaining files:"
+operator|+
+name|getPaths
+argument_list|(
+name|otherArchiveFiles
+argument_list|)
+argument_list|,
+name|otherArchiveFiles
 argument_list|)
 expr_stmt|;
 comment|// sleep again to make sure we the other table gets cleaned up
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-argument_list|)
-expr_stmt|;
 name|ensureHFileCleanersRun
 argument_list|()
 expr_stmt|;
@@ -1580,13 +1623,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// second pass removes the region
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-argument_list|)
-expr_stmt|;
 name|ensureHFileCleanersRun
 argument_list|()
 expr_stmt|;
@@ -1608,14 +1644,7 @@ name|parent
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// thrid pass remove the table
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-argument_list|)
-expr_stmt|;
+comment|// third pass remove the table
 name|ensureHFileCleanersRun
 argument_list|()
 expr_stmt|;
@@ -1686,6 +1715,73 @@ name|otherTable
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|getPaths
+parameter_list|(
+name|FileStatus
+index|[]
+name|files
+parameter_list|)
+block|{
+if|if
+condition|(
+name|files
+operator|==
+literal|null
+operator|||
+name|files
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+literal|null
+return|;
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|paths
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Path
+argument_list|>
+argument_list|(
+name|files
+operator|.
+name|length
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|FileStatus
+name|file
+range|:
+name|files
+control|)
+block|{
+name|paths
+operator|.
+name|add
+argument_list|(
+name|file
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|paths
+return|;
 block|}
 specifier|private
 name|void
@@ -1847,6 +1943,12 @@ name|length
 operator|>
 literal|0
 argument_list|)
+expr_stmt|;
+comment|// wait for the compactions to finish
+name|region
+operator|.
+name|waitForFlushesAndCompactions
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Load the given region and then ensure that it compacts some files    */
