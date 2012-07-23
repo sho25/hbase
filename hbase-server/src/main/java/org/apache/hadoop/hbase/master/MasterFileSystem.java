@@ -719,6 +719,14 @@ argument_list|,
 name|fsUri
 argument_list|)
 expr_stmt|;
+comment|// make sure the fs has the same conf
+name|fs
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|distributedLogSplitting
