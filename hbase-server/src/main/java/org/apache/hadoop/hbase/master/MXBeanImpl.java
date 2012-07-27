@@ -97,24 +97,6 @@ name|ServerName
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|AssignmentManager
-operator|.
-name|RegionState
-import|;
-end_import
-
 begin_comment
 comment|/**  * Impl for exposing HMaster Information through JMX  */
 end_comment
@@ -445,7 +427,10 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|copyRegionsInTransition
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsInTransition
 argument_list|()
 operator|.
 name|entrySet

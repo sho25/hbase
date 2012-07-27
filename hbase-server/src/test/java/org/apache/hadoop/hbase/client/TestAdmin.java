@@ -9608,6 +9608,9 @@ name|server
 init|=
 name|am
 operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|getRegionServerOfRegion
 argument_list|(
 name|hri
@@ -9640,6 +9643,9 @@ argument_list|,
 name|server
 argument_list|,
 name|am
+operator|.
+name|getRegionStates
+argument_list|()
 operator|.
 name|getRegionServerOfRegion
 argument_list|(

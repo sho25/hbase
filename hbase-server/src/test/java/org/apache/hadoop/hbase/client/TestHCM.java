@@ -978,6 +978,9 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|isRegionsInTransition
 argument_list|()
 condition|)

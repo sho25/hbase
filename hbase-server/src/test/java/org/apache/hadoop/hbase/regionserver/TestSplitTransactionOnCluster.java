@@ -2526,6 +2526,9 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|getRegionServerOfRegion
 argument_list|(
 name|hri
@@ -2953,6 +2956,9 @@ init|=
 name|master
 operator|.
 name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
 argument_list|()
 operator|.
 name|getRegionServerOfRegion

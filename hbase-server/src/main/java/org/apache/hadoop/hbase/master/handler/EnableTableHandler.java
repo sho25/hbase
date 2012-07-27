@@ -935,6 +935,9 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|getRegionsOfTable
 argument_list|(
 name|tableName
@@ -1054,12 +1057,13 @@ if|if
 condition|(
 name|assignmentManager
 operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|isRegionInTransition
 argument_list|(
 name|region
 argument_list|)
-operator|!=
-literal|null
 condition|)
 block|{
 continue|continue;
@@ -1195,6 +1199,9 @@ expr_stmt|;
 name|regions
 operator|=
 name|assignmentManager
+operator|.
+name|getRegionStates
+argument_list|()
 operator|.
 name|getRegionsOfTable
 argument_list|(

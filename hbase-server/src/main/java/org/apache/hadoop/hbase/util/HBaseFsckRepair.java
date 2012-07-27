@@ -293,8 +293,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|AssignmentManager
-operator|.
 name|RegionState
 import|;
 end_import

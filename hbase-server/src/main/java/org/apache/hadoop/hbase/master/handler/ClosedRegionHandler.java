@@ -121,6 +121,22 @@ name|AssignmentManager
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|RegionState
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handles CLOSED region event on Master.  *<p>  * If table is being disabled, deletes ZK unassigned node and removes from  * regions in transition.  *<p>  * Otherwise, assigns the region to another server.  */
 end_comment
@@ -422,13 +438,22 @@ expr_stmt|;
 return|return;
 block|}
 comment|// ZK Node is in CLOSED state, assign it.
-comment|// TODO: Should we remove the region from RIT too?  We don't?  Makes for
-comment|// a 'forcing' log message when we go to update state from CLOSED to OFFLINE
 name|assignmentManager
 operator|.
-name|setOffline
+name|getRegionStates
+argument_list|()
+operator|.
+name|updateRegionState
 argument_list|(
 name|regionInfo
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// This below has to do w/ online enable/disable of a table

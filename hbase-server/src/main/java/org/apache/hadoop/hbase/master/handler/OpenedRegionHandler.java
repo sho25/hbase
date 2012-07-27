@@ -147,8 +147,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|AssignmentManager
-operator|.
 name|RegionState
 import|;
 end_import
@@ -476,9 +474,15 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|isRegionInTransition
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionTransitionState
 argument_list|(
 name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|boolean
