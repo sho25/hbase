@@ -894,6 +894,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|!
 name|this
 operator|.
 name|fs
