@@ -195,24 +195,6 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreScanner
-operator|.
-name|ScanType
-import|;
-end_import
-
 begin_comment
 comment|/**  * A query matcher that is specifically designed for the scan case.  */
 end_comment
@@ -363,8 +345,6 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|,
-name|StoreScanner
-operator|.
 name|ScanType
 name|scanType
 parameter_list|,
@@ -650,8 +630,6 @@ name|scanInfo
 argument_list|,
 name|columns
 argument_list|,
-name|StoreScanner
-operator|.
 name|ScanType
 operator|.
 name|USER_SCAN

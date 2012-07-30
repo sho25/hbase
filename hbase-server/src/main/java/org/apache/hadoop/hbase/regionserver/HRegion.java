@@ -5631,6 +5631,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * This is a helper function that compact all the stores synchronously    * It is used by utilities and testing    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException e    */
+specifier|public
 name|void
 name|compactStores
 parameter_list|(
@@ -14953,7 +14954,7 @@ name|getKey
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|StoreScanner
+name|KeyValueScanner
 name|scanner
 init|=
 name|store

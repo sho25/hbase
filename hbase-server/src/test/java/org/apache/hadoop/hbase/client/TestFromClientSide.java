@@ -851,7 +851,7 @@ name|getClass
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 specifier|static
 name|HBaseTestingUtility
@@ -913,7 +913,7 @@ argument_list|(
 literal|"testValue"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 name|int
 name|SLAVES
