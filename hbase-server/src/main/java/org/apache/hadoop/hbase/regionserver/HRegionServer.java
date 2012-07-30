@@ -4117,6 +4117,10 @@ name|HBaseRPC
 operator|.
 name|getServer
 argument_list|(
+name|AdminProtocol
+operator|.
+name|class
+argument_list|,
 name|this
 argument_list|,
 operator|new

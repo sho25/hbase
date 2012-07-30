@@ -381,7 +381,6 @@ name|clientMethodsHash
 decl_stmt|;
 comment|// For generated protocol classes which don't have VERSION field,
 comment|// such as protobuf interfaces.
-specifier|private
 specifier|static
 specifier|final
 name|Map
