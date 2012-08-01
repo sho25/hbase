@@ -24568,7 +24568,7 @@ name|ByteString
 name|getQualifier
 parameter_list|()
 function_decl|;
-comment|// required .Condition.CompareType compareType = 4;
+comment|// required .CompareType compareType = 4;
 name|boolean
 name|hasCompareType
 parameter_list|()
@@ -24585,9 +24585,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|getCompareType
@@ -24761,464 +24759,6 @@ operator|.
 name|internal_static_Condition_fieldAccessorTable
 return|;
 block|}
-specifier|public
-enum|enum
-name|CompareType
-implements|implements
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ProtocolMessageEnum
-block|{
-name|LESS
-argument_list|(
-literal|0
-argument_list|,
-literal|0
-argument_list|)
-block|,
-name|LESS_OR_EQUAL
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
-block|,
-name|EQUAL
-argument_list|(
-literal|2
-argument_list|,
-literal|2
-argument_list|)
-block|,
-name|NOT_EQUAL
-argument_list|(
-literal|3
-argument_list|,
-literal|3
-argument_list|)
-block|,
-name|GREATER_OR_EQUAL
-argument_list|(
-literal|4
-argument_list|,
-literal|4
-argument_list|)
-block|,
-name|GREATER
-argument_list|(
-literal|5
-argument_list|,
-literal|5
-argument_list|)
-block|,
-name|NO_OP
-argument_list|(
-literal|6
-argument_list|,
-literal|6
-argument_list|)
-block|,       ;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|LESS_VALUE
-init|=
-literal|0
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|LESS_OR_EQUAL_VALUE
-init|=
-literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|EQUAL_VALUE
-init|=
-literal|2
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|NOT_EQUAL_VALUE
-init|=
-literal|3
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|GREATER_OR_EQUAL_VALUE
-init|=
-literal|4
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|GREATER_VALUE
-init|=
-literal|5
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|NO_OP_VALUE
-init|=
-literal|6
-decl_stmt|;
-specifier|public
-specifier|final
-name|int
-name|getNumber
-parameter_list|()
-block|{
-return|return
-name|value
-return|;
-block|}
-specifier|public
-specifier|static
-name|CompareType
-name|valueOf
-parameter_list|(
-name|int
-name|value
-parameter_list|)
-block|{
-switch|switch
-condition|(
-name|value
-condition|)
-block|{
-case|case
-literal|0
-case|:
-return|return
-name|LESS
-return|;
-case|case
-literal|1
-case|:
-return|return
-name|LESS_OR_EQUAL
-return|;
-case|case
-literal|2
-case|:
-return|return
-name|EQUAL
-return|;
-case|case
-literal|3
-case|:
-return|return
-name|NOT_EQUAL
-return|;
-case|case
-literal|4
-case|:
-return|return
-name|GREATER_OR_EQUAL
-return|;
-case|case
-literal|5
-case|:
-return|return
-name|GREATER
-return|;
-case|case
-literal|6
-case|:
-return|return
-name|NO_OP
-return|;
-default|default:
-return|return
-literal|null
-return|;
-block|}
-block|}
-specifier|public
-specifier|static
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Internal
-operator|.
-name|EnumLiteMap
-argument_list|<
-name|CompareType
-argument_list|>
-name|internalGetValueMap
-parameter_list|()
-block|{
-return|return
-name|internalValueMap
-return|;
-block|}
-specifier|private
-specifier|static
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Internal
-operator|.
-name|EnumLiteMap
-argument_list|<
-name|CompareType
-argument_list|>
-name|internalValueMap
-init|=
-operator|new
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Internal
-operator|.
-name|EnumLiteMap
-argument_list|<
-name|CompareType
-argument_list|>
-argument_list|()
-block|{
-specifier|public
-name|CompareType
-name|findValueByNumber
-parameter_list|(
-name|int
-name|number
-parameter_list|)
-block|{
-return|return
-name|CompareType
-operator|.
-name|valueOf
-argument_list|(
-name|number
-argument_list|)
-return|;
-block|}
-block|}
-decl_stmt|;
-specifier|public
-specifier|final
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-operator|.
-name|EnumValueDescriptor
-name|getValueDescriptor
-parameter_list|()
-block|{
-return|return
-name|getDescriptor
-argument_list|()
-operator|.
-name|getValues
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|index
-argument_list|)
-return|;
-block|}
-specifier|public
-specifier|final
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-operator|.
-name|EnumDescriptor
-name|getDescriptorForType
-parameter_list|()
-block|{
-return|return
-name|getDescriptor
-argument_list|()
-return|;
-block|}
-specifier|public
-specifier|static
-specifier|final
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-operator|.
-name|EnumDescriptor
-name|getDescriptor
-parameter_list|()
-block|{
-return|return
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|Condition
-operator|.
-name|getDescriptor
-argument_list|()
-operator|.
-name|getEnumTypes
-argument_list|()
-operator|.
-name|get
-argument_list|(
-literal|0
-argument_list|)
-return|;
-block|}
-specifier|private
-specifier|static
-specifier|final
-name|CompareType
-index|[]
-name|VALUES
-init|=
-block|{
-name|LESS
-block|,
-name|LESS_OR_EQUAL
-block|,
-name|EQUAL
-block|,
-name|NOT_EQUAL
-block|,
-name|GREATER_OR_EQUAL
-block|,
-name|GREATER
-block|,
-name|NO_OP
-block|,        }
-decl_stmt|;
-specifier|public
-specifier|static
-name|CompareType
-name|valueOf
-parameter_list|(
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Descriptors
-operator|.
-name|EnumValueDescriptor
-name|desc
-parameter_list|)
-block|{
-if|if
-condition|(
-name|desc
-operator|.
-name|getType
-argument_list|()
-operator|!=
-name|getDescriptor
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|java
-operator|.
-name|lang
-operator|.
-name|IllegalArgumentException
-argument_list|(
-literal|"EnumValueDescriptor is not for this type."
-argument_list|)
-throw|;
-block|}
-return|return
-name|VALUES
-index|[
-name|desc
-operator|.
-name|getIndex
-argument_list|()
-index|]
-return|;
-block|}
-specifier|private
-specifier|final
-name|int
-name|index
-decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|value
-decl_stmt|;
-specifier|private
-name|CompareType
-parameter_list|(
-name|int
-name|index
-parameter_list|,
-name|int
-name|value
-parameter_list|)
-block|{
-name|this
-operator|.
-name|index
-operator|=
-name|index
-expr_stmt|;
-name|this
-operator|.
-name|value
-operator|=
-name|value
-expr_stmt|;
-block|}
-comment|// @@protoc_insertion_point(enum_scope:Condition.CompareType)
-block|}
 specifier|private
 name|int
 name|bitField0_
@@ -25376,7 +24916,7 @@ return|return
 name|qualifier_
 return|;
 block|}
-comment|// required .Condition.CompareType compareType = 4;
+comment|// required .CompareType compareType = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -25398,9 +24938,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|compareType_
@@ -25435,9 +24973,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|getCompareType
@@ -25592,9 +25128,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 operator|.
@@ -27557,9 +27091,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 operator|.
@@ -28565,9 +28097,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|value
@@ -28584,9 +28114,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 operator|.
@@ -29080,7 +28608,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Condition.CompareType compareType = 4;
+comment|// required .CompareType compareType = 4;
 specifier|private
 name|org
 operator|.
@@ -29094,9 +28622,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|compareType_
@@ -29113,9 +28639,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 operator|.
@@ -29151,9 +28675,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|getCompareType
@@ -29179,9 +28701,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 name|value
@@ -29243,9 +28763,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|Condition
+name|HBaseProtos
 operator|.
 name|CompareType
 operator|.
@@ -142336,157 +141854,149 @@ literal|"fore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001(\010\"6\n\
 operator|+
 literal|"Response\022\027\n\006result\030\001 \001(\0132\007.Result\022\016\n\006exi"
 operator|+
-literal|"sts\030\002 \001(\010\"\200\002\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006"
+literal|"sts\030\002 \001(\010\"\202\001\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006"
 operator|+
-literal|"family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022+\n\013compa"
+literal|"family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022!\n\013compa"
 operator|+
-literal|"reType\030\004 \002(\0162\026.Condition.CompareType\022\"\n\n"
+literal|"reType\030\004 \002(\0162\014.CompareType\022\"\n\ncomparator"
 operator|+
-literal|"comparator\030\005 \002(\0132\016.NameBytesPair\"r\n\013Comp"
+literal|"\030\005 \002(\0132\016.NameBytesPair\"\306\004\n\006Mutate\022\013\n\003row"
 operator|+
-literal|"areType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005"
+literal|"\030\001 \002(\014\022&\n\nmutateType\030\002 \002(\0162\022.Mutate.Muta"
 operator|+
-literal|"EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQU"
+literal|"teType\022(\n\013columnValue\030\003 \003(\0132\023.Mutate.Col"
 operator|+
-literal|"AL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006\"\306\004\n\006Mutate\022"
+literal|"umnValue\022!\n\tattribute\030\004 \003(\0132\016.NameBytesP"
 block|,
-literal|"\013\n\003row\030\001 \002(\014\022&\n\nmutateType\030\002 \002(\0162\022.Mutat"
+literal|"air\022\021\n\ttimestamp\030\005 \001(\004\022\016\n\006lockId\030\006 \001(\004\022\030"
 operator|+
-literal|"e.MutateType\022(\n\013columnValue\030\003 \003(\0132\023.Muta"
+literal|"\n\nwriteToWAL\030\007 \001(\010:\004true\022\035\n\ttimeRange\030\n "
 operator|+
-literal|"te.ColumnValue\022!\n\tattribute\030\004 \003(\0132\016.Name"
+literal|"\001(\0132\n.TimeRange\032\310\001\n\013ColumnValue\022\016\n\006famil"
 operator|+
-literal|"BytesPair\022\021\n\ttimestamp\030\005 \001(\004\022\016\n\006lockId\030\006"
+literal|"y\030\001 \002(\014\022:\n\016qualifierValue\030\002 \003(\0132\".Mutate"
 operator|+
-literal|" \001(\004\022\030\n\nwriteToWAL\030\007 \001(\010:\004true\022\035\n\ttimeRa"
+literal|".ColumnValue.QualifierValue\032m\n\016Qualifier"
 operator|+
-literal|"nge\030\n \001(\0132\n.TimeRange\032\310\001\n\013ColumnValue\022\016\n"
+literal|"Value\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022"
 operator|+
-literal|"\006family\030\001 \002(\014\022:\n\016qualifierValue\030\002 \003(\0132\"."
+literal|"\021\n\ttimestamp\030\003 \001(\004\022&\n\ndeleteType\030\004 \001(\0162\022"
 operator|+
-literal|"Mutate.ColumnValue.QualifierValue\032m\n\016Qua"
+literal|".Mutate.DeleteType\"<\n\nMutateType\022\n\n\006APPE"
 operator|+
-literal|"lifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030"
+literal|"ND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003"
 operator|+
-literal|"\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022&\n\ndeleteType\030\004"
+literal|"\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034"
 block|,
-literal|" \001(\0162\022.Mutate.DeleteType\"<\n\nMutateType\022\n"
+literal|"\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_F"
 operator|+
-literal|"\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DE"
+literal|"AMILY\020\002\"i\n\rMutateRequest\022 \n\006region\030\001 \002(\013"
 operator|+
-literal|"LETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERSI"
+literal|"2\020.RegionSpecifier\022\027\n\006mutate\030\002 \002(\0132\007.Mut"
 operator|+
-literal|"ON\020\000\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDE"
+literal|"ate\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"<\n\016Mu"
 operator|+
-literal|"LETE_FAMILY\020\002\"i\n\rMutateRequest\022 \n\006region"
+literal|"tateResponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n"
 operator|+
-literal|"\030\001 \002(\0132\020.RegionSpecifier\022\027\n\006mutate\030\002 \002(\013"
+literal|"\tprocessed\030\002 \001(\010\"\252\002\n\004Scan\022\027\n\006column\030\001 \003("
 operator|+
-literal|"2\007.Mutate\022\035\n\tcondition\030\003 \001(\0132\n.Condition"
+literal|"\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.NameByte"
 operator|+
-literal|"\"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132\007.Res"
+literal|"sPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007stopRow\030\004 \001(\014"
 operator|+
-literal|"ult\022\021\n\tprocessed\030\002 \001(\010\"\252\002\n\004Scan\022\027\n\006colum"
+literal|"\022\036\n\006filter\030\005 \001(\0132\016.NameBytesPair\022\035\n\ttime"
 operator|+
-literal|"n\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.Na"
+literal|"Range\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVersions\030\007"
 block|,
-literal|"meBytesPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007stopRow"
+literal|" \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true\022\021\n\tba"
 operator|+
-literal|"\030\004 \001(\014\022\036\n\006filter\030\005 \001(\0132\016.NameBytesPair\022\035"
+literal|"tchSize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001(\004\022\022\n\n"
 operator|+
-literal|"\n\ttimeRange\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVers"
+literal|"storeLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 \001(\r\"\203\001"
 operator|+
-literal|"ions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true"
+literal|"\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.RegionSp"
 operator|+
-literal|"\022\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001"
+literal|"ecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscannerI"
 operator|+
-literal|"(\004\022\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 "
+literal|"d\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014closeSc"
 operator|+
-literal|"\001(\r\"\203\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Re"
+literal|"anner\030\005 \001(\010\"\\\n\014ScanResponse\022\027\n\006result\030\001 "
 operator|+
-literal|"gionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tsc"
+literal|"\003(\0132\007.Result\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreR"
 operator|+
-literal|"annerId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014c"
+literal|"esults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"?\n\016LockRowRequ"
 operator|+
-literal|"loseScanner\030\005 \001(\010\"\\\n\014ScanResponse\022\027\n\006res"
+literal|"est\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\013\n"
 block|,
-literal|"ult\030\001 \003(\0132\007.Result\022\021\n\tscannerId\030\002 \001(\004\022\023\n"
+literal|"\003row\030\002 \003(\014\".\n\017LockRowResponse\022\016\n\006lockId\030"
 operator|+
-literal|"\013moreResults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"?\n\016LockR"
+literal|"\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowRequest\022 "
 operator|+
-literal|"owRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
+literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006lock"
 operator|+
-literal|"ier\022\013\n\003row\030\002 \003(\014\".\n\017LockRowResponse\022\016\n\006l"
+literal|"Id\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\232\001\n\024BulkLo"
 operator|+
-literal|"ockId\030\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowReq"
+literal|"adHFileRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
 operator|+
-literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016"
+literal|"pecifier\0224\n\nfamilyPath\030\002 \003(\0132 .BulkLoadH"
 operator|+
-literal|"\n\006lockId\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\232\001\n\024"
+literal|"FileRequest.FamilyPath\032*\n\nFamilyPath\022\016\n\006"
 operator|+
-literal|"BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020.R"
+literal|"family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHF"
 operator|+
-literal|"egionSpecifier\0224\n\nfamilyPath\030\002 \003(\0132 .Bul"
+literal|"ileResponse\022\016\n\006loaded\030\001 \002(\010\"\203\001\n\004Exec\022\013\n\003"
 operator|+
-literal|"kLoadHFileRequest.FamilyPath\032*\n\nFamilyPa"
+literal|"row\030\001 \002(\014\022\024\n\014protocolName\030\002 \002(\t\022\022\n\nmetho"
 block|,
-literal|"th\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025Bulk"
+literal|"dName\030\003 \002(\t\022!\n\010property\030\004 \003(\0132\017.NameStri"
 operator|+
-literal|"LoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"\203\001\n\004Ex"
+literal|"ngPair\022!\n\tparameter\030\005 \003(\0132\016.NameBytesPai"
 operator|+
-literal|"ec\022\013\n\003row\030\001 \002(\014\022\024\n\014protocolName\030\002 \002(\t\022\022\n"
+literal|"r\"O\n\026ExecCoprocessorRequest\022 \n\006region\030\001 "
 operator|+
-literal|"\nmethodName\030\003 \002(\t\022!\n\010property\030\004 \003(\0132\017.Na"
+literal|"\002(\0132\020.RegionSpecifier\022\023\n\004call\030\002 \002(\0132\005.Ex"
 operator|+
-literal|"meStringPair\022!\n\tparameter\030\005 \003(\0132\016.NameBy"
+literal|"ec\"8\n\027ExecCoprocessorResponse\022\035\n\005value\030\001"
 operator|+
-literal|"tesPair\"O\n\026ExecCoprocessorRequest\022 \n\006reg"
+literal|" \002(\0132\016.NameBytesPair\"N\n\013MultiAction\022\027\n\006m"
 operator|+
-literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\023\n\004call\030\002 \002("
+literal|"utate\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\022"
 operator|+
-literal|"\0132\005.Exec\"8\n\027ExecCoprocessorResponse\022\035\n\005v"
+literal|"\023\n\004exec\030\003 \001(\0132\005.Exec\"P\n\014ActionResult\022\035\n\005"
 operator|+
-literal|"alue\030\001 \002(\0132\016.NameBytesPair\"N\n\013MultiActio"
+literal|"value\030\001 \001(\0132\016.NameBytesPair\022!\n\texception"
 operator|+
-literal|"n\022\027\n\006mutate\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132"
+literal|"\030\002 \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 "
 block|,
-literal|"\004.Get\022\023\n\004exec\030\003 \001(\0132\005.Exec\"P\n\014ActionResu"
+literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006acti"
 operator|+
-literal|"lt\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair\022!\n\texc"
+literal|"on\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\"."
 operator|+
-literal|"eption\030\002 \001(\0132\016.NameBytesPair\"^\n\014MultiReq"
+literal|"\n\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r.Action"
 operator|+
-literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\034"
+literal|"Result2\221\003\n\rClientService\022 \n\003get\022\013.GetReq"
 operator|+
-literal|"\n\006action\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003"
+literal|"uest\032\014.GetResponse\022)\n\006mutate\022\016.MutateReq"
 operator|+
-literal|" \001(\010\".\n\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r."
+literal|"uest\032\017.MutateResponse\022#\n\004scan\022\014.ScanRequ"
 operator|+
-literal|"ActionResult2\221\003\n\rClientService\022 \n\003get\022\013."
+literal|"est\032\r.ScanResponse\022,\n\007lockRow\022\017.LockRowR"
 operator|+
-literal|"GetRequest\032\014.GetResponse\022)\n\006mutate\022\016.Mut"
+literal|"equest\032\020.LockRowResponse\0222\n\tunlockRow\022\021."
 operator|+
-literal|"ateRequest\032\017.MutateResponse\022#\n\004scan\022\014.Sc"
+literal|"UnlockRowRequest\032\022.UnlockRowResponse\022>\n\r"
 operator|+
-literal|"anRequest\032\r.ScanResponse\022,\n\007lockRow\022\017.Lo"
+literal|"bulkLoadHFile\022\025.BulkLoadHFileRequest\032\026.B"
 block|,
-literal|"ckRowRequest\032\020.LockRowResponse\0222\n\tunlock"
+literal|"ulkLoadHFileResponse\022D\n\017execCoprocessor\022"
 operator|+
-literal|"Row\022\021.UnlockRowRequest\032\022.UnlockRowRespon"
+literal|"\027.ExecCoprocessorRequest\032\030.ExecCoprocess"
 operator|+
-literal|"se\022>\n\rbulkLoadHFile\022\025.BulkLoadHFileReque"
+literal|"orResponse\022&\n\005multi\022\r.MultiRequest\032\016.Mul"
 operator|+
-literal|"st\032\026.BulkLoadHFileResponse\022D\n\017execCoproc"
+literal|"tiResponseBB\n*org.apache.hadoop.hbase.pr"
 operator|+
-literal|"essor\022\027.ExecCoprocessorRequest\032\030.ExecCop"
-operator|+
-literal|"rocessorResponse\022&\n\005multi\022\r.MultiRequest"
-operator|+
-literal|"\032\016.MultiResponseBB\n*org.apache.hadoop.hb"
-operator|+
-literal|"ase.protobuf.generatedB\014ClientProtosH\001\210\001"
-operator|+
-literal|"\001\240\001\001"
+literal|"otobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
