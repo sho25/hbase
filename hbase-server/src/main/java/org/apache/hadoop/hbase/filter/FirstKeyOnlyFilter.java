@@ -227,6 +227,34 @@ name|FirstKeyOnlyFilter
 argument_list|()
 return|;
 block|}
+comment|/**    * @return true if first KV has been found.    */
+specifier|protected
+name|boolean
+name|hasFoundKV
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|foundKV
+return|;
+block|}
+comment|/**    *    * @param value update {@link #foundKV} flag with value.    */
+specifier|protected
+name|void
+name|setFoundKV
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|foundKV
+operator|=
+name|value
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|write
