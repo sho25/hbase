@@ -14,16 +14,22 @@ operator|.
 name|hbase
 operator|.
 name|master
+operator|.
+name|metrics
 package|;
 end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|Map
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -38,22 +44,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-operator|.
-name|Evolving
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerLoad
 import|;
 end_import
 
@@ -63,7 +53,13 @@ end_comment
 
 begin_interface
 annotation|@
+name|InterfaceStability
+operator|.
 name|Evolving
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|MXBean
@@ -150,12 +146,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the live region servers    * @return Live region servers    */
 specifier|public
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|ServerLoad
-argument_list|>
+name|int
 name|getRegionServers
 parameter_list|()
 function_decl|;
@@ -164,13 +155,6 @@ specifier|public
 name|String
 index|[]
 name|getDeadRegionServers
-parameter_list|()
-function_decl|;
-comment|/**    * Get information on regions in transition    * @return Regions in transition    */
-specifier|public
-name|RegionsInTransitionInfo
-index|[]
-name|getRegionsInTransition
 parameter_list|()
 function_decl|;
 block|}

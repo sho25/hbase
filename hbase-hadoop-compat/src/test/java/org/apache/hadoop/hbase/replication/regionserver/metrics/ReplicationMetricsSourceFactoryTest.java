@@ -25,6 +25,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CompatibilitySingletonFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -32,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  Test for the ReplicationMetricsSourceFactory  */
+comment|/**  *  Test for the CompatibilitySingletonFactory and building ReplicationMetricsSource  */
 end_comment
 
 begin_class
@@ -57,10 +71,14 @@ throws|throws
 name|Exception
 block|{
 comment|//This should throw an exception because there is no compat lib on the class path.
-name|ReplicationMetricsSourceFactory
+name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
-argument_list|()
+argument_list|(
+name|ReplicationMetricsSource
+operator|.
+name|class
+argument_list|)
 expr_stmt|;
 block|}
 block|}

@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
-operator|.
-name|regionserver
+name|master
 operator|.
 name|metrics
 package|;
@@ -38,13 +36,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides access to gauges and counters. Implementers will hide the details of hadoop1 or  * hadoop2's metrics2 classes and publishing.  */
+comment|/**  * Interface that classes that expose metrics about the master will implement.  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|ReplicationMetricsSource
+name|MasterMetricsSource
 extends|extends
 name|BaseMetricsSource
 block|{
@@ -55,7 +53,7 @@ specifier|final
 name|String
 name|METRICS_NAME
 init|=
-literal|"ReplicationMetrics"
+literal|"HMaster"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
 specifier|public
@@ -64,17 +62,54 @@ specifier|final
 name|String
 name|METRICS_CONTEXT
 init|=
-literal|"replicationmetrics"
+literal|"HMaster,sub=Dynamic"
 decl_stmt|;
-comment|/**    * A description.    */
+comment|/**    * Description    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase replication"
+literal|"Metrics about HBase master server"
 decl_stmt|;
+comment|/**    * Increment the number of requests the cluster has seen.    * @param inc Ammount to increment the total by.    */
+specifier|public
+name|void
+name|incRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Set the number of regions in transition.    * @param ritCount count of the regions in transition.    */
+specifier|public
+name|void
+name|setRIT
+parameter_list|(
+name|int
+name|ritCount
+parameter_list|)
+function_decl|;
+comment|/**    * Set the count of the number of regions that have been in transition over the threshold time.    * @param ritCountOverThreshold number of regions in transition for longer than threshold.    */
+specifier|public
+name|void
+name|setRITCountOverThreshold
+parameter_list|(
+name|int
+name|ritCountOverThreshold
+parameter_list|)
+function_decl|;
+comment|/**    * Set the oldest region in transition.    * @param age age of the oldest RIT.    */
+specifier|public
+name|void
+name|setRITOldestAge
+parameter_list|(
+name|long
+name|age
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

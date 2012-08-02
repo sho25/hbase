@@ -63,6 +63,20 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CompatibilitySingletonFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is for maintaining the various replication statistics for a source and publishing them  * through the metrics interfaces.  */
 end_comment
@@ -253,10 +267,14 @@ literal|".shippedOps"
 expr_stmt|;
 name|rms
 operator|=
-name|ReplicationMetricsSourceFactory
+name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
-argument_list|()
+argument_list|(
+name|ReplicationMetricsSource
+operator|.
+name|class
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Set the age of the last edit that was shipped    *    * @param timestamp write time of the edit    */
