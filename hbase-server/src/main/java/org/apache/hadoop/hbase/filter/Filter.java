@@ -182,7 +182,7 @@ argument_list|>
 name|kvs
 parameter_list|)
 function_decl|;
-comment|/**    * @return True if this filter actively uses filterRow(List).    * Primarily used to check for conflicts with scans(such as scans    * that do not read a full row at a time)    */
+comment|/**    * @return True if this filter actively uses filterRow(List) or filterRow().    * Primarily used to check for conflicts with scans(such as scans    * that do not read a full row at a time)    */
 specifier|public
 name|boolean
 name|hasFilterRow

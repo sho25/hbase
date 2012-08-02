@@ -239,6 +239,15 @@ name|pageSize
 return|;
 block|}
 specifier|public
+name|boolean
+name|hasFilterRow
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
+specifier|public
 specifier|static
 name|Filter
 name|createFilterFromArguments

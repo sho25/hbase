@@ -231,6 +231,15 @@ return|return
 name|filterOutRow
 return|;
 block|}
+specifier|public
+name|boolean
+name|hasFilterRow
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
