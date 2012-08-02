@@ -15161,7 +15161,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles -fixHdfsOrphans"
+literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles"
 argument_list|)
 expr_stmt|;
 name|Runtime
