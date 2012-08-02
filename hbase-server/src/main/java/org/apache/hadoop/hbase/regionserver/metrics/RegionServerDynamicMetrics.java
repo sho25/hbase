@@ -380,7 +380,7 @@ name|MetricsUtil
 operator|.
 name|getContext
 argument_list|(
-literal|"hbase"
+literal|"hbase-dynamic"
 argument_list|)
 expr_stmt|;
 name|this
