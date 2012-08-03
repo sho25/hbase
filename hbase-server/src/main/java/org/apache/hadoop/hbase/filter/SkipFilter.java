@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A wrapper filter that filters an entire row if any of the KeyValue checks do  * not pass.  *<p>  * For example, if all columns in a row represent weights of different things,  * with the values being the actual weights, and we want to filter out the  * entire row if any of its weights are zero.  In this case, we want to prevent  * rows from being emitted if a single key is filtered.  Combine this filter  * with a {@link ValueFilter}:  *<p>  *<pre>  * scan.setFilter(new SkipFilter(new ValueFilter(CompareOp.EQUAL,  *     new BinaryComparator(Bytes.toBytes(0))));  *</code>  * Any row which contained a column whose value was 0 will be filtered out.  * Without this filter, the other non-zero valued columns in the row would still  * be emitted.  */
+comment|/**  * A wrapper filter that filters an entire row if any of the KeyValue checks do  * not pass.  *<p>  * For example, if all columns in a row represent weights of different things,  * with the values being the actual weights, and we want to filter out the  * entire row if any of its weights are zero.  In this case, we want to prevent  * rows from being emitted if a single key is filtered.  Combine this filter  * with a {@link ValueFilter}:  *<p>  *<pre>  * scan.setFilter(new SkipFilter(new ValueFilter(CompareOp.NOT_EQUAL,  *     new BinaryComparator(Bytes.toBytes(0))));  *</code>  * Any row which contained a column whose value was 0 will be filtered out  * (since ValueFilter will not pass that KeyValue).  * Without this filter, the other non-zero valued columns in the row would still  * be emitted.  */
 end_comment
 
 begin_class
