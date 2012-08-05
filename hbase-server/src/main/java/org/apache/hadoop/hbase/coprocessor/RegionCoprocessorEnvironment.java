@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -116,6 +128,17 @@ comment|/** @return reference to the region server services */
 specifier|public
 name|RegionServerServices
 name|getRegionServerServices
+parameter_list|()
+function_decl|;
+comment|/** @return shared data between all instances of this coprocessor */
+specifier|public
+name|ConcurrentMap
+argument_list|<
+name|String
+argument_list|,
+name|Object
+argument_list|>
+name|getSharedData
 parameter_list|()
 function_decl|;
 block|}

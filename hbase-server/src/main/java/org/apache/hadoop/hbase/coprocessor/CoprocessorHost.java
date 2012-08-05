@@ -1184,6 +1184,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|jarFile
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|StringTokenizer
 name|st
 init|=
