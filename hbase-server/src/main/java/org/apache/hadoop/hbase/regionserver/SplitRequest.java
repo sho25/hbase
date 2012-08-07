@@ -337,7 +337,14 @@ name|getMetrics
 argument_list|()
 operator|.
 name|incrementSplitSuccessCount
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
 argument_list|()
+operator|-
+name|startTime
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
