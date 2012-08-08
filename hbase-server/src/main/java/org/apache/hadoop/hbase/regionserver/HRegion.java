@@ -21358,6 +21358,11 @@ name|kv
 operator|.
 name|getValueOffset
 argument_list|()
+argument_list|,
+name|kv
+operator|.
+name|getValueLength
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|idx
