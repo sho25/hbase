@@ -665,7 +665,7 @@ decl_stmt|;
 annotation|@
 name|SuppressWarnings
 argument_list|(
-literal|"unchecked"
+literal|"rawtypes"
 argument_list|)
 specifier|protected
 name|String
