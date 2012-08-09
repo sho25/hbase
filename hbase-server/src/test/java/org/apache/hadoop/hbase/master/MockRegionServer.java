@@ -1131,6 +1131,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Leases
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionServerAccounting
 import|;
 end_import
@@ -2760,6 +2776,18 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Leases
+name|getLeases
+parameter_list|()
 block|{
 comment|// TODO Auto-generated method stub
 return|return

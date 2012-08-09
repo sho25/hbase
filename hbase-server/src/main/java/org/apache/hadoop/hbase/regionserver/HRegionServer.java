@@ -12424,12 +12424,10 @@ throw|;
 block|}
 end_function
 
-begin_comment
-comment|/**    * @return Return the leases.    */
-end_comment
-
 begin_function
-specifier|protected
+annotation|@
+name|Override
+specifier|public
 name|Leases
 name|getLeases
 parameter_list|()

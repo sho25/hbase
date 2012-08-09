@@ -218,6 +218,12 @@ name|FileSystem
 name|getFileSystem
 parameter_list|()
 function_decl|;
+comment|/**    * @return The RegionServer's "Leases" service    */
+specifier|public
+name|Leases
+name|getLeases
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

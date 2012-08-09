@@ -13994,7 +13994,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns existing row lock if found, otherwise    * obtains a new row lock and returns it.    * @param lockid requested by the user, or null if the user didn't already hold lock    * @param row the row to lock    * @param waitForLock if true, will block until the lock is available, otherwise will    * simply return null if it could not acquire the lock.    * @return lockid or null if waitForLock is false and the lock was unavailable.    */
-specifier|private
+specifier|public
 name|Integer
 name|getLock
 parameter_list|(
