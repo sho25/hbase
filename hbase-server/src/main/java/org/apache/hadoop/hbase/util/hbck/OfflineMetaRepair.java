@@ -184,7 +184,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HBaseFsck
+name|OfflineMetaRepair
 operator|.
 name|class
 operator|.
