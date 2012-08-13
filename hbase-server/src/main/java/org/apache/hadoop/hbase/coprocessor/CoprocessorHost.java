@@ -355,16 +355,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|URLClassLoader
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|*
@@ -846,6 +836,23 @@ name|implClass
 init|=
 literal|null
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Loading coprocessor class "
+operator|+
+name|className
+operator|+
+literal|" with path "
+operator|+
+name|path
+operator|+
+literal|" and priority "
+operator|+
+name|priority
+argument_list|)
+expr_stmt|;
 comment|// Have we already loaded the class, perhaps from an earlier region open
 comment|// for the same table?
 try|try
@@ -881,9 +888,6 @@ operator|+
 literal|" needs to be loaded from a file - "
 operator|+
 name|path
-operator|.
-name|toString
-argument_list|()
 operator|+
 literal|"."
 argument_list|)
@@ -898,6 +902,23 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|path
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"No jar path specified for "
+operator|+
+name|className
+argument_list|)
+throw|;
+block|}
 comment|// copy the jar to the local filesystem
 if|if
 condition|(
@@ -998,16 +1019,6 @@ comment|// TODO: code weaving goes here
 comment|// TODO: wrap heap allocations and enforce maximum usage limits
 comment|/* TODO: inject code into loop headers that monitors CPU use and          aborts runaway user code */
 comment|// load the jar and get the implementation main class
-name|String
-name|cp
-init|=
-name|System
-operator|.
-name|getProperty
-argument_list|(
-literal|"java.class.path"
-argument_list|)
-decl_stmt|;
 comment|// NOTE: Path.toURL is deprecated (toURI instead) but the URLClassLoader
 comment|// unsurprisingly wants URLs, not URIs; so we will use the deprecated
 comment|// method which returns URLs for as long as it is available
@@ -1189,65 +1200,13 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|StringTokenizer
-name|st
-init|=
-operator|new
-name|StringTokenizer
-argument_list|(
-name|cp
-argument_list|,
-name|File
-operator|.
-name|pathSeparator
-argument_list|)
-decl_stmt|;
-while|while
-condition|(
-name|st
-operator|.
-name|hasMoreTokens
-argument_list|()
-condition|)
-block|{
-name|paths
-operator|.
-name|add
-argument_list|(
-operator|(
-operator|new
-name|File
-argument_list|(
-name|st
-operator|.
-name|nextToken
-argument_list|()
-argument_list|)
-operator|)
-operator|.
-name|getCanonicalFile
-argument_list|()
-operator|.
-name|toURL
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|ClassLoader
 name|cl
 init|=
 operator|new
-name|URLClassLoader
+name|CoprocessorClassLoader
 argument_list|(
 name|paths
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|URL
-index|[]
-block|{}
-argument_list|)
 argument_list|,
 name|this
 operator|.
