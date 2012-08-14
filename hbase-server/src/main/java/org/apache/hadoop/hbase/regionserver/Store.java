@@ -916,7 +916,7 @@ name|Store
 extends|extends
 name|SchemaConfigured
 implements|implements
-name|HeapSize
+name|HStore
 block|{
 specifier|static
 specifier|final
@@ -1049,25 +1049,6 @@ specifier|private
 specifier|final
 name|boolean
 name|verifyBulkLoads
-decl_stmt|;
-comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|PRIORITY_USER
-init|=
-literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|NO_PRIORITY
-init|=
-name|Integer
-operator|.
-name|MIN_VALUE
 decl_stmt|;
 comment|// not private for testing
 comment|/* package */
@@ -1815,7 +1796,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @return The maximum memstoreTS in all store files.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMaxMemstoreTS
@@ -1887,7 +1869,8 @@ return|return
 name|homedir
 return|;
 block|}
-comment|/**    * @return the data block encoder    */
+annotation|@
+name|Override
 specifier|public
 name|HFileDataBlockEncoder
 name|getDataBlockEncoder
@@ -2299,8 +2282,9 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * Adds a value to the memstore    *    * @param kv    * @return memstore size delta    */
-specifier|protected
+annotation|@
+name|Override
+specifier|public
 name|long
 name|add
 parameter_list|(
@@ -2385,8 +2369,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Removes a kv from the memstore. The KeyValue is removed only    * if its key& memstoreTS matches the key& memstoreTS value of the    * kv parameter.    *    * @param kv    */
-specifier|protected
+annotation|@
+name|Override
+specifier|public
 name|void
 name|rollback
 parameter_list|(
@@ -2428,6 +2413,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @return All store files.    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -2442,7 +2429,9 @@ operator|.
 name|storefiles
 return|;
 block|}
-comment|/**    * This throws a WrongRegionException if the HFile does not fit in this    * region, or an InvalidHFileException if the HFile is not valid.    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|assertBulkLoadHFileOk
 parameter_list|(
@@ -2880,7 +2869,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This method should only be called from HRegion.  It is assumed that the    * ranges of values in the HFile fit within the stores assigned region.    * (assertBulkLoadHFileOk checks this)    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|bulkLoadHFile
 parameter_list|(
@@ -3216,7 +3207,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Close all the readers    *    * We don't need to worry about subsequent requests because the HRegion holds    * a write lock that will prevent any more reads or writes.    *    * @throws IOException    */
+annotation|@
+name|Override
+specifier|public
 name|ImmutableList
 argument_list|<
 name|StoreFile
@@ -3446,7 +3439,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Snapshot this stores memstore.  Call before running    * {@link #flushCache(long, SortedSet<KeyValue>)} so it has some work to do.    */
+comment|/**    * Snapshot this stores memstore. Call before running    * {@link #flushCache(long, SortedSet, TimeRangeTracker, AtomicLong, MonitoredTask)} so it has    * some work to do.    */
 name|void
 name|snapshot
 parameter_list|()
@@ -5085,7 +5078,8 @@ return|return
 name|sf
 return|;
 block|}
-comment|/**    * Compact the most recent N files. Used in testing.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|compactRecentForTesting
@@ -5364,6 +5358,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|hasReferences
 parameter_list|()
@@ -5479,7 +5476,8 @@ return|return
 name|minTs
 return|;
 block|}
-comment|/** getter for CompactionProgress object    * @return CompactionProgress object; can be null    */
+annotation|@
+name|Override
 specifier|public
 name|CompactionProgress
 name|getCompactionProgress
@@ -5494,7 +5492,9 @@ name|getProgress
 argument_list|()
 return|;
 block|}
-comment|/*    * @return True if we should run a major compaction.    */
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|isMajorCompaction
 parameter_list|()
@@ -6082,6 +6082,8 @@ block|{
 return|return
 name|requestCompaction
 argument_list|(
+name|HStore
+operator|.
 name|NO_PRIORITY
 argument_list|)
 return|;
@@ -6521,6 +6523,8 @@ name|compactSelection
 argument_list|(
 name|candidates
 argument_list|,
+name|HStore
+operator|.
 name|NO_PRIORITY
 argument_list|)
 return|;
@@ -6753,6 +6757,8 @@ name|forcemajor
 operator|&&
 name|priority
 operator|==
+name|HStore
+operator|.
 name|PRIORITY_USER
 operator|)
 operator|||
@@ -7274,6 +7280,8 @@ if|if
 condition|(
 name|priority
 operator|!=
+name|HStore
+operator|.
 name|PRIORITY_USER
 condition|)
 block|{
@@ -7906,7 +7914,8 @@ comment|// /////////////////////////////////////////////////////////////////////
 comment|// Accessors.
 comment|// (This is the only section that is directly useful!)
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @return the number of files in this store    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getNumberOfStoreFiles
@@ -7988,7 +7997,9 @@ operator|<
 name|oldestTimestamp
 return|;
 block|}
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * precedes it. WARNING: Only use this method on a table where writes occur    * with strictly increasing timestamps. This method assumes this pattern of    * writes in order to make it reasonably performant.  Also our search is    * dependent on the axiom that deletes are for cells that are in the container    * that follows whether a memstore snapshot or a storefile, not for the    * current container: i.e. we'll see deletes before we come across cells we    * are to delete. Presumption is that the memstore#kvset is processed before    * memstore#snapshot and so on.    * @param row The row key of the targeted row.    * @return Found keyvalue or null if none found.    * @throws IOException    */
+annotation|@
+name|Override
+specifier|public
 name|KeyValue
 name|getRowKeyAtOrBefore
 parameter_list|(
@@ -8705,7 +8716,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Determines if Store should be split    * @return byte[] if store should be split, null otherwise.    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -9058,7 +9070,8 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** @return aggregate size of all HStores used in the last compaction */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getLastCompactSize
@@ -9070,7 +9083,8 @@ operator|.
 name|lastCompactSize
 return|;
 block|}
-comment|/** @return aggregate size of HStore */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getSize
@@ -9105,7 +9119,8 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return a scanner for both the memstore and the HStore files. Assumes we    * are not in a compaction.    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|KeyValueScanner
 name|getScanner
@@ -9219,7 +9234,9 @@ name|getColumnFamilyName
 argument_list|()
 return|;
 block|}
-comment|/**    * @return Count of store files    */
+annotation|@
+name|Override
+specifier|public
 name|int
 name|getStorefilesCount
 parameter_list|()
@@ -9233,7 +9250,9 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The size of the store files, in bytes, uncompressed.    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getStoreSizeUncompressed
 parameter_list|()
@@ -9244,7 +9263,9 @@ operator|.
 name|totalUncompressedBytes
 return|;
 block|}
-comment|/**    * @return The size of the store files, in bytes.    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getStorefilesSize
 parameter_list|()
@@ -9304,7 +9325,9 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * @return The size of the store file indexes, in bytes.    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getStorefilesIndexSize
 parameter_list|()
@@ -9364,7 +9387,9 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Returns the total size of all index blocks in the data block indexes,    * including the root level, intermediate levels, and the leaf level for    * multi-level indexes, or just the root level for single-level indexes.    *    * @return the total size of block indexes in the store    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getTotalStaticIndexSize
 parameter_list|()
@@ -9397,7 +9422,9 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Returns the total byte size of all Bloom filter bit arrays. For compound    * Bloom filters even the Bloom blocks currently not loaded into the block    * cache are counted.    *    * @return the total size of all Bloom filters in the store    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getTotalStaticBloomSize
 parameter_list|()
@@ -9437,7 +9464,9 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * @return The size of this store's memstore, in bytes    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getMemStoreSize
 parameter_list|()
@@ -9459,11 +9488,14 @@ block|{
 return|return
 name|getCompactPriority
 argument_list|(
+name|HStore
+operator|.
 name|NO_PRIORITY
 argument_list|)
 return|;
 block|}
-comment|/**    * @return The priority that this store should have in the compaction queue    * @param priority    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getCompactPriority
@@ -9477,10 +9509,14 @@ if|if
 condition|(
 name|priority
 operator|==
+name|HStore
+operator|.
 name|PRIORITY_USER
 condition|)
 block|{
 return|return
+name|HStore
+operator|.
 name|PRIORITY_USER
 return|;
 block|}
@@ -9500,6 +9536,9 @@ argument_list|()
 return|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|throttleCompaction
 parameter_list|(
@@ -9536,6 +9575,8 @@ operator|>
 name|throttlePoint
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegion
 name|getHRegion
@@ -9559,7 +9600,8 @@ operator|.
 name|regionInfo
 return|;
 block|}
-comment|/**    * Increments the value for the given row/family/qualifier.    *    * This function will always be seen as atomic by other readers    * because it only puts a single KV to memstore. Thus no    * read/write control necessary.    *    * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|updateColumnValue
@@ -9635,12 +9677,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and    * qualifier exists in MemStore, it will be replaced.  Otherwise, it will just    * be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not    * necessarily atomic across all of them.    * @param kvs    * @return memstore size delta    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|upsert
 parameter_list|(
-name|List
+name|Iterable
 argument_list|<
 name|KeyValue
 argument_list|>
@@ -9914,7 +9957,8 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * See if there's too much store files in this store    * @return true if number of store files is greater than    *  the number defined in minFilesToCompact    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|needsCompaction
@@ -9936,7 +9980,8 @@ operator|>
 name|minFilesToCompact
 return|;
 block|}
-comment|/**    * Used for tests. Get the cache configuration for this Store.    */
+annotation|@
+name|Override
 specifier|public
 name|CacheConfig
 name|getCacheConfig

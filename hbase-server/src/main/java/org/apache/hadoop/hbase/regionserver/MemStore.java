@@ -2108,7 +2108,7 @@ specifier|public
 name|long
 name|upsert
 parameter_list|(
-name|List
+name|Iterable
 argument_list|<
 name|KeyValue
 argument_list|>

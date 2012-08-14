@@ -7374,7 +7374,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -7865,7 +7865,7 @@ condition|)
 continue|continue;
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|r
@@ -8546,7 +8546,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|ee
 range|:
@@ -8559,7 +8559,7 @@ argument_list|()
 control|)
 block|{
 specifier|final
-name|Store
+name|HStore
 name|store
 init|=
 name|ee
@@ -10110,7 +10110,7 @@ expr_stmt|;
 comment|// Do checks to see if we need to compact (references or too many files)
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|r
@@ -11785,7 +11785,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -19742,7 +19742,7 @@ operator|)
 operator|+
 literal|"compaction"
 argument_list|,
-name|Store
+name|HStore
 operator|.
 name|PRIORITY_USER
 argument_list|)

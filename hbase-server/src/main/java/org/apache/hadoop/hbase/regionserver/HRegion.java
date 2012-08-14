@@ -1843,7 +1843,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|stores
 init|=
@@ -1853,7 +1853,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 argument_list|(
 name|Bytes
@@ -3573,7 +3573,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -3634,7 +3634,7 @@ init|)
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -4767,7 +4767,7 @@ comment|// close each store in parallel
 for|for
 control|(
 specifier|final
-name|Store
+name|HStore
 name|store
 range|:
 name|stores
@@ -5546,7 +5546,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|h
 range|:
 name|stores
@@ -5630,7 +5630,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|h
 range|:
 name|stores
@@ -5683,7 +5683,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|getStores
@@ -6648,7 +6648,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|stores
@@ -7182,7 +7182,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore
@@ -11548,7 +11548,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore
@@ -11745,7 +11745,7 @@ decl_stmt|;
 comment|// Remove those keys from the memstore that matches our
 comment|// key's (row, cf, cq, timestamp, memstoreTS). The interesting part is
 comment|// that even the memstoreTS has to match for keys that will be rolleded-back.
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore
@@ -12597,7 +12597,7 @@ operator|.
 name|Entry
 name|entry
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 literal|null
@@ -13259,7 +13259,7 @@ name|boolean
 name|restoreEdit
 parameter_list|(
 specifier|final
-name|Store
+name|HStore
 name|s
 parameter_list|,
 specifier|final
@@ -13411,7 +13411,7 @@ return|;
 block|}
 comment|/**    * Return HStore instance.    * Use with caution.  Exposed for use of fixup utilities.    * @param column Name of column family hosted by this region.    * @return Store that goes with the family on passed<code>column</code>.    * TODO: Make this lookup faster.    */
 specifier|public
-name|Store
+name|HStore
 name|getStore
 parameter_list|(
 specifier|final
@@ -13437,7 +13437,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|getStores
 parameter_list|()
@@ -13492,7 +13492,7 @@ range|:
 name|columns
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|this
@@ -14268,7 +14268,7 @@ operator|.
 name|getSecond
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore
@@ -14509,7 +14509,7 @@ operator|.
 name|getSecond
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore
@@ -14979,7 +14979,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|stores
@@ -18419,7 +18419,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -20192,7 +20192,7 @@ argument_list|)
 decl_stmt|;
 name|Map
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -20204,7 +20204,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -20302,7 +20302,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|stores
@@ -20820,7 +20820,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -20835,7 +20835,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|entry
@@ -21048,7 +21048,7 @@ argument_list|)
 decl_stmt|;
 name|Map
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -21060,7 +21060,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -21161,7 +21161,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|stores
@@ -21495,7 +21495,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|List
 argument_list|<
@@ -21510,7 +21510,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|entry
@@ -21741,7 +21741,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|stores
@@ -22263,7 +22263,7 @@ name|DEEP_OVERHEAD
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -23238,7 +23238,7 @@ name|MAX_VALUE
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|stores
@@ -23274,7 +23274,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|stores

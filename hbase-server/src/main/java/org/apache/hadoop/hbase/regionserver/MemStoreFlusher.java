@@ -1989,7 +1989,7 @@ parameter_list|)
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|hstore
 range|:
 name|region

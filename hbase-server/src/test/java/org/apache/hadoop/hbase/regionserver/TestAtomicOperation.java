@@ -846,6 +846,9 @@ expr_stmt|;
 name|Store
 name|store
 init|=
+operator|(
+name|Store
+operator|)
 name|region
 operator|.
 name|getStore

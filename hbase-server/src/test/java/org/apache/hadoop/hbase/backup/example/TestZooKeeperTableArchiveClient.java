@@ -319,6 +319,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|Store
 import|;
 end_import
@@ -1041,7 +1057,7 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// check that we actually have some store files that were archived
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -1884,7 +1900,7 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// check that we actually have some store files that were archived
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -2034,7 +2050,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|region

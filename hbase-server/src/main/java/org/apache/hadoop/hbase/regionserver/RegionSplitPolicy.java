@@ -245,7 +245,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|stores
 init|=
@@ -267,7 +267,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|stores

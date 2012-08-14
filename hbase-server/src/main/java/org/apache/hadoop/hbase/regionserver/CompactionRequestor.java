@@ -76,7 +76,7 @@ name|HRegion
 name|r
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|s
 parameter_list|,
 specifier|final
@@ -115,7 +115,7 @@ name|HRegion
 name|r
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|s
 parameter_list|,
 specifier|final

@@ -1640,7 +1640,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|storeEntry
 range|:

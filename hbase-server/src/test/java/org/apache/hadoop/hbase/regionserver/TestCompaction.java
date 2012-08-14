@@ -1126,7 +1126,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|pair
 range|:
@@ -1142,6 +1142,9 @@ block|{
 name|Store
 name|store
 init|=
+operator|(
+name|Store
+operator|)
 name|pair
 operator|.
 name|getValue
@@ -1159,10 +1162,7 @@ name|replaceBlockCache
 operator|.
 name|put
 argument_list|(
-name|pair
-operator|.
-name|getValue
-argument_list|()
+name|store
 argument_list|,
 name|blockEncoder
 argument_list|)
@@ -1329,7 +1329,7 @@ expr_stmt|;
 comment|// see if CompactionProgress is in place but null
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -1371,7 +1371,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|this
@@ -1787,8 +1787,8 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|Store
-name|store
+name|HStore
+name|hstore
 range|:
 name|this
 operator|.
@@ -1800,6 +1800,16 @@ name|values
 argument_list|()
 control|)
 block|{
+name|Store
+name|store
+init|=
+operator|(
+operator|(
+name|Store
+operator|)
+name|hstore
+operator|)
+decl_stmt|;
 name|Store
 operator|.
 name|ScanInfo
@@ -1931,12 +1941,17 @@ expr_stmt|;
 name|Store
 name|s
 init|=
+operator|(
+operator|(
+name|Store
+operator|)
 name|r
 operator|.
 name|getStore
 argument_list|(
 name|COLUMN_FAMILY
 argument_list|)
+operator|)
 decl_stmt|;
 try|try
 block|{
@@ -2728,7 +2743,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// do a compaction
-name|Store
+name|HStore
 name|store2
 init|=
 name|this
@@ -3242,7 +3257,7 @@ name|compactStores
 argument_list|()
 expr_stmt|;
 comment|// ensure that the compaction stopped, all old files are intact,
-name|Store
+name|HStore
 name|s
 init|=
 name|r
@@ -3408,8 +3423,8 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|Store
-name|store
+name|HStore
+name|hstore
 range|:
 name|this
 operator|.
@@ -3421,6 +3436,14 @@ name|values
 argument_list|()
 control|)
 block|{
+name|Store
+name|store
+init|=
+operator|(
+name|Store
+operator|)
+name|hstore
+decl_stmt|;
 name|Store
 operator|.
 name|ScanInfo
@@ -3701,6 +3724,9 @@ block|}
 name|Store
 name|store
 init|=
+operator|(
+name|Store
+operator|)
 name|r
 operator|.
 name|getStore
@@ -3907,7 +3933,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -3957,7 +3983,7 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|NO_PRIORITY
 argument_list|)
@@ -3990,7 +4016,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -4040,7 +4066,7 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|PRIORITY_USER
 argument_list|)
