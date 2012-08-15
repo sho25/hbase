@@ -4335,6 +4335,36 @@ name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}
+comment|/**    * @return True if this is a "fake" KV created for internal seeking purposes,    * which should not be seen by user code    */
+specifier|public
+name|boolean
+name|isInternal
+parameter_list|()
+block|{
+name|byte
+name|type
+init|=
+name|getType
+argument_list|()
+decl_stmt|;
+return|return
+name|type
+operator|==
+name|Type
+operator|.
+name|Minimum
+operator|.
+name|code
+operator|||
+name|type
+operator|==
+name|Type
+operator|.
+name|Maximum
+operator|.
+name|code
+return|;
+block|}
 comment|/**    * @param now Time to set into<code>this</code> IFF timestamp ==    * {@link HConstants#LATEST_TIMESTAMP} (else, its a noop).    * @return True is we modified this.    */
 specifier|public
 name|boolean
