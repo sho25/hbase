@@ -1472,16 +1472,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// verify that the coprocessors were loaded
@@ -1760,16 +1756,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// verify that the coprocessor was loaded
@@ -1924,16 +1916,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// verify that the coprocessor was loaded correctly
@@ -2331,16 +2319,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// verify that the coprocessor was loaded
@@ -3041,16 +3025,12 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// verify that the coprocessors were loaded
@@ -3376,16 +3356,12 @@ argument_list|(
 name|userTD1
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|userTD1
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// table should be enabled now.
@@ -3489,16 +3465,12 @@ argument_list|(
 name|htd2
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
+name|waitForTable
 argument_list|(
 name|htd2
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// table should be enabled now.
@@ -3973,6 +3945,41 @@ argument_list|(
 name|loadedMasterCoprocessorsVerify
 argument_list|,
 name|loadedMasterCoprocessors
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
+specifier|private
+name|void
+name|waitForTable
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+throws|throws
+name|InterruptedException
+throws|,
+name|IOException
+block|{
+comment|// First wait until all regions are online
+name|TEST_UTIL
+operator|.
+name|waitTableEnabled
+argument_list|(
+name|name
+argument_list|,
+literal|5000
+argument_list|)
+expr_stmt|;
+comment|// Now wait a bit longer for the coprocessor hosts to load the CPs
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
 argument_list|)
 expr_stmt|;
 block|}
