@@ -15516,7 +15516,7 @@ comment|// this seems like a redundant step - we already consumed the row
 comment|// there're no left overs.
 comment|// the reasons for calling this method are:
 comment|// 1. reset the filters.
-comment|// 2. provide a hook to fast forward the row (used by subclasses)
+comment|// 2. fast forward the row
 name|nextRow
 argument_list|(
 name|currentRow
@@ -15537,22 +15537,6 @@ name|stopRow
 return|;
 block|}
 block|}
-block|}
-specifier|private
-name|boolean
-name|filterRow
-parameter_list|()
-block|{
-return|return
-name|filter
-operator|!=
-literal|null
-operator|&&
-name|filter
-operator|.
-name|filterRow
-argument_list|()
-return|;
 block|}
 specifier|private
 name|boolean
@@ -15593,6 +15577,29 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|KeyValue
+name|kv
+init|=
+name|KeyValue
+operator|.
+name|createLastOnRow
+argument_list|(
+name|currentRow
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|storeHeap
+operator|.
+name|requestSeek
+argument_list|(
+name|kv
+argument_list|,
+literal|true
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 name|Bytes
