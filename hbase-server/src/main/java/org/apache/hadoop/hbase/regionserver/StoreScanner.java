@@ -1651,16 +1651,15 @@ literal|null
 condition|)
 block|{
 comment|// Check that the heap gives us KVs in an increasing order.
-if|if
-condition|(
+assert|assert
 name|prevKV
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 name|comparator
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 name|comparator
 operator|.
 name|compare
@@ -1669,14 +1668,9 @@ name|prevKV
 argument_list|,
 name|kv
 argument_list|)
-operator|>
+operator|<=
 literal|0
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
+operator|:
 literal|"Key "
 operator|+
 name|prevKV
@@ -1690,9 +1684,7 @@ operator|+
 literal|" in cf "
 operator|+
 name|store
-argument_list|)
-throw|;
-block|}
+assert|;
 name|prevKV
 operator|=
 name|kv
