@@ -1667,7 +1667,27 @@ block|}
 if|if
 condition|(
 name|numChosen
-operator|!=
+operator|<
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Using default thrift server type"
+argument_list|)
+expr_stmt|;
+name|chosenType
+operator|=
+name|DEFAULT
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|numChosen
+operator|>
 literal|1
 condition|)
 block|{
@@ -1693,7 +1713,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting thrift server to "
+literal|"Using thrift server type "
 operator|+
 name|chosenType
 operator|.
