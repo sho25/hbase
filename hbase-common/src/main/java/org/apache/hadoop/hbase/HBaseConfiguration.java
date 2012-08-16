@@ -438,7 +438,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a clone of passed configuration.    * @param that Configuration to clone.    * @return a Configuration created with the hbase-*.xml files plus    * the given configuration.    */
+comment|/**    * @param that Configuration to clone.    * @return a Configuration created with the hbase-*.xml files plus    * the given configuration.    */
 specifier|public
 specifier|static
 name|Configuration
