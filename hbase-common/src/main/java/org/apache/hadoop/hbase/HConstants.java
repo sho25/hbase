@@ -576,6 +576,15 @@ name|MAJOR_COMPACTION_PERIOD
 init|=
 literal|"hbase.hregion.majorcompaction"
 decl_stmt|;
+comment|/** Parameter name for the maximum batch of KVs to be used in flushes and compactions */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPACTION_KV_MAX
+init|=
+literal|"hbase.hstore.compaction.kv.max"
+decl_stmt|;
 comment|/** Parameter name for HBase instance root directory */
 specifier|public
 specifier|static

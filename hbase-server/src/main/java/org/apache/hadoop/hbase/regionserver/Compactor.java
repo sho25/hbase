@@ -573,7 +573,9 @@ argument_list|()
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hstore.compaction.kv.max"
+name|HConstants
+operator|.
+name|COMPACTION_KV_MAX
 argument_list|,
 literal|10
 argument_list|)

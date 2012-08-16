@@ -3649,15 +3649,7 @@ name|Collections
 operator|.
 name|singletonList
 argument_list|(
-operator|new
-name|CollectionBackedScanner
-argument_list|(
-name|set
-argument_list|,
-name|this
-operator|.
-name|comparator
-argument_list|)
+name|memstoreScanner
 argument_list|)
 argument_list|,
 name|ScanType
@@ -3723,6 +3715,20 @@ expr_stmt|;
 block|}
 try|try
 block|{
+name|int
+name|compactionKVMax
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|COMPACTION_KV_MAX
+argument_list|,
+literal|10
+argument_list|)
+decl_stmt|;
 comment|// TODO:  We can fail in the below block before we complete adding this
 comment|// flush to list of store files.  Add cleanup of anything put on filesystem
 comment|// if we fail.
@@ -3794,6 +3800,8 @@ operator|.
 name|next
 argument_list|(
 name|kvs
+argument_list|,
+name|compactionKVMax
 argument_list|)
 expr_stmt|;
 if|if
