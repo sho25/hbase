@@ -438,7 +438,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a clone of passed configuration.    * @param that Configuration to clone.    * @return a clone of passed configuration.    */
+comment|/**    * Creates a clone of passed configuration.    * @param that Configuration to clone.    * @return a Configuration created with the hbase-*.xml files plus    * the given configuration.    */
 specifier|public
 specifier|static
 name|Configuration
@@ -449,12 +449,21 @@ name|Configuration
 name|that
 parameter_list|)
 block|{
-return|return
-operator|new
 name|Configuration
+name|conf
+init|=
+name|create
+argument_list|()
+decl_stmt|;
+name|merge
 argument_list|(
+name|conf
+argument_list|,
 name|that
 argument_list|)
+expr_stmt|;
+return|return
+name|conf
 return|;
 block|}
 comment|/**    * Merge two configurations.    * @param destConf the configuration that will be overwritten with items    *                 from the srcConf    * @param srcConf the source configuration    **/
