@@ -125,6 +125,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|NavigableMap
 import|;
 end_import
@@ -5337,6 +5347,10 @@ name|R
 argument_list|>
 name|results
 init|=
+name|Collections
+operator|.
+name|synchronizedMap
+argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
@@ -5349,6 +5363,7 @@ argument_list|(
 name|Bytes
 operator|.
 name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|coprocessorExec
