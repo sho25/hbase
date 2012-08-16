@@ -1173,9 +1173,8 @@ expr_stmt|;
 name|Configuration
 name|newConf
 init|=
-name|HBaseConfiguration
-operator|.
-name|create
+operator|new
+name|Configuration
 argument_list|(
 name|conf
 argument_list|)
