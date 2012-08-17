@@ -859,7 +859,7 @@ condition|(
 operator|!
 name|cleaner
 operator|.
-name|isFileDeleteable
+name|isFileDeletable
 argument_list|(
 name|filePath
 argument_list|)

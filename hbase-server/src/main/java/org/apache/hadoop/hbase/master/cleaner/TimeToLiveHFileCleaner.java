@@ -239,7 +239,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isFileDeleteable
+name|isFileDeletable
 parameter_list|(
 name|Path
 name|filePath

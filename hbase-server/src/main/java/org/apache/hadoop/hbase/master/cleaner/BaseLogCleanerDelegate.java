@@ -83,7 +83,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isFileDeleteable
+name|isFileDeletable
 parameter_list|(
 name|Path
 name|file
@@ -96,18 +96,21 @@ name|file
 argument_list|)
 return|;
 block|}
-comment|/**    * Should the master delete the log or keep it?    *<p>    * Implementing classes should override {@link #isFileDeleteable(Path)} instead.    * @param filePath full path to log.    * @return true if the log is deletable, false if not    */
+comment|/**    * Should the master delete the log or keep it?    *<p>    * Implementing classes should override {@link #isFileDeletable(Path)} instead.    * @param filePath full path to log.    * @return true if the log is deletable, false (default) if not    */
 annotation|@
 name|Deprecated
 specifier|public
-specifier|abstract
 name|boolean
 name|isLogDeletable
 parameter_list|(
 name|Path
 name|filePath
 parameter_list|)
-function_decl|;
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 

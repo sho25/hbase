@@ -95,7 +95,7 @@ block|{
 comment|/**    * Should the master delete the file or keep it?    * @param file full path to the file to check    * @return<tt>true</tt> if the file is deletable,<tt>false</tt> if not    */
 specifier|public
 name|boolean
-name|isFileDeleteable
+name|isFileDeletable
 parameter_list|(
 name|Path
 name|file
