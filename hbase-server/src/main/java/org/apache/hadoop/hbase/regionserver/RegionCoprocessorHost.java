@@ -1914,12 +1914,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long, InternalScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, HStore, List, ScanType, long, InternalScanner)}    */
 specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -2044,7 +2044,7 @@ specifier|public
 name|boolean
 name|preCompactSelection
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -2162,7 +2162,7 @@ specifier|public
 name|void
 name|postCompactSelection
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ImmutableList
@@ -2263,7 +2263,7 @@ specifier|public
 name|InternalScanner
 name|preCompact
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|InternalScanner
@@ -2384,7 +2384,7 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|StoreFile
@@ -2484,7 +2484,7 @@ specifier|public
 name|InternalScanner
 name|preFlush
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|InternalScanner
@@ -2690,12 +2690,12 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlush(ObserverContext, Store, KeyValueScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preFlush(ObserverContext, HStore, KeyValueScanner)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|KeyValueScanner
@@ -2898,7 +2898,7 @@ name|void
 name|postFlush
 parameter_list|(
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -5767,12 +5767,12 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * See    * {@link RegionObserver#preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet, KeyValueScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preStoreScannerOpen(ObserverContext, HStore, Scan, NavigableSet, KeyValueScanner)}    */
 specifier|public
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|Scan

@@ -974,14 +974,14 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// add the mock to the parent stores
-name|Store
+name|HStore
 name|storeMock
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)

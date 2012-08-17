@@ -530,7 +530,7 @@ return|;
 block|}
 comment|/**    * Fake up a Store around the passed<code>storedir</code>.    * @param fs    * @param storedir    * @param tmpdir    * @return    * @throws IOException    */
 specifier|private
-name|Store
+name|HStore
 name|getStore
 parameter_list|(
 specifier|final
@@ -588,7 +588,7 @@ comment|// Create a Store w/ check of hbase.rootdir blanked out and return our
 comment|// list of files instead of have Store search its home dir.
 return|return
 operator|new
-name|Store
+name|HStore
 argument_list|(
 name|tmpdir
 argument_list|,
@@ -752,7 +752,7 @@ return|return
 name|errCode
 return|;
 comment|// Get a Store that wraps the inputdir of files to compact.
-name|Store
+name|HStore
 name|store
 init|=
 name|getStore

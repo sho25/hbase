@@ -359,7 +359,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -557,7 +557,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -617,7 +617,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|InternalScanner
@@ -642,7 +642,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|StoreFile
@@ -701,7 +701,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -728,7 +728,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -752,7 +752,7 @@ argument_list|>
 name|e
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -780,7 +780,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -823,7 +823,7 @@ argument_list|>
 name|e
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -1553,7 +1553,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final

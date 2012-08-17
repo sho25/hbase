@@ -355,7 +355,7 @@ name|kv
 parameter_list|)
 block|{
 return|return
-name|Store
+name|HStore
 operator|.
 name|isExpired
 argument_list|(

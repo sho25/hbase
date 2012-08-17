@@ -417,7 +417,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -433,7 +433,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1337,7 +1337,7 @@ expr_stmt|;
 comment|// wait to complete major compaction
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|destServer
@@ -2838,7 +2838,7 @@ specifier|protected
 name|boolean
 name|restoreEdit
 parameter_list|(
-name|HStore
+name|Store
 name|s
 parameter_list|,
 name|KeyValue

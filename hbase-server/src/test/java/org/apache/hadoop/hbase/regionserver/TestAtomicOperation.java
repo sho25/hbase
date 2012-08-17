@@ -843,11 +843,11 @@ argument_list|,
 name|result
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.

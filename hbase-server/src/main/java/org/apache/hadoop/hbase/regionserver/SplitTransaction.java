@@ -2910,7 +2910,7 @@ decl_stmt|;
 name|Path
 name|storedir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(
@@ -2949,7 +2949,7 @@ argument_list|()
 expr_stmt|;
 name|storedir
 operator|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(

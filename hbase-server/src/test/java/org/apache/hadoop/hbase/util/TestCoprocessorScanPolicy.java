@@ -415,7 +415,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1527,7 +1527,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|KeyValueScanner
@@ -1584,7 +1584,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|oldSI
@@ -1602,13 +1602,13 @@ operator|.
 name|getFamily
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -1731,7 +1731,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -1780,7 +1780,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|oldSI
@@ -1798,13 +1798,13 @@ operator|.
 name|getFamily
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -1918,7 +1918,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -1965,7 +1965,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|oldSI
@@ -1983,13 +1983,13 @@ operator|.
 name|getFamily
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(

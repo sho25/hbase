@@ -319,7 +319,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -335,7 +335,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1057,7 +1057,7 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// check that we actually have some store files that were archived
-name|HStore
+name|Store
 name|store
 init|=
 name|region
@@ -1900,7 +1900,7 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// check that we actually have some store files that were archived
-name|HStore
+name|Store
 name|store
 init|=
 name|region
@@ -2050,7 +2050,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HStore
+name|Store
 name|store
 init|=
 name|region

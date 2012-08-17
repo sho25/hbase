@@ -643,7 +643,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -2081,7 +2081,7 @@ decl_stmt|;
 name|Path
 name|storedir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(
@@ -3652,7 +3652,7 @@ decl_stmt|;
 name|Path
 name|storedir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(
@@ -4101,7 +4101,7 @@ decl_stmt|;
 name|Path
 name|storedir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(
@@ -4723,7 +4723,7 @@ decl_stmt|;
 name|Path
 name|storedir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(

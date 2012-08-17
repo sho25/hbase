@@ -211,7 +211,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -372,7 +372,7 @@ name|r
 decl_stmt|;
 specifier|private
 specifier|final
-name|Store
+name|HStore
 name|s
 decl_stmt|;
 specifier|private
@@ -452,7 +452,7 @@ parameter_list|(
 name|HRegion
 name|r
 parameter_list|,
-name|Store
+name|HStore
 name|s
 parameter_list|,
 name|CompactSelection
@@ -942,7 +942,7 @@ return|;
 block|}
 comment|/** Gets the Store for the request */
 specifier|public
-name|Store
+name|HStore
 name|getStore
 parameter_list|()
 block|{

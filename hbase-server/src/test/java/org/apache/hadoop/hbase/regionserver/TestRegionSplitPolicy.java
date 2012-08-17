@@ -279,7 +279,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 name|stores
 decl_stmt|;
@@ -377,7 +377,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|Store
+name|HStore
 argument_list|>
 argument_list|(
 name|Bytes
@@ -553,14 +553,14 @@ expr_stmt|;
 comment|// Add a store in excess of split size.  Because there are "no regions"
 comment|// on this server -- rss.getOnlineRegions is 0 -- then we should split
 comment|// like a constantsizeregionsplitpolicy would
-name|Store
+name|HStore
 name|mockStore
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)
@@ -926,14 +926,14 @@ operator|.
 name|getStores
 argument_list|()
 expr_stmt|;
-name|Store
+name|HStore
 name|mockStore
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)
@@ -1154,14 +1154,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Add a store above the requisite size. Should split.
-name|Store
+name|HStore
 name|mockStore
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)
@@ -1371,14 +1371,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Add a store above the requisite size. Should split.
-name|Store
+name|HStore
 name|mockStore
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)
@@ -1463,14 +1463,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Add a bigger store. The split point should come from that one
-name|Store
+name|HStore
 name|mockStore2
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)

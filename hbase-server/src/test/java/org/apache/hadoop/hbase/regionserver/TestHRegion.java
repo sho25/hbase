@@ -1940,7 +1940,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|region
@@ -2388,7 +2388,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|region
@@ -2772,7 +2772,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|region
@@ -6559,11 +6559,11 @@ name|kv
 argument_list|)
 expr_stmt|;
 comment|//checkAndPut with wrong value
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -10185,7 +10185,7 @@ name|firstKv
 init|=
 operator|(
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -10226,7 +10226,7 @@ name|kv
 range|:
 operator|(
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -16828,11 +16828,11 @@ argument_list|,
 name|result
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -16982,11 +16982,11 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// get the store in question:
-name|Store
+name|HStore
 name|s
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -17825,11 +17825,11 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -17998,11 +17998,11 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -18223,11 +18223,11 @@ argument_list|,
 name|result
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -18341,7 +18341,7 @@ expr_stmt|;
 name|store
 operator|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.
@@ -23132,11 +23132,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|//before compaction
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|region
 operator|.

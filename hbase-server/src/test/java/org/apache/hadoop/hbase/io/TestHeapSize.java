@@ -341,7 +341,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1727,13 +1727,13 @@ expr_stmt|;
 comment|// Store Overhead
 name|cl
 operator|=
-name|Store
+name|HStore
 operator|.
 name|class
 expr_stmt|;
 name|actual
 operator|=
-name|Store
+name|HStore
 operator|.
 name|FIXED_OVERHEAD
 expr_stmt|;

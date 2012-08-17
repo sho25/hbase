@@ -868,7 +868,7 @@ operator|.
 name|getCompactPriority
 argument_list|()
 operator|>=
-name|HStore
+name|Store
 operator|.
 name|PRIORITY_USER
 condition|)
@@ -1023,7 +1023,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|HStore
+name|Store
 name|s
 range|:
 name|r
@@ -1043,7 +1043,7 @@ name|s
 argument_list|,
 name|why
 argument_list|,
-name|HStore
+name|Store
 operator|.
 name|NO_PRIORITY
 argument_list|)
@@ -1060,7 +1060,7 @@ name|HRegion
 name|r
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|s
 parameter_list|,
 specifier|final
@@ -1078,7 +1078,7 @@ name|s
 argument_list|,
 name|why
 argument_list|,
-name|HStore
+name|Store
 operator|.
 name|NO_PRIORITY
 argument_list|)
@@ -1105,7 +1105,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|HStore
+name|Store
 name|s
 range|:
 name|r
@@ -1141,7 +1141,7 @@ name|HRegion
 name|r
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|s
 parameter_list|,
 specifier|final
@@ -1194,7 +1194,7 @@ if|if
 condition|(
 name|priority
 operator|!=
-name|HStore
+name|Store
 operator|.
 name|NO_PRIORITY
 condition|)

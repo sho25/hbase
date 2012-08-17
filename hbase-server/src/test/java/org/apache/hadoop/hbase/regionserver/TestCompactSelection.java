@@ -331,7 +331,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|Store
+name|HStore
 name|store
 decl_stmt|;
 specifier|private
@@ -662,7 +662,7 @@ expr_stmt|;
 name|store
 operator|=
 operator|new
-name|Store
+name|HStore
 argument_list|(
 name|basedir
 argument_list|,

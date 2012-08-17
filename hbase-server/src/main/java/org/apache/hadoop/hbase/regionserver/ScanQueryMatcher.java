@@ -333,7 +333,7 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
@@ -606,7 +606,7 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo

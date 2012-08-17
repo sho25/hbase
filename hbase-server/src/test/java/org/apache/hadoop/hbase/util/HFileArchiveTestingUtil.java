@@ -217,7 +217,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -233,7 +233,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1241,7 +1241,7 @@ parameter_list|,
 name|HRegion
 name|region
 parameter_list|,
-name|HStore
+name|Store
 name|store
 parameter_list|)
 block|{
@@ -1321,7 +1321,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|// check that we actually have some store files that were archived
-name|HStore
+name|Store
 name|store
 init|=
 name|region

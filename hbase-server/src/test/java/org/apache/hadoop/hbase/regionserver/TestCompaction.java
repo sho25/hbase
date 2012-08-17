@@ -1104,7 +1104,7 @@ name|Exception
 block|{
 name|Map
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|HFileDataBlockEncoder
 argument_list|>
@@ -1113,7 +1113,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|HFileDataBlockEncoder
 argument_list|>
@@ -1126,7 +1126,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|HStore
+name|Store
 argument_list|>
 name|pair
 range|:
@@ -1139,11 +1139,11 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|pair
 operator|.
@@ -1209,7 +1209,7 @@ for|for
 control|(
 name|Entry
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|HFileDataBlockEncoder
 argument_list|>
@@ -1329,7 +1329,7 @@ expr_stmt|;
 comment|// see if CompactionProgress is in place but null
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|this
@@ -1371,7 +1371,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|this
@@ -1787,7 +1787,7 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|hstore
 range|:
 name|this
@@ -1800,17 +1800,17 @@ name|values
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
 operator|(
-name|Store
+name|HStore
 operator|)
 name|hstore
 operator|)
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|old
@@ -1819,13 +1819,13 @@ name|store
 operator|.
 name|scanInfo
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|si
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -1938,12 +1938,12 @@ argument_list|,
 name|jitterPct
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|s
 init|=
 operator|(
 operator|(
-name|Store
+name|HStore
 operator|)
 name|r
 operator|.
@@ -2743,7 +2743,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// do a compaction
-name|HStore
+name|Store
 name|store2
 init|=
 name|this
@@ -3049,11 +3049,11 @@ comment|// lower the polling interval for this test
 name|int
 name|origWI
 init|=
-name|Store
+name|HStore
 operator|.
 name|closeCheckInterval
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|closeCheckInterval
 operator|=
@@ -3257,7 +3257,7 @@ name|compactStores
 argument_list|()
 expr_stmt|;
 comment|// ensure that the compaction stopped, all old files are intact,
-name|HStore
+name|Store
 name|s
 init|=
 name|r
@@ -3332,7 +3332,7 @@ name|writesEnabled
 operator|=
 literal|true
 expr_stmt|;
-name|Store
+name|HStore
 operator|.
 name|closeCheckInterval
 operator|=
@@ -3423,7 +3423,7 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|hstore
 range|:
 name|this
@@ -3436,15 +3436,15 @@ name|values
 argument_list|()
 control|)
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|hstore
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|old
@@ -3453,13 +3453,13 @@ name|store
 operator|.
 name|scanInfo
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|si
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -3721,11 +3721,11 @@ name|r
 argument_list|)
 expr_stmt|;
 block|}
-name|Store
+name|HStore
 name|store
 init|=
 operator|(
-name|Store
+name|HStore
 operator|)
 name|r
 operator|.
@@ -3933,7 +3933,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HStore
+name|Store
 name|store
 init|=
 name|r
@@ -3983,7 +3983,7 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|HStore
+name|Store
 operator|.
 name|NO_PRIORITY
 argument_list|)
@@ -4016,7 +4016,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HStore
+name|Store
 name|store
 init|=
 name|r
@@ -4066,7 +4066,7 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|HStore
+name|Store
 operator|.
 name|PRIORITY_USER
 argument_list|)

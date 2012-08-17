@@ -153,7 +153,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -246,7 +246,7 @@ name|tabledir
 argument_list|)
 decl_stmt|;
 return|return
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(

@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 import|;
@@ -295,7 +295,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Store
+name|HStore
 name|store
 decl_stmt|;
 specifier|private
@@ -407,7 +407,7 @@ comment|/** An internal constructor. */
 specifier|private
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|boolean
@@ -521,7 +521,7 @@ comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. 
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -728,7 +728,7 @@ comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -850,7 +850,7 @@ specifier|final
 name|Scan
 name|scan
 parameter_list|,
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
@@ -901,7 +901,7 @@ specifier|final
 name|Scan
 name|scan
 parameter_list|,
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo

@@ -725,7 +725,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -7680,7 +7680,7 @@ name|KeyValue
 argument_list|>
 name|getFromStoreFile
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|Get
@@ -7816,7 +7816,7 @@ name|KeyValue
 argument_list|>
 name|getFromStoreFile
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|byte

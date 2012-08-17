@@ -477,7 +477,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1047,7 +1047,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|InternalScanner
@@ -1074,7 +1074,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|StoreFile

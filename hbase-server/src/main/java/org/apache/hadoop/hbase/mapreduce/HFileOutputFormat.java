@@ -501,7 +501,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -1430,7 +1430,7 @@ argument_list|)
 operator|.
 name|withChecksumType
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|getChecksumType
 argument_list|(
@@ -1440,7 +1440,7 @@ argument_list|)
 operator|.
 name|withBytesPerChecksum
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|getBytesPerChecksum
 argument_list|(

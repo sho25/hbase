@@ -199,7 +199,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 import|;

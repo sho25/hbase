@@ -609,7 +609,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -4471,7 +4471,7 @@ specifier|final
 name|Path
 name|storePath
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(

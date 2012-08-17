@@ -1301,7 +1301,7 @@ comment|// Create top split.
 name|Path
 name|topDir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(
@@ -1376,7 +1376,7 @@ comment|// Create bottom split.
 name|Path
 name|bottomDir
 init|=
-name|Store
+name|HStore
 operator|.
 name|getStoreHomedir
 argument_list|(

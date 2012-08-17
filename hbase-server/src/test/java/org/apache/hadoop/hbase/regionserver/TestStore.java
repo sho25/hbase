@@ -640,7 +640,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 decl_stmt|;
 name|byte
@@ -1140,7 +1140,7 @@ decl_stmt|;
 name|store
 operator|=
 operator|new
-name|Store
+name|HStore
 argument_list|(
 name|basedir
 argument_list|,
@@ -1661,7 +1661,7 @@ comment|// after flush; check the lowest time stamp
 name|long
 name|lowestTimeStampFromStore
 init|=
-name|Store
+name|HStore
 operator|.
 name|getLowestTimestamp
 argument_list|(
@@ -1704,7 +1704,7 @@ argument_list|)
 expr_stmt|;
 name|lowestTimeStampFromStore
 operator|=
-name|Store
+name|HStore
 operator|.
 name|getLowestTimestamp
 argument_list|(
@@ -2064,7 +2064,7 @@ operator|.
 name|store
 operator|=
 operator|new
-name|Store
+name|HStore
 argument_list|(
 name|storedir
 operator|.
@@ -4707,7 +4707,7 @@ specifier|static
 name|void
 name|flushStore
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|long

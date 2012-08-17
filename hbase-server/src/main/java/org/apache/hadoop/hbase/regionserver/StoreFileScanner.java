@@ -216,7 +216,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)

@@ -300,7 +300,7 @@ name|Writer
 name|compact
 parameter_list|(
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -924,7 +924,7 @@ expr_stmt|;
 comment|// check periodically to see if a system stop is requested
 if|if
 condition|(
-name|Store
+name|HStore
 operator|.
 name|closeCheckInterval
 operator|>
@@ -942,7 +942,7 @@ if|if
 condition|(
 name|bytesWritten
 operator|>
-name|Store
+name|HStore
 operator|.
 name|closeCheckInterval
 condition|)
@@ -1024,7 +1024,7 @@ name|void
 name|isInterrupted
 parameter_list|(
 specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final

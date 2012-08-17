@@ -2187,11 +2187,11 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 operator|new
-name|Store
+name|HStore
 argument_list|(
 name|outputDir
 argument_list|,
@@ -2495,7 +2495,7 @@ name|StoreFileScanner
 argument_list|>
 name|scanners
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|StoreFile

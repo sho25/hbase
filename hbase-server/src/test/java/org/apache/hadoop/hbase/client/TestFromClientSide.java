@@ -669,7 +669,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -685,7 +685,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -36637,7 +36637,7 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
-name|HStore
+name|Store
 name|store
 init|=
 name|region
@@ -37324,7 +37324,7 @@ specifier|private
 name|void
 name|waitForStoreFileCount
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|int

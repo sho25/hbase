@@ -172,7 +172,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|KeyValueScanner
@@ -184,7 +184,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|oldSI
@@ -194,13 +194,13 @@ operator|.
 name|getScanInfo
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -291,7 +291,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -315,7 +315,7 @@ throws|throws
 name|IOException
 block|{
 comment|// this demonstrates how to override the scanners default behavior
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|oldSI
@@ -325,13 +325,13 @@ operator|.
 name|getScanInfo
 argument_list|()
 decl_stmt|;
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|Store
+name|HStore
 operator|.
 name|ScanInfo
 argument_list|(
@@ -412,7 +412,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
