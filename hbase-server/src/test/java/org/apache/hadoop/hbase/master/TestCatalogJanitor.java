@@ -3212,6 +3212,14 @@ name|splitb
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|splita
+operator|.
+name|setOffline
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+comment|//simulate that splita goes offline when it is split
 name|splitParents
 operator|.
 name|put

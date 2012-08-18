@@ -930,20 +930,20 @@ name|cleaned
 init|=
 literal|0
 decl_stmt|;
+comment|//regions whose parents are still around
 name|HashSet
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|>
 name|parentNotCleaned
 init|=
 operator|new
 name|HashSet
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|//regions whose parents are still around
 for|for
 control|(
 name|Map
@@ -973,6 +973,9 @@ name|e
 operator|.
 name|getKey
 argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 operator|&&
 name|cleanParent
@@ -995,7 +998,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// We could not clean the parent, so it's daughters should not be cleaned either (HBASE-6160)
+comment|// We could not clean the parent, so its daughters should not be cleaned either(HBASE-6160)
 name|parentNotCleaned
 operator|.
 name|add
@@ -1011,6 +1014,9 @@ name|HConstants
 operator|.
 name|SPLITA_QUALIFIER
 argument_list|)
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|parentNotCleaned
@@ -1028,6 +1034,9 @@ name|HConstants
 operator|.
 name|SPLITB_QUALIFIER
 argument_list|)
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
