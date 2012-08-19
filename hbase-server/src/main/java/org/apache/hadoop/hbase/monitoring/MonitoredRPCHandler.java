@@ -41,23 +41,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|protobuf
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|generated
 operator|.
-name|apache
+name|RPCProtos
 operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
+name|RpcRequestBody
 import|;
 end_import
 
@@ -148,7 +138,7 @@ specifier|abstract
 name|void
 name|setRPCPacket
 parameter_list|(
-name|Writable
+name|RpcRequestBody
 name|param
 parameter_list|)
 function_decl|;

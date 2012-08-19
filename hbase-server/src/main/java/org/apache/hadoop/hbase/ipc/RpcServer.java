@@ -33,15 +33,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|io
-operator|.
-name|Writable
+name|Message
 import|;
 end_import
 
@@ -88,6 +86,26 @@ operator|.
 name|monitoring
 operator|.
 name|MonitoredRPCHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RPCProtos
+operator|.
+name|RpcRequestBody
 import|;
 end_import
 
@@ -149,8 +167,8 @@ name|InetSocketAddress
 name|getListenerAddress
 parameter_list|()
 function_decl|;
-comment|/** Called for each call.    * @param param writable parameter    * @param receiveTime time    * @return Writable    * @throws java.io.IOException e    */
-name|Writable
+comment|/** Called for each call.    * @param param writable parameter    * @param receiveTime time    * @return Message    * @throws java.io.IOException e    */
+name|Message
 name|call
 parameter_list|(
 name|Class
@@ -161,7 +179,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|Writable
+name|RpcRequestBody
 name|param
 parameter_list|,
 name|long
@@ -185,7 +203,7 @@ name|setQosFunction
 parameter_list|(
 name|Function
 argument_list|<
-name|Writable
+name|RpcRequestBody
 argument_list|,
 name|Integer
 argument_list|>
