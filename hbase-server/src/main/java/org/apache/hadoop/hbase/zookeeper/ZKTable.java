@@ -1515,7 +1515,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Sets the ENABLED state in the cache and deletes the zookeeper node. Fails    * silently if the node is not in enabled in zookeeper    *     * @param tableName    * @throws KeeperException    */
+comment|/**    * Sets the ENABLED state in the cache and creates or force updates a node to    * ENABLED state for the specified table    *     * @param tableName    * @throws KeeperException    */
 specifier|public
 name|void
 name|setEnabledTable
