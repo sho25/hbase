@@ -2587,6 +2587,14 @@ name|blockBuffer
 operator|.
 name|position
 argument_list|()
+argument_list|,
+name|KEY_VALUE_LEN_SIZE
+operator|+
+name|currKeyLen
+operator|+
+name|currValueLen
+argument_list|,
+name|currKeyLen
 argument_list|)
 decl_stmt|;
 if|if
