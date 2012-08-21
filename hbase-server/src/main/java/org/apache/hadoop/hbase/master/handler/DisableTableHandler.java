@@ -305,6 +305,18 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|cloudera
+operator|.
+name|htrace
+operator|.
+name|Trace
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handler to run disable of a table.  */
 end_comment
@@ -941,6 +953,10 @@ name|pool
 operator|.
 name|execute
 argument_list|(
+name|Trace
+operator|.
+name|wrap
+argument_list|(
 operator|new
 name|Runnable
 argument_list|()
@@ -959,6 +975,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
