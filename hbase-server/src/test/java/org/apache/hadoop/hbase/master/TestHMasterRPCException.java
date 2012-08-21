@@ -314,6 +314,8 @@ argument_list|,
 name|conf
 argument_list|,
 literal|100
+operator|*
+literal|10
 argument_list|)
 decl_stmt|;
 name|inf
