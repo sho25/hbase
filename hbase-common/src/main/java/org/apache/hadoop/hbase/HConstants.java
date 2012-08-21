@@ -529,6 +529,15 @@ name|MASTER_IMPL
 init|=
 literal|"hbase.master.impl"
 decl_stmt|;
+comment|/** Parameter name for what hbase client implementation to use. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASECLIENT_IMPL
+init|=
+literal|"hbase.hbaseclient.impl"
+decl_stmt|;
 comment|/** Parameter name for how often threads should wake up */
 specifier|public
 specifier|static

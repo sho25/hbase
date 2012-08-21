@@ -88,6 +88,7 @@ name|delegate
 return|;
 block|}
 comment|/**    * Resets the managed instance to the default instance: {@link    * DefaultEnvironmentEdge}.    */
+specifier|public
 specifier|static
 name|void
 name|reset
@@ -102,6 +103,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Injects the given edge such that it becomes the managed entity. If null is    * passed to this method, the default type is assigned to the delegate.    *    * @param edge the new edge.    */
+specifier|public
 specifier|static
 name|void
 name|injectEdge
