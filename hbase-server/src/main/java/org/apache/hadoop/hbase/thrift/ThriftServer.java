@@ -473,9 +473,7 @@ literal|true
 argument_list|,
 literal|"Address to bind "
 operator|+
-literal|"the Thrift server to. Not supported by the Nonblocking and "
-operator|+
-literal|"HsHa server [default: "
+literal|"the Thrift server to. [default: "
 operator|+
 name|DEFAULT_BIND_ADDR
 operator|+

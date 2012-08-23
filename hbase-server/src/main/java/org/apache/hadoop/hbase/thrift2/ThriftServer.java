@@ -664,7 +664,7 @@ literal|"bind"
 argument_list|,
 literal|true
 argument_list|,
-literal|"Address to bind the Thrift server to. Not supported by the Nonblocking and HsHa server [default: 0.0.0.0]"
+literal|"Address to bind the Thrift server to. [default: 0.0.0.0]"
 argument_list|)
 expr_stmt|;
 name|options
@@ -1556,43 +1556,6 @@ argument_list|(
 name|framed
 argument_list|)
 decl_stmt|;
-comment|// TODO: Remove once HBASE-2155 is resolved
-if|if
-condition|(
-name|cmd
-operator|.
-name|hasOption
-argument_list|(
-literal|"bind"
-argument_list|)
-operator|&&
-operator|(
-name|nonblocking
-operator|||
-name|hsha
-operator|)
-condition|)
-block|{
-name|log
-operator|.
-name|error
-argument_list|(
-literal|"The Nonblocking and HsHaServer servers don't support IP address binding at the moment."
-operator|+
-literal|" See https://issues.apache.org/jira/browse/HBASE-2155 for details."
-argument_list|)
-expr_stmt|;
-name|printUsage
-argument_list|()
-expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-block|}
 name|InetSocketAddress
 name|inetSocketAddress
 init|=
