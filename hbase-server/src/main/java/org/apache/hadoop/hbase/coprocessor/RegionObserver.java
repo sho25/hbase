@@ -727,7 +727,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(final ObserverContext<RegionCoprocessorEnvironment> c, byte[] splitRow)    */
 name|void
 name|preSplit
 parameter_list|(
@@ -741,7 +741,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    */
+name|void
+name|preSplit
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|byte
+index|[]
+name|splitRow
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use postCompleteSplit() instead    */
 name|void
 name|postSplit
 parameter_list|(
@@ -759,6 +777,48 @@ parameter_list|,
 specifier|final
 name|HRegion
 name|r
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This will be called before the roll back of the split region is completed     * @param ctx    * @throws IOException    */
+name|void
+name|preRollBackSplit
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    * @throws IOException    */
+name|void
+name|postRollBackSplit
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after any split request is processed.  This will be called irrespective of success or    * failure of the split.    * @param ctx    * @throws IOException    */
+name|void
+name|postCompleteSplit
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
 parameter_list|)
 throws|throws
 name|IOException
