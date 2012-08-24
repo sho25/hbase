@@ -3178,12 +3178,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|currentNbOperations
-operator|=
-literal|0
-expr_stmt|;
-name|this
-operator|.
 name|metrics
 operator|.
 name|setAgeOfLastShippedOp
