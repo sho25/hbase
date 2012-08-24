@@ -1415,7 +1415,7 @@ name|writePermissionsAsBytes
 argument_list|(
 name|perms
 argument_list|,
-name|regionEnv
+name|e
 operator|.
 name|getConfiguration
 argument_list|()
@@ -1664,7 +1664,7 @@ parameter_list|(
 name|User
 name|user
 parameter_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 name|permRequest
@@ -1726,7 +1726,7 @@ if|if
 condition|(
 name|permRequest
 operator|==
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -1780,7 +1780,7 @@ if|if
 condition|(
 name|permRequest
 operator|==
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -2864,7 +2864,7 @@ parameter_list|(
 name|User
 name|user
 parameter_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 name|perm
@@ -4869,7 +4869,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -4946,7 +4946,7 @@ name|permissionGranted
 argument_list|(
 name|requestUser
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -4975,7 +4975,7 @@ name|hasFamilyQualifierPermission
 argument_list|(
 name|requestUser
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5076,7 +5076,7 @@ literal|"Access allowed with filter"
 argument_list|,
 name|requestUser
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5154,7 +5154,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5205,7 +5205,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5299,7 +5299,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5436,7 +5436,7 @@ argument_list|)
 decl_stmt|;
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5452,7 +5452,7 @@ argument_list|)
 expr_stmt|;
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5541,7 +5541,7 @@ argument_list|)
 decl_stmt|;
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5557,7 +5557,7 @@ argument_list|)
 expr_stmt|;
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5616,7 +5616,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5666,7 +5666,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5709,7 +5709,7 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5779,7 +5779,7 @@ name|permissionGranted
 argument_list|(
 name|user
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5808,7 +5808,7 @@ name|hasFamilyQualifierPermission
 argument_list|(
 name|user
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -5907,7 +5907,7 @@ literal|"Access allowed with filter"
 argument_list|,
 name|user
 argument_list|,
-name|TablePermission
+name|Permission
 operator|.
 name|Action
 operator|.
