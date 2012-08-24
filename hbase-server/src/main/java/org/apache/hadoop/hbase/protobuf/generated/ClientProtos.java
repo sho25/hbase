@@ -3328,7 +3328,7 @@ name|long
 name|getLockId
 parameter_list|()
 function_decl|;
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 name|boolean
 name|hasFilter
 parameter_list|()
@@ -3347,7 +3347,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 function_decl|;
@@ -3365,7 +3365,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 function_decl|;
@@ -4007,7 +4007,7 @@ return|return
 name|lockId_
 return|;
 block|}
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -4031,7 +4031,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|filter_
 decl_stmt|;
 specifier|public
@@ -4066,7 +4066,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 block|{
@@ -4089,7 +4089,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 block|{
@@ -4402,7 +4402,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7050,7 +7050,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8789,7 +8789,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|subBuilder
@@ -8808,7 +8808,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|newBuilder
 argument_list|()
@@ -11831,7 +11831,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 specifier|private
 name|org
 operator|.
@@ -11847,7 +11847,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|filter_
 init|=
 name|org
@@ -11864,7 +11864,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11892,7 +11892,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -11908,7 +11908,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -11926,7 +11926,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 name|filterBuilder_
 decl_stmt|;
@@ -11962,7 +11962,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 block|{
@@ -12005,7 +12005,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|value
 parameter_list|)
 block|{
@@ -12073,7 +12073,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|builderForValue
@@ -12136,7 +12136,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|value
 parameter_list|)
 block|{
@@ -12175,7 +12175,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -12197,7 +12197,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|newBuilder
 argument_list|(
@@ -12270,7 +12270,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -12315,7 +12315,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|getFilterBuilder
@@ -12351,7 +12351,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 block|{
@@ -12399,7 +12399,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -12415,7 +12415,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -12433,7 +12433,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 name|getFilterFieldBuilder
 parameter_list|()
@@ -12470,7 +12470,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -12486,7 +12486,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -12504,7 +12504,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 argument_list|(
 name|filter_
@@ -24591,7 +24591,7 @@ name|CompareType
 name|getCompareType
 parameter_list|()
 function_decl|;
-comment|// required .NameBytesPair comparator = 5;
+comment|// required .Comparator comparator = 5;
 name|boolean
 name|hasComparator
 parameter_list|()
@@ -24608,9 +24608,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|getComparator
 parameter_list|()
 function_decl|;
@@ -24626,9 +24626,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 name|getComparatorOrBuilder
 parameter_list|()
 function_decl|;
@@ -24983,7 +24983,7 @@ return|return
 name|compareType_
 return|;
 block|}
-comment|// required .NameBytesPair comparator = 5;
+comment|// required .Comparator comparator = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -25005,9 +25005,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|comparator_
 decl_stmt|;
 specifier|public
@@ -25040,9 +25040,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|getComparator
 parameter_list|()
 block|{
@@ -25063,9 +25063,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 name|getComparatorOrBuilder
 parameter_list|()
 block|{
@@ -25148,9 +25148,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -27127,9 +27127,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -28169,9 +28169,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 name|subBuilder
@@ -28188,9 +28188,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|newBuilder
 argument_list|()
@@ -28776,7 +28776,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .NameBytesPair comparator = 5;
+comment|// required .Comparator comparator = 5;
 specifier|private
 name|org
 operator|.
@@ -28790,9 +28790,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|comparator_
 init|=
 name|org
@@ -28807,9 +28807,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -28835,9 +28835,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 argument_list|,
 name|org
 operator|.
@@ -28851,9 +28851,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 argument_list|,
@@ -28869,9 +28869,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 argument_list|>
 name|comparatorBuilder_
 decl_stmt|;
@@ -28905,9 +28905,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|getComparator
 parameter_list|()
 block|{
@@ -28948,9 +28948,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|value
 parameter_list|)
 block|{
@@ -29016,9 +29016,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 name|builderForValue
@@ -29079,9 +29079,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 name|value
 parameter_list|)
 block|{
@@ -29118,9 +29118,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -29140,9 +29140,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|newBuilder
 argument_list|(
@@ -29213,9 +29213,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -29258,9 +29258,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 name|getComparatorBuilder
@@ -29294,9 +29294,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 name|getComparatorOrBuilder
 parameter_list|()
 block|{
@@ -29342,9 +29342,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 argument_list|,
 name|org
 operator|.
@@ -29358,9 +29358,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 argument_list|,
@@ -29376,9 +29376,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 argument_list|>
 name|getComparatorFieldBuilder
 parameter_list|()
@@ -29413,9 +29413,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 argument_list|,
 name|org
 operator|.
@@ -29429,9 +29429,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPair
+name|Comparator
 operator|.
 name|Builder
 argument_list|,
@@ -29447,9 +29447,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ComparatorProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ComparatorOrBuilder
 argument_list|>
 argument_list|(
 name|comparator_
@@ -56987,7 +56987,7 @@ name|ByteString
 name|getStopRow
 parameter_list|()
 function_decl|;
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 name|boolean
 name|hasFilter
 parameter_list|()
@@ -57006,7 +57006,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 function_decl|;
@@ -57024,7 +57024,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 function_decl|;
@@ -57696,7 +57696,7 @@ return|return
 name|stopRow_
 return|;
 block|}
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 specifier|public
 specifier|static
 specifier|final
@@ -57720,7 +57720,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|filter_
 decl_stmt|;
 specifier|public
@@ -57755,7 +57755,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 block|{
@@ -57778,7 +57778,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 block|{
@@ -58177,7 +58177,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -61064,7 +61064,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -62900,7 +62900,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|subBuilder
@@ -62919,7 +62919,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|newBuilder
 argument_list|()
@@ -66021,7 +66021,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .NameBytesPair filter = 5;
+comment|// optional .Filter filter = 5;
 specifier|private
 name|org
 operator|.
@@ -66037,7 +66037,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|filter_
 init|=
 name|org
@@ -66054,7 +66054,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -66082,7 +66082,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -66098,7 +66098,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -66116,7 +66116,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 name|filterBuilder_
 decl_stmt|;
@@ -66152,7 +66152,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|getFilter
 parameter_list|()
 block|{
@@ -66195,7 +66195,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|value
 parameter_list|)
 block|{
@@ -66263,7 +66263,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|builderForValue
@@ -66326,7 +66326,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 name|value
 parameter_list|)
 block|{
@@ -66365,7 +66365,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -66387,7 +66387,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|newBuilder
 argument_list|(
@@ -66460,7 +66460,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -66505,7 +66505,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 name|getFilterBuilder
@@ -66541,7 +66541,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 name|getFilterOrBuilder
 parameter_list|()
 block|{
@@ -66589,7 +66589,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -66605,7 +66605,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -66623,7 +66623,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 name|getFilterFieldBuilder
 parameter_list|()
@@ -66660,7 +66660,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 argument_list|,
 name|org
 operator|.
@@ -66676,7 +66676,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPair
+name|Filter
 operator|.
 name|Builder
 argument_list|,
@@ -66694,7 +66694,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|FilterOrBuilder
 argument_list|>
 argument_list|(
 name|filter_
@@ -141828,83 +141828,83 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\014Client.proto\032\013hbase.proto\"+\n\006Column\022\016\n"
+literal|"\n\014Client.proto\032\013hbase.proto\032\020Comparator."
 operator|+
-literal|"\006family\030\001 \002(\014\022\021\n\tqualifier\030\002 \003(\014\"\371\001\n\003Get"
+literal|"proto\"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tquali"
 operator|+
-literal|"\022\013\n\003row\030\001 \002(\014\022\027\n\006column\030\002 \003(\0132\007.Column\022!"
+literal|"fier\030\002 \003(\014\"\362\001\n\003Get\022\013\n\003row\030\001 \002(\014\022\027\n\006colum"
 operator|+
-literal|"\n\tattribute\030\003 \003(\0132\016.NameBytesPair\022\016\n\006loc"
+literal|"n\030\002 \003(\0132\007.Column\022!\n\tattribute\030\003 \003(\0132\016.Na"
 operator|+
-literal|"kId\030\004 \001(\004\022\036\n\006filter\030\005 \001(\0132\016.NameBytesPai"
+literal|"meBytesPair\022\016\n\006lockId\030\004 \001(\004\022\027\n\006filter\030\005 "
 operator|+
-literal|"r\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRange\022\026\n\013maxV"
+literal|"\001(\0132\007.Filter\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRa"
 operator|+
-literal|"ersions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004t"
+literal|"nge\022\026\n\013maxVersions\030\007 \001(\r:\0011\022\031\n\013cacheBloc"
 operator|+
-literal|"rue\022\022\n\nstoreLimit\030\t \001(\r\022\023\n\013storeOffset\030\n"
+literal|"ks\030\010 \001(\010:\004true\022\022\n\nstoreLimit\030\t \001(\r\022\023\n\013st"
 operator|+
-literal|" \001(\r\"\037\n\006Result\022\025\n\rkeyValueBytes\030\001 \003(\014\"r\n"
+literal|"oreOffset\030\n \001(\r\"\037\n\006Result\022\025\n\rkeyValueByt"
 operator|+
-literal|"\nGetRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpec"
+literal|"es\030\001 \003(\014\"r\n\nGetRequest\022 \n\006region\030\001 \002(\0132\020"
 block|,
-literal|"ifier\022\021\n\003get\030\002 \002(\0132\004.Get\022\030\n\020closestRowBe"
+literal|".RegionSpecifier\022\021\n\003get\030\002 \002(\0132\004.Get\022\030\n\020c"
 operator|+
-literal|"fore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001(\010\"6\n\013Get"
+literal|"losestRowBefore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004"
 operator|+
-literal|"Response\022\027\n\006result\030\001 \001(\0132\007.Result\022\016\n\006exi"
+literal|" \001(\010\"6\n\013GetResponse\022\027\n\006result\030\001 \001(\0132\007.Re"
 operator|+
-literal|"sts\030\002 \001(\010\"\202\001\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006"
+literal|"sult\022\016\n\006exists\030\002 \001(\010\"\177\n\tCondition\022\013\n\003row"
 operator|+
-literal|"family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022!\n\013compa"
+literal|"\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002("
 operator|+
-literal|"reType\030\004 \002(\0162\014.CompareType\022\"\n\ncomparator"
+literal|"\014\022!\n\013compareType\030\004 \002(\0162\014.CompareType\022\037\n\n"
 operator|+
-literal|"\030\005 \002(\0132\016.NameBytesPair\"\306\004\n\006Mutate\022\013\n\003row"
+literal|"comparator\030\005 \002(\0132\013.Comparator\"\306\004\n\006Mutate"
 operator|+
-literal|"\030\001 \002(\014\022&\n\nmutateType\030\002 \002(\0162\022.Mutate.Muta"
+literal|"\022\013\n\003row\030\001 \002(\014\022&\n\nmutateType\030\002 \002(\0162\022.Muta"
 operator|+
-literal|"teType\022(\n\013columnValue\030\003 \003(\0132\023.Mutate.Col"
+literal|"te.MutateType\022(\n\013columnValue\030\003 \003(\0132\023.Mut"
 operator|+
-literal|"umnValue\022!\n\tattribute\030\004 \003(\0132\016.NameBytesP"
+literal|"ate.ColumnValue\022!\n\tattribute\030\004 \003(\0132\016.Nam"
 block|,
-literal|"air\022\021\n\ttimestamp\030\005 \001(\004\022\016\n\006lockId\030\006 \001(\004\022\030"
+literal|"eBytesPair\022\021\n\ttimestamp\030\005 \001(\004\022\016\n\006lockId\030"
 operator|+
-literal|"\n\nwriteToWAL\030\007 \001(\010:\004true\022\035\n\ttimeRange\030\n "
+literal|"\006 \001(\004\022\030\n\nwriteToWAL\030\007 \001(\010:\004true\022\035\n\ttimeR"
 operator|+
-literal|"\001(\0132\n.TimeRange\032\310\001\n\013ColumnValue\022\016\n\006famil"
+literal|"ange\030\n \001(\0132\n.TimeRange\032\310\001\n\013ColumnValue\022\016"
 operator|+
-literal|"y\030\001 \002(\014\022:\n\016qualifierValue\030\002 \003(\0132\".Mutate"
+literal|"\n\006family\030\001 \002(\014\022:\n\016qualifierValue\030\002 \003(\0132\""
 operator|+
-literal|".ColumnValue.QualifierValue\032m\n\016Qualifier"
+literal|".Mutate.ColumnValue.QualifierValue\032m\n\016Qu"
 operator|+
-literal|"Value\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022"
+literal|"alifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value"
 operator|+
-literal|"\021\n\ttimestamp\030\003 \001(\004\022&\n\ndeleteType\030\004 \001(\0162\022"
+literal|"\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022&\n\ndeleteType\030"
 operator|+
-literal|".Mutate.DeleteType\"<\n\nMutateType\022\n\n\006APPE"
+literal|"\004 \001(\0162\022.Mutate.DeleteType\"<\n\nMutateType\022"
 operator|+
-literal|"ND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003"
+literal|"\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006D"
 operator|+
-literal|"\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034"
+literal|"ELETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERS"
 block|,
-literal|"\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_F"
+literal|"ION\020\000\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rD"
 operator|+
-literal|"AMILY\020\002\"i\n\rMutateRequest\022 \n\006region\030\001 \002(\013"
+literal|"ELETE_FAMILY\020\002\"i\n\rMutateRequest\022 \n\006regio"
 operator|+
-literal|"2\020.RegionSpecifier\022\027\n\006mutate\030\002 \002(\0132\007.Mut"
+literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\027\n\006mutate\030\002 \002("
 operator|+
-literal|"ate\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"<\n\016Mu"
+literal|"\0132\007.Mutate\022\035\n\tcondition\030\003 \001(\0132\n.Conditio"
 operator|+
-literal|"tateResponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n"
+literal|"n\"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132\007.Re"
 operator|+
-literal|"\tprocessed\030\002 \001(\010\"\252\002\n\004Scan\022\027\n\006column\030\001 \003("
+literal|"sult\022\021\n\tprocessed\030\002 \001(\010\"\243\002\n\004Scan\022\027\n\006colu"
 operator|+
-literal|"\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.NameByte"
+literal|"mn\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.N"
 operator|+
-literal|"sPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007stopRow\030\004 \001(\014"
+literal|"ameBytesPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007stopRo"
 operator|+
-literal|"\022\036\n\006filter\030\005 \001(\0132\016.NameBytesPair\022\035\n\ttime"
+literal|"w\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007.Filter\022\035\n\ttime"
 operator|+
 literal|"Range\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVersions\030\007"
 block|,
@@ -144422,6 +144422,23 @@ operator|.
 name|generated
 operator|.
 name|HBaseProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ComparatorProtos
 operator|.
 name|getDescriptor
 argument_list|()

@@ -15410,27 +15410,15 @@ decl_stmt|;
 annotation|@
 name|Override
 specifier|public
-name|void
-name|readFields
-parameter_list|(
-name|DataInput
-name|arg0
-parameter_list|)
-throws|throws
-name|IOException
-block|{     }
-annotation|@
-name|Override
-specifier|public
-name|void
-name|write
-parameter_list|(
-name|DataOutput
-name|arg0
-parameter_list|)
-throws|throws
-name|IOException
-block|{     }
+name|byte
+index|[]
+name|toByteArray
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

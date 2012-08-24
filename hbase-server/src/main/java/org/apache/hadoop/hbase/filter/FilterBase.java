@@ -96,7 +96,7 @@ specifier|public
 specifier|abstract
 class|class
 name|FilterBase
-implements|implements
+extends|extends
 name|Filter
 block|{
 comment|/**    * Filters that are purely stateless and do nothing in their reset() methods can inherit    * this null/empty implementation.    *    * @inheritDoc    */
@@ -260,6 +260,18 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
+return|;
+block|}
+comment|/**    * Default implementation so that writers of custom filters aren't forced to implement.    *    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+name|boolean
+name|areSerializedFieldsEqual
+parameter_list|(
+name|Filter
+name|other
+parameter_list|)
+block|{
+return|return
+literal|true
 return|;
 block|}
 block|}

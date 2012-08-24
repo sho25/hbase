@@ -4829,7 +4829,7 @@ name|setComparator
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toParameter
+name|toComparator
 argument_list|(
 name|comparator
 argument_list|)

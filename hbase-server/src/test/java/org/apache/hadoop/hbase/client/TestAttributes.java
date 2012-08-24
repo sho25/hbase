@@ -1336,7 +1336,9 @@ name|get
 init|=
 operator|new
 name|Get
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 decl_stmt|;
 name|Assert
 operator|.
@@ -1392,7 +1394,14 @@ name|append
 init|=
 operator|new
 name|Append
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"testRow"
+argument_list|)
+argument_list|)
 decl_stmt|;
 name|Assert
 operator|.

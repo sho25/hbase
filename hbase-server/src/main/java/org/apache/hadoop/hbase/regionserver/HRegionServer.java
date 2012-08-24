@@ -15982,12 +15982,9 @@ decl_stmt|;
 name|WritableByteArrayComparable
 name|comparator
 init|=
-operator|(
-name|WritableByteArrayComparable
-operator|)
 name|ProtobufUtil
 operator|.
-name|toObject
+name|toComparator
 argument_list|(
 name|condition
 operator|.
@@ -16218,12 +16215,9 @@ decl_stmt|;
 name|WritableByteArrayComparable
 name|comparator
 init|=
-operator|(
-name|WritableByteArrayComparable
-operator|)
 name|ProtobufUtil
 operator|.
-name|toObject
+name|toComparator
 argument_list|(
 name|condition
 operator|.

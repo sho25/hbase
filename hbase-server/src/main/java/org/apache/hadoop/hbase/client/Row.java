@@ -45,20 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableComparable
-import|;
-end_import
-
 begin_comment
 comment|/**  * Has a row.  */
 end_comment
@@ -76,7 +62,7 @@ specifier|public
 interface|interface
 name|Row
 extends|extends
-name|WritableComparable
+name|Comparable
 argument_list|<
 name|Row
 argument_list|>
