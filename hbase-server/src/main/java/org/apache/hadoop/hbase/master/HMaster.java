@@ -7292,6 +7292,26 @@ name|boolean
 name|balance
 parameter_list|()
 block|{
+comment|// if master not initialized, don't run balancer.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|initialized
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Master has not been initialized, don't run balancer."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// If balance not true, don't run balancer.
 if|if
 condition|(
