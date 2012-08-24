@@ -4893,6 +4893,20 @@ name|destServers
 argument_list|)
 expr_stmt|;
 comment|// To avoid cast exception in DisableTableHandler process.
+name|HTU
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_PORT
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|Server
 name|server
 init|=
