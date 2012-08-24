@@ -612,7 +612,7 @@ if|if
 condition|(
 name|t
 operator|instanceof
-name|NoSuchColumnFamilyException
+name|DoNotRetryIOException
 condition|)
 block|{
 name|name
