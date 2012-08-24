@@ -3186,11 +3186,7 @@ name|this
 operator|.
 name|entriesArray
 index|[
-name|this
-operator|.
-name|entriesArray
-operator|.
-name|length
+name|currentNbEntries
 operator|-
 literal|1
 index|]
