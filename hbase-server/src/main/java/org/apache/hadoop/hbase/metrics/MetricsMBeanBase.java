@@ -370,6 +370,14 @@ operator|||
 name|metric
 operator|instanceof
 name|MetricsString
+operator|||
+name|metric
+operator|instanceof
+name|MetricsHistogram
+operator|||
+name|metric
+operator|instanceof
+name|ExactCounterMetric
 condition|)
 block|{
 continue|continue;
