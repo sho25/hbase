@@ -505,6 +505,14 @@ literal|"outputdir"
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
+name|String
+name|EXPORT_BATCHING
+init|=
+literal|"100"
+decl_stmt|;
+specifier|private
+specifier|static
 name|MiniHBaseCluster
 name|cluster
 decl_stmt|;
@@ -760,6 +768,8 @@ block|{
 name|EXPORT_TABLE
 block|,
 name|OUTPUT_DIR
+block|,
+name|EXPORT_BATCHING
 block|,
 literal|"1000"
 block|}
@@ -1351,6 +1361,8 @@ block|,
 name|EXPORT_TABLE
 block|,
 name|OUTPUT_DIR
+block|,
+name|EXPORT_BATCHING
 block|,
 literal|"1000"
 block|}

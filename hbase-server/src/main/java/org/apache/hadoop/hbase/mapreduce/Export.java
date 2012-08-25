@@ -381,6 +381,13 @@ name|RAW_SCAN
 init|=
 literal|"hbase.mapreduce.include.deleted.rows"
 decl_stmt|;
+specifier|final
+specifier|static
+name|String
+name|EXPORT_BATCHING
+init|=
+literal|"hbase.export.scanner.batch"
+decl_stmt|;
 comment|/**    * Mapper.    */
 specifier|static
 class|class
@@ -795,6 +802,54 @@ name|exportFilter
 argument_list|)
 expr_stmt|;
 block|}
+name|int
+name|batching
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|EXPORT_BATCHING
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|batching
+operator|!=
+operator|-
+literal|1
+condition|)
+block|{
+try|try
+block|{
+name|s
+operator|.
+name|setBatch
+argument_list|(
+name|batching
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|RuntimeException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Batching could not be set"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|LOG
 operator|.
 name|info
@@ -1076,6 +1131,21 @@ operator|+
 literal|"   -Dmapred.map.tasks.speculative.execution=false\n"
 operator|+
 literal|"   -Dmapred.reduce.tasks.speculative.execution=false"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"For tables with very wide rows consider setting the batch size as below:\n"
+operator|+
+literal|"   -D"
+operator|+
+name|EXPORT_BATCHING
+operator|+
+literal|"=10"
 argument_list|)
 expr_stmt|;
 block|}
