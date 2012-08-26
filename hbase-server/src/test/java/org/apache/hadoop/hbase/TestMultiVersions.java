@@ -420,6 +420,14 @@ specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|NUM_SLAVES
+init|=
+literal|3
+decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -433,7 +441,9 @@ block|{
 name|UTIL
 operator|.
 name|startMiniCluster
-argument_list|()
+argument_list|(
+name|NUM_SLAVES
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -804,7 +814,7 @@ name|startMiniHBaseCluster
 argument_list|(
 literal|1
 argument_list|,
-literal|1
+name|NUM_SLAVES
 argument_list|)
 expr_stmt|;
 comment|// Make a new connection.  Use new Configuration instance because old one
