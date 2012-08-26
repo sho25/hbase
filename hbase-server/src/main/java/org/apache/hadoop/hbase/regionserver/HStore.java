@@ -8227,13 +8227,6 @@ operator|.
 name|getFirstKey
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|fk
-operator|==
-literal|null
-condition|)
-return|return;
 name|KeyValue
 name|firstKV
 init|=
@@ -8335,6 +8328,9 @@ name|HFileScanner
 name|scanner
 init|=
 name|r
+operator|.
+name|getHFileReader
+argument_list|()
 operator|.
 name|getScanner
 argument_list|(

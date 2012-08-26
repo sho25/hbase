@@ -1104,27 +1104,6 @@ argument_list|,
 name|foundKeyValue
 argument_list|)
 expr_stmt|;
-comment|// Try to seek before the splitKey in the top file
-name|foundKeyValue
-operator|=
-name|doTestOfSeekBefore
-argument_list|(
-name|p
-argument_list|,
-name|fs
-argument_list|,
-name|top
-argument_list|,
-name|midKV
-argument_list|,
-name|cacheConf
-argument_list|)
-expr_stmt|;
-name|assertNull
-argument_list|(
-name|foundKeyValue
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 name|KeyValue
