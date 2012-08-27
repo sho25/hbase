@@ -128,9 +128,8 @@ decl_stmt|;
 specifier|public
 name|MasterMetrics
 parameter_list|(
-specifier|final
-name|String
-name|name
+name|MasterMetricsWrapper
+name|masterWrapper
 parameter_list|)
 block|{
 name|masterMetricsSource
@@ -139,9 +138,14 @@ name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
-name|MasterMetricsSource
+name|MasterMetricsSourceFactory
 operator|.
 name|class
+argument_list|)
+operator|.
+name|create
+argument_list|(
+name|masterWrapper
 argument_list|)
 expr_stmt|;
 block|}

@@ -37,20 +37,6 @@ name|BaseMetricsSourceImpl
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|metrics2
-operator|.
-name|MetricsSource
-import|;
-end_import
-
 begin_comment
 comment|/**  * Hadoop1 implementation of ReplicationMetricsSource. This provides access to metrics gauges and  * counters.  */
 end_comment
@@ -75,6 +61,8 @@ argument_list|,
 name|METRICS_DESCRIPTION
 argument_list|,
 name|METRICS_CONTEXT
+argument_list|,
+name|METRICS_JMX_CONTEXT
 argument_list|)
 expr_stmt|;
 block|}
@@ -88,6 +76,9 @@ name|metricsDescription
 parameter_list|,
 name|String
 name|metricsContext
+parameter_list|,
+name|String
+name|metricsJmxContext
 parameter_list|)
 block|{
 name|super
@@ -97,6 +88,8 @@ argument_list|,
 name|metricsDescription
 argument_list|,
 name|metricsContext
+argument_list|,
+name|metricsJmxContext
 argument_list|)
 expr_stmt|;
 block|}

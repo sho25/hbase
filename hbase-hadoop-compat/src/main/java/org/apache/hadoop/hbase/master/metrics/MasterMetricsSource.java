@@ -55,14 +55,23 @@ name|METRICS_NAME
 init|=
 literal|"HMaster"
 decl_stmt|;
-comment|/**    * The name of the metrics context that metrics will be under.    */
+comment|/**    * The context metrics will be under.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|METRICS_CONTEXT
 init|=
-literal|"HMaster,sub=Dynamic"
+literal|"hmaster"
+decl_stmt|;
+comment|/**    * The name of the metrics context that metrics will be under in jmx    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|METRICS_JMX_CONTEXT
+init|=
+literal|"HMaster"
 decl_stmt|;
 comment|/**    * Description    */
 specifier|public
@@ -72,6 +81,151 @@ name|String
 name|METRICS_DESCRIPTION
 init|=
 literal|"Metrics about HBase master server"
+decl_stmt|;
+comment|// Strings used for exporting to metrics system.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_ACTIVE_TIME_NAME
+init|=
+literal|"masterActiveTime"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_START_TIME_NAME
+init|=
+literal|"masterStartTime"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|AVERAGE_LOAD_NAME
+init|=
+literal|"averageLoad"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NUM_REGION_SERVERS_NAME
+init|=
+literal|"numRegionServers"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NUM_DEAD_REGION_SERVERS_NAME
+init|=
+literal|"numDeadRegionServers"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_QUORUM_NAME
+init|=
+literal|"zookeeperQuorum"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SERVER_NAME_NAME
+init|=
+literal|"serverName"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID_NAME
+init|=
+literal|"clusterId"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IS_ACTIVE_MASTER_NAME
+init|=
+literal|"isActiveMaster"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_ACTIVE_TIME_DESC
+init|=
+literal|"Master Active Time"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_START_TIME_DESC
+init|=
+literal|"Master Start Time"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|AVERAGE_LOAD_DESC
+init|=
+literal|"AverageLoad"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NUMBER_OF_REGION_SERVERS_DESC
+init|=
+literal|"Number of RegionServers"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NUMBER_OF_DEAD_REGION_SERVERS_DESC
+init|=
+literal|"Number of dead RegionServers"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_QUORUM_DESC
+init|=
+literal|"Zookeeper Quorum"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SERVER_NAME_DESC
+init|=
+literal|"Server Name"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID_DESC
+init|=
+literal|"Cluster Id"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IS_ACTIVE_MASTER_DESC
+init|=
+literal|"Is Active Master"
 decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    * @param inc Ammount to increment the total by.    */
 specifier|public

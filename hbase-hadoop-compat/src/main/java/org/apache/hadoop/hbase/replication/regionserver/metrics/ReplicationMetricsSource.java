@@ -66,6 +66,15 @@ name|METRICS_CONTEXT
 init|=
 literal|"replicationmetrics"
 decl_stmt|;
+comment|/**    * The name of the metrics context that metrics will be under.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|METRICS_JMX_CONTEXT
+init|=
+literal|"ReplicationMetrics"
+decl_stmt|;
 comment|/**    * A description.    */
 specifier|public
 specifier|static

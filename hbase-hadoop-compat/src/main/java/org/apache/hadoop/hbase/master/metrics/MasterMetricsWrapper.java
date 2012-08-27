@@ -19,82 +19,15 @@ name|metrics
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
-comment|/**  * This is the JMX management interface for Hbase master information  */
+comment|/**  * This is the interface that will expose information to hadoop1/hadoop2 implementations of the  * MasterMetricsSource.  */
 end_comment
 
 begin_interface
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|public
 interface|interface
-name|MXBean
+name|MasterMetricsWrapper
 block|{
-comment|/**    * Required for MXBean implementation    */
-specifier|public
-specifier|static
-interface|interface
-name|RegionsInTransitionInfo
-block|{
-comment|/**      * Name of region in transition      */
-specifier|public
-name|String
-name|getRegionName
-parameter_list|()
-function_decl|;
-comment|/**      * Current transition state      */
-specifier|public
-name|String
-name|getRegionState
-parameter_list|()
-function_decl|;
-comment|/**      * Get Region Server name      */
-specifier|public
-name|String
-name|getRegionServerName
-parameter_list|()
-function_decl|;
-comment|/**      * Get last update time      */
-specifier|public
-name|long
-name|getLastUpdateTime
-parameter_list|()
-function_decl|;
-block|}
 comment|/**    * Get ServerName    */
 specifier|public
 name|String
@@ -152,8 +85,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the dead region servers    * @return Dead region Servers    */
 specifier|public
-name|String
-index|[]
+name|int
 name|getDeadRegionServers
 parameter_list|()
 function_decl|;
