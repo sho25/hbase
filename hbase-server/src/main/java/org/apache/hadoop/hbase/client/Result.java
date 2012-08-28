@@ -366,7 +366,7 @@ specifier|public
 name|Result
 parameter_list|()
 block|{}
-comment|/**    * Instantiate a Result with the specified array of KeyValues.    * @param kvs array of KeyValues    */
+comment|/**    * Instantiate a Result with the specified array of KeyValues.    *<br><strong>Note:</strong> You must ensure that the keyvalues    * are already sorted    * @param kvs array of KeyValues    */
 specifier|public
 name|Result
 parameter_list|(
@@ -396,7 +396,7 @@ name|kvs
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Instantiate a Result with the specified List of KeyValues.    * @param kvs List of KeyValues    */
+comment|/**    * Instantiate a Result with the specified List of KeyValues.    *<br><strong>Note:</strong> You must ensure that the keyvalues    * are already sorted    * @param kvs List of KeyValues    */
 specifier|public
 name|Result
 parameter_list|(

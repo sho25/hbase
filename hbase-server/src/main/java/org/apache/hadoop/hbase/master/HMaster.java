@@ -821,56 +821,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|metrics
-operator|.
-name|MasterMetricsWrapperImpl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ResponseConverter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
 name|ProtocolSignature
@@ -1155,6 +1105,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|metrics
+operator|.
+name|MasterMetricsWrapperImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|monitoring
 operator|.
 name|MemoryBoundedLogMessageBuffer
@@ -1190,6 +1158,38 @@ operator|.
 name|monitoring
 operator|.
 name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|ResponseConverter
 import|;
 end_import
 
@@ -3737,7 +3737,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Try becoming active master.    * @param startupStatus     * @return True if we could successfully become the active master.    * @throws InterruptedException    */
+comment|/**    * Try becoming active master.    * @param startupStatus    * @return True if we could successfully become the active master.    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -4199,7 +4199,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Finish initialization of HMaster after becoming the primary master.    *     *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of root and meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *     * @param masterRecovery    *     * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of root and meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @param masterRecovery    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 end_comment
 
 begin_function
@@ -4490,10 +4490,10 @@ return|return;
 name|enableServerShutdownHandler
 argument_list|()
 expr_stmt|;
-comment|// Update meta with new HRI if required. i.e migrate all HRI with HTD to
-comment|// HRI with out HTD in meta and update the status in ROOT. This must happen
+comment|// Update meta with new PB serialization if required. i.e migrate all HRI
+comment|// to PB serialization in meta and update the status in ROOT. This must happen
 comment|// before we assign all user regions or else the assignment will fail.
-comment|// TODO: Remove this when we do 0.94.
+comment|// TODO: Remove this after 0.96, when we do 0.98.
 name|org
 operator|.
 name|apache
@@ -4504,9 +4504,9 @@ name|hbase
 operator|.
 name|catalog
 operator|.
-name|MetaMigrationRemovingHTD
+name|MetaMigrationConvertingToPB
 operator|.
-name|updateMetaWithNewHRI
+name|updateRootAndMetaIfNecessary
 argument_list|(
 name|this
 argument_list|)
@@ -5414,15 +5414,11 @@ return|;
 name|HRegionInfo
 name|info
 init|=
-name|MetaReader
+name|HRegionInfo
 operator|.
-name|parseHRegionInfoFromCatalogResult
+name|getHRegionInfo
 argument_list|(
 name|r
-argument_list|,
-name|HConstants
-operator|.
-name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
 if|if
@@ -6685,7 +6681,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @return Get remote side's InetAddress    * @throws UnknownHostException     */
+comment|/**    * @return Get remote side's InetAddress    * @throws UnknownHostException    */
 end_comment
 
 begin_function
@@ -9029,7 +9025,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Get the number of regions of the table that have been updated by the alter.    *    * @return Pair indicating the number of regions updated Pair.getFirst is the    *         regions that are yet to be updated Pair.getSecond is the total number    *         of regions of the table    * @throws IOException     */
+comment|/**    * Get the number of regions of the table that have been updated by the alter.    *    * @return Pair indicating the number of regions updated Pair.getFirst is the    *         regions that are yet to be updated Pair.getSecond is the total number    *         of regions of the table    * @throws IOException    */
 end_comment
 
 begin_function
@@ -9863,9 +9859,9 @@ name|ServerName
 argument_list|>
 name|pair
 init|=
-name|MetaReader
+name|HRegionInfo
 operator|.
-name|parseCatalogResult
+name|getHRegionInfoAndServerName
 argument_list|(
 name|data
 argument_list|)

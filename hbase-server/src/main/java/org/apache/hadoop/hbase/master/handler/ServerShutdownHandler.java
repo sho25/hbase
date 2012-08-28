@@ -353,6 +353,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|PairOfSameType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|ZKAssign
@@ -593,7 +609,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Before assign the ROOT region, ensure it haven't     *  been assigned by other place    *<p>    * Under some scenarios, the ROOT region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the ROOT region has been assigned, so the operation can be canceled.     * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Before assign the ROOT region, ensure it haven't    *  been assigned by other place    *<p>    * Under some scenarios, the ROOT region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the ROOT region has been assigned, so the operation can be canceled.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
 name|verifyAndAssignRoot
@@ -2091,6 +2107,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|PairOfSameType
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|daughters
+init|=
+name|HRegionInfo
+operator|.
+name|getDaughterRegions
+argument_list|(
+name|result
+argument_list|)
+decl_stmt|;
 name|int
 name|fixedA
 init|=
@@ -2098,9 +2127,10 @@ name|fixupDaughter
 argument_list|(
 name|result
 argument_list|,
-name|HConstants
+name|daughters
 operator|.
-name|SPLITA_QUALIFIER
+name|getFirst
+argument_list|()
 argument_list|,
 name|assignmentManager
 argument_list|,
@@ -2114,9 +2144,10 @@ name|fixupDaughter
 argument_list|(
 name|result
 argument_list|,
-name|HConstants
+name|daughters
 operator|.
-name|SPLITB_QUALIFIER
+name|getSecond
+argument_list|()
 argument_list|,
 name|assignmentManager
 argument_list|,
@@ -2138,10 +2169,8 @@ specifier|final
 name|Result
 name|result
 parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|qualifier
+name|HRegionInfo
+name|daughter
 parameter_list|,
 specifier|final
 name|AssignmentManager
@@ -2154,18 +2183,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegionInfo
-name|daughter
-init|=
-name|MetaReader
-operator|.
-name|parseHRegionInfoFromCatalogResult
-argument_list|(
-name|result
-argument_list|,
-name|qualifier
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
 name|daughter
@@ -2246,7 +2263,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**    * Look for presence of the daughter OR of a split of the daughter in .META.    * Daughter could have been split over on regionserver before a run of the    * catalogJanitor had chance to clear reference from parent.    * @param daughter Daughter region to search for.    * @throws IOException     */
+comment|/**    * Look for presence of the daughter OR of a split of the daughter in .META.    * Daughter could have been split over on regionserver before a run of the    * catalogJanitor had chance to clear reference from parent.    * @param daughter Daughter region to search for.    * @throws IOException    */
 specifier|private
 specifier|static
 name|boolean
@@ -2366,15 +2383,11 @@ block|{
 name|HRegionInfo
 name|hri
 init|=
-name|MetaReader
+name|HRegionInfo
 operator|.
-name|parseHRegionInfoFromCatalogResult
+name|getHRegionInfo
 argument_list|(
 name|r
-argument_list|,
-name|HConstants
-operator|.
-name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
 if|if

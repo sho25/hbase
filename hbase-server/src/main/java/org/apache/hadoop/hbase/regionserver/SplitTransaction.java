@@ -435,22 +435,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|zookeeper
 operator|.
 name|ZKAssign
@@ -3876,7 +3860,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a new ephemeral node in the SPLITTING state for the specified region.    * Create it ephemeral in case regionserver dies mid-split.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return Version of znode created.    * @throws KeeperException     * @throws IOException     */
+comment|/**    * Creates a new ephemeral node in the SPLITTING state for the specified region.    * Create it ephemeral in case regionserver dies mid-split.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return Version of znode created.    * @throws KeeperException    * @throws IOException    */
 name|int
 name|createNodeSplitting
 parameter_list|(
@@ -3994,7 +3978,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Transitions an existing node for the specified region which is    * currently in the SPLITTING state to be in the SPLIT state.  Converts the    * ephemeral SPLITTING znode to an ephemeral SPLIT node.  Master cleans up    * SPLIT znode when it reads it (or if we crash, zk will clean it up).    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Node for this region does not exist</li>    *<li>Node for this region is not in SPLITTING state</li>    *<li>After verifying SPLITTING state, update fails because of wrong version    * (this should never actually happen since an RS only does this transition    * following a transition to SPLITTING.  if two RS are conflicting, one would    * fail the original transition to SPLITTING and not this transition)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when completing the    * open of a region.    *    * @param zkw zk reference    * @param parent region to be transitioned to opened    * @param a Daughter a of split    * @param b Daughter b of split    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws IOException     */
+comment|/**    * Transitions an existing node for the specified region which is    * currently in the SPLITTING state to be in the SPLIT state.  Converts the    * ephemeral SPLITTING znode to an ephemeral SPLIT node.  Master cleans up    * SPLIT znode when it reads it (or if we crash, zk will clean it up).    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Node for this region does not exist</li>    *<li>Node for this region is not in SPLITTING state</li>    *<li>After verifying SPLITTING state, update fails because of wrong version    * (this should never actually happen since an RS only does this transition    * following a transition to SPLITTING.  if two RS are conflicting, one would    * fail the original transition to SPLITTING and not this transition)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when completing the    * open of a region.    *    * @param zkw zk reference    * @param parent region to be transitioned to opened    * @param a Daughter a of split    * @param b Daughter b of split    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws IOException    */
 specifier|private
 specifier|static
 name|int
@@ -4028,9 +4012,9 @@ name|byte
 index|[]
 name|payload
 init|=
-name|Writables
+name|HRegionInfo
 operator|.
-name|getBytes
+name|toDelimitedByteArray
 argument_list|(
 name|a
 argument_list|,
@@ -4062,7 +4046,7 @@ name|payload
 argument_list|)
 return|;
 block|}
-comment|/**    *     * @param zkw zk reference    * @param parent region to be transitioned to splitting    * @param serverName server event originates from    * @param version znode version    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException    * @throws IOException    */
+comment|/**    *    * @param zkw zk reference    * @param parent region to be transitioned to splitting    * @param serverName server event originates from    * @param version znode version    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException    * @throws IOException    */
 name|int
 name|transitionNodeSplitting
 parameter_list|(
@@ -4143,9 +4127,9 @@ name|byte
 index|[]
 name|payload
 init|=
-name|Writables
+name|HRegionInfo
 operator|.
-name|getBytes
+name|toDelimitedByteArray
 argument_list|(
 name|a
 argument_list|,

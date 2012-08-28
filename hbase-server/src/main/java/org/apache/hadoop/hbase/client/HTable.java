@@ -43,6 +43,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|DataInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|DataOutput
 import|;
 end_import
@@ -105,6 +115,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -116,16 +136,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collections
 import|;
 end_import
 
@@ -455,6 +465,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|DataInputInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|CoprocessorProtocol
@@ -750,7 +776,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>Used to communicate with a single HBase table.  *  *<p>This class is not thread safe for reads nor write.  *   *<p>In case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *   *<p>In case of reads, some fields used by a Scan are shared among all threads.  * The HTable implementation can either not contract to be safe in case of a Get  *  *<p>To access a table in a multi threaded environment, please consider  * using the {@link HTablePool} class to create your HTable instances.  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of region locations.  This is usually a *good* thing and it  * is recommended to reuse the same configuration object for all your tables.  * This happens because they will all share the same underlying  * {@link HConnection} instance. See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  *<p>Note that this class implements the {@link Closeable} interface. When a  * HTable instance is no longer required, it *should* be closed in order to ensure  * that the underlying resources are promptly released. Please note that the close   * method can throw java.io.IOException that must be handled.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
+comment|/**  *<p>Used to communicate with a single HBase table.  *  *<p>This class is not thread safe for reads nor write.  *  *<p>In case of writes (Put, Delete), the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *  *<p>In case of reads, some fields used by a Scan are shared among all threads.  * The HTable implementation can either not contract to be safe in case of a Get  *  *<p>To access a table in a multi threaded environment, please consider  * using the {@link HTablePool} class to create your HTable instances.  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of region locations.  This is usually a *good* thing and it  * is recommended to reuse the same configuration object for all your tables.  * This happens because they will all share the same underlying  * {@link HConnection} instance. See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  *<p>Note that this class implements the {@link Closeable} interface. When a  * HTable instance is no longer required, it *should* be closed in order to ensure  * that the underlying resources are promptly released. Please note that the close  * method can throw java.io.IOException that must be handled.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
 end_comment
 
 begin_class
@@ -2201,7 +2227,9 @@ name|regionMap
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Serialize the regions information of this table and output    * to<code>out</code>.    *<p>    * This is mainly useful for the MapReduce integration. A client could    * perform a large scan for all the regions for the table, serialize the    * region info to a file. MR job can ship a copy of the meta for the table in    * the DistributedCache.    *<pre>    * {@code    * FileOutputStream fos = new FileOutputStream("regions.dat");    * DataOutputStream dos = new DataOutputStream(fos);    * table.serializeRegionInfo(dos);    * dos.flush();    * dos.close();    * }    *</pre>    * @param out {@link DataOutput} to serialize this object into.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Serialize the regions information of this table and output    * to<code>out</code>.    *<p>    * This is mainly useful for the MapReduce integration. A client could    * perform a large scan for all the regions for the table, serialize the    * region info to a file. MR job can ship a copy of the meta for the table in    * the DistributedCache.    *<pre>    * {@code    * FileOutputStream fos = new FileOutputStream("regions.dat");    * DataOutputStream dos = new DataOutputStream(fos);    * table.serializeRegionInfo(dos);    * dos.flush();    * dos.close();    * }    *</pre>    * @param out {@link DataOutput} to serialize this object into.    * @throws IOException if a remote or network exception occurs    * @deprecated serializing/deserializing regioninfo's are deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|serializeRegionInfo
@@ -2254,14 +2282,23 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+name|byte
+index|[]
+name|hriBytes
+init|=
 name|es
 operator|.
 name|getKey
 argument_list|()
 operator|.
+name|toDelimitedByteArray
+argument_list|()
+decl_stmt|;
+name|out
+operator|.
 name|write
 argument_list|(
-name|out
+name|hriBytes
 argument_list|)
 expr_stmt|;
 name|es
@@ -2276,7 +2313,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Read from<code>in</code> and deserialize the regions information.    *    *<p>It behaves similarly as {@link #getRegionsInfo getRegionsInfo}, except    * that it loads the region map from a {@link DataInput} object.    *    *<p>It is supposed to be followed immediately by  {@link    * #prewarmRegionCache prewarmRegionCache}.    *    *<p>    * Please refer to {@link #prewarmRegionCache prewarmRegionCache} for usage.    *    * @param in {@link DataInput} object.    * @return A map of HRegionInfo with its server address.    * @throws IOException if an I/O exception occurs.    */
+comment|/**    * Read from<code>in</code> and deserialize the regions information.    *    *<p>It behaves similarly as {@link #getRegionsInfo getRegionsInfo}, except    * that it loads the region map from a {@link DataInput} object.    *    *<p>It is supposed to be followed immediately by  {@link    * #prewarmRegionCache prewarmRegionCache}.    *    *<p>    * Please refer to {@link #prewarmRegionCache prewarmRegionCache} for usage.    *    * @param in {@link DataInput} object.    * @return A map of HRegionInfo with its server address.    * @throws IOException if an I/O exception occurs.    * @deprecated serializing/deserializing regioninfo's are deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Map
 argument_list|<
@@ -2310,11 +2349,47 @@ name|HServerAddress
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|DataInputStream
+name|is
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|in
+operator|instanceof
+name|DataInputStream
+condition|)
+block|{
+name|is
+operator|=
+operator|(
+name|DataInputStream
+operator|)
+name|in
+expr_stmt|;
+block|}
+else|else
+block|{
+name|is
+operator|=
+operator|new
+name|DataInputStream
+argument_list|(
+name|DataInputInputStream
+operator|.
+name|constructInputStream
+argument_list|(
+name|in
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|// the first integer is expected to be the size of records
 name|int
 name|regionsCount
 init|=
-name|in
+name|is
 operator|.
 name|readInt
 argument_list|()
@@ -2337,17 +2412,13 @@ block|{
 name|HRegionInfo
 name|hri
 init|=
-operator|new
 name|HRegionInfo
-argument_list|()
-decl_stmt|;
-name|hri
 operator|.
-name|readFields
+name|parseFrom
 argument_list|(
-name|in
+name|is
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|HServerAddress
 name|hsa
 init|=
@@ -2359,7 +2430,7 @@ name|hsa
 operator|.
 name|readFields
 argument_list|(
-name|in
+name|is
 argument_list|)
 expr_stmt|;
 name|allRegions

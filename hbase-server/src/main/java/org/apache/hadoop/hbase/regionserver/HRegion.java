@@ -1569,22 +1569,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|MultipleIOException
@@ -4122,7 +4106,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param hri    * @return Content of the file we write out to the filesystem under a region    * @throws IOException     */
+comment|/**    * @param hri    * @return Content of the file we write out to the filesystem under a region    * @throws IOException    */
 specifier|private
 specifier|static
 name|byte
@@ -16134,7 +16118,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed     * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param boolean initialize - true to initialize the region    * @param boolean ignoreHLog       - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param boolean initialize - true to initialize the region    * @param boolean ignoreHLog       - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -16920,15 +16904,13 @@ name|REGIONINFO_QUALIFIER
 argument_list|,
 name|now
 argument_list|,
-name|Writables
-operator|.
-name|getBytes
-argument_list|(
 name|r
 operator|.
 name|getRegionInfo
 argument_list|()
-argument_list|)
+operator|.
+name|toByteArray
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

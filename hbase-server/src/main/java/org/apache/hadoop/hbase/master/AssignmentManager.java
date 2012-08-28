@@ -773,22 +773,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|zookeeper
 operator|.
 name|RootRegionTracker
@@ -1226,7 +1210,7 @@ specifier|final
 name|RegionStates
 name|regionStates
 decl_stmt|;
-comment|/**    * Constructs a new assignment manager.    *    * @param master    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException    * @throws IOException     */
+comment|/**    * Constructs a new assignment manager.    *    * @param master    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException    * @throws IOException    */
 specifier|public
 name|AssignmentManager
 parameter_list|(
@@ -1518,7 +1502,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a regionPlan for the specified region.    * @param encodedName     * @param plan     */
+comment|/**    * Add a regionPlan for the specified region.    * @param encodedName    * @param plan    */
 specifier|public
 name|void
 name|addPlan
@@ -1808,7 +1792,7 @@ name|isWatcherCreated
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.     * Used by master joining an cluster.  If we figure this is a clean cluster    * startup, will assign all user regions.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.    * Used by master joining an cluster.  If we figure this is a clean cluster    * startup, will assign all user regions.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|processDeadServersAndRegionsInTransition
 parameter_list|(
@@ -2182,7 +2166,7 @@ return|return
 name|intransistion
 return|;
 block|}
-comment|/**    * Process failover of new master for region<code>encodedRegionName</code>    * up in zookeeper.    * @param encodedRegionName Region to process failover for.    * @param regionInfo If null we'll go get it from meta table.    * @param deadServers Can be null     * @return True if we processed<code>regionInfo</code> as a RIT.    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Process failover of new master for region<code>encodedRegionName</code>    * up in zookeeper.    * @param encodedRegionName Region to process failover for.    * @param regionInfo If null we'll go get it from meta table.    * @param deadServers Can be null    * @return True if we processed<code>regionInfo</code> as a RIT.    * @throws KeeperException    * @throws IOException    */
 name|boolean
 name|processRegionInTransition
 parameter_list|(
@@ -3516,9 +3500,9 @@ try|try
 block|{
 name|daughters
 operator|=
-name|Writables
+name|HRegionInfo
 operator|.
-name|getHRegionInfos
+name|parseDelimitedFrom
 argument_list|(
 name|payload
 argument_list|,
@@ -4417,7 +4401,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Gets the HRegionInfo from the META table    * @param  regionName    * @return HRegionInfo hri for the region     */
+comment|/**    * Gets the HRegionInfo from the META table    * @param  regionName    * @return HRegionInfo hri for the region    */
 specifier|private
 name|HRegionInfo
 name|getHRegionInfo
@@ -6257,7 +6241,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Bulk assign regions to available servers if any with retry, else assign    * region singly.    *     * @param regions all regions to assign    * @param servers all available servers    */
+comment|/**    * Bulk assign regions to available servers if any with retry, else assign    * region singly.    *    * @param regions all regions to assign    * @param servers all available servers    */
 specifier|public
 name|void
 name|assign
@@ -7776,7 +7760,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Set region as OFFLINED up in zookeeper    *     * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
+comment|/**    * Set region as OFFLINED up in zookeeper    *    * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
 name|int
 name|setOfflineInZooKeeper
 parameter_list|(
@@ -9244,7 +9228,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * @param region regioninfo of znode to be deleted.    */
+comment|/**    *    * @param region regioninfo of znode to be deleted.    */
 specifier|public
 name|void
 name|deleteClosingOrClosedNode
@@ -9375,7 +9359,7 @@ expr_stmt|;
 return|return;
 block|}
 block|}
-comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING state.    * @throws KeeperException Can happen if the znode went away in meantime.    * @throws DeserializationException     */
+comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING state.    * @throws KeeperException Can happen if the znode went away in meantime.    * @throws DeserializationException    */
 specifier|private
 name|boolean
 name|isSplitOrSplitting
@@ -9546,7 +9530,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Assigns all user regions to online servers. Use round-robin assignment.    *     * @param regions    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Assigns all user regions to online servers. Use round-robin assignment.    *    * @param regions    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|assignUserRegionsToOnlineServers
@@ -10784,9 +10768,9 @@ name|ServerName
 argument_list|>
 name|region
 init|=
-name|MetaReader
+name|HRegionInfo
 operator|.
-name|parseCatalogResult
+name|getHRegionInfoAndServerName
 argument_list|(
 name|result
 argument_list|)
@@ -11273,7 +11257,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Recover the tables that were not fully moved to DISABLED state. These    * tables are in DISABLING state when the master restarted/switched.    *     * @param disablingTables    * @return    * @throws KeeperException    * @throws TableNotFoundException    * @throws IOException    */
+comment|/**    * Recover the tables that were not fully moved to DISABLED state. These    * tables are in DISABLING state when the master restarted/switched.    *    * @param disablingTables    * @return    * @throws KeeperException    * @throws TableNotFoundException    * @throws IOException    */
 specifier|private
 name|boolean
 name|recoverTableInDisablingState
@@ -11372,7 +11356,7 @@ return|return
 name|isWatcherCreated
 return|;
 block|}
-comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *     * @param enablingTables    * @param isWatcherCreated    * @throws KeeperException    * @throws TableNotFoundException    * @throws IOException    */
+comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *    * @param enablingTables    * @param isWatcherCreated    * @throws KeeperException    * @throws TableNotFoundException    * @throws IOException    */
 specifier|private
 name|void
 name|recoverTableInEnablingState
@@ -11549,7 +11533,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions     * that were in RIT.    *<p>    *     * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @param nodes    *          The regions in RIT    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions    * that were in RIT.    *<p>    *    * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @param nodes    *          The regions in RIT    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
 name|processDeadServersAndRecoverLostRegions
@@ -13593,7 +13577,7 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Check whether the RegionServer is online.    * @param serverName     * @return True if online.    */
+comment|/**    * Check whether the RegionServer is online.    * @param serverName    * @return True if online.    */
 specifier|public
 name|boolean
 name|isServerOnline

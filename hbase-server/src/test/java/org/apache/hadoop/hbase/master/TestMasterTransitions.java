@@ -65,7 +65,49 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|LargeTests
 import|;
 end_import
 
@@ -162,22 +204,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Writables
 import|;
 end_import
 
@@ -463,10 +489,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Listener for regionserver events testing hbase-2428 (Infinite loop of    * region closes if META region is offline).  In particular, listen    * for the close of the 'metaServer' and when it comes in, requeue it with a    * delay as though there were an issue processing the shutdown.  As part of    * the requeuing,  send over a close of a region on 'otherServer' so it comes    * into a master that has its meta region marked as offline.    */
-comment|/*   static class HBase2428Listener implements RegionServerOperationListener {     // Map of what we've delayed so we don't do do repeated delays.     private final Set<RegionServerOperation> postponed =       new CopyOnWriteArraySet<RegionServerOperation>();     private boolean done = false;;     private boolean metaShutdownReceived = false;     private final HServerAddress metaAddress;     private final MiniHBaseCluster cluster;     private final int otherServerIndex;     private final HRegionInfo hri;     private int closeCount = 0;     static final int SERVER_DURATION = 3 * 1000;     static final int CLOSE_DURATION = 1 * 1000;       HBase2428Listener(final MiniHBaseCluster c, final HServerAddress metaAddress,         final HRegionInfo closingHRI, final int otherServerIndex) {       this.cluster = c;       this.metaAddress = metaAddress;       this.hri = closingHRI;       this.otherServerIndex = otherServerIndex;     }      @Override     public boolean process(final RegionServerOperation op) throws IOException {       // If a regionserver shutdown and its of the meta server, then we want to       // delay the processing of the shutdown and send off a close of a region on       // the 'otherServer.       boolean result = true;       if (op instanceof ProcessServerShutdown) {         ProcessServerShutdown pss = (ProcessServerShutdown)op;         if (pss.getDeadServerAddress().equals(this.metaAddress)) {           // Don't postpone more than once.           if (!this.postponed.contains(pss)) {             // Close some region.             this.cluster.addMessageToSendRegionServer(this.otherServerIndex,               new HMsg(HMsg.Type.MSG_REGION_CLOSE, hri,               Bytes.toBytes("Forcing close in test")));             this.postponed.add(pss);             // Put off the processing of the regionserver shutdown processing.             pss.setDelay(SERVER_DURATION);             this.metaShutdownReceived = true;             // Return false.  This will add this op to the delayed queue.             result = false;           }         }       } else {         // Have the close run frequently.         if (isWantedCloseOperation(op) != null) {           op.setDelay(CLOSE_DURATION);           // Count how many times it comes through here.           this.closeCount++;         }       }       return result;     }      public void processed(final RegionServerOperation op) {       if (isWantedCloseOperation(op) != null) return;       this.done = true;     } */
+comment|/*   static class HBase2428Listener implements RegionServerOperationListener {     // Map of what we've delayed so we don't do do repeated delays.     private final Set<RegionServerOperation> postponed =       new CopyOnWriteArraySet<RegionServerOperation>();     private boolean done = false;;     private boolean metaShutdownReceived = false;     private final HServerAddress metaAddress;     private final MiniHBaseCluster cluster;     private final int otherServerIndex;     private final HRegionInfo hri;     private int closeCount = 0;     static final int SERVER_DURATION = 3 * 1000;     static final int CLOSE_DURATION = 1 * 1000;      HBase2428Listener(final MiniHBaseCluster c, final HServerAddress metaAddress,         final HRegionInfo closingHRI, final int otherServerIndex) {       this.cluster = c;       this.metaAddress = metaAddress;       this.hri = closingHRI;       this.otherServerIndex = otherServerIndex;     }      @Override     public boolean process(final RegionServerOperation op) throws IOException {       // If a regionserver shutdown and its of the meta server, then we want to       // delay the processing of the shutdown and send off a close of a region on       // the 'otherServer.       boolean result = true;       if (op instanceof ProcessServerShutdown) {         ProcessServerShutdown pss = (ProcessServerShutdown)op;         if (pss.getDeadServerAddress().equals(this.metaAddress)) {           // Don't postpone more than once.           if (!this.postponed.contains(pss)) {             // Close some region.             this.cluster.addMessageToSendRegionServer(this.otherServerIndex,               new HMsg(HMsg.Type.MSG_REGION_CLOSE, hri,               Bytes.toBytes("Forcing close in test")));             this.postponed.add(pss);             // Put off the processing of the regionserver shutdown processing.             pss.setDelay(SERVER_DURATION);             this.metaShutdownReceived = true;             // Return false.  This will add this op to the delayed queue.             result = false;           }         }       } else {         // Have the close run frequently.         if (isWantedCloseOperation(op) != null) {           op.setDelay(CLOSE_DURATION);           // Count how many times it comes through here.           this.closeCount++;         }       }       return result;     }      public void processed(final RegionServerOperation op) {       if (isWantedCloseOperation(op) != null) return;       this.done = true;     } */
 comment|/*      * @param op      * @return Null if not the wanted ProcessRegionClose, else<code>op</code>      * cast as a ProcessRegionClose.      */
 comment|/*     private ProcessRegionClose isWantedCloseOperation(final RegionServerOperation op) {       // Count every time we get a close operation.       if (op instanceof ProcessRegionClose) {         ProcessRegionClose c = (ProcessRegionClose)op;         if (c.regionInfo.equals(hri)) {           return c;         }       }       return null;     }      boolean isDone() {       return this.done;     }      boolean isMetaShutdownReceived() {       return metaShutdownReceived;     }      int getCloseCount() {       return this.closeCount;     }      @Override     public boolean process(HServerInfo serverInfo, HMsg incomingMsg) {       return true;     }   } */
-comment|/**    * In 2428, the meta region has just been set offline and then a close comes    * in.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2428">HBASE-2428</a>     */
+comment|/**    * In 2428, the meta region has just been set offline and then a close comes    * in.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2428">HBASE-2428</a>    */
 annotation|@
 name|Ignore
 annotation|@
@@ -483,7 +509,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|/*     LOG.info("Running testRegionCloseWhenNoMetaHBase2428");     MiniHBaseCluster cluster = TEST_UTIL.getHBaseCluster();     final HMaster master = cluster.getMaster();     int metaIndex = cluster.getServerWithMeta();     // Figure the index of the server that is not server the .META.     int otherServerIndex = -1;     for (int i = 0; i< cluster.getRegionServerThreads().size(); i++) {       if (i == metaIndex) continue;       otherServerIndex = i;       break;     }     final HRegionServer otherServer = cluster.getRegionServer(otherServerIndex);     final HRegionServer metaHRS = cluster.getRegionServer(metaIndex);      // Get a region out on the otherServer.     final HRegionInfo hri =       otherServer.getOnlineRegions().iterator().next().getRegionInfo();       // Add our RegionServerOperationsListener     HBase2428Listener listener = new HBase2428Listener(cluster,       metaHRS.getHServerInfo().getServerAddress(), hri, otherServerIndex);     master.getRegionServerOperationQueue().       registerRegionServerOperationListener(listener);     try {       // Now close the server carrying meta.       cluster.abortRegionServer(metaIndex);        // First wait on receipt of meta server shutdown message.       while(!listener.metaShutdownReceived) Threads.sleep(100);       while(!listener.isDone()) Threads.sleep(10);       // We should not have retried the close more times than it took for the       // server shutdown message to exit the delay queue and get processed       // (Multiple by two to add in some slop in case of GC or something).       assertTrue(listener.getCloseCount()> 1);       assertTrue(listener.getCloseCount()<         ((HBase2428Listener.SERVER_DURATION/HBase2428Listener.CLOSE_DURATION) * 2));        // Assert the closed region came back online       assertRegionIsBackOnline(hri);     } finally {       master.getRegionServerOperationQueue().         unregisterRegionServerOperationListener(listener);     }     */
+comment|/*     LOG.info("Running testRegionCloseWhenNoMetaHBase2428");     MiniHBaseCluster cluster = TEST_UTIL.getHBaseCluster();     final HMaster master = cluster.getMaster();     int metaIndex = cluster.getServerWithMeta();     // Figure the index of the server that is not server the .META.     int otherServerIndex = -1;     for (int i = 0; i< cluster.getRegionServerThreads().size(); i++) {       if (i == metaIndex) continue;       otherServerIndex = i;       break;     }     final HRegionServer otherServer = cluster.getRegionServer(otherServerIndex);     final HRegionServer metaHRS = cluster.getRegionServer(metaIndex);      // Get a region out on the otherServer.     final HRegionInfo hri =       otherServer.getOnlineRegions().iterator().next().getRegionInfo();      // Add our RegionServerOperationsListener     HBase2428Listener listener = new HBase2428Listener(cluster,       metaHRS.getHServerInfo().getServerAddress(), hri, otherServerIndex);     master.getRegionServerOperationQueue().       registerRegionServerOperationListener(listener);     try {       // Now close the server carrying meta.       cluster.abortRegionServer(metaIndex);        // First wait on receipt of meta server shutdown message.       while(!listener.metaShutdownReceived) Threads.sleep(100);       while(!listener.isDone()) Threads.sleep(10);       // We should not have retried the close more times than it took for the       // server shutdown message to exit the delay queue and get processed       // (Multiple by two to add in some slop in case of GC or something).       assertTrue(listener.getCloseCount()> 1);       assertTrue(listener.getCloseCount()<         ((HBase2428Listener.SERVER_DURATION/HBase2428Listener.CLOSE_DURATION) * 2));        // Assert the closed region came back online       assertRegionIsBackOnline(hri);     } finally {       master.getRegionServerOperationQueue().         unregisterRegionServerOperationListener(listener);     }     */
 block|}
 comment|/**    * Test adding in a new server before old one on same host+port is dead.    * Make the test more onerous by having the server under test carry the meta.    * If confusion between old and new, purportedly meta never comes back.  Test    * that meta gets redeployed.    */
 annotation|@
@@ -505,8 +531,8 @@ block|{
 comment|/*     LOG.info("Running testAddingServerBeforeOldIsDead2413");     MiniHBaseCluster cluster = TEST_UTIL.getHBaseCluster();     int count = count();     int metaIndex = cluster.getServerWithMeta();     MiniHBaseClusterRegionServer metaHRS =       (MiniHBaseClusterRegionServer)cluster.getRegionServer(metaIndex);     int port = metaHRS.getServerInfo().getServerAddress().getPort();     Configuration c = TEST_UTIL.getConfiguration();     String oldPort = c.get(HConstants.REGIONSERVER_PORT, "0");     try {       LOG.info("KILLED=" + metaHRS);       metaHRS.kill();       c.set(HConstants.REGIONSERVER_PORT, Integer.toString(port));       // Try and start new regionserver.  It might clash with the old       // regionserver port so keep trying to get past the BindException.       HRegionServer hrs = null;       while (true) {         try {           hrs = cluster.startRegionServer().getRegionServer();           break;         } catch (IOException e) {           if (e.getCause() != null&& e.getCause() instanceof InvocationTargetException) {             InvocationTargetException ee = (InvocationTargetException)e.getCause();             if (ee.getCause() != null&& ee.getCause() instanceof BindException) {               LOG.info("BindException; retrying: " + e.toString());             }           }         }       }       LOG.info("STARTED=" + hrs);       // Wait until he's been given at least 3 regions before we go on to try       // and count rows in table.       while (hrs.getOnlineRegions().size()< 3) Threads.sleep(100);       LOG.info(hrs.toString() + " has " + hrs.getOnlineRegions().size() +         " regions");       assertEquals(count, count());     } finally {       c.set(HConstants.REGIONSERVER_PORT, oldPort);     }     */
 block|}
 comment|/**    * HBase2482 is about outstanding region openings.  If any are outstanding    * when a regionserver goes down, then they'll never deploy.  They'll be    * stuck in the regions-in-transition list for ever.  This listener looks    * for a region opening HMsg and if its from the server passed on construction,    * then we kill it.  It also looks out for a close message on the victim    * server because that signifies start of the fireworks.    */
-comment|/*   static class HBase2482Listener implements RegionServerOperationListener {     private final HRegionServer victim;     private boolean abortSent = false;     // We closed regions on new server.     private volatile boolean closed = false;     // Copy of regions on new server     private final Collection<HRegion> copyOfOnlineRegions;     // This is the region that was in transition on the server we aborted. Test     // passes if this region comes back online successfully.     private HRegionInfo regionToFind;      HBase2482Listener(final HRegionServer victim) {       this.victim = victim;       // Copy regions currently open on this server so I can notice when       // there is a close.       this.copyOfOnlineRegions =         this.victim.getCopyOfOnlineRegionsSortedBySize().values();     }       @Override     public boolean process(HServerInfo serverInfo, HMsg incomingMsg) {       if (!victim.getServerInfo().equals(serverInfo) ||           this.abortSent || !this.closed) {         return true;       }       if (!incomingMsg.isType(HMsg.Type.MSG_REPORT_PROCESS_OPEN)) return true;       // Save the region that is in transition so can test later it came back.       this.regionToFind = incomingMsg.getRegionInfo();       String msg = "ABORTING " + this.victim + " because got a " +         HMsg.Type.MSG_REPORT_PROCESS_OPEN + " on this server for " +         incomingMsg.getRegionInfo().getRegionNameAsString();       this.victim.abort(msg);       this.abortSent = true;       return true;     }      @Override     public boolean process(RegionServerOperation op) throws IOException {       return true;     }      @Override     public void processed(RegionServerOperation op) {       if (this.closed || !(op instanceof ProcessRegionClose)) return;       ProcessRegionClose close = (ProcessRegionClose)op;       for (HRegion r: this.copyOfOnlineRegions) {         if (r.getRegionInfo().equals(close.regionInfo)) {           // We've closed one of the regions that was on the victim server.           // Now can start testing for when all regions are back online again           LOG.info("Found close of " +             r.getRegionInfo().getRegionNameAsString() +             "; setting close happened flag");           this.closed = true;           break;         }       }     }   } */
-comment|/**    * In 2482, a RS with an opening region on it dies.  The said region is then    * stuck in the master's regions-in-transition and never leaves it.  This    * test works by bringing up a new regionserver, waiting for the load    * balancer to give it some regions.  Then, we close all on the new server.    * After sending all the close messages, we send the new regionserver the    * special blocking message so it can not process any more messages.    * Meantime reopening of the just-closed regions is backed up on the new    * server.  Soon as master gets an opening region from the new regionserver,    * we kill it.  We then wait on all regions to come back on line.  If bug    * is fixed, this should happen soon as the processing of the killed server is    * done.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2482">HBASE-2482</a>     */
+comment|/*   static class HBase2482Listener implements RegionServerOperationListener {     private final HRegionServer victim;     private boolean abortSent = false;     // We closed regions on new server.     private volatile boolean closed = false;     // Copy of regions on new server     private final Collection<HRegion> copyOfOnlineRegions;     // This is the region that was in transition on the server we aborted. Test     // passes if this region comes back online successfully.     private HRegionInfo regionToFind;      HBase2482Listener(final HRegionServer victim) {       this.victim = victim;       // Copy regions currently open on this server so I can notice when       // there is a close.       this.copyOfOnlineRegions =         this.victim.getCopyOfOnlineRegionsSortedBySize().values();     }      @Override     public boolean process(HServerInfo serverInfo, HMsg incomingMsg) {       if (!victim.getServerInfo().equals(serverInfo) ||           this.abortSent || !this.closed) {         return true;       }       if (!incomingMsg.isType(HMsg.Type.MSG_REPORT_PROCESS_OPEN)) return true;       // Save the region that is in transition so can test later it came back.       this.regionToFind = incomingMsg.getRegionInfo();       String msg = "ABORTING " + this.victim + " because got a " +         HMsg.Type.MSG_REPORT_PROCESS_OPEN + " on this server for " +         incomingMsg.getRegionInfo().getRegionNameAsString();       this.victim.abort(msg);       this.abortSent = true;       return true;     }      @Override     public boolean process(RegionServerOperation op) throws IOException {       return true;     }      @Override     public void processed(RegionServerOperation op) {       if (this.closed || !(op instanceof ProcessRegionClose)) return;       ProcessRegionClose close = (ProcessRegionClose)op;       for (HRegion r: this.copyOfOnlineRegions) {         if (r.getRegionInfo().equals(close.regionInfo)) {           // We've closed one of the regions that was on the victim server.           // Now can start testing for when all regions are back online again           LOG.info("Found close of " +             r.getRegionInfo().getRegionNameAsString() +             "; setting close happened flag");           this.closed = true;           break;         }       }     }   } */
+comment|/**    * In 2482, a RS with an opening region on it dies.  The said region is then    * stuck in the master's regions-in-transition and never leaves it.  This    * test works by bringing up a new regionserver, waiting for the load    * balancer to give it some regions.  Then, we close all on the new server.    * After sending all the close messages, we send the new regionserver the    * special blocking message so it can not process any more messages.    * Meantime reopening of the just-closed regions is backed up on the new    * server.  Soon as master gets an opening region from the new regionserver,    * we kill it.  We then wait on all regions to come back on line.  If bug    * is fixed, this should happen soon as the processing of the killed server is    * done.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2482">HBASE-2482</a>    */
 annotation|@
 name|Ignore
 annotation|@
@@ -626,46 +652,23 @@ literal|null
 condition|;
 control|)
 block|{
-name|byte
-index|[]
-name|b
+name|HRegionInfo
+name|hri
 init|=
-name|r
+name|HRegionInfo
 operator|.
-name|getValue
+name|getHRegionInfo
 argument_list|(
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|,
-name|HConstants
-operator|.
-name|REGIONINFO_QUALIFIER
+name|r
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|b
+name|hri
 operator|==
 literal|null
-operator|||
-name|b
-operator|.
-name|length
-operator|<=
-literal|0
 condition|)
 break|break;
-name|HRegionInfo
-name|hri
-init|=
-name|Writables
-operator|.
-name|getHRegionInfo
-argument_list|(
-name|b
-argument_list|)
-decl_stmt|;
 comment|// If start key, add 'aaa'.
 name|byte
 index|[]

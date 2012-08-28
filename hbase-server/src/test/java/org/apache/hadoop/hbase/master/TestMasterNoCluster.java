@@ -237,6 +237,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|catalog
+operator|.
+name|MetaMockingUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HConnection
@@ -994,7 +1010,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|Mocking
+name|MetaMockingUtil
 operator|.
 name|getMetaTableRowResult
 argument_list|(
@@ -1029,7 +1045,7 @@ operator|new
 name|Result
 index|[]
 block|{
-name|Mocking
+name|MetaMockingUtil
 operator|.
 name|getMetaTableRowResult
 argument_list|(
@@ -1056,7 +1072,7 @@ name|getServerName
 argument_list|()
 argument_list|)
 block|,
-name|Mocking
+name|MetaMockingUtil
 operator|.
 name|getMetaTableRowResult
 argument_list|(
@@ -1086,7 +1102,7 @@ name|getServerName
 argument_list|()
 argument_list|)
 block|,
-name|Mocking
+name|MetaMockingUtil
 operator|.
 name|getMetaTableRowResult
 argument_list|(
@@ -2061,7 +2077,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|Mocking
+name|MetaMockingUtil
 operator|.
 name|getMetaTableRowResult
 argument_list|(
