@@ -131,18 +131,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|atomic
 operator|.
 name|AtomicInteger
@@ -2077,6 +2065,7 @@ name|getEncodingOnDisk
 parameter_list|()
 function_decl|;
 block|}
+comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis an open checksummed stream of path's file    * @param fsdisNoFsChecksum an open unchecksummed stream of path's file    * @param size max size of the trailer.    * @param closeIStream boolean for closing file after the getting the reader version.    * @param cacheConf Cache configuation values, cannot be null.    * @param preferredEncodingInCache    * @param hfs    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|private
 specifier|static
 name|Reader
@@ -2112,6 +2101,12 @@ block|{
 name|FixedFileTrailer
 name|trailer
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|trailer
+operator|=
 name|FixedFileTrailer
 operator|.
 name|readFromStream
@@ -2120,7 +2115,26 @@ name|fsdis
 argument_list|,
 name|size
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|iae
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|CorruptHFileException
+argument_list|(
+literal|"Problem reading HFile Trailer from file "
+operator|+
+name|path
+argument_list|,
+name|iae
+argument_list|)
+throw|;
+block|}
 switch|switch
 condition|(
 name|trailer
@@ -2178,9 +2192,9 @@ return|;
 default|default:
 throw|throw
 operator|new
-name|IOException
+name|CorruptHFileException
 argument_list|(
-literal|"Cannot instantiate reader for HFile version "
+literal|"Invalid HFile version "
 operator|+
 name|trailer
 operator|.
@@ -2190,6 +2204,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * @param fs A file system    * @param path Path to HFile    * @param cacheConf Cache configuration for hfile's contents    * @param preferredEncodingInCache Preferred in-cache data encoding algorithm.    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|public
 specifier|static
 name|Reader
@@ -2312,7 +2327,7 @@ name|hfs
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null.  @see {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @return an active Reader instance.    */
+comment|/**    *    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null.  @see {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @return an active Reader instance    * @throws IOException Will throw a CorruptHFileException (DoNotRetryIOException subtype) if hfile is corrupt/invalid.    */
 specifier|public
 specifier|static
 name|Reader

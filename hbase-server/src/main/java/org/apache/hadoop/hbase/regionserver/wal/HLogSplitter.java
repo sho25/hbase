@@ -2555,7 +2555,9 @@ name|get
 argument_list|(
 literal|"hbase.regionserver.hlog.splitlog.corrupt.dir"
 argument_list|,
-literal|".corrupt"
+name|HConstants
+operator|.
+name|CORRUPT_DIR_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;

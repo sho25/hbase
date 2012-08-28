@@ -20,6 +20,46 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+operator|.
+name|MAX_FORMAT_VERSION
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+operator|.
+name|MIN_FORMAT_VERSION
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -172,46 +212,6 @@ operator|.
 name|io
 operator|.
 name|RawComparator
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFile
-operator|.
-name|MIN_FORMAT_VERSION
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFile
-operator|.
-name|MAX_FORMAT_VERSION
 import|;
 end_import
 
@@ -1286,8 +1286,6 @@ argument_list|(
 name|version
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|HFile
 operator|.
 name|checkFormatVersion
@@ -1295,22 +1293,7 @@ argument_list|(
 name|majorVersion
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|iae
-parameter_list|)
-block|{
-comment|// In this context, an invalid version might indicate a corrupt HFile.
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|iae
-argument_list|)
-throw|;
-block|}
+comment|// throws IAE if invalid
 name|int
 name|trailerSize
 init|=

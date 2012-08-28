@@ -807,7 +807,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|IllegalArgumentException
 name|ex
 parameter_list|)
 block|{
