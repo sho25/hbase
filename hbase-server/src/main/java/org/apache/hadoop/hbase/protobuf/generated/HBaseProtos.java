@@ -25303,15 +25303,6 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional uint64 completeSequenceId = 16;
-name|boolean
-name|hasCompleteSequenceId
-parameter_list|()
-function_decl|;
-name|long
-name|getCompleteSequenceId
-parameter_list|()
-function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -26210,45 +26201,6 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional uint64 completeSequenceId = 16;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|COMPLETESEQUENCEID_FIELD_NUMBER
-init|=
-literal|16
-decl_stmt|;
-specifier|private
-name|long
-name|completeSequenceId_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasCompleteSequenceId
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00004000
-operator|)
-operator|==
-literal|0x00004000
-operator|)
-return|;
-block|}
-specifier|public
-name|long
-name|getCompleteSequenceId
-parameter_list|()
-block|{
-return|return
-name|completeSequenceId_
-return|;
-block|}
 specifier|private
 name|void
 name|initFields
@@ -26337,10 +26289,6 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
-expr_stmt|;
-name|completeSequenceId_
-operator|=
-literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -26826,29 +26774,6 @@ name|get
 argument_list|(
 name|i
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00004000
-operator|)
-operator|==
-literal|0x00004000
-operator|)
-condition|)
-block|{
-name|output
-operator|.
-name|writeUInt64
-argument_list|(
-literal|16
-argument_list|,
-name|completeSequenceId_
 argument_list|)
 expr_stmt|;
 block|}
@@ -27364,37 +27289,6 @@ name|get
 argument_list|(
 name|i
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00004000
-operator|)
-operator|==
-literal|0x00004000
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeUInt64Size
-argument_list|(
-literal|16
-argument_list|,
-name|completeSequenceId_
 argument_list|)
 expr_stmt|;
 block|}
@@ -28064,41 +27958,6 @@ name|result
 operator|=
 name|result
 operator|&&
-operator|(
-name|hasCompleteSequenceId
-argument_list|()
-operator|==
-name|other
-operator|.
-name|hasCompleteSequenceId
-argument_list|()
-operator|)
-expr_stmt|;
-if|if
-condition|(
-name|hasCompleteSequenceId
-argument_list|()
-condition|)
-block|{
-name|result
-operator|=
-name|result
-operator|&&
-operator|(
-name|getCompleteSequenceId
-argument_list|()
-operator|==
-name|other
-operator|.
-name|getCompleteSequenceId
-argument_list|()
-operator|)
-expr_stmt|;
-block|}
-name|result
-operator|=
-name|result
-operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -28582,37 +28441,6 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasCompleteSequenceId
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|COMPLETESEQUENCEID_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|hashLong
-argument_list|(
-name|getCompleteSequenceId
-argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -29718,19 +29546,6 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|completeSequenceId_
-operator|=
-literal|0L
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00008000
-operator|)
-expr_stmt|;
 return|return
 name|this
 return|;
@@ -30438,30 +30253,6 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00008000
-operator|)
-operator|==
-literal|0x00008000
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00004000
-expr_stmt|;
-block|}
-name|result
-operator|.
-name|completeSequenceId_
-operator|=
-name|completeSequenceId_
-expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -30972,23 +30763,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-if|if
-condition|(
-name|other
-operator|.
-name|hasCompleteSequenceId
-argument_list|()
-condition|)
-block|{
-name|setCompleteSequenceId
-argument_list|(
-name|other
-operator|.
-name|getCompleteSequenceId
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 name|this
 operator|.
@@ -31556,23 +31330,6 @@ operator|.
 name|buildPartial
 argument_list|()
 argument_list|)
-expr_stmt|;
-break|break;
-block|}
-case|case
-literal|128
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00008000
-expr_stmt|;
-name|completeSequenceId_
-operator|=
-name|input
-operator|.
-name|readUInt64
-argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -34617,85 +34374,6 @@ expr_stmt|;
 block|}
 return|return
 name|coprocessorsBuilder_
-return|;
-block|}
-comment|// optional uint64 completeSequenceId = 16;
-specifier|private
-name|long
-name|completeSequenceId_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasCompleteSequenceId
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00008000
-operator|)
-operator|==
-literal|0x00008000
-operator|)
-return|;
-block|}
-specifier|public
-name|long
-name|getCompleteSequenceId
-parameter_list|()
-block|{
-return|return
-name|completeSequenceId_
-return|;
-block|}
-specifier|public
-name|Builder
-name|setCompleteSequenceId
-parameter_list|(
-name|long
-name|value
-parameter_list|)
-block|{
-name|bitField0_
-operator||=
-literal|0x00008000
-expr_stmt|;
-name|completeSequenceId_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|public
-name|Builder
-name|clearCompleteSequenceId
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00008000
-operator|)
-expr_stmt|;
-name|completeSequenceId_
-operator|=
-literal|0L
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:RegionLoad)
@@ -67571,7 +67249,7 @@ literal|"pecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023RegionSpe"
 operator|+
 literal|"cifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODED_R"
 operator|+
-literal|"EGION_NAME\020\002\"\324\003\n\nRegionLoad\022)\n\017regionSpe"
+literal|"EGION_NAME\020\002\"\270\003\n\nRegionLoad\022)\n\017regionSpe"
 operator|+
 literal|"cifier\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006stores"
 operator|+
@@ -67593,55 +67271,55 @@ literal|"otalStaticIndexSizeKB\030\r \001(\r\022\036\n\026totalStat"
 operator|+
 literal|"icBloomSizeKB\030\016 \001(\r\022\"\n\014coprocessors\030\017 \003("
 operator|+
-literal|"\0132\014.Coprocessor\022\032\n\022completeSequenceId\030\020 "
+literal|"\0132\014.Coprocessor\"\342\001\n\nServerLoad\022\030\n\020number"
 operator|+
-literal|"\001(\004\"\342\001\n\nServerLoad\022\030\n\020numberOfRequests\030\001"
+literal|"OfRequests\030\001 \001(\r\022\035\n\025totalNumberOfRequest"
 operator|+
-literal|" \001(\r\022\035\n\025totalNumberOfRequests\030\002 \001(\r\022\022\n\nu"
+literal|"s\030\002 \001(\r\022\022\n\nusedHeapMB\030\003 \001(\r\022\021\n\tmaxHeapMB"
 operator|+
-literal|"sedHeapMB\030\003 \001(\r\022\021\n\tmaxHeapMB\030\004 \001(\r\022 \n\013re"
+literal|"\030\004 \001(\r\022 \n\013regionLoads\030\005 \003(\0132\013.RegionLoad"
 operator|+
-literal|"gionLoads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coproces"
+literal|"\022\"\n\014coprocessors\030\006 \003(\0132\014.Coprocessor\022\027\n\017"
 block|,
-literal|"sors\030\006 \003(\0132\014.Coprocessor\022\027\n\017reportStartT"
+literal|"reportStartTime\030\007 \001(\004\022\025\n\rreportEndTime\030\010"
 operator|+
-literal|"ime\030\007 \001(\004\022\025\n\rreportEndTime\030\010 \001(\004\"%\n\tTime"
+literal|" \001(\004\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 "
 operator|+
-literal|"Range\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"0\n\006Filte"
+literal|"\001(\004\"0\n\006Filter\022\014\n\004name\030\001 \002(\t\022\030\n\020serialize"
 operator|+
-literal|"r\022\014\n\004name\030\001 \002(\t\022\030\n\020serializedFilter\030\002 \001("
+literal|"dFilter\030\002 \001(\014\"w\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016"
 operator|+
-literal|"\014\"w\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002"
+literal|"\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttim"
 operator|+
-literal|"(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttimestamp\030\004 \001(\004"
+literal|"estamp\030\004 \001(\004\022\031\n\007keyType\030\005 \001(\0162\010.KeyType\022"
 operator|+
-literal|"\022\031\n\007keyType\030\005 \001(\0162\010.KeyType\022\r\n\005value\030\006 \001"
+literal|"\r\n\005value\030\006 \001(\014\"?\n\nServerName\022\020\n\010hostName"
 operator|+
-literal|"(\014\"?\n\nServerName\022\020\n\010hostName\030\001 \002(\t\022\014\n\004po"
+literal|"\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\021\n\tstartCode\030\003 \001(\004\""
 operator|+
-literal|"rt\030\002 \001(\r\022\021\n\tstartCode\030\003 \001(\004\"\033\n\013Coprocess"
+literal|"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameStri"
 operator|+
-literal|"or\022\014\n\004name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004na"
+literal|"ngPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rN"
 block|,
-literal|"me\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair"
+literal|"ameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001("
 operator|+
-literal|"\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBy"
+literal|"\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006se"
 operator|+
-literal|"tesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014*r"
+literal|"cond\030\002 \002(\014*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rL"
 operator|+
-literal|"\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL"
+literal|"ESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003"
 operator|+
-literal|"\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_"
+literal|"\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005N"
 operator|+
-literal|"OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*_\n\007Ke"
+literal|"O_OP\020\006*_\n\007KeyType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022"
 operator|+
-literal|"yType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022\n\n\006DELETE\020\010\022"
+literal|"\n\n\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE"
 operator|+
-literal|"\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE_FAMILY\020\016\022\014\n"
+literal|"_FAMILY\020\016\022\014\n\007MAXIMUM\020\377\001B>\n*org.apache.ha"
 operator|+
-literal|"\007MAXIMUM\020\377\001B>\n*org.apache.hadoop.hbase.p"
+literal|"doop.hbase.protobuf.generatedB\013HBaseProt"
 operator|+
-literal|"rotobuf.generatedB\013HBaseProtosH\001\240\001\001"
+literal|"osH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -68258,8 +67936,6 @@ block|,
 literal|"TotalStaticBloomSizeKB"
 block|,
 literal|"Coprocessors"
-block|,
-literal|"CompleteSequenceId"
 block|, }
 argument_list|,
 name|org

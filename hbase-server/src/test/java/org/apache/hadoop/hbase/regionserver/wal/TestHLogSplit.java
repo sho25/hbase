@@ -3888,8 +3888,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|fs
-argument_list|,
-literal|null
 argument_list|)
 block|{
 specifier|protected
@@ -4079,8 +4077,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|spiedFs
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -4285,8 +4281,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|fs
-argument_list|,
-literal|null
 argument_list|)
 block|{
 comment|/* Produce a mock writer that doesn't write anywhere */
@@ -5713,8 +5707,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter
@@ -5892,8 +5884,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter
@@ -5993,8 +5983,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter
@@ -6128,8 +6116,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter
@@ -6269,8 +6255,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter
@@ -6405,8 +6389,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|fs
-argument_list|,
-literal|null
 argument_list|)
 block|{
 specifier|protected
