@@ -902,6 +902,12 @@ name|FileStatus
 index|[]
 name|hfs
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|hfs
+operator|=
 name|fs
 operator|.
 name|listStatus
@@ -914,8 +920,37 @@ argument_list|(
 name|fs
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// use same filter as scanner.
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// Hadoop 0.23+ listStatus semantics throws an exception if the path does not exist.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Colfam Directory "
+operator|+
+name|cfDir
+operator|+
+literal|" does not exist.  Likely due to concurrent split/compaction. Skipping."
+argument_list|)
+expr_stmt|;
+name|missing
+operator|.
+name|add
+argument_list|(
+name|cfDir
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// Hadoop 1.0 listStatus does not throw an exception if the path does not exist.
 if|if
 condition|(
 name|hfs
@@ -933,7 +968,6 @@ name|cfDir
 argument_list|)
 condition|)
 block|{
-comment|// interestingly, listStatus does not throw an exception if the path does not exist.
 name|LOG
 operator|.
 name|warn
@@ -992,6 +1026,12 @@ name|FileStatus
 index|[]
 name|cfs
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|cfs
+operator|=
 name|fs
 operator|.
 name|listStatus
@@ -1004,7 +1044,36 @@ argument_list|(
 name|fs
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// Hadoop 0.23+ listStatus semantics throws an exception if the path does not exist.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region Directory "
+operator|+
+name|regionDir
+operator|+
+literal|" does not exist.  Likely due to concurrent split/compaction. Skipping."
+argument_list|)
+expr_stmt|;
+name|missing
+operator|.
+name|add
+argument_list|(
+name|regionDir
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// Hadoop 1.0 listStatus does not throw an exception if the path does not exist.
 if|if
 condition|(
 name|cfs
@@ -1022,7 +1091,6 @@ name|regionDir
 argument_list|)
 condition|)
 block|{
-comment|// interestingly, listStatus does not throw an exception if the path does not exist.
 name|LOG
 operator|.
 name|warn
