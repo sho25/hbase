@@ -2655,6 +2655,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|trace
+operator|.
+name|SpanReceiverHost
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -2937,6 +2953,10 @@ specifier|private
 specifier|final
 name|boolean
 name|masterCheckCompression
+decl_stmt|;
+specifier|private
+name|SpanReceiverHost
+name|spanReceiverHost
 decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
@@ -4371,6 +4391,20 @@ name|this
 operator|.
 name|conf
 argument_list|)
+expr_stmt|;
+name|spanReceiverHost
+operator|=
+operator|new
+name|SpanReceiverHost
+argument_list|(
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|spanReceiverHost
+operator|.
+name|loadSpanReceivers
+argument_list|()
 expr_stmt|;
 comment|// start up all service threads.
 name|status
@@ -11101,6 +11135,11 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
+name|spanReceiverHost
+operator|.
+name|closeReceivers
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
