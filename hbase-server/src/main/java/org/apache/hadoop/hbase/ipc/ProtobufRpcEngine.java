@@ -2600,17 +2600,6 @@ operator|.
 name|getMethods
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Methods length : "
-operator|+
-name|methods
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|Method
@@ -2805,7 +2794,7 @@ return|return
 name|protoType
 return|;
 block|}
-comment|/**      * Logs an RPC response to the LOG file, producing valid JSON objects for      * client Operations.      * @param params The parameters received in the call.      * @param methodName The name of the method invoked      * @param call The string representation of the call      * @param tag  The tag that will be used to indicate this event in the log.      * @param client          The address of the client who made this call.      * @param startTime       The time that the call was initiated, in ms.      * @param processingTime  The duration that the call took to run, in ms.      * @param qTime           The duration that the call spent on the queue      *                        prior to being initiated, in ms.      * @param responseSize    The size in bytes of the response buffer.      */
+comment|/**      * Logs an RPC response to the LOG file, producing valid JSON objects for      * client Operations.      * @param params The parameters received in the call.      * @param methodName The name of the method invoked      * @param call The string representation of the call      * @param tag  The tag that will be used to indicate this event in the log.      * @param clientAddress   The address of the client who made this call.      * @param startTime       The time that the call was initiated, in ms.      * @param processingTime  The duration that the call took to run, in ms.      * @param qTime           The duration that the call spent on the queue      *                        prior to being initiated, in ms.      * @param responseSize    The size in bytes of the response buffer.      */
 name|void
 name|logResponse
 parameter_list|(
