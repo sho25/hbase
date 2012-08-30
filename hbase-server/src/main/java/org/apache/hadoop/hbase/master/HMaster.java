@@ -3887,9 +3887,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.catalog.timeout"
 argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
+literal|600000
 argument_list|)
 argument_list|)
 expr_stmt|;
