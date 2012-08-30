@@ -21438,7 +21438,7 @@ argument_list|(
 name|newKV
 argument_list|)
 expr_stmt|;
-comment|// Append update to WAL
+comment|// Prepare WAL updates
 if|if
 condition|(
 name|writeToWAL

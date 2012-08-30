@@ -24708,7 +24708,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 name|Runnable
-name|reader
+name|flusher
 init|=
 operator|new
 name|Runnable
@@ -24788,7 +24788,7 @@ init|=
 operator|new
 name|Thread
 argument_list|(
-name|reader
+name|flusher
 argument_list|)
 decl_stmt|;
 for|for
