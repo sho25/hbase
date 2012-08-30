@@ -21353,6 +21353,18 @@ argument_list|(
 name|idx
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|kv
+operator|.
+name|getValueLength
+argument_list|()
+operator|==
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+condition|)
+block|{
 name|amount
 operator|+=
 name|Bytes
@@ -21369,12 +21381,23 @@ operator|.
 name|getValueOffset
 argument_list|()
 argument_list|,
-name|kv
+name|Bytes
 operator|.
-name|getValueLength
-argument_list|()
+name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// throw DoNotRetryIOException instead of IllegalArgumentException
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Attempted to increment field that isn't 64 bits wide"
+argument_list|)
+throw|;
+block|}
 name|idx
 operator|++
 expr_stmt|;
@@ -21608,7 +21631,6 @@ block|{
 name|closeRegionOperation
 argument_list|()
 expr_stmt|;
-block|}
 name|long
 name|after
 init|=
@@ -21636,6 +21658,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|flush
@@ -21821,7 +21844,9 @@ operator|.
 name|getValueLength
 argument_list|()
 operator|==
-literal|8
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 condition|)
 block|{
 name|byte
@@ -22076,7 +22101,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Attempted to increment field that isn't 64 bits wide"
 argument_list|)
