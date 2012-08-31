@@ -2681,13 +2681,12 @@ literal|"task "
 operator|+
 name|path
 operator|+
-literal|" entered state "
+literal|" entered state: "
 operator|+
-operator|new
-name|String
-argument_list|(
-name|data
-argument_list|)
+name|slt
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|resubmitOrFail
@@ -2715,13 +2714,12 @@ literal|"task "
 operator|+
 name|path
 operator|+
-literal|" entered state "
+literal|" entered state: "
 operator|+
-operator|new
-name|String
-argument_list|(
-name|data
-argument_list|)
+name|slt
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -2812,13 +2810,12 @@ literal|"task "
 operator|+
 name|path
 operator|+
-literal|" entered state "
+literal|" entered state: "
 operator|+
-operator|new
-name|String
-argument_list|(
-name|data
-argument_list|)
+name|slt
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|resubmitOrFail
@@ -2841,11 +2838,10 @@ name|path
 operator|+
 literal|" data = "
 operator|+
-operator|new
-name|String
-argument_list|(
-name|data
-argument_list|)
+name|slt
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|setDone
