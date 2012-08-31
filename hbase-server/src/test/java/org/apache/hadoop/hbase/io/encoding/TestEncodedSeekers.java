@@ -333,7 +333,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|LoadTestKVGenerator
+name|MultiThreadedWriter
 import|;
 end_import
 
@@ -349,7 +349,9 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|MultiThreadedWriter
+name|test
+operator|.
+name|LoadTestKVGenerator
 import|;
 end_import
 

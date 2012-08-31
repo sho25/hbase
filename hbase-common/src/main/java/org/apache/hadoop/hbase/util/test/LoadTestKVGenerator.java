@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|util
+operator|.
+name|test
 package|;
 end_package
 

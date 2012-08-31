@@ -199,6 +199,24 @@ name|Result
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|test
+operator|.
+name|LoadTestKVGenerator
+import|;
+end_import
+
 begin_comment
 comment|/** Creates multiple threads that read and verify previously written data */
 end_comment
