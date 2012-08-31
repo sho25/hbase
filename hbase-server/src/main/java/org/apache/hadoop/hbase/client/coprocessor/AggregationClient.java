@@ -937,7 +937,7 @@ name|getMinimum
 argument_list|()
 return|;
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKEyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
