@@ -63,6 +63,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -638,7 +652,7 @@ argument_list|(
 name|rpcRequest
 argument_list|)
 operator|==
-name|HRegionServer
+name|HConstants
 operator|.
 name|HIGH_QOS
 argument_list|)
@@ -711,7 +725,7 @@ argument_list|(
 name|rpcRequest
 argument_list|)
 operator|==
-name|HRegionServer
+name|HConstants
 operator|.
 name|NORMAL_QOS
 argument_list|)
@@ -789,7 +803,7 @@ argument_list|(
 name|rpcRequest
 argument_list|)
 operator|==
-name|HRegionServer
+name|HConstants
 operator|.
 name|NORMAL_QOS
 argument_list|)
@@ -995,7 +1009,7 @@ argument_list|(
 name|rpcRequest
 argument_list|)
 operator|==
-name|HRegionServer
+name|HConstants
 operator|.
 name|HIGH_QOS
 argument_list|)
@@ -1025,7 +1039,7 @@ argument_list|(
 name|rpcRequest
 argument_list|)
 operator|==
-name|HRegionServer
+name|HConstants
 operator|.
 name|NORMAL_QOS
 argument_list|)
