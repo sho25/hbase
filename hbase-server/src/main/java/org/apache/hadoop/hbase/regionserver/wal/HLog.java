@@ -5103,7 +5103,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This thread is responsible to call syncFs and buffer up the writers while    * it happens.    */
+comment|/**    * This class is responsible to hold the HLog's appended Entry list    * and to sync them according to a configurable interval.    *    * Deferred log flushing works first by piggy backing on this process by    * simply not sync'ing the appended Entry. It can also be sync'd by other    * non-deferred log flushed entries outside of this thread.    */
 end_comment
 
 begin_class
@@ -5214,6 +5214,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Calling sync since we waited or had unflushed entries.
+comment|// Entries appended but not sync'd are taken care of here AKA
+comment|// deferred log flush
 name|sync
 argument_list|()
 expr_stmt|;
