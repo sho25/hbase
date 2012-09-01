@@ -1426,6 +1426,15 @@ operator|.
 name|getFileSystem
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Archiving parent region:"
+operator|+
+name|parent
+argument_list|)
+expr_stmt|;
 name|HFileArchiver
 operator|.
 name|archiveRegion

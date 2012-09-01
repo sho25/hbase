@@ -151,6 +151,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|conf
@@ -755,6 +783,21 @@ specifier|public
 class|class
 name|TestCatalogJanitor
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TestCatalogJanitor
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * Pseudo server for below tests.    * Be sure to call stop on the way out else could leave some mess around.    */
 class|class
 name|MockServer
@@ -3019,6 +3062,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Test that we correctly archive all the storefiles when a region is deleted    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -3179,7 +3223,7 @@ decl_stmt|;
 comment|// Test that when both daughter regions are in place, that we do not
 comment|// remove the parent.
 name|Result
-name|r
+name|parentMetaRow
 init|=
 name|createResult
 argument_list|(
@@ -3270,7 +3314,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// delete the file and ensure that the files have been archived
 name|Path
 name|storeArchive
 init|=
@@ -3299,7 +3342,38 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// enable archiving, make sure that files get archived
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Table dir:"
+operator|+
+name|tabledir
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Store dir:"
+operator|+
+name|storedir
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Store archive dir:"
+operator|+
+name|storeArchive
+argument_list|)
+expr_stmt|;
+comment|// add a couple of store files that we can check for
+name|FileStatus
+index|[]
+name|mockFiles
+init|=
 name|addMockStoreFiles
 argument_list|(
 literal|2
@@ -3308,7 +3382,7 @@ name|services
 argument_list|,
 name|storedir
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// get the current store files for comparison
 name|FileStatus
 index|[]
@@ -3321,6 +3395,11 @@ argument_list|(
 name|storedir
 argument_list|)
 decl_stmt|;
+name|int
+name|index
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|FileStatus
@@ -3329,11 +3408,9 @@ range|:
 name|storeFiles
 control|)
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|debug
 argument_list|(
 literal|"Have store file:"
 operator|+
@@ -3342,6 +3419,30 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Got unexpected store file"
+argument_list|,
+name|mockFiles
+index|[
+name|index
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|,
+name|storeFiles
+index|[
+name|index
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|index
+operator|++
 expr_stmt|;
 block|}
 comment|// do the cleaning of the parent
@@ -3353,8 +3454,15 @@ name|cleanParent
 argument_list|(
 name|parent
 argument_list|,
-name|r
+name|parentMetaRow
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished cleanup of parent region"
 argument_list|)
 expr_stmt|;
 comment|// and now check to make sure that the files have actually been archived
@@ -3369,6 +3477,20 @@ argument_list|(
 name|storeArchive
 argument_list|)
 decl_stmt|;
+name|logFiles
+argument_list|(
+literal|"archived files"
+argument_list|,
+name|storeFiles
+argument_list|)
+expr_stmt|;
+name|logFiles
+argument_list|(
+literal|"archived files"
+argument_list|,
+name|archivedStoreFiles
+argument_list|)
+expr_stmt|;
 name|assertArchiveEqualToOriginal
 argument_list|(
 name|storeFiles
@@ -3379,6 +3501,17 @@ name|fs
 argument_list|)
 expr_stmt|;
 comment|// cleanup
+name|FSUtils
+operator|.
+name|delete
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|services
 operator|.
 name|stop
@@ -3390,7 +3523,7 @@ name|server
 operator|.
 name|stop
 argument_list|(
-literal|"shutdown"
+literal|"Test finished"
 argument_list|)
 expr_stmt|;
 name|janitor
@@ -3398,6 +3531,50 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * @param description description of the files for logging    * @param storeFiles the status of the files to log    */
+specifier|private
+name|void
+name|logFiles
+parameter_list|(
+name|String
+name|description
+parameter_list|,
+name|FileStatus
+index|[]
+name|storeFiles
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current "
+operator|+
+name|description
+operator|+
+literal|": "
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|FileStatus
+name|file
+range|:
+name|storeFiles
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|file
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Test that if a store file with the same name is present as those already backed up cause the    * already archived files to be timestamped backup    */
 annotation|@
@@ -3846,7 +4023,8 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|void
+name|FileStatus
+index|[]
 name|addMockStoreFiles
 parameter_list|(
 name|int
@@ -3936,6 +4114,19 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Adding "
+operator|+
+name|count
+operator|+
+literal|" store files to the storedir:"
+operator|+
+name|storedir
+argument_list|)
+expr_stmt|;
 comment|// make sure the mock store files are there
 name|FileStatus
 index|[]
@@ -3950,6 +4141,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Didn't have expected store files"
+argument_list|,
 name|count
 argument_list|,
 name|storeFiles
@@ -3957,6 +4150,9 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+return|return
+name|storeFiles
+return|;
 block|}
 specifier|private
 name|String

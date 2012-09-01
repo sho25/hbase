@@ -460,7 +460,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Compare the archived files to the files in the original directory    * @param previous original files that should have been archived    * @param archived files that were archived    * @param fs filessystem on which the archiving took place    * @throws IOException    */
+comment|/**    * Compare the archived files to the files in the original directory    * @param expected original files that should have been archived    * @param actual files that were archived    * @param fs filessystem on which the archiving took place    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -468,11 +468,11 @@ name|assertArchiveEqualToOriginal
 parameter_list|(
 name|FileStatus
 index|[]
-name|previous
+name|expected
 parameter_list|,
 name|FileStatus
 index|[]
-name|archived
+name|actual
 parameter_list|,
 name|FileSystem
 name|fs
@@ -482,9 +482,9 @@ name|IOException
 block|{
 name|assertArchiveEqualToOriginal
 argument_list|(
-name|previous
+name|expected
 argument_list|,
-name|archived
+name|actual
 argument_list|,
 name|fs
 argument_list|,
@@ -492,7 +492,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compare the archived files to the files in the original directory    * @param previous original files that should have been archived    * @param archived files that were archived    * @param fs {@link FileSystem} on which the archiving took place    * @param hasTimedBackup<tt>true</tt> if we expect to find an archive backup directory with a    *          copy of the files in the archive directory (and the original files).    * @throws IOException    */
+comment|/**    * Compare the archived files to the files in the original directory    * @param expected original files that should have been archived    * @param actual files that were archived    * @param fs {@link FileSystem} on which the archiving took place    * @param hasTimedBackup<tt>true</tt> if we expect to find an archive backup directory with a    *          copy of the files in the archive directory (and the original files).    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -500,11 +500,11 @@ name|assertArchiveEqualToOriginal
 parameter_list|(
 name|FileStatus
 index|[]
-name|previous
+name|expected
 parameter_list|,
 name|FileStatus
 index|[]
-name|archived
+name|actual
 parameter_list|,
 name|FileSystem
 name|fs
@@ -526,9 +526,9 @@ name|lists
 init|=
 name|getFileLists
 argument_list|(
-name|previous
+name|expected
 argument_list|,
-name|archived
+name|actual
 argument_list|)
 decl_stmt|;
 name|List
