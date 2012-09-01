@@ -63,6 +63,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -91,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|MediumTests
 import|;
 end_import
 
@@ -319,7 +333,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)
@@ -347,6 +361,14 @@ name|void
 name|onetimeSetup
 parameter_list|()
 block|{
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 name|regionServer
 operator|=
 name|HRegionServer
@@ -357,9 +379,7 @@ name|HRegionServer
 operator|.
 name|class
 argument_list|,
-operator|new
-name|Configuration
-argument_list|()
+name|conf
 argument_list|)
 expr_stmt|;
 name|qosFunction
