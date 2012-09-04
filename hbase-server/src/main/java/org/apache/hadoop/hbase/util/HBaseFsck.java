@@ -3562,7 +3562,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Unable to read .tableinfo from "
 operator|+
@@ -3571,9 +3571,19 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-throw|throw
-name|ioe
-throw|;
+name|errors
+operator|.
+name|reportError
+argument_list|(
+name|ERROR_CODE
+operator|.
+name|NO_TABLEINFO_FILE
+argument_list|,
+literal|"Unable to read .tableinfo from "
+operator|+
+name|hbaseRoot
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 name|modTInfo
@@ -13178,6 +13188,8 @@ block|,
 name|ORPHAN_HDFS_REGION
 block|,
 name|LINGERING_SPLIT_PARENT
+block|,
+name|NO_TABLEINFO_FILE
 block|}
 specifier|public
 name|void
