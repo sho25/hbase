@@ -2247,6 +2247,8 @@ condition|)
 block|{
 break|break;
 block|}
+try|try
+block|{
 name|entry
 operator|=
 name|this
@@ -2261,6 +2263,27 @@ name|currentNbEntries
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Break on IOE: "
+operator|+
+name|ie
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 block|}
 name|LOG
 operator|.
