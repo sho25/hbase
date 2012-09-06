@@ -755,6 +755,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -1758,6 +1772,13 @@ name|AtomicBoolean
 argument_list|(
 literal|false
 argument_list|)
+decl_stmt|;
+specifier|protected
+name|long
+name|completeSequenceId
+init|=
+operator|-
+literal|1L
 decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Members
@@ -6514,12 +6535,6 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|long
-name|completeSequenceId
-init|=
-operator|-
-literal|1L
-decl_stmt|;
 name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
@@ -6582,6 +6597,12 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|long
+name|completeSeqId
+init|=
+operator|-
+literal|1L
+decl_stmt|;
 try|try
 block|{
 comment|// Record the mvcc for all transactions in progress.
@@ -6621,7 +6642,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|completeSequenceId
+name|completeSeqId
 operator|=
 name|this
 operator|.
@@ -6649,7 +6670,7 @@ name|s
 operator|.
 name|getStoreFlusher
 argument_list|(
-name|completeSequenceId
+name|completeSeqId
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6914,7 +6935,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|completeSequenceId
+name|completeSeqId
 argument_list|,
 name|this
 operator|.
@@ -6924,6 +6945,21 @@ operator|.
 name|isMetaRegion
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+comment|// Update the last flushed sequence id for region
+if|if
+condition|(
+name|this
+operator|.
+name|rsServices
+operator|!=
+literal|null
+condition|)
+block|{
+name|completeSequenceId
+operator|=
+name|completeSeqId
 expr_stmt|;
 block|}
 comment|// C. Finally notify anyone waiting on memstore to clear:
@@ -22140,7 +22176,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|6
+literal|7
 operator|*
 name|Bytes
 operator|.

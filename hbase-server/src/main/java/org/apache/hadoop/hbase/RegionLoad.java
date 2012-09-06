@@ -384,6 +384,19 @@ name|getCurrentCompactedKVs
 argument_list|()
 return|;
 block|}
+comment|/**    * This does not really belong inside RegionLoad but its being done in the name of expediency.    * @return the completed sequence Id for the region    */
+specifier|public
+name|long
+name|getCompleteSequenceId
+parameter_list|()
+block|{
+return|return
+name|regionLoadPB
+operator|.
+name|getCompleteSequenceId
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
