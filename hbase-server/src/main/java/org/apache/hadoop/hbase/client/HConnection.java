@@ -835,6 +835,22 @@ name|String
 name|sn
 parameter_list|)
 function_decl|;
+comment|/**    * This function allows HBaseAdminProtocol and potentially others to get a shared MasterMonitor    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
+specifier|public
+name|MasterMonitorKeepAliveConnection
+name|getKeepAliveMasterMonitor
+parameter_list|()
+throws|throws
+name|MasterNotRunningException
+function_decl|;
+comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterAdminProtocol    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
+specifier|public
+name|MasterAdminKeepAliveConnection
+name|getKeepAliveMasterAdmin
+parameter_list|()
+throws|throws
+name|MasterNotRunningException
+function_decl|;
 block|}
 end_interface
 

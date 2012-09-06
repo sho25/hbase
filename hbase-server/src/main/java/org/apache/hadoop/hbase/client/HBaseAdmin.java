@@ -1388,9 +1388,7 @@ decl_stmt|;
 comment|// We use the implementation class rather then the interface because we
 comment|//  need the package protected functions to get the connection to master
 specifier|private
-name|HConnectionManager
-operator|.
-name|HConnectionImplementation
+name|HConnection
 name|connection
 decl_stmt|;
 specifier|private
@@ -1470,17 +1468,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-comment|// We want the real class, without showing it our public interface,
-comment|//  hence the cast.
 name|this
 operator|.
 name|connection
 operator|=
-operator|(
-name|HConnectionManager
-operator|.
-name|HConnectionImplementation
-operator|)
 name|connection
 expr_stmt|;
 name|this

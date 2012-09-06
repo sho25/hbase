@@ -7232,7 +7232,9 @@ name|getKeepAliveMasterMonitor
 argument_list|()
 return|;
 block|}
-comment|/**      * This function allows HBaseAdmin and potentially others      * to get a shared MasterAdminProtocol connection.      *      * @return The shared instance. Never returns null.      * @throws MasterNotRunningException      */
+annotation|@
+name|Override
+specifier|public
 name|MasterAdminKeepAliveConnection
 name|getKeepAliveMasterAdmin
 parameter_list|()
@@ -7253,7 +7255,9 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|/**      * This function allows HBaseAdminProtocol and potentially others      * to get a shared MasterMonitor connection.      *      * @return The shared instance. Never returns null.      * @throws MasterNotRunningException      */
+annotation|@
+name|Override
+specifier|public
 name|MasterMonitorKeepAliveConnection
 name|getKeepAliveMasterMonitor
 parameter_list|()
