@@ -526,24 +526,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|boolean
-name|isArchiving
-parameter_list|(
-name|String
-name|tableName
-parameter_list|)
-block|{
-return|return
-name|this
-operator|.
-name|archiveTracker
-operator|.
-name|keepHFiles
-argument_list|(
-name|tableName
-argument_list|)
-return|;
-block|}
 block|}
 end_class
 
