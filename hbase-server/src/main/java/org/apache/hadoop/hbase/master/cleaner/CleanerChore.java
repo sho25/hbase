@@ -965,6 +965,21 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Get the cleaner chain.    *<p>    * Exposed for testing.    * @return the list of currently used cleaners    */
+specifier|public
+name|List
+argument_list|<
+name|T
+argument_list|>
+name|getCleanerChain
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|cleanersChain
+return|;
+block|}
 block|}
 end_class
 
