@@ -1473,33 +1473,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-if|if
-condition|(
-name|queue
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Bulk load operation did not find any files to load in "
-operator|+
-literal|"directory "
-operator|+
-name|hfofDir
-operator|.
-name|toUri
-argument_list|()
-operator|+
-literal|".  Does it contain files in "
-operator|+
-literal|"subdirectories that correspond to column family names?"
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Assumes that region splits can happen while this occurs.
 while|while
 condition|(
