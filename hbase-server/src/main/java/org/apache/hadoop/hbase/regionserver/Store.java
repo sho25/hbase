@@ -516,13 +516,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    */
+comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *     * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
 specifier|public
 name|void
 name|bulkLoadHFile
 parameter_list|(
 name|String
 name|srcPathStr
+parameter_list|,
+name|long
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException

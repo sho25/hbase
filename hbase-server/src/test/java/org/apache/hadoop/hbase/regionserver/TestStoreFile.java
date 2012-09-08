@@ -4528,7 +4528,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testFlushTimeComparator
+name|testSeqIdComparator
 parameter_list|()
 block|{
 name|assertOrdering
@@ -4537,7 +4537,7 @@ name|StoreFile
 operator|.
 name|Comparators
 operator|.
-name|FLUSH_TIME
+name|SEQ_ID
 argument_list|,
 name|mockStoreFile
 argument_list|(
@@ -4786,34 +4786,6 @@ operator|.
 name|getBulkLoadTimestamp
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|bulkLoad
-condition|)
-block|{
-comment|// Bulk load files will throw if you ask for their sequence ID
-name|Mockito
-operator|.
-name|doThrow
-argument_list|(
-operator|new
-name|IllegalAccessError
-argument_list|(
-literal|"bulk load"
-argument_list|)
-argument_list|)
-operator|.
-name|when
-argument_list|(
-name|mock
-argument_list|)
-operator|.
-name|getMaxSequenceId
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
 name|Mockito
 operator|.
 name|doReturn
@@ -4829,7 +4801,6 @@ operator|.
 name|getMaxSequenceId
 argument_list|()
 expr_stmt|;
-block|}
 name|Mockito
 operator|.
 name|doReturn

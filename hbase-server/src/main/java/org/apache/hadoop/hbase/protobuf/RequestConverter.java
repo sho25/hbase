@@ -3057,7 +3057,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer bulk load request    *    * @param familyPaths    * @param regionName    * @return a bulk load request    */
+comment|/**    * Create a protocol buffer bulk load request    *    * @param familyPaths    * @param regionName    * @param assignSeqNum    * @return a bulk load request    */
 specifier|public
 specifier|static
 name|BulkLoadHFileRequest
@@ -3080,6 +3080,9 @@ specifier|final
 name|byte
 index|[]
 name|regionName
+parameter_list|,
+name|boolean
+name|assignSeqNum
 parameter_list|)
 block|{
 name|BulkLoadHFileRequest
@@ -3171,6 +3174,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setAssignSeqNum
+argument_list|(
+name|assignSeqNum
+argument_list|)
+expr_stmt|;
 return|return
 name|builder
 operator|.

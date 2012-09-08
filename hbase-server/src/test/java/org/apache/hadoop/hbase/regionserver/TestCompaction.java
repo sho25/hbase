@@ -3753,6 +3753,8 @@ operator|.
 name|getMaxSequenceIdInList
 argument_list|(
 name|storeFiles
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|Compactor

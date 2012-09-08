@@ -89957,6 +89957,15 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional bool assignSeqNum = 3;
+name|boolean
+name|hasAssignSeqNum
+parameter_list|()
+function_decl|;
+name|boolean
+name|getAssignSeqNum
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -93353,6 +93362,45 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional bool assignSeqNum = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ASSIGNSEQNUM_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|boolean
+name|assignSeqNum_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssignSeqNum
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getAssignSeqNum
+parameter_list|()
+block|{
+return|return
+name|assignSeqNum_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -93389,6 +93437,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|assignSeqNum_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -93578,6 +93630,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|3
+argument_list|,
+name|assignSeqNum_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -93687,6 +93762,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|3
+argument_list|,
+name|assignSeqNum_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93901,6 +94007,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasAssignSeqNum
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasAssignSeqNum
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasAssignSeqNum
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getAssignSeqNum
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getAssignSeqNum
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -94008,6 +94149,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasAssignSeqNum
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|ASSIGNSEQNUM_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getAssignSeqNum
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -94944,6 +95116,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|assignSeqNum_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -95339,6 +95524,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|assignSeqNum_
+operator|=
+name|assignSeqNum_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -95628,6 +95837,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasAssignSeqNum
+argument_list|()
+condition|)
+block|{
+name|setAssignSeqNum
+argument_list|(
+name|other
+operator|.
+name|getAssignSeqNum
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -95978,6 +96204,23 @@ operator|.
 name|buildPartial
 argument_list|()
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|assignSeqNum_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -98051,6 +98294,85 @@ expr_stmt|;
 block|}
 return|return
 name|familyPathBuilder_
+return|;
+block|}
+comment|// optional bool assignSeqNum = 3;
+specifier|private
+name|boolean
+name|assignSeqNum_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssignSeqNum
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getAssignSeqNum
+parameter_list|()
+block|{
+return|return
+name|assignSeqNum_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setAssignSeqNum
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|assignSeqNum_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearAssignSeqNum
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|assignSeqNum_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:BulkLoadHFileRequest)
@@ -141934,69 +142256,71 @@ literal|"\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowReques
 operator|+
 literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006lock"
 operator|+
-literal|"Id\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\232\001\n\024BulkLo"
+literal|"Id\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\260\001\n\024BulkLo"
 operator|+
 literal|"adHFileRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
 operator|+
 literal|"pecifier\0224\n\nfamilyPath\030\002 \003(\0132 .BulkLoadH"
 operator|+
-literal|"FileRequest.FamilyPath\032*\n\nFamilyPath\022\016\n\006"
+literal|"FileRequest.FamilyPath\022\024\n\014assignSeqNum\030\003"
 operator|+
-literal|"family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHF"
+literal|" \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004pa"
 operator|+
-literal|"ileResponse\022\016\n\006loaded\030\001 \002(\010\"\203\001\n\004Exec\022\013\n\003"
+literal|"th\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loa"
 operator|+
-literal|"row\030\001 \002(\014\022\024\n\014protocolName\030\002 \002(\t\022\022\n\nmetho"
+literal|"ded\030\001 \002(\010\"\203\001\n\004Exec\022\013\n\003row\030\001 \002(\014\022\024\n\014proto"
 block|,
-literal|"dName\030\003 \002(\t\022!\n\010property\030\004 \003(\0132\017.NameStri"
+literal|"colName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022!\n\010pro"
 operator|+
-literal|"ngPair\022!\n\tparameter\030\005 \003(\0132\016.NameBytesPai"
+literal|"perty\030\004 \003(\0132\017.NameStringPair\022!\n\tparamete"
 operator|+
-literal|"r\"O\n\026ExecCoprocessorRequest\022 \n\006region\030\001 "
+literal|"r\030\005 \003(\0132\016.NameBytesPair\"O\n\026ExecCoprocess"
 operator|+
-literal|"\002(\0132\020.RegionSpecifier\022\023\n\004call\030\002 \002(\0132\005.Ex"
+literal|"orRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
 operator|+
-literal|"ec\"8\n\027ExecCoprocessorResponse\022\035\n\005value\030\001"
+literal|"ier\022\023\n\004call\030\002 \002(\0132\005.Exec\"8\n\027ExecCoproces"
 operator|+
-literal|" \002(\0132\016.NameBytesPair\"N\n\013MultiAction\022\027\n\006m"
+literal|"sorResponse\022\035\n\005value\030\001 \002(\0132\016.NameBytesPa"
 operator|+
-literal|"utate\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\022"
+literal|"ir\"N\n\013MultiAction\022\027\n\006mutate\030\001 \001(\0132\007.Muta"
 operator|+
-literal|"\023\n\004exec\030\003 \001(\0132\005.Exec\"P\n\014ActionResult\022\035\n\005"
+literal|"te\022\021\n\003get\030\002 \001(\0132\004.Get\022\023\n\004exec\030\003 \001(\0132\005.Ex"
 operator|+
-literal|"value\030\001 \001(\0132\016.NameBytesPair\022!\n\texception"
+literal|"ec\"P\n\014ActionResult\022\035\n\005value\030\001 \001(\0132\016.Name"
 operator|+
-literal|"\030\002 \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 "
+literal|"BytesPair\022!\n\texception\030\002 \001(\0132\016.NameBytes"
 block|,
-literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006acti"
+literal|"Pair\"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020.R"
 operator|+
-literal|"on\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\"."
+literal|"egionSpecifier\022\034\n\006action\030\002 \003(\0132\014.MultiAc"
 operator|+
-literal|"\n\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r.Action"
+literal|"tion\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035\n"
 operator|+
-literal|"Result2\221\003\n\rClientService\022 \n\003get\022\013.GetReq"
+literal|"\006result\030\001 \003(\0132\r.ActionResult2\221\003\n\rClientS"
 operator|+
-literal|"uest\032\014.GetResponse\022)\n\006mutate\022\016.MutateReq"
+literal|"ervice\022 \n\003get\022\013.GetRequest\032\014.GetResponse"
 operator|+
-literal|"uest\032\017.MutateResponse\022#\n\004scan\022\014.ScanRequ"
+literal|"\022)\n\006mutate\022\016.MutateRequest\032\017.MutateRespo"
 operator|+
-literal|"est\032\r.ScanResponse\022,\n\007lockRow\022\017.LockRowR"
+literal|"nse\022#\n\004scan\022\014.ScanRequest\032\r.ScanResponse"
 operator|+
-literal|"equest\032\020.LockRowResponse\0222\n\tunlockRow\022\021."
+literal|"\022,\n\007lockRow\022\017.LockRowRequest\032\020.LockRowRe"
 operator|+
-literal|"UnlockRowRequest\032\022.UnlockRowResponse\022>\n\r"
+literal|"sponse\0222\n\tunlockRow\022\021.UnlockRowRequest\032\022"
 operator|+
-literal|"bulkLoadHFile\022\025.BulkLoadHFileRequest\032\026.B"
+literal|".UnlockRowResponse\022>\n\rbulkLoadHFile\022\025.Bu"
 block|,
-literal|"ulkLoadHFileResponse\022D\n\017execCoprocessor\022"
+literal|"lkLoadHFileRequest\032\026.BulkLoadHFileRespon"
 operator|+
-literal|"\027.ExecCoprocessorRequest\032\030.ExecCoprocess"
+literal|"se\022D\n\017execCoprocessor\022\027.ExecCoprocessorR"
 operator|+
-literal|"orResponse\022&\n\005multi\022\r.MultiRequest\032\016.Mul"
+literal|"equest\032\030.ExecCoprocessorResponse\022&\n\005mult"
 operator|+
-literal|"tiResponseBB\n*org.apache.hadoop.hbase.pr"
+literal|"i\022\r.MultiRequest\032\016.MultiResponseBB\n*org."
 operator|+
-literal|"otobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"apache.hadoop.hbase.protobuf.generatedB\014"
+operator|+
+literal|"ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -143609,6 +143933,8 @@ block|{
 literal|"Region"
 block|,
 literal|"FamilyPath"
+block|,
+literal|"AssignSeqNum"
 block|, }
 argument_list|,
 name|org

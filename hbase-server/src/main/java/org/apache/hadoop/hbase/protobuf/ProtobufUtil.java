@@ -8316,7 +8316,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to bulk load a list of HFiles using client protocol.    *    * @param client    * @param familyPaths    * @param regionName    * @return true if all are loaded    * @throws IOException    */
+comment|/**    * A helper to bulk load a list of HFiles using client protocol.    *    * @param client    * @param familyPaths    * @param regionName    * @param assignSeqNum    * @return true if all are loaded    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -8343,6 +8343,9 @@ specifier|final
 name|byte
 index|[]
 name|regionName
+parameter_list|,
+name|boolean
+name|assignSeqNum
 parameter_list|)
 throws|throws
 name|IOException
@@ -8357,6 +8360,8 @@ argument_list|(
 name|familyPaths
 argument_list|,
 name|regionName
+argument_list|,
+name|assignSeqNum
 argument_list|)
 decl_stmt|;
 try|try

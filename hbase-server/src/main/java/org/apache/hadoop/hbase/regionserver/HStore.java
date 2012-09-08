@@ -1782,7 +1782,10 @@ block|}
 comment|/**    * @return The maximum sequence id in all store files.    */
 name|long
 name|getMaxSequenceId
-parameter_list|()
+parameter_list|(
+name|boolean
+name|includeBulkFiles
+parameter_list|)
 block|{
 return|return
 name|StoreFile
@@ -1793,6 +1796,8 @@ name|this
 operator|.
 name|getStorefiles
 argument_list|()
+argument_list|,
+name|includeBulkFiles
 argument_list|)
 return|;
 block|}
@@ -2877,6 +2882,9 @@ name|bulkLoadHFile
 parameter_list|(
 name|String
 name|srcPathStr
+parameter_list|,
+name|long
+name|seqNum
 parameter_list|)
 throws|throws
 name|IOException
@@ -2995,6 +3003,21 @@ argument_list|(
 name|fs
 argument_list|,
 name|homedir
+argument_list|,
+operator|(
+name|seqNum
+operator|==
+operator|-
+literal|1
+operator|)
+condition|?
+literal|null
+else|:
+literal|"_SeqId_"
+operator|+
+name|seqNum
+operator|+
+literal|"_"
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -4799,6 +4822,8 @@ operator|.
 name|getMaxSequenceIdInList
 argument_list|(
 name|filesToCompact
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// Ready to go. Have list of files to compact.
@@ -5240,6 +5265,8 @@ operator|.
 name|getMaxSequenceIdInList
 argument_list|(
 name|filesToCompact
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|isMajor
@@ -5273,7 +5300,7 @@ name|StoreFile
 operator|.
 name|Comparators
 operator|.
-name|FLUSH_TIME
+name|SEQ_ID
 argument_list|)
 expr_stmt|;
 block|}
@@ -6380,7 +6407,7 @@ name|StoreFile
 operator|.
 name|Comparators
 operator|.
-name|FLUSH_TIME
+name|SEQ_ID
 argument_list|)
 expr_stmt|;
 comment|// major compaction iff all StoreFiles are included
@@ -7898,7 +7925,7 @@ name|StoreFile
 operator|.
 name|Comparators
 operator|.
-name|FLUSH_TIME
+name|SEQ_ID
 argument_list|)
 expr_stmt|;
 name|ImmutableList

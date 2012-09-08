@@ -18147,6 +18147,11 @@ operator|.
 name|bulkLoadHFiles
 argument_list|(
 name|familyPaths
+argument_list|,
+name|request
+operator|.
+name|getAssignSeqNum
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

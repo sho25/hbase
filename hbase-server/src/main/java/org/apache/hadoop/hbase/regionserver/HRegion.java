@@ -3201,13 +3201,16 @@ argument_list|,
 name|store
 argument_list|)
 expr_stmt|;
+comment|// Do not include bulk loaded files when determining seqIdForReplay
 name|long
-name|storeSeqId
+name|storeSeqIdForReplay
 init|=
 name|store
 operator|.
 name|getMaxSequenceId
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
 name|maxSeqIdInStores
 operator|.
@@ -3221,9 +3224,20 @@ operator|.
 name|getBytes
 argument_list|()
 argument_list|,
-name|storeSeqId
+name|storeSeqIdForReplay
 argument_list|)
 expr_stmt|;
+comment|// Include bulk loaded files when determining seqIdForAssignment
+name|long
+name|storeSeqIdForAssignment
+init|=
+name|store
+operator|.
+name|getMaxSequenceId
+argument_list|(
+literal|true
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|maxSeqId
@@ -3231,14 +3245,14 @@ operator|==
 operator|-
 literal|1
 operator|||
-name|storeSeqId
+name|storeSeqIdForAssignment
 operator|>
 name|maxSeqId
 condition|)
 block|{
 name|maxSeqId
 operator|=
-name|storeSeqId
+name|storeSeqIdForAssignment
 expr_stmt|;
 block|}
 name|long
@@ -14150,7 +14164,7 @@ return|return
 name|multipleFamilies
 return|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @param assignSeqId    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
 name|boolean
 name|bulkLoadHFiles
@@ -14166,6 +14180,9 @@ name|String
 argument_list|>
 argument_list|>
 name|familyPaths
+parameter_list|,
+name|boolean
+name|assignSeqId
 parameter_list|)
 throws|throws
 name|IOException
@@ -14523,6 +14540,18 @@ operator|.
 name|bulkLoadHFile
 argument_list|(
 name|path
+argument_list|,
+name|assignSeqId
+condition|?
+name|this
+operator|.
+name|log
+operator|.
+name|obtainSeqNum
+argument_list|()
+else|:
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}

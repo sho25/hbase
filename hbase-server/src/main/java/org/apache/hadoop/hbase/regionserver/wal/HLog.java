@@ -6352,7 +6352,7 @@ comment|/**    * Obtain a log sequence number.    */
 end_comment
 
 begin_function
-specifier|private
+specifier|public
 name|long
 name|obtainSeqNum
 parameter_list|()
