@@ -199,6 +199,8 @@ name|fix
 argument_list|,
 name|fix
 argument_list|,
+name|fix
+argument_list|,
 name|table
 argument_list|)
 return|;
@@ -225,6 +227,9 @@ name|fixHdfsOverlaps
 parameter_list|,
 name|boolean
 name|fixHdfsOrphans
+parameter_list|,
+name|boolean
+name|fixTableOrphans
 parameter_list|,
 name|boolean
 name|fixVersionFile
@@ -295,6 +300,13 @@ operator|.
 name|setFixHdfsOrphans
 argument_list|(
 name|fixHdfsOrphans
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixTableOrphans
+argument_list|(
+name|fixTableOrphans
 argument_list|)
 expr_stmt|;
 name|fsck
