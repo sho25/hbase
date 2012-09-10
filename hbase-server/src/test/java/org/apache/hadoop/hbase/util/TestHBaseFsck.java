@@ -2906,7 +2906,7 @@ name|NO_TABLEINFO_FILE
 block|}
 argument_list|)
 expr_stmt|;
-comment|// fix OrphanTable with default .tableinfo
+comment|// fix OrphanTable with default .tableinfo (htd not yet cached on master)
 name|hbck
 operator|=
 name|doFsck
@@ -3014,6 +3014,7 @@ name|getBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// warms up cached htd on master
 name|hbck
 operator|=
 name|doFsck
