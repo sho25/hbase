@@ -789,17 +789,6 @@ case|case
 name|INCLUDE
 case|:
 continue|continue;
-case|case
-name|NEXT_ROW
-case|:
-case|case
-name|SKIP
-case|:
-return|return
-name|ReturnCode
-operator|.
-name|SKIP
-return|;
 default|default:
 return|return
 name|code
