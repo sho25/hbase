@@ -1522,7 +1522,7 @@ name|String
 name|in
 parameter_list|)
 block|{
-comment|// this may be bigger than we need, but lets be safe.
+comment|// this may be bigger than we need, but let's be safe.
 name|byte
 index|[]
 name|b
@@ -1574,12 +1574,16 @@ condition|(
 name|ch
 operator|==
 literal|'\\'
-condition|)
-block|{
-comment|// begin hex escape:
-name|char
-name|next
-init|=
+operator|&&
+name|in
+operator|.
+name|length
+argument_list|()
+operator|>
+name|i
+operator|+
+literal|1
+operator|&&
 name|in
 operator|.
 name|charAt
@@ -1588,28 +1592,10 @@ name|i
 operator|+
 literal|1
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|next
-operator|!=
+operator|==
 literal|'x'
 condition|)
 block|{
-comment|// invalid escape sequence, ignore this one.
-name|b
-index|[
-name|size
-operator|++
-index|]
-operator|=
-operator|(
-name|byte
-operator|)
-name|ch
-expr_stmt|;
-continue|continue;
-block|}
 comment|// ok, take next 2 hex digits.
 name|char
 name|hd1
