@@ -122,7 +122,7 @@ specifier|public
 class|class
 name|BinaryComparator
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 block|{
 comment|/**    * Constructor    * @param value value    */
 specifier|public
@@ -290,7 +290,7 @@ comment|/**    * @param other    * @return true if and only if the fields of the
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|other
 parameter_list|)
 block|{

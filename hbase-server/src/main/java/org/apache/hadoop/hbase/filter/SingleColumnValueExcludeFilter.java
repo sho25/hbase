@@ -223,7 +223,7 @@ parameter_list|,
 name|CompareOp
 name|compareOp
 parameter_list|,
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|)
 block|{
@@ -257,7 +257,7 @@ specifier|final
 name|CompareOp
 name|compareOp
 parameter_list|,
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|,
 specifier|final
@@ -557,7 +557,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 decl_stmt|;
 try|try

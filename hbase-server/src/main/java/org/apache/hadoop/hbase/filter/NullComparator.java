@@ -106,7 +106,7 @@ specifier|public
 class|class
 name|NullComparator
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 block|{
 specifier|public
 name|NullComparator
@@ -254,7 +254,7 @@ comment|/**    * @param other    * @return true if and only if the fields of the
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|other
 parameter_list|)
 block|{

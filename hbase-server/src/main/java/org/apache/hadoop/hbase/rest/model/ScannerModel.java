@@ -478,7 +478,7 @@ annotation|@
 name|XmlRootElement
 specifier|static
 class|class
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 block|{
 annotation|@
 name|XmlAttribute
@@ -515,13 +515,13 @@ block|,
 name|SubstringComparator
 block|}
 specifier|public
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 parameter_list|()
 block|{ }
 specifier|public
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|)
 block|{
@@ -651,11 +651,11 @@ throw|;
 block|}
 block|}
 specifier|public
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|build
 parameter_list|()
 block|{
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 decl_stmt|;
 switch|switch
@@ -794,7 +794,7 @@ name|op
 decl_stmt|;
 annotation|@
 name|XmlElement
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 name|comparator
 decl_stmt|;
 annotation|@
@@ -1207,7 +1207,7 @@ operator|.
 name|comparator
 operator|=
 operator|new
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 argument_list|(
 name|dcf
 operator|.
@@ -1445,7 +1445,7 @@ operator|.
 name|comparator
 operator|=
 operator|new
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 argument_list|(
 operator|(
 operator|(
@@ -1551,7 +1551,7 @@ operator|.
 name|comparator
 operator|=
 operator|new
-name|WritableByteArrayComparableModel
+name|ByteArrayComparableModel
 argument_list|(
 name|scvf
 operator|.

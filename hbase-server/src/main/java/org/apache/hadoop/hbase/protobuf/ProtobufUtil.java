@@ -669,7 +669,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -6730,7 +6730,7 @@ name|keyValues
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a WritableByteArrayComparable to a protocol buffer Comparator    *    * @param comparator the WritableByteArrayComparable to convert    * @return the converted protocol buffer Comparator    */
+comment|/**    * Convert a ByteArrayComparable to a protocol buffer Comparator    *    * @param comparator the ByteArrayComparable to convert    * @return the converted protocol buffer Comparator    */
 specifier|public
 specifier|static
 name|ComparatorProtos
@@ -6738,7 +6738,7 @@ operator|.
 name|Comparator
 name|toComparator
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|)
 block|{
@@ -6791,10 +6791,10 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Comparator to a WritableByteArrayComparable    *    * @param proto the protocol buffer Comparator to convert    * @return the converted WritableByteArrayComparable    */
+comment|/**    * Convert a protocol buffer Comparator to a ByteArrayComparable    *    * @param proto the protocol buffer Comparator to convert    * @return the converted ByteArrayComparable    */
 specifier|public
 specifier|static
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|toComparator
 parameter_list|(
 name|ComparatorProtos
@@ -6836,7 +6836,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 argument_list|>
 name|c
 init|=
@@ -6845,7 +6845,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 argument_list|>
 call|)
 argument_list|(
@@ -6895,7 +6895,7 @@ throw|;
 block|}
 return|return
 operator|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 operator|)
 name|parseFrom
 operator|.

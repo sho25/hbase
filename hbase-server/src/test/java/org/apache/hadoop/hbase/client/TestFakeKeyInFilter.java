@@ -390,7 +390,7 @@ argument_list|,
 name|cq
 argument_list|)
 expr_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparable
 init|=
 operator|new

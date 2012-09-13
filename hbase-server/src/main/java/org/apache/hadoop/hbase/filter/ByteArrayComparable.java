@@ -121,7 +121,7 @@ name|Stable
 specifier|public
 specifier|abstract
 class|class
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 implements|implements
 name|Comparable
 argument_list|<
@@ -135,7 +135,7 @@ name|value
 decl_stmt|;
 comment|/**    * Constructor.    * @param value the value to compare against    */
 specifier|public
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 parameter_list|(
 name|byte
 index|[]
@@ -212,10 +212,10 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link WritableByteArrayComparable} instance    * @return An instance of {@link WritableByteArrayComparable} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link ByteArrayComparable} instance    * @return An instance of {@link ByteArrayComparable} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
 specifier|public
 specifier|static
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|parseFrom
 parameter_list|(
 specifier|final
@@ -230,7 +230,7 @@ throw|throw
 operator|new
 name|DeserializationException
 argument_list|(
-literal|"parseFrom called on base WritableByteArrayComparable, but should be called on derived type"
+literal|"parseFrom called on base ByteArrayComparable, but should be called on derived type"
 argument_list|)
 throw|;
 block|}
@@ -238,7 +238,7 @@ comment|/**    * @param other    * @return true if and only if the fields of the
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|o
 parameter_list|)
 block|{
@@ -257,7 +257,7 @@ operator|!
 operator|(
 name|o
 operator|instanceof
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 operator|)
 condition|)
 return|return

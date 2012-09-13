@@ -3890,7 +3890,7 @@ block|}
 comment|/**  * Parses a comparator of the form comparatorType:comparatorValue form and returns a comparator  *<p>  * @param comparator the comparator in the form comparatorType:comparatorValue  * @return the parsed comparator  */
 specifier|public
 specifier|static
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|createComparator
 parameter_list|(
 name|byte

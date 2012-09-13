@@ -949,7 +949,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -1878,7 +1878,7 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 operator|.
 name|class
 argument_list|,

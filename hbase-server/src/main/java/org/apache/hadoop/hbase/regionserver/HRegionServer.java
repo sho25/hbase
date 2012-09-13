@@ -1133,7 +1133,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -16186,7 +16186,7 @@ name|name
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 init|=
 name|ProtobufUtil
@@ -16419,7 +16419,7 @@ name|name
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 init|=
 name|ProtobufUtil

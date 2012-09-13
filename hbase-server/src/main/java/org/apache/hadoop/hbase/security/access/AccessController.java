@@ -487,7 +487,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -5400,7 +5400,7 @@ name|CompareOp
 name|compareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|,
 specifier|final
@@ -5505,7 +5505,7 @@ name|CompareOp
 name|compareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|,
 specifier|final

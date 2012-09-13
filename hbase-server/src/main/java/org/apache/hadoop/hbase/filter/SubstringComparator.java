@@ -122,7 +122,7 @@ specifier|public
 class|class
 name|SubstringComparator
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 block|{
 specifier|private
 name|String
@@ -320,7 +320,7 @@ comment|/**    * @param other    * @return true if and only if the fields of the
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|other
 parameter_list|)
 block|{

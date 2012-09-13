@@ -925,7 +925,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -4200,7 +4200,7 @@ name|HbaseObjectWritable
 operator|.
 name|getClassCode
 argument_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 operator|.
 name|class
 argument_list|)

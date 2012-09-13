@@ -189,7 +189,7 @@ name|CompareOp
 name|rowCompareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|rowComparator
 parameter_list|)
 block|{
@@ -343,11 +343,11 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 init|=
 operator|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 operator|)
 name|arguments
 operator|.
@@ -474,7 +474,7 @@ name|name
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|valueComparator
 init|=
 literal|null

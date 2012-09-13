@@ -282,7 +282,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}  * operator (equal, greater, not equal, etc), and either a byte [] value or  * a WritableByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For  * example, if passed value is 'b' and cell has 'a' and the compare operator  * is LESS, then we will filter out this cell (return true).  If this is not  * sufficient (eg you want to deserialize a long and then compare it to a fixed  * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column  * will be tested. When using this filter on a {@link Scan} with specified  * inputs, the column to be tested should also be added as input (otherwise  * the filter will regard the column as missing).  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
+comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}  * operator (equal, greater, not equal, etc), and either a byte [] value or  * a ByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For  * example, if passed value is 'b' and cell has 'a' and the compare operator  * is LESS, then we will filter out this cell (return true).  If this is not  * sufficient (eg you want to deserialize a long and then compare it to a fixed  * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column  * will be tested. When using this filter on a {@link Scan} with specified  * inputs, the column to be tested should also be added as input (otherwise  * the filter will regard the column as missing).  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
 end_comment
 
 begin_class
@@ -329,7 +329,7 @@ name|CompareOp
 name|compareOp
 decl_stmt|;
 specifier|private
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 decl_stmt|;
 specifier|private
@@ -415,7 +415,7 @@ name|CompareOp
 name|compareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|)
 block|{
@@ -462,7 +462,7 @@ specifier|final
 name|CompareOp
 name|compareOp
 parameter_list|,
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|,
 specifier|final
@@ -530,7 +530,7 @@ return|;
 block|}
 comment|/**    * @return the comparator    */
 specifier|public
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|getComparator
 parameter_list|()
 block|{
@@ -963,7 +963,7 @@ literal|2
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 init|=
 name|ParseFilter
@@ -1323,7 +1323,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 decl_stmt|;
 try|try

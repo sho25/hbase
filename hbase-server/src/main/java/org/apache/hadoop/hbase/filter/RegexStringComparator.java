@@ -200,7 +200,7 @@ specifier|public
 class|class
 name|RegexStringComparator
 extends|extends
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 block|{
 specifier|private
 specifier|static
@@ -533,7 +533,7 @@ comment|/**    * @param other    * @return true if and only if the fields of the
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|other
 parameter_list|)
 block|{

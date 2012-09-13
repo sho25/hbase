@@ -208,7 +208,7 @@ name|CompareOp
 name|compareOp
 decl_stmt|;
 specifier|protected
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 decl_stmt|;
 comment|/**    * Constructor.    * @param compareOp the compare op for row matching    * @param comparator the comparator for row matching    */
@@ -220,7 +220,7 @@ name|CompareOp
 name|compareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|)
 block|{
@@ -249,7 +249,7 @@ return|;
 block|}
 comment|/**    * @return the comparator    */
 specifier|public
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|getComparator
 parameter_list|()
 block|{
@@ -266,7 +266,7 @@ name|CompareOp
 name|compareOp
 parameter_list|,
 specifier|final
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 parameter_list|,
 specifier|final
@@ -425,7 +425,7 @@ literal|0
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|WritableByteArrayComparable
+name|ByteArrayComparable
 name|comparator
 init|=
 name|ParseFilter
