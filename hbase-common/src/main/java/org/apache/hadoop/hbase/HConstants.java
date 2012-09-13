@@ -138,6 +138,8 @@ name|NOT_RUN
 block|,
 name|SUCCESS
 block|,
+name|BAD_FAMILY
+block|,
 name|SANITY_CHECK_FAILURE
 block|,
 name|FAILURE
