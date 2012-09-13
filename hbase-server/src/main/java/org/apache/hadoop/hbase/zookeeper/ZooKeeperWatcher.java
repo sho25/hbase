@@ -414,6 +414,11 @@ specifier|public
 name|String
 name|splitLogZNode
 decl_stmt|;
+comment|// znode containing the state of the load balancer
+specifier|public
+name|String
+name|balancerZNode
+decl_stmt|;
 comment|// Certain ZooKeeper nodes need to be world-readable
 specifier|public
 specifier|static
@@ -953,6 +958,24 @@ argument_list|,
 name|HConstants
 operator|.
 name|SPLIT_LOGDIR_NAME
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|balancerZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.balancer"
+argument_list|,
+literal|"balancer"
 argument_list|)
 argument_list|)
 expr_stmt|;
