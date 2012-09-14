@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the load balancer switch up in ZK  */
+comment|/**  * Tracks the load balancer state up in ZK  */
 end_comment
 
 begin_class
@@ -232,7 +232,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// is data in ZK is null, use default of on.
+comment|// if data in ZK is null, use default of on.
 return|return
 name|upData
 operator|==
@@ -331,6 +331,15 @@ name|upData
 argument_list|)
 expr_stmt|;
 block|}
+name|super
+operator|.
+name|nodeDataChanged
+argument_list|(
+name|watcher
+operator|.
+name|balancerZNode
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|byte
