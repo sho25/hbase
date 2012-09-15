@@ -1031,7 +1031,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTable
+name|ZKTableReadOnly
 import|;
 end_import
 
@@ -4041,7 +4041,7 @@ name|online
 condition|)
 block|{
 return|return
-name|ZKTable
+name|ZKTableReadOnly
 operator|.
 name|isEnabledTable
 argument_list|(
@@ -4052,7 +4052,7 @@ argument_list|)
 return|;
 block|}
 return|return
-name|ZKTable
+name|ZKTableReadOnly
 operator|.
 name|isDisabledTable
 argument_list|(

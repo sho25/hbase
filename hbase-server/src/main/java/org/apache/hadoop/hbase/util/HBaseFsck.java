@@ -1047,7 +1047,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTable
+name|ZKTableReadOnly
 import|;
 end_import
 
@@ -5783,7 +5783,7 @@ control|(
 name|String
 name|tableName
 range|:
-name|ZKTable
+name|ZKTableReadOnly
 operator|.
 name|getDisabledOrDisablingTables
 argument_list|(

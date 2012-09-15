@@ -467,7 +467,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTable
+name|ZKTableReadOnly
 import|;
 end_import
 
@@ -7205,7 +7205,7 @@ expr_stmt|;
 while|while
 condition|(
 operator|!
-name|ZKTable
+name|ZKTableReadOnly
 operator|.
 name|isEnabledTable
 argument_list|(
