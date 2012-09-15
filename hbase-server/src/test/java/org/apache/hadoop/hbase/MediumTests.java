@@ -16,7 +16,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Tag a test as 'Medium', meaning that the test class has the following  * characteristics:  *  - executed in an isolated JVM. Tests can however be executed in different  *    JVM on the same machine simultaneously.  *  - will have to be executed by the developer before submitting a bug  *  - ideally, last less than 1 minutes to help parallelization  *  *  Use it for tests that cannot be tagged as 'Small'.  *  * @see SmallTests  * @see LargeTests  */
+comment|/**  * Tag a test as 'Medium', meaning that the test class has the following  * characteristics:  *  - executed in an isolated JVM. Tests can however be executed in different  *    JVM on the same machine simultaneously.  *  - will have to be executed by the developer before submitting a bug  *  - ideally, last less than 1 minutes to help parallelization  *  *  Use it for tests that cannot be tagged as 'Small'.  *  * @see SmallTests  * @see LargeTests  * @see IntegrationTests  */
 end_comment
 
 begin_interface

@@ -16,7 +16,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Tag a test as 'large', meaning that the test class has the following  * characteristics:  *  - executed in an isolated JVM. Tests can however be executed in different  *    JVM on the same machine simultaneously.  *  - will not have to be executed by the developer before submitting a bug  *  - ideally, last less than 2 minutes to help parallelization  *  *  It the worst case compared to small or medium, use it only for tests that  *    you cannot put in the other categories  *  * @see SmallTests  * @see MediumTests  */
+comment|/**  * Tag a test as 'large', meaning that the test class has the following  * characteristics:  *  - executed in an isolated JVM. Tests can however be executed in different  *    JVM on the same machine simultaneously.  *  - will not have to be executed by the developer before submitting a bug  *  - ideally, last less than 2 minutes to help parallelization  *  *  It the worst case compared to small or medium, use it only for tests that  *    you cannot put in the other categories  *  * @see SmallTests  * @see MediumTests  * @see IntegrationTests  */
 end_comment
 
 begin_interface

@@ -325,7 +325,7 @@ function_decl|;
 comment|/** The "main function" of the tool */
 specifier|protected
 specifier|abstract
-name|void
+name|int
 name|doWork
 parameter_list|()
 throws|throws
@@ -459,8 +459,15 @@ argument_list|(
 name|cmd
 argument_list|)
 expr_stmt|;
+name|int
+name|ret
+init|=
+name|EXIT_FAILURE
+decl_stmt|;
 try|try
 block|{
+name|ret
+operator|=
 name|doWork
 argument_list|()
 expr_stmt|;
@@ -485,7 +492,7 @@ name|EXIT_FAILURE
 return|;
 block|}
 return|return
-name|EXIT_SUCCESS
+name|ret
 return|;
 block|}
 specifier|private

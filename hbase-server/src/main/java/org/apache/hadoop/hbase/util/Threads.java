@@ -469,7 +469,7 @@ specifier|static
 name|void
 name|sleep
 parameter_list|(
-name|int
+name|long
 name|millis
 parameter_list|)
 block|{
@@ -580,7 +580,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new CachedThreadPool with a bounded number as the maximum     * thread size in the pool.    *     * @param maxCachedThread the maximum thread could be created in the pool    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @param threadFactory the factory to use when creating new threads    * @return threadPoolExecutor the cachedThreadPool with a bounded number     * as the maximum thread size in the pool.     */
+comment|/**    * Create a new CachedThreadPool with a bounded number as the maximum    * thread size in the pool.    *    * @param maxCachedThread the maximum thread could be created in the pool    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @param threadFactory the factory to use when creating new threads    * @return threadPoolExecutor the cachedThreadPool with a bounded number    * as the maximum thread size in the pool.    */
 specifier|public
 specifier|static
 name|ThreadPoolExecutor
@@ -637,7 +637,7 @@ return|return
 name|boundedCachedThreadPool
 return|;
 block|}
-comment|/**    * Returns a {@link java.util.concurrent.ThreadFactory} that names each    * created thread uniquely, with a common prefix.    *     * @param prefix  The prefix of every created Thread's name    * @return a {@link java.util.concurrent.ThreadFactory} that names threads    */
+comment|/**    * Returns a {@link java.util.concurrent.ThreadFactory} that names each    * created thread uniquely, with a common prefix.    *    * @param prefix  The prefix of every created Thread's name    * @return a {@link java.util.concurrent.ThreadFactory} that names threads    */
 specifier|public
 specifier|static
 name|ThreadFactory

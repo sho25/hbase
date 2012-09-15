@@ -1072,7 +1072,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
+comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@link DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
 end_comment
 
 begin_class
@@ -1135,7 +1135,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|MiniHBaseCluster
+name|HBaseCluster
 name|hbaseCluster
 init|=
 literal|null
@@ -1456,6 +1456,21 @@ name|this
 operator|.
 name|conf
 return|;
+block|}
+specifier|public
+name|void
+name|setHBaseCluster
+parameter_list|(
+name|HBaseCluster
+name|hbaseCluster
+parameter_list|)
+block|{
+name|this
+operator|.
+name|hbaseCluster
+operator|=
+name|hbaseCluster
+expr_stmt|;
 block|}
 comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_BASE_TEST_DIRECTORY}    * Should not be used by the unit tests, hence its's private.    * Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    * @see #getTestFileSystem()    */
 specifier|private
@@ -3018,6 +3033,9 @@ literal|"Minicluster is up"
 argument_list|)
 expr_stmt|;
 return|return
+operator|(
+name|MiniHBaseCluster
+operator|)
 name|this
 operator|.
 name|hbaseCluster
@@ -3118,11 +3136,40 @@ name|MiniHBaseCluster
 name|getMiniHBaseCluster
 parameter_list|()
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|hbaseCluster
+operator|instanceof
+name|MiniHBaseCluster
+condition|)
+block|{
 return|return
+operator|(
+name|MiniHBaseCluster
+operator|)
 name|this
 operator|.
 name|hbaseCluster
 return|;
+block|}
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|hbaseCluster
+operator|+
+literal|" not an instance of "
+operator|+
+name|MiniHBaseCluster
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+throw|;
 block|}
 comment|/**    * Stops mini hbase, zk, and hdfs clusters.    * @throws IOException    * @see {@link #startMiniCluster(int)}    */
 specifier|public
@@ -3235,7 +3282,7 @@ name|this
 operator|.
 name|hbaseCluster
 operator|.
-name|join
+name|waitUntilShutDown
 argument_list|()
 expr_stmt|;
 name|this
@@ -3354,9 +3401,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|flushcache
 argument_list|()
@@ -3374,9 +3420,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|flushcache
 argument_list|(
@@ -3395,9 +3440,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|compact
 argument_list|(
@@ -3420,9 +3464,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|compact
 argument_list|(
@@ -5503,10 +5546,15 @@ name|clearRegionCache
 argument_list|()
 expr_stmt|;
 comment|// assign all the new regions IF table is enabled.
-if|if
-condition|(
+name|HBaseAdmin
+name|admin
+init|=
 name|getHBaseAdmin
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|admin
 operator|.
 name|isTableEnabled
 argument_list|(
@@ -5525,14 +5573,14 @@ range|:
 name|newRegions
 control|)
 block|{
-name|hbaseCluster
+name|admin
 operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|assignRegion
+name|assign
 argument_list|(
 name|hri
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6058,7 +6106,8 @@ expr_stmt|;
 name|int
 name|index
 init|=
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|getServerWith
 argument_list|(
@@ -6066,7 +6115,8 @@ name|firstrow
 argument_list|)
 decl_stmt|;
 return|return
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|getRegionServerThreads
 argument_list|()
@@ -6581,7 +6631,8 @@ block|{
 name|HMaster
 name|master
 init|=
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|getMaster
 argument_list|()
@@ -6611,7 +6662,8 @@ block|{
 name|HRegionServer
 name|rs
 init|=
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|getRegionServer
 argument_list|(
@@ -6856,12 +6908,25 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the HBase cluster.    *    * @return hbase cluster    */
+comment|/**    * Get the Mini HBase cluster.    *    * @return hbase cluster    * @see #getHBaseClusterInterface()    */
 specifier|public
 name|MiniHBaseCluster
 name|getHBaseCluster
 parameter_list|()
 block|{
+return|return
+name|getMiniHBaseCluster
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns the HBaseCluster instance.    *<p>Returned object can be any of the subclasses of HBaseCluster, and the    * tests referring this should not assume that the cluster is a mini cluster or a    * distributed one. If the test only works on a mini cluster, then specific    * method {@link #getMiniHBaseCluster()} can be used instead w/o the    * need to type-cast.    */
+specifier|public
+name|HBaseCluster
+name|getHBaseClusterInterface
+parameter_list|()
+block|{
+comment|//implementation note: we should rename this method as #getHBaseCluster(),
+comment|//but this would require refactoring 90+ calls.
 return|return
 name|hbaseCluster
 return|;
@@ -7497,6 +7562,12 @@ name|startedServer
 init|=
 literal|false
 decl_stmt|;
+name|MiniHBaseCluster
+name|hbaseCluster
+init|=
+name|getMiniHBaseCluster
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -7566,7 +7637,8 @@ operator|.
 name|RegionServerThread
 name|rst
 range|:
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|getRegionServerThreads
 argument_list|()
@@ -7608,7 +7680,8 @@ name|info
 argument_list|(
 literal|"Started new server="
 operator|+
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|startRegionServer
 argument_list|()
@@ -8873,7 +8946,8 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|flushcache
 argument_list|(
@@ -9170,7 +9244,8 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|hbaseCluster
+name|getMiniHBaseCluster
+argument_list|()
 operator|.
 name|flushcache
 argument_list|(

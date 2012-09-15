@@ -16,7 +16,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Tag a test as 'small', meaning that the test class has the following  * characteristics:  *  - can be run simultaneously with other small tests in the same JVM  *  - ideally, last less than 15 seconds  *  - does not use a cluster  *  * @see MediumTests  * @see LargeTests  */
+comment|/**  * Tag a test as 'small', meaning that the test class has the following  * characteristics:  *  - can be run simultaneously with other small tests in the same JVM  *  - ideally, last less than 15 seconds  *  - does not use a cluster  *  * @see MediumTests  * @see LargeTests  * @see IntegrationTests  */
 end_comment
 
 begin_interface

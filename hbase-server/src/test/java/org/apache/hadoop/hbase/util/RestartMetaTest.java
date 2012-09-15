@@ -451,7 +451,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|int
 name|doWork
 parameter_list|()
 throws|throws
@@ -679,6 +679,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+literal|0
+return|;
 block|}
 annotation|@
 name|Override
