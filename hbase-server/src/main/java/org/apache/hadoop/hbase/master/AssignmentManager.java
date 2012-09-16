@@ -7109,6 +7109,11 @@ name|boolean
 name|hijack
 parameter_list|)
 block|{
+name|boolean
+name|regionAlreadyInTransitionException
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -7146,6 +7151,8 @@ argument_list|(
 name|state
 argument_list|,
 name|hijack
+argument_list|,
+name|regionAlreadyInTransitionException
 argument_list|)
 expr_stmt|;
 if|if
@@ -7443,9 +7450,22 @@ operator|instanceof
 name|RegionAlreadyInTransitionException
 condition|)
 block|{
-name|String
-name|errorMsg
-init|=
+name|regionAlreadyInTransitionException
+operator|=
+literal|true
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
 literal|"Failed assignment in: "
 operator|+
 name|plan
@@ -7459,17 +7479,9 @@ name|t
 operator|.
 name|getMessage
 argument_list|()
-decl_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|errorMsg
-argument_list|,
-name|t
 argument_list|)
 expr_stmt|;
-return|return;
+block|}
 block|}
 block|}
 name|LOG
@@ -7493,7 +7505,17 @@ operator|.
 name|getDestination
 argument_list|()
 operator|+
-literal|", trying to assign elsewhere instead; "
+literal|", trying to assign "
+operator|+
+operator|(
+name|regionAlreadyInTransitionException
+condition|?
+literal|"to the same region server"
+operator|+
+literal|" because of RegionAlreadyInTransitionException;"
+else|:
+literal|"elsewhere instead; "
+operator|)
 operator|+
 literal|"retry="
 operator|+
@@ -7521,9 +7543,23 @@ operator|.
 name|OFFLINE
 argument_list|)
 expr_stmt|;
-comment|// Force a new plan and reassign.  Will return null if no servers.
+comment|// If region opened on destination of present plan, reassigning to new
+comment|// RS may cause double assignments. In case of RegionAlreadyInTransitionException
+comment|// reassigning to same RS.
+name|RegionPlan
+name|newPlan
+init|=
+name|plan
+decl_stmt|;
 if|if
 condition|(
+operator|!
+name|regionAlreadyInTransitionException
+condition|)
+block|{
+comment|// Force a new plan and reassign. Will return null if no servers.
+name|newPlan
+operator|=
 name|getRegionPlan
 argument_list|(
 name|state
@@ -7535,6 +7571,11 @@ argument_list|()
 argument_list|,
 literal|true
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|newPlan
 operator|==
 literal|null
 condition|)
@@ -7760,7 +7801,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Set region as OFFLINED up in zookeeper    *    * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
+comment|/**    * Set region as OFFLINED up in zookeeper    *    * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @param regionAlreadyInTransitionException      *          - true if we need to retry assignment because of RegionAlreadyInTransitionException.           * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
 name|int
 name|setOfflineInZooKeeper
 parameter_list|(
@@ -7770,6 +7811,9 @@ name|state
 parameter_list|,
 name|boolean
 name|hijack
+parameter_list|,
+name|boolean
+name|regionAlreadyInTransitionException
 parameter_list|)
 block|{
 comment|// In case of reassignment the current state in memory need not be
@@ -7790,6 +7834,12 @@ name|state
 operator|.
 name|isOffline
 argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|regionAlreadyInTransitionException
 condition|)
 block|{
 name|String
@@ -7820,6 +7870,21 @@ return|return
 operator|-
 literal|1
 return|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unexpected state : "
+operator|+
+name|state
+operator|+
+literal|" but retrying to assign because RegionAlreadyInTransitionException."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|boolean
 name|allowZNodeCreation
