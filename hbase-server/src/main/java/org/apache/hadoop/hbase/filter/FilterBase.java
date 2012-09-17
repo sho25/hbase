@@ -262,6 +262,21 @@ name|getSimpleName
 argument_list|()
 return|;
 block|}
+comment|/**    * Return length 0 byte array for Filters that don't require special serialization    */
+specifier|public
+name|byte
+index|[]
+name|toByteArray
+parameter_list|()
+block|{
+return|return
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+return|;
+block|}
 comment|/**    * Default implementation so that writers of custom filters aren't forced to implement.    *    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
