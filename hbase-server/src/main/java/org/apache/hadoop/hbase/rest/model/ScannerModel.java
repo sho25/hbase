@@ -3297,13 +3297,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|builder
-operator|.
-name|setBatch
-argument_list|(
-name|batch
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|startTime
