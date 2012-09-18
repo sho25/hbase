@@ -150,10 +150,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents the return value from a  * {@link org.apache.hadoop.hbase.client.coprocessor.Exec} invocation.  * This simply wraps the value for easier  * {@link org.apache.hadoop.hbase.io.HbaseObjectWritable}  * serialization.  *  *<p>  * This class is used internally by the HBase client code to properly serialize  * responses from {@link org.apache.hadoop.hbase.ipc.CoprocessorProtocol}  * method invocations.  It should not be used directly by clients.  *</p>  *  * @see Exec  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)  */
+comment|/**  * Represents the return value from a  * {@link org.apache.hadoop.hbase.client.coprocessor.Exec} invocation.  * This simply wraps the value for easier  * {@link org.apache.hadoop.hbase.io.HbaseObjectWritable}  * serialization.  *  *<p>  * This class is used internally by the HBase client code to properly serialize  * responses from {@link org.apache.hadoop.hbase.ipc.CoprocessorProtocol}  * method invocations.  It should not be used directly by clients.  *</p>  *  * @see Exec  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)  * @deprecated since 0.96.0.  See {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])}  * or related methods instead.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

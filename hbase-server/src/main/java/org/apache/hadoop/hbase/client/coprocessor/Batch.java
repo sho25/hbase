@@ -198,6 +198,8 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Creates a new {@link Batch.Call} instance that invokes a method    * with the given parameters and returns the result.    *    *<p>    * Note that currently the method is naively looked up using the method name    * and class types of the passed arguments, which means that    *<em>none of the arguments can be<code>null</code></em>.    * For more flexibility, see    * {@link Batch#forMethod(java.lang.reflect.Method, Object...)}.    *</p>    *    * @param protocol the protocol class being called    * @param method the method name    * @param args zero or more arguments to be passed to the method    * (individual args cannot be<code>null</code>!)    * @param<T> the class type of the protocol implementation being invoked    * @param<R> the return type for the method call    * @return a {@code Callable} instance that will invoke the given method    * and return the results    * @throws NoSuchMethodException if the method named, with the given argument    *     types, cannot be found in the protocol class    * @see Batch#forMethod(java.lang.reflect.Method, Object...)    * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 parameter_list|<
@@ -345,6 +347,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Creates a new {@link Batch.Call} instance that invokes a method    * with the given parameters and returns the result.    *    * @param method the method reference to invoke    * @param args zero or more arguments to be passed to the method    * @param<T> the class type of the protocol implementation being invoked    * @param<R> the return type for the method call    * @return a {@code Callable} instance that will invoke the given method and    * return the results    * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 parameter_list|<

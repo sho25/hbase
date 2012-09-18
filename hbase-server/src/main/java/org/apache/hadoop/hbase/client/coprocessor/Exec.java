@@ -214,10 +214,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents an arbitrary method invocation against a Coprocessor  * instance.  In order for a coprocessor implementation to be remotely callable  * by clients, it must define and implement a {@link CoprocessorProtocol}  * subclass.  Only methods defined in the {@code CoprocessorProtocol} interface  * will be callable by clients.  *  *<p>  * This class is used internally by  * {@link org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}  * to wrap the {@code CoprocessorProtocol} method invocations requested in  * RPC calls.  It should not be used directly by HBase clients.  *</p>  *  * @see ExecResult  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)  */
+comment|/**  * Represents an arbitrary method invocation against a Coprocessor  * instance.  In order for a coprocessor implementation to be remotely callable  * by clients, it must define and implement a {@link CoprocessorProtocol}  * subclass.  Only methods defined in the {@code CoprocessorProtocol} interface  * will be callable by clients.  *  *<p>  * This class is used internally by  * {@link org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}  * to wrap the {@code CoprocessorProtocol} method invocations requested in  * RPC calls.  It should not be used directly by HBase clients.  *</p>  *  * @see ExecResult  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)  * @see org.apache.hadoop.hbase.client.HTable#coprocessorExec(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call, org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)  * @deprecated since 0.96.0.  See {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])}  * or related methods instead.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

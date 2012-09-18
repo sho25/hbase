@@ -206,6 +206,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|ExecRPCInvoker
@@ -497,6 +499,23 @@ operator|.
 name|getValue
 argument_list|()
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Null row passed for call"
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 literal|null
