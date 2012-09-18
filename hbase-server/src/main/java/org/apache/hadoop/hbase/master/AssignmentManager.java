@@ -7265,6 +7265,9 @@ name|getRegionPlan
 argument_list|(
 name|state
 argument_list|,
+operator|!
+name|regionAlreadyInTransitionException
+operator|&&
 name|forceNewPlan
 argument_list|)
 decl_stmt|;
