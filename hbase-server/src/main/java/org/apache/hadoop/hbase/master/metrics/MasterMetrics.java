@@ -172,7 +172,20 @@ name|long
 name|size
 parameter_list|)
 block|{
-comment|//TODO use new metrics histogram
+name|masterMetricsSource
+operator|.
+name|updateSplitTime
+argument_list|(
+name|time
+argument_list|)
+expr_stmt|;
+name|masterMetricsSource
+operator|.
+name|updateSplitSize
+argument_list|(
+name|size
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @param inc How much to add to requests.    */
 specifier|public

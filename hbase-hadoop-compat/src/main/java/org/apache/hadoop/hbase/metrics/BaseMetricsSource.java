@@ -89,6 +89,30 @@ name|long
 name|delta
 parameter_list|)
 function_decl|;
+comment|/**    * Add some value to a histogram.    *    * @param name the name of the histogram    * @param value the value to add to the histogram    */
+specifier|public
+name|void
+name|updateHistogram
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|long
+name|value
+parameter_list|)
+function_decl|;
+comment|/**    * Add some value to a Quantile (An accurate histogram).    *    * @param name the name of the quantile    * @param value the value to add to the quantile    */
+specifier|public
+name|void
+name|updateQuantile
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|long
+name|value
+parameter_list|)
+function_decl|;
 comment|/**    * Remove a counter and stop announcing it to metrics2.    *    * @param key    */
 specifier|public
 name|void
