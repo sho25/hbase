@@ -64,7 +64,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|ReplicationMetricsSourceImplTest
+name|TestReplicationMetricsSourceImpl
 block|{
 annotation|@
 name|Test

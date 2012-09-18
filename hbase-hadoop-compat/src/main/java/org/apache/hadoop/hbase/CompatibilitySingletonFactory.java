@@ -45,24 +45,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|metrics
-operator|.
-name|MasterMetricsSource
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -102,13 +84,15 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  Factory for classes supplied by hadoop compatibility modules.  */
+comment|/**  *  Factory for classes supplied by hadoop compatibility modules.  Only one of each class will be  *  created.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
 name|CompatibilitySingletonFactory
+extends|extends
+name|CompatibilityFactory
 block|{
 specifier|private
 specifier|static
@@ -124,22 +108,6 @@ name|CompatibilitySingletonFactory
 operator|.
 name|class
 argument_list|)
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|EXCEPTION_START
-init|=
-literal|"Could not create  "
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|EXCEPTION_END
-init|=
-literal|" Is the hadoop compatibility jar on the classpath?"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -385,26 +353,6 @@ expr_stmt|;
 block|}
 return|return
 name|instance
-return|;
-block|}
-specifier|private
-specifier|static
-name|String
-name|createExceptionString
-parameter_list|(
-name|Class
-name|klass
-parameter_list|)
-block|{
-return|return
-name|EXCEPTION_START
-operator|+
-name|klass
-operator|.
-name|toString
-argument_list|()
-operator|+
-name|EXCEPTION_END
 return|;
 block|}
 block|}

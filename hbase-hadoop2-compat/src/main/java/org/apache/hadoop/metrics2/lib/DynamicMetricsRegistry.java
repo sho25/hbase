@@ -1601,6 +1601,17 @@ operator|)
 name|metric
 return|;
 block|}
+specifier|public
+name|void
+name|clearMetrics
+parameter_list|()
+block|{
+name|metricsMap
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 

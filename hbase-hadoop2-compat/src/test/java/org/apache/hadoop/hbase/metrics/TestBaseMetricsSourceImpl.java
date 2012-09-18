@@ -100,7 +100,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|BaseMetricsSourceImplTest
+name|TestBaseMetricsSourceImpl
 block|{
 specifier|private
 specifier|static

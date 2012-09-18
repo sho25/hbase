@@ -26,6 +26,12 @@ specifier|public
 interface|interface
 name|BaseMetricsSource
 block|{
+comment|/**    * Clear out the metrics and re-prepare the source.    */
+specifier|public
+name|void
+name|init
+parameter_list|()
+function_decl|;
 comment|/**    * Set a gauge to a specific value.    *    * @param gaugeName the name of the gauge    * @param value     the value    */
 specifier|public
 name|void

@@ -37,20 +37,6 @@ name|BaseMetricsSourceImpl
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|metrics2
-operator|.
-name|MetricsSource
-import|;
-end_import
-
 begin_comment
 comment|/**  * Hadoop2 implementation of ReplicationMetricsSource. This provides access to metrics gauges and  * counters.  */
 end_comment

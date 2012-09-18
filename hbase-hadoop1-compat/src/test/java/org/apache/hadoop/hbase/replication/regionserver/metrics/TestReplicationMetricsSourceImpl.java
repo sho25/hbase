@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|replication
+operator|.
+name|regionserver
 operator|.
 name|metrics
 package|;
@@ -43,39 +45,53 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
 begin_comment
-comment|/**  *  Test for the CompatibilitySingletonFactory and building MasterMetricsSource  */
+comment|/**  *  Test to make sure that ReplicationMetricsSourceImpl is hooked up to ServiceLoader  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|MasterMetricsSourceFactoryTest
+name|TestReplicationMetricsSourceImpl
 block|{
 annotation|@
 name|Test
-argument_list|(
-name|expected
-operator|=
-name|RuntimeException
-operator|.
-name|class
-argument_list|)
 specifier|public
 name|void
-name|testGetInstanceNoHadoopCompat
+name|testGetInstance
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|//This should throw an exception because there is no compat lib on the class path.
+name|ReplicationMetricsSource
+name|rms
+init|=
 name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
-name|MasterMetricsSource
+name|ReplicationMetricsSource
 operator|.
 name|class
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|rms
+operator|instanceof
+name|ReplicationMetricsSourceImpl
 argument_list|)
 expr_stmt|;
 block|}

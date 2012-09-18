@@ -358,6 +358,22 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+name|init
+argument_list|()
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|init
+parameter_list|()
+block|{
+name|this
+operator|.
+name|metricsRegistry
+operator|.
+name|clearMetrics
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Set a single gauge to a value.    *    * @param gaugeName gauge name    * @param value     the new value of the gauge.    */
 specifier|public
@@ -552,6 +568,16 @@ argument_list|,
 name|all
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Used to get at the DynamicMetricsRegistry.    * @return    */
+specifier|protected
+name|DynamicMetricsRegistry
+name|getMetricsRegistry
+parameter_list|()
+block|{
+return|return
+name|metricsRegistry
+return|;
 block|}
 block|}
 end_class

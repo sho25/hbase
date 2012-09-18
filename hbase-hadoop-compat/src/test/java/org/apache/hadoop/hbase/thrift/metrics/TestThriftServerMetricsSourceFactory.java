@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
-operator|.
-name|regionserver
+name|thrift
 operator|.
 name|metrics
 package|;
@@ -46,13 +44,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  Test for the CompatibilitySingletonFactory and building ReplicationMetricsSource  */
+comment|/**  * Test for the interface of ThriftServerMetricsSourceFactory  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ReplicationMetricsSourceFactoryTest
+name|TestThriftServerMetricsSourceFactory
 block|{
 annotation|@
 name|Test
@@ -68,14 +66,14 @@ name|void
 name|testGetInstanceNoHadoopCompat
 parameter_list|()
 throws|throws
-name|Exception
+name|RuntimeException
 block|{
 comment|//This should throw an exception because there is no compat lib on the class path.
 name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
-name|ReplicationMetricsSource
+name|ThriftServerMetricsSourceFactory
 operator|.
 name|class
 argument_list|)

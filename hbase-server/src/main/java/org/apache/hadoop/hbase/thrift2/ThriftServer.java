@@ -1482,15 +1482,13 @@ init|=
 operator|new
 name|ThriftMetrics
 argument_list|(
-name|listenPort
-argument_list|,
 name|conf
 argument_list|,
-name|THBaseService
+name|ThriftMetrics
 operator|.
-name|Iface
+name|ThriftServerType
 operator|.
-name|class
+name|TWO
 argument_list|)
 decl_stmt|;
 comment|// Construct correct ProtocolFactory
