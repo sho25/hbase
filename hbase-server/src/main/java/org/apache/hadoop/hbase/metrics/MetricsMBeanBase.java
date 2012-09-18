@@ -235,6 +235,8 @@ end_comment
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
