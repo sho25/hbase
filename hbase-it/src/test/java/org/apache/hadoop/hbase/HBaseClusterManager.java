@@ -301,7 +301,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|String
 index|[]
 name|getExecString
