@@ -775,6 +775,34 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
+comment|/**    * Count of checkAndMutates the failed the check    */
+specifier|public
+specifier|final
+name|MetricsLongValue
+name|checkAndMutateChecksFailed
+init|=
+operator|new
+name|MetricsLongValue
+argument_list|(
+literal|"checkAndMutateChecksFailed"
+argument_list|,
+name|registry
+argument_list|)
+decl_stmt|;
+comment|/**    * Count of checkAndMutates that passed the check    */
+specifier|public
+specifier|final
+name|MetricsLongValue
+name|checkAndMutateChecksPassed
+init|=
+operator|new
+name|MetricsLongValue
+argument_list|(
+literal|"checkAndMutateChecksPassed"
+argument_list|,
+name|registry
+argument_list|)
+decl_stmt|;
 comment|/**    */
 specifier|public
 specifier|final
