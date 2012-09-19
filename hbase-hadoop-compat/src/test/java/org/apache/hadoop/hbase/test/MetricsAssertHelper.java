@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  */
+comment|/** Interface of a class to make assertions about metrics values. */
 end_comment
 
 begin_interface
@@ -42,6 +42,7 @@ specifier|public
 interface|interface
 name|MetricsAssertHelper
 block|{
+comment|/**    * Assert that a tag exists and has a given value.    *    * @param name     The name of the tag.    * @param expected The expected value    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertTag
@@ -56,6 +57,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and that it's value is equal to the expected value.    *    * @param name     The name of the gauge    * @param expected The expected value of the gauge.    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGauge
@@ -70,6 +72,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and it's value is greater than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be greater than    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGaugeGt
@@ -84,6 +87,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and it's value is less than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be less than    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGaugeLt
@@ -98,6 +102,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and that it's value is equal to the expected value.    *    * @param name     The name of the gauge    * @param expected The expected value of the gauge.    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGauge
@@ -112,6 +117,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and it's value is greater than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be greater than    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGaugeGt
@@ -126,6 +132,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a gauge exists and it's value is less than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be less than    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertGaugeLt
@@ -140,6 +147,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a counter exists and that it's value is equal to the expected value.    *    * @param name     The name of the counter.    * @param expected The expected value    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertCounter
@@ -154,6 +162,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a counter exists and that it's value is greater than the given value.    *    * @param name     The name of the counter.    * @param expected The value the counter is expected to be greater than.    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertCounterGt
@@ -168,6 +177,7 @@ name|BaseMetricsSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Assert that a counter exists and that it's value is less than the given value.    *    * @param name     The name of the counter.    * @param expected The value the counter is expected to be less than.    * @param source   The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void
 name|assertCounterLt
@@ -177,6 +187,42 @@ name|name
 parameter_list|,
 name|long
 name|expected
+parameter_list|,
+name|BaseMetricsSource
+name|source
+parameter_list|)
+function_decl|;
+comment|/**    * Get the value of a counter.    *    * @param name   name of the counter.    * @param source The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *               gauges, and counters.    * @return long value of the counter.    */
+specifier|public
+name|long
+name|getCounter
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|BaseMetricsSource
+name|source
+parameter_list|)
+function_decl|;
+comment|/**    * Get the value of a gauge as a double.    *    * @param name   name of the gauge.    * @param source The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *               gauges, and counters.    * @return double value of the gauge.    */
+specifier|public
+name|double
+name|getGaugeDouble
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|BaseMetricsSource
+name|source
+parameter_list|)
+function_decl|;
+comment|/**    * Get the value of a gauge as a long.    *    * @param name   name of the gauge.    * @param source The BaseMetricsSource{@link BaseMetricsSource} that will provide the tags,    *               gauges, and counters.    * @return long value of the gauge.    */
+specifier|public
+name|long
+name|getGaugeLong
+parameter_list|(
+name|String
+name|name
 parameter_list|,
 name|BaseMetricsSource
 name|source
