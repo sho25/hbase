@@ -5172,7 +5172,7 @@ name|admin
 argument_list|)
 return|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush a table or an individual region.    * Synchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|flush
@@ -5197,7 +5197,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Flush a table or an individual region.    * Synchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|flush
