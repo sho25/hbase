@@ -36,12 +36,10 @@ specifier|public
 interface|interface
 name|MetricsExecutor
 block|{
-specifier|public
 name|ScheduledExecutorService
 name|getExecutor
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|stop
 parameter_list|()

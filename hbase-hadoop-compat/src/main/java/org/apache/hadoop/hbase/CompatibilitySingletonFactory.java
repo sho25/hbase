@@ -129,6 +129,11 @@ name|Object
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * This is a static only class don't let anyone create an instance.    */
+specifier|protected
+name|CompatibilitySingletonFactory
+parameter_list|()
+block|{  }
 comment|/**    * Get the singleton instance of Any classes defined by compatibiliy jar's    *    * @return the singleton    */
 specifier|public
 specifier|static

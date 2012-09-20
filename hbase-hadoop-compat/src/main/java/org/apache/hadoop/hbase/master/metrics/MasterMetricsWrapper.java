@@ -29,62 +29,52 @@ interface|interface
 name|MasterMetricsWrapper
 block|{
 comment|/**    * Get ServerName    */
-specifier|public
 name|String
 name|getServerName
 parameter_list|()
 function_decl|;
 comment|/**    * Get Average Load    * @return Average Load    */
-specifier|public
 name|double
 name|getAverageLoad
 parameter_list|()
 function_decl|;
 comment|/**    * Get the Cluster ID    * @return Cluster ID    */
-specifier|public
 name|String
 name|getClusterId
 parameter_list|()
 function_decl|;
 comment|/**    * Get the Zookeeper Quorum Info    * @return Zookeeper Quorum Info    */
-specifier|public
 name|String
 name|getZookeeperQuorum
 parameter_list|()
 function_decl|;
 comment|/**    * Get the co-processors    * @return Co-processors    */
-specifier|public
 name|String
 index|[]
 name|getCoprocessors
 parameter_list|()
 function_decl|;
 comment|/**    * Get hbase master start time    * @return Start time of master in milliseconds    */
-specifier|public
 name|long
 name|getMasterStartTime
 parameter_list|()
 function_decl|;
 comment|/**    * Get the hbase master active time    * @return Time in milliseconds when master became active    */
-specifier|public
 name|long
 name|getMasterActiveTime
 parameter_list|()
 function_decl|;
 comment|/**    * Whether this master is the active master    * @return True if this is the active master    */
-specifier|public
 name|boolean
 name|getIsActiveMaster
 parameter_list|()
 function_decl|;
 comment|/**    * Get the live region servers    * @return Live region servers    */
-specifier|public
 name|int
 name|getRegionServers
 parameter_list|()
 function_decl|;
 comment|/**    * Get the dead region servers    * @return Dead region Servers    */
-specifier|public
 name|int
 name|getDeadRegionServers
 parameter_list|()

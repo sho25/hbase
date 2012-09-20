@@ -28,7 +28,6 @@ specifier|public
 interface|interface
 name|ThriftServerMetricsSourceFactory
 block|{
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -36,7 +35,6 @@ name|METRICS_NAME
 init|=
 literal|"Thrift"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -44,7 +42,6 @@ name|METRICS_DESCRIPTION
 init|=
 literal|"Thrift Server Metrics"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -52,7 +49,6 @@ name|THRIFT_ONE_METRICS_CONTEXT
 init|=
 literal|"thrift-one"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -60,7 +56,6 @@ name|THRIFT_ONE_JMX_CONTEXT
 init|=
 literal|"Thrift,sub=ThriftOne"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -68,7 +63,6 @@ name|THRIFT_TWO_METRICS_CONTEXT
 init|=
 literal|"thrift-two"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -76,12 +70,10 @@ name|THRIFT_TWO_JMX_CONTEXT
 init|=
 literal|"Thrift,sub=ThriftTwo"
 decl_stmt|;
-specifier|public
 name|ThriftServerMetricsSource
 name|createThriftOneSource
 parameter_list|()
 function_decl|;
-specifier|public
 name|ThriftServerMetricsSource
 name|createThriftTwoSource
 parameter_list|()

@@ -27,13 +27,11 @@ interface|interface
 name|BaseMetricsSource
 block|{
 comment|/**    * Clear out the metrics and re-prepare the source.    */
-specifier|public
 name|void
 name|init
 parameter_list|()
 function_decl|;
 comment|/**    * Set a gauge to a specific value.    *    * @param gaugeName the name of the gauge    * @param value     the value    */
-specifier|public
 name|void
 name|setGauge
 parameter_list|(
@@ -45,7 +43,6 @@ name|value
 parameter_list|)
 function_decl|;
 comment|/**    * Add some amount to a gauge.    *    * @param gaugeName the name of the gauge    * @param delta     the amount to change the gauge by.    */
-specifier|public
 name|void
 name|incGauge
 parameter_list|(
@@ -57,7 +54,6 @@ name|delta
 parameter_list|)
 function_decl|;
 comment|/**    * Subtract some amount from a gauge.    *    * @param gaugeName the name of the gauge    * @param delta     the amount to change the gauge by.    */
-specifier|public
 name|void
 name|decGauge
 parameter_list|(
@@ -69,7 +65,6 @@ name|delta
 parameter_list|)
 function_decl|;
 comment|/**    * Remove a gauge and no longer announce it.    *    * @param key Name of the gauge to remove.    */
-specifier|public
 name|void
 name|removeGauge
 parameter_list|(
@@ -78,7 +73,6 @@ name|key
 parameter_list|)
 function_decl|;
 comment|/**    * Add some amount to a counter.    *    * @param counterName the name of the counter    * @param delta       the amount to change the counter by.    */
-specifier|public
 name|void
 name|incCounters
 parameter_list|(
@@ -90,7 +84,6 @@ name|delta
 parameter_list|)
 function_decl|;
 comment|/**    * Add some value to a histogram.    *    * @param name the name of the histogram    * @param value the value to add to the histogram    */
-specifier|public
 name|void
 name|updateHistogram
 parameter_list|(
@@ -102,7 +95,6 @@ name|value
 parameter_list|)
 function_decl|;
 comment|/**    * Add some value to a Quantile (An accurate histogram).    *    * @param name the name of the quantile    * @param value the value to add to the quantile    */
-specifier|public
 name|void
 name|updateQuantile
 parameter_list|(
@@ -114,7 +106,6 @@ name|value
 parameter_list|)
 function_decl|;
 comment|/**    * Remove a counter and stop announcing it to metrics2.    *    * @param key    */
-specifier|public
 name|void
 name|removeCounter
 parameter_list|(

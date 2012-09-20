@@ -103,6 +103,11 @@ name|EXCEPTION_END
 init|=
 literal|" Is the hadoop compatibility jar on the classpath?"
 decl_stmt|;
+comment|/**    * This is a static only class don't let any instance be created.    */
+specifier|protected
+name|CompatibilityFactory
+parameter_list|()
+block|{}
 specifier|public
 specifier|static
 specifier|synchronized

@@ -156,7 +156,16 @@ name|this
 operator|.
 name|quantiles
 operator|=
+name|Arrays
+operator|.
+name|copyOf
+argument_list|(
 name|quantiles
+argument_list|,
+name|quantiles
+operator|.
+name|length
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

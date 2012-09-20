@@ -49,7 +49,6 @@ extends|extends
 name|BaseMetricsSource
 block|{
 comment|/**    * The name of the metrics    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -58,7 +57,6 @@ init|=
 literal|"ReplicationMetrics"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -67,7 +65,6 @@ init|=
 literal|"replicationmetrics"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -76,7 +73,6 @@ init|=
 literal|"ReplicationMetrics"
 decl_stmt|;
 comment|/**    * A description.    */
-specifier|public
 specifier|static
 specifier|final
 name|String

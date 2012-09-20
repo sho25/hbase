@@ -47,7 +47,6 @@ extends|extends
 name|BaseMetricsSource
 block|{
 comment|/**    * The name of the metrics    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -56,7 +55,6 @@ init|=
 literal|"HMaster"
 decl_stmt|;
 comment|/**    * The context metrics will be under.    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -65,7 +63,6 @@ init|=
 literal|"hmaster"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under in jmx    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -74,7 +71,6 @@ init|=
 literal|"HMaster"
 decl_stmt|;
 comment|/**    * Description    */
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -83,7 +79,6 @@ init|=
 literal|"Metrics about HBase master server"
 decl_stmt|;
 comment|// Strings used for exporting to metrics system.
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -91,7 +86,6 @@ name|MASTER_ACTIVE_TIME_NAME
 init|=
 literal|"masterActiveTime"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -99,7 +93,6 @@ name|MASTER_START_TIME_NAME
 init|=
 literal|"masterStartTime"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -107,7 +100,6 @@ name|AVERAGE_LOAD_NAME
 init|=
 literal|"averageLoad"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -115,7 +107,6 @@ name|NUM_REGION_SERVERS_NAME
 init|=
 literal|"numRegionServers"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -123,7 +114,6 @@ name|NUM_DEAD_REGION_SERVERS_NAME
 init|=
 literal|"numDeadRegionServers"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -131,7 +121,6 @@ name|ZOOKEEPER_QUORUM_NAME
 init|=
 literal|"zookeeperQuorum"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -139,7 +128,6 @@ name|SERVER_NAME_NAME
 init|=
 literal|"serverName"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -147,7 +135,6 @@ name|CLUSTER_ID_NAME
 init|=
 literal|"clusterId"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -155,7 +142,6 @@ name|IS_ACTIVE_MASTER_NAME
 init|=
 literal|"isActiveMaster"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -163,7 +149,6 @@ name|SPLIT_TIME_NAME
 init|=
 literal|"hlogSplitTime"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -171,7 +156,6 @@ name|SPLIT_SIZE_NAME
 init|=
 literal|"hlogSplitSize"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -179,7 +163,6 @@ name|CLUSTER_REQUESTS_NAME
 init|=
 literal|"clusterRequests"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -187,7 +170,6 @@ name|RIT_COUNT_NAME
 init|=
 literal|"ritCount"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -195,7 +177,6 @@ name|RIT_COUNT_OVER_THRESHOLD_NAME
 init|=
 literal|"ritCountOverThreshold"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -203,7 +184,6 @@ name|RIT_OLDEST_AGE_NAME
 init|=
 literal|"ritOldestAge"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -211,7 +191,6 @@ name|MASTER_ACTIVE_TIME_DESC
 init|=
 literal|"Master Active Time"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -219,7 +198,6 @@ name|MASTER_START_TIME_DESC
 init|=
 literal|"Master Start Time"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -227,7 +205,6 @@ name|AVERAGE_LOAD_DESC
 init|=
 literal|"AverageLoad"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -235,7 +212,6 @@ name|NUMBER_OF_REGION_SERVERS_DESC
 init|=
 literal|"Number of RegionServers"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -243,7 +219,6 @@ name|NUMBER_OF_DEAD_REGION_SERVERS_DESC
 init|=
 literal|"Number of dead RegionServers"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -251,7 +226,6 @@ name|ZOOKEEPER_QUORUM_DESC
 init|=
 literal|"Zookeeper Quorum"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -259,7 +233,6 @@ name|SERVER_NAME_DESC
 init|=
 literal|"Server Name"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -267,7 +240,6 @@ name|CLUSTER_ID_DESC
 init|=
 literal|"Cluster Id"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -275,7 +247,6 @@ name|IS_ACTIVE_MASTER_DESC
 init|=
 literal|"Is Active Master"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -283,7 +254,6 @@ name|SPLIT_TIME_DESC
 init|=
 literal|"Time it takes to finish HLog.splitLog()"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -292,7 +262,6 @@ init|=
 literal|"Size of HLog files being split"
 decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    * @param inc Ammount to increment the total by.    */
-specifier|public
 name|void
 name|incRequests
 parameter_list|(
@@ -302,7 +271,6 @@ name|inc
 parameter_list|)
 function_decl|;
 comment|/**    * Set the number of regions in transition.    * @param ritCount count of the regions in transition.    */
-specifier|public
 name|void
 name|setRIT
 parameter_list|(
@@ -311,7 +279,6 @@ name|ritCount
 parameter_list|)
 function_decl|;
 comment|/**    * Set the count of the number of regions that have been in transition over the threshold time.    * @param ritCountOverThreshold number of regions in transition for longer than threshold.    */
-specifier|public
 name|void
 name|setRITCountOverThreshold
 parameter_list|(
@@ -320,7 +287,6 @@ name|ritCountOverThreshold
 parameter_list|)
 function_decl|;
 comment|/**    * Set the oldest region in transition.    * @param age age of the oldest RIT.    */
-specifier|public
 name|void
 name|setRITOldestAge
 parameter_list|(
@@ -328,7 +294,6 @@ name|long
 name|age
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|updateSplitTime
 parameter_list|(
@@ -336,7 +301,6 @@ name|long
 name|time
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|updateSplitSize
 parameter_list|(

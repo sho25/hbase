@@ -369,7 +369,7 @@ name|long
 name|ritCount
 parameter_list|)
 block|{
-name|ritCountOverThresholdGauge
+name|ritOldestAgeGauge
 operator|.
 name|set
 argument_list|(

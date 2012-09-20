@@ -24,7 +24,6 @@ specifier|public
 interface|interface
 name|MetricHistogram
 block|{
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -32,7 +31,6 @@ name|NUM_OPS_METRIC_NAME
 init|=
 literal|"_num_ops"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -40,7 +38,6 @@ name|MIN_METRIC_NAME
 init|=
 literal|"_min"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -48,7 +45,6 @@ name|MAX_METRIC_NAME
 init|=
 literal|"_max"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -56,15 +52,6 @@ name|MEAN_METRIC_NAME
 init|=
 literal|"_mean"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|STD_DEV_METRIC_NAME
-init|=
-literal|"_std_dev"
-decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -72,7 +59,6 @@ name|MEDIAN_METRIC_NAME
 init|=
 literal|"_median"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -80,7 +66,6 @@ name|SEVENTY_FIFTH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_75th_percentile"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -88,7 +73,6 @@ name|NINETY_FIFTH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_95th_percentile"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -96,7 +80,6 @@ name|NINETY_NINETH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_99th_percentile"
 decl_stmt|;
-specifier|public
 name|void
 name|add
 parameter_list|(

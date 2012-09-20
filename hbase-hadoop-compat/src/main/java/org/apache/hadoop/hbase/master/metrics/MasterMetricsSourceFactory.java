@@ -28,7 +28,6 @@ specifier|public
 interface|interface
 name|MasterMetricsSourceFactory
 block|{
-specifier|public
 name|MasterMetricsSource
 name|create
 parameter_list|(

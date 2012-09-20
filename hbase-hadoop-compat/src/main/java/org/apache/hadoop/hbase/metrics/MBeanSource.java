@@ -37,7 +37,6 @@ interface|interface
 name|MBeanSource
 block|{
 comment|/**    * Register an mbean with the underlying metrics system    * @param serviceName Metrics service/system name    * @param metricsName name of the metrics object to expose    * @param theMbean the actual MBean    * @return ObjectName from jmx    */
-specifier|public
 name|ObjectName
 name|register
 parameter_list|(

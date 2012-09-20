@@ -46,7 +46,6 @@ name|ThriftServerMetricsSource
 extends|extends
 name|BaseMetricsSource
 block|{
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -54,7 +53,6 @@ name|BATCH_GET_KEY
 init|=
 literal|"batchGet"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -62,7 +60,6 @@ name|BATCH_MUTATE_KEY
 init|=
 literal|"batchMutate"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -70,7 +67,6 @@ name|TIME_IN_QUEUE_KEY
 init|=
 literal|"timeInQueue"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -78,7 +74,6 @@ name|THRIFT_CALL_KEY
 init|=
 literal|"thriftCall"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -86,7 +81,6 @@ name|SLOW_THRIFT_CALL_KEY
 init|=
 literal|"slowThriftCall"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -95,7 +89,6 @@ init|=
 literal|"callQueueLen"
 decl_stmt|;
 comment|/**    * Add how long an operation was in the queue.    * @param time    */
-specifier|public
 name|void
 name|incTimeInQueue
 parameter_list|(
@@ -104,7 +97,6 @@ name|time
 parameter_list|)
 function_decl|;
 comment|/**    * Set the call queue length.    * @param len Time    */
-specifier|public
 name|void
 name|setCallQueueLen
 parameter_list|(
@@ -113,7 +105,6 @@ name|len
 parameter_list|)
 function_decl|;
 comment|/**    * Add how many keys were in a batch get.    * @param diff Num Keys    */
-specifier|public
 name|void
 name|incNumRowKeysInBatchGet
 parameter_list|(
@@ -122,7 +113,6 @@ name|diff
 parameter_list|)
 function_decl|;
 comment|/**    * Add how many keys were in a batch mutate.    * @param diff Num Keys    */
-specifier|public
 name|void
 name|incNumRowKeysInBatchMutate
 parameter_list|(
@@ -131,7 +121,6 @@ name|diff
 parameter_list|)
 function_decl|;
 comment|/**    * Add how long a method took    * @param name Method name    * @param time Time    */
-specifier|public
 name|void
 name|incMethodTime
 parameter_list|(
@@ -143,7 +132,6 @@ name|time
 parameter_list|)
 function_decl|;
 comment|/**    * Add how long a call took    * @param time Time    */
-specifier|public
 name|void
 name|incCall
 parameter_list|(
@@ -152,7 +140,6 @@ name|time
 parameter_list|)
 function_decl|;
 comment|/**    * Increment how long a slow call took.    * @param time Time    */
-specifier|public
 name|void
 name|incSlowCall
 parameter_list|(
