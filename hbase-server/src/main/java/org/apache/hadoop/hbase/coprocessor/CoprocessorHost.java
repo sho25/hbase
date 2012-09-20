@@ -1048,12 +1048,22 @@ argument_list|,
 name|dst
 argument_list|)
 expr_stmt|;
-name|fs
-operator|.
-name|deleteOnExit
+name|File
+name|tmpLocal
+init|=
+operator|new
+name|File
 argument_list|(
 name|dst
+operator|.
+name|toString
+argument_list|()
 argument_list|)
+decl_stmt|;
+name|tmpLocal
+operator|.
+name|deleteOnExit
+argument_list|()
 expr_stmt|;
 comment|// TODO: code weaving goes here
 comment|// TODO: wrap heap allocations and enforce maximum usage limits
