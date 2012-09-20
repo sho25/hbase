@@ -763,7 +763,9 @@ argument_list|)
 expr_stmt|;
 comment|// This port is already in use, try to use another.
 name|tentativePort
-operator|++
+operator|=
+name|selectClientPort
+argument_list|()
 expr_stmt|;
 continue|continue;
 block|}
