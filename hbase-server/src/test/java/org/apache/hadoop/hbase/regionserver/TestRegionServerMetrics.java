@@ -1326,7 +1326,7 @@ name|cf
 argument_list|,
 literal|null
 argument_list|,
-literal|"delete_"
+literal|"multidelete_"
 argument_list|)
 expr_stmt|;
 comment|// two deletes in the region.
@@ -1340,7 +1340,7 @@ literal|null
 argument_list|,
 name|regionName
 argument_list|,
-literal|"delete_"
+literal|"multidelete_"
 argument_list|)
 expr_stmt|;
 comment|// Three gets. one for gets. One for append. One for increment.
