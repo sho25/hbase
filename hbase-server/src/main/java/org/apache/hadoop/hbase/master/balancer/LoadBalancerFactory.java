@@ -131,7 +131,7 @@ name|HConstants
 operator|.
 name|HBASE_MASTER_LOADBALANCER_CLASS
 argument_list|,
-name|DefaultLoadBalancer
+name|StochasticLoadBalancer
 operator|.
 name|class
 argument_list|,
