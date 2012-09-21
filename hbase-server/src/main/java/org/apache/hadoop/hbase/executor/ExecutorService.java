@@ -454,6 +454,13 @@ operator|+
 literal|"-"
 operator|+
 name|serverName
+operator|.
+name|replace
+argument_list|(
+literal|"%"
+argument_list|,
+literal|"%%"
+argument_list|)
 return|;
 block|}
 block|}
