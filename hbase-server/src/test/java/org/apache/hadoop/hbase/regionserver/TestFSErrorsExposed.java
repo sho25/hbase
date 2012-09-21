@@ -383,6 +383,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Assume
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1039,6 +1049,19 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// We won't have an error if the datanode is not there if we use short circuit
+comment|//  it's a known 'feature'.
+name|Assume
+operator|.
+name|assumeTrue
+argument_list|(
+operator|!
+name|util
+operator|.
+name|isReadShortCircuitOn
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 comment|// We set it not to run or it will trigger server shutdown while sync'ing
