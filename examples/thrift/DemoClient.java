@@ -944,6 +944,21 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|Map
+argument_list|<
+name|ByteBuffer
+argument_list|,
+name|ByteBuffer
+argument_list|>
+name|dummyAttributes
+init|=
+literal|null
+decl_stmt|;
+name|boolean
+name|writeToWal
+init|=
+literal|false
+decl_stmt|;
 comment|//
 comment|// Test UTF-8 handling
 comment|//
@@ -1125,6 +1140,8 @@ name|wrap
 argument_list|(
 name|invalid
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1150,6 +1167,8 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// try empty strings
@@ -1190,6 +1209,8 @@ argument_list|(
 literal|""
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1215,6 +1236,8 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// this row name is valid utf8
@@ -1252,6 +1275,8 @@ name|wrap
 argument_list|(
 name|valid
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1274,6 +1299,8 @@ name|valid
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// non-utf8 is now allowed in row names because HBase stores values as binary
@@ -1321,6 +1348,8 @@ name|wrap
 argument_list|(
 name|invalid
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1343,6 +1372,8 @@ name|invalid
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// Run a scanner on the rows we just created
@@ -1408,6 +1439,8 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|columnNames
+argument_list|,
+name|dummyAttributes
 argument_list|)
 decl_stmt|;
 while|while
@@ -1536,6 +1569,8 @@ argument_list|(
 literal|"DELETE_ME"
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1558,6 +1593,8 @@ name|row
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 name|printRow
@@ -1579,6 +1616,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1599,6 +1638,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 name|mutations
@@ -1638,6 +1679,8 @@ argument_list|(
 literal|"0"
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1669,6 +1712,8 @@ argument_list|(
 literal|"FOO"
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1691,6 +1736,8 @@ name|row
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 name|printRow
@@ -1712,6 +1759,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1822,6 +1871,8 @@ name|row
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 name|printRow
@@ -1843,6 +1894,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1888,6 +1941,8 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1926,6 +1981,8 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
+argument_list|,
+name|writeToWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1948,6 +2005,8 @@ name|row
 argument_list|)
 argument_list|,
 name|mutations
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 name|printRow
@@ -1969,6 +2028,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2084,6 +2145,8 @@ argument_list|,
 name|mutations
 argument_list|,
 literal|1
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// shouldn't override latest
@@ -2106,6 +2169,8 @@ name|wrap
 argument_list|(
 name|row
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2144,6 +2209,8 @@ argument_list|)
 argument_list|)
 argument_list|,
 literal|10
+argument_list|,
+name|dummyAttributes
 argument_list|)
 decl_stmt|;
 name|printVersions
@@ -2217,6 +2284,8 @@ argument_list|(
 literal|"entry:foo"
 argument_list|)
 argument_list|)
+argument_list|,
+name|dummyAttributes
 argument_list|)
 decl_stmt|;
 if|if
@@ -2369,6 +2438,8 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|columnNames
+argument_list|,
+name|dummyAttributes
 argument_list|)
 expr_stmt|;
 while|while
