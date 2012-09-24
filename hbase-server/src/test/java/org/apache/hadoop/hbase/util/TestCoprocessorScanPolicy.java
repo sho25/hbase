@@ -736,6 +736,14 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 comment|// insert 2 versions
 name|p
 operator|=
@@ -752,6 +760,8 @@ argument_list|(
 name|F
 argument_list|,
 name|Q
+argument_list|,
+name|now
 argument_list|,
 name|Q
 argument_list|)
@@ -778,6 +788,10 @@ argument_list|(
 name|F
 argument_list|,
 name|Q
+argument_list|,
+name|now
+operator|+
+literal|1
 argument_list|,
 name|Q
 argument_list|)
@@ -892,6 +906,10 @@ argument_list|(
 name|F
 argument_list|,
 name|Q
+argument_list|,
+name|now
+operator|+
+literal|2
 argument_list|,
 name|Q
 argument_list|)
