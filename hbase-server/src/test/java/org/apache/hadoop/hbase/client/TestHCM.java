@@ -946,7 +946,7 @@ name|ROW
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// We can wait for all regions to be onlines, that makes log reading easier when debugging
+comment|// We can wait for all regions to be online, that makes log reading easier when debugging
 while|while
 condition|(
 name|TEST_UTIL

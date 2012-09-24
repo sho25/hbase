@@ -147,29 +147,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-operator|.
-name|Entry
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|SortedMap
 import|;
 end_import
 
@@ -182,18 +160,6 @@ operator|.
 name|concurrent
 operator|.
 name|Callable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentSkipListMap
 import|;
 end_import
 
@@ -518,20 +484,6 @@ operator|.
 name|hbase
 operator|.
 name|PleaseHoldException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|RegionLoad
 import|;
 end_import
 
@@ -4586,7 +4538,7 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
-comment|// Check zk for regionservers that are up but didn't register
+comment|// Check zk for region servers that are up but didn't register
 for|for
 control|(
 name|ServerName
@@ -4712,7 +4664,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Fixup assignment manager status
+comment|// Fix up assignment manager status
 name|status
 operator|.
 name|setStatus
@@ -4953,7 +4905,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * If ServerShutdownHandler is disabled, we enable it and expire those dead    * but not expired servers.    * @throws IOException    */
+comment|/**    * If ServerShutdownHandler is disabled, we enable it and expire those dead    * but not expired servers.    */
 end_comment
 
 begin_function
@@ -4961,8 +4913,6 @@ specifier|private
 name|void
 name|enableServerShutdownHandler
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -4978,7 +4928,7 @@ name|this
 operator|.
 name|serverManager
 operator|.
-name|expireDeadNotExpiredServers
+name|processQueuedDeadServers
 argument_list|()
 expr_stmt|;
 block|}
@@ -5348,7 +5298,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Region already assigned.  We didnt' assign it.  Add to in-memory state.
+comment|// Region already assigned.  We didn't assign it.  Add to in-memory state.
 name|this
 operator|.
 name|assignmentManager
@@ -5698,6 +5648,31 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+name|ServerName
+name|sn
+init|=
+name|HRegionInfo
+operator|.
+name|getServerName
+argument_list|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerDead
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+comment|// Otherwise, let SSH take care of it
 name|fixups
 operator|+=
 name|ServerShutdownHandler
@@ -5714,6 +5689,7 @@ argument_list|,
 name|catalogTracker
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -8863,10 +8839,6 @@ argument_list|,
 name|this
 operator|.
 name|fileSystemManager
-argument_list|,
-name|this
-operator|.
-name|serverManager
 argument_list|,
 name|hTableDescriptor
 argument_list|,

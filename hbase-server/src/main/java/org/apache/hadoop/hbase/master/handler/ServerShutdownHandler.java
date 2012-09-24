@@ -1112,6 +1112,10 @@ comment|// 6. Repeat until we run out of MetaServerShutdownHandler worker thread
 comment|// The solution here is to resubmit a ServerShutdownHandler request to process
 comment|// user regions on that server so that MetaServerShutdownHandler
 comment|// executor pool is always available.
+comment|//
+comment|// If AssignmentManager hasn't finished rebuilding user regions,
+comment|// we are not ready to assign dead regions either. So we re-queue up
+comment|// the dead server for further processing too.
 if|if
 condition|(
 name|isCarryingRoot
@@ -1119,44 +1123,26 @@ argument_list|()
 operator|||
 name|isCarryingMeta
 argument_list|()
-condition|)
-block|{
 comment|// -ROOT- or .META.
-name|this
-operator|.
+operator|||
+operator|!
 name|services
 operator|.
-name|getExecutorService
+name|getAssignmentManager
 argument_list|()
 operator|.
-name|submit
-argument_list|(
-operator|new
-name|ServerShutdownHandler
-argument_list|(
-name|this
-operator|.
-name|server
-argument_list|,
+name|isFailoverCleanupDone
+argument_list|()
+condition|)
+block|{
 name|this
 operator|.
 name|services
-argument_list|,
-name|this
 operator|.
-name|deadServers
-argument_list|,
-name|serverName
-argument_list|,
-literal|false
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|this
+name|getServerManager
+argument_list|()
 operator|.
-name|deadServers
-operator|.
-name|add
+name|processDeadServer
 argument_list|(
 name|serverName
 argument_list|)
@@ -1299,6 +1285,24 @@ name|ioe
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Server is stopped"
+argument_list|)
+throw|;
 block|}
 comment|// Skip regions that were in transition unless CLOSING or PENDING_CLOSE
 for|for
@@ -1823,21 +1827,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Get all available servers
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|availableServers
-init|=
-name|services
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|createDestinationServersList
-argument_list|()
-decl_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|services
@@ -1848,10 +1839,34 @@ operator|.
 name|assign
 argument_list|(
 name|toAssignRegions
-argument_list|,
-name|availableServers
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Caught "
+operator|+
+name|ie
+operator|+
+literal|" during round-robin assignment"
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|ie
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 finally|finally

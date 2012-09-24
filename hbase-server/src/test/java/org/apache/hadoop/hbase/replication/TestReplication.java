@@ -988,14 +988,14 @@ name|utility1
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 name|utility2
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor

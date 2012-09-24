@@ -3898,8 +3898,6 @@ operator|.
 name|State
 operator|.
 name|PENDING_OPEN
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|ZKAssign
@@ -3950,8 +3948,6 @@ operator|.
 name|State
 operator|.
 name|PENDING_OPEN
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|ZKAssign
@@ -3968,13 +3964,6 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// This test is bad.  It puts up a PENDING_CLOSE but doesn't say what
-comment|// server we were PENDING_CLOSE against -- i.e. an entry in
-comment|// AssignmentManager#regions.  W/o a server, we NPE trying to resend close.
-comment|// In past, there was wonky logic that had us reassign region if no server
-comment|// at tail of the unassign.  This was removed.  Commenting out for now.
-comment|// TODO: Remove completely.
-comment|/*     // PENDING_CLOSE and enabled     region = enabledRegions.remove(0);     LOG.info("Setting PENDING_CLOSE enabled " + region.getEncodedName());     regionsThatShouldBeOnline.add(region);     master.assignmentManager.regionsInTransition.put(region.getEncodedName(),       new RegionState(region, RegionState.State.PENDING_CLOSE, 0));     // PENDING_CLOSE and disabled     region = disabledRegions.remove(0);     LOG.info("Setting PENDING_CLOSE disabled " + region.getEncodedName());     regionsThatShouldBeOffline.add(region);     master.assignmentManager.regionsInTransition.put(region.getEncodedName(),       new RegionState(region, RegionState.State.PENDING_CLOSE, 0));       */
 comment|// Failover should be completed, now wait for no RIT
 name|log
 argument_list|(

@@ -2219,9 +2219,14 @@ name|aclZnode
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test should not fail with NPE when getChildDataAndWatchForNewChildren    * invoked with wrongNode    */
 annotation|@
 name|Test
-comment|/**    * Test should not fail with NPE when getChildDataAndWatchForNewChildren    * invoked with wrongNode    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|testGetChildDataAndWatchForNewChildrenShouldNotThrowNPE
@@ -2468,7 +2473,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|180000
 argument_list|)
 specifier|public
 name|void

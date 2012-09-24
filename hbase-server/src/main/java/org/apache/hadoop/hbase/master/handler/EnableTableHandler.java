@@ -1125,7 +1125,7 @@ try|try
 block|{
 name|assignmentManager
 operator|.
-name|assignUserRegionsToOnlineServers
+name|assign
 argument_list|(
 name|regions
 argument_list|)
