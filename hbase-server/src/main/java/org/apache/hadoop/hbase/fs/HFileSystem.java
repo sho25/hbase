@@ -467,6 +467,11 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|addLocationsOrderInterceptor
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 comment|// If hbase checksum verification is switched on, then create a new
 comment|// filesystem object that has cksum verification turned off.
 comment|// We will avoid verifying checksums in the fs client, instead do it
@@ -487,6 +492,23 @@ name|LocalFileSystem
 operator|)
 condition|)
 block|{
+name|conf
+operator|=
+operator|new
+name|Configuration
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"dfs.client.read.shortcircuit.skip.checksum"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|noChecksumFs
@@ -515,11 +537,6 @@ operator|=
 name|fs
 expr_stmt|;
 block|}
-name|addLocationsOrderInterceptor
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Wrap a FileSystem object within a HFileSystem. The noChecksumFs and    * writefs are both set to be the same specified fs.     * Do not verify hbase-checksums while reading data from filesystem.    * @param fs Set the noChecksumFs and writeFs to this specified filesystem.    */
 specifier|public

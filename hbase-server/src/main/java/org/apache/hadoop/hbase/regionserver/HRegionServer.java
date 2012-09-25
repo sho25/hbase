@@ -3972,7 +3972,7 @@ name|HConstants
 operator|.
 name|HBASE_CHECKSUM_VERIFICATION
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Config'ed params
