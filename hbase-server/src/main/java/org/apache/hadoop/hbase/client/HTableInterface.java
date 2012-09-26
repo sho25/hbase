@@ -624,7 +624,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases any resources help or pending changes in internal buffers.    *    * @throws IOException if a remote or network exception occurs.    */
+comment|/**    * Releases any resources held or pending changes in internal buffers.    *    * @throws IOException if a remote or network exception occurs.    */
 name|void
 name|close
 parameter_list|()
