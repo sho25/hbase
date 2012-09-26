@@ -1940,36 +1940,6 @@ argument_list|)
 expr_stmt|;
 comment|// must not throw an exception
 block|}
-annotation|@
-name|org
-operator|.
-name|junit
-operator|.
-name|Rule
-specifier|public
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ResourceCheckerJUnitRule
-name|cu
-init|=
-operator|new
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ResourceCheckerJUnitRule
-argument_list|()
-decl_stmt|;
 block|}
 end_class
 

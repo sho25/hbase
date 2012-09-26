@@ -1884,36 +1884,6 @@ comment|// accounted for.  But we have satisfied our two core requirements.
 comment|// Sizing is quite accurate now, and our tests will throw errors if
 comment|// any of these classes are modified without updating overhead sizes.
 block|}
-annotation|@
-name|org
-operator|.
-name|junit
-operator|.
-name|Rule
-specifier|public
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ResourceCheckerJUnitRule
-name|cu
-init|=
-operator|new
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ResourceCheckerJUnitRule
-argument_list|()
-decl_stmt|;
 block|}
 end_class
 
