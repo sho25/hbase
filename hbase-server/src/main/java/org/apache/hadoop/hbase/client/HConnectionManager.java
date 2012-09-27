@@ -11136,7 +11136,7 @@ name|log
 operator|.
 name|debug
 argument_list|(
-literal|"Set serverside HConnection retries="
+literal|"HConnection retries="
 operator|+
 name|retries
 argument_list|)
