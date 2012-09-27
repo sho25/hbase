@@ -1057,6 +1057,7 @@ name|scanInfo
 decl_stmt|;
 comment|/*    * List of store files inside this store. This is an immutable list that    * is atomically replaced when its contents change.    */
 specifier|private
+specifier|volatile
 name|ImmutableList
 argument_list|<
 name|StoreFile
