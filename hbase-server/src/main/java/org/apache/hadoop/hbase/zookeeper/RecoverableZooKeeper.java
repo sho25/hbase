@@ -627,7 +627,7 @@ literal|"Node "
 operator|+
 name|path
 operator|+
-literal|" already deleted. Assuming a "
+literal|" already deleted. Assuming that a "
 operator|+
 literal|"previous attempt succeeded."
 argument_list|)
@@ -642,9 +642,9 @@ literal|"Node "
 operator|+
 name|path
 operator|+
-literal|" already deleted, retry="
+literal|" already deleted, and this is not a "
 operator|+
-name|isRetry
+literal|"retry"
 argument_list|)
 expr_stmt|;
 throw|throw

@@ -333,11 +333,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Initializing RPC Metrics for className="
+literal|"Initializing RPC Metrics with hostName="
 operator|+
 name|hostName
 operator|+
-literal|" on port="
+literal|", port="
 operator|+
 name|port
 argument_list|)

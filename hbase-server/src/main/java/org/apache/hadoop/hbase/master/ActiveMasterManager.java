@@ -551,24 +551,7 @@ argument_list|)
 condition|)
 block|{
 comment|// If we were a backup master before, delete our ZNode from the backup
-comment|// master directory since we are the active now)
-if|if
-condition|(
-name|ZKUtil
-operator|.
-name|checkExists
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|backupZNode
-argument_list|)
-operator|!=
-operator|-
-literal|1
-condition|)
-block|{
+comment|// master directory since we are the active now
 name|LOG
 operator|.
 name|info
@@ -591,7 +574,6 @@ argument_list|,
 name|backupZNode
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Save the znode in a file, this will allow to check if we crash in the launch scripts
 name|ZNodeClearer
 operator|.

@@ -3013,17 +3013,6 @@ name|reader
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Started "
-operator|+
-name|readThreads
-operator|+
-literal|" reader(s) in Listener."
-argument_list|)
-expr_stmt|;
 comment|// Register accepts on the server socket with the selector.
 name|acceptChannel
 operator|.
@@ -3091,6 +3080,16 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting "
+operator|+
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|doRunLoop

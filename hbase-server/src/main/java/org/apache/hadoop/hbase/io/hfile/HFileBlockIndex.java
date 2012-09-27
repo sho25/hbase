@@ -2828,10 +2828,6 @@ block|{
 if|if
 condition|(
 name|curInlineChunk
-operator|!=
-literal|null
-operator|&&
-name|curInlineChunk
 operator|.
 name|getNumEntries
 argument_list|()
@@ -2875,13 +2871,6 @@ argument_list|()
 else|:
 literal|null
 decl_stmt|;
-if|if
-condition|(
-name|curInlineChunk
-operator|!=
-literal|null
-condition|)
-block|{
 while|while
 condition|(
 name|rootChunk
@@ -2905,7 +2894,6 @@ name|numLevels
 operator|+=
 literal|1
 expr_stmt|;
-block|}
 block|}
 comment|// write the root level
 name|long
@@ -3469,7 +3457,6 @@ if|if
 condition|(
 name|singleLevelOnly
 condition|)
-block|{
 throw|throw
 operator|new
 name|UnsupportedOperationException
@@ -3477,24 +3464,6 @@ argument_list|(
 name|INLINE_BLOCKS_NOT_ALLOWED
 argument_list|)
 throw|;
-block|}
-if|if
-condition|(
-name|curInlineChunk
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"curInlineChunk is null; has shouldWriteBlock been "
-operator|+
-literal|"called with closing=true and then called again?"
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|curInlineChunk
@@ -3504,11 +3473,9 @@ argument_list|()
 operator|==
 literal|0
 condition|)
-block|{
 return|return
 literal|false
 return|;
-block|}
 comment|// We do have some entries in the current inline chunk.
 if|if
 condition|(
@@ -3538,9 +3505,10 @@ name|curInlineChunk
 expr_stmt|;
 name|curInlineChunk
 operator|=
-literal|null
+operator|new
+name|BlockIndexChunk
+argument_list|()
 expr_stmt|;
-comment|// Disallow adding any more index entries.
 return|return
 literal|false
 return|;
