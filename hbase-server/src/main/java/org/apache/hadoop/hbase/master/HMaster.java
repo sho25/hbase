@@ -2763,6 +2763,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -3076,6 +3092,35 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"hbase.rootdir="
+operator|+
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+operator|+
+literal|", hbase.cluster.distributed="
+operator|+
+name|this
+operator|.
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.cluster.distributed"
+argument_list|,
+literal|false
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Disable the block cache on the master
 name|this
 operator|.
@@ -3150,7 +3195,7 @@ operator|.
 name|DEFAULT_MASTER_PORT
 argument_list|)
 decl_stmt|;
-comment|// Creation of a HSA will force a resolve.
+comment|// Creation of a ISA will force a resolve.
 name|InetSocketAddress
 name|initialIsa
 init|=
