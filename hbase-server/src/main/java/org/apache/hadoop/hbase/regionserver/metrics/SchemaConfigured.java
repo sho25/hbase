@@ -285,13 +285,6 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-if|if
-condition|(
-name|conf
-operator|!=
-literal|null
-condition|)
-block|{
 name|SchemaMetrics
 operator|.
 name|configureGlobally
@@ -302,7 +295,6 @@ expr_stmt|;
 comment|// Even though we now know if table-level metrics are used, we can't
 comment|// initialize schemaMetrics yet, because CF and table name are only known
 comment|// to the calling constructor.
-block|}
 block|}
 comment|/**    * Creates an instance corresponding to an unknown table and column family.    * Used in unit tests.     */
 specifier|public

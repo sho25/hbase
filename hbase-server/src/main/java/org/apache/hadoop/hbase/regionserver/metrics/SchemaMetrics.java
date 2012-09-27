@@ -2106,6 +2106,13 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+if|if
+condition|(
+name|conf
+operator|!=
+literal|null
+condition|)
+block|{
 specifier|final
 name|boolean
 name|useTableNameNew
@@ -2124,6 +2131,15 @@ argument_list|(
 name|useTableNameNew
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|setUseTableName
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Determine the table name to be included in metric keys. If the global    * configuration says that we should not use table names in metrics,    * we always return {@link #TOTAL_KEY} even if nontrivial table name is    * provided.    *    * @param tableName a table name or {@link #TOTAL_KEY} when aggregating    * across all tables    * @return the table name to use in metric keys    */
 specifier|private
