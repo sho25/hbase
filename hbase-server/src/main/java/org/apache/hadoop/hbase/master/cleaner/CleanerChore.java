@@ -381,6 +381,16 @@ name|logCleaner
 operator|!=
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"initialize cleaner="
+operator|+
+name|className
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|cleanersChain
@@ -390,6 +400,7 @@ argument_list|(
 name|logCleaner
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -786,7 +797,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|"deleting it."
+literal|" deleting it."
 argument_list|)
 expr_stmt|;
 if|if
