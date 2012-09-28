@@ -139,7 +139,7 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|mapred
+name|fs
 operator|.
 name|FileAlreadyExistsException
 import|;
