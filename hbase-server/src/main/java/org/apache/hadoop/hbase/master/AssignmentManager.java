@@ -685,6 +685,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|KeyLocker
 import|;
 end_import
@@ -3040,7 +3056,7 @@ init|=
 name|createTime
 operator|<
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5271,7 +5287,7 @@ comment|// TimeoutMonitor will pick up the pieces.
 name|long
 name|maxWaitTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5459,7 +5475,7 @@ comment|// the startup.
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5934,7 +5950,7 @@ name|State
 operator|.
 name|PENDING_OPEN
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6348,7 +6364,7 @@ name|State
 operator|.
 name|PENDING_OPEN
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -9025,7 +9041,7 @@ specifier|final
 name|long
 name|endTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -9049,7 +9065,7 @@ argument_list|()
 operator|&&
 name|endTime
 operator|>
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -9857,7 +9873,7 @@ block|{
 name|long
 name|currentTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -10358,7 +10374,7 @@ comment|// Iterate all regions in transition checking for time outs
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

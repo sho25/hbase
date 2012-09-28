@@ -2447,6 +2447,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSTableDescriptors
 import|;
 end_import
@@ -3344,7 +3360,7 @@ operator|.
 name|getPort
 argument_list|()
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3661,7 +3677,7 @@ argument_list|)
 expr_stmt|;
 name|masterStartTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4293,7 +4309,7 @@ condition|)
 block|{
 name|now
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4316,7 +4332,7 @@ argument_list|()
 expr_stmt|;
 name|lastMsgTs
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4411,7 +4427,7 @@ name|this
 operator|.
 name|masterActiveTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7597,7 +7613,7 @@ decl_stmt|;
 name|long
 name|cutoffTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7913,7 +7929,7 @@ expr_stmt|;
 name|long
 name|balStartTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7929,7 +7945,7 @@ argument_list|)
 expr_stmt|;
 name|totalRegPlanExecTime
 operator|+=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7950,7 +7966,7 @@ argument_list|()
 operator|&&
 comment|// if performing next balance exceeds cutoff time, exit the loop
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

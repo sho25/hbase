@@ -935,6 +935,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -6577,7 +6593,7 @@ condition|)
 block|{
 name|keepZooKeeperWatcherAliveUntil
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6711,7 +6727,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6761,7 +6777,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7407,7 +7423,7 @@ name|protocolState
 operator|.
 name|keepAliveUntil
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -9687,7 +9703,7 @@ specifier|final
 name|long
 name|creationTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -9711,7 +9727,7 @@ name|delay
 operator|+
 name|creationTime
 operator|-
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -4331,7 +4331,7 @@ name|this
 operator|.
 name|startcode
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6067,7 +6067,7 @@ block|}
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6095,7 +6095,7 @@ argument_list|)
 expr_stmt|;
 name|lastMsg
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7189,7 +7189,7 @@ block|{
 comment|// Log every second at most
 if|if
 condition|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7203,7 +7203,7 @@ condition|)
 block|{
 name|previousLogTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11587,7 +11587,7 @@ argument_list|)
 expr_stmt|;
 name|previousLogTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11717,7 +11717,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11738,7 +11738,7 @@ argument_list|)
 expr_stmt|;
 name|previousLogTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11749,7 +11749,7 @@ else|else
 block|{
 if|if
 condition|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11772,7 +11772,7 @@ argument_list|)
 expr_stmt|;
 name|previousLogTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -22148,7 +22148,7 @@ specifier|final
 name|Long
 name|time
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -22216,7 +22216,7 @@ name|getFirst
 argument_list|()
 operator|>
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -22263,7 +22263,7 @@ specifier|final
 name|long
 name|cutOff
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

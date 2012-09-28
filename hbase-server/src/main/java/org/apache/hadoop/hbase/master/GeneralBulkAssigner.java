@@ -233,6 +233,22 @@ name|ServerName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * Run bulk assign.  Does one RCP per regionserver passing a  * batch of regions using {@link SingleServerBulkAssigner}.  */
 end_comment
@@ -562,7 +578,7 @@ decl_stmt|;
 name|long
 name|startTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -590,7 +606,7 @@ argument_list|()
 operator|&&
 name|rpcWaitTime
 operator|>
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -639,7 +655,7 @@ argument_list|(
 literal|"bulk assigner is still running after "
 operator|+
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -744,7 +760,7 @@ name|Math
 operator|.
 name|max
 argument_list|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -785,7 +801,7 @@ argument_list|()
 operator|&&
 name|endTime
 operator|>
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -894,7 +910,7 @@ block|{
 name|long
 name|elapsedTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

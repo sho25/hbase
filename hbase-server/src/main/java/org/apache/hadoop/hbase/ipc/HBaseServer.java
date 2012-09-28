@@ -843,6 +843,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|BytesWritable
@@ -2038,7 +2054,7 @@ name|this
 operator|.
 name|timestamp
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2731,7 +2747,7 @@ block|{
 name|long
 name|afterTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3354,7 +3370,7 @@ block|{
 name|long
 name|currentTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3547,7 +3563,7 @@ expr_stmt|;
 block|}
 name|lastCleanupRunTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4052,7 +4068,7 @@ name|getConnection
 argument_list|(
 name|channel
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4171,7 +4187,7 @@ name|c
 operator|.
 name|setLastContact
 argument_list|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4274,7 +4290,7 @@ name|c
 operator|.
 name|setLastContact
 argument_list|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4610,7 +4626,7 @@ block|}
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5320,7 +5336,7 @@ name|call
 operator|.
 name|timestamp
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5515,7 +5531,7 @@ name|call
 operator|.
 name|timestamp
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

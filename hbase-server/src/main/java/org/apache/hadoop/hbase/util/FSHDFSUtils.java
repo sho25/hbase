@@ -342,7 +342,7 @@ expr_stmt|;
 name|long
 name|startWaiting
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -484,7 +484,7 @@ comment|// znode. We could potentially abort after some time here.
 name|long
 name|waitedFor
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
