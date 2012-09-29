@@ -77,22 +77,6 @@ name|CompatibilitySingletonFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class is for maintaining the various replication statistics for a source and publishing them  * through the metrics interfaces.  */
 end_comment
@@ -305,7 +289,7 @@ block|{
 name|long
 name|age
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

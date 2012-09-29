@@ -277,22 +277,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -1406,7 +1390,7 @@ argument_list|()
 expr_stmt|;
 name|t
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -1628,7 +1612,7 @@ operator|+
 literal|" in "
 operator|+
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

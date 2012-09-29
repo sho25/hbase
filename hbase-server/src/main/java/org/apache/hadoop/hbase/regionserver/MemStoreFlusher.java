@@ -315,22 +315,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|HasThread
 import|;
 end_import
@@ -1594,7 +1578,7 @@ argument_list|(
 literal|"Waited "
 operator|+
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2307,7 +2291,7 @@ name|this
 operator|.
 name|createTime
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2333,7 +2317,7 @@ parameter_list|)
 block|{
 return|return
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2358,7 +2342,7 @@ operator|.
 name|requeueCount
 return|;
 block|}
-comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTimeMillis()      * to whatever you pass.      * @return This.      */
+comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds System.currentTimeMillis()      * to whatever you pass.      * @return This.      */
 specifier|public
 name|FlushRegionEntry
 name|requeue
@@ -2372,7 +2356,7 @@ name|this
 operator|.
 name|whenToExpire
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2407,7 +2391,7 @@ name|this
 operator|.
 name|whenToExpire
 operator|-
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

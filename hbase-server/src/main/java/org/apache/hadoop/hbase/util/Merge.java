@@ -1902,7 +1902,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

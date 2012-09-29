@@ -141,22 +141,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|net
 operator|.
 name|NetUtils
@@ -873,7 +857,7 @@ comment|// HBase does limited number of reconnects which is different from hadoo
 name|long
 name|startTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -1060,7 +1044,7 @@ block|}
 comment|// check if timed out
 if|if
 condition|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

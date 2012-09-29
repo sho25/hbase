@@ -577,7 +577,7 @@ name|HREGION_LOGDIR_NAME
 operator|+
 literal|"_"
 operator|+
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -1311,7 +1311,7 @@ specifier|private
 name|long
 name|startMillis
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6289,7 +6289,7 @@ argument_list|()
 argument_list|,
 name|sn
 argument_list|,
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7631,7 +7631,7 @@ argument_list|()
 operator|+
 name|timelag
 operator|>
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11743,7 +11743,7 @@ decl_stmt|;
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

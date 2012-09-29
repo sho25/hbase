@@ -131,22 +131,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
 begin_comment
 comment|/**  * State and utility processing {@link HRegion#getClosestRowBefore(byte[], byte[])}.  * Like {@link ScanDeleteTracker} and {@link ScanDeleteTracker} but does not  * implement the {@link DeleteTracker} interface since state spans rows (There  * is no update nor reset method).  */
 end_comment
@@ -314,7 +298,7 @@ name|this
 operator|.
 name|oldestts
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

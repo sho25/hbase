@@ -2376,7 +2376,7 @@ block|{
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

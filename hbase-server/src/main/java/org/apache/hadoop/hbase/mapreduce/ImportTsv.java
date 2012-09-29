@@ -35,22 +35,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -2108,7 +2092,7 @@ name|getLong
 argument_list|(
 name|TIMESTAMP_CONF_KEY
 argument_list|,
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

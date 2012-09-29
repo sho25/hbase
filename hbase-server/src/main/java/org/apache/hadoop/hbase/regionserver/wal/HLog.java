@@ -623,22 +623,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -2665,7 +2649,7 @@ name|this
 operator|.
 name|filenum
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5499,7 +5483,7 @@ decl_stmt|;
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5654,7 +5638,7 @@ name|syncTime
 operator|.
 name|inc
 argument_list|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6166,7 +6150,7 @@ block|{
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6207,7 +6191,7 @@ block|}
 name|long
 name|took
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6654,7 +6638,7 @@ block|{
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6676,7 +6660,7 @@ name|tableName
 argument_list|,
 name|logSeqId
 argument_list|,
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6712,7 +6696,7 @@ name|writeTime
 operator|.
 name|inc
 argument_list|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -6814,7 +6798,7 @@ name|METAFAMILY
 argument_list|,
 literal|null
 argument_list|,
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7991,7 +7975,7 @@ argument_list|()
 operator|+
 literal|"."
 operator|+
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -1547,7 +1547,7 @@ name|this
 operator|.
 name|startTime
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2396,7 +2396,7 @@ name|lastActivity
 operator|.
 name|set
 argument_list|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2942,7 +2942,7 @@ init|=
 name|maxIdleTime
 operator|-
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3081,7 +3081,7 @@ block|{
 name|long
 name|curTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4937,7 +4937,7 @@ decl_stmt|;
 name|long
 name|waitTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5050,7 +5050,7 @@ decl_stmt|;
 name|long
 name|maxWaitTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

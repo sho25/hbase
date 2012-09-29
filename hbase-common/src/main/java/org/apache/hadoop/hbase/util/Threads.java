@@ -522,7 +522,7 @@ block|{
 name|long
 name|timeMillis
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -571,7 +571,7 @@ expr_stmt|;
 block|}
 name|timeMillis
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

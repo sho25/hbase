@@ -1820,7 +1820,7 @@ expr_stmt|;
 name|long
 name|startTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2567,7 +2567,7 @@ name|long
 name|tDiff
 init|=
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2744,7 +2744,7 @@ block|{
 name|long
 name|tDiff
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -205,22 +205,6 @@ name|HBaseAdmin
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
 begin_comment
 comment|/**  * HBase Canary Tool, that that can be used to do  * "canary monitoring" of a running HBase cluster.  *  * Foreach region tries to get one row per column family  * and outputs some information about failure or latency.  */
 end_comment
@@ -1103,7 +1087,7 @@ block|{
 name|long
 name|startTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -1118,7 +1102,7 @@ expr_stmt|;
 name|long
 name|time
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

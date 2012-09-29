@@ -715,7 +715,7 @@ comment|//  then to succeed on their connection to master
 name|long
 name|startTime
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -748,7 +748,7 @@ parameter_list|)
 block|{       }
 if|if
 condition|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -827,7 +827,7 @@ comment|// Wait for an active master to be initialized (implies being master)
 comment|//  with this, when we return the cluster is complete
 name|startTime
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -875,7 +875,7 @@ return|;
 block|}
 if|if
 condition|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

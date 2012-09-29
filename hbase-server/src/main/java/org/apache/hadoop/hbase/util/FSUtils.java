@@ -2423,7 +2423,7 @@ name|p
 operator|+
 literal|"."
 operator|+
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

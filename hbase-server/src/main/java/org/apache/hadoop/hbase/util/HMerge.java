@@ -852,7 +852,7 @@ name|tabledir
 argument_list|,
 literal|"merge_"
 operator|+
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -189,7 +189,7 @@ parameter_list|()
 block|{
 name|sleep
 argument_list|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -243,7 +243,7 @@ block|}
 name|long
 name|now
 init|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -282,7 +282,7 @@ name|period
 operator|+
 literal|"; setting to this.period: "
 operator|+
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -334,7 +334,7 @@ expr_stmt|;
 block|}
 name|woke
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -411,7 +411,7 @@ operator|-
 literal|1
 operator|)
 condition|?
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
