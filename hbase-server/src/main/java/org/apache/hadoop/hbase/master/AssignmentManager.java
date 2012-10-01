@@ -6120,6 +6120,22 @@ name|regionAlreadyInTransitionException
 init|=
 literal|false
 decl_stmt|;
+name|boolean
+name|serverNotRunningYet
+init|=
+literal|false
+decl_stmt|;
+name|RegionState
+name|currentState
+init|=
+name|state
+decl_stmt|;
+name|long
+name|maxRegionServerStartupWaitTime
+init|=
+operator|-
+literal|1
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -6154,11 +6170,9 @@ name|versionOfOfflineNode
 operator|=
 name|setOfflineInZooKeeper
 argument_list|(
-name|state
+name|currentState
 argument_list|,
 name|hijack
-argument_list|,
-name|regionAlreadyInTransitionException
 argument_list|)
 expr_stmt|;
 if|if
@@ -6274,6 +6288,9 @@ argument_list|,
 operator|!
 name|regionAlreadyInTransitionException
 operator|&&
+operator|!
+name|serverNotRunningYet
+operator|&&
 name|forceNewPlan
 argument_list|)
 decl_stmt|;
@@ -6333,6 +6350,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Transition RegionState to PENDING_OPEN
+name|currentState
+operator|=
 name|regionStates
 operator|.
 name|updateRegionState
@@ -6452,6 +6471,15 @@ operator|.
 name|unwrapRemoteException
 argument_list|()
 expr_stmt|;
+block|}
+name|regionAlreadyInTransitionException
+operator|=
+literal|false
+expr_stmt|;
+name|serverNotRunningYet
+operator|=
+literal|false
+expr_stmt|;
 if|if
 condition|(
 name|t
@@ -6492,6 +6520,141 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+elseif|else
+if|if
+condition|(
+name|t
+operator|instanceof
+name|ServerNotRunningYetException
+condition|)
+block|{
+if|if
+condition|(
+name|maxRegionServerStartupWaitTime
+operator|<
+literal|0
+condition|)
+block|{
+name|maxRegionServerStartupWaitTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.rpc.startup.waittime"
+argument_list|,
+literal|60000
+argument_list|)
+expr_stmt|;
+block|}
+try|try
+block|{
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|now
+operator|<
+name|maxRegionServerStartupWaitTime
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server is not yet up; waiting up to "
+operator|+
+operator|(
+name|maxRegionServerStartupWaitTime
+operator|-
+name|now
+operator|)
+operator|+
+literal|"ms"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+name|serverNotRunningYet
+operator|=
+literal|true
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+name|i
+operator|--
+expr_stmt|;
+comment|// reset the try count
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server is not up for a while; try a new one"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to assign "
+operator|+
+name|state
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" since interrupted"
+argument_list|,
+name|ie
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+return|return;
+block|}
 block|}
 name|LOG
 operator|.
@@ -6518,10 +6681,12 @@ literal|", trying to assign "
 operator|+
 operator|(
 name|regionAlreadyInTransitionException
+operator|||
+name|serverNotRunningYet
 condition|?
-literal|"to the same region server"
+literal|"to the same region server because of "
 operator|+
-literal|" because of RegionAlreadyInTransitionException;"
+literal|"RegionAlreadyInTransitionException/ServerNotRunningYetException;"
 else|:
 literal|"elsewhere instead; "
 operator|)
@@ -6536,6 +6701,8 @@ expr_stmt|;
 comment|// Clean out plan we failed execute and one that doesn't look like it'll
 comment|// succeed anyways; we need a new plan!
 comment|// Transition back to OFFLINE
+name|currentState
+operator|=
 name|regionStates
 operator|.
 name|updateRegionState
@@ -6564,19 +6731,20 @@ if|if
 condition|(
 operator|!
 name|regionAlreadyInTransitionException
+operator|&&
+operator|!
+name|serverNotRunningYet
 condition|)
 block|{
 comment|// Force a new plan and reassign. Will return null if no servers.
+comment|// The new plan could be the same as the existing plan since we don't
+comment|// exclude the server of the original plan, which should not be
+comment|// excluded since it could be the only server up now.
 name|newPlan
 operator|=
 name|getRegionPlan
 argument_list|(
 name|state
-argument_list|,
-name|plan
-operator|.
-name|getDestination
-argument_list|()
 argument_list|,
 literal|true
 argument_list|)
@@ -6807,7 +6975,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Set region as OFFLINED up in zookeeper    *    * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @param regionAlreadyInTransitionException      *          - true if we need to retry assignment because of RegionAlreadyInTransitionException.           * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
+comment|/**    * Set region as OFFLINED up in zookeeper    *    * @param state    * @param hijack    *          - true if needs to be hijacked and reassigned, false otherwise.    * @return the version of the offline node if setting of the OFFLINE node was    *         successful, -1 otherwise.    */
 name|int
 name|setOfflineInZooKeeper
 parameter_list|(
@@ -6817,9 +6985,6 @@ name|state
 parameter_list|,
 name|boolean
 name|hijack
-parameter_list|,
-name|boolean
-name|regionAlreadyInTransitionException
 parameter_list|)
 block|{
 comment|// In case of reassignment the current state in memory need not be
@@ -6840,12 +7005,6 @@ name|state
 operator|.
 name|isOffline
 argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|regionAlreadyInTransitionException
 condition|)
 block|{
 name|String
@@ -6876,21 +7035,6 @@ return|return
 operator|-
 literal|1
 return|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Unexpected state : "
-operator|+
-name|state
-operator|+
-literal|" but retrying to assign because RegionAlreadyInTransitionException."
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|boolean
 name|allowZNodeCreation
