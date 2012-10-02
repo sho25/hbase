@@ -4179,6 +4179,32 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Since this is an explicit request not to use any caching, finding
+comment|// disabled tables should not be desirable.  This will ensure that an exception is thrown when
+comment|// the first time a disabled table is interacted with.
+if|if
+condition|(
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|" is disabled."
+argument_list|)
+throw|;
+block|}
 return|return
 name|locateRegion
 argument_list|(
