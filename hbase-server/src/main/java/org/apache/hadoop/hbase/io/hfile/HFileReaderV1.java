@@ -3224,7 +3224,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Always cache Bloom filter blocks.
+comment|// Shouldn't cache Bloom filter blocks, otherwise server would abort when
+comment|// splitting, see HBASE-6479
 name|ByteBuffer
 name|buf
 init|=
@@ -3234,7 +3235,7 @@ name|HFileWriterV1
 operator|.
 name|BLOOM_FILTER_META_KEY
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
