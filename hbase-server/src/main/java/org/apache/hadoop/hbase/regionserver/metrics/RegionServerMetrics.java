@@ -233,7 +233,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLog
+name|HLogMetrics
 import|;
 end_import
 
@@ -1721,7 +1721,7 @@ comment|// Means you can't pass a numOps of zero or get a ArithmeticException / 
 comment|// HLog metrics
 name|addHLogMetric
 argument_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|getWriteTime
 argument_list|()
@@ -1733,7 +1733,7 @@ argument_list|)
 expr_stmt|;
 name|addHLogMetric
 argument_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|getWriteSize
 argument_list|()
@@ -1745,7 +1745,7 @@ argument_list|)
 expr_stmt|;
 name|addHLogMetric
 argument_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|getSyncTime
 argument_list|()
@@ -1757,7 +1757,7 @@ argument_list|)
 expr_stmt|;
 name|addHLogMetric
 argument_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|getSlowAppendTime
 argument_list|()
@@ -1773,7 +1773,7 @@ name|slowHLogAppendCount
 operator|.
 name|set
 argument_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|getSlowAppendCount
 argument_list|()
@@ -2102,7 +2102,7 @@ specifier|private
 name|void
 name|addHLogMetric
 parameter_list|(
-name|HLog
+name|HLogMetrics
 operator|.
 name|Metric
 name|logMetric

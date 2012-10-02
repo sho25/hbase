@@ -295,6 +295,24 @@ name|regionserver
 operator|.
 name|wal
 operator|.
+name|HLogUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
 name|WALEdit
 import|;
 end_import
@@ -547,7 +565,7 @@ control|)
 block|{
 if|if
 condition|(
-name|HLog
+name|HLogUtil
 operator|.
 name|isMetaFamily
 argument_list|(
@@ -795,7 +813,7 @@ block|{
 comment|// filtering HLog meta entries, see HLog.completeCacheFlushLogEdit
 if|if
 condition|(
-name|HLog
+name|HLogUtil
 operator|.
 name|isMetaFamily
 argument_list|(

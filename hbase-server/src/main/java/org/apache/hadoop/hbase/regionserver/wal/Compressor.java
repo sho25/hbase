@@ -106,8 +106,6 @@ operator|.
 name|wal
 operator|.
 name|HLog
-operator|.
-name|Entry
 import|;
 end_import
 
@@ -433,6 +431,8 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|HLog
+operator|.
 name|Entry
 name|e
 init|=

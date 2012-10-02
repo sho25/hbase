@@ -1170,7 +1170,12 @@ name|info
 argument_list|(
 literal|"after writing there are "
 operator|+
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getNumLogFiles
 argument_list|()
@@ -1220,7 +1225,12 @@ expr_stmt|;
 name|int
 name|count
 init|=
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getNumLogFiles
 argument_list|()
@@ -1231,7 +1241,12 @@ name|info
 argument_list|(
 literal|"after flushing all regions and rolling logs there are "
 operator|+
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getNumLogFiles
 argument_list|()
@@ -1605,7 +1620,12 @@ block|{
 name|OutputStream
 name|stm
 init|=
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getOutputStream
 argument_list|()
@@ -1828,7 +1848,12 @@ name|assertTrue
 argument_list|(
 literal|"Need HDFS-826 for this test"
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|canGetCurReplicas
 argument_list|()
@@ -1996,7 +2021,12 @@ decl_stmt|;
 name|long
 name|oldFilenum
 init|=
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getFilenum
 argument_list|()
@@ -2021,7 +2051,12 @@ literal|"The log shouldn't have rolled yet"
 argument_list|,
 name|oldFilenum
 operator|==
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getFilenum
 argument_list|()
@@ -2080,7 +2115,12 @@ expr_stmt|;
 name|long
 name|newFilenum
 init|=
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getFilenum
 argument_list|()
@@ -2110,7 +2150,12 @@ name|assertTrue
 argument_list|(
 literal|"The log should not roll again."
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getFilenum
 argument_list|()
@@ -2202,12 +2247,22 @@ name|assertTrue
 argument_list|(
 literal|"New log file should have the default replication instead of "
 operator|+
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getLogReplication
 argument_list|()
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getLogReplication
 argument_list|()
@@ -2408,7 +2463,12 @@ name|paths
 operator|.
 name|add
 argument_list|(
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|computeFilename
 argument_list|()
@@ -2560,7 +2620,12 @@ name|assertTrue
 argument_list|(
 literal|"Need HDFS-826 for this test"
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|canGetCurReplicas
 argument_list|()
@@ -2825,9 +2890,9 @@ try|try
 block|{
 name|reader
 operator|=
-name|HLog
+name|HLogFactory
 operator|.
-name|getReader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,

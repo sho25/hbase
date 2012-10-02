@@ -291,26 +291,15 @@ decl_stmt|;
 name|HLog
 name|wal
 init|=
-operator|new
-name|HLog
+name|HLogFactory
+operator|.
+name|createHLog
 argument_list|(
 name|fs
 argument_list|,
-operator|new
-name|Path
-argument_list|(
 name|dir
 argument_list|,
 literal|"logs"
-argument_list|)
-argument_list|,
-operator|new
-name|Path
-argument_list|(
-name|dir
-argument_list|,
-literal|"oldlogs"
-argument_list|)
 argument_list|,
 name|TEST_UTIL
 operator|.
@@ -617,9 +606,14 @@ literal|10
 operator|==
 literal|0
 operator|&&
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|this
 operator|.
 name|wal
+operator|)
 operator|.
 name|getNumEntries
 argument_list|()
@@ -762,6 +756,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|//@org.junit.Rule
+comment|//public org.apache.hadoop.hbase.ResourceCheckerJUnitRule cu =
+comment|//  new org.apache.hadoop.hbase.ResourceCheckerJUnitRule();
 block|}
 end_class
 

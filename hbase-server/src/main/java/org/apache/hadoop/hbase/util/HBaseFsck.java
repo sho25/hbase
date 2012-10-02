@@ -921,6 +921,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -939,9 +955,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
+name|regionserver
 operator|.
-name|User
+name|wal
+operator|.
+name|HLogUtil
 import|;
 end_import
 
@@ -15050,7 +15068,7 @@ decl_stmt|;
 name|Path
 name|ePath
 init|=
-name|HLog
+name|HLogUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(

@@ -762,9 +762,9 @@ block|}
 name|Reader
 name|log
 init|=
-name|HLog
+name|HLogFactory
 operator|.
-name|getReader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
@@ -775,7 +775,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|HLog
+name|FSHLog
 operator|.
 name|Entry
 name|entry

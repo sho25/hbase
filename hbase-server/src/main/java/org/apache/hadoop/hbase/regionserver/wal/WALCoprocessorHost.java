@@ -102,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements the coprocessor environment and runtime support for coprocessors  * loaded within a {@link HLog}.  */
+comment|/**  * Implements the coprocessor environment and runtime support for coprocessors  * loaded within a {@link FSHLog}.  */
 end_comment
 
 begin_class
@@ -133,13 +133,13 @@ implements|implements
 name|WALCoprocessorEnvironment
 block|{
 specifier|private
-name|HLog
+name|FSHLog
 name|wal
 decl_stmt|;
 annotation|@
 name|Override
 specifier|public
-name|HLog
+name|FSHLog
 name|getWAL
 parameter_list|()
 block|{
@@ -174,7 +174,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HLog
+name|FSHLog
 name|hlog
 parameter_list|)
 block|{
@@ -197,7 +197,7 @@ name|hlog
 expr_stmt|;
 block|}
 block|}
-name|HLog
+name|FSHLog
 name|wal
 decl_stmt|;
 comment|/**    * Constructor    * @param log the write ahead log    * @param conf the configuration    */
@@ -205,7 +205,7 @@ specifier|public
 name|WALCoprocessorHost
 parameter_list|(
 specifier|final
-name|HLog
+name|FSHLog
 name|log
 parameter_list|,
 specifier|final

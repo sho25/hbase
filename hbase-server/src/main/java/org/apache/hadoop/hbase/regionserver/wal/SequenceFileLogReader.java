@@ -895,7 +895,7 @@ condition|)
 block|{
 name|key
 operator|=
-name|HLog
+name|HLogUtil
 operator|.
 name|newKey
 argument_list|(

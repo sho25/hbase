@@ -2895,7 +2895,7 @@ block|{
 name|Path
 name|newPath
 init|=
-name|HLog
+name|FSHLog
 operator|.
 name|getHLogArchivePath
 argument_list|(
@@ -3056,7 +3056,7 @@ decl_stmt|;
 name|Path
 name|dir
 init|=
-name|HLog
+name|HLogUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -3766,7 +3766,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|HLog
+name|HLogFactory
 operator|.
 name|createWriter
 argument_list|(
@@ -3796,9 +3796,9 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|HLog
+name|HLogFactory
 operator|.
-name|getReader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,

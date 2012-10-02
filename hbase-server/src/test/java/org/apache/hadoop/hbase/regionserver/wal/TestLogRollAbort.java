@@ -900,7 +900,12 @@ name|assertTrue
 argument_list|(
 literal|"Need HDFS-826 for this test"
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|canGetCurReplicas
 argument_list|()
@@ -1030,7 +1035,12 @@ name|assertTrue
 argument_list|(
 literal|"Should have an outstanding WAL edit"
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|hasDeferredEntries
 argument_list|()
@@ -1061,7 +1071,12 @@ name|assertTrue
 argument_list|(
 literal|"Should have deferred flush log edits outstanding"
 argument_list|,
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|hasDeferredEntries
 argument_list|()

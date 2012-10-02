@@ -69,6 +69,24 @@ name|Entry
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLogUtil
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -176,7 +194,7 @@ block|{
 name|HLogKey
 name|key
 init|=
-name|HLog
+name|HLogUtil
 operator|.
 name|newKey
 argument_list|(

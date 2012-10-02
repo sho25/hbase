@@ -67,7 +67,12 @@ name|log
 parameter_list|)
 block|{
 return|return
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getNumLogFiles
 argument_list|()
@@ -83,7 +88,12 @@ name|log
 parameter_list|)
 block|{
 return|return
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
 name|getNumEntries
 argument_list|()

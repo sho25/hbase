@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link HLog.Writer} that delegates to  * SequenceFile.Writer.  */
+comment|/**  * Implementation of {@link FSHLog.Writer} that delegates to  * SequenceFile.Writer.  */
 end_comment
 
 begin_class
@@ -650,7 +650,7 @@ condition|)
 block|{
 name|keyClass
 operator|=
-name|HLog
+name|HLogUtil
 operator|.
 name|getKeyClass
 argument_list|(
@@ -748,7 +748,7 @@ name|conf
 block|,
 name|path
 block|,
-name|HLog
+name|HLogUtil
 operator|.
 name|getKeyClass
 argument_list|(
@@ -898,7 +898,7 @@ name|conf
 argument_list|,
 name|path
 argument_list|,
-name|HLog
+name|HLogUtil
 operator|.
 name|getKeyClass
 argument_list|(

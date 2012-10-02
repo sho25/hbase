@@ -151,6 +151,24 @@ name|HLog
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLogUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * This Chore, every time it runs, will attempt to delete the HLogs in the old logs folder. The HLog  * is only deleted if none of the cleaner delegates says otherwise.  * @see BaseLogCleanerDelegate  */
 end_comment
@@ -237,7 +255,7 @@ name|file
 parameter_list|)
 block|{
 return|return
-name|HLog
+name|HLogUtil
 operator|.
 name|validateHLogFilename
 argument_list|(
