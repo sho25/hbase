@@ -1388,7 +1388,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get a MetricMutableGaugeLong from the storage.  If it is not there atomically put it.    *    * @param gaugeName              name of the gauge to create or get.    * @param potentialStartingValue value of the new gauge if we have to create it.    * @return    */
+comment|/**    * Get a MetricMutableGaugeLong from the storage.  If it is not there atomically put it.    *    * @param gaugeName              name of the gauge to create or get.    * @param potentialStartingValue value of the new gauge if we have to create it.    */
 specifier|public
 name|MutableGaugeLong
 name|getLongGauge
@@ -1493,7 +1493,7 @@ operator|)
 name|metric
 return|;
 block|}
-comment|/**    * Get a MetricMutableCounterLong from the storage.  If it is not there atomically put it.    *    * @param counterName            Name of the counter to get    * @param potentialStartingValue starting value if we have to create a new counter    * @return    */
+comment|/**    * Get a MetricMutableCounterLong from the storage.  If it is not there atomically put it.    *    * @param counterName            Name of the counter to get    * @param potentialStartingValue starting value if we have to create a new counter    */
 specifier|public
 name|MutableCounterLong
 name|getLongCounter

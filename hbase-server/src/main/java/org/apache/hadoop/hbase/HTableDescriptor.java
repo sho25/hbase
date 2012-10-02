@@ -3426,7 +3426,7 @@ block|{
 return|return;
 block|}
 block|}
-comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for serialization of the HTableDescriptor over RPC    * @deprecated Writables are going away.  Use pb {@link #toByteArray()(byte[])} instead.    */
+comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for serialization of the HTableDescriptor over RPC    * @deprecated Writables are going away.  Use pb {@link #toByteArray(byte[])} instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -4808,7 +4808,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * @return This instance serialized with pb with pb magic prefix    * @see {@link #parseFrom(byte[])}    */
+comment|/**    * @return This instance serialized with pb with pb magic prefix    * @see #parseFrom(byte[])    */
 specifier|public
 name|byte
 index|[]
@@ -4828,7 +4828,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes A pb serialized {@link HTableDescriptor} instance with pb magic prefix    * @return An instance of {@link HTableDescriptor} made from<code>bytes</code>    * @throws DeserializationException    * @throws IOException     * @see {@link #toByteArray()}    */
+comment|/**    * @param bytes A pb serialized {@link HTableDescriptor} instance with pb magic prefix    * @return An instance of {@link HTableDescriptor} made from<code>bytes</code>    * @throws DeserializationException    * @throws IOException     * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|HTableDescriptor

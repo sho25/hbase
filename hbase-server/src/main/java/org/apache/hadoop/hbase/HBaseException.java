@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base checked exception in HBase.  * @see https://issues.apache.org/jira/browse/HBASE-5796  */
+comment|/**  * Base checked exception in HBase.  * @see<a href="https://issues.apache.org/jira/browse/HBASE-5796">HBASE-5796</a>  */
 end_comment
 
 begin_class

@@ -2991,7 +2991,7 @@ name|hashCode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use protobuf deserialization instead. See {@link #parseFrom(byte[])} and    * {@link #parseFrom(FSDataInputStream)}    */
+comment|/**    * @deprecated Use protobuf deserialization instead.     * @see #parseFrom(byte[])    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3921,7 +3921,7 @@ return|return
 name|hri
 return|;
 block|}
-comment|/**    * @return This instance serialized as protobuf w/ a magic pb prefix.    * @see #parseFrom(byte[]);    */
+comment|/**    * @return This instance serialized as protobuf w/ a magic pb prefix.    * @see #parseFrom(byte[])    */
 specifier|public
 name|byte
 index|[]
@@ -3947,7 +3947,7 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @return A deserialized {@link HRegionInfo} or null if we failed deserialize or passed bytes null    * @see {@link #toByteArray()}    */
+comment|/**    * @param bytes    * @return A deserialized {@link HRegionInfo} or null if we failed deserialize or passed bytes null    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|HRegionInfo
@@ -3994,7 +3994,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @return A deserialized {@link HRegionInfo}    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @return A deserialized {@link HRegionInfo}    * @throws DeserializationException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|HRegionInfo
@@ -4116,7 +4116,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Use this instead of {@link #toByteArray()} when writing to a stream and you want to use    * the pb mergeDelimitedFrom (w/o the delimiter, pb reads to EOF which may not be what you want).    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    * @throws IOException    * @see {@link #toByteArray()}    */
+comment|/**    * Use this instead of {@link #toByteArray()} when writing to a stream and you want to use    * the pb mergeDelimitedFrom (w/o the delimiter, pb reads to EOF which may not be what you want).    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    * @throws IOException    * @see #toByteArray()    */
 specifier|public
 name|byte
 index|[]
@@ -4640,7 +4640,7 @@ return|;
 block|}
 block|}
 block|}
-comment|/**    * Serializes given HRegionInfo's as a byte array. Use this instead of {@link #toByteArray()} when    * writing to a stream and you want to use the pb mergeDelimitedFrom (w/o the delimiter, pb reads    * to EOF which may not be what you want). {@link #parseDelimitedFrom(byte[], int, int)} can    * be used to read back the instances.    * @param infos HRegionInfo objects to serialize    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    * @throws IOException    * @see {@link #toByteArray()}    */
+comment|/**    * Serializes given HRegionInfo's as a byte array. Use this instead of {@link #toByteArray()} when    * writing to a stream and you want to use the pb mergeDelimitedFrom (w/o the delimiter, pb reads    * to EOF which may not be what you want). {@link #parseDelimitedFrom(byte[], int, int)} can    * be used to read back the instances.    * @param infos HRegionInfo objects to serialize    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    * @throws IOException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|byte

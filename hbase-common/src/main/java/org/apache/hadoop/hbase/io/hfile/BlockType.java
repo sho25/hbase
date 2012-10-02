@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Various types of {@link HFile} blocks. Ordinal values of these enum constants  * must not be relied upon. The values in the enum appear in the order they  * appear in a version 2 {@link HFile}.  */
+comment|/**  * Various types of HFile blocks. Ordinal values of these enum constants must not be relied upon.  * The values in the enum appear in the order they appear in a version 2 HFile.  */
 end_comment
 
 begin_enum

@@ -573,7 +573,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -594,7 +594,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 annotation|@
 name|Deprecated
 specifier|public

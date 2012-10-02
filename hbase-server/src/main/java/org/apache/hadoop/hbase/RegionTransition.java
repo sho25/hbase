@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Current state of a region in transition.  Holds state of a region as it moves through the  * steps that take it from offline to open, etc.  Used by regionserver, master, and zk packages.  * Encapsulates protobuf serialization/deserialization so we don't leak generated pb outside this  * class.  Create an instance using {@link #createRegionTransition(EventType, byte[], ServerName)}.  *<p>Immutable  */
+comment|/**  * Current state of a region in transition.  Holds state of a region as it moves through the  * steps that take it from offline to open, etc.  Used by regionserver, master, and zk packages.  * Encapsulates protobuf serialization/deserialization so we don't leak generated pb outside this  * class.  Create an instance using createRegionTransition(EventType, byte[], ServerName).  *<p>Immutable  */
 end_comment
 
 begin_class
@@ -335,7 +335,7 @@ name|length
 operator|)
 return|;
 block|}
-comment|/**    * @param type    * @param regionName    * @param sn    * @return a serialized pb {@link RegionTransition}    * @see #parseRegionTransition(byte[])    */
+comment|/**    * @param type    * @param regionName    * @param sn    * @return a serialized pb {@link RegionTransition}    */
 specifier|public
 specifier|static
 name|RegionTransition
@@ -368,7 +368,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * @param type    * @param regionName    * @param sn    * @param payload May be null    * @return a serialized pb {@link RegionTransition}    * @see #parseRegionTransition(byte[])    */
+comment|/**    * @param type    * @param regionName    * @param sn    * @param payload May be null    * @return a serialized pb {@link RegionTransition}    */
 specifier|public
 specifier|static
 name|RegionTransition

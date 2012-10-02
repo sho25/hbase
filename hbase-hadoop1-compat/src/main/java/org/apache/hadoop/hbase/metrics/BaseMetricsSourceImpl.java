@@ -613,7 +613,7 @@ name|all
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used to get at the DynamicMetricsRegistry.    * @return    */
+comment|/**    * Used to get at the DynamicMetricsRegistry.    * @return DynamicMetricsRegistry    */
 specifier|protected
 name|DynamicMetricsRegistry
 name|getMetricsRegistry

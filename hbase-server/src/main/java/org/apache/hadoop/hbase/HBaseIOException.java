@@ -88,7 +88,6 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|HBaseIOException
 parameter_list|(
@@ -102,7 +101,6 @@ name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    **/
 specifier|public
 name|HBaseIOException
 parameter_list|(
@@ -121,7 +119,6 @@ name|cause
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|HBaseIOException
 parameter_list|(

@@ -170,7 +170,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes A pb serialized {@link ClusterId} instance with pb magic prefix    * @return An instance of {@link ClusterId} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param bytes A pb serialized {@link ClusterId} instance with pb magic prefix    * @return An instance of {@link ClusterId} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|ClusterId

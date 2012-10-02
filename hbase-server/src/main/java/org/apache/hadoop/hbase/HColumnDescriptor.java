@@ -4221,7 +4221,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @return This instance serialized with pb with pb magic prefix    * @see {@link #parseFrom(byte[])}    */
+comment|/**    * @return This instance serialized with pb with pb magic prefix    * @see #parseFrom(byte[])    */
 specifier|public
 name|byte
 index|[]
@@ -4241,7 +4241,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes A pb serialized {@link HColumnDescriptor} instance with pb magic prefix    * @return An instance of {@link HColumnDescriptor} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param bytes A pb serialized {@link HColumnDescriptor} instance with pb magic prefix    * @return An instance of {@link HColumnDescriptor} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|HColumnDescriptor
