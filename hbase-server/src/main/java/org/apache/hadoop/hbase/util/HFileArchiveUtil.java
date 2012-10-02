@@ -166,7 +166,6 @@ specifier|public
 class|class
 name|HFileArchiveUtil
 block|{
-specifier|public
 specifier|static
 specifier|final
 name|String

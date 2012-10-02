@@ -21,16 +21,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -241,21 +231,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-return|;
-block|}
-comment|/**    * Exposed for TESTING!    */
-specifier|public
-name|List
-argument_list|<
-name|BaseHFileCleanerDelegate
-argument_list|>
-name|getDelegatesForTesting
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|cleanersChain
 return|;
 block|}
 block|}

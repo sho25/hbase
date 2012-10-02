@@ -221,6 +221,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 name|TableHFileArchiveTracker
 name|archiveTracker
 decl_stmt|;

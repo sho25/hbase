@@ -241,7 +241,7 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
-specifier|protected
+specifier|private
 name|List
 argument_list|<
 name|T
