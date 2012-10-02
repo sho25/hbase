@@ -425,7 +425,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|BeforeClass
 import|;
 end_import
 
@@ -489,10 +489,10 @@ comment|// List of classes implementing HeapSize
 comment|// BatchOperation, BatchUpdate, BlockIndex, Entry, Entry<K,V>, HStoreKey
 comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, HLogKey
 annotation|@
-name|Before
+name|BeforeClass
 specifier|public
 name|void
-name|setUp
+name|beforeClass
 parameter_list|()
 throws|throws
 name|Exception
