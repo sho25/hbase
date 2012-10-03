@@ -729,9 +729,8 @@ specifier|final
 name|int
 name|DEFAULT_TIMEOUT
 init|=
-literal|25000
+literal|120000
 decl_stmt|;
-comment|// 25 sec
 specifier|public
 specifier|static
 specifier|final
@@ -767,6 +766,11 @@ specifier|private
 specifier|final
 name|Stoppable
 name|stopper
+decl_stmt|;
+specifier|private
+specifier|final
+name|MasterServices
+name|master
 decl_stmt|;
 specifier|private
 specifier|final
@@ -817,6 +821,7 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
+specifier|final
 name|ConcurrentMap
 argument_list|<
 name|String
@@ -849,6 +854,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+specifier|final
 name|Object
 name|deadWorkersLock
 init|=
@@ -870,6 +876,9 @@ parameter_list|,
 name|Stoppable
 name|stopper
 parameter_list|,
+name|MasterServices
+name|master
+parameter_list|,
 name|ServerName
 name|serverName
 parameter_list|)
@@ -881,6 +890,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|stopper
+argument_list|,
+name|master
 argument_list|,
 name|serverName
 argument_list|,
@@ -959,6 +970,9 @@ parameter_list|,
 name|Stoppable
 name|stopper
 parameter_list|,
+name|MasterServices
+name|master
+parameter_list|,
 name|ServerName
 name|serverName
 parameter_list|,
@@ -988,6 +1002,12 @@ operator|.
 name|stopper
 operator|=
 name|stopper
+expr_stmt|;
+name|this
+operator|.
+name|master
+operator|=
+name|master
 expr_stmt|;
 name|this
 operator|.
@@ -1043,7 +1063,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"timeout = "
 operator|+
@@ -1052,7 +1072,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"unassigned timeout = "
 operator|+
@@ -3069,9 +3089,15 @@ operator|!=
 name|FORCE
 condition|)
 block|{
-if|if
-condition|(
-operator|(
+comment|// We're going to resubmit:
+comment|//  1) immediately if the worker server is now marked as dead
+comment|//  2) after a configurable timeout if the server is not marked as dead but has still not
+comment|//       finished the task. This allows to continue if the worker cannot actually handle it,
+comment|//       for any reason.
+specifier|final
+name|long
+name|time
+init|=
 name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
@@ -3080,11 +3106,67 @@ operator|-
 name|task
 operator|.
 name|last_update
-operator|)
+decl_stmt|;
+specifier|final
+name|boolean
+name|alive
+init|=
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|!=
+literal|null
+condition|?
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isServerOnline
+argument_list|(
+name|task
+operator|.
+name|cur_worker_name
+argument_list|)
+else|:
+literal|true
+decl_stmt|;
+if|if
+condition|(
+name|alive
+operator|&&
+name|time
 operator|<
 name|timeout
 condition|)
 block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping the resubmit of "
+operator|+
+name|task
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"  because the server "
+operator|+
+name|task
+operator|.
+name|cur_worker_name
+operator|+
+literal|" is not marked as dead, we waited for "
+operator|+
+name|time
+operator|+
+literal|" while the timeout is "
+operator|+
+name|timeout
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
