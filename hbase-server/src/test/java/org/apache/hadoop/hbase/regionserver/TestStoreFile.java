@@ -718,6 +718,8 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|startingMetrics
 operator|=
 name|SchemaMetrics
@@ -740,10 +742,28 @@ operator|.
 name|tearDown
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Verifying metrics for "
+operator|+
+name|getName
+argument_list|()
+operator|+
+literal|": "
+operator|+
+name|this
+operator|.
+name|startingMetrics
+argument_list|)
+expr_stmt|;
 name|SchemaMetrics
 operator|.
 name|validateMetricChanges
 argument_list|(
+name|this
+operator|.
 name|startingMetrics
 argument_list|)
 expr_stmt|;
