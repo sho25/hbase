@@ -1328,6 +1328,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+specifier|final
+name|String
+name|columnFamily
+init|=
+literal|"f"
+decl_stmt|;
 name|HRegionInfo
 name|hri
 init|=
@@ -1373,7 +1379,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 argument_list|,
-literal|"cf"
+name|columnFamily
 argument_list|)
 decl_stmt|;
 comment|// Make a store file and write data to it.
@@ -1444,7 +1450,7 @@ name|Path
 argument_list|(
 literal|"test-region"
 argument_list|,
-literal|"cf"
+name|columnFamily
 argument_list|)
 argument_list|)
 decl_stmt|;
