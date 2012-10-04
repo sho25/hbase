@@ -53,42 +53,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|security
-operator|.
-name|MessageDigest
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|security
-operator|.
-name|NoSuchAlgorithmException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|codec
-operator|.
-name|binary
-operator|.
-name|Hex
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -167,20 +131,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileStatus
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|Path
 import|;
 end_import
@@ -227,7 +177,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|FSUtils
 import|;
 end_import
 
@@ -247,24 +197,8 @@ name|HFileArchiveUtil
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
-import|;
-end_import
-
 begin_comment
-comment|/**  * HFileLink describes a link to an hfile.  *  * An hfile can be served from a region or from the hfile archive directory as  * specified by {@value HConstants.HFILE_ARCHIVE_DIRECTORY} conf property.  * HFileLink allows to access the referenced hfile regardless of the location where it is.  *  *<p>Searches for hfiles in the following order and locations:  *<ul>  *<li>/hbase/table/region/cf/hfile</li>  *<li>/hbase/archive/table/region/cf/hfile</li>  *</ul>  *  * The link checks first in the original path if it is not present  * it fallbacks to the archived path.  */
+comment|/**  * HFileLink describes a link to an hfile.  *  * An hfile can be served from a region or from the hfile archive directory (/hbase/.archive)  * HFileLink allows to access the referenced hfile regardless of the location where it is.  *  *<p>Searches for hfiles in the following order and locations:  *<ul>  *<li>/hbase/table/region/cf/hfile</li>  *<li>/hbase/.archive/table/region/cf/hfile</li>  *</ul>  *  * The link checks first in the original path if it is not present  * it fallbacks to the archived path.  */
 end_comment
 
 begin_class
@@ -573,7 +507,7 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param conf {@link Configuration} from which to extract specific archive locations    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
+comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/.archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param conf {@link Configuration} from which to extract specific archive locations    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
 specifier|public
 specifier|static
 name|Path
@@ -617,7 +551,7 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param rootdir root hbase directory    * @param archiveDir Path to the hbase archive directory    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
+comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/.archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param rootdir root hbase directory    * @param archiveDir Path to the hbase archive directory    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
 specifier|public
 specifier|static
 name|Path
