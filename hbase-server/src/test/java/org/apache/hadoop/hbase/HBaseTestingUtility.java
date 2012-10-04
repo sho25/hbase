@@ -2660,6 +2660,7 @@ literal|1
 argument_list|)
 return|;
 block|}
+comment|/**    * Start a mini ZK cluster. If the property "test.hbase.zookeeper.property.clientPort" is set    *  the port mentionned is used as the default port for ZooKeeper.    */
 specifier|private
 name|MiniZooKeeperCluster
 name|startMiniZKCluster
@@ -2712,6 +2713,39 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+specifier|final
+name|int
+name|defPort
+init|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"test.hbase.zookeeper.property.clientPort"
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|defPort
+operator|>
+literal|0
+condition|)
+block|{
+comment|// If there is a port in the config file, we use it.
+name|this
+operator|.
+name|zkCluster
+operator|.
+name|setDefaultClientPort
+argument_list|(
+name|defPort
+argument_list|)
+expr_stmt|;
+block|}
 name|int
 name|clientPort
 init|=
