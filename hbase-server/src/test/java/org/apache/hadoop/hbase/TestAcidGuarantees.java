@@ -1434,6 +1434,48 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|runTestAtomicity
+argument_list|(
+name|millisToRun
+argument_list|,
+name|numWriters
+argument_list|,
+name|numGetters
+argument_list|,
+name|numScanners
+argument_list|,
+name|numUniqueRows
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|runTestAtomicity
+parameter_list|(
+name|long
+name|millisToRun
+parameter_list|,
+name|int
+name|numWriters
+parameter_list|,
+name|int
+name|numGetters
+parameter_list|,
+name|int
+name|numScanners
+parameter_list|,
+name|int
+name|numUniqueRows
+parameter_list|,
+specifier|final
+name|boolean
+name|systemTest
+parameter_list|)
+throws|throws
+name|Exception
+block|{
 name|createTableIfMissing
 argument_list|()
 expr_stmt|;
@@ -1580,6 +1622,25 @@ operator|.
 name|flush
 argument_list|(
 name|TABLE_NAME
+argument_list|)
+expr_stmt|;
+comment|// Flushing has been a source of ACID violations previously (see HBASE-2856), so ideally,
+comment|// we would flush as often as possible.  On a running cluster, this isn't practical:
+comment|// (1) we will cause a lot of load due to all the flushing and compacting
+comment|// (2) we cannot change the flushing/compacting related Configuration options to try to
+comment|// alleviate this
+comment|// (3) it is an unrealistic workload, since no one would actually flush that often.
+comment|// Therefore, let's flush every minute to have more flushes than usual, but not overload
+comment|// the running cluster.
+if|if
+condition|(
+name|systemTest
+condition|)
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|60000
 argument_list|)
 expr_stmt|;
 block|}
@@ -2075,6 +2136,8 @@ argument_list|,
 name|numScanners
 argument_list|,
 name|numUniqueRows
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 return|return
