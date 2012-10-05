@@ -2453,8 +2453,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|//Heap cannot be null, because this is only called from next() which
-comment|//guarantees that heap will never be null before this call.
+comment|//Heap will not be null, if this is called from next() which.
+comment|//If called from RegionScanner.reseek(...) make sure the scanner
+comment|//stack is reset if needed.
+name|checkReseek
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|explicitColumnQuery
