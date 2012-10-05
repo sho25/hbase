@@ -444,14 +444,16 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 name|serverName
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" is not online"
+literal|" is not online or isn't known to the master."
+operator|+
+literal|"The latter could be caused by a DNS misconfiguration."
 argument_list|)
 expr_stmt|;
 return|return;
