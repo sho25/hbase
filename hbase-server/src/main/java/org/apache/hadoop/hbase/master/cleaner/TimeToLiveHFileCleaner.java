@@ -184,7 +184,7 @@ name|TTL_CONF_KEY
 init|=
 literal|"hbase.master.hfilecleaner.ttl"
 decl_stmt|;
-comment|// default ttl = 5 minute
+comment|// default ttl = 5 minutes
 specifier|private
 specifier|static
 specifier|final
@@ -330,7 +330,7 @@ literal|"Life:"
 operator|+
 name|life
 operator|+
-literal|", tt:"
+literal|", ttl:"
 operator|+
 name|ttl
 operator|+
