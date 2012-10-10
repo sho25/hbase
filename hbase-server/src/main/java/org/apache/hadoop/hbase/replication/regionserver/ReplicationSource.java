@@ -1628,12 +1628,44 @@ expr_stmt|;
 block|}
 continue|continue;
 block|}
+name|Path
+name|oldPath
+init|=
+name|getCurrentPath
+argument_list|()
+decl_stmt|;
+comment|//note that in the current scenario,
+comment|//oldPath will be null when a log roll
+comment|//happens.
 comment|// Get a new path
+name|boolean
+name|hasCurrentPath
+init|=
+name|getNextPath
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|getCurrentPath
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|oldPath
+operator|==
+literal|null
+condition|)
+block|{
+name|sleepMultiplier
+operator|=
+literal|1
+expr_stmt|;
+comment|//reset the sleepMultiplier on a path change
+block|}
 if|if
 condition|(
 operator|!
-name|getNextPath
-argument_list|()
+name|hasCurrentPath
 condition|)
 block|{
 if|if
