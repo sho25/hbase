@@ -3381,7 +3381,7 @@ comment|// happened, the cluster is alive and calling it right away
 comment|// even for a test just makes things worse.
 name|sleepForRetries
 argument_list|(
-literal|"Encountered a SocketTimeoutException. Since the"
+literal|"Encountered a SocketTimeoutException. Since the "
 operator|+
 literal|"call to the remote cluster timed out, which is usually "
 operator|+
