@@ -89,15 +89,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|io
-operator|.
-name|Writable
+name|ByteString
 import|;
 end_import
 
@@ -122,8 +120,6 @@ name|T
 parameter_list|,
 name|S
 parameter_list|>
-extends|extends
-name|Writable
 block|{
 comment|/**    * @param colFamily    * @param colQualifier    * @param kv    * @return value of type T    * @throws IOException    */
 name|T
@@ -213,6 +209,52 @@ name|o
 parameter_list|,
 name|Long
 name|l
+parameter_list|)
+function_decl|;
+comment|/**    * This method should return any additional data that is needed on the    * server side to construct the ColumnInterpreter. The server    * will pass this to the {@link #initialize(org.apache.hadoop.hbase.protobuf.generated.AggregateProtos.ColumnInterpreter)}    * method. If there is no ColumnInterpreter specific data (for e.g.,    * {@link LongColumnInterpreter}) then null should be returned.    * @return the PB message    */
+name|ByteString
+name|columnInterpreterSpecificData
+parameter_list|()
+function_decl|;
+comment|/**    * Return the PB for type T    * @param t    * @return PB-message    */
+name|ByteString
+name|getProtoForCellType
+parameter_list|(
+name|T
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Return the PB for type S    * @param s    * @return PB-message    */
+name|ByteString
+name|getProtoForPromotedType
+parameter_list|(
+name|S
+name|s
+parameter_list|)
+function_decl|;
+comment|/**    * This method should initialize any field(s) of the ColumnInterpreter with    * a parsing of the passed message bytes (used on the server side).    * @param bytes    */
+name|void
+name|initialize
+parameter_list|(
+name|ByteString
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Converts the bytes in the server's response to the expected type S    * @param response    * @return response of type S constructed from the message    */
+name|S
+name|parseResponseAsPromotedType
+parameter_list|(
+name|byte
+index|[]
+name|response
+parameter_list|)
+function_decl|;
+comment|/**    * The response message comes as type S. This will convert/cast it to T.    * In some sense, performs the opposite of {@link #castToReturnType(Object)}    * @param response    * @return cast    */
+name|T
+name|castToCellType
+parameter_list|(
+name|S
+name|response
 parameter_list|)
 function_decl|;
 block|}
