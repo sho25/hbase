@@ -715,7 +715,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Provide the id of the peer and a log key and this method will figure which    * hlog it belongs to and will log, for this region server, the current    * position. It will also clean old logs from the queue.    * @param log Path to the log currently being replicated from    * replication status in zookeeper. It will also delete older entries.    * @param id id of the peer cluster    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    */
+comment|/**    * Provide the id of the peer and a log key and this method will figure which    * hlog it belongs to and will log, for this region server, the current    * position. It will also clean old logs from the queue.    * @param log Path to the log currently being replicated from    * replication status in zookeeper. It will also delete older entries.    * @param id id of the peer cluster    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    * @param holdLogInZK if true then the log is retained in ZK    */
 specifier|public
 name|void
 name|logPositionAndCleanOldLogs
@@ -731,6 +731,9 @@ name|position
 parameter_list|,
 name|boolean
 name|queueRecovered
+parameter_list|,
+name|boolean
+name|holdLogInZK
 parameter_list|)
 block|{
 name|String
@@ -771,6 +774,13 @@ argument_list|,
 name|position
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|holdLogInZK
+condition|)
+block|{
+return|return;
+block|}
 synchronized|synchronized
 init|(
 name|this
@@ -1237,7 +1247,7 @@ name|sources
 return|;
 block|}
 name|void
-name|logRolled
+name|preLogRoll
 parameter_list|(
 name|Path
 name|newLog
@@ -1373,6 +1383,36 @@ name|latestPath
 operator|=
 name|newLog
 expr_stmt|;
+block|}
+name|void
+name|postLogRoll
+parameter_list|(
+name|Path
+name|newLog
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|replicating
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Replication stopped, won't add new log"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// This only updates the sources we own, not the recovered ones
 for|for
 control|(

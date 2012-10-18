@@ -928,7 +928,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Not interested
+name|getReplicationManager
+argument_list|()
+operator|.
+name|preLogRoll
+argument_list|(
+name|newPath
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -948,7 +955,7 @@ block|{
 name|getReplicationManager
 argument_list|()
 operator|.
-name|logRolled
+name|postLogRoll
 argument_list|(
 name|newPath
 argument_list|)

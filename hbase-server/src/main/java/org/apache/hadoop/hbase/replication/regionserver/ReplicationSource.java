@@ -1684,6 +1684,39 @@ expr_stmt|;
 block|}
 continue|continue;
 block|}
+name|boolean
+name|currentWALisBeingWrittenTo
+init|=
+literal|false
+decl_stmt|;
+comment|//For WAL files we own (rather than recovered), take a snapshot of whether the
+comment|//current WAL file (this.currentPath) is in use (for writing) NOW!
+comment|//Since the new WAL paths are enqueued only after the prev WAL file
+comment|//is 'closed', presence of an element in the queue means that
+comment|//the previous WAL file was closed, else the file is in use (currentPath)
+comment|//We take the snapshot now so that we are protected against races
+comment|//where a new file gets enqueued while the current file is being processed
+comment|//(and where we just finished reading the current file).
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|queueRecovered
+operator|&&
+name|queue
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|currentWALisBeingWrittenTo
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|// Open a reader on it
 if|if
 condition|(
@@ -1741,7 +1774,9 @@ block|{
 if|if
 condition|(
 name|readAllEntriesToReplicateOrNextFile
-argument_list|()
+argument_list|(
+name|currentWALisBeingWrittenTo
+argument_list|)
 condition|)
 block|{
 continue|continue;
@@ -1990,6 +2025,8 @@ operator|.
 name|position
 argument_list|,
 name|queueRecovered
+argument_list|,
+name|currentWALisBeingWrittenTo
 argument_list|)
 expr_stmt|;
 name|this
@@ -2022,7 +2059,9 @@ operator|=
 literal|1
 expr_stmt|;
 name|shipEdits
-argument_list|()
+argument_list|(
+name|currentWALisBeingWrittenTo
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -2076,11 +2115,14 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Read all the entries from the current log files and retain those    * that need to be replicated. Else, process the end of the current file.    * @return true if we got nothing and went to the next file, false if we got    * entries    * @throws IOException    */
+comment|/**    * Read all the entries from the current log files and retain those    * that need to be replicated. Else, process the end of the current file.    * @param currentWALisBeingWrittenTo is the current WAL being written to    * @return true if we got nothing and went to the next file, false if we got    * entries    * @throws IOException    */
 specifier|protected
 name|boolean
 name|readAllEntriesToReplicateOrNextFile
-parameter_list|()
+parameter_list|(
+name|boolean
+name|currentWALisBeingWrittenTo
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -2357,6 +2399,15 @@ name|startPosition
 operator|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|currentWALisBeingWrittenTo
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|// If we didn't get anything and the queue has an object, it means we
 comment|// hit the end of the file for sure
 return|return
@@ -3136,11 +3187,14 @@ return|return
 name|distinctRowKeys
 return|;
 block|}
-comment|/**    * Do the shipping logic    */
+comment|/**    * Do the shipping logic    * @param currentWALisBeingWrittenTo was the current WAL being (seemingly)     * written to when this method was called    */
 specifier|protected
 name|void
 name|shipEdits
-parameter_list|()
+parameter_list|(
+name|boolean
+name|currentWALisBeingWrittenTo
+parameter_list|)
 block|{
 name|int
 name|sleepMultiplier
@@ -3261,6 +3315,8 @@ operator|.
 name|position
 argument_list|,
 name|queueRecovered
+argument_list|,
+name|currentWALisBeingWrittenTo
 argument_list|)
 expr_stmt|;
 name|this
