@@ -33688,14 +33688,14 @@ argument_list|()
 decl_stmt|;
 name|mrmBuilder
 operator|.
-name|addMutatationRequest
+name|addMutationRequest
 argument_list|(
 name|m1
 argument_list|)
 expr_stmt|;
 name|mrmBuilder
 operator|.
-name|addMutatationRequest
+name|addMutationRequest
 argument_list|(
 name|m2
 argument_list|)
