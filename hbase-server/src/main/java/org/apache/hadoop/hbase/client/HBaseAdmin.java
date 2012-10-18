@@ -4412,8 +4412,9 @@ argument_list|,
 name|Integer
 argument_list|>
 argument_list|(
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|ret
 operator|.
@@ -4421,8 +4422,9 @@ name|getYetToUpdateRegions
 argument_list|()
 argument_list|)
 argument_list|,
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|ret
 operator|.

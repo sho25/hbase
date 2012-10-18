@@ -1252,8 +1252,9 @@ block|{
 comment|// There was nothing there, create a new value
 name|value
 operator|=
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|currentAmount
 argument_list|)

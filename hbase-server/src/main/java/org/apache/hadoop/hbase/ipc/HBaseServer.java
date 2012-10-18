@@ -5766,6 +5766,7 @@ literal|false
 decl_stmt|;
 comment|// Fake 'call' for failed authorization response
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|AUTHROIZATION_FAILED_CALLID
