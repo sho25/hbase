@@ -786,6 +786,8 @@ init|=
 name|Integer
 operator|.
 name|MAX_VALUE
+operator|-
+literal|1
 decl_stmt|;
 comment|/** name of the file for unique cluster ID */
 specifier|public
