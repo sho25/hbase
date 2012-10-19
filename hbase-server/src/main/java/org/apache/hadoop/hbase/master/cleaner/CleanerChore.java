@@ -544,7 +544,7 @@ operator|.
 name|isDir
 argument_list|()
 condition|)
-name|checkDirectory
+name|checkAndDeleteDirectory
 argument_list|(
 name|file
 operator|.
@@ -606,10 +606,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check to see if we can delete a directory (and all the children files of that directory).    *<p>    * A directory will not be deleted if it has children that are subsequently deleted since that    * will require another set of lookups in the filesystem, which is semantically same as waiting    * until the next time the chore is run, so we might as well wait.    * @param fs {@link FileSystem} where he directory resides    * @param toCheck directory to check    * @throws IOException    */
+comment|/**    * Attempt to delete a directory and all files under that directory. Each child file is passed    * through the delegates to see if it can be deleted. If the directory has no children when the    * cleaners have finished it is deleted.    *<p>    * If new children files are added between checks of the directory, the directory will<b>not</b>    * be deleted.    * @param toCheck directory to check    * @return<tt>true</tt> if the directory was deleted,<tt>false</tt> otherwise.    * @throws IOException if there is an unexpected filesystem error    */
 specifier|private
-name|void
-name|checkDirectory
+name|boolean
+name|checkAndDeleteDirectory
 parameter_list|(
 name|Path
 name|toCheck
@@ -628,108 +628,7 @@ argument_list|)
 expr_stmt|;
 name|FileStatus
 index|[]
-name|files
-init|=
-name|checkAndDeleteDirectory
-argument_list|(
-name|toCheck
-argument_list|)
-decl_stmt|;
-comment|// if the directory doesn't exist, then we are done
-if|if
-condition|(
-name|files
-operator|==
-literal|null
-condition|)
-return|return;
-comment|// otherwise we need to check each of the child files
-for|for
-control|(
-name|FileStatus
-name|file
-range|:
-name|files
-control|)
-block|{
-name|Path
-name|filePath
-init|=
-name|file
-operator|.
-name|getPath
-argument_list|()
-decl_stmt|;
-comment|// if its a directory, then check to see if it should be deleted
-if|if
-condition|(
-name|file
-operator|.
-name|isDir
-argument_list|()
-condition|)
-block|{
-comment|// check the subfiles to see if they can be deleted
-name|checkDirectory
-argument_list|(
-name|filePath
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-comment|// otherwise we can just check the file
-name|checkAndDelete
-argument_list|(
-name|filePath
-argument_list|)
-expr_stmt|;
-block|}
-comment|// recheck the directory to see if we can delete it this time
-name|checkAndDeleteDirectory
-argument_list|(
-name|toCheck
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Check and delete the passed directory if the directory is empty    * @param toCheck full path to the directory to check (and possibly delete)    * @return<tt>null</tt> if the directory was empty (and possibly deleted) and otherwise an array    *         of<code>FileStatus</code> for the files in the directory    * @throws IOException    */
-specifier|private
-name|FileStatus
-index|[]
-name|checkAndDeleteDirectory
-parameter_list|(
-name|Path
-name|toCheck
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Attempting to delete directory:"
-operator|+
-name|toCheck
-argument_list|)
-expr_stmt|;
-comment|// if it doesn't exist, we are done
-if|if
-condition|(
-operator|!
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|toCheck
-argument_list|)
-condition|)
-return|return
-literal|null
-return|;
-comment|// get the files below the directory
-name|FileStatus
-index|[]
-name|files
+name|children
 init|=
 name|FSUtils
 operator|.
@@ -738,35 +637,100 @@ argument_list|(
 name|fs
 argument_list|,
 name|toCheck
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
-comment|// if there are no subfiles, then we can delete the directory
+comment|// if the directory doesn't exist, then we are done
 if|if
 condition|(
-name|files
+name|children
 operator|==
 literal|null
 condition|)
+return|return
+literal|true
+return|;
+name|boolean
+name|canDeleteThis
+init|=
+literal|true
+decl_stmt|;
+for|for
+control|(
+name|FileStatus
+name|child
+range|:
+name|children
+control|)
 block|{
+name|Path
+name|path
+init|=
+name|child
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
+comment|// attempt to delete all the files under the directory
+if|if
+condition|(
+name|child
+operator|.
+name|isDir
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|checkAndDeleteDirectory
+argument_list|(
+name|path
+argument_list|)
+condition|)
+block|{
+name|canDeleteThis
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+comment|// otherwise we can just check the file
+elseif|else
+if|if
+condition|(
+operator|!
 name|checkAndDelete
 argument_list|(
-name|toCheck
+name|path
 argument_list|)
+condition|)
+block|{
+name|canDeleteThis
+operator|=
+literal|false
 expr_stmt|;
-return|return
-literal|null
-return|;
 block|}
-comment|// return the status of the files in the directory
+block|}
+comment|// if all the children have been deleted, then we should try to delete this directory. However,
+comment|// don't do so recursively so we don't delete files that have been added since we checked.
 return|return
-name|files
+name|canDeleteThis
+condition|?
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|toCheck
+argument_list|,
+literal|false
+argument_list|)
+else|:
+literal|false
 return|;
 block|}
 comment|/**    * Run the given file through each of the cleaners to see if it should be deleted, deleting it if    * necessary.    * @param filePath path of the file to check (and possibly delete)    * @throws IOException if cann't delete a file because of a filesystem issue    * @throws IllegalArgumentException if the file is a directory and has children    */
 specifier|private
-name|void
+name|boolean
 name|checkAndDelete
 parameter_list|(
 name|Path
@@ -777,6 +741,7 @@ name|IOException
 throws|,
 name|IllegalArgumentException
 block|{
+comment|// first check to see if the path is valid
 if|if
 condition|(
 operator|!
@@ -800,9 +765,9 @@ operator|+
 literal|" deleting it."
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
+name|boolean
+name|success
+init|=
 name|this
 operator|.
 name|fs
@@ -813,8 +778,12 @@ name|filePath
 argument_list|,
 literal|true
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|success
 condition|)
-block|{
 name|LOG
 operator|.
 name|warn
@@ -826,9 +795,11 @@ operator|+
 literal|", but couldn't. Run cleaner chain and attempt to delete on next pass."
 argument_list|)
 expr_stmt|;
+return|return
+name|success
+return|;
 block|}
-return|return;
-block|}
+comment|// check each of the cleaners for the file
 for|for
 control|(
 name|T
@@ -840,6 +811,13 @@ block|{
 if|if
 condition|(
 name|cleaner
+operator|.
+name|isStopped
+argument_list|()
+operator|||
+name|this
+operator|.
+name|stopper
 operator|.
 name|isStopped
 argument_list|()
@@ -863,7 +841,9 @@ operator|.
 name|oldFileDir
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -888,7 +868,9 @@ operator|+
 name|cleaner
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 block|}
 comment|// delete this file if it passes all the cleaners
@@ -903,9 +885,9 @@ operator|+
 literal|" from archive"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
+name|boolean
+name|success
+init|=
 name|this
 operator|.
 name|fs
@@ -916,6 +898,11 @@ name|filePath
 argument_list|,
 literal|false
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|success
 condition|)
 block|{
 name|LOG
@@ -930,6 +917,9 @@ literal|", but couldn't. Run cleaner chain and attempt to delete on next pass."
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|success
+return|;
 block|}
 annotation|@
 name|Override
