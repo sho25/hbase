@@ -347,7 +347,7 @@ argument_list|)
 return|;
 block|}
 comment|// Master methods
-comment|/**    * Creates a new unassigned node in the OFFLINE state for the specified region.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>Sets a watcher on the unassigned region node if the method is successful.    *    *<p>This method should only be used during cluster startup and the enabling    * of a table.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Creates a new unassigned node in the OFFLINE state for the specified region.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>Sets a watcher on the unassigned region node if the method is successful.    *    *<p>This method should only be used during cluster startup and the enabling    * of a table.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server transition will happen on    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|void
@@ -472,7 +472,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an unassigned node in the OFFLINE state for the specified region.    *<p>    * Runs asynchronously.  Depends on no pre-existing znode.    *    *<p>Sets a watcher on the unassigned region node.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @param cb    * @param ctx    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Creates an unassigned node in the OFFLINE state for the specified region.    *<p>    * Runs asynchronously.  Depends on no pre-existing znode.    *    *<p>Sets a watcher on the unassigned region node.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server transition will happen on    * @param cb    * @param ctx    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|void
@@ -570,95 +570,7 @@ name|ctx
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Forces an existing unassigned node to the OFFLINE state for the specified    * region.    *    *<p>Does not create a new node.  If a node does not already exist for this    * region, a {@link NoNodeException} will be thrown.    *    *<p>Sets a watcher on the unassigned region node if the method is    * successful.    *    *<p>This method should only be used during recovery of regionserver failure.    *    * @param zkw zk reference    * @param region region to be forced as offline    * @param serverName server event originates from    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
-specifier|public
-specifier|static
-name|void
-name|forceNodeOffline
-parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
-name|HRegionInfo
-name|region
-parameter_list|,
-name|ServerName
-name|serverName
-parameter_list|)
-throws|throws
-name|KeeperException
-throws|,
-name|KeeperException
-operator|.
-name|NoNodeException
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|zkw
-operator|.
-name|prefix
-argument_list|(
-literal|"Forcing existing unassigned node for "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|" to OFFLINE state"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|RegionTransition
-name|rt
-init|=
-name|RegionTransition
-operator|.
-name|createRegionTransition
-argument_list|(
-name|EventType
-operator|.
-name|M_ZK_REGION_OFFLINE
-argument_list|,
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
-name|serverName
-argument_list|)
-decl_stmt|;
-name|String
-name|node
-init|=
-name|getNodeName
-argument_list|(
-name|zkw
-argument_list|,
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|ZKUtil
-operator|.
-name|setData
-argument_list|(
-name|zkw
-argument_list|,
-name|node
-argument_list|,
-name|rt
-operator|.
-name|toByteArray
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Creates or force updates an unassigned node to the OFFLINE state for the    * specified region.    *<p>    * Attempts to create the node but if it exists will force it to transition to    * and OFFLINE state.    *    *<p>Sets a watcher on the unassigned region node if the method is    * successful.    *    *<p>This method should be used when assigning a region.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return the version of the znode created in OFFLINE state, -1 if    *         unsuccessful.    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Creates or force updates an unassigned node to the OFFLINE state for the    * specified region.    *<p>    * Attempts to create the node but if it exists will force it to transition to    * and OFFLINE state.    *    *<p>Sets a watcher on the unassigned region node if the method is    * successful.    *    *<p>This method should be used when assigning a region.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server transition will happen on    * @return the version of the znode created in OFFLINE state, -1 if    *         unsuccessful.    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|int
@@ -672,45 +584,6 @@ name|region
 parameter_list|,
 name|ServerName
 name|serverName
-parameter_list|)
-throws|throws
-name|KeeperException
-block|{
-return|return
-name|createOrForceNodeOffline
-argument_list|(
-name|zkw
-argument_list|,
-name|region
-argument_list|,
-name|serverName
-argument_list|,
-literal|false
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
-comment|/**    * Creates or force updates an unassigned node to the OFFLINE state for the    * specified region.    *<p>    * Attempts to create the node but if it exists will force it to transition to    * and OFFLINE state.    *<p>    * Sets a watcher on the unassigned region node if the method is successful.    *     *<p>    * This method should be used when assigning a region.    *     * @param zkw    *          zk reference    * @param region    *          region to be created as offline    * @param serverName    *          server event originates from    * @param hijack    *          - true if to be hijacked and reassigned, false otherwise    * @param allowCreation    *          - true if the node has to be created newly, false otherwise    * @throws KeeperException    *           if unexpected zookeeper exception    * @return the version of the znode created in OFFLINE state, -1 if    *         unsuccessful.    * @throws KeeperException.NodeExistsException    *           if node already exists    */
-specifier|public
-specifier|static
-name|int
-name|createOrForceNodeOffline
-parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
-name|HRegionInfo
-name|region
-parameter_list|,
-name|ServerName
-name|serverName
-parameter_list|,
-name|boolean
-name|hijack
-parameter_list|,
-name|boolean
-name|allowCreation
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -779,13 +652,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Stat
-name|stat
-init|=
-operator|new
-name|Stat
-argument_list|()
-decl_stmt|;
 name|zkw
 operator|.
 name|sync
@@ -813,24 +679,6 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// While trying to transit a node to OFFLINE that was in previously in
-comment|// OPENING state but before it could transit to OFFLINE state if RS had
-comment|// opened the region then the Master deletes the assigned region znode.
-comment|// In that case the znode will not exist. So we should not
-comment|// create the znode again which will lead to double assignment.
-if|if
-condition|(
-name|hijack
-operator|&&
-operator|!
-name|allowCreation
-condition|)
-block|{
-return|return
-operator|-
-literal|1
-return|;
-block|}
 return|return
 name|ZKUtil
 operator|.
@@ -846,88 +694,6 @@ return|;
 block|}
 else|else
 block|{
-name|byte
-index|[]
-name|curDataInZNode
-init|=
-name|ZKAssign
-operator|.
-name|getDataNoWatch
-argument_list|(
-name|zkw
-argument_list|,
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|,
-name|stat
-argument_list|)
-decl_stmt|;
-name|RegionTransition
-name|curRt
-init|=
-name|getRegionTransition
-argument_list|(
-name|curDataInZNode
-argument_list|)
-decl_stmt|;
-comment|// Do not move the node to OFFLINE if znode is in any of the following
-comment|// state.
-comment|// Because these are already executed states.
-if|if
-condition|(
-name|hijack
-operator|&&
-name|curRt
-operator|!=
-literal|null
-condition|)
-block|{
-name|EventType
-name|eventType
-init|=
-name|curRt
-operator|.
-name|getEventType
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|eventType
-operator|.
-name|equals
-argument_list|(
-name|EventType
-operator|.
-name|M_ZK_REGION_CLOSING
-argument_list|)
-operator|||
-name|eventType
-operator|.
-name|equals
-argument_list|(
-name|EventType
-operator|.
-name|RS_ZK_REGION_CLOSED
-argument_list|)
-operator|||
-name|eventType
-operator|.
-name|equals
-argument_list|(
-name|EventType
-operator|.
-name|RS_ZK_REGION_OPENED
-argument_list|)
-condition|)
-block|{
-return|return
-operator|-
-literal|1
-return|;
-block|}
-block|}
 name|boolean
 name|setData
 init|=
@@ -1033,10 +799,7 @@ block|}
 block|}
 block|}
 return|return
-name|stat
-operator|.
-name|getVersion
-argument_list|()
+name|version
 operator|+
 literal|1
 return|;
@@ -1506,7 +1269,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// RegionServer methods
-comment|/**    * Creates a new unassigned node in the CLOSING state for the specified    * region.    *    *<p>Does not transition nodes from any states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>If creation is successful, returns the version number of the CLOSING    * node created.    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be created as closing    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Creates a new unassigned node in the CLOSING state for the specified    * region.    *    *<p>Does not transition nodes from any states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>If creation is successful, returns the version number of the CLOSING    * node created.    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be created as closing    * @param serverName server transition will happen on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|int
@@ -1599,7 +1362,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the CLOSING state to be in the CLOSED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in CLOSING state</li>    *<li>After verifying CLOSING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to closed    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the CLOSING state to be in the CLOSED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in CLOSING state</li>    *<li>After verifying CLOSING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to closed    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
@@ -1641,7 +1404,7 @@ name|expectedVersion
 argument_list|)
 return|;
 block|}
-comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the OFFLINE state to be in the OPENING state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node written as OPENING is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OFFLINE state</li>    *<li>After verifying OFFLINE state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the OFFLINE state to be in the OPENING state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node written as OPENING is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OFFLINE state</li>    *<li>After verifying OFFLINE state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
@@ -1715,7 +1478,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Retransitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENING state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node rewritten as OPENING is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Retransitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENING state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node rewritten as OPENING is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
@@ -1757,7 +1520,7 @@ name|expectedVersion
 argument_list|)
 return|;
 block|}
-comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (this should never actually happen since an RS only does this transition    * following a transition to OPENING.  if two RS are conflicting, one would    * fail the original transition to OPENING and not this transition)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when completing the    * open of a region.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server event originates from    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (this should never actually happen since an RS only does this transition    * following a transition to OPENING.  if two RS are conflicting, one would    * fail the original transition to OPENING and not this transition)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when completing the    * open of a region.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
@@ -1799,7 +1562,7 @@ name|expectedVersion
 argument_list|)
 return|;
 block|}
-comment|/**    * Method that actually performs unassigned node transitions.    *    *<p>Attempts to transition the unassigned node for the specified region    * from the expected state to the state in the specified transition data.    *    *<p>Method first reads existing data and verifies it is in the expected    * state.  If the node does not exist or the node is not in the expected    * state, the method returns -1.  If the transition is successful, the    * version number of the node following the transition is returned.    *    *<p>If the read state is what is expected, it attempts to write the new    * state and data into the node.  When doing this, it includes the expected    * version (determined when the existing state was verified) to ensure that    * only one transition is successful.  If there is a version mismatch, the    * method returns -1.    *    *<p>If the write is successful, no watch is set and the method returns true.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server event originates from    * @param endState state to transition node to if all checks pass    * @param beginState state the node must currently be in to do transition    * @param expectedVersion expected version of data before modification, or -1    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Method that actually performs unassigned node transitions.    *    *<p>Attempts to transition the unassigned node for the specified region    * from the expected state to the state in the specified transition data.    *    *<p>Method first reads existing data and verifies it is in the expected    * state.  If the node does not exist or the node is not in the expected    * state, the method returns -1.  If the transition is successful, the    * version number of the node following the transition is returned.    *    *<p>If the read state is what is expected, it attempts to write the new    * state and data into the node.  When doing this, it includes the expected    * version (determined when the existing state was verified) to ensure that    * only one transition is successful.  If there is a version mismatch, the    * method returns -1.    *    *<p>If the write is successful, no watch is set and the method returns true.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server transition happens on    * @param endState state to transition node to if all checks pass    * @param beginState state the node must currently be in to do transition    * @param expectedVersion expected version of data before modification, or -1    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int

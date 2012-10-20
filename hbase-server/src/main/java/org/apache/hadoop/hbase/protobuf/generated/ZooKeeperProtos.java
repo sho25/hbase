@@ -8832,9 +8832,9 @@ name|long
 name|getCreateTime
 parameter_list|()
 function_decl|;
-comment|// optional .ServerName originServerName = 4;
+comment|// required .ServerName serverName = 4;
 name|boolean
-name|hasOriginServerName
+name|hasServerName
 parameter_list|()
 function_decl|;
 name|org
@@ -8852,7 +8852,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerName
-name|getOriginServerName
+name|getServerName
 parameter_list|()
 function_decl|;
 name|org
@@ -8870,7 +8870,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerNameOrBuilder
-name|getOriginServerNameOrBuilder
+name|getServerNameOrBuilder
 parameter_list|()
 function_decl|;
 comment|// optional bytes payload = 5;
@@ -9148,12 +9148,12 @@ return|return
 name|createTime_
 return|;
 block|}
-comment|// optional .ServerName originServerName = 4;
+comment|// required .ServerName serverName = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ORIGINSERVERNAME_FIELD_NUMBER
+name|SERVERNAME_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -9173,11 +9173,11 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerName
-name|originServerName_
+name|serverName_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasOriginServerName
+name|hasServerName
 parameter_list|()
 block|{
 return|return
@@ -9208,11 +9208,11 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerName
-name|getOriginServerName
+name|getServerName
 parameter_list|()
 block|{
 return|return
-name|originServerName_
+name|serverName_
 return|;
 block|}
 specifier|public
@@ -9231,11 +9231,11 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerNameOrBuilder
-name|getOriginServerNameOrBuilder
+name|getServerNameOrBuilder
 parameter_list|()
 block|{
 return|return
-name|originServerName_
+name|serverName_
 return|;
 block|}
 comment|// optional bytes payload = 5;
@@ -9314,7 +9314,7 @@ name|createTime_
 operator|=
 literal|0L
 expr_stmt|;
-name|originServerName_
+name|serverName_
 operator|=
 name|org
 operator|.
@@ -9425,14 +9425,23 @@ return|;
 block|}
 if|if
 condition|(
-name|hasOriginServerName
+operator|!
+name|hasServerName
 argument_list|()
 condition|)
 block|{
+name|memoizedIsInitialized
+operator|=
+literal|0
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 if|if
 condition|(
 operator|!
-name|getOriginServerName
+name|getServerName
 argument_list|()
 operator|.
 name|isInitialized
@@ -9446,7 +9455,6 @@ expr_stmt|;
 return|return
 literal|false
 return|;
-block|}
 block|}
 name|memoizedIsInitialized
 operator|=
@@ -9567,7 +9575,7 @@ name|writeMessage
 argument_list|(
 literal|4
 argument_list|,
-name|originServerName_
+name|serverName_
 argument_list|)
 expr_stmt|;
 block|}
@@ -9754,7 +9762,7 @@ name|computeMessageSize
 argument_list|(
 literal|4
 argument_list|,
-name|originServerName_
+name|serverName_
 argument_list|)
 expr_stmt|;
 block|}
@@ -10056,18 +10064,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 condition|)
 block|{
@@ -10075,14 +10083,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getOriginServerName
+name|getServerName
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getOriginServerName
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -10264,7 +10272,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 condition|)
 block|{
@@ -10276,7 +10284,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ORIGINSERVERNAME_FIELD_NUMBER
+name|SERVERNAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -10286,7 +10294,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getOriginServerName
+name|getServerName
 argument_list|()
 operator|.
 name|hashCode
@@ -11146,7 +11154,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getOriginServerNameFieldBuilder
+name|getServerNameFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -11222,12 +11230,12 @@ operator|)
 expr_stmt|;
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|originServerName_
+name|serverName_
 operator|=
 name|org
 operator|.
@@ -11251,7 +11259,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -11668,25 +11676,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|originServerName_
+name|serverName_
 operator|=
-name|originServerName_
+name|serverName_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|originServerName_
+name|serverName_
 operator|=
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|build
 argument_list|()
@@ -11905,15 +11913,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 condition|)
 block|{
-name|mergeOriginServerName
+name|mergeServerName
 argument_list|(
 name|other
 operator|.
-name|getOriginServerName
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -11990,14 +11998,19 @@ return|;
 block|}
 if|if
 condition|(
-name|hasOriginServerName
+operator|!
+name|hasServerName
 argument_list|()
 condition|)
 block|{
+return|return
+literal|false
+return|;
+block|}
 if|if
 condition|(
 operator|!
-name|getOriginServerName
+name|getServerName
 argument_list|()
 operator|.
 name|isInitialized
@@ -12007,7 +12020,6 @@ block|{
 return|return
 literal|false
 return|;
-block|}
 block|}
 return|return
 literal|true
@@ -12237,7 +12249,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|hasOriginServerName
+name|hasServerName
 argument_list|()
 condition|)
 block|{
@@ -12245,7 +12257,7 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|getOriginServerName
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -12259,7 +12271,7 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|setOriginServerName
+name|setServerName
 argument_list|(
 name|subBuilder
 operator|.
@@ -12575,7 +12587,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ServerName originServerName = 4;
+comment|// required .ServerName serverName = 4;
 specifier|private
 name|org
 operator|.
@@ -12592,7 +12604,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerName
-name|originServerName_
+name|serverName_
 init|=
 name|org
 operator|.
@@ -12672,11 +12684,11 @@ name|HBaseProtos
 operator|.
 name|ServerNameOrBuilder
 argument_list|>
-name|originServerNameBuilder_
+name|serverNameBuilder_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasOriginServerName
+name|hasServerName
 parameter_list|()
 block|{
 return|return
@@ -12707,24 +12719,24 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerName
-name|getOriginServerName
+name|getServerName
 parameter_list|()
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|originServerName_
+name|serverName_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|getMessage
 argument_list|()
@@ -12733,7 +12745,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setOriginServerName
+name|setServerName
 parameter_list|(
 name|org
 operator|.
@@ -12755,7 +12767,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
@@ -12773,7 +12785,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|originServerName_
+name|serverName_
 operator|=
 name|value
 expr_stmt|;
@@ -12783,7 +12795,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -12801,7 +12813,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setOriginServerName
+name|setServerName
 parameter_list|(
 name|org
 operator|.
@@ -12825,12 +12837,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|originServerName_
+name|serverName_
 operator|=
 name|builderForValue
 operator|.
@@ -12843,7 +12855,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -12864,7 +12876,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|mergeOriginServerName
+name|mergeServerName
 parameter_list|(
 name|org
 operator|.
@@ -12886,7 +12898,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
@@ -12903,7 +12915,7 @@ operator|==
 literal|0x00000008
 operator|)
 operator|&&
-name|originServerName_
+name|serverName_
 operator|!=
 name|org
 operator|.
@@ -12925,7 +12937,7 @@ name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|originServerName_
+name|serverName_
 operator|=
 name|org
 operator|.
@@ -12945,7 +12957,7 @@ name|ServerName
 operator|.
 name|newBuilder
 argument_list|(
-name|originServerName_
+name|serverName_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -12959,7 +12971,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerName_
+name|serverName_
 operator|=
 name|value
 expr_stmt|;
@@ -12970,7 +12982,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -12988,17 +13000,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearOriginServerName
+name|clearServerName
 parameter_list|()
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|originServerName_
+name|serverName_
 operator|=
 name|org
 operator|.
@@ -13025,7 +13037,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -13062,7 +13074,7 @@ operator|.
 name|ServerName
 operator|.
 name|Builder
-name|getOriginServerNameBuilder
+name|getServerNameBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -13073,7 +13085,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getOriginServerNameFieldBuilder
+name|getServerNameFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -13096,18 +13108,18 @@ operator|.
 name|HBaseProtos
 operator|.
 name|ServerNameOrBuilder
-name|getOriginServerNameOrBuilder
+name|getServerNameOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -13116,7 +13128,7 @@ block|}
 else|else
 block|{
 return|return
-name|originServerName_
+name|serverName_
 return|;
 block|}
 block|}
@@ -13179,17 +13191,17 @@ name|HBaseProtos
 operator|.
 name|ServerNameOrBuilder
 argument_list|>
-name|getOriginServerNameFieldBuilder
+name|getServerNameFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|originServerNameBuilder_
+name|serverNameBuilder_
 operator|=
 operator|new
 name|com
@@ -13251,7 +13263,7 @@ operator|.
 name|ServerNameOrBuilder
 argument_list|>
 argument_list|(
-name|originServerName_
+name|serverName_
 argument_list|,
 name|getParentForChildren
 argument_list|()
@@ -13260,13 +13272,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|originServerName_
+name|serverName_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|originServerNameBuilder_
+name|serverNameBuilder_
 return|;
 block|}
 comment|// optional bytes payload = 5;
@@ -30867,43 +30879,41 @@ literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerName\""
 operator|+
 literal|"%\n\006Master\022\033\n\006master\030\001 \002(\0132\013.ServerName\"\036"
 operator|+
-literal|"\n\tClusterUp\022\021\n\tstartDate\030\001 \002(\t\"\211\001\n\020Regio"
+literal|"\n\tClusterUp\022\021\n\tstartDate\030\001 \002(\t\"\203\001\n\020Regio"
 operator|+
 literal|"nTransition\022\025\n\reventTypeCode\030\001 \002(\r\022\022\n\nre"
 operator|+
-literal|"gionName\030\002 \002(\014\022\022\n\ncreateTime\030\003 \002(\004\022%\n\020or"
+literal|"gionName\030\002 \002(\014\022\022\n\ncreateTime\030\003 \002(\004\022\037\n\nse"
 operator|+
-literal|"iginServerName\030\004 \001(\0132\013.ServerName\022\017\n\007pay"
+literal|"rverName\030\004 \002(\0132\013.ServerName\022\017\n\007payload\030\005"
 operator|+
-literal|"load\030\005 \001(\014\"\230\001\n\014SplitLogTask\022\"\n\005state\030\001 \002"
+literal|" \001(\014\"\230\001\n\014SplitLogTask\022\"\n\005state\030\001 \002(\0162\023.S"
 operator|+
-literal|"(\0162\023.SplitLogTask.State\022\037\n\nserverName\030\002 "
+literal|"plitLogTask.State\022\037\n\nserverName\030\002 \002(\0132\013."
 operator|+
-literal|"\002(\0132\013.ServerName\"C\n\005State\022\016\n\nUNASSIGNED\020"
+literal|"ServerName\"C\n\005State\022\016\n\nUNASSIGNED\020\000\022\t\n\005O"
 block|,
-literal|"\000\022\t\n\005OWNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003"
+literal|"WNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004\""
 operator|+
-literal|"ERR\020\004\"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table.St"
+literal|"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table.State:\007E"
 operator|+
-literal|"ate:\007ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DI"
+literal|"NABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED"
 operator|+
-literal|"SABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"%\n"
+literal|"\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"%\n\017Repli"
 operator|+
-literal|"\017ReplicationPeer\022\022\n\nclusterkey\030\001 \002(\t\"^\n\020"
+literal|"cationPeer\022\022\n\nclusterkey\030\001 \002(\t\"^\n\020Replic"
 operator|+
-literal|"ReplicationState\022&\n\005state\030\001 \002(\0162\027.Replic"
+literal|"ationState\022&\n\005state\030\001 \002(\0162\027.ReplicationS"
 operator|+
-literal|"ationState.State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014"
+literal|"tate.State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISA"
 operator|+
-literal|"\n\010DISABLED\020\001\"+\n\027ReplicationHLogPosition\022"
+literal|"BLED\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010pos"
 operator|+
-literal|"\020\n\010position\030\001 \002(\003\"$\n\017ReplicationLock\022\021\n\t"
+literal|"ition\030\001 \002(\003\"$\n\017ReplicationLock\022\021\n\tlockOw"
 operator|+
-literal|"lockOwner\030\001 \002(\tBE\n*org.apache.hadoop.hba"
+literal|"ner\030\001 \002(\tBE\n*org.apache.hadoop.hbase.pro"
 block|,
-literal|"se.protobuf.generatedB\017ZooKeeperProtosH\001"
-operator|+
-literal|"\210\001\001\240\001\001"
+literal|"tobuf.generatedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -31235,7 +31245,7 @@ literal|"RegionName"
 block|,
 literal|"CreateTime"
 block|,
-literal|"OriginServerName"
+literal|"ServerName"
 block|,
 literal|"Payload"
 block|, }

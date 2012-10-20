@@ -49,18 +49,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcController
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -148,6 +136,8 @@ operator|.
 name|generated
 operator|.
 name|AccessControlProtos
+operator|.
+name|UserPermissionsResponse
 import|;
 end_import
 
@@ -363,26 +353,6 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
-operator|.
-name|RegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
 name|MasterAdminProtos
 operator|.
 name|CatalogScanResponse
@@ -490,22 +460,14 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
+import|import
+name|com
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|google
 operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|AccessControlProtos
-operator|.
-name|UserPermissionsResponse
+name|RpcController
 import|;
 end_import
 

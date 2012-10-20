@@ -1649,6 +1649,29 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// As part of the failover cleanup, the balancing region plan is removed.
+comment|// So a random server will be used to open the region. For testing purpose,
+comment|// let's assume it is going to open on server b:
+name|am
+operator|.
+name|addPlan
+argument_list|(
+name|REGIONINFO
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+operator|new
+name|RegionPlan
+argument_list|(
+name|REGIONINFO
+argument_list|,
+literal|null
+argument_list|,
+name|SERVERNAME_B
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
 comment|// regionserver will have set the region in CLOSED state. This will
 comment|// trigger callback into AM. The below zk close call is from the RS close
@@ -1730,7 +1753,7 @@ argument_list|()
 argument_list|,
 name|REGIONINFO
 argument_list|,
-name|SERVERNAME_A
+name|SERVERNAME_B
 argument_list|,
 name|EventType
 operator|.
@@ -1884,6 +1907,29 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// As part of the failover cleanup, the balancing region plan is removed.
+comment|// So a random server will be used to open the region. For testing purpose,
+comment|// let's assume it is going to open on server b:
+name|am
+operator|.
+name|addPlan
+argument_list|(
+name|REGIONINFO
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+operator|new
+name|RegionPlan
+argument_list|(
+name|REGIONINFO
+argument_list|,
+literal|null
+argument_list|,
+name|SERVERNAME_B
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
 comment|// regionserver will have set the region in CLOSED state. This will
 comment|// trigger callback into AM. The below zk close call is from the RS close
@@ -1974,7 +2020,7 @@ argument_list|()
 argument_list|,
 name|REGIONINFO
 argument_list|,
-name|SERVERNAME_A
+name|SERVERNAME_B
 argument_list|,
 name|EventType
 operator|.
@@ -2119,6 +2165,29 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// As part of the failover cleanup, the balancing region plan is removed.
+comment|// So a random server will be used to open the region. For testing purpose,
+comment|// let's assume it is going to open on server b:
+name|am
+operator|.
+name|addPlan
+argument_list|(
+name|REGIONINFO
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+operator|new
+name|RegionPlan
+argument_list|(
+name|REGIONINFO
+argument_list|,
+literal|null
+argument_list|,
+name|SERVERNAME_B
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
 comment|// regionserver will have set the region in CLOSED state. This will
 comment|// trigger callback into AM. The below zk close call is from the RS close
@@ -2209,7 +2278,7 @@ argument_list|()
 argument_list|,
 name|REGIONINFO
 argument_list|,
-name|SERVERNAME_A
+name|SERVERNAME_B
 argument_list|,
 name|EventType
 operator|.
@@ -4729,38 +4798,6 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 decl_stmt|;
-name|Map
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-name|deadServers
-init|=
-operator|new
-name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|deadServers
-operator|.
-name|put
-argument_list|(
-name|SERVERNAME_A
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|version
 operator|=
 name|ZKAssign
@@ -4771,6 +4808,35 @@ name|this
 operator|.
 name|watcher
 argument_list|,
+name|REGIONINFO
+argument_list|)
+expr_stmt|;
+name|Mockito
+operator|.
+name|when
+argument_list|(
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|SERVERNAME_A
+argument_list|)
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|createRegionState
+argument_list|(
 name|REGIONINFO
 argument_list|)
 expr_stmt|;
@@ -4790,8 +4856,6 @@ argument_list|(
 name|rt
 argument_list|,
 name|REGIONINFO
-argument_list|,
-name|deadServers
 argument_list|,
 name|version
 argument_list|)
@@ -5970,17 +6034,6 @@ name|encodedRegionName
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-name|Map
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-name|deadServers
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -6001,8 +6054,6 @@ argument_list|(
 name|encodedRegionName
 argument_list|,
 name|regionInfo
-argument_list|,
-name|deadServers
 argument_list|)
 return|;
 block|}
@@ -6020,9 +6071,6 @@ name|setOfflineInZK
 parameter_list|,
 name|boolean
 name|forceNewPlan
-parameter_list|,
-name|boolean
-name|hijack
 parameter_list|)
 block|{
 if|if
@@ -6054,8 +6102,6 @@ argument_list|,
 name|setOfflineInZK
 argument_list|,
 name|forceNewPlan
-argument_list|,
-name|hijack
 argument_list|)
 expr_stmt|;
 name|this

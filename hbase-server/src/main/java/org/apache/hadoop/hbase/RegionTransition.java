@@ -222,7 +222,7 @@ name|this
 operator|.
 name|rt
 operator|.
-name|getOriginServerName
+name|getServerName
 argument_list|()
 argument_list|)
 return|;
@@ -488,7 +488,7 @@ name|regionName
 argument_list|)
 argument_list|)
 operator|.
-name|setOriginServerName
+name|setServerName
 argument_list|(
 name|pbsn
 argument_list|)

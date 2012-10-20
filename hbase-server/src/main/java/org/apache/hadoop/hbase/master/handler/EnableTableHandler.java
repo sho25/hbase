@@ -1395,28 +1395,6 @@ name|void
 name|run
 parameter_list|()
 block|{
-if|if
-condition|(
-name|retainAssignment
-condition|)
-block|{
-comment|// Already plan is populated.
-name|assignmentManager
-operator|.
-name|assign
-argument_list|(
-name|hri
-argument_list|,
-literal|true
-argument_list|,
-literal|false
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|assignmentManager
 operator|.
 name|assign
@@ -1426,7 +1404,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 argument_list|)
