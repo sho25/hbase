@@ -1591,8 +1591,6 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|fqe
-operator|.
 name|region
 operator|.
 name|getRegionInfo
@@ -1725,15 +1723,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Cache flush failed"
-operator|+
-operator|(
-name|region
-operator|!=
-literal|null
-condition|?
-operator|(
-literal|" for region "
+literal|"Cache flush failed for region "
 operator|+
 name|Bytes
 operator|.
@@ -1744,10 +1734,6 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-operator|)
-else|:
-literal|""
-operator|)
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
