@@ -21,16 +21,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -90,7 +80,7 @@ specifier|public
 interface|interface
 name|TableDescriptors
 block|{
-comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
+comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|get
@@ -100,11 +90,9 @@ name|String
 name|tablename
 parameter_list|)
 throws|throws
-name|FileNotFoundException
-throws|,
 name|IOException
 function_decl|;
-comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
+comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|get
@@ -115,8 +103,6 @@ index|[]
 name|tablename
 parameter_list|)
 throws|throws
-name|FileNotFoundException
-throws|,
 name|IOException
 function_decl|;
 comment|/**    * Get Map of all HTableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
