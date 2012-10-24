@@ -5492,16 +5492,26 @@ argument_list|,
 literal|60000
 argument_list|)
 decl_stmt|;
-while|while
-condition|(
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|1
+init|;
+name|i
+operator|<=
+name|maximumAttempts
+operator|&&
 operator|!
-name|this
-operator|.
 name|server
 operator|.
 name|isStopped
 argument_list|()
-condition|)
+condition|;
+name|i
+operator|++
+control|)
 block|{
 try|try
 block|{
@@ -5535,7 +5545,7 @@ block|}
 for|for
 control|(
 name|int
-name|i
+name|k
 init|=
 literal|0
 init|,
@@ -5546,11 +5556,11 @@ operator|.
 name|size
 argument_list|()
 init|;
-name|i
+name|k
 operator|<
 name|n
 condition|;
-name|i
+name|k
 operator|++
 control|)
 block|{
@@ -5561,7 +5571,7 @@ name|regionOpeningStateList
 operator|.
 name|get
 argument_list|(
-name|i
+name|k
 argument_list|)
 decl_stmt|;
 if|if
@@ -5580,7 +5590,7 @@ name|regionOpenInfos
 operator|.
 name|get
 argument_list|(
-name|i
+name|k
 argument_list|)
 operator|.
 name|getFirst
@@ -5697,8 +5707,6 @@ operator|instanceof
 name|ServerNotRunningYetException
 condition|)
 block|{
-comment|// This is the one exception to retry.  For all else we should just fail
-comment|// the startup.
 name|long
 name|now
 init|=
@@ -5738,8 +5746,63 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+name|i
+operator|--
+expr_stmt|;
+comment|// reset the try count
 continue|continue;
 block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|e
+operator|instanceof
+name|java
+operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+operator|&&
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|destination
+argument_list|)
+condition|)
+block|{
+comment|// In case socket is timed out and the region server is still online,
+comment|// the openRegion RPC could have been accepted by the server and
+comment|// just the response didn't go through.  So we will retry to
+comment|// open the region on the same server.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Bulk assigner openRegion() to "
+operator|+
+name|destination
+operator|+
+literal|" has timed out, but the regions might"
+operator|+
+literal|" already be opened on it."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
 block|}
 throw|throw
 name|e
@@ -6316,9 +6379,13 @@ literal|1
 init|;
 name|i
 operator|<=
-name|this
-operator|.
 name|maximumAttempts
+operator|&&
+operator|!
+name|server
+operator|.
+name|isStopped
+argument_list|()
 condition|;
 name|i
 operator|++
@@ -6844,7 +6911,7 @@ condition|)
 block|{
 comment|// In case socket is timed out and the region server is still online,
 comment|// the openRegion RPC could have been accepted by the server and
-comment|// just the response isn't gone through.  So we will retry to
+comment|// just the response didn't go through.  So we will retry to
 comment|// open the region on the same server to avoid possible
 comment|// double assignment.
 name|socketTimedOut
