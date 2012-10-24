@@ -317,6 +317,7 @@ literal|0L
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Generate and return a {@link WriteEntry} with a new write number.    * To complete the WriteEntry and wait for it to be visible,    * call {@link #completeMemstoreInsert(WriteEntry)}.    */
 specifier|public
 name|WriteEntry
 name|beginMemstoreInsert
@@ -354,6 +355,7 @@ name|e
 return|;
 block|}
 block|}
+comment|/**    * Complete a {@link WriteEntry} that was created by {@link #beginMemstoreInsert()}.    *    * At the end of this call, the global read point is at least as large as the write point    * of the passed in WriteEntry.  Thus, the write is visible to MVCC readers.    */
 specifier|public
 name|void
 name|completeMemstoreInsert
@@ -373,6 +375,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Mark the {@link WriteEntry} as complete and advance the read point as    * much as possible.    *    * How much is the read point advanced?    * Let S be the set of all write numbers that are completed and where all previous write numbers    * are also completed.  Then, the read point is advanced to the supremum of S.    *    * @param e    * @return true if e is visible to MVCC readers (that is, readpoint>= e.writeNumber)    */
 name|boolean
 name|advanceMemstore
 parameter_list|(
