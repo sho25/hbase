@@ -544,7 +544,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|fatal
 argument_list|(
 literal|"The ReplicationPeer coresponding to peer "
 operator|+
