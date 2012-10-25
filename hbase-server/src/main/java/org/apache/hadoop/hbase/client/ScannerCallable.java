@@ -459,6 +459,12 @@ name|isRegionServerRemote
 init|=
 literal|true
 decl_stmt|;
+specifier|private
+name|long
+name|nextCallSeq
+init|=
+literal|0
+decl_stmt|;
 comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable    * won't collect metrics    */
 specifier|public
 name|ScannerCallable
@@ -726,6 +732,8 @@ argument_list|,
 name|caching
 argument_list|,
 literal|false
+argument_list|,
+name|nextCallSeq
 argument_list|)
 decl_stmt|;
 try|try
@@ -742,6 +750,18 @@ argument_list|,
 name|request
 argument_list|)
 decl_stmt|;
+comment|// Client and RS maintain a nextCallSeq number during the scan. Every next() call
+comment|// from client to server will increment this number in both sides. Client passes this
+comment|// number along with the request and at RS side both the incoming nextCallSeq and its
+comment|// nextCallSeq will be matched. In case of a timeout this increment at the client side
+comment|// should not happen. If at the server side fetching of next batch of data was over,
+comment|// there will be mismatch in the nextCallSeq number. Server will throw
+comment|// OutOfOrderScannerNextException and then client will reopen the scanner with startrow
+comment|// as the last successfully retrieved row.
+comment|// See HBASE-5974
+name|nextCallSeq
+operator|++
+expr_stmt|;
 name|long
 name|timestamp
 init|=

@@ -68028,6 +68028,15 @@ name|boolean
 name|getCloseScanner
 parameter_list|()
 function_decl|;
+comment|// optional uint64 nextCallSeq = 6;
+name|boolean
+name|hasNextCallSeq
+parameter_list|()
+function_decl|;
+name|long
+name|getNextCallSeq
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -68456,6 +68465,45 @@ return|return
 name|closeScanner_
 return|;
 block|}
+comment|// optional uint64 nextCallSeq = 6;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NEXTCALLSEQ_FIELD_NUMBER
+init|=
+literal|6
+decl_stmt|;
+specifier|private
+name|long
+name|nextCallSeq_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasNextCallSeq
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getNextCallSeq
+parameter_list|()
+block|{
+return|return
+name|nextCallSeq_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -68514,6 +68562,10 @@ expr_stmt|;
 name|closeScanner_
 operator|=
 literal|false
+expr_stmt|;
+name|nextCallSeq_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -68742,6 +68794,29 @@ name|closeScanner_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|6
+argument_list|,
+name|nextCallSeq_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -68934,6 +69009,37 @@ argument_list|(
 literal|5
 argument_list|,
 name|closeScanner_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|6
+argument_list|,
+name|nextCallSeq_
 argument_list|)
 expr_stmt|;
 block|}
@@ -69274,6 +69380,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasNextCallSeq
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasNextCallSeq
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasNextCallSeq
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getNextCallSeq
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getNextCallSeq
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -69467,6 +69608,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getCloseScanner
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasNextCallSeq
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|NEXTCALLSEQ_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getNextCallSeq
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -70454,6 +70626,19 @@ operator|~
 literal|0x00000010
 operator|)
 expr_stmt|;
+name|nextCallSeq_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -70903,6 +71088,30 @@ name|closeScanner_
 operator|=
 name|closeScanner_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|nextCallSeq_
+operator|=
+name|nextCallSeq_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -71118,6 +71327,23 @@ argument_list|(
 name|other
 operator|.
 name|getCloseScanner
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasNextCallSeq
+argument_list|()
+condition|)
+block|{
+name|setNextCallSeq
+argument_list|(
+name|other
+operator|.
+name|getNextCallSeq
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -71516,6 +71742,23 @@ operator|=
 name|input
 operator|.
 name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|48
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+name|nextCallSeq_
+operator|=
+name|input
+operator|.
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -73144,6 +73387,85 @@ expr_stmt|;
 name|closeScanner_
 operator|=
 literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint64 nextCallSeq = 6;
+specifier|private
+name|long
+name|nextCallSeq_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasNextCallSeq
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getNextCallSeq
+parameter_list|()
+block|{
+return|return
+name|nextCallSeq_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setNextCallSeq
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+name|nextCallSeq_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearNextCallSeq
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
+name|nextCallSeq_
+operator|=
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -155619,7 +155941,7 @@ literal|" \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true\022\
 operator|+
 literal|"tchSize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001(\004\022\022\n\n"
 operator|+
-literal|"storeLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 \001(\r\"\203\001"
+literal|"storeLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 \001(\r\"\230\001"
 operator|+
 literal|"\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.RegionSp"
 operator|+
@@ -155627,103 +155949,105 @@ literal|"ecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscanne
 operator|+
 literal|"d\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014closeSc"
 operator|+
-literal|"anner\030\005 \001(\010\"\\\n\014ScanResponse\022\027\n\006result\030\001 "
+literal|"anner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001(\004\"\\\n\014Scan"
 operator|+
-literal|"\003(\0132\007.Result\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreR"
+literal|"Response\022\027\n\006result\030\001 \003(\0132\007.Result\022\021\n\tsca"
 operator|+
-literal|"esults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"?\n\016LockRowRequ"
+literal|"nnerId\030\002 \001(\004\022\023\n\013moreResults\030\003 \001(\010\022\013\n\003ttl"
 operator|+
-literal|"est\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\013\n"
+literal|"\030\004 \001(\r\"?\n\016LockRowRequest\022 \n\006region\030\001 \002(\013"
 block|,
-literal|"\003row\030\002 \003(\014\".\n\017LockRowResponse\022\016\n\006lockId\030"
+literal|"2\020.RegionSpecifier\022\013\n\003row\030\002 \003(\014\".\n\017LockR"
 operator|+
-literal|"\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowRequest\022 "
+literal|"owResponse\022\016\n\006lockId\030\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\""
 operator|+
-literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006lock"
+literal|"D\n\020UnlockRowRequest\022 \n\006region\030\001 \002(\0132\020.Re"
 operator|+
-literal|"Id\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\260\001\n\024BulkLo"
+literal|"gionSpecifier\022\016\n\006lockId\030\002 \002(\004\"\023\n\021UnlockR"
 operator|+
-literal|"adHFileRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
+literal|"owResponse\"\260\001\n\024BulkLoadHFileRequest\022 \n\006r"
 operator|+
-literal|"pecifier\0224\n\nfamilyPath\030\002 \003(\0132 .BulkLoadH"
+literal|"egion\030\001 \002(\0132\020.RegionSpecifier\0224\n\nfamilyP"
 operator|+
-literal|"FileRequest.FamilyPath\022\024\n\014assignSeqNum\030\003"
+literal|"ath\030\002 \003(\0132 .BulkLoadHFileRequest.FamilyP"
 operator|+
-literal|" \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004pa"
+literal|"ath\022\024\n\014assignSeqNum\030\003 \001(\010\032*\n\nFamilyPath\022"
 operator|+
-literal|"th\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loa"
+literal|"\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoa"
 operator|+
-literal|"ded\030\001 \002(\010\"\203\001\n\004Exec\022\013\n\003row\030\001 \002(\014\022\024\n\014proto"
+literal|"dHFileResponse\022\016\n\006loaded\030\001 \002(\010\"\203\001\n\004Exec\022"
 block|,
-literal|"colName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022!\n\010pro"
+literal|"\013\n\003row\030\001 \002(\014\022\024\n\014protocolName\030\002 \002(\t\022\022\n\nme"
 operator|+
-literal|"perty\030\004 \003(\0132\017.NameStringPair\022!\n\tparamete"
+literal|"thodName\030\003 \002(\t\022!\n\010property\030\004 \003(\0132\017.NameS"
 operator|+
-literal|"r\030\005 \003(\0132\016.NameBytesPair\"O\n\026ExecCoprocess"
+literal|"tringPair\022!\n\tparameter\030\005 \003(\0132\016.NameBytes"
 operator|+
-literal|"orRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
+literal|"Pair\"O\n\026ExecCoprocessorRequest\022 \n\006region"
 operator|+
-literal|"ier\022\023\n\004call\030\002 \002(\0132\005.Exec\"8\n\027ExecCoproces"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022\023\n\004call\030\002 \002(\0132\005"
 operator|+
-literal|"sorResponse\022\035\n\005value\030\001 \002(\0132\016.NameBytesPa"
+literal|".Exec\"8\n\027ExecCoprocessorResponse\022\035\n\005valu"
 operator|+
-literal|"ir\"_\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002("
+literal|"e\030\001 \002(\0132\016.NameBytesPair\"_\n\026CoprocessorSe"
 operator|+
-literal|"\014\022\023\n\013serviceName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002"
+literal|"rviceCall\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002 "
 operator|+
-literal|"(\t\022\017\n\007request\030\004 \002(\014\"d\n\031CoprocessorServic"
+literal|"\002(\t\022\022\n\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
 operator|+
-literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"\"d\n\031CoprocessorServiceRequest\022 \n\006region\030"
 block|,
-literal|"er\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCal"
+literal|"\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027."
 operator|+
-literal|"l\"]\n\032CoprocessorServiceResponse\022 \n\006regio"
+literal|"CoprocessorServiceCall\"]\n\032CoprocessorSer"
 operator|+
-literal|"n\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\013"
+literal|"viceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
 operator|+
-literal|"2\016.NameBytesPair\"N\n\013MultiAction\022\027\n\006mutat"
+literal|"cifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"N\n"
 operator|+
-literal|"e\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\022\023\n\004e"
+literal|"\013MultiAction\022\027\n\006mutate\030\001 \001(\0132\007.Mutate\022\021\n"
 operator|+
-literal|"xec\030\003 \001(\0132\005.Exec\"P\n\014ActionResult\022\035\n\005valu"
+literal|"\003get\030\002 \001(\0132\004.Get\022\023\n\004exec\030\003 \001(\0132\005.Exec\"P\n"
 operator|+
-literal|"e\030\001 \001(\0132\016.NameBytesPair\022!\n\texception\030\002 \001"
+literal|"\014ActionResult\022\035\n\005value\030\001 \001(\0132\016.NameBytes"
 operator|+
-literal|"(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006re"
+literal|"Pair\022!\n\texception\030\002 \001(\0132\016.NameBytesPair\""
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action\030\002"
+literal|"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020.Region"
 operator|+
-literal|" \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\rMu"
+literal|"Specifier\022\034\n\006action\030\002 \003(\0132\014.MultiAction\022"
 block|,
-literal|"ltiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionResu"
+literal|"\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006resu"
 operator|+
-literal|"lt2\331\003\n\rClientService\022 \n\003get\022\013.GetRequest"
+literal|"lt\030\001 \003(\0132\r.ActionResult2\331\003\n\rClientServic"
 operator|+
-literal|"\032\014.GetResponse\022)\n\006mutate\022\016.MutateRequest"
+literal|"e\022 \n\003get\022\013.GetRequest\032\014.GetResponse\022)\n\006m"
 operator|+
-literal|"\032\017.MutateResponse\022#\n\004scan\022\014.ScanRequest\032"
+literal|"utate\022\016.MutateRequest\032\017.MutateResponse\022#"
 operator|+
-literal|"\r.ScanResponse\022,\n\007lockRow\022\017.LockRowReque"
+literal|"\n\004scan\022\014.ScanRequest\032\r.ScanResponse\022,\n\007l"
 operator|+
-literal|"st\032\020.LockRowResponse\0222\n\tunlockRow\022\021.Unlo"
+literal|"ockRow\022\017.LockRowRequest\032\020.LockRowRespons"
 operator|+
-literal|"ckRowRequest\032\022.UnlockRowResponse\022>\n\rbulk"
+literal|"e\0222\n\tunlockRow\022\021.UnlockRowRequest\032\022.Unlo"
 operator|+
-literal|"LoadHFile\022\025.BulkLoadHFileRequest\032\026.BulkL"
+literal|"ckRowResponse\022>\n\rbulkLoadHFile\022\025.BulkLoa"
 operator|+
-literal|"oadHFileResponse\022D\n\017execCoprocessor\022\027.Ex"
+literal|"dHFileRequest\032\026.BulkLoadHFileResponse\022D\n"
 operator|+
-literal|"ecCoprocessorRequest\032\030.ExecCoprocessorRe"
+literal|"\017execCoprocessor\022\027.ExecCoprocessorReques"
 block|,
-literal|"sponse\022F\n\013execService\022\032.CoprocessorServi"
+literal|"t\032\030.ExecCoprocessorResponse\022F\n\013execServi"
 operator|+
-literal|"ceRequest\032\033.CoprocessorServiceResponse\022&"
+literal|"ce\022\032.CoprocessorServiceRequest\032\033.Coproce"
 operator|+
-literal|"\n\005multi\022\r.MultiRequest\032\016.MultiResponseBB"
+literal|"ssorServiceResponse\022&\n\005multi\022\r.MultiRequ"
 operator|+
-literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
+literal|"est\032\016.MultiResponseBB\n*org.apache.hadoop"
 operator|+
-literal|"atedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|".hbase.protobuf.generatedB\014ClientProtosH"
+operator|+
+literal|"\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -156856,6 +157180,8 @@ block|,
 literal|"NumberOfRows"
 block|,
 literal|"CloseScanner"
+block|,
+literal|"NextCallSeq"
 block|, }
 argument_list|,
 name|org
