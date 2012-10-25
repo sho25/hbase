@@ -3137,9 +3137,9 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|FileSystem
+name|tableDir
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|table
 operator|.
@@ -3625,9 +3625,9 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|FileSystem
+name|tableDir
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|table
 operator|.
