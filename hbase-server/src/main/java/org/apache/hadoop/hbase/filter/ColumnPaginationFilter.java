@@ -128,7 +128,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A filter, based on the ColumnCountGetFilter, takes two arguments: limit and offset.  * This filter can be used for row-based indexing, where references to other tables are stored across many columns,  * in order to efficient lookups and paginated results for end users.  */
+comment|/**  * A filter, based on the ColumnCountGetFilter, takes two arguments: limit and offset.  * This filter can be used for row-based indexing, where references to other tables are stored across many columns,  * in order to efficient lookups and paginated results for end users. Only most recent versions are considered  * for pagination.  */
 end_comment
 
 begin_class
@@ -269,11 +269,11 @@ name|offset
 condition|?
 name|ReturnCode
 operator|.
-name|SKIP
+name|NEXT_COL
 else|:
 name|ReturnCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_NEXT_COL
 decl_stmt|;
 name|count
 operator|++

@@ -162,6 +162,9 @@ block|{
 comment|/**      * Include the KeyValue      */
 name|INCLUDE
 block|,
+comment|/**      * Include the KeyValue and seek to the next column skipping older versions.      */
+name|INCLUDE_AND_NEXT_COL
+block|,
 comment|/**      * Skip this KeyValue      */
 name|SKIP
 block|,

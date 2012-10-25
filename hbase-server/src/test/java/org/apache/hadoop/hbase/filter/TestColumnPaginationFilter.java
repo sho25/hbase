@@ -364,7 +364,7 @@ name|Filter
 operator|.
 name|ReturnCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_NEXT_COL
 argument_list|)
 expr_stmt|;
 block|}

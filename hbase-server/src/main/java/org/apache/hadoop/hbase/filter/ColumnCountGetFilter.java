@@ -233,11 +233,11 @@ argument_list|()
 condition|?
 name|ReturnCode
 operator|.
-name|SKIP
+name|NEXT_COL
 else|:
 name|ReturnCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_NEXT_COL
 return|;
 block|}
 annotation|@
