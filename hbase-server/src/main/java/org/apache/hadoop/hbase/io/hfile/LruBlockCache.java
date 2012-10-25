@@ -484,14 +484,21 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Default Configuration Parameters*/
 specifier|static
 specifier|final
 name|String
-name|LRU_MIN_FACTOR
+name|LRU_MIN_FACTOR_CONFIG_NAME
 init|=
 literal|"hbase.lru.blockcache.min.factor"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|LRU_ACCEPTABLE_FACTOR_CONFIG_NAME
+init|=
+literal|"hbase.lru.blockcache.acceptable.factor"
+decl_stmt|;
+comment|/** Default Configuration Parameters*/
 comment|/** Backing Concurrent Map Configuration */
 specifier|static
 specifier|final
@@ -804,12 +811,19 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
-name|LRU_MIN_FACTOR
+name|LRU_MIN_FACTOR_CONFIG_NAME
 argument_list|,
 name|DEFAULT_MIN_FACTOR
 argument_list|)
 argument_list|,
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+name|LRU_ACCEPTABLE_FACTOR_CONFIG_NAME
+argument_list|,
 name|DEFAULT_ACCEPTABLE_FACTOR
+argument_list|)
 argument_list|,
 name|DEFAULT_SINGLE_FACTOR
 argument_list|,
