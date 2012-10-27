@@ -413,8 +413,6 @@ control|(
 name|int
 name|i
 init|=
-name|value
-operator|.
 name|length
 operator|-
 literal|1
