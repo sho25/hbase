@@ -240,6 +240,21 @@ parameter_list|)
 block|{
 try|try
 block|{
+comment|// if its a directory, then it can be deleted
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|isFile
+argument_list|(
+name|file
+argument_list|)
+condition|)
+return|return
+literal|true
+return|;
+comment|// check to see if
 name|FileStatus
 index|[]
 name|deleteStatus
@@ -264,32 +279,6 @@ condition|(
 name|deleteStatus
 operator|==
 literal|null
-condition|)
-return|return
-literal|true
-return|;
-comment|// if its a directory with stuff in it, don't delete
-if|if
-condition|(
-name|deleteStatus
-operator|.
-name|length
-operator|>
-literal|1
-condition|)
-return|return
-literal|false
-return|;
-comment|// if its an empty directory, we can definitely delete
-if|if
-condition|(
-name|deleteStatus
-index|[
-literal|0
-index|]
-operator|.
-name|isDir
-argument_list|()
 condition|)
 return|return
 literal|true
@@ -327,7 +316,9 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-return|return
+name|boolean
+name|ret
+init|=
 operator|!
 name|archiveTracker
 operator|.
@@ -335,6 +326,28 @@ name|keepHFiles
 argument_list|(
 name|tableName
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Archiver says to ["
+operator|+
+operator|(
+name|ret
+condition|?
+literal|"delete"
+else|:
+literal|"keep"
+operator|)
+operator|+
+literal|"] files for table:"
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+return|return
+name|ret
 return|;
 block|}
 catch|catch
