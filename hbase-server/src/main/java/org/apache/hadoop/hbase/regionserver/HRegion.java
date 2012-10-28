@@ -22903,13 +22903,14 @@ index|[]
 name|checkSplit
 parameter_list|()
 block|{
-comment|// Can't split META
+comment|// Can't split ROOT/META
 if|if
 condition|(
-name|getRegionInfo
-argument_list|()
+name|this
 operator|.
-name|isMetaRegion
+name|regionInfo
+operator|.
+name|isMetaTable
 argument_list|()
 condition|)
 block|{
@@ -22923,7 +22924,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cannot split meta regions in HBase 0.20 and above"
+literal|"Cannot split root/meta regions in HBase 0.20 and above"
 argument_list|)
 expr_stmt|;
 block|}
