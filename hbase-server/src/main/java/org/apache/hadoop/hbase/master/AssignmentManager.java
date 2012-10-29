@@ -1238,7 +1238,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.assignment.timeoutmonitor.period"
 argument_list|,
-literal|60000
+literal|30000
 argument_list|)
 argument_list|,
 name|server
@@ -1251,7 +1251,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.assignment.timeoutmonitor.timeout"
 argument_list|,
-literal|1200000
+literal|600000
 argument_list|)
 argument_list|)
 expr_stmt|;
