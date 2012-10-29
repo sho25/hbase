@@ -1494,7 +1494,8 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// run the cleaners
+comment|// run the cleaners, checking for each of the directories + files (both should be deleted and
+comment|// need to be checked) in 'otherTable' and the files (which should be retained) in the 'table'
 name|CountDownLatch
 name|finished
 init|=
@@ -1508,6 +1509,8 @@ name|files
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|3
 argument_list|)
 decl_stmt|;
 comment|// run the cleaner
@@ -1957,16 +1960,35 @@ literal|"/ "
 operator|+
 name|expected
 operator|+
-literal|") Mocking call to isFileDeletable"
+literal|") Wrapping call to isFileDeletable for file: "
+operator|+
+name|invocation
+operator|.
+name|getArguments
+argument_list|()
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
+name|Boolean
+name|ret
+init|=
+operator|(
+name|Boolean
+operator|)
+name|invocation
+operator|.
+name|callRealMethod
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|counter
 index|[
 literal|0
 index|]
-operator|>
+operator|>=
 name|expected
 condition|)
 name|finished
@@ -1975,13 +1997,7 @@ name|countDown
 argument_list|()
 expr_stmt|;
 return|return
-operator|(
-name|Boolean
-operator|)
-name|invocation
-operator|.
-name|callRealMethod
-argument_list|()
+name|ret
 return|;
 block|}
 block|}
@@ -2055,9 +2071,20 @@ name|files
 operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"No files under:"
+operator|+
+name|dir
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
+block|}
 name|List
 argument_list|<
 name|Path
