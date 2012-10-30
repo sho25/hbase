@@ -1953,12 +1953,6 @@ name|COLUMN_FAMILY
 argument_list|)
 operator|)
 decl_stmt|;
-comment|// TODO: temporary call, until HBASE-3909 is committed in some form.
-name|s
-operator|.
-name|updateConfiguration
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 name|createStoreFile
@@ -2002,17 +1996,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// ensure that major compaction time is deterministic
-name|CompactionManager
-name|c
-init|=
-name|s
-operator|.
-name|compactionManager
-decl_stmt|;
 name|long
 name|mcTime
 init|=
-name|c
+name|s
 operator|.
 name|getNextMajorCompactTime
 argument_list|()
@@ -2036,7 +2023,7 @@ name|assertEquals
 argument_list|(
 name|mcTime
 argument_list|,
-name|c
+name|s
 operator|.
 name|getNextMajorCompactTime
 argument_list|()
