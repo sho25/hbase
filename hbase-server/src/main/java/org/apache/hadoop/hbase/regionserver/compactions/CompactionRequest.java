@@ -1007,18 +1007,6 @@ return|return
 name|p
 return|;
 block|}
-specifier|public
-name|long
-name|getSelectionTime
-parameter_list|()
-block|{
-return|return
-name|compactSelection
-operator|.
-name|getSelectionTime
-argument_list|()
-return|;
-block|}
 comment|/** Gets the priority for the request */
 specifier|public
 name|void
@@ -1419,7 +1407,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"CompactSplitThread Status: "
+literal|"CompactSplitThread status: "
 operator|+
 name|server
 operator|.

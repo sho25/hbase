@@ -31,28 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|InvocationTargetException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -560,18 +538,6 @@ name|boolean
 name|hasReferences
 parameter_list|()
 function_decl|;
-comment|/*    * @param files    * @return True if any of the files in<code>files</code> are References.    */
-specifier|public
-name|boolean
-name|hasReferences
-parameter_list|(
-name|Collection
-argument_list|<
-name|StoreFile
-argument_list|>
-name|files
-parameter_list|)
-function_decl|;
 comment|/**    * @return The size of this store's memstore, in bytes    */
 specifier|public
 name|long
@@ -649,12 +615,6 @@ name|long
 name|getTotalStaticBloomSize
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the TTL for this store's column family.    */
-specifier|public
-name|long
-name|getTtl
-parameter_list|()
-function_decl|;
 comment|// Test-helper methods
 comment|/**    * Compact the most recent N files. Used in testing.    * @param N number of files to compact. Must be less than or equal to current number of files.    * @throws IOException on failure    */
 specifier|public
@@ -677,12 +637,6 @@ comment|/**    * @return the parent region hosting this store    */
 specifier|public
 name|HRegion
 name|getHRegion
-parameter_list|()
-function_decl|;
-comment|/**    * @return A hash code depending on the state of the current store files.    * This is used as seed for deterministic random generator for selecting major compaction time    */
-specifier|public
-name|Integer
-name|getDeterministicRandomSeed
 parameter_list|()
 function_decl|;
 block|}
