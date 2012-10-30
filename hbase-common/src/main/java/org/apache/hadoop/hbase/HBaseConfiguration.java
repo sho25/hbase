@@ -403,6 +403,13 @@ argument_list|(
 literal|"hbase-site.xml"
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|addResource
+argument_list|(
+literal|"hbase-compactions.xml"
+argument_list|)
+expr_stmt|;
 name|checkDefaultsVersion
 argument_list|(
 name|conf
