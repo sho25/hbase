@@ -962,6 +962,8 @@ name|RegionServerThread
 argument_list|>
 name|regionservers
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|LOG
 operator|.

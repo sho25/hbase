@@ -1841,6 +1841,8 @@ specifier|public
 name|void
 name|shutdown
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|JVMClusterUtil
 operator|.
