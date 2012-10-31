@@ -1805,7 +1805,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
 literal|"Node "
 operator|+
