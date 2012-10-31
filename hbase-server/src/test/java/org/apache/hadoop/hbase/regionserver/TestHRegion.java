@@ -25290,7 +25290,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
-specifier|private
+specifier|public
 specifier|static
 name|HRegion
 name|initHRegion
