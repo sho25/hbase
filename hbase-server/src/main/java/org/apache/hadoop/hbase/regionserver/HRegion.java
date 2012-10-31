@@ -10491,6 +10491,17 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+comment|// wait for all previous transactions to complete (with lock held)
+name|mvcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|mvcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|KeyValue
