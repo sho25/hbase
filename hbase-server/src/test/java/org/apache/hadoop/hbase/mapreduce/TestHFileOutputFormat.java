@@ -4097,8 +4097,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
 comment|// this algo is not available
