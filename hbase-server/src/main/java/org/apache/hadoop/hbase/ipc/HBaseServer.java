@@ -10566,7 +10566,7 @@ specifier|static
 name|int
 name|NIO_BUFFER_LIMIT
 init|=
-literal|8
+literal|64
 operator|*
 literal|1024
 decl_stmt|;
