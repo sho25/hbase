@@ -1556,17 +1556,17 @@ condition|(
 name|assignedRegions
 operator|==
 literal|null
-operator|||
-name|assignedRegions
-operator|.
-name|isEmpty
-argument_list|()
 condition|)
 block|{
-comment|// No regions on this server, we are done, return empty list of RITs
-return|return
-name|rits
-return|;
+name|assignedRegions
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+expr_stmt|;
 block|}
 for|for
 control|(
@@ -1618,6 +1618,63 @@ argument_list|(
 name|state
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|sn
+operator|.
+name|equals
+argument_list|(
+name|state
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// Region is in transition on this region server, and this
+comment|// region is not open on this server. So the region must be
+comment|// moving to this server from another one (i.e. opening or
+comment|// pending open on this server, was open on another one
+if|if
+condition|(
+name|state
+operator|.
+name|isPendingOpen
+argument_list|()
+operator|||
+name|state
+operator|.
+name|isOpening
+argument_list|()
+condition|)
+block|{
+name|state
+operator|.
+name|setTimestamp
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+comment|// timeout it, let timeout monitor reassign
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"THIS SHOULD NOT HAPPEN: unexpected state "
+operator|+
+name|state
+operator|+
+literal|" of region in transition on server "
+operator|+
+name|sn
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 name|assignedRegions
@@ -1698,6 +1755,7 @@ control|)
 block|{
 if|if
 condition|(
+operator|!
 name|Bytes
 operator|.
 name|equals
@@ -1710,7 +1768,7 @@ argument_list|,
 name|tableName
 argument_list|)
 condition|)
-block|{
+break|break;
 name|tableRegions
 operator|.
 name|add
@@ -1718,11 +1776,6 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-break|break;
-block|}
 block|}
 return|return
 name|tableRegions

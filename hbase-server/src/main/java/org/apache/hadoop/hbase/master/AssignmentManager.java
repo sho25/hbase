@@ -2473,6 +2473,19 @@ break|break;
 case|case
 name|RS_ZK_REGION_OPENING
 case|:
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|rt
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OPENING
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|regionInfo
@@ -2489,19 +2502,6 @@ name|sn
 argument_list|)
 condition|)
 block|{
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|rt
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|OPENING
-argument_list|)
-expr_stmt|;
 comment|// If ROOT or .META. table is waiting for timeout monitor to assign
 comment|// it may take lot of time when the assignment.timeout.period is
 comment|// the default value which may be very long.  We will not be able
@@ -2511,27 +2511,12 @@ comment|// For a user region, if the server is not online, it takes
 comment|// some time for timeout monitor to kick in.  We know the region
 comment|// won't open. So we will assign the opening
 comment|// region immediately too.
+comment|//
+comment|// Otherwise, just insert region into RIT. If the state never
+comment|// updates, the timeout will trigger new assignment
 name|processOpeningState
 argument_list|(
 name|regionInfo
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Just insert region into RIT.
-comment|// If this never updates the timeout will trigger new assignment
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|rt
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|OPENING
 argument_list|)
 expr_stmt|;
 block|}
@@ -4239,16 +4224,21 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|String
+name|regionNameStr
+init|=
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"The znode of region "
 operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|regionNameStr
 operator|+
 literal|" has been deleted."
 argument_list|)
@@ -4282,18 +4272,16 @@ name|info
 argument_list|(
 literal|"The master has opened the region "
 operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|regionNameStr
 operator|+
 literal|" that was online on "
 operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
+name|boolean
+name|disabled
+init|=
 name|getZKTable
 argument_list|()
 operator|.
@@ -4304,22 +4292,56 @@ operator|.
 name|getTableNameAsString
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|serverName
+argument_list|)
+operator|&&
+operator|!
+name|disabled
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Opened region "
 operator|+
+name|regionNameStr
+operator|+
+literal|"but the region server is offline, reassign the region"
+argument_list|)
+expr_stmt|;
+name|assign
+argument_list|(
 name|regionInfo
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|disabled
+condition|)
+block|{
+comment|// if server is offline, no hurt to unassign again
+name|LOG
 operator|.
-name|getRegionNameAsString
-argument_list|()
+name|info
+argument_list|(
+literal|"Opened region "
 operator|+
-literal|" but "
+name|regionNameStr
 operator|+
-literal|"this table is disabled, triggering close of region"
+literal|"but this table is disabled, triggering close of region"
 argument_list|)
 expr_stmt|;
 name|unassign
@@ -6162,12 +6184,18 @@ name|server
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|transitionInZK
+condition|)
+block|{
 comment|// delete the node. if no node exists need not bother.
 name|deleteClosingOrClosedNode
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 name|regionOffline
 argument_list|(
 name|region
@@ -6281,11 +6309,17 @@ operator|instanceof
 name|NotServingRegionException
 condition|)
 block|{
+if|if
+condition|(
+name|transitionInZK
+condition|)
+block|{
 name|deleteClosingOrClosedNode
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 name|regionOffline
 argument_list|(
 name|region
@@ -8522,7 +8556,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *    * @param region regioninfo of znode to be deleted.    */
+comment|/**    * @param region regioninfo of znode to be deleted.    */
 specifier|public
 name|void
 name|deleteClosingOrClosedNode
@@ -8531,6 +8565,14 @@ name|HRegionInfo
 name|region
 parameter_list|)
 block|{
+name|String
+name|encodedName
+init|=
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 if|if
@@ -8542,10 +8584,7 @@ name|deleteNode
 argument_list|(
 name|watcher
 argument_list|,
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 argument_list|,
 name|EventHandler
 operator|.
@@ -8564,10 +8603,7 @@ name|deleteNode
 argument_list|(
 name|watcher
 argument_list|,
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 argument_list|,
 name|EventHandler
 operator|.
@@ -8590,10 +8626,7 @@ name|error
 argument_list|(
 literal|"The deletion of the CLOSED node for the region "
 operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 operator|+
 literal|" returned "
 operator|+
@@ -8615,10 +8648,7 @@ name|debug
 argument_list|(
 literal|"CLOSING/CLOSED node for the region "
 operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 operator|+
 literal|" already deleted"
 argument_list|)
@@ -8636,10 +8666,7 @@ name|abort
 argument_list|(
 literal|"Unexpected ZK exception deleting node CLOSING/CLOSED for the region "
 operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 argument_list|,
 name|ke
 argument_list|)

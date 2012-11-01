@@ -323,6 +323,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|RegionStates
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|ServerManager
 import|;
 end_import
@@ -1149,30 +1165,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// Clean out anything in regions in transition.  Being conservative and
-comment|// doing after log splitting.  Could do some states before -- OPENING?
-comment|// OFFLINE? -- and then others after like CLOSING that depend on log
-comment|// splitting.
-name|List
-argument_list|<
-name|RegionState
-argument_list|>
-name|regionsInTransition
-init|=
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|processServerShutdown
-argument_list|(
-name|this
-operator|.
-name|serverName
-argument_list|)
-decl_stmt|;
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
 comment|// into the MetaReader operations themselves.
@@ -1304,81 +1296,31 @@ literal|"Server is stopped"
 argument_list|)
 throw|;
 block|}
-comment|// Skip regions that were in transition unless CLOSING or PENDING_CLOSE
-for|for
-control|(
+comment|// Clean out anything in regions in transition.  Being conservative and
+comment|// doing after log splitting.  Could do some states before -- OPENING?
+comment|// OFFLINE? -- and then others after like CLOSING that depend on log
+comment|// splitting.
+name|AssignmentManager
+name|am
+init|=
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+decl_stmt|;
+name|List
+argument_list|<
 name|RegionState
-name|rit
-range|:
+argument_list|>
 name|regionsInTransition
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|rit
+init|=
+name|am
 operator|.
-name|isClosing
-argument_list|()
-operator|&&
-operator|!
-name|rit
-operator|.
-name|isPendingClose
-argument_list|()
-operator|&&
-operator|!
-name|rit
-operator|.
-name|isSplitting
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|processServerShutdown
 argument_list|(
-literal|"Removed "
-operator|+
-name|rit
-operator|.
-name|getRegion
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" from list of regions to assign because in RIT; region state: "
-operator|+
-name|rit
-operator|.
-name|getState
-argument_list|()
+name|serverName
 argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|hris
-operator|!=
-literal|null
-condition|)
-name|hris
-operator|.
-name|remove
-argument_list|(
-name|rit
-operator|.
-name|getRegion
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-assert|assert
-name|regionsInTransition
-operator|!=
-literal|null
-assert|;
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1430,6 +1372,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|RegionStates
+name|regionStates
+init|=
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+decl_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -1461,48 +1411,37 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|RegionState
-name|rit
+name|HRegionInfo
+name|hri
 init|=
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getRegionTransitionState
-argument_list|(
 name|e
 operator|.
 name|getKey
 argument_list|()
+decl_stmt|;
+name|RegionState
+name|rit
+init|=
+name|regionStates
+operator|.
+name|getRegionTransitionState
+argument_list|(
+name|hri
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
 name|processDeadRegion
 argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 argument_list|,
 name|e
 operator|.
 name|getValue
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
+name|am
 argument_list|,
-name|this
-operator|.
 name|server
 operator|.
 name|getCatalogTracker
@@ -1513,65 +1452,13 @@ block|{
 name|ServerName
 name|addressFromAM
 init|=
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
+name|regionStates
 operator|.
 name|getRegionServerOfRegion
 argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|rit
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|rit
-operator|.
-name|isClosing
-argument_list|()
-operator|&&
-operator|!
-name|rit
-operator|.
-name|isPendingClose
-argument_list|()
-operator|&&
-operator|!
-name|rit
-operator|.
-name|isSplitting
-argument_list|()
-condition|)
-block|{
-comment|// Skip regions that were in transition unless CLOSING or
-comment|// PENDING_CLOSE
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Skip assigning region "
-operator|+
-name|rit
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
 if|if
 condition|(
 name|addressFromAM
@@ -1589,16 +1476,15 @@ name|serverName
 argument_list|)
 condition|)
 block|{
+comment|// If this region is in transition on the dead server, it must be
+comment|// opening or pending_open, which is covered by AM#processServerShutdown
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"Skip assigning region "
 operator|+
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -1611,9 +1497,8 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+continue|continue;
 block|}
-else|else
-block|{
 if|if
 condition|(
 name|rit
@@ -1621,14 +1506,53 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|//clean zk node
-try|try
+if|if
+condition|(
+operator|!
+name|rit
+operator|.
+name|isOnServer
+argument_list|(
+name|serverName
+argument_list|)
+operator|||
+name|rit
+operator|.
+name|isClosed
+argument_list|()
+operator|||
+name|rit
+operator|.
+name|isOpened
+argument_list|()
+operator|||
+name|rit
+operator|.
+name|isSplit
+argument_list|()
+condition|)
 block|{
+comment|// Skip regions that are in transition on other server,
+comment|// or in state closed/opened/split
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Reassigning region with rs ="
+literal|"Skip assigning region "
+operator|+
+name|rit
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+try|try
+block|{
+comment|//clean zk node
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Reassigning region with rs = "
 operator|+
 name|rit
 operator|+
@@ -1644,10 +1568,7 @@ operator|.
 name|getZooKeeper
 argument_list|()
 argument_list|,
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 argument_list|)
 expr_stmt|;
 block|}
@@ -1665,10 +1586,7 @@ name|abort
 argument_list|(
 literal|"Unexpected ZK exception deleting unassigned node "
 operator|+
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 argument_list|,
 name|ke
 argument_list|)
@@ -1680,13 +1598,9 @@ name|toAssignRegions
 operator|.
 name|add
 argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
+name|hri
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 elseif|else
 if|if
@@ -1694,8 +1608,10 @@ condition|(
 name|rit
 operator|!=
 literal|null
-operator|&&
-operator|(
+condition|)
+block|{
+if|if
+condition|(
 name|rit
 operator|.
 name|isSplitting
@@ -1705,7 +1621,6 @@ name|rit
 operator|.
 name|isSplit
 argument_list|()
-operator|)
 condition|)
 block|{
 comment|// This will happen when the RS went down and the call back for the SPLIITING or SPLIT
@@ -1714,43 +1629,17 @@ comment|// split
 comment|// but the RS had gone down before completing the split process then will not try to
 comment|// assign the parent region again. In that case we should make the region offline and
 comment|// also delete the region from RIT.
-name|HRegionInfo
-name|region
-init|=
-name|rit
-operator|.
-name|getRegion
-argument_list|()
-decl_stmt|;
-name|AssignmentManager
-name|am
-init|=
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-decl_stmt|;
 name|am
 operator|.
 name|regionOffline
 argument_list|(
-name|region
+name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|// If the table was partially disabled and the RS went down, we should clear the RIT
-comment|// and remove the node for the region.
-comment|// The rit that we use may be stale in case the table was in DISABLING state
-comment|// but though we did assign we will not be clearing the znode in CLOSING state.
-comment|// Doing this will have no harm. See HBASE-5927
+elseif|else
 if|if
 condition|(
-name|rit
-operator|!=
-literal|null
-operator|&&
 operator|(
 name|rit
 operator|.
@@ -1763,46 +1652,25 @@ name|isPendingClose
 argument_list|()
 operator|)
 operator|&&
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
+name|am
 operator|.
 name|getZKTable
 argument_list|()
 operator|.
 name|isDisablingOrDisabledTable
 argument_list|(
-name|rit
-operator|.
-name|getRegion
-argument_list|()
+name|hri
 operator|.
 name|getTableNameAsString
 argument_list|()
 argument_list|)
 condition|)
 block|{
-name|HRegionInfo
-name|hri
-init|=
-name|rit
-operator|.
-name|getRegion
-argument_list|()
-decl_stmt|;
-name|AssignmentManager
-name|am
-init|=
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-decl_stmt|;
+comment|// If the table was partially disabled and the RS went down, we should clear the RIT
+comment|// and remove the node for the region.
+comment|// The rit that we use may be stale in case the table was in DISABLING state
+comment|// but though we did assign we will not be clearing the znode in CLOSING state.
+comment|// Doing this will have no harm. See HBASE-5927
 name|am
 operator|.
 name|deleteClosingOrClosedNode
@@ -1817,24 +1685,28 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
-comment|// To avoid region assignment if table is in disabling or disabled state.
-name|toAssignRegions
+block|}
+else|else
+block|{
+name|LOG
 operator|.
-name|remove
+name|warn
 argument_list|(
-name|hri
+literal|"THIS SHOULD NOT HAPPEN: unexpected region in transition "
+operator|+
+name|rit
+operator|+
+literal|" not to be assigned by SSH of server "
+operator|+
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 try|try
 block|{
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
+name|am
 operator|.
 name|assign
 argument_list|(
