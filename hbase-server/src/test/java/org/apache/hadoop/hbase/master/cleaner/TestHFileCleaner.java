@@ -622,6 +622,17 @@ literal|2000
 decl_stmt|;
 name|conf
 operator|.
+name|set
+argument_list|(
+name|HFileCleaner
+operator|.
+name|MASTER_HFILE_CLEANER_PLUGINS
+argument_list|,
+literal|"org.apache.hadoop.hbase.master.cleaner.TimeToLiveHFileCleaner"
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
 name|setLong
 argument_list|(
 name|TimeToLiveHFileCleaner
