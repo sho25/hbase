@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 package|;
 end_package
 

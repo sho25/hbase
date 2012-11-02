@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 package|;
 end_package
 
@@ -271,7 +271,7 @@ name|io
 operator|.
 name|compress
 operator|.
-name|GzipCodec
+name|DefaultCodec
 import|;
 end_import
 
@@ -287,7 +287,7 @@ name|io
 operator|.
 name|compress
 operator|.
-name|DefaultCodec
+name|GzipCodec
 import|;
 end_import
 
@@ -1429,6 +1429,8 @@ name|compressName
 argument_list|)
 throw|;
 block|}
+comment|/**    * Get names of supported compression algorithms.    *    * @return Array of strings, each represents a supported compression    * algorithm. Currently, the following compression algorithms are supported.    */
+specifier|public
 specifier|static
 name|String
 index|[]

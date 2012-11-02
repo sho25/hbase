@@ -313,9 +313,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|encoding
+name|compress
 operator|.
-name|DataBlockEncoding
+name|Compression
 import|;
 end_import
 
@@ -331,9 +331,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|encoding
 operator|.
-name|Compression
+name|DataBlockEncoding
 import|;
 end_import
 

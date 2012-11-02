@@ -71,7 +71,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
 name|Compression
 import|;
@@ -233,7 +233,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setCompressionType(org.apache.hadoop.hbase.io.hfile.Compression.Algorithm)    */
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setCompressionType(org.apache.hadoop.hbase.io.compress.Compression.Algorithm)    */
 annotation|@
 name|Override
 specifier|public

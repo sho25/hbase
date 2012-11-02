@@ -41,9 +41,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
-name|BlockType
+name|Compression
 import|;
 end_import
 
@@ -61,7 +61,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|Compression
+name|BlockType
 import|;
 end_import
 

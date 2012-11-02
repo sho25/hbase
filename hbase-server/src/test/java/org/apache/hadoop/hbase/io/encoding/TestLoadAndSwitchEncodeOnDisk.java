@@ -217,9 +217,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
-name|CacheConfig
+name|Compression
 import|;
 end_import
 
@@ -237,7 +237,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|Compression
+name|CacheConfig
 import|;
 end_import
 

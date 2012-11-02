@@ -229,9 +229,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|encoding
+name|compress
 operator|.
-name|DataBlockEncoding
+name|Compression
 import|;
 end_import
 
@@ -247,11 +247,29 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
 name|Compression
 operator|.
 name|Algorithm
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|encoding
+operator|.
+name|DataBlockEncoding
 import|;
 end_import
 

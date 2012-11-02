@@ -153,7 +153,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
 name|Compression
 import|;
@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
 name|Compression
 operator|.

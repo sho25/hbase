@@ -189,11 +189,29 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|compress
 operator|.
-name|BlockType
+name|Compression
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|BlockCategory
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|compress
+operator|.
+name|Compression
+operator|.
+name|Algorithm
 import|;
 end_import
 
@@ -211,9 +229,9 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|Compression
+name|BlockType
 operator|.
-name|Algorithm
+name|BlockCategory
 import|;
 end_import
 
