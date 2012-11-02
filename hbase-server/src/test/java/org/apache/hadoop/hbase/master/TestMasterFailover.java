@@ -691,7 +691,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.wait.on.regionservers.mintostart"
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MINTOSTART
 argument_list|,
 literal|3
 argument_list|)
@@ -700,7 +702,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.wait.on.regionservers.maxtostart"
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MAXTOSTART
 argument_list|,
 literal|3
 argument_list|)
@@ -2020,7 +2024,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.wait.on.regionservers.mintostart"
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MINTOSTART
 argument_list|,
 literal|1
 argument_list|)
@@ -2029,7 +2035,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.wait.on.regionservers.maxtostart"
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MAXTOSTART
 argument_list|,
 literal|2
 argument_list|)
