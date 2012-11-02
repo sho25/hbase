@@ -1200,6 +1200,11 @@ name|skipFirst
 init|=
 literal|false
 decl_stmt|;
+name|boolean
+name|retryAfterOutOfOrderException
+init|=
+literal|true
+decl_stmt|;
 do|do
 block|{
 try|try
@@ -1248,6 +1253,10 @@ name|callable
 operator|.
 name|withRetries
 argument_list|()
+expr_stmt|;
+name|retryAfterOutOfOrderException
+operator|=
+literal|true
 expr_stmt|;
 block|}
 catch|catch
@@ -1398,6 +1407,38 @@ name|skipFirst
 operator|=
 literal|true
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|e
+operator|instanceof
+name|OutOfOrderScannerNextException
+condition|)
+block|{
+if|if
+condition|(
+name|retryAfterOutOfOrderException
+condition|)
+block|{
+name|retryAfterOutOfOrderException
+operator|=
+literal|false
+expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Failed after retry"
+operator|+
+literal|", it could be cause by rpc timeout"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|// Clear region
 name|this
