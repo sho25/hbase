@@ -29,7 +29,7 @@ name|hbase
 operator|.
 name|metrics
 operator|.
-name|BaseMetricsSource
+name|BaseSource
 import|;
 end_import
 
@@ -45,7 +45,7 @@ name|hbase
 operator|.
 name|metrics
 operator|.
-name|BaseMetricsSourceImpl
+name|BaseSourceImpl
 import|;
 end_import
 
@@ -640,7 +640,7 @@ parameter_list|,
 name|String
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -684,7 +684,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -728,7 +728,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -772,7 +772,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -816,7 +816,7 @@ parameter_list|,
 name|double
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -845,6 +845,8 @@ name|expected
 argument_list|)
 argument_list|,
 name|found
+argument_list|,
+literal|0.01
 argument_list|)
 expr_stmt|;
 block|}
@@ -860,7 +862,7 @@ parameter_list|,
 name|double
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -904,7 +906,7 @@ parameter_list|,
 name|double
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -948,7 +950,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -992,7 +994,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1036,7 +1038,7 @@ parameter_list|,
 name|long
 name|expected
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1077,7 +1079,7 @@ parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1125,7 +1127,7 @@ parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1173,7 +1175,7 @@ parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1237,7 +1239,7 @@ specifier|private
 name|void
 name|getMetrics
 parameter_list|(
-name|BaseMetricsSource
+name|BaseSource
 name|source
 parameter_list|)
 block|{
@@ -1250,7 +1252,7 @@ operator|!
 operator|(
 name|source
 operator|instanceof
-name|BaseMetricsSourceImpl
+name|BaseSourceImpl
 operator|)
 condition|)
 block|{
@@ -1260,11 +1262,11 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|BaseMetricsSourceImpl
+name|BaseSourceImpl
 name|impl
 init|=
 operator|(
-name|BaseMetricsSourceImpl
+name|BaseSourceImpl
 operator|)
 name|source
 decl_stmt|;

@@ -135,6 +135,11 @@ name|CompatibilitySingletonFactory
 parameter_list|()
 block|{  }
 comment|/**    * Get the singleton instance of Any classes defined by compatibiliy jar's    *    * @return the singleton    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 specifier|synchronized

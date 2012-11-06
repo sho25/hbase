@@ -1841,6 +1841,11 @@ name|name
 argument_list|)
 return|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 parameter_list|<
 name|T

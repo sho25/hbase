@@ -399,26 +399,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
-operator|.
-name|regionserver
-operator|.
-name|metrics
-operator|.
-name|ReplicationSinkMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -495,7 +475,7 @@ name|sharedHtableCon
 decl_stmt|;
 specifier|private
 specifier|final
-name|ReplicationSinkMetrics
+name|MetricsSink
 name|metrics
 decl_stmt|;
 comment|/**    * Create a sink for replication    *    * @param conf                conf object    * @param stopper             boolean to tell this thread to stop    * @throws IOException thrown when HDFS goes bad or bad file name    */
@@ -530,7 +510,7 @@ operator|.
 name|metrics
 operator|=
 operator|new
-name|ReplicationSinkMetrics
+name|MetricsSink
 argument_list|()
 expr_stmt|;
 name|this

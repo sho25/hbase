@@ -293,6 +293,8 @@ end_import
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|Category
 argument_list|(
 name|SmallTests

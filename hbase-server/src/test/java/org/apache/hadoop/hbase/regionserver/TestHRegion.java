@@ -875,24 +875,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|metrics
-operator|.
-name|SchemaMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
 name|HLog
@@ -1361,15 +1343,6 @@ argument_list|(
 literal|"rowB"
 argument_list|)
 decl_stmt|;
-specifier|private
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
-name|startingMetrics
-decl_stmt|;
 comment|/**    * @see org.apache.hadoop.hbase.HBaseTestCase#setUp()    */
 annotation|@
 name|Override
@@ -1380,13 +1353,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|startingMetrics
-operator|=
-name|SchemaMetrics
-operator|.
-name|getMetricsSnapshot
-argument_list|()
-expr_stmt|;
 name|super
 operator|.
 name|setUp
@@ -1411,13 +1377,6 @@ name|EnvironmentEdgeManagerTestHelper
 operator|.
 name|reset
 argument_list|()
-expr_stmt|;
-name|SchemaMetrics
-operator|.
-name|validateMetricChanges
-argument_list|(
-name|startingMetrics
-argument_list|)
 expr_stmt|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -22870,15 +22829,6 @@ operator|+
 literal|"testStatusSettingToAbortIfAnyExceptionDuringRegionInitilization"
 argument_list|)
 decl_stmt|;
-comment|// no where we are instantiating HStore in this test case so useTableNameGlobally is null. To
-comment|// avoid NullPointerException we are setting useTableNameGlobally to false.
-name|SchemaMetrics
-operator|.
-name|setUseTableNameInTest
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|region
 operator|=
 name|HRegion

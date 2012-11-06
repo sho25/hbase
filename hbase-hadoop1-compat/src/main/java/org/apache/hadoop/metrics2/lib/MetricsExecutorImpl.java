@@ -25,7 +25,7 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|metrics
+name|metrics2
 operator|.
 name|MetricsExecutor
 import|;

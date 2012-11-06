@@ -651,24 +651,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|metrics
-operator|.
-name|MasterMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|RegionAlreadyInTransitionException
@@ -1119,8 +1101,8 @@ block|}
 argument_list|)
 decl_stmt|;
 comment|// metrics instance to send metrics for RITs
-name|MasterMetrics
-name|masterMetrics
+name|MetricsMaster
+name|metricsMaster
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1159,8 +1141,8 @@ specifier|final
 name|ExecutorService
 name|service
 parameter_list|,
-name|MasterMetrics
-name|metrics
+name|MetricsMaster
+name|metricsMaster
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -1365,9 +1347,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|masterMetrics
+name|metricsMaster
 operator|=
-name|metrics
+name|metricsMaster
 expr_stmt|;
 comment|// can be null only with tests.
 name|this
@@ -10239,14 +10221,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|masterMetrics
+name|metricsMaster
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|masterMetrics
+name|metricsMaster
 operator|.
 name|updateRITOldestAge
 argument_list|(
@@ -10255,7 +10237,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|masterMetrics
+name|metricsMaster
 operator|.
 name|updateRITCount
 argument_list|(
@@ -10264,7 +10246,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|masterMetrics
+name|metricsMaster
 operator|.
 name|updateRITCountOverThreshold
 argument_list|(

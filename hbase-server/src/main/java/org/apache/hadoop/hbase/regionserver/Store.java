@@ -223,26 +223,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|metrics
-operator|.
-name|SchemaMetrics
-operator|.
-name|SchemaAware
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -272,8 +252,6 @@ specifier|public
 interface|interface
 name|Store
 extends|extends
-name|SchemaAware
-extends|,
 name|HeapSize
 block|{
 comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
@@ -637,6 +615,16 @@ comment|/**    * @return the parent region hosting this store    */
 specifier|public
 name|HRegion
 name|getHRegion
+parameter_list|()
+function_decl|;
+specifier|public
+name|String
+name|getColumnFamilyName
+parameter_list|()
+function_decl|;
+specifier|public
+name|String
+name|getTableName
 parameter_list|()
 function_decl|;
 block|}

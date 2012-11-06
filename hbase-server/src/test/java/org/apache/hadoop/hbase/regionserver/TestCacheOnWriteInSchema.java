@@ -1351,13 +1351,6 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|store
-operator|.
-name|passSchemaMetricsTo
-argument_list|(
-name|sf
-argument_list|)
-expr_stmt|;
 name|HFileReaderV2
 name|reader
 init|=

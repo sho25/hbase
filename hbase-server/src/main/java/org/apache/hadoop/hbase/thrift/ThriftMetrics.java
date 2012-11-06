@@ -59,42 +59,6 @@ name|CompatibilitySingletonFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|thrift
-operator|.
-name|metrics
-operator|.
-name|ThriftServerMetricsSource
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|thrift
-operator|.
-name|metrics
-operator|.
-name|ThriftServerMetricsSourceFactory
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class is for maintaining the various statistics of thrift server  * and publishing them through the metrics interfaces.  */
 end_comment
@@ -117,7 +81,7 @@ block|,
 name|TWO
 block|}
 specifier|public
-name|ThriftServerMetricsSource
+name|MetricsThriftServerSource
 name|getSource
 parameter_list|()
 block|{
@@ -129,7 +93,7 @@ specifier|public
 name|void
 name|setSource
 parameter_list|(
-name|ThriftServerMetricsSource
+name|MetricsThriftServerSource
 name|source
 parameter_list|)
 block|{
@@ -141,7 +105,7 @@ name|source
 expr_stmt|;
 block|}
 specifier|private
-name|ThriftServerMetricsSource
+name|MetricsThriftServerSource
 name|source
 decl_stmt|;
 specifier|private
@@ -205,7 +169,7 @@ name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
-name|ThriftServerMetricsSourceFactory
+name|MetricsThriftServerSourceFactory
 operator|.
 name|class
 argument_list|)
@@ -230,7 +194,7 @@ name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
-name|ThriftServerMetricsSourceFactory
+name|MetricsThriftServerSourceFactory
 operator|.
 name|class
 argument_list|)

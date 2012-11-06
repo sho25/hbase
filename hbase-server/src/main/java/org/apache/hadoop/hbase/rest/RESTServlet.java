@@ -71,24 +71,6 @@ name|HTablePool
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|rest
-operator|.
-name|metrics
-operator|.
-name|RESTMetrics
-import|;
-end_import
-
 begin_comment
 comment|/**  * Singleton class encapsulating global REST servlet state and functions.  */
 end_comment
@@ -121,11 +103,11 @@ name|pool
 decl_stmt|;
 specifier|private
 specifier|final
-name|RESTMetrics
+name|MetricsREST
 name|metrics
 init|=
 operator|new
-name|RESTMetrics
+name|MetricsREST
 argument_list|()
 decl_stmt|;
 comment|/**    * @return the RESTServlet singleton instance    * @throws IOException    */
@@ -244,7 +226,7 @@ return|return
 name|conf
 return|;
 block|}
-name|RESTMetrics
+name|MetricsREST
 name|getMetrics
 parameter_list|()
 block|{

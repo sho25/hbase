@@ -1037,13 +1037,6 @@ name|getOnDiskDataSizeWithHeader
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|block
-operator|.
-name|passSchemaMetricsTo
-argument_list|(
-name|encodedBlock
-argument_list|)
-expr_stmt|;
 return|return
 name|encodedBlock
 return|;

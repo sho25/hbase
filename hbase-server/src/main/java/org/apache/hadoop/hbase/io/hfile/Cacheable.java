@@ -59,24 +59,6 @@ name|HeapSize
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|metrics
-operator|.
-name|SchemaMetrics
-import|;
-end_import
-
 begin_comment
 comment|/**  * Cacheable is an interface that allows for an object to be cached. If using an  * on heap cache, just use heapsize. If using an off heap cache, Cacheable  * provides methods for serialization of the object.  *  * Some objects cannot be moved off heap, those objects will return a  * getSerializedLength() of 0.  *  */
 end_comment
@@ -114,18 +96,6 @@ argument_list|<
 name|Cacheable
 argument_list|>
 name|getDeserializer
-parameter_list|()
-function_decl|;
-comment|/**    * @return the block type of this cached HFile block    */
-specifier|public
-name|BlockType
-name|getBlockType
-parameter_list|()
-function_decl|;
-comment|/**    * @return the metrics object identified by table and column family    */
-specifier|public
-name|SchemaMetrics
-name|getSchemaMetrics
 parameter_list|()
 function_decl|;
 block|}

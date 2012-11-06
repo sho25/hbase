@@ -355,24 +355,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|metrics
-operator|.
-name|SchemaConfigured
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -497,8 +479,6 @@ name|Private
 specifier|public
 class|class
 name|HFileBlock
-extends|extends
-name|SchemaConfigured
 implements|implements
 name|Cacheable
 block|{
@@ -2075,8 +2055,9 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-comment|// Base class size, including object overhead.
-name|SCHEMA_CONFIGURED_UNALIGNED_HEAP_SIZE
+name|ClassSize
+operator|.
+name|OBJECT
 operator|+
 comment|// Block type and byte buffer references
 literal|2

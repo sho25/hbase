@@ -365,24 +365,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|metrics
-operator|.
-name|MasterMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -404,22 +386,6 @@ operator|.
 name|wal
 operator|.
 name|HLog
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionAlreadyInTransitionException
 import|;
 end_import
 
@@ -581,8 +547,8 @@ name|Server
 name|master
 decl_stmt|;
 comment|// metrics for master
-name|MasterMetrics
-name|metrics
+name|MetricsMaster
+name|metricsMaster
 decl_stmt|;
 comment|// Persisted unique cluster ID
 specifier|private
@@ -646,8 +612,8 @@ parameter_list|,
 name|MasterServices
 name|services
 parameter_list|,
-name|MasterMetrics
-name|metrics
+name|MetricsMaster
+name|metricsMaster
 parameter_list|,
 name|boolean
 name|masterRecovery
@@ -678,9 +644,9 @@ name|services
 expr_stmt|;
 name|this
 operator|.
-name|metrics
+name|metricsMaster
 operator|=
-name|metrics
+name|metricsMaster
 expr_stmt|;
 comment|// Set filesystem to be that of this.rootdir else we get complaints about
 comment|// mismatched filesystems if hbase.rootdir is hdfs and fs.defaultFS is
@@ -1784,14 +1750,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|metrics
+name|metricsMaster
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|metrics
+name|metricsMaster
 operator|.
 name|addSplit
 argument_list|(

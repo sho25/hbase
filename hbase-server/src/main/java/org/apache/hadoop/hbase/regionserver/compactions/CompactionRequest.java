@@ -1287,22 +1287,6 @@ condition|(
 name|completed
 condition|)
 block|{
-name|server
-operator|.
-name|getMetrics
-argument_list|()
-operator|.
-name|addCompaction
-argument_list|(
-name|now
-operator|-
-name|start
-argument_list|,
-name|this
-operator|.
-name|totalSize
-argument_list|)
-expr_stmt|;
 comment|// degenerate case: blocked regions require recursive enqueues
 if|if
 condition|(
