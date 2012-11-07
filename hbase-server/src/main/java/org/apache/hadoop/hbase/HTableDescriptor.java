@@ -2819,10 +2819,15 @@ name|s
 operator|.
 name|append
 argument_list|(
-literal|", {METHOD => 'table_att'"
+literal|", {TABLE_ATTRIBUTES => {"
 argument_list|)
 expr_stmt|;
 comment|// print all reserved keys first
+name|boolean
+name|printCommaForAttr
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|ImmutableBytesWritable
@@ -2862,12 +2867,20 @@ name|get
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|printCommaForAttr
+condition|)
 name|s
 operator|.
 name|append
 argument_list|(
 literal|", "
 argument_list|)
+expr_stmt|;
+name|printCommaForAttr
+operator|=
+literal|true
 expr_stmt|;
 name|s
 operator|.
@@ -2911,12 +2924,20 @@ argument_list|()
 condition|)
 block|{
 comment|// print all non-reserved, advanced config keys as a separate subset
+if|if
+condition|(
+name|printCommaForAttr
+condition|)
 name|s
 operator|.
 name|append
 argument_list|(
 literal|", "
 argument_list|)
+expr_stmt|;
+name|printCommaForAttr
+operator|=
+literal|true
 expr_stmt|;
 name|s
 operator|.
@@ -2940,7 +2961,7 @@ literal|"{"
 argument_list|)
 expr_stmt|;
 name|boolean
-name|printComma
+name|printCommaForCfg
 init|=
 literal|false
 decl_stmt|;
@@ -2985,7 +3006,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|printComma
+name|printCommaForCfg
 condition|)
 name|s
 operator|.
@@ -2994,7 +3015,7 @@ argument_list|(
 literal|", "
 argument_list|)
 expr_stmt|;
-name|printComma
+name|printCommaForCfg
 operator|=
 literal|true
 expr_stmt|;
@@ -3052,7 +3073,7 @@ name|s
 operator|.
 name|append
 argument_list|(
-literal|'}'
+literal|"}}"
 argument_list|)
 expr_stmt|;
 comment|// end METHOD
