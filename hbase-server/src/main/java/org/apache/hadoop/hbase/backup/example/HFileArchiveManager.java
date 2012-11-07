@@ -260,7 +260,7 @@ name|ZooKeeperWatcher
 argument_list|(
 name|conf
 argument_list|,
-literal|"hfileArchiveManger-on-"
+literal|"hfileArchiveManager-on-"
 operator|+
 name|connection
 operator|.

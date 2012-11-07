@@ -270,7 +270,7 @@ condition|)
 return|return
 literal|true
 return|;
-comment|// If the file is inside a link references directory, means that is a back ref link.
+comment|// If the file is inside a link references directory, means that it is a back ref link.
 comment|// The back ref can be deleted only if the referenced file doesn't exists.
 name|Path
 name|parentDir

@@ -1039,7 +1039,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Archive the given files and resolve any conflicts with existing files via appending the time    * archiving started (so all conflicts in the same group have the same timestamp appended).    *<p>    * If any of the passed files to archive are directories, archives the all files under that    * directory. Archive directory structure for children is the base archive directory name + the    * parent directory and is built recursively is passed files are directories themselves.    * @param fs {@link FileSystem} on which to archive the files    * @param baseArchiveDir base archive directory to archive the given files    * @param toArchive files to be archived    * @return<tt>true</tt> on success,<tt>false</tt> otherwise    * @throws IOException on unexpected failure    */
+comment|/**    * Archive the given files and resolve any conflicts with existing files via appending the time    * archiving started (so all conflicts in the same group have the same timestamp appended).    *<p>    * If any of the passed files to archive are directories, archives all the files under that    * directory. Archive directory structure for children is the base archive directory name + the    * parent directory and is built recursively is passed files are directories themselves.    * @param fs {@link FileSystem} on which to archive the files    * @param baseArchiveDir base archive directory to archive the given files    * @param toArchive files to be archived    * @return<tt>true</tt> on success,<tt>false</tt> otherwise    * @throws IOException on unexpected failure    */
 specifier|private
 specifier|static
 name|boolean

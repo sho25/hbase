@@ -319,7 +319,7 @@ name|Path
 name|file
 parameter_list|)
 function_decl|;
-comment|/**    * Instanitate and initialize all the file cleaners set in the configuration    * @param confKey key to get the file cleaner classes from the configuration    */
+comment|/**    * Instantiate and initialize all the file cleaners set in the configuration    * @param confKey key to get the file cleaner classes from the configuration    */
 specifier|private
 name|void
 name|initCleanerChain
@@ -599,7 +599,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to get status of:"
+literal|"Failed to get status of: "
 operator|+
 name|oldFileDir
 argument_list|)
@@ -788,7 +788,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempted to delete:"
+literal|"Attempted to delete: "
 operator|+
 name|filePath
 operator|+
@@ -878,7 +878,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing:"
+literal|"Removing: "
 operator|+
 name|filePath
 operator|+
