@@ -876,13 +876,27 @@ name|exists
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+operator|!
 name|FileUtil
 operator|.
 name|fullyDelete
 argument_list|(
 name|dir
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Could not delete zk base directory: "
+operator|+
+name|dir
+argument_list|)
+throw|;
+block|}
 block|}
 try|try
 block|{
@@ -990,6 +1004,24 @@ literal|"Waiting for shutdown of standalone server"
 argument_list|)
 throw|;
 block|}
+block|}
+for|for
+control|(
+name|ZooKeeperServer
+name|zkServer
+range|:
+name|zooKeeperServers
+control|)
+block|{
+comment|//explicitly close ZKDatabase since ZookeeperServer does not close them
+name|zkServer
+operator|.
+name|getZKDatabase
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|// clear everything
 name|started
