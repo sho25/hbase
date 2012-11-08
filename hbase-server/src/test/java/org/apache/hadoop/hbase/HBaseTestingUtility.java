@@ -1105,6 +1105,20 @@ name|ZooKeeper
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeper
+operator|.
+name|States
+import|;
+end_import
+
 begin_comment
 comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@link DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
 end_comment
@@ -7259,6 +7273,45 @@ argument_list|,
 name|password
 argument_list|)
 decl_stmt|;
+comment|//ensure that we have connection to the server before closing down, otherwise
+comment|//the close session event will be eaten out before we start CONNECTING state
+name|long
+name|start
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|newZK
+operator|.
+name|getState
+argument_list|()
+operator|!=
+name|States
+operator|.
+name|CONNECTED
+operator|&&
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|start
+operator|<
+literal|1000
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
 name|newZK
 operator|.
 name|close
