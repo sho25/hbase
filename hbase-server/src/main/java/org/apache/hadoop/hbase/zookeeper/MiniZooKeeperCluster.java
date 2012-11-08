@@ -820,6 +820,10 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
+name|tentativePort
+operator|++
+expr_stmt|;
+comment|//for the next server
 block|}
 comment|// set the first one to be active ZK; Others are backups
 name|activeZKServerIndex
