@@ -307,6 +307,14 @@ specifier|private
 specifier|final
 specifier|static
 name|int
+name|THREAD_WAKE_FREQUENCY
+init|=
+literal|1000
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|int
 name|SCANNER_TIMEOUT
 init|=
 literal|10000
@@ -347,6 +355,17 @@ operator|.
 name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|SCANNER_TIMEOUT
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+name|THREAD_WAKE_FREQUENCY
 argument_list|)
 expr_stmt|;
 comment|// We need more than one region server for this test
@@ -553,6 +572,8 @@ operator|.
 name|sleep
 argument_list|(
 name|SCANNER_TIMEOUT
+operator|+
+name|THREAD_WAKE_FREQUENCY
 operator|+
 literal|100
 argument_list|)
