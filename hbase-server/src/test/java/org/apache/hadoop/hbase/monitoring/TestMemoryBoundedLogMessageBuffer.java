@@ -25,7 +25,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -228,6 +240,16 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
+name|String
+name|eol
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"line.separator"
+argument_list|)
+decl_stmt|;
 name|assertFalse
 argument_list|(
 literal|"The early log messages should be evicted"
@@ -236,7 +258,9 @@ name|dump
 operator|.
 name|contains
 argument_list|(
-literal|"hello 1\n"
+literal|"hello 1"
+operator|+
+name|eol
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -248,7 +272,9 @@ name|dump
 operator|.
 name|contains
 argument_list|(
-literal|"hello 999\n"
+literal|"hello 999"
+operator|+
+name|eol
 argument_list|)
 argument_list|)
 expr_stmt|;
