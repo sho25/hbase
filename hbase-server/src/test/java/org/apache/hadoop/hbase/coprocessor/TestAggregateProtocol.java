@@ -410,13 +410,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|MiniHBaseCluster
-name|cluster
-init|=
-literal|null
-decl_stmt|;
-specifier|private
-specifier|static
 name|Configuration
 name|conf
 init|=
@@ -453,13 +446,6 @@ name|startMiniCluster
 argument_list|(
 literal|2
 argument_list|)
-expr_stmt|;
-name|cluster
-operator|=
-name|util
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
 expr_stmt|;
 name|HTable
 name|table

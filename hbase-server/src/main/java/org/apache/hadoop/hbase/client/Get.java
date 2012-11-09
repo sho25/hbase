@@ -53,9 +53,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HConstants
 import|;
 end_import
 
@@ -514,10 +514,17 @@ block|}
 if|if
 condition|(
 name|qualifier
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
+name|qualifier
+operator|=
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+expr_stmt|;
+block|}
 name|set
 operator|.
 name|add
@@ -525,7 +532,6 @@ argument_list|(
 name|qualifier
 argument_list|)
 expr_stmt|;
-block|}
 name|familyMap
 operator|.
 name|put
