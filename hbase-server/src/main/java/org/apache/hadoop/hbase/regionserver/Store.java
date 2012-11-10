@@ -319,30 +319,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Updates the value for the given row/family/qualifier. This function will always be seen as    * atomic by other readers because it only puts a single KV to memstore. Thus no read/write    * control necessary.    * @param row row to update    * @param f family to update    * @param qualifier qualifier to update    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
-specifier|public
-name|long
-name|updateColumnValue
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|byte
-index|[]
-name|f
-parameter_list|,
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-name|long
-name|newValue
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param kvs    * @return memstore size delta    * @throws IOException    */
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param kvs    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|upsert
@@ -352,6 +329,9 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|kvs
+parameter_list|,
+name|long
+name|readpoint
 parameter_list|)
 throws|throws
 name|IOException

@@ -1329,6 +1329,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|MultiVersionConsistencyControl
+operator|.
+name|WriteEntry
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|compactions
 operator|.
 name|CompactionRequest
@@ -19592,7 +19610,7 @@ block|}
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    *    * Perform one or more append operations on a row.    *<p>    * Appends performed are done under row lock but reads do not take locks out    * so this can be seen partially complete by gets and scans.    *    * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append
@@ -19609,7 +19627,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Use MVCC to make this set of appends atomic to reads
 name|byte
 index|[]
 name|row
@@ -19698,6 +19715,11 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|Integer
@@ -19720,6 +19742,26 @@ name|readLock
 argument_list|()
 operator|.
 name|lock
+argument_list|()
+expr_stmt|;
+comment|// wait for all prior MVCC transactions to finish - while we hold the row lock
+comment|// (so that we are guaranteed to see the latest state)
+name|mvcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|mvcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// now start my own transaction
+name|w
+operator|=
+name|mvcc
+operator|.
+name|beginMemstoreInsert
 argument_list|()
 expr_stmt|;
 try|try
@@ -20179,6 +20221,16 @@ name|getQualifierLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|newKV
+operator|.
+name|setMemstoreTS
+argument_list|(
+name|w
+operator|.
+name|getWriteNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|kvs
 operator|.
 name|add
@@ -20299,6 +20351,20 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|store
+operator|.
+name|getFamily
+argument_list|()
+operator|.
+name|getMaxVersions
+argument_list|()
+operator|==
+literal|1
+condition|)
+block|{
+comment|// upsert if VERSIONS for this CF == 1
 name|size
 operator|+=
 name|store
@@ -20309,8 +20375,37 @@ name|entry
 operator|.
 name|getValue
 argument_list|()
+argument_list|,
+name|getSmallestReadPoint
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// otherwise keep older versions around
+for|for
+control|(
+name|KeyValue
+name|kv
+range|:
+name|entry
+operator|.
+name|getValue
+argument_list|()
+control|)
+block|{
+name|size
+operator|+=
+name|store
+operator|.
+name|add
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|allKVs
 operator|.
 name|addAll
@@ -20372,6 +20467,21 @@ block|}
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+block|{
+name|mvcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+block|}
 name|closeRegionOperation
 argument_list|()
 expr_stmt|;
@@ -20408,7 +20518,7 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    *    * Perform one or more increment operations on a row.    *<p>    * Increments performed are done under row lock but reads do not take locks    * out so this can be seen partially complete by gets and scans.    * @param increment    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|increment
@@ -20425,7 +20535,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Use MVCC to make this set of increments atomic to reads
 name|byte
 index|[]
 name|row
@@ -20522,6 +20631,11 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|Integer
@@ -20544,6 +20658,26 @@ name|readLock
 argument_list|()
 operator|.
 name|lock
+argument_list|()
+expr_stmt|;
+comment|// wait for all prior MVCC transactions to finish - while we hold the row lock
+comment|// (so that we are guaranteed to see the latest state)
+name|mvcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|mvcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// now start my own transaction
+name|w
+operator|=
+name|mvcc
+operator|.
+name|beginMemstoreInsert
 argument_list|()
 expr_stmt|;
 try|try
@@ -20845,6 +20979,16 @@ name|amount
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|newKV
+operator|.
+name|setMemstoreTS
+argument_list|(
+name|w
+operator|.
+name|getWriteNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|kvs
 operator|.
 name|add
@@ -20965,6 +21109,20 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|store
+operator|.
+name|getFamily
+argument_list|()
+operator|.
+name|getMaxVersions
+argument_list|()
+operator|==
+literal|1
+condition|)
+block|{
+comment|// upsert if VERSIONS for this CF == 1
 name|size
 operator|+=
 name|store
@@ -20975,8 +21133,37 @@ name|entry
 operator|.
 name|getValue
 argument_list|()
+argument_list|,
+name|getSmallestReadPoint
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// otherwise keep older versions around
+for|for
+control|(
+name|KeyValue
+name|kv
+range|:
+name|entry
+operator|.
+name|getValue
+argument_list|()
+control|)
+block|{
+name|size
+operator|+=
+name|store
+operator|.
+name|add
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|allKVs
 operator|.
 name|addAll
@@ -21038,6 +21225,21 @@ block|}
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+block|{
+name|mvcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+block|}
 name|closeRegionOperation
 argument_list|()
 expr_stmt|;

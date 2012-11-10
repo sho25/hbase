@@ -9602,8 +9602,7 @@ operator|.
 name|regionInfo
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Used in tests. TODO: Remove    *    * Updates the value for the given row/family/qualifier. This function will always be seen as    * atomic by other readers because it only puts a single KV to memstore. Thus no read/write    * control necessary.    * @param row row to update    * @param f family to update    * @param qualifier qualifier to update    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|updateColumnValue
@@ -9690,6 +9689,9 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|kvs
+parameter_list|,
+name|long
+name|readpoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -9706,7 +9708,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// TODO: Make this operation atomic w/ MVCC
 return|return
 name|this
 operator|.
@@ -9715,6 +9716,8 @@ operator|.
 name|upsert
 argument_list|(
 name|kvs
+argument_list|,
+name|readpoint
 argument_list|)
 return|;
 block|}
