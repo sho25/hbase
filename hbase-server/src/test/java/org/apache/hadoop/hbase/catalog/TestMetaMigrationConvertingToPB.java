@@ -632,24 +632,14 @@ argument_list|)
 condition|)
 block|{
 comment|// mkdir at first
-name|doFsCommand
+name|fs
+operator|.
+name|mkdirs
 argument_list|(
-name|shell
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"-mkdir"
-block|,
 name|hbaseRootDir
 operator|.
 name|getParent
 argument_list|()
-operator|.
-name|toString
-argument_list|()
-block|}
 argument_list|)
 expr_stmt|;
 block|}
