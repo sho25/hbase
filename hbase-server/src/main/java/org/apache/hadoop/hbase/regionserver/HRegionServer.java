@@ -19579,6 +19579,40 @@ expr_stmt|;
 block|}
 block|}
 name|String
+name|familyLogMsg
+init|=
+operator|(
+name|family
+operator|!=
+literal|null
+operator|)
+condition|?
+literal|" for column family: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+else|:
+literal|""
+decl_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"User-triggered compaction requested for region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+name|familyLogMsg
+argument_list|)
+expr_stmt|;
+name|String
 name|log
 init|=
 literal|"User-triggered "
@@ -19592,6 +19626,8 @@ literal|""
 operator|)
 operator|+
 literal|"compaction"
+operator|+
+name|familyLogMsg
 decl_stmt|;
 if|if
 condition|(
