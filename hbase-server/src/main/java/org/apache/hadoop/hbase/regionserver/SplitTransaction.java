@@ -593,9 +593,6 @@ comment|/**    * Types to add to the transaction journal.    * Each enum is a st
 enum|enum
 name|JournalEntry
 block|{
-comment|/**      * Before creating node in splitting state.      */
-name|STARTED_SPLITTING
-block|,
 comment|/**      * Set region as in transition, set it into SPLITTING state.      */
 name|SET_SPLITTING_IN_ZK
 block|,
@@ -1090,17 +1087,6 @@ operator|.
 name|fileSplitTimeout
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|journal
-operator|.
-name|add
-argument_list|(
-name|JournalEntry
-operator|.
-name|STARTED_SPLITTING
-argument_list|)
-expr_stmt|;
 comment|// Set ephemeral SPLITTING znode up in zk.  Mocked servers sometimes don't
 comment|// have zookeeper so don't do zk stuff if server or zookeeper is null
 if|if
@@ -1119,10 +1105,6 @@ condition|)
 block|{
 try|try
 block|{
-name|this
-operator|.
-name|znodeVersion
-operator|=
 name|createNodeSplitting
 argument_list|(
 name|server
@@ -1154,7 +1136,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed setting SPLITTING znode on "
+literal|"Failed creating SPLITTING znode on "
 operator|+
 name|this
 operator|.
@@ -1179,6 +1161,79 @@ operator|.
 name|SET_SPLITTING_IN_ZK
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|server
+operator|!=
+literal|null
+operator|&&
+name|server
+operator|.
+name|getZooKeeper
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+try|try
+block|{
+comment|// Transition node from SPLITTING to SPLITTING after creating the split node.
+comment|// Master will get the callback for node change only if the transition is successful.
+comment|// Note that if the transition fails then the rollback will delete the created znode
+comment|// as the journal entry SET_SPLITTING_IN_ZK is added.
+comment|// TODO : May be we can add some new state to znode and handle the new state incase of success/failure
+name|this
+operator|.
+name|znodeVersion
+operator|=
+name|transitionNodeSplitting
+argument_list|(
+name|server
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|parent
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed setting SPLITTING znode on "
+operator|+
+name|this
+operator|.
+name|parent
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
+block|}
 name|createSplitDir
 argument_list|(
 name|this
@@ -3403,39 +3458,6 @@ name|je
 condition|)
 block|{
 case|case
-name|STARTED_SPLITTING
-case|:
-if|if
-condition|(
-name|server
-operator|!=
-literal|null
-operator|&&
-name|server
-operator|.
-name|getZooKeeper
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
-name|cleanZK
-argument_list|(
-name|server
-argument_list|,
-name|this
-operator|.
-name|parent
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-break|break;
-case|case
 name|SET_SPLITTING_IN_ZK
 case|:
 if|if
@@ -3462,8 +3484,6 @@ name|parent
 operator|.
 name|getRegionInfo
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -3818,9 +3838,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|hri
-parameter_list|,
-name|boolean
-name|abort
 parameter_list|)
 block|{
 try|try
@@ -3845,35 +3862,6 @@ operator|.
 name|RS_ZK_REGION_SPLITTING
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-operator|.
-name|NoNodeException
-name|nn
-parameter_list|)
-block|{
-if|if
-condition|(
-name|abort
-condition|)
-block|{
-name|server
-operator|.
-name|abort
-argument_list|(
-literal|"Failed cleanup of "
-operator|+
-name|hri
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|,
-name|nn
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
