@@ -4130,10 +4130,21 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
+name|warn
+argument_list|(
+literal|"An error occurred while verifying if ["
+operator|+
+name|p
+operator|.
+name|toString
 argument_list|()
+operator|+
+literal|"] is a valid directory. Returning 'not valid' and continuing."
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 return|return
