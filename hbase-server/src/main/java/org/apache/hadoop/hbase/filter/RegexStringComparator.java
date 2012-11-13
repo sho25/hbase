@@ -221,14 +221,9 @@ specifier|private
 name|Charset
 name|charset
 init|=
-name|Charset
-operator|.
-name|forName
-argument_list|(
 name|HConstants
 operator|.
-name|UTF8_ENCODING
-argument_list|)
+name|UTF8_CHARSET
 decl_stmt|;
 specifier|private
 name|Pattern

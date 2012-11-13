@@ -3139,8 +3139,6 @@ specifier|public
 name|void
 name|testBinary
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|MemStore
 name|mc
@@ -3234,17 +3232,13 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 argument_list|,
-operator|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|CONTENTSTR
 operator|+
 name|k
-operator|)
-operator|.
-name|getBytes
-argument_list|(
-name|HConstants
-operator|.
-name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -3266,7 +3260,7 @@ argument_list|)
 expr_stmt|;
 comment|//      key = new KeyValue(row, Bytes.toBytes(ANCHORNUM + k),
 comment|//        System.currentTimeMillis(),
-comment|//        (ANCHORSTR + k).getBytes(HConstants.UTF8_ENCODING));
+comment|//        Bytes.toBytes(ANCHORSTR + k));
 comment|//      mc.add(key);
 comment|//      System.out.println(key);
 block|}

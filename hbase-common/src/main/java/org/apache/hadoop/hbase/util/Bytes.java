@@ -51,16 +51,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|lang
 operator|.
 name|reflect
@@ -1076,7 +1066,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * This method will convert utf8 encoded bytes into a string. If    * an UnsupportedEncodingException occurs, this method will eat it    * and return null instead.    *    * @param b Presumed UTF-8 encoded byte array.    * @param off offset into array    * @param len length of utf-8 sequence    * @return String made from<code>b</code> or null    */
+comment|/**    * This method will convert utf8 encoded bytes into a string. If    * the given byte array is null, this method will return null.    *    * @param b Presumed UTF-8 encoded byte array.    * @param off offset into array    * @param len length of utf-8 sequence    * @return String made from<code>b</code> or null    */
 specifier|public
 specifier|static
 name|String
@@ -1116,8 +1106,6 @@ return|return
 literal|""
 return|;
 block|}
-try|try
-block|{
 return|return
 operator|new
 name|String
@@ -1130,29 +1118,9 @@ name|len
 argument_list|,
 name|HConstants
 operator|.
-name|UTF8_ENCODING
+name|UTF8_CHARSET
 argument_list|)
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"UTF-8 not supported?"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
 block|}
 comment|/**    * Write a printable representation of a byte array.    *    * @param b byte array    * @return string    * @see #toStringBinary(byte[], int, int)    */
 specifier|public
@@ -1700,8 +1668,6 @@ name|String
 name|s
 parameter_list|)
 block|{
-try|try
-block|{
 return|return
 name|s
 operator|.
@@ -1709,29 +1675,9 @@ name|getBytes
 argument_list|(
 name|HConstants
 operator|.
-name|UTF8_ENCODING
+name|UTF8_CHARSET
 argument_list|)
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"UTF-8 not supported?"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
 block|}
 comment|/**    * Convert a boolean to a byte array. True becomes -1    * and false becomes 0.    *    * @param b value    * @return<code>b</code> encoded in a byte array.    */
 specifier|public
