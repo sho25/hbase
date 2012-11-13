@@ -233,26 +233,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|BlockType
-operator|.
-name|BlockCategory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|HFile
 operator|.
 name|FileInfo
@@ -940,11 +920,6 @@ name|block
 argument_list|)
 init|)
 block|{
-name|metaLoads
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 comment|// Check cache for block. If found return.
 name|long
 name|metaBlockOffset
@@ -1006,6 +981,8 @@ argument_list|(
 name|cacheKey
 argument_list|,
 name|cacheBlock
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -1017,11 +994,6 @@ condition|)
 block|{
 comment|// Return a distinct 'shallow copy' of the block,
 comment|// so pos does not get messed by the scanner
-name|cacheHits
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 return|return
 name|cachedBlock
 operator|.
@@ -1201,25 +1173,40 @@ argument_list|,
 name|expectedBlockType
 argument_list|)
 decl_stmt|;
+name|boolean
+name|useLock
+init|=
+literal|false
+decl_stmt|;
 name|IdLock
 operator|.
 name|Entry
 name|lockEntry
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+if|if
+condition|(
+name|useLock
+condition|)
+block|{
+name|lockEntry
+operator|=
 name|offsetLock
 operator|.
 name|getLockEntry
 argument_list|(
 name|dataBlockOffset
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|blockLoads
-operator|.
-name|incrementAndGet
-argument_list|()
 expr_stmt|;
+block|}
 comment|// Check cache for block. If found return.
 if|if
 condition|(
@@ -1229,6 +1216,8 @@ name|isBlockCacheEnabled
 argument_list|()
 condition|)
 block|{
+comment|// Try and get the block from the block cache. If the useLock variable is true then this
+comment|// is the second time through the loop and it should not be counted as a block cache miss.
 name|HFileBlock
 name|cachedBlock
 init|=
@@ -1245,6 +1234,8 @@ argument_list|(
 name|cacheKey
 argument_list|,
 name|cacheBlock
+argument_list|,
+name|useLock
 argument_list|)
 decl_stmt|;
 if|if
@@ -1254,22 +1245,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|BlockCategory
-name|blockCategory
-init|=
-name|cachedBlock
-operator|.
-name|getBlockType
-argument_list|()
-operator|.
-name|getCategory
-argument_list|()
-decl_stmt|;
-name|cacheHits
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|cachedBlock
@@ -1355,6 +1330,19 @@ return|;
 block|}
 comment|// Carry on, please load.
 block|}
+if|if
+condition|(
+operator|!
+name|useLock
+condition|)
+block|{
+comment|// check cache again with lock
+name|useLock
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
+block|}
 comment|// Load block from filesystem.
 name|long
 name|startTimeNs
@@ -1399,17 +1387,6 @@ argument_list|,
 name|expectedBlockType
 argument_list|)
 expr_stmt|;
-name|BlockCategory
-name|blockCategory
-init|=
-name|hfileBlock
-operator|.
-name|getBlockType
-argument_list|()
-operator|.
-name|getCategory
-argument_list|()
-decl_stmt|;
 specifier|final
 name|long
 name|delta
@@ -1491,7 +1468,15 @@ return|return
 name|hfileBlock
 return|;
 block|}
+block|}
 finally|finally
+block|{
+if|if
+condition|(
+name|lockEntry
+operator|!=
+literal|null
+condition|)
 block|{
 name|offsetLock
 operator|.
@@ -1500,6 +1485,7 @@ argument_list|(
 name|lockEntry
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Compares the actual type of a block retrieved from cache or disk with its    * expected type and throws an exception in case of a mismatch. Expected    * block type of {@link BlockType#DATA} is considered to match the actual    * block type [@link {@link BlockType#ENCODED_DATA} as well.    * @param block a block retrieved from cache or disk    * @param expectedBlockType the expected block type, or null to skip the    *          check    */

@@ -382,6 +382,9 @@ name|cacheKey
 parameter_list|,
 name|boolean
 name|caching
+parameter_list|,
+name|boolean
+name|repeat
 parameter_list|)
 block|{
 name|Cacheable
@@ -399,6 +402,8 @@ argument_list|(
 name|cacheKey
 argument_list|,
 name|caching
+argument_list|,
+name|repeat
 argument_list|)
 operator|)
 operator|!=
@@ -429,6 +434,8 @@ argument_list|(
 name|cacheKey
 argument_list|,
 name|caching
+argument_list|,
+name|repeat
 argument_list|)
 operator|)
 operator|!=
@@ -461,6 +468,11 @@ return|return
 name|cachedBlock
 return|;
 block|}
+if|if
+condition|(
+operator|!
+name|repeat
+condition|)
 name|stats
 operator|.
 name|miss

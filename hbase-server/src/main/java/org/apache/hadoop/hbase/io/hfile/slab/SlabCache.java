@@ -1107,7 +1107,7 @@ operator|.
 name|stats
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    *    * @param key    * @param caching    * @return buffer of specified block name, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified name.    * @param caching    * @param key    *    * @return buffer of specified block name, or null if not in cache    */
 specifier|public
 name|Cacheable
 name|getBlock
@@ -1117,6 +1117,9 @@ name|key
 parameter_list|,
 name|boolean
 name|caching
+parameter_list|,
+name|boolean
+name|repeat
 parameter_list|)
 block|{
 name|SingleSizeCache
@@ -1136,6 +1139,11 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+operator|!
+name|repeat
+condition|)
 name|stats
 operator|.
 name|miss
@@ -1157,6 +1165,8 @@ argument_list|(
 name|key
 argument_list|,
 name|caching
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -1174,7 +1184,12 @@ name|caching
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+operator|!
+name|repeat
+condition|)
 block|{
 name|stats
 operator|.

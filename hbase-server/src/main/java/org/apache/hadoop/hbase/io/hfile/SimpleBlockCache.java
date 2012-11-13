@@ -264,6 +264,9 @@ name|cacheKey
 parameter_list|,
 name|boolean
 name|caching
+parameter_list|,
+name|boolean
+name|repeat
 parameter_list|)
 block|{
 name|processQueue

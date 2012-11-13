@@ -550,6 +550,8 @@ operator|.
 name|blockName
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -591,6 +593,8 @@ argument_list|(
 name|ourBlock
 operator|.
 name|blockName
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -756,6 +760,8 @@ operator|.
 name|blockName
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -809,6 +815,8 @@ operator|.
 name|blockName
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -851,6 +859,8 @@ operator|.
 name|blockName
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 operator|!=
 literal|null
@@ -1037,6 +1047,8 @@ operator|.
 name|getBlock
 argument_list|(
 name|key
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -1281,6 +1293,8 @@ argument_list|(
 name|key
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if

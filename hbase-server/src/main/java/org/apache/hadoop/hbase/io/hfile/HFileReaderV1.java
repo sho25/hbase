@@ -1089,11 +1089,6 @@ name|block
 argument_list|)
 init|)
 block|{
-name|metaLoads
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 comment|// Check cache for block.  If found return.
 if|if
 condition|(
@@ -1124,6 +1119,8 @@ name|shouldCacheBlockOnRead
 argument_list|(
 name|effectiveCategory
 argument_list|)
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -1133,11 +1130,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|cacheHits
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 return|return
 name|cachedBlock
 operator|.
@@ -1341,11 +1333,6 @@ name|block
 argument_list|)
 init|)
 block|{
-name|blockLoads
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 comment|// Check cache for block.  If found return.
 if|if
 condition|(
@@ -1374,6 +1361,8 @@ name|cacheConf
 operator|.
 name|shouldCacheDataOnRead
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -1383,11 +1372,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|cacheHits
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 return|return
 name|cachedBlock
 operator|.

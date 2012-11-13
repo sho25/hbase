@@ -807,6 +807,9 @@ name|key
 parameter_list|,
 name|boolean
 name|caching
+parameter_list|,
+name|boolean
+name|repeat
 parameter_list|)
 block|{
 name|CacheablePair
@@ -826,6 +829,11 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+operator|!
+name|repeat
+condition|)
 name|stats
 operator|.
 name|miss
