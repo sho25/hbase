@@ -29,6 +29,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -178,6 +190,15 @@ specifier|public
 name|boolean
 name|isServerShutdownHandlerEnabled
 parameter_list|()
+function_decl|;
+comment|/**    * Registers a new protocol buffer {@link Service} subclass as a master coprocessor endpoint to    * be available for handling    * {@link org.apache.hadoop.hbase.MasterAdminProtocol#execMasterService(com.google.protobuf.RpcController,    * org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceRequest)} calls.    *    *<p>    * Only a single instance may be registered for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */
+specifier|public
+name|boolean
+name|registerService
+parameter_list|(
+name|Service
+name|instance
+parameter_list|)
 function_decl|;
 block|}
 end_interface
