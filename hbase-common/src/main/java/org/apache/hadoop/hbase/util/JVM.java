@@ -153,8 +153,22 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|Shell
+import|;
+end_import
+
 begin_comment
-comment|/**  * This class is a wrapper for the implementation of  * com.sun.management.UnixOperatingSystemMXBean  * It will decide to use Oracle Java api or its own implementation  * depending on the runtime (vendor) used.  */
+comment|/**  * This class is a wrapper for the implementation of  * com.sun.management.UnixOperatingSystemMXBean  * It will decide to use the sun api or its own implementation  * depending on the runtime (vendor) used.  */
 end_comment
 
 begin_class
@@ -168,7 +182,7 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|OSMXBean
+name|JVM
 block|{
 specifier|static
 specifier|final
@@ -179,7 +193,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|OSMXBean
+name|JVM
 operator|.
 name|class
 argument_list|)
@@ -244,7 +258,7 @@ argument_list|)
 decl_stmt|;
 comment|/**    * Constructor. Get the running Operating System instance    */
 specifier|public
-name|OSMXBean
+name|JVM
 parameter_list|()
 block|{
 name|this
@@ -516,7 +530,6 @@ operator|)
 operator|!=
 literal|null
 condition|)
-block|{
 return|return
 name|Long
 operator|.
@@ -525,7 +538,6 @@ argument_list|(
 name|openFileDesCount
 argument_list|)
 return|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -648,7 +660,6 @@ operator|)
 operator|!=
 literal|null
 condition|)
-block|{
 return|return
 name|Long
 operator|.
@@ -657,7 +668,6 @@ argument_list|(
 name|maxFileDesCount
 argument_list|)
 return|;
-block|}
 block|}
 catch|catch
 parameter_list|(
