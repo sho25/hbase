@@ -3158,7 +3158,7 @@ expr_stmt|;
 name|int
 name|to
 init|=
-literal|1000
+literal|4000
 decl_stmt|;
 name|conf
 operator|.
@@ -3321,7 +3321,9 @@ literal|1
 argument_list|,
 name|to
 operator|+
-literal|500
+name|to
+operator|/
+literal|2
 argument_list|)
 expr_stmt|;
 comment|// now all the nodes are unassigned. manager should post another rescan
@@ -3337,7 +3339,9 @@ literal|2
 operator|*
 name|to
 operator|+
-literal|500
+name|to
+operator|/
+literal|2
 argument_list|)
 expr_stmt|;
 block|}
