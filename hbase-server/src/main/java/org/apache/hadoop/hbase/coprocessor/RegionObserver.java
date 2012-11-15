@@ -1287,7 +1287,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before incrementColumnValue    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @return value to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before incrementColumnValue    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @return value to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    * @deprecated This hook is no longer called by the RegionServer    */
+annotation|@
+name|Deprecated
 name|long
 name|preIncrementColumnValue
 parameter_list|(
@@ -1324,7 +1326,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after incrementColumnValue    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @param result the result returned by incrementColumnValue    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after incrementColumnValue    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @param result the result returned by incrementColumnValue    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    * @deprecated This hook is no longer called by the RegionServer    */
+annotation|@
+name|Deprecated
 name|long
 name|postIncrementColumnValue
 parameter_list|(
