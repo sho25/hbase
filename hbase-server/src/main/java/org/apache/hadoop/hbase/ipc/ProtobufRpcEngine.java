@@ -2148,7 +2148,7 @@ argument_list|()
 operator|.
 name|id
 operator|+
-literal|"; Served: "
+literal|"; served="
 operator|+
 name|protocol
 operator|.
@@ -2162,17 +2162,24 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" queueTime="
+literal|", queueTime="
 operator|+
 name|qTime
 operator|+
-literal|" processingTime="
+literal|", processingTime="
 operator|+
 name|processingTime
 operator|+
-literal|" contents="
+literal|", request="
 operator|+
 name|param
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" response="
+operator|+
+name|result
 operator|.
 name|toString
 argument_list|()
