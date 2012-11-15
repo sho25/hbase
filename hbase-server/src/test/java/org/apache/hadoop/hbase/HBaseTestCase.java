@@ -29,16 +29,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Iterator
@@ -551,8 +541,6 @@ operator|.
 name|create
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 name|START_KEY
 operator|=
 operator|new
@@ -562,29 +550,9 @@ name|START_KEY_BYTES
 argument_list|,
 name|HConstants
 operator|.
-name|UTF8_ENCODING
+name|UTF8_CHARSET
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"error during initialization"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Note that this method must be called after the mini hdfs cluster has    * started or we end up with a local file system.    */
 annotation|@
