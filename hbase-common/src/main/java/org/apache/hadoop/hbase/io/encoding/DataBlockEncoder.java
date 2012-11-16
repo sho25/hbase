@@ -252,7 +252,7 @@ name|ByteBuffer
 name|getValueShallowCopy
 parameter_list|()
 function_decl|;
-comment|/** @return key value at current position. */
+comment|/** @return key value at current position with position set to limit */
 specifier|public
 name|ByteBuffer
 name|getKeyValueBuffer

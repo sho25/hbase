@@ -249,6 +249,17 @@ name|int
 name|dataSize
 init|=
 name|minValueSize
+decl_stmt|;
+if|if
+condition|(
+name|minValueSize
+operator|!=
+name|maxValueSize
+condition|)
+block|{
+name|dataSize
+operator|=
+name|minValueSize
 operator|+
 name|randomForValueSize
 operator|.
@@ -263,7 +274,8 @@ operator|-
 name|minValueSize
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 return|return
 name|getValueForRowColumn
 argument_list|(

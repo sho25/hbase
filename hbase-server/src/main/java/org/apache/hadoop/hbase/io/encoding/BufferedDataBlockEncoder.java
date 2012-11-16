@@ -1573,6 +1573,61 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Asserts that there is at least the given amount of unfilled space    * remaining in the given buffer.    * @param out typically, the buffer we are writing to    * @param length the required space in the buffer    * @throws EncoderBufferTooSmallException If there are no enough bytes.    */
+specifier|protected
+specifier|static
+name|void
+name|ensureSpace
+parameter_list|(
+name|ByteBuffer
+name|out
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+throws|throws
+name|EncoderBufferTooSmallException
+block|{
+if|if
+condition|(
+name|out
+operator|.
+name|position
+argument_list|()
+operator|+
+name|length
+operator|>
+name|out
+operator|.
+name|limit
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|EncoderBufferTooSmallException
+argument_list|(
+literal|"Buffer position="
+operator|+
+name|out
+operator|.
+name|position
+argument_list|()
+operator|+
+literal|", buffer limit="
+operator|+
+name|out
+operator|.
+name|limit
+argument_list|()
+operator|+
+literal|", length to be written="
+operator|+
+name|length
+argument_list|)
+throw|;
+block|}
+block|}
 block|}
 end_class
 

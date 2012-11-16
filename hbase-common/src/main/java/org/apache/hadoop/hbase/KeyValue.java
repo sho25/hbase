@@ -229,6 +229,32 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|cell
+operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -258,6 +284,8 @@ specifier|public
 class|class
 name|KeyValue
 implements|implements
+name|Cell
+implements|,
 name|Writable
 implements|,
 name|HeapSize
@@ -803,9 +831,11 @@ return|;
 block|}
 comment|/** Here be dragons **/
 comment|// used to achieve atomic operations in the memstore.
+annotation|@
+name|Override
 specifier|public
 name|long
-name|getMemstoreTS
+name|getMvccVersion
 parameter_list|()
 block|{
 return|return
@@ -814,17 +844,45 @@ return|;
 block|}
 specifier|public
 name|void
-name|setMemstoreTS
+name|setMvccVersion
 parameter_list|(
 name|long
-name|memstoreTS
+name|mvccVersion
 parameter_list|)
 block|{
 name|this
 operator|.
 name|memstoreTS
 operator|=
+name|mvccVersion
+expr_stmt|;
+block|}
+annotation|@
+name|Deprecated
+specifier|public
+name|long
+name|getMemstoreTS
+parameter_list|()
+block|{
+return|return
+name|getMvccVersion
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|setMemstoreTS
+parameter_list|(
+name|long
 name|memstoreTS
+parameter_list|)
+block|{
+name|setMvccVersion
+argument_list|(
+name|memstoreTS
+argument_list|)
 expr_stmt|;
 block|}
 comment|// default value is 0, aka DNC
@@ -3166,8 +3224,9 @@ name|vlength
 argument_list|)
 return|;
 block|}
-comment|// Needed doing 'contains' on List.  Only compares the key portion, not the
-comment|// value.
+comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the value.    *     * For temporary backwards compatibility with the original KeyValue.equals method, we ignore the    * mvccVersion.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -3182,7 +3241,7 @@ operator|!
 operator|(
 name|other
 operator|instanceof
-name|KeyValue
+name|Cell
 operator|)
 condition|)
 block|{
@@ -3190,47 +3249,22 @@ return|return
 literal|false
 return|;
 block|}
-name|KeyValue
-name|kv
-init|=
+return|return
+name|CellComparator
+operator|.
+name|equalsIgnoreMvccVersion
+argument_list|(
+name|this
+argument_list|,
 operator|(
-name|KeyValue
+name|Cell
 operator|)
 name|other
-decl_stmt|;
-comment|// Comparing bytes should be fine doing equals test.  Shouldn't have to
-comment|// worry about special .META. comparators doing straight equals.
-return|return
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|getBuffer
-argument_list|()
-argument_list|,
-name|getKeyOffset
-argument_list|()
-argument_list|,
-name|getKeyLength
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getBuffer
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyOffset
-argument_list|()
-argument_list|,
-name|kv
-operator|.
-name|getKeyLength
-argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -3305,6 +3339,8 @@ comment|//  KeyValue cloning
 comment|//
 comment|//---------------------------------------------------------------------------
 comment|/**    * Clones a KeyValue.  This creates a copy, re-allocating the buffer.    * @return Fully copied clone of this KeyValue    */
+annotation|@
+name|Override
 specifier|public
 name|KeyValue
 name|clone
@@ -4024,7 +4060,22 @@ return|return
 name|keyLength
 return|;
 block|}
+comment|/**    * @return the backing array of the entire KeyValue (all KeyValue fields are in a single array)    */
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getValueArray
+parameter_list|()
+block|{
+return|return
+name|bytes
+return|;
+block|}
 comment|/**    * @return Value offset    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getValueOffset
@@ -4039,6 +4090,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @return Value length    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getValueLength
@@ -4063,7 +4116,22 @@ name|SIZEOF_INT
 argument_list|)
 return|;
 block|}
+comment|/**    * @return the backing array of the entire KeyValue (all KeyValue fields are in a single array)    */
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getRowArray
+parameter_list|()
+block|{
+return|return
+name|bytes
+return|;
+block|}
 comment|/**    * @return Row offset    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getRowOffset
@@ -4079,6 +4147,8 @@ name|SIZEOF_SHORT
 return|;
 block|}
 comment|/**    * @return Row length    */
+annotation|@
+name|Override
 specifier|public
 name|short
 name|getRowLength
@@ -4098,7 +4168,22 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @return the backing array of the entire KeyValue (all KeyValue fields are in a single array)    */
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getFamilyArray
+parameter_list|()
+block|{
+return|return
+name|bytes
+return|;
+block|}
 comment|/**    * @return Family offset    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getFamilyOffset
@@ -4140,6 +4225,8 @@ name|SIZEOF_BYTE
 return|;
 block|}
 comment|/**    * @return Family length    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|getFamilyLength
@@ -4173,7 +4260,22 @@ literal|1
 index|]
 return|;
 block|}
+comment|/**    * @return the backing array of the entire KeyValue (all KeyValue fields are in a single array)    */
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getQualifierArray
+parameter_list|()
+block|{
+return|return
+name|bytes
+return|;
+block|}
 comment|/**    * @return Qualifier offset    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getQualifierOffset
@@ -4206,6 +4308,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Qualifier length    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getQualifierLength
@@ -4688,6 +4792,8 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getTimestamp
@@ -4748,6 +4854,22 @@ comment|/**    * @return Type of this KeyValue.    */
 specifier|public
 name|byte
 name|getType
+parameter_list|()
+block|{
+return|return
+name|getType
+argument_list|(
+name|getKeyLength
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @return KeyValue.TYPE byte representation    */
+annotation|@
+name|Override
+specifier|public
+name|byte
+name|getTypeByte
 parameter_list|()
 block|{
 return|return
@@ -10511,29 +10633,39 @@ literal|0
 return|;
 block|}
 block|}
-comment|// HeapSize
+comment|/**    * HeapSize implementation    *    * We do not count the bytes in the rowCache because it should be empty for a KeyValue in the    * MemStore.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|heapSize
 parameter_list|()
 block|{
-return|return
-name|ClassSize
-operator|.
-name|align
-argument_list|(
+name|int
+name|sum
+init|=
+literal|0
+decl_stmt|;
+name|sum
+operator|+=
 name|ClassSize
 operator|.
 name|OBJECT
-operator|+
-operator|(
+expr_stmt|;
+comment|// the KeyValue object itself
+name|sum
+operator|+=
 literal|2
 operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
-operator|)
-operator|+
+expr_stmt|;
+comment|// 2 * pointers to "bytes" and "rowCache" byte[]
+name|sum
+operator|+=
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|align
@@ -10542,38 +10674,43 @@ name|ClassSize
 operator|.
 name|ARRAY
 argument_list|)
-operator|+
+expr_stmt|;
+comment|// 2 * "bytes" and "rowCache" byte[]
+name|sum
+operator|+=
 name|ClassSize
 operator|.
 name|align
 argument_list|(
 name|length
 argument_list|)
-operator|+
-operator|(
+expr_stmt|;
+comment|// number of bytes of data in the "bytes" array
+comment|//ignore the data in the rowCache because it is cleared for inactive memstore KeyValues
+name|sum
+operator|+=
 literal|3
 operator|*
 name|Bytes
 operator|.
 name|SIZEOF_INT
-operator|)
-operator|+
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|ARRAY
-argument_list|)
-operator|+
-operator|(
+expr_stmt|;
+comment|// offset, length, keyLength
+name|sum
+operator|+=
 literal|2
 operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
-operator|)
+expr_stmt|;
+comment|// timestampCache, memstoreTS
+return|return
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|sum
 argument_list|)
 return|;
 block|}
@@ -10654,6 +10791,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Writable
+annotation|@
+name|Override
 specifier|public
 name|void
 name|readFields
@@ -10681,6 +10820,8 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write

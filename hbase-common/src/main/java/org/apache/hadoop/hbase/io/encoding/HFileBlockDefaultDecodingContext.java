@@ -107,24 +107,6 @@ name|Algorithm
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFileBlock
-import|;
-end_import
-
 begin_comment
 comment|/**  * A default implementation of {@link HFileBlockDecodingContext}. It assumes the  * block data section is compressed as a whole.  *  * @see HFileBlockDefaultEncodingContext for the default compression context  *  */
 end_comment

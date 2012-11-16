@@ -1104,8 +1104,6 @@ argument_list|(
 name|source
 argument_list|)
 decl_stmt|;
-name|ByteBufferUtils
-operator|.
 name|ensureSpace
 argument_list|(
 name|out

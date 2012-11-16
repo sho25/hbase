@@ -13,9 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|encoding
+name|test
 package|;
 end_package
 

@@ -233,11 +233,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|encoding
-operator|.
-name|RedundantKVGenerator
+name|ChecksumType
 import|;
 end_import
 
@@ -253,17 +251,9 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ChecksumType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|test
 operator|.
-name|junit
-operator|.
-name|After
+name|RedundantKVGenerator
 import|;
 end_import
 
@@ -642,6 +632,10 @@ name|blockEncoder
 operator|.
 name|getEncodingOnDisk
 argument_list|()
+argument_list|,
+name|HFileBlock
+operator|.
+name|DUMMY_HEADER
 argument_list|)
 decl_stmt|;
 name|blockEncoder

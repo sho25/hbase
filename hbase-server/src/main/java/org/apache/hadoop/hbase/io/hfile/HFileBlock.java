@@ -2428,6 +2428,8 @@ argument_list|(
 name|compressionAlgorithm
 argument_list|,
 literal|null
+argument_list|,
+name|DUMMY_HEADER
 argument_list|)
 expr_stmt|;
 name|dataBlockEncodingCtx

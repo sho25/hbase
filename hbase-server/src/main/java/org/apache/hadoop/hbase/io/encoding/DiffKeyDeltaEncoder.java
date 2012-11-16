@@ -1110,8 +1110,6 @@ operator|.
 name|position
 argument_list|()
 decl_stmt|;
-name|ByteBufferUtils
-operator|.
 name|ensureSpace
 argument_list|(
 name|buffer

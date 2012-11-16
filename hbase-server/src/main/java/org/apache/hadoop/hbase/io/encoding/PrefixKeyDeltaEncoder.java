@@ -631,8 +631,6 @@ name|keyLength
 operator|+=
 name|commonLength
 expr_stmt|;
-name|ByteBufferUtils
-operator|.
 name|ensureSpace
 argument_list|(
 name|buffer

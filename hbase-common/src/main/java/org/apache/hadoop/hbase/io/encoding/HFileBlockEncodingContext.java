@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|OutputStream
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -74,6 +84,12 @@ specifier|public
 interface|interface
 name|HFileBlockEncodingContext
 block|{
+comment|/**    * @return OutputStream to which encoded data is written    */
+specifier|public
+name|OutputStream
+name|getOutputStreamForEncoder
+parameter_list|()
+function_decl|;
 comment|/**    * @return encoded and compressed bytes with header which are ready to write    *         out to disk    */
 specifier|public
 name|byte
