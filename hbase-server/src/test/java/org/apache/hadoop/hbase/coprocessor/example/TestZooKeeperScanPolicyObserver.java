@@ -663,6 +663,15 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// sleep for 1s to give the ZK change a chance to reach the watcher in the observer.
+comment|// TODO: Better to wait for the data to be propagated
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 name|long
 name|ts
 init|=
