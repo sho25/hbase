@@ -1266,7 +1266,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|"-robber"
+literal|"-zombie"
 expr_stmt|;
 name|u2g_map
 operator|.
