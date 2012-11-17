@@ -2956,9 +2956,9 @@ operator|.
 name|SAFEMODE_ENTER
 argument_list|)
 expr_stmt|;
-name|cluster
+name|TEST_UTIL
 operator|.
-name|shutdown
+name|shutdownMiniDFSCluster
 argument_list|()
 expr_stmt|;
 try|try

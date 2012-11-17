@@ -426,7 +426,7 @@ name|root
 init|=
 name|UTIL
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|()
 decl_stmt|;
 name|Path
@@ -657,7 +657,7 @@ name|Path
 argument_list|(
 name|UTIL
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|()
 argument_list|,
 name|HConstants
@@ -1050,7 +1050,7 @@ name|Path
 argument_list|(
 name|UTIL
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|()
 argument_list|,
 name|HConstants

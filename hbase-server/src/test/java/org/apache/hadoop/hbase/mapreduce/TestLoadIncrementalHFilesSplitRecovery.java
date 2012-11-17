@@ -977,7 +977,7 @@ name|dir
 init|=
 name|util
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 name|table
 argument_list|)

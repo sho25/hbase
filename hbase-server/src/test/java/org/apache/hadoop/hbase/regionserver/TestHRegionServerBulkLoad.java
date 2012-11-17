@@ -796,7 +796,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Thread that does full scans of the table looking for any partially    * completed rows.    *     * Each iteration of this loads 10 hdfs files, which occupies 5 file open file    * handles. So every 10 iterations (500 file handles) it does a region    * compaction to reduce the number of open file handles.    */
+comment|/**    * Thread that does full scans of the table looking for any partially    * completed rows.    *    * Each iteration of this loads 10 hdfs files, which occupies 5 file open file    * handles. So every 10 iterations (500 file handles) it does a region    * compaction to reduce the number of open file handles.    */
 specifier|public
 specifier|static
 class|class
@@ -873,7 +873,7 @@ name|dir
 init|=
 name|UTIL
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 name|String
 operator|.
