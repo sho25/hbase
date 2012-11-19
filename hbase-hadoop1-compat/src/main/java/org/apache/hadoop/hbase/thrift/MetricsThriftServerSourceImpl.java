@@ -66,7 +66,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop 1 version of MetricsThriftServerSource{@link MetricsThriftServerSource}  */
+comment|/**  * Hadoop 1 version of MetricsThriftServerSource{@link MetricsThriftServerSource}  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

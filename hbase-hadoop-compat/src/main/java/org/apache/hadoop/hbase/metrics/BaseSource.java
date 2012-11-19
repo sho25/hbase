@@ -18,7 +18,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  *   BaseSource for dynamic metrics to announce to Metrics2  */
+comment|/**  *   BaseSource for dynamic metrics to announce to Metrics2.  *   In hbase-hadoop{1|2}-compat there is an implementation of this interface.  */
 end_comment
 
 begin_interface

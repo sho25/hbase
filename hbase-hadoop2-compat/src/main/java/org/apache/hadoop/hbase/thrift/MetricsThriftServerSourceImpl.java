@@ -66,7 +66,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop 2 version of MetricsThriftServerSource{@link org.apache.hadoop.hbase.thrift.MetricsThriftServerSource}  */
+comment|/**  * Hadoop 2 version of MetricsThriftServerSource{@link org.apache.hadoop.hbase.thrift.MetricsThriftServerSource}  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

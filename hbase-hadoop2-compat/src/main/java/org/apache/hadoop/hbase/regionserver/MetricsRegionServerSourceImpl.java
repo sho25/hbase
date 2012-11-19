@@ -92,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop1 implementation of MetricsRegionServerSource.  */
+comment|/**  * Hadoop2 implementation of MetricsRegionServerSource.  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

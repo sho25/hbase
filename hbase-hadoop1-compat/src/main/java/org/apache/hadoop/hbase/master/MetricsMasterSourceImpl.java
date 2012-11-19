@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop1 implementation of MetricsMasterSource.  */
+comment|/**  * Hadoop1 implementation of MetricsMasterSource.  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

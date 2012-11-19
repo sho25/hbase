@@ -36,7 +36,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop1 implementation of MetricsReplicationSource. This provides access to metrics gauges and  * counters.  */
+comment|/**  * Hadoop1 implementation of MetricsReplicationSource. This provides access to metrics gauges and  * counters.  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

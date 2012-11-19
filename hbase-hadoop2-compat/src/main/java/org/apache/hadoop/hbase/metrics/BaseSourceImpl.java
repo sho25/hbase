@@ -174,7 +174,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hadoop 2 implementation of BaseSource (using metrics2 framework)  */
+comment|/**  * Hadoop 2 implementation of BaseSource (using metrics2 framework).  It handles registration to  * DefaultMetricsSystem and creation of the metrics registry.  *  * All MetricsSource's in hbase-hadoop2-compat should derive from this class.  */
 end_comment
 
 begin_class
