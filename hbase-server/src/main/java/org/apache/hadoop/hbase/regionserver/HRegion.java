@@ -18643,6 +18643,8 @@ parameter_list|(
 name|RowProcessor
 argument_list|<
 name|?
+argument_list|,
+name|?
 argument_list|>
 name|processor
 parameter_list|)
@@ -18664,6 +18666,8 @@ name|processRowsWithLocks
 parameter_list|(
 name|RowProcessor
 argument_list|<
+name|?
+argument_list|,
 name|?
 argument_list|>
 name|processor
@@ -19327,6 +19331,8 @@ parameter_list|(
 specifier|final
 name|RowProcessor
 argument_list|<
+name|?
+argument_list|,
 name|?
 argument_list|>
 name|processor

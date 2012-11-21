@@ -117,6 +117,30 @@ name|WALEdit
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Message
+import|;
+end_import
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -126,12 +150,18 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
-comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on a HRegion.  *  * This is invoked by {@link HRegion#processRowsWithLocks()}.  * This class performs scans and generates mutations and WAL edits.  * The locks and MVCC will be handled by HRegion.  *  * The generic type parameter T is the return type of  * RowProcessor.getResult().  */
+comment|/**  * Defines the procedure to atomically perform multiple scans and mutations  * on a HRegion.  *  * This is invoked by {@link HRegion#processRowsWithLocks()}.  * This class performs scans and generates mutations and WAL edits.  * The locks and MVCC will be handled by HRegion.  *  * The RowProcessor user code could have data that needs to be   * sent across for proper initialization at the server side. The generic type   * parameter S is the type of the request data sent to the server.  * The generic type parameter T is the return type of RowProcessor.getResult().  */
 specifier|public
 interface|interface
 name|RowProcessor
 parameter_list|<
+name|S
+extends|extends
+name|Message
+parameter_list|,
 name|T
+extends|extends
+name|Message
 parameter_list|>
 block|{
 comment|/**    * Rows to lock while operation.    * They have to be sorted with<code>RowProcessor</code>    * to avoid deadlock.    */
@@ -143,7 +173,7 @@ argument_list|>
 name|getRowsToLock
 parameter_list|()
 function_decl|;
-comment|/**    * Obtain the processing result    */
+comment|/**    * Obtain the processing result. All row processor implementations must    * implement this, even if the method is simply returning an empty    * Message.    */
 name|T
 name|getResult
 parameter_list|()
@@ -210,6 +240,23 @@ comment|/**    * Human readable name of the processor    * @return The name of t
 name|String
 name|getName
 parameter_list|()
+function_decl|;
+comment|/**    * This method should return any additional data that is needed on the    * server side to construct the RowProcessor. The server will pass this to    * the {@link #initialize(ByteString)} method. If there is no RowProcessor    * specific data then null should be returned.    * @return the PB message    * @throws IOException    */
+name|S
+name|getRequestData
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This method should initialize any field(s) of the RowProcessor with    * a parsing of the passed message bytes (used on the server side).    * @param msg    * @throws IOException    */
+name|void
+name|initialize
+parameter_list|(
+name|S
+name|msg
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

@@ -211,7 +211,7 @@ name|Long
 name|l
 parameter_list|)
 function_decl|;
-comment|/**    * This method should return any additional data that is needed on the    * server side to construct the ColumnInterpreter. The server    * will pass this to the {@link #initialize(org.apache.hadoop.hbase.protobuf.generated.AggregateProtos.ColumnInterpreter)}    * method. If there is no ColumnInterpreter specific data (for e.g.,    * {@link LongColumnInterpreter}) then null should be returned.    * @return the PB message    */
+comment|/**    * This method should return any additional data that is needed on the    * server side to construct the ColumnInterpreter. The server    * will pass this to the {@link #initialize(ByteString)}    * method. If there is no ColumnInterpreter specific data (for e.g.,    * {@link LongColumnInterpreter}) then null should be returned.    * @return the PB message    */
 name|ByteString
 name|columnInterpreterSpecificData
 parameter_list|()
