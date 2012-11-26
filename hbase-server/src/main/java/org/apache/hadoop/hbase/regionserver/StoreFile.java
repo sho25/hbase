@@ -687,6 +687,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSUtils
 import|;
 end_import
@@ -1420,6 +1436,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return True if this is a StoreFile Reference; call after {@link #open()}    * else may get wrong answer.    */
+specifier|public
 name|boolean
 name|isReference
 parameter_list|()
@@ -1683,6 +1700,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return True if this file was made by a major compaction.    */
+specifier|public
 name|boolean
 name|isMajorCompaction
 parameter_list|()
@@ -1714,6 +1732,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @return True if this file should not be part of a minor compaction.    */
+specifier|public
 name|boolean
 name|excludeFromMinorCompaction
 parameter_list|()
@@ -3977,6 +3996,31 @@ name|fs
 argument_list|,
 name|p
 argument_list|)
+return|;
+block|}
+specifier|public
+name|Long
+name|getMinimumTimestamp
+parameter_list|()
+block|{
+return|return
+operator|(
+name|getReader
+argument_list|()
+operator|.
+name|timeRangeTracker
+operator|==
+literal|null
+operator|)
+condition|?
+literal|null
+else|:
+name|getReader
+argument_list|()
+operator|.
+name|timeRangeTracker
+operator|.
+name|minimumTimestamp
 return|;
 block|}
 comment|/**    * A StoreFile writer.  Use this to read/write HBase Store Files. It is package    * local because it is an implementation detail of the HBase regionserver.    */

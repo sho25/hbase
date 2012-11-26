@@ -1961,9 +1961,9 @@ expr_stmt|;
 block|}
 comment|// after flush; check the lowest time stamp
 name|long
-name|lowestTimeStampFromStore
+name|lowestTimeStampFromManager
 init|=
-name|HStore
+name|StoreUtils
 operator|.
 name|getLowestTimestamp
 argument_list|(
@@ -1988,7 +1988,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-name|lowestTimeStampFromStore
+name|lowestTimeStampFromManager
 argument_list|,
 name|lowestTimeStampFromFS
 argument_list|)
@@ -2004,9 +2004,9 @@ name|requestCompaction
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|lowestTimeStampFromStore
+name|lowestTimeStampFromManager
 operator|=
-name|HStore
+name|StoreUtils
 operator|.
 name|getLowestTimestamp
 argument_list|(
@@ -2030,7 +2030,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|lowestTimeStampFromStore
+name|lowestTimeStampFromManager
 argument_list|,
 name|lowestTimeStampFromFS
 argument_list|)
