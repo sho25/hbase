@@ -18143,7 +18143,7 @@ return|return
 name|byFamily
 return|;
 block|}
-comment|/**    * @return True if needs a mojor compaction.    * @throws IOException    */
+comment|/**    * @return True if needs a major compaction.    * @throws IOException    */
 name|boolean
 name|isMajorCompaction
 parameter_list|()
