@@ -8579,7 +8579,7 @@ name|REFERENCE
 operator|)
 operator|+
 operator|(
-literal|6
+literal|4
 operator|*
 name|Bytes
 operator|.
