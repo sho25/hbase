@@ -322,11 +322,19 @@ name|currentTime
 operator|-
 name|time
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Life:"
+literal|"HFile life:"
 operator|+
 name|life
 operator|+
@@ -343,6 +351,7 @@ operator|+
 name|time
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|life

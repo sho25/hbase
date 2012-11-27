@@ -617,15 +617,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Checking directory: "
 operator|+
 name|toCheck
 argument_list|)
 expr_stmt|;
+block|}
 name|FileStatus
 index|[]
 name|children
@@ -857,9 +866,17 @@ argument_list|)
 condition|)
 block|{
 comment|// this file is not deletable, then we are done
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|filePath
 operator|+
@@ -868,15 +885,24 @@ operator|+
 name|cleaner
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
 block|}
 block|}
 comment|// delete this file if it passes all the cleaners
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Removing: "
 operator|+
@@ -885,6 +911,7 @@ operator|+
 literal|" from archive"
 argument_list|)
 expr_stmt|;
+block|}
 name|boolean
 name|success
 init|=
