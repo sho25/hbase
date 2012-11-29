@@ -112,8 +112,6 @@ name|K
 parameter_list|>
 parameter_list|,
 name|V
-extends|extends
-name|Writable
 parameter_list|>
 extends|extends
 name|Mapper

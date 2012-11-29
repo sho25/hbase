@@ -183,6 +183,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Mutation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Put
 import|;
 end_import
@@ -200,20 +216,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
 import|;
 end_import
 
@@ -311,7 +313,7 @@ name|OutputFormat
 argument_list|<
 name|KEY
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 implements|implements
 name|Configurable
@@ -399,7 +401,7 @@ name|RecordWriter
 argument_list|<
 name|KEY
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 block|{
 comment|/** The table to write to. */
@@ -451,7 +453,7 @@ parameter_list|(
 name|KEY
 name|key
 parameter_list|,
-name|Writable
+name|Mutation
 name|value
 parameter_list|)
 throws|throws
@@ -520,7 +522,7 @@ name|RecordWriter
 argument_list|<
 name|KEY
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 name|getRecordWriter
 parameter_list|(

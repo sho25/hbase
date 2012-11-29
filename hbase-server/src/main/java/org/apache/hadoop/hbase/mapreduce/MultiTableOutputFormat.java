@@ -175,6 +175,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Mutation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Put
 import|;
 end_import
@@ -208,20 +224,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
 import|;
 end_import
 
@@ -316,7 +318,7 @@ name|OutputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 block|{
 comment|/** Set this to {@link #WAL_OFF} to turn off write-ahead logging (HLog) */
@@ -356,7 +358,7 @@ name|RecordWriter
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 block|{
 specifier|private
@@ -560,7 +562,7 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|tableName
 parameter_list|,
-name|Writable
+name|Mutation
 name|action
 parameter_list|)
 throws|throws
@@ -691,7 +693,7 @@ name|RecordWriter
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 name|getRecordWriter
 parameter_list|(

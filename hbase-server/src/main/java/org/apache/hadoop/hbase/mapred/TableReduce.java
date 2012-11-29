@@ -112,8 +112,6 @@ extends|extends
 name|WritableComparable
 parameter_list|,
 name|V
-extends|extends
-name|Writable
 parameter_list|>
 extends|extends
 name|Reducer

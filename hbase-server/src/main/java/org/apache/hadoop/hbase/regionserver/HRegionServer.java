@@ -20425,8 +20425,14 @@ name|ProtobufUtil
 operator|.
 name|toParameter
 argument_list|(
-operator|new
+name|ClientProtos
+operator|.
 name|Result
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|build
 argument_list|()
 argument_list|)
 decl_stmt|;

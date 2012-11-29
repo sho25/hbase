@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -141,17 +131,6 @@ name|String
 name|RETURN_RESULTS
 init|=
 literal|"_rr_"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-name|APPEND_VERSION
-init|=
-operator|(
-name|byte
-operator|)
-literal|1
 decl_stmt|;
 comment|/**    * @param returnResults    *          True (default) if the append operation should return the results.    *          A client that is not interested in the result can save network    *          bandwidth setting this to false.    */
 specifier|public

@@ -53,9 +53,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Writable
+name|client
+operator|.
+name|Mutation
 import|;
 end_import
 
@@ -106,7 +108,7 @@ name|VALUEIN
 argument_list|,
 name|KEYOUT
 argument_list|,
-name|Writable
+name|Mutation
 argument_list|>
 block|{ }
 end_class

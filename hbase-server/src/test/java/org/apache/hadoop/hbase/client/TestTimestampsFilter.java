@@ -694,6 +694,12 @@ argument_list|(
 literal|0
 argument_list|,
 name|kvs
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|kvs
 operator|.
 name|length
 argument_list|)
@@ -1769,6 +1775,12 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
+name|kvs
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
 name|kvs
 operator|.
 name|length
