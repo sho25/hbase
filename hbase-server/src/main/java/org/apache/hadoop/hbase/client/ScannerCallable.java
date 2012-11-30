@@ -981,10 +981,7 @@ literal|" ip:"
 operator|+
 name|location
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|getBindAddress
+name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1333,10 +1330,7 @@ name|this
 operator|.
 name|location
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|getBindAddress
+name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;

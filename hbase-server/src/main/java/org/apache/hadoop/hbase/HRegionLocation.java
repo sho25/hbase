@@ -292,26 +292,6 @@ return|return
 name|regionInfo
 return|;
 block|}
-comment|/**    * Do not use!!! Creates a HServerAddress instance which will do a resolve.    * @return HServerAddress    * @deprecated Use {@link #getHostnamePort}    */
-specifier|public
-name|HServerAddress
-name|getServerAddress
-parameter_list|()
-block|{
-return|return
-operator|new
-name|HServerAddress
-argument_list|(
-name|this
-operator|.
-name|hostname
-argument_list|,
-name|this
-operator|.
-name|port
-argument_list|)
-return|;
-block|}
 specifier|public
 name|String
 name|getHostname
