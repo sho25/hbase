@@ -2117,6 +2117,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Magic we put ahead of a serialized protobuf message.    * For example, all znode content is protobuf messages with the below magic    * for preamble.    */
+specifier|public
 specifier|static
 specifier|final
 name|byte

@@ -1480,16 +1480,10 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
-name|addToMap
-argument_list|(
-name|HbaseMapWritable
-operator|.
-name|class
-argument_list|,
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
+comment|// Removed
 name|addToMap
 argument_list|(
 name|NullInstance

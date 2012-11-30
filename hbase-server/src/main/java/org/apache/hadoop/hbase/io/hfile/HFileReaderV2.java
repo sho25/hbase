@@ -375,12 +375,14 @@ init|=
 literal|0
 decl_stmt|;
 comment|/** Maximum minor version supported by this HFile format */
+comment|// We went to version 2 when we moved to pb'ing the fileinfo trailer on the file. This version can read Writables
+comment|// version 1 too.
 specifier|static
 specifier|final
 name|int
 name|MAX_MINOR_VERSION
 init|=
-literal|1
+literal|2
 decl_stmt|;
 comment|/**    * Opens a HFile. You must load the index before you can use it by calling    * {@link #loadFileInfo()}.    *    * @param path Path to HFile.    * @param trailer File trailer.    * @param fsdis input stream. Caller is responsible for closing the passed    *          stream.    * @param size Length of the stream.    * @param closeIStream Whether to close the stream.    * @param cacheConf Cache configuration.    * @param preferredEncodingInCache the encoding to use in cache in case we    *          have a choice. If the file is already encoded on disk, we will    *          still use its on-disk encoding in cache.    */
 specifier|public
@@ -605,7 +607,7 @@ argument_list|()
 expr_stmt|;
 name|fileInfo
 operator|.
-name|readFields
+name|read
 argument_list|(
 name|blockIter
 operator|.

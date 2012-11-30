@@ -3776,7 +3776,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|cacheOnWrite
+name|getCacheOnWrite
 parameter_list|()
 block|{
 return|return

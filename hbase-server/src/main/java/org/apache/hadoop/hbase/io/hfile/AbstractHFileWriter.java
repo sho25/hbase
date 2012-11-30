@@ -25,7 +25,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|DataOutput
+name|DataOutputStream
 import|;
 end_import
 
@@ -594,7 +594,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// Make a copy. The copy is stuffed into HMapWritable. Needs a clean
+comment|// Make a copy. The copy is stuffed into our fileinfo map. Needs a clean
 comment|// byte buffer. Won't take a tuple.
 name|fileInfo
 operator|.
@@ -737,7 +737,7 @@ parameter_list|(
 name|FixedFileTrailer
 name|trailer
 parameter_list|,
-name|DataOutput
+name|DataOutputStream
 name|out
 parameter_list|)
 throws|throws

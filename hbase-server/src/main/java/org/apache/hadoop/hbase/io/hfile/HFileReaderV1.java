@@ -484,7 +484,7 @@ argument_list|()
 expr_stmt|;
 name|fileInfo
 operator|.
-name|readFields
+name|read
 argument_list|(
 name|istream
 argument_list|)

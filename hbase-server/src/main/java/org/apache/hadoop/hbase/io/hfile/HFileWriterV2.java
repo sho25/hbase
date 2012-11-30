@@ -982,7 +982,7 @@ name|cacheThisBlock
 init|=
 name|ibw
 operator|.
-name|cacheOnWrite
+name|getCacheOnWrite
 argument_list|()
 decl_stmt|;
 name|ibw

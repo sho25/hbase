@@ -105,7 +105,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return true if inline blocks produced by this writer should be cached    */
 name|boolean
-name|cacheOnWrite
+name|getCacheOnWrite
 parameter_list|()
 function_decl|;
 block|}

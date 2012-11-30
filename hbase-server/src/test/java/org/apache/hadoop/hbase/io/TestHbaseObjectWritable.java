@@ -3586,23 +3586,7 @@ name|intValue
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|16
-argument_list|,
-name|HbaseObjectWritable
-operator|.
-name|getClassCode
-argument_list|(
-name|HbaseMapWritable
-operator|.
-name|class
-argument_list|)
-operator|.
-name|intValue
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// 16 Removed
 comment|// 17 is NullInstance which isn't visible from here
 comment|// Hbase types
 name|assertEquals

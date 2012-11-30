@@ -524,12 +524,6 @@ specifier|private
 name|DataOutputStream
 name|baosDos
 decl_stmt|;
-specifier|private
-name|int
-name|blockNumber
-init|=
-literal|0
-decl_stmt|;
 specifier|static
 class|class
 name|WriterFactoryV1
@@ -963,9 +957,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|blockNumber
-operator|++
-expr_stmt|;
 block|}
 comment|/**    * Ready a new block for writing.    *    * @throws IOException    */
 specifier|private
