@@ -14105,7 +14105,6 @@ name|table
 parameter_list|)
 function_decl|;
 block|}
-specifier|private
 specifier|static
 class|class
 name|PrintingErrorReporter
