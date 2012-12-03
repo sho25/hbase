@@ -5813,10 +5813,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|getHRegion
+name|getHRegionInfo
 argument_list|()
-operator|.
-name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
@@ -8160,7 +8158,8 @@ name|this
 operator|.
 name|region
 operator|.
-name|regionInfo
+name|getRegionInfo
+argument_list|()
 return|;
 block|}
 comment|/**    * Used in tests. TODO: Remove    *    * Updates the value for the given row/family/qualifier. This function will always be seen as    * atomic by other readers because it only puts a single KV to memstore. Thus no read/write    * control necessary.    * @param row row to update    * @param f family to update    * @param qualifier qualifier to update    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
