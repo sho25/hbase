@@ -590,26 +590,6 @@ name|hri
 argument_list|)
 return|;
 block|}
-comment|/**    * @return the server the specified region assigned to; null if not assigned.    */
-specifier|public
-specifier|synchronized
-name|ServerName
-name|getAssignedServer
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|hri
-parameter_list|)
-block|{
-return|return
-name|regionAssignments
-operator|.
-name|get
-argument_list|(
-name|hri
-argument_list|)
-return|;
-block|}
 comment|/**    * Wait for the state map to be updated by assignment manager.    */
 specifier|public
 specifier|synchronized

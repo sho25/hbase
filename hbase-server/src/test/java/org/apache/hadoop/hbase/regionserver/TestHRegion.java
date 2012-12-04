@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -451,7 +461,7 @@ name|hbase
 operator|.
 name|MultithreadedTestUtil
 operator|.
-name|TestThread
+name|RepeatingTestThread
 import|;
 end_import
 
@@ -467,7 +477,7 @@ name|hbase
 operator|.
 name|MultithreadedTestUtil
 operator|.
-name|RepeatingTestThread
+name|TestThread
 import|;
 end_import
 
@@ -879,7 +889,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|HLogKey
 import|;
 end_import
 
@@ -897,7 +907,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogKey
+name|HLogUtil
 import|;
 end_import
 
@@ -1118,6 +1128,11 @@ argument_list|(
 name|MediumTests
 operator|.
 name|class
+argument_list|)
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
 argument_list|)
 specifier|public
 class|class
@@ -1381,14 +1396,6 @@ name|toBytes
 argument_list|(
 literal|"family"
 argument_list|)
-decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
 decl_stmt|;
 name|this
 operator|.
@@ -1690,14 +1697,6 @@ argument_list|(
 literal|"family"
 argument_list|)
 decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 name|this
 operator|.
 name|region
@@ -1952,14 +1951,6 @@ name|toBytes
 argument_list|(
 literal|"family"
 argument_list|)
-decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
 decl_stmt|;
 name|this
 operator|.
@@ -2411,10 +2402,7 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|,
 name|family
 argument_list|)
@@ -2880,10 +2868,7 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|,
 name|family
 argument_list|)
@@ -3707,6 +3692,8 @@ name|TABLE
 argument_list|,
 name|getName
 argument_list|()
+argument_list|,
+name|conf
 argument_list|,
 name|FAMILIES
 argument_list|)
@@ -4718,6 +4705,8 @@ argument_list|,
 name|getName
 argument_list|()
 argument_list|,
+name|conf
+argument_list|,
 name|cf
 argument_list|)
 expr_stmt|;
@@ -4876,6 +4865,8 @@ name|b
 argument_list|,
 name|getName
 argument_list|()
+argument_list|,
+name|conf
 argument_list|,
 name|cf
 argument_list|)
@@ -5181,10 +5172,7 @@ name|MultithreadedTestUtil
 operator|.
 name|TestContext
 argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -5687,12 +5675,17 @@ argument_list|(
 literal|"val"
 argument_list|)
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
-argument_list|()
+operator|.
+name|create
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 comment|// add data with a timestamp that is too recent for range. Ensure assert
 name|conf
@@ -6014,6 +6007,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|)
@@ -6545,6 +6540,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -6774,6 +6771,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|)
@@ -7039,6 +7038,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -7313,6 +7314,8 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
+name|conf
+argument_list|,
 name|COLUMNS
 argument_list|)
 expr_stmt|;
@@ -7562,6 +7565,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -8140,6 +8145,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -8340,6 +8347,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|,
@@ -8624,6 +8633,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -9140,6 +9151,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
@@ -9408,6 +9421,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -9734,12 +9749,17 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
-argument_list|()
+operator|.
+name|create
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 comment|// add data with a timestamp that is too recent for range. Ensure assert
 name|conf
@@ -9951,6 +9971,8 @@ name|tableName
 argument_list|,
 name|getName
 argument_list|()
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|,
@@ -10292,6 +10314,8 @@ argument_list|,
 name|getName
 argument_list|()
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -10631,6 +10655,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -10941,6 +10967,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -11128,6 +11156,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|)
@@ -11527,6 +11557,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam
 argument_list|)
 expr_stmt|;
@@ -11619,6 +11651,8 @@ operator|.
 name|ROOT_TABLE_NAME
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|HConstants
 operator|.
@@ -13125,6 +13159,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
@@ -13262,6 +13298,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -13441,6 +13479,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -13729,6 +13769,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
@@ -13959,6 +14001,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -14508,6 +14552,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
@@ -14973,6 +15019,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -15473,6 +15521,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -16104,6 +16154,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
@@ -16573,6 +16625,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
@@ -16985,6 +17039,8 @@ name|tableName
 argument_list|,
 name|getName
 argument_list|()
+argument_list|,
+name|conf
 argument_list|,
 name|family
 argument_list|)
@@ -17610,6 +17666,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|fam1
 argument_list|)
@@ -18999,6 +19057,8 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
+name|conf
+argument_list|,
 name|family
 argument_list|)
 expr_stmt|;
@@ -19597,6 +19657,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|method
+argument_list|,
+name|conf
 argument_list|,
 name|families
 argument_list|)
@@ -20223,6 +20285,14 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|InterruptedIOException
+name|e
+parameter_list|)
+block|{
+comment|// This is fine. It means we are done, or didn't get the lock on time
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -20373,18 +20443,22 @@ name|i
 argument_list|)
 expr_stmt|;
 block|}
-name|String
-name|method
-init|=
-literal|"testWritesWhileGetting"
-decl_stmt|;
 name|Configuration
 name|conf
 init|=
 name|HBaseConfiguration
 operator|.
 name|create
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+decl_stmt|;
+name|String
+name|method
+init|=
+literal|"testWritesWhileGetting"
 decl_stmt|;
 comment|// This test flushes constantly and can cause many files to be created, possibly
 comment|// extending over the ulimit.  Make sure compactions are aggressive in reducing
@@ -20437,10 +20511,7 @@ name|MultithreadedTestUtil
 operator|.
 name|TestContext
 argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 try|try
@@ -20934,10 +21005,7 @@ argument_list|)
 argument_list|,
 name|method
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|,
 name|family
 argument_list|)
@@ -21080,10 +21148,7 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|,
 name|family
 argument_list|)
@@ -23123,14 +23188,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 name|String
 name|method
 init|=
@@ -23645,14 +23702,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 name|String
 name|method
 init|=
@@ -24062,14 +24111,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-decl_stmt|;
 name|String
 name|method
 init|=
@@ -25126,7 +25167,11 @@ init|=
 name|HBaseConfiguration
 operator|.
 name|create
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 comment|// Always compact if there is more than one store file.
 name|conf
@@ -25205,43 +25250,6 @@ argument_list|)
 expr_stmt|;
 return|return
 name|conf
-return|;
-block|}
-comment|/**    * @param tableName    * @param callingMethod    * @param families    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    * @throws IOException    */
-specifier|private
-specifier|static
-name|HRegion
-name|initHRegion
-parameter_list|(
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-name|String
-name|callingMethod
-parameter_list|,
-name|byte
-index|[]
-modifier|...
-name|families
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|initHRegion
-argument_list|(
-name|tableName
-argument_list|,
-name|callingMethod
-argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-argument_list|,
-name|families
-argument_list|)
 return|;
 block|}
 comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
