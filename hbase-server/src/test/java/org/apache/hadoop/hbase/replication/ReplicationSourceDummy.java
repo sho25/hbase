@@ -275,6 +275,17 @@ return|return
 name|peerClusterId
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getStats
+parameter_list|()
+block|{
+return|return
+literal|""
+return|;
+block|}
 block|}
 end_class
 

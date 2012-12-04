@@ -813,6 +813,15 @@ argument_list|,
 literal|100
 argument_list|)
 expr_stmt|;
+name|conf1
+operator|.
+name|setInt
+argument_list|(
+literal|"replication.stats.thread.period.seconds"
+argument_list|,
+literal|5
+argument_list|)
+expr_stmt|;
 name|utility1
 operator|=
 operator|new

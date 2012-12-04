@@ -2301,32 +2301,6 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"currentNbOperations:"
-operator|+
-name|currentNbOperations
-operator|+
-literal|" and seenEntries:"
-operator|+
-name|seenEntries
-operator|+
-literal|" and size: "
-operator|+
-operator|(
-name|this
-operator|.
-name|reader
-operator|.
-name|getPosition
-argument_list|()
-operator|-
-name|startPosition
-operator|)
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|currentWALisBeingWrittenTo
@@ -2531,26 +2505,6 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Opening log for replication "
-operator|+
-name|this
-operator|.
-name|currentPath
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" at "
-operator|+
-name|this
-operator|.
-name|position
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|this
@@ -3186,15 +3140,6 @@ init|=
 name|getRS
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Replicating "
-operator|+
-name|currentNbEntries
-argument_list|)
-expr_stmt|;
 name|ProtobufUtil
 operator|.
 name|replicateWALEntry
@@ -3293,17 +3238,6 @@ argument_list|()
 operator|.
 name|getWriteTime
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Replicated in total: "
-operator|+
-name|this
-operator|.
-name|totalReplicatedEdits
 argument_list|)
 expr_stmt|;
 break|break;
@@ -4046,6 +3980,31 @@ index|]
 argument_list|)
 return|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getStats
+parameter_list|()
+block|{
+return|return
+literal|"Total replicated edits: "
+operator|+
+name|totalReplicatedEdits
+operator|+
+literal|", currently replicating from: "
+operator|+
+name|this
+operator|.
+name|currentPath
+operator|+
+literal|" at position: "
+operator|+
+name|this
+operator|.
+name|position
+return|;
 block|}
 block|}
 end_class

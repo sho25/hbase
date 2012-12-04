@@ -131,6 +131,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -477,6 +491,15 @@ specifier|private
 specifier|final
 name|MetricsSink
 name|metrics
+decl_stmt|;
+specifier|private
+specifier|final
+name|AtomicLong
+name|totalReplicatedEdits
+init|=
+operator|new
+name|AtomicLong
+argument_list|()
 decl_stmt|;
 comment|/**    * Create a sink for replication    *    * @param conf                conf object    * @param stopper             boolean to tell this thread to stop    * @throws IOException thrown when HDFS goes bad or bad file name    */
 specifier|public
@@ -975,12 +998,12 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|LOG
+name|this
 operator|.
-name|info
+name|totalReplicatedEdits
+operator|.
+name|addAndGet
 argument_list|(
-literal|"Total replicated: "
-operator|+
 name|totalReplicated
 argument_list|)
 expr_stmt|;
@@ -1269,6 +1292,42 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/**    * Get a string representation of this sink's metrics    * @return string with the total replicated edits count and the date    * of the last edit that was applied    */
+specifier|public
+name|String
+name|getStats
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|totalReplicatedEdits
+operator|.
+name|get
+argument_list|()
+operator|==
+literal|0
+condition|?
+literal|""
+else|:
+literal|"Sink: "
+operator|+
+literal|"age in ms of last applied edit: "
+operator|+
+name|this
+operator|.
+name|metrics
+operator|.
+name|refreshAgeOfLastAppliedOp
+argument_list|()
+operator|+
+literal|", total replicated edits: "
+operator|+
+name|this
+operator|.
+name|totalReplicatedEdits
+return|;
 block|}
 block|}
 end_class

@@ -212,6 +212,12 @@ name|String
 name|getPeerClusterId
 parameter_list|()
 function_decl|;
+comment|/**    * Get a string representation of the current statistics    * for this source    * @return printable stats    */
+specifier|public
+name|String
+name|getStats
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -106,6 +106,15 @@ specifier|private
 name|MetricsReplicationSource
 name|rms
 decl_stmt|;
+specifier|private
+name|long
+name|lastTimestampForAge
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 specifier|public
 name|MetricsSink
 parameter_list|()
@@ -122,15 +131,19 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set the age of the last applied operation    *    * @param timestamp The timestamp of the last operation applied.    */
+comment|/**    * Set the age of the last applied operation    *    * @param timestamp The timestamp of the last operation applied.    * @return the age that was set    */
 specifier|public
-name|void
+name|long
 name|setAgeOfLastAppliedOp
 parameter_list|(
 name|long
 name|timestamp
 parameter_list|)
 block|{
+name|lastTimestampForAge
+operator|=
+name|timestamp
+expr_stmt|;
 name|long
 name|age
 init|=
@@ -139,7 +152,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|timestamp
+name|lastTimestampForAge
 decl_stmt|;
 name|rms
 operator|.
@@ -150,6 +163,22 @@ argument_list|,
 name|age
 argument_list|)
 expr_stmt|;
+return|return
+name|age
+return|;
+block|}
+comment|/**    * Refreshing the age makes sure the value returned is the actual one and    * not the one set a replication time    * @return refreshed age    */
+specifier|public
+name|long
+name|refreshAgeOfLastAppliedOp
+parameter_list|()
+block|{
+return|return
+name|setAgeOfLastAppliedOp
+argument_list|(
+name|lastTimestampForAge
+argument_list|)
+return|;
 block|}
 comment|/**    * Convience method to change metrics when a batch of operations are applied.    *    * @param batchSize    */
 specifier|public
