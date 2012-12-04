@@ -1434,6 +1434,22 @@ name|DEFAULT_HBASE_CLIENT_PREFETCH_LIMIT
 init|=
 literal|10
 decl_stmt|;
+comment|/**    * Parameter name to set the default scanner caching for all clients.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_SCANNER_CACHING
+init|=
+literal|"hbase.client.scanner.caching"
+decl_stmt|;
+comment|/**    * Default value for {@link #HBASE_CLIENT_SCANNER_CACHING}    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
+init|=
+literal|100
+decl_stmt|;
 comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
 specifier|public
 specifier|static

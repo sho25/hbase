@@ -5340,7 +5340,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.ipc.client.tcpnodelay"
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 name|this

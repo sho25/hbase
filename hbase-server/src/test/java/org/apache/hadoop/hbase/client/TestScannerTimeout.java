@@ -506,6 +506,13 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+name|scan
+operator|.
+name|setCaching
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 name|HTable
 name|table
 init|=

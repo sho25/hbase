@@ -1363,9 +1363,13 @@ name|configuration
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.scanner.caching"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_SCANNER_CACHING
 argument_list|,
-literal|1
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_SCANNER_CACHING
 argument_list|)
 expr_stmt|;
 name|this
