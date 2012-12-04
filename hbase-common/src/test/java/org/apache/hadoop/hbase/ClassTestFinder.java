@@ -231,7 +231,7 @@ literal|0
 index|]
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 class|class
 name|TestFileNameFilter
@@ -327,7 +327,7 @@ block|}
 block|}
 empty_stmt|;
 comment|/*   * A class is considered as a test class if:    *  - it's not Abstract AND    *  - one or more of its methods is annotated with org.junit.Test OR    *  - the class is annotated with Suite.SuiteClasses   * */
-specifier|private
+specifier|public
 specifier|static
 class|class
 name|TestClassFilter
