@@ -21664,7 +21664,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|8
+literal|9
 operator|*
 name|Bytes
 operator|.
