@@ -790,15 +790,6 @@ name|length
 init|=
 literal|0
 decl_stmt|;
-comment|// the row cached
-specifier|private
-specifier|volatile
-name|byte
-index|[]
-name|rowCache
-init|=
-literal|null
-decl_stmt|;
 comment|/**    * @return True if a delete type, a {@link KeyValue.Type#Delete} or    * a {KeyValue.Type#DeleteFamily} or a {@link KeyValue.Type#DeleteColumn}    * KeyValue type.    */
 specifier|public
 specifier|static
@@ -4561,11 +4552,6 @@ name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
 comment|// clear cache or else getTimestamp() possibly returns an old value
-name|timestampCache
-operator|=
-operator|-
-literal|1L
-expr_stmt|;
 return|return
 literal|true
 return|;
@@ -4727,13 +4713,6 @@ index|[]
 name|getRow
 parameter_list|()
 block|{
-if|if
-condition|(
-name|rowCache
-operator|==
-literal|null
-condition|)
-block|{
 name|int
 name|o
 init|=
@@ -4746,10 +4725,8 @@ init|=
 name|getRowLength
 argument_list|()
 decl_stmt|;
-comment|// initialize and copy the data into a local variable
-comment|// in case multiple threads race here.
 name|byte
-name|local
+name|result
 index|[]
 init|=
 operator|new
@@ -4767,31 +4744,18 @@ argument_list|()
 argument_list|,
 name|o
 argument_list|,
-name|local
+name|result
 argument_list|,
 literal|0
 argument_list|,
 name|l
 argument_list|)
 expr_stmt|;
-name|rowCache
-operator|=
-name|local
-expr_stmt|;
-comment|// volatile assign
-block|}
 return|return
-name|rowCache
+name|result
 return|;
 block|}
 comment|/**    *    * @return Timestamp    */
-specifier|private
-name|long
-name|timestampCache
-init|=
-operator|-
-literal|1
-decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -4799,25 +4763,12 @@ name|long
 name|getTimestamp
 parameter_list|()
 block|{
-if|if
-condition|(
-name|timestampCache
-operator|==
-operator|-
-literal|1
-condition|)
-block|{
-name|timestampCache
-operator|=
+return|return
 name|getTimestamp
 argument_list|(
 name|getKeyLength
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|timestampCache
 return|;
 block|}
 comment|/**    * @param keylength Pass if you have it to save on a int creation.    * @return Timestamp    */
@@ -10655,17 +10606,13 @@ expr_stmt|;
 comment|// the KeyValue object itself
 name|sum
 operator|+=
-literal|2
-operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
 expr_stmt|;
-comment|// 2 * pointers to "bytes" and "rowCache" byte[]
+comment|// pointer to "bytes"
 name|sum
 operator|+=
-literal|2
-operator|*
 name|ClassSize
 operator|.
 name|align
@@ -10675,7 +10622,7 @@ operator|.
 name|ARRAY
 argument_list|)
 expr_stmt|;
-comment|// 2 * "bytes" and "rowCache" byte[]
+comment|// "bytes"
 name|sum
 operator|+=
 name|ClassSize
@@ -10686,7 +10633,6 @@ name|length
 argument_list|)
 expr_stmt|;
 comment|// number of bytes of data in the "bytes" array
-comment|//ignore the data in the rowCache because it is cleared for inactive memstore KeyValues
 name|sum
 operator|+=
 literal|3
@@ -10698,13 +10644,11 @@ expr_stmt|;
 comment|// offset, length, keyLength
 name|sum
 operator|+=
-literal|2
-operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
 expr_stmt|;
-comment|// timestampCache, memstoreTS
+comment|// memstoreTS
 return|return
 name|ClassSize
 operator|.
@@ -10733,12 +10677,6 @@ name|IOException
 block|{
 name|this
 operator|.
-name|rowCache
-operator|=
-literal|null
-expr_stmt|;
-name|this
-operator|.
 name|length
 operator|=
 name|length
@@ -10748,13 +10686,6 @@ operator|.
 name|offset
 operator|=
 literal|0
-expr_stmt|;
-name|this
-operator|.
-name|timestampCache
-operator|=
-operator|-
-literal|1
 expr_stmt|;
 name|this
 operator|.
