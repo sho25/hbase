@@ -352,7 +352,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|Main
+name|RESTServer
 implements|implements
 name|Constants
 block|{
