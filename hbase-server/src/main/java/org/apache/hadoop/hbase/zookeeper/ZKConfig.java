@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility methods for reading, parsing, and building zookeeper configuration.  */
+comment|/**  * Utility methods for reading, and building the ZooKeeper configuration.  */
 end_comment
 
 begin_class
@@ -267,7 +267,7 @@ operator|.
 name|length
 argument_list|()
 decl_stmt|;
-comment|/**    * Make a Properties object holding ZooKeeper config equivalent to zoo.cfg.    * If there is a zoo.cfg in the classpath, simply read it in. Otherwise parse    * the corresponding config options from the HBase XML configs and generate    * the appropriate ZooKeeper properties.    * @param conf Configuration to read from.    * @return Properties holding mappings representing ZooKeeper zoo.cfg file.    */
+comment|/**    * Make a Properties object holding ZooKeeper config.    * Parses the corresponding config options from the HBase XML configs    * and generates the appropriate ZooKeeper properties.    * @param conf Configuration to read from.    * @return Properties holding mappings representing ZooKeeper config file.    */
 specifier|public
 specifier|static
 name|Properties
@@ -277,6 +277,53 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CONFIG_READ_ZOOKEEPER_CONFIG
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Parsing ZooKeeper's "
+operator|+
+name|HConstants
+operator|.
+name|ZOOKEEPER_CONFIG_NAME
+operator|+
+literal|" file for ZK properties "
+operator|+
+literal|"has been deprecated. Please instead place all ZK related HBase "
+operator|+
+literal|"configuration under the hbase-site.xml, using prefixes "
+operator|+
+literal|"of the form '"
+operator|+
+name|HConstants
+operator|.
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+literal|"', and "
+operator|+
+literal|"set property '"
+operator|+
+name|HConstants
+operator|.
+name|HBASE_CONFIG_READ_ZOOKEEPER_CONFIG
+operator|+
+literal|"' to false"
+argument_list|)
+expr_stmt|;
 comment|// First check if there is a zoo.cfg in the CLASSPATH. If so, simply read
 comment|// it and grab its configuration properties.
 name|ClassLoader
@@ -339,6 +386,38 @@ operator|+
 literal|", loading from XML files"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipped reading ZK properties file '"
+operator|+
+name|HConstants
+operator|.
+name|ZOOKEEPER_CONFIG_NAME
+operator|+
+literal|"' since '"
+operator|+
+name|HConstants
+operator|.
+name|HBASE_CONFIG_READ_ZOOKEEPER_CONFIG
+operator|+
+literal|"' was not set to true"
 argument_list|)
 expr_stmt|;
 block|}
@@ -568,7 +647,9 @@ return|return
 name|zkProperties
 return|;
 block|}
-comment|/**    * Parse ZooKeeper's zoo.cfg, injecting HBase Configuration variables in.    * This method is used for testing so we can pass our own InputStream.    * @param conf HBaseConfiguration to use for injecting variables.    * @param inputStream InputStream to read from.    * @return Properties parsed from config stream with variables substituted.    * @throws IOException if anything goes wrong parsing config    */
+comment|/**    * Parse ZooKeeper's zoo.cfg, injecting HBase Configuration variables in.    * This method is used for testing so we can pass our own InputStream.    * @param conf HBaseConfiguration to use for injecting variables.    * @param inputStream InputStream to read from.    * @return Properties parsed from config stream with variables substituted.    * @throws IOException if anything goes wrong parsing config    * @deprecated in 0.96 onwards. HBase will no longer rely on zoo.cfg    * availability.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Properties
@@ -1166,9 +1247,17 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"No server.X lines found in conf/zoo.cfg. HBase must have a "
+literal|"No servers were found in provided ZooKeeper configuration. "
 operator|+
-literal|"ZooKeeper cluster configured for its operation."
+literal|"HBase must have a ZooKeeper cluster configured for its "
+operator|+
+literal|"operation. Ensure that you've configured '"
+operator|+
+name|HConstants
+operator|.
+name|ZOOKEEPER_QUORUM
+operator|+
+literal|"' properly."
 argument_list|)
 expr_stmt|;
 return|return

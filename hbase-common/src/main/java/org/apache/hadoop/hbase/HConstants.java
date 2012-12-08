@@ -1809,6 +1809,22 @@ name|DELIMITER
 init|=
 literal|','
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CONFIG_READ_ZOOKEEPER_CONFIG
+init|=
+literal|"hbase.config.read.zookeeper.config"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_HBASE_CONFIG_READ_ZOOKEEPER_CONFIG
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
 specifier|public
 specifier|static
