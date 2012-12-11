@@ -31,16 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|StringWriter
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|lang
 operator|.
 name|Thread
@@ -1225,7 +1215,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRpcMetrics
+name|MetricsHBaseServer
 import|;
 end_import
 
@@ -3198,20 +3188,6 @@ operator|.
 name|high_scale_lib
 operator|.
 name|Counter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|codehaus
-operator|.
-name|jackson
-operator|.
-name|map
-operator|.
-name|ObjectMapper
 import|;
 end_import
 
@@ -9853,25 +9829,6 @@ operator|+
 name|daughter
 argument_list|)
 expr_stmt|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Return a reference to the metrics instance used for counting RPC calls.    * @return Metrics instance.    */
-end_comment
-
-begin_function
-specifier|public
-name|HBaseRpcMetrics
-name|getRpcMetrics
-parameter_list|()
-block|{
-return|return
-name|rpcServer
-operator|.
-name|getRpcMetrics
-argument_list|()
-return|;
 block|}
 end_function
 

@@ -67,22 +67,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|monitoring
 operator|.
 name|MonitoredRPCHandler
@@ -219,8 +203,8 @@ name|startThreads
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
-name|HBaseRpcMetrics
-name|getRpcMetrics
+name|MetricsHBaseServer
+name|getMetrics
 parameter_list|()
 function_decl|;
 block|}

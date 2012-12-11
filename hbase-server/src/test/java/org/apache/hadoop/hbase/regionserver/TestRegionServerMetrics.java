@@ -838,7 +838,7 @@ name|assertCounter
 argument_list|(
 name|prefix
 operator|+
-literal|".multiPutCount"
+literal|".mutateCount"
 argument_list|,
 literal|30
 argument_list|,

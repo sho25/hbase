@@ -118,6 +118,31 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Increment the number of slow Puts that have happened.    */
+name|void
+name|incrSlowPut
+parameter_list|()
+function_decl|;
+comment|/**    * Increment the number of slow Deletes that have happened.    */
+name|void
+name|incrSlowDelete
+parameter_list|()
+function_decl|;
+comment|/**    * Increment the number of slow Gets that have happened.    */
+name|void
+name|incrSlowGet
+parameter_list|()
+function_decl|;
+comment|/**    * Increment the number of slow Increments that have happened.    */
+name|void
+name|incrSlowIncrement
+parameter_list|()
+function_decl|;
+comment|/**    * Increment the number of slow Appends that have happened.    */
+name|void
+name|incrSlowAppend
+parameter_list|()
+function_decl|;
 comment|// Strings used for exporting to metrics system.
 specifier|static
 specifier|final
@@ -577,9 +602,9 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|PUT_KEY
+name|MUTATE_KEY
 init|=
-literal|"multiput"
+literal|"mutate"
 decl_stmt|;
 specifier|static
 specifier|final
@@ -587,6 +612,76 @@ name|String
 name|APPEND_KEY
 init|=
 literal|"append"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_MUTATE_KEY
+init|=
+literal|"slowPutCount"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_GET_KEY
+init|=
+literal|"slowGetCount"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_DELETE_KEY
+init|=
+literal|"slowDeleteCount"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_INCREMENT_KEY
+init|=
+literal|"slowIncrementCount"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_APPEND_KEY
+init|=
+literal|"slowAppendCount"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_MUTATE_DESC
+init|=
+literal|"The number of Multis that took over 1000ms to complete"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_DELETE_DESC
+init|=
+literal|"The number of Deletes that took over 1000ms to complete"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_GET_DESC
+init|=
+literal|"The number of Gets that took over 1000ms to complete"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_INCREMENT_DESC
+init|=
+literal|"The number of Increments that took over 1000ms to complete"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SLOW_APPEND_DESC
+init|=
+literal|"The number of Appends that took over 1000ms to complete"
 decl_stmt|;
 block|}
 end_interface

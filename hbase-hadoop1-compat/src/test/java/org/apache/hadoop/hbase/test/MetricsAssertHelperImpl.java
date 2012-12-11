@@ -101,6 +101,20 @@ name|hadoop
 operator|.
 name|metrics2
 operator|.
+name|MetricsSource
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics2
+operator|.
 name|MetricsTag
 import|;
 end_import
@@ -1034,6 +1048,12 @@ argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(
+literal|"Should get counter "
+operator|+
+name|cName
+operator|+
+literal|" but did not"
+argument_list|,
 name|counters
 operator|.
 name|get
@@ -1082,6 +1102,12 @@ argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(
+literal|"Should get gauge "
+operator|+
+name|cName
+operator|+
+literal|" but did not"
+argument_list|,
 name|gauges
 operator|.
 name|get
@@ -1130,6 +1156,12 @@ argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(
+literal|"Should get gauge "
+operator|+
+name|cName
+operator|+
+literal|" but did not"
+argument_list|,
 name|gauges
 operator|.
 name|get
@@ -1188,21 +1220,23 @@ operator|!
 operator|(
 name|source
 operator|instanceof
-name|BaseSourceImpl
+name|MetricsSource
 operator|)
 condition|)
 block|{
 name|assertTrue
 argument_list|(
+literal|"The Source passed must be a MetricsSource"
+argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|BaseSourceImpl
+name|MetricsSource
 name|impl
 init|=
 operator|(
-name|BaseSourceImpl
+name|MetricsSource
 operator|)
 name|source
 decl_stmt|;
