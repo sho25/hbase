@@ -144,10 +144,17 @@ literal|"org.xml"
 block|,
 literal|"sunw."
 block|,
-comment|// Hadoop/HBase:
-literal|"org.apache.hadoop"
+comment|// logging
+literal|"org.apache.commons.logging"
+block|,
+literal|"org.apache.log4j"
 block|,
 literal|"com.hadoop"
+block|,
+comment|// Hadoop/HBase/ZK:
+literal|"org.apache.hadoop"
+block|,
+literal|"org.apache.zookeeper"
 block|,   }
 decl_stmt|;
 comment|/**    * If the resource being loaded matches any of these patterns, we will first     * attempt to load the resource with the parent ClassLoader.  Only if the     * resource is not found by the parent do we attempt to load it from the     * coprocessor jar.    */
@@ -169,6 +176,12 @@ argument_list|(
 literal|"^[^-]+-default\\.xml$"
 argument_list|)
 block|}
+decl_stmt|;
+comment|/**    * Parent classloader used to load any class not matching the exemption list.    */
+specifier|private
+specifier|final
+name|ClassLoader
+name|parent
 decl_stmt|;
 comment|/**    * Creates a CoprocessorClassLoader that loads classes from the given paths.    * @param paths paths from which to load classes.    * @param parent the parent ClassLoader to set.    */
 specifier|public
@@ -199,6 +212,27 @@ argument_list|,
 name|parent
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|parent
+operator|=
+name|parent
+expr_stmt|;
+if|if
+condition|(
+name|parent
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"No parent classloader!"
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -246,7 +280,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|super
+name|parent
 operator|.
 name|loadClass
 argument_list|(
@@ -357,7 +391,7 @@ try|try
 block|{
 name|clasz
 operator|=
-name|super
+name|parent
 operator|.
 name|loadClass
 argument_list|(
