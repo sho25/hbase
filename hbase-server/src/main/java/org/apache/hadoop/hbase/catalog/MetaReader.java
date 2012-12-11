@@ -1292,18 +1292,6 @@ condition|)
 return|return
 literal|false
 return|;
-if|if
-condition|(
-name|this
-operator|.
-name|current
-operator|.
-name|isSplitParent
-argument_list|()
-condition|)
-return|return
-literal|true
-return|;
 comment|// Else call super and add this Result to the collection.
 name|super
 operator|.
