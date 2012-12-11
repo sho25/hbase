@@ -25,6 +25,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertNotNull
 import|;
 end_import
@@ -1342,14 +1354,14 @@ argument_list|,
 name|sn
 argument_list|)
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|hris
 operator|.
 name|size
 argument_list|()
-operator|==
-literal|1
 argument_list|)
 expr_stmt|;
 name|assertTrue
