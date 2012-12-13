@@ -528,6 +528,11 @@ block|}
 comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRebalanceOnRegionServerNumberChange
@@ -1343,12 +1348,23 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|int
+name|totalRegions
+init|=
+name|HBaseTestingUtility
+operator|.
+name|KEYS
+operator|.
+name|length
+operator|+
+literal|2
+decl_stmt|;
 while|while
 condition|(
 name|getRegionCount
 argument_list|()
 operator|<
-literal|22
+name|totalRegions
 condition|)
 block|{
 comment|// while (!cluster.getMaster().allRegionsAssigned()) {
@@ -1356,7 +1372,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for there to be 22 regions, but there are "
+literal|"Waiting for there to be "
+operator|+
+name|totalRegions
+operator|+
+literal|" regions, but there are "
 operator|+
 name|getRegionCount
 argument_list|()
