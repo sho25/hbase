@@ -113,6 +113,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides the coprocessor framework and environment for master oriented  * operations.  {@link HMaster} interacts with the loaded coprocessors  * through this class.  */
 end_comment
@@ -4372,7 +4382,13 @@ return|;
 block|}
 name|void
 name|postBalance
-parameter_list|()
+parameter_list|(
+name|List
+argument_list|<
+name|RegionPlan
+argument_list|>
+name|plans
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -4428,6 +4444,8 @@ operator|.
 name|postBalance
 argument_list|(
 name|ctx
+argument_list|,
+name|plans
 argument_list|)
 expr_stmt|;
 block|}
