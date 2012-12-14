@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The unit of storage in HBase consisting of the following fields:<br/>  *<pre>  * 1) row  * 2) column family  * 3) column qualifier  * 4) timestamp  * 5) type  * 6) MVCC version  * 7) value  *</pre>  *<p/>  * Uniqueness is determined by the combination of row, column family, column qualifier,  * timestamp, and type.  *<p/>  * The natural comparator will perform a bitwise comparison on row, column family, and column  * qualifier. Less intuitively, it will then treat the greater timestamp as the lesser value with  * the goal of sorting newer cells first.  *<p/>  * This interface does not include methods that allocate new byte[]'s such as those used in client  * or debugging code. These should be placed in a sub-interface or the {@link CellTool} class.  *<p/>  * Cell implements Comparable<Cell> which is only meaningful when comparing to other keys in the  * same table. It uses {@link #CellComparator} which does not work on the -ROOT- and .META. tables.  *<p/>  * In the future, we may consider adding a boolean isOnHeap() method and a getValueBuffer() method  * that can be used to pass a value directly from an off-heap ByteBuffer to the network without  * copying into an on-heap byte[].  *<p/>  * Historic note: the original Cell implementation (KeyValue) requires that all fields be encoded as  * consecutive bytes in the same byte[], whereas this interface allows fields to reside in separate  * byte[]'s.  *<p/>  */
+comment|/**  * The unit of storage in HBase consisting of the following fields:<br/>  *<pre>  * 1) row  * 2) column family  * 3) column qualifier  * 4) timestamp  * 5) type  * 6) MVCC version  * 7) value  *</pre>  *<p/>  * Uniqueness is determined by the combination of row, column family, column qualifier,  * timestamp, and type.  *<p/>  * The natural comparator will perform a bitwise comparison on row, column family, and column  * qualifier. Less intuitively, it will then treat the greater timestamp as the lesser value with  * the goal of sorting newer cells first.  *<p/>  * This interface does not include methods that allocate new byte[]'s such as those used in client  * or debugging code. These should be placed in a sub-interface or the {@link CellTool} class.  *<p/>  * Cell implements Comparable<Cell> which is only meaningful when comparing to other keys in the  * same table. It uses CellComparator which does not work on the -ROOT- and .META. tables.  *<p/>  * In the future, we may consider adding a boolean isOnHeap() method and a getValueBuffer() method  * that can be used to pass a value directly from an off-heap ByteBuffer to the network without  * copying into an on-heap byte[].  *<p/>  * Historic note: the original Cell implementation (KeyValue) requires that all fields be encoded as  * consecutive bytes in the same byte[], whereas this interface allows fields to reside in separate  * byte[]'s.  *<p/>  */
 end_comment
 
 begin_interface
@@ -130,7 +130,7 @@ name|getTimestamp
 parameter_list|()
 function_decl|;
 comment|//5) Type
-comment|/**    * see {@link #KeyValue.TYPE}    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    */
+comment|/**    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    */
 name|byte
 name|getTypeByte
 parameter_list|()

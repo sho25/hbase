@@ -180,7 +180,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Initializes the staging directory and returns the path.    *    * @parms conf system configuration    * @return staging directory path    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Initializes the staging directory and returns the path.    *    * @param conf system configuration    * @return staging directory path    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|Path

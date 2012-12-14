@@ -9015,7 +9015,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable.    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see {@link #create(DataInput)} for the inverse function    */
+comment|/**    * Write out a KeyValue in the manner in which we used to when KeyValue was a Writable.    * @param kv    * @param out    * @return Length written on stream    * @throws IOException    * @see #create(DataInput) for the inverse function    */
 specifier|public
 specifier|static
 name|long

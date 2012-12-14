@@ -34,7 +34,7 @@ name|MetricsRegionServerWrapper
 name|regionServerWrapper
 parameter_list|)
 function_decl|;
-comment|/**    * Create a MetricsRegionSource from a MetricsRegionWrapper.    *    * @param wrapper    * @return    */
+comment|/**    * Create a MetricsRegionSource from a MetricsRegionWrapper.    *    * @param wrapper    * @return A metrics region source    */
 name|MetricsRegionSource
 name|createRegion
 parameter_list|(

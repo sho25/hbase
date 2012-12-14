@@ -296,7 +296,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Create a new ByteRange with new backing byte[] and copy the state of this range into the new    * range.  Copy the hash over if it is already calculated.    * @return     */
+comment|/**    * Create a new ByteRange with new backing byte[] and copy the state of this range into the new    * range.  Copy the hash over if it is already calculated.    * @return Deep copy    */
 specifier|public
 name|ByteRange
 name|deepCopy
@@ -329,7 +329,7 @@ return|return
 name|clone
 return|;
 block|}
-comment|/**    * Wrapper for System.arraycopy.  Copy the contents of this range into the provided array.    * @param destination Copy to this array    * @param destinationOffset First index in the destination array.    * @return void to avoid confusion between which ByteRange should be returned    */
+comment|/**    * Wrapper for System.arraycopy.  Copy the contents of this range into the provided array.    * @param destination Copy to this array    * @param destinationOffset First index in the destination array.    */
 specifier|public
 name|void
 name|deepCopyTo
@@ -358,7 +358,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wrapper for System.arraycopy. Copy the contents of this range into the provided array.    * @param innerOffset Start copying from this index in this source ByteRange. First byte copied is    *          bytes[offset + innerOffset]    * @param copyLength Copy this many bytes    * @param destination Copy to this array    * @param destinationOffset First index in the destination array.    * @return void to avoid confusion between which ByteRange should be returned    */
+comment|/**    * Wrapper for System.arraycopy. Copy the contents of this range into the provided array.    * @param innerOffset Start copying from this index in this source ByteRange. First byte copied is    *          bytes[offset + innerOffset]    * @param copyLength Copy this many bytes    * @param destination Copy to this array    * @param destinationOffset First index in the destination array.    */
 specifier|public
 name|void
 name|deepCopySubRangeTo

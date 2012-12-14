@@ -1589,7 +1589,7 @@ return|return
 name|prefix
 return|;
 block|}
-comment|/**    * Find length of common prefix in two arrays.    * @param left Array to be compared.    * @param leftOffset Offset in left array.    * @param leftLength Length of left array.    * @param right Array to be compared.    * @param rightArray Offset in right array.    * @param rightLength Length of right array.    */
+comment|/**    * Find length of common prefix in two arrays.    * @param left Array to be compared.    * @param leftOffset Offset in left array.    * @param leftLength Length of left array.    * @param right Array to be compared.    * @param rightOffset Offset in right array.    * @param rightLength Length of right array.    */
 specifier|public
 specifier|static
 name|int
@@ -1662,7 +1662,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Check whether two parts in the same buffer are equal.    * @param buffer In which buffer there are parts    * @param offsetLeft Beginning of first part.    * @param lengthLeft Length of the first part.    * @param offsetRight Beginning of the second part.    * @param lengthRight Length of the second part.    * @return    */
+comment|/**    * Check whether two parts in the same buffer are equal.    * @param buffer In which buffer there are parts    * @param offsetLeft Beginning of first part.    * @param lengthLeft Length of the first part.    * @param offsetRight Beginning of the second part.    * @param lengthRight Length of the second part.    * @return True if equal    */
 specifier|public
 specifier|static
 name|boolean

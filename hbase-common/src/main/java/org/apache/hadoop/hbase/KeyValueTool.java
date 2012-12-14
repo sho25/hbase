@@ -1117,7 +1117,7 @@ name|nextRow
 argument_list|)
 return|;
 block|}
-comment|/**    * Decrement the timestamp.  For tests (currently wasteful)    *    * Remember timestamps are sorted reverse chronologically.    * @param in    * @return    */
+comment|/**    * Decrement the timestamp.  For tests (currently wasteful)    *    * Remember timestamps are sorted reverse chronologically.    * @param in    * @return previous key    */
 specifier|public
 specifier|static
 name|KeyValue
