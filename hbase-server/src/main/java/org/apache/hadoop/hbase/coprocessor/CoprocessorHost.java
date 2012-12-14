@@ -486,6 +486,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|REGIONSERVER_COPROCESSOR_CONF_KEY
+init|=
+literal|"hbase.coprocessor.regionserver.classes"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|USER_REGION_COPROCESSOR_CONF_KEY
 init|=
 literal|"hbase.coprocessor.user.region.classes"

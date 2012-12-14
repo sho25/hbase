@@ -497,6 +497,8 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|e
 parameter_list|)
+throws|throws
+name|IOException
 block|{ }
 annotation|@
 name|Override
@@ -521,11 +523,13 @@ name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
-name|e
+name|c
 parameter_list|,
 name|boolean
 name|abortRequested
 parameter_list|)
+throws|throws
+name|IOException
 block|{ }
 annotation|@
 name|Override

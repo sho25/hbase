@@ -229,20 +229,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -493,9 +479,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|CompareFilter
-operator|.
-name|CompareOp
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -511,7 +495,9 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|ByteArrayComparable
+name|CompareFilter
+operator|.
+name|CompareOp
 import|;
 end_import
 
@@ -1612,11 +1598,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Invoked before a region open    */
+comment|/**    * Invoked before a region open.    *    * @throws IOException Signals that an I/O exception has occurred.    */
 specifier|public
 name|void
 name|preOpen
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -1679,7 +1667,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,
@@ -1796,6 +1784,8 @@ parameter_list|(
 name|boolean
 name|abortRequested
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<
@@ -1860,7 +1850,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|handleCoprocessorThrowableNoRethrow
+name|handleCoprocessorThrowable
 argument_list|(
 name|env
 argument_list|,

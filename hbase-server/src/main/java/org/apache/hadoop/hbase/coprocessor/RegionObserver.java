@@ -476,7 +476,7 @@ name|RegionObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before the region is reported as open to the master.    * @param c the environment provided by the region server    */
+comment|/**    * Called before the region is reported as open to the master.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preOpen
 parameter_list|(
@@ -487,6 +487,8 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Called after the region is reported as open to the master.    * @param c the environment provided by the region server    */
 name|void
@@ -823,7 +825,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    */
+comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    * @throws IOException     */
 name|void
 name|preClose
 parameter_list|(
@@ -837,6 +839,8 @@ parameter_list|,
 name|boolean
 name|abortRequested
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Called after the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    */
 name|void
