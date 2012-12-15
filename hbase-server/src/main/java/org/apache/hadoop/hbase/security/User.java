@@ -81,6 +81,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|CommonConfigurationKeys
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|util
@@ -495,7 +509,7 @@ name|isSecurityEnabled
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns whether or not secure authentication is enabled for HBase    * (whether<code>hbase.security.authentication</code> is set to    *<code>kerberos</code>.    */
+comment|/**    * Returns whether or not secure authentication is enabled for HBase.  Note that    * HBase security requires HDFS security to provide any guarantees, so this requires that    * both<code>hbase.security.authentication</code> and<code>hadoop.security.authentication</code>    * are set to<code>kerberos</code>.    */
 specifier|public
 specifier|static
 name|boolean
@@ -515,6 +529,20 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_SECURITY_CONF_KEY
+argument_list|)
+argument_list|)
+operator|&&
+literal|"kerberos"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|CommonConfigurationKeys
+operator|.
+name|HADOOP_SECURITY_AUTHENTICATION
 argument_list|)
 argument_list|)
 return|;

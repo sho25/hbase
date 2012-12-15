@@ -1214,7 +1214,7 @@ specifier|final
 name|boolean
 name|authorize
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|isSecurityEnabled
 decl_stmt|;
@@ -9815,10 +9815,14 @@ name|this
 operator|.
 name|isSecurityEnabled
 operator|=
-name|UserGroupInformation
+name|User
 operator|.
-name|isSecurityEnabled
-argument_list|()
+name|isHBaseSecurityEnabled
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 if|if
 condition|(

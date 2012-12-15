@@ -1593,10 +1593,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|User
-operator|.
 name|isSecurityEnabled
-argument_list|()
 operator|||
 operator|!
 operator|(

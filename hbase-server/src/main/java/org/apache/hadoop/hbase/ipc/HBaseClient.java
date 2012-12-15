@@ -1874,10 +1874,12 @@ name|this
 operator|.
 name|useSasl
 operator|=
-name|UserGroupInformation
+name|User
 operator|.
-name|isSecurityEnabled
-argument_list|()
+name|isHBaseSecurityEnabled
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
