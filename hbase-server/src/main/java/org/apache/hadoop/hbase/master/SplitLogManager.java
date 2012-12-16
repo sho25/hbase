@@ -862,7 +862,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher, Configuration,    * Stoppable, String, TaskFinisher)} that provides a task finisher for    * copying recovered edits to their final destination. The task finisher    * has to be robust because it can be arbitrarily restarted or called    * multiple times.    *     * @param zkw    * @param conf    * @param stopper    * @param serverName    */
+comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *     * @param zkw    * @param conf    * @param stopper    * @param serverName    */
 specifier|public
 name|SplitLogManager
 parameter_list|(

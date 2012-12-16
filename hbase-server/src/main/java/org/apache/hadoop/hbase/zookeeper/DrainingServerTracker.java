@@ -190,6 +190,7 @@ name|ServerManager
 name|serverManager
 decl_stmt|;
 specifier|private
+specifier|final
 name|NavigableSet
 argument_list|<
 name|ServerName

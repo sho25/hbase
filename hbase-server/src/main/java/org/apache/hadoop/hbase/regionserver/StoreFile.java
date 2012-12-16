@@ -1161,7 +1161,7 @@ name|modificationTimeStamp
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
 specifier|public
 name|StoreFile
 parameter_list|(
@@ -2250,7 +2250,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Opens reader on this store file.  Called by Constructor.    * @return Reader for the store file.    * @throws IOException    * @see #closeReader()    */
+comment|/**    * Opens reader on this store file.  Called by Constructor.    * @return Reader for the store file.    * @throws IOException    * @see #closeReader(boolean)    */
 specifier|private
 name|Reader
 name|open
@@ -5296,7 +5296,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** For use in testing, e.g. {@link CreateRandomStoreFile} */
+comment|/** For use in testing, e.g. {@link org.apache.hadoop.hbase.regionserver.CreateRandomStoreFile}      */
 name|HFile
 operator|.
 name|Writer

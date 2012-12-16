@@ -172,7 +172,7 @@ parameter_list|()
 block|{
 comment|// non-external instantiation - util class
 block|}
-comment|/**    * Get the directory to archive a store directory    * @param conf {@link Configuration} to read for the archive directory name    * @param tableName table name under which the store currently lives    * @param regionName region encoded name under which the store currently lives    * @param family name of the family in the store    * @return {@link Path} to the directory to archive the given store or    *<tt>null</tt> if it should not be archived    */
+comment|/**    * Get the directory to archive a store directory    * @param conf {@link Configuration} to read for the archive directory name    * @param tableName table name under which the store currently lives    * @param regionName region encoded name under which the store currently lives    * @param familyName name of the family in the store    * @return {@link Path} to the directory to archive the given store or    *<tt>null</tt> if it should not be archived    */
 specifier|public
 specifier|static
 name|Path

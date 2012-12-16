@@ -105,6 +105,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotDisabledException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|ExecutorService
@@ -150,7 +178,8 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
-comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException     */
+comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
+comment|// We actually throw the exceptions mentioned in the
 specifier|public
 name|void
 name|checkTableModifiable
@@ -162,6 +191,10 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|TableNotFoundException
+throws|,
+name|TableNotDisabledException
 function_decl|;
 comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    *     a single region is created.    */
 specifier|public

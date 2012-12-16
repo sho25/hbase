@@ -1552,7 +1552,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-4014 : This is used by coprocessor hooks which are not declared to throw exceptions.    *    * For example, {@link    * org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#preOpen()} and    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#postOpen()} are such hooks.    *    * See also {@link org.apache.hadoop.hbase.master.MasterCoprocessorHost#handleCoprocessorThrowable()}    * @param env The coprocessor that threw the exception.    * @param e The exception that was thrown.    */
+comment|/**    * HBASE-4014 : This is used by coprocessor hooks which are not declared to throw exceptions.    *    * For example, {@link    * org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#preOpen()} and    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#postOpen()} are such hooks.    *    * See also    * {@link org.apache.hadoop.hbase.master.MasterCoprocessorHost#handleCoprocessorThrowable(CoprocessorEnvironment, Throwable)}    * @param env The coprocessor that threw the exception.    * @param e The exception that was thrown.    */
 specifier|private
 name|void
 name|handleCoprocessorThrowableNoRethrow
@@ -2725,7 +2725,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlush(ObserverContext, HStore, KeyValueScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preFlush(ObserverContext<RegionCoprocessorEnvironment>, HStore, KeyValueScanner)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen

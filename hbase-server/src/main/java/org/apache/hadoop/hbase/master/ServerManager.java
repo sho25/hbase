@@ -1556,7 +1556,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds the onlineServers list.    * @param hsl    * @param serverName The remote servers name.    */
+comment|/**    * Adds the onlineServers list.    * @param serverName The remote servers name.    * @param sl    */
 name|void
 name|recordNewServer
 parameter_list|(

@@ -1010,7 +1010,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logName dir where hlogs are stored    * @param oldLogName dir where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logName dir where hlogs are stored    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -1066,7 +1066,7 @@ name|prefix
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path to where logs and oldlogs    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path to where logs and oldlogs    * @param oldLogName path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|private
 name|FSHLog
 parameter_list|(
@@ -4272,6 +4272,7 @@ name|long
 name|optionalFlushInterval
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicBoolean
 name|closeLogSyncer
 init|=

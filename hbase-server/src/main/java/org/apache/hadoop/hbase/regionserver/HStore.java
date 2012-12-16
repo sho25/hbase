@@ -965,6 +965,7 @@ name|storefiles
 init|=
 literal|null
 decl_stmt|;
+specifier|final
 name|List
 argument_list|<
 name|StoreFile

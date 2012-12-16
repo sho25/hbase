@@ -190,7 +190,7 @@ name|int
 name|leaseCheckFrequency
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|DelayQueue
 argument_list|<
 name|Lease
@@ -916,12 +916,7 @@ operator|.
 name|hashCode
 argument_list|()
 operator|==
-operator|(
-operator|(
-name|Lease
-operator|)
 name|obj
-operator|)
 operator|.
 name|hashCode
 argument_list|()

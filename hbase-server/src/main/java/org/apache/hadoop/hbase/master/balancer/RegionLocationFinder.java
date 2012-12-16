@@ -593,7 +593,7 @@ return|return
 name|servers
 return|;
 block|}
-comment|/**    * Returns an ordered list of hosts that are hosting the blocks for this    * region. The weight of each host is the sum of the block lengths of all    * files on that host, so the first host in the list is the server which holds    * the most bytes of the given region's HFiles.    *    * @param fs the filesystem    * @param region region    * @return ordered list of hosts holding blocks of the specified region    */
+comment|/**    * Returns an ordered list of hosts that are hosting the blocks for this    * region. The weight of each host is the sum of the block lengths of all    * files on that host, so the first host in the list is the server which holds    * the most bytes of the given region's HFiles.    *    * @param region region    * @return ordered list of hosts holding blocks of the specified region    */
 specifier|protected
 name|List
 argument_list|<

@@ -229,7 +229,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Put a bunch of Writables as bytes all into the one byte array.    * @param ws writable    * @return The bytes of<code>w</code> gotten by running its    * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    * @see #getHRegionInfos(byte[], int, int)    */
+comment|/**    * Put a bunch of Writables as bytes all into the one byte array.    * @param ws writable    * @return The bytes of<code>w</code> gotten by running its    * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|byte

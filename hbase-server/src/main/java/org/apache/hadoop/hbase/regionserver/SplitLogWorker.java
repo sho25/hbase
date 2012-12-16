@@ -443,6 +443,7 @@ name|TaskExecutor
 name|splitTaskExecutor
 decl_stmt|;
 specifier|private
+specifier|final
 name|Object
 name|taskReadyLock
 init|=
@@ -949,7 +950,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wait for tasks to become available at /hbase/splitlog zknode. Grab a task    * one at a time. This policy puts an upper-limit on the number of    * simultaneous log splitting that could be happening in a cluster.    *<p>    * Synchronization using {@link #task_ready_signal_seq} ensures that it will    * try to grab every task that has been put up    */
+comment|/**    * Wait for tasks to become available at /hbase/splitlog zknode. Grab a task    * one at a time. This policy puts an upper-limit on the number of    * simultaneous log splitting that could be happening in a cluster.    *<p>    * Synchronization using {@link #taskReadyLock} ensures that it will    * try to grab every task that has been put up    */
 specifier|private
 name|void
 name|taskLoop
@@ -1872,7 +1873,7 @@ literal|false
 operator|)
 return|;
 block|}
-comment|/**    * endTask() can fail and the only way to recover out of it is for the    * {@link SplitLogManager} to timeout the task node.    * @param ts    * @param ctr    */
+comment|/**    * endTask() can fail and the only way to recover out of it is for the    * {@link SplitLogManager} to timeout the task node.    * @param slt    * @param ctr    */
 specifier|private
 name|void
 name|endTask

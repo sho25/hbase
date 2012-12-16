@@ -1388,7 +1388,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param  Region we're working on.    * This is not guaranteed to succeed, we just do our best.    * @return whether znode is successfully transitioned to FAILED_OPEN state.    */
+comment|/**    * This is not guaranteed to succeed, we just do our best.    * @param hri Region we're working on.    * @return whether znode is successfully transitioned to FAILED_OPEN state.    */
 specifier|private
 name|boolean
 name|tryTransitionToFailedOpen

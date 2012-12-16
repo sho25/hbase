@@ -1268,8 +1268,7 @@ name|assignmentZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|// RegionServer methods
-comment|/**    * Creates a new unassigned node in the CLOSING state for the specified    * region.    *    *<p>Does not transition nodes from any states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>If creation is successful, returns the version number of the CLOSING    * node created.    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be created as closing    * @param serverName server transition will happen on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Creates a new unassigned node in the CLOSING state for the specified    * region.    *    *<p>Does not transition nodes from any states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    *<p>If creation is successful, returns the version number of the CLOSING    * node created.    *    *<p>Set a watch.    *    *<p>This method should only be used by a Master when initiating a    * close of a region before sending a close request to the region server.    *    * @param zkw zk reference    * @param region region to be created as closing    * @param serverName server transition will happen on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|int
@@ -1362,6 +1361,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|// RegionServer methods
 comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the CLOSING state to be in the CLOSED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in CLOSING state</li>    *<li>After verifying CLOSING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating a    * close of a region after receiving a CLOSE RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to closed    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static

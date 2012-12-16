@@ -182,7 +182,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Constructor with existing configuration    * @param conf existing configuration    * @throws IOException.    */
+comment|/**    * Constructor with existing configuration    * @param conf existing configuration    * @throws IOException    */
 name|RESTServlet
 parameter_list|(
 name|Configuration

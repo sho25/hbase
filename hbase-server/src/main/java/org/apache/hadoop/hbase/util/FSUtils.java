@@ -851,7 +851,7 @@ return|return
 name|dir
 return|;
 block|}
-comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or {@value DEFAULT_BUFFER_SIZE} if    * not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -882,7 +882,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or {@value DEFAULT_BUFFER_SIZE} if    * not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
 specifier|public
 specifier|static
 name|FSDataOutputStream

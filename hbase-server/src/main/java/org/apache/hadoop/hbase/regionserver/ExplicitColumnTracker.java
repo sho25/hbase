@@ -182,7 +182,7 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL     * @param ttl The timeToLive to enforce    */
+comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL     */
 specifier|public
 name|ExplicitColumnTracker
 parameter_list|(

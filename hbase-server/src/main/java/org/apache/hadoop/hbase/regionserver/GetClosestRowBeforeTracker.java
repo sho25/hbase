@@ -884,7 +884,7 @@ operator|.
 name|targetkey
 return|;
 block|}
-comment|/**    * @param kv Current kv    * @param First on row kv.    * @param state    * @return True if we went too far, past the target key.    */
+comment|/**    * @param kv Current kv    * @param firstOnRow on row kv.    * @return True if we went too far, past the target key.    */
 name|boolean
 name|isTooFar
 parameter_list|(

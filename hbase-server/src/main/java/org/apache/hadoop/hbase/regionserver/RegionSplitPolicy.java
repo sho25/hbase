@@ -318,7 +318,7 @@ return|return
 name|splitPointFromLargestStore
 return|;
 block|}
-comment|/**    * Create the RegionSplitPolicy configured for the given table.    * Each    * @param htd    * @param conf    * @return    * @throws IOException    */
+comment|/**    * Create the RegionSplitPolicy configured for the given table.    * Each    * @param region    * @param conf    * @return    * @throws IOException    */
 specifier|public
 specifier|static
 name|RegionSplitPolicy

@@ -453,7 +453,7 @@ name|actualRegion
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Fix unassigned by creating/transition the unassigned ZK node for this    * region to OFFLINE state with a special flag to tell the master that this is    * a forced operation by HBCK.    *    * This assumes that info is in META.    *    * @param conf    * @param region    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Fix unassigned by creating/transition the unassigned ZK node for this    * region to OFFLINE state with a special flag to tell the master that this is    * a forced operation by HBCK.    *    * This assumes that info is in META.    *    * @param admin    * @param region    * @throws IOException    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void

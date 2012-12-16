@@ -8797,7 +8797,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Called by {@link #instantiateHLog(Path, Path)} setting up WAL instance.    * Add any {@link WALActionsListener}s you want inserted before WAL startup.    * @return List of WALActionsListener that will be passed in to    * {@link FSHLog} on construction.    */
+comment|/**    * Called by {@link #instantiateHLog(Path, String)} setting up WAL instance.    * Add any {@link WALActionsListener}s you want inserted before WAL startup.    * @return List of WALActionsListener that will be passed in to    * {@link org.apache.hadoop.hbase.regionserver.wal.FSHLog} on construction.    */
 end_comment
 
 begin_function
@@ -17132,7 +17132,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Executes a single {@link org.apache.hadoop.hbase.ipc.CoprocessorProtocol}    * method using the registered protocol handlers.    * {@link CoprocessorProtocol} implementations must be registered per-region    * via the    * {@link org.apache.hadoop.hbase.regionserver.HRegion#registerProtocol(Class, org.apache.hadoop.hbase.ipc.CoprocessorProtocol)}    * method before they are available.    *    * @param regionName name of the region against which the invocation is executed    * @param call an {@code Exec} instance identifying the protocol, method name,    *     and parameters for the method invocation    * @return an {@code ExecResult} instance containing the region name of the    *     invocation and the return value    * @throws IOException if no registered protocol handler is found or an error    *     occurs during the invocation    * @see org.apache.hadoop.hbase.regionserver.HRegion#registerProtocol(Class, org.apache.hadoop.hbase.ipc.CoprocessorProtocol)    */
+comment|/**    * Executes a single method using protobuff.    */
 end_comment
 
 begin_function

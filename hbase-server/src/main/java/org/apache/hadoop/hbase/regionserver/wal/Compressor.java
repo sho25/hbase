@@ -473,7 +473,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Reads the next compressed entry and returns it as a byte array    *     * @param in the DataInput to read from    * @param dict the dictionary we use for our read.    *     * @param the uncompressed array.    */
+comment|/**    * Reads the next compressed entry and returns it as a byte array    *     * @param in the DataInput to read from    * @param dict the dictionary we use for our read.    * @return the uncompressed array.    */
 specifier|static
 name|byte
 index|[]

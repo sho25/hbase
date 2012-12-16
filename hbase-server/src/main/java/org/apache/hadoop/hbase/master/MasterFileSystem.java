@@ -1768,7 +1768,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the rootdir.  Make sure its wholesome and exists before returning.    * @param rd    * @param conf    * @param fs    * @return hbase.rootdir (after checks for existence and bootstrapping if    * needed populating the directory with necessary bootup files).    * @throws IOException    */
+comment|/**    * Get the rootdir.  Make sure its wholesome and exists before returning.    * @param rd    * @param c    * @param fs    * @return hbase.rootdir (after checks for existence and bootstrapping if    * needed populating the directory with necessary bootup files).    * @throws IOException    */
 specifier|private
 name|Path
 name|checkRootDir

@@ -995,7 +995,7 @@ parameter_list|)
 throws|throws
 name|ServiceException
 function_decl|;
-comment|/**    * Modifies an existing column on the specified table    * @param controller Unused (set to null).    * @param req ModifyColumnRequest that contains:<br>    * - tableName: table name<br>    * - descriptor: new column descriptor    * @throws IOException e    */
+comment|/**    * Modifies an existing column on the specified table    * @param controller Unused (set to null).    * @param req ModifyColumnRequest that contains:<br>    * - tableName: table name<br>    * - descriptor: new column descriptor    * @throws ServiceException  e    */
 annotation|@
 name|Override
 specifier|public

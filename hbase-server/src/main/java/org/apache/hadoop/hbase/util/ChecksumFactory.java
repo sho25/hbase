@@ -135,7 +135,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Returns a Constructor that can be used to create a Checksum object.    * @return The Constructor that can be used to create a     * new Checksum object.    * @param theClass classname for which an constructor is created    * @return a new Constructor object    */
+comment|/**    * Returns a Constructor that can be used to create a Checksum object.    * @param className classname for which an constructor is created    * @return a new Constructor object    */
 specifier|static
 specifier|public
 name|Constructor

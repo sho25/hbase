@@ -837,6 +837,7 @@ argument_list|()
 decl_stmt|;
 comment|// Wait/notify for when data has been produced by the reader thread,
 comment|// consumed by the reader thread, or an exception occurred
+specifier|final
 name|Object
 name|dataAvailable
 init|=
@@ -3432,7 +3433,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new {@link Reader} for reading logs to split.    *    * @param fs    * @param file    * @param conf    * @return A new Reader instance    * @throws IOException    * @throws CorruptedLogFile    */
+comment|/**    * Create a new {@link Reader} for reading logs to split.    *    * @param fs    * @param file    * @param conf    * @return A new Reader instance    * @throws IOException    * @throws CorruptedLogFileException    */
 specifier|protected
 name|Reader
 name|getReader

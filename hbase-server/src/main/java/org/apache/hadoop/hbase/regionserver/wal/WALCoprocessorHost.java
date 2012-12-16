@@ -147,7 +147,7 @@ return|return
 name|wal
 return|;
 block|}
-comment|/**      * Constructor      * @param impl the coprocessor instance      * @param priority chaining priority      * @param seq load sequence      * @param conf configuration      * @param hlog HLog      */
+comment|/**      * Constructor      * @param implClass - not used      * @param impl the coprocessor instance      * @param priority chaining priority      * @param seq load sequence      * @param conf configuration      * @param hlog HLog      */
 specifier|public
 name|WALEnvironment
 parameter_list|(

@@ -2163,6 +2163,7 @@ name|KVComparator
 name|comparator
 decl_stmt|;
 specifier|private
+specifier|final
 name|ConcurrentHashMap
 argument_list|<
 name|RegionScanner
@@ -2672,7 +2673,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices reference to {@link RegionServerServices} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)    */
+comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices reference to {@link RegionServerServices} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -16231,7 +16232,7 @@ name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param boolean initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -16283,7 +16284,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param boolean initialize - true to initialize the region    * @param boolean ignoreHLog       - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion

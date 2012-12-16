@@ -2314,7 +2314,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Open daughter regions, add them to online list and update meta.    * @param server    * @param services Can be null when testing.    * @param daughter    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Open daughter regions, add them to online list and update meta.    * @param server    * @param daughter    * @throws IOException    * @throws KeeperException    */
 name|void
 name|openDaughterRegion
 parameter_list|(
@@ -3146,7 +3146,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * @param hri Spec. for daughter region to open.    * @param flusher Flusher this region should use.    * @return Created daughter HRegion.    * @throws IOException    * @see #cleanupDaughterRegion(FileSystem, Path, HRegionInfo)    */
+comment|/**    * @param hri Spec. for daughter region to open.    * @param rsServices RegionServerServices this region should use.    * @return Created daughter HRegion.    * @throws IOException    * @see #cleanupDaughterRegion(FileSystem, Path, String)    */
 name|HRegion
 name|createDaughterRegion
 parameter_list|(

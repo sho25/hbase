@@ -754,7 +754,7 @@ name|tableName
 parameter_list|,
 name|byte
 index|[]
-name|parmsData
+name|permsData
 parameter_list|)
 block|{
 name|String
@@ -806,7 +806,7 @@ name|watcher
 argument_list|,
 name|zkNode
 argument_list|,
-name|parmsData
+name|permsData
 argument_list|,
 operator|-
 literal|1

@@ -583,7 +583,7 @@ name|b
 argument_list|)
 throw|;
 block|}
-comment|/**    * Map a checksum name to a specific type.    * Do our own names.    * @param b    * @return Type associated with passed code.    */
+comment|/**    * Map a checksum name to a specific type.    * Do our own names.    * @param name    * @return Type associated with passed code.    */
 specifier|public
 specifier|static
 name|ChecksumType

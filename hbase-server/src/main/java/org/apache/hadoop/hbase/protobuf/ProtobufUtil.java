@@ -2980,7 +2980,7 @@ return|return
 name|splitKeys
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Get to a client Get    *    * @param get the protocol buffer Get to convert    * @return the converted client Get    * @throws IOException    */
+comment|/**    * Convert a protocol buffer Get to a client Get    *    * @param proto the protocol buffer Get to convert    * @return the converted client Get    * @throws IOException    */
 specifier|public
 specifier|static
 name|Get
