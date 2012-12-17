@@ -647,7 +647,7 @@ operator|.
 name|connection
 return|;
 block|}
-comment|/**    * Run this instance with retries, timed waits,    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Run this instance with retries, timed waits,    * and refinds of missing regions.    *    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 name|T
 name|withRetries
@@ -912,7 +912,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Run this instance against the server once.    * @param<T> the type of the return value    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Run this instance against the server once.    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 name|T
 name|withoutRetries

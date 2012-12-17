@@ -1933,7 +1933,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startRow Starting row in range, inclusive    * @param endRow Ending row in range, exclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range, exclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|List
 argument_list|<
@@ -4152,7 +4152,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call. Queries are executed in parallel.    *    *    * @param actions The collection of actions.    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    */
+comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call. Queries are executed in parallel.    *    * @param list The collection of actions.    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    */
 specifier|public
 parameter_list|<
 name|R

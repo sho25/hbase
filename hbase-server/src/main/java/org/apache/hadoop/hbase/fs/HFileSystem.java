@@ -440,7 +440,7 @@ specifier|final
 name|boolean
 name|useHBaseChecksum
 decl_stmt|;
-comment|/**    * Create a FileSystem object for HBase regionservers.    * @param conf The configuration to be used for the filesystem    * @param useHBaseChecksums if true, then use    *        checksum verfication in hbase, otherwise    *        delegate checksum verification to the FileSystem.    */
+comment|/**    * Create a FileSystem object for HBase regionservers.    * @param conf The configuration to be used for the filesystem    * @param useHBaseChecksum if true, then use    *        checksum verfication in hbase, otherwise    *        delegate checksum verification to the FileSystem.    */
 specifier|public
 name|HFileSystem
 parameter_list|(

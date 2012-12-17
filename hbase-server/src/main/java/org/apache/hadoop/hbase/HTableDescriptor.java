@@ -3447,7 +3447,7 @@ block|{
 return|return;
 block|}
 block|}
-comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for serialization of the HTableDescriptor over RPC    * @deprecated Writables are going away.  Use pb {@link #toByteArray(byte[])} instead.    */
+comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for serialization of the HTableDescriptor over RPC    * @deprecated Writables are going away.    * Use {@link com.google.protobuf.MessageLite#toByteArray} instead.    */
 annotation|@
 name|Deprecated
 annotation|@

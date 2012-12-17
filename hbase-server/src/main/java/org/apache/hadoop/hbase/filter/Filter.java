@@ -223,7 +223,7 @@ index|[]
 name|toByteArray
 parameter_list|()
 function_decl|;
-comment|/**    * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|Filter

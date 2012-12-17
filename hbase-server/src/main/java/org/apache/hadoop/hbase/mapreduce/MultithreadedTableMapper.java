@@ -332,7 +332,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Multithreaded implementation for @link org.apache.hbase.mapreduce.TableMapper  *<p>  * It can be used instead when the Map operation is not CPU  * bound in order to improve throughput.  *<p>  * Mapper implementations using this MapRunnable must be thread-safe.  *<p>  * The Map-Reduce job has to be configured with the mapper to use via  * {@link #setMapperClass(Configuration, Class)} and  * the number of thread the thread-pool can use with the  * {@link #getNumberOfThreads(Configuration) method. The default  * value is 10 threads.  *<p>  */
+comment|/**  * Multithreaded implementation for @link org.apache.hbase.mapreduce.TableMapper  *<p>  * It can be used instead when the Map operation is not CPU  * bound in order to improve throughput.  *<p>  * Mapper implementations using this MapRunnable must be thread-safe.  *<p>  * The Map-Reduce job has to be configured with the mapper to use via  * {@link #setMapperClass} and the number of thread the thread-pool can use with the  * {@link #getNumberOfThreads} method. The default value is 10 threads.  *<p>  */
 end_comment
 
 begin_class

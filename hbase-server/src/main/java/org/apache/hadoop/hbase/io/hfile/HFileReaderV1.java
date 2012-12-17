@@ -1826,7 +1826,7 @@ operator|)
 name|reader
 expr_stmt|;
 block|}
-comment|/**      * Within a loaded block, seek looking for the first key      * that is smaller than (or equal to?) the key we are interested in.      *      * A note on the seekBefore - if you have seekBefore = true, AND the      * first key in the block = key, then you'll get thrown exceptions.      * @param key to find      * @param seekBefore find the key before the exact match.      * @return      */
+comment|/**      * Within a loaded block, seek looking for the first key      * that is smaller than (or equal to?) the key we are interested in.      *      * A note on the seekBefore - if you have seekBefore = true, AND the      * first key in the block = key, then you'll get thrown exceptions.      * @param key to find      * @param seekBefore find the key before the exact match.      */
 specifier|protected
 specifier|abstract
 name|int

@@ -5450,7 +5450,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct an IPC client with the default SocketFactory    * @param valueClass value class    * @param conf configuration    */
+comment|/**    * Construct an IPC client with the default SocketFactory    * @param conf configuration    */
 specifier|public
 name|HBaseClient
 parameter_list|(

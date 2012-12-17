@@ -423,7 +423,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link PrefixFilter} instance    * @return An instance of {@link PrefixFilter} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link PrefixFilter} instance    * @return An instance of {@link PrefixFilter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|PrefixFilter

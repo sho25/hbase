@@ -284,7 +284,7 @@ name|path
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param rootdir Path to the root directory where hbase files are stored    * @param archiveDir Path to the hbase archive directory    * @param path The path of the HFile Link.    */
+comment|/**    * @param rootDir Path to the root directory where hbase files are stored    * @param archiveDir Path to the hbase archive directory    * @param path The path of the HFile Link.    */
 specifier|public
 name|HFileLink
 parameter_list|(
@@ -341,7 +341,7 @@ name|archivePath
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param originPath Path to the hfile in the table directory    * @param archiveDir Path to the hfile in the archive directory    */
+comment|/**    * @param originPath Path to the hfile in the table directory    * @param archivePath Path to the hfile in the archive directory    */
 specifier|public
 name|HFileLink
 parameter_list|(
@@ -398,7 +398,7 @@ operator|.
 name|archivePath
 return|;
 block|}
-comment|/**    * @param p Path to check.    * @return True if the path is a HFileLink.    */
+comment|/**    * @param path Path to check.    * @return True if the path is a HFileLink.    */
 specifier|public
 specifier|static
 name|boolean
@@ -551,7 +551,7 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/.archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param rootdir root hbase directory    * @param archiveDir Path to the hbase archive directory    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
+comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/.archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param rootDir root hbase directory    * @param archiveDir Path to the hbase archive directory    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
 specifier|public
 specifier|static
 name|Path
@@ -1175,7 +1175,7 @@ operator|+
 name|tableName
 return|;
 block|}
-comment|/**    * Get the full path of the HFile referenced by the back reference    *    * @param rootdir root hbase directory    * @param linkRefPath Link Back Reference path    * @return full path of the referenced hfile    * @throws IOException on unexpected error.    */
+comment|/**    * Get the full path of the HFile referenced by the back reference    *    * @param rootDir root hbase directory    * @param linkRefPath Link Back Reference path    * @return full path of the referenced hfile    * @throws IOException on unexpected error.    */
 specifier|public
 specifier|static
 name|Path

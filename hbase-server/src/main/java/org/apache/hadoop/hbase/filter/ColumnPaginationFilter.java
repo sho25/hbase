@@ -417,7 +417,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link ColumnPaginationFilter} instance    * @return An instance of {@link ColumnPaginationFilter} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link ColumnPaginationFilter} instance    * @return An instance of {@link ColumnPaginationFilter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|ColumnPaginationFilter

@@ -184,7 +184,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This comparator is for use with {@link CompareFilter} implementations, such  * as {@link RowFilter}, {@link QualifierFilter}, and {@link ValueFilter}, for  * filtering based on the value of a given column. Use it to test if a given  * regular expression matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL comparisons are valid with this comparator.  *<p>  * For example:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  *<p>  * Supports {@link java.util.regex.Pattern} flags as well:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator("regex", Pattern.CASE_INSENSITIVE | Pattern.DOTALL));  *</pre>  * @see java.util.regex.Pattern;  */
+comment|/**  * This comparator is for use with {@link CompareFilter} implementations, such  * as {@link RowFilter}, {@link QualifierFilter}, and {@link ValueFilter}, for  * filtering based on the value of a given column. Use it to test if a given  * regular expression matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL comparisons are valid with this comparator.  *<p>  * For example:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  *<p>  * Supports {@link java.util.regex.Pattern} flags as well:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator("regex", Pattern.CASE_INSENSITIVE | Pattern.DOTALL));  *</pre>  * @see java.util.regex.Pattern  */
 end_comment
 
 begin_class
@@ -405,7 +405,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link RegexStringComparator} instance    * @return An instance of {@link RegexStringComparator} made from<code>bytes</code>    * @throws DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link RegexStringComparator} instance    * @return An instance of {@link RegexStringComparator} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|RegexStringComparator
