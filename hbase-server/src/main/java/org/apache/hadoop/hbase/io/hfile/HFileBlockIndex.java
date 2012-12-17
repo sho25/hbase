@@ -1376,11 +1376,7 @@ name|midKey
 operator|=
 name|blockKeys
 index|[
-operator|(
 name|rootCount
-operator|-
-literal|1
-operator|)
 operator|/
 literal|2
 index|]
