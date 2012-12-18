@@ -356,6 +356,26 @@ argument_list|(
 name|zkProperties
 argument_list|)
 expr_stmt|;
+comment|// login the zookeeper server principal (if using security)
+name|ZKUtil
+operator|.
+name|loginServer
+argument_list|(
+name|conf
+argument_list|,
+literal|"hbase.zookeeper.server.keytab.file"
+argument_list|,
+literal|"hbase.zookeeper.server.kerberos.principal"
+argument_list|,
+name|zkConfig
+operator|.
+name|getClientPortAddress
+argument_list|()
+operator|.
+name|getHostName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|runZKServer
 argument_list|(
 name|zkConfig

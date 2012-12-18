@@ -3462,6 +3462,27 @@ literal|1024
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// login the zookeeper client principal (if using security)
+name|ZKUtil
+operator|.
+name|loginClient
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
+literal|"hbase.zookeeper.client.keytab.file"
+argument_list|,
+literal|"hbase.zookeeper.client.kerberos.principal"
+argument_list|,
+name|this
+operator|.
+name|isa
+operator|.
+name|getHostName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// initialize server principal (if using secure Hadoop)
 name|User
 operator|.
