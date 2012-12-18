@@ -594,7 +594,7 @@ name|scanMetrics
 operator|.
 name|countOfRPCRetries
 operator|.
-name|inc
+name|incrementAndGet
 argument_list|()
 expr_stmt|;
 if|if
@@ -608,7 +608,7 @@ name|scanMetrics
 operator|.
 name|countOfRemoteRPCRetries
 operator|.
-name|inc
+name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
@@ -1028,7 +1028,7 @@ name|scanMetrics
 operator|.
 name|countOfNSRE
 operator|.
-name|inc
+name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
@@ -1102,7 +1102,7 @@ name|scanMetrics
 operator|.
 name|countOfRPCcalls
 operator|.
-name|inc
+name|incrementAndGet
 argument_list|()
 expr_stmt|;
 if|if
@@ -1116,7 +1116,7 @@ name|scanMetrics
 operator|.
 name|countOfRemoteRPCcalls
 operator|.
-name|inc
+name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
