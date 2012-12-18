@@ -578,7 +578,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Maintains lists of permission grants to users and groups to allow for  * authorization checks by {@link AccessController}.  *  *<p>  * Access control lists are stored in an "internal" metadata table named  * {@code _acl_}. Each table's permission grants are stored as a separate row,  * keyed by the table name. KeyValues for permissions assignments are stored  * in one of the formats:  *<pre>  * Key                      Desc  * --------                 --------  * user                     table level permissions for a user [R=read, W=write]  * @group                   table level permissions for a group  * user,family              column family level permissions for a user  * @group,family            column family level permissions for a group  * user,family,qualifier    column qualifier level permissions for a user  * @group,family,qualifier  column qualifier level permissions for a group  *</pre>  * All values are encoded as byte arrays containing the codes from the  * {@link org.apache.hadoop.hbase.security.access.TablePermission.Action} enum.  *</p>  */
+comment|/**  * Maintains lists of permission grants to users and groups to allow for  * authorization checks by {@link AccessController}.  *  *<p>  * Access control lists are stored in an "internal" metadata table named  * {@code _acl_}. Each table's permission grants are stored as a separate row,  * keyed by the table name. KeyValues for permissions assignments are stored  * in one of the formats:  *<pre>  * Key                      Desc  * --------                 --------  * user                     table level permissions for a user [R=read, W=write]  * group                    table level permissions for a group  * user,family              column family level permissions for a user  * group,family             column family level permissions for a group  * user,family,qualifier    column qualifier level permissions for a user  * group,family,qualifier   column qualifier level permissions for a group  *</pre>  * All values are encoded as byte arrays containing the codes from the  * {@link org.apache.hadoop.hbase.security.access.TablePermission.Action} enum.  *</p>  */
 end_comment
 
 begin_class
@@ -1638,7 +1638,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Loads all of the permission grants stored in a region of the {@code _acl_}    * table.    *    * @param aclRegion    * @return    * @throws IOException    */
+comment|/**    * Loads all of the permission grants stored in a region of the {@code _acl_}    * table.    *    * @param aclRegion    * @return a map of the permissions for this table.    * @throws IOException    */
 specifier|static
 name|Map
 argument_list|<

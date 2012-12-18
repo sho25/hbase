@@ -2725,7 +2725,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlush(ObserverContext<RegionCoprocessorEnvironment>, HStore, KeyValueScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext, HStore, KeyValueScanner, InternalScanner)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen

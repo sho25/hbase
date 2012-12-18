@@ -7931,7 +7931,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @param familyMap    * @param now    * @throws IOException    */
+comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @param familyMap    * @param byteNow    * @throws IOException    */
 name|void
 name|prepareDeleteTimestamps
 parameter_list|(
@@ -8524,7 +8524,7 @@ name|length
 return|;
 block|}
 block|}
-comment|/**    * Perform a batch put with no pre-specified locks    * @see HRegion#put(Pair[])    */
+comment|/**    * Perform a batch put with no pre-specified locks    * @see HRegion#batchMutate(Pair[])    */
 specifier|public
 name|OperationStatus
 index|[]

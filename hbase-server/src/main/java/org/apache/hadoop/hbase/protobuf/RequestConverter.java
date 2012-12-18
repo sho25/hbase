@@ -5599,7 +5599,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|table
+name|tableName
 parameter_list|)
 block|{
 name|GetSchemaAlterStatusRequest
@@ -5620,7 +5620,7 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-name|table
+name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;

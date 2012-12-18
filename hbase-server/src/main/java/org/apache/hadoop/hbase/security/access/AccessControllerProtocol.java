@@ -102,7 +102,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Revokes a previously granted privilege from a user or group.    * Note that the provided {@link TablePermission} details must exactly match    * a stored grant.  For example, if user "bob" has been granted "READ" access    * to table "data", over column family and qualifer "info:colA", then the    * table, column family and column qualifier must all be specified.    * Attempting to revoke permissions over just the "data" table will have    * no effect.    * @param permission the details of the previously granted permission to revoke    * @throws IOException if the revocation could not be performed    */
+comment|/**    * Revokes a previously granted privilege from a user or group.    * Note that the provided {@link TablePermission} details must exactly match    * a stored grant.  For example, if user "bob" has been granted "READ" access    * to table "data", over column family and qualifer "info:colA", then the    * table, column family and column qualifier must all be specified.    * Attempting to revoke permissions over just the "data" table will have    * no effect.    * @param userPermission the details of the previously granted permission to revoke    * @throws IOException if the revocation could not be performed    */
 specifier|public
 name|void
 name|revoke

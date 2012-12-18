@@ -5439,7 +5439,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.delete() and returns the value returned by the fs.delete()    *     * @param fs    * @param path    * @param recursive    * @return    * @throws IOException    */
+comment|/**    * Calls fs.delete() and returns the value returned by the fs.delete()    *     * @param fs    * @param path    * @param recursive    * @return the value returned by the fs.delete()    * @throws IOException    */
 end_comment
 
 begin_function
@@ -5477,7 +5477,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.exists(). Checks if the specified path exists    *     * @param fs    * @param path    * @return    * @throws IOException    */
+comment|/**    * Calls fs.exists(). Checks if the specified path exists    *     * @param fs    * @param path    * @return the value returned by fs.exists()    * @throws IOException    */
 end_comment
 
 begin_function

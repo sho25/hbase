@@ -552,7 +552,7 @@ name|nanoTime
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Find out if a given region is in compaction now.      *      * @param regionId      * @return      */
+comment|/**      * Find out if a given region is in compaction now.      *      * @param regionId      * @return a CompactionState      */
 specifier|public
 specifier|static
 name|CompactionState

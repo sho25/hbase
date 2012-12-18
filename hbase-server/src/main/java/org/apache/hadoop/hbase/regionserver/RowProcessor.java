@@ -241,7 +241,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    * This method should return any additional data that is needed on the    * server side to construct the RowProcessor. The server will pass this to    * the {@link #initialize(ByteString)} method. If there is no RowProcessor    * specific data then null should be returned.    * @return the PB message    * @throws IOException    */
+comment|/**    * This method should return any additional data that is needed on the    * server side to construct the RowProcessor. The server will pass this to    * the {@link #initialize(Message msg)} method. If there is no RowProcessor    * specific data then null should be returned.    * @return the PB message    * @throws IOException    */
 name|S
 name|getRequestData
 parameter_list|()

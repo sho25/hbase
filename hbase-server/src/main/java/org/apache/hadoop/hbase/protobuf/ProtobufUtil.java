@@ -5394,7 +5394,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Create a new protocol buffer Exec based on a client Exec    *    * @param exec    * @return    * @throws IOException    */
+comment|/**    * Create a new protocol buffer Exec based on a client Exec    *    * @param exec    * @return a ClientProtos.Exec    * @throws IOException    */
 specifier|public
 specifier|static
 name|ClientProtos
@@ -7594,7 +7594,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a delete KeyValue type to protocol buffer DeleteType.    *    * @param type    * @return    * @throws IOException    */
+comment|/**    * Convert a delete KeyValue type to protocol buffer DeleteType.    *    * @param type    * @return a DeleteType    * @throws IOException    */
 specifier|public
 specifier|static
 name|DeleteType

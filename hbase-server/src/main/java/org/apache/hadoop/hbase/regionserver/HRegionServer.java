@@ -8766,7 +8766,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Called by {@link #setupWALAndReplication()} creating WAL instance.    * @param logdir    * @param oldLogDir    * @return WAL instance.    * @throws IOException    */
+comment|/**    * Called by {@link #setupWALAndReplication()} creating WAL instance.    * @param rootdir    * @param logName    * @return WAL instance.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -11368,7 +11368,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * For tests, web ui and metrics.    * This method will only work if HRegionServer is in the same JVM as client;    * HRegion cannot be serialized to cross an rpc.    * @see #getOnlineRegions()    */
+comment|/**    * For tests, web ui and metrics.    * This method will only work if HRegionServer is in the same JVM as client;    * HRegion cannot be serialized to cross an rpc.    */
 end_comment
 
 begin_function
@@ -20246,7 +20246,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate    * @return    * @throws IOException    */
+comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate    * @return the Result    * @throws IOException    */
 end_comment
 
 begin_function
@@ -20388,7 +20388,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Execute an increment mutation.    *    * @param region    * @param mutate    * @return    * @throws IOException    */
+comment|/**    * Execute an increment mutation.    *    * @param region    * @param mutate    * @return the Result    * @throws IOException    */
 end_comment
 
 begin_function

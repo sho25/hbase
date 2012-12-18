@@ -851,7 +851,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    *    * @param s    * @param k    * @return    * @throws IOException    */
+comment|/**    *    * @param s    * @param k    * @return false if not found or if k is after the end.    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
