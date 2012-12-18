@@ -6366,13 +6366,14 @@ argument_list|(
 literal|"Acquiring readlock on region"
 argument_list|)
 expr_stmt|;
-name|lock
-argument_list|(
+comment|// block waiting for the lock for flushing cache
 name|lock
 operator|.
 name|readLock
 argument_list|()
-argument_list|)
+operator|.
+name|lock
+argument_list|()
 expr_stmt|;
 try|try
 block|{
