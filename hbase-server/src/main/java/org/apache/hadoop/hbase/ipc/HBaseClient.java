@@ -5964,7 +5964,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.    * @param params RpcRequestBody parameters    * @param addresses socket addresses    * @return  RpcResponseBody[]    * @throws IOException e    * @deprecated Use {@link #call(RpcRequestBody[], InetSocketAddress[], Class, User)} instead    */
+comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.    * @param params RpcRequestBody parameters    * @param addresses socket addresses    * @return  RpcResponseBody[]    * @throws IOException e    * @deprecated Use {@code #call(RpcRequestBody[], InetSocketAddress[], Class, User)} instead    */
 annotation|@
 name|Deprecated
 specifier|public

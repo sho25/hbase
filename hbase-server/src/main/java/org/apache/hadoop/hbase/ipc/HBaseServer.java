@@ -1521,7 +1521,7 @@ return|return
 name|protocol
 return|;
 block|}
-comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Class, RpcRequestBody, long, MonitoredRPCHandler)} implementations,    * and under protobuf methods of parameters and return values.    * Permits applications to access the server context.    * @return HBaseServer    */
+comment|/** Returns the server instance called under or null.  May be called under    * {@code #call(Class, RpcRequestBody, long, MonitoredRPCHandler)} implementations,    * and under protobuf methods of parameters and return values.    * Permits applications to access the server context.    * @return HBaseServer    */
 specifier|public
 specifier|static
 name|RpcServer
