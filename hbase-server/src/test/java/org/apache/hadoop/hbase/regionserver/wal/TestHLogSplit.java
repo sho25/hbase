@@ -953,7 +953,7 @@ specifier|private
 name|FileSystem
 name|fs
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 specifier|static
 name|HBaseTestingUtility

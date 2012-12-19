@@ -397,6 +397,12 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+name|void
+name|reset
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 specifier|public
 interface|interface

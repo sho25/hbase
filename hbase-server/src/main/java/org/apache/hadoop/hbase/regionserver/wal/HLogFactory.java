@@ -339,7 +339,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**      * Create a reader for the WAL.      * @return A WAL reader.  Close when done with it.      * @throws IOException      */
+comment|/**      * Create a reader for the WAL. If you are reading from a file that's being written to      * and need to reopen it multiple times, use {@link HLog.Reader#reset()} instead of this method      * then just seek back to the last known good position.      * @return A WAL reader.  Close when done with it.      * @throws IOException      */
 specifier|public
 specifier|static
 name|HLog

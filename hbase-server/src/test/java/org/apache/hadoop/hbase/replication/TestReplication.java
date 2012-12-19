@@ -546,10 +546,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 name|Configuration
 name|conf1
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
@@ -697,13 +702,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf1
-operator|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-expr_stmt|;
 name|conf1
 operator|.
 name|set
@@ -3012,7 +3010,7 @@ name|startMiniHBaseCluster
 argument_list|(
 literal|1
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|Get
@@ -4329,20 +4327,15 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-for|for
-control|(
 name|int
 name|i
 init|=
 literal|0
-init|;
-name|i
-operator|<
-name|NB_RETRIES
-condition|;
-name|i
-operator|++
-control|)
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
 block|{
 if|if
 condition|(
@@ -4429,6 +4422,12 @@ name|i
 operator|--
 expr_stmt|;
 comment|// Don't increment timeout if we make progress
+block|}
+else|else
+block|{
+name|i
+operator|++
+expr_stmt|;
 block|}
 name|lastCount
 operator|=
@@ -4526,6 +4525,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Couldn't kill a region server"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
