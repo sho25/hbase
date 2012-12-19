@@ -256,6 +256,19 @@ argument_list|(
 literal|"Linux"
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|JVMVersion
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"java.version"
+argument_list|)
+decl_stmt|;
 comment|/**    * Constructor. Get the running Operating System instance    */
 specifier|public
 name|JVM
@@ -273,6 +286,7 @@ expr_stmt|;
 block|}
 comment|/**    * Check if the OS is unix.     *     * @return whether this is unix or not.    */
 specifier|public
+specifier|static
 name|boolean
 name|isUnix
 parameter_list|()
@@ -294,6 +308,24 @@ name|linux
 else|:
 literal|true
 operator|)
+return|;
+block|}
+comment|/**    * Check if the finish() method of GZIPOutputStream is broken    *     * @return whether GZIPOutputStream.finish() is broken.    */
+specifier|public
+specifier|static
+name|boolean
+name|isGZIPOutputStreamFinishBroken
+parameter_list|()
+block|{
+return|return
+name|ibmvendor
+operator|&&
+name|JVMVersion
+operator|.
+name|contains
+argument_list|(
+literal|"1.6.0"
+argument_list|)
 return|;
 block|}
 comment|/**    * Load the implementation of UnixOperatingSystemMXBean for Oracle jvm    * and runs the desired method.     * @param mBeanMethodName : method to run from the interface UnixOperatingSystemMXBean    * @return the method result    */
