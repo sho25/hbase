@@ -895,6 +895,11 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|String
+name|request
+decl_stmt|;
+specifier|private
+specifier|final
+name|String
 name|reason
 decl_stmt|;
 specifier|private
@@ -907,6 +912,9 @@ name|AuthResult
 parameter_list|(
 name|boolean
 name|allowed
+parameter_list|,
+name|String
+name|request
 parameter_list|,
 name|String
 name|reason
@@ -937,6 +945,12 @@ operator|.
 name|allowed
 operator|=
 name|allowed
+expr_stmt|;
+name|this
+operator|.
+name|request
+operator|=
+name|request
 expr_stmt|;
 name|this
 operator|.
@@ -1000,6 +1014,15 @@ parameter_list|()
 block|{
 return|return
 name|reason
+return|;
+block|}
+specifier|public
+name|String
+name|getRequest
+parameter_list|()
+block|{
+return|return
+name|request
 return|;
 block|}
 specifier|public
@@ -1128,6 +1151,9 @@ name|AuthResult
 name|allow
 parameter_list|(
 name|String
+name|request
+parameter_list|,
+name|String
 name|reason
 parameter_list|,
 name|User
@@ -1156,6 +1182,8 @@ operator|new
 name|AuthResult
 argument_list|(
 literal|true
+argument_list|,
+name|request
 argument_list|,
 name|reason
 argument_list|,
@@ -1177,6 +1205,9 @@ name|AuthResult
 name|allow
 parameter_list|(
 name|String
+name|request
+parameter_list|,
+name|String
 name|reason
 parameter_list|,
 name|User
@@ -1198,6 +1229,8 @@ name|AuthResult
 argument_list|(
 literal|true
 argument_list|,
+name|request
+argument_list|,
 name|reason
 argument_list|,
 name|user
@@ -1217,6 +1250,9 @@ specifier|static
 name|AuthResult
 name|deny
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|String
 name|reason
 parameter_list|,
@@ -1239,6 +1275,8 @@ name|AuthResult
 argument_list|(
 literal|false
 argument_list|,
+name|request
+argument_list|,
 name|reason
 argument_list|,
 name|user
@@ -1258,6 +1296,9 @@ specifier|static
 name|AuthResult
 name|deny
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|String
 name|reason
 parameter_list|,
@@ -1287,6 +1328,8 @@ operator|new
 name|AuthResult
 argument_list|(
 literal|false
+argument_list|,
+name|request
 argument_list|,
 name|reason
 argument_list|,
@@ -1727,6 +1770,9 @@ comment|/**    * Check the current user for authorization to perform a specific 
 name|AuthResult
 name|permissionGranted
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|User
 name|user
 parameter_list|,
@@ -1804,6 +1850,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"All users allowed"
 argument_list|,
 name|user
@@ -1827,6 +1875,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"No user associated with request!"
 argument_list|,
 literal|null
@@ -1909,6 +1959,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"Table permission granted"
 argument_list|,
 name|user
@@ -1945,6 +1997,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"Table permission granted"
 argument_list|,
 name|user
@@ -2109,6 +2163,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"Failed qualifier check"
 argument_list|,
 name|user
@@ -2195,6 +2251,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"Failed qualifier check"
 argument_list|,
 name|user
@@ -2226,6 +2284,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"Failed family check"
 argument_list|,
 name|user
@@ -2250,6 +2310,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"All family checks passed"
 argument_list|,
 name|user
@@ -2266,6 +2328,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"No families to check and table permission failed"
 argument_list|,
 name|user
@@ -2377,6 +2441,13 @@ else|:
 literal|""
 operator|)
 operator|+
+literal|"; request: "
+operator|+
+name|result
+operator|.
+name|getRequest
+argument_list|()
+operator|+
 literal|"; context: "
 operator|+
 name|result
@@ -2430,6 +2501,9 @@ specifier|private
 name|void
 name|requirePermission
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|byte
 index|[]
 name|tableName
@@ -2492,6 +2566,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"Table permission granted"
 argument_list|,
 name|user
@@ -2516,6 +2592,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"Insufficient permissions"
 argument_list|,
 name|user
@@ -2564,6 +2642,9 @@ specifier|private
 name|void
 name|requirePermission
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|Permission
 operator|.
 name|Action
@@ -2596,6 +2677,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+name|request
+argument_list|,
 literal|"Global check allowed"
 argument_list|,
 name|user
@@ -2615,6 +2698,8 @@ name|AuthResult
 operator|.
 name|deny
 argument_list|(
+name|request
+argument_list|,
 literal|"Global check failed"
 argument_list|,
 name|user
@@ -2661,6 +2746,9 @@ specifier|private
 name|void
 name|requirePermission
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|Permission
 operator|.
 name|Action
@@ -2728,6 +2816,8 @@ expr_stmt|;
 block|}
 name|requirePermission
 argument_list|(
+name|request
+argument_list|,
 name|perm
 argument_list|,
 name|env
@@ -2741,6 +2831,9 @@ specifier|private
 name|void
 name|requirePermission
 parameter_list|(
+name|String
+name|request
+parameter_list|,
 name|Permission
 operator|.
 name|Action
@@ -2777,6 +2870,8 @@ name|result
 init|=
 name|permissionGranted
 argument_list|(
+name|request
+argument_list|,
 name|user
 argument_list|,
 name|perm
@@ -3319,6 +3414,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"createTable"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -3491,6 +3588,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"deleteTable"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -3604,6 +3703,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"modifyTable"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -3775,6 +3876,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"addColumn"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -3881,6 +3984,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"modifyColumn"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -3988,6 +4093,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"deleteColumn"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -4112,6 +4219,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"enableTable"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -4234,6 +4343,8 @@ throw|;
 block|}
 name|requirePermission
 argument_list|(
+literal|"disableTable"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -4333,6 +4444,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"move"
+argument_list|,
 name|region
 operator|.
 name|getTableName
@@ -4392,6 +4505,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"assign"
+argument_list|,
 name|regionInfo
 operator|.
 name|getTableName
@@ -4448,6 +4563,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"unassign"
+argument_list|,
 name|regionInfo
 operator|.
 name|getTableName
@@ -4501,6 +4618,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"balance"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -4550,6 +4669,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"balanceSwitch"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -4599,6 +4720,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"shutdown"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -4624,6 +4747,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"stopMaster"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -4742,6 +4867,8 @@ else|else
 block|{
 name|requirePermission
 argument_list|(
+literal|"preOpen"
+argument_list|,
 name|Action
 operator|.
 name|ADMIN
@@ -4855,6 +4982,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"flush"
+argument_list|,
 name|getTableName
 argument_list|(
 name|e
@@ -4890,6 +5019,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"split"
+argument_list|,
 name|getTableName
 argument_list|(
 name|e
@@ -4929,6 +5060,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"split"
+argument_list|,
 name|getTableName
 argument_list|(
 name|e
@@ -4972,6 +5105,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"compact"
+argument_list|,
 name|getTableName
 argument_list|(
 name|e
@@ -5022,6 +5157,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"compact"
+argument_list|,
 name|getTableName
 argument_list|(
 name|e
@@ -5072,6 +5209,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"getClosestRowBefore"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5147,6 +5286,8 @@ name|authResult
 init|=
 name|permissionGranted
 argument_list|(
+literal|"get"
+argument_list|,
 name|requestUser
 argument_list|,
 name|Permission
@@ -5275,6 +5416,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+literal|"get"
+argument_list|,
 literal|"Access allowed with filter"
 argument_list|,
 name|requestUser
@@ -5357,6 +5500,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"exists"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5408,6 +5553,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"put"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5502,6 +5649,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"delete"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5639,6 +5788,8 @@ argument_list|)
 decl_stmt|;
 name|requirePermission
 argument_list|(
+literal|"checkAndPut"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5655,6 +5806,8 @@ argument_list|)
 expr_stmt|;
 name|requirePermission
 argument_list|(
+literal|"checkAndPut"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5744,6 +5897,8 @@ argument_list|)
 decl_stmt|;
 name|requirePermission
 argument_list|(
+literal|"checkAndDelete"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5760,6 +5915,8 @@ argument_list|)
 expr_stmt|;
 name|requirePermission
 argument_list|(
+literal|"checkAndDelete"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5819,6 +5976,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"incrementColumnValue"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5869,6 +6028,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"append"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5912,6 +6073,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"increment"
+argument_list|,
 name|Permission
 operator|.
 name|Action
@@ -5980,6 +6143,8 @@ name|authResult
 init|=
 name|permissionGranted
 argument_list|(
+literal|"scannerOpen"
+argument_list|,
 name|user
 argument_list|,
 name|Permission
@@ -6106,6 +6271,8 @@ name|AuthResult
 operator|.
 name|allow
 argument_list|(
+literal|"scannerOpen"
+argument_list|,
 literal|"Access allowed with filter"
 argument_list|,
 name|user
@@ -6452,6 +6619,8 @@ expr_stmt|;
 block|}
 name|requirePermission
 argument_list|(
+literal|"grant"
+argument_list|,
 name|perm
 operator|.
 name|getTable
@@ -6626,6 +6795,8 @@ expr_stmt|;
 block|}
 name|requirePermission
 argument_list|(
+literal|"revoke"
+argument_list|,
 name|perm
 operator|.
 name|getTable
@@ -6784,6 +6955,8 @@ condition|)
 block|{
 name|requirePermission
 argument_list|(
+literal|"userPermissions"
+argument_list|,
 name|tableName
 argument_list|,
 literal|null
@@ -7044,6 +7217,8 @@ block|}
 block|}
 name|requirePermission
 argument_list|(
+literal|"checkPermissions"
+argument_list|,
 name|action
 argument_list|,
 name|regionEnv
@@ -7070,6 +7245,8 @@ control|)
 block|{
 name|requirePermission
 argument_list|(
+literal|"checkPermissions"
+argument_list|,
 name|action
 argument_list|)
 expr_stmt|;
@@ -7632,6 +7809,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"preClose"
+argument_list|,
 name|Action
 operator|.
 name|ADMIN
@@ -7824,6 +8003,8 @@ name|IOException
 block|{
 name|requirePermission
 argument_list|(
+literal|"preStopRegionServer"
+argument_list|,
 name|Permission
 operator|.
 name|Action
