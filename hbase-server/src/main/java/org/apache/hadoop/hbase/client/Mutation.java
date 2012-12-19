@@ -783,6 +783,13 @@ name|UUID
 name|clusterId
 parameter_list|)
 block|{
+if|if
+condition|(
+name|clusterId
+operator|==
+literal|null
+condition|)
+return|return;
 name|byte
 index|[]
 name|val
