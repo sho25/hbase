@@ -687,22 +687,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -1573,6 +1557,7 @@ literal|null
 return|;
 block|}
 comment|/*    * Return path to the file referred to by a Reference.  Presumes a directory    * hierarchy of<code>${hbase.rootdir}/tablename/regionname/familyname</code>.    * @param p Path to a Reference file.    * @return Calculated path to parent region file.    * @throws IOException    */
+specifier|public
 specifier|static
 name|Path
 name|getReferredToFile
