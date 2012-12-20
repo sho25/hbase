@@ -625,7 +625,7 @@ specifier|final
 name|long
 name|SLEEP_TIME
 init|=
-literal|500
+literal|1500
 decl_stmt|;
 specifier|private
 specifier|static
