@@ -19,31 +19,25 @@ end_package
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|Collections
+name|protobuf
+operator|.
+name|ByteString
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|util
-operator|.
-name|TreeSet
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -113,22 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
-operator|.
-name|RowCounter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|generated
@@ -155,25 +133,21 @@ end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|ByteString
+name|Set
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|TreeSet
 import|;
 end_import
 

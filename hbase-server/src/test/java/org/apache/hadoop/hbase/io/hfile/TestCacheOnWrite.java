@@ -363,8 +363,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
 name|BloomType
 import|;
 end_import
@@ -657,8 +655,6 @@ specifier|final
 name|BloomType
 name|BLOOM_TYPE
 init|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROWCOL

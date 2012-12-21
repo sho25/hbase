@@ -659,8 +659,6 @@ name|comprAlgo
 decl_stmt|;
 specifier|private
 specifier|final
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 decl_stmt|;
@@ -801,8 +799,6 @@ operator|.
 name|Algorithm
 name|comprAlgo
 parameter_list|,
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 parameter_list|,

@@ -453,8 +453,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
 name|BloomType
 import|;
 end_import
@@ -789,8 +787,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -1044,8 +1040,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -1146,8 +1140,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -1451,8 +1443,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -2193,8 +2183,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -2222,8 +2210,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -2591,8 +2577,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -2620,8 +2604,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -3367,8 +3349,6 @@ argument_list|)
 operator|.
 name|withBloomType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -3858,21 +3838,15 @@ init|=
 literal|2
 decl_stmt|;
 comment|// run once using columns and once using rows
-name|StoreFile
-operator|.
 name|BloomType
 index|[]
 name|bt
 init|=
 block|{
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROWCOL
 block|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -4386,8 +4360,6 @@ index|[
 name|x
 index|]
 operator|==
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -4606,8 +4578,6 @@ argument_list|)
 operator|.
 name|withBloomType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -4694,8 +4664,6 @@ argument_list|)
 operator|.
 name|withBloomType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -4751,8 +4719,6 @@ argument_list|)
 operator|.
 name|withBloomType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW
@@ -5438,8 +5404,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -5776,8 +5740,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -5960,8 +5922,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -6076,8 +6036,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -6138,8 +6096,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -6414,8 +6370,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -6512,8 +6466,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE

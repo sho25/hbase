@@ -241,24 +241,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
 name|BloomType
 import|;
 end_import
@@ -652,8 +634,6 @@ specifier|final
 name|String
 name|DEFAULT_BLOOMFILTER
 init|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -1502,8 +1482,6 @@ argument_list|)
 expr_stmt|;
 name|setBloomFilterType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|valueOf
@@ -2699,8 +2677,6 @@ return|;
 block|}
 comment|/**    * @return bloom filter type used for new StoreFiles in ColumnFamily    */
 specifier|public
-name|StoreFile
-operator|.
 name|BloomType
 name|getBloomFilterType
 parameter_list|()
@@ -2726,8 +2702,6 @@ name|DEFAULT_BLOOMFILTER
 expr_stmt|;
 block|}
 return|return
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|valueOf
@@ -2745,8 +2719,6 @@ name|HColumnDescriptor
 name|setBloomFilterType
 parameter_list|(
 specifier|final
-name|StoreFile
-operator|.
 name|BloomType
 name|bt
 parameter_list|)

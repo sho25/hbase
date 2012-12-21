@@ -472,7 +472,7 @@ name|Configuration
 argument_list|()
 expr_stmt|;
 comment|// Set RPC engine to protobuf RPC engine
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|setProtocolEngine
 argument_list|(
@@ -482,7 +482,22 @@ name|TestRpcService
 operator|.
 name|class
 argument_list|,
-name|ProtobufRpcEngine
+name|ProtobufRpcClientEngine
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+name|HBaseServerRPC
+operator|.
+name|setProtocolEngine
+argument_list|(
+name|conf
+argument_list|,
+name|TestRpcService
+operator|.
+name|class
+argument_list|,
+name|ProtobufRpcServerEngine
 operator|.
 name|class
 argument_list|)
@@ -498,7 +513,7 @@ decl_stmt|;
 comment|// Get RPC server for server side implementation
 name|server
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -569,7 +584,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Set RPC engine to protobuf RPC engine
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|setProtocolEngine
 argument_list|(
@@ -579,7 +594,22 @@ name|TestRpcService
 operator|.
 name|class
 argument_list|,
-name|ProtobufRpcEngine
+name|ProtobufRpcClientEngine
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+name|HBaseServerRPC
+operator|.
+name|setProtocolEngine
+argument_list|(
+name|conf
+argument_list|,
+name|TestRpcService
+operator|.
+name|class
+argument_list|,
+name|ProtobufRpcServerEngine
 operator|.
 name|class
 argument_list|)
@@ -588,7 +618,7 @@ return|return
 operator|(
 name|TestRpcService
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(

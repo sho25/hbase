@@ -1568,8 +1568,6 @@ argument_list|()
 operator|.
 name|setBloomFilterType
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROW

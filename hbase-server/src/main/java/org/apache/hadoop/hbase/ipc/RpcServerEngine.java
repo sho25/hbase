@@ -19,36 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|net
-operator|.
-name|SocketFactory
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -77,22 +47,16 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
+name|IOException
 import|;
 end_import
 
 begin_comment
-comment|/** An RPC implementation. */
+comment|/** An RPC implementation for the server. */
 end_comment
 
 begin_interface
@@ -101,49 +65,8 @@ name|InterfaceAudience
 operator|.
 name|Private
 interface|interface
-name|RpcEngine
+name|RpcServerEngine
 block|{
-comment|/** Construct a client-side proxy object. */
-name|VersionedProtocol
-name|getProxy
-parameter_list|(
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|VersionedProtocol
-argument_list|>
-name|protocol
-parameter_list|,
-name|long
-name|clientVersion
-parameter_list|,
-name|InetSocketAddress
-name|addr
-parameter_list|,
-name|User
-name|ticket
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|,
-name|SocketFactory
-name|factory
-parameter_list|,
-name|int
-name|rpcTimeout
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/** Stop this proxy. */
-name|void
-name|stopProxy
-parameter_list|(
-name|VersionedProtocol
-name|proxy
-parameter_list|)
-function_decl|;
 comment|/** Construct a server for a protocol implementation instance. */
 name|RpcServer
 name|getServer

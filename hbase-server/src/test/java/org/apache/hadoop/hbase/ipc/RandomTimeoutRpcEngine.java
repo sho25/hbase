@@ -184,7 +184,7 @@ specifier|public
 class|class
 name|RandomTimeoutRpcEngine
 extends|extends
-name|ProtobufRpcEngine
+name|ProtobufRpcClientEngine
 block|{
 specifier|private
 specifier|static
@@ -326,7 +326,7 @@ name|Class
 name|protocol
 parameter_list|)
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|setProtocolEngine
 argument_list|(

@@ -99,7 +99,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRPC
+name|HBaseClientRPC
 import|;
 end_import
 
@@ -297,7 +297,7 @@ init|=
 operator|(
 name|MasterMonitorProtocol
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(

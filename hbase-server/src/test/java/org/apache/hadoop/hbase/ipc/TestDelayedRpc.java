@@ -414,7 +414,7 @@ argument_list|)
 decl_stmt|;
 name|rpcServer
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -468,7 +468,7 @@ init|=
 operator|(
 name|TestRpc
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(
@@ -794,7 +794,7 @@ argument_list|)
 decl_stmt|;
 name|rpcServer
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -854,7 +854,7 @@ init|=
 operator|(
 name|TestRpc
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(
@@ -1530,7 +1530,7 @@ argument_list|)
 decl_stmt|;
 name|rpcServer
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -1588,7 +1588,7 @@ init|=
 operator|(
 name|TestRpc
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(

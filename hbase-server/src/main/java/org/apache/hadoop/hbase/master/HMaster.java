@@ -867,7 +867,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRPC
+name|HBaseClientRPC
 import|;
 end_import
 
@@ -884,6 +884,22 @@ operator|.
 name|ipc
 operator|.
 name|HBaseServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|HBaseServerRPC
 import|;
 end_import
 
@@ -932,6 +948,22 @@ operator|.
 name|ipc
 operator|.
 name|ServerRpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|UnknownProtocolException
 import|;
 end_import
 
@@ -2469,22 +2501,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|replication
 operator|.
 name|regionserver
@@ -3341,7 +3357,7 @@ name|this
 operator|.
 name|rpcServer
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -13123,8 +13139,6 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|HBaseRPC
-operator|.
 name|UnknownProtocolException
 argument_list|(
 literal|null
@@ -13176,8 +13190,6 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|HBaseRPC
-operator|.
 name|UnknownProtocolException
 argument_list|(
 name|service

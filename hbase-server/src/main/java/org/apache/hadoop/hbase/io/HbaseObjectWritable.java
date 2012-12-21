@@ -1496,27 +1496,15 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
-name|addToMap
-argument_list|(
-name|HRegion
-operator|.
-name|class
-argument_list|,
+comment|//HRegion shouldn't be pushed across the wire.
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
-name|addToMap
-argument_list|(
-name|HRegion
-index|[]
-operator|.
-expr|class
-argument_list|,
+comment|//addToMap(HRegion.class, code++);
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
+comment|//addToMap(HRegion[].class, code++);
 name|addToMap
 argument_list|(
 name|HRegionInfo

@@ -1052,8 +1052,6 @@ operator|.
 name|getBloomFilterType
 argument_list|()
 operator|==
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROWCOL

@@ -247,7 +247,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|BloomType
 import|;
 end_import
 
@@ -263,9 +263,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
-name|BloomType
+name|HRegion
 import|;
 end_import
 
@@ -348,7 +346,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**W  * Make sure we always cache important block types, such as index blocks, as  * long as we have a block cache, even though block caching might be disabled  * for the column family.  */
+comment|/**  * Make sure we always cache important block types, such as index blocks, as  * long as we have a block cache, even though block caching might be disabled  * for the column family.  */
 end_comment
 
 begin_class

@@ -707,7 +707,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRPC
+name|HBaseClientRPC
 import|;
 end_import
 
@@ -1334,7 +1334,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseRPC#stopProxy(org.apache.hadoop.hbase.ipc.VersionedProtocol)}    *          .    */
+comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseClientRPC#stopProxy(org.apache.hadoop.hbase.ipc.VersionedProtocol)}    *          .    */
 specifier|public
 specifier|static
 name|void
@@ -3261,7 +3261,7 @@ init|=
 operator|(
 name|MasterProtocol
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|getProxy
 argument_list|(
@@ -3308,7 +3308,7 @@ return|;
 block|}
 else|else
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|stopProxy
 argument_list|(
@@ -6318,7 +6318,7 @@ decl_stmt|;
 comment|// definitely a cache miss. establish an RPC for this RS
 name|server
 operator|=
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|waitForProxy
 argument_list|(
@@ -7106,7 +7106,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|stopProxy
 argument_list|(
@@ -7418,7 +7418,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|stopProxy
 argument_list|(
@@ -10204,7 +10204,7 @@ name|values
 argument_list|()
 control|)
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|stopProxy
 argument_list|(

@@ -325,7 +325,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRPC
+name|HBaseClientRPC
 import|;
 end_import
 
@@ -342,6 +342,22 @@ operator|.
 name|ipc
 operator|.
 name|HBaseServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|HBaseServerRPC
 import|;
 end_import
 
@@ -1009,7 +1025,7 @@ name|this
 operator|.
 name|rpcServer
 operator|=
-name|HBaseRPC
+name|HBaseServerRPC
 operator|.
 name|getServer
 argument_list|(
@@ -2242,7 +2258,7 @@ name|AuthenticationService
 operator|.
 name|BlockingInterface
 operator|)
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|waitForProxy
 argument_list|(

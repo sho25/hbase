@@ -227,7 +227,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|BloomType
 import|;
 end_import
 
@@ -346,8 +346,6 @@ name|Arrays
 operator|.
 name|toString
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|values
@@ -588,8 +586,6 @@ name|Algorithm
 name|compressAlgo
 decl_stmt|;
 specifier|private
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 decl_stmt|;
@@ -1740,8 +1736,6 @@ literal|null
 condition|?
 literal|null
 else|:
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|valueOf

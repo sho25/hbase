@@ -235,24 +235,6 @@ name|NoOpDataBlockEncoder
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
-name|BloomType
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test seek performance for encoded data blocks. Read an HFile and do several  * random seeks.  */
 end_comment

@@ -824,20 +824,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-enum|enum
-name|BloomType
-block|{
-comment|/**      * Bloomfilters disabled      */
-name|NONE
-block|,
-comment|/**      * Bloom enabled with Table row as Key      */
-name|ROW
-block|,
-comment|/**      * Bloom enabled with Table row& column (family+qualifier) as Key      */
-name|ROWCOL
-block|}
 comment|// Keys for fileinfo values in HFile
 comment|/** Max Sequence ID in FileInfo */
 specifier|public

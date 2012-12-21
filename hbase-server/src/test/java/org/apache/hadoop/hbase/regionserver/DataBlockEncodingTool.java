@@ -1893,7 +1893,7 @@ name|totalSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check decompress performance of a given algorithm and print it.    * @param algorithm Compression algorithm.    * @param compressorCodec Compressor to be tested.    * @param decompressorCodec Decompressor of the same algorithm.    * @param name Name of algorithm.    * @param buffer Buffer to be compressed.    * @param offset Position of the beginning of the data.    * @param length Length of data in buffer.    * @throws IOException    */
+comment|/**    * Check decompress performance of a given algorithm and print it.    * @param algorithm Compression algorithm.    * @param name Name of algorithm.    * @param buffer Buffer to be compressed.    * @param offset Position of the beginning of the data.    * @param length Length of data in buffer.    * @throws IOException    */
 specifier|public
 name|void
 name|benchmarkAlgorithm
@@ -3114,8 +3114,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
