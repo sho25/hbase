@@ -2493,6 +2493,8 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Exec
@@ -4235,7 +4237,7 @@ return|return
 name|append
 return|;
 block|}
-comment|/**    * Convert a MutateRequest to Mutation    *     * @param proto the protocol buffer Mutate to convert    * @return the converted Mutation    * @throws IOException     */
+comment|/**    * Convert a MutateRequest to Mutation    *    * @param proto the protocol buffer Mutate to convert    * @return the converted Mutation    * @throws IOException    */
 specifier|public
 specifier|static
 name|Mutation

@@ -4361,6 +4361,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -4391,6 +4393,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -4447,6 +4451,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T

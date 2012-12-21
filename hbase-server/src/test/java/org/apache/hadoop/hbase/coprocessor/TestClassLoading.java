@@ -113,6 +113,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|TestServerCustomProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hdfs
 operator|.
 name|MiniDFSCluster
@@ -398,6 +414,7 @@ name|ColumnAggregationEndpoint
 operator|.
 name|class
 decl_stmt|;
+comment|// TOOD: Fix the import of this handler.  It is coming in from a package that is far away.
 specifier|private
 specifier|static
 name|Class
@@ -406,7 +423,9 @@ name|?
 argument_list|>
 name|regionCoprocessor2
 init|=
-name|GenericEndpoint
+name|TestServerCustomProtocol
+operator|.
+name|PingHandler
 operator|.
 name|class
 decl_stmt|;

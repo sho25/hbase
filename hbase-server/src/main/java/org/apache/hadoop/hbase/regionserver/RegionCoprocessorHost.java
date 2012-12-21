@@ -2293,7 +2293,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @throws IOException     */
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -2635,7 +2635,7 @@ else|:
 name|scanner
 return|;
 block|}
-comment|/**    * Invoked before a memstore flush    * @throws IOException     */
+comment|/**    * Invoked before a memstore flush    * @throws IOException    */
 specifier|public
 name|void
 name|preFlush
@@ -3215,7 +3215,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    * @throws IOException     */
+comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    * @throws IOException    */
 specifier|public
 name|void
 name|postSplit

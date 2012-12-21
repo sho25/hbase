@@ -2879,6 +2879,8 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -2945,6 +2947,8 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T
@@ -3008,6 +3012,8 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 parameter_list|<
 name|T

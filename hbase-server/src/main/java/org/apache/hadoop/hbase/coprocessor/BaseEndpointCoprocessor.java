@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This abstract class provides default implementation of an Endpoint.  * It also maintains a CoprocessorEnvironment object which can be  * used to access region resource.  *  * It's recommended to use this abstract class to implement your Endpoint.  * However you still can just implement the interface CoprocessorProtocol  * and Coprocessor to develop an Endpoint. But you won't be able to access  * the region related resource, i.e., CoprocessorEnvironment.  */
+comment|/**  * This abstract class provides default implementation of an Endpoint.  * It also maintains a CoprocessorEnvironment object which can be  * used to access region resource.  *  * It's recommended to use this abstract class to implement your Endpoint.  * However you still can just implement the interface CoprocessorProtocol  * and Coprocessor to develop an Endpoint. But you won't be able to access  * the region related resource, i.e., CoprocessorEnvironment.  * @deprecated CoprocessorProtocol is going away in 0.96  */
 end_comment
 
 begin_class
