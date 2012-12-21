@@ -563,24 +563,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|coprocessor
-operator|.
-name|Exec
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|filter
 operator|.
 name|BinaryComparator
@@ -1978,15 +1960,9 @@ operator|++
 argument_list|)
 expr_stmt|;
 comment|// coprocessor execution
-name|addToMap
-argument_list|(
-name|Exec
-operator|.
-name|class
-argument_list|,
+comment|// Exec no longer exists --> addToMap(Exec.class, code++);
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
