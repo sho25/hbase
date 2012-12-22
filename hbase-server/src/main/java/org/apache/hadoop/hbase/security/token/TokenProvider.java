@@ -346,7 +346,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides a service for obtaining authentication tokens via the  * {@link AuthenticationProtos.AuthenticationService} coprocessor service.  */
+comment|/**  * Provides a service for obtaining authentication tokens via the  * {@link AuthenticationProtos} AuthenticationService coprocessor service.  */
 end_comment
 
 begin_class
@@ -464,7 +464,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * @param ugi    * @return true if delegation token operation is allowed    */
+comment|/**    * @param ugi A user group information.    * @return true if delegation token operation is allowed    */
 specifier|private
 name|boolean
 name|isAllowedDelegationTokenOp

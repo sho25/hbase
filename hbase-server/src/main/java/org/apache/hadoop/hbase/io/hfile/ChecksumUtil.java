@@ -185,7 +185,7 @@ name|generateExceptions
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Generates a checksum for all the data in indata. The checksum is    * written to outdata.    * @param indata input data stream    * @param startOffset starting offset in the indata stream from where to    *                    compute checkums from    * @param endOffset ending offset in the indata stream upto    *                   which checksums needs to be computed    * @param outData the output buffer where checksum values are written    * @param outOffset the starting offset in the outdata where the    *                  checksum values are written    * @param checksumType type of checksum    * @param bytesPerChecksum number of bytes per checksum value    */
+comment|/**    * Generates a checksum for all the data in indata. The checksum is    * written to outdata.    * @param indata input data stream    * @param startOffset starting offset in the indata stream from where to    *                    compute checkums from    * @param endOffset ending offset in the indata stream upto    *                   which checksums needs to be computed    * @param outdata the output buffer where checksum values are written    * @param outOffset the starting offset in the outdata where the    *                  checksum values are written    * @param checksumType type of checksum    * @param bytesPerChecksum number of bytes per checksum value    */
 specifier|static
 name|void
 name|generateChecksums

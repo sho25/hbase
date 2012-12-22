@@ -227,7 +227,7 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
-comment|/**    * Opens the file at the current position    * @param path    * @return    * @throws IOException    */
+comment|/**    * Opens the file at the current position    * @param path    * @return an HLog reader.    * @throws IOException    */
 specifier|public
 name|HLog
 operator|.

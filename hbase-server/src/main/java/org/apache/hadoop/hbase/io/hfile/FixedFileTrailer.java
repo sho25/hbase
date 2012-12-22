@@ -804,7 +804,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deserialize the fixed file trailer from the given stream. The version needs    * to already be specified. Make sure this is consistent with    * {@link #serialize(DataOutputStream)}.    *    * @param inputStream    * @param version    * @throws IOException    */
+comment|/**    * Deserialize the fixed file trailer from the given stream. The version needs    * to already be specified. Make sure this is consistent with    * {@link #serialize(DataOutputStream)}.    *    * @param inputStream    * @throws IOException    */
 name|void
 name|deserialize
 parameter_list|(

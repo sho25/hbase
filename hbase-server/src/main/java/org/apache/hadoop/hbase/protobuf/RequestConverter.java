@@ -5745,7 +5745,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a request to grant user permissions.    *    * @param username the short user name who to grant permissions    * @param table optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be granted    * @return A {@link AccessControlProtos.GrantRequest)    */
+comment|/**    * Create a request to grant user permissions.    *    * @param username the short user name who to grant permissions    * @param table optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be granted    * @return A {@link AccessControlProtos} GrantRequest    */
 specifier|public
 specifier|static
 name|AccessControlProtos
@@ -5911,7 +5911,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a request to revoke user permissions.    *    * @param username the short user name whose permissions to be revoked    * @param table optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be revoked    * @return A {@link AccessControlProtos.RevokeRequest)    */
+comment|/**    * Create a request to revoke user permissions.    *    * @param username the short user name whose permissions to be revoked    * @param table optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be revoked    * @return A {@link AccessControlProtos} RevokeRequest    */
 specifier|public
 specifier|static
 name|AccessControlProtos
