@@ -70,6 +70,7 @@ name|SplitLogCounters
 block|{
 comment|//SplitLogManager counters
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_batch_start
@@ -81,6 +82,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_batch_success
@@ -92,6 +94,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_batch_err
@@ -103,6 +106,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_new_unexpected_hlogs
@@ -114,6 +118,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_start
@@ -125,6 +130,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_success
@@ -136,6 +142,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_log_split_err
@@ -147,6 +154,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_create_queued
@@ -158,6 +166,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_create_result
@@ -169,6 +178,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_already_exists
@@ -180,6 +190,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_create_err
@@ -191,6 +202,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_create_retry
@@ -202,6 +214,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_get_data_queued
@@ -213,6 +226,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_get_data_result
@@ -224,6 +238,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_get_data_nonode
@@ -235,6 +250,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_get_data_err
@@ -246,6 +262,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_get_data_retry
@@ -257,6 +274,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_delete_queued
@@ -268,6 +286,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_delete_result
@@ -279,6 +298,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_node_delete_err
@@ -290,6 +310,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_resubmit
@@ -301,6 +322,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_resubmit_failed
@@ -312,6 +334,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_null_data
@@ -323,6 +346,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_orphan_task_acquired
@@ -334,6 +358,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_wait_for_zk_delete
@@ -345,6 +370,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_unacquired_orphan_done
@@ -356,6 +382,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_resubmit_threshold_reached
@@ -367,6 +394,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_missing_state_in_delete
@@ -378,6 +406,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_heartbeat
@@ -389,6 +418,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_rescan
@@ -400,6 +430,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_rescan_deleted
@@ -411,6 +442,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_task_deleted
@@ -422,6 +454,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_resubmit_unassigned
@@ -433,6 +466,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_relist_logdir
@@ -444,6 +478,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_mgr_resubmit_dead_server_task
@@ -456,6 +491,7 @@ argument_list|)
 decl_stmt|;
 comment|// SplitLogWorker counters
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_failed_to_grab_task_no_data
@@ -467,6 +503,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_failed_to_grab_task_exception
@@ -478,6 +515,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_failed_to_grab_task_owned
@@ -489,6 +527,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_failed_to_grab_task_lost_race
@@ -500,6 +539,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_acquired
@@ -511,6 +551,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_resigned
@@ -522,6 +563,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_done
@@ -533,6 +575,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_err
@@ -544,6 +587,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_heartbeat
@@ -555,6 +599,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_acquired_rescan
@@ -566,6 +611,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_get_data_queued
@@ -577,6 +623,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_get_data_result
@@ -588,6 +635,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_get_data_retry
@@ -599,6 +647,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_preempt_task
@@ -610,6 +659,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
 name|tot_wkr_task_heartbeat_failed
@@ -621,9 +671,10 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|final
 specifier|static
 name|AtomicLong
-name|tot_wkr_final_transistion_failed
+name|tot_wkr_final_transition_failed
 init|=
 operator|new
 name|AtomicLong
@@ -654,21 +705,15 @@ operator|.
 name|getClass
 argument_list|()
 decl_stmt|;
-name|Field
-index|[]
-name|flds
-init|=
-name|cl
-operator|.
-name|getDeclaredFields
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|Field
 name|fld
 range|:
-name|flds
+name|cl
+operator|.
+name|getDeclaredFields
+argument_list|()
 control|)
 block|{
 operator|(
