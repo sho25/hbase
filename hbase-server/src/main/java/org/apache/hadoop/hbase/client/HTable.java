@@ -4249,7 +4249,7 @@ literal|true
 expr_stmt|;
 block|}
 comment|// validate for well-formedness
-specifier|private
+specifier|public
 name|void
 name|validatePut
 parameter_list|(
