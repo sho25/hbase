@@ -271,7 +271,7 @@ literal|false
 argument_list|)
 condition|)
 block|{
-name|ServiceAuthorizationManager
+name|authManager
 operator|.
 name|refresh
 argument_list|(
