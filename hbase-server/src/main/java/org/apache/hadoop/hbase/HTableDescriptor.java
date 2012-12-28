@@ -2237,7 +2237,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Returns the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest     * store file in that region.    *     * @return max hregion size for table    *     * @see #setMaxFileSize(long)    */
+comment|/**     * Returns the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest    * store file in that region.    *    * @return max hregion size for table, -1 if not set.    *    * @see #setMaxFileSize(long)    */
 specifier|public
 name|long
 name|getMaxFileSize
@@ -2258,10 +2258,11 @@ name|value
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|Bytes
 operator|.
@@ -2270,14 +2271,11 @@ argument_list|(
 name|value
 argument_list|)
 argument_list|)
-operator|.
-name|longValue
-argument_list|()
 return|;
+block|}
 return|return
-name|HConstants
-operator|.
-name|DEFAULT_MAX_FILE_SIZE
+operator|-
+literal|1
 return|;
 block|}
 comment|/**    * Sets the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest     * store file in that region, i.e. If the biggest store file grows beyond the     * maxFileSize, then the region split is triggered. This defaults to a value of     * 256 MB.    *<p>    * This is not an absolute value and might vary. Assume that a single row exceeds     * the maxFileSize then the storeFileSize will be greater than maxFileSize since    * a single row cannot be split across multiple regions     *</p>    *     * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
@@ -2307,7 +2305,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Returns the size of the memstore after which a flush to filesystem is triggered.    *     * @return memory cache flush size for each hregion    *     * @see #setMemStoreFlushSize(long)    */
+comment|/**    * Returns the size of the memstore after which a flush to filesystem is triggered.    *    * @return memory cache flush size for each hregion, -1 if not set.    *    * @see #setMemStoreFlushSize(long)    */
 specifier|public
 name|long
 name|getMemStoreFlushSize
@@ -2328,10 +2326,11 @@ name|value
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|Long
 operator|.
-name|valueOf
+name|parseLong
 argument_list|(
 name|Bytes
 operator|.
@@ -2340,12 +2339,11 @@ argument_list|(
 name|value
 argument_list|)
 argument_list|)
-operator|.
-name|longValue
-argument_list|()
 return|;
+block|}
 return|return
-name|DEFAULT_MEMSTORE_FLUSH_SIZE
+operator|-
+literal|1
 return|;
 block|}
 comment|/**    * Represents the maximum size of the memstore after which the contents of the     * memstore are flushed to the filesystem. This defaults to a size of 64 MB.    *     * @param memstoreFlushSize memory cache flush size for each hregion    */

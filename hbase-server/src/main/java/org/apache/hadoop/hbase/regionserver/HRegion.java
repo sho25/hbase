@@ -2986,10 +2986,8 @@ decl_stmt|;
 if|if
 condition|(
 name|flushSize
-operator|==
-name|HTableDescriptor
-operator|.
-name|DEFAULT_MEMSTORE_FLUSH_SIZE
+operator|<=
+literal|0
 condition|)
 block|{
 name|flushSize
