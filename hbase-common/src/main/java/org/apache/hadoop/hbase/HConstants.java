@@ -362,15 +362,6 @@ name|DEFAULT_MASTER_TYPE_BACKUP
 init|=
 literal|false
 decl_stmt|;
-comment|/** Parameter name for ZooKeeper session time out.*/
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_SESSION_TIMEOUT
-init|=
-literal|"zookeeper.session.timeout"
-decl_stmt|;
 comment|/** Name of ZooKeeper quorum configuration parameter. */
 specifier|public
 specifier|static

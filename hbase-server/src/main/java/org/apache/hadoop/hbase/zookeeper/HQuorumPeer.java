@@ -18,6 +18,38 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|DEFAULT_ZK_SESSION_TIMEOUT
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|ZK_SESSION_TIMEOUT
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -113,7 +145,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Properties
+name|Map
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -123,9 +157,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-operator|.
-name|Entry
+name|Properties
 import|;
 end_import
 
@@ -805,9 +837,14 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"zookeeper.session.timeout"
+name|ZK_SESSION_TIMEOUT
 argument_list|,
-literal|"180000"
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|DEFAULT_ZK_SESSION_TIMEOUT
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

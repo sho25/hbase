@@ -23,7 +23,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
+name|assertEquals
 import|;
 end_import
 
@@ -35,7 +35,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
+name|assertFalse
 import|;
 end_import
 
@@ -115,7 +115,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|List
 import|;
 end_import
 
@@ -125,7 +125,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Map
 import|;
 end_import
 
@@ -680,7 +680,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|ZOOKEEPER_SESSION_TIMEOUT
+name|ZK_SESSION_TIMEOUT
 argument_list|,
 literal|1000
 argument_list|)
