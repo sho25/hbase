@@ -551,8 +551,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
 name|BloomType
 import|;
 end_import
@@ -598,20 +596,6 @@ operator|.
 name|io
 operator|.
 name|SequenceFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableUtils
 import|;
 end_import
 
