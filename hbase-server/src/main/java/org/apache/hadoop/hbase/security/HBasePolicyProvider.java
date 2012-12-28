@@ -165,6 +165,7 @@ extends|extends
 name|PolicyProvider
 block|{
 specifier|protected
+specifier|final
 specifier|static
 name|Service
 index|[]
@@ -270,7 +271,7 @@ literal|false
 argument_list|)
 condition|)
 block|{
-name|authManager
+name|ServiceAuthorizationManager
 operator|.
 name|refresh
 argument_list|(

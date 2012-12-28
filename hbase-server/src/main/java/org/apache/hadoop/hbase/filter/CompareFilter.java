@@ -581,7 +581,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    *    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    *    * @param o    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

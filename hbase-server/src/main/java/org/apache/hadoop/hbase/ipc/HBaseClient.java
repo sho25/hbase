@@ -2338,13 +2338,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|ugi
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
 name|authMethod
 operator|==
 name|AuthMethod
@@ -2408,7 +2401,6 @@ name|getUserName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 return|return

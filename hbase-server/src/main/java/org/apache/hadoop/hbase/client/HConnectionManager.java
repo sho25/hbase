@@ -1887,7 +1887,7 @@ specifier|static
 class|class
 name|HConnectionKey
 block|{
-specifier|public
+specifier|final
 specifier|static
 name|String
 index|[]
@@ -2153,6 +2153,27 @@ name|result
 return|;
 block|}
 annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"ES_COMPARING_STRINGS_WITH_EQ"
+argument_list|,
+name|justification
+operator|=
+literal|"Optimization"
+argument_list|)
+annotation|@
 name|Override
 specifier|public
 name|boolean
@@ -2316,6 +2337,7 @@ argument_list|(
 name|property
 argument_list|)
 decl_stmt|;
+comment|//noinspection StringEquality
 if|if
 condition|(
 name|thisValue
@@ -3346,6 +3368,23 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * Create a master, retries if necessary.      */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"SWL_SLEEP_WITH_LOCK_HELD"
+argument_list|)
 specifier|private
 name|MasterProtocol
 name|createMasterWithRetries
@@ -5950,8 +5989,6 @@ argument_list|)
 decl_stmt|;
 name|boolean
 name|hasNewCache
-init|=
-literal|false
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -6557,7 +6594,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * Creates a Chore thread to check the connections to master& zookeeper      *  and close them when they reach their closing time (      *  {@link #MasterProtocolState.keepAliveUntil} and      *  {@link #keepZooKeeperWatcherAliveUntil}). Keep alive time is      *  managed by the release functions and the variable {@link #keepAlive}      */
+comment|/**      * Creates a Chore thread to check the connections to master& zookeeper      *  and close them when they reach their closing time (      *  {@link MasterProtocolState#keepAliveUntil} and      *  {@link #keepZooKeeperWatcherAliveUntil}). Keep alive time is      *  managed by the release functions and the variable {@link #keepAlive}      */
 specifier|private
 specifier|static
 class|class
@@ -7187,7 +7224,6 @@ name|getKeepAliveMasterAdmin
 argument_list|()
 return|;
 block|}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -7822,10 +7858,25 @@ name|warn
 argument_list|(
 literal|"Coding error, see method javadoc. row="
 operator|+
+operator|(
 name|row
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|row
+operator|)
 operator|+
 literal|", tableName="
 operator|+
+operator|(
+name|tableName
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
 name|Bytes
 operator|.
 name|toString
@@ -7833,9 +7884,8 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|+
-literal|", hrl="
-operator|+
-name|hrl
+literal|", hrl= null"
+operator|)
 argument_list|)
 expr_stmt|;
 return|return;

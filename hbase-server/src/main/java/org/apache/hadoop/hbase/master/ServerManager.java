@@ -1677,8 +1677,6 @@ literal|0
 decl_stmt|;
 name|double
 name|averageLoad
-init|=
-literal|0.0
 decl_stmt|;
 for|for
 control|(
@@ -2894,9 +2892,6 @@ operator|.
 name|get
 argument_list|(
 name|sn
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -3695,8 +3690,6 @@ parameter_list|()
 block|{
 name|ServerName
 name|sn
-init|=
-literal|null
 decl_stmt|;
 for|for
 control|(

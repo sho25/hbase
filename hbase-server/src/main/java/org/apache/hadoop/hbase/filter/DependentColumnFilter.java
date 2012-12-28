@@ -1210,7 +1210,24 @@ name|valueComparator
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"
+argument_list|)
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

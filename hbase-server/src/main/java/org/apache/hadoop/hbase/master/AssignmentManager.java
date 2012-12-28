@@ -2757,9 +2757,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unexpected NULL input "
-operator|+
-name|rt
+literal|"Unexpected NULL input for RegionTransition rt"
 argument_list|)
 expr_stmt|;
 return|return;

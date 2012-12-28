@@ -2445,6 +2445,23 @@ name|confValMap
 return|;
 block|}
 comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * Package-private for unit tests only.    *    * @throws IOException    *           on failure to read column family descriptors    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"
+argument_list|)
 specifier|static
 name|void
 name|configureCompression
