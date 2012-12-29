@@ -639,7 +639,7 @@ block|{
 comment|// Create all the necessary "directories" of znodes
 name|ZKUtil
 operator|.
-name|createAndFailSilent
+name|createWithParents
 argument_list|(
 name|this
 argument_list|,
