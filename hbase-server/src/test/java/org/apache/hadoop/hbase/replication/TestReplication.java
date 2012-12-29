@@ -625,7 +625,7 @@ specifier|final
 name|long
 name|SLEEP_TIME
 init|=
-literal|1500
+literal|2000
 decl_stmt|;
 specifier|private
 specifier|static
@@ -633,7 +633,7 @@ specifier|final
 name|int
 name|NB_RETRIES
 init|=
-literal|10
+literal|20
 decl_stmt|;
 specifier|private
 specifier|static
