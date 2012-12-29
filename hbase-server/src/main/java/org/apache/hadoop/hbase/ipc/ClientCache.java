@@ -99,36 +99,6 @@ name|HConstants
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HbaseObjectWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
 begin_comment
 comment|/**  * Cache a client using its socket factory as the hash key.  * Enables reuse/sharing of clients on a per SocketFactory basis. A client   * establishes certain configuration dependent characteristics like timeouts,   * tcp-keepalive (true or false), etc. For more details on the characteristics,  * look at {@link HBaseClient#HBaseClient(Configuration, SocketFactory)}  * Creation of dynamic proxies to protocols creates the clients (and increments  * reference count once created), and stopping of the proxies leads to clearing  * out references and when the reference drops to zero, the cache mapping is   * cleared.   */
 end_comment

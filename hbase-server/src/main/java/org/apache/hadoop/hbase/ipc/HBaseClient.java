@@ -5985,13 +5985,6 @@ return|;
 block|}
 block|}
 comment|/**    * Take an IOException and the address we were trying to connect to    * and return an IOException with the input exception as the cause.    * The new exception provides the stack trace of the place where    * the exception is thrown and some extra diagnostics information.    * If the exception is ConnectException or SocketTimeoutException,    * return a new one of the same type; Otherwise return an IOException.    *    * @param addr target address    * @param exception the relevant exception    * @return an exception to throw    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-block|{
-literal|"ThrowableInstanceNeverThrown"
-block|}
-argument_list|)
 specifier|protected
 name|IOException
 name|wrapException

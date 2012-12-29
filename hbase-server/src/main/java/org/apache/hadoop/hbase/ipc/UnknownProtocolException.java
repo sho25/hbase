@@ -36,6 +36,11 @@ comment|/**  * An error requesting an RPC protocol that the server is not servin
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|UnknownProtocolException

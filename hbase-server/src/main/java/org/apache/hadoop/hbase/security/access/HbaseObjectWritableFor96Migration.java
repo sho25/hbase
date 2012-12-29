@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|security
+operator|.
+name|access
 package|;
 end_package
 
@@ -63,7 +65,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|InputStream
+name|IOException
 import|;
 end_import
 
@@ -73,7 +75,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|InputStream
 import|;
 end_import
 
@@ -597,6 +599,22 @@ name|hbase
 operator|.
 name|filter
 operator|.
+name|ByteArrayComparable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|filter
+operator|.
 name|ColumnCountGetFilter
 import|;
 end_import
@@ -901,9 +919,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
+name|io
 operator|.
-name|ByteArrayComparable
+name|DataOutputOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|WritableWithSize
 import|;
 end_import
 
@@ -938,22 +972,6 @@ operator|.
 name|generated
 operator|.
 name|ClientProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegion
 import|;
 end_import
 
@@ -1150,17 +1168,18 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a customized version of the polymorphic hadoop  * {@link ObjectWritable}.  It removes UTF8 (HADOOP-414).  * Using {@link Text} intead of UTF-8 saves ~2% CPU between reading and writing  * objects running a short sequentialWrite Performance Evaluation test just in  * ObjectWritable alone; more when we're doing randomRead-ing.  Other  * optimizations include our passing codes for classes instead of the  * actual class names themselves.  This makes it so this class needs amendment  * if non-Writable classes are introduced -- if passed a Writable for which we  * have no code, we just do the old-school passing of the class name, etc. --  * but passing codes the  savings are large particularly when cell  * data is small (If< a couple of kilobytes, the encoding/decoding of class  * name and reflection to instantiate class was costing in excess of the cell  * handling).  */
+comment|/**  *<p>This is a customized version of the polymorphic hadoop  * {@link ObjectWritable}.  It removes UTF8 (HADOOP-414).  * Using {@link Text} intead of UTF-8 saves ~2% CPU between reading and writing  * objects running a short sequentialWrite Performance Evaluation test just in  * ObjectWritable alone; more when we're doing randomRead-ing.  Other  * optimizations include our passing codes for classes instead of the  * actual class names themselves.  This makes it so this class needs amendment  * if non-Writable classes are introduced -- if passed a Writable for which we  * have no code, we just do the old-school passing of the class name, etc. --  * but passing codes the  savings are large particularly when cell  * data is small (If< a couple of kilobytes, the encoding/decoding of class  * name and reflection to instantiate class was costing in excess of the cell  * handling).  * @deprecated This class is needed migrating TablePermissions written with  * Writables.  It is needed to read old permissions written pre-0.96.  This  * class is to be removed after HBase 0.96 ships since then all permissions  * will have been migrated and written with protobufs.  */
 end_comment
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 class|class
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 implements|implements
 name|Writable
 implements|,
@@ -1178,7 +1197,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 operator|.
 name|class
 argument_list|)
@@ -2116,8 +2135,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 comment|/** default constructor for writable */
-specifier|public
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 parameter_list|()
 block|{
 name|super
@@ -2125,8 +2143,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @param instance    */
-specifier|public
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 parameter_list|(
 name|Object
 name|instance
@@ -2139,8 +2156,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param declaredClass    * @param instance    */
-specifier|public
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 parameter_list|(
 name|Class
 argument_list|<
@@ -2166,7 +2182,6 @@ name|instance
 expr_stmt|;
 block|}
 comment|/** @return the instance, or null if none. */
-specifier|public
 name|Object
 name|get
 parameter_list|()
@@ -2176,7 +2191,6 @@ name|instance
 return|;
 block|}
 comment|/** @return the class this is meant to be. */
-specifier|public
 name|Class
 argument_list|<
 name|?
@@ -2189,7 +2203,6 @@ name|declaredClass
 return|;
 block|}
 comment|/**    * Reset the instance.    * @param instance    */
-specifier|public
 name|void
 name|set
 parameter_list|(
@@ -2398,7 +2411,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
 specifier|static
 name|Integer
 name|getClassCode
@@ -2683,7 +2695,6 @@ name|code
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 specifier|static
 name|long
 name|getWritableSize
@@ -2709,7 +2720,6 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
-specifier|public
 specifier|static
 name|void
 name|writeObject
@@ -3828,7 +3838,6 @@ name|instanceClass
 return|;
 block|}
 comment|/**    * Read a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding.    * @param in    * @param conf    * @return the object    * @throws IOException    */
-specifier|public
 specifier|static
 name|Object
 name|readObject
@@ -3859,7 +3868,6 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
-specifier|public
 specifier|static
 name|Object
 name|readObject
@@ -3867,7 +3875,7 @@ parameter_list|(
 name|DataInput
 name|in
 parameter_list|,
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 name|objectWritable
 parameter_list|,
 name|Configuration
@@ -4882,7 +4890,6 @@ name|instance
 return|;
 block|}
 comment|/**    * Try to instantiate a protocol buffer of the given message class    * from the given input stream.    *    * @param protoClass the class of the generated protocol buffer    * @param dataIn the input stream to read from    * @return the instantiated Message instance    * @throws IOException if an IO problem occurs    */
-specifier|public
 specifier|static
 name|Message
 name|tryInstantiateProtobuf
@@ -5186,7 +5193,7 @@ condition|)
 block|{
 name|cl
 operator|=
-name|HbaseObjectWritable
+name|HbaseObjectWritableFor96Migration
 operator|.
 name|class
 operator|.

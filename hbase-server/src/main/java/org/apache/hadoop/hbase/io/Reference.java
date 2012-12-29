@@ -53,16 +53,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -199,20 +189,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -235,8 +211,6 @@ name|Private
 specifier|public
 class|class
 name|Reference
-implements|implements
-name|Writable
 block|{
 specifier|private
 name|byte
@@ -346,7 +320,7 @@ operator|=
 name|fr
 expr_stmt|;
 block|}
-comment|/**    * Used by serializations.    * @deprecated Use the pb serializations instead.  Writables are going away.    */
+comment|/**    * Used by serializations.    */
 annotation|@
 name|Deprecated
 comment|// Make this private when it comes time to let go of this constructor.  Needed by pb serialization.
@@ -403,45 +377,28 @@ operator|.
 name|region
 return|;
 block|}
-comment|/**    * @deprecated Writables are going away. Use the pb serialization methods instead.    */
-annotation|@
-name|Deprecated
 specifier|public
-name|void
-name|write
-parameter_list|(
-name|DataOutput
-name|out
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// Write true if we're doing top of the file.
-name|out
-operator|.
-name|writeBoolean
-argument_list|(
+specifier|static
+name|boolean
 name|isTopFileRegion
+parameter_list|(
+specifier|final
+name|Range
+name|r
+parameter_list|)
+block|{
+return|return
+name|r
+operator|.
+name|equals
 argument_list|(
-name|this
+name|Range
 operator|.
-name|region
+name|top
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|Bytes
-operator|.
-name|writeByteArray
-argument_list|(
-name|out
-argument_list|,
-name|this
-operator|.
-name|splitkey
-argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * @deprecated Writables are going away. Use the pb serialization methods instead.    */
+comment|/**    * @deprecated Writables are going away. Use the pb serialization methods instead.    * Remove in a release after 0.96 goes out.  This is here only to migrate    * old Reference files written with Writables before 0.96.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -488,27 +445,6 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-block|}
-specifier|public
-specifier|static
-name|boolean
-name|isTopFileRegion
-parameter_list|(
-specifier|final
-name|Range
-name|r
-parameter_list|)
-block|{
-return|return
-name|r
-operator|.
-name|equals
-argument_list|(
-name|Range
-operator|.
-name|top
-argument_list|)
-return|;
 block|}
 specifier|public
 name|Path

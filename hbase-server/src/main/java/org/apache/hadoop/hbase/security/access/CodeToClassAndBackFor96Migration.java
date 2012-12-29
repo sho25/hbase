@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|security
+operator|.
+name|access
 package|;
 end_package
 
@@ -42,20 +44,20 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Static Interface.  * Instead of having this code in the the HbaseMapWritable code, where it  * blocks the possibility of altering the variables and changing their types,  * it is put here in this static interface where the static final Maps are  * loaded one time. Only byte[] and Cell are supported at this time.  */
+comment|/**  * A Static Interface.  * Instead of having this code in the the HbaseMapWritable code, where it  * blocks the possibility of altering the variables and changing their types,  * it is put here in this static interface where the static final Maps are  * loaded one time. Only byte[] and Cell are supported at this time.  * @deprecated  In place until we come up on 0.96 and then it can be removed  * along with {@link HbaseObjectWritableFor96Migration}; needed to read  * pre-0.96 TablePermissions.  */
 end_comment
 
 begin_interface
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 interface|interface
-name|CodeToClassAndBack
+name|CodeToClassAndBackFor96Migration
 block|{
 comment|/**    * Static map that contains mapping from code to class    */
-specifier|public
 specifier|static
 specifier|final
 name|Map
@@ -82,7 +84,6 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Static map that contains mapping from class to code    */
-specifier|public
 specifier|static
 specifier|final
 name|Map
@@ -109,7 +110,6 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Class list for supported classes    */
-specifier|public
 name|Class
 argument_list|<
 name|?
@@ -125,7 +125,6 @@ name|class
 block|}
 decl_stmt|;
 comment|/**    * The static loader that is used instead of the static constructor in    * HbaseMapWritable.    */
-specifier|public
 name|InternalStaticLoader
 name|sl
 init|=
@@ -140,7 +139,6 @@ name|CLASS_TO_CODE
 argument_list|)
 decl_stmt|;
 comment|/**    * Class that loads the static maps with their values.    */
-specifier|public
 class|class
 name|InternalStaticLoader
 block|{

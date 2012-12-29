@@ -119441,7 +119441,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .NameBytesPair value = 1;
+comment|// optional .Result value = 1;
 name|boolean
 name|hasValue
 parameter_list|()
@@ -119458,9 +119458,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|getValue
 parameter_list|()
 function_decl|;
@@ -119476,9 +119476,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 name|getValueOrBuilder
 parameter_list|()
 function_decl|;
@@ -119654,7 +119654,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .NameBytesPair value = 1;
+comment|// optional .Result value = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -119676,9 +119676,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|value_
 decl_stmt|;
 specifier|public
@@ -119711,9 +119711,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|getValue
 parameter_list|()
 block|{
@@ -119734,9 +119734,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 name|getValueOrBuilder
 parameter_list|()
 block|{
@@ -119853,9 +119853,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -121353,9 +121353,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122180,9 +122180,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 name|subBuilder
@@ -122199,9 +122199,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|newBuilder
 argument_list|()
@@ -122323,7 +122323,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .NameBytesPair value = 1;
+comment|// optional .Result value = 1;
 specifier|private
 name|org
 operator|.
@@ -122337,9 +122337,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|value_
 init|=
 name|org
@@ -122354,9 +122354,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122382,9 +122382,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 argument_list|,
 name|org
 operator|.
@@ -122398,9 +122398,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 argument_list|,
@@ -122416,9 +122416,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 argument_list|>
 name|valueBuilder_
 decl_stmt|;
@@ -122452,9 +122452,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|getValue
 parameter_list|()
 block|{
@@ -122495,9 +122495,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|value
 parameter_list|)
 block|{
@@ -122563,9 +122563,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 name|builderForValue
@@ -122626,9 +122626,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 name|value
 parameter_list|)
 block|{
@@ -122665,9 +122665,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122687,9 +122687,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|newBuilder
 argument_list|(
@@ -122760,9 +122760,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122805,9 +122805,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 name|getValueBuilder
@@ -122841,9 +122841,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 name|getValueOrBuilder
 parameter_list|()
 block|{
@@ -122889,9 +122889,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 argument_list|,
 name|org
 operator|.
@@ -122905,9 +122905,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 argument_list|,
@@ -122923,9 +122923,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 argument_list|>
 name|getValueFieldBuilder
 parameter_list|()
@@ -122960,9 +122960,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 argument_list|,
 name|org
 operator|.
@@ -122976,9 +122976,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPair
+name|Result
 operator|.
 name|Builder
 argument_list|,
@@ -122994,9 +122994,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClientProtos
 operator|.
-name|NameBytesPairOrBuilder
+name|ResultOrBuilder
 argument_list|>
 argument_list|(
 name|value_
@@ -140407,43 +140407,43 @@ literal|"\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016.Nam
 operator|+
 literal|"eBytesPair\"9\n\013MultiAction\022\027\n\006mutate\030\001 \001("
 operator|+
-literal|"\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\"P\n\014ActionR"
+literal|"\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionR"
 operator|+
-literal|"esult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair\022!\n\t"
+literal|"esult\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texcepti"
 block|,
-literal|"exception\030\002 \001(\0132\016.NameBytesPair\"^\n\014Multi"
+literal|"on\030\002 \001(\0132\016.NameBytesPair\"^\n\014MultiRequest"
 operator|+
-literal|"Request\022 \n\006region\030\001 \002(\0132\020.RegionSpecifie"
+literal|"\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006ac"
 operator|+
-literal|"r\022\034\n\006action\030\002 \003(\0132\014.MultiAction\022\016\n\006atomi"
+literal|"tion\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010"
 operator|+
-literal|"c\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006result\030\001 \003(\013"
+literal|"\".\n\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r.Acti"
 operator|+
-literal|"2\r.ActionResult2\223\003\n\rClientService\022 \n\003get"
+literal|"onResult2\223\003\n\rClientService\022 \n\003get\022\013.GetR"
 operator|+
-literal|"\022\013.GetRequest\032\014.GetResponse\022)\n\006mutate\022\016."
+literal|"equest\032\014.GetResponse\022)\n\006mutate\022\016.MutateR"
 operator|+
-literal|"MutateRequest\032\017.MutateResponse\022#\n\004scan\022\014"
+literal|"equest\032\017.MutateResponse\022#\n\004scan\022\014.ScanRe"
 operator|+
-literal|".ScanRequest\032\r.ScanResponse\022,\n\007lockRow\022\017"
+literal|"quest\032\r.ScanResponse\022,\n\007lockRow\022\017.LockRo"
 operator|+
-literal|".LockRowRequest\032\020.LockRowResponse\0222\n\tunl"
+literal|"wRequest\032\020.LockRowResponse\0222\n\tunlockRow\022"
 operator|+
-literal|"ockRow\022\021.UnlockRowRequest\032\022.UnlockRowRes"
+literal|"\021.UnlockRowRequest\032\022.UnlockRowResponse\022>"
 block|,
-literal|"ponse\022>\n\rbulkLoadHFile\022\025.BulkLoadHFileRe"
+literal|"\n\rbulkLoadHFile\022\025.BulkLoadHFileRequest\032\026"
 operator|+
-literal|"quest\032\026.BulkLoadHFileResponse\022F\n\013execSer"
+literal|".BulkLoadHFileResponse\022F\n\013execService\022\032."
 operator|+
-literal|"vice\022\032.CoprocessorServiceRequest\032\033.Copro"
+literal|"CoprocessorServiceRequest\032\033.CoprocessorS"
 operator|+
-literal|"cessorServiceResponse\022&\n\005multi\022\r.MultiRe"
+literal|"erviceResponse\022&\n\005multi\022\r.MultiRequest\032\016"
 operator|+
-literal|"quest\032\016.MultiResponseBB\n*org.apache.hado"
+literal|".MultiResponseBB\n*org.apache.hadoop.hbas"
 operator|+
-literal|"op.hbase.protobuf.generatedB\014ClientProto"
+literal|"e.protobuf.generatedB\014ClientProtosH\001\210\001\001\240"
 operator|+
-literal|"sH\001\210\001\001\240\001\001"
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
