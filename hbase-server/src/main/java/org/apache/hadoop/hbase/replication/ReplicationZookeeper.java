@@ -1967,10 +1967,12 @@ name|clusterKey
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// A peer is enabled by default
+comment|// There is a race b/w PeerWatcher and ReplicationZookeeper#add method to create the
+comment|// peer-state znode. This happens while adding a peer.
+comment|// The peer state data is set as "ENABLED" by default.
 name|ZKUtil
 operator|.
-name|createAndWatch
+name|createNodeIfNotExistsAndWatch
 argument_list|(
 name|this
 operator|.
@@ -1984,6 +1986,7 @@ argument_list|,
 name|ENABLED_ZNODE_BYTES
 argument_list|)
 expr_stmt|;
+comment|// A peer is enabled by default
 block|}
 catch|catch
 parameter_list|(
@@ -4749,9 +4752,12 @@ operator|-
 literal|1
 condition|)
 block|{
+comment|// There is a race b/w PeerWatcher and ReplicationZookeeper#add method to create the
+comment|// peer-state znode. This happens while adding a peer.
+comment|// The peer state data is set as "ENABLED" by default.
 name|ZKUtil
 operator|.
-name|createAndWatch
+name|createNodeIfNotExistsAndWatch
 argument_list|(
 name|zookeeper
 argument_list|,
