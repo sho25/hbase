@@ -519,6 +519,22 @@ name|FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|waitTableAvailable
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|TEST_TABLE
+argument_list|)
+argument_list|,
+literal|15
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
 name|t
 operator|.
 name|close
@@ -1518,6 +1534,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Set table auto flush to false and test flushing commits    * @param doAbort true if abort one regionserver in the testing    * @throws Exception    */
 specifier|private
 name|void
 name|doTestFlushCommits
@@ -1637,6 +1654,36 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// If we wait for no regions being online after we abort the server, we
+comment|// could ensure the master has re-assigned the regions on killed server
+comment|// after writing successfully. It means the server we aborted is dead
+comment|// and detected by matser
+while|while
+condition|(
+name|UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getRegionServer
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getNumberOfOnlineRegions
+argument_list|()
+operator|!=
+literal|0
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
+block|}
 comment|// try putting more keys after the abort. same key/qual... just validating
 comment|// no exceptions thrown
 name|puts
