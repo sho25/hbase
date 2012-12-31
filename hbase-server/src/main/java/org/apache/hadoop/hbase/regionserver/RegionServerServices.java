@@ -33,7 +33,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|concurrent
+operator|.
+name|ConcurrentMap
 import|;
 end_import
 
@@ -202,7 +204,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return map of regions in transition in this RS    */
 specifier|public
-name|Map
+name|ConcurrentMap
 argument_list|<
 name|byte
 index|[]

@@ -1213,7 +1213,7 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * setup this HTable's parameter based on the passed configuration    * @param conf    */
+comment|/**    * setup this HTable's parameter based on the passed configuration    */
 specifier|private
 name|void
 name|finishSetup
@@ -1523,7 +1523,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link #getRegionLocation(byte [], boolean)} instead    */
+comment|/**    * Finds the region on which the given row is being served. Does not reload the cache.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1549,7 +1549,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @param reload whether or not to reload information or just use cached    * information    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @param reload true to reload information or false to use cached information    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation

@@ -369,6 +369,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Message
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -3137,18 +3149,6 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|Message
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
 name|RpcController
 import|;
 end_import
@@ -3241,7 +3241,7 @@ comment|//true - if open region action in progress
 comment|//false - if close region action in progress
 specifier|protected
 specifier|final
-name|ConcurrentSkipListMap
+name|ConcurrentMap
 argument_list|<
 name|byte
 index|[]
@@ -3696,7 +3696,7 @@ operator|.
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// do we use checksum verfication in the hbase? If hbase checksum verification
+comment|// do we use checksum verification in the hbase? If hbase checksum verification
 comment|// is enabled, then we automatically switch off hdfs checksum verification.
 name|this
 operator|.
@@ -4895,8 +4895,6 @@ return|;
 block|}
 name|Object
 name|deserializedRequestObj
-init|=
-literal|null
 decl_stmt|;
 comment|//check whether the request has reference to Meta region
 try|try
@@ -6320,11 +6318,8 @@ condition|)
 block|{
 name|closeWAL
 argument_list|(
+operator|!
 name|abortRequested
-condition|?
-literal|false
-else|:
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -7169,13 +7164,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Don't update zk with this close transition; pass false.
-name|closeRegion
+name|closeRegionIgnoreErrors
 argument_list|(
 name|hri
 argument_list|,
 name|abort
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -7463,9 +7456,6 @@ init|=
 name|e
 operator|.
 name|getValue
-argument_list|()
-operator|.
-name|toString
 argument_list|()
 decl_stmt|;
 if|if
@@ -8822,7 +8812,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Start maintanence Threads, Server, Worker and lease checker threads.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
+comment|/*    * Start maintenance Threads, Server, Worker and lease checker threads.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
 end_comment
 
 begin_function
@@ -10987,7 +10977,7 @@ name|meta
 operator|!=
 literal|null
 condition|)
-name|closeRegion
+name|closeRegionIgnoreErrors
 argument_list|(
 name|meta
 operator|.
@@ -10995,8 +10985,6 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|abort
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 if|if
@@ -11005,7 +10993,7 @@ name|root
 operator|!=
 literal|null
 condition|)
-name|closeRegion
+name|closeRegionIgnoreErrors
 argument_list|(
 name|root
 operator|.
@@ -11013,8 +11001,6 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|abort
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -11091,7 +11077,7 @@ argument_list|()
 condition|)
 block|{
 comment|// Don't update zk with this close transition; pass false.
-name|closeRegion
+name|closeRegionIgnoreErrors
 argument_list|(
 name|r
 operator|.
@@ -11099,8 +11085,6 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|abort
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -11392,17 +11376,12 @@ name|sortedRegions
 operator|.
 name|put
 argument_list|(
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|region
 operator|.
 name|memstoreSize
 operator|.
 name|get
 argument_list|()
-argument_list|)
 argument_list|,
 name|region
 argument_list|)
@@ -11900,7 +11879,7 @@ end_function
 
 begin_function
 specifier|public
-name|ConcurrentSkipListMap
+name|ConcurrentMap
 argument_list|<
 name|byte
 index|[]
@@ -12661,7 +12640,10 @@ argument_list|(
 operator|new
 name|String
 index|[
-literal|0
+name|coprocessors
+operator|.
+name|size
+argument_list|()
 index|]
 argument_list|)
 return|;
@@ -13100,88 +13082,14 @@ block|}
 block|}
 end_function
 
-begin_function
-specifier|protected
-name|void
-name|checkIfRegionInTransition
-parameter_list|(
-name|byte
-index|[]
-name|regionEncodedName
-parameter_list|,
-name|String
-name|currentAction
-parameter_list|)
-throws|throws
-name|RegionAlreadyInTransitionException
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|regionsInTransitionInRS
-operator|.
-name|containsKey
-argument_list|(
-name|regionEncodedName
-argument_list|)
-condition|)
-block|{
-name|boolean
-name|openAction
-init|=
-name|this
-operator|.
-name|regionsInTransitionInRS
-operator|.
-name|get
-argument_list|(
-name|regionEncodedName
-argument_list|)
-decl_stmt|;
-comment|// The below exception message will be used in master.
-throw|throw
-operator|new
-name|RegionAlreadyInTransitionException
-argument_list|(
-literal|"Received:"
-operator|+
-name|currentAction
-operator|+
-literal|" for the region:"
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|regionEncodedName
-argument_list|)
-operator|+
-literal|" ,which we are already trying to "
-operator|+
-operator|(
-name|openAction
-condition|?
-name|OPEN
-else|:
-name|CLOSE
-operator|)
-operator|+
-literal|"."
-argument_list|)
-throw|;
-block|}
-block|}
-end_function
-
 begin_comment
-comment|/**    * @param region Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @return True if closed a region.    */
+comment|/**    * Try to close the region, logs a warning on failure but continues.    * @param region Region to close    */
 end_comment
 
 begin_function
-specifier|protected
-name|boolean
-name|closeRegion
+specifier|private
+name|void
+name|closeRegionIgnoreErrors
 parameter_list|(
 name|HRegionInfo
 name|region
@@ -13189,32 +13097,75 @@ parameter_list|,
 specifier|final
 name|boolean
 name|abort
-parameter_list|,
-specifier|final
-name|boolean
-name|zk
 parameter_list|)
 block|{
-return|return
+try|try
+block|{
+if|if
+condition|(
+operator|!
 name|closeRegion
 argument_list|(
 name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|abort
 argument_list|,
-name|zk
+literal|false
 argument_list|,
 operator|-
 literal|1
 argument_list|,
 literal|null
 argument_list|)
-return|;
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to close "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" - ignoring and continuing"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|NotServingRegionException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to close "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" - ignoring and continuing"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 
 begin_comment
-comment|/**    * @param region Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @param versionOfClosingNode    *   the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @return True if closed a region.    */
+comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @param versionOfClosingNode the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online or if a close    * request in in progress.    */
 end_comment
 
 begin_function
@@ -13222,8 +13173,8 @@ specifier|protected
 name|boolean
 name|closeRegion
 parameter_list|(
-name|HRegionInfo
-name|region
+name|String
+name|encodedName
 parameter_list|,
 specifier|final
 name|boolean
@@ -13237,11 +13188,15 @@ specifier|final
 name|int
 name|versionOfClosingNode
 parameter_list|,
+specifier|final
 name|ServerName
 name|sn
 parameter_list|)
+throws|throws
+name|NotServingRegionException
 block|{
 comment|//Check for permissions to close.
+specifier|final
 name|HRegion
 name|actualRegion
 init|=
@@ -13249,10 +13204,7 @@ name|this
 operator|.
 name|getFromOnlineRegions
 argument_list|(
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 argument_list|)
 decl_stmt|;
 if|if
@@ -13296,7 +13248,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to close region"
+literal|"Unable to close region: the coprocessor launched an error "
 argument_list|,
 name|exp
 argument_list|)
@@ -13306,59 +13258,215 @@ literal|false
 return|;
 block|}
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|regionsInTransitionInRS
-operator|.
-name|containsKey
-argument_list|(
-name|region
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received close for region we are already opening or closing; "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
+specifier|final
+name|Boolean
+name|previous
+init|=
 name|this
 operator|.
 name|regionsInTransitionInRS
 operator|.
 name|putIfAbsent
 argument_list|(
-name|region
+name|encodedName
 operator|.
-name|getEncodedNameAsBytes
+name|getBytes
 argument_list|()
 argument_list|,
-literal|false
+name|Boolean
+operator|.
+name|FALSE
 argument_list|)
-expr_stmt|;
-name|CloseRegionHandler
-name|crh
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
-name|region
+name|Boolean
+operator|.
+name|TRUE
+operator|.
+name|equals
+argument_list|(
+name|previous
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Received CLOSE for the region:"
+operator|+
+name|encodedName
+operator|+
+literal|" , which we are already "
+operator|+
+literal|"trying to OPEN. Cancelling OPENING."
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|regionsInTransitionInRS
+operator|.
+name|replace
+argument_list|(
+name|encodedName
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|previous
+argument_list|,
+name|Boolean
+operator|.
+name|FALSE
+argument_list|)
+condition|)
+block|{
+comment|// The replace failed. That should be an exceptional case, but theoretically it can happen.
+comment|// We're going to try to do a standard close then.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The opening for region "
+operator|+
+name|encodedName
+operator|+
+literal|" was done before we could cancel it."
+operator|+
+literal|" Doing a standard close now"
+argument_list|)
+expr_stmt|;
+return|return
+name|closeRegion
+argument_list|(
+name|encodedName
+argument_list|,
+name|abort
+argument_list|,
+name|zk
+argument_list|,
+name|versionOfClosingNode
+argument_list|,
+name|sn
+argument_list|)
+return|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The opening previously in progress has been cancelled by a CLOSE request."
+argument_list|)
+expr_stmt|;
+comment|// The master deletes the znode when it receives this exception.
+throw|throw
+operator|new
+name|NotServingRegionException
+argument_list|(
+literal|"The region "
+operator|+
+name|encodedName
+operator|+
+literal|" was opening but not yet served. Opening is cancelled."
+argument_list|)
+throw|;
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|Boolean
+operator|.
+name|FALSE
+operator|.
+name|equals
+argument_list|(
+name|previous
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Received CLOSE for the region: "
+operator|+
+name|encodedName
+operator|+
+literal|" ,which we are already trying to CLOSE"
+argument_list|)
+expr_stmt|;
+comment|// The master deletes the znode when it receives this exception.
+throw|throw
+operator|new
+name|NotServingRegionException
+argument_list|(
+literal|"The region "
+operator|+
+name|encodedName
+operator|+
+literal|" was already closing. New CLOSE request is ignored."
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|actualRegion
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Received CLOSE for a region which is not online, and we're not opening."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|regionsInTransitionInRS
+operator|.
+name|remove
+argument_list|(
+name|encodedName
+operator|.
+name|getBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// The master deletes the znode when it receives this exception.
+throw|throw
+operator|new
+name|NotServingRegionException
+argument_list|(
+literal|"The region "
+operator|+
+name|encodedName
+operator|+
+literal|" is not online, and is not opening."
+argument_list|)
+throw|;
+block|}
+name|CloseRegionHandler
+name|crh
+decl_stmt|;
+specifier|final
+name|HRegionInfo
+name|hri
+init|=
+name|actualRegion
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|hri
 operator|.
 name|isRootRegion
 argument_list|()
@@ -13373,7 +13481,7 @@ name|this
 argument_list|,
 name|this
 argument_list|,
-name|region
+name|hri
 argument_list|,
 name|abort
 argument_list|,
@@ -13386,7 +13494,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|region
+name|hri
 operator|.
 name|isMetaRegion
 argument_list|()
@@ -13401,7 +13509,7 @@ name|this
 argument_list|,
 name|this
 argument_list|,
-name|region
+name|hri
 argument_list|,
 name|abort
 argument_list|,
@@ -13422,7 +13530,7 @@ name|this
 argument_list|,
 name|this
 argument_list|,
-name|region
+name|hri
 argument_list|,
 name|abort
 argument_list|,
@@ -14553,12 +14661,7 @@ expr_stmt|;
 block|}
 name|existence
 operator|=
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
 name|exists
-argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -14719,8 +14822,6 @@ expr_stmt|;
 block|}
 name|Integer
 name|lock
-init|=
-literal|null
 decl_stmt|;
 name|Result
 name|r
@@ -14976,12 +15077,7 @@ expr_stmt|;
 block|}
 name|processed
 operator|=
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
 name|result
-argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -15209,12 +15305,7 @@ expr_stmt|;
 block|}
 name|processed
 operator|=
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
 name|result
-argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -17912,8 +18003,6 @@ name|byte
 index|[]
 argument_list|>
 name|columnFamilies
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -18160,7 +18249,7 @@ comment|// Region open/close direct RPCs
 end_comment
 
 begin_comment
-comment|/**    * Open a region on the region server.    *    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
+comment|/**    * Open asynchronously a region or a set of regions on the region server.    *    * The opening is coordinated by ZooKeeper, and this method requires the znode to be created    *  before being called. As a consequence, this method should be called only from the master.    *<p>    * Different manages states for the region are:<ul>    *<li>region not opened: the region opening will start asynchronously.</li>    *<li>a close is already in progress: this is considered as an error.</li>    *<li>an open is already in progress: this new open request will be ignored. This is important    *  because the Master can do multiple requests if it crashes.</li>    *<li>the region is already opened:  this new open request will be ignored./li>    *</ul>    *</p>    *<p>    * Bulk assign: If there are more than 1 region to open, it will be considered as a bulk assign.    * For a single region opening, errors are sent through a ServiceException. For bulk assign,    * errors are put in the response as FAILED_OPENING.    *</p>    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
 end_comment
 
 begin_function
@@ -18225,6 +18314,7 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+specifier|final
 name|int
 name|regionCount
 init|=
@@ -18233,6 +18323,7 @@ operator|.
 name|getOpenInfoCount
 argument_list|()
 decl_stmt|;
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -18252,6 +18343,7 @@ argument_list|(
 name|regionCount
 argument_list|)
 decl_stmt|;
+specifier|final
 name|boolean
 name|isBulkAssign
 init|=
@@ -18270,6 +18362,7 @@ name|getOpenInfoList
 argument_list|()
 control|)
 block|{
+specifier|final
 name|HRegionInfo
 name|region
 init|=
@@ -18305,18 +18398,12 @@ name|getVersionOfOfflineNode
 argument_list|()
 expr_stmt|;
 block|}
+name|HTableDescriptor
+name|htd
+decl_stmt|;
 try|try
 block|{
-name|checkIfRegionInTransition
-argument_list|(
-name|region
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|,
-name|OPEN
-argument_list|)
-expr_stmt|;
+specifier|final
 name|HRegion
 name|onlineRegion
 init|=
@@ -18330,9 +18417,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|onlineRegion
+operator|!=
+literal|null
 condition|)
 block|{
 comment|//Check if the region can actually be opened.
@@ -18433,7 +18520,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" is online on this server but META does not have this server."
+literal|" is online on this server"
+operator|+
+literal|" but META does not have this server - continue opening."
 argument_list|)
 expr_stmt|;
 name|removeFromOnlineRegions
@@ -18466,9 +18555,8 @@ operator|.
 name|serverNameFromMasterPOV
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
 name|htd
-init|=
+operator|=
 name|htds
 operator|.
 name|get
@@ -18478,7 +18566,7 @@ operator|.
 name|getTableNameAsString
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|htd
@@ -18513,6 +18601,10 @@ name|htd
 argument_list|)
 expr_stmt|;
 block|}
+specifier|final
+name|Boolean
+name|previous
+init|=
 name|this
 operator|.
 name|regionsInTransitionInRS
@@ -18524,9 +18616,88 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-literal|true
+name|Boolean
+operator|.
+name|TRUE
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|Boolean
+operator|.
+name|FALSE
+operator|.
+name|equals
+argument_list|(
+name|previous
+argument_list|)
+condition|)
+block|{
+comment|// There is a close in progress. We need to mark this open as failed in ZK.
+name|OpenRegionHandler
+operator|.
+name|tryTransitionFromOfflineToFailedOpen
+argument_list|(
+name|this
+argument_list|,
+name|region
+argument_list|,
+name|versionOfOfflineNode
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|RegionAlreadyInTransitionException
+argument_list|(
+literal|"Received OPEN for the region:"
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" , which we are already trying to CLOSE "
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|Boolean
+operator|.
+name|TRUE
+operator|.
+name|equals
+argument_list|(
+name|previous
+argument_list|)
+condition|)
+block|{
+comment|// An open is in progress. This is supported, but let's log this.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Receiving OPEN for the region:"
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" , which we are already trying to OPEN"
+operator|+
+literal|" - ignoring this new request for this region."
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|previous
+operator|==
+literal|null
+condition|)
+block|{
+comment|// If there is no action in progress, we can submit a specific handler.
 comment|// Need to pass the expected version in the constructor.
 if|if
 condition|(
@@ -18613,6 +18784,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|builder
 operator|.
 name|addOpeningState
@@ -18622,47 +18794,6 @@ operator|.
 name|OPENED
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|RegionAlreadyInTransitionException
-name|rie
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Region is already in transition"
-argument_list|,
-name|rie
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|isBulkAssign
-condition|)
-block|{
-name|builder
-operator|.
-name|addOpeningState
-argument_list|(
-name|RegionOpeningState
-operator|.
-name|OPENED
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|ServiceException
-argument_list|(
-name|rie
-argument_list|)
-throw|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -18809,6 +18940,7 @@ block|{
 name|checkOpen
 argument_list|()
 expr_stmt|;
+specifier|final
 name|String
 name|encodedRegionName
 init|=
@@ -18822,33 +18954,34 @@ name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
-name|encodedName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|encodedRegionName
-argument_list|)
-decl_stmt|;
+comment|// Can be null if we're calling close on a region that's not online
+specifier|final
 name|HRegion
 name|region
 init|=
-name|getRegionByEncodedName
+name|this
+operator|.
+name|getFromOnlineRegions
 argument_list|(
 name|encodedRegionName
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|(
+name|region
+operator|!=
+literal|null
+operator|)
+operator|&&
+operator|(
 name|region
 operator|.
 name|getCoprocessorHost
 argument_list|()
 operator|!=
 literal|null
+operator|)
 condition|)
 block|{
 name|region
@@ -18859,53 +18992,6 @@ operator|.
 name|preClose
 argument_list|(
 literal|false
-argument_list|)
-expr_stmt|;
-block|}
-name|Boolean
-name|openAction
-init|=
-name|regionsInTransitionInRS
-operator|.
-name|get
-argument_list|(
-name|encodedName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|openAction
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|openAction
-operator|.
-name|booleanValue
-argument_list|()
-condition|)
-block|{
-name|regionsInTransitionInRS
-operator|.
-name|replace
-argument_list|(
-name|encodedName
-argument_list|,
-name|openAction
-argument_list|,
-name|Boolean
-operator|.
-name|FALSE
-argument_list|)
-expr_stmt|;
-block|}
-name|checkIfRegionInTransition
-argument_list|(
-name|encodedName
-argument_list|,
-name|CLOSE
 argument_list|)
 expr_stmt|;
 block|}
@@ -18920,10 +19006,17 @@ name|info
 argument_list|(
 literal|"Received close region: "
 operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|encodedRegionName
+operator|+
+literal|"Transitioning in ZK: "
+operator|+
+operator|(
+name|zk
+condition|?
+literal|"yes"
+else|:
+literal|"no"
+operator|)
 operator|+
 literal|". Version of ZK closing node:"
 operator|+
@@ -18934,27 +19027,12 @@ operator|+
 name|sn
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
-name|regionInfo
-init|=
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
-decl_stmt|;
-name|checkIfRegionInTransition
-argument_list|(
-name|encodedName
-argument_list|,
-name|CLOSE
-argument_list|)
-expr_stmt|;
 name|boolean
 name|closed
 init|=
 name|closeRegion
 argument_list|(
-name|regionInfo
+name|encodedRegionName
 argument_list|,
 literal|false
 argument_list|,
@@ -19426,14 +19504,10 @@ argument_list|)
 operator|+
 literal|" does not exist in region "
 operator|+
-operator|new
-name|String
-argument_list|(
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
-argument_list|)
 argument_list|)
 argument_list|)
 throw|;
@@ -20360,8 +20434,6 @@ control|)
 block|{
 name|Mutation
 name|mutation
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -20854,7 +20926,7 @@ block|}
 end_function
 
 begin_comment
-comment|// This map will containsall the regions that we closed for a move.
+comment|// This map will contains all the regions that we closed for a move.
 end_comment
 
 begin_comment

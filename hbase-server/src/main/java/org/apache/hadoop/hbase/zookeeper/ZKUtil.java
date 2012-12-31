@@ -3990,7 +3990,9 @@ operator|.
 name|PERSISTENT
 argument_list|)
 expr_stmt|;
-return|return
+name|Stat
+name|stat
+init|=
 name|zkw
 operator|.
 name|getRecoverableZooKeeper
@@ -4002,6 +4004,34 @@ name|znode
 argument_list|,
 name|zkw
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|stat
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Likely a race condition. Someone deleted the znode.
+throw|throw
+name|KeeperException
+operator|.
+name|create
+argument_list|(
+name|KeeperException
+operator|.
+name|Code
+operator|.
+name|SYSTEMERROR
+argument_list|,
+literal|"ZK.exists returned null (i.e.: znode does not exist) for znode="
+operator|+
+name|znode
+argument_list|)
+throw|;
+block|}
+return|return
+name|stat
 operator|.
 name|getVersion
 argument_list|()

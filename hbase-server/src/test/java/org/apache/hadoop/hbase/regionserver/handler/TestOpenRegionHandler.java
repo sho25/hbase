@@ -477,7 +477,12 @@ name|rss
 init|=
 operator|new
 name|MockRegionServerServices
+argument_list|(
+name|HTU
+operator|.
+name|getZooKeeperWatcher
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|htd

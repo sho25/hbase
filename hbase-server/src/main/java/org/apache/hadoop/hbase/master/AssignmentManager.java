@@ -1128,7 +1128,8 @@ specifier|final
 name|RegionStates
 name|regionStates
 decl_stmt|;
-comment|/**    * Indicator that AssignmentManager has recovered the region states so    * that ServerShutdownHandler can be fully enabled and re-assign regions    * of dead servers. So that when re-assignment happens, AssignmentManager    * has proper region states.    */
+comment|/**    * Indicator that AssignmentManager has recovered the region states so    * that ServerShutdownHandler can be fully enabled and re-assign regions    * of dead servers. So that when re-assignment happens, AssignmentManager    * has proper region states.    *    * Protected to ease testing.    */
+specifier|protected
 specifier|final
 name|AtomicBoolean
 name|failoverCleanupDone
@@ -6423,6 +6424,7 @@ expr_stmt|;
 return|return;
 block|}
 comment|// This never happens. Currently regionserver close always return true.
+comment|// Todo; this can now happen (0.96) if there is an exception in a coprocessor
 name|LOG
 operator|.
 name|warn

@@ -612,14 +612,54 @@ literal|"Received CLOSE for region "
 operator|+
 name|name
 operator|+
-literal|" but currently not serving"
+literal|" but currently not serving - ignoring"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|zk
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"The znode is not modified as we are not serving "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
+block|}
+comment|// TODO: do better than a simple warning
 return|return;
 block|}
 comment|// Close the region
 try|try
 block|{
+if|if
+condition|(
+name|zk
+operator|&&
+operator|!
+name|ZKAssign
+operator|.
+name|checkClosingState
+argument_list|(
+name|server
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|regionInfo
+argument_list|,
+name|expectedVersion
+argument_list|)
+condition|)
+block|{
+comment|// bad znode state
+return|return;
+comment|// We're node deleting the znode, but it's not ours...
+block|}
 comment|// TODO: If we need to keep updating CLOSING stamp to prevent against
 comment|// a timeout if this is long-running, need to spin up a thread?
 if|if

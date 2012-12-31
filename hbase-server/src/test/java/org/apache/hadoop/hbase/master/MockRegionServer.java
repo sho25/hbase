@@ -79,6 +79,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentSkipListMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2054,7 +2066,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Map
+name|ConcurrentSkipListMap
 argument_list|<
 name|byte
 index|[]
