@@ -1838,19 +1838,7 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
-name|assertTrue
-argument_list|(
-literal|"Count of regions="
-operator|+
-name|regions
-argument_list|,
-name|regions
-operator|>
-literal|10
-argument_list|)
-expr_stmt|;
+comment|// Assert.assertTrue("Count of regions=" + regions, regions> 10);
 block|}
 name|table
 operator|.
