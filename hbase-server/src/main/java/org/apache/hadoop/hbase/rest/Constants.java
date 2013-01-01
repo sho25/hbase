@@ -139,6 +139,14 @@ name|MIMETYPE_JSON
 init|=
 literal|"application/json"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRLF
+init|=
+literal|"\r\n"
+decl_stmt|;
 block|}
 end_interface
 
