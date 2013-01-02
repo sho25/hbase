@@ -239,9 +239,15 @@ name|Provider
 annotation|@
 name|Consumes
 argument_list|(
+block|{
 name|Constants
 operator|.
 name|MIMETYPE_PROTOBUF
+block|,
+name|Constants
+operator|.
+name|MIMETYPE_PROTOBUF_IETF
+block|}
 argument_list|)
 annotation|@
 name|InterfaceAudience

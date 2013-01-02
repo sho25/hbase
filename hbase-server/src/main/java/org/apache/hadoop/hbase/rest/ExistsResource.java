@@ -212,6 +212,8 @@ name|MIMETYPE_JSON
 block|,
 name|MIMETYPE_PROTOBUF
 block|,
+name|MIMETYPE_PROTOBUF_IETF
+block|,
 name|MIMETYPE_BINARY
 block|}
 argument_list|)

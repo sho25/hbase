@@ -135,6 +135,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|MIMETYPE_PROTOBUF_IETF
+init|=
+literal|"application/protobuf"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|MIMETYPE_JSON
 init|=
 literal|"application/json"

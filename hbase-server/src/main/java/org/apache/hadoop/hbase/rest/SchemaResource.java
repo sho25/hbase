@@ -528,6 +528,8 @@ block|,
 name|MIMETYPE_JSON
 block|,
 name|MIMETYPE_PROTOBUF
+block|,
+name|MIMETYPE_PROTOBUF_IETF
 block|}
 argument_list|)
 specifier|public
@@ -1461,6 +1463,8 @@ block|,
 name|MIMETYPE_JSON
 block|,
 name|MIMETYPE_PROTOBUF
+block|,
+name|MIMETYPE_PROTOBUF_IETF
 block|}
 argument_list|)
 specifier|public
@@ -1531,6 +1535,8 @@ block|,
 name|MIMETYPE_JSON
 block|,
 name|MIMETYPE_PROTOBUF
+block|,
+name|MIMETYPE_PROTOBUF_IETF
 block|}
 argument_list|)
 specifier|public
