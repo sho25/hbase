@@ -407,12 +407,15 @@ parameter_list|()
 block|{
 comment|// hidden ctor since this is just a util
 block|}
-comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param fs the file system object    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
+comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|archiveRegion
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
@@ -429,14 +432,13 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|fs
-operator|.
-name|getConf
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 name|archiveRegion
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|rootDir
@@ -464,12 +466,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove an entire region from the table directory via archiving the region's hfiles.    * @param fs {@link FileSystem} from which to remove the region    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @param tableDir {@link Path} to where the table is being stored (for building the archive path)    * @param regionDir {@link Path} to where a region is being stored (for building the archive path)    * @return<tt>true</tt> if the region was sucessfully deleted.<tt>false</tt> if the filesystem    *         operations could not complete.    * @throws IOException if the request cannot be completed    */
+comment|/**    * Remove an entire region from the table directory via archiving the region's hfiles.    * @param conf the configuration to use    * @param fs {@link FileSystem} from which to remove the region    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @param tableDir {@link Path} to where the table is being stored (for building the archive path)    * @param regionDir {@link Path} to where a region is being stored (for building the archive path)    * @return<tt>true</tt> if the region was sucessfully deleted.<tt>false</tt> if the filesystem    *         operations could not complete.    * @throws IOException if the request cannot be completed    */
 specifier|public
 specifier|static
 name|boolean
 name|archiveRegion
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
@@ -573,10 +578,7 @@ name|HFileArchiveUtil
 operator|.
 name|getRegionArchiveDir
 argument_list|(
-name|fs
-operator|.
-name|getConf
-argument_list|()
+name|conf
 argument_list|,
 name|tableDir
 argument_list|,
@@ -990,20 +992,20 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param fs the filesystem where the store files live    * @param parent Parent region hosting the store files    * @param conf {@link Configuration} to examine to determine the archive directory    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
+comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param conf {@link Configuration} to examine to determine the archive directory    * @param fs the filesystem where the store files live    * @param parent Parent region hosting the store files    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
 specifier|public
 specifier|static
 name|void
 name|archiveStoreFiles
 parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
 name|HRegion
 name|parent
-parameter_list|,
-name|Configuration
-name|conf
 parameter_list|,
 name|byte
 index|[]

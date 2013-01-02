@@ -18349,6 +18349,11 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
+name|a
+operator|.
+name|getBaseConf
+argument_list|()
+argument_list|,
 name|fs
 argument_list|,
 name|FSUtils
@@ -18377,6 +18382,11 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
+name|a
+operator|.
+name|getBaseConf
+argument_list|()
+argument_list|,
 name|fs
 argument_list|,
 name|FSUtils

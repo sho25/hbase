@@ -2419,6 +2419,8 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|region
@@ -2606,7 +2608,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create new HTableDescriptor in HDFS.    *     * @param htableDescriptor    */
+comment|/**    * Create new HTableDescriptor in HDFS.    *    * @param htableDescriptor    */
 specifier|public
 name|void
 name|createTableDescriptor
