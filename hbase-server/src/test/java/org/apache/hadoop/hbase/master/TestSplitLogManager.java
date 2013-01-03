@@ -1569,7 +1569,9 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|100
+name|to
+operator|/
+literal|2
 argument_list|)
 expr_stmt|;
 name|Task
@@ -3794,6 +3796,15 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.splitlog.manager.timeoutmonitor.period"
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
 name|slm
 operator|=
 operator|new
@@ -3987,7 +3998,9 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+name|to
+operator|/
+literal|2
 argument_list|)
 expr_stmt|;
 name|assertTrue
