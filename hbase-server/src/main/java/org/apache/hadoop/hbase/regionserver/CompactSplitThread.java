@@ -1374,7 +1374,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Waiting for "
 operator|+
@@ -1392,7 +1392,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"Interrupted waiting for "
 operator|+

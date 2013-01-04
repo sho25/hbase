@@ -1468,9 +1468,6 @@ argument_list|(
 name|value
 argument_list|)
 argument_list|)
-operator|.
-name|booleanValue
-argument_list|()
 return|;
 block|}
 return|return
@@ -2187,7 +2184,7 @@ operator|.
 name|nameAsString
 return|;
 block|}
-comment|/**    * This get the class associated with the region split policy which     * determines when a region split should occur.  The class used by    * default is {@link org.apache.hadoop.hbase.regionserver.ConstantSizeRegionSplitPolicy}    * which split the region base on a constant {@link #getMaxFileSize()}    *     * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
+comment|/**    * This get the class associated with the region split policy which     * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    *     * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
 specifier|public
 name|String
 name|getRegionSplitPolicyClassName
@@ -3862,16 +3859,27 @@ index|[]
 name|getColumnFamilies
 parameter_list|()
 block|{
-return|return
+name|Collection
+argument_list|<
+name|HColumnDescriptor
+argument_list|>
+name|hColumnDescriptors
+init|=
 name|getFamilies
 argument_list|()
+decl_stmt|;
+return|return
+name|hColumnDescriptors
 operator|.
 name|toArray
 argument_list|(
 operator|new
 name|HColumnDescriptor
 index|[
-literal|0
+name|hColumnDescriptors
+operator|.
+name|size
+argument_list|()
 index|]
 argument_list|)
 return|;
@@ -4910,8 +4918,6 @@ argument_list|()
 decl_stmt|;
 name|TableSchema
 name|ts
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
