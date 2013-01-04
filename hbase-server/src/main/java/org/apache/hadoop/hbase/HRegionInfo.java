@@ -1702,6 +1702,31 @@ return|return
 name|tableName
 return|;
 block|}
+comment|/**    * Gets the start key from the specified region name.    * @param regionName    * @return Start key.    */
+specifier|public
+specifier|static
+name|byte
+index|[]
+name|getStartKey
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|parseRegionName
+argument_list|(
+name|regionName
+argument_list|)
+index|[
+literal|1
+index|]
+return|;
+block|}
 comment|/**    * Separate elements of a regionName.    * @param regionName    * @return Array of byte[] containing tableName, startKey and id    * @throws IOException    */
 specifier|public
 specifier|static
