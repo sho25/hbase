@@ -316,6 +316,7 @@ decl_stmt|;
 comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|COMPARATOR
 init|=
@@ -326,6 +327,7 @@ decl_stmt|;
 comment|/**    * Comparator for plain key; i.e. non-catalog table key.  Works on Key portion    * of KeyValue only.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|KEY_COMPARATOR
 init|=
@@ -336,6 +338,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|META_COMPARATOR
 init|=
@@ -346,6 +349,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue} keys.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|META_KEY_COMPARATOR
 init|=
@@ -356,6 +360,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>-ROOT-</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|ROOT_COMPARATOR
 init|=
@@ -366,6 +371,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>-ROOT-</code> catalog table    * {@link KeyValue} keys.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|ROOT_KEY_COMPARATOR
 init|=

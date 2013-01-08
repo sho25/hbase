@@ -210,6 +210,7 @@ literal|","
 decl_stmt|;
 specifier|public
 specifier|static
+specifier|final
 name|Pattern
 name|SERVERNAME_PATTERN
 init|=

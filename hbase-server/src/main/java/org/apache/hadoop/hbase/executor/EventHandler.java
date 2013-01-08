@@ -199,6 +199,7 @@ decl_stmt|;
 comment|// sequence id generator for default FIFO ordering of events
 specifier|protected
 specifier|static
+specifier|final
 name|AtomicLong
 name|seqids
 init|=

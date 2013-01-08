@@ -473,6 +473,7 @@ name|Coprocessor
 block|{
 specifier|protected
 specifier|static
+specifier|final
 name|Log
 name|log
 init|=

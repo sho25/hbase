@@ -910,6 +910,7 @@ name|Tool
 block|{
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -923,6 +924,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|static
+specifier|final
 name|AtomicLong
 name|regionCount
 init|=
@@ -942,6 +944,7 @@ name|cfg
 decl_stmt|;
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|NAME
 init|=
@@ -949,6 +952,7 @@ literal|"completebulkload"
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 name|String
 name|ASSIGN_SEQ_IDS
 init|=
@@ -3795,8 +3799,6 @@ argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
 name|hcd
-init|=
-literal|null
 decl_stmt|;
 comment|// Add column families
 comment|// Build a set of keys
@@ -3804,8 +3806,6 @@ name|byte
 index|[]
 index|[]
 name|keys
-init|=
-literal|null
 decl_stmt|;
 name|TreeMap
 argument_list|<
@@ -4080,9 +4080,6 @@ argument_list|(
 name|first
 argument_list|)
 condition|?
-operator|(
-name|Integer
-operator|)
 name|map
 operator|.
 name|get
@@ -4112,9 +4109,6 @@ argument_list|(
 name|last
 argument_list|)
 condition|?
-operator|(
-name|Integer
-operator|)
 name|map
 operator|.
 name|get

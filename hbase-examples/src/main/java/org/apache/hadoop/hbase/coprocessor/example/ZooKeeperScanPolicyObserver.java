@@ -418,6 +418,7 @@ name|BaseRegionObserver
 block|{
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|node
 init|=
@@ -425,6 +426,7 @@ literal|"/backup/example/lastbackup"
 decl_stmt|;
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|zkkey
 init|=
@@ -497,6 +499,23 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**      * Get the maintained data. In case of any ZK exceptions this will retry      * establishing the connection (but not more than twice/minute).      *      * getData is on the critical path, so make sure it is fast unless there is      * a problem (network partion, ZK ensemble down, etc)      * Make sure at most one (unlucky) thread retries and other threads don't pile up      * while that threads tries to recreate the connection.      *      * @return the last know version of the data      */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"REC_CATCH_EXCEPTION"
+argument_list|)
 specifier|public
 name|byte
 index|[]
