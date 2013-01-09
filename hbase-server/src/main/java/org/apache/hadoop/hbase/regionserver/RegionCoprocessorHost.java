@@ -836,6 +836,12 @@ parameter_list|)
 block|{
 name|this
 operator|.
+name|conf
+operator|=
+name|conf
+expr_stmt|;
+name|this
+operator|.
 name|rsServices
 operator|=
 name|rsServices

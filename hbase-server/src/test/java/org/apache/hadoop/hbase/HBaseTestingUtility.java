@@ -1542,6 +1542,15 @@ argument_list|,
 literal|"mapred-local-dir"
 argument_list|)
 expr_stmt|;
+name|createSubDir
+argument_list|(
+literal|"hbase.local.dir"
+argument_list|,
+name|testPath
+argument_list|,
+literal|"hbase-local-dir"
+argument_list|)
+expr_stmt|;
 return|return
 name|testPath
 return|;
