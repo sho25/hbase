@@ -367,6 +367,12 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+specifier|private
+name|Boolean
+name|loadColumnFamiliesOnDemand
+init|=
+literal|null
+decl_stmt|;
 comment|/**    * Create a Scan operation across all rows.    */
 specifier|public
 name|Scan
@@ -518,6 +524,13 @@ name|getFilter
 argument_list|()
 expr_stmt|;
 comment|// clone?
+name|loadColumnFamiliesOnDemand
+operator|=
+name|scan
+operator|.
+name|getLoadColumnFamiliesOnDemandValue
+argument_list|()
+expr_stmt|;
 name|TimeRange
 name|ctr
 init|=
@@ -1472,6 +1485,57 @@ return|return
 name|cacheBlocks
 return|;
 block|}
+comment|/**    * Set the value indicating whether loading CFs on demand should be allowed (cluster    * default is false). On-demand CF loading doesn't load column families until necessary, e.g.    * if you filter on one column, the other column family data will be loaded only for the rows    * that are included in result, not all rows like in normal case.    * With column-specific filters, like SingleColumnValueFilter w/filterIfMissing == true,    * this can deliver huge perf gains when there's a cf with lots of data; however, it can    * also lead to some inconsistent results, as follows:    * - if someone does a concurrent update to both column families in question you may get a row    *   that never existed, e.g. for { rowKey = 5, { cat_videos => 1 }, { video => "my cat" } }    *   someone puts rowKey 5 with { cat_videos => 0 }, { video => "my dog" }, concurrent scan    *   filtering on "cat_videos == 1" can get { rowKey = 5, { cat_videos => 1 },    *   { video => "my dog" } }.    * - if there's a concurrent split and you have more than 2 column families, some rows may be    *   missing some column families.    */
+specifier|public
+name|void
+name|setLoadColumnFamiliesOnDemand
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+operator|=
+name|value
+expr_stmt|;
+block|}
+comment|/**    * Get the raw loadColumnFamiliesOnDemand setting; if it's not set, can be null.    */
+specifier|public
+name|Boolean
+name|getLoadColumnFamiliesOnDemandValue
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+return|;
+block|}
+comment|/**    * Get the logical value indicating whether on-demand CF loading should be allowed.    */
+specifier|public
+name|boolean
+name|doLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+operator|(
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+operator|!=
+literal|null
+operator|)
+operator|&&
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+operator|.
+name|booleanValue
+argument_list|()
+return|;
+block|}
 comment|/**    * Compile the table and column family (i.e. schema) information    * into a String. Useful for parsing and aggregation by debugging,    * logging, and administration tools.    * @return Map    */
 annotation|@
 name|Override
@@ -1744,6 +1808,17 @@ argument_list|,
 name|this
 operator|.
 name|cacheBlocks
+argument_list|)
+expr_stmt|;
+name|map
+operator|.
+name|put
+argument_list|(
+literal|"loadColumnFamiliesOnDemand"
+argument_list|,
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
 argument_list|)
 expr_stmt|;
 name|List

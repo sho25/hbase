@@ -224,6 +224,20 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * @inheritDoc    */
+specifier|public
+name|boolean
+name|isFamilyEssential
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 comment|/**    * Given the filter's arguments it constructs the filter    *<p>    * @param filterArguments the filter's arguments    * @return constructed filter object    */
 specifier|public
 specifier|static
