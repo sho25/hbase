@@ -577,6 +577,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|IpcProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RegionMovedException
 import|;
 end_import
@@ -718,22 +732,6 @@ operator|.
 name|ipc
 operator|.
 name|HBaseClientRPC
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
 import|;
 end_import
 
@@ -2592,7 +2590,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 argument_list|>
 name|servers
@@ -2606,7 +2604,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 argument_list|>
 argument_list|()
@@ -3191,10 +3189,6 @@ argument_list|>
 name|protocolClass
 decl_stmt|;
 specifier|public
-name|long
-name|version
-decl_stmt|;
-specifier|public
 name|MasterProtocolState
 parameter_list|(
 specifier|final
@@ -3205,9 +3199,6 @@ extends|extends
 name|MasterProtocol
 argument_list|>
 name|protocolClass
-parameter_list|,
-name|long
-name|version
 parameter_list|)
 block|{
 name|this
@@ -3215,12 +3206,6 @@ operator|.
 name|protocolClass
 operator|=
 name|protocolClass
-expr_stmt|;
-name|this
-operator|.
-name|version
-operator|=
-name|version
 expr_stmt|;
 block|}
 block|}
@@ -3340,10 +3325,6 @@ argument_list|(
 name|masterProtocolState
 operator|.
 name|protocolClass
-argument_list|,
-name|masterProtocolState
-operator|.
-name|version
 argument_list|,
 name|isa
 argument_list|,
@@ -6275,10 +6256,6 @@ argument_list|,
 name|port
 argument_list|,
 name|clientClass
-argument_list|,
-name|ClientProtocol
-operator|.
-name|VERSION
 argument_list|)
 return|;
 block|}
@@ -6314,15 +6291,11 @@ argument_list|,
 name|port
 argument_list|,
 name|adminClass
-argument_list|,
-name|AdminProtocol
-operator|.
-name|VERSION
 argument_list|)
 return|;
 block|}
 comment|/**      * Either the passed<code>isa</code> is null or<code>hostname</code>      * can be but not both.      * @param hostname      * @param port      * @param protocolClass      * @param version      * @return Proxy.      * @throws IOException      */
-name|VersionedProtocol
+name|IpcProtocol
 name|getProtocol
 parameter_list|(
 specifier|final
@@ -6338,13 +6311,9 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocolClass
-parameter_list|,
-specifier|final
-name|long
-name|version
 parameter_list|)
 throws|throws
 name|IOException
@@ -6366,7 +6335,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocols
 init|=
@@ -6393,7 +6362,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -6401,7 +6370,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|existingProtocols
 init|=
@@ -6437,7 +6406,7 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-name|VersionedProtocol
+name|IpcProtocol
 name|server
 init|=
 name|protocols
@@ -6527,8 +6496,6 @@ operator|.
 name|waitForProxy
 argument_list|(
 name|protocolClass
-argument_list|,
-name|version
 argument_list|,
 name|address
 argument_list|,
@@ -7252,10 +7219,6 @@ argument_list|(
 name|MasterAdminProtocol
 operator|.
 name|class
-argument_list|,
-name|MasterAdminProtocol
-operator|.
-name|VERSION
 argument_list|)
 decl_stmt|;
 name|MasterProtocolState
@@ -7267,10 +7230,6 @@ argument_list|(
 name|MasterMonitorProtocol
 operator|.
 name|class
-argument_list|,
-name|MasterMonitorProtocol
-operator|.
-name|VERSION
 argument_list|)
 decl_stmt|;
 comment|/**      * This function allows HBaseAdmin and potentially others      * to get a shared master connection.      *      * @return The shared instance. Never returns null.      * @throws MasterNotRunningException      */
@@ -10403,7 +10362,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|i
 range|:
@@ -10415,7 +10374,7 @@ control|)
 block|{
 for|for
 control|(
-name|VersionedProtocol
+name|IpcProtocol
 name|server
 range|:
 name|i

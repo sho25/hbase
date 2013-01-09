@@ -109,22 +109,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
 name|javax
 operator|.
 name|net
@@ -144,6 +128,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|IpcProtocol
 import|;
 end_import
 
@@ -218,19 +216,16 @@ name|AtomicInteger
 argument_list|()
 decl_stmt|;
 specifier|public
-name|VersionedProtocol
+name|IpcProtocol
 name|getProxy
 parameter_list|(
 name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
-parameter_list|,
-name|long
-name|clientVersion
 parameter_list|,
 name|InetSocketAddress
 name|addr
@@ -253,7 +248,7 @@ block|{
 comment|// Start up the requested-for proxy so we can pass-through calls to the underlying
 comment|// RpcEngine.  Also instantiate and return our own proxy (RandomTimeoutInvocationHandler)
 comment|// that will either throw exceptions or pass through to the underlying proxy.
-name|VersionedProtocol
+name|IpcProtocol
 name|actualProxy
 init|=
 name|super
@@ -261,8 +256,6 @@ operator|.
 name|getProxy
 argument_list|(
 name|protocol
-argument_list|,
-name|clientVersion
 argument_list|,
 name|addr
 argument_list|,
@@ -284,11 +277,11 @@ argument_list|(
 name|actualProxy
 argument_list|)
 decl_stmt|;
-name|VersionedProtocol
+name|IpcProtocol
 name|object
 init|=
 operator|(
-name|VersionedProtocol
+name|IpcProtocol
 operator|)
 name|Proxy
 operator|.
@@ -323,6 +316,11 @@ name|Configuration
 name|conf
 parameter_list|,
 name|Class
+argument_list|<
+name|?
+extends|extends
+name|IpcProtocol
+argument_list|>
 name|protocol
 parameter_list|)
 block|{
@@ -361,7 +359,7 @@ implements|implements
 name|InvocationHandler
 block|{
 specifier|private
-name|VersionedProtocol
+name|IpcProtocol
 name|actual
 init|=
 literal|null
@@ -369,7 +367,7 @@ decl_stmt|;
 specifier|public
 name|RandomTimeoutInvocationHandler
 parameter_list|(
-name|VersionedProtocol
+name|IpcProtocol
 name|actual
 parameter_list|)
 block|{

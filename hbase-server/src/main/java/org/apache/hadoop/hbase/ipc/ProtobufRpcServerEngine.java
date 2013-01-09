@@ -163,6 +163,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|IpcProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Operation
@@ -381,14 +395,6 @@ specifier|public
 name|Server
 name|getServer
 parameter_list|(
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|VersionedProtocol
-argument_list|>
-name|protocol
-parameter_list|,
 name|Object
 name|instance
 parameter_list|,
@@ -503,15 +509,6 @@ operator|*
 literal|1024
 operator|*
 literal|1024
-decl_stmt|;
-comment|/** Names for suffixed metrics */
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ABOVE_ONE_SEC_METRIC
-init|=
-literal|".aboveOneSec."
 decl_stmt|;
 specifier|private
 specifier|final
@@ -938,7 +935,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 parameter_list|,
@@ -999,20 +996,6 @@ argument_list|)
 throw|;
 block|}
 comment|/**          * RPCs for a particular interface (ie protocol) are done using a          * IPC connection that is setup using rpcProxy.          * The rpcProxy's has a declared protocol name that is          * sent form client to server at connection time.          */
-comment|//TODO: use the clientVersion to do protocol compatibility checks, and
-comment|//this could be used here to handle complex use cases like deciding
-comment|//which implementation of the protocol should be used to service the
-comment|//current request, etc. Ideally, we shouldn't land up in a situation
-comment|//where we need to support such a use case.
-comment|//For now the clientVersion field is simply ignored
-name|long
-name|clientVersion
-init|=
-name|rpcRequest
-operator|.
-name|getClientProtocolVersion
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|verbose
@@ -1435,15 +1418,6 @@ argument_list|(
 literal|")"
 argument_list|)
 expr_stmt|;
-name|buffer
-operator|.
-name|append
-argument_list|(
-literal|", client version="
-operator|+
-name|clientVersion
-argument_list|)
-expr_stmt|;
 name|logResponse
 argument_list|(
 operator|new
@@ -1624,7 +1598,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 parameter_list|,

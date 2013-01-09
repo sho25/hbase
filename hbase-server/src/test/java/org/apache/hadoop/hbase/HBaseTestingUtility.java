@@ -1963,7 +1963,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|fs
+name|FileSystem
 operator|.
 name|getLocal
 argument_list|(

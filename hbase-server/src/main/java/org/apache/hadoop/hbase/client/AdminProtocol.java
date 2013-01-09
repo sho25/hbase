@@ -41,9 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
+name|IpcProtocol
 import|;
 end_import
 
@@ -128,17 +126,8 @@ name|AdminService
 operator|.
 name|BlockingInterface
 extends|,
-name|VersionedProtocol
-block|{
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|VERSION
-init|=
-literal|1L
-decl_stmt|;
-block|}
+name|IpcProtocol
+block|{}
 end_interface
 
 end_unit

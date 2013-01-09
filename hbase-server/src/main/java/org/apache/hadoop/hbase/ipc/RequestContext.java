@@ -41,6 +41,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|IpcProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -230,7 +244,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 parameter_list|)
@@ -321,7 +335,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 decl_stmt|;
@@ -343,7 +357,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 parameter_list|)
@@ -390,7 +404,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|getProtocol
 parameter_list|()

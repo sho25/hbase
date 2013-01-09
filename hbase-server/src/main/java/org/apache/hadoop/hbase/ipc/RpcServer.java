@@ -67,6 +67,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|IpcProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|monitoring
 operator|.
 name|MonitoredRPCHandler
@@ -113,10 +127,6 @@ name|InetSocketAddress
 import|;
 end_import
 
-begin_comment
-comment|/**  */
-end_comment
-
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -126,6 +136,9 @@ specifier|public
 interface|interface
 name|RpcServer
 block|{
+comment|// TODO: Needs cleanup.  Why a 'start', and then a 'startThreads' and an 'openServer'?
+comment|// Also, the call takes a RpcRequestBody, an already composed combination of
+comment|// rpc Request and metadata.  Should disentangle metadata and rpc Request Message.
 name|void
 name|setSocketSendBufSize
 parameter_list|(
@@ -151,7 +164,7 @@ name|InetSocketAddress
 name|getListenerAddress
 parameter_list|()
 function_decl|;
-comment|/** Called for each call.    * @param param writable parameter    * @param receiveTime time    * @return Message    * @throws java.io.IOException e    */
+comment|/** Called for each call.    * @param param parameter    * @param receiveTime time    * @return Message Protobuf response Message    * @throws java.io.IOException e    */
 name|Message
 name|call
 parameter_list|(
@@ -159,7 +172,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|VersionedProtocol
+name|IpcProtocol
 argument_list|>
 name|protocol
 parameter_list|,

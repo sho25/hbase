@@ -305,10 +305,6 @@ name|MasterMonitorProtocol
 operator|.
 name|class
 argument_list|,
-name|MasterMonitorProtocol
-operator|.
-name|VERSION
-argument_list|,
 name|isa
 argument_list|,
 name|conf

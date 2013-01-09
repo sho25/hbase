@@ -71,14 +71,6 @@ comment|/** Construct a server for a protocol implementation instance. */
 name|RpcServer
 name|getServer
 parameter_list|(
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|VersionedProtocol
-argument_list|>
-name|protocol
-parameter_list|,
 name|Object
 name|instance
 parameter_list|,
@@ -87,7 +79,7 @@ argument_list|<
 name|?
 argument_list|>
 index|[]
-name|ifaces
+name|protocols
 parameter_list|,
 name|String
 name|bindAddress
