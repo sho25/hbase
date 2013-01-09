@@ -1383,6 +1383,18 @@ operator|+
 literal|" to finish..."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|done
+condition|)
+block|{
+name|t
+operator|.
+name|shutdownNow
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
