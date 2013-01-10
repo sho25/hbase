@@ -2488,13 +2488,13 @@ name|Preconditions
 operator|.
 name|checkNotNull
 argument_list|(
-literal|"Table "
+name|tableInfo
+argument_list|,
+literal|"Table '"
 operator|+
 name|tableName
 operator|+
 literal|"' not present!"
-argument_list|,
-name|tableInfo
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
