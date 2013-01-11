@@ -5987,6 +5987,13 @@ argument_list|)
 expr_stmt|;
 name|fileSystemManager
 operator|.
+name|splitMetaLog
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
+name|fileSystemManager
+operator|.
 name|splitLog
 argument_list|(
 name|sn
