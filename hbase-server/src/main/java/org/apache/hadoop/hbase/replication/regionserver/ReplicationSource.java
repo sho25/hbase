@@ -2779,6 +2779,12 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|reader
+operator|=
+literal|null
+expr_stmt|;
 comment|// TODO Need a better way to determinate if a file is really gone but
 comment|// TODO without scanning all logs dir
 if|if

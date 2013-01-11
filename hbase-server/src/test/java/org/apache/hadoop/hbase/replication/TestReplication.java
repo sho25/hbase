@@ -713,17 +713,14 @@ argument_list|,
 literal|"/1"
 argument_list|)
 expr_stmt|;
-comment|// smaller block size and capacity to trigger more operations
-comment|// and test them
+comment|// smaller log roll size to trigger more events
 name|conf1
 operator|.
-name|setInt
+name|setFloat
 argument_list|(
-literal|"hbase.regionserver.hlog.blocksize"
+literal|"hbase.regionserver.logroll.multiplier"
 argument_list|,
-literal|1024
-operator|*
-literal|20
+literal|0.0003f
 argument_list|)
 expr_stmt|;
 name|conf1
@@ -1077,6 +1074,10 @@ operator|.
 name|createTable
 argument_list|(
 name|table
+argument_list|,
+name|HBaseTestingUtility
+operator|.
+name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 expr_stmt|;
 name|admin2
@@ -4111,15 +4112,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|utility1
-operator|.
-name|createMultiRegions
-argument_list|(
-name|htable1
-argument_list|,
-name|famName
-argument_list|)
-expr_stmt|;
 comment|// killing the RS with .META. can result into failed puts until we solve
 comment|// IO fencing
 name|int
