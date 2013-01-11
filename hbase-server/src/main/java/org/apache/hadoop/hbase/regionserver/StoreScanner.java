@@ -258,36 +258,36 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|HStore
 name|store
 decl_stmt|;
-specifier|private
+specifier|protected
 name|ScanQueryMatcher
 name|matcher
 decl_stmt|;
-specifier|private
+specifier|protected
 name|KeyValueHeap
 name|heap
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|cacheBlocks
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|countPerRow
 init|=
 literal|0
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|storeLimit
 init|=
 operator|-
 literal|1
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|storeOffset
 init|=
@@ -295,33 +295,33 @@ literal|0
 decl_stmt|;
 comment|// Used to indicate that the scanner has closed (see HBASE-1107)
 comment|// Doesnt need to be volatile because it's always accessed via synchronized methods
-specifier|private
+specifier|protected
 name|boolean
 name|closing
 init|=
 literal|false
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|boolean
 name|isGet
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|boolean
 name|explicitColumnQuery
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|boolean
 name|useRowColBloom
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|Scan
 name|scan
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|NavigableSet
 argument_list|<
@@ -330,12 +330,12 @@ index|[]
 argument_list|>
 name|columns
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|long
 name|oldestUnexpiredTS
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|int
 name|minVersions
@@ -349,7 +349,7 @@ init|=
 literal|true
 decl_stmt|;
 comment|/** Used during unit testing to ensure that lazy seek does save seek ops */
-specifier|private
+specifier|protected
 specifier|static
 name|boolean
 name|lazySeekEnabledGlobally
@@ -357,14 +357,14 @@ init|=
 name|LAZY_SEEK_ENABLED_BY_DEFAULT
 decl_stmt|;
 comment|// if heap == null and lastTop != null, you need to reseek given the key below
-specifier|private
+specifier|protected
 name|KeyValue
 name|lastTop
 init|=
 literal|null
 decl_stmt|;
 comment|/** An internal constructor. */
-specifier|private
+specifier|protected
 name|StoreScanner
 parameter_list|(
 name|HStore
@@ -967,7 +967,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Get a filtered list of scanners. Assumes we are not in a compaction.    * @return list of scanners to seek    */
-specifier|private
+specifier|protected
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -1002,7 +1002,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Filters the given list of scanners using Bloom filter, time range, and    * TTL.    */
-specifier|private
+specifier|protected
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -2086,7 +2086,7 @@ comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
 comment|// Let the next() call handle re-creating and seeking
 block|}
 comment|/**    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
-specifier|private
+specifier|protected
 name|boolean
 name|checkReseek
 parameter_list|()
@@ -2193,7 +2193,7 @@ return|return
 literal|false
 return|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|resetScannerStack
 parameter_list|(
