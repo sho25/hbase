@@ -471,7 +471,7 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
-name|ensureSomeRegionServersAvailable
+name|ensureSomeNonStoppedRegionServersAvailable
 argument_list|(
 literal|2
 argument_list|)
