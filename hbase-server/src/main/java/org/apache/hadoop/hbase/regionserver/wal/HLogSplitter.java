@@ -379,20 +379,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|PathFilter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HConstants
@@ -1579,11 +1565,6 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|//actually, for meta-only hlogs, we don't need to go thru the process
-comment|//of parsing and segregating by regions since all the logs are for
-comment|//meta only. However, there is a sequence number that can be obtained
-comment|//only by parsing.. so we parse for all files currently
-comment|//TODO: optimize this part somehow
 name|in
 operator|=
 name|getReader

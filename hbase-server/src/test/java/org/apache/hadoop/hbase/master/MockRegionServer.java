@@ -1925,6 +1925,18 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|HLog
+name|getWAL
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|CompactionRequestor
 name|getCompactionRequester
 parameter_list|()
@@ -2710,23 +2722,6 @@ specifier|public
 name|Leases
 name|getLeases
 parameter_list|()
-block|{
-comment|// TODO Auto-generated method stub
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|HLog
-name|getWAL
-parameter_list|(
-name|HRegionInfo
-name|regionInfo
-parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// TODO Auto-generated method stub
 return|return

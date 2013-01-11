@@ -315,15 +315,6 @@ name|SPLIT_SKIP_ERRORS_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-comment|/** The META region's HLog filename extension */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|META_HLOG_FILE_EXTN
-init|=
-literal|".meta"
-decl_stmt|;
 comment|/*    * Name of directory that holds recovered edits written by the wal log    * splitting code, one per region    */
 specifier|static
 specifier|final
