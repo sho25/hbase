@@ -336,7 +336,7 @@ literal|21
 argument_list|,
 name|ExecutorType
 operator|.
-name|RS_OPEN_REGION
+name|RS_OPEN_ROOT
 argument_list|)
 block|,
 comment|// Master asking RS to open root
