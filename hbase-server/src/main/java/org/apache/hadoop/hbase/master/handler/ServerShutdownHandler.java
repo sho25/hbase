@@ -1084,6 +1084,23 @@ argument_list|()
 condition|)
 block|{
 comment|// -ROOT-
+comment|// Check again: region may be assigned to other where because of RIT
+comment|// timeout
+if|if
+condition|(
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|isCarryingRoot
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1113,11 +1130,39 @@ name|verifyAndAssignRootWithRetries
 argument_list|()
 expr_stmt|;
 block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"ROOT has been assigned to otherwhere, skip assigning."
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Carrying meta?
 if|if
 condition|(
 name|isCarryingMeta
 argument_list|()
+condition|)
+block|{
+comment|// Check again: region may be assigned to other where because of RIT
+comment|// timeout
+if|if
+condition|(
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|isCarryingMeta
+argument_list|(
+name|serverName
+argument_list|)
 condition|)
 block|{
 name|LOG
@@ -1155,6 +1200,17 @@ operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"META has been assigned to otherwhere, skip assigning."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// We don't want worker thread in the MetaServerShutdownHandler
 comment|// executor pool to block by waiting availability of -ROOT-

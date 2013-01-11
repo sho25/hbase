@@ -11305,6 +11305,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|boolean
 name|isCarryingRoot
 parameter_list|(
@@ -11323,6 +11324,7 @@ name|ROOT_REGIONINFO
 argument_list|)
 return|;
 block|}
+specifier|public
 name|boolean
 name|isCarryingMeta
 parameter_list|(
