@@ -98,6 +98,12 @@ argument_list|>
 name|getDeserializer
 parameter_list|()
 function_decl|;
+comment|/**    * @return the block type of this cached HFile block    */
+specifier|public
+name|BlockType
+name|getBlockType
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

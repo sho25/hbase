@@ -3814,6 +3814,19 @@ name|ByteBuffer
 name|destination
 parameter_list|)
 block|{     }
+annotation|@
+name|Override
+specifier|public
+name|BlockType
+name|getBlockType
+parameter_list|()
+block|{
+return|return
+name|BlockType
+operator|.
+name|DATA
+return|;
+block|}
 block|}
 block|}
 end_class
