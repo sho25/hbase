@@ -792,6 +792,12 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|private
+name|boolean
+name|forMeta
+init|=
+literal|false
+decl_stmt|;
 comment|// The timestamp (in ms) when the log file was created.
 specifier|private
 specifier|volatile
@@ -918,7 +924,7 @@ specifier|final
 name|MetricsWAL
 name|metrics
 decl_stmt|;
-comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logName dir where hlogs are stored    * @param conf configuration to use    * @throws IOException    */
+comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logDir dir where hlogs are stored    * @param conf configuration to use    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -932,7 +938,7 @@ name|root
 parameter_list|,
 specifier|final
 name|String
-name|logName
+name|logDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -947,7 +953,7 @@ name|fs
 argument_list|,
 name|root
 argument_list|,
-name|logName
+name|logDir
 argument_list|,
 name|HConstants
 operator|.
@@ -960,10 +966,12 @@ argument_list|,
 literal|true
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logName dir where hlogs are stored    * @param oldLogName dir where hlogs are archived    * @param conf configuration to use    * @throws IOException    */
+comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logDir dir where hlogs are stored    * @param oldLogDir dir where hlogs are archived    * @param conf configuration to use    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -977,11 +985,11 @@ name|root
 parameter_list|,
 specifier|final
 name|String
-name|logName
+name|logDir
 parameter_list|,
 specifier|final
 name|String
-name|oldLogName
+name|oldLogDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -996,9 +1004,9 @@ name|fs
 argument_list|,
 name|root
 argument_list|,
-name|logName
+name|logDir
 argument_list|,
-name|oldLogName
+name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,
@@ -1007,10 +1015,12 @@ argument_list|,
 literal|true
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logName dir where hlogs are stored    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logDir dir where hlogs are stored    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -1024,7 +1034,7 @@ name|root
 parameter_list|,
 specifier|final
 name|String
-name|logName
+name|logDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -1050,7 +1060,7 @@ name|fs
 argument_list|,
 name|root
 argument_list|,
-name|logName
+name|logDir
 argument_list|,
 name|HConstants
 operator|.
@@ -1063,11 +1073,13 @@ argument_list|,
 literal|true
 argument_list|,
 name|prefix
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path to where logs and oldlogs    * @param oldLogName path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
-specifier|private
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path to where logs and oldlogs    * @param logDir dir where hlogs are stored    * @param oldLogDir dir where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @param forMeta if this hlog is meant for meta updates    * @throws IOException    */
+specifier|public
 name|FSHLog
 parameter_list|(
 specifier|final
@@ -1080,11 +1092,11 @@ name|root
 parameter_list|,
 specifier|final
 name|String
-name|logName
+name|logDir
 parameter_list|,
 specifier|final
 name|String
-name|oldLogName
+name|oldLogDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -1104,6 +1116,9 @@ parameter_list|,
 specifier|final
 name|String
 name|prefix
+parameter_list|,
+name|boolean
+name|forMeta
 parameter_list|)
 throws|throws
 name|IOException
@@ -1134,7 +1149,7 @@ name|this
 operator|.
 name|rootDir
 argument_list|,
-name|logName
+name|logDir
 argument_list|)
 expr_stmt|;
 name|this
@@ -1148,8 +1163,14 @@ name|this
 operator|.
 name|rootDir
 argument_list|,
-name|oldLogName
+name|oldLogDir
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|forMeta
+operator|=
+name|forMeta
 expr_stmt|;
 name|this
 operator|.
@@ -1392,10 +1413,18 @@ argument_list|,
 literal|"UTF8"
 argument_list|)
 expr_stmt|;
+name|boolean
+name|dirExists
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|failIfLogDirExists
 operator|&&
+operator|(
+name|dirExists
+operator|=
 name|this
 operator|.
 name|fs
@@ -1404,6 +1433,7 @@ name|exists
 argument_list|(
 name|dir
 argument_list|)
+operator|)
 condition|)
 block|{
 throw|throw
@@ -1418,6 +1448,9 @@ throw|;
 block|}
 if|if
 condition|(
+operator|!
+name|dirExists
+operator|&&
 operator|!
 name|fs
 operator|.
@@ -1444,6 +1477,8 @@ name|fs
 operator|.
 name|exists
 argument_list|(
+name|this
+operator|.
 name|oldLogDir
 argument_list|)
 condition|)
@@ -2126,6 +2161,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|//computeFilename  will take care of meta hlog filename
 name|oldPath
 operator|=
 name|computeFilename
@@ -2488,6 +2524,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|forMeta
+condition|)
+block|{
+comment|//TODO: set a higher replication for the hlog files (HBASE-6773)
+block|}
 return|return
 name|HLogFactory
 operator|.
@@ -3318,17 +3361,34 @@ literal|"hlog file number can't be< 0"
 argument_list|)
 throw|;
 block|}
+name|String
+name|child
+init|=
+name|prefix
+operator|+
+literal|"."
+operator|+
+name|filenum
+decl_stmt|;
+if|if
+condition|(
+name|forMeta
+condition|)
+block|{
+name|child
+operator|+=
+name|HLog
+operator|.
+name|META_HLOG_FILE_EXTN
+expr_stmt|;
+block|}
 return|return
 operator|new
 name|Path
 argument_list|(
 name|dir
 argument_list|,
-name|prefix
-operator|+
-literal|"."
-operator|+
-name|filenum
+name|child
 argument_list|)
 return|;
 block|}

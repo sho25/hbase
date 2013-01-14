@@ -77,6 +77,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|catalog
 operator|.
 name|CatalogTracker
@@ -150,11 +164,16 @@ name|boolean
 name|isStopping
 parameter_list|()
 function_decl|;
-comment|/** @return the HLog */
+comment|/** @return the HLog for a particular region. Pass null for getting the     * default (common) WAL */
 specifier|public
 name|HLog
 name|getWAL
-parameter_list|()
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
 specifier|public
