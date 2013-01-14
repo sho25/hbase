@@ -1150,9 +1150,15 @@ name|IOException
 block|{
 return|return
 name|reader
+operator|!=
+literal|null
+condition|?
+name|reader
 operator|.
 name|getPosition
 argument_list|()
+else|:
+literal|0
 return|;
 block|}
 end_function

@@ -3984,8 +3984,19 @@ parameter_list|()
 block|{
 name|String
 name|position
+init|=
+literal|"N/A"
 decl_stmt|;
 try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|reader
+operator|!=
+literal|null
+condition|)
 block|{
 name|position
 operator|=
@@ -3999,17 +4010,13 @@ operator|+
 literal|""
 expr_stmt|;
 block|}
+block|}
 catch|catch
 parameter_list|(
 name|IOException
 name|ioe
 parameter_list|)
-block|{
-name|position
-operator|=
-literal|"N/A"
-expr_stmt|;
-block|}
+block|{     }
 return|return
 literal|"Total replicated edits: "
 operator|+

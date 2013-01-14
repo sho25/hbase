@@ -353,7 +353,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestReplication
+name|TestReplicationBase
 operator|.
 name|class
 argument_list|)

@@ -83,9 +83,9 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestReplicationWithCompression
+name|TestReplicationQueueFailoverCompressed
 extends|extends
-name|TestReplication
+name|TestReplicationBase
 block|{
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -109,7 +109,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|TestReplication
+name|TestReplicationBase
 operator|.
 name|setUpBeforeClass
 argument_list|()
