@@ -3381,7 +3381,7 @@ name|append
 argument_list|(
 name|HConstants
 operator|.
-name|CONFIG
+name|METADATA
 argument_list|)
 operator|.
 name|append

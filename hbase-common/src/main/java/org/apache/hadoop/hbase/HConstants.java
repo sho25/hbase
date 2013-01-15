@@ -1251,9 +1251,9 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|CONFIG
+name|METADATA
 init|=
-literal|"CONFIG"
+literal|"METADATA"
 decl_stmt|;
 comment|/**    * This is a retry backoff multiplier table similar to the BSD TCP syn    * backoff table, a bit more aggressive than simple exponential backoff.    */
 specifier|public
