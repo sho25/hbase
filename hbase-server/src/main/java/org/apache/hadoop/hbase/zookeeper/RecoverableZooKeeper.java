@@ -318,6 +318,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// the actual ZooKeeper client instance
+specifier|volatile
 specifier|private
 name|ZooKeeper
 name|zk
