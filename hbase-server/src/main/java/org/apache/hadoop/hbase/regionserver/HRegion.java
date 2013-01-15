@@ -3940,11 +3940,64 @@ name|memStoreSize
 argument_list|)
 return|;
 block|}
-comment|/*    * Write out an info file under the region directory.  Useful recovering    * mangled regions.    * @throws IOException    */
+comment|/**    * Write out an info file under the stored region directory. Useful recovering mangled regions.    * @throws IOException    */
 specifier|private
 name|void
 name|checkRegioninfoOnFilesystem
 parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|checkRegioninfoOnFilesystem
+argument_list|(
+name|this
+operator|.
+name|regiondir
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Write out an info file under the region directory. Useful recovering mangled regions.    * @param regiondir directory under which to write out the region info    * @throws IOException    */
+specifier|private
+name|void
+name|checkRegioninfoOnFilesystem
+parameter_list|(
+name|Path
+name|regiondir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|writeRegioninfoOnFilesystem
+argument_list|(
+name|regionInfo
+argument_list|,
+name|regiondir
+argument_list|,
+name|getFilesystem
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Write out an info file under the region directory. Useful recovering mangled regions. If the    * regioninfo already exists on disk and there is information in the file, then we fast exit.    * @param regionInfo information about the region    * @param regiondir directory under which to write out the region info    * @param fs {@link FileSystem} on which to write the region info    * @param conf {@link Configuration} from which to extract specific file locations    * @throws IOException on unexpected error.    */
+specifier|public
+specifier|static
+name|void
+name|writeRegioninfoOnFilesystem
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|Path
+name|regiondir
+parameter_list|,
+name|FileSystem
+name|fs
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -3954,17 +4007,15 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|regiondir
 argument_list|,
 name|REGIONINFO_FILE
 argument_list|)
 decl_stmt|;
-comment|// Compose the content of the file so we can compare to length in filesystem.  If not same,
-comment|// rewrite it (it may have been written in the old format using Writables instead of pb).  The
+comment|// Compose the content of the file so we can compare to length in filesystem. If not same,
+comment|// rewrite it (it may have been written in the old format using Writables instead of pb). The
 comment|// pb version is much shorter -- we write now w/o the toString version -- so checking length
-comment|// only should be sufficient.  I don't want to read the file every time to check if it pb
+comment|// only should be sufficient. I don't want to read the file every time to check if it pb
 comment|// serialized.
 name|byte
 index|[]
@@ -3972,17 +4023,12 @@ name|content
 init|=
 name|getDotRegionInfoFileContent
 argument_list|(
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
+name|regionInfo
 argument_list|)
 decl_stmt|;
 name|boolean
 name|exists
 init|=
-name|this
-operator|.
 name|fs
 operator|.
 name|exists
@@ -3995,8 +4041,6 @@ name|status
 init|=
 name|exists
 condition|?
-name|this
-operator|.
 name|fs
 operator|.
 name|getFileStatus
@@ -4026,7 +4070,7 @@ comment|// Then assume the content good and move on.
 return|return;
 block|}
 comment|// Create in tmpdir and then move into place in case we crash after
-comment|// create but before close.  If we don't successfully close the file,
+comment|// create but before close. If we don't successfully close the file,
 comment|// subsequent region reopens will fail the below because create is
 comment|// registered in NN.
 comment|// First check to get the permissions
@@ -4054,7 +4098,9 @@ operator|new
 name|Path
 argument_list|(
 name|getTmpDir
-argument_list|()
+argument_list|(
+name|regiondir
+argument_list|)
 argument_list|,
 name|REGIONINFO_FILE
 argument_list|)
@@ -5627,11 +5673,27 @@ name|getTmpDir
 parameter_list|()
 block|{
 return|return
-operator|new
-name|Path
+name|getTmpDir
 argument_list|(
 name|getRegionDir
 argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the temporary directory for the specified region. This directory    * will have its contents removed when the region is reopened.    */
+specifier|static
+name|Path
+name|getTmpDir
+parameter_list|(
+name|Path
+name|regionDir
+parameter_list|)
+block|{
+return|return
+operator|new
+name|Path
+argument_list|(
+name|regionDir
 argument_list|,
 name|REGION_TEMP_SUBDIR
 argument_list|)
@@ -16743,6 +16805,18 @@ argument_list|(
 name|regionDir
 argument_list|)
 expr_stmt|;
+comment|// Write HRI to a file in case we need to recover .META.
+name|writeRegioninfoOnFilesystem
+argument_list|(
+name|info
+argument_list|,
+name|regionDir
+argument_list|,
+name|fs
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 name|HLog
 name|effectiveHLog
 init|=
@@ -17060,7 +17134,7 @@ name|HRegion
 name|openHRegion
 parameter_list|(
 name|Path
-name|tableDir
+name|rootDir
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -17084,7 +17158,7 @@ block|{
 return|return
 name|openHRegion
 argument_list|(
-name|tableDir
+name|rootDir
 argument_list|,
 name|info
 argument_list|,
@@ -17100,7 +17174,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param tableDir Table directory    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -17108,7 +17182,7 @@ name|openHRegion
 parameter_list|(
 specifier|final
 name|Path
-name|tableDir
+name|rootDir
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -17187,7 +17261,7 @@ name|HTableDescriptor
 operator|.
 name|getTableDir
 argument_list|(
-name|tableDir
+name|rootDir
 argument_list|,
 name|info
 operator|.
