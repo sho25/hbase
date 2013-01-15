@@ -123,6 +123,15 @@ name|class
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|","
+operator|+
+name|SecureBulkLoadEndpoint
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// add the process running user to superusers

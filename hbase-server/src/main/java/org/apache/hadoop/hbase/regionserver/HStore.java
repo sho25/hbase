@@ -3008,14 +3008,24 @@ argument_list|()
 else|:
 name|fs
 decl_stmt|;
+comment|//We can't compare FileSystem instances as
+comment|//equals() includes UGI instance as part of the comparison
+comment|//and won't work when doing SecureBulkLoad
+comment|//TODO deal with viewFS
 if|if
 condition|(
 operator|!
 name|srcFs
 operator|.
+name|getUri
+argument_list|()
+operator|.
 name|equals
 argument_list|(
 name|desFs
+operator|.
+name|getUri
+argument_list|()
 argument_list|)
 condition|)
 block|{
