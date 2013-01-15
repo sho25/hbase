@@ -225,6 +225,26 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
+name|BytesBytesPair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|HBaseProtos
+operator|.
 name|ColumnFamilySchema
 import|;
 end_import
@@ -350,13 +370,14 @@ name|HColumnDescriptor
 argument_list|>
 block|{
 comment|// For future backward compatibility
-comment|// Version 3 was when column names become byte arrays and when we picked up
+comment|// Version  3 was when column names become byte arrays and when we picked up
 comment|// Time-to-live feature.  Version 4 was when we moved to byte arrays, HBASE-82.
-comment|// Version 5 was when bloom filter descriptors were removed.
-comment|// Version 6 adds metadata as a map where keys and values are byte[].
-comment|// Version 7 -- add new compression and hfile blocksize to HColumnDescriptor (HBASE-1217)
-comment|// Version 8 -- reintroduction of bloom filters, changed from boolean to enum
-comment|// Version 9 -- add data block encoding
+comment|// Version  5 was when bloom filter descriptors were removed.
+comment|// Version  6 adds metadata as a map where keys and values are byte[].
+comment|// Version  7 -- add new compression and hfile blocksize to HColumnDescriptor (HBASE-1217)
+comment|// Version  8 -- reintroduction of bloom filters, changed from boolean to enum
+comment|// Version  9 -- add data block encoding
+comment|// Version 10 -- change metadata to standard type.
 specifier|private
 specifier|static
 specifier|final
@@ -366,7 +387,7 @@ init|=
 operator|(
 name|byte
 operator|)
-literal|9
+literal|10
 decl_stmt|;
 comment|// These constants are used as FileInfo keys
 specifier|public
@@ -4346,9 +4367,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|ColumnFamilySchema
-operator|.
-name|Attribute
+name|BytesBytesPair
 name|a
 range|:
 name|cfs
@@ -4363,7 +4382,7 @@ name|setValue
 argument_list|(
 name|a
 operator|.
-name|getName
+name|getFirst
 argument_list|()
 operator|.
 name|toByteArray
@@ -4371,7 +4390,7 @@ argument_list|()
 argument_list|,
 name|a
 operator|.
-name|getValue
+name|getSecond
 argument_list|()
 operator|.
 name|toByteArray
@@ -4432,23 +4451,19 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|ColumnFamilySchema
-operator|.
-name|Attribute
+name|BytesBytesPair
 operator|.
 name|Builder
 name|aBuilder
 init|=
-name|ColumnFamilySchema
-operator|.
-name|Attribute
+name|BytesBytesPair
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
 name|aBuilder
 operator|.
-name|setName
+name|setFirst
 argument_list|(
 name|ByteString
 operator|.
@@ -4466,7 +4481,7 @@ argument_list|)
 expr_stmt|;
 name|aBuilder
 operator|.
-name|setValue
+name|setSecond
 argument_list|(
 name|ByteString
 operator|.
