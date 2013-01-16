@@ -999,23 +999,7 @@ block|}
 block|}
 else|else
 block|{
-name|curt
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
-name|waitTime
-operator|=
-literal|20000
-expr_stmt|;
-name|endt
-operator|=
-name|curt
-operator|+
-name|waitTime
-expr_stmt|;
+comment|// Wait until the compaction is done
 name|state
 operator|=
 name|admin
@@ -1053,13 +1037,6 @@ name|getCompactionState
 argument_list|(
 name|table
 argument_list|)
-expr_stmt|;
-name|curt
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
 expr_stmt|;
 block|}
 comment|// Now, compaction should be done.
