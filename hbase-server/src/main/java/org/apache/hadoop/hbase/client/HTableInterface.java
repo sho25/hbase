@@ -232,7 +232,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts. The ordering of    * execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments, Appends and RowMutations.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
 name|void
 name|batch
 parameter_list|(
@@ -255,7 +255,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Same as {@link #batch(List, Object[])}, but returns an array of    * results instead of using a results parameter reference.    *    * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Same as {@link #batch(List, Object[])}, but returns an array of    * results instead of using a results parameter reference.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
 name|Object
 index|[]
 name|batch
