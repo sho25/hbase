@@ -1063,8 +1063,13 @@ name|when
 argument_list|(
 name|ct
 operator|.
-name|waitForMetaServerConnectionDefault
+name|waitForMetaServerConnection
+argument_list|(
+name|Mockito
+operator|.
+name|anyLong
 argument_list|()
+argument_list|)
 argument_list|)
 operator|.
 name|thenReturn

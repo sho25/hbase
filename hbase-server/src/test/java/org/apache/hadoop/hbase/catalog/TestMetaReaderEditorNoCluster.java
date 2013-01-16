@@ -1327,8 +1327,6 @@ argument_list|,
 name|connection
 argument_list|,
 name|ABORTABLE
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 name|ct

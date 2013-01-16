@@ -1304,9 +1304,6 @@ name|conf
 parameter_list|,
 name|Abortable
 name|abortable
-parameter_list|,
-name|int
-name|defaultTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -1352,8 +1349,6 @@ argument_list|,
 name|connection
 argument_list|,
 name|abortable
-argument_list|,
-name|defaultTimeout
 argument_list|)
 return|;
 block|}
@@ -1762,9 +1757,6 @@ name|conf
 parameter_list|,
 name|Abortable
 name|abortable
-parameter_list|,
-name|int
-name|defaultTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -1810,8 +1802,6 @@ argument_list|,
 name|connection
 argument_list|,
 name|abortable
-argument_list|,
-name|defaultTimeout
 argument_list|)
 return|;
 block|}

@@ -4203,15 +4203,6 @@ operator|.
 name|conf
 argument_list|,
 name|this
-argument_list|,
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.catalog.timeout"
-argument_list|,
-literal|600000
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -4409,10 +4400,6 @@ name|conf
 parameter_list|,
 name|Abortable
 name|abortable
-parameter_list|,
-specifier|final
-name|int
-name|defaultTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -4426,8 +4413,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|abortable
-argument_list|,
-name|defaultTimeout
 argument_list|)
 return|;
 block|}

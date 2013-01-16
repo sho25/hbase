@@ -5406,17 +5406,6 @@ operator|.
 name|conf
 argument_list|,
 name|this
-argument_list|,
-name|this
-operator|.
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.catalog.timeout"
-argument_list|,
-literal|600000
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|catalogTracker
