@@ -14710,20 +14710,6 @@ name|Filter
 name|filter
 decl_stmt|;
 specifier|private
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|results
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|()
-decl_stmt|;
-specifier|private
 name|int
 name|batch
 decl_stmt|;
@@ -15332,28 +15318,65 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|results
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 name|boolean
 name|returnResult
-init|=
+decl_stmt|;
+if|if
+condition|(
+name|outResults
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+comment|// Usually outResults is empty. This is true when next is called
+comment|// to handle scan or get operation.
+name|returnResult
+operator|=
 name|nextInternal
 argument_list|(
+name|outResults
+argument_list|,
 name|limit
 argument_list|,
 name|metric
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|tmpList
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|()
 decl_stmt|;
+name|returnResult
+operator|=
+name|nextInternal
+argument_list|(
+name|tmpList
+argument_list|,
+name|limit
+argument_list|,
+name|metric
+argument_list|)
+expr_stmt|;
 name|outResults
 operator|.
 name|addAll
 argument_list|(
-name|results
+name|tmpList
 argument_list|)
 expr_stmt|;
+block|}
 name|resetFilters
 argument_list|()
 expr_stmt|;
@@ -15432,6 +15455,12 @@ specifier|private
 name|void
 name|populateFromJoinedHeap
 parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|results
+parameter_list|,
 name|int
 name|limit
 parameter_list|,
@@ -15451,6 +15480,8 @@ name|kv
 init|=
 name|populateResult
 argument_list|(
+name|results
+argument_list|,
 name|this
 operator|.
 name|joinedHeap
@@ -15500,11 +15531,17 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Fetches records with currentRow into results list, until next row or limit (if not -1).      * @param heap KeyValueHeap to fetch data from.It must be positioned on correct row before call.      * @param limit Max amount of KVs to place in result list, -1 means no limit.      * @param currentRow Byte array with key we are fetching.      * @param offset offset for currentRow      * @param length length for currentRow      * @param metric Metric key to be passed into KeyValueHeap::next().      * @return KV_LIMIT if limit reached, next KeyValue otherwise.      */
+comment|/**      * Fetches records with currentRow into results list, until next row or limit (if not -1).      * @param results      * @param heap KeyValueHeap to fetch data from.It must be positioned on correct row before call.      * @param limit Max amount of KVs to place in result list, -1 means no limit.      * @param currentRow Byte array with key we are fetching.      * @param offset offset for currentRow      * @param length length for currentRow      * @param metric Metric key to be passed into KeyValueHeap::next().      * @return KV_LIMIT if limit reached, next KeyValue otherwise.      */
 specifier|private
 name|KeyValue
 name|populateResult
 parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|results
+parameter_list|,
 name|KeyValueHeap
 name|heap
 parameter_list|,
@@ -15622,6 +15659,12 @@ specifier|private
 name|boolean
 name|nextInternal
 parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|results
+parameter_list|,
 name|int
 name|limit
 parameter_list|,
@@ -15631,6 +15674,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|results
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"First parameter should be an empty list"
+argument_list|)
+throw|;
+block|}
 name|RpcCallContext
 name|rpcCall
 init|=
@@ -15796,6 +15856,11 @@ argument_list|,
 name|length
 argument_list|)
 expr_stmt|;
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 continue|continue;
 block|}
 name|KeyValue
@@ -15803,6 +15868,8 @@ name|nextKv
 init|=
 name|populateResult
 argument_list|(
+name|results
+argument_list|,
 name|this
 operator|.
 name|storeHeap
@@ -15914,11 +15981,6 @@ condition|(
 name|isEmptyRow
 condition|)
 block|{
-comment|// this seems like a redundant step - we already consumed the row
-comment|// there're no left overs.
-comment|// the reasons for calling this method are:
-comment|// 1. reset the filters.
-comment|// 2. provide a hook to fast forward the row (used by subclasses)
 name|nextRow
 argument_list|(
 name|currentRow
@@ -15927,6 +15989,11 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
+expr_stmt|;
+name|results
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 comment|// This row was totally filtered out, if this is NOT the last row,
 comment|// we should continue on. Otherwise, nothing else to do.
@@ -16012,6 +16079,8 @@ name|current
 expr_stmt|;
 name|populateFromJoinedHeap
 argument_list|(
+name|results
+argument_list|,
 name|limit
 argument_list|,
 name|metric
@@ -16025,6 +16094,8 @@ block|{
 comment|// Populating from the joined heap was stopped by limits, populate some more.
 name|populateFromJoinedHeap
 argument_list|(
+name|results
+argument_list|,
 name|limit
 argument_list|,
 name|metric
@@ -16176,11 +16247,6 @@ name|MOCKED_LIST
 argument_list|)
 expr_stmt|;
 block|}
-name|results
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 name|resetFilters
 argument_list|()
 expr_stmt|;

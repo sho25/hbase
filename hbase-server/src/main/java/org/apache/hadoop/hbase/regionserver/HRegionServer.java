@@ -16312,6 +16312,15 @@ range|:
 name|results
 control|)
 block|{
+if|if
+condition|(
+name|maxScannerResultSize
+operator|<
+name|Long
+operator|.
+name|MAX_VALUE
+condition|)
+block|{
 for|for
 control|(
 name|KeyValue
@@ -16330,6 +16339,7 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -16452,6 +16462,15 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|maxScannerResultSize
+operator|<
+name|Long
+operator|.
+name|MAX_VALUE
+condition|)
+block|{
 for|for
 control|(
 name|KeyValue
@@ -16467,6 +16486,7 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 name|results
 operator|.
