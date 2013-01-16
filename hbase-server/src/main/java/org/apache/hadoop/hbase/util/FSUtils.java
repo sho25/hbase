@@ -5153,8 +5153,8 @@ range|:
 name|tableDirs
 control|)
 block|{
-comment|// Skip the .log directory.  All others should be tables.  Inside a table,
-comment|// there are compaction.dir directories to skip.  Otherwise, all else
+comment|// Skip the .log and other non-table directories.  All others should be tables.
+comment|// Inside a table, there are compaction.dir directories to skip.  Otherwise, all else
 comment|// should be regions.
 name|Path
 name|d
@@ -5166,16 +5166,16 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|HConstants
+operator|.
+name|HBASE_NON_TABLE_DIRS
+operator|.
+name|contains
+argument_list|(
 name|d
 operator|.
 name|getName
 argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|HConstants
-operator|.
-name|HREGION_LOGDIR_NAME
 argument_list|)
 condition|)
 block|{
