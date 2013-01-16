@@ -1736,7 +1736,17 @@ parameter_list|(
 name|IOException
 name|ioe
 parameter_list|)
-block|{ }
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Exception received while closing the table"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|// This currently supports only update of one row at a time.
@@ -3885,7 +3895,17 @@ parameter_list|(
 name|IOException
 name|ioe
 parameter_list|)
-block|{ }
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Exception received while closing the table"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
