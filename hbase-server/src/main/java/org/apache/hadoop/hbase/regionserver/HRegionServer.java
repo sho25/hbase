@@ -9043,11 +9043,11 @@ name|WALActionsListener
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Log roller.
-name|this
-operator|.
-name|metaHLogRoller
-operator|=
+comment|// Using a tmp log roller to ensure metaLogRoller is alive once it is not
+comment|// null
+name|MetaLogRoller
+name|tmpLogRoller
+init|=
 operator|new
 name|MetaLogRoller
 argument_list|(
@@ -9055,7 +9055,7 @@ name|this
 argument_list|,
 name|this
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|String
 name|n
 init|=
@@ -9071,9 +9071,7 @@ name|Threads
 operator|.
 name|setDaemonThreadRunning
 argument_list|(
-name|this
-operator|.
-name|metaHLogRoller
+name|tmpLogRoller
 operator|.
 name|getThread
 argument_list|()
@@ -9084,6 +9082,16 @@ literal|"MetaLogRoller"
 argument_list|,
 name|uncaughtExceptionHandler
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|metaHLogRoller
+operator|=
+name|tmpLogRoller
+expr_stmt|;
+name|tmpLogRoller
+operator|=
+literal|null
 expr_stmt|;
 name|listeners
 operator|.
