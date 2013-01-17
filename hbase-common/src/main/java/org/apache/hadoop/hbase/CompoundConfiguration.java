@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|regionserver
 package|;
 end_package
 
@@ -182,7 +180,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Do a shallow merge of multiple KV configuration pools. This is a very useful  * utility class to easily add per-object configurations in addition to wider  * scope settings. This is different from Configuration.addResource()  * functionality, which performs a deep merge and mutates the common data  * structure.  *<p>  * For clarity: the shallow merge allows the user to mutate either of the  * configuration objects and have changes reflected everywhere. In contrast to a  * deep merge, that requires you to explicitly know all applicable copies to  * propagate changes.  *<p>  * This class is package private because we expect significant refactoring here  * on the HBase side when certain HDFS changes are added& ubiquitous. Will  * revisit expanding access at that point.  */
+comment|/**  * Do a shallow merge of multiple KV configuration pools. This is a very useful  * utility class to easily add per-object configurations in addition to wider  * scope settings. This is different from Configuration.addResource()  * functionality, which performs a deep merge and mutates the common data  * structure.  *<p>  * For clarity: the shallow merge allows the user to mutate either of the  * configuration objects and have changes reflected everywhere. In contrast to a  * deep merge, that requires you to explicitly know all applicable copies to  * propagate changes.  */
 end_comment
 
 begin_class
@@ -190,6 +188,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|CompoundConfiguration
 extends|extends
@@ -252,8 +251,7 @@ name|ImmutableConfigMap
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/****************************************************************************    * These initial APIs actually required original thought    ***************************************************************************/
-comment|/**    * Add Hadoop Configuration object to config list    * @param conf configuration object    * @return this, for builder pattern    */
+comment|/**    * Add Hadoop Configuration object to config list.    * The added configuration overrides the previous ones if there are name collisions.    * @param conf configuration object    * @return this, for builder pattern    */
 specifier|public
 name|CompoundConfiguration
 name|add
@@ -407,10 +405,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add ImmutableBytesWritable map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used.    *    * @param map    *          ImmutableBytesWritable map    * @return this, for builder pattern    */
+comment|/**    * Add ImmutableBytesWritable map to config list. This map is generally    * created by HTableDescriptor or HColumnDescriptor, but can be abstractly    * used. The added configuration overrides the previous ones if there are    * name collisions.    *    * @param map    *          ImmutableBytesWritable map    * @return this, for builder pattern    */
 specifier|public
 name|CompoundConfiguration
-name|add
+name|addWritableMap
 parameter_list|(
 specifier|final
 name|Map
@@ -563,7 +561,134 @@ name|int
 name|size
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+return|return
+name|m
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|m
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
+block|}
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Add String map to config list. This map is generally created by HTableDescriptor    * or HColumnDescriptor, but can be abstractly used. The added configuration    * overrides the previous ones if there are name collisions.    *    * @return this, for builder pattern    */
+specifier|public
+name|CompoundConfiguration
+name|addStringMap
+parameter_list|(
+specifier|final
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|map
+parameter_list|)
+block|{
+comment|// put new map at the front of the list (top priority)
+name|this
+operator|.
+name|configs
+operator|.
+name|add
+argument_list|(
+literal|0
+argument_list|,
+operator|new
+name|ImmutableConfigMap
+argument_list|()
+block|{
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|m
+init|=
+name|map
+decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|String
+name|get
+parameter_list|(
+name|String
+name|key
+parameter_list|)
+block|{
+return|return
+name|m
+operator|.
+name|get
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getRaw
+parameter_list|(
+name|String
+name|key
+parameter_list|)
+block|{
+return|return
+name|get
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|getClassByName
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|ClassNotFoundException
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|size
+parameter_list|()
+block|{
 return|return
 name|m
 operator|.
@@ -766,8 +891,6 @@ operator|.
 name|configs
 control|)
 block|{
-try|try
-block|{
 name|Class
 argument_list|<
 name|?
@@ -791,16 +914,6 @@ block|{
 return|return
 name|value
 return|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|ClassNotFoundException
-name|e
-parameter_list|)
-block|{
-comment|// don't propagate an exception until all configs fail
-continue|continue;
 block|}
 block|}
 throw|throw
