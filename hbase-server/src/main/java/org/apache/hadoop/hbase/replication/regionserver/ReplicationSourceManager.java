@@ -791,12 +791,16 @@ condition|(
 operator|!
 name|queueRecovered
 operator|&&
+operator|!
 name|hlogs
 operator|.
 name|first
 argument_list|()
-operator|!=
+operator|.
+name|equals
+argument_list|(
 name|key
+argument_list|)
 condition|)
 block|{
 name|SortedSet
