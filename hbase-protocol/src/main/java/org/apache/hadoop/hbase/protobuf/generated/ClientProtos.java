@@ -75420,6 +75420,15 @@ name|int
 name|getTtl
 parameter_list|()
 function_decl|;
+comment|// optional uint64 resultSizeBytes = 5;
+name|boolean
+name|hasResultSizeBytes
+parameter_list|()
+function_decl|;
+name|long
+name|getResultSizeBytes
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -75838,6 +75847,45 @@ return|return
 name|ttl_
 return|;
 block|}
+comment|// optional uint64 resultSizeBytes = 5;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|RESULTSIZEBYTES_FIELD_NUMBER
+init|=
+literal|5
+decl_stmt|;
+specifier|private
+name|long
+name|resultSizeBytes_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasResultSizeBytes
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getResultSizeBytes
+parameter_list|()
+block|{
+return|return
+name|resultSizeBytes_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -75865,6 +75913,10 @@ expr_stmt|;
 name|ttl_
 operator|=
 literal|0
+expr_stmt|;
+name|resultSizeBytes_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -76067,6 +76119,29 @@ name|ttl_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|5
+argument_list|,
+name|resultSizeBytes_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -76238,6 +76313,37 @@ argument_list|(
 literal|4
 argument_list|,
 name|ttl_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|5
+argument_list|,
+name|resultSizeBytes_
 argument_list|)
 expr_stmt|;
 block|}
@@ -76521,6 +76627,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasResultSizeBytes
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasResultSizeBytes
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasResultSizeBytes
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getResultSizeBytes
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getResultSizeBytes
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -76687,6 +76828,37 @@ operator|)
 operator|+
 name|getTtl
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasResultSizeBytes
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|RESULTSIZEBYTES_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getResultSizeBytes
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -77613,6 +77785,19 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
+name|resultSizeBytes_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -78036,6 +78221,30 @@ name|ttl_
 operator|=
 name|ttl_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|resultSizeBytes_
+operator|=
+name|resultSizeBytes_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -78360,6 +78569,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasResultSizeBytes
+argument_list|()
+condition|)
+block|{
+name|setResultSizeBytes
+argument_list|(
+name|other
+operator|.
+name|getResultSizeBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|mergeUnknownFields
@@ -78654,6 +78880,23 @@ operator|=
 name|input
 operator|.
 name|readUInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|40
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|resultSizeBytes_
+operator|=
+name|input
+operator|.
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -80209,6 +80452,85 @@ expr_stmt|;
 name|ttl_
 operator|=
 literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint64 resultSizeBytes = 5;
+specifier|private
+name|long
+name|resultSizeBytes_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasResultSizeBytes
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getResultSizeBytes
+parameter_list|()
+block|{
+return|return
+name|resultSizeBytes_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setResultSizeBytes
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|resultSizeBytes_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearResultSizeBytes
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
+name|resultSizeBytes_
+operator|=
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -140687,85 +141009,87 @@ literal|"Specifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscan
 operator|+
 literal|"rId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014close"
 operator|+
-literal|"Scanner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001(\004\"\\\n\014Sc"
+literal|"Scanner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001(\004\"u\n\014Sc"
 operator|+
 literal|"anResponse\022\027\n\006result\030\001 \003(\0132\007.Result\022\021\n\ts"
 operator|+
 literal|"cannerId\030\002 \001(\004\022\023\n\013moreResults\030\003 \001(\010\022\013\n\003t"
 block|,
-literal|"tl\030\004 \001(\r\"?\n\016LockRowRequest\022 \n\006region\030\001 \002"
+literal|"tl\030\004 \001(\r\022\027\n\017resultSizeBytes\030\005 \001(\004\"?\n\016Loc"
 operator|+
-literal|"(\0132\020.RegionSpecifier\022\013\n\003row\030\002 \003(\014\".\n\017Loc"
+literal|"kRowRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpec"
 operator|+
-literal|"kRowResponse\022\016\n\006lockId\030\001 \002(\004\022\013\n\003ttl\030\002 \001("
+literal|"ifier\022\013\n\003row\030\002 \003(\014\".\n\017LockRowResponse\022\016\n"
 operator|+
-literal|"\r\"D\n\020UnlockRowRequest\022 \n\006region\030\001 \002(\0132\020."
+literal|"\006lockId\030\001 \002(\004\022\013\n\003ttl\030\002 \001(\r\"D\n\020UnlockRowR"
 operator|+
-literal|"RegionSpecifier\022\016\n\006lockId\030\002 \002(\004\"\023\n\021Unloc"
+literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
 operator|+
-literal|"kRowResponse\"\260\001\n\024BulkLoadHFileRequest\022 \n"
+literal|"\022\016\n\006lockId\030\002 \002(\004\"\023\n\021UnlockRowResponse\"\260\001"
 operator|+
-literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\0224\n\nfamil"
+literal|"\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020"
 operator|+
-literal|"yPath\030\002 \003(\0132 .BulkLoadHFileRequest.Famil"
+literal|".RegionSpecifier\0224\n\nfamilyPath\030\002 \003(\0132 .B"
 operator|+
-literal|"yPath\022\024\n\014assignSeqNum\030\003 \001(\010\032*\n\nFamilyPat"
+literal|"ulkLoadHFileRequest.FamilyPath\022\024\n\014assign"
 operator|+
-literal|"h\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkL"
+literal|"SeqNum\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002"
 block|,
-literal|"oadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"_\n\026Copr"
+literal|"(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRespons"
 operator|+
-literal|"ocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\023\n\013servi"
+literal|"e\022\016\n\006loaded\030\001 \002(\010\"_\n\026CoprocessorServiceC"
 operator|+
-literal|"ceName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\017\n\007requ"
+literal|"all\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002 \002(\t\022\022\n"
 operator|+
-literal|"est\030\004 \002(\014\"d\n\031CoprocessorServiceRequest\022 "
+literal|"\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031Co"
 operator|+
-literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call"
+literal|"processorServiceRequest\022 \n\006region\030\001 \002(\0132"
 operator|+
-literal|"\030\002 \002(\0132\027.CoprocessorServiceCall\"]\n\032Copro"
+literal|"\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Coproc"
 operator|+
-literal|"cessorServiceResponse\022 \n\006region\030\001 \002(\0132\020."
+literal|"essorServiceCall\"]\n\032CoprocessorServiceRe"
 operator|+
-literal|"RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016.NameByt"
+literal|"sponse\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
 operator|+
-literal|"esPair\"9\n\013MultiAction\022\027\n\006mutate\030\001 \001(\0132\007."
+literal|"\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"9\n\013Multi"
 operator|+
-literal|"Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResul"
+literal|"Action\022\027\n\006mutate\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002"
 block|,
-literal|"t\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030\002"
+literal|" \001(\0132\004.Get\"I\n\014ActionResult\022\026\n\005value\030\001 \001("
 operator|+
-literal|" \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006"
+literal|"\0132\007.Result\022!\n\texception\030\002 \001(\0132\016.NameByte"
 operator|+
-literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action"
+literal|"sPair\"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020."
 operator|+
-literal|"\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\r"
+literal|"RegionSpecifier\022\034\n\006action\030\002 \003(\0132\014.MultiA"
 operator|+
-literal|"MultiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionRe"
+literal|"ction\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035"
 operator|+
-literal|"sult2\223\003\n\rClientService\022 \n\003get\022\013.GetReque"
+literal|"\n\006result\030\001 \003(\0132\r.ActionResult2\223\003\n\rClient"
 operator|+
-literal|"st\032\014.GetResponse\022)\n\006mutate\022\016.MutateReque"
+literal|"Service\022 \n\003get\022\013.GetRequest\032\014.GetRespons"
 operator|+
-literal|"st\032\017.MutateResponse\022#\n\004scan\022\014.ScanReques"
+literal|"e\022)\n\006mutate\022\016.MutateRequest\032\017.MutateResp"
 operator|+
-literal|"t\032\r.ScanResponse\022,\n\007lockRow\022\017.LockRowReq"
+literal|"onse\022#\n\004scan\022\014.ScanRequest\032\r.ScanRespons"
 operator|+
-literal|"uest\032\020.LockRowResponse\0222\n\tunlockRow\022\021.Un"
+literal|"e\022,\n\007lockRow\022\017.LockRowRequest\032\020.LockRowR"
 block|,
-literal|"lockRowRequest\032\022.UnlockRowResponse\022>\n\rbu"
+literal|"esponse\0222\n\tunlockRow\022\021.UnlockRowRequest\032"
 operator|+
-literal|"lkLoadHFile\022\025.BulkLoadHFileRequest\032\026.Bul"
+literal|"\022.UnlockRowResponse\022>\n\rbulkLoadHFile\022\025.B"
 operator|+
-literal|"kLoadHFileResponse\022F\n\013execService\022\032.Copr"
+literal|"ulkLoadHFileRequest\032\026.BulkLoadHFileRespo"
 operator|+
-literal|"ocessorServiceRequest\032\033.CoprocessorServi"
+literal|"nse\022F\n\013execService\022\032.CoprocessorServiceR"
 operator|+
-literal|"ceResponse\022&\n\005multi\022\r.MultiRequest\032\016.Mul"
+literal|"equest\032\033.CoprocessorServiceResponse\022&\n\005m"
 operator|+
-literal|"tiResponseBB\n*org.apache.hadoop.hbase.pr"
+literal|"ulti\022\r.MultiRequest\032\016.MultiResponseBB\n*o"
 operator|+
-literal|"otobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"rg.apache.hadoop.hbase.protobuf.generate"
+operator|+
+literal|"dB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -141986,6 +142310,8 @@ block|,
 literal|"MoreResults"
 block|,
 literal|"Ttl"
+block|,
+literal|"ResultSizeBytes"
 block|, }
 argument_list|,
 name|org
