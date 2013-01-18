@@ -77,16 +77,6 @@ end_import
 
 begin_import
 import|import
-name|javax
-operator|.
-name|net
-operator|.
-name|SocketFactory
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -119,28 +109,25 @@ interface|interface
 name|RpcClientEngine
 block|{
 comment|/** Construct a client-side proxy object. */
+parameter_list|<
+name|T
+extends|extends
 name|IpcProtocol
+parameter_list|>
+name|T
 name|getProxy
 parameter_list|(
 name|Class
 argument_list|<
-name|?
-extends|extends
-name|IpcProtocol
+name|T
 argument_list|>
 name|protocol
 parameter_list|,
 name|InetSocketAddress
 name|addr
 parameter_list|,
-name|User
-name|ticket
-parameter_list|,
 name|Configuration
 name|conf
-parameter_list|,
-name|SocketFactory
-name|factory
 parameter_list|,
 name|int
 name|rpcTimeout
@@ -148,13 +135,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/** Stop this proxy. */
+comment|/** Shutdown this instance */
 name|void
-name|stopProxy
-parameter_list|(
-name|IpcProtocol
-name|proxy
-parameter_list|)
+name|close
+parameter_list|()
 function_decl|;
 block|}
 end_interface

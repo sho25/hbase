@@ -2161,8 +2161,6 @@ operator|.
 name|deleteConnection
 argument_list|(
 name|newConfig
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 try|try
@@ -2217,8 +2215,6 @@ operator|.
 name|deleteConnection
 argument_list|(
 name|newConfig2
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 try|try

@@ -745,6 +745,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|ProtobufRpcClientEngine
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RpcClientEngine
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -1058,7 +1090,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages {@link HConnection}s.  * This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, root, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections  * makes clean up of {@link HConnection} instances a little awkward.  Currently,  * clients cleanup by calling  * {@link #deleteConnection(Configuration, boolean)}.  This will shutdown the  * zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections(boolean)}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
+comment|/**  * A non-instantiable class that manages {@link HConnection}s.  * This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, root, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections  * makes clean up of {@link HConnection} instances a little awkward.  Currently,  * clients cleanup by calling  * {@link #deleteConnection(Configuration)}.  This will shutdown the  * zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
 end_comment
 
 begin_class
@@ -1326,8 +1358,6 @@ argument_list|(
 name|connectionKey
 argument_list|,
 literal|true
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|connection
@@ -1382,7 +1412,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseClientRPC#stopProxy(IpcProtocol)}    *          .    */
+comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    */
 specifier|public
 specifier|static
 name|void
@@ -1390,9 +1420,6 @@ name|deleteConnection
 parameter_list|(
 name|Configuration
 name|conf
-parameter_list|,
-name|boolean
-name|stopProxy
 parameter_list|)
 block|{
 name|deleteConnection
@@ -1402,8 +1429,6 @@ name|HConnectionKey
 argument_list|(
 name|conf
 argument_list|)
-argument_list|,
-name|stopProxy
 argument_list|,
 literal|false
 argument_list|)
@@ -1424,20 +1449,15 @@ argument_list|(
 name|connection
 argument_list|,
 literal|true
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete information for all connections.    * @param stopProxy stop the proxy as well    * @throws IOException    */
+comment|/**    * Delete information for all connections.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|deleteAllConnections
-parameter_list|(
-name|boolean
-name|stopProxy
-parameter_list|)
+parameter_list|()
 block|{
 synchronized|synchronized
 init|(
@@ -1479,8 +1499,6 @@ name|deleteConnection
 argument_list|(
 name|connectionKey
 argument_list|,
-name|stopProxy
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1499,9 +1517,6 @@ name|deleteConnection
 parameter_list|(
 name|HConnection
 name|connection
-parameter_list|,
-name|boolean
-name|stopProxy
 parameter_list|,
 name|boolean
 name|staleConnection
@@ -1545,8 +1560,6 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-name|stopProxy
-argument_list|,
 name|staleConnection
 argument_list|)
 expr_stmt|;
@@ -1562,9 +1575,6 @@ name|deleteConnection
 parameter_list|(
 name|HConnectionKey
 name|connectionKey
-parameter_list|,
-name|boolean
-name|stopProxy
 parameter_list|,
 name|boolean
 name|staleConnection
@@ -1616,24 +1626,8 @@ argument_list|)
 expr_stmt|;
 name|connection
 operator|.
-name|close
-argument_list|(
-name|stopProxy
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|stopProxy
-condition|)
-block|{
-name|connection
-operator|.
-name|stopProxyOnClose
-argument_list|(
-name|stopProxy
-argument_list|)
+name|internalClose
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2579,6 +2573,11 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+comment|// client RPC
+specifier|private
+name|RpcClientEngine
+name|rpcEngine
+decl_stmt|;
 comment|// Known region ServerName.toString() -> RegionClient/Admin
 specifier|private
 specifier|final
@@ -2697,10 +2696,6 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
-name|boolean
-name|stopProxy
-decl_stmt|;
-specifier|private
 name|int
 name|refCount
 decl_stmt|;
@@ -2739,6 +2734,18 @@ operator|.
 name|managed
 operator|=
 name|managed
+expr_stmt|;
+comment|// ProtobufRpcClientEngine is the main RpcClientEngine implementation,
+comment|// but we maintain access through an interface to allow overriding for tests
+name|this
+operator|.
+name|rpcEngine
+operator|=
+operator|new
+name|ProtobufRpcClientEngine
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 name|String
 name|adminClassName
@@ -3315,10 +3322,7 @@ decl_stmt|;
 name|MasterProtocol
 name|tryMaster
 init|=
-operator|(
-name|MasterProtocol
-operator|)
-name|HBaseClientRPC
+name|rpcEngine
 operator|.
 name|getProxy
 argument_list|(
@@ -3361,13 +3365,6 @@ return|;
 block|}
 else|else
 block|{
-name|HBaseClientRPC
-operator|.
-name|stopProxy
-argument_list|(
-name|tryMaster
-argument_list|)
-expr_stmt|;
 name|String
 name|msg
 init|=
@@ -6294,7 +6291,7 @@ name|adminClass
 argument_list|)
 return|;
 block|}
-comment|/**      * Either the passed<code>isa</code> is null or<code>hostname</code>      * can be but not both.      * @param hostname      * @param port      * @param protocolClass      * @param version      * @return Proxy.      * @throws IOException      */
+comment|/**      * Either the passed<code>isa</code> is null or<code>hostname</code>      * can be but not both.      * @param hostname      * @param port      * @param protocolClass      * @return Proxy.      * @throws IOException      */
 name|IpcProtocol
 name|getProtocol
 parameter_list|(
@@ -6495,6 +6492,8 @@ name|HBaseClientRPC
 operator|.
 name|waitForProxy
 argument_list|(
+name|rpcEngine
+argument_list|,
 name|protocolClass
 argument_list|,
 name|address
@@ -7260,25 +7259,6 @@ name|protocolState
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|protocolState
-operator|.
-name|protocol
-operator|!=
-literal|null
-condition|)
-block|{
-name|HBaseClientRPC
-operator|.
-name|stopProxy
-argument_list|(
-name|protocolState
-operator|.
-name|protocol
-argument_list|)
-expr_stmt|;
-block|}
 name|protocolState
 operator|.
 name|protocol
@@ -7578,15 +7558,6 @@ name|protocolClass
 operator|.
 name|getName
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|HBaseClientRPC
-operator|.
-name|stopProxy
-argument_list|(
-name|protocolState
-operator|.
-name|protocol
 argument_list|)
 expr_stmt|;
 name|protocolState
@@ -10510,21 +10481,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|public
-name|void
-name|stopProxyOnClose
-parameter_list|(
-name|boolean
-name|stopProxy
-parameter_list|)
-block|{
-name|this
-operator|.
-name|stopProxy
-operator|=
-name|stopProxy
-expr_stmt|;
-block|}
 comment|/**      * Increment this client's reference count.      */
 name|void
 name|incCount
@@ -10563,11 +10519,8 @@ literal|0
 return|;
 block|}
 name|void
-name|close
-parameter_list|(
-name|boolean
-name|stopProxy
-parameter_list|)
+name|internalClose
+parameter_list|()
 block|{
 if|if
 condition|(
@@ -10585,51 +10538,9 @@ argument_list|(
 literal|"Closing connection"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|stopProxy
-condition|)
-block|{
 name|closeMaster
 argument_list|()
 expr_stmt|;
-for|for
-control|(
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|IpcProtocol
-argument_list|>
-name|i
-range|:
-name|servers
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-for|for
-control|(
-name|IpcProtocol
-name|server
-range|:
-name|i
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-name|HBaseClientRPC
-operator|.
-name|stopProxy
-argument_list|(
-name|server
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-block|}
 name|closeZooKeeperWatcher
 argument_list|()
 expr_stmt|;
@@ -10638,6 +10549,13 @@ operator|.
 name|servers
 operator|.
 name|clear
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|rpcEngine
+operator|.
+name|close
 argument_list|()
 expr_stmt|;
 name|this
@@ -10680,8 +10598,6 @@ name|deleteConnection
 argument_list|(
 name|this
 argument_list|,
-name|stopProxy
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -10689,10 +10605,8 @@ block|}
 block|}
 else|else
 block|{
-name|close
-argument_list|(
-literal|true
-argument_list|)
+name|internalClose
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -11061,6 +10975,21 @@ name|tableName
 argument_list|)
 argument_list|)
 throw|;
+block|}
+comment|/**      * Override the RpcClientEngine implementation used by this connection.      *<strong>FOR TESTING PURPOSES ONLY!</strong>      */
+name|void
+name|setRpcEngine
+parameter_list|(
+name|RpcClientEngine
+name|engine
+parameter_list|)
+block|{
+name|this
+operator|.
+name|rpcEngine
+operator|=
+name|engine
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Set the number of retries to use serverside when trying to communicate    * with another server over {@link HConnection}.  Used updating catalog    * tables, etc.  Call this method before we create any Connections.    * @param c The Configuration instance to set the retries into.    * @param log Used to log what we set in here.    */

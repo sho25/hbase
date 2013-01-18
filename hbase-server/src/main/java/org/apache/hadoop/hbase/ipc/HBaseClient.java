@@ -1116,12 +1116,6 @@ name|SocketFactory
 name|socketFactory
 decl_stmt|;
 comment|// how to create sockets
-specifier|private
-name|int
-name|refCount
-init|=
-literal|1
-decl_stmt|;
 specifier|protected
 name|String
 name|clusterId
@@ -1519,38 +1513,6 @@ name|SOCKET_TIMEOUT
 argument_list|,
 name|DEFAULT_SOCKET_TIMEOUT
 argument_list|)
-return|;
-block|}
-comment|/**    * Increment this client's reference count    *    */
-specifier|synchronized
-name|void
-name|incCount
-parameter_list|()
-block|{
-name|refCount
-operator|++
-expr_stmt|;
-block|}
-comment|/**    * Decrement this client's reference count    *    */
-specifier|synchronized
-name|void
-name|decCount
-parameter_list|()
-block|{
-name|refCount
-operator|--
-expr_stmt|;
-block|}
-comment|/**    * Return if this client has no reference    *    * @return true if this client has no reference; false otherwise    */
-specifier|synchronized
-name|boolean
-name|isZeroReference
-parameter_list|()
-block|{
-return|return
-name|refCount
-operator|==
-literal|0
 return|;
 block|}
 comment|/** A call waiting for a value. */
