@@ -574,7 +574,7 @@ name|this
 operator|.
 name|replicationZk
 operator|.
-name|setReplicating
+name|setReplication
 argument_list|(
 name|newState
 argument_list|)

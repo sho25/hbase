@@ -433,7 +433,7 @@ name|set
 argument_list|(
 name|ReplicationZookeeper
 operator|.
-name|isPeerEnabled
+name|isStateEnabled
 argument_list|(
 name|this
 operator|.
