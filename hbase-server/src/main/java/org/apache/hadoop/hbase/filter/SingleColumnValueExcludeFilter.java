@@ -259,7 +259,7 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor for protobuf deserialization only.    * @param family    * @param qualifier    * @param compareOp    * @param comparator    * @param foundColumn    * @param matchedColumn    * @param filterIfMissing    * @param latestVersionOnly    */
+comment|/**    * Constructor for protobuf deserialization only.    * @param family    * @param qualifier    * @param compareOp    * @param comparator    * @param filterIfMissing    * @param latestVersionOnly    */
 specifier|protected
 name|SingleColumnValueExcludeFilter
 parameter_list|(
@@ -282,14 +282,6 @@ name|comparator
 parameter_list|,
 specifier|final
 name|boolean
-name|foundColumn
-parameter_list|,
-specifier|final
-name|boolean
-name|matchedColumn
-parameter_list|,
-specifier|final
-name|boolean
 name|filterIfMissing
 parameter_list|,
 specifier|final
@@ -306,10 +298,6 @@ argument_list|,
 name|compareOp
 argument_list|,
 name|comparator
-argument_list|,
-name|foundColumn
-argument_list|,
-name|matchedColumn
 argument_list|,
 name|filterIfMissing
 argument_list|,
@@ -665,16 +653,6 @@ argument_list|,
 name|compareOp
 argument_list|,
 name|comparator
-argument_list|,
-name|parentProto
-operator|.
-name|getFoundColumn
-argument_list|()
-argument_list|,
-name|parentProto
-operator|.
-name|getMatchedColumn
-argument_list|()
 argument_list|,
 name|parentProto
 operator|.
