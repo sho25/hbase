@@ -414,8 +414,6 @@ name|delete
 argument_list|(
 name|delete
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1136,8 +1134,6 @@ argument_list|(
 name|ROW
 argument_list|,
 name|ts
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|put
@@ -1283,8 +1279,6 @@ argument_list|(
 name|ROW
 argument_list|,
 name|ts
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|delete
@@ -1303,8 +1297,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)

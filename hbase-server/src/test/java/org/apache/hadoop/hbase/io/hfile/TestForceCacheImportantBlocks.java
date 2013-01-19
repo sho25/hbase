@@ -733,8 +733,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}

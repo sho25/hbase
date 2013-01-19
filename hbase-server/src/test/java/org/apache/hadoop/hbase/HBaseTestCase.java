@@ -1521,8 +1521,6 @@ argument_list|(
 name|t
 argument_list|,
 name|ts
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1797,16 +1795,13 @@ specifier|static
 interface|interface
 name|Incommon
 block|{
-comment|/**      *      * @param delete      * @param lockid      * @param writeToWAL      * @throws IOException      */
+comment|/**      *      * @param delete      * @param writeToWAL      * @throws IOException      */
 specifier|public
 name|void
 name|delete
 parameter_list|(
 name|Delete
 name|delete
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -1915,9 +1910,6 @@ parameter_list|(
 name|Delete
 name|delete
 parameter_list|,
-name|Integer
-name|lockid
-parameter_list|,
 name|boolean
 name|writeToWAL
 parameter_list|)
@@ -1931,8 +1923,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-name|lockid
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -1954,8 +1944,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 return|;
 block|}
@@ -2070,32 +2058,6 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|Result
-name|get
-parameter_list|(
-name|Get
-name|get
-parameter_list|,
-name|Integer
-name|lockid
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|this
-operator|.
-name|region
-operator|.
-name|get
-argument_list|(
-name|get
-argument_list|,
-name|lockid
-argument_list|)
-return|;
-block|}
-specifier|public
 name|void
 name|flushcache
 parameter_list|()
@@ -2166,9 +2128,6 @@ name|delete
 parameter_list|(
 name|Delete
 name|delete
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -2604,8 +2563,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|NavigableMap

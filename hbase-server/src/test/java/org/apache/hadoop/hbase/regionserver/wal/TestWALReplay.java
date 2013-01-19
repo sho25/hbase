@@ -2533,8 +2533,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2649,8 +2647,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2711,8 +2707,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2909,8 +2903,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// Assert that count of cells is same as before crash.
@@ -3175,8 +3167,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -3355,8 +3345,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -3935,9 +3923,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-operator|-
-literal|1
 argument_list|)
 decl_stmt|;
 comment|// Make sure we only see the good edits

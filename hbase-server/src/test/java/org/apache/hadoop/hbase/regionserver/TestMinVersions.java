@@ -768,8 +768,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -815,8 +813,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -995,8 +991,6 @@ argument_list|,
 name|ts
 operator|-
 literal|1
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|region
@@ -1004,8 +998,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)
@@ -1032,8 +1024,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -1075,8 +1065,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -1123,8 +1111,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -1166,8 +1152,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -1392,8 +1376,6 @@ name|Get
 argument_list|(
 name|T1
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|checkResult
@@ -1426,8 +1408,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -1471,8 +1451,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -1538,8 +1516,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -1583,8 +1559,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -1797,8 +1771,6 @@ name|Get
 argument_list|(
 name|T1
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|checkResult
@@ -1837,8 +1809,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -1869,8 +1839,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -1904,8 +1872,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ScanWildcardColumnTracker
@@ -1949,8 +1915,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// this'll use ExplicitColumnTracker
@@ -1998,8 +1962,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2045,8 +2007,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -2075,8 +2035,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -2107,8 +2065,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2427,8 +2383,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|checkResult
@@ -2482,8 +2436,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -2550,8 +2502,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult
@@ -2603,8 +2553,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|checkResult

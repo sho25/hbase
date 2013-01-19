@@ -1743,8 +1743,6 @@ argument_list|,
 name|now
 operator|+
 literal|3
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|t

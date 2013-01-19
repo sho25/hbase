@@ -615,27 +615,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Obtains a lock on a row.    *    * @param row The row to lock.    * @return A {@link RowLock} containing the row and lock id.    * @throws IOException if a remote or network exception occurs.    * @see RowLock    * @see #unlockRow    */
-name|RowLock
-name|lockRow
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Releases a row lock.    *    * @param rl The row lock to release.    * @throws IOException if a remote or network exception occurs.    * @see RowLock    * @see #unlockRow    */
-name|void
-name|unlockRow
-parameter_list|(
-name|RowLock
-name|rl
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the    * table region containing the specified row.  The row given does not actually have    * to exist.  Whichever region would contain the row based on start and end keys will    * be used.  Note that the {@code row} parameter is also not passed to the    * coprocessor handler registered for this protocol, unless the {@code row}    * is separately passed as an argument in the service request.  The parameter    * here is only used to locate the region used to handle the call.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myTable.coprocessorService(rowkey);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param row The row key used to identify the remote region location    * @return A CoprocessorRpcChannel instance    */
 name|CoprocessorRpcChannel
 name|coprocessorService

@@ -1005,22 +1005,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RowLock
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RowMutations
 import|;
 end_import
@@ -7344,8 +7328,6 @@ operator|=
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -7635,16 +7617,13 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @param delete delete object    * @param lockid existing lock id, or null for grab a lock    * @param writeToWAL append to the write ahead lock or not    * @throws IOException read exceptions    */
+comment|/**    * @param delete delete object    * @param writeToWAL append to the write ahead lock or not    * @throws IOException read exceptions    */
 specifier|public
 name|void
 name|delete
 parameter_list|(
 name|Delete
 name|delete
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -7658,11 +7637,6 @@ expr_stmt|;
 name|checkResources
 argument_list|()
 expr_stmt|;
-name|Integer
-name|lid
-init|=
-literal|null
-decl_stmt|;
 name|startRegionOperation
 argument_list|()
 expr_stmt|;
@@ -7684,43 +7658,14 @@ operator|.
 name|getRow
 argument_list|()
 decl_stmt|;
-comment|// If we did not pass an existing row lock, obtain a new one
-name|lid
-operator|=
-name|getLock
-argument_list|(
-name|lockid
-argument_list|,
-name|row
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-try|try
-block|{
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|doBatchMutate
 argument_list|(
 name|delete
 argument_list|,
-name|lid
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|lockid
-operator|==
 literal|null
-condition|)
-name|releaseRowLock
-argument_list|(
-name|lid
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -8132,8 +8077,6 @@ name|put
 argument_list|(
 name|put
 argument_list|,
-literal|null
-argument_list|,
 name|put
 operator|.
 name|getWriteToWAL
@@ -8148,64 +8091,6 @@ name|put
 parameter_list|(
 name|Put
 name|put
-parameter_list|,
-name|boolean
-name|writeToWAL
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-operator|.
-name|put
-argument_list|(
-name|put
-argument_list|,
-literal|null
-argument_list|,
-name|writeToWAL
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param put    * @param lockid    * @throws IOException    */
-specifier|public
-name|void
-name|put
-parameter_list|(
-name|Put
-name|put
-parameter_list|,
-name|Integer
-name|lockid
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-operator|.
-name|put
-argument_list|(
-name|put
-argument_list|,
-name|lockid
-argument_list|,
-name|put
-operator|.
-name|getWriteToWAL
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param put    * @param lockid    * @param writeToWAL    * @throws IOException    */
-specifier|public
-name|void
-name|put
-parameter_list|(
-name|Put
-name|put
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -8249,44 +8134,14 @@ operator|.
 name|getRow
 argument_list|()
 decl_stmt|;
-comment|// If we did not pass an existing row lock, obtain a new one
-name|Integer
-name|lid
-init|=
-name|getLock
-argument_list|(
-name|lockid
-argument_list|,
-name|row
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
-try|try
-block|{
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|doBatchMutate
 argument_list|(
 name|put
 argument_list|,
-name|lid
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|lockid
-operator|==
 literal|null
-condition|)
-name|releaseRowLock
-argument_list|(
-name|lid
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -10183,7 +10038,7 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndMutate you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator    * @param lockId    * @param writeToWAL    * @throws IOException    * @return true if the new put was executed, false otherwise    */
+comment|/**    *    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator    * @param w    * @param writeToWAL    * @throws IOException    * @return true if the new put was executed, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndMutate
@@ -10208,9 +10063,6 @@ name|comparator
 parameter_list|,
 name|Mutation
 name|w
-parameter_list|,
-name|Integer
-name|lockId
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -10289,31 +10141,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|RowLock
-name|lock
-init|=
-name|isPut
-condition|?
-operator|(
-operator|(
-name|Put
-operator|)
-name|w
-operator|)
-operator|.
-name|getRowLock
-argument_list|()
-else|:
-operator|(
-operator|(
-name|Delete
-operator|)
-name|w
-operator|)
-operator|.
-name|getRowLock
-argument_list|()
-decl_stmt|;
 name|Get
 name|get
 init|=
@@ -10321,8 +10148,6 @@ operator|new
 name|Get
 argument_list|(
 name|row
-argument_list|,
-name|lock
 argument_list|)
 decl_stmt|;
 name|checkFamily
@@ -10345,7 +10170,7 @@ name|lid
 init|=
 name|getLock
 argument_list|(
-name|lockId
+literal|null
 argument_list|,
 name|get
 operator|.
@@ -10627,12 +10452,6 @@ return|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|lockId
-operator|==
-literal|null
-condition|)
 name|releaseRowLock
 argument_list|(
 name|lid
@@ -11218,9 +11037,6 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|edits
-parameter_list|,
-name|Integer
-name|lid
 parameter_list|)
 throws|throws
 name|IOException
@@ -11297,7 +11113,7 @@ name|doBatchMutate
 argument_list|(
 name|p
 argument_list|,
-name|lid
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -13492,7 +13308,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Obtain a lock on the given row.  Blocks until success.    *    * I know it's strange to have two mappings:    *<pre>    *   ROWS  ==> LOCKS    *</pre>    * as well as    *<pre>    *   LOCKS ==> ROWS    *</pre>    *    * But it acts as a guard on the client; a miswritten client just can't    * submit the name of a row and start writing to it; it must know the correct    * lockid, which matches the lock list in memory.    *    *<p>It would be more memory-efficient to assume a correctly-written client,    * which maybe we'll do in the future.    *    * @param row Name of row to lock.    * @throws IOException    * @return The id of the held lock.    */
+comment|/**    * Obtain a lock on the given row.  Blocks until success.    *    * I know it's strange to have two mappings:    *<pre>    *   ROWS  ==> LOCKS    *</pre>    * as well as    *<pre>    *   LOCKS ==> ROWS    *</pre>    *<p>It would be more memory-efficient to just have one mapping;    * maybe we'll do that in the future.    *    * @param row Name of row to lock.    * @throws IOException    * @return The id of the held lock.    */
 specifier|public
 name|Integer
 name|obtainRowLock
@@ -13723,39 +13539,6 @@ name|closeRegionOperation
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-comment|/**    * Used by unit tests.    * @param lockid    * @return Row that goes with<code>lockid</code>    */
-name|byte
-index|[]
-name|getRowFromLock
-parameter_list|(
-specifier|final
-name|Integer
-name|lockid
-parameter_list|)
-block|{
-name|HashedBytes
-name|rowKey
-init|=
-name|lockIds
-operator|.
-name|get
-argument_list|(
-name|lockid
-argument_list|)
-decl_stmt|;
-return|return
-name|rowKey
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|rowKey
-operator|.
-name|getBytes
-argument_list|()
-return|;
 block|}
 comment|/**    * Release the row lock!    * @param lockId  The lock ID to release.    */
 specifier|public
@@ -17503,18 +17286,6 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-name|Integer
-name|lid
-init|=
-name|meta
-operator|.
-name|obtainRowLock
-argument_list|(
-name|row
-argument_list|)
-decl_stmt|;
-try|try
-block|{
 specifier|final
 name|long
 name|now
@@ -17611,21 +17382,8 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|,
 name|edits
-argument_list|,
-name|lid
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|meta
-operator|.
-name|releaseRowLock
-argument_list|(
-name|lid
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Deletes all the files for a HRegion    *    * @param fs the file system object    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
 specifier|public
@@ -19314,7 +19072,7 @@ block|}
 comment|//
 comment|// HBASE-880
 comment|//
-comment|/**    * @param get get object    * @param lockid existing lock id, or null for no previous lock    * @return result    * @throws IOException read exceptions    */
+comment|/**    * @param get get object    * @return result    * @throws IOException read exceptions    */
 specifier|public
 name|Result
 name|get
@@ -19322,10 +19080,6 @@ parameter_list|(
 specifier|final
 name|Get
 name|get
-parameter_list|,
-specifier|final
-name|Integer
-name|lockid
 parameter_list|)
 throws|throws
 name|IOException
@@ -20619,16 +20373,13 @@ block|}
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append
 parameter_list|(
 name|Append
 name|append
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -20736,7 +20487,7 @@ name|lid
 init|=
 name|getLock
 argument_list|(
-name|lockid
+literal|null
 argument_list|,
 name|row
 argument_list|,
@@ -21537,16 +21288,13 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|increment
 parameter_list|(
 name|Increment
 name|increment
-parameter_list|,
-name|Integer
-name|lockid
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -21662,7 +21410,7 @@ name|lid
 init|=
 name|getLock
 argument_list|(
-name|lockid
+literal|null
 argument_list|,
 name|row
 argument_list|,

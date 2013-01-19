@@ -169,12 +169,10 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Delete operation for the specified row and timestamp, using    * an optional row lock.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param row row key    * @param timestamp maximum version timestamp (only for delete row)    * @param rowLock previously acquired row lock, or null    */
+comment|/**    * Create a Delete operation for the specified row and timestamp.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param row row key    * @param timestamp maximum version timestamp (only for delete row)    */
 specifier|public
 name|Delete
 parameter_list|(
@@ -184,9 +182,6 @@ name|row
 parameter_list|,
 name|long
 name|timestamp
-parameter_list|,
-name|RowLock
-name|rowLock
 parameter_list|)
 block|{
 name|this
@@ -201,23 +196,6 @@ name|ts
 operator|=
 name|timestamp
 expr_stmt|;
-if|if
-condition|(
-name|rowLock
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|lockId
-operator|=
-name|rowLock
-operator|.
-name|getLockId
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * @param d Delete to clone.    */
 specifier|public
@@ -244,15 +222,6 @@ operator|=
 name|d
 operator|.
 name|getTimeStamp
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|lockId
-operator|=
-name|d
-operator|.
-name|getLockId
 argument_list|()
 expr_stmt|;
 name|this

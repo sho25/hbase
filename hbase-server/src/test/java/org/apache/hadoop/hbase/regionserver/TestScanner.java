@@ -1428,8 +1428,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|put
@@ -1527,8 +1525,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|put
@@ -1645,8 +1641,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|put
@@ -2306,8 +2300,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|byte
@@ -2687,8 +2679,6 @@ operator|.
 name|delete
 argument_list|(
 name|dc
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)

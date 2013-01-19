@@ -754,8 +754,6 @@ argument_list|(
 name|row
 argument_list|,
 name|timestamp1
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|put
@@ -845,8 +843,6 @@ argument_list|(
 name|row
 argument_list|,
 name|timestamp2
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|put
@@ -1450,8 +1446,6 @@ name|timestamp
 index|[
 name|j
 index|]
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|put

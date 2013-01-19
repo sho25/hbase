@@ -1557,8 +1557,6 @@ argument_list|,
 name|ts
 operator|+
 literal|3
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|h
@@ -1578,8 +1576,6 @@ argument_list|,
 name|ts
 operator|+
 literal|3
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|d

@@ -592,8 +592,6 @@ name|in
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -991,8 +989,6 @@ name|in
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}

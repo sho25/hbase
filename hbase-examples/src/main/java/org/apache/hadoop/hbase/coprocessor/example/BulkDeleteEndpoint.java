@@ -1177,8 +1177,6 @@ argument_list|(
 name|row
 argument_list|,
 name|ts
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 if|if

@@ -906,8 +906,6 @@ name|getRow
 argument_list|()
 argument_list|)
 argument_list|,
-literal|null
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1264,8 +1262,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1424,8 +1420,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1493,8 +1487,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1524,8 +1516,6 @@ name|delete
 argument_list|(
 name|delete
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1551,8 +1541,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1591,8 +1579,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1640,8 +1626,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1701,8 +1685,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2498,8 +2480,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2535,8 +2515,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2558,8 +2536,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)
@@ -2588,8 +2564,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2626,8 +2600,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2671,8 +2643,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2709,8 +2679,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2822,8 +2790,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2860,8 +2826,6 @@ name|setMaxVersions
 argument_list|(
 literal|100
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3382,8 +3346,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)

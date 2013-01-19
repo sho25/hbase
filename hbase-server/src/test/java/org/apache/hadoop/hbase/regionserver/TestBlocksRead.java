@@ -1072,8 +1072,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|raw
@@ -1319,8 +1317,6 @@ operator|.
 name|delete
 argument_list|(
 name|del
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)
