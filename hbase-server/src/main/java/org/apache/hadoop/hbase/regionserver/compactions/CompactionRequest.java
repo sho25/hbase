@@ -930,6 +930,24 @@ name|hashCode
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|equals
+parameter_list|(
+name|Object
+name|obj
+parameter_list|)
+block|{
+return|return
+operator|(
+name|this
+operator|==
+name|obj
+operator|)
+return|;
+block|}
 comment|/** Gets the HRegion for the request */
 specifier|public
 name|HRegion
