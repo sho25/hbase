@@ -901,7 +901,7 @@ name|get
 argument_list|(
 literal|"zookeeper.znode.unassigned"
 argument_list|,
-literal|"unassigned"
+literal|"region-in-transition"
 argument_list|)
 argument_list|)
 expr_stmt|;
