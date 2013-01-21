@@ -6678,7 +6678,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|long
-name|completeSeqId
+name|flushSeqId
 init|=
 operator|-
 literal|1L
@@ -6700,16 +6700,16 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-name|sequenceId
-operator|=
-operator|(
+if|if
+condition|(
 name|wal
-operator|==
+operator|!=
 literal|null
-operator|)
-condition|?
-name|myseqid
-else|:
+condition|)
+block|{
+name|Long
+name|startSeqId
+init|=
 name|wal
 operator|.
 name|startCacheFlush
@@ -6721,16 +6721,49 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|completeSeqId
-operator|=
+decl_stmt|;
+if|if
+condition|(
+name|startSeqId
+operator|==
+literal|null
+condition|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flush will not be started for ["
+operator|+
 name|this
 operator|.
-name|getCompleteCacheFlushSequenceId
-argument_list|(
-name|sequenceId
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|"] - WAL is going away"
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+name|flushSeqId
+operator|=
+name|startSeqId
+operator|.
+name|longValue
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|flushSeqId
+operator|=
+name|myseqid
+expr_stmt|;
+block|}
 for|for
 control|(
 name|Store
@@ -6750,7 +6783,7 @@ name|s
 operator|.
 name|getStoreFlusher
 argument_list|(
-name|completeSeqId
+name|flushSeqId
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6986,12 +7019,7 @@ throw|throw
 name|dse
 throw|;
 block|}
-comment|// If we get to here, the HStores have been written. If we get an
-comment|// error in completeCacheFlush it will release the lock it is holding
-comment|// B.  Write a FLUSHCACHE-COMPLETE message to the log.
-comment|//     This tells future readers that the HStores were emitted correctly,
-comment|//     and that all updates to the log for this regionName that have lower
-comment|//     log-sequence-ids can be safely ignored.
+comment|// If we get to here, the HStores have been written.
 if|if
 condition|(
 name|wal
@@ -7009,21 +7037,6 @@ name|regionInfo
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-name|regionInfo
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|completeSeqId
-argument_list|,
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|isMetaRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7039,7 +7052,7 @@ condition|)
 block|{
 name|completeSequenceId
 operator|=
-name|completeSeqId
+name|flushSeqId
 expr_stmt|;
 block|}
 comment|// C. Finally notify anyone waiting on memstore to clear:
@@ -7169,19 +7182,6 @@ argument_list|)
 expr_stmt|;
 return|return
 name|compactionRequested
-return|;
-block|}
-comment|/**    * Get the sequence number to be associated with this cache flush. Used by    * TransactionalRegion to not complete pending transactions.    *    *    * @param currentSequenceId    * @return sequence id to complete the cache flush with    */
-specifier|protected
-name|long
-name|getCompleteCacheFlushSequenceId
-parameter_list|(
-name|long
-name|currentSequenceId
-parameter_list|)
-block|{
-return|return
-name|currentSequenceId
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
