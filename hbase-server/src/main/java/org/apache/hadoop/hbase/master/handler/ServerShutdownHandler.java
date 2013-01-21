@@ -1805,6 +1805,10 @@ argument_list|,
 name|daughter
 argument_list|,
 literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|NO_SEQNUM
 argument_list|)
 expr_stmt|;
 comment|// TODO: Log WARN if the regiondir does not exist in the fs.  If its not

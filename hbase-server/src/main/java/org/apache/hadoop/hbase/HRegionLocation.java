@@ -96,6 +96,11 @@ specifier|final
 name|int
 name|port
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|seqNum
+decl_stmt|;
 comment|// Cache of the 'toString' result.
 specifier|private
 name|String
@@ -108,7 +113,7 @@ specifier|private
 name|String
 name|cachedHostnamePort
 decl_stmt|;
-comment|/**    * Constructor    * @param regionInfo the HRegionInfo for the region    * @param hostname Hostname    * @param port port    */
+comment|/**    * Constructor    * @param regionInfo the HRegionInfo for the region    */
 specifier|public
 name|HRegionLocation
 parameter_list|(
@@ -122,6 +127,10 @@ parameter_list|,
 specifier|final
 name|int
 name|port
+parameter_list|,
+specifier|final
+name|long
+name|seqNum
 parameter_list|)
 block|{
 name|this
@@ -141,6 +150,40 @@ operator|.
 name|port
 operator|=
 name|port
+expr_stmt|;
+name|this
+operator|.
+name|seqNum
+operator|=
+name|seqNum
+expr_stmt|;
+block|}
+comment|/**    * Test constructor w/o seqNum.    */
+specifier|public
+name|HRegionLocation
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+specifier|final
+name|String
+name|hostname
+parameter_list|,
+specifier|final
+name|int
+name|port
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|regionInfo
+argument_list|,
+name|hostname
+argument_list|,
+name|port
+argument_list|,
+literal|0
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @see java.lang.Object#toString()    */
@@ -185,6 +228,10 @@ operator|+
 name|this
 operator|.
 name|port
+operator|+
+literal|", seqNum="
+operator|+
+name|seqNum
 expr_stmt|;
 block|}
 return|return
@@ -312,6 +359,15 @@ return|return
 name|this
 operator|.
 name|port
+return|;
+block|}
+specifier|public
+name|long
+name|getSeqNum
+parameter_list|()
+block|{
+return|return
+name|seqNum
 return|;
 block|}
 comment|/**    * @return String made of hostname and port formatted as per {@link Addressing#createHostAndPortStr(String, int)}    */

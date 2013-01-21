@@ -731,10 +731,7 @@ name|rsServices
 operator|.
 name|removeFromOnlineRegions
 argument_list|(
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|region
 argument_list|,
 name|destination
 argument_list|)

@@ -2464,6 +2464,8 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|SN
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|ZKUtil

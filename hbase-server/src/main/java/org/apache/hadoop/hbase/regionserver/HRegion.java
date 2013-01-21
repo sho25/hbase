@@ -2090,6 +2090,15 @@ name|Long
 argument_list|>
 name|scannerReadPoints
 decl_stmt|;
+comment|/**    * The sequence ID that was encountered when this region was opened.    */
+specifier|private
+name|long
+name|openSeqNum
+init|=
+name|HConstants
+operator|.
+name|NO_SEQNUM
+decl_stmt|;
 comment|/**    * The default setting for whether to enable on-demand CF loading for    * scan requests to this region. Requests can override it.    */
 specifier|private
 name|boolean
@@ -17183,14 +17192,15 @@ block|{
 name|checkCompressionCodecs
 argument_list|()
 expr_stmt|;
-name|long
-name|seqid
-init|=
+name|this
+operator|.
+name|openSeqNum
+operator|=
 name|initialize
 argument_list|(
 name|reporter
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -17206,7 +17216,9 @@ name|log
 operator|.
 name|setSequenceNumber
 argument_list|(
-name|seqid
+name|this
+operator|.
+name|openSeqNum
 argument_list|)
 expr_stmt|;
 block|}
@@ -22131,7 +22143,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|9
+literal|10
 operator|*
 name|Bytes
 operator|.
@@ -23984,6 +23996,18 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Gets the latest sequence number that was read from storage when this region was opened.    */
+specifier|public
+name|long
+name|getOpenSeqNum
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|openSeqNum
+return|;
 block|}
 comment|/**    * Listener class to enable callers of    * bulkLoadHFile() to perform any necessary    * pre/post processing of a given bulkload call    */
 specifier|public

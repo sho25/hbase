@@ -215,7 +215,7 @@ name|hrl3
 argument_list|)
 expr_stmt|;
 comment|// They are equal because they have same location even though they are
-comment|// carrying different regions.
+comment|// carrying different regions or timestamp.
 name|assertTrue
 argument_list|(
 name|hrl1
@@ -269,6 +269,45 @@ operator|.
 name|equals
 argument_list|(
 name|hrl4
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|HRegionLocation
+name|hrl5
+init|=
+operator|new
+name|HRegionLocation
+argument_list|(
+name|hrl4
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|hrl4
+operator|.
+name|getHostname
+argument_list|()
+argument_list|,
+name|hrl4
+operator|.
+name|getPort
+argument_list|()
+argument_list|,
+name|hrl4
+operator|.
+name|getSeqNum
+argument_list|()
+operator|+
+literal|1
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|hrl4
+operator|.
+name|equals
+argument_list|(
+name|hrl5
 argument_list|)
 argument_list|)
 expr_stmt|;

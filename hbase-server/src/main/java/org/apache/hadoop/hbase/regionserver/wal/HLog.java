@@ -931,6 +931,16 @@ name|boolean
 name|isLowReplicationRollEnabled
 parameter_list|()
 function_decl|;
+comment|/** Gets the earliest sequence number in the memstore for this particular region.    * This can serve as best-effort "recent" WAL number for this region.    * @param encodedRegionName The region to get the number for.    * @return The number if present, HConstants.NO_SEQNUM if absent.    */
+specifier|public
+name|long
+name|getEarliestMemstoreSeqNum
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

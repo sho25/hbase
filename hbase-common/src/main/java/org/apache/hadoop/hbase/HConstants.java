@@ -992,6 +992,19 @@ argument_list|(
 literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
+comment|/** The open seqnum column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|SEQNUM_QUALIFIER
+init|=
+name|toBytes
+argument_list|(
+literal|"seqnumDuringOpen"
+argument_list|)
+decl_stmt|;
 comment|/** The lower-half split region column qualifier */
 specifier|public
 specifier|static
@@ -1542,6 +1555,16 @@ name|int
 name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
 literal|60000
+decl_stmt|;
+comment|/**    * Value indicating the server name was saved with no sequence number.    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|NO_SEQNUM
+init|=
+operator|-
+literal|1
 decl_stmt|;
 comment|/*    * cluster replication constants.    */
 specifier|public

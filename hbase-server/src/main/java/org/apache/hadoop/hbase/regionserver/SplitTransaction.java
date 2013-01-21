@@ -1414,12 +1414,6 @@ argument_list|(
 name|this
 operator|.
 name|parent
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 literal|null
 argument_list|)

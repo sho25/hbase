@@ -1753,8 +1753,8 @@ specifier|public
 name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
-name|String
-name|encodedRegionName
+name|HRegion
+name|r
 parameter_list|,
 name|ServerName
 name|destination
