@@ -1391,6 +1391,22 @@ name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
 literal|1000
 decl_stmt|;
+comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_SERVER_PAUSE
+init|=
+literal|"hbase.server.pause"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_SERVER_PAUSE}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_SERVER_PAUSE
+init|=
+literal|1000
+decl_stmt|;
 comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
 specifier|public
 specifier|static
