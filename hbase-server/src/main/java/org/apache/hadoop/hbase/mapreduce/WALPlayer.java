@@ -810,7 +810,7 @@ name|getKeyValues
 argument_list|()
 control|)
 block|{
-comment|// filtering HLog meta entries
+comment|// filtering HLog meta entries, see HLog.completeCacheFlushLogEdit
 if|if
 condition|(
 name|HLogUtil
