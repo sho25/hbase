@@ -646,7 +646,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * registers WALActionsListener    *     * @param listener    */
+comment|/**    * registers WALActionsListener    *     * @param listener    */
 specifier|public
 name|void
 name|registerWALActionsListener
@@ -656,7 +656,7 @@ name|WALActionsListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/*    * unregisters WALActionsListener    *     * @param listener    */
+comment|/**    * unregisters WALActionsListener    *     * @param listener    */
 specifier|public
 name|boolean
 name|unregisterWALActionsListener
@@ -688,7 +688,7 @@ name|long
 name|getSequenceNumber
 parameter_list|()
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *     *<p>    * Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *     * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -700,7 +700,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *     *<p>    * Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *     * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *     * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -872,9 +872,9 @@ name|long
 name|obtainSeqNum
 parameter_list|()
 function_decl|;
-comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *     * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *     * Ensuring that flushes and log-rolls don't happen concurrently also allows    * us to temporarily put a log-seq-number in lastSeqWritten against the region    * being flushed that might not be the earliest in-memory log-seq-number for    * that region. By the time the flush is completed or aborted and before the    * cacheFlushLock is released it is ensured that lastSeqWritten again has the    * oldest in-memory edit's lsn for the region that was being flushed.    *     * In this method, by removing the entry in lastSeqWritten for the region    * being flushed we ensure that the next edit inserted in this region will be    * correctly recorded in    * {@link #append(HRegionInfo, byte[], WALEdit, long, HTableDescriptor)} The    * lsn of the earliest in-memory lsn - which is now in the memstore snapshot -    * is saved temporarily in the lastSeqWritten map while the flush is active.    *     * @return sequence ID to pass    *         {@link #completeCacheFlush(byte[], byte[], long, boolean)} (byte[],    *         byte[], long)}    * @see #completeCacheFlush(byte[], byte[], long, boolean)    * @see #abortCacheFlush(byte[])    */
+comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, byte[], WALEdit, long, HTableDescriptor)}    * as new oldest seqnum. In case of flush being aborted, we put the stashed value back;    * in case of flush succeeding, the seqNum of that first edit after start becomes the    * valid oldest seqNum for this region.    *    * @return current seqNum, to pass on to flushers (who will put it into the metadata of    *         the resulting file as an upper-bound seqNum for that file), or NULL if flush    *         should not be started.    */
 specifier|public
-name|long
+name|Long
 name|startCacheFlush
 parameter_list|(
 specifier|final
@@ -883,7 +883,7 @@ index|[]
 name|encodedRegionName
 parameter_list|)
 function_decl|;
-comment|/**    * Complete the cache flush    *     * Protected by cacheFlushLock    *     * @param encodedRegionName    * @param tableName    * @param logSeqId    * @throws IOException    */
+comment|/**    * Complete the cache flush.    * @param encodedRegionName Encoded region name.    */
 specifier|public
 name|void
 name|completeCacheFlush
@@ -892,24 +892,9 @@ specifier|final
 name|byte
 index|[]
 name|encodedRegionName
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-specifier|final
-name|long
-name|logSeqId
-parameter_list|,
-specifier|final
-name|boolean
-name|isMetaRegion
 parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
-comment|/**    * Abort a cache flush. Call if the flush fails. Note that the only recovery    * for an aborted flush currently is a restart of the regionserver so the    * snapshot content dropped by the failure gets restored to the memstore.    */
+comment|/**    * Abort a cache flush. Call if the flush fails. Note that the only recovery    * for an aborted flush currently is a restart of the regionserver so the    * snapshot content dropped by the failure gets restored to the memstore.v    * @param encodedRegionName Encoded region name.    */
 specifier|public
 name|void
 name|abortCacheFlush
