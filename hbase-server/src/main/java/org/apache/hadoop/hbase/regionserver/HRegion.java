@@ -14625,6 +14625,12 @@ name|HConstants
 operator|.
 name|EMPTY_END_ROW
 argument_list|)
+operator|&&
+operator|!
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
 condition|)
 block|{
 name|this

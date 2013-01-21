@@ -282,6 +282,10 @@ name|storeOffset
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+name|boolean
+name|getScan
+decl_stmt|;
 comment|// If application wants to collect scan metrics, it needs to
 comment|// call scan.setAttribute(SCAN_ATTRIBUTES_ENABLE, Bytes.toBytes(Boolean.TRUE))
 specifier|static
@@ -442,6 +446,14 @@ name|stopRow
 operator|=
 name|stopRow
 expr_stmt|;
+comment|//if the startRow and stopRow both are empty, it is not a Get
+name|this
+operator|.
+name|getScan
+operator|=
+name|isStartRowAndEqualsStopRow
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Creates a new instance of this class while copying all values.    *    * @param scan  The scan instance to copy from.    * @throws IOException When copying the values fails.    */
 specifier|public
@@ -514,6 +526,13 @@ operator|=
 name|scan
 operator|.
 name|getCacheBlocks
+argument_list|()
+expr_stmt|;
+name|getScan
+operator|=
+name|scan
+operator|.
+name|isGetScan
 argument_list|()
 expr_stmt|;
 name|filter
@@ -784,10 +803,30 @@ operator|.
 name|getFamilyMap
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|getScan
+operator|=
+literal|true
+expr_stmt|;
 block|}
 specifier|public
 name|boolean
 name|isGetScan
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getScan
+operator|||
+name|isStartRowAndEqualsStopRow
+argument_list|()
+return|;
+block|}
+specifier|private
+name|boolean
+name|isStartRowAndEqualsStopRow
 parameter_list|()
 block|{
 return|return
