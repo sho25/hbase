@@ -3205,7 +3205,7 @@ name|vlength
 argument_list|)
 return|;
 block|}
-comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the value.    *    * For temporary backwards compatibility with the original KeyValue.equals method, we ignore the    * mvccVersion.    */
+comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the value.    */
 annotation|@
 name|Override
 specifier|public
@@ -3233,7 +3233,7 @@ block|}
 return|return
 name|CellComparator
 operator|.
-name|equalsIgnoreMvccVersion
+name|equals
 argument_list|(
 name|this
 argument_list|,
