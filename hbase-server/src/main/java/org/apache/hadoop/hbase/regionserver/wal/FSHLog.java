@@ -289,44 +289,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantReadWriteLock
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|regex
-operator|.
-name|Matcher
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|regex
-operator|.
-name|Pattern
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -2131,7 +2093,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Method used internal to this class and for tests only.    * @return The wrapped stream our writer is using; its not the    * writer's 'out' FSDatoOutputStream but the stream that this 'out' wraps    * (In hdfs its an instance of DFSDataOutputStream).    *    * usage: see TestLogRolling.java    */
+comment|/**    * Method used internal to this class and for tests only.    * @return The wrapped stream our writer is using; its not the    * writer's 'out' FSDatoOutputStream but the stream that this 'out' wraps    * (In hdfs its an instance of DFSDataOutputStream).    *     * usage: see TestLogRolling.java    */
 end_comment
 
 begin_function
@@ -2574,7 +2536,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *    * @param fs    * @param path    * @param conf    * @return Writer instance    * @throws IOException    */
+comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *     * @param fs    * @param path    * @param conf    * @return Writer instance    * @throws IOException    */
 end_comment
 
 begin_function
@@ -6046,7 +6008,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Get the directory we are making logs in.    *    * @return dir    */
+comment|/**    * Get the directory we are making logs in.    *     * @return dir    */
 end_comment
 
 begin_function

@@ -766,7 +766,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**    * Same as {#newDaemonThreadFactory(String, UncaughtExceptionHandler)},    * without setting the exception handler.    */
+comment|/**    * Get a named {@link ThreadFactory} that just builds daemon threads    * @param prefix name prefix for all threads created from the factory    * @return a thread factory that creates named, daemon threads    */
 specifier|public
 specifier|static
 name|ThreadFactory
@@ -775,30 +775,6 @@ parameter_list|(
 specifier|final
 name|String
 name|prefix
-parameter_list|)
-block|{
-return|return
-name|newDaemonThreadFactory
-argument_list|(
-name|prefix
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Get a named {@link ThreadFactory} that just builds daemon threads.    * @param prefix name prefix for all threads created from the factory    * @param handler unhandles exception handler to set for all threads    * @return a thread factory that creates named, daemon threads with    *         the supplied exception handler and normal priority    */
-specifier|public
-specifier|static
-name|ThreadFactory
-name|newDaemonThreadFactory
-parameter_list|(
-specifier|final
-name|String
-name|prefix
-parameter_list|,
-specifier|final
-name|UncaughtExceptionHandler
-name|handler
 parameter_list|)
 block|{
 specifier|final
@@ -835,21 +811,6 @@ argument_list|(
 name|r
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|handler
-operator|!=
-literal|null
-condition|)
-block|{
-name|t
-operator|.
-name|setUncaughtExceptionHandler
-argument_list|(
-name|handler
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 operator|!
