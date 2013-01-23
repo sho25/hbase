@@ -1597,6 +1597,33 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List<KeyValue> kvs)</code> removing all the kvs from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+name|boolean
+name|postScannerFilterRow
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|InternalScanner
+name|s
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|currentRow
+parameter_list|,
+specifier|final
+name|boolean
+name|hasMore
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called before the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preScannerClose
