@@ -155,6 +155,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|compress
@@ -339,9 +353,12 @@ specifier|private
 name|String
 name|comparatorClassName
 init|=
-name|RawComparator
+name|KeyValue
 operator|.
-name|class
+name|KEY_COMPARATOR
+operator|.
+name|getClass
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -1330,12 +1347,16 @@ name|hasComparatorClassName
 argument_list|()
 condition|)
 block|{
-name|comparatorClassName
-operator|=
+name|setComparatorClass
+argument_list|(
+name|getComparatorClass
+argument_list|(
 name|builder
 operator|.
 name|getComparatorClassName
 argument_list|()
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -1502,8 +1523,10 @@ operator|.
 name|readLong
 argument_list|()
 expr_stmt|;
-name|comparatorClassName
-operator|=
+name|setComparatorClass
+argument_list|(
+name|getComparatorClass
+argument_list|(
 name|Bytes
 operator|.
 name|readStringFixedSize
@@ -1511,6 +1534,8 @@ argument_list|(
 name|input
 argument_list|,
 name|MAX_COMPARATOR_NAME_LENGTH
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2365,11 +2390,38 @@ argument_list|>
 name|klass
 parameter_list|)
 block|{
-name|expectAtLeastMajorVersion
-argument_list|(
-literal|2
-argument_list|)
+comment|// Is the comparator instantiable
+try|try
+block|{
+name|klass
+operator|.
+name|newInstance
+argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Comparator class "
+operator|+
+name|klass
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" is not instantiable"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 name|comparatorClassName
 operator|=
 name|klass
@@ -2478,6 +2530,12 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
+literal|"Comparator class "
+operator|+
+name|comparatorClassName
+operator|+
+literal|" is not instantiable"
+argument_list|,
 name|e
 argument_list|)
 throw|;
@@ -2492,6 +2550,12 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
+literal|"Comparator class "
+operator|+
+name|comparatorClassName
+operator|+
+literal|" is not instantiable"
+argument_list|,
 name|e
 argument_list|)
 throw|;
