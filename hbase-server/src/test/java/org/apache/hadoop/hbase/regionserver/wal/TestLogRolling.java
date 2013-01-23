@@ -1534,6 +1534,33 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
+name|Put
+name|tmpPut
+init|=
+operator|new
+name|Put
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"tmprow"
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|tmpPut
+operator|.
+name|add
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|,
+literal|null
+argument_list|,
+name|value
+argument_list|)
+expr_stmt|;
 name|long
 name|startTime
 init|=
@@ -1568,6 +1595,14 @@ break|break;
 block|}
 else|else
 block|{
+comment|// Trigger calling FSHlog#checkLowReplication()
+name|table
+operator|.
+name|put
+argument_list|(
+name|tmpPut
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|Thread
@@ -2196,7 +2231,17 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"LowReplication Roller should've been disabled"
+literal|"LowReplication Roller should've been disabled, current replication="
+operator|+
+operator|(
+operator|(
+name|FSHLog
+operator|)
+name|log
+operator|)
+operator|.
+name|getLogReplication
+argument_list|()
 argument_list|,
 operator|!
 name|log
