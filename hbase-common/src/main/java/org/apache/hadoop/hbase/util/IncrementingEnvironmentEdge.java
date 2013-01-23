@@ -49,9 +49,36 @@ block|{
 specifier|private
 name|long
 name|timeIncrement
-init|=
-literal|1
 decl_stmt|;
+comment|/**    * Construct an incremental edge starting from currentTimeMillis    */
+specifier|public
+name|IncrementingEnvironmentEdge
+parameter_list|()
+block|{
+name|this
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Construct an incremental edge with an initial amount    * @param initialAmount the initial value to start with    */
+specifier|public
+name|IncrementingEnvironmentEdge
+parameter_list|(
+name|long
+name|initialAmount
+parameter_list|)
+block|{
+name|this
+operator|.
+name|timeIncrement
+operator|=
+name|initialAmount
+expr_stmt|;
+block|}
 comment|/**    * {@inheritDoc}    *<p/>    * This method increments a known value for the current time each time this    * method is called. The first value is 1.    */
 annotation|@
 name|Override
@@ -64,6 +91,24 @@ block|{
 return|return
 name|timeIncrement
 operator|++
+return|;
+block|}
+comment|/**    * Increment the time by the given amount    */
+specifier|public
+specifier|synchronized
+name|long
+name|incrementTime
+parameter_list|(
+name|long
+name|amount
+parameter_list|)
+block|{
+name|timeIncrement
+operator|+=
+name|amount
+expr_stmt|;
+return|return
+name|timeIncrement
 return|;
 block|}
 block|}

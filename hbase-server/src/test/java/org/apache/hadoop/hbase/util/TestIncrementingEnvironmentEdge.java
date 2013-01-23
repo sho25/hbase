@@ -109,7 +109,9 @@ name|edge
 init|=
 operator|new
 name|IncrementingEnvironmentEdge
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
