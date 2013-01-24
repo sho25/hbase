@@ -5074,7 +5074,7 @@ block|}
 block|}
 else|else
 block|{
-name|deleteCachedLocation
+name|forceDeleteCachedLocation
 argument_list|(
 name|tableName
 argument_list|,
@@ -5694,9 +5694,9 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**      * Delete a cached location      * @param tableName tableName      * @param row      */
+comment|/**      * Delete a cached location, no matter what it is. Called when we were told to not use cache.      * @param tableName tableName      * @param row      */
 name|void
-name|deleteCachedLocation
+name|forceDeleteCachedLocation
 parameter_list|(
 specifier|final
 name|byte
@@ -5829,7 +5829,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|+
-literal|" from cache because of "
+literal|" from cache to make sure we don't use cache for "
 operator|+
 name|Bytes
 operator|.
@@ -8065,6 +8065,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**     * Deletes the cached location of the region if necessary, based on some error from source.     * @param hri The region in question.     * @param source The source of the error that prompts us to invalidate cache.     */
 name|void
 name|deleteCachedLocation
 parameter_list|(
@@ -8121,6 +8122,13 @@ name|getStartKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|oldLocation
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// Do not delete the cache entry if it's not for the same server that gave us the error.
 name|isStaleDelete
 operator|=
@@ -8154,6 +8162,7 @@ name|getStartKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if

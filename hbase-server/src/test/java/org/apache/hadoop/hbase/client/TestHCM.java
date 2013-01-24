@@ -1063,7 +1063,7 @@ argument_list|)
 expr_stmt|;
 name|conn
 operator|.
-name|deleteCachedLocation
+name|forceDeleteCachedLocation
 argument_list|(
 name|TABLE_NAME
 operator|.
