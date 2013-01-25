@@ -2551,6 +2551,14 @@ argument_list|(
 name|confParam
 argument_list|)
 operator|.
+name|addStringMap
+argument_list|(
+name|htd
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
 name|addWritableMap
 argument_list|(
 name|htd

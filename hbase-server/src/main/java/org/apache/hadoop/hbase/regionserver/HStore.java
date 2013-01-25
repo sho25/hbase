@@ -1179,6 +1179,8 @@ operator|=
 name|family
 expr_stmt|;
 comment|// 'conf' renamed to 'confParam' b/c we use this.conf in the constructor
+comment|// CompoundConfiguration will look for keys in reverse order of addition, so we'd
+comment|// add global config first, then table and cf overrides, then cf metadata.
 name|this
 operator|.
 name|conf
@@ -1190,6 +1192,25 @@ operator|.
 name|add
 argument_list|(
 name|confParam
+argument_list|)
+operator|.
+name|addStringMap
+argument_list|(
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
+name|addStringMap
+argument_list|(
+name|family
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 operator|.
 name|addWritableMap
