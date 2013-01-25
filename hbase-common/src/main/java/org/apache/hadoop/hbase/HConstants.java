@@ -529,6 +529,15 @@ literal|180
 operator|*
 literal|1000
 decl_stmt|;
+comment|/** Configuration key for whether to use ZK.multi */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_USEMULTI
+init|=
+literal|"hbase.zookeeper.useMulti"
+decl_stmt|;
 comment|/** Parameter name for port region server listens on. */
 specifier|public
 specifier|static
