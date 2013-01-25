@@ -3535,6 +3535,7 @@ operator|<
 name|numRetries
 condition|)
 block|{
+comment|// tries at this point is 1 or more; decrement to start from 0.
 name|long
 name|pauseTime
 init|=
@@ -3547,6 +3548,8 @@ operator|.
 name|pause
 argument_list|,
 name|tries
+operator|-
+literal|1
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -9126,6 +9129,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// curNumRetries at this point is 1 or more; decrement to start from 0.
 specifier|final
 name|long
 name|sleepTime
@@ -9141,6 +9145,8 @@ argument_list|,
 name|this
 operator|.
 name|curNumRetries
+operator|-
+literal|1
 argument_list|)
 decl_stmt|;
 name|submit
