@@ -4972,7 +4972,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{
@@ -5076,7 +5076,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{
