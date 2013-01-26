@@ -647,7 +647,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isMetaTable
 argument_list|()
 argument_list|)
 operator|.
@@ -1004,7 +1004,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isMetaTable
 argument_list|()
 argument_list|)
 operator|.
@@ -1041,7 +1041,7 @@ name|when
 argument_list|(
 name|mockRegionInfo
 operator|.
-name|isMetaRegion
+name|isMetaTable
 argument_list|()
 argument_list|)
 operator|.
