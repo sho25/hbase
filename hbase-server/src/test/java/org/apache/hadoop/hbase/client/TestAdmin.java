@@ -6311,8 +6311,6 @@ argument_list|,
 name|blockSize
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|int
 name|rowCount
 init|=
@@ -7001,9 +6999,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-block|}
-finally|finally
-block|{
 name|TEST_UTIL
 operator|.
 name|deleteTable
@@ -7016,7 +7011,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|/**    * HADOOP-2156    * @throws IOException    */
 annotation|@

@@ -421,7 +421,7 @@ specifier|final
 name|int
 name|TIMEOUT_MS
 init|=
-literal|120000
+literal|180000
 decl_stmt|;
 specifier|protected
 specifier|static

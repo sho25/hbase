@@ -906,7 +906,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|byte
@@ -1156,7 +1156,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 comment|// Assert that either the tot_wkr_failed_to_grab_task_owned count was set of if
@@ -1173,7 +1173,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|,
 literal|false
 argument_list|)
@@ -1372,7 +1372,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1451,7 +1451,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 block|}
@@ -1590,7 +1590,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 comment|// now the worker is busy doing the above task
@@ -1677,7 +1677,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|waitForCounter
@@ -1690,7 +1690,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1866,7 +1866,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 comment|// now the worker is busy doing the above task
@@ -1895,7 +1895,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 comment|// create a RESCAN node
@@ -1946,7 +1946,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 comment|// RESCAN node might not have been processed if the worker became busy
@@ -1976,7 +1976,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|waitForCounter
@@ -1989,7 +1989,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1000
+literal|1500
 argument_list|)
 expr_stmt|;
 name|List
