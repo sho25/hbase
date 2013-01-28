@@ -4438,6 +4438,37 @@ operator|.
 name|peerClusters
 return|;
 block|}
+comment|/**    * Determine if a ZK path points to a peer node.    * @param path path to be checked    * @return true if the path points to a peer node, otherwise false    */
+specifier|public
+name|boolean
+name|isPeerPath
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+return|return
+name|path
+operator|.
+name|split
+argument_list|(
+literal|"/"
+argument_list|)
+operator|.
+name|length
+operator|==
+name|peersZNode
+operator|.
+name|split
+argument_list|(
+literal|"/"
+argument_list|)
+operator|.
+name|length
+operator|+
+literal|1
+return|;
+block|}
 comment|/**    * Extracts the znode name of a peer cluster from a ZK path    * @param fullPath Path to extract the id from    * @return the id or an empty string if path is invalid    */
 specifier|public
 specifier|static

@@ -409,7 +409,7 @@ specifier|final
 name|Stoppable
 name|stopper
 decl_stmt|;
-comment|// All logs we are currently trackign
+comment|// All logs we are currently tracking
 specifier|private
 specifier|final
 name|Map
@@ -2090,6 +2090,16 @@ condition|)
 block|{
 return|return;
 block|}
+if|if
+condition|(
+name|zkHelper
+operator|.
+name|isPeerPath
+argument_list|(
+name|path
+argument_list|)
+condition|)
+block|{
 name|String
 name|id
 init|=
@@ -2105,6 +2115,7 @@ argument_list|(
 name|id
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**      * Called when an existing node has a child node added or removed.      * @param path full path of the node whose children have changed      */
 specifier|public
