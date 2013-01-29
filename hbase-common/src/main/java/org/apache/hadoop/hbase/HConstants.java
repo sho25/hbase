@@ -835,19 +835,6 @@ name|DEFAULT_HREGION_EDITS_REPLAY_SKIP_ERRORS
 init|=
 literal|false
 decl_stmt|;
-comment|/** Default size of a reservation block   */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_SIZE_RESERVATION_BLOCK
-init|=
-literal|1024
-operator|*
-literal|1024
-operator|*
-literal|5
-decl_stmt|;
 comment|/** Maximum value length, enforced on KeyValue construction */
 specifier|public
 specifier|static
