@@ -5374,7 +5374,7 @@ block|{
 comment|// if directory doesn't exist, return null
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|dir
 operator|+
