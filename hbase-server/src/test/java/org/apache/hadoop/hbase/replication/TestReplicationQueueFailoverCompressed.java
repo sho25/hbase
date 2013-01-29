@@ -85,7 +85,7 @@ specifier|public
 class|class
 name|TestReplicationQueueFailoverCompressed
 extends|extends
-name|TestReplicationBase
+name|TestReplicationQueueFailover
 block|{
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
