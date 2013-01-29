@@ -3576,12 +3576,6 @@ specifier|private
 name|MovedRegionsCleaner
 name|movedRegionsCleaner
 decl_stmt|;
-comment|/**    * The lease timeout period for row locks (milliseconds).    */
-specifier|private
-specifier|final
-name|int
-name|rowLockLeaseTimeoutPeriod
-decl_stmt|;
 comment|/**    * The lease timeout period for client scanners (milliseconds).    */
 specifier|private
 specifier|final
@@ -3782,23 +3776,6 @@ operator|.
 name|stopped
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|rowLockLeaseTimeoutPeriod
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -14810,9 +14787,6 @@ name|reclaimMemStoreMemory
 argument_list|()
 expr_stmt|;
 block|}
-name|Integer
-name|lock
-decl_stmt|;
 name|Result
 name|r
 init|=

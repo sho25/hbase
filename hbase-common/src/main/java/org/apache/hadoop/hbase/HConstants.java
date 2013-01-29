@@ -1512,22 +1512,6 @@ name|HBASE_CLIENT_INSTANCE_ID
 init|=
 literal|"hbase.client.instance.id"
 decl_stmt|;
-comment|/**    * The row lock timeout period in milliseconds.    */
-specifier|public
-specifier|static
-name|String
-name|HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-init|=
-literal|"hbase.regionserver.rowlock.timeout.period"
-decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD}.    */
-specifier|public
-specifier|static
-name|int
-name|DEFAULT_HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-init|=
-literal|60000
-decl_stmt|;
 comment|/**    * The client scanner timeout period in milliseconds.    */
 specifier|public
 specifier|static

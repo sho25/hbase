@@ -25883,19 +25883,6 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-argument_list|,
-literal|10
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 comment|// Increase the amount of time between client retries
 name|conf
 operator|.
