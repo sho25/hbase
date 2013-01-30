@@ -903,6 +903,7 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
 name|int
 name|getCurrentPoolSize
 parameter_list|(
