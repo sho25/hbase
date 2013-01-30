@@ -81,6 +81,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|URI
@@ -1200,7 +1212,150 @@ throw|throw
 name|io
 throw|;
 block|}
+comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * FSConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *     * @param dfs    * @return whether we're in safe mode    * @throws IOException    */
+specifier|private
+specifier|static
+name|boolean
+name|isInSafeMode
+parameter_list|(
+name|DistributedFileSystem
+name|dfs
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|boolean
+name|inSafeMode
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
+name|Method
+name|m
+init|=
+name|DistributedFileSystem
+operator|.
+name|class
+operator|.
+name|getMethod
+argument_list|(
+literal|"setSafeMode"
+argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hdfs
+operator|.
+name|protocol
+operator|.
+name|FSConstants
+operator|.
+name|SafeModeAction
+operator|.
+name|class
+operator|,
+name|boolean
+operator|.
+name|class
+block|}
+block|)
+empty_stmt|;
+name|inSafeMode
+operator|=
+operator|(
+name|Boolean
+operator|)
+name|m
+operator|.
+name|invoke
+argument_list|(
+name|dfs
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hdfs
+operator|.
+name|protocol
+operator|.
+name|FSConstants
+operator|.
+name|SafeModeAction
+operator|.
+name|SAFEMODE_GET
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|IOException
+condition|)
+throw|throw
+operator|(
+name|IOException
+operator|)
+name|e
+throw|;
+comment|// Check whether dfs is on safemode.
+name|inSafeMode
+operator|=
+name|dfs
+operator|.
+name|setSafeMode
+argument_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hdfs
+operator|.
+name|protocol
+operator|.
+name|FSConstants
+operator|.
+name|SafeModeAction
+operator|.
+name|SAFEMODE_GET
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|inSafeMode
+return|;
+block|}
+end_class
+
+begin_comment
 comment|/**    * Check whether dfs is in safemode.     * @param conf    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -1243,28 +1398,11 @@ name|DistributedFileSystem
 operator|)
 name|fs
 decl_stmt|;
-comment|// Check whether dfs is on safemode.
 name|isInSafeMode
 operator|=
-name|dfs
-operator|.
-name|setSafeMode
+name|isInSafeMode
 argument_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|protocol
-operator|.
-name|FSConstants
-operator|.
-name|SafeModeAction
-operator|.
-name|SAFEMODE_GET
+name|dfs
 argument_list|)
 expr_stmt|;
 block|}
@@ -1282,7 +1420,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    * @throws DeserializationException     */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|String
@@ -1518,7 +1662,13 @@ return|return
 name|version
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Parse the content of the ${HBASE_ROOTDIR}/hbase.version file.    * @param bytes The byte content of the hbase.version file.    * @return The version found in the file as a String.    * @throws DeserializationException    */
+end_comment
+
+begin_function
 specifier|static
 name|String
 name|parseVersionFrom
@@ -1610,7 +1760,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create the content to write into the ${HBASE_ROOTDIR}/hbase.version file.    * @param version Version to persist    * @return Serialized protobuf with<code>version</code> content and a bit of pb magic for a prefix.    */
+end_comment
+
+begin_function
 specifier|static
 name|byte
 index|[]
@@ -1655,7 +1811,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    *    * @throws IOException e    * @throws DeserializationException     */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -1691,7 +1853,13 @@ name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException e    * @throws DeserializationException     */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -1820,7 +1988,13 @@ name|msg
 argument_list|)
 throw|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -1853,7 +2027,13 @@ name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @param wait time to wait for retry    * @param retries number of times to retry before failing    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -1890,7 +2070,13 @@ name|retries
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @param wait time to wait for retry    * @param retries number of times to retry before throwing an IOException    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -2054,7 +2240,13 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Checks that a cluster ID file exists in the HBase root directory    * @param fs the root directory FileSystem    * @param rootdir the HBase root directory in HDFS    * @param wait how long to wait between retries    * @return<code>true</code> if the file exists, otherwise<code>false</code>    * @throws IOException if checking the FileSystem fails    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -2175,7 +2367,13 @@ return|return
 literal|false
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Returns the value of the unique cluster ID stored for this HBase instance.    * @param fs the root directory FileSystem    * @param rootdir the path to the HBase root directory    * @return the unique cluster identifier    * @throws IOException if reading the cluster ID file fails    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|ClusterId
@@ -2386,7 +2584,13 @@ return|return
 name|clusterId
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param cid    * @throws IOException     */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|void
@@ -2492,7 +2696,13 @@ literal|"Rewrote the hbase.id file as pb"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Writes a new unique identifier for this cluster to the "hbase.id" file    * in the HBase root directory    * @param fs the root directory FileSystem    * @param rootdir the path to the HBase root directory    * @param clusterId the unique identifier to store    * @param wait how long (in milliseconds) to wait between retries    * @throws IOException if writing to the FileSystem fails and no wait value    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -2662,7 +2872,13 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Verifies root directory path is a valid URI with a scheme    *    * @param root root directory path    * @return Passed<code>root</code> argument.    * @throws IOException if not a valid URI with a scheme    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Path
@@ -2750,7 +2966,13 @@ name|io
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * If DFS, check safe mode and if so, wait until we clear it.    * @param conf configuration    * @param wait Sleep between retries    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -2798,25 +3020,9 @@ decl_stmt|;
 comment|// Make sure dfs is not in safe mode
 while|while
 condition|(
-name|dfs
-operator|.
-name|setSafeMode
+name|isInSafeMode
 argument_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|protocol
-operator|.
-name|FSConstants
-operator|.
-name|SafeModeAction
-operator|.
-name|SAFEMODE_GET
+name|dfs
 argument_list|)
 condition|)
 block|{
@@ -2847,7 +3053,13 @@ comment|//continue
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return the 'path' component of a Path.  In Hadoop, Path is an URI.  This    * method returns the 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>,    * this method returns<code>/hbase_trunk/TestTable/compaction.dir</code>.    * This method is useful if you want to print out a Path without qualifying    * Filesystem instance.    * @param p Filesystem Path whose 'path' component we are to return.    * @return Path portion of the Filesystem    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|String
@@ -2867,7 +3079,13 @@ name|getPath
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param c configuration    * @return Path to hbase root directory: i.e.<code>hbase.rootdir</code> from    * configuration as a qualified Path.    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Path
@@ -2915,6 +3133,9 @@ name|fs
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -2946,7 +3167,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Checks if root region exists    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -2984,7 +3211,13 @@ name|rootRegionDir
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Compute HDFS blocks distribution of a given file, or a portion of the file    * @param fs file system    * @param status file status of the file    * @param start start position of the portion    * @param length length of the portion     * @return The HDFS blocks distribution    */
+end_comment
+
+begin_function
 specifier|static
 specifier|public
 name|HDFSBlocksDistribution
@@ -3067,7 +3300,13 @@ return|return
 name|blocksDistribution
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this hbase install is major compacted.    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3273,8 +3512,17 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// TODO move this method OUT of FSUtils. No dependencies to HMaster
+end_comment
+
+begin_comment
 comment|/**    * Returns the total overall fragmentation percentage. Includes .META. and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|int
@@ -3323,7 +3571,13 @@ operator|-
 literal|1
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *     * @throws IOException When scanning the directory fails.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Map
@@ -3375,7 +3629,13 @@ name|path
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Map
@@ -3658,7 +3918,13 @@ return|return
 name|frags
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Expects to find -ROOT- directory.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this a pre020 layout.    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3713,7 +3979,13 @@ name|mapfiles
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.  This version differs from    * {@link #isMajorCompacted(FileSystem, Path)} in that it expects a    * pre-0.20.0 hbase layout on the filesystem.  Used migrating.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this hbase install is major compacted.    * @throws IOException e    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -4043,7 +4315,13 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * A {@link PathFilter} that returns directories.    */
+end_comment
+
+begin_class
 specifier|public
 specifier|static
 class|class
@@ -4152,7 +4430,13 @@ name|isValid
 return|;
 block|}
 block|}
+end_class
+
+begin_comment
 comment|/**    * Heuristic to determine whether is safe or not to open a file for append    * Looks both for dfs.support.append and use reflection to search    * for SequenceFile.Writer.syncFs() or FSDataOutputStream.hflush()    * @param conf    * @return True if append support    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -4227,6 +4511,9 @@ literal|false
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_if
 if|if
 condition|(
 operator|!
@@ -4258,6 +4545,9 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+end_if
+
+begin_catch
 catch|catch
 parameter_list|(
 name|NoSuchMethodException
@@ -4269,14 +4559,13 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-block|}
-end_class
+end_catch
 
-begin_return
-return|return
+begin_expr_stmt
+unit|}     return
 name|append
-return|;
-end_return
+expr_stmt|;
+end_expr_stmt
 
 begin_comment
 unit|}
