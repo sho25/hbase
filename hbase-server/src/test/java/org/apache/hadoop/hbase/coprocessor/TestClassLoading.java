@@ -1034,13 +1034,11 @@ argument_list|(
 literal|"path.separator"
 argument_list|)
 operator|+
-comment|// Note that the below trick only works if mvn is running the test;
-comment|// doesn't work in eclipse for example.
 name|System
 operator|.
 name|getProperty
 argument_list|(
-literal|"surefire.test.class.path"
+literal|"java.class.path"
 argument_list|)
 decl_stmt|;
 name|options
