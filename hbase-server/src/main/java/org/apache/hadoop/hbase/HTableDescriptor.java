@@ -2230,6 +2230,7 @@ return|;
 block|}
 comment|/**    * This is used to defer the log edits syncing to the file system. Everytime     * an edit is sent to the server it is first sync'd to the file system by the     * log writer. This sync is an expensive operation and thus can be deferred so     * that the edits are kept in memory for a specified period of time as represented    * by<code> hbase.regionserver.optionallogflushinterval</code> and not flushed    * for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these deferred edits in memory are flushed onto the filesystem.     *</p>    *     * @param isDeferredLogFlush    */
 specifier|public
+specifier|synchronized
 name|void
 name|setDeferredLogFlush
 parameter_list|(
