@@ -222,12 +222,26 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Test for the existence of columns in the table, as specified in the Get.    *<p>    *    * This will return true if the Get matches one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param get the Get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException e    */
+comment|/**    * Test for the existence of columns in the table, as specified by the Get.    *<p>    *    * This will return true if the Get matches one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param get the Get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException e    */
 name|boolean
 name|exists
 parameter_list|(
 name|Get
 name|get
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Test for the existence of columns in the table, as specified by the Gets.    *<p>    *    * This will return an array of booleans. Each value will be true if the related Get matches    * one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param gets the Gets    * @return Array of Boolean true if the specified Get matches one or more keys, false if not    * @throws IOException e    */
+name|Boolean
+index|[]
+name|exists
+parameter_list|(
+name|List
+argument_list|<
+name|Get
+argument_list|>
+name|gets
 parameter_list|)
 throws|throws
 name|IOException
