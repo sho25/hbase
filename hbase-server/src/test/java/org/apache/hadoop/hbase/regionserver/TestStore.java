@@ -329,20 +329,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -1601,7 +1587,8 @@ name|this
 operator|.
 name|store
 operator|.
-name|scanInfo
+name|getScanInfo
+argument_list|()
 operator|.
 name|getTtl
 argument_list|()
@@ -1838,7 +1825,7 @@ name|getMaxTimestamp
 argument_list|()
 operator|<
 operator|(
-name|EnvironmentEdgeManager
+name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -1847,7 +1834,8 @@ name|this
 operator|.
 name|store
 operator|.
-name|scanInfo
+name|getScanInfo
+argument_list|()
 operator|.
 name|getTtl
 argument_list|()
@@ -1856,6 +1844,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Verify that the expired store file is compacted to an empty store file.
+comment|// Default compaction policy creates just one and only one compacted file.
 name|StoreFile
 name|compactedFile
 init|=
@@ -1866,6 +1855,11 @@ operator|.
 name|compact
 argument_list|(
 name|cr
+argument_list|)
+operator|.
+name|get
+argument_list|(
+literal|0
 argument_list|)
 decl_stmt|;
 comment|// It is an empty store file.

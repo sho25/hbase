@@ -4471,6 +4471,7 @@ name|hasReferences
 argument_list|()
 return|;
 block|}
+specifier|public
 name|boolean
 name|areWritesEnabled
 parameter_list|()

@@ -6980,6 +6980,7 @@ name|getMajorVersion
 argument_list|()
 return|;
 block|}
+specifier|public
 name|HFile
 operator|.
 name|Reader

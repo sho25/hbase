@@ -727,6 +727,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|Compactor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -1005,8 +1023,7 @@ specifier|final
 name|boolean
 name|verifyBulkLoads
 decl_stmt|;
-comment|// not private for testing
-comment|/* package */
+specifier|private
 name|ScanInfo
 name|scanInfo
 decl_stmt|;
@@ -1075,7 +1092,6 @@ name|KVComparator
 name|comparator
 decl_stmt|;
 specifier|private
-specifier|final
 name|Compactor
 name|compactor
 decl_stmt|;
@@ -1429,30 +1445,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// Create a compaction tool instance
-name|this
-operator|.
-name|compactor
-operator|=
-operator|new
-name|Compactor
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 comment|// Create a compaction manager.
-name|this
-operator|.
-name|compactionPolicy
-operator|=
-operator|new
-name|CompactionPolicy
-argument_list|(
-name|conf
-argument_list|,
-name|this
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|HStore
@@ -1514,6 +1507,29 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|this
+operator|.
+name|compactionPolicy
+operator|=
+name|CompactionPolicy
+operator|.
+name|create
+argument_list|(
+name|this
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+comment|// Get the compaction tool instance for this policy
+name|this
+operator|.
+name|compactor
+operator|=
+name|compactionPolicy
+operator|.
+name|getCompactor
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * @param family    * @return    */
 specifier|private
@@ -1666,6 +1682,7 @@ return|return
 name|homedir
 return|;
 block|}
+specifier|public
 name|FileSystem
 name|getFileSystem
 parameter_list|()
@@ -1824,6 +1841,17 @@ name|checksumName
 argument_list|)
 return|;
 block|}
+block|}
+comment|/**    * @return how many bytes to write between status checks    */
+specifier|public
+specifier|static
+name|int
+name|getCloseCheckInterval
+parameter_list|()
+block|{
+return|return
+name|closeCheckInterval
+return|;
 block|}
 specifier|public
 name|HColumnDescriptor
@@ -4655,6 +4683,7 @@ argument_list|)
 return|;
 block|}
 comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @return Writer for a new StoreFile in the tmp dir.    */
+specifier|public
 name|StoreFile
 operator|.
 name|Writer
@@ -5083,7 +5112,10 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param cr    *          compaction details obtained from requestCompaction()    * @throws IOException    * @return Storefile we compacted into or null if we failed or opted out early.    */
+name|List
+argument_list|<
 name|StoreFile
+argument_list|>
 name|compact
 parameter_list|(
 name|CompactionRequest
@@ -5161,19 +5193,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Max-sequenceID is the last key in the files we're compacting
-name|long
-name|maxId
-init|=
-name|StoreFile
-operator|.
-name|getMaxSequenceIdInList
-argument_list|(
-name|filesToCompact
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
 comment|// Ready to go. Have list of files to compact.
 name|LOG
 operator|.
@@ -5209,10 +5228,6 @@ operator|.
 name|getTmpDir
 argument_list|()
 operator|+
-literal|", seqid="
-operator|+
-name|maxId
-operator|+
 literal|", totalSize="
 operator|+
 name|StringUtils
@@ -5226,10 +5241,18 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|List
+argument_list|<
 name|StoreFile
-name|sf
+argument_list|>
+name|sfs
 init|=
-literal|null
+operator|new
+name|ArrayList
+argument_list|<
+name|StoreFile
+argument_list|>
+argument_list|()
 decl_stmt|;
 name|long
 name|compactionStartTime
@@ -5241,10 +5264,11 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|StoreFile
-operator|.
-name|Writer
-name|writer
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|newFiles
 init|=
 name|this
 operator|.
@@ -5252,16 +5276,12 @@ name|compactor
 operator|.
 name|compact
 argument_list|(
-name|this
-argument_list|,
 name|filesToCompact
 argument_list|,
 name|cr
 operator|.
 name|isMajor
 argument_list|()
-argument_list|,
-name|maxId
 argument_list|)
 decl_stmt|;
 comment|// Move the compaction into place.
@@ -5279,15 +5299,24 @@ literal|true
 argument_list|)
 condition|)
 block|{
+for|for
+control|(
+name|Path
+name|newFile
+range|:
+name|newFiles
+control|)
+block|{
+name|StoreFile
 name|sf
-operator|=
+init|=
 name|completeCompaction
 argument_list|(
 name|filesToCompact
 argument_list|,
-name|writer
+name|newFile
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|region
@@ -5311,12 +5340,29 @@ name|sf
 argument_list|)
 expr_stmt|;
 block|}
+name|sfs
+operator|.
+name|add
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
+for|for
+control|(
+name|Path
+name|newFile
+range|:
+name|newFiles
+control|)
+block|{
 comment|// Create storefile around what we wrote with a reader on it.
+name|StoreFile
 name|sf
-operator|=
+init|=
 operator|new
 name|StoreFile
 argument_list|(
@@ -5324,10 +5370,7 @@ name|this
 operator|.
 name|fs
 argument_list|,
-name|writer
-operator|.
-name|getPath
-argument_list|()
+name|newFile
 argument_list|,
 name|this
 operator|.
@@ -5348,12 +5391,20 @@ name|this
 operator|.
 name|dataBlockEncoder
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|sf
 operator|.
 name|createReader
 argument_list|()
 expr_stmt|;
+name|sfs
+operator|.
+name|add
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -5380,9 +5431,11 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
+name|StringBuilder
+name|message
+init|=
+operator|new
+name|StringBuilder
 argument_list|(
 literal|"Completed"
 operator|+
@@ -5421,14 +5474,38 @@ name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" into "
-operator|+
-operator|(
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|sfs
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"none, "
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+for|for
+control|(
+name|StoreFile
 name|sf
-operator|==
-literal|null
-condition|?
-literal|"none"
-else|:
+range|:
+name|sfs
+control|)
+block|{
+name|message
+operator|.
+name|append
+argument_list|(
 name|sf
 operator|.
 name|getPath
@@ -5436,17 +5513,19 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|)
-operator|+
-literal|", size="
-operator|+
-operator|(
-name|sf
-operator|==
-literal|null
-condition|?
-literal|"none"
-else|:
+argument_list|)
+expr_stmt|;
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"(size="
+argument_list|)
+expr_stmt|;
+name|message
+operator|.
+name|append
+argument_list|(
 name|StringUtils
 operator|.
 name|humanReadableInt
@@ -5459,19 +5538,41 @@ operator|.
 name|length
 argument_list|()
 argument_list|)
-operator|)
-operator|+
-literal|"; total size for store is "
-operator|+
+argument_list|)
+expr_stmt|;
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"), "
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"total size for store is "
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
 name|storeSize
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|". This selection was in queue for "
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|StringUtils
 operator|.
 name|formatTimeDiff
@@ -5483,9 +5584,15 @@ operator|.
 name|getSelectionTime
 argument_list|()
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|", and took "
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|StringUtils
 operator|.
 name|formatTimeDiff
@@ -5494,12 +5601,25 @@ name|now
 argument_list|,
 name|compactionStartTime
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|" to execute."
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|message
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
-name|sf
+name|sfs
 return|;
 block|}
 annotation|@
@@ -5519,9 +5639,6 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|filesToCompact
-decl_stmt|;
-name|long
-name|maxId
 decl_stmt|;
 name|boolean
 name|isMajor
@@ -5649,17 +5766,6 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|maxId
-operator|=
-name|StoreFile
-operator|.
-name|getMaxSequenceIdInList
-argument_list|(
-name|filesToCompact
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|isMajor
 operator|=
 operator|(
@@ -5712,10 +5818,11 @@ block|}
 try|try
 block|{
 comment|// Ready to go. Have list of files to compact.
-name|StoreFile
-operator|.
-name|Writer
-name|writer
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|newFiles
 init|=
 name|this
 operator|.
@@ -5723,15 +5830,19 @@ name|compactor
 operator|.
 name|compact
 argument_list|(
-name|this
-argument_list|,
 name|filesToCompact
 argument_list|,
 name|isMajor
-argument_list|,
-name|maxId
 argument_list|)
 decl_stmt|;
+for|for
+control|(
+name|Path
+name|newFile
+range|:
+name|newFiles
+control|)
+block|{
 comment|// Move the compaction into place.
 name|StoreFile
 name|sf
@@ -5740,7 +5851,7 @@ name|completeCompaction
 argument_list|(
 name|filesToCompact
 argument_list|,
-name|writer
+name|newFile
 argument_list|)
 decl_stmt|;
 if|if
@@ -5765,6 +5876,7 @@ argument_list|,
 name|sf
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -6463,7 +6575,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    *<p>It works by processing a compaction that's been written to disk.    *    *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *    *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted StoreFile into place    * 2) Unload all replaced StoreFile, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *    * @param compactedFiles list of files that were compacted    * @param compactedFile StoreFile that is the result of the compaction    * @return StoreFile created. May be null.    * @throws IOException    */
+comment|/*    *<p>It works by processing a compaction that's been written to disk.    *    *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *    *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted StoreFile into place    * 2) Unload all replaced StoreFile, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *    * @param compactedFiles list of files that were compacted    * @param newFile StoreFile that is the result of the compaction    * @return StoreFile created. May be null.    * @throws IOException    */
 name|StoreFile
 name|completeCompaction
 parameter_list|(
@@ -6475,10 +6587,8 @@ argument_list|>
 name|compactedFiles
 parameter_list|,
 specifier|final
-name|StoreFile
-operator|.
-name|Writer
-name|compactedFile
+name|Path
+name|newFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -6492,28 +6602,17 @@ literal|null
 decl_stmt|;
 if|if
 condition|(
-name|compactedFile
+name|newFile
 operator|!=
 literal|null
 condition|)
 block|{
 name|validateStoreFile
 argument_list|(
-name|compactedFile
-operator|.
-name|getPath
-argument_list|()
+name|newFile
 argument_list|)
 expr_stmt|;
 comment|// Move the file into the right spot
-name|Path
-name|origPath
-init|=
-name|compactedFile
-operator|.
-name|getPath
-argument_list|()
-decl_stmt|;
 name|Path
 name|destPath
 init|=
@@ -6522,7 +6621,7 @@ name|Path
 argument_list|(
 name|homedir
 argument_list|,
-name|origPath
+name|newFile
 operator|.
 name|getName
 argument_list|()
@@ -6534,7 +6633,7 @@ name|info
 argument_list|(
 literal|"Renaming compacted file at "
 operator|+
-name|origPath
+name|newFile
 operator|+
 literal|" to "
 operator|+
@@ -6548,7 +6647,7 @@ name|fs
 operator|.
 name|rename
 argument_list|(
-name|origPath
+name|newFile
 argument_list|,
 name|destPath
 argument_list|)
@@ -6560,7 +6659,7 @@ name|error
 argument_list|(
 literal|"Failed move of compacted file "
 operator|+
-name|origPath
+name|newFile
 operator|+
 literal|" to "
 operator|+
@@ -6573,7 +6672,7 @@ name|IOException
 argument_list|(
 literal|"Failed move of compacted file "
 operator|+
-name|origPath
+name|newFile
 operator|+
 literal|" to "
 operator|+
@@ -9105,6 +9204,21 @@ block|{
 return|return
 name|scanInfo
 return|;
+block|}
+comment|/**    * Set scan info, used by test    * @param scanInfo new scan info to use for test    */
+name|void
+name|setScanInfo
+parameter_list|(
+name|ScanInfo
+name|scanInfo
+parameter_list|)
+block|{
+name|this
+operator|.
+name|scanInfo
+operator|=
+name|scanInfo
+expr_stmt|;
 block|}
 comment|/**    * Immutable information for scans over a store.    */
 specifier|public

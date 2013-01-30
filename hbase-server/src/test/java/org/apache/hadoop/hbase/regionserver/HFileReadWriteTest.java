@@ -2522,7 +2522,8 @@ name|store
 argument_list|,
 name|store
 operator|.
-name|scanInfo
+name|getScanInfo
+argument_list|()
 argument_list|,
 name|scan
 argument_list|,
