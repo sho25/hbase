@@ -706,6 +706,19 @@ name|earliestPutTs
 argument_list|)
 expr_stmt|;
 block|}
+name|ScanType
+name|scanType
+init|=
+name|majorCompaction
+condition|?
+name|ScanType
+operator|.
+name|MAJOR_COMPACT
+else|:
+name|ScanType
+operator|.
+name|MINOR_COMPACT
+decl_stmt|;
 if|if
 condition|(
 name|scanner
@@ -749,15 +762,7 @@ name|scan
 argument_list|,
 name|scanners
 argument_list|,
-name|majorCompaction
-condition|?
-name|ScanType
-operator|.
-name|MAJOR_COMPACT
-else|:
-name|ScanType
-operator|.
-name|MINOR_COMPACT
+name|scanType
 argument_list|,
 name|smallestReadPoint
 argument_list|,
@@ -794,6 +799,8 @@ argument_list|(
 name|store
 argument_list|,
 name|scanner
+argument_list|,
+name|scanType
 argument_list|)
 decl_stmt|;
 comment|// NULL scanner returned from coprocessor hooks means skip normal processing

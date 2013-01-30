@@ -826,6 +826,10 @@ parameter_list|,
 specifier|final
 name|InternalScanner
 name|scanner
+parameter_list|,
+specifier|final
+name|ScanType
+name|scanType
 parameter_list|)
 throws|throws
 name|IOException

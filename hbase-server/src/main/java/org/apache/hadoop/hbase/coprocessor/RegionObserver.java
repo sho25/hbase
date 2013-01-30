@@ -648,7 +648,7 @@ argument_list|>
 name|selected
 parameter_list|)
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into    * a new {@code StoreFile}.  To override or modify the compaction process,    * implementing classes have two options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom    *   implementation that is returned from this method.  The custom scanner    *   can then inspect {@link KeyValue}s from the wrapped scanner, applying    *   its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()}    *   and provide a custom implementation for writing of new    *   {@link StoreFile}s.<strong>Note: any implementations bypassing    *   core compaction using this approach must write out new store files    *   themselves or the existing data will no longer be available after    *   compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file    * rewriting    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into    * a new {@code StoreFile}.  To override or modify the compaction process,    * implementing classes have two options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom    *   implementation that is returned from this method.  The custom scanner    *   can then inspect {@link KeyValue}s from the wrapped scanner, applying    *   its own policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()}    *   and provide a custom implementation for writing of new    *   {@link StoreFile}s.<strong>Note: any implementations bypassing    *   core compaction using this approach must write out new store files    *   themselves or the existing data will no longer be available after    *   compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file    * rewriting    * @param scanType type of Scan    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
 name|InternalScanner
 name|preCompact
 parameter_list|(
@@ -666,6 +666,10 @@ parameter_list|,
 specifier|final
 name|InternalScanner
 name|scanner
+parameter_list|,
+specifier|final
+name|ScanType
+name|scanType
 parameter_list|)
 throws|throws
 name|IOException

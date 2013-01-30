@@ -2256,7 +2256,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @throws IOException    */
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -2266,6 +2266,9 @@ name|store
 parameter_list|,
 name|InternalScanner
 name|scanner
+parameter_list|,
+name|ScanType
+name|scanType
 parameter_list|)
 throws|throws
 name|IOException
@@ -2333,6 +2336,8 @@ argument_list|,
 name|store
 argument_list|,
 name|scanner
+argument_list|,
+name|scanType
 argument_list|)
 expr_stmt|;
 block|}

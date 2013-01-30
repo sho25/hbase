@@ -1012,6 +1012,9 @@ name|store
 parameter_list|,
 name|InternalScanner
 name|scanner
+parameter_list|,
+name|ScanType
+name|scanType
 parameter_list|)
 block|{
 name|hadPreCompact
