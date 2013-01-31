@@ -202,6 +202,14 @@ operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
+comment|// Give the various ZKWatchers some time to settle their affairs.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Mess with the root location in the running zk.  Set it to be nonsense.
 name|ZooKeeperWatcher
 name|zookeeper
