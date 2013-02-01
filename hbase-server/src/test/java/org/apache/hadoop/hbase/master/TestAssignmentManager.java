@@ -5403,7 +5403,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * When a region is in transition, if the region server opening the region goes down,    * the region assignment takes a long time normally (waiting for timeout monitor to trigger assign).    * This test is to make sure SSH times out the transition right away.    */
+comment|/**    * When a region is in transition, if the region server opening the region goes down,    * the region assignment takes a long time normally (waiting for timeout monitor to trigger assign).    * This test is to make sure SSH reassigns it right away.    */
 annotation|@
 name|Test
 specifier|public
@@ -5471,6 +5471,18 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
+name|regionOnline
+argument_list|(
+name|REGIONINFO
+argument_list|,
+name|SERVERNAME_B
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|regionsInTransition
 operator|.
 name|put
@@ -5521,6 +5533,12 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|am
+operator|.
+name|assignInvoked
+operator|=
+literal|false
+expr_stmt|;
 name|processServerShutdownHandler
 argument_list|(
 name|ct
@@ -5532,14 +5550,9 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Transtion is timed out"
-argument_list|,
-name|state
+name|am
 operator|.
-name|getStamp
-argument_list|()
-operator|==
-literal|0
+name|assignInvoked
 argument_list|)
 expr_stmt|;
 block|}
@@ -6327,7 +6340,18 @@ name|InterruptedException
 block|{
 name|assignInvoked
 operator|=
-literal|true
+operator|(
+name|regions
+operator|!=
+literal|null
+operator|&&
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+operator|)
 expr_stmt|;
 block|}
 comment|/** reset the watcher */
