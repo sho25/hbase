@@ -20422,6 +20422,9 @@ name|txid
 init|=
 literal|0
 decl_stmt|;
+name|checkReadOnly
+argument_list|()
+expr_stmt|;
 comment|// Lock row
 name|startRegionOperation
 argument_list|()
@@ -21345,6 +21348,9 @@ name|txid
 init|=
 literal|0
 decl_stmt|;
+name|checkReadOnly
+argument_list|()
+expr_stmt|;
 comment|// Lock row
 name|startRegionOperation
 argument_list|()
