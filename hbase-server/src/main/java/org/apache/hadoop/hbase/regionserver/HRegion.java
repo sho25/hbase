@@ -15922,7 +15922,6 @@ name|peek
 argument_list|()
 decl_stmt|;
 comment|// If joinedHeap is pointing to some other row, try to seek to a correct one.
-comment|// We don't need to recheck that row here - populateResult will take care of that.
 name|boolean
 name|mayHaveData
 init|=
@@ -15943,6 +15942,7 @@ name|length
 argument_list|)
 operator|)
 operator|||
+operator|(
 name|this
 operator|.
 name|joinedHeap
@@ -15960,6 +15960,28 @@ argument_list|,
 name|length
 argument_list|)
 argument_list|)
+operator|&&
+name|joinedHeap
+operator|.
+name|peek
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|joinedHeap
+operator|.
+name|peek
+argument_list|()
+operator|.
+name|matchingRow
+argument_list|(
+name|currentRow
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|)
+operator|)
 decl_stmt|;
 if|if
 condition|(
