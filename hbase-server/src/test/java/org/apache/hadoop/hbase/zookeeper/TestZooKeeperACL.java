@@ -473,13 +473,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|ZKUtil
-operator|.
-name|waitForZKConnectionIfAuthenticating
-argument_list|(
-name|zkw
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@

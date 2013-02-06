@@ -1354,54 +1354,6 @@ literal|" connected"
 argument_list|)
 expr_stmt|;
 break|break;
-case|case
-name|SaslAuthenticated
-case|:
-if|if
-condition|(
-name|ZKUtil
-operator|.
-name|isSecureZooKeeper
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-condition|)
-block|{
-comment|// We are authenticated, clients can proceed.
-name|saslLatch
-operator|.
-name|countDown
-argument_list|()
-expr_stmt|;
-block|}
-break|break;
-case|case
-name|AuthFailed
-case|:
-if|if
-condition|(
-name|ZKUtil
-operator|.
-name|isSecureZooKeeper
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-condition|)
-block|{
-comment|// We could not be authenticated, but clients should proceed anyway.
-comment|// Only access to znodes that require SASL authentication will be
-comment|// denied. The client may never need to access them.
-name|saslLatch
-operator|.
-name|countDown
-argument_list|()
-expr_stmt|;
-block|}
-break|break;
 comment|// Abort the server if Disconnected or Expired
 case|case
 name|Disconnected
@@ -1420,27 +1372,6 @@ break|break;
 case|case
 name|Expired
 case|:
-if|if
-condition|(
-name|ZKUtil
-operator|.
-name|isSecureZooKeeper
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-condition|)
-block|{
-comment|// We consider Expired equivalent to AuthFailed for this
-comment|// connection. Authentication is never going to complete. The
-comment|// client should proceed to do cleanup.
-name|saslLatch
-operator|.
-name|countDown
-argument_list|()
-expr_stmt|;
-block|}
 name|String
 name|msg
 init|=
