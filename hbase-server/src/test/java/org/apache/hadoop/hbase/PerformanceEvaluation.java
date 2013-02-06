@@ -8290,7 +8290,9 @@ name|zooKeeperCluster
 operator|=
 operator|new
 name|MiniZooKeeperCluster
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 name|int
 name|zooKeeperPort
