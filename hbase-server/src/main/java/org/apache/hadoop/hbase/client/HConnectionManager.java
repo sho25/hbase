@@ -2751,18 +2751,6 @@ name|managed
 operator|=
 name|managed
 expr_stmt|;
-comment|// ProtobufRpcClientEngine is the main RpcClientEngine implementation,
-comment|// but we maintain access through an interface to allow overriding for tests
-name|this
-operator|.
-name|rpcEngine
-operator|=
-operator|new
-name|ProtobufRpcClientEngine
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|String
 name|adminClassName
 init|=
@@ -2960,6 +2948,21 @@ argument_list|)
 expr_stmt|;
 name|retrieveClusterId
 argument_list|()
+expr_stmt|;
+comment|// ProtobufRpcClientEngine is the main RpcClientEngine implementation,
+comment|// but we maintain access through an interface to allow overriding for tests
+comment|// RPC engine setup must follow obtaining the cluster ID for token authentication to work
+name|this
+operator|.
+name|rpcEngine
+operator|=
+operator|new
+name|ProtobufRpcClientEngine
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * An identifier that will remain the same for a given connection.      * @return      */
