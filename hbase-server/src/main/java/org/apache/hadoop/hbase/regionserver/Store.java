@@ -253,6 +253,8 @@ interface|interface
 name|Store
 extends|extends
 name|HeapSize
+extends|,
+name|StoreConfigInformation
 block|{
 comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
 specifier|public

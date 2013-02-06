@@ -891,10 +891,6 @@ begin_comment
 comment|/**  * A Store holds a column family in a Region.  Its a memstore and a set of zero  * or more StoreFiles, which stretch backwards over time.  *  *<p>There's no reason to consider append-logging at this level; all logging  * and locking is handled at the HRegion level.  Store just provides  * services to manage sets of StoreFiles.  One of the most important of those  * services is compaction services where files are aggregated once they pass  * a configurable threshold.  *  *<p>The only thing having to do with logs that Store needs to deal with is  * the reconstructionLog.  This is a segment of an HRegion's log that might  * NOT be present upon startup.  If the param is NULL, there's nothing to do.  * If the param is non-NULL, we need to process the log to reconstruct  * a TreeMap that might not have been written to disk before the process  * died.  *  *<p>It's assumed that after this constructor returns, the reconstructionLog  * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
 
-begin_comment
-comment|//TODO: move StoreConfiguration implementation into a separate class.
-end_comment
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -905,8 +901,6 @@ class|class
 name|HStore
 implements|implements
 name|Store
-implements|,
-name|StoreConfiguration
 block|{
 specifier|static
 specifier|final
@@ -1693,7 +1687,9 @@ operator|.
 name|fs
 return|;
 block|}
-comment|/* Implementation of StoreConfiguration */
+comment|/* Implementation of StoreConfigInformation */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getStoreFileTtl
@@ -1721,41 +1717,8 @@ operator|.
 name|MAX_VALUE
 return|;
 block|}
-specifier|public
-name|Long
-name|getMajorCompactionPeriod
-parameter_list|()
-block|{
-name|String
-name|strCompactionTime
-init|=
-name|this
-operator|.
-name|family
-operator|.
-name|getValue
-argument_list|(
-name|HConstants
-operator|.
-name|MAJOR_COMPACTION_PERIOD
-argument_list|)
-decl_stmt|;
-return|return
-operator|(
-name|strCompactionTime
-operator|!=
-literal|null
-operator|)
-condition|?
-operator|new
-name|Long
-argument_list|(
-name|strCompactionTime
-argument_list|)
-else|:
-literal|null
-return|;
-block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMemstoreFlushSize
@@ -1769,7 +1732,7 @@ operator|.
 name|memstoreFlushSize
 return|;
 block|}
-comment|/* End implementation of StoreConfiguration */
+comment|/* End implementation of StoreConfigInformation */
 comment|/**    * Returns the configured bytesPerChecksum value.    * @param conf The configuration    * @return The bytesPerChecksum that is set in the configuration    */
 specifier|public
 specifier|static
