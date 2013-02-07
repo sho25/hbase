@@ -297,6 +297,10 @@ specifier|final
 name|AssignmentManager
 name|assignmentManager
 decl_stmt|;
+specifier|final
+name|boolean
+name|waitTillAllAssigned
+decl_stmt|;
 name|GeneralBulkAssigner
 parameter_list|(
 specifier|final
@@ -318,6 +322,10 @@ parameter_list|,
 specifier|final
 name|AssignmentManager
 name|am
+parameter_list|,
+specifier|final
+name|boolean
+name|waitTillAllAssigned
 parameter_list|)
 block|{
 name|super
@@ -336,6 +344,12 @@ operator|.
 name|assignmentManager
 operator|=
 name|am
+expr_stmt|;
+name|this
+operator|.
+name|waitTillAllAssigned
+operator|=
+name|waitTillAllAssigned
 expr_stmt|;
 block|}
 annotation|@
@@ -805,6 +819,15 @@ block|}
 if|if
 condition|(
 operator|!
+name|waitTillAllAssigned
+condition|)
+block|{
+comment|// No need to wait, let assignment going on asynchronously
+break|break;
+block|}
+if|if
+condition|(
+operator|!
 name|regionSet
 operator|.
 name|isEmpty
@@ -861,7 +884,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" regions still not assigned yet"
+literal|" regions still in transition"
 expr_stmt|;
 block|}
 name|LOG

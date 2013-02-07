@@ -1118,6 +1118,28 @@ specifier|final
 name|RegionStates
 name|regionStates
 decl_stmt|;
+comment|// The threshold to use bulk assigning. Using bulk assignment
+comment|// only if assigning at least this many regions to at least this
+comment|// many servers. If assigning fewer regions to fewer servers,
+comment|// bulk assigning may be not as efficient.
+specifier|private
+specifier|final
+name|int
+name|bulkAssignThresholdRegions
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|bulkAssignThresholdServers
+decl_stmt|;
+comment|// Should bulk assignment wait till all regions are assigned,
+comment|// or it is timed out?  This is useful to measure bulk assignment
+comment|// performance, but not needed in most use cases.
+specifier|private
+specifier|final
+name|boolean
+name|bulkAssignWaitTillAllAssigned
+decl_stmt|;
 comment|/**    * Indicator that AssignmentManager has recovered the region states so    * that ServerShutdownHandler can be fully enabled and re-assign regions    * of dead servers. So that when re-assignment happens, AssignmentManager    * has proper region states.    *    * Protected to ease testing.    */
 specifier|protected
 specifier|final
@@ -1372,6 +1394,45 @@ argument_list|(
 name|server
 argument_list|,
 name|serverManager
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|bulkAssignWaitTillAllAssigned
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.bulk.assignment.waittillallassigned"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|bulkAssignThresholdRegions
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.bulk.assignment.threshold.regions"
+argument_list|,
+literal|7
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|bulkAssignThresholdServers
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.bulk.assignment.threshold.servers"
+argument_list|,
+literal|3
 argument_list|)
 expr_stmt|;
 name|int
@@ -9164,52 +9225,21 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
+name|assign
 argument_list|(
-literal|"Bulk assigning "
-operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" region(s) across "
-operator|+
+argument_list|,
 name|servers
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" server(s), retainAssignment=true"
-argument_list|)
-expr_stmt|;
-name|BulkAssigner
-name|ba
-init|=
-operator|new
-name|GeneralBulkAssigner
-argument_list|(
-name|this
-operator|.
-name|server
+argument_list|,
+literal|"retainAssignment=true"
 argument_list|,
 name|bulkPlan
-argument_list|,
-name|this
-argument_list|)
-decl_stmt|;
-name|ba
-operator|.
-name|bulkAssign
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Bulk assigning done"
 argument_list|)
 expr_stmt|;
 block|}
@@ -9295,6 +9325,133 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
+name|assign
+argument_list|(
+name|regions
+operator|.
+name|size
+argument_list|()
+argument_list|,
+name|servers
+operator|.
+name|size
+argument_list|()
+argument_list|,
+literal|"round-robin=true"
+argument_list|,
+name|bulkPlan
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|assign
+parameter_list|(
+name|int
+name|regions
+parameter_list|,
+name|int
+name|totalServers
+parameter_list|,
+name|String
+name|message
+parameter_list|,
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|bulkPlan
+parameter_list|)
+throws|throws
+name|InterruptedException
+throws|,
+name|IOException
+block|{
+name|int
+name|servers
+init|=
+name|bulkPlan
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|==
+literal|1
+operator|||
+operator|(
+name|regions
+operator|<
+name|bulkAssignThresholdRegions
+operator|&&
+name|servers
+operator|<
+name|bulkAssignThresholdServers
+operator|)
+condition|)
+block|{
+comment|// Not use bulk assignment.  This could be more efficient in small
+comment|// cluster, especially mini cluster for testing, so that tests won't time out
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Not use bulk assigning since we are assigning only "
+operator|+
+name|regions
+operator|+
+literal|" region(s) to "
+operator|+
+name|servers
+operator|+
+literal|" server(s)"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|plan
+range|:
+name|bulkPlan
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|assign
+argument_list|(
+name|plan
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|plan
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|info
@@ -9302,18 +9459,14 @@ argument_list|(
 literal|"Bulk assigning "
 operator|+
 name|regions
-operator|.
-name|size
-argument_list|()
 operator|+
-literal|" region(s) round-robin across "
+literal|" region(s) across "
 operator|+
-name|servers
-operator|.
-name|size
-argument_list|()
+name|totalServers
 operator|+
-literal|" server(s)"
+literal|" server(s), "
+operator|+
+name|message
 argument_list|)
 expr_stmt|;
 comment|// Use fixed count thread pool assigning.
@@ -9330,6 +9483,8 @@ argument_list|,
 name|bulkPlan
 argument_list|,
 name|this
+argument_list|,
+name|bulkAssignWaitTillAllAssigned
 argument_list|)
 decl_stmt|;
 name|ba
@@ -9344,6 +9499,7 @@ argument_list|(
 literal|"Bulk assigning done"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Assigns all user regions, if any exist.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 specifier|private
