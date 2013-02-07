@@ -41,6 +41,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|StringWriter
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|URI
@@ -7176,12 +7186,14 @@ argument_list|,
 name|ace
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"Current user "
 operator|+
 name|ugi
@@ -11736,11 +11748,9 @@ name|details
 condition|)
 block|{
 comment|// do full region split map dump
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"---- Table '"
 operator|+
@@ -11758,11 +11768,9 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"---- Table '"
 operator|+
@@ -11778,11 +11786,9 @@ argument_list|(
 name|overlapGroups
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"There are "
 operator|+
@@ -11821,11 +11827,9 @@ argument_list|(
 literal|"Sidelined big overlapped regions, please bulk load them!"
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"---- Table '"
 operator|+
@@ -11876,6 +11880,13 @@ name|regions
 parameter_list|)
 block|{
 comment|// we display this way because the last end key should be displayed as well.
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -11885,11 +11896,17 @@ range|:
 name|splits
 control|)
 block|{
-name|System
+name|sb
 operator|.
-name|out
+name|setLength
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+comment|// clear out existing buffer, if any.
+name|sb
 operator|.
-name|print
+name|append
 argument_list|(
 name|Bytes
 operator|.
@@ -11914,11 +11931,9 @@ name|k
 argument_list|)
 control|)
 block|{
-name|System
+name|sb
 operator|.
-name|out
-operator|.
-name|print
+name|append
 argument_list|(
 literal|"[ "
 operator|+
@@ -11943,12 +11958,15 @@ literal|"]\t"
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|errors
 operator|.
-name|out
+name|print
+argument_list|(
+name|sb
 operator|.
-name|println
+name|toString
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -11981,9 +11999,7 @@ name|keySet
 argument_list|()
 control|)
 block|{
-name|System
-operator|.
-name|out
+name|errors
 operator|.
 name|print
 argument_list|(
@@ -11994,7 +12010,7 @@ argument_list|(
 name|k
 argument_list|)
 operator|+
-literal|":\n"
+literal|":"
 argument_list|)
 expr_stmt|;
 for|for
@@ -12010,9 +12026,7 @@ name|k
 argument_list|)
 control|)
 block|{
-name|System
-operator|.
-name|out
+name|errors
 operator|.
 name|print
 argument_list|(
@@ -12035,15 +12049,13 @@ name|getEndKey
 argument_list|()
 argument_list|)
 operator|+
-literal|"]\n"
+literal|"]"
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"----"
 argument_list|)
@@ -12105,11 +12117,9 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"This sidelined region dir should be bulk loaded: "
 operator|+
@@ -12119,11 +12129,9 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"Bulk load command looks like: "
 operator|+
@@ -14055,11 +14063,16 @@ argument_list|>
 name|tablesInfo
 parameter_list|)
 block|{
-name|System
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"Summary:"
 argument_list|)
@@ -14085,11 +14098,9 @@ name|tInfo
 argument_list|)
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"Table "
 operator|+
@@ -14104,11 +14115,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"  "
 operator|+
@@ -14121,11 +14130,9 @@ literal|" is okay."
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"    Number of regions: "
 operator|+
@@ -14135,11 +14142,17 @@ name|getNumRegions
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|System
+name|sb
 operator|.
-name|out
+name|setLength
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+comment|// clear out existing buffer, if any.
+name|sb
 operator|.
-name|print
+name|append
 argument_list|(
 literal|"    Deployed on: "
 argument_list|)
@@ -14154,11 +14167,9 @@ operator|.
 name|deployedOn
 control|)
 block|{
-name|System
+name|sb
 operator|.
-name|out
-operator|.
-name|print
+name|append
 argument_list|(
 literal|" "
 operator|+
@@ -14169,16 +14180,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|errors
 operator|.
-name|out
+name|print
+argument_list|(
+name|sb
 operator|.
-name|println
+name|toString
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
 specifier|static
 name|ErrorReporter
 name|getErrorReporter
@@ -14287,6 +14300,8 @@ block|,
 name|NO_TABLEINFO_FILE
 block|,
 name|LINGERING_REFERENCE_HFILE
+block|,
+name|WRONG_USAGE
 block|}
 specifier|public
 name|void
@@ -14495,6 +14510,26 @@ name|String
 name|message
 parameter_list|)
 block|{
+if|if
+condition|(
+name|errorCode
+operator|==
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+name|message
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|errorList
 operator|.
 name|add
@@ -16382,45 +16417,53 @@ name|HBaseFsck
 name|printUsageAndExit
 parameter_list|()
 block|{
-name|System
-operator|.
-name|err
+name|StringWriter
+name|sw
+init|=
+operator|new
+name|StringWriter
+argument_list|(
+literal|2048
+argument_list|)
+decl_stmt|;
+name|PrintWriter
+name|out
+init|=
+operator|new
+name|PrintWriter
+argument_list|(
+name|sw
+argument_list|)
+decl_stmt|;
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"Usage: fsck [opts] {only tables}"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|" where [opts] are:"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -help Display help options (this)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -details Display full report of all regions."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16431,9 +16474,7 @@ operator|+
 literal|"<timeInSeconds> seconds."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16442,81 +16483,63 @@ operator|+
 literal|" before checking if the fix worked if run with -fix"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -summary Print only summary of the tables and status."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -metaonly Only check the state of ROOT and META tables."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta and root."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|""
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"  Metadata Repair options: (expert features, use with caution!)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fix              Try to fix region assignments.  This is for backwards compatiblity"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixAssignments   Try to fix region assignments.  Replaces the old -fix"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixMeta          Try to fix meta problems.  This assumes HDFS region info is good."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16525,54 +16548,42 @@ operator|+
 literal|" Assumes META region info is good. Won't check/fix any HDFS issue, e.g. hole, orphan, or overlap"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixHdfsHoles     Try to fix region holes in hdfs."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixHdfsOrphans   Try to fix region dirs with no .regioninfo file in hdfs"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixTableOrphans  Try to fix table dirs with no .tableinfo file in hdfs (online mode only)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixHdfsOverlaps  Try to fix region overlaps in hdfs."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixVersionFile   Try to fix missing hbase.version file in hdfs."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16583,18 +16594,14 @@ operator|+
 literal|" by default)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -sidelineBigOverlaps  When fixing region overlaps, allow to sideline big overlaps"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16605,90 +16612,70 @@ operator|+
 literal|" by default)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixSplitParents  Try to force offline split parents to be online."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -ignorePreCheckPermission  ignore filesystem permission pre-check"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -fixReferenceFiles  Try to offline lingering reference store files"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|""
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"  Datafile Repair options: (expert features, use with caution!)"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -checkCorruptHFiles     Check all Hfiles by opening them to make sure they are valid"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -sidelineCorruptHfiles  Quarantine corrupted HFiles.  implies -checkCorruptHfiles"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|""
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"  Metadata Repair shortcuts"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
@@ -16697,13 +16684,30 @@ operator|+
 literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps -fixReferenceFiles"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|err
+name|out
 operator|.
 name|println
 argument_list|(
 literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
+name|errors
+operator|.
+name|reportError
+argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
+name|sw
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|setRetCode
@@ -16962,12 +16966,14 @@ operator|-
 literal|1
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"HBaseFsck: -timelag needs a value."
 argument_list|)
 expr_stmt|;
@@ -17005,12 +17011,14 @@ name|NumberFormatException
 name|e
 parameter_list|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-timelag needs a numeric value."
 argument_list|)
 expr_stmt|;
@@ -17045,12 +17053,14 @@ operator|-
 literal|1
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"HBaseFsck: -sleepBeforeRerun needs a value."
 argument_list|)
 expr_stmt|;
@@ -17082,12 +17092,14 @@ name|NumberFormatException
 name|e
 parameter_list|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-sleepBeforeRerun needs a numeric value."
 argument_list|)
 expr_stmt|;
@@ -17122,12 +17134,14 @@ operator|-
 literal|1
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"HBaseFsck: -sidelineDir needs a value."
 argument_list|)
 expr_stmt|;
@@ -17159,15 +17173,15 @@ literal|"-fix"
 argument_list|)
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
-literal|"This option is deprecated, please use "
-operator|+
-literal|"-fixAssignments instead."
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
+literal|"This option is deprecated, please use  -fixAssignments instead."
 argument_list|)
 expr_stmt|;
 name|setFixAssignments
@@ -17551,12 +17565,14 @@ operator|-
 literal|1
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-maxOverlapsToSideline needs a numeric value argument."
 argument_list|)
 expr_stmt|;
@@ -17594,12 +17610,14 @@ name|NumberFormatException
 name|e
 parameter_list|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-maxOverlapsToSideline needs a numeric value argument."
 argument_list|)
 expr_stmt|;
@@ -17634,12 +17652,14 @@ operator|-
 literal|1
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-maxMerge needs a numeric value argument."
 argument_list|)
 expr_stmt|;
@@ -17677,12 +17697,14 @@ name|NumberFormatException
 name|e
 parameter_list|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"-maxMerge needs a numeric value argument."
 argument_list|)
 expr_stmt|;
@@ -17736,12 +17758,14 @@ literal|"-"
 argument_list|)
 condition|)
 block|{
-name|System
+name|errors
 operator|.
-name|err
-operator|.
-name|println
+name|reportError
 argument_list|(
+name|ERROR_CODE
+operator|.
+name|WRONG_USAGE
+argument_list|,
 literal|"Unrecognized option:"
 operator|+
 name|cmd
@@ -17759,11 +17783,9 @@ argument_list|(
 name|cmd
 argument_list|)
 expr_stmt|;
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 literal|"Allow checking/fixes for table: "
 operator|+
@@ -17942,28 +17964,12 @@ argument_list|(
 name|tableDirs
 argument_list|)
 expr_stmt|;
-name|PrintWriter
-name|out
-init|=
-operator|new
-name|PrintWriter
-argument_list|(
-name|System
-operator|.
-name|out
-argument_list|)
-decl_stmt|;
 name|hfcc
 operator|.
 name|report
 argument_list|(
-name|out
+name|errors
 argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|flush
-argument_list|()
 expr_stmt|;
 block|}
 comment|// check and fix table integrity, region consistency.
@@ -18086,6 +18092,8 @@ name|getConf
 argument_list|()
 argument_list|,
 name|p
+argument_list|,
+name|errors
 argument_list|)
 expr_stmt|;
 block|}
@@ -18100,6 +18108,36 @@ name|conf
 parameter_list|,
 name|Path
 name|p
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|debugLsr
+argument_list|(
+name|conf
+argument_list|,
+name|p
+argument_list|,
+operator|new
+name|PrintingErrorReporter
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * ls -r for debugging purposes    */
+specifier|public
+specifier|static
+name|void
+name|debugLsr
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|Path
+name|p
+parameter_list|,
+name|ErrorReporter
+name|errors
 parameter_list|)
 throws|throws
 name|IOException
@@ -18143,13 +18181,14 @@ block|{
 comment|// nothing
 return|return;
 block|}
-name|System
+name|errors
 operator|.
-name|out
-operator|.
-name|println
+name|print
 argument_list|(
 name|p
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -18204,6 +18243,8 @@ name|status
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|errors
 argument_list|)
 expr_stmt|;
 block|}
