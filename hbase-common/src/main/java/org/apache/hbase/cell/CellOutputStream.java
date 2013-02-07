@@ -17,6 +17,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -84,6 +94,8 @@ comment|/**    * Let the implementation decide what to do.  Usually means writin
 name|void
 name|flush
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface
