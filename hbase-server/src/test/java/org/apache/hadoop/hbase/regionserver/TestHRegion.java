@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -22393,7 +22403,7 @@ argument_list|(
 name|fam1
 argument_list|)
 decl_stmt|;
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>

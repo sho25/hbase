@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -284,7 +294,7 @@ name|getComparator
 parameter_list|()
 function_decl|;
 specifier|public
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
@@ -293,7 +303,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Close all the readers We don't need to worry about subsequent requests because the HRegion    * holds a write lock that will prevent any more reads or writes.    * @return the {@link StoreFile StoreFiles} that were previously being used.    * @throws IOException on failure    */
 specifier|public
-name|ImmutableList
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
@@ -521,12 +531,6 @@ name|HFileDataBlockEncoder
 name|getDataBlockEncoder
 parameter_list|()
 function_decl|;
-comment|/**    * @return the number of files in this store    */
-specifier|public
-name|int
-name|getNumberOfStoreFiles
-parameter_list|()
-function_decl|;
 comment|/** @return aggregate size of all HStores used in the last compaction */
 specifier|public
 name|long
@@ -576,17 +580,6 @@ name|getTotalStaticBloomSize
 parameter_list|()
 function_decl|;
 comment|// Test-helper methods
-comment|/**    * Compact the most recent N files. Used in testing.    * @param N number of files to compact. Must be less than or equal to current number of files.    * @throws IOException on failure    */
-specifier|public
-name|void
-name|compactRecentForTesting
-parameter_list|(
-name|int
-name|N
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Used for tests.    * @return cache configuration for this Store.    */
 specifier|public
 name|CacheConfig

@@ -73,6 +73,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -869,6 +879,20 @@ name|common
 operator|.
 name|collect
 operator|.
+name|ImmutableCollection
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
 name|ImmutableList
 import|;
 end_import
@@ -1021,16 +1045,9 @@ specifier|private
 name|ScanInfo
 name|scanInfo
 decl_stmt|;
-comment|/*    * List of store files inside this store. This is an immutable list that    * is atomically replaced when its contents change.    */
 specifier|private
-specifier|volatile
-name|ImmutableList
-argument_list|<
-name|StoreFile
-argument_list|>
-name|storefiles
-init|=
-literal|null
+name|StoreFileManager
+name|storeFileManager
 decl_stmt|;
 specifier|final
 name|List
@@ -1411,9 +1428,21 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
 operator|=
-name|sortAndClone
+operator|new
+name|DefaultStoreFileManager
+argument_list|(
+name|this
+operator|.
+name|comparator
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|loadFiles
 argument_list|(
 name|loadStoreFiles
 argument_list|()
@@ -1827,7 +1856,7 @@ operator|.
 name|family
 return|;
 block|}
-comment|/**    * @return The maximum sequence id in all store files.    */
+comment|/**    * @return The maximum sequence id in all store files. Used for log replay.    */
 name|long
 name|getMaxSequenceId
 parameter_list|(
@@ -2606,7 +2635,7 @@ comment|/**    * @return All store files.    */
 annotation|@
 name|Override
 specifier|public
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
@@ -2616,7 +2645,10 @@ block|{
 return|return
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -3325,41 +3357,19 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-name|newFiles
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-argument_list|(
-name|storefiles
-argument_list|)
-decl_stmt|;
-name|newFiles
-operator|.
-name|add
-argument_list|(
-name|sf
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
-name|storefiles
-operator|=
-name|sortAndClone
+name|storeFileManager
+operator|.
+name|insertNewFile
 argument_list|(
-name|newFiles
+name|sf
 argument_list|)
 expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// We need the lock, as long as we are updating the storefiles
+comment|// We need the lock, as long as we are updating the storeFiles
 comment|// or changing the memstore. Let us release it before calling
 comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
 comment|// deadlock scenario that could have happened if continue to hold
@@ -3423,7 +3433,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ImmutableList
+name|ImmutableCollection
 argument_list|<
 name|StoreFile
 argument_list|>
@@ -3444,22 +3454,18 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|ImmutableList
+comment|// Clear so metrics doesn't find them.
+name|ImmutableCollection
 argument_list|<
 name|StoreFile
 argument_list|>
 name|result
 init|=
-name|storefiles
-decl_stmt|;
-comment|// Clear so metrics doesn't find them.
-name|storefiles
-operator|=
-name|ImmutableList
+name|storeFileManager
 operator|.
-name|of
+name|clearFiles
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -4771,7 +4777,7 @@ return|return
 name|w
 return|;
 block|}
-comment|/*    * Change storefiles adding into place the Reader produced by this new flush.    * @param sf    * @param set That was used to make the passed file<code>p</code>.    * @throws IOException    * @return Whether compaction is required.    */
+comment|/*    * Change storeFiles adding into place the Reader produced by this new flush.    * @param sf    * @param set That was used to make the passed file<code>p</code>.    * @throws IOException    * @return Whether compaction is required.    */
 specifier|private
 name|boolean
 name|updateStorefiles
@@ -4802,33 +4808,13 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-name|newList
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-argument_list|(
-name|storefiles
-argument_list|)
-decl_stmt|;
-name|newList
+name|this
 operator|.
-name|add
+name|storeFileManager
+operator|.
+name|insertNewFile
 argument_list|(
 name|sf
-argument_list|)
-expr_stmt|;
-name|storefiles
-operator|=
-name|sortAndClone
-argument_list|(
-name|newList
 argument_list|)
 expr_stmt|;
 name|this
@@ -4843,7 +4829,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// We need the lock, as long as we are updating the storefiles
+comment|// We need the lock, as long as we are updating the storeFiles
 comment|// or changing the memstore. Let us release it before calling
 comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
 comment|// deadlock scenario that could have happened if continue to hold
@@ -4912,15 +4898,23 @@ name|isCompaction
 parameter_list|,
 name|ScanQueryMatcher
 name|matcher
+parameter_list|,
+name|byte
+index|[]
+name|startRow
+parameter_list|,
+name|byte
+index|[]
+name|stopRow
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
-name|storeFiles
+name|storeFilesToScan
 decl_stmt|;
 name|List
 argument_list|<
@@ -4940,12 +4934,20 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|storeFiles
+name|storeFilesToScan
 operator|=
 name|this
 operator|.
-name|getStorefiles
-argument_list|()
+name|storeFileManager
+operator|.
+name|getFilesForScanOrGet
+argument_list|(
+name|isGet
+argument_list|,
+name|startRow
+argument_list|,
+name|stopRow
+argument_list|)
 expr_stmt|;
 name|memStoreScanners
 operator|=
@@ -4984,7 +4986,7 @@ name|StoreFileScanner
 operator|.
 name|getScannersForStoreFiles
 argument_list|(
-name|storeFiles
+name|storeFilesToScan
 argument_list|,
 name|cacheBlocks
 argument_list|,
@@ -5585,11 +5587,10 @@ return|return
 name|sfs
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * This method tries to compact N recent files for testing.    * Note that because compacting "recent" files only makes sense for some policies,    * e.g. the default one, it assumes default policy is used. It doesn't use policy,    * but instead makes a compaction candidate list by itself.    * @param N Number of files.    */
 specifier|public
 name|void
-name|compactRecentForTesting
+name|compactRecentForTestingAssumingDefaultPolicy
 parameter_list|(
 name|int
 name|N
@@ -5629,7 +5630,10 @@ name|Lists
 operator|.
 name|newArrayList
 argument_list|(
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -5737,9 +5741,9 @@ operator|.
 name|size
 argument_list|()
 operator|==
-name|storefiles
+name|storeFileManager
 operator|.
-name|size
+name|getStorefileCount
 argument_list|()
 operator|)
 expr_stmt|;
@@ -5873,7 +5877,10 @@ name|hasReferences
 argument_list|(
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -5909,9 +5916,13 @@ name|sf
 range|:
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
+comment|// TODO: what are these reader checks all over the place?
 if|if
 condition|(
 name|sf
@@ -5938,29 +5949,17 @@ literal|false
 return|;
 block|}
 block|}
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|candidates
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-argument_list|(
-name|this
-operator|.
-name|storefiles
-argument_list|)
-decl_stmt|;
 return|return
 name|compactionPolicy
 operator|.
 name|isMajorCompaction
 argument_list|(
-name|candidates
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -6028,7 +6027,7 @@ init|(
 name|filesCompacting
 init|)
 block|{
-comment|// candidates = all storefiles not already in compaction queue
+comment|// candidates = all StoreFiles not already in compaction queue
 name|List
 argument_list|<
 name|StoreFile
@@ -6039,7 +6038,10 @@ name|Lists
 operator|.
 name|newArrayList
 argument_list|(
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -6283,7 +6285,6 @@ operator|.
 name|SEQ_ID
 argument_list|)
 expr_stmt|;
-comment|// major compaction iff all StoreFiles are included
 name|boolean
 name|isMajor
 init|=
@@ -6298,9 +6299,7 @@ argument_list|()
 operator|==
 name|this
 operator|.
-name|storefiles
-operator|.
-name|size
+name|getStorefilesCount
 argument_list|()
 operator|)
 decl_stmt|;
@@ -6694,28 +6693,49 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Change this.storefiles so it reflects new state but do not
+comment|// Change this.storeFiles so it reflects new state but do not
 comment|// delete old store files until we have sent out notification of
 comment|// change in case old files are still being accessed by outstanding
 comment|// scanners.
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|results
+init|=
+operator|new
 name|ArrayList
 argument_list|<
 name|StoreFile
 argument_list|>
-name|newStoreFiles
-init|=
-name|Lists
-operator|.
-name|newArrayList
 argument_list|(
-name|storefiles
+literal|1
 argument_list|)
 decl_stmt|;
-name|newStoreFiles
+if|if
+condition|(
+name|result
+operator|!=
+literal|null
+condition|)
+block|{
+name|results
 operator|.
-name|removeAll
+name|add
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|addCompactionResults
 argument_list|(
 name|compactedFiles
+argument_list|,
+name|results
 argument_list|)
 expr_stmt|;
 name|filesCompacting
@@ -6726,35 +6746,10 @@ name|compactedFiles
 argument_list|)
 expr_stmt|;
 comment|// safe bc: lock.writeLock()
-comment|// If a StoreFile result, move it into place.  May be null.
-if|if
-condition|(
-name|result
-operator|!=
-literal|null
-condition|)
-block|{
-name|newStoreFiles
-operator|.
-name|add
-argument_list|(
-name|result
-argument_list|)
-expr_stmt|;
-block|}
-name|this
-operator|.
-name|storefiles
-operator|=
-name|sortAndClone
-argument_list|(
-name|newStoreFiles
-argument_list|)
-expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// We need the lock, as long as we are updating the storefiles
+comment|// We need the lock, as long as we are updating the storeFiles
 comment|// or changing the memstore. Let us release it before calling
 comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
 comment|// deadlock scenario that could have happened if continue to hold
@@ -6880,7 +6875,10 @@ name|hsf
 range|:
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
 name|StoreFile
@@ -6934,70 +6932,6 @@ expr_stmt|;
 block|}
 return|return
 name|result
-return|;
-block|}
-specifier|public
-name|ImmutableList
-argument_list|<
-name|StoreFile
-argument_list|>
-name|sortAndClone
-parameter_list|(
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|storeFiles
-parameter_list|)
-block|{
-name|Collections
-operator|.
-name|sort
-argument_list|(
-name|storeFiles
-argument_list|,
-name|StoreFile
-operator|.
-name|Comparators
-operator|.
-name|SEQ_ID
-argument_list|)
-expr_stmt|;
-name|ImmutableList
-argument_list|<
-name|StoreFile
-argument_list|>
-name|newList
-init|=
-name|ImmutableList
-operator|.
-name|copyOf
-argument_list|(
-name|storeFiles
-argument_list|)
-decl_stmt|;
-return|return
-name|newList
-return|;
-block|}
-comment|// ////////////////////////////////////////////////////////////////////////////
-comment|// Accessors.
-comment|// (This is the only section that is directly useful!)
-comment|//////////////////////////////////////////////////////////////////////////////
-annotation|@
-name|Override
-specifier|public
-name|int
-name|getNumberOfStoreFiles
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|storefiles
-operator|.
-name|size
-argument_list|()
 return|;
 block|}
 comment|/*    * @param wantedVersions How many versions were asked for.    * @return wantedVersions or this families' {@link HConstants#VERSIONS}.    */
@@ -7166,28 +7100,85 @@ name|state
 argument_list|)
 expr_stmt|;
 comment|// Check if match, if we got a candidate on the asked for 'kv' row.
-comment|// Process each store file. Run through from newest to oldest.
-for|for
-control|(
+comment|// Process each relevant store file. Run through from newest to oldest.
+name|Iterator
+argument_list|<
+name|StoreFile
+argument_list|>
+name|sfIterator
+init|=
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getCandidateFilesForRowKeyBefore
+argument_list|(
+name|state
+operator|.
+name|getTargetKey
+argument_list|()
+argument_list|)
+decl_stmt|;
+while|while
+condition|(
+name|sfIterator
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
 name|StoreFile
 name|sf
-range|:
-name|Lists
+init|=
+name|sfIterator
 operator|.
-name|reverse
-argument_list|(
-name|storefiles
-argument_list|)
-control|)
-block|{
-comment|// Update the candidate keys from the current map file
+name|next
+argument_list|()
+decl_stmt|;
+name|sfIterator
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+comment|// Remove sf from iterator.
+name|boolean
+name|haveNewCandidate
+init|=
 name|rowAtOrBeforeFromStoreFile
 argument_list|(
 name|sf
 argument_list|,
 name|state
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|haveNewCandidate
+condition|)
+block|{
+comment|// TODO: we may have an optimization here which stops the search if we find exact match.
+name|sfIterator
+operator|=
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|updateCandidateFilesForRowKeyBefore
+argument_list|(
+name|sfIterator
+argument_list|,
+name|state
+operator|.
+name|getTargetKey
+argument_list|()
+argument_list|,
+name|state
+operator|.
+name|getCandidate
+argument_list|()
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|state
@@ -7210,9 +7201,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Check an individual MapFile for the row at or before a given row.    * @param f    * @param state    * @throws IOException    */
+comment|/*    * Check an individual MapFile for the row at or before a given row.    * @param f    * @param state    * @throws IOException    * @return True iff the candidate has been updated in the state.    */
 specifier|private
-name|void
+name|boolean
 name|rowAtOrBeforeFromStoreFile
 parameter_list|(
 specifier|final
@@ -7254,7 +7245,9 @@ operator|+
 literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -7277,7 +7270,9 @@ operator|+
 literal|" is a empty store file"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 comment|// TODO: Cache these keys rather than make each time?
 name|byte
@@ -7295,7 +7290,9 @@ name|fk
 operator|==
 literal|null
 condition|)
-return|return;
+return|return
+literal|false
+return|;
 name|KeyValue
 name|firstKV
 init|=
@@ -7373,7 +7370,9 @@ argument_list|(
 name|lastKV
 argument_list|)
 condition|)
-return|return;
+return|return
+literal|false
+return|;
 comment|// If the row we're looking for is past the end of file, set search key to
 comment|// last key. TODO: Cache last and first key rather than make each time.
 name|firstOnRow
@@ -7420,7 +7419,9 @@ argument_list|,
 name|firstKV
 argument_list|)
 condition|)
-return|return;
+return|return
+literal|false
+return|;
 comment|// If we found candidate on firstOnRow, just return. THIS WILL NEVER HAPPEN!
 comment|// Unlikely that there'll be an instance of actual first row in table.
 if|if
@@ -7434,7 +7435,9 @@ argument_list|,
 name|state
 argument_list|)
 condition|)
-return|return;
+return|return
+literal|true
+return|;
 comment|// If here, need to start backing up.
 while|while
 condition|(
@@ -7518,7 +7521,9 @@ argument_list|,
 name|firstKV
 argument_list|)
 condition|)
-break|break;
+return|return
+literal|false
+return|;
 comment|// If we find something, break;
 if|if
 condition|(
@@ -7531,8 +7536,13 @@ argument_list|,
 name|state
 argument_list|)
 condition|)
-break|break;
+return|return
+literal|true
+return|;
 block|}
+return|return
+literal|false
+return|;
 block|}
 comment|/*    * Seek the file scanner to firstOnRow or first entry in file.    * @param scanner    * @param firstOnRow    * @param firstKV    * @return True if we successfully seeked scanner.    * @throws IOException    */
 specifier|private
@@ -7732,25 +7742,19 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Not splitable if we find a reference store file present in the store.
-for|for
-control|(
-name|StoreFile
-name|sf
-range|:
-name|storefiles
-control|)
-block|{
-if|if
-condition|(
-name|sf
-operator|.
-name|isReference
+comment|// Not split-able if we find a reference store file present in the store.
+name|boolean
+name|result
+init|=
+operator|!
+name|hasReferences
 argument_list|()
-condition|)
-block|{
+decl_stmt|;
 if|if
 condition|(
+operator|!
+name|result
+operator|&&
 name|LOG
 operator|.
 name|isDebugEnabled
@@ -7761,19 +7765,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|sf
-operator|+
-literal|" is not splittable"
+literal|"Cannot split region due to reference files being there"
 argument_list|)
 expr_stmt|;
 block|}
 return|return
-literal|false
-return|;
-block|}
-block|}
-return|return
-literal|true
+name|result
 return|;
 block|}
 finally|finally
@@ -7810,21 +7807,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// sanity checks
-if|if
-condition|(
-name|this
-operator|.
-name|storefiles
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
 comment|// Should already be enforced by the split policy!
 assert|assert
 operator|!
@@ -7838,34 +7820,13 @@ operator|.
 name|isMetaRegion
 argument_list|()
 assert|;
-comment|// Not splitable if we find a reference store file present in the store.
-name|long
-name|maxSize
-init|=
-literal|0L
-decl_stmt|;
-name|StoreFile
-name|largestSf
-init|=
-literal|null
-decl_stmt|;
-for|for
-control|(
-name|StoreFile
-name|sf
-range|:
-name|storefiles
-control|)
-block|{
+comment|// Not split-able if we find a reference store file present in the store.
 if|if
 condition|(
-name|sf
-operator|.
-name|isReference
+name|hasReferences
 argument_list|()
 condition|)
 block|{
-comment|// Should already be enforced since we return false in this case
 assert|assert
 literal|false
 operator|:
@@ -7875,239 +7836,14 @@ return|return
 literal|null
 return|;
 block|}
-name|StoreFile
-operator|.
-name|Reader
-name|r
-init|=
-name|sf
-operator|.
-name|getReader
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|r
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Storefile "
-operator|+
-name|sf
-operator|+
-literal|" Reader is null"
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-name|long
-name|size
-init|=
-name|r
-operator|.
-name|length
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|size
-operator|>
-name|maxSize
-condition|)
-block|{
-comment|// This is the largest one so far
-name|maxSize
-operator|=
-name|size
-expr_stmt|;
-name|largestSf
-operator|=
-name|sf
-expr_stmt|;
-block|}
-block|}
-name|StoreFile
-operator|.
-name|Reader
-name|r
-init|=
-name|largestSf
-operator|.
-name|getReader
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|r
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Storefile "
-operator|+
-name|largestSf
-operator|+
-literal|" Reader is null"
-argument_list|)
-expr_stmt|;
 return|return
-literal|null
-return|;
-block|}
-comment|// Get first, last, and mid keys.  Midkey is the key that starts block
-comment|// in middle of hfile.  Has column and timestamp.  Need to return just
-comment|// the row we want to split on as midkey.
-name|byte
-index|[]
-name|midkey
-init|=
-name|r
-operator|.
-name|midkey
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|midkey
-operator|!=
-literal|null
-condition|)
-block|{
-name|KeyValue
-name|mk
-init|=
-name|KeyValue
-operator|.
-name|createKeyValueFromKey
-argument_list|(
-name|midkey
-argument_list|,
-literal|0
-argument_list|,
-name|midkey
-operator|.
-name|length
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
-name|fk
-init|=
-name|r
-operator|.
-name|getFirstKey
-argument_list|()
-decl_stmt|;
-name|KeyValue
-name|firstKey
-init|=
-name|KeyValue
-operator|.
-name|createKeyValueFromKey
-argument_list|(
-name|fk
-argument_list|,
-literal|0
-argument_list|,
-name|fk
-operator|.
-name|length
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
-name|lk
-init|=
-name|r
-operator|.
-name|getLastKey
-argument_list|()
-decl_stmt|;
-name|KeyValue
-name|lastKey
-init|=
-name|KeyValue
-operator|.
-name|createKeyValueFromKey
-argument_list|(
-name|lk
-argument_list|,
-literal|0
-argument_list|,
-name|lk
-operator|.
-name|length
-argument_list|)
-decl_stmt|;
-comment|// if the midkey is the same as the first or last keys, then we cannot
-comment|// (ever) split this region.
-if|if
-condition|(
 name|this
 operator|.
-name|comparator
+name|storeFileManager
 operator|.
-name|compareRows
-argument_list|(
-name|mk
-argument_list|,
-name|firstKey
-argument_list|)
-operator|==
-literal|0
-operator|||
-name|this
-operator|.
-name|comparator
-operator|.
-name|compareRows
-argument_list|(
-name|mk
-argument_list|,
-name|lastKey
-argument_list|)
-operator|==
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"cannot split because midkey is the same as first or "
-operator|+
-literal|"last row"
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-literal|null
-return|;
-block|}
-return|return
-name|mk
-operator|.
-name|getRow
+name|getSplitPoint
 argument_list|()
 return|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -8320,9 +8056,9 @@ block|{
 return|return
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
 operator|.
-name|size
+name|getStorefileCount
 argument_list|()
 return|;
 block|}
@@ -8356,7 +8092,12 @@ control|(
 name|StoreFile
 name|s
 range|:
-name|storefiles
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
 name|StoreFile
@@ -8418,7 +8159,12 @@ control|(
 name|StoreFile
 name|s
 range|:
-name|storefiles
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
 name|StoreFile
@@ -8480,7 +8226,12 @@ control|(
 name|StoreFile
 name|s
 range|:
-name|storefiles
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
 name|size
@@ -8515,7 +8266,12 @@ control|(
 name|StoreFile
 name|s
 range|:
-name|storefiles
+name|this
+operator|.
+name|storeFileManager
+operator|.
+name|getStorefiles
+argument_list|()
 control|)
 block|{
 name|StoreFile
@@ -8605,9 +8361,9 @@ name|blockingStoreFileCount
 operator|-
 name|this
 operator|.
-name|storefiles
+name|storeFileManager
 operator|.
-name|size
+name|getStorefileCount
 argument_list|()
 return|;
 block|}
@@ -9029,9 +8785,11 @@ name|compactionPolicy
 operator|.
 name|needsCompaction
 argument_list|(
-name|storefiles
+name|this
 operator|.
-name|size
+name|storeFileManager
+operator|.
+name|getStorefileCount
 argument_list|()
 operator|-
 name|filesCompacting
