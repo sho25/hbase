@@ -544,8 +544,8 @@ init|=
 literal|"hbase.regionserver.global.memstore.lowerLimit"
 decl_stmt|;
 specifier|private
-name|long
-name|blockingStoreFilesNumber
+name|int
+name|blockingStoreFileCount
 decl_stmt|;
 specifier|private
 name|long
@@ -692,7 +692,7 @@ name|lower
 expr_stmt|;
 name|this
 operator|.
-name|blockingStoreFilesNumber
+name|blockingStoreFileCount
 operator|=
 name|conf
 operator|.
@@ -700,7 +700,9 @@ name|getInt
 argument_list|(
 literal|"hbase.hstore.blockingStoreFiles"
 argument_list|,
-literal|7
+name|HStore
+operator|.
+name|DEFAULT_BLOCKING_STOREFILE_COUNT
 argument_list|)
 expr_stmt|;
 name|this
@@ -2257,7 +2259,7 @@ argument_list|()
 operator|>
 name|this
 operator|.
-name|blockingStoreFilesNumber
+name|blockingStoreFileCount
 condition|)
 block|{
 return|return

@@ -200,6 +200,29 @@ decl_stmt|;
 name|HStore
 name|store
 decl_stmt|;
+comment|/**    * This is called before coprocessor preCompactSelection and should filter the candidates    * for coprocessor; i.e. exclude the files that definitely cannot be compacted at this time.    * @param candidateFiles candidate files, ordered from oldest to newest    * @param filesCompacting files currently compacting    * @return the list of files that can theoretically be compacted.    */
+specifier|public
+specifier|abstract
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|preSelectCompaction
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|candidateFiles
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|filesCompacting
+parameter_list|)
+function_decl|;
 comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest    * @return subset copy of candidate list that meets compaction criteria    * @throws java.io.IOException    */
 specifier|public
 specifier|abstract
@@ -223,6 +246,20 @@ name|forceMajor
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @param storeFiles Store files in the store.    * @return The system compaction priority of the store, based on storeFiles.    *         The priority range is as such - the smaller values are higher priority;    *         1 is user priority; only very important, blocking compactions should use    *         values lower than that. With default settings, depending on the number of    *         store files, the non-blocking priority will be in 2-6 range.    */
+specifier|public
+specifier|abstract
+name|int
+name|getSystemCompactionPriority
+parameter_list|(
+specifier|final
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|storeFiles
+parameter_list|)
 function_decl|;
 comment|/**    * @param filesToCompact Files to compact. Can be null.    * @return True if we should run a major compaction.    */
 specifier|public
@@ -250,14 +287,25 @@ name|long
 name|compactionSize
 parameter_list|)
 function_decl|;
-comment|/**    * @param numCandidates Number of candidate store files    * @return whether a compactionSelection is possible    */
+comment|/**    * @param storeFiles Current store files.    * @param filesCompacting files currently compacting.    * @return whether a compactionSelection is possible    */
 specifier|public
 specifier|abstract
 name|boolean
 name|needsCompaction
 parameter_list|(
-name|int
-name|numCandidates
+specifier|final
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|storeFiles
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|filesCompacting
 parameter_list|)
 function_decl|;
 comment|/**    * Inform the policy that some configuration has been change,    * so cached value should be updated it any.    */
