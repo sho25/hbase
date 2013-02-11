@@ -860,14 +860,6 @@ name|assertTrue
 argument_list|(
 name|filterMPONE
 operator|.
-name|filterRow
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|filterMPONE
-operator|.
 name|filterAllRemaining
 argument_list|()
 argument_list|)
@@ -1128,15 +1120,6 @@ name|filterKeyValue
 argument_list|(
 name|kv
 argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// Both filters in Set should be satisfied by now
-name|assertTrue
-argument_list|(
-name|filterMPALL
-operator|.
-name|filterRow
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
