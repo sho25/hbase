@@ -362,7 +362,7 @@ specifier|final
 name|boolean
 name|USEMSLAB_DEFAULT
 init|=
-literal|false
+literal|true
 decl_stmt|;
 specifier|private
 name|Configuration
