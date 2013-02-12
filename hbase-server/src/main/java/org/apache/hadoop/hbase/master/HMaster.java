@@ -8380,14 +8380,9 @@ name|boolean
 name|b
 parameter_list|)
 block|{
-operator|(
-operator|(
-name|CatalogJanitor
-operator|)
 name|this
 operator|.
 name|catalogJanitorChore
-operator|)
 operator|.
 name|setEnabled
 argument_list|(
@@ -11098,7 +11093,10 @@ argument_list|(
 operator|new
 name|String
 index|[
-literal|0
+name|masterCoprocessors
+operator|.
+name|size
+argument_list|()
 index|]
 argument_list|)
 return|;

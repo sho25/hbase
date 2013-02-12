@@ -701,6 +701,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|KeyLocker
 import|;
 end_import
@@ -2028,8 +2044,6 @@ comment|// See HBASE-4580 for more information.
 name|processDeadServersAndRecoverLostRegions
 argument_list|(
 name|deadServers
-argument_list|,
-name|nodes
 argument_list|)
 expr_stmt|;
 block|}
@@ -2309,6 +2323,7 @@ specifier|final
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
+specifier|final
 name|int
 name|expectedVersion
 parameter_list|)
@@ -2324,6 +2339,7 @@ name|getEventType
 argument_list|()
 decl_stmt|;
 comment|// Get ServerName.  Could not be null.
+specifier|final
 name|ServerName
 name|sn
 init|=
@@ -2402,8 +2418,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Just insert region into RIT.
-comment|// If this never updates the timeout will trigger new assignment
+comment|// Insert into RIT& resend the query to the region server: may be the previous master
+comment|// died before sending the query the first time.
 name|regionStates
 operator|.
 name|updateRegionState
@@ -2415,6 +2431,83 @@ operator|.
 name|State
 operator|.
 name|CLOSING
+argument_list|)
+expr_stmt|;
+specifier|final
+name|RegionState
+name|rs
+init|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|regionInfo
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|executorService
+operator|.
+name|submit
+argument_list|(
+operator|new
+name|EventHandler
+argument_list|(
+name|server
+argument_list|,
+name|EventType
+operator|.
+name|M_MASTER_RECOVERY
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|process
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|ReentrantLock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|unassign
+argument_list|(
+name|regionInfo
+argument_list|,
+name|rs
+argument_list|,
+name|expectedVersion
+argument_list|,
+name|sn
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+block|}
 argument_list|)
 expr_stmt|;
 block|}
@@ -2473,8 +2566,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Just insert region into RIT.
-comment|// If this never updates the timeout will trigger new assignment
+comment|// Insert in RIT and resend to the regionserver
 name|regionStates
 operator|.
 name|updateRegionState
@@ -2488,11 +2580,105 @@ operator|.
 name|PENDING_OPEN
 argument_list|)
 expr_stmt|;
+specifier|final
+name|RegionState
+name|rs
+init|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|regionInfo
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|executorService
+operator|.
+name|submit
+argument_list|(
+operator|new
+name|EventHandler
+argument_list|(
+name|server
+argument_list|,
+name|EventType
+operator|.
+name|M_MASTER_RECOVERY
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|process
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|ReentrantLock
+name|lock
+init|=
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|assign
+argument_list|(
+name|rs
+argument_list|,
+literal|false
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+block|}
+argument_list|)
+expr_stmt|;
 block|}
 break|break;
 case|case
 name|RS_ZK_REGION_OPENING
 case|:
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+name|forceOffline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|rt
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|regionStates
 operator|.
 name|updateRegionState
@@ -2504,39 +2690,6 @@ operator|.
 name|State
 operator|.
 name|OPENING
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|regionInfo
-operator|.
-name|isMetaTable
-argument_list|()
-operator|||
-operator|!
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
-comment|// If ROOT or .META. table is waiting for timeout monitor to assign
-comment|// it may take lot of time when the assignment.timeout.period is
-comment|// the default value which may be very long.  We will not be able
-comment|// to serve any request during this time.
-comment|// So we will assign the ROOT and .META. region immediately.
-comment|// For a user region, if the server is not online, it takes
-comment|// some time for timeout monitor to kick in.  We know the region
-comment|// won't open. So we will assign the opening
-comment|// region immediately too.
-comment|//
-comment|// Otherwise, just insert region into RIT. If the state never
-comment|// updates, the timeout will trigger new assignment
-name|processOpeningState
-argument_list|(
-name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
@@ -2566,6 +2719,8 @@ block|}
 else|else
 block|{
 comment|// Region is opened, insert into RIT and handle it
+comment|// This could be done asynchronously, we would need then to acquire the lock in the
+comment|//  handler.
 name|regionStates
 operator|.
 name|updateRegionState
@@ -2601,28 +2756,112 @@ break|break;
 case|case
 name|RS_ZK_REGION_SPLITTING
 case|:
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+comment|// The regionserver started the split, but died before updating the status.
+comment|// It means (hopefully) that the split was not finished
+comment|// TBD - to study. In the meantime, do nothing as in the past.
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
-literal|"Processed region in state : "
+literal|"Processed region "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" in state : "
 operator|+
 name|et
+operator|+
+literal|" on a dead regionserver: "
+operator|+
+name|sn
+operator|+
+literal|" doing nothing"
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Processed region "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" in state : "
+operator|+
+name|et
+operator|+
+literal|" nothing to do."
+argument_list|)
+expr_stmt|;
+comment|// We don't do anything. The way the code is written in RS_ZK_REGION_SPLIT management,
+comment|//  it adds the RS_ZK_REGION_SPLITTING state if needed. So we don't have to do it here.
+block|}
 break|break;
 case|case
 name|RS_ZK_REGION_SPLIT
 case|:
-name|LOG
+if|if
+condition|(
+operator|!
+name|serverManager
 operator|.
-name|debug
+name|isServerOnline
 argument_list|(
-literal|"Processed region in state : "
-operator|+
-name|et
+name|sn
+argument_list|)
+condition|)
+block|{
+name|forceOffline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|rt
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Processed region "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" in state : "
+operator|+
+name|et
+operator|+
+literal|" nothing to do."
+argument_list|)
+expr_stmt|;
+comment|// We don't do anything. The regionserver is supposed to update the znode
+comment|// multiple times so if it's still up we will receive an update soon.
+block|}
 break|break;
 default|default:
 throw|throw
@@ -2633,7 +2872,7 @@ literal|"Received region in state :"
 operator|+
 name|et
 operator|+
-literal|" is not valid"
+literal|" is not valid."
 argument_list|)
 throw|;
 block|}
@@ -3252,8 +3491,6 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 name|daughters
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -3851,7 +4088,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Converting PENDING_CLOSE to SPLITING; rs="
+literal|"Converting PENDING_CLOSE to SPLITTING; rs="
 operator|+
 name|rs
 argument_list|)
@@ -3959,8 +4196,6 @@ name|M_ZK_REGION_OFFLINE
 case|:
 name|HRegionInfo
 name|regionInfo
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -5923,9 +6158,6 @@ operator|==
 literal|null
 operator|||
 name|nodeVersion
-operator|.
-name|intValue
-argument_list|()
 operator|==
 operator|-
 literal|1
@@ -6919,6 +7151,9 @@ operator|.
 name|getRegion
 argument_list|()
 decl_stmt|;
+name|RegionOpeningState
+name|regionOpenState
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -6967,7 +7202,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"Unable to determine a plan to assign "
 operator|+
@@ -7113,8 +7348,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-try|try
-block|{
 name|LOG
 operator|.
 name|info
@@ -7158,11 +7391,31 @@ name|getDestination
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
-comment|// Pass the version that was obtained while setting the node to OFFLINE.
-name|RegionOpeningState
-name|regionOpenState
+name|boolean
+name|needNewPlan
+decl_stmt|;
+specifier|final
+name|String
+name|assignMsg
 init|=
+literal|"Failed assignment of "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|plan
+operator|.
+name|getDestination
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|regionOpenState
+operator|=
 name|serverManager
 operator|.
 name|sendRegionOpen
@@ -7176,7 +7429,46 @@ name|region
 argument_list|,
 name|versionOfOfflineNode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+if|if
+condition|(
+name|regionOpenState
+operator|==
+name|RegionOpeningState
+operator|.
+name|FAILED_OPENING
+condition|)
+block|{
+comment|// Failed opening this region, looping again on a new server.
+name|needNewPlan
+operator|=
+literal|true
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|assignMsg
+operator|+
+literal|", regionserver says 'FAILED_OPENING', "
+operator|+
+literal|" trying to assign elsewhere instead; "
+operator|+
+literal|"try="
+operator|+
+name|i
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|maximumAttempts
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// we're done
 if|if
 condition|(
 name|regionOpenState
@@ -7197,28 +7489,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|regionOpenState
-operator|==
-name|RegionOpeningState
-operator|.
-name|FAILED_OPENING
-condition|)
-block|{
-comment|// Failed opening this region
-throw|throw
-operator|new
-name|Exception
-argument_list|(
-literal|"Get regionOpeningState="
-operator|+
-name|regionOpenState
-argument_list|)
-throw|;
+return|return;
 block|}
-break|break;
 block|}
 catch|catch
 parameter_list|(
@@ -7246,69 +7518,81 @@ name|unwrapRemoteException
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Should we wait a little before retrying? If the server is starting it's yes.
+comment|// If the region is already in transition, it's yes as well: we want to be sure that
+comment|//  the region will get opened but we don't want a double assignment.
 name|boolean
-name|regionAlreadyInTransitionException
+name|hold
 init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|serverNotRunningYet
-init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|socketTimedOut
-init|=
-literal|false
-decl_stmt|;
-if|if
-condition|(
+operator|(
 name|t
 operator|instanceof
 name|RegionAlreadyInTransitionException
-condition|)
-block|{
-name|regionAlreadyInTransitionException
-operator|=
-literal|true
-expr_stmt|;
-if|if
-condition|(
-name|LOG
+operator|||
+name|t
+operator|instanceof
+name|ServerNotRunningYetException
+operator|)
+decl_stmt|;
+comment|// In case socket is timed out and the region server is still online,
+comment|// the openRegion RPC could have been accepted by the server and
+comment|// just the response didn't go through.  So we will retry to
+comment|// open the region on the same server to avoid possible
+comment|// double assignment.
+name|boolean
+name|retry
+init|=
+operator|!
+name|hold
+operator|&&
+operator|(
+name|t
+operator|instanceof
+name|java
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
+name|net
 operator|.
-name|debug
+name|SocketTimeoutException
+operator|&&
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
 argument_list|(
-literal|"Failed assignment in: "
-operator|+
 name|plan
 operator|.
 name|getDestination
 argument_list|()
-operator|+
-literal|" due to "
-operator|+
-name|t
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-elseif|else
+operator|)
+decl_stmt|;
 if|if
 condition|(
-name|t
-operator|instanceof
-name|ServerNotRunningYetException
+name|hold
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|assignMsg
+operator|+
+literal|", waiting a little before trying on the same region server "
+operator|+
+literal|"try="
+operator|+
+name|i
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|maximumAttempts
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|maxRegionServerStartupWaitTime
@@ -7318,7 +7602,7 @@ condition|)
 block|{
 name|maxRegionServerStartupWaitTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7343,7 +7627,7 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -7372,10 +7656,6 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
-name|serverNotRunningYet
-operator|=
-literal|true
-expr_stmt|;
 name|Thread
 operator|.
 name|sleep
@@ -7387,6 +7667,10 @@ name|i
 operator|--
 expr_stmt|;
 comment|// reset the try count
+name|needNewPlan
+operator|=
+literal|false
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -7398,6 +7682,10 @@ literal|"Server is not up for a while; try a new one"
 argument_list|,
 name|t
 argument_list|)
+expr_stmt|;
+name|needNewPlan
+operator|=
+literal|true
 expr_stmt|;
 block|}
 block|}
@@ -7437,109 +7725,20 @@ block|}
 elseif|else
 if|if
 condition|(
-name|t
-operator|instanceof
-name|java
-operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-operator|&&
-name|this
-operator|.
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|plan
-operator|.
-name|getDestination
-argument_list|()
-argument_list|)
+name|retry
 condition|)
 block|{
-comment|// In case socket is timed out and the region server is still online,
-comment|// the openRegion RPC could have been accepted by the server and
-comment|// just the response didn't go through.  So we will retry to
-comment|// open the region on the same server to avoid possible
-comment|// double assignment.
-name|socketTimedOut
+name|needNewPlan
 operator|=
-literal|true
+literal|false
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Call openRegion() to "
-operator|+
-name|plan
-operator|.
-name|getDestination
-argument_list|()
-operator|+
-literal|" has timed out when trying to assign "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|", but the region might already be opened on "
-operator|+
-name|plan
-operator|.
-name|getDestination
-argument_list|()
-operator|+
-literal|"."
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed assignment of "
+name|assignMsg
 operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" to "
-operator|+
-name|plan
-operator|.
-name|getDestination
-argument_list|()
-operator|+
-literal|", trying to assign "
-operator|+
-operator|(
-name|regionAlreadyInTransitionException
-operator|||
-name|serverNotRunningYet
-operator|||
-name|socketTimedOut
-condition|?
-literal|"to the same region server because of RegionAlreadyInTransitionException"
-operator|+
-literal|"/ServerNotRunningYetException/SocketTimeoutException;"
-else|:
-literal|"elsewhere instead; "
-operator|)
+literal|", trying to assign to the same region server "
 operator|+
 literal|"try="
 operator|+
@@ -7554,6 +7753,36 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|needNewPlan
+operator|=
+literal|true
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|assignMsg
+operator|+
+literal|", trying to assign elsewhere instead;"
+operator|+
+literal|" try="
+operator|+
+name|i
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|maximumAttempts
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 if|if
 condition|(
 name|i
@@ -7570,37 +7799,25 @@ block|}
 comment|// If region opened on destination of present plan, reassigning to new
 comment|// RS may cause double assignments. In case of RegionAlreadyInTransitionException
 comment|// reassigning to same RS.
-name|RegionPlan
-name|newPlan
-init|=
-name|plan
-decl_stmt|;
 if|if
 condition|(
-operator|!
-operator|(
-name|regionAlreadyInTransitionException
-operator|||
-name|serverNotRunningYet
-operator|||
-name|socketTimedOut
-operator|)
+name|needNewPlan
 condition|)
 block|{
 comment|// Force a new plan and reassign. Will return null if no servers.
 comment|// The new plan could be the same as the existing plan since we don't
 comment|// exclude the server of the original plan, which should not be
 comment|// excluded since it could be the only server up now.
+name|RegionPlan
 name|newPlan
-operator|=
+init|=
 name|getRegionPlan
 argument_list|(
 name|region
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|newPlan
@@ -7757,7 +7974,7 @@ literal|"The unassigned node "
 operator|+
 name|encodedRegionName
 operator|+
-literal|" doesnot exist."
+literal|" does not exist."
 argument_list|)
 expr_stmt|;
 block|}
@@ -7948,9 +8165,6 @@ argument_list|)
 expr_stmt|;
 name|int
 name|versionOfOfflineNode
-init|=
-operator|-
-literal|1
 decl_stmt|;
 try|try
 block|{
@@ -8122,8 +8336,6 @@ literal|false
 decl_stmt|;
 name|RegionPlan
 name|existingPlan
-init|=
-literal|null
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -8973,7 +9185,6 @@ argument_list|,
 name|ke
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 block|}
 comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING state.    * @throws KeeperException Can happen if the znode went away in meantime.    * @throws DeserializationException    */
@@ -10396,7 +10607,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions    * that were in RIT.    *<p>    *    * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @param nodes    *          The regions in RIT    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions    * that were in RIT.    *<p>    *    *    * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
 name|processDeadServersAndRecoverLostRegions
@@ -10411,12 +10622,6 @@ name|HRegionInfo
 argument_list|>
 argument_list|>
 name|deadServers
-parameter_list|,
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|nodes
 parameter_list|)
 throws|throws
 name|IOException
@@ -10481,8 +10686,12 @@ comment|// Let SSH do region re-assign
 block|}
 block|}
 block|}
+name|List
+argument_list|<
+name|String
+argument_list|>
 name|nodes
-operator|=
+init|=
 name|ZKUtil
 operator|.
 name|listChildrenAndWatchForNewChildren
@@ -10497,7 +10706,7 @@ name|watcher
 operator|.
 name|assignmentZNode
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -11477,7 +11686,6 @@ argument_list|,
 name|ke
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -11494,9 +11702,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
-return|return;
 block|}
 name|void
 name|invokeAssign

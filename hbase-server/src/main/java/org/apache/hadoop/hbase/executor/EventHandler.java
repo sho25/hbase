@@ -492,8 +492,18 @@ name|ExecutorType
 operator|.
 name|MASTER_META_SERVER_OPERATIONS
 argument_list|)
-block|;
+block|,
 comment|// Master is processing shutdown of RS hosting a meta region (-ROOT- or .META.).
+name|M_MASTER_RECOVERY
+argument_list|(
+literal|73
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_SERVER_OPERATIONS
+argument_list|)
+block|;
+comment|// Master is processing recovery of regions found in ZK RIT
 specifier|private
 specifier|final
 name|int
