@@ -1064,9 +1064,9 @@ name|JaasConfiguration
 argument_list|(
 name|loginContextName
 argument_list|,
-name|keytabFilename
-argument_list|,
 name|principalName
+argument_list|,
+name|keytabFilename
 argument_list|)
 decl_stmt|;
 name|javax
