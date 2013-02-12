@@ -560,7 +560,7 @@ name|this
 operator|.
 name|deadServers
 operator|.
-name|contains
+name|isDeadServer
 argument_list|(
 name|this
 operator|.

@@ -395,6 +395,9 @@ argument_list|()
 operator|.
 name|getDeadServers
 argument_list|()
+operator|.
+name|copyServerNames
+argument_list|()
 decl_stmt|;
 name|response
 operator|.
