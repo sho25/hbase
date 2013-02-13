@@ -137,18 +137,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -758,6 +746,18 @@ operator|.
 name|protobuf
 operator|.
 name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
 import|;
 end_import
 
@@ -1398,7 +1398,9 @@ name|getConfiguration
 parameter_list|()
 block|{
 return|return
-literal|null
+name|mfs
+operator|.
+name|conf
 return|;
 block|}
 annotation|@
