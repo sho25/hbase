@@ -62,7 +62,7 @@ specifier|public
 interface|interface
 name|ForeignExceptionListener
 block|{
-comment|/**    * Receive a ForeignException.    *<p>    * Implementers must ensure that this method is thread-safe.    * @param message reason for the error    * @param e exception causing the error.  Implementations must accept and handle null here.    */
+comment|/**    * Receive a ForeignException.    *<p>    * Implementers must ensure that this method is thread-safe.    * @param e exception causing the error. Implementations must accept and handle null here.    */
 specifier|public
 name|void
 name|receive

@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Distributed procedure member's Subprocedure.  A procedure is sarted on a ProcedureCoordinator  * which communicates with ProcedureMembers who create and start its part of the Procedure.  This  * sub part is called a Subprocedure  *  * Users should subclass this and implement {@link #acquireBarrier()} (get local barrier for this  * member), {@link #insideBarrier()} (execute while globally barriered and release barrier) and  * {@link #cleanup(Exception)} (release state associated with subprocedure.)  *  * When submitted to a ProcedureMemeber, the call method is executed in a separate thread.  * Latches are use too block its progress and trigger continuations when barrier conditions are  * met.  *  * Exceptions that make it out from calls to {@link #acquireBarrier()} or {@link #insideBarrier()}  * get converted into {@link ExternalExceptions}, which will get propagated to the  * {@link ProcedureCoordinator}.  *  * There is a category of procedure (ex: online-snapshots), and a user-specified instance-specific  * barrierName. (ex: snapshot121126).  */
+comment|/**  * Distributed procedure member's Subprocedure.  A procedure is sarted on a ProcedureCoordinator  * which communicates with ProcedureMembers who create and start its part of the Procedure.  This  * sub part is called a Subprocedure  *  * Users should subclass this and implement {@link #acquireBarrier()} (get local barrier for this  * member), {@link #insideBarrier()} (execute while globally barriered and release barrier) and  * {@link #cleanup(Exception)} (release state associated with subprocedure.)  *  * When submitted to a ProcedureMemeber, the call method is executed in a separate thread.  * Latches are use too block its progress and trigger continuations when barrier conditions are  * met.  *  * Exception that makes it out of calls to {@link #acquireBarrier()} or {@link #insideBarrier()}  * gets converted into {@link ForeignException}, which will get propagated to the  * {@link ProcedureCoordinator}.  *  * There is a category of procedure (ex: online-snapshots), and a user-specified instance-specific  * barrierName. (ex: snapshot121126).  */
 end_comment
 
 begin_class
@@ -468,7 +468,7 @@ name|rethrowException
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Execute the Subprocedure {@link #acquireBarrier()} and {@link #insideBarrier()} methods    * while keeping some state for other threads to access.    *    * This would normally be executed by the ProcedureMemeber when a acquire message comes from the    * coordinator.  Rpcs are used to spend message back to the coordinator after different phases    * are executed.  Any exceptions caught during the execution (except for InterrupedException) get    * converted and propagated to coordinator via {@link ProcedureMemberRpcs#sendAbort(Exception)}.    */
+comment|/**    * Execute the Subprocedure {@link #acquireBarrier()} and {@link #insideBarrier()} methods    * while keeping some state for other threads to access.    *    * This would normally be executed by the ProcedureMemeber when a acquire message comes from the    * coordinator.  Rpcs are used to spend message back to the coordinator after different phases    * are executed.  Any exceptions caught during the execution (except for InterrupedException) get    * converted and propagated to coordinator via {@link ProcedureMemberRpcs#sendMemberAborted(    * Subprocedure, ForeignException)}.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

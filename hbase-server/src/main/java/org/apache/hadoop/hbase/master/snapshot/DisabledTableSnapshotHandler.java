@@ -388,7 +388,7 @@ specifier|final
 name|TimeoutExceptionInjector
 name|timeoutInjector
 decl_stmt|;
-comment|/**    * @param snapshot descriptor of the snapshot to take    * @param server parent server    * @param masterServices master services provider    * @throws IOException on unexpected error    */
+comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    * @throws IOException on unexpected error    */
 specifier|public
 name|DisabledTableSnapshotHandler
 parameter_list|(

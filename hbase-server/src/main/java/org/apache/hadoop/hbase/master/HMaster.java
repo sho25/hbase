@@ -14050,7 +14050,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Execute Delete Snapshot operation.    * @returns DeleteSnapshotResponse (a protobuf wrapped void) if the snapshot existed and was    *    deleted properly.    * @throws ServiceException wrapping SnapshotDoesNotExistException if specified snapshot did not    *    exist.    */
+comment|/**    * Execute Delete Snapshot operation.    * @return DeleteSnapshotResponse (a protobuf wrapped void) if the snapshot existed and was    *    deleted properly.    * @throws ServiceException wrapping SnapshotDoesNotExistException if specified snapshot did not    *    exist.    */
 end_comment
 
 begin_function
@@ -14133,7 +14133,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Checks if the specified snapshot is done.    * @returns true if the snapshot is in file system ready to use,    *   false if the snapshot is in the process of completing    * @throws ServiceException wrapping UnknownSnapshotException if invalid snapshot, or    *  a wrapped HBaseSnapshotException with progress failure reason.    */
+comment|/**    * Checks if the specified snapshot is done.    * @return true if the snapshot is in file system ready to use,    *   false if the snapshot is in the process of completing    * @throws ServiceException wrapping UnknownSnapshotException if invalid snapshot, or    *  a wrapped HBaseSnapshotException with progress failure reason.    */
 end_comment
 
 begin_function

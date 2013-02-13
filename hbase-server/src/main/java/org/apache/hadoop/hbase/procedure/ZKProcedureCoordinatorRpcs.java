@@ -247,7 +247,7 @@ decl_stmt|;
 name|String
 name|coordName
 decl_stmt|;
-comment|/**    * @param watcher zookeeper watcher. Owned by<tt>this</tt> and closed via {@link #close()}    * @param procedureType procedure type name is a category for when there are multiple kinds of    *    procedures.-- this becomes a znode so be aware of the naming restrictions    * @param coordName name of the node running the coordinator    * @throws KeeperException if an unexpected zk error occurs    */
+comment|/**    * @param watcher zookeeper watcher. Owned by<tt>this</tt> and closed via {@link #close()}    * @param procedureClass procedure type name is a category for when there are multiple kinds of    *    procedures.-- this becomes a znode so be aware of the naming restrictions    * @param coordName name of the node running the coordinator    * @throws KeeperException if an unexpected zk error occurs    */
 specifier|public
 name|ZKProcedureCoordinatorRpcs
 parameter_list|(

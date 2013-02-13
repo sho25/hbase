@@ -2648,7 +2648,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * Create a new table descriptor cloning the snapshot table schema.    *    * @param admin    * @param snapshotTableDescriptor    * @param tableName    * @return cloned table descriptor    * @throws IOException    */
+comment|/**    * Create a new table descriptor cloning the snapshot table schema.    *    * @param snapshotTableDescriptor    * @param tableName    * @return cloned table descriptor    * @throws IOException    */
 specifier|public
 specifier|static
 name|HTableDescriptor

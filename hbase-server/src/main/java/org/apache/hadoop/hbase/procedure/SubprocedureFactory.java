@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Task builder to build instances of a {@link ProcedureMember}'s {@link Subporocedure}s.  */
+comment|/**  * Task builder to build instances of a {@link ProcedureMember}'s {@link Subprocedure}s.  */
 end_comment
 
 begin_interface

@@ -329,7 +329,7 @@ operator|.
 name|makeMap
 argument_list|()
 decl_stmt|;
-comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in this    * constructor.    *    * @param rpcs    * @param factory Builder for building Procedures    * @param pool Used for executing procedures.    */
+comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in this    * constructor.    *    * @param rpcs    * @param pool Used for executing procedures.    */
 specifier|public
 name|ProcedureCoordinator
 parameter_list|(

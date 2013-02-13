@@ -399,7 +399,7 @@ return|return
 name|rpcs
 return|;
 block|}
-comment|/**    * This is separated from execution so that we can detect and handle the case where the    * subprocedure is invalid and inactionable due to bad info (like DISABLED snapshot type being    * sent here)    * @param opName    * @param data    * @return    */
+comment|/**    * This is separated from execution so that we can detect and handle the case where the    * subprocedure is invalid and inactionable due to bad info (like DISABLED snapshot type being    * sent here)    * @param opName    * @param data    * @return subprocedure    */
 specifier|public
 name|Subprocedure
 name|createSubprocedure
@@ -803,7 +803,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Send abort to the specified procedure    * @param procName name of the procedure to about    * @param reason serialized information about the abort    */
+comment|/**    * Send abort to the specified procedure    * @param procName name of the procedure to about    * @param ee exception information about the abort    */
 specifier|public
 name|void
 name|receiveAbortProcedure

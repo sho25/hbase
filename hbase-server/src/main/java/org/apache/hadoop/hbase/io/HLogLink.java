@@ -148,7 +148,7 @@ name|logName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param rootdir Path to the root directory where hbase files are stored    * @param serverName Region Server owner of the log    * @param logName WAL file name    */
+comment|/**    * @param rootDir Path to the root directory where hbase files are stored    * @param serverName Region Server owner of the log    * @param logName WAL file name    */
 specifier|public
 name|HLogLink
 parameter_list|(
@@ -219,7 +219,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param originPath Path to the wal in the log directory    * @param archiveDir Path to the wal in the archived log directory    */
+comment|/**    * @param originPath Path to the wal in the log directory    * @param archivePath Path to the wal in the archived log directory    */
 specifier|public
 name|HLogLink
 parameter_list|(

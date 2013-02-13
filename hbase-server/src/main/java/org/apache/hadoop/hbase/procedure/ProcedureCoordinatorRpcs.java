@@ -157,7 +157,7 @@ name|IOException
 throws|,
 name|IllegalArgumentException
 function_decl|;
-comment|/**    * Notify members that all members have acquired their parts of the barrier and that they can    * now execute under the global barrier.    *    * Must come after calling {@link #sendGlobalBarrierAcquire(String, byte[], List)}    *    * @param procName name of the procedure to start    * @param members members to tell we have reached in-barrier phase    * @throws IOException if we can't reach the remote notification mechanism    */
+comment|/**    * Notify members that all members have acquired their parts of the barrier and that they can    * now execute under the global barrier.    *    * Must come after calling {@link #sendGlobalBarrierAcquire(Procedure, byte[], List)}    *    * @param procName name of the procedure to start    * @param members members to tell we have reached in-barrier phase    * @throws IOException if we can't reach the remote notification mechanism    */
 specifier|public
 name|void
 name|sendGlobalBarrierReached

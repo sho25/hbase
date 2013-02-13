@@ -520,7 +520,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #close()} to be called  */
+comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #stop(boolean)} to be called  */
 end_comment
 
 begin_class
@@ -688,7 +688,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a default snapshot handler - uses a zookeeper based cohort controller.    * @param conf configuration to use for extracting information like thread pool properties and    *          frequency to check for errors (wake frequency).    * @param rss region server running the handler    * @throws KeeperException if the zookeeper cluster cannot be reached    */
+comment|/**    * Create a default snapshot handler - uses a zookeeper based cohort controller.    * @param rss region server running the handler    * @throws KeeperException if the zookeeper cluster cannot be reached    */
 specifier|public
 name|RegionServerSnapshotManager
 parameter_list|(

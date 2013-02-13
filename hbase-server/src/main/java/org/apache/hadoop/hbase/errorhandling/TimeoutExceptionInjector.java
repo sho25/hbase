@@ -168,7 +168,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Create a generic timer for a task/process.    * @param listener listener to notify if the process times out    * @param maxTime max allowed running time for the process. Timer starts on calls to    *          {@link #start()}    * @param info information about the process to pass along if the timer expires    */
+comment|/**    * Create a generic timer for a task/process.    * @param listener listener to notify if the process times out    * @param maxTime max allowed running time for the process. Timer starts on calls to    *          {@link #start()}    */
 specifier|public
 name|TimeoutExceptionInjector
 parameter_list|(

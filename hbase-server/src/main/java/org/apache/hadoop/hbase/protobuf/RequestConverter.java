@@ -5590,7 +5590,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer GetSchemaAlterStatusRequest    *    * @param tableName    * @return a GetSchemaAlterStatusRequest    */
+comment|/**    * Creates a protocol buffer GetSchemaAlterStatusRequest    *    * @param table    * @return a GetSchemaAlterStatusRequest    */
 specifier|public
 specifier|static
 name|GetSchemaAlterStatusRequest

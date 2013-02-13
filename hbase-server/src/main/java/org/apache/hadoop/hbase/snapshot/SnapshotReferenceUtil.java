@@ -744,7 +744,7 @@ return|return
 name|familyFiles
 return|;
 block|}
-comment|/**    * Returns the store file names in the snapshot.    *    * @param fs {@link FileSystem}    * @param snapshotDir {@link Path} to the Snapshot directory    * @param visitor callback object to get the log files    * @throws IOException if an error occurred while scanning the directory    * @return the names of hfiles in the specified snaphot    */
+comment|/**    * Returns the store file names in the snapshot.    *    * @param fs {@link FileSystem}    * @param snapshotDir {@link Path} to the Snapshot directory    * @throws IOException if an error occurred while scanning the directory    * @return the names of hfiles in the specified snaphot    */
 specifier|public
 specifier|static
 name|Set
