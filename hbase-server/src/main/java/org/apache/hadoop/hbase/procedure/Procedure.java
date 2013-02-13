@@ -1175,7 +1175,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.    * @throws ForeignException    * @throws InterruptedException    */
+comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @throws ForeignException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|waitForCompleted

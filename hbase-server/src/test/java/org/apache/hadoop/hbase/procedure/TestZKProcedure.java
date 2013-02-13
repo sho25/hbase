@@ -73,6 +73,18 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
+name|atMost
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
 name|never
 import|;
 end_import
@@ -2040,6 +2052,8 @@ block|}
 comment|// -------------
 comment|// verification
 comment|// -------------
+comment|// always expect prepared, never committed, and possible to have cleanup and finish (racy since
+comment|// error case)
 name|waitAndVerifyProc
 argument_list|(
 name|coordinatorTask
@@ -2051,7 +2065,10 @@ argument_list|()
 argument_list|,
 name|once
 argument_list|,
-name|once
+name|atMost
+argument_list|(
+literal|1
+argument_list|)
 argument_list|,
 literal|true
 argument_list|)
