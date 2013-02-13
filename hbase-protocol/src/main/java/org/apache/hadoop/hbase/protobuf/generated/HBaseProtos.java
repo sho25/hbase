@@ -68160,7 +68160,7 @@ name|long
 name|getCreationTime
 parameter_list|()
 function_decl|;
-comment|// optional .SnapshotDescription.Type type = 4 [default = TIMESTAMP];
+comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
 name|boolean
 name|hasType
 parameter_list|()
@@ -68340,18 +68340,11 @@ argument_list|,
 literal|0
 argument_list|)
 block|,
-name|TIMESTAMP
+name|FLUSH
 argument_list|(
 literal|1
 argument_list|,
 literal|1
-argument_list|)
-block|,
-name|GLOBAL
-argument_list|(
-literal|2
-argument_list|,
-literal|2
 argument_list|)
 block|,       ;
 specifier|public
@@ -68366,17 +68359,9 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|TIMESTAMP_VALUE
+name|FLUSH_VALUE
 init|=
 literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|GLOBAL_VALUE
-init|=
-literal|2
 decl_stmt|;
 specifier|public
 specifier|final
@@ -68412,13 +68397,7 @@ case|case
 literal|1
 case|:
 return|return
-name|TIMESTAMP
-return|;
-case|case
-literal|2
-case|:
-return|return
-name|GLOBAL
+name|FLUSH
 return|;
 default|default:
 return|return
@@ -68597,9 +68576,7 @@ init|=
 block|{
 name|DISABLED
 block|,
-name|TIMESTAMP
-block|,
-name|GLOBAL
+name|FLUSH
 block|,        }
 decl_stmt|;
 specifier|public
@@ -69118,7 +69095,7 @@ return|return
 name|creationTime_
 return|;
 block|}
-comment|// optional .SnapshotDescription.Type type = 4 [default = TIMESTAMP];
+comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
 specifier|public
 specifier|static
 specifier|final
@@ -69265,7 +69242,7 @@ name|SnapshotDescription
 operator|.
 name|Type
 operator|.
-name|TIMESTAMP
+name|FLUSH
 expr_stmt|;
 name|version_
 operator|=
@@ -71106,7 +71083,7 @@ name|SnapshotDescription
 operator|.
 name|Type
 operator|.
-name|TIMESTAMP
+name|FLUSH
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -72518,7 +72495,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .SnapshotDescription.Type type = 4 [default = TIMESTAMP];
+comment|// optional .SnapshotDescription.Type type = 4 [default = FLUSH];
 specifier|private
 name|org
 operator|.
@@ -72557,7 +72534,7 @@ name|SnapshotDescription
 operator|.
 name|Type
 operator|.
-name|TIMESTAMP
+name|FLUSH
 decl_stmt|;
 specifier|public
 name|boolean
@@ -72687,7 +72664,7 @@ name|SnapshotDescription
 operator|.
 name|Type
 operator|.
-name|TIMESTAMP
+name|FLUSH
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -73391,31 +73368,31 @@ literal|"(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPair\022\r\n\0
 operator|+
 literal|"irst\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNameInt64P"
 operator|+
-literal|"air\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\301\001\n\023Sna"
+literal|"air\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\255\001\n\023Sna"
 operator|+
 literal|"pshotDescription\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030"
 operator|+
-literal|"\002 \001(\t\022\027\n\014creationTime\030\003 \001(\003:\0010\0222\n\004type\030\004"
+literal|"\002 \001(\t\022\027\n\014creationTime\030\003 \001(\003:\0010\022.\n\004type\030\004"
 operator|+
-literal|" \001(\0162\031.SnapshotDescription.Type:\tTIMESTA"
+literal|" \001(\0162\031.SnapshotDescription.Type:\005FLUSH\022\017"
 operator|+
-literal|"MP\022\017\n\007version\030\005 \001(\005\"/\n\004Type\022\014\n\010DISABLED\020"
+literal|"\n\007version\030\005 \001(\005\"\037\n\004Type\022\014\n\010DISABLED\020\000\022\t\n"
 operator|+
-literal|"\000\022\r\n\tTIMESTAMP\020\001\022\n\n\006GLOBAL\020\002*r\n\013CompareT"
+literal|"\005FLUSH\020\001*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLES"
 operator|+
-literal|"ype\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUA"
+literal|"S_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024"
 block|,
-literal|"L\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004"
+literal|"\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_"
 operator|+
-literal|"\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*_\n\007KeyType\022\013\n\007M"
+literal|"OP\020\006*_\n\007KeyType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022\n\n"
 operator|+
-literal|"INIMUM\020\000\022\007\n\003PUT\020\004\022\n\n\006DELETE\020\010\022\021\n\rDELETE_"
+literal|"\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE_F"
 operator|+
-literal|"COLUMN\020\014\022\021\n\rDELETE_FAMILY\020\016\022\014\n\007MAXIMUM\020\377"
+literal|"AMILY\020\016\022\014\n\007MAXIMUM\020\377\001B>\n*org.apache.hado"
 operator|+
-literal|"\001B>\n*org.apache.hadoop.hbase.protobuf.ge"
+literal|"op.hbase.protobuf.generatedB\013HBaseProtos"
 operator|+
-literal|"neratedB\013HBaseProtosH\001\240\001\001"
+literal|"H\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

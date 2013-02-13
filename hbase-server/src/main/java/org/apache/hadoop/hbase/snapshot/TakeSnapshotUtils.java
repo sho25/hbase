@@ -549,11 +549,6 @@ name|familyDirs
 return|;
 block|}
 comment|/**    * Create a snapshot timer for the master which notifies the monitor when an error occurs    * @param snapshot snapshot to monitor    * @param conf configuration to use when getting the max snapshot life    * @param monitor monitor to notify when the snapshot life expires    * @return the timer to use update to signal the start and end of the snapshot    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"rawtypes"
-argument_list|)
 specifier|public
 specifier|static
 name|TimeoutExceptionInjector

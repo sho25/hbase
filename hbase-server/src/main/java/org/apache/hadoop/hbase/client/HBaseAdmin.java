@@ -9017,7 +9017,7 @@ name|SnapshotDescription
 operator|.
 name|Type
 operator|.
-name|TIMESTAMP
+name|FLUSH
 argument_list|)
 expr_stmt|;
 block|}

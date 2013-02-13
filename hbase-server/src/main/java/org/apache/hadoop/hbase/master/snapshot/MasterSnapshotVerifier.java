@@ -408,7 +408,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * General snapshot verification on the master.  *<p>  * This is a light-weight verification mechanism for all the files in a snapshot. It doesn't attempt  * to verify that the files are exact copies (that would be paramount to taking the snapshot  * again!), but instead just attempts to ensure that the files match the expected files and are the  * same length.  *<p>  * Current snapshot files checked:  *<ol>  *<li>SnapshotDescription is readable</li>  *<li>Table info is readable</li>  *<li>Regions</li>  *<ul>  *<li>Matching regions in the snapshot as currently in the table</li>  *<li>{@link HRegionInfo} matches the current and stored regions</li>  *<li>All referenced hfiles have valid names</li>  *<li>All the hfiles are present (either in .archive directory in the region)</li>  *<li>All recovered.edits files are present (by name) and have the correct file size</li>  *</ul>  *<li>HLogs for each server running the snapshot have been referenced  *<ul>  *<li>Only checked for {@link Type#GLOBAL} snapshots</li>  *</ul>  *</li>  */
+comment|/**  * General snapshot verification on the master.  *<p>  * This is a light-weight verification mechanism for all the files in a snapshot. It doesn't  * attempt to verify that the files are exact copies (that would be paramount to taking the  * snapshot again!), but instead just attempts to ensure that the files match the expected  * files and are the same length.  *<p>  * Taking an online snapshots can race against other operations and this is an last line of  * defense.  For example, if meta changes between when snapshots are taken not all regions of a  * table may be present.  This can be caused by a region split (daughters present on this scan,  * but snapshot took parent), or move (snapshots only checks lists of region servers, a move could  * have caused a region to be skipped or done twice).  *<p>  * Current snapshot files checked:  *<ol>  *<li>SnapshotDescription is readable</li>  *<li>Table info is readable</li>  *<li>Regions</li>  *<ul>  *<li>Matching regions in the snapshot as currently in the table</li>  *<li>{@link HRegionInfo} matches the current and stored regions</li>  *<li>All referenced hfiles have valid names</li>  *<li>All the hfiles are present (either in .archive directory in the region)</li>  *<li>All recovered.edits files are present (by name) and have the correct file size</li>  *</ul>  *<li>HLogs for each server running the snapshot have been referenced.  (In the design for  * in the {@link Type#GLOBAL} or {@link Type#LOGROLL} online snapshots</li>  *</ol>  */
 end_comment
 
 begin_class
@@ -536,48 +536,6 @@ argument_list|(
 name|snapshotDir
 argument_list|)
 expr_stmt|;
-comment|// check that the hlogs, if they exist, are valid
-if|if
-condition|(
-name|shouldCheckLogs
-argument_list|(
-name|snapshot
-operator|.
-name|getType
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|verifyLogs
-argument_list|(
-name|snapshotDir
-argument_list|,
-name|snapshotServers
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|/**    * Check to see if the snapshot should verify the logs directory based on the type of the logs.    * @param type type of snapshot being taken    * @return<tt>true</tt> if the logs directory should be verified,<tt>false</tt> otherwise    */
-specifier|private
-name|boolean
-name|shouldCheckLogs
-parameter_list|(
-name|Type
-name|type
-parameter_list|)
-block|{
-comment|// This is better handled in the Type enum via type, but since its PB based, this is the
-comment|// simplest way to handle it
-return|return
-name|type
-operator|.
-name|equals
-argument_list|(
-name|Type
-operator|.
-name|GLOBAL
-argument_list|)
-return|;
 block|}
 comment|/**    * Check that the snapshot description written in the filesystem matches the current snapshot    * @param snapshotDir snapshot directory to check    */
 specifier|private
@@ -655,7 +613,7 @@ name|snapshotDir
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check that all the regions in the the snapshot are valid    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach .META. or read the files from the FS    */
+comment|/**    * Check that all the regions in the the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach .META. or read the files from the FS    */
 specifier|private
 name|void
 name|verifyRegions
@@ -774,6 +732,7 @@ name|regionDir
 argument_list|)
 condition|)
 block|{
+comment|// could happen due to a move or split race.
 throw|throw
 operator|new
 name|CorruptedSnapshotException

@@ -917,6 +917,15 @@ operator|.
 name|getMessage
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Got exception taking snapshot"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|ForeignException
 name|ee
 init|=
