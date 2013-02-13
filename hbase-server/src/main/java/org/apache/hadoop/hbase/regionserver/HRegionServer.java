@@ -17999,15 +17999,10 @@ name|builder
 operator|.
 name|setCompactionState
 argument_list|(
-name|CompactionRequest
+name|region
 operator|.
 name|getCompactionState
-argument_list|(
-name|info
-operator|.
-name|getRegionId
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

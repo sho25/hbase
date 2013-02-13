@@ -242,6 +242,10 @@ name|isUserCompaction
 parameter_list|,
 specifier|final
 name|boolean
+name|mayUseOffPeak
+parameter_list|,
+specifier|final
+name|boolean
 name|forceMajor
 parameter_list|)
 throws|throws
