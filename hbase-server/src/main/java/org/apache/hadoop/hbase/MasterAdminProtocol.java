@@ -1097,7 +1097,27 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
+name|exception
+operator|.
 name|SnapshotCreationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
+name|exception
+operator|.
+name|UnknownSnapshotException
 import|;
 end_import
 

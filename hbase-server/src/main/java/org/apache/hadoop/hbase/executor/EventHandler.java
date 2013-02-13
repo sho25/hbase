@@ -454,6 +454,16 @@ name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to create a table
+name|C_M_SNAPSHOT_TABLE
+argument_list|(
+literal|48
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
+argument_list|)
+block|,
+comment|// Client asking Master to snapshot an offline table
 comment|// Updates from master to ZK. This is done by the master and there is
 comment|// nothing to process by either Master or RS
 name|M_ZK_REGION_OFFLINE

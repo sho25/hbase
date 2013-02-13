@@ -1868,6 +1868,15 @@ name|HFILE_ARCHIVE_DIRECTORY
 init|=
 literal|".archive"
 decl_stmt|;
+comment|/**    * Name of the directory to store snapshots all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_DIR_NAME
+init|=
+literal|".snapshot"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1912,6 +1921,8 @@ block|,
 name|HBCK_SIDELINEDIR_NAME
 block|,
 name|HFILE_ARCHIVE_DIRECTORY
+block|,
+name|SNAPSHOT_DIR_NAME
 block|}
 argument_list|)
 argument_list|)

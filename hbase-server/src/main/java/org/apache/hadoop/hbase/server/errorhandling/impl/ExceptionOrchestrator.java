@@ -288,6 +288,7 @@ name|create
 argument_list|()
 decl_stmt|;
 comment|/** Error visitor for framework listeners */
+specifier|public
 specifier|final
 name|ForwardingErrorVisitor
 name|genericVisitor

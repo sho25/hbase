@@ -14,8 +14,38 @@ operator|.
 name|hbase
 operator|.
 name|snapshot
+operator|.
+name|exception
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
 
 begin_import
 import|import
@@ -52,7 +82,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * General exception when a snapshot fails.  */
+comment|/**  * General exception base class for when a snapshot fails  */
 end_comment
 
 begin_class
@@ -61,7 +91,16 @@ name|SuppressWarnings
 argument_list|(
 literal|"serial"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
+specifier|abstract
 class|class
 name|HBaseSnapshotException
 extends|extends
@@ -71,6 +110,7 @@ specifier|private
 name|SnapshotDescription
 name|description
 decl_stmt|;
+comment|/**    * Some exception happened for a snapshot and don't even know the snapshot that it was about    * @param msg Full description of the failure    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
@@ -84,37 +124,7 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
-name|HBaseSnapshotException
-parameter_list|(
-name|String
-name|msg
-parameter_list|,
-name|Throwable
-name|cause
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|msg
-argument_list|,
-name|cause
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-name|HBaseSnapshotException
-parameter_list|(
-name|Throwable
-name|cause
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|cause
-argument_list|)
-expr_stmt|;
-block|}
+comment|/**    * Exception for the given snapshot that has no previous root cause    * @param msg reason why the snapshot failed    * @param desc description of the snapshot that is being failed    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
@@ -137,28 +147,7 @@ operator|=
 name|desc
 expr_stmt|;
 block|}
-specifier|public
-name|HBaseSnapshotException
-parameter_list|(
-name|Throwable
-name|cause
-parameter_list|,
-name|SnapshotDescription
-name|desc
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|cause
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|description
-operator|=
-name|desc
-expr_stmt|;
-block|}
+comment|/**    * Exception for the given snapshot due to another exception    * @param msg reason why the snapshot failed    * @param cause root cause of the failure    * @param desc description of the snapshot that is being failed    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
@@ -184,6 +173,25 @@ operator|.
 name|description
 operator|=
 name|desc
+expr_stmt|;
+block|}
+comment|/**    * Exception when the description of the snapshot cannot be determined, due to some root other    * root cause    * @param message description of what caused the failure    * @param e root cause    */
+specifier|public
+name|HBaseSnapshotException
+parameter_list|(
+name|String
+name|message
+parameter_list|,
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public

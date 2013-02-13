@@ -93028,13 +93028,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required int64 expectedTime = 1;
+comment|// required int64 expectedTimeout = 1;
 name|boolean
-name|hasExpectedTime
+name|hasExpectedTimeout
 parameter_list|()
 function_decl|;
 name|long
-name|getExpectedTime
+name|getExpectedTimeout
 parameter_list|()
 function_decl|;
 block|}
@@ -93168,22 +93168,22 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 expectedTime = 1;
+comment|// required int64 expectedTimeout = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|EXPECTEDTIME_FIELD_NUMBER
+name|EXPECTEDTIMEOUT_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
 specifier|private
 name|long
-name|expectedTime_
+name|expectedTimeout_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasExpectedTime
+name|hasExpectedTimeout
 parameter_list|()
 block|{
 return|return
@@ -93200,11 +93200,11 @@ return|;
 block|}
 specifier|public
 name|long
-name|getExpectedTime
+name|getExpectedTimeout
 parameter_list|()
 block|{
 return|return
-name|expectedTime_
+name|expectedTimeout_
 return|;
 block|}
 specifier|private
@@ -93212,7 +93212,7 @@ name|void
 name|initFields
 parameter_list|()
 block|{
-name|expectedTime_
+name|expectedTimeout_
 operator|=
 literal|0L
 expr_stmt|;
@@ -93250,7 +93250,7 @@ return|;
 if|if
 condition|(
 operator|!
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 condition|)
 block|{
@@ -93312,7 +93312,7 @@ name|writeInt64
 argument_list|(
 literal|1
 argument_list|,
-name|expectedTime_
+name|expectedTimeout_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93383,7 +93383,7 @@ name|computeInt64Size
 argument_list|(
 literal|1
 argument_list|,
-name|expectedTime_
+name|expectedTimeout_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93548,18 +93548,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 condition|)
 block|{
@@ -93568,12 +93568,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getExpectedTime
+name|getExpectedTimeout
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getExpectedTime
+name|getExpectedTimeout
 argument_list|()
 operator|)
 expr_stmt|;
@@ -93629,7 +93629,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 condition|)
 block|{
@@ -93641,7 +93641,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|EXPECTEDTIME_FIELD_NUMBER
+name|EXPECTEDTIMEOUT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -93653,7 +93653,7 @@ operator|)
 operator|+
 name|hashLong
 argument_list|(
-name|getExpectedTime
+name|getExpectedTimeout
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -94503,7 +94503,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|expectedTime_
+name|expectedTimeout_
 operator|=
 literal|0L
 expr_stmt|;
@@ -94825,9 +94825,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|expectedTime_
+name|expectedTimeout_
 operator|=
-name|expectedTime_
+name|expectedTimeout_
 expr_stmt|;
 name|result
 operator|.
@@ -94967,15 +94967,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 condition|)
 block|{
-name|setExpectedTime
+name|setExpectedTimeout
 argument_list|(
 name|other
 operator|.
-name|getExpectedTime
+name|getExpectedTimeout
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -95003,7 +95003,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|hasExpectedTime
+name|hasExpectedTimeout
 argument_list|()
 condition|)
 block|{
@@ -95152,7 +95152,7 @@ name|bitField0_
 operator||=
 literal|0x00000001
 expr_stmt|;
-name|expectedTime_
+name|expectedTimeout_
 operator|=
 name|input
 operator|.
@@ -95168,14 +95168,14 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 expectedTime = 1;
+comment|// required int64 expectedTimeout = 1;
 specifier|private
 name|long
-name|expectedTime_
+name|expectedTimeout_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasExpectedTime
+name|hasExpectedTimeout
 parameter_list|()
 block|{
 return|return
@@ -95192,16 +95192,16 @@ return|;
 block|}
 specifier|public
 name|long
-name|getExpectedTime
+name|getExpectedTimeout
 parameter_list|()
 block|{
 return|return
-name|expectedTime_
+name|expectedTimeout_
 return|;
 block|}
 specifier|public
 name|Builder
-name|setExpectedTime
+name|setExpectedTimeout
 parameter_list|(
 name|long
 name|value
@@ -95211,7 +95211,7 @@ name|bitField0_
 operator||=
 literal|0x00000001
 expr_stmt|;
-name|expectedTime_
+name|expectedTimeout_
 operator|=
 name|value
 expr_stmt|;
@@ -95224,7 +95224,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearExpectedTime
+name|clearExpectedTimeout
 parameter_list|()
 block|{
 name|bitField0_
@@ -95236,7 +95236,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|expectedTime_
+name|expectedTimeout_
 operator|=
 literal|0L
 expr_stmt|;
@@ -131175,105 +131175,107 @@ literal|"EnabledResponse\022\r\n\005value\030\001 \002(\010\"=\n\023TakeSn"
 operator|+
 literal|"apshotRequest\022&\n\010snapshot\030\001 \002(\0132\024.Snapsh"
 operator|+
-literal|"otDescription\",\n\024TakeSnapshotResponse\022\024\n"
+literal|"otDescription\"/\n\024TakeSnapshotResponse\022\027\n"
 operator|+
-literal|"\014expectedTime\030\001 \002(\003\"\025\n\023ListSnapshotReque"
+literal|"\017expectedTimeout\030\001 \002(\003\"\025\n\023ListSnapshotRe"
 operator|+
-literal|"st\"?\n\024ListSnapshotResponse\022\'\n\tsnapshots\030"
+literal|"quest\"?\n\024ListSnapshotResponse\022\'\n\tsnapsho"
 operator|+
-literal|"\001 \003(\0132\024.SnapshotDescription\"?\n\025DeleteSna"
+literal|"ts\030\001 \003(\0132\024.SnapshotDescription\"?\n\025Delete"
 operator|+
-literal|"pshotRequest\022&\n\010snapshot\030\001 \002(\0132\024.Snapsho"
+literal|"SnapshotRequest\022&\n\010snapshot\030\001 \002(\0132\024.Snap"
 operator|+
-literal|"tDescription\"\030\n\026DeleteSnapshotResponse\"?"
+literal|"shotDescription\"\030\n\026DeleteSnapshotRespons"
 operator|+
-literal|"\n\025IsSnapshotDoneRequest\022&\n\010snapshot\030\001 \001("
+literal|"e\"?\n\025IsSnapshotDoneRequest\022&\n\010snapshot\030\001"
 operator|+
-literal|"\0132\024.SnapshotDescription\"U\n\026IsSnapshotDon"
+literal|" \001(\0132\024.SnapshotDescription\"U\n\026IsSnapshot"
 block|,
-literal|"eResponse\022\023\n\004done\030\001 \001(\010:\005false\022&\n\010snapsh"
+literal|"DoneResponse\022\023\n\004done\030\001 \001(\010:\005false\022&\n\010sna"
 operator|+
-literal|"ot\030\002 \001(\0132\024.SnapshotDescription2\376\013\n\022Maste"
+literal|"pshot\030\002 \001(\0132\024.SnapshotDescription2\376\013\n\022Ma"
 operator|+
-literal|"rAdminService\0222\n\taddColumn\022\021.AddColumnRe"
+literal|"sterAdminService\0222\n\taddColumn\022\021.AddColum"
 operator|+
-literal|"quest\032\022.AddColumnResponse\022;\n\014deleteColum"
+literal|"nRequest\032\022.AddColumnResponse\022;\n\014deleteCo"
 operator|+
-literal|"n\022\024.DeleteColumnRequest\032\025.DeleteColumnRe"
+literal|"lumn\022\024.DeleteColumnRequest\032\025.DeleteColum"
 operator|+
-literal|"sponse\022;\n\014modifyColumn\022\024.ModifyColumnReq"
+literal|"nResponse\022;\n\014modifyColumn\022\024.ModifyColumn"
 operator|+
-literal|"uest\032\025.ModifyColumnResponse\0225\n\nmoveRegio"
+literal|"Request\032\025.ModifyColumnResponse\0225\n\nmoveRe"
 operator|+
-literal|"n\022\022.MoveRegionRequest\032\023.MoveRegionRespon"
+literal|"gion\022\022.MoveRegionRequest\032\023.MoveRegionRes"
 operator|+
-literal|"se\022;\n\014assignRegion\022\024.AssignRegionRequest"
+literal|"ponse\022;\n\014assignRegion\022\024.AssignRegionRequ"
 operator|+
-literal|"\032\025.AssignRegionResponse\022A\n\016unassignRegio"
+literal|"est\032\025.AssignRegionResponse\022A\n\016unassignRe"
 block|,
-literal|"n\022\026.UnassignRegionRequest\032\027.UnassignRegi"
+literal|"gion\022\026.UnassignRegionRequest\032\027.UnassignR"
 operator|+
-literal|"onResponse\022>\n\rofflineRegion\022\025.OfflineReg"
+literal|"egionResponse\022>\n\rofflineRegion\022\025.Offline"
 operator|+
-literal|"ionRequest\032\026.OfflineRegionResponse\0228\n\013de"
+literal|"RegionRequest\032\026.OfflineRegionResponse\0228\n"
 operator|+
-literal|"leteTable\022\023.DeleteTableRequest\032\024.DeleteT"
+literal|"\013deleteTable\022\023.DeleteTableRequest\032\024.Dele"
 operator|+
-literal|"ableResponse\0228\n\013enableTable\022\023.EnableTabl"
+literal|"teTableResponse\0228\n\013enableTable\022\023.EnableT"
 operator|+
-literal|"eRequest\032\024.EnableTableResponse\022;\n\014disabl"
+literal|"ableRequest\032\024.EnableTableResponse\022;\n\014dis"
 operator|+
-literal|"eTable\022\024.DisableTableRequest\032\025.DisableTa"
+literal|"ableTable\022\024.DisableTableRequest\032\025.Disabl"
 operator|+
-literal|"bleResponse\0228\n\013modifyTable\022\023.ModifyTable"
+literal|"eTableResponse\0228\n\013modifyTable\022\023.ModifyTa"
 operator|+
-literal|"Request\032\024.ModifyTableResponse\0228\n\013createT"
+literal|"bleRequest\032\024.ModifyTableResponse\0228\n\013crea"
 operator|+
-literal|"able\022\023.CreateTableRequest\032\024.CreateTableR"
+literal|"teTable\022\023.CreateTableRequest\032\024.CreateTab"
 block|,
-literal|"esponse\022/\n\010shutdown\022\020.ShutdownRequest\032\021."
+literal|"leResponse\022/\n\010shutdown\022\020.ShutdownRequest"
 operator|+
-literal|"ShutdownResponse\0225\n\nstopMaster\022\022.StopMas"
+literal|"\032\021.ShutdownResponse\0225\n\nstopMaster\022\022.Stop"
 operator|+
-literal|"terRequest\032\023.StopMasterResponse\022,\n\007balan"
+literal|"MasterRequest\032\023.StopMasterResponse\022,\n\007ba"
 operator|+
-literal|"ce\022\017.BalanceRequest\032\020.BalanceResponse\022M\n"
+literal|"lance\022\017.BalanceRequest\032\020.BalanceResponse"
 operator|+
-literal|"\022setBalancerRunning\022\032.SetBalancerRunning"
+literal|"\022M\n\022setBalancerRunning\022\032.SetBalancerRunn"
 operator|+
-literal|"Request\032\033.SetBalancerRunningResponse\022;\n\016"
+literal|"ingRequest\032\033.SetBalancerRunningResponse\022"
 operator|+
-literal|"runCatalogScan\022\023.CatalogScanRequest\032\024.Ca"
+literal|";\n\016runCatalogScan\022\023.CatalogScanRequest\032\024"
 operator|+
-literal|"talogScanResponse\022S\n\024enableCatalogJanito"
+literal|".CatalogScanResponse\022S\n\024enableCatalogJan"
 operator|+
-literal|"r\022\034.EnableCatalogJanitorRequest\032\035.Enable"
+literal|"itor\022\034.EnableCatalogJanitorRequest\032\035.Ena"
 operator|+
-literal|"CatalogJanitorResponse\022\\\n\027isCatalogJanit"
+literal|"bleCatalogJanitorResponse\022\\\n\027isCatalogJa"
 block|,
-literal|"orEnabled\022\037.IsCatalogJanitorEnabledReque"
+literal|"nitorEnabled\022\037.IsCatalogJanitorEnabledRe"
 operator|+
-literal|"st\032 .IsCatalogJanitorEnabledResponse\022L\n\021"
+literal|"quest\032 .IsCatalogJanitorEnabledResponse\022"
 operator|+
-literal|"execMasterService\022\032.CoprocessorServiceRe"
+literal|"L\n\021execMasterService\022\032.CoprocessorServic"
 operator|+
-literal|"quest\032\033.CoprocessorServiceResponse\0227\n\010sn"
+literal|"eRequest\032\033.CoprocessorServiceResponse\0227\n"
 operator|+
-literal|"apshot\022\024.TakeSnapshotRequest\032\025.TakeSnaps"
+literal|"\010snapshot\022\024.TakeSnapshotRequest\032\025.TakeSn"
 operator|+
-literal|"hotResponse\022<\n\rlistSnapshots\022\024.ListSnaps"
+literal|"apshotResponse\022<\n\rlistSnapshots\022\024.ListSn"
 operator|+
-literal|"hotRequest\032\025.ListSnapshotResponse\022A\n\016del"
+literal|"apshotRequest\032\025.ListSnapshotResponse\022A\n\016"
 operator|+
-literal|"eteSnapshot\022\026.DeleteSnapshotRequest\032\027.De"
+literal|"deleteSnapshot\022\026.DeleteSnapshotRequest\032\027"
 operator|+
-literal|"leteSnapshotResponse\022A\n\016isSnapshotDone\022\026"
+literal|".DeleteSnapshotResponse\022A\n\016isSnapshotDon"
 operator|+
-literal|".IsSnapshotDoneRequest\032\027.IsSnapshotDoneR"
+literal|"e\022\026.IsSnapshotDoneRequest\032\027.IsSnapshotDo"
 block|,
-literal|"esponseBG\n*org.apache.hadoop.hbase.proto"
+literal|"neResponseBG\n*org.apache.hadoop.hbase.pr"
 operator|+
-literal|"buf.generatedB\021MasterAdminProtosH\001\210\001\001\240\001\001"
+literal|"otobuf.generatedB\021MasterAdminProtosH\001\210\001\001"
+operator|+
+literal|"\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -134385,7 +134387,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"ExpectedTime"
+literal|"ExpectedTimeout"
 block|, }
 argument_list|,
 name|org
