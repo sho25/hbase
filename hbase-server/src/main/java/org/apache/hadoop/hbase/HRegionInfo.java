@@ -499,6 +499,15 @@ name|MD5_HEX_LENGTH
 init|=
 literal|32
 decl_stmt|;
+comment|/** A non-capture group so that this can be embedded. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENCODED_REGION_NAME_REGEX
+init|=
+literal|"(?:[a-f0-9]+)"
+decl_stmt|;
 comment|/**    * Does region name contain its encoded name?    * @param regionName region name    * @return boolean indicating if this a new format region    *         name which contains its encoded name.    */
 specifier|private
 specifier|static

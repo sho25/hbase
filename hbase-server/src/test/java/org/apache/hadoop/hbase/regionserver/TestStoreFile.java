@@ -773,7 +773,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// Make up a directory hierarchy that has a regiondir and familyname.
+comment|// Make up a directory hierarchy that has a regiondir ("7e0102") and familyname.
 name|Path
 name|outputDir
 init|=
@@ -787,7 +787,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|"regionname"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 literal|"familyname"
@@ -1036,6 +1036,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// Make up a directory hierarchy that has a regiondir ("7e0102") and familyname.
 name|Path
 name|storedir
 init|=
@@ -1049,21 +1050,10 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|"regionname"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 literal|"familyname"
-argument_list|)
-decl_stmt|;
-name|Path
-name|dir
-init|=
-operator|new
-name|Path
-argument_list|(
-name|storedir
-argument_list|,
-literal|"1234567890"
 argument_list|)
 decl_stmt|;
 comment|// Make a store file and write data to it.
@@ -1092,7 +1082,7 @@ argument_list|)
 operator|.
 name|withOutputDir
 argument_list|(
-name|dir
+name|storedir
 argument_list|)
 operator|.
 name|build
@@ -1199,7 +1189,7 @@ name|split
 argument_list|(
 name|fs
 argument_list|,
-name|dir
+name|storedir
 argument_list|,
 name|hsf
 argument_list|,
@@ -1627,88 +1617,104 @@ block|}
 comment|/**    * Validate that we can handle valid tables with '.', '_', and '-' chars.    */
 specifier|public
 name|void
-name|testRefToHFileRegex
+name|testStoreFileNames
 parameter_list|()
 block|{
 name|String
 index|[]
-name|legal
+name|legalHFileLink
 init|=
 block|{
-literal|"aaaa-bbbb-tablename.cccc"
+literal|"MyTable_02=abc012-def345"
 block|,
-literal|"aaaa-bbbb-table.with.dots.cccc"
+literal|"MyTable_02.300=abc012-def345"
 block|,
-literal|"aaaa-bbbb-table-with-dashes.cccc"
+literal|"MyTable_02-400=abc012-def345"
 block|,
-literal|"aaaa-bbbb-table_with_unders.cccc"
+literal|"MyTable_02-400.200=abc012-def345"
 block|,
-literal|"aaaa-bbbb-_table_starts_unders.cccc"
+literal|"MyTable_02=abc012-def345_SeqId_1_"
+block|,
+literal|"MyTable_02=abc012-def345_SeqId_20_"
 block|}
 decl_stmt|;
 for|for
 control|(
 name|String
-name|refToHFile
+name|name
 range|:
-name|legal
+name|legalHFileLink
 control|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Validating regex for '"
-operator|+
-name|refToHFile
-operator|+
-literal|"'"
-argument_list|)
-expr_stmt|;
 name|assertTrue
 argument_list|(
-name|Pattern
+literal|"should be a valid link: "
+operator|+
+name|name
+argument_list|,
+name|HFileLink
 operator|.
-name|matches
+name|isHFileLink
 argument_list|(
+name|name
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|String
+name|refName
+init|=
+name|name
+operator|+
+literal|".6789"
+decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"should be a valid link reference: "
+operator|+
+name|refName
+argument_list|,
 name|StoreFile
 operator|.
-name|REF_TO_LINK_REGEX
-argument_list|,
-name|refToHFile
+name|isReference
+argument_list|(
+name|refName
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 name|String
 index|[]
-name|illegal
+name|illegalHFileLink
 init|=
 block|{
-literal|"aaaa-bbbb--flkaj.cccc"
+literal|".MyTable_02=abc012-def345"
 block|,
-literal|"aaaa-bbbb-.flkaj.cccc"
+literal|"-MyTable_02.300=abc012-def345"
+block|,
+literal|"MyTable_02-400=abc0_12-def345"
+block|,
+literal|"MyTable_02-400.200=abc012-def345...."
 block|}
 decl_stmt|;
 for|for
 control|(
 name|String
-name|bad
+name|name
 range|:
-name|illegal
+name|illegalHFileLink
 control|)
 block|{
 name|assertFalse
 argument_list|(
-name|Pattern
-operator|.
-name|matches
-argument_list|(
-name|StoreFile
-operator|.
-name|REF_TO_LINK_REGEX
+literal|"should not be a valid link: "
+operator|+
+name|name
 argument_list|,
-name|bad
+name|HFileLink
+operator|.
+name|isHFileLink
+argument_list|(
+name|name
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1860,7 +1866,7 @@ name|Path
 argument_list|(
 name|target
 argument_list|,
-literal|"region"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 name|columnFamily
@@ -1927,7 +1933,7 @@ name|Path
 argument_list|(
 name|target
 argument_list|,
-literal|"splitA"
+literal|"571A"
 argument_list|)
 argument_list|)
 argument_list|,
@@ -1950,7 +1956,7 @@ name|Path
 argument_list|(
 name|target
 argument_list|,
-literal|"splitB"
+literal|"571B"
 argument_list|)
 argument_list|)
 argument_list|,
@@ -5977,6 +5983,7 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+comment|// Make up a directory hierarchy that has a regiondir ("7e0102") and familyname.
 name|Path
 name|storedir
 init|=
@@ -5990,7 +5997,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|"regionname"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 literal|"familyname"
@@ -6305,7 +6312,7 @@ name|this
 operator|.
 name|conf
 decl_stmt|;
-comment|// Find a home for our files
+comment|// Find a home for our files (regiondir ("7e0102") and familyname).
 name|Path
 name|baseDir
 init|=
@@ -6319,7 +6326,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|"regionname"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 literal|"twoCOWEOC"
@@ -7452,6 +7459,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// Make up a directory hierarchy that has a regiondir ("7e0102") and familyname.
 name|Path
 name|dir
 init|=
@@ -7465,7 +7473,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|"regionname"
+literal|"7e0102"
 argument_list|)
 argument_list|,
 literal|"familyname"
