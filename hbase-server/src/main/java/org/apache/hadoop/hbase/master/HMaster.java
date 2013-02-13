@@ -4892,6 +4892,11 @@ operator|.
 name|executorService
 argument_list|)
 expr_stmt|;
+name|snapshotManager
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 block|}
 end_function
 

@@ -534,6 +534,54 @@ name|getRootDir
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Start running the manager.    *<p>    *<ol>    *<li>Cleans up any snapshots in the snapshot/.tmp directory that were left from failed    * snapshot/export attempts</li>    *</ol>    * @throws IOException if we can't reach the filesystem    */
+specifier|public
+name|void
+name|start
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// cleanup any existing snapshots.
+name|Path
+name|tmpdir
+init|=
+name|SnapshotDescriptionUtils
+operator|.
+name|getWorkingSnapshotDir
+argument_list|(
+name|rootDir
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|master
+operator|.
+name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
+argument_list|()
+operator|.
+name|delete
+argument_list|(
+name|tmpdir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Couldn't delete working snapshot directory: "
+operator|+
+name|tmpdir
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/**    * @return<tt>true</tt> if there is a snapshot currently being taken,<tt>false</tt> otherwise    */
 specifier|public
 name|boolean
