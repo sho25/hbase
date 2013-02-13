@@ -306,8 +306,22 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// This gets the stack where this is caused, (instead of where it was deserialized).
+comment|// This which is much more useful for debugging
 throw|throw
+operator|new
+name|ForeignException
+argument_list|(
 name|exception
+operator|.
+name|getSource
+argument_list|()
+argument_list|,
+name|exception
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
 throw|;
 block|}
 block|}
