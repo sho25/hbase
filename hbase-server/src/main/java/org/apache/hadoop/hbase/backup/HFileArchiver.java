@@ -401,6 +401,15 @@ name|SEPARATOR
 init|=
 literal|"."
 decl_stmt|;
+comment|/** Number of retries in case of fs operation failure */
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_RETRIES_NUMBER
+init|=
+literal|6
+decl_stmt|;
 specifier|private
 name|HFileArchiver
 parameter_list|()
@@ -762,6 +771,17 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed to archive: "
+operator|+
+name|toArchive
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|success
 operator|=
 literal|false
@@ -797,7 +817,7 @@ literal|"Received error when attempting to archive files ("
 operator|+
 name|toArchive
 operator|+
-literal|"), cannot delete region directory."
+literal|"), cannot delete region directory. "
 argument_list|)
 throw|;
 block|}
@@ -1373,7 +1393,9 @@ argument_list|,
 name|start
 argument_list|)
 decl_stmt|;
-comment|// clean out the failures by just deleting them
+comment|// notify that some files were not archived.
+comment|// We can't delete the files otherwise snapshots or other backup system
+comment|// that relies on the archiver end up with data loss.
 if|if
 condition|(
 name|failures
@@ -1384,37 +1406,17 @@ operator|>
 literal|0
 condition|)
 block|{
-try|try
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed to complete archive, deleting extra store files."
-argument_list|)
-expr_stmt|;
-name|deleteFilesWithoutArchiving
-argument_list|(
-name|failures
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to delete store file(s) when archiving failed"
-argument_list|,
-name|e
+literal|"Failed to complete archive of: "
+operator|+
+name|failures
+operator|+
+literal|". Those files are still in the original location, and they may slow down reads."
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -1842,7 +1844,7 @@ literal|") or rename it to the backup file ("
 operator|+
 name|backedupArchiveFile
 operator|+
-literal|")to make room for similarly named file."
+literal|") to make room for similarly named file."
 argument_list|)
 throw|;
 block|}
@@ -1869,14 +1871,137 @@ literal|", free to archive original file."
 argument_list|)
 expr_stmt|;
 comment|// at this point, we should have a free spot for the archive file
+name|boolean
+name|success
+init|=
+literal|false
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+operator|!
+name|success
+operator|&&
+name|i
+operator|<
+name|DEFAULT_RETRIES_NUMBER
+condition|;
+operator|++
+name|i
+control|)
+block|{
 if|if
 condition|(
+name|i
+operator|>
+literal|0
+condition|)
+block|{
+comment|// Ensure that the archive directory exists.
+comment|// The previous "move to archive" operation has failed probably because
+comment|// the cleaner has removed our archive directory (HBASE-7643).
+comment|// (we're in a retry loop, so don't worry too much about the exception)
+try|try
+block|{
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|archiveDir
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|archiveDir
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Created archive directory:"
+operator|+
+name|archiveDir
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to create the archive directory: "
+operator|+
+name|archiveDir
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+try|try
+block|{
+name|success
+operator|=
 name|currentFile
 operator|.
 name|moveAndClose
 argument_list|(
 name|archiveFile
 argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to archive file: "
+operator|+
+name|currentFile
+operator|+
+literal|" on try #"
+operator|+
+name|i
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|success
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|success
 condition|)
 block|{
 name|LOG
@@ -1892,7 +2017,6 @@ return|return
 literal|false
 return|;
 block|}
-elseif|else
 if|if
 condition|(
 name|LOG
@@ -2399,7 +2523,6 @@ name|getPath
 argument_list|()
 decl_stmt|;
 return|return
-operator|!
 name|fs
 operator|.
 name|rename
