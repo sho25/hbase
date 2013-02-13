@@ -71,7 +71,7 @@ name|UnknownSnapshotException
 extends|extends
 name|HBaseSnapshotException
 block|{
-comment|/**    * @param msg full infomration about the failure    */
+comment|/**    * @param msg full information about the failure    */
 specifier|public
 name|UnknownSnapshotException
 parameter_list|(
@@ -82,6 +82,24 @@ block|{
 name|super
 argument_list|(
 name|msg
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|UnknownSnapshotException
+parameter_list|(
+name|String
+name|msg
+parameter_list|,
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|msg
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}

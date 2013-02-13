@@ -10984,7 +10984,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Replaces any KV timestamps set to {@link HConstants#LATEST_TIMESTAMP}    * with the provided current timestamp.    */
+comment|/**    * Replaces any KV timestamps set to {@link HConstants#LATEST_TIMESTAMP} with the provided current    * timestamp.    */
 name|void
 name|updateKVTimestamps
 parameter_list|(

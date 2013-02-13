@@ -55,7 +55,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Stoppable
+name|errorhandling
+operator|.
+name|ForeignException
 import|;
 end_import
 
@@ -79,24 +81,6 @@ name|SnapshotDescription
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|snapshot
-operator|.
-name|exception
-operator|.
-name|HBaseSnapshotException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Watch the current snapshot under process  */
 end_comment
@@ -113,8 +97,6 @@ name|Unstable
 specifier|public
 interface|interface
 name|SnapshotSentinel
-extends|extends
-name|Stoppable
 block|{
 comment|/**    * Check to see if the snapshot is finished, where finished may be success or failure.    * @return<tt>false</tt> if the snapshot is still in progress,<tt>true</tt> if the snapshot has    *         finished    */
 specifier|public
@@ -122,15 +104,24 @@ name|boolean
 name|isFinished
 parameter_list|()
 function_decl|;
+comment|/**    * Actively cancel a running snapshot.    * @param why Reason for cancellation.    */
+specifier|public
+name|void
+name|cancel
+parameter_list|(
+name|String
+name|why
+parameter_list|)
+function_decl|;
 comment|/**    * @return the description of the snapshot being run    */
 specifier|public
 name|SnapshotDescription
 name|getSnapshot
 parameter_list|()
 function_decl|;
-comment|/**    * Get the exception that caused the snapshot to fail, if the snapshot has failed.    * @return<tt>null</tt> if the snapshot succeeded, or the {@link HBaseSnapshotException} that    *         caused the snapshot to fail.    */
+comment|/**    * Get the exception that caused the snapshot to fail, if the snapshot has failed.    * @return {@link ForeignException} that caused the snapshot to fail, or<tt>null</tt> if the    *  snapshot is still in progress or has succeeded    */
 specifier|public
-name|HBaseSnapshotException
+name|ForeignException
 name|getExceptionIfFailed
 parameter_list|()
 function_decl|;

@@ -115,7 +115,14 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"Snapshot doesn't exist on the filesystem"
+literal|"Snapshot '"
+operator|+
+name|desc
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"' doesn't exist on the filesystem"
 argument_list|,
 name|desc
 argument_list|)

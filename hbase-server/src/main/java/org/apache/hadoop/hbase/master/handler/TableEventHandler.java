@@ -1072,8 +1072,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return Table descriptor for this table    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
-specifier|protected
+comment|/**    * Gets a TableDescriptor from the masterServices.  Can Throw exceptions.    *    * @return Table descriptor for this table    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
+specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()

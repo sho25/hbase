@@ -177,12 +177,6 @@ specifier|final
 name|String
 name|source
 decl_stmt|;
-comment|/**    * Name of the original throwable's class.  Must be non-null.    */
-specifier|private
-specifier|final
-name|String
-name|clazz
-decl_stmt|;
 comment|/**    * Create a new ForeignException that can be serialized.   It is assumed that this came from a    * remote source.    * @param source    * @param cause    */
 specifier|private
 name|ForeignException
@@ -223,12 +217,6 @@ name|source
 operator|=
 name|source
 expr_stmt|;
-name|this
-operator|.
-name|clazz
-operator|=
-name|clazz
-expr_stmt|;
 block|}
 comment|/**    * Create a new ForeignException that can be serialized.  It is assumed that this came form a    * local source.    * @param source    * @param cause    */
 specifier|public
@@ -262,19 +250,6 @@ name|source
 operator|=
 name|source
 expr_stmt|;
-name|this
-operator|.
-name|clazz
-operator|=
-name|getCause
-argument_list|()
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Create a new ForeignException that can be serialized.  It is assumed that this is locally    * generated.    * @param source    * @param msg    */
 specifier|public
@@ -302,19 +277,6 @@ name|source
 operator|=
 name|source
 expr_stmt|;
-name|this
-operator|.
-name|clazz
-operator|=
-name|getCause
-argument_list|()
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-expr_stmt|;
 block|}
 specifier|public
 name|String
@@ -323,15 +285,6 @@ parameter_list|()
 block|{
 return|return
 name|source
-return|;
-block|}
-specifier|public
-name|String
-name|getSourceClass
-parameter_list|()
-block|{
-return|return
-name|clazz
 return|;
 block|}
 comment|/**    * The cause of a ForeignException can be an exception that was generated on a local in process    * thread, or a thread from a 'remote' separate process.    *    * If the cause is a ProxyThrowable, we know it came from deserialization which usually means    * it came from not only another thread, but also from a remote thread.    *    * @return true if went through deserialization, false if locally generated    */
@@ -354,8 +307,20 @@ name|String
 name|toString
 parameter_list|()
 block|{
+name|String
+name|className
+init|=
+name|getCause
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 return|return
-name|clazz
+name|className
 operator|+
 literal|" via "
 operator|+

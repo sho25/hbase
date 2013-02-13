@@ -129,6 +129,25 @@ name|snapshot
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param message message describing the exception    */
+specifier|public
+name|CorruptedSnapshotException
+parameter_list|(
+name|String
+name|message
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+operator|(
+name|SnapshotDescription
+operator|)
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

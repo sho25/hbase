@@ -23,16 +23,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -139,13 +129,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|errorhandling
 operator|.
-name|generated
-operator|.
-name|HBaseProtos
-operator|.
-name|SnapshotDescription
+name|ForeignExceptionDispatcher
 import|;
 end_import
 
@@ -159,13 +145,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|server
+name|protobuf
 operator|.
-name|snapshot
+name|generated
 operator|.
-name|error
+name|HBaseProtos
 operator|.
-name|SnapshotExceptionSnare
+name|SnapshotDescription
 import|;
 end_import
 
@@ -261,12 +247,12 @@ specifier|final
 name|Path
 name|rootDir
 decl_stmt|;
-comment|/**    * Copy the table info for the given table into the snapshot    * @param failureListener listen for errors while running the snapshot    * @param snapshot snapshot for which we are copying the table info    * @param fs {@link FileSystem} where the tableinfo is stored (and where the copy will be written)    * @param rootDir root of the {@link FileSystem} where the tableinfo is stored    */
+comment|/**    * Copy the table info for the given table into the snapshot    * @param monitor listen for errors while running the snapshot    * @param snapshot snapshot for which we are copying the table info    * @param fs {@link FileSystem} where the tableinfo is stored (and where the copy will be written)    * @param rootDir root of the {@link FileSystem} where the tableinfo is stored    */
 specifier|public
 name|TableInfoCopyTask
 parameter_list|(
-name|SnapshotExceptionSnare
-name|failureListener
+name|ForeignExceptionDispatcher
+name|monitor
 parameter_list|,
 name|SnapshotDescription
 name|snapshot
@@ -282,14 +268,7 @@ name|super
 argument_list|(
 name|snapshot
 argument_list|,
-name|failureListener
-argument_list|,
-literal|"Copy table info for table: "
-operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|monitor
 argument_list|)
 expr_stmt|;
 name|this
@@ -308,11 +287,11 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
-name|process
+name|Void
+name|call
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|LOG
 operator|.
@@ -323,7 +302,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|failOnError
+name|rethrowException
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -364,7 +343,7 @@ argument_list|)
 decl_stmt|;
 name|this
 operator|.
-name|failOnError
+name|rethrowException
 argument_list|()
 expr_stmt|;
 comment|// write a copy of descriptor to the snapshot directory
@@ -400,6 +379,9 @@ argument_list|(
 literal|"Finished copying tableinfo."
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 block|}
 end_class

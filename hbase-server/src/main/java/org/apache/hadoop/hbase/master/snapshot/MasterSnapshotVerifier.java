@@ -703,6 +703,27 @@ range|:
 name|regions
 control|)
 block|{
+comment|// if offline split parent, skip it
+if|if
+condition|(
+name|region
+operator|.
+name|isOffline
+argument_list|()
+operator|||
+name|region
+operator|.
+name|isSplit
+argument_list|()
+operator|||
+name|region
+operator|.
+name|isSplitParent
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
 name|verifyRegion
 argument_list|(
 name|fs

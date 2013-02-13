@@ -163,6 +163,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|errorhandling
+operator|.
+name|ForeignException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|errorhandling
+operator|.
+name|ForeignExceptionDispatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -188,26 +220,6 @@ operator|.
 name|snapshot
 operator|.
 name|TakeSnapshotUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|server
-operator|.
-name|snapshot
-operator|.
-name|error
-operator|.
-name|SnapshotExceptionSnare
 import|;
 end_import
 
@@ -277,7 +289,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// XXX does this need to be HasThread?
 specifier|private
 specifier|final
 name|FileSystem
@@ -297,14 +308,14 @@ specifier|private
 name|Path
 name|logDir
 decl_stmt|;
-comment|/**    * @param snapshot snapshot being run    * @param failureListener listener to check for errors while running the operation and to    *          propagate errors found while running the task    * @param logDir log directory for the server. Name of the directory is taken as the name of the    *          server    * @param conf {@link Configuration} to extract fileystem information    * @param fs filesystem where the log files are stored and should be referenced    * @throws IOException    */
+comment|/**    * @param snapshot snapshot being run    * @param failureListener listener to check for errors while running the operation and to    *          propagate errors found while running the task    * @param logDir log directory for the server. Name of the directory is taken as the name of the    *          server    * @param conf {@link Configuration} to extract filesystem information    * @param fs filesystem where the log files are stored and should be referenced    */
 specifier|public
 name|ReferenceServerWALsTask
 parameter_list|(
 name|SnapshotDescription
 name|snapshot
 parameter_list|,
-name|SnapshotExceptionSnare
+name|ForeignExceptionDispatcher
 name|failureListener
 parameter_list|,
 specifier|final
@@ -319,21 +330,12 @@ specifier|final
 name|FileSystem
 name|fs
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(
 name|snapshot
 argument_list|,
 name|failureListener
-argument_list|,
-literal|"Reference WALs for server:"
-operator|+
-name|logDir
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -364,14 +366,17 @@ operator|=
 name|logDir
 expr_stmt|;
 block|}
+comment|/**    * Create reference files (empty files with the same path and file name as original).    * @throws IOException exception from hdfs or network problems    * @throws ForeignException exception from an external procedure    */
 annotation|@
 name|Override
 specifier|public
-name|void
-name|process
+name|Void
+name|call
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|ForeignException
 block|{
 comment|// TODO switch to using a single file to reference all required WAL files
 comment|// Iterate through each of the log files and add a reference to it.
@@ -439,13 +444,10 @@ control|)
 block|{
 name|this
 operator|.
-name|failOnError
+name|rethrowException
 argument_list|()
 expr_stmt|;
-comment|// TODO - switch to using MonitoredTask
-comment|// add the reference to the file
-comment|// 0. Build a reference path based on the file name
-comment|// get the current snapshot directory
+comment|// add the reference to the file. ex: hbase/.snapshots/.logs/<serverName>/<hlog>
 name|Path
 name|rootDir
 init|=
@@ -560,6 +562,9 @@ argument_list|(
 literal|"Successfully completed WAL referencing for ALL files"
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 block|}
 end_class

@@ -163,6 +163,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|errorhandling
+operator|.
+name|ForeignExceptionDispatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -188,26 +204,6 @@ operator|.
 name|wal
 operator|.
 name|HLogUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|server
-operator|.
-name|snapshot
-operator|.
-name|error
-operator|.
-name|SnapshotExceptionSnare
 import|;
 end_import
 
@@ -267,7 +263,7 @@ parameter_list|(
 name|SnapshotDescription
 name|snapshot
 parameter_list|,
-name|SnapshotExceptionSnare
+name|ForeignExceptionDispatcher
 name|monitor
 parameter_list|,
 name|FileSystem
@@ -285,13 +281,6 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|monitor
-argument_list|,
-literal|"Copy recovered.edits for region:"
-operator|+
-name|regionDir
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -321,8 +310,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
-name|process
+name|Void
+name|call
 parameter_list|()
 throws|throws
 name|IOException
@@ -357,7 +346,9 @@ argument_list|()
 operator|==
 literal|0
 condition|)
-return|return;
+return|return
+literal|null
+return|;
 comment|// copy over each file.
 comment|// this is really inefficient (could be trivially parallelized), but is
 comment|// really simple to reason about.
@@ -441,10 +432,13 @@ expr_stmt|;
 comment|// check for errors to the running operation after each file
 name|this
 operator|.
-name|failOnError
+name|rethrowException
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+literal|null
+return|;
 block|}
 block|}
 end_class

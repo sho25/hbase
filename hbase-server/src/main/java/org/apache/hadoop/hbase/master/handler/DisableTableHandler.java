@@ -1045,6 +1045,19 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Disable waiting until done; "
+operator|+
+name|remaining
+operator|+
+literal|" ms remaining; "
+operator|+
+name|regions
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|regions

@@ -135,6 +135,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|errorhandling
+operator|.
+name|ForeignExceptionDispatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -160,26 +176,6 @@ operator|.
 name|snapshot
 operator|.
 name|TakeSnapshotUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|server
-operator|.
-name|snapshot
-operator|.
-name|error
-operator|.
-name|SnapshotExceptionSnare
 import|;
 end_import
 
@@ -253,7 +249,7 @@ specifier|final
 name|SnapshotDescription
 name|snapshot
 parameter_list|,
-name|SnapshotExceptionSnare
+name|ForeignExceptionDispatcher
 name|monitor
 parameter_list|,
 name|Path
@@ -272,13 +268,6 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|monitor
-argument_list|,
-literal|"Reference hfiles for region:"
-operator|+
-name|regionDir
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -367,8 +356,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
-name|process
+name|Void
+name|call
 parameter_list|()
 throws|throws
 name|IOException
@@ -419,7 +408,9 @@ operator|+
 literal|", not attempting to add references."
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|null
+return|;
 block|}
 comment|// snapshot directories to store the hfile reference
 name|List
@@ -551,6 +542,7 @@ range|:
 name|hfiles
 control|)
 block|{
+comment|// references are 0-length files, relying on file name.
 name|Path
 name|referenceFile
 init|=
@@ -652,6 +644,9 @@ name|LOG
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+literal|null
+return|;
 block|}
 block|}
 end_class

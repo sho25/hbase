@@ -100,7 +100,6 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
-specifier|abstract
 class|class
 name|HBaseSnapshotException
 extends|extends

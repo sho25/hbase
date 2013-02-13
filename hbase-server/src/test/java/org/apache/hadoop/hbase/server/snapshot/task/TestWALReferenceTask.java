@@ -173,6 +173,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|errorhandling
+operator|.
+name|ForeignExceptionDispatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -198,26 +214,6 @@ operator|.
 name|snapshot
 operator|.
 name|TakeSnapshotUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|server
-operator|.
-name|snapshot
-operator|.
-name|error
-operator|.
-name|SnapshotExceptionSnare
 import|;
 end_import
 
@@ -539,14 +535,14 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|SnapshotExceptionSnare
+name|ForeignExceptionDispatcher
 name|listener
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|SnapshotExceptionSnare
+name|ForeignExceptionDispatcher
 operator|.
 name|class
 argument_list|)
@@ -571,7 +567,7 @@ argument_list|)
 decl_stmt|;
 name|task
 operator|.
-name|run
+name|call
 argument_list|()
 expr_stmt|;
 comment|// reference all the files in the first server directory
@@ -593,7 +589,7 @@ argument_list|)
 expr_stmt|;
 name|task
 operator|.
-name|run
+name|call
 argument_list|()
 expr_stmt|;
 comment|// verify that we got everything
@@ -662,7 +658,7 @@ name|atLeastOnce
 argument_list|()
 argument_list|)
 operator|.
-name|failOnError
+name|rethrowException
 argument_list|()
 expr_stmt|;
 name|Mockito
