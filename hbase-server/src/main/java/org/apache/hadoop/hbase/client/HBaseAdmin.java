@@ -9194,7 +9194,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Getting current status of snasphot from master..."
+literal|"Getting current status of snapshot from master..."
 argument_list|)
 expr_stmt|;
 name|done
