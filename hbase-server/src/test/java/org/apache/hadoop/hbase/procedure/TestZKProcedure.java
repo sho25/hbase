@@ -1062,9 +1062,9 @@ name|opName
 argument_list|,
 name|cohortMonitor
 argument_list|,
-name|TIMEOUT
-argument_list|,
 name|WAKE_FREQUENCY
+argument_list|,
+name|TIMEOUT
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1567,9 +1567,9 @@ name|opName
 argument_list|,
 name|cohortMonitor
 argument_list|,
-name|TIMEOUT
-argument_list|,
 name|WAKE_FREQUENCY
+argument_list|,
+name|TIMEOUT
 argument_list|)
 argument_list|)
 decl_stmt|;
