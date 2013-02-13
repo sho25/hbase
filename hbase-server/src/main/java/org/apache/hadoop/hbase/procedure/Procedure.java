@@ -554,6 +554,53 @@ return|return
 name|procName
 return|;
 block|}
+comment|/**    * Returns a copy of the procedure members still trying to enter the barrier.    * @return    */
+specifier|public
+name|String
+name|getStatus
+parameter_list|()
+block|{
+name|String
+name|waiting
+decl_stmt|,
+name|done
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|joinBarrierLock
+init|)
+block|{
+name|waiting
+operator|=
+name|acquiringMembers
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
+name|done
+operator|=
+name|inBarrierMembers
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" { waiting="
+operator|+
+name|waiting
+operator|+
+literal|" done="
+operator|+
+name|done
+operator|+
+literal|" }"
+return|;
+block|}
 comment|/**    * Get the ExternalErrorDispatcher    * @return the Procedure's monitor.    */
 specifier|public
 name|ForeignExceptionDispatcher

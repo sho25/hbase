@@ -381,11 +381,11 @@ argument_list|,
 operator|new
 name|DaemonThreadFactory
 argument_list|(
-literal|"( member-"
+literal|"member: '"
 operator|+
 name|memberName
 operator|+
-literal|") subprocedure-pool"
+literal|"' subprocedure-pool"
 argument_list|)
 argument_list|)
 return|;
