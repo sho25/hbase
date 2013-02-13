@@ -942,7 +942,7 @@ name|setInt
 argument_list|(
 literal|"hbase.hstore.compaction.min"
 argument_list|,
-literal|5
+literal|3
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1943,7 +1943,7 @@ argument_list|(
 name|admin
 argument_list|)
 expr_stmt|;
-comment|// load the table
+comment|// load the table (creates 4 hfiles)
 name|UTIL
 operator|.
 name|loadTable
@@ -2085,6 +2085,7 @@ operator|.
 name|compactStores
 argument_list|()
 expr_stmt|;
+comment|// min is 3 so will compact and archive
 block|}
 comment|// make sure the cleaner has run
 name|LOG
