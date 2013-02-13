@@ -477,36 +477,6 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
-specifier|public
-specifier|static
-name|Path
-name|getReferencedPath
-parameter_list|(
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
-name|Path
-name|path
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|getReferencedPath
-argument_list|(
-name|fs
-operator|.
-name|getConf
-argument_list|()
-argument_list|,
-name|fs
-argument_list|,
-name|path
-argument_list|)
-return|;
-block|}
 comment|/**    * The returned path can be the "original" file path like: /hbase/table/region/cf/hfile    * or a path to the archived file like: /hbase/.archive/table/region/cf/hfile    *    * @param fs {@link FileSystem} on which to check the HFileLink    * @param conf {@link Configuration} from which to extract specific archive locations    * @param path HFileLink path    * @return Referenced path (original path or archived path)    * @throws IOException on unexpected error.    */
 specifier|public
 specifier|static
