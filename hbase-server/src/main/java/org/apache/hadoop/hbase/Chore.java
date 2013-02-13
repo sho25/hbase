@@ -314,6 +314,16 @@ name|skipSleepCycle
 argument_list|()
 expr_stmt|;
 block|}
+comment|/*    * Exposed for TESTING!    * calls directly the chore method, from the current thread.    */
+specifier|public
+name|void
+name|choreForTesting
+parameter_list|()
+block|{
+name|chore
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Override to run a task before we start looping.    * @return true if initial chore was successful    */
 specifier|protected
 name|boolean
