@@ -913,6 +913,10 @@ name|void
 name|deleteRegions
 parameter_list|(
 specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
 name|FileSystem
 name|fs
 parameter_list|,
@@ -954,6 +958,8 @@ control|)
 block|{
 name|deleteRegion
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|catalogTracker
@@ -970,6 +976,10 @@ specifier|static
 name|void
 name|deleteRegion
 parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
 specifier|final
 name|FileSystem
 name|fs
@@ -1000,6 +1010,8 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|regionInfo
