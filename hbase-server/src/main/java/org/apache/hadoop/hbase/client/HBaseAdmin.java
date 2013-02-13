@@ -9218,7 +9218,16 @@ literal|"Waiting a max of "
 operator|+
 name|max
 operator|+
-literal|" ms for snapshot to complete. (max "
+literal|" ms for snapshot '"
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|"'' to complete. (max "
 operator|+
 name|maxPauseTime
 operator|+
