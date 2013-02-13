@@ -4097,7 +4097,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [options]\n"
+literal|"Usage: bin/hbase %s [options]%n"
 argument_list|,
 name|getClass
 argument_list|()

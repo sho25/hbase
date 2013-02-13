@@ -9888,14 +9888,11 @@ name|build
 argument_list|()
 decl_stmt|;
 comment|// actually restore the snapshot
-name|RestoreSnapshotResponse
-name|response
-init|=
 name|internalRestoreSnapshotAsync
 argument_list|(
 name|snapshot
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 specifier|final
 name|IsRestoreSnapshotDoneRequest
 name|request

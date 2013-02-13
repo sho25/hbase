@@ -364,9 +364,10 @@ name|serverLogs
 operator|==
 literal|null
 condition|)
+block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"No logs for server directory:"
 operator|+
@@ -375,6 +376,10 @@ operator|+
 literal|", done referencing files."
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 name|LOG
@@ -382,6 +387,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -396,6 +402,7 @@ name|serverLogs
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|FileStatus

@@ -996,7 +996,8 @@ name|stop
 return|;
 block|}
 comment|/**    * Information about a snapshot directory    */
-specifier|public
+specifier|private
+specifier|static
 class|class
 name|SnapshotDirectoryInfo
 block|{

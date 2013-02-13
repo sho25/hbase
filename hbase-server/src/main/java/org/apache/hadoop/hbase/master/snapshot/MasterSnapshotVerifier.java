@@ -1097,7 +1097,7 @@ name|file
 argument_list|)
 operator|&&
 operator|!
-name|fs
+name|file
 operator|.
 name|equals
 argument_list|(

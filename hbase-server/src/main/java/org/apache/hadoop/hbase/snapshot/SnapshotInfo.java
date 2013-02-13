@@ -1273,7 +1273,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%8s %s/%s/%s/%s %s\n"
+literal|"%8s %s/%s/%s/%s %s%n"
 argument_list|,
 operator|(
 name|size
@@ -1384,7 +1384,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%8s recovered.edits %s on region %s\n"
+literal|"%8s recovered.edits %s on region %s%n"
 argument_list|,
 name|StringUtils
 operator|.
@@ -1488,7 +1488,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%8s log %s on server %s %s\n"
+literal|"%8s log %s on server %s %s%n"
 argument_list|,
 operator|(
 name|size
@@ -1565,7 +1565,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"BAD SNAPSHOT: %d hfile(s) and %d log(s) missing.\n"
+literal|"BAD SNAPSHOT: %d hfile(s) and %d log(s) missing.%n"
 argument_list|,
 name|hfilesMissing
 operator|.
@@ -1594,7 +1594,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%d HFiles (%d in archive), total size %s (%.2f%% %s shared with the source table)\n"
+literal|"%d HFiles (%d in archive), total size %s (%.2f%% %s shared with the source table)%n"
 argument_list|,
 name|hfilesCount
 operator|.
@@ -1667,7 +1667,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%d Logs, total size %s\n"
+literal|"%d Logs, total size %s%n"
 argument_list|,
 name|logsCount
 operator|.
@@ -1704,7 +1704,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [options]\n"
+literal|"Usage: bin/hbase %s [options]%n"
 argument_list|,
 name|getClass
 argument_list|()

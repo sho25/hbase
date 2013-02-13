@@ -686,13 +686,7 @@ name|snapshotLogs
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|realLogs
-operator|==
-literal|null
-condition|)
+else|else
 block|{
 name|assertNull
 argument_list|(
