@@ -476,11 +476,9 @@ name|setLocations
 argument_list|(
 name|originPath
 argument_list|,
-name|archivePath
-argument_list|,
-name|this
-operator|.
 name|tempPath
+argument_list|,
+name|archivePath
 argument_list|)
 expr_stmt|;
 block|}

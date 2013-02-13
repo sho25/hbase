@@ -630,6 +630,13 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|metaChanges
+operator|.
+name|hasRegionsToAdd
+argument_list|()
+condition|)
 name|hris
 operator|.
 name|addAll
@@ -640,6 +647,13 @@ name|getRegionsToAdd
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|metaChanges
+operator|.
+name|hasRegionsToRestore
+argument_list|()
+condition|)
 name|hris
 operator|.
 name|addAll

@@ -437,8 +437,6 @@ argument_list|)
 decl_stmt|;
 name|archiveRegion
 argument_list|(
-name|conf
-argument_list|,
 name|fs
 argument_list|,
 name|rootDir
@@ -466,15 +464,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove an entire region from the table directory via archiving the region's hfiles.    * @param conf the configuration to use    * @param fs {@link FileSystem} from which to remove the region    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @param tableDir {@link Path} to where the table is being stored (for building the archive path)    * @param regionDir {@link Path} to where a region is being stored (for building the archive path)    * @return<tt>true</tt> if the region was sucessfully deleted.<tt>false</tt> if the filesystem    *         operations could not complete.    * @throws IOException if the request cannot be completed    */
+comment|/**    * Remove an entire region from the table directory via archiving the region's hfiles.    * @param fs {@link FileSystem} from which to remove the region    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @param tableDir {@link Path} to where the table is being stored (for building the archive path)    * @param regionDir {@link Path} to where a region is being stored (for building the archive path)    * @return<tt>true</tt> if the region was sucessfully deleted.<tt>false</tt> if the filesystem    *         operations could not complete.    * @throws IOException if the request cannot be completed    */
 specifier|public
 specifier|static
 name|boolean
 name|archiveRegion
 parameter_list|(
-name|Configuration
-name|conf
-parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,

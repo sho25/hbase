@@ -2107,7 +2107,12 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2128,7 +2133,12 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2438,7 +2448,12 @@ name|debug
 argument_list|(
 literal|"Started snapshot: "
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2617,7 +2632,12 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2638,7 +2658,12 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2853,7 +2878,12 @@ name|msg
 init|=
 literal|"Couldn't clone the snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" on table="
 operator|+
@@ -3290,7 +3320,12 @@ name|msg
 init|=
 literal|"Couldn't restore the snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" on table="
 operator|+
@@ -3496,7 +3531,12 @@ name|debug
 argument_list|(
 literal|"Restore snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" has completed. Notifying the client."
 argument_list|)
@@ -3519,7 +3559,12 @@ name|debug
 argument_list|(
 literal|"Sentinel is not yet finished with restoring snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

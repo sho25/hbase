@@ -660,9 +660,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to copy tableinfo for offline snapshot:\n"
+literal|"Starting to copy tableinfo for offline snapshot: "
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|TableInfoCopyTask

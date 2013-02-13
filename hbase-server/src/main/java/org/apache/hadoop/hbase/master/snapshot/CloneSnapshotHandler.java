@@ -597,12 +597,11 @@ name|Preconditions
 operator|.
 name|checkArgument
 argument_list|(
+operator|!
 name|metaChanges
 operator|.
-name|getRegionsToRestore
+name|hasRegionsToRestore
 argument_list|()
-operator|==
-literal|null
 argument_list|,
 literal|"A clone should not have regions to restore"
 argument_list|)
@@ -611,12 +610,11 @@ name|Preconditions
 operator|.
 name|checkArgument
 argument_list|(
+operator|!
 name|metaChanges
 operator|.
-name|getRegionsToRemove
+name|hasRegionsToRemove
 argument_list|()
-operator|==
-literal|null
 argument_list|,
 literal|"A clone should not have regions to remove"
 argument_list|)

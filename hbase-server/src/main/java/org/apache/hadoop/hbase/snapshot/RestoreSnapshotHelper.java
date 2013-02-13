@@ -932,6 +932,29 @@ name|regionsToAdd
 init|=
 literal|null
 decl_stmt|;
+comment|/**      * @return true if there're new regions      */
+specifier|public
+name|boolean
+name|hasRegionsToAdd
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|regionsToAdd
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|regionsToAdd
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+return|;
+block|}
 comment|/**      * Returns the list of new regions added during the on-disk restore.      * The caller is responsible to add the regions to META.      * e.g MetaEditor.addRegionsToMeta(...)      * @return the list of regions to add to META      */
 specifier|public
 name|List
@@ -947,6 +970,29 @@ operator|.
 name|regionsToAdd
 return|;
 block|}
+comment|/**      * @return true if there're regions to restore      */
+specifier|public
+name|boolean
+name|hasRegionsToRestore
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|regionsToRestore
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|regionsToRestore
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+return|;
+block|}
 comment|/**      * Returns the list of 'restored regions' during the on-disk restore.      * The caller is responsible to add the regions to META if not present.      * @return the list of regions restored      */
 specifier|public
 name|List
@@ -960,6 +1006,29 @@ return|return
 name|this
 operator|.
 name|regionsToRestore
+return|;
+block|}
+comment|/**      * @return true if there're regions to remove      */
+specifier|public
+name|boolean
+name|hasRegionsToRemove
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|regionsToRemove
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|regionsToRemove
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
 return|;
 block|}
 comment|/**      * Returns the list of regions removed during the on-disk restore.      * The caller is responsible to remove the regions from META.      * e.g. MetaEditor.deleteRegions(...)      * @return the list of regions to remove from META      */
