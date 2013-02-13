@@ -578,7 +578,7 @@ name|HFileArchiveUtil
 operator|.
 name|getRegionArchiveDir
 argument_list|(
-name|conf
+name|rootdir
 argument_list|,
 name|tableDir
 argument_list|,
