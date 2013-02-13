@@ -351,7 +351,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Can't reach controller, not propagating error"
+literal|"Was remote foreign exception, not redispatching error"
 argument_list|,
 name|ee
 argument_list|)
@@ -670,7 +670,7 @@ literal|"Subprocedure '"
 operator|+
 name|barrierName
 operator|+
-literal|"' aborting due to external exception!"
+literal|"' aborting due to a ForeignException!"
 expr_stmt|;
 block|}
 else|else
@@ -708,7 +708,7 @@ literal|"Subprocedure '"
 operator|+
 name|barrierName
 operator|+
-literal|"' Running cleanup."
+literal|"' running cleanup."
 argument_list|)
 expr_stmt|;
 name|cleanup

@@ -1018,7 +1018,7 @@ literal|"Waiting on: "
 operator|+
 name|acquiredBarrierLatch
 operator|+
-literal|" remaining members to aqcuire global barrier"
+literal|" remaining members to acquire global barrier"
 argument_list|)
 expr_stmt|;
 block|}

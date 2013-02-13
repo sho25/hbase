@@ -406,15 +406,6 @@ name|String
 name|path
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Received children changed event:"
-operator|+
-name|path
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|path
@@ -431,7 +422,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received start event."
+literal|"Received procedure start children changed event: "
+operator|+
+name|path
 argument_list|)
 expr_stmt|;
 name|waitForNewProcedures
@@ -455,7 +448,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received abort event."
+literal|"Received procedure abort children changed event: "
+operator|+
+name|path
 argument_list|)
 expr_stmt|;
 name|watchForAbortedProcedures
@@ -1463,6 +1458,15 @@ name|String
 name|abortZNode
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Aborting procedure member for znode "
+operator|+
+name|abortZNode
+argument_list|)
+expr_stmt|;
 name|String
 name|opName
 init|=

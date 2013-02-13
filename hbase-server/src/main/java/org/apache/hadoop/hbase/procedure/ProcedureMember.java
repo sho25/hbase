@@ -815,6 +815,17 @@ name|ForeignException
 name|ee
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Request received to abort procedure "
+operator|+
+name|procName
+argument_list|,
+name|ee
+argument_list|)
+expr_stmt|;
 comment|// if we know about the procedure, notify it
 name|Subprocedure
 name|sub
@@ -853,8 +864,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Remote procedure failure, not propagating error:"
+literal|"Propagating foreign exception to subprocedure "
 operator|+
+name|sub
+operator|.
+name|getName
+argument_list|()
+argument_list|,
 name|ee
 argument_list|)
 expr_stmt|;

@@ -877,6 +877,23 @@ throws|throws
 name|KeeperException
 block|{
 comment|// TODO This is potentially racy since not atomic. update when we support zk that has multi
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Clearing all procedure znodes: "
+operator|+
+name|acquiredZnode
+operator|+
+literal|" "
+operator|+
+name|reachedZnode
+operator|+
+literal|" "
+operator|+
+name|abortZnode
+argument_list|)
+expr_stmt|;
 comment|// If the coordinator was shutdown mid-procedure, then we are going to lose
 comment|// an procedure that was previously started by cleaning out all the previous state. Its much
 comment|// harder to figure out how to keep an procedure going and the subject of HBASE-5487.
@@ -919,6 +936,27 @@ throws|throws
 name|KeeperException
 block|{
 comment|// TODO This is potentially racy since not atomic. update when we support zk that has multi
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Clearing all znodes for procedure "
+operator|+
+name|procedureName
+operator|+
+literal|"including nodes "
+operator|+
+name|acquiredZnode
+operator|+
+literal|" "
+operator|+
+name|reachedZnode
+operator|+
+literal|" "
+operator|+
+name|abortZnode
+argument_list|)
+expr_stmt|;
 name|ZKUtil
 operator|.
 name|deleteNodeRecursively
