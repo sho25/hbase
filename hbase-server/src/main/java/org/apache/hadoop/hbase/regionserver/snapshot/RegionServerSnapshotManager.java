@@ -1612,11 +1612,15 @@ range|:
 name|tasks
 control|)
 block|{
+comment|// TODO Ideally we'd interrupt hbase threads when we cancel.  However it seems that there
+comment|// are places in the HBase code where row/region locks are taken and not released in a
+comment|// finally block.  Thus we cancel without interrupting.  Cancellations will be slower to
+comment|// complete but we won't suffer from unreleased locks due to poor code discipline.
 name|f
 operator|.
 name|cancel
 argument_list|(
-literal|true
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
