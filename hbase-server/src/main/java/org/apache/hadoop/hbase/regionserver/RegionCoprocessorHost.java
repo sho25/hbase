@@ -1515,7 +1515,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-4014 : This is used by coprocessor hooks which are not declared to throw exceptions.    *    * For example, {@link    * org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#preOpen()} and    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#postOpen()} are such hooks.    *    * See also    * {@link org.apache.hadoop.hbase.master.MasterCoprocessorHost#handleCoprocessorThrowable(CoprocessorEnvironment, Throwable)}    * @param env The coprocessor that threw the exception.    * @param e The exception that was thrown.    */
+comment|/**    * HBASE-4014 : This is used by coprocessor hooks which are not declared to throw exceptions.    *    * For example, {@link    * org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#preOpen()} and    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost#postOpen()} are such hooks.    *    * See also    * {@link org.apache.hadoop.hbase.master.MasterCoprocessorHost#handleCoprocessorThrowable(    *    CoprocessorEnvironment, Throwable)}    * @param env The coprocessor that threw the exception.    * @param e The exception that was thrown.    */
 specifier|private
 name|void
 name|handleCoprocessorThrowableNoRethrow
@@ -1912,12 +1912,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, HStore, List, ScanType, long, InternalScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext,    *    Store, List, ScanType, long, InternalScanner)}    */
 specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|List
@@ -2042,7 +2042,7 @@ specifier|public
 name|boolean
 name|preCompactSelection
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|List
@@ -2160,7 +2160,7 @@ specifier|public
 name|void
 name|postCompactSelection
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|ImmutableList
@@ -2261,7 +2261,7 @@ specifier|public
 name|InternalScanner
 name|preCompact
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|InternalScanner
@@ -2387,7 +2387,7 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|StoreFile
@@ -2487,7 +2487,7 @@ specifier|public
 name|InternalScanner
 name|preFlush
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|InternalScanner
@@ -2693,12 +2693,12 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext, HStore, KeyValueScanner, InternalScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext,    *    Store, KeyValueScanner, InternalScanner)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|KeyValueScanner
@@ -2901,7 +2901,7 @@ name|void
 name|postFlush
 parameter_list|(
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -5860,12 +5860,12 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * See    * {@link RegionObserver#preStoreScannerOpen(ObserverContext, HStore, Scan, NavigableSet, KeyValueScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preStoreScannerOpen(ObserverContext,    *    Store, Scan, NavigableSet, KeyValueScanner)}    */
 specifier|public
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|Scan

@@ -1750,8 +1750,6 @@ operator|)
 name|hstore
 operator|)
 decl_stmt|;
-name|HStore
-operator|.
 name|ScanInfo
 name|old
 init|=
@@ -1760,14 +1758,10 @@ operator|.
 name|getScanInfo
 argument_list|()
 decl_stmt|;
-name|HStore
-operator|.
 name|ScanInfo
 name|si
 init|=
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|old
@@ -3405,8 +3399,6 @@ name|HStore
 operator|)
 name|hstore
 decl_stmt|;
-name|HStore
-operator|.
 name|ScanInfo
 name|old
 init|=
@@ -3415,14 +3407,10 @@ operator|.
 name|getScanInfo
 argument_list|()
 decl_stmt|;
-name|HStore
-operator|.
 name|ScanInfo
 name|si
 init|=
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|old

@@ -2480,7 +2480,7 @@ name|this
 operator|.
 name|store
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getEncodedName

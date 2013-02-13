@@ -554,8 +554,6 @@ argument_list|(
 name|scan
 argument_list|,
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|fam2
@@ -965,8 +963,6 @@ argument_list|(
 name|scan
 argument_list|,
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|fam2
@@ -1345,8 +1341,6 @@ argument_list|(
 name|scan
 argument_list|,
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|fam2
@@ -1700,8 +1694,6 @@ argument_list|(
 name|scan
 argument_list|,
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|fam2

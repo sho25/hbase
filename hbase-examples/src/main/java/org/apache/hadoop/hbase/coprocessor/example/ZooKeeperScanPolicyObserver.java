@@ -207,7 +207,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -222,8 +222,6 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
-operator|.
-name|HStore
 operator|.
 name|ScanInfo
 import|;
@@ -867,7 +865,7 @@ specifier|protected
 name|ScanInfo
 name|getScanInfo
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|RegionCoprocessorEnvironment
@@ -992,7 +990,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|KeyValueScanner
@@ -1004,8 +1002,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 init|=
@@ -1071,9 +1067,6 @@ name|MINOR_COMPACT
 argument_list|,
 name|store
 operator|.
-name|getHRegion
-argument_list|()
-operator|.
 name|getSmallestReadPoint
 argument_list|()
 argument_list|,
@@ -1096,7 +1089,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|List
@@ -1119,8 +1112,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 init|=
@@ -1179,9 +1170,6 @@ name|scanType
 argument_list|,
 name|store
 operator|.
-name|getHRegion
-argument_list|()
-operator|.
 name|getSmallestReadPoint
 argument_list|()
 argument_list|,
@@ -1203,7 +1191,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -1225,8 +1213,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 init|=

@@ -199,8 +199,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
-operator|.
 name|ScanInfo
 import|;
 end_import
