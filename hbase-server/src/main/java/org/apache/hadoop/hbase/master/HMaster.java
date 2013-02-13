@@ -13915,6 +13915,7 @@ comment|/**    * Exposed for TESTING!    * @return the underlying snapshot manag
 end_comment
 
 begin_function
+specifier|public
 name|SnapshotManager
 name|getSnapshotManagerForTesting
 parameter_list|()

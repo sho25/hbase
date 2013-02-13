@@ -379,7 +379,8 @@ name|SNAPSHOTINFO_FILE
 init|=
 literal|".snapshotinfo"
 decl_stmt|;
-specifier|private
+comment|/** Temporary directory under the snapshot directory to store in-progress snapshots */
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -894,7 +895,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Setting timestamp snasphot in future by "
+literal|"Setting timestamp snapshot in future by "
 operator|+
 name|increment
 operator|+
