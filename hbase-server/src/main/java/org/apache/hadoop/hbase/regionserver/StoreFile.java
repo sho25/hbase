@@ -1755,6 +1755,23 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"reference '"
+operator|+
+name|p
+operator|+
+literal|"' to region="
+operator|+
+name|otherRegion
+operator|+
+literal|" hfile="
+operator|+
+name|nameStrippedOfSuffix
+argument_list|)
+expr_stmt|;
 comment|// Build up new path with the referenced region in place of our current
 comment|// region in the reference path.  Also strip regionname suffix from name.
 return|return
@@ -3932,6 +3949,16 @@ condition|)
 return|return
 literal|true
 return|;
+if|if
+condition|(
+name|isReference
+argument_list|(
+name|fileName
+argument_list|)
+condition|)
+return|return
+literal|true
+return|;
 return|return
 operator|!
 name|fileName
@@ -4035,19 +4062,6 @@ operator|+
 name|parentRegionName
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"StoreFile.split(): splitDir="
-operator|+
-name|splitDir
-operator|+
-literal|" p="
-operator|+
-name|p
-argument_list|)
-expr_stmt|;
 return|return
 name|r
 operator|.

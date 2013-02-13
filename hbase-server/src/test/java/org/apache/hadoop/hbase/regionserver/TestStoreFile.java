@@ -1660,6 +1660,34 @@ name|name
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"should be a valid StoreFile"
+operator|+
+name|name
+argument_list|,
+name|StoreFile
+operator|.
+name|validateStoreFileName
+argument_list|(
+name|name
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+literal|"should not be a valid reference: "
+operator|+
+name|name
+argument_list|,
+name|StoreFile
+operator|.
+name|isReference
+argument_list|(
+name|name
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|String
 name|refName
 init|=
@@ -1676,6 +1704,20 @@ argument_list|,
 name|StoreFile
 operator|.
 name|isReference
+argument_list|(
+name|refName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"should be a valid StoreFile"
+operator|+
+name|refName
+argument_list|,
+name|StoreFile
+operator|.
+name|validateStoreFileName
 argument_list|(
 name|refName
 argument_list|)

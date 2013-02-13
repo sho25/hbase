@@ -314,6 +314,33 @@ name|HFILE_NAME_REGEX
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    * The link should be used for hfile and reference links    * that can be found in /hbase/table/region/family/    */
+specifier|private
+specifier|static
+specifier|final
+name|Pattern
+name|REF_OR_HFILE_LINK_PATTERN
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"^(%s)=(%s)-(.+)$"
+argument_list|,
+name|HTableDescriptor
+operator|.
+name|VALID_USER_TABLE_REGEX
+argument_list|,
+name|HRegionInfo
+operator|.
+name|ENCODED_REGION_NAME_REGEX
+argument_list|)
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|final
 name|Path
@@ -671,7 +698,7 @@ name|hfilePath
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a HFileLink path to a table relative path.    * e.g. the link: /hbase/test/0123/cf/abcd-4567-testtb    *      becomes: /hbase/testtb/4567/cf/abcd    *    * @param path HFileLink path    * @return Relative table path    * @throws IOException on unexpected error.    */
+comment|/**    * Convert a HFileLink path to a table relative path.    * e.g. the link: /hbase/test/0123/cf/testtb=4567-abcd    *      becomes: /hbase/testtb/4567/cf/abcd    *    * @param path HFileLink path    * @return Relative table path    * @throws IOException on unexpected error.    */
 specifier|private
 specifier|static
 name|Path
@@ -682,11 +709,11 @@ name|Path
 name|path
 parameter_list|)
 block|{
-comment|// hfile-region-table
+comment|// table=region-hfile
 name|Matcher
 name|m
 init|=
-name|LINK_NAME_PATTERN
+name|REF_OR_HFILE_LINK_PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -796,7 +823,7 @@ block|{
 name|Matcher
 name|m
 init|=
-name|LINK_NAME_PATTERN
+name|REF_OR_HFILE_LINK_PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -847,7 +874,7 @@ block|{
 name|Matcher
 name|m
 init|=
-name|LINK_NAME_PATTERN
+name|REF_OR_HFILE_LINK_PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -898,7 +925,7 @@ block|{
 name|Matcher
 name|m
 init|=
-name|LINK_NAME_PATTERN
+name|REF_OR_HFILE_LINK_PATTERN
 operator|.
 name|matcher
 argument_list|(
