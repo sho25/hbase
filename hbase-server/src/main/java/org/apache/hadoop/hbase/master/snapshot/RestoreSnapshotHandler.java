@@ -191,22 +191,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|errorhandling
 operator|.
 name|ForeignException
@@ -586,7 +570,12 @@ name|debug
 argument_list|(
 literal|"Starting restore snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Path
@@ -690,10 +679,12 @@ name|info
 argument_list|(
 literal|"Restore snapshot="
 operator|+
-name|snapshot
+name|SnapshotDescriptionUtils
 operator|.
-name|getName
-argument_list|()
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
 operator|+
 literal|" on table="
 operator|+
@@ -719,9 +710,14 @@ name|msg
 init|=
 literal|"restore snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
-literal|" failed. re-run the restore command."
+literal|" failed. Try re-running the restore command."
 decl_stmt|;
 name|LOG
 operator|.
@@ -823,7 +819,12 @@ name|msg
 init|=
 literal|"Stopping restore snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" because: "
 operator|+

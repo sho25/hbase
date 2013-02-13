@@ -13881,9 +13881,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting snapshot for:"
+literal|"Submitting snapshot request for:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|request
+operator|.
+name|getSnapshot
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// get the snapshot information
@@ -14158,7 +14166,15 @@ name|debug
 argument_list|(
 literal|"Checking to see if snapshot from request:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|request
+operator|.
+name|getSnapshot
+argument_list|()
+argument_list|)
 operator|+
 literal|" is done"
 argument_list|)

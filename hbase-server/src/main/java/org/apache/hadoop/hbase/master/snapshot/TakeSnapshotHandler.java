@@ -898,19 +898,19 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Got exception taking snapshot"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 name|String
 name|reason
 init|=
-literal|"Failed due to exception:"
+literal|"Failed taking snapshot "
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|" due to exception:"
 operator|+
 name|e
 operator|.
@@ -921,7 +921,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Got exception taking snapshot"
+name|reason
 argument_list|,
 name|e
 argument_list|)
@@ -949,10 +949,12 @@ name|cancel
 argument_list|(
 literal|"Failed to take snapshot '"
 operator|+
-name|snapshot
+name|SnapshotDescriptionUtils
 operator|.
-name|getName
-argument_list|()
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
 operator|+
 literal|"' due to exception"
 argument_list|)
@@ -1139,7 +1141,12 @@ name|info
 argument_list|(
 literal|"Stop taking snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" because: "
 operator|+

@@ -285,6 +285,22 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
+name|SnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
 name|TableInfoCopyTask
 import|;
 end_import
@@ -527,7 +543,12 @@ name|info
 argument_list|(
 literal|"Starting to write region info and WALs for regions for offline snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for
@@ -687,7 +708,16 @@ comment|// make sure we capture the exception to propagate back to the client la
 name|String
 name|reason
 init|=
-literal|"Failed due to exception:"
+literal|"Failed snapshot "
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|" due to exception:"
 operator|+
 name|e
 operator|.
@@ -721,9 +751,12 @@ name|debug
 argument_list|(
 literal|"Marking snapshot"
 operator|+
-name|this
+name|SnapshotDescriptionUtils
 operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" as finished."
 argument_list|)

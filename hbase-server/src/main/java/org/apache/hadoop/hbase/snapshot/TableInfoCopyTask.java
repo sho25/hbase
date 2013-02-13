@@ -291,9 +291,14 @@ name|debug
 argument_list|(
 literal|"Attempting to copy table info for snapshot:"
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// get the HTable descriptor

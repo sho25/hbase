@@ -1630,6 +1630,16 @@ literal|"No snapshot name passed in request, can't figure out which snapshot you
 argument_list|)
 throw|;
 block|}
+name|String
+name|ssString
+init|=
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|expected
+argument_list|)
+decl_stmt|;
 comment|// check to see if the sentinel exists
 name|TakeSnapshotHandler
 name|handler
@@ -1660,12 +1670,9 @@ throw|throw
 operator|new
 name|UnknownSnapshotException
 argument_list|(
-literal|"Snapshot:"
+literal|"Snapshot "
 operator|+
-name|expected
-operator|.
-name|getName
-argument_list|()
+name|ssString
 operator|+
 literal|" is not currently running or one of the known completed snapshots."
 argument_list|)
@@ -1695,7 +1702,11 @@ throw|throw
 operator|new
 name|HBaseSnapshotException
 argument_list|(
-literal|"Snapshot error from RS"
+literal|"Snapshot "
+operator|+
+name|ssString
+operator|+
+literal|" had an error from RS"
 argument_list|,
 name|e
 argument_list|,
@@ -1718,10 +1729,7 @@ name|debug
 argument_list|(
 literal|"Snapshot '"
 operator|+
-name|expected
-operator|.
-name|getName
-argument_list|()
+name|ssString
 operator|+
 literal|"' has completed, notifying client."
 argument_list|)
@@ -1743,14 +1751,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Sentinel isn't finished with snapshot '"
+literal|"Snapshoting '"
 operator|+
-name|expected
-operator|.
-name|getName
-argument_list|()
+name|ssString
 operator|+
-literal|"'!"
+literal|"' is still in progress!"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1867,14 +1872,28 @@ throw|throw
 operator|new
 name|SnapshotCreationException
 argument_list|(
-literal|"Already running another snapshot:"
+literal|"Rejected taking "
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|" because we are already running another snapshot "
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|handler
 operator|.
 name|getSnapshot
 argument_list|()
+argument_list|)
 argument_list|,
 name|snapshot
 argument_list|)
@@ -1896,14 +1915,28 @@ throw|throw
 operator|new
 name|SnapshotCreationException
 argument_list|(
-literal|"Restore in progress on the same table snapshot:"
+literal|"Rejected taking "
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|" because we are already have a restore in progress on the same snapshot "
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|handler
 operator|.
 name|getSnapshot
 argument_list|()
+argument_list|)
 argument_list|,
 name|snapshot
 argument_list|)
@@ -1942,7 +1975,7 @@ literal|"Couldn't create working directory ("
 operator|+
 name|workingDir
 operator|+
-literal|") for snapshot."
+literal|") for snapshot"
 argument_list|,
 name|snapshot
 argument_list|)
@@ -2360,7 +2393,12 @@ name|debug
 argument_list|(
 literal|"Started snapshot: "
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

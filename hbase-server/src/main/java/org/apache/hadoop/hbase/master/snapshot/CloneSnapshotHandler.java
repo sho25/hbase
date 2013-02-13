@@ -659,7 +659,12 @@ name|msg
 init|=
 literal|"clone snapshot="
 operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
 name|snapshot
+argument_list|)
 operator|+
 literal|" failed"
 decl_stmt|;
@@ -681,6 +686,8 @@ argument_list|(
 name|msg
 argument_list|,
 name|e
+argument_list|,
+name|snapshot
 argument_list|)
 decl_stmt|;
 comment|// these handlers aren't futures so we need to register the error here.
