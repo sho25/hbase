@@ -67,9 +67,6 @@ specifier|public
 name|void
 name|receive
 parameter_list|(
-name|String
-name|message
-parameter_list|,
 name|ForeignException
 name|e
 parameter_list|)

@@ -186,42 +186,6 @@ return|return
 name|name
 return|;
 block|}
-specifier|public
-specifier|synchronized
-name|void
-name|receive
-parameter_list|(
-name|String
-name|message
-parameter_list|)
-block|{
-name|receive
-argument_list|(
-operator|new
-name|ForeignException
-argument_list|(
-name|name
-argument_list|,
-name|message
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-specifier|synchronized
-name|void
-name|receive
-parameter_list|(
-name|ForeignException
-name|e
-parameter_list|)
-block|{
-name|receive
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -229,9 +193,6 @@ specifier|synchronized
 name|void
 name|receive
 parameter_list|(
-name|String
-name|message
-parameter_list|,
 name|ForeignException
 name|e
 parameter_list|)
@@ -250,9 +211,9 @@ name|debug
 argument_list|(
 name|name
 operator|+
-literal|" accepting received error:"
-operator|+
-name|message
+literal|" accepting received exception"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 comment|// mark that we got the error
@@ -277,15 +238,13 @@ name|ForeignException
 argument_list|(
 name|name
 argument_list|,
-name|message
+name|e
 argument_list|)
 expr_stmt|;
 block|}
 comment|// notify all the listeners
 name|dispatch
 argument_list|(
-name|message
-argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -355,9 +314,6 @@ specifier|private
 name|void
 name|dispatch
 parameter_list|(
-name|String
-name|message
-parameter_list|,
 name|ForeignException
 name|e
 parameter_list|)
@@ -384,8 +340,6 @@ name|l
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

@@ -266,8 +266,6 @@ name|listener
 operator|.
 name|receive
 argument_list|(
-literal|"Timeout elapsed!"
-argument_list|,
 operator|new
 name|ForeignException
 argument_list|(

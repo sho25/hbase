@@ -236,17 +236,10 @@ name|listener2
 argument_list|)
 expr_stmt|;
 comment|// create an artificial error
-name|String
-name|message
-init|=
-literal|"Some error"
-decl_stmt|;
 name|dispatcher
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN
 argument_list|)
 expr_stmt|;
@@ -267,8 +260,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN
 argument_list|)
 expr_stmt|;
@@ -288,8 +279,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN
 argument_list|)
 expr_stmt|;
@@ -339,16 +328,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// push another error, which should be not be passed to listeners
-name|message
-operator|=
-literal|"another error"
-expr_stmt|;
 name|dispatcher
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN2
 argument_list|)
 expr_stmt|;
@@ -366,8 +349,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN2
 argument_list|)
 expr_stmt|;
@@ -385,8 +366,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|message
-argument_list|,
 name|EXTEXN2
 argument_list|)
 expr_stmt|;
@@ -487,11 +466,6 @@ name|receive
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
-operator|.
 name|any
 argument_list|(
 name|ForeignException
@@ -509,11 +483,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|Mockito
-operator|.
-name|anyString
-argument_list|()
-argument_list|,
 name|Mockito
 operator|.
 name|any
@@ -620,11 +589,6 @@ name|receive
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
-operator|.
 name|any
 argument_list|(
 name|ForeignException
@@ -649,11 +613,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|Mockito
-operator|.
-name|anyString
-argument_list|()
-argument_list|,
 name|Mockito
 operator|.
 name|any

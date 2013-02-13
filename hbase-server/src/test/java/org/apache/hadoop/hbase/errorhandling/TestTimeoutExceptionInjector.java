@@ -207,11 +207,6 @@ name|receive
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
-operator|.
 name|any
 argument_list|(
 name|ForeignException
@@ -277,11 +272,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|Mockito
-operator|.
-name|anyString
-argument_list|()
-argument_list|,
 name|Mockito
 operator|.
 name|any
@@ -497,11 +487,6 @@ argument_list|)
 operator|.
 name|receive
 argument_list|(
-name|Mockito
-operator|.
-name|anyString
-argument_list|()
-argument_list|,
 name|Mockito
 operator|.
 name|any
