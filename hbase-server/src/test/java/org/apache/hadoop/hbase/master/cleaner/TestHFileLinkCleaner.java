@@ -409,9 +409,12 @@ name|HFileCleaner
 operator|.
 name|MASTER_HFILE_CLEANER_PLUGINS
 argument_list|,
-literal|"org.apache.hadoop.hbase.master.cleaner.TimeToLiveHFileCleaner,"
-operator|+
-literal|"org.apache.hadoop.hbase.master.cleaner.HFileLinkCleaner"
+name|HFileLinkCleaner
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path
@@ -713,15 +716,6 @@ name|archiveDir
 argument_list|)
 decl_stmt|;
 comment|// Link backref cannot be removed
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-operator|*
-literal|2
-argument_list|)
-expr_stmt|;
 name|cleaner
 operator|.
 name|chore
@@ -767,15 +761,6 @@ name|archiveDir
 argument_list|,
 name|tableLinkName
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ttl
-operator|*
-literal|2
 argument_list|)
 expr_stmt|;
 name|cleaner
