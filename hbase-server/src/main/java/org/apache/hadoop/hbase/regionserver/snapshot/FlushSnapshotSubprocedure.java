@@ -217,6 +217,22 @@ name|SnapshotSubprocedurePool
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
+name|SnapshotDescriptionUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * This online snapshot implementation forces uses the distributed procedure framework to force a  * store flush and then records the hfiles.  Its enter stage does nothing.  Its leave stage then  * flushes the memstore, builds the region server's snapshot manifest from its hfiles list, and  * copies .regioninfos into the snapshot working directory.  At the master side, there is an atomic  * rename of the working dir into the proper snapshot directory.  */
 end_comment
@@ -372,6 +388,15 @@ comment|// snapshot is in progress.  This is helpful but not sufficient for prev
 comment|// snapshots that involve multiple regions and regionservers.  It is still possible to have
 comment|// an interleaving such that globally regions are missing, so we still need the verification
 comment|// step.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Starting region operation on "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
 name|region
 operator|.
 name|startRegionOperation
@@ -424,6 +449,15 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Closing region operation on "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
 name|region
 operator|.
 name|closeRegionOperation
@@ -458,6 +492,32 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+comment|// assert that the taskManager is empty.
+if|if
+condition|(
+name|taskManager
+operator|.
+name|hasTasks
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Attempting to take snapshot "
+operator|+
+name|SnapshotDescriptionUtils
+operator|.
+name|toString
+argument_list|(
+name|snapshot
+argument_list|)
+operator|+
+literal|" but we have currently have outstanding tasks"
+argument_list|)
+throw|;
+block|}
 comment|// Add all hfiles already existing in region.
 for|for
 control|(
@@ -500,11 +560,31 @@ operator|+
 literal|" regions"
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|taskManager
 operator|.
 name|waitForOutstandingTasks
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ForeignException
+argument_list|(
+name|getMemberName
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * do nothing, core of snapshot is executed in {@link #insideBarrier} step.    */
 annotation|@
@@ -547,7 +627,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting all log roll online snapshot subprocedure task threads for '"
+literal|"Aborting all online FLUSH snapshot subprocedure task threads for '"
 operator|+
 name|snapshot
 operator|.
@@ -559,11 +639,29 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|taskManager
 operator|.
 name|cancelTasks
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e1
+parameter_list|)
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Hooray!    */
 specifier|public

@@ -45,6 +45,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -214,20 +224,6 @@ operator|.
 name|hbase
 operator|.
 name|DaemonThreadFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
 import|;
 end_import
 
@@ -520,7 +516,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #stop(boolean)} to be called  */
+comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #stop()} to be called  */
 end_comment
 
 begin_class
@@ -637,12 +633,7 @@ specifier|final
 name|ProcedureMember
 name|member
 decl_stmt|;
-specifier|private
-specifier|final
-name|SnapshotSubprocedurePool
-name|taskManager
-decl_stmt|;
-comment|/**    * Exposed for testing.    * @param conf    * @param parent parent running the snapshot handler    * @param controller use a custom snapshot controller    * @param cohortMember use a custom cohort member    */
+comment|/**    * Exposed for testing.    * @param conf HBase configuration.    * @param parent parent running the snapshot handler    * @param memberRpc use specified memberRpc instance    * @param procMember use specified ProcedureMember    */
 name|RegionServerSnapshotManager
 parameter_list|(
 name|Configuration
@@ -652,10 +643,10 @@ name|HRegionServer
 name|parent
 parameter_list|,
 name|ProcedureMemberRpcs
-name|controller
+name|memberRpc
 parameter_list|,
 name|ProcedureMember
-name|cohortMember
+name|procMember
 parameter_list|)
 block|{
 name|this
@@ -668,27 +659,16 @@ name|this
 operator|.
 name|memberRpcs
 operator|=
-name|controller
+name|memberRpc
 expr_stmt|;
 name|this
 operator|.
 name|member
 operator|=
-name|cohortMember
-expr_stmt|;
-comment|// read in the snapshot request configuration properties
-name|taskManager
-operator|=
-operator|new
-name|SnapshotSubprocedurePool
-argument_list|(
-name|parent
-argument_list|,
-name|conf
-argument_list|)
+name|procMember
 expr_stmt|;
 block|}
-comment|/**    * Create a default snapshot handler - uses a zookeeper based cohort controller.    * @param rss region server running the handler    * @throws KeeperException if the zookeeper cluster cannot be reached    */
+comment|/**    * Create a default snapshot handler - uses a zookeeper based member controller.    * @param rss region server running the handler    * @throws KeeperException if the zookeeper cluster cannot be reached    */
 specifier|public
 name|RegionServerSnapshotManager
 parameter_list|(
@@ -817,17 +797,6 @@ name|SnapshotSubprocedureBuilder
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// setup the task manager to run all the snapshots tasks
-name|taskManager
-operator|=
-operator|new
-name|SnapshotSubprocedurePool
-argument_list|(
-name|rss
-argument_list|,
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Start accepting snapshot requests.    */
 specifier|public
@@ -876,29 +845,6 @@ operator|+
 literal|"."
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|force
-condition|)
-block|{
-name|this
-operator|.
-name|taskManager
-operator|.
-name|stop
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|this
-operator|.
-name|taskManager
-operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
-block|}
 try|try
 block|{
 name|this
@@ -1066,6 +1012,23 @@ block|{
 case|case
 name|FLUSH
 case|:
+name|SnapshotSubprocedurePool
+name|taskManager
+init|=
+operator|new
+name|SnapshotSubprocedurePool
+argument_list|(
+name|rss
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
+decl_stmt|;
 return|return
 operator|new
 name|FlushSnapshotSubprocedure
@@ -1249,8 +1212,8 @@ name|name
 decl_stmt|;
 name|SnapshotSubprocedurePool
 parameter_list|(
-name|Server
-name|parent
+name|String
+name|name
 parameter_list|,
 name|Configuration
 name|conf
@@ -1289,13 +1252,7 @@ name|this
 operator|.
 name|name
 operator|=
-name|parent
-operator|.
-name|getServerName
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|name
 expr_stmt|;
 name|executor
 operator|=
@@ -1342,7 +1299,20 @@ name|executor
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Submit a task to the pool.      *      * NOTE: all must be submitted before you can safely {@link #waitForOutstandingTasks()}. This      * version does not support issuing tasks from multiple concurrnty table snapshots requests.      */
+name|boolean
+name|hasTasks
+parameter_list|()
+block|{
+return|return
+name|futures
+operator|.
+name|size
+argument_list|()
+operator|!=
+literal|0
+return|;
+block|}
+comment|/**      * Submit a task to the pool.      *      * NOTE: all must be submitted before you can safely {@link #waitForOutstandingTasks()}. This      * version does not support issuing tasks from multiple concurrent table snapshots requests.      */
 name|void
 name|submitTask
 parameter_list|(
@@ -1377,12 +1347,14 @@ name|f
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Wait for all of the currently outstanding tasks submitted via {@link #submitTask(Callable)}.      * This *must* be called to after all tasks are submitted via submitTask.      *      * TODO: to support multiple concurrent snapshots this code needs to be rewritten.  The common      * pool of futures not being thread safe is part of the problem.      *      * @return<tt>true</tt> on success,<tt>false</tt> otherwise      * @throws SnapshotCreationException if the snapshot failed while we were waiting      */
+comment|/**      * Wait for all of the currently outstanding tasks submitted via {@link #submitTask(Callable)}.      * This *must* be called to after all tasks are submitted via submitTask.      *      * @return<tt>true</tt> on success,<tt>false</tt> otherwise      * @throws InterruptedException      * @throws SnapshotCreationException if the snapshot failed while we were waiting      */
 name|boolean
 name|waitForOutstandingTasks
 parameter_list|()
 throws|throws
 name|ForeignException
+throws|,
+name|InterruptedException
 block|{
 name|LOG
 operator|.
@@ -1391,9 +1363,6 @@ argument_list|(
 literal|"Waiting for local region snapshots to finish."
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-comment|// Using the completion service to process the futures that finish first first.
 name|int
 name|sz
 init|=
@@ -1402,6 +1371,9 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+try|try
+block|{
+comment|// Using the completion service to process the futures that finish first first.
 for|for
 control|(
 name|int
@@ -1493,7 +1465,6 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// TODO this isn't completely right and needs to be revisited.
 name|LOG
 operator|.
 name|warn
@@ -1505,9 +1476,18 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|!
 name|stopped
 condition|)
 block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|new
 name|ForeignException
@@ -1518,14 +1498,7 @@ name|e
 argument_list|)
 throw|;
 block|}
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
+comment|// we are stopped so we can just exit.
 block|}
 catch|catch
 parameter_list|(
@@ -1543,6 +1516,15 @@ operator|instanceof
 name|ForeignException
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Rethrowing ForeignException from SnapshotSubprocedurePool"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|(
 name|ForeignException
@@ -1553,6 +1535,15 @@ name|getCause
 argument_list|()
 throw|;
 block|}
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Got Exception in SnapshotSubprocedurePool"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|ForeignException
@@ -1568,46 +1559,7 @@ throw|;
 block|}
 finally|finally
 block|{
-comment|// close off remaining tasks
-for|for
-control|(
-name|Future
-argument_list|<
-name|Void
-argument_list|>
-name|f
-range|:
-name|futures
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|f
-operator|.
-name|isDone
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"cancelling region task"
-argument_list|)
-expr_stmt|;
-name|f
-operator|.
-name|cancel
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|futures
-operator|.
-name|clear
+name|cancelTasks
 argument_list|()
 expr_stmt|;
 block|}
@@ -1615,11 +1567,40 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**      * This attempts to cancel out all pending and in progress tasks (interruptions issues)      */
+comment|/**      * This attempts to cancel out all pending and in progress tasks (interruptions issues)      * @throws InterruptedException      */
 name|void
 name|cancelTasks
 parameter_list|()
+throws|throws
+name|InterruptedException
 block|{
+name|Collection
+argument_list|<
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+argument_list|>
+name|tasks
+init|=
+name|futures
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"cancelling "
+operator|+
+name|tasks
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" tasks for snapshot "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Future
@@ -1628,7 +1609,7 @@ name|Void
 argument_list|>
 name|f
 range|:
-name|futures
+name|tasks
 control|)
 block|{
 name|f
@@ -1639,21 +1620,47 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-comment|/**      * This politely shutsdown the thread pool.  Call when gracefully exiting a region server.      */
-name|void
-name|shutdown
-parameter_list|()
+comment|// evict remaining tasks and futures from taskPool.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|taskPool
+argument_list|)
+expr_stmt|;
+while|while
+condition|(
+operator|!
+name|futures
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
 block|{
-name|this
+comment|// block to remove cancelled futures;
+name|LOG
 operator|.
-name|executor
+name|warn
+argument_list|(
+literal|"Removing cancelled elements from taskPool"
+argument_list|)
+expr_stmt|;
+name|futures
 operator|.
-name|shutdown
+name|remove
+argument_list|(
+name|taskPool
+operator|.
+name|take
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * This abruptly shutsdown the thread pool.  Call when exiting a region server.      */
+comment|/**      * Abruptly shutdown the thread pool.  Call when exiting a region server.      */
 name|void
 name|stop
 parameter_list|()
