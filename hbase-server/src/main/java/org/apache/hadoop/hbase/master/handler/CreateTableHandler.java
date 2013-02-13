@@ -920,6 +920,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+name|completed
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -944,7 +949,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|Throwable
 name|e
 parameter_list|)
 block|{
@@ -959,26 +964,23 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|completed
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 block|}
-catch|catch
+block|}
+comment|/**    * Called after that process() is completed.    * @param exception null if process() is successful or not null if something has failed.    */
+specifier|protected
+name|void
+name|completed
 parameter_list|(
-name|KeeperException
-name|e
+specifier|final
+name|Throwable
+name|exception
 parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error trying to create the table "
-operator|+
-name|tableName
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+block|{   }
 comment|/**    * Responsible of table creation (on-disk and META) and assignment.    * - Create the table directory and descriptor (temp folder)    * - Create the on-disk regions (temp folder)    *   [If something fails here: we've just some trash in temp]    * - Move the table from temp to the root directory    *   [If something fails here: we've the table in place but some of the rows required    *    present in META. (hbck needed)]    * - Add regions to META    *   [If something fails here: we don't have regions assigned: table disabled]    * - Assign regions to Region Servers    *   [If something fails here: we still have the table in disabled state]    * - Update ZooKeeper with the enabled state    */
 specifier|private
 name|void

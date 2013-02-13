@@ -708,7 +708,17 @@ throw|throw
 name|rse
 throw|;
 block|}
-finally|finally
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|completed
+parameter_list|(
+specifier|final
+name|Throwable
+name|exception
+parameter_list|)
 block|{
 name|this
 operator|.
@@ -716,7 +726,6 @@ name|stopped
 operator|=
 literal|true
 expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override
