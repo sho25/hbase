@@ -227,7 +227,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|SnapshotTestingUtils
+name|SnapshotCreationException
 import|;
 end_import
 
@@ -243,9 +243,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
-name|SnapshotCreationException
+name|SnapshotTestingUtils
 import|;
 end_import
 

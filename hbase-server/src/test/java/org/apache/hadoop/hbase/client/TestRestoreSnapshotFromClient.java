@@ -321,9 +321,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
-name|SnapshotDoesNotExistException
+name|SnapshotDescriptionUtils
 import|;
 end_import
 
@@ -339,7 +337,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|SnapshotDescriptionUtils
+name|SnapshotDoesNotExistException
 import|;
 end_import
 

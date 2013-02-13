@@ -481,8 +481,6 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
 name|UnknownSnapshotException
 import|;
 end_import

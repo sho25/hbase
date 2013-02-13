@@ -1097,8 +1097,6 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
 name|SnapshotCreationException
 import|;
 end_import
@@ -1114,8 +1112,6 @@ operator|.
 name|hbase
 operator|.
 name|snapshot
-operator|.
-name|exception
 operator|.
 name|UnknownSnapshotException
 import|;

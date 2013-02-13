@@ -1157,8 +1157,6 @@ name|master
 operator|.
 name|snapshot
 operator|.
-name|manage
-operator|.
 name|SnapshotManager
 import|;
 end_import

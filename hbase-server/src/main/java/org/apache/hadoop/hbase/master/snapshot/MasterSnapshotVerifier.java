@@ -305,11 +305,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|server
-operator|.
 name|snapshot
 operator|.
-name|TakeSnapshotUtils
+name|CorruptedSnapshotException
 import|;
 end_import
 
@@ -341,9 +339,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
-name|CorruptedSnapshotException
+name|TakeSnapshotUtils
 import|;
 end_import
 

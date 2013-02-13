@@ -349,13 +349,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|server
-operator|.
 name|snapshot
 operator|.
-name|task
-operator|.
-name|TableInfoCopyTask
+name|SnapshotCreationException
 import|;
 end_import
 
@@ -387,9 +383,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|exception
-operator|.
-name|SnapshotCreationException
+name|TableInfoCopyTask
 import|;
 end_import
 
