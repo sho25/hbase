@@ -359,6 +359,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handler to Clone a snapshot.  *  *<p>Uses {@link RestoreSnapshotHelper} to create a new table with the same  * content of the specified snapshot.  */
 end_comment
@@ -484,6 +498,7 @@ name|ForeignExceptionDispatcher
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Create the on-disk regions, using the tableRootDir provided by the CreateTableHandler.    * The cloned table will be created in a temp directory, and then the CreateTableHandler    * will be responsible to add the regions returned by this method to META and do the assignment.    */
 annotation|@
 name|Override
 specifier|protected
@@ -491,8 +506,13 @@ name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
-name|handleCreateRegions
+name|handleCreateHdfsRegions
 parameter_list|(
+specifier|final
+name|Path
+name|tableRootDir
+parameter_list|,
+specifier|final
 name|String
 name|tableName
 parameter_list|)
@@ -518,23 +538,17 @@ decl_stmt|;
 name|Path
 name|tableDir
 init|=
-name|HTableDescriptor
-operator|.
-name|getTableDir
+operator|new
+name|Path
 argument_list|(
-name|rootDir
+name|tableRootDir
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// Execute the Clone
+comment|// 1. Execute the on-disk Clone
 name|Path
 name|snapshotDir
 init|=
@@ -557,8 +571,6 @@ name|conf
 argument_list|,
 name|fs
 argument_list|,
-name|catalogTracker
-argument_list|,
 name|snapshot
 argument_list|,
 name|snapshotDir
@@ -570,10 +582,44 @@ argument_list|,
 name|monitor
 argument_list|)
 decl_stmt|;
+name|RestoreSnapshotHelper
+operator|.
+name|RestoreMetaChanges
+name|metaChanges
+init|=
 name|restoreHelper
 operator|.
-name|restore
+name|restoreHdfsRegions
 argument_list|()
+decl_stmt|;
+comment|// Clone operation should not have stuff to restore or remove
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|metaChanges
+operator|.
+name|getRegionsToRestore
+argument_list|()
+operator|==
+literal|null
+argument_list|,
+literal|"A clone should not have regions to restore"
+argument_list|)
+expr_stmt|;
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|metaChanges
+operator|.
+name|getRegionsToRemove
+argument_list|()
+operator|==
+literal|null
+argument_list|,
+literal|"A clone should not have regions to remove"
+argument_list|)
 expr_stmt|;
 comment|// At this point the clone is complete. Next step is enabling the table.
 name|LOG
@@ -594,20 +640,12 @@ operator|+
 literal|" completed!"
 argument_list|)
 expr_stmt|;
+comment|// 2. let the CreateTableHandler add the regions to meta
 return|return
-name|MetaReader
+name|metaChanges
 operator|.
-name|getTableRegions
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
+name|getRegionsToAdd
+argument_list|()
 return|;
 block|}
 catch|catch

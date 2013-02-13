@@ -527,16 +527,18 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
+specifier|final
 name|MasterFileSystem
 name|fileSystemManager
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|HTableDescriptor
 name|hTableDescriptor
 decl_stmt|;
-specifier|private
+specifier|protected
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -1208,7 +1210,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Create the on-disk structure for the table, and returns the regions info.    * @param rootdir directory where the table is being created    * @param tableName name of the table under construction    * @return the list of regions created    */
+comment|/**    * Create the on-disk structure for the table, and returns the regions info.    * @param tableRootDir directory where the table is being created    * @param tableName name of the table under construction    * @return the list of regions created    */
 specifier|protected
 name|List
 argument_list|<
@@ -1218,7 +1220,7 @@ name|handleCreateHdfsRegions
 parameter_list|(
 specifier|final
 name|Path
-name|rootdir
+name|tableRootDir
 parameter_list|,
 specifier|final
 name|String
@@ -1311,7 +1313,7 @@ name|createHRegion
 argument_list|(
 name|newRegion
 argument_list|,
-name|rootdir
+name|tableRootDir
 argument_list|,
 name|conf
 argument_list|,

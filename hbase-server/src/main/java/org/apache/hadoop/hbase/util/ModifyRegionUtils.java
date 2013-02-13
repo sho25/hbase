@@ -404,7 +404,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to .META. after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param catalogTracker the catalog tracker    * @throws IOException    */
+comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to .META. after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -429,10 +429,6 @@ specifier|final
 name|HRegionInfo
 index|[]
 name|newRegions
-parameter_list|,
-specifier|final
-name|CatalogTracker
-name|catalogTracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -448,13 +444,11 @@ name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
-name|catalogTracker
-argument_list|,
 literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to .META. after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param catalogTracker the catalog tracker    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
+comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to .META. after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -479,10 +473,6 @@ specifier|final
 name|HRegionInfo
 index|[]
 name|newRegions
-parameter_list|,
-specifier|final
-name|CatalogTracker
-name|catalogTracker
 parameter_list|,
 specifier|final
 name|RegionFillTask

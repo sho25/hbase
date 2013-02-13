@@ -177,6 +177,22 @@ name|hbase
 operator|.
 name|catalog
 operator|.
+name|MetaEditor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|catalog
+operator|.
 name|MetaReader
 import|;
 end_import
@@ -479,6 +495,7 @@ operator|=
 name|htd
 expr_stmt|;
 block|}
+comment|/**    * The restore table is executed in place.    *  - The on-disk data will be restored    *  - [if something fail here: you need to delete the table and re-run the restore]    *  - META will be updated    *  - [if something fail here: you need to run hbck to fix META entries]    */
 annotation|@
 name|Override
 specifier|protected
@@ -549,7 +566,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// Update descriptor
+comment|// 1. Update descriptor
 name|this
 operator|.
 name|masterServices
@@ -562,7 +579,7 @@ argument_list|(
 name|hTableDescriptor
 argument_list|)
 expr_stmt|;
-comment|// Execute the Restore
+comment|// 2. Execute the on-disk Restore
 name|LOG
 operator|.
 name|debug
@@ -597,8 +614,6 @@ argument_list|()
 argument_list|,
 name|fs
 argument_list|,
-name|catalogTracker
-argument_list|,
 name|snapshot
 argument_list|,
 name|snapshotDir
@@ -610,10 +625,63 @@ argument_list|,
 name|monitor
 argument_list|)
 decl_stmt|;
+name|RestoreSnapshotHelper
+operator|.
+name|RestoreMetaChanges
+name|metaChanges
+init|=
 name|restoreHelper
 operator|.
-name|restore
+name|restoreHdfsRegions
 argument_list|()
+decl_stmt|;
+comment|// 3. Applies changes to .META.
+name|hris
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|hris
+operator|.
+name|addAll
+argument_list|(
+name|metaChanges
+operator|.
+name|getRegionsToAdd
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|hris
+operator|.
+name|addAll
+argument_list|(
+name|metaChanges
+operator|.
+name|getRegionsToRestore
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|hrisToRemove
+init|=
+name|metaChanges
+operator|.
+name|getRegionsToRemove
+argument_list|()
+decl_stmt|;
+name|MetaEditor
+operator|.
+name|mutateRegions
+argument_list|(
+name|catalogTracker
+argument_list|,
+name|hrisToRemove
+argument_list|,
+name|hris
+argument_list|)
 expr_stmt|;
 comment|// At this point the restore is complete. Next step is enabling the table.
 name|LOG
@@ -639,25 +707,6 @@ operator|+
 literal|" completed!"
 argument_list|)
 expr_stmt|;
-name|hris
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|hris
-operator|.
-name|addAll
-argument_list|(
-name|MetaReader
-operator|.
-name|getTableRegions
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -672,7 +721,7 @@ literal|"restore snapshot="
 operator|+
 name|snapshot
 operator|+
-literal|" failed"
+literal|" failed. re-run the restore command."
 decl_stmt|;
 name|LOG
 operator|.
