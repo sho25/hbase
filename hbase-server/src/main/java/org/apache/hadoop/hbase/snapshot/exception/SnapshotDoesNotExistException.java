@@ -91,6 +91,20 @@ name|SnapshotDoesNotExistException
 extends|extends
 name|HBaseSnapshotException
 block|{
+comment|/**    * @param msg full description of the failure    */
+specifier|public
+name|SnapshotDoesNotExistException
+parameter_list|(
+name|String
+name|msg
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @param desc expected snapshot to find    */
 specifier|public
 name|SnapshotDoesNotExistException

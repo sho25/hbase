@@ -1073,6 +1073,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @return Table descriptor for this table    * @throws TableExistsException    * @throws FileNotFoundException    * @throws IOException    */
+specifier|protected
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()

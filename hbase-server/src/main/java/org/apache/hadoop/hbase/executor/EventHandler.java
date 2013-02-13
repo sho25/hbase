@@ -464,6 +464,16 @@ name|MASTER_TABLE_OPERATIONS
 argument_list|)
 block|,
 comment|// Client asking Master to snapshot an offline table
+name|C_M_RESTORE_SNAPSHOT
+argument_list|(
+literal|49
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
+argument_list|)
+block|,
+comment|// Client asking Master to restore a snapshot
 comment|// Updates from master to ZK. This is done by the master and there is
 comment|// nothing to process by either Master or RS
 name|M_ZK_REGION_OFFLINE
