@@ -320,8 +320,14 @@ operator|+
 name|ex
 argument_list|,
 name|ex
+operator|.
+name|getCause
+argument_list|()
 operator|==
 name|EXTEXN
+operator|.
+name|getCause
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG
