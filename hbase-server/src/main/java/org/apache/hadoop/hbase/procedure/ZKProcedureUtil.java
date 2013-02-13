@@ -568,7 +568,6 @@ name|watcher
 return|;
 block|}
 comment|/**    * Is this a procedure related znode path?    *    * TODO: this is not strict, can return true if had name just starts with same prefix but is    * different zdir.    *    * @return true if starts with baseZnode    */
-specifier|public
 name|boolean
 name|isInProcedurePath
 parameter_list|(
@@ -585,8 +584,24 @@ name|baseZNode
 argument_list|)
 return|;
 block|}
+comment|/**    * Is this the exact procedure barrier acquired znode    */
+name|boolean
+name|isAcquiredNode
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+return|return
+name|path
+operator|.
+name|equals
+argument_list|(
+name|acquiredZnode
+argument_list|)
+return|;
+block|}
 comment|/**    * Is this in the procedure barrier acquired znode path    */
-specifier|public
 name|boolean
 name|isAcquiredPathNode
 parameter_list|(
@@ -613,8 +628,24 @@ name|acquiredZnode
 argument_list|)
 return|;
 block|}
+comment|/**    * Is this the exact procedure barrier reached znode    */
+name|boolean
+name|isReachedNode
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+return|return
+name|path
+operator|.
+name|equals
+argument_list|(
+name|reachedZnode
+argument_list|)
+return|;
+block|}
 comment|/**    * Is this in the procedure barrier reached znode path    */
-specifier|public
 name|boolean
 name|isReachedPathNode
 parameter_list|(
@@ -638,6 +669,23 @@ operator|.
 name|equals
 argument_list|(
 name|reachedZnode
+argument_list|)
+return|;
+block|}
+comment|/**    * Is this in the procedure barrier abort znode path    */
+name|boolean
+name|isAbortNode
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+return|return
+name|path
+operator|.
+name|equals
+argument_list|(
+name|abortZnode
 argument_list|)
 return|;
 block|}

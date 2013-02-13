@@ -220,7 +220,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ZKProcedureUtil
+name|ZKProcedureCoordinatorRpcs
 operator|.
 name|class
 argument_list|)
@@ -787,8 +787,6 @@ block|{
 if|if
 condition|(
 operator|!
-name|zkProc
-operator|.
 name|isInProcedurePath
 argument_list|(
 name|path
@@ -813,8 +811,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|zkProc
-operator|.
 name|isAcquiredPathNode
 argument_list|(
 name|path
@@ -849,8 +845,6 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|zkProc
-operator|.
 name|isReachedPathNode
 argument_list|(
 name|path
@@ -886,8 +880,6 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|zkProc
-operator|.
 name|isAbortPathNode
 argument_list|(
 name|path
