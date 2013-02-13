@@ -398,6 +398,33 @@ throws|throws
 name|IllegalArgumentException
 block|{
 comment|// FIXME these method names is really bad - trunk will probably change
+comment|// .META. and -ROOT- snapshots are not allowed
+if|if
+condition|(
+name|HTableDescriptor
+operator|.
+name|isMetaTable
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|".META. and -ROOT- snapshots are not allowed"
+argument_list|)
+throw|;
+block|}
 comment|// make sure the snapshot name is valid
 name|HTableDescriptor
 operator|.
