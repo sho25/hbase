@@ -358,7 +358,7 @@ name|reachedZnode
 argument_list|)
 condition|)
 block|{
-name|recievedReachedGlobalBarrier
+name|receivedReachedGlobalBarrier
 argument_list|(
 name|path
 argument_list|)
@@ -453,7 +453,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recieved start event."
+literal|"Received start event."
 argument_list|)
 expr_stmt|;
 name|waitForNewProcedures
@@ -477,7 +477,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recieved abort event."
+literal|"Received abort event."
 argument_list|)
 expr_stmt|;
 name|watchForAbortedProcedures
@@ -536,7 +536,7 @@ block|}
 comment|/**    * Pass along the procedure global barrier notification to any listeners    * @param path full znode path that cause the notification    */
 specifier|private
 name|void
-name|recievedReachedGlobalBarrier
+name|receivedReachedGlobalBarrier
 parameter_list|(
 name|String
 name|path
@@ -1180,7 +1180,7 @@ name|reachedBarrier
 argument_list|)
 condition|)
 block|{
-name|recievedReachedGlobalBarrier
+name|receivedReachedGlobalBarrier
 argument_list|(
 name|reachedBarrier
 argument_list|)

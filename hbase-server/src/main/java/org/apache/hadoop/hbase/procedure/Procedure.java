@@ -1098,7 +1098,14 @@ literal|"' released barrier for procedure'"
 operator|+
 name|procName
 operator|+
-literal|"', counting down latch"
+literal|"', counting down latch.  Waiting for "
+operator|+
+name|releasedBarrierLatch
+operator|.
+name|getCount
+argument_list|()
+operator|+
+literal|" more"
 argument_list|)
 expr_stmt|;
 block|}

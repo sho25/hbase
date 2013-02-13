@@ -468,21 +468,69 @@ init|(
 name|procedures
 init|)
 block|{
-if|if
-condition|(
+name|Procedure
+name|oldProc
+init|=
 name|procedures
 operator|.
 name|get
 argument_list|(
 name|procName
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|oldProc
 operator|!=
 literal|null
 condition|)
 block|{
+comment|// procedures are always eventually completed on both successful and failed execution
+if|if
+condition|(
+name|oldProc
+operator|.
+name|completedLatch
+operator|.
+name|getCount
+argument_list|()
+operator|!=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" currently running.  Rejecting new request"
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" was in running list but was completed.  Accepting new attempt."
+argument_list|)
+expr_stmt|;
+name|procedures
+operator|.
+name|remove
+argument_list|(
+name|procName
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|// kick off the procedure's execution in a separate thread
@@ -535,6 +583,21 @@ name|RejectedExecutionException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" rejected by execution pool.  Propagating error and "
+operator|+
+literal|"cancelling operation."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 comment|// the thread pool is full and we can't run the procedure
 name|proc
 operator|.

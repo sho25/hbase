@@ -618,17 +618,6 @@ comment|// make sure we didn't get an external exception
 name|rethrowException
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Subprocedure '"
-operator|+
-name|barrierName
-operator|+
-literal|"' locally completed"
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

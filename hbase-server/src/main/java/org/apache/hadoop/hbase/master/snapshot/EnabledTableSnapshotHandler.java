@@ -439,7 +439,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Failed to submit distribute procedure for snapshot '"
+literal|"Failed to submit distributed procedure for snapshot '"
 operator|+
 name|snapshot
 operator|.
