@@ -887,28 +887,6 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|SnapshotDescription
-operator|.
-name|Type
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
-operator|.
 name|TableSchema
 import|;
 end_import
@@ -3730,7 +3708,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait for the table to be enabled.    * If enabling the table exceeds the retry period, an exception is thrown.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs or    *    table is not enabled after the retries period.    */
+comment|/**    * Wait for the table to be enabled and available    * If enabling the table exceeds the retry period, an exception is thrown.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs or    *    table is not enabled after the retries period.    */
 specifier|private
 name|void
 name|waitUntilTableIsEnabled
@@ -3782,6 +3760,11 @@ block|{
 name|enabled
 operator|=
 name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+operator|&&
+name|isTableAvailable
 argument_list|(
 name|tableName
 argument_list|)
@@ -9857,7 +9840,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Execute Restore/Clone snapshot and wait for the server to complete (blocking).    *    * @param snapshot snapshot to restore    * @param tableName table name to restore the snapshot on    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Execute Restore/Clone snapshot and wait for the server to complete (blocking).    * To check if the cloned table exists, use {@link #isTableAvailable} -- it is not safe to    * create an HTable instance to this table before it is available.    * @param snapshot snapshot to restore    * @param tableName table name to restore the snapshot on    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 specifier|private
 name|void
 name|internalRestoreSnapshot
