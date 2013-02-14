@@ -20214,7 +20214,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate<<<<<<< HEAD    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise =======    * @return the Result>>>>>>> apache/trunk    * @throws IOException    */
+comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    * @throws IOException    */
 end_comment
 
 begin_function

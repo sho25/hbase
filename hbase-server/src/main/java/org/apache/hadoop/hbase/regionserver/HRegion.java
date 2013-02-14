@@ -8314,7 +8314,7 @@ name|length
 return|;
 block|}
 block|}
-comment|/**    * Perform a batch put with no pre-specified locks<<<<<<< HEAD =======    * @see HRegion#batchMutate(Pair[])>>>>>>> apache/trunk    */
+comment|/**    * Perform a batch put with no pre-specified locks    * @see HRegion#batchMutate(Pair[])    */
 specifier|public
 name|OperationStatus
 index|[]
