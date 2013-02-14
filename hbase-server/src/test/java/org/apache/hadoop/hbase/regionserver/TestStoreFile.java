@@ -1259,6 +1259,7 @@ name|columnFamily
 init|=
 literal|"f"
 decl_stmt|;
+comment|// force temp data in hbase/target/test-data instead of /tmp/hbase-xxxx/
 name|Configuration
 name|testConf
 init|=
@@ -1449,7 +1450,7 @@ name|fs
 argument_list|,
 name|linkFilePath
 argument_list|,
-name|conf
+name|testConf
 argument_list|,
 name|cacheConf
 argument_list|,
