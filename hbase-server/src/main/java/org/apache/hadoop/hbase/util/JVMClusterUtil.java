@@ -1040,7 +1040,7 @@ argument_list|()
 expr_stmt|;
 block|}
 name|boolean
-name|noWait
+name|wasInterrupted
 init|=
 literal|false
 decl_stmt|;
@@ -1064,6 +1064,7 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// first try nicely.
 for|for
 control|(
 name|RegionServerThread
@@ -1099,7 +1100,7 @@ name|isAlive
 argument_list|()
 operator|&&
 operator|!
-name|noWait
+name|wasInterrupted
 operator|&&
 name|System
 operator|.
@@ -1136,7 +1137,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|noWait
+name|wasInterrupted
 operator|=
 literal|true
 expr_stmt|;
@@ -1178,6 +1179,13 @@ condition|)
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"RegionServerThreads remaining, give one more chance before interrupting"
+argument_list|)
+expr_stmt|;
 name|t
 operator|.
 name|join
@@ -1192,7 +1200,7 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|noWait
+name|wasInterrupted
 operator|=
 literal|true
 expr_stmt|;
@@ -1215,6 +1223,13 @@ name|isAlive
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"RegionServerThreads taking too long to stop, interrupting"
+argument_list|)
+expr_stmt|;
 name|t
 operator|.
 name|interrupt
@@ -1251,7 +1266,7 @@ name|isAlive
 argument_list|()
 operator|&&
 operator|!
-name|noWait
+name|wasInterrupted
 condition|)
 block|{
 try|try
@@ -1289,7 +1304,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|noWait
+name|wasInterrupted
 operator|=
 literal|true
 expr_stmt|;
@@ -1338,7 +1353,7 @@ operator|+
 literal|" regionserver(s) "
 operator|+
 operator|(
-name|noWait
+name|wasInterrupted
 condition|?
 literal|"interrupted"
 else|:
@@ -1348,8 +1363,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-operator|!
-name|noWait
+name|wasInterrupted
 condition|)
 block|{
 name|Thread
