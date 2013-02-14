@@ -373,19 +373,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|watcher
-operator|!=
-literal|null
-condition|)
-block|{
-name|watcher
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
+comment|// the watcher is passed from either Master or Region Server
+comment|// watcher.close() will be called by the owner so no need to call close() here
 block|}
 specifier|public
 name|String
