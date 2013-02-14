@@ -576,41 +576,9 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-comment|// 4. Update table descriptor cache
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|remove
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// 5. If entry for this table in zk, and up in AssignmentManager, remove it.
-name|am
-operator|.
-name|getZKTable
-argument_list|()
-operator|.
-name|setDeletedTable
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// 6. Delete regions from FS (temp directory)
+try|try
+block|{
+comment|// 4. Delete regions from FS (temp directory)
 name|FileSystem
 name|fs
 init|=
@@ -645,11 +613,6 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
-name|masterServices
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|fs
 argument_list|,
 name|mfs
@@ -672,7 +635,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 7. Delete table from FS (temp directory)
+comment|// 5. Delete table from FS (temp directory)
 name|fs
 operator|.
 name|delete
@@ -682,6 +645,44 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// 6. Update table descriptor cache
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|.
+name|remove
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// 7. If entry for this table in zk, and up in AssignmentManager, remove it.
+name|am
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|setDeletedTable
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|cpHost
