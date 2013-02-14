@@ -265,6 +265,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Stoppable
 import|;
 end_import
@@ -409,7 +423,7 @@ specifier|final
 name|Stoppable
 name|stopper
 decl_stmt|;
-comment|// All logs we are currently trackign
+comment|// All logs we are currently tracking
 specifier|private
 specifier|final
 name|Map
@@ -791,12 +805,16 @@ condition|(
 operator|!
 name|queueRecovered
 operator|&&
+operator|!
 name|hlogs
 operator|.
 name|first
 argument_list|()
-operator|!=
+operator|.
+name|equals
+argument_list|(
 name|key
+argument_list|)
 condition|)
 block|{
 name|SortedSet
@@ -2086,6 +2104,16 @@ condition|)
 block|{
 return|return;
 block|}
+if|if
+condition|(
+name|zkHelper
+operator|.
+name|isPeerPath
+argument_list|(
+name|path
+argument_list|)
+condition|)
+block|{
 name|String
 name|id
 init|=
@@ -2101,6 +2129,7 @@ argument_list|(
 name|id
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**      * Called when an existing node has a child node added or removed.      * @param path full path of the node whose children have changed      */
 specifier|public
@@ -2327,6 +2356,68 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|SortedMap
+argument_list|<
+name|String
+argument_list|,
+name|SortedSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|newQueues
+init|=
+literal|null
+decl_stmt|;
+comment|// check whether there is multi support. If yes, use it.
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|ZOOKEEPER_USEMULTI
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Atomically moving "
+operator|+
+name|rsZnode
+operator|+
+literal|"'s hlogs to my queue"
+argument_list|)
+expr_stmt|;
+name|newQueues
+operator|=
+name|zkHelper
+operator|.
+name|copyQueuesFromRSUsingMulti
+argument_list|(
+name|rsZnode
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving "
+operator|+
+name|rsZnode
+operator|+
+literal|"'s hlogs to my queue"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -2340,35 +2431,15 @@ condition|)
 block|{
 return|return;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving "
-operator|+
-name|rsZnode
-operator|+
-literal|"'s hlogs to my queue"
-argument_list|)
-expr_stmt|;
-name|SortedMap
-argument_list|<
-name|String
-argument_list|,
-name|SortedSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
 name|newQueues
-init|=
+operator|=
 name|zkHelper
 operator|.
 name|copyQueuesFromRS
 argument_list|(
 name|rsZnode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|zkHelper
 operator|.
 name|deleteRsQueues
@@ -2376,12 +2447,10 @@ argument_list|(
 name|rsZnode
 argument_list|)
 expr_stmt|;
+block|}
+comment|// process of copying over the failed queue is completed.
 if|if
 condition|(
-name|newQueues
-operator|==
-literal|null
-operator|||
 name|newQueues
 operator|.
 name|size

@@ -375,8 +375,8 @@ init|=
 literal|0
 decl_stmt|;
 comment|/** Maximum minor version supported by this HFile format */
-comment|// We went to version 2 when we moved to pb'ing the fileinfo trailer on the file. This version can read Writables
-comment|// version 1 too.
+comment|// We went to version 2 when we moved to pb'ing fileinfo and the trailer on
+comment|// the file. This version can read Writables version 1.
 specifier|static
 specifier|final
 name|int

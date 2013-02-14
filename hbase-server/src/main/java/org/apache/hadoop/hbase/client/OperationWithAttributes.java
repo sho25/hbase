@@ -137,8 +137,9 @@ argument_list|>
 name|attributes
 decl_stmt|;
 comment|// used for uniquely identifying an operation
-specifier|static
 specifier|public
+specifier|static
+specifier|final
 name|String
 name|ID_ATRIBUTE
 init|=

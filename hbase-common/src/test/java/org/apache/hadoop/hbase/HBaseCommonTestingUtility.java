@@ -335,6 +335,7 @@ name|testPath
 return|;
 block|}
 comment|/**    * @return True if we removed the test dirs    * @throws IOException    */
+specifier|public
 name|boolean
 name|cleanupTestDir
 parameter_list|()

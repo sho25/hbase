@@ -271,7 +271,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|BloomType
 import|;
 end_import
 
@@ -288,8 +288,6 @@ operator|.
 name|regionserver
 operator|.
 name|StoreFile
-operator|.
-name|BloomType
 import|;
 end_import
 
@@ -428,7 +426,6 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-specifier|private
 specifier|static
 name|HBaseTestingUtility
 name|util
@@ -436,6 +433,13 @@ init|=
 operator|new
 name|HBaseTestingUtility
 argument_list|()
+decl_stmt|;
+comment|//used by secure subclass
+specifier|static
+name|boolean
+name|useSecure
+init|=
+literal|false
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -971,6 +975,8 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+name|useSecure
 argument_list|)
 decl_stmt|;
 name|loader

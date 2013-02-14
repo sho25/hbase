@@ -2533,8 +2533,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2649,8 +2647,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2711,8 +2707,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2909,8 +2903,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// Assert that count of cells is same as before crash.
@@ -3175,8 +3167,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -3355,8 +3345,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -3547,30 +3535,18 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Add a cache flush, shouldn't have any effect
-name|long
-name|logSeqId
-init|=
 name|wal
 operator|.
 name|startCacheFlush
 argument_list|(
 name|regionName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|wal
 operator|.
 name|completeCacheFlush
 argument_list|(
 name|regionName
-argument_list|,
-name|tableName
-argument_list|,
-name|logSeqId
-argument_list|,
-name|hri
-operator|.
-name|isMetaRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Add an edit to another family, should be skipped.
@@ -3935,9 +3911,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-operator|-
-literal|1
 argument_list|)
 decl_stmt|;
 comment|// Make sure we only see the good edits
@@ -4214,15 +4187,6 @@ name|hri
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-name|hri
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|sequenceNumber
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|wal
@@ -4388,19 +4352,7 @@ parameter_list|(
 name|byte
 index|[]
 name|encodedRegionName
-parameter_list|,
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-name|long
-name|logSeqId
-parameter_list|,
-name|boolean
-name|isMetaRegion
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -4415,12 +4367,6 @@ operator|.
 name|completeCacheFlush
 argument_list|(
 name|encodedRegionName
-argument_list|,
-name|tableName
-argument_list|,
-name|logSeqId
-argument_list|,
-name|isMetaRegion
 argument_list|)
 expr_stmt|;
 block|}

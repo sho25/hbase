@@ -1374,7 +1374,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Waiting for "
 operator|+
@@ -1383,6 +1383,18 @@ operator|+
 literal|" to finish..."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|done
+condition|)
+block|{
+name|t
+operator|.
+name|shutdownNow
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1392,7 +1404,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"Interrupted waiting for "
 operator|+

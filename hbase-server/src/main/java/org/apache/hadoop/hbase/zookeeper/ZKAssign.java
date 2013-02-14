@@ -804,7 +804,7 @@ operator|+
 literal|1
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the OPENED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during normal region transitions when a region    * finishes successfully opening.  This is the Master acknowledging completion    * of the specified regions transition.    *    * @param zkw zk reference    * @param regionName opened region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the OPENED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during normal region transitions when a region    * finishes successfully opening.  This is the Master acknowledging completion    * of the specified regions transition.    *    * @param zkw zk reference    * @param encodedRegionName opened region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -814,7 +814,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 name|String
-name|regionName
+name|encodedRegionName
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -828,7 +828,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|EventType
 operator|.
@@ -836,7 +836,7 @@ name|RS_ZK_REGION_OPENED
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the OFFLINE state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during master failover when the regions on an RS    * that has died are all set to OFFLINE before being processed.    *    * @param zkw zk reference    * @param regionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the OFFLINE state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during master failover when the regions on an RS    * that has died are all set to OFFLINE before being processed.    *    * @param zkw zk reference    * @param encodedRegionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -846,7 +846,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 name|String
-name|regionName
+name|encodedRegionName
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -860,7 +860,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|EventType
 operator|.
@@ -868,7 +868,7 @@ name|M_ZK_REGION_OFFLINE
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the CLOSED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the CLOSED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param encodedRegionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -878,7 +878,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 name|String
-name|regionName
+name|encodedRegionName
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -892,7 +892,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|EventType
 operator|.
@@ -920,7 +920,7 @@ operator|.
 name|NoNodeException
 block|{
 name|String
-name|regionName
+name|encodedRegionName
 init|=
 name|region
 operator|.
@@ -932,7 +932,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|EventType
 operator|.
@@ -940,7 +940,7 @@ name|M_ZK_REGION_CLOSING
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used when a region finishes opening/closing.    * The Master acknowledges completion    * of the specified regions transition to being closed/opened.    *    * @param zkw zk reference    * @param regionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used when a region finishes opening/closing.    * The Master acknowledges completion    * of the specified regions transition to being closed/opened.    *    * @param zkw zk reference    * @param encodedRegionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -950,7 +950,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 name|String
-name|regionName
+name|encodedRegionName
 parameter_list|,
 name|EventType
 name|expectedState
@@ -967,7 +967,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|expectedState
 argument_list|,
@@ -976,7 +976,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used when a region finishes opening/closing.    * The Master acknowledges completion    * of the specified regions transition to being closed/opened.    *    * @param zkw zk reference    * @param regionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @param expectedVersion of the znode that is to be deleted.    *        If expectedVersion need not be compared while deleting the znode    *        pass -1    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used when a region finishes opening/closing.    * The Master acknowledges completion    * of the specified regions transition to being closed/opened.    *    * @param zkw zk reference    * @param encodedRegionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @param expectedVersion of the znode that is to be deleted.    *        If expectedVersion need not be compared while deleting the znode    *        pass -1    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -986,7 +986,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 name|String
-name|regionName
+name|encodedRegionName
 parameter_list|,
 name|EventType
 name|expectedState
@@ -1013,7 +1013,7 @@ literal|"Deleting existing unassigned "
 operator|+
 literal|"node for "
 operator|+
-name|regionName
+name|encodedRegionName
 operator|+
 literal|" that is in expected state "
 operator|+
@@ -1028,7 +1028,7 @@ name|getNodeName
 argument_list|(
 name|zkw
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 name|zkw
@@ -1116,7 +1116,7 @@ name|prefix
 argument_list|(
 literal|"Attempting to delete unassigned node "
 operator|+
-name|regionName
+name|encodedRegionName
 operator|+
 literal|" in "
 operator|+
@@ -1155,7 +1155,7 @@ name|warn
 argument_list|(
 literal|"The node "
 operator|+
-name|regionName
+name|encodedRegionName
 operator|+
 literal|" we are trying to delete is not"
 operator|+
@@ -1196,7 +1196,7 @@ literal|"Attempting to delete "
 operator|+
 literal|"unassigned node "
 operator|+
-name|regionName
+name|encodedRegionName
 operator|+
 literal|" in "
 operator|+
@@ -1220,7 +1220,7 @@ name|prefix
 argument_list|(
 literal|"Successfully deleted unassigned node for region "
 operator|+
-name|regionName
+name|encodedRegionName
 operator|+
 literal|" in expected state "
 operator|+
@@ -1560,6 +1560,198 @@ name|RS_ZK_REGION_OPENED
 argument_list|,
 name|expectedVersion
 argument_list|)
+return|;
+block|}
+comment|/**    *    * @param zkw zk reference    * @param region region to be closed    * @param expectedVersion expected version of the znode    * @return true if the znode exists, has the right version and the right state. False otherwise.    * @throws KeeperException    */
+specifier|public
+specifier|static
+name|boolean
+name|checkClosingState
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|,
+name|HRegionInfo
+name|region
+parameter_list|,
+name|int
+name|expectedVersion
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+specifier|final
+name|String
+name|encoded
+init|=
+name|getNodeName
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|zkw
+operator|.
+name|sync
+argument_list|(
+name|encoded
+argument_list|)
+expr_stmt|;
+comment|// Read existing data of the node
+name|Stat
+name|stat
+init|=
+operator|new
+name|Stat
+argument_list|()
+decl_stmt|;
+name|byte
+index|[]
+name|existingBytes
+init|=
+name|ZKUtil
+operator|.
+name|getDataNoWatch
+argument_list|(
+name|zkw
+argument_list|,
+name|encoded
+argument_list|,
+name|stat
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|existingBytes
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to check the "
+operator|+
+literal|"closing node for "
+operator|+
+name|encoded
+operator|+
+literal|". The node does not exist"
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|expectedVersion
+operator|!=
+operator|-
+literal|1
+operator|&&
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|!=
+name|expectedVersion
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to check the "
+operator|+
+literal|"closing node for "
+operator|+
+name|encoded
+operator|+
+literal|". The node existed but was version "
+operator|+
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|+
+literal|" not the expected version "
+operator|+
+name|expectedVersion
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+name|RegionTransition
+name|rt
+init|=
+name|getRegionTransition
+argument_list|(
+name|existingBytes
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|EventType
+operator|.
+name|M_ZK_REGION_CLOSING
+operator|.
+name|equals
+argument_list|(
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to check the "
+operator|+
+literal|"closing node for "
+operator|+
+name|encoded
+operator|+
+literal|". The node existed but was in an unexpected state: "
+operator|+
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+return|return
+literal|true
 return|;
 block|}
 comment|/**    * Method that actually performs unassigned node transitions.    *    *<p>Attempts to transition the unassigned node for the specified region    * from the expected state to the state in the specified transition data.    *    *<p>Method first reads existing data and verifies it is in the expected    * state.  If the node does not exist or the node is not in the expected    * state, the method returns -1.  If the transition is successful, the    * version number of the node following the transition is returned.    *    *<p>If the read state is what is expected, it attempts to write the new    * state and data into the node.  When doing this, it includes the expected    * version (determined when the existing state was verified) to ensure that    * only one transition is successful.  If there is a version mismatch, the    * method returns -1.    *    *<p>If the write is successful, no watch is set and the method returns true.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server transition happens on    * @param endState state to transition node to if all checks pass    * @param beginState state the node must currently be in to do transition    * @param expectedVersion expected version of data before modification, or -1    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */

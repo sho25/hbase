@@ -33,7 +33,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|concurrent
+operator|.
+name|ConcurrentMap
 import|;
 end_import
 
@@ -62,6 +64,20 @@ operator|.
 name|fs
 operator|.
 name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
 import|;
 end_import
 
@@ -148,11 +164,16 @@ name|boolean
 name|isStopping
 parameter_list|()
 function_decl|;
-comment|/** @return the HLog */
+comment|/** @return the HLog for a particular region. Pass null for getting the     * default (common) WAL */
 specifier|public
 name|HLog
 name|getWAL
-parameter_list|()
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
 specifier|public
@@ -202,7 +223,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return map of regions in transition in this RS    */
 specifier|public
-name|Map
+name|ConcurrentMap
 argument_list|<
 name|byte
 index|[]

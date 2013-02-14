@@ -144,7 +144,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HFile cleaner that uses the timestamp of the hfile to determine if it should be deleted. By  * default they are allowed to live for {@value TimeToLiveHFileCleaner#DEFAULT_TTL}  */
+comment|/**  * HFile cleaner that uses the timestamp of the hfile to determine if it should be deleted. By  * default they are allowed to live for {@value #DEFAULT_TTL}  */
 end_comment
 
 begin_class
@@ -185,7 +185,7 @@ init|=
 literal|"hbase.master.hfilecleaner.ttl"
 decl_stmt|;
 comment|// default ttl = 5 minutes
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|long

@@ -429,7 +429,7 @@ specifier|final
 name|int
 name|scannerTimeout
 decl_stmt|;
-comment|/**      * Create a new ClientScanner for the specified table. An HConnection will be      * retrieved using the passed Configuration.      * Note that the passed {@link Scan}'s start row maybe changed changed.       *       * @param conf The {@link Configuration} to use.      * @param scan {@link Scan} to use in this scanner      * @param tableName The table that we wish to scan      * @throws IOException      */
+comment|/**      * Create a new ClientScanner for the specified table. An HConnection will be      * retrieved using the passed Configuration.      * Note that the passed {@link Scan}'s start row maybe changed changed.      *      * @param conf The {@link Configuration} to use.      * @param scan {@link Scan} to use in this scanner      * @param tableName The table that we wish to scan      * @throws IOException      */
 specifier|public
 name|ClientScanner
 parameter_list|(
@@ -466,7 +466,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Create a new ClientScanner for the specified table      * Note that the passed {@link Scan}'s start row maybe changed changed.       *       * @param conf The {@link Configuration} to use.      * @param scan {@link Scan} to use in this scanner      * @param tableName The table that we wish to scan      * @param connection Connection identifying the cluster      * @throws IOException      */
+comment|/**      * Create a new ClientScanner for the specified table      * Note that the passed {@link Scan}'s start row maybe changed changed.      *      * @param conf The {@link Configuration} to use.      * @param scan {@link Scan} to use in this scanner      * @param tableName The table that we wish to scan      * @param connection Connection identifying the cluster      * @throws IOException      */
 specifier|public
 name|ClientScanner
 parameter_list|(
@@ -1136,14 +1136,6 @@ condition|)
 block|{
 return|return;
 block|}
-specifier|final
-name|DataOutputBuffer
-name|d
-init|=
-operator|new
-name|DataOutputBuffer
-argument_list|()
-decl_stmt|;
 name|MapReduceProtos
 operator|.
 name|ScanMetrics

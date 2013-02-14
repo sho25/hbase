@@ -1566,7 +1566,7 @@ operator|.
 name|get
 argument_list|()
 operator|+
-name|tot_wkr_final_transistion_failed
+name|tot_wkr_final_transition_failed
 operator|.
 name|get
 argument_list|()
@@ -1615,7 +1615,7 @@ operator|.
 name|get
 argument_list|()
 operator|+
-name|tot_wkr_final_transistion_failed
+name|tot_wkr_final_transition_failed
 operator|.
 name|get
 argument_list|()
@@ -1645,7 +1645,7 @@ literal|" milliseconds - "
 operator|+
 literal|"tot_wkr_task_resigned, tot_wkr_task_err, "
 operator|+
-literal|"tot_wkr_final_transistion_failed, tot_wkr_task_done, "
+literal|"tot_wkr_final_transition_failed, tot_wkr_task_done, "
 operator|+
 literal|"tot_wkr_preempt_task"
 argument_list|)

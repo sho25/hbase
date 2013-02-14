@@ -607,7 +607,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Attempt to delete a directory and all files under that directory. Each child file is passed    * through the delegates to see if it can be deleted. If the directory has no children when the    * cleaners have finished it is deleted.    *<p>    * If new children files are added between checks of the directory, the directory will<b>not</b>    * be deleted.    * @param toCheck directory to check    * @return<tt>true</tt> if the directory was deleted,<tt>false</tt> otherwise.    * @throws IOException if there is an unexpected filesystem error    */
-specifier|private
+specifier|public
 name|boolean
 name|checkAndDeleteDirectory
 parameter_list|(
@@ -655,9 +655,52 @@ name|children
 operator|==
 literal|null
 condition|)
+block|{
+try|try
+block|{
 return|return
-literal|true
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|toCheck
+argument_list|,
+literal|false
+argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Couldn't delete directory: "
+operator|+
+name|toCheck
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// couldn't delete w/o exception, so we can't return success.
+return|return
+literal|false
+return|;
+block|}
 name|boolean
 name|canDeleteThis
 init|=
@@ -720,11 +763,21 @@ literal|false
 expr_stmt|;
 block|}
 block|}
-comment|// if all the children have been deleted, then we should try to delete this directory. However,
-comment|// don't do so recursively so we don't delete files that have been added since we checked.
-return|return
+comment|// if the directory has children, we can't delete it, so we are done
+if|if
+condition|(
+operator|!
 name|canDeleteThis
-condition|?
+condition|)
+return|return
+literal|false
+return|;
+comment|// otherwise, all the children (that we know about) have been deleted, so we should try to
+comment|// delete this directory. However, don't do so recursively so we don't delete files that have
+comment|// been added since we last checked.
+try|try
+block|{
+return|return
 name|fs
 operator|.
 name|delete
@@ -733,7 +786,37 @@ name|toCheck
 argument_list|,
 literal|false
 argument_list|)
-else|:
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Couldn't delete directory: "
+operator|+
+name|toCheck
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// couldn't delete w/o exception, so we can't return success.
+return|return
 literal|false
 return|;
 block|}

@@ -316,7 +316,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|ZOOKEEPER_SESSION_TIMEOUT
+name|ZK_SESSION_TIMEOUT
 argument_list|,
 literal|1000
 argument_list|)

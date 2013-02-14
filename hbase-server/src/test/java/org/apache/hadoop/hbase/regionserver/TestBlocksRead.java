@@ -339,24 +339,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
-name|BloomType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -559,7 +541,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Callers must afterward call {@link HRegion#closeHRegion(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return created and initialized region.    */
+comment|/**    * Callers must afterward call {@link HRegion#closeHRegion(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
 specifier|private
 name|HRegion
 name|initHRegion
@@ -1090,8 +1072,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|raw
@@ -1337,8 +1317,6 @@ operator|.
 name|delete
 argument_list|(
 name|del
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)

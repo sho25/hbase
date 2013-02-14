@@ -1500,7 +1500,7 @@ name|format
 argument_list|(
 literal|"%d live servers, %d dead servers, "
 operator|+
-literal|"%.4f average load\n\n"
+literal|"%.4f average load%n%n"
 argument_list|,
 name|liveNodes
 operator|.

@@ -183,8 +183,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-operator|.
 name|BloomType
 import|;
 end_import

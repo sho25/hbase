@@ -907,8 +907,6 @@ name|getRow
 argument_list|()
 argument_list|)
 argument_list|,
-literal|null
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1491,8 +1489,6 @@ name|delete
 argument_list|(
 name|d
 argument_list|,
-literal|null
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1596,8 +1592,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|null
 argument_list|,
 literal|false
 argument_list|)
@@ -1872,8 +1866,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|null
 argument_list|,
 literal|false
 argument_list|)

@@ -1290,7 +1290,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Authorize a global permission based on ACLs for the given user and the    * user's groups.    * @param user    * @param action    * @return    */
+comment|/**    * Authorize a global permission based on ACLs for the given user and the    * user's groups.    * @param user    * @param action    * @return true if known and authorized, false otherwise    */
 specifier|public
 name|boolean
 name|authorize
@@ -1768,7 +1768,7 @@ name|action
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks authorization to a given table and column family for a user, based on the    * stored user permissions.    *    * @param username    * @param table    * @param family    * @param action    * @return    */
+comment|/**    * Checks authorization to a given table and column family for a user, based on the    * stored user permissions.    *    * @param username    * @param table    * @param family    * @param action    * @return true if known and authorized, false otherwise    */
 specifier|public
 name|boolean
 name|authorizeUser
@@ -1845,6 +1845,18 @@ return|return
 literal|true
 return|;
 block|}
+if|if
+condition|(
+name|table
+operator|==
+literal|null
+condition|)
+name|table
+operator|=
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+expr_stmt|;
 return|return
 name|authorize
 argument_list|(
@@ -1896,7 +1908,7 @@ name|action
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks authorization to a given table and column family for a group, based    * on the stored permissions.     * @param groupName    * @param table    * @param family    * @param action    * @return    */
+comment|/**    * Checks authorization to a given table and column family for a group, based    * on the stored permissions.     * @param groupName    * @param table    * @param family    * @param action    * @return true if known and authorized, false otherwise    */
 specifier|public
 name|boolean
 name|authorizeGroup
@@ -1933,6 +1945,18 @@ return|return
 literal|true
 return|;
 block|}
+if|if
+condition|(
+name|table
+operator|==
+literal|null
+condition|)
+name|table
+operator|=
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+expr_stmt|;
 return|return
 name|authorize
 argument_list|(

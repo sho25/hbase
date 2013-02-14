@@ -148,7 +148,7 @@ specifier|private
 name|ZKTableReadOnly
 parameter_list|()
 block|{}
-comment|/**    * Go to zookeeper and see if state of table is {@link ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -194,7 +194,7 @@ name|state
 argument_list|)
 return|;
 block|}
-comment|/**    * Go to zookeeper and see if state of table is {@link ZooKeeperProtos.Table.State#ENABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#ENABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -228,7 +228,7 @@ operator|.
 name|ENABLED
 return|;
 block|}
-comment|/**    * Go to zookeeper and see if state of table is {@link ZooKeeperProtos.Table.State#DISABLING}    * of {@link ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}.    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLING}    * of {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than {@link AssignmentManager}.    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean

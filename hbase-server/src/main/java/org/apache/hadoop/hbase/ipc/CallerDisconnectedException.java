@@ -38,6 +38,14 @@ name|CallerDisconnectedException
 extends|extends
 name|IOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+decl_stmt|;
 specifier|public
 name|CallerDisconnectedException
 parameter_list|(
@@ -51,14 +59,6 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|1L
-decl_stmt|;
 block|}
 end_class
 

@@ -1320,8 +1320,6 @@ name|delete
 argument_list|(
 name|d
 argument_list|,
-literal|null
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1381,8 +1379,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|null
 argument_list|,
 literal|false
 argument_list|)
@@ -1446,8 +1442,6 @@ name|delete
 argument_list|(
 name|d
 argument_list|,
-literal|null
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -1504,8 +1498,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|null
 argument_list|,
 literal|false
 argument_list|)

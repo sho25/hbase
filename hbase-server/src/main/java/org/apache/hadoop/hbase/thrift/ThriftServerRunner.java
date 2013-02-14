@@ -5688,8 +5688,6 @@ name|row
 argument_list|)
 argument_list|,
 name|timestamp
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|addAttributes
@@ -6104,8 +6102,6 @@ name|row
 argument_list|)
 argument_list|,
 name|timestamp
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|addAttributes
@@ -6573,8 +6569,6 @@ argument_list|(
 name|row
 argument_list|,
 name|timestamp
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|addAttributes

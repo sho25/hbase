@@ -215,6 +215,17 @@ name|KeyValue
 name|currentKV
 parameter_list|)
 function_decl|;
+comment|/**    * Check that given column family is essential for filter to check row.  Most    * filters always return true here. But some could have more sophisticated    * logic which could significantly reduce scanning process by not even    * touching columns until we are 100% sure that it's data is needed in result.    */
+specifier|abstract
+specifier|public
+name|boolean
+name|isFamilyEssential
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+function_decl|;
 comment|/**    * @return The filter serialized using pb    */
 specifier|abstract
 specifier|public

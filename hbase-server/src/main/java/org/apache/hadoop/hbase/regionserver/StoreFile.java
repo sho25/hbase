@@ -315,20 +315,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -552,24 +538,6 @@ operator|.
 name|hfile
 operator|.
 name|HFileScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFileWriterV1
 import|;
 end_import
 
@@ -838,20 +806,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-enum|enum
-name|BloomType
-block|{
-comment|/**      * Bloomfilters disabled      */
-name|NONE
-block|,
-comment|/**      * Bloom enabled with Table row as Key      */
-name|ROW
-block|,
-comment|/**      * Bloom enabled with Table row& column (family+qualifier) as Key      */
-name|ROWCOL
-block|}
 comment|// Keys for fileinfo values in HFile
 comment|/** Max Sequence ID in FileInfo */
 specifier|public
@@ -2969,6 +2923,8 @@ operator|==
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|reader
@@ -2976,6 +2932,33 @@ operator|=
 name|open
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|closeReader
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ee
+parameter_list|)
+block|{                       }
+throw|throw
+name|e
+throw|;
+block|}
 block|}
 return|return
 name|this
@@ -6214,7 +6197,7 @@ name|reader
 operator|.
 name|getMetaBlock
 argument_list|(
-name|HFileWriterV1
+name|HFile
 operator|.
 name|BLOOM_FILTER_DATA_KEY
 argument_list|,
@@ -7073,6 +7056,7 @@ name|getMajorVersion
 argument_list|()
 return|;
 block|}
+specifier|public
 name|HFile
 operator|.
 name|Reader

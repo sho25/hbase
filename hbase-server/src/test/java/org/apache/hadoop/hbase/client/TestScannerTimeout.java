@@ -317,7 +317,7 @@ specifier|static
 name|int
 name|SCANNER_TIMEOUT
 init|=
-literal|10000
+literal|15000
 decl_stmt|;
 specifier|private
 specifier|final

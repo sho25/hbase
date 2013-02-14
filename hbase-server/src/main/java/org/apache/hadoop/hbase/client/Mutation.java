@@ -192,13 +192,6 @@ operator|.
 name|LATEST_TIMESTAMP
 decl_stmt|;
 specifier|protected
-name|long
-name|lockId
-init|=
-operator|-
-literal|1L
-decl_stmt|;
-specifier|protected
 name|boolean
 name|writeToWAL
 init|=
@@ -730,38 +723,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Method for retrieving the delete's RowLock    * @return RowLock    */
-specifier|public
-name|RowLock
-name|getRowLock
-parameter_list|()
-block|{
-return|return
-operator|new
-name|RowLock
-argument_list|(
-name|this
-operator|.
-name|row
-argument_list|,
-name|this
-operator|.
-name|lockId
-argument_list|)
-return|;
-block|}
-comment|/**    * Method for retrieving the delete's lock ID.    *    * @return The lock ID.    */
-specifier|public
-name|long
-name|getLockId
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|lockId
-return|;
-block|}
 comment|/**    * Method for retrieving the timestamp    * @return timestamp    */
 specifier|public
 name|long
@@ -783,6 +744,13 @@ name|UUID
 name|clusterId
 parameter_list|)
 block|{
+if|if
+condition|(
+name|clusterId
+operator|==
+literal|null
+condition|)
+return|return;
 name|byte
 index|[]
 name|val

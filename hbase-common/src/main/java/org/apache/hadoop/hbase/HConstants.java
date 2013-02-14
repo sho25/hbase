@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Arrays
 import|;
 end_import
 
@@ -43,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
+name|Collections
 import|;
 end_import
 
@@ -76,6 +76,20 @@ operator|.
 name|regex
 operator|.
 name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang
+operator|.
+name|ArrayUtils
 import|;
 end_import
 
@@ -362,15 +376,6 @@ name|DEFAULT_MASTER_TYPE_BACKUP
 init|=
 literal|false
 decl_stmt|;
-comment|/** Parameter name for ZooKeeper session time out.*/
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_SESSION_TIMEOUT
-init|=
-literal|"zookeeper.session.timeout"
-decl_stmt|;
 comment|/** Name of ZooKeeper quorum configuration parameter. */
 specifier|public
 specifier|static
@@ -523,6 +528,15 @@ init|=
 literal|180
 operator|*
 literal|1000
+decl_stmt|;
+comment|/** Configuration key for whether to use ZK.multi */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_USEMULTI
+init|=
+literal|"hbase.zookeeper.useMulti"
 decl_stmt|;
 comment|/** Parameter name for port region server listens on. */
 specifier|public
@@ -821,19 +835,6 @@ name|DEFAULT_HREGION_EDITS_REPLAY_SKIP_ERRORS
 init|=
 literal|false
 decl_stmt|;
-comment|/** Default size of a reservation block   */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_SIZE_RESERVATION_BLOCK
-init|=
-literal|1024
-operator|*
-literal|1024
-operator|*
-literal|5
-decl_stmt|;
 comment|/** Maximum value length, enforced on KeyValue construction */
 specifier|public
 specifier|static
@@ -985,6 +986,19 @@ init|=
 name|toBytes
 argument_list|(
 literal|"serverstartcode"
+argument_list|)
+decl_stmt|;
+comment|/** The open seqnum column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|SEQNUM_QUALIFIER
+init|=
+name|toBytes
+argument_list|(
+literal|"seqnumDuringOpen"
 argument_list|)
 decl_stmt|;
 comment|/** The lower-half split region column qualifier */
@@ -1260,9 +1274,17 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|CONFIG
+name|METADATA
 init|=
-literal|"CONFIG"
+literal|"METADATA"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CONFIGURATION
+init|=
+literal|"CONFIGURATION"
 decl_stmt|;
 comment|/**    * This is a retry backoff multiplier table similar to the BSD TCP syn    * backoff table, a bit more aggressive than simple exponential backoff.    */
 specifier|public
@@ -1386,6 +1408,22 @@ name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
 literal|1000
 decl_stmt|;
+comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_SERVER_PAUSE
+init|=
+literal|"hbase.server.pause"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_SERVER_PAUSE}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_SERVER_PAUSE
+init|=
+literal|1000
+decl_stmt|;
 comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
 specifier|public
 specifier|static
@@ -1474,22 +1512,6 @@ name|HBASE_CLIENT_INSTANCE_ID
 init|=
 literal|"hbase.client.instance.id"
 decl_stmt|;
-comment|/**    * The row lock timeout period in milliseconds.    */
-specifier|public
-specifier|static
-name|String
-name|HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-init|=
-literal|"hbase.regionserver.rowlock.timeout.period"
-decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD}.    */
-specifier|public
-specifier|static
-name|int
-name|DEFAULT_HBASE_REGIONSERVER_ROWLOCK_TIMEOUT_PERIOD
-init|=
-literal|60000
-decl_stmt|;
 comment|/**    * The client scanner timeout period in milliseconds.    */
 specifier|public
 specifier|static
@@ -1521,6 +1543,16 @@ name|int
 name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
 literal|60000
+decl_stmt|;
+comment|/**    * Value indicating the server name was saved with no sequence number.    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|NO_SEQNUM
+init|=
+operator|-
+literal|1
 decl_stmt|;
 comment|/*    * cluster replication constants.    */
 specifier|public
@@ -1886,6 +1918,7 @@ name|HBASE_TEMP_DIRECTORY
 init|=
 literal|".tmp"
 decl_stmt|;
+comment|/** Directories that are not HBase table directories */
 specifier|public
 specifier|static
 specifier|final
@@ -1893,13 +1926,11 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|HBASE_NON_USER_TABLE_DIRS
+name|HBASE_NON_TABLE_DIRS
 init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+name|Collections
+operator|.
+name|unmodifiableList
 argument_list|(
 name|Arrays
 operator|.
@@ -1915,16 +1946,6 @@ name|HREGION_OLDLOGDIR_NAME
 block|,
 name|CORRUPT_DIR_NAME
 block|,
-name|toString
-argument_list|(
-name|META_TABLE_NAME
-argument_list|)
-block|,
-name|toString
-argument_list|(
-name|ROOT_TABLE_NAME
-argument_list|)
-block|,
 name|SPLIT_LOGDIR_NAME
 block|,
 name|HBCK_SIDELINEDIR_NAME
@@ -1937,6 +1958,105 @@ name|HBASE_TEMP_DIRECTORY
 block|}
 argument_list|)
 argument_list|)
+decl_stmt|;
+comment|/** Directories that are not HBase user table directories */
+specifier|public
+specifier|static
+specifier|final
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|HBASE_NON_USER_TABLE_DIRS
+init|=
+name|Collections
+operator|.
+name|unmodifiableList
+argument_list|(
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+operator|(
+name|String
+index|[]
+operator|)
+name|ArrayUtils
+operator|.
+name|addAll
+argument_list|(
+operator|new
+name|String
+index|[]
+block|{
+name|toString
+argument_list|(
+name|META_TABLE_NAME
+argument_list|)
+block|,
+name|toString
+argument_list|(
+name|ROOT_TABLE_NAME
+argument_list|)
+block|}
+argument_list|,
+name|HBASE_NON_TABLE_DIRS
+operator|.
+name|toArray
+argument_list|()
+argument_list|)
+argument_list|)
+argument_list|)
+decl_stmt|;
+comment|/** Health script related settings. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEALTH_SCRIPT_LOC
+init|=
+literal|"hbase.node.health.script.location"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEALTH_SCRIPT_TIMEOUT
+init|=
+literal|"hbase.node.health.script.timeout"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEALTH_CHORE_WAKE_FREQ
+init|=
+literal|"hbase.node.health.script.frequency"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_HEALTH_SCRIPT_TIMEOUT
+init|=
+literal|60000
+decl_stmt|;
+comment|/**    * The maximum number of health check failures a server can encounter consecutively.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HEALTH_FAILURE_THRESHOLD
+init|=
+literal|"hbase.node.health.failure.threshold"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HEALTH_FAILURE_THRESHOLD
+init|=
+literal|3
 decl_stmt|;
 specifier|private
 name|HConstants

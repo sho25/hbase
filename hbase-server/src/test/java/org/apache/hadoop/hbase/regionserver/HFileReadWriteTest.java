@@ -1066,13 +1066,9 @@ operator|.
 name|INSTANCE
 decl_stmt|;
 specifier|private
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 init|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -1261,8 +1257,6 @@ name|Arrays
 operator|.
 name|toString
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|values
@@ -1621,8 +1615,6 @@ condition|)
 block|{
 name|bloomType
 operator|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|valueOf
@@ -2530,7 +2522,8 @@ name|store
 argument_list|,
 name|store
 operator|.
-name|scanInfo
+name|getScanInfo
+argument_list|()
 argument_list|,
 name|scan
 argument_list|,
@@ -2890,8 +2883,6 @@ name|conf
 argument_list|,
 name|cacheConf
 argument_list|,
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|ROWCOL

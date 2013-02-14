@@ -340,7 +340,7 @@ comment|// set TTL
 name|long
 name|ttl
 init|=
-literal|2000
+literal|10000
 decl_stmt|;
 name|conf
 operator|.

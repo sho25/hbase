@@ -520,8 +520,6 @@ name|append
 argument_list|(
 name|a
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 argument_list|)
@@ -574,8 +572,6 @@ operator|.
 name|append
 argument_list|(
 name|a
-argument_list|,
-literal|null
 argument_list|,
 literal|true
 argument_list|)
@@ -897,8 +893,6 @@ operator|.
 name|get
 argument_list|(
 name|get
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1275,8 +1269,6 @@ name|increment
 argument_list|(
 name|inc
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1298,8 +1290,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1566,8 +1556,6 @@ name|append
 argument_list|(
 name|a
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1588,8 +1576,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1754,8 +1740,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -2145,8 +2129,6 @@ operator|.
 name|get
 argument_list|(
 name|g
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 if|if

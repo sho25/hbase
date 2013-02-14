@@ -668,6 +668,43 @@ argument_list|()
 block|}
 argument_list|)
 expr_stmt|;
+comment|//windows fix: tgz file has .META. directory renamed as -META- since the original is an illegal
+comment|//name under windows. So we rename it back. See src/test/data//TestMetaMigrationConvertingToPB.README and
+comment|//https://issues.apache.org/jira/browse/HBASE-6821
+name|doFsCommand
+argument_list|(
+name|shell
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"-mv"
+block|,
+operator|new
+name|Path
+argument_list|(
+name|hbaseRootDir
+argument_list|,
+literal|"-META-"
+argument_list|)
+operator|.
+name|toString
+argument_list|()
+block|,
+operator|new
+name|Path
+argument_list|(
+name|hbaseRootDir
+argument_list|,
+literal|".META."
+argument_list|)
+operator|.
+name|toString
+argument_list|()
+block|}
+argument_list|)
+expr_stmt|;
 comment|// See whats in minihdfs.
 name|doFsCommand
 argument_list|(

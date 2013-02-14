@@ -163,6 +163,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashSet
 import|;
 end_import
@@ -327,9 +337,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|fs
 operator|.
-name|Chore
+name|PathFilter
 import|;
 end_import
 
@@ -343,7 +353,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SplitLogCounters
+name|Chore
 import|;
 end_import
 
@@ -372,6 +382,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SplitLogCounters
 import|;
 end_import
 
@@ -862,6 +886,15 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
+specifier|private
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|failedDeletions
+init|=
+literal|null
+decl_stmt|;
 comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *     * @param zkw    * @param conf    * @param stopper    * @param serverName    */
 specifier|public
 name|SplitLogManager
@@ -1104,6 +1137,22 @@ argument_list|,
 name|stopper
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|failedDeletions
+operator|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1168,6 +1217,9 @@ argument_list|<
 name|Path
 argument_list|>
 name|logDirs
+parameter_list|,
+name|PathFilter
+name|filter
 parameter_list|)
 throws|throws
 name|IOException
@@ -1226,7 +1278,6 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// TODO filter filenames?
 name|FileStatus
 index|[]
 name|logfiles
@@ -1239,7 +1290,7 @@ name|fs
 argument_list|,
 name|hLogDir
 argument_list|,
-literal|null
+name|filter
 argument_list|)
 decl_stmt|;
 if|if
@@ -1359,6 +1410,33 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|splitLogDistributed
+argument_list|(
+name|logDirs
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/**    * The caller will block until all the META log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs List of log dirs to split    * @param filter the Path filter to select specific files for considering    * @throws IOException If there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+specifier|public
+name|long
+name|splitLogDistributed
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|logDirs
+parameter_list|,
+name|PathFilter
+name|filter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|MonitoredTask
 name|status
 init|=
@@ -1381,6 +1459,8 @@ init|=
 name|getFileList
 argument_list|(
 name|logDirs
+argument_list|,
+name|filter
 argument_list|)
 decl_stmt|;
 name|status
@@ -2336,17 +2416,16 @@ block|}
 block|}
 block|}
 block|}
-comment|// delete the task node in zk. Keep trying indefinitely - its an async
+comment|// delete the task node in zk. It's an async
 comment|// call and no one is blocked waiting for this node to be deleted. All
 comment|// task names are unique (log.<timestamp>) there is no risk of deleting
 comment|// a future task.
+comment|// if a deletion fails, TimeoutMonitor will retry the same deletion later
 name|deleteNode
 argument_list|(
 name|path
 argument_list|,
-name|Long
-operator|.
-name|MAX_VALUE
+name|zkretries
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2978,6 +3057,51 @@ name|FORCE
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Helper function to check whether to abandon retries in ZooKeeper AsyncCallback functions    * @param statusCode integer value of a ZooKeeper exception code    * @param action description message about the retried action    * @return true when need to abandon retries otherwise false    */
+specifier|private
+name|boolean
+name|needAbandonRetries
+parameter_list|(
+name|int
+name|statusCode
+parameter_list|,
+name|String
+name|action
+parameter_list|)
+block|{
+if|if
+condition|(
+name|statusCode
+operator|==
+name|KeeperException
+operator|.
+name|Code
+operator|.
+name|SESSIONEXPIRED
+operator|.
+name|intValue
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"ZK session expired. Master is expected to shut down. Abandoning retries for "
+operator|+
+literal|"action="
+operator|+
+name|action
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
+return|return
+literal|false
+return|;
 block|}
 specifier|private
 name|void
@@ -3684,11 +3808,13 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|info
 argument_list|(
-literal|"logic failure, failing to delete a node should never happen "
+literal|"Failed to delete node "
 operator|+
-literal|"because delete has infinite retries"
+name|path
+operator|+
+literal|" and will retry soon."
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4469,6 +4595,7 @@ specifier|volatile
 name|ServerName
 name|cur_worker_name
 decl_stmt|;
+specifier|volatile
 name|TaskBatch
 name|batch
 decl_stmt|;
@@ -5150,6 +5277,57 @@ literal|"resubmitting unassigned task(s) after timeout"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Retry previously failed deletes
+if|if
+condition|(
+name|failedDeletions
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|tmpPaths
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+name|failedDeletions
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|String
+name|tmpPath
+range|:
+name|tmpPaths
+control|)
+block|{
+comment|// deleteNode is an async call
+name|deleteNode
+argument_list|(
+name|tmpPath
+argument_list|,
+name|zkretries
+argument_list|)
+expr_stmt|;
+block|}
+name|failedDeletions
+operator|.
+name|removeAll
+argument_list|(
+name|tmpPaths
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Asynchronous handler for zk create node results.    * Retries on failures.    */
@@ -5207,6 +5385,25 @@ operator|!=
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|needAbandonRetries
+argument_list|(
+name|rc
+argument_list|,
+literal|"Create znode "
+operator|+
+name|path
+argument_list|)
+condition|)
+block|{
+name|createNodeFailure
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 if|if
 condition|(
 name|rc
@@ -5388,25 +5585,16 @@ condition|)
 block|{
 if|if
 condition|(
+name|needAbandonRetries
+argument_list|(
 name|rc
-operator|==
-name|KeeperException
-operator|.
-name|Code
-operator|.
-name|SESSIONEXPIRED
-operator|.
-name|intValue
-argument_list|()
+argument_list|,
+literal|"GetData from znode "
+operator|+
+name|path
+argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZK session expired. Master is expected to shut down. Abandoning retries."
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 if|if
@@ -5668,6 +5856,27 @@ condition|)
 block|{
 if|if
 condition|(
+name|needAbandonRetries
+argument_list|(
+name|rc
+argument_list|,
+literal|"Delete znode "
+operator|+
+name|path
+argument_list|)
+condition|)
+block|{
+name|failedDeletions
+operator|.
+name|add
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
 name|rc
 operator|!=
 name|KeeperException
@@ -5735,6 +5944,13 @@ operator|+
 name|path
 argument_list|)
 expr_stmt|;
+name|failedDeletions
+operator|.
+name|add
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
 name|deleteNodeFailure
 argument_list|(
 name|path
@@ -5759,7 +5975,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 name|path
 operator|+
@@ -5846,25 +6062,16 @@ condition|)
 block|{
 if|if
 condition|(
+name|needAbandonRetries
+argument_list|(
 name|rc
-operator|==
-name|KeeperException
-operator|.
-name|Code
-operator|.
-name|SESSIONEXPIRED
-operator|.
-name|intValue
-argument_list|()
+argument_list|,
+literal|"CreateRescan znode "
+operator|+
+name|path
+argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ZK session expired. Master is expected to shut down. Abandoning retries."
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 name|Long

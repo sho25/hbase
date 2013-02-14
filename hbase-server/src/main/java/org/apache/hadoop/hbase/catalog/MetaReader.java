@@ -580,15 +580,6 @@ argument_list|(
 name|r
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|region
-operator|==
-literal|null
-condition|)
-return|return
-literal|true
-return|;
 name|HRegionInfo
 name|hri
 init|=

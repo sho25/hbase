@@ -224,7 +224,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run bulk assign.  Does one RCP per regionserver passing a  * batch of regions using {@link SingleServerBulkAssigner}.  */
+comment|/**  * Run bulk assign.  Does one RCP per regionserver passing a  * batch of regions using {@link GeneralBulkAssigner.SingleServerBulkAssigner}.  */
 end_comment
 
 begin_class

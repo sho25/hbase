@@ -263,6 +263,26 @@ operator|!=
 literal|null
 return|;
 block|}
+comment|/**    * Throws an IOException back out if one is currently stored.    */
+specifier|public
+name|void
+name|checkFailed
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|failedOnException
+argument_list|()
+condition|)
+block|{
+throw|throw
+name|getFailedOn
+argument_list|()
+throw|;
+block|}
+block|}
 block|}
 end_class
 

@@ -211,22 +211,6 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|CoprocessorProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
 name|CoprocessorRpcChannel
 import|;
 end_import
@@ -282,7 +266,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A simple pool of HTable instances.  *   * Each HTablePool acts as a pool for all tables. To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  *    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *  * Once you are done with it, close your instance of {@link HTableInterface}  * by calling {@link HTableInterface#close()} rather than returning the tables  * to the pool with (deprecated) {@link #putTable(HTableInterface)}.  *   *<p>  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table. Otherwise the default  * is {@link Integer#MAX_VALUE}.  *   *<p>  * Pool will manage its own connections to the cluster. See  * {@link HConnectionManager}.  */
+comment|/**  * A simple pool of HTable instances.  *  * Each HTablePool acts as a pool for all tables. To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  *    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *  * Once you are done with it, close your instance of {@link HTableInterface}  * by calling {@link HTableInterface#close()} rather than returning the tables  * to the pool with (deprecated) {@link #putTable(HTableInterface)}.  *  *<p>  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table. Otherwise the default  * is {@link Integer#MAX_VALUE}.  *  *<p>  * Pool will manage its own connections to the cluster. See  * {@link HConnectionManager}.  */
 end_comment
 
 begin_class
@@ -348,7 +332,7 @@ name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor to set maximum versions and use the specified configuration.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    */
+comment|/**    * Constructor to set maximum versions and use the specified configuration.    *    * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    */
 specifier|public
 name|HTablePool
 parameter_list|(
@@ -373,7 +357,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor to set maximum versions and use the specified configuration and    * table factory.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param tableFactory    *          table factory    */
+comment|/**    * Constructor to set maximum versions and use the specified configuration and    * table factory.    *    * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param tableFactory    *          table factory    */
 specifier|public
 name|HTablePool
 parameter_list|(
@@ -404,7 +388,7 @@ name|Reusable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor to set maximum versions and use the specified configuration and    * pool type.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
+comment|/**    * Constructor to set maximum versions and use the specified configuration and    * pool type.    *    * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
 specifier|public
 name|HTablePool
 parameter_list|(
@@ -433,7 +417,7 @@ name|poolType
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor to set maximum versions and use the specified configuration,    * table factory and pool type. The HTablePool supports the    * {@link PoolType#Reusable} and {@link PoolType#ThreadLocal}. If the pool    * type is null or not one of those two values, then it will default to    * {@link PoolType#Reusable}.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param tableFactory    *          table factory    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
+comment|/**    * Constructor to set maximum versions and use the specified configuration,    * table factory and pool type. The HTablePool supports the    * {@link PoolType#Reusable} and {@link PoolType#ThreadLocal}. If the pool    * type is null or not one of those two values, then it will default to    * {@link PoolType#Reusable}.    *    * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param tableFactory    *          table factory    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
 specifier|public
 name|HTablePool
 parameter_list|(
@@ -560,7 +544,7 @@ name|maxSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get a reference to the specified table from the pool.    *<p>    *<p/>    *     * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
+comment|/**    * Get a reference to the specified table from the pool.    *<p>    *<p/>    *    * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
 specifier|public
 name|HTableInterface
 name|getTable
@@ -588,7 +572,7 @@ name|table
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a reference to the specified table from the pool.    *<p>    *     * Create a new one if one is not available.    *     * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
+comment|/**    * Get a reference to the specified table from the pool.    *<p>    *    * Create a new one if one is not available.    *    * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
 specifier|private
 name|HTableInterface
 name|findOrCreateTable
@@ -626,7 +610,7 @@ return|return
 name|table
 return|;
 block|}
-comment|/**    * Get a reference to the specified table from the pool.    *<p>    *     * Create a new one if one is not available.    *     * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
+comment|/**    * Get a reference to the specified table from the pool.    *<p>    *    * Create a new one if one is not available.    *    * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
 specifier|public
 name|HTableInterface
 name|getTable
@@ -648,7 +632,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *     * @param table    *          the proxy table user got from pool    * @deprecated    */
+comment|/**    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *    * @param table    *          the proxy table user got from pool    * @deprecated    */
 specifier|public
 name|void
 name|putTable
@@ -703,7 +687,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Puts the specified HTable back into the pool.    *<p>    *     * If the pool already contains<i>maxSize</i> references to the table, then    * the table instance gets closed after flushing buffered edits.    *     * @param table    *          table    */
+comment|/**    * Puts the specified HTable back into the pool.    *<p>    *    * If the pool already contains<i>maxSize</i> references to the table, then    * the table instance gets closed after flushing buffered edits.    *    * @param table    *          table    */
 specifier|private
 name|void
 name|returnTable
@@ -799,7 +783,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Closes all the HTable instances , belonging to the given table, in the    * table pool.    *<p>    * Note: this is a 'shutdown' of the given table pool and different from    * {@link #putTable(HTableInterface)}, that is used to return the table    * instance to the pool for future re-use.    *     * @param tableName    */
+comment|/**    * Closes all the HTable instances , belonging to the given table, in the    * table pool.    *<p>    * Note: this is a 'shutdown' of the given table pool and different from    * {@link #putTable(HTableInterface)}, that is used to return the table    * instance to the pool for future re-use.    *    * @param tableName    */
 specifier|public
 name|void
 name|closeTablePool
@@ -862,7 +846,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * See {@link #closeTablePool(String)}.    *     * @param tableName    */
+comment|/**    * See {@link #closeTablePool(String)}.    *    * @param tableName    */
 specifier|public
 name|void
 name|closeTablePool
@@ -919,6 +903,7 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
 name|int
 name|getCurrentPoolSize
 parameter_list|(
@@ -1023,6 +1008,31 @@ operator|.
 name|exists
 argument_list|(
 name|get
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Boolean
+index|[]
+name|exists
+parameter_list|(
+name|List
+argument_list|<
+name|Get
+argument_list|>
+name|gets
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|table
+operator|.
+name|exists
+argument_list|(
+name|gets
 argument_list|)
 return|;
 block|}
@@ -1547,7 +1557,7 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Returns the actual table back to the pool      *       * @throws IOException      */
+comment|/**      * Returns the actual table back to the pool      *      * @throws IOException      */
 specifier|public
 name|void
 name|close
@@ -1558,210 +1568,6 @@ block|{
 name|returnTable
 argument_list|(
 name|table
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|RowLock
-name|lockRow
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|table
-operator|.
-name|lockRow
-argument_list|(
-name|row
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|unlockRow
-parameter_list|(
-name|RowLock
-name|rl
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|table
-operator|.
-name|unlockRow
-argument_list|(
-name|rl
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-parameter_list|<
-name|T
-extends|extends
-name|CoprocessorProtocol
-parameter_list|>
-name|T
-name|coprocessorProxy
-parameter_list|(
-name|Class
-argument_list|<
-name|T
-argument_list|>
-name|protocol
-parameter_list|,
-name|byte
-index|[]
-name|row
-parameter_list|)
-block|{
-return|return
-name|table
-operator|.
-name|coprocessorProxy
-argument_list|(
-name|protocol
-argument_list|,
-name|row
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-parameter_list|<
-name|T
-extends|extends
-name|CoprocessorProtocol
-parameter_list|,
-name|R
-parameter_list|>
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|R
-argument_list|>
-name|coprocessorExec
-parameter_list|(
-name|Class
-argument_list|<
-name|T
-argument_list|>
-name|protocol
-parameter_list|,
-name|byte
-index|[]
-name|startKey
-parameter_list|,
-name|byte
-index|[]
-name|endKey
-parameter_list|,
-name|Batch
-operator|.
-name|Call
-argument_list|<
-name|T
-argument_list|,
-name|R
-argument_list|>
-name|callable
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|Throwable
-block|{
-return|return
-name|table
-operator|.
-name|coprocessorExec
-argument_list|(
-name|protocol
-argument_list|,
-name|startKey
-argument_list|,
-name|endKey
-argument_list|,
-name|callable
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-parameter_list|<
-name|T
-extends|extends
-name|CoprocessorProtocol
-parameter_list|,
-name|R
-parameter_list|>
-name|void
-name|coprocessorExec
-parameter_list|(
-name|Class
-argument_list|<
-name|T
-argument_list|>
-name|protocol
-parameter_list|,
-name|byte
-index|[]
-name|startKey
-parameter_list|,
-name|byte
-index|[]
-name|endKey
-parameter_list|,
-name|Batch
-operator|.
-name|Call
-argument_list|<
-name|T
-argument_list|,
-name|R
-argument_list|>
-name|callable
-parameter_list|,
-name|Batch
-operator|.
-name|Callback
-argument_list|<
-name|R
-argument_list|>
-name|callback
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|Throwable
-block|{
-name|table
-operator|.
-name|coprocessorExec
-argument_list|(
-name|protocol
-argument_list|,
-name|startKey
-argument_list|,
-name|endKey
-argument_list|,
-name|callable
-argument_list|,
-name|callback
 argument_list|)
 expr_stmt|;
 block|}
@@ -1929,7 +1735,7 @@ operator|+
 literal|'}'
 return|;
 block|}
-comment|/**      * Expose the wrapped HTable to tests in the same package      *       * @return wrapped htable      */
+comment|/**      * Expose the wrapped HTable to tests in the same package      *      * @return wrapped htable      */
 name|HTableInterface
 name|getWrappedTable
 parameter_list|()

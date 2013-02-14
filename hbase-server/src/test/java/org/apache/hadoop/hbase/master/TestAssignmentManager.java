@@ -4100,7 +4100,7 @@ argument_list|)
 operator|.
 name|getChildren
 argument_list|(
-literal|"/hbase/unassigned"
+literal|"/hbase/region-in-transition"
 argument_list|,
 literal|null
 argument_list|)

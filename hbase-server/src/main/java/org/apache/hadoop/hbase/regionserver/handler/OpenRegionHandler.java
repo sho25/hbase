@@ -201,6 +201,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|CancelableProgressable
@@ -265,7 +283,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|RegionServerServices
 name|rsServices
@@ -453,17 +471,22 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
+name|boolean
+name|openSuccessful
+init|=
+literal|false
+decl_stmt|;
 specifier|final
 name|String
-name|name
+name|regionName
 init|=
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|this
@@ -492,10 +515,13 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+comment|// 3 different difficult situations can occur
+comment|// 1) The opening was cancelled. This is an expected situation
+comment|// 2) The region was hijacked, we no longer have the znode
+comment|// 3) The region is now marked as online while we're suppose to open. This would be a bug.
 comment|// Check that this region is not already online
-name|HRegion
-name|region
-init|=
+if|if
+condition|(
 name|this
 operator|.
 name|rsServices
@@ -504,9 +530,74 @@ name|getFromOnlineRegions
 argument_list|(
 name|encodedName
 argument_list|)
-decl_stmt|;
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Region "
+operator|+
+name|encodedName
+operator|+
+literal|" was already online when we started processing the opening. "
+operator|+
+literal|"Marking this new attempt as failed"
+argument_list|)
+expr_stmt|;
+name|tryTransitionFromOfflineToFailedOpen
+argument_list|(
+name|this
+operator|.
+name|rsServices
+argument_list|,
+name|regionInfo
+argument_list|,
+name|this
+operator|.
+name|version
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// Check that we're still supposed to open the region and transition.
 comment|// If fails, just return.  Someone stole the region from under us.
-comment|// Calling transitionZookeeperOfflineToOpening initalizes this.version.
+comment|// Calling transitionZookeeperOfflineToOpening initializes this.version.
+if|if
+condition|(
+operator|!
+name|isRegionStillOpening
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Region "
+operator|+
+name|encodedName
+operator|+
+literal|" opening cancelled"
+argument_list|)
+expr_stmt|;
+name|tryTransitionFromOfflineToFailedOpen
+argument_list|(
+name|this
+operator|.
+name|rsServices
+argument_list|,
+name|regionInfo
+argument_list|,
+name|this
+operator|.
+name|version
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 if|if
 condition|(
 operator|!
@@ -522,20 +613,35 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Region was hijacked? It no longer exists, encodedName="
+literal|"Region was hijacked? Opening cancelled for encodedName="
 operator|+
 name|encodedName
+argument_list|)
+expr_stmt|;
+comment|// This is a desperate attempt: the znode is unlikely to be ours. But we can't do more.
+name|tryTransitionFromOfflineToFailedOpen
+argument_list|(
+name|this
+operator|.
+name|rsServices
+argument_list|,
+name|regionInfo
+argument_list|,
+name|this
+operator|.
+name|version
 argument_list|)
 expr_stmt|;
 return|return;
 block|}
 comment|// Open region.  After a successful open, failures in subsequent
 comment|// processing needs to do a close as part of cleanup.
+name|HRegion
 name|region
-operator|=
+init|=
 name|openRegion
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|region
@@ -543,7 +649,7 @@ operator|==
 literal|null
 condition|)
 block|{
-name|tryTransitionToFailedOpen
+name|tryTransitionFromOpeningToFailedOpen
 argument_list|(
 name|regionInfo
 argument_list|)
@@ -601,7 +707,7 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-name|tryTransitionToFailedOpen
+name|tryTransitionFromOpeningToFailedOpen
 argument_list|(
 name|regionInfo
 argument_list|)
@@ -610,6 +716,10 @@ return|return;
 block|}
 if|if
 condition|(
+operator|!
+name|isRegionStillOpening
+argument_list|()
+operator|||
 operator|!
 name|transitionToOpened
 argument_list|(
@@ -620,38 +730,27 @@ block|{
 comment|// If we fail to transition to opened, it's because of one of two cases:
 comment|//    (a) we lost our ZK lease
 comment|// OR (b) someone else opened the region before us
-comment|// In either case, we don't need to transition to FAILED_OPEN state.
-comment|// In case (a), the Master will process us as a dead server. In case
-comment|// (b) the region is already being handled elsewhere anyway.
+comment|// OR (c) someone cancelled the open
+comment|// In all cases, we try to transition to failed_open to be safe.
 name|cleanupFailedOpen
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-return|return;
-block|}
-comment|// One more check to make sure we are opening instead of closing
-if|if
-condition|(
-operator|!
-name|isRegionStillOpening
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
+name|tryTransitionFromOpeningToFailedOpen
 argument_list|(
-literal|"Open region aborted since it isn't opening any more"
-argument_list|)
-expr_stmt|;
-name|cleanupFailedOpen
-argument_list|(
-name|region
+name|regionInfo
 argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// We have a znode in the opened state now. We can't really delete it as the master job.
+comment|// Transitioning to failed open would create a race condition if the master has already
+comment|// acted the transition to opened.
+comment|// Cancelling the open is dangerous, because we would have a state where the master thinks
+comment|// the region is opened while the region is actually closed. It is a dangerous state
+comment|// to be in. For this reason, from now on, we're not going back. There is a message in the
+comment|// finally close to let the admin knows where we stand.
 comment|// Successful region open, and add it to OnlineRegions
 name|this
 operator|.
@@ -662,6 +761,10 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+name|openSuccessful
+operator|=
+literal|true
+expr_stmt|;
 comment|// Done!  Successful region open
 name|LOG
 operator|.
@@ -669,7 +772,7 @@ name|debug
 argument_list|(
 literal|"Opened "
 operator|+
-name|name
+name|regionName
 operator|+
 literal|" on server:"
 operator|+
@@ -684,6 +787,10 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+specifier|final
+name|Boolean
+name|current
+init|=
 name|this
 operator|.
 name|rsServices
@@ -700,7 +807,68 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
+decl_stmt|;
+comment|// Let's check if we have met a race condition on open cancellation....
+comment|// A better solution would be to not have any race condition.
+comment|// this.rsServices.getRegionsInTransitionInRS().remove(
+comment|//  this.regionInfo.getEncodedNameAsBytes(), Boolean.TRUE);
+comment|// would help, but we would still have a consistency issue to manage with
+comment|// 1) this.rsServices.addToOnlineRegions(region);
+comment|// 2) the ZK state.
+if|if
+condition|(
+name|openSuccessful
+condition|)
+block|{
+if|if
+condition|(
+name|current
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Should NEVER happen, but let's be paranoid.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Bad state: we've just opened a region that was NOT in transition. Region="
+operator|+
+name|regionName
+argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|Boolean
+operator|.
+name|FALSE
+operator|.
+name|equals
+argument_list|(
+name|current
+argument_list|)
+condition|)
+block|{
+comment|// Can happen, if we're really unlucky.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Race condition: we've finished to open a region, while a close was requested "
+operator|+
+literal|" on region="
+operator|+
+name|regionName
+operator|+
+literal|". It can be a critical error, as a region that"
+operator|+
+literal|" should be closed is now opened."
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 comment|/**    * Update ZK, ROOT or META.  This can take a while if for example the    * .META. is not available -- if server hosting .META. crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
@@ -1031,7 +1199,7 @@ name|tickleOpening
 operator|)
 return|;
 block|}
-comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}    * .    */
+comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(    * HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}    * .    */
 specifier|static
 class|class
 name|PostOpenDeployTasksThread
@@ -1238,24 +1406,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|isRegionStillOpening
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Open region aborted since it isn't opening any more"
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 name|boolean
 name|result
 init|=
@@ -1391,7 +1541,7 @@ block|}
 comment|/**    * This is not guaranteed to succeed, we just do our best.    * @param hri Region we're working on.    * @return whether znode is successfully transitioned to FAILED_OPEN state.    */
 specifier|private
 name|boolean
-name|tryTransitionToFailedOpen
+name|tryTransitionFromOpeningToFailedOpen
 parameter_list|(
 specifier|final
 name|HRegionInfo
@@ -1422,7 +1572,13 @@ literal|"Opening of region "
 operator|+
 name|hri
 operator|+
-literal|" failed, marking as FAILED_OPEN in ZK"
+literal|" failed, transitioning"
+operator|+
+literal|" from OPENING to FAILED_OPEN in ZK, expecting version "
+operator|+
+name|this
+operator|.
+name|version
 argument_list|)
 expr_stmt|;
 if|if
@@ -1512,6 +1668,136 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * Try to transition to open. This function is static to make it usable before creating the    *  handler.    *    * This is not guaranteed to succeed, we just do our best.    *    * @param rsServices    * @param hri Region we're working on.    * @param versionOfOfflineNode version to checked.    * @return whether znode is successfully transitioned to FAILED_OPEN state.    */
+specifier|public
+specifier|static
+name|boolean
+name|tryTransitionFromOfflineToFailedOpen
+parameter_list|(
+name|RegionServerServices
+name|rsServices
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|,
+specifier|final
+name|int
+name|versionOfOfflineNode
+parameter_list|)
+block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+specifier|final
+name|String
+name|name
+init|=
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Opening of region "
+operator|+
+name|hri
+operator|+
+literal|" failed, transitioning"
+operator|+
+literal|" from OFFLINE to FAILED_OPEN in ZK, expecting version "
+operator|+
+name|versionOfOfflineNode
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|ZKAssign
+operator|.
+name|transitionNode
+argument_list|(
+name|rsServices
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|hri
+argument_list|,
+name|rsServices
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|EventType
+operator|.
+name|M_ZK_REGION_OFFLINE
+argument_list|,
+name|EventType
+operator|.
+name|RS_ZK_REGION_FAILED_OPEN
+argument_list|,
+name|versionOfOfflineNode
+argument_list|)
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to mark region "
+operator|+
+name|hri
+operator|+
+literal|" as FAILED_OPEN. "
+operator|+
+literal|"It's likely that the master already timed out this open "
+operator|+
+literal|"attempt, and thus another RS already has the region."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|result
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed transitioning node "
+operator|+
+name|name
+operator|+
+literal|" from OFFLINE to FAILED_OPEN"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
+block|}
 comment|/**    * @return Instance of HRegion if successful open else null.    */
 name|HRegion
 name|openRegion
@@ -1545,7 +1831,11 @@ operator|.
 name|rsServices
 operator|.
 name|getWAL
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|regionInfo
+argument_list|)
 argument_list|,
 name|this
 operator|.
@@ -1705,15 +1995,16 @@ name|encodedName
 argument_list|)
 decl_stmt|;
 return|return
-name|action
-operator|!=
-literal|null
-operator|&&
-name|action
+name|Boolean
 operator|.
-name|booleanValue
-argument_list|()
+name|TRUE
+operator|.
+name|equals
+argument_list|(
+name|action
+argument_list|)
 return|;
+comment|// true means opening for RIT
 block|}
 comment|/**    * Transition ZK node from OFFLINE to OPENING.    * @param encodedName Name of the znode file (Region encodedName is the znode    * name).    * @param versionOfOfflineNode - version Of OfflineNode that needs to be compared    * before changing the node's state from OFFLINE     * @return True if successful transition.    */
 name|boolean
@@ -1727,24 +2018,6 @@ name|int
 name|versionOfOfflineNode
 parameter_list|)
 block|{
-if|if
-condition|(
-operator|!
-name|isRegionStillOpening
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Open region aborted since it isn't opening any more"
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 comment|// TODO: should also handle transition from CLOSED?
 try|try
 block|{
@@ -1798,6 +2071,16 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|version
+operator|=
+operator|-
+literal|1
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|boolean
 name|b
@@ -1932,6 +2215,9 @@ operator|=
 operator|-
 literal|1
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|boolean
 name|b

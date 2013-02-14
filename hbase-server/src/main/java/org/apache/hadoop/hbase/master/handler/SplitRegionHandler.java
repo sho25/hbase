@@ -259,6 +259,23 @@ argument_list|>
 name|daughters
 decl_stmt|;
 comment|/**    * For testing only!  Set to true to skip handling of split.    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"MS_SHOULD_BE_FINAL"
+argument_list|)
 specifier|public
 specifier|static
 name|boolean

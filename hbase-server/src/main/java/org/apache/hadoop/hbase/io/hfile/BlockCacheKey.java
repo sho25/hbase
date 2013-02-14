@@ -113,6 +113,12 @@ class|class
 name|BlockCacheKey
 implements|implements
 name|HeapSize
+implements|,
+name|java
+operator|.
+name|io
+operator|.
+name|Serializable
 block|{
 specifier|private
 specifier|final

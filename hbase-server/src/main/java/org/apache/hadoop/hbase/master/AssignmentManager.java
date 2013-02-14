@@ -53,16 +53,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -248,20 +238,6 @@ operator|.
 name|locks
 operator|.
 name|ReentrantLock
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|LinkedHashMultimap
 import|;
 end_import
 
@@ -921,6 +897,20 @@ name|Stat
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|LinkedHashMultimap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Manages and performs region assignment.  *<p>  * Monitors ZooKeeper for events related to regions in transition.  *<p>  * Handles existing regions in transition during master failover.  */
 end_comment
@@ -1128,7 +1118,8 @@ specifier|final
 name|RegionStates
 name|regionStates
 decl_stmt|;
-comment|/**    * Indicator that AssignmentManager has recovered the region states so    * that ServerShutdownHandler can be fully enabled and re-assign regions    * of dead servers. So that when re-assignment happens, AssignmentManager    * has proper region states.    */
+comment|/**    * Indicator that AssignmentManager has recovered the region states so    * that ServerShutdownHandler can be fully enabled and re-assign regions    * of dead servers. So that when re-assignment happens, AssignmentManager    * has proper region states.    *    * Protected to ease testing.    */
+specifier|protected
 specifier|final
 name|AtomicBoolean
 name|failoverCleanupDone
@@ -2757,9 +2748,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unexpected NULL input "
-operator|+
-name|rt
+literal|"Unexpected NULL input for RegionTransition rt"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4616,6 +4605,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|Stat
+name|stat
+init|=
+operator|new
+name|Stat
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|String
@@ -4638,9 +4634,20 @@ name|child
 argument_list|)
 condition|)
 block|{
-name|ZKUtil
+name|stat
 operator|.
-name|watchAndCheckExists
+name|setVersion
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|byte
+index|[]
+name|data
+init|=
+name|ZKAssign
+operator|.
+name|getDataAndWatch
 argument_list|(
 name|watcher
 argument_list|,
@@ -4654,8 +4661,80 @@ name|assignmentZNode
 argument_list|,
 name|child
 argument_list|)
+argument_list|,
+name|stat
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|data
+operator|!=
+literal|null
+operator|&&
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+try|try
+block|{
+name|RegionTransition
+name|rt
+init|=
+name|RegionTransition
+operator|.
+name|parseFrom
+argument_list|(
+name|data
+argument_list|)
+decl_stmt|;
+comment|//See HBASE-7551, handle splitting too, in case we miss the node change event
+if|if
+condition|(
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+operator|==
+name|EventType
+operator|.
+name|RS_ZK_REGION_SPLITTING
+condition|)
+block|{
+name|handleRegion
+argument_list|(
+name|rt
+argument_list|,
+name|stat
+operator|.
+name|getVersion
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|DeserializationException
+name|de
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"error getting data for "
+operator|+
+name|child
+argument_list|,
+name|de
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 block|}
@@ -6425,6 +6504,7 @@ expr_stmt|;
 return|return;
 block|}
 comment|// This never happens. Currently regionserver close always return true.
+comment|// Todo; this can now happen (0.96) if there is an exception in a coprocessor
 name|LOG
 operator|.
 name|warn
@@ -11305,6 +11385,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|boolean
 name|isCarryingRoot
 parameter_list|(
@@ -11323,6 +11404,7 @@ name|ROOT_REGIONINFO
 argument_list|)
 return|;
 block|}
+specifier|public
 name|boolean
 name|isCarryingMeta
 parameter_list|(

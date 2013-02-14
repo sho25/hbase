@@ -639,7 +639,7 @@ block|{
 comment|// Create all the necessary "directories" of znodes
 name|ZKUtil
 operator|.
-name|createAndFailSilent
+name|createWithParents
 argument_list|(
 name|this
 argument_list|,
@@ -883,7 +883,7 @@ name|get
 argument_list|(
 literal|"zookeeper.znode.state"
 argument_list|,
-literal|"shutdown"
+literal|"running"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -901,7 +901,7 @@ name|get
 argument_list|(
 literal|"zookeeper.znode.unassigned"
 argument_list|,
-literal|"unassigned"
+literal|"region-in-transition"
 argument_list|)
 argument_list|)
 expr_stmt|;

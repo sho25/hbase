@@ -1327,8 +1327,6 @@ argument_list|,
 name|connection
 argument_list|,
 name|ABORTABLE
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 name|ct
@@ -1460,8 +1458,6 @@ name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|zkw

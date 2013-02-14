@@ -379,9 +379,13 @@ begin_import
 import|import
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Before
+name|hbase
+operator|.
+name|cell
+operator|.
+name|CellComparator
 import|;
 end_import
 
@@ -659,8 +663,6 @@ name|comprAlgo
 decl_stmt|;
 specifier|private
 specifier|final
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 decl_stmt|;
@@ -801,8 +803,6 @@ operator|.
 name|Algorithm
 name|comprAlgo
 parameter_list|,
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 parameter_list|,
@@ -1344,8 +1344,6 @@ name|delete
 argument_list|(
 name|d
 argument_list|,
-literal|null
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1654,7 +1652,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
 literal|"Scanner returned wrong key/value; "
 operator|+
@@ -1664,6 +1662,10 @@ name|deleteInfo
 operator|+
 literal|";"
 argument_list|,
+name|CellComparator
+operator|.
+name|equalsIgnoreMvccVersion
+argument_list|(
 name|kvs
 operator|.
 name|get
@@ -1671,7 +1673,10 @@ argument_list|(
 name|kvPos
 argument_list|)
 argument_list|,
+operator|(
 name|kv
+operator|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 operator|++

@@ -169,20 +169,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionServerStatusProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -474,6 +460,7 @@ name|boolean
 name|exitWorker
 decl_stmt|;
 specifier|private
+specifier|final
 name|Object
 name|grabTaskLock
 init|=
@@ -620,6 +607,7 @@ try|try
 block|{
 if|if
 condition|(
+operator|!
 name|HLogSplitter
 operator|.
 name|splitLogFile
@@ -645,8 +633,6 @@ name|p
 argument_list|,
 name|sequenceIdChecker
 argument_list|)
-operator|==
-literal|false
 condition|)
 block|{
 return|return
@@ -1292,12 +1278,11 @@ return|return;
 block|}
 if|if
 condition|(
+operator|!
 name|slt
 operator|.
 name|isUnassigned
 argument_list|()
-operator|==
-literal|false
 condition|)
 block|{
 name|SplitLogCounters
@@ -1318,12 +1303,11 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
+operator|!
 name|attemptToOwnTask
 argument_list|(
 literal|true
 argument_list|)
-operator|==
-literal|false
 condition|)
 block|{
 name|SplitLogCounters
@@ -1427,12 +1411,11 @@ parameter_list|()
 block|{
 if|if
 condition|(
+operator|!
 name|attemptToOwnTask
 argument_list|(
 literal|false
 argument_list|)
-operator|==
-literal|false
 condition|)
 block|{
 name|LOG
@@ -1643,7 +1626,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-return|return;
 block|}
 comment|/**    * Try to own the task by transitioning the zk node data from UNASSIGNED to    * OWNED.    *<p>    * This method is also used to periodically heartbeat the task progress by    * transitioning the node from OWNED to OWNED.    *<p>    * @return true if task path is successfully locked    */
 specifier|private
@@ -2029,12 +2011,11 @@ expr_stmt|;
 block|}
 name|SplitLogCounters
 operator|.
-name|tot_wkr_final_transistion_failed
+name|tot_wkr_final_transition_failed
 operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-return|return;
 block|}
 name|void
 name|getDataSetWatchAsync
@@ -2570,7 +2551,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-return|return;
 block|}
 comment|/**    * stop the SplitLogWorker thread    */
 specifier|public
@@ -2691,7 +2671,6 @@ argument_list|,
 name|data
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 block|}
 comment|/**    * Objects implementing this interface actually do the task that has been    * acquired by a {@link SplitLogWorker}. Since there isn't a water-tight    * guarantee that two workers will not be executing the same task therefore it    * is better to have workers prepare the task and then have the    * {@link SplitLogManager} commit the work in SplitLogManager.TaskFinisher    */
@@ -2716,7 +2695,6 @@ parameter_list|()
 operator|,
 constructor|PREEMPTED(
 block|)
-empty_stmt|;
 block|}
 end_class
 

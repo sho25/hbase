@@ -26554,7 +26554,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes table = 1;
+comment|// optional bytes table = 1;
 name|boolean
 name|hasTable
 parameter_list|()
@@ -26700,7 +26700,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes table = 1;
+comment|// optional bytes table = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -26799,21 +26799,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-if|if
-condition|(
-operator|!
-name|hasTable
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -28561,17 +28546,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-if|if
-condition|(
-operator|!
-name|hasTable
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
 return|return
 literal|true
 return|;
@@ -28729,7 +28703,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes table = 1;
+comment|// optional bytes table = 1;
 specifier|private
 name|com
 operator|.
@@ -42548,7 +42522,7 @@ literal|"okeRequest\022#\n\npermission\030\001 \002(\0132\017.UserPer"
 operator|+
 literal|"mission\"\020\n\016RevokeResponse\"\'\n\026UserPermiss"
 operator|+
-literal|"ionsRequest\022\r\n\005table\030\001 \002(\014\">\n\027UserPermis"
+literal|"ionsRequest\022\r\n\005table\030\001 \001(\014\">\n\027UserPermis"
 operator|+
 literal|"sionsResponse\022#\n\npermission\030\001 \003(\0132\017.User"
 operator|+

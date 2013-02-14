@@ -752,8 +752,6 @@ argument_list|()
 decl_stmt|;
 name|ColumnDescriptor
 name|col
-init|=
-literal|null
 decl_stmt|;
 name|col
 operator|=
@@ -1766,8 +1764,6 @@ argument_list|)
 expr_stmt|;
 name|Mutation
 name|m
-init|=
-literal|null
 decl_stmt|;
 name|mutations
 operator|=
@@ -2290,12 +2286,11 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|result
 operator|.
 name|isEmpty
 argument_list|()
-operator|==
-literal|false
 condition|)
 block|{
 name|System
@@ -2492,7 +2487,6 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-specifier|final
 name|void
 name|printVersions
 parameter_list|(
@@ -2567,7 +2561,6 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-specifier|final
 name|void
 name|printRow
 parameter_list|(

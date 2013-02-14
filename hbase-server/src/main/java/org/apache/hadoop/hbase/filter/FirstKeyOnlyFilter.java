@@ -304,15 +304,9 @@ parameter_list|)
 throws|throws
 name|DeserializationException
 block|{
-name|FilterProtos
-operator|.
-name|FirstKeyOnlyFilter
-name|proto
-decl_stmt|;
+comment|// There is nothing to deserialize.  Why do this at all?
 try|try
 block|{
-name|proto
-operator|=
 name|FilterProtos
 operator|.
 name|FirstKeyOnlyFilter
@@ -337,6 +331,7 @@ name|e
 argument_list|)
 throw|;
 block|}
+comment|// Just return a new instance.
 return|return
 operator|new
 name|FirstKeyOnlyFilter

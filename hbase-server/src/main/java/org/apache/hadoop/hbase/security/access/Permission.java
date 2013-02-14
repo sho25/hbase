@@ -221,6 +221,7 @@ block|}
 block|}
 specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -235,6 +236,7 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|static
+specifier|final
 name|Map
 argument_list|<
 name|Byte

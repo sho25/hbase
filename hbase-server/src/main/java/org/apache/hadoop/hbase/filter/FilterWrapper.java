@@ -526,6 +526,27 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isFamilyEssential
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+block|{
+return|return
+name|filter
+operator|.
+name|isFamilyEssential
+argument_list|(
+name|name
+argument_list|)
+return|;
+block|}
+empty_stmt|;
 comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual

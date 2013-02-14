@@ -812,7 +812,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds a (single) META row for the specified new region and its daughters. Note that this does    * not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #offlineParentInMeta(CatalogTracker, HRegionInfo, HRegionInfo, HRegionInfo)}    * and {@link #addDaughter(CatalogTracker, HRegionInfo, ServerName)}  if you want to do that.    * @param meta the HTable for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a (single) META row for the specified new region and its daughters. Note that this does    * not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #offlineParentInMeta(CatalogTracker, HRegionInfo, HRegionInfo, HRegionInfo)} and    * {@link #addDaughter(CatalogTracker, HRegionInfo, ServerName, long)}  if you want to do that.    * @param meta the HTable for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void
@@ -1048,6 +1048,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Adds a daughter region entry to meta.    * @param regionInfo the region to put    * @param sn the location of the region    * @param openSeqNum the latest sequence number obtained when the region was open    */
 specifier|public
 specifier|static
 name|void
@@ -1064,6 +1065,10 @@ parameter_list|,
 specifier|final
 name|ServerName
 name|sn
+parameter_list|,
+specifier|final
+name|long
+name|openSeqNum
 parameter_list|)
 throws|throws
 name|NotAllMetaRegionsOnlineException
@@ -1095,13 +1100,17 @@ name|sn
 operator|!=
 literal|null
 condition|)
+block|{
 name|addLocation
 argument_list|(
 name|put
 argument_list|,
 name|sn
+argument_list|,
+name|openSeqNum
 argument_list|)
 expr_stmt|;
+block|}
 name|putToMetaTable
 argument_list|(
 name|catalogTracker
@@ -1137,7 +1146,7 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying .META.    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
+comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying .META.    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
 specifier|public
 specifier|static
 name|void
@@ -1151,6 +1160,9 @@ name|regionInfo
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|long
+name|openSeqNum
 parameter_list|)
 throws|throws
 name|IOException
@@ -1164,6 +1176,8 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|sn
+argument_list|,
+name|openSeqNum
 argument_list|)
 expr_stmt|;
 block|}
@@ -1181,6 +1195,9 @@ name|regionInfo
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|long
+name|updateSeqNum
 parameter_list|)
 throws|throws
 name|IOException
@@ -1192,10 +1209,12 @@ argument_list|,
 name|regionInfo
 argument_list|,
 name|sn
+argument_list|,
+name|updateSeqNum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param catalogTracker    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param catalogTracker    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
 specifier|private
 specifier|static
 name|void
@@ -1210,6 +1229,9 @@ name|regionInfo
 parameter_list|,
 name|ServerName
 name|sn
+parameter_list|,
+name|long
+name|openSeqNum
 parameter_list|)
 throws|throws
 name|IOException
@@ -1231,6 +1253,8 @@ argument_list|(
 name|put
 argument_list|,
 name|sn
+argument_list|,
+name|openSeqNum
 argument_list|)
 expr_stmt|;
 name|putToCatalogTable
@@ -1683,6 +1707,9 @@ parameter_list|,
 specifier|final
 name|ServerName
 name|sn
+parameter_list|,
+name|long
+name|openSeqNum
 parameter_list|)
 block|{
 name|p
@@ -1728,6 +1755,26 @@ name|sn
 operator|.
 name|getStartcode
 argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|p
+operator|.
+name|add
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|,
+name|HConstants
+operator|.
+name|SEQNUM_QUALIFIER
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|openSeqNum
 argument_list|)
 argument_list|)
 expr_stmt|;

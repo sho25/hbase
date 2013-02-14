@@ -165,6 +165,7 @@ extends|extends
 name|PolicyProvider
 block|{
 specifier|protected
+specifier|final
 specifier|static
 name|Service
 index|[]
@@ -247,9 +248,9 @@ name|authManager
 parameter_list|)
 block|{
 comment|// set service-level authorization security policy
-name|conf
+name|System
 operator|.
-name|set
+name|setProperty
 argument_list|(
 literal|"hadoop.policy.file"
 argument_list|,

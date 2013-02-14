@@ -316,6 +316,7 @@ decl_stmt|;
 comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|COMPARATOR
 init|=
@@ -326,6 +327,7 @@ decl_stmt|;
 comment|/**    * Comparator for plain key; i.e. non-catalog table key.  Works on Key portion    * of KeyValue only.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|KEY_COMPARATOR
 init|=
@@ -336,6 +338,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|META_COMPARATOR
 init|=
@@ -346,6 +349,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue} keys.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|META_KEY_COMPARATOR
 init|=
@@ -356,6 +360,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>-ROOT-</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
+specifier|final
 name|KVComparator
 name|ROOT_COMPARATOR
 init|=
@@ -366,6 +371,7 @@ decl_stmt|;
 comment|/**    * A {@link KVComparator} for<code>-ROOT-</code> catalog table    * {@link KeyValue} keys.    */
 specifier|public
 specifier|static
+specifier|final
 name|KeyComparator
 name|ROOT_KEY_COMPARATOR
 init|=
@@ -3199,7 +3205,7 @@ name|vlength
 argument_list|)
 return|;
 block|}
-comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the value.    *    * For temporary backwards compatibility with the original KeyValue.equals method, we ignore the    * mvccVersion.    */
+comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the value.    */
 annotation|@
 name|Override
 specifier|public
@@ -3227,7 +3233,7 @@ block|}
 return|return
 name|CellComparator
 operator|.
-name|equalsIgnoreMvccVersion
+name|equals
 argument_list|(
 name|this
 argument_list|,
@@ -8139,6 +8145,62 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a KeyValue that is smaller than all other possible KeyValues    * for the given row. That is any (valid) KeyValue on 'row' would sort    * _after_ the result.    *    * @param row - row key (arbitrary byte array)    * @return First possible KeyValue on passed<code>row</code>    */
+specifier|public
+specifier|static
+name|KeyValue
+name|createFirstOnRow
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|int
+name|roffset
+parameter_list|,
+name|short
+name|rlength
+parameter_list|)
+block|{
+return|return
+operator|new
+name|KeyValue
+argument_list|(
+name|row
+argument_list|,
+name|roffset
+argument_list|,
+name|rlength
+argument_list|,
+literal|null
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|null
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|,
+name|Type
+operator|.
+name|Maximum
+argument_list|,
+literal|null
+argument_list|,
+literal|0
+argument_list|,
+literal|0
 argument_list|)
 return|;
 block|}

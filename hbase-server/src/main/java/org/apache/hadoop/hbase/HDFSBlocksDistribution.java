@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure to describe the distribution of HDFS blocks amount hosts  */
+comment|/**  * Data structure to describe the distribution of HDFS blocks amount hosts.  *  * Adding erroneous data will be ignored silently.  */
 end_comment
 
 begin_class
@@ -339,13 +339,8 @@ operator|==
 literal|0
 condition|)
 block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"empty hosts"
-argument_list|)
-throw|;
+comment|// erroneous data
+return|return;
 block|}
 name|addUniqueWeight
 argument_list|(
@@ -402,13 +397,8 @@ operator|==
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Passed hostname is null"
-argument_list|)
-throw|;
+comment|// erroneous data
+return|return;
 block|}
 name|HostAndWeight
 name|hostAndWeight

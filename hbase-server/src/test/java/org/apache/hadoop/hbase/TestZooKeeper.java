@@ -23,7 +23,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
+name|assertEquals
 import|;
 end_import
 
@@ -35,7 +35,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
+name|assertFalse
 import|;
 end_import
 
@@ -115,7 +115,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|List
 import|;
 end_import
 
@@ -125,7 +125,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Map
 import|;
 end_import
 
@@ -543,6 +543,34 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|data
+operator|.
+name|ACL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|data
+operator|.
+name|Stat
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|AfterClass
@@ -680,7 +708,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|ZOOKEEPER_SESSION_TIMEOUT
+name|ZK_SESSION_TIMEOUT
 argument_list|,
 literal|1000
 argument_list|)
@@ -793,7 +821,7 @@ return|;
 block|}
 comment|/**    * See HBASE-1232 and http://wiki.apache.org/hadoop/ZooKeeper/FAQ#4.    * @throws IOException    * @throws InterruptedException    */
 comment|// fails frequently, disabled for now, see HBASE-6406
-comment|// @Test
+comment|//@Test
 specifier|public
 name|void
 name|testClientSessionExpired
@@ -1302,7 +1330,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Make sure we can use the cluster    * @throws Exception    */
-specifier|public
+specifier|private
 name|void
 name|testSanity
 parameter_list|()
@@ -2055,6 +2083,29 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// Save the previous ACL
+name|Stat
+name|s
+init|=
+operator|new
+name|Stat
+argument_list|()
+decl_stmt|;
+name|List
+argument_list|<
+name|ACL
+argument_list|>
+name|oldACL
+init|=
+name|zk
+operator|.
+name|getACL
+argument_list|(
+literal|"/"
+argument_list|,
+name|s
+argument_list|)
+decl_stmt|;
 comment|// I set this acl after the attempted creation of the cluster home node.
 comment|// Add retries in case of retryable zk exceptions.
 while|while
@@ -2217,6 +2268,51 @@ name|zk2
 argument_list|,
 name|aclZnode
 argument_list|)
+expr_stmt|;
+comment|// Restore the ACL
+name|ZooKeeper
+name|zk3
+init|=
+operator|new
+name|ZooKeeper
+argument_list|(
+name|quorumServers
+argument_list|,
+name|sessionTimeout
+argument_list|,
+name|EmptyWatcher
+operator|.
+name|instance
+argument_list|)
+decl_stmt|;
+name|zk3
+operator|.
+name|addAuthInfo
+argument_list|(
+literal|"digest"
+argument_list|,
+literal|"hbase:rox"
+operator|.
+name|getBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|zk3
+operator|.
+name|setACL
+argument_list|(
+literal|"/"
+argument_list|,
+name|oldACL
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|zk3
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Test should not fail with NPE when getChildDataAndWatchForNewChildren    * invoked with wrongNode    */
@@ -2638,13 +2734,9 @@ argument_list|)
 decl_stmt|;
 name|Put
 name|p
-init|=
-literal|null
 decl_stmt|;
 name|int
 name|numberOfPuts
-init|=
-literal|0
 decl_stmt|;
 for|for
 control|(

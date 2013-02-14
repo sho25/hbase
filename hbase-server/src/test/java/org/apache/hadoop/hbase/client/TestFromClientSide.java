@@ -1557,8 +1557,6 @@ argument_list|,
 name|ts
 operator|+
 literal|3
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|h
@@ -1578,8 +1576,6 @@ argument_list|,
 name|ts
 operator|+
 literal|3
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|d
@@ -2161,8 +2157,6 @@ operator|.
 name|deleteConnection
 argument_list|(
 name|newConfig
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 try|try
@@ -2217,8 +2211,6 @@ operator|.
 name|deleteConnection
 argument_list|(
 name|newConfig2
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 try|try
@@ -35700,14 +35692,14 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|Thread
+name|Runnable
 argument_list|>
-name|threads
+name|tasks
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|Thread
+name|Runnable
 argument_list|>
 argument_list|(
 literal|5
@@ -35728,12 +35720,12 @@ name|i
 operator|++
 control|)
 block|{
-name|threads
+name|tasks
 operator|.
 name|add
 argument_list|(
 operator|new
-name|Thread
+name|Runnable
 argument_list|()
 block|{
 specifier|public
@@ -35761,12 +35753,12 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|// First, add two threads and make sure the pool size follows
+comment|// First, add two tasks and make sure the pool size follows
 name|pool
 operator|.
 name|submit
 argument_list|(
-name|threads
+name|tasks
 operator|.
 name|get
 argument_list|(
@@ -35788,7 +35780,7 @@ name|pool
 operator|.
 name|submit
 argument_list|(
-name|threads
+name|tasks
 operator|.
 name|get
 argument_list|(
@@ -35806,7 +35798,7 @@ name|getPoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Next, terminate those threads and then make sure the pool is still the
+comment|// Next, terminate those tasks and then make sure the pool is still the
 comment|// same size
 name|queue
 operator|.
@@ -35817,16 +35809,6 @@ name|Object
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|threads
-operator|.
-name|get
-argument_list|(
-literal|0
-argument_list|)
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
 name|queue
 operator|.
 name|put
@@ -35835,16 +35817,6 @@ operator|new
 name|Object
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|threads
-operator|.
-name|get
-argument_list|(
-literal|1
-argument_list|)
-operator|.
-name|join
-argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -35856,7 +35828,7 @@ name|getPoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//ensure that ThreadPoolExecutor knows that threads are finished.
+comment|//ensure that ThreadPoolExecutor knows that tasks are finished.
 while|while
 condition|(
 name|pool
@@ -35881,7 +35853,7 @@ name|pool
 operator|.
 name|submit
 argument_list|(
-name|threads
+name|tasks
 operator|.
 name|get
 argument_list|(
@@ -35893,7 +35865,7 @@ name|pool
 operator|.
 name|submit
 argument_list|(
-name|threads
+name|tasks
 operator|.
 name|get
 argument_list|(
@@ -35905,7 +35877,7 @@ name|pool
 operator|.
 name|submit
 argument_list|(
-name|threads
+name|tasks
 operator|.
 name|get
 argument_list|(

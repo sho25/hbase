@@ -810,7 +810,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [opts] [table 1 [table 2...]]\n"
+literal|"Usage: bin/hbase %s [opts] [table 1 [table 2...]]%n"
 argument_list|,
 name|getClass
 argument_list|()

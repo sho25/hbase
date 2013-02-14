@@ -576,6 +576,12 @@ name|reader
 decl_stmt|;
 end_decl_stmt
 
+begin_decl_stmt
+name|FileSystem
+name|fs
+decl_stmt|;
+end_decl_stmt
+
 begin_comment
 comment|// Needed logging exceptions
 end_comment
@@ -602,12 +608,20 @@ literal|0
 decl_stmt|;
 end_decl_stmt
 
+begin_decl_stmt
+name|boolean
+name|emptyCompressionContext
+init|=
+literal|true
+decl_stmt|;
+end_decl_stmt
+
 begin_comment
 comment|/**    * Compression context to use reading.  Can be null if no compression.    */
 end_comment
 
 begin_decl_stmt
-specifier|private
+specifier|protected
 name|CompressionContext
 name|compressionContext
 init|=
@@ -706,6 +720,12 @@ name|path
 argument_list|,
 name|conf
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fs
+operator|=
+name|fs
 expr_stmt|;
 comment|// If compression is enabled, new dictionaries are created here.
 name|boolean
@@ -1022,6 +1042,20 @@ block|}
 name|edit
 operator|++
 expr_stmt|;
+if|if
+condition|(
+name|compressionContext
+operator|!=
+literal|null
+operator|&&
+name|emptyCompressionContext
+condition|)
+block|{
+name|emptyCompressionContext
+operator|=
+literal|false
+expr_stmt|;
+block|}
 return|return
 name|b
 condition|?
@@ -1045,6 +1079,39 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|compressionContext
+operator|!=
+literal|null
+operator|&&
+name|emptyCompressionContext
+condition|)
+block|{
+while|while
+condition|(
+name|next
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|getPosition
+argument_list|()
+operator|==
+name|pos
+condition|)
+block|{
+name|emptyCompressionContext
+operator|=
+literal|false
+expr_stmt|;
+break|break;
+block|}
+block|}
+block|}
 try|try
 block|{
 name|reader
@@ -1083,9 +1150,15 @@ name|IOException
 block|{
 return|return
 name|reader
+operator|!=
+literal|null
+condition|?
+name|reader
 operator|.
 name|getPosition
 argument_list|()
+else|:
+literal|0
 return|;
 block|}
 end_function
@@ -1274,6 +1347,33 @@ block|}
 return|return
 name|ioe
 return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|void
+name|reset
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// Resetting the reader lets us see newly added data if the file is being written to
+comment|// We also keep the same compressionContext which was previously populated for this file
+name|reader
+operator|=
+operator|new
+name|WALReader
+argument_list|(
+name|fs
+argument_list|,
+name|path
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 

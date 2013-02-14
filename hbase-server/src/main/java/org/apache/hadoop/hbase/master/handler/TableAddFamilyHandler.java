@@ -316,10 +316,7 @@ name|familyDesc
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Update table descriptor in HDFS
-name|HTableDescriptor
-name|htd
-init|=
+comment|// Update table descriptor
 name|this
 operator|.
 name|masterServices
@@ -332,19 +329,6 @@ argument_list|(
 name|tableName
 argument_list|,
 name|familyDesc
-argument_list|)
-decl_stmt|;
-comment|// Update in-memory descriptor cache
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|add
-argument_list|(
-name|htd
 argument_list|)
 expr_stmt|;
 if|if

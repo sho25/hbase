@@ -103,13 +103,14 @@ name|HRegion
 name|r
 parameter_list|)
 function_decl|;
-comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param encodedRegionName    * @param destination - destination, if any. Null otherwise    * @return True if we removed a region from online list.    */
+comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param r Region to remove.    * @param destination Destination, if any, null otherwise.    * @return True if we removed a region from online list.    */
 specifier|public
 name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
-name|String
-name|encodedRegionName
+specifier|final
+name|HRegion
+name|r
 parameter_list|,
 name|ServerName
 name|destination

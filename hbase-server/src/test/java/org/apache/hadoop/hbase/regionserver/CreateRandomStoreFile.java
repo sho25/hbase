@@ -629,8 +629,6 @@ name|Arrays
 operator|.
 name|toString
 argument_list|(
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|values
@@ -956,13 +954,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|StoreFile
-operator|.
 name|BloomType
 name|bloomType
 init|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|NONE
@@ -979,8 +973,6 @@ condition|)
 block|{
 name|bloomType
 operator|=
-name|StoreFile
-operator|.
 name|BloomType
 operator|.
 name|valueOf

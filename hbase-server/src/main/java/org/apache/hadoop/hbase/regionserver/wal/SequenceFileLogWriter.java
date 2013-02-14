@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link FSHLog.Writer} that delegates to  * SequenceFile.Writer.  */
+comment|/**  * Implementation of {@link HLog.Writer} that delegates to  * SequenceFile.Writer.  */
 end_comment
 
 begin_class
@@ -1257,6 +1257,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|writer
@@ -1264,6 +1266,22 @@ operator|.
 name|syncFs
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// Concurrent close...
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|npe
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override

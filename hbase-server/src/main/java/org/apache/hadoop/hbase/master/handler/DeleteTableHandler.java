@@ -645,6 +645,11 @@ name|HFileArchiver
 operator|.
 name|archiveRegion
 argument_list|(
+name|masterServices
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|fs
 argument_list|,
 name|mfs

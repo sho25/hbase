@@ -185,25 +185,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|ClientProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
-name|HBaseRPC
+name|HBaseClientRPC
 import|;
 end_import
 
@@ -494,7 +478,7 @@ name|void
 name|beforeCall
 parameter_list|()
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|setRpcTimeout
 argument_list|(
@@ -518,7 +502,7 @@ name|void
 name|afterCall
 parameter_list|()
 block|{
-name|HBaseRPC
+name|HBaseClientRPC
 operator|.
 name|resetRpcTimeout
 argument_list|()

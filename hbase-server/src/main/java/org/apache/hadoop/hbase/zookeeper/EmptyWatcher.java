@@ -73,6 +73,7 @@ block|{
 comment|// Used in this package but also by tests so needs to be public
 specifier|public
 specifier|static
+specifier|final
 name|EmptyWatcher
 name|instance
 init|=
