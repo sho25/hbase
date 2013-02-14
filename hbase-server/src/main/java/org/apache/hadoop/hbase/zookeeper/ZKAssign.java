@@ -2100,6 +2100,28 @@ name|beginState
 argument_list|)
 condition|)
 block|{
+name|String
+name|existingServer
+init|=
+operator|(
+name|rt
+operator|.
+name|getServerName
+argument_list|()
+operator|==
+literal|null
+operator|)
+condition|?
+literal|"<unknown>"
+else|:
+name|rt
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -2108,9 +2130,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Attempt to transition the "
-operator|+
-literal|"unassigned node for "
+literal|"Attempt to transition the unassigned node for "
 operator|+
 name|encoded
 operator|+
@@ -2122,15 +2142,15 @@ literal|" to "
 operator|+
 name|endState
 operator|+
-literal|" failed, "
+literal|" failed, the node existed but"
 operator|+
-literal|"the node existed but was in the state "
+literal|" was in the state "
 operator|+
 name|et
 operator|+
 literal|" set by the server "
 operator|+
-name|serverName
+name|existingServer
 argument_list|)
 argument_list|)
 expr_stmt|;
