@@ -976,15 +976,10 @@ control|)
 block|{
 name|state
 operator|=
-name|CompactionRequest
-operator|.
-name|getCompactionState
-argument_list|(
 name|region
 operator|.
-name|getRegionId
+name|getCompactionState
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(

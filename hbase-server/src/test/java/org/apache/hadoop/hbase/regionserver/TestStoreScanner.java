@@ -189,8 +189,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
-operator|.
 name|ScanInfo
 import|;
 end_import
@@ -5044,14 +5042,10 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 init|=
 operator|new
-name|HStore
-operator|.
 name|ScanInfo
 argument_list|(
 name|Bytes

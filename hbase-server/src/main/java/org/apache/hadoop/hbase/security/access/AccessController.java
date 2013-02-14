@@ -629,7 +629,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -4861,7 +4861,7 @@ argument_list|>
 name|e
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -4914,7 +4914,7 @@ argument_list|>
 name|e
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final

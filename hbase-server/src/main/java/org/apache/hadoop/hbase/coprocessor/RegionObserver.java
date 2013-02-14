@@ -355,7 +355,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|Store
 import|;
 end_import
 
@@ -514,7 +514,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -528,7 +528,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, HStore, InternalScanner)} instead    */
+comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead    */
 name|void
 name|preFlush
 parameter_list|(
@@ -554,7 +554,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -564,7 +564,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, HStore, InternalScanner)} instead.    */
+comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead.    */
 name|void
 name|postFlush
 parameter_list|(
@@ -590,7 +590,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -612,7 +612,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -637,7 +637,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -660,7 +660,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -686,7 +686,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|List
@@ -724,7 +724,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|StoreFile
@@ -733,7 +733,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(final ObserverContext<RegionCoprocessorEnvironment> c, byte[] splitRow)    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(    *    final ObserverContext<RegionCoprocessorEnvironment> c, byte[] splitRow)    */
 name|void
 name|preSplit
 parameter_list|(
@@ -1479,7 +1479,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, HStore, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext, HStore, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
@@ -1491,7 +1491,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final

@@ -339,8 +339,6 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 parameter_list|,
@@ -612,8 +610,6 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 parameter_list|,

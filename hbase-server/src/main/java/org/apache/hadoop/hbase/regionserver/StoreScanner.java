@@ -185,8 +185,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
-operator|.
 name|ScanInfo
 import|;
 end_import
@@ -224,7 +222,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner scans both the memstore and the HStore. Coalesce KeyValue stream  * into List<KeyValue> for a single row.  */
+comment|/**  * Scanner scans both the memstore and the Store. Coalesce KeyValue stream  * into List<KeyValue> for a single row.  */
 end_comment
 
 begin_class
@@ -259,7 +257,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|protected
-name|HStore
+name|Store
 name|store
 decl_stmt|;
 specifier|protected
@@ -367,7 +365,7 @@ comment|/** An internal constructor. */
 specifier|protected
 name|StoreScanner
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|boolean
@@ -481,7 +479,7 @@ comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. 
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|ScanInfo
@@ -668,7 +666,8 @@ name|scanners
 argument_list|,
 name|store
 operator|.
-name|comparator
+name|getComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -685,7 +684,7 @@ comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|HStore
+name|Store
 name|store
 parameter_list|,
 name|ScanInfo
@@ -793,7 +792,8 @@ name|scanners
 argument_list|,
 name|store
 operator|.
-name|comparator
+name|getComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -804,8 +804,6 @@ specifier|final
 name|Scan
 name|scan
 parameter_list|,
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 parameter_list|,
@@ -855,8 +853,6 @@ specifier|final
 name|Scan
 name|scan
 parameter_list|,
-name|HStore
-operator|.
 name|ScanInfo
 name|scanInfo
 parameter_list|,
@@ -2138,7 +2134,8 @@ literal|null
 operator|||
 name|store
 operator|.
-name|comparator
+name|getComparator
+argument_list|()
 operator|.
 name|compareRows
 argument_list|(
@@ -2264,7 +2261,8 @@ name|scanners
 argument_list|,
 name|store
 operator|.
-name|comparator
+name|getComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Reset the state of the Query Matcher and set to top row.

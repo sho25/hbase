@@ -199,6 +199,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|Store
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HStore
 import|;
 end_import
@@ -418,7 +434,7 @@ name|maxKeyCount
 init|=
 literal|0
 decl_stmt|;
-name|HStore
+name|Store
 name|store
 init|=
 name|policy
@@ -751,9 +767,6 @@ name|smallestReadPoint
 init|=
 name|store
 operator|.
-name|getHRegion
-argument_list|()
-operator|.
 name|getSmallestReadPoint
 argument_list|()
 decl_stmt|;
@@ -777,9 +790,6 @@ if|if
 condition|(
 name|store
 operator|.
-name|getHRegion
-argument_list|()
-operator|.
 name|getCoprocessorHost
 argument_list|()
 operator|!=
@@ -789,9 +799,6 @@ block|{
 name|scanner
 operator|=
 name|store
-operator|.
-name|getHRegion
-argument_list|()
 operator|.
 name|getCoprocessorHost
 argument_list|()
@@ -885,9 +892,6 @@ if|if
 condition|(
 name|store
 operator|.
-name|getHRegion
-argument_list|()
-operator|.
 name|getCoprocessorHost
 argument_list|()
 operator|!=
@@ -898,9 +902,6 @@ name|InternalScanner
 name|cpScanner
 init|=
 name|store
-operator|.
-name|getHRegion
-argument_list|()
 operator|.
 name|getCoprocessorHost
 argument_list|()
@@ -1157,7 +1158,7 @@ name|void
 name|isInterrupted
 parameter_list|(
 specifier|final
-name|HStore
+name|Store
 name|store
 parameter_list|,
 specifier|final
@@ -1172,9 +1173,6 @@ block|{
 if|if
 condition|(
 name|store
-operator|.
-name|getHRegion
-argument_list|()
 operator|.
 name|areWritesEnabled
 argument_list|()
@@ -1213,7 +1211,10 @@ literal|" in region "
 operator|+
 name|store
 operator|.
-name|getHRegion
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" because it was interrupted."
