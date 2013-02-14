@@ -1042,7 +1042,15 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|ROW_LENGTH
+name|DEFAULT_ROW_PREFIX_LENGTH
+init|=
+literal|16
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|VALUE_LENGTH
 init|=
 literal|1000
 decl_stmt|;
@@ -1066,7 +1074,7 @@ name|ROWS_PER_GB
 init|=
 name|ONE_GB
 operator|/
-name|ROW_LENGTH
+name|VALUE_LENGTH
 decl_stmt|;
 specifier|public
 specifier|static
@@ -1157,6 +1165,12 @@ name|boolean
 name|nomapred
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+name|int
+name|rowPrefixLength
+init|=
+name|DEFAULT_ROW_PREFIX_LENGTH
 decl_stmt|;
 specifier|private
 name|int
@@ -3058,6 +3072,13 @@ literal|0
 index|]
 index|[]
 return|;
+name|int
+name|numSplitPoints
+init|=
+name|presplitRegions
+operator|-
+literal|1
+decl_stmt|;
 name|byte
 index|[]
 index|[]
@@ -3066,9 +3087,7 @@ init|=
 operator|new
 name|byte
 index|[
-name|this
-operator|.
-name|presplitRegions
+name|numSplitPoints
 index|]
 index|[]
 decl_stmt|;
@@ -3092,9 +3111,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|this
-operator|.
-name|presplitRegions
+name|numSplitPoints
 condition|;
 name|i
 operator|++
@@ -3105,7 +3122,11 @@ name|rowkey
 init|=
 name|jump
 operator|*
+operator|(
+literal|1
+operator|+
 name|i
+operator|)
 decl_stmt|;
 name|splits
 index|[
@@ -5057,7 +5078,7 @@ argument_list|()
 operator|.
 name|length
 operator|!=
-name|ROW_LENGTH
+name|VALUE_LENGTH
 condition|)
 block|{
 throw|throw
@@ -5080,7 +5101,7 @@ name|length
 operator|+
 literal|", expected: "
 operator|+
-name|ROW_LENGTH
+name|VALUE_LENGTH
 operator|+
 literal|") in row \""
 operator|+
@@ -7625,6 +7646,8 @@ init|=
 operator|new
 name|byte
 index|[
+name|DEFAULT_ROW_PREFIX_LENGTH
+operator|+
 literal|10
 index|]
 decl_stmt|;
@@ -7703,7 +7726,7 @@ init|=
 operator|new
 name|byte
 index|[
-name|ROW_LENGTH
+name|VALUE_LENGTH
 index|]
 decl_stmt|;
 name|int
@@ -7720,7 +7743,7 @@ init|;
 name|i
 operator|<
 operator|(
-name|ROW_LENGTH
+name|VALUE_LENGTH
 operator|-
 literal|8
 operator|)
@@ -7856,7 +7879,7 @@ control|(
 init|;
 name|i
 operator|<
-name|ROW_LENGTH
+name|VALUE_LENGTH
 condition|;
 name|i
 operator|++
@@ -8290,7 +8313,9 @@ name|zooKeeperCluster
 operator|=
 operator|new
 name|MiniZooKeeperCluster
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 name|int
 name|zooKeeperPort

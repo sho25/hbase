@@ -1414,7 +1414,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Online a region with current state="
+literal|"Offline a region with current state="
 operator|+
 name|state
 operator|+
@@ -1494,7 +1494,7 @@ specifier|public
 specifier|synchronized
 name|List
 argument_list|<
-name|RegionState
+name|HRegionInfo
 argument_list|>
 name|serverOffline
 parameter_list|(
@@ -1507,14 +1507,14 @@ comment|// Clean up this server from map of servers to regions, and remove all r
 comment|// of this server from online map of regions.
 name|List
 argument_list|<
-name|RegionState
+name|HRegionInfo
 argument_list|>
 name|rits
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|RegionState
+name|HRegionInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1564,9 +1564,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|// See if any of the regions that were online on this server were in RIT
-comment|// If they are, normal timeouts will deal with them appropriately so
-comment|// let's skip a manual re-assignment.
 for|for
 control|(
 name|RegionState
@@ -1578,24 +1575,38 @@ name|values
 argument_list|()
 control|)
 block|{
+name|HRegionInfo
+name|hri
+init|=
+name|state
+operator|.
+name|getRegion
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|assignedRegions
 operator|.
 name|contains
 argument_list|(
-name|state
-operator|.
-name|getRegion
-argument_list|()
+name|hri
 argument_list|)
 condition|)
 block|{
-name|rits
+comment|// Region is open on this region server, but in transition.
+comment|// This region must be moving away from this server.
+comment|// SSH will handle it, either skip assigning, or re-assign.
+name|LOG
 operator|.
-name|add
+name|info
 argument_list|(
+literal|"Transitioning region "
+operator|+
 name|state
+operator|+
+literal|" will be handled by SSH for "
+operator|+
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -1630,14 +1641,26 @@ name|isOpening
 argument_list|()
 condition|)
 block|{
-name|state
+name|LOG
 operator|.
-name|setTimestamp
+name|info
 argument_list|(
-literal|0
+literal|"Found opening region "
+operator|+
+name|state
+operator|+
+literal|" to be reassigned by SSH for "
+operator|+
+name|sn
 argument_list|)
 expr_stmt|;
-comment|// timeout it, let timeout monitor reassign
+name|rits
+operator|.
+name|add
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{

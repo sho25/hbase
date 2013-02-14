@@ -6535,9 +6535,9 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
-name|HLogSplitter
+name|HLog
 operator|.
-name|RECOVERED_EDITS
+name|RECOVERED_EDITS_DIR
 argument_list|)
 decl_stmt|;
 name|String

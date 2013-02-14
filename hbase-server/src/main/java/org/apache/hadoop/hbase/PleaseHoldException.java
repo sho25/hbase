@@ -17,16 +17,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -54,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This exception is thrown by the master when a region server was shut down and  * restarted so fast that the master still hasn't processed the server shutdown  * of the first instance, or when master is initializing and client call admin  * operations  */
+comment|/**  * This exception is thrown by the master when a region server was shut down and  * restarted so fast that the master still hasn't processed the server shutdown  * of the first instance, or when master is initializing and client call admin  * operations, or when an operation is performed on a region server that is still starting.  */
 end_comment
 
 begin_class
@@ -75,7 +65,7 @@ specifier|public
 class|class
 name|PleaseHoldException
 extends|extends
-name|IOException
+name|HBaseIOException
 block|{
 specifier|public
 name|PleaseHoldException
@@ -87,6 +77,37 @@ block|{
 name|super
 argument_list|(
 name|message
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|PleaseHoldException
+parameter_list|(
+name|String
+name|message
+parameter_list|,
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|PleaseHoldException
+parameter_list|(
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|cause
 argument_list|)
 expr_stmt|;
 block|}

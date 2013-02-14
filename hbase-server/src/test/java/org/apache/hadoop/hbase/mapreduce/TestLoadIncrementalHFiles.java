@@ -69,6 +69,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -1271,7 +1281,7 @@ name|table
 argument_list|)
 expr_stmt|;
 comment|// Get the store files
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>

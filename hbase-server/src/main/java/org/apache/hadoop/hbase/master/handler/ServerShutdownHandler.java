@@ -560,7 +560,7 @@ name|this
 operator|.
 name|deadServers
 operator|.
-name|contains
+name|isDeadServer
 argument_list|(
 name|this
 operator|.
@@ -1005,7 +1005,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|RegionState
+name|HRegionInfo
 argument_list|>
 name|regionsInTransition
 init|=
@@ -1049,14 +1049,34 @@ else|:
 name|serverName
 operator|)
 operator|+
-literal|" was carrying (skipping "
+literal|" was carrying (and "
 operator|+
 name|regionsInTransition
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" regions(s) that are already in transition)"
+literal|" regions(s) that were opening on this server)"
+argument_list|)
+expr_stmt|;
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|toAssignRegions
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|toAssignRegions
+operator|.
+name|addAll
+argument_list|(
+name|regionsInTransition
 argument_list|)
 expr_stmt|;
 comment|// Iterate regions that were on this server and assign them
@@ -1073,19 +1093,6 @@ init|=
 name|am
 operator|.
 name|getRegionStates
-argument_list|()
-decl_stmt|;
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|toAssignRegions
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1114,6 +1121,18 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|regionsInTransition
+operator|.
+name|contains
+argument_list|(
+name|hri
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 name|RegionState
 name|rit
 init|=
@@ -1172,10 +1191,10 @@ argument_list|)
 condition|)
 block|{
 comment|// If this region is in transition on the dead server, it must be
-comment|// opening or pending_open, which is covered by AM#processServerShutdown
+comment|// opening or pending_open, which should have been covered by AM#processServerShutdown
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Skip assigning region "
 operator|+
@@ -1399,6 +1418,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
 try|try
 block|{
 name|am
@@ -1433,7 +1453,6 @@ argument_list|(
 name|ie
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 finally|finally

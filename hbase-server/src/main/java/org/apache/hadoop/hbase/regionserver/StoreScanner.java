@@ -997,6 +997,16 @@ argument_list|,
 name|isCompaction
 argument_list|,
 name|matcher
+argument_list|,
+name|scan
+operator|.
+name|getStartRow
+argument_list|()
+argument_list|,
+name|scan
+operator|.
+name|getStopRow
+argument_list|()
 argument_list|)
 argument_list|)
 return|;

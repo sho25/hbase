@@ -2595,19 +2595,14 @@ comment|//HRegionInfo info = new HRegionInfo(tableName, null, null, false);
 name|HRegion
 name|r
 operator|=
-operator|new
 name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|closedRegion
+argument_list|,
+literal|null
 argument_list|)
-expr_stmt|;
-end_expr_stmt
-
-begin_expr_stmt
-name|r
-operator|.
-name|initialize
-argument_list|()
 expr_stmt|;
 end_expr_stmt
 

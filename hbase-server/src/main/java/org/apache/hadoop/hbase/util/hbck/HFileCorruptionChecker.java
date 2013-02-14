@@ -43,16 +43,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|PrintWriter
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -406,6 +396,8 @@ operator|.
 name|util
 operator|.
 name|HBaseFsck
+operator|.
+name|ErrorReporter
 import|;
 end_import
 
@@ -1615,13 +1607,13 @@ specifier|public
 name|void
 name|report
 parameter_list|(
-name|PrintWriter
+name|ErrorReporter
 name|out
 parameter_list|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"Checked "
 operator|+
@@ -1635,7 +1627,7 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"  HFiles corrupted:                  "
 operator|+
@@ -1652,7 +1644,7 @@ condition|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"    HFiles successfully quarantined: "
 operator|+
@@ -1672,7 +1664,7 @@ control|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"      "
 operator|+
@@ -1682,7 +1674,7 @@ expr_stmt|;
 block|}
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"    HFiles failed quarantine:        "
 operator|+
@@ -1702,7 +1694,7 @@ control|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"      "
 operator|+
@@ -1713,7 +1705,7 @@ block|}
 block|}
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"    HFiles moved while checking:     "
 operator|+
@@ -1733,7 +1725,7 @@ control|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"      "
 operator|+
@@ -1783,7 +1775,7 @@ condition|)
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"Summary: "
 operator|+
@@ -1799,7 +1791,7 @@ else|else
 block|{
 name|out
 operator|.
-name|println
+name|print
 argument_list|(
 literal|"Summary: "
 operator|+

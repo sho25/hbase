@@ -195,6 +195,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -204,7 +214,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A system test which does large data ingestion and verify using {@link LoadTestTool},  * while introducing chaos by hoarding many regions into few servers (unbalancing), then  * killing some of these servers, and triggering balancer.  * It's configured using a set of constants on top, which cover this scenario and are  * reasonable for minicluster. See constants if you want to tweak the test.  * You can configure how long the test should run by using   * "hbase.IntegrationTestRebalanceAndKillServersTargeted.runtime" configuration parameter,  * which is probably most useful on cluster.  */
+comment|/**  * A system test which does large data ingestion and verify using {@link LoadTestTool},  * while introducing chaos by hoarding many regions into few servers (unbalancing), then  * killing some of these servers, and triggering balancer.  * It's configured using a set of constants on top, which cover this scenario and are  * reasonable for minicluster. See constants if you want to tweak the test.  * You can configure how long the test should run by using  * "hbase.IntegrationTestRebalanceAndKillServersTargeted.runtime" configuration parameter,  * which is probably most useful on cluster.  */
 end_comment
 
 begin_class
@@ -648,6 +658,9 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Disabled until we fix hbase-7520
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

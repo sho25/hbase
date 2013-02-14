@@ -720,7 +720,9 @@ name|zooKeeperCluster
 init|=
 operator|new
 name|MiniZooKeeperCluster
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 name|File
 name|zkDataPath

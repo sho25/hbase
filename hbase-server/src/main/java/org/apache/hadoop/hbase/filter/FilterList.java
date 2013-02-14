@@ -988,11 +988,6 @@ if|if
 condition|(
 name|filter
 operator|.
-name|filterAllRemaining
-argument_list|()
-operator|||
-name|filter
-operator|.
 name|filterRow
 argument_list|()
 condition|)
@@ -1014,12 +1009,6 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
-name|filter
-operator|.
-name|filterAllRemaining
-argument_list|()
-operator|&&
 operator|!
 name|filter
 operator|.

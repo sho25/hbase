@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A custom RegionSplitPolicy implementing a SplitPolicy that groups  * rows by a prefix of the row-key  *  * This ensures that a region is not split "inside" a prefix of a row key.  * I.e. rows can be co-located in a regionb by their prefix.  */
+comment|/**  * A custom RegionSplitPolicy implementing a SplitPolicy that groups  * rows by a prefix of the row-key  *  * This ensures that a region is not split "inside" a prefix of a row key.  * I.e. rows can be co-located in a region by their prefix.  */
 end_comment
 
 begin_class
@@ -99,13 +99,23 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|PREFIX_LENGTH_KEY_DEPRECATED
+init|=
+literal|"prefix_split_key_policy.prefix_length"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|PREFIX_LENGTH_KEY
 init|=
-literal|"prefix_split_key_policy.prefix_length"
+literal|"KeyPrefixRegionSplitPolicy.prefix_length"
 decl_stmt|;
 specifier|private
 name|int
@@ -162,6 +172,26 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|//read the deprecated value
+name|prefixLengthString
+operator|=
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getValue
+argument_list|(
+name|PREFIX_LENGTH_KEY_DEPRECATED
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|prefixLengthString
+operator|==
+literal|null
+condition|)
+block|{
 name|LOG
 operator|.
 name|error
@@ -182,6 +212,7 @@ literal|". Using default RegionSplitPolicy"
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
 block|}
 try|try
 block|{

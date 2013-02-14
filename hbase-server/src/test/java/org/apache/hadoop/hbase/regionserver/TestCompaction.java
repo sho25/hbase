@@ -67,6 +67,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -1947,7 +1957,7 @@ name|s
 operator|.
 name|compactionPolicy
 decl_stmt|;
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
@@ -2730,9 +2740,14 @@ name|compactionThreshold
 argument_list|)
 expr_stmt|;
 comment|//> 3
+operator|(
+operator|(
+name|HStore
+operator|)
 name|store2
+operator|)
 operator|.
-name|compactRecentForTesting
+name|compactRecentForTestingAssumingDefaultPolicy
 argument_list|(
 name|compactionThreshold
 argument_list|)
@@ -3682,7 +3697,7 @@ argument_list|(
 name|COLUMN_FAMILY
 argument_list|)
 decl_stmt|;
-name|List
+name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>

@@ -1903,7 +1903,7 @@ operator|.
 name|getDeadServers
 argument_list|()
 operator|.
-name|contains
+name|isDeadServer
 argument_list|(
 name|serverName
 argument_list|)

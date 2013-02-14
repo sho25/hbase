@@ -1593,7 +1593,7 @@ name|server
 init|=
 name|cluster
 operator|.
-name|getServerHoldingMeta
+name|getServerHoldingRoot
 argument_list|()
 decl_stmt|;
 if|if

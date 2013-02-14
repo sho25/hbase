@@ -758,15 +758,6 @@ name|LOG_SPLITTER_IMPL
 init|=
 literal|"hbase.hlog.splitter.impl"
 decl_stmt|;
-comment|/**    * Name of file that holds recovered edits written by the wal log splitting    * code, one per region    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|RECOVERED_EDITS
-init|=
-literal|"recovered.edits"
-decl_stmt|;
 specifier|static
 specifier|final
 name|Log

@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The class that contains shared information about various knobs of a Store/HStore object.  * Unlike the configuration objects that merely return the XML values, the implementations  * should return ready-to-use applicable values for corresponding calls, after all the  * parsing/validation/adjustment for other considerations, so that we don't have to repeat  * this logic in multiple places.  * TODO: move methods and logic here as necessary.  */
+comment|/**  * A more restricted interface for HStore. Only gives the caller access to information  * about store configuration/settings that cannot easily be obtained from XML config object.  * Example user would be CompactionPolicy that doesn't need entire (H)Store, only this.  * Add things here as needed.  */
 end_comment
 
 begin_interface
@@ -60,15 +60,9 @@ operator|.
 name|Unstable
 specifier|public
 interface|interface
-name|StoreConfiguration
+name|StoreConfigInformation
 block|{
-comment|/**    * Gets the cf-specific major compaction period.    */
-specifier|public
-name|Long
-name|getMajorCompactionPeriod
-parameter_list|()
-function_decl|;
-comment|/**    * Gets the Memstore flush size for the region that this store works with.    */
+comment|/**    * Gets the Memstore flush size for the region that this store works with.    * TODO: remove after HBASE-7236 is fixed.    */
 specifier|public
 name|long
 name|getMemstoreFlushSize

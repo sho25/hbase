@@ -140,6 +140,18 @@ argument_list|(
 literal|"org.apache.hadoop.hbase.io.encoding.FastDiffDeltaEncoder"
 argument_list|)
 argument_list|)
+block|,
+comment|// id 5 is reserved for the COPY_KEY algorithm for benchmarking
+comment|// COPY_KEY(5, createEncoder("org.apache.hadoop.hbase.io.encoding.CopyKeyDataBlockEncoder")),
+name|PREFIX_TREE
+argument_list|(
+literal|6
+argument_list|,
+name|createEncoder
+argument_list|(
+literal|"org.apache.hbase.codec.prefixtree.PrefixTreeCodec"
+argument_list|)
+argument_list|)
 block|;
 specifier|private
 specifier|final

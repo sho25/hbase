@@ -4692,7 +4692,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create CatalogTracker.    * In its own method so can intercept and mock it over in tests.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop(String)} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our {@link Abortable}.    * @param defaultTimeout Timeout to use.  Pass zero for no timeout    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException    */
+comment|/**    * Create CatalogTracker.    * In its own method so can intercept and mock it over in tests.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop(String)} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our {@link Abortable}.    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException    */
 end_comment
 
 begin_function
@@ -8689,14 +8689,9 @@ name|boolean
 name|b
 parameter_list|)
 block|{
-operator|(
-operator|(
-name|CatalogJanitor
-operator|)
 name|this
 operator|.
 name|catalogJanitorChore
-operator|)
 operator|.
 name|setEnabled
 argument_list|(
@@ -11243,6 +11238,9 @@ name|serverManager
 operator|.
 name|getDeadServers
 argument_list|()
+operator|.
+name|copyServerNames
+argument_list|()
 argument_list|,
 name|this
 operator|.
@@ -11407,7 +11405,10 @@ argument_list|(
 operator|new
 name|String
 index|[
-literal|0
+name|masterCoprocessors
+operator|.
+name|size
+argument_list|()
 index|]
 argument_list|)
 return|;

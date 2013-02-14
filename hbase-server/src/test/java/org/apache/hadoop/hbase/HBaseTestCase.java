@@ -873,22 +873,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
 name|HRegion
-name|r
-init|=
-operator|new
-name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|closedRegion
+argument_list|,
+literal|null
 argument_list|)
-decl_stmt|;
-name|r
-operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
-return|return
-name|r
 return|;
 block|}
 comment|/**    * Create a table of name<code>name</code> with {@link COLUMNS} for    * families.    * @param name Name to give table.    * @return Column descriptor.    */

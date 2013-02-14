@@ -304,6 +304,17 @@ name|SCAN_ATTRIBUTES_METRICS_DATA
 init|=
 literal|"scan.attributes.metrics.data"
 decl_stmt|;
+comment|// If an application wants to use multiple scans over different tables each scan must
+comment|// define this attribute with the appropriate table name by calling
+comment|// scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, Bytes.toBytes(tableName))
+specifier|static
+specifier|public
+specifier|final
+name|String
+name|SCAN_ATTRIBUTES_TABLE_NAME
+init|=
+literal|"scan.attributes.table.name"
+decl_stmt|;
 comment|/*    * -1 means no caching    */
 specifier|private
 name|int

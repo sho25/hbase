@@ -93,6 +93,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -197,8 +207,9 @@ specifier|public
 class|class
 name|TestRegionSplitCalculator
 block|{
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -211,7 +222,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * This is range uses a user specified start and end keys. It also has an    * extra time based tiebreaker so that different ranges with the same    * start/end key pair count as different regions.    */
+comment|/**    * This is range uses a user specified start and end keys. It also has an    * extra tiebreaker so that different ranges with the same start/end key pair    * count as different regions.    */
 specifier|static
 class|class
 name|SimpleRange
@@ -224,7 +235,7 @@ name|start
 decl_stmt|,
 name|end
 decl_stmt|;
-name|long
+name|UUID
 name|tiebreaker
 decl_stmt|;
 name|SimpleRange
@@ -254,9 +265,9 @@ name|this
 operator|.
 name|tiebreaker
 operator|=
-name|System
+name|UUID
 operator|.
-name|nanoTime
+name|randomUUID
 argument_list|()
 expr_stmt|;
 block|}
@@ -556,7 +567,10 @@ name|toString
 argument_list|(
 name|k
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|":\t"
 argument_list|)
 expr_stmt|;
@@ -581,7 +595,10 @@ name|r
 operator|.
 name|toString
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|"\t"
 argument_list|)
 expr_stmt|;
@@ -855,9 +872,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|""
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -961,11 +978,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t\n"
 operator|+
 literal|"B:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1067,9 +1084,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, A]\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1231,13 +1248,13 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t[A, C]\t\n"
 operator|+
 literal|"B:\t[A, C]\t[B, C]\t\n"
 operator|+
 literal|"C:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1401,8 +1418,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t\n"
 operator|+
 literal|"B:\t[B, C]\t[B, D]\t\n"
@@ -1410,6 +1425,8 @@ operator|+
 literal|"C:\t[B, D]\t\n"
 operator|+
 literal|"D:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1575,8 +1592,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t\n"
 operator|+
 literal|"B:\t[B, C]\t\n"
@@ -1586,6 +1601,8 @@ operator|+
 literal|"E:\t[E, F]\t\n"
 operator|+
 literal|"F:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1721,8 +1738,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, C]\t\n"
 operator|+
 literal|"B:\t[A, C]\t[B, D]\t\n"
@@ -1730,6 +1745,8 @@ operator|+
 literal|"C:\t[B, D]\t\n"
 operator|+
 literal|"D:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -1863,13 +1880,13 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t[A, C]\t\n"
 operator|+
 literal|"B:\t[A, C]\t\n"
 operator|+
 literal|"C:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -2003,13 +2020,13 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, C]\t\n"
 operator|+
 literal|"B:\t[A, C]\t[B, C]\t\n"
 operator|+
 literal|"C:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -2062,6 +2079,21 @@ literal|"C"
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|a
+operator|.
+name|tiebreaker
+operator|+
+literal|" - "
+operator|+
+name|b
+operator|.
+name|tiebreaker
+argument_list|)
+expr_stmt|;
 name|RegionSplitCalculator
 argument_list|<
 name|SimpleRange
@@ -2141,11 +2173,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, C]\t[A, C]\t\n"
 operator|+
 literal|"C:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -2246,9 +2278,9 @@ expr_stmt|;
 comment|// expect nothing
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|""
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -2524,8 +2556,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, Am]\t[A, B]\t[A, C]\t\n"
 operator|+
 literal|"Am:\t[A, B]\t[A, C]\t[Am, C]\t\n"
@@ -2545,6 +2575,8 @@ operator|+
 literal|"H:\t[H, I]\t\n"
 operator|+
 literal|"I:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -2693,8 +2725,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|":\t[, A]\t\n"
 operator|+
 literal|"A:\t[A, B]\t\n"
@@ -2702,6 +2732,8 @@ operator|+
 literal|"B:\t[B, ]\t\n"
 operator|+
 literal|"null:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}
@@ -3018,6 +3050,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"A"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -3026,12 +3060,12 @@ name|r1
 operator|.
 name|start
 argument_list|)
-argument_list|,
-literal|"A"
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"A"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -3040,8 +3074,6 @@ name|r2
 operator|.
 name|start
 argument_list|)
-argument_list|,
-literal|"A"
 argument_list|)
 expr_stmt|;
 name|String
