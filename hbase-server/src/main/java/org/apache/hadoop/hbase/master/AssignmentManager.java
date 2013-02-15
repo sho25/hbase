@@ -12204,6 +12204,37 @@ expr_stmt|;
 block|}
 else|else
 block|{
+try|try
+block|{
+comment|// Delete the ZNode if exists
+name|ZKAssign
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|watcher
+argument_list|,
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Unexpected ZK exception deleting node "
+operator|+
+name|hri
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Mark the region closed and assign it again by SSH
 name|regionStates
 operator|.
