@@ -1185,13 +1185,11 @@ expr_stmt|;
 comment|// Wait for the ACL table to become available
 name|TEST_UTIL
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// create a set of test users
@@ -5054,11 +5052,9 @@ try|try
 block|{
 name|TEST_UTIL
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|tableName
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 name|LoadIncrementalHFiles
