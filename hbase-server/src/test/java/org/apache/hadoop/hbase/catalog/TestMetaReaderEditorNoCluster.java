@@ -835,7 +835,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that MetaReader will ride over server throwing    * "Server not running" IOEs.    * @see https://issues.apache.org/jira/browse/HBASE-3446    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Test that MetaReader will ride over server throwing    * "Server not running" IOEs.    * @see @link {https://issues.apache.org/jira/browse/HBASE-3446}    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -893,8 +893,6 @@ argument_list|)
 decl_stmt|;
 name|HConnection
 name|connection
-init|=
-literal|null
 decl_stmt|;
 name|CatalogTracker
 name|ct
@@ -1203,14 +1201,10 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|sn
-operator|.
-name|getHostname
-argument_list|()
 argument_list|,
-name|sn
+name|HConstants
 operator|.
-name|getPort
-argument_list|()
+name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 comment|// Return the any location object when locateRegion is called in HTable
@@ -1305,13 +1299,12 @@ name|getClient
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
+name|any
+argument_list|(
+name|ServerName
 operator|.
-name|anyInt
-argument_list|()
+name|class
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Now start up the catalogtracker with our doctored Connection.

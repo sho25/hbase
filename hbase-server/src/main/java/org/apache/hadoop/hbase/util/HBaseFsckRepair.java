@@ -709,14 +709,6 @@ operator|.
 name|getAdmin
 argument_list|(
 name|server
-operator|.
-name|getHostname
-argument_list|()
-argument_list|,
-name|server
-operator|.
-name|getPort
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|ProtobufUtil

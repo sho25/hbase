@@ -195,6 +195,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ZooKeeperConnectionException
 import|;
 end_import
@@ -475,7 +489,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    *    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated - use @link {#getAdmin(final ServerName serverName)} which takes into account    *  the startCode    */
+annotation|@
+name|Deprecated
 specifier|public
 name|AdminProtocol
 name|getAdmin
@@ -491,7 +507,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address, and return    * a region client protocol.    *    * @param hostname RegionServer hostname    * @param port RegionServer port    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|AdminProtocol
+name|getAdmin
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Establishes a connection to the region server at the specified address, and return    * a region client protocol.    *    * @param hostname RegionServer hostname    * @param port RegionServer port    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated - use @link {#getClient(final ServerName serverName)} which takes into account    *  the startCode    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ClientProtocol
 name|getClient
@@ -507,7 +537,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address, and return    * a region client protocol.    *    * @param serverName    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
+specifier|public
+name|ClientProtocol
+name|getClient
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated use @link {#getAdmin(final ServerName serverName, boolean getMaster)}    * which takes into account the startCode.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|AdminProtocol
 name|getAdmin
@@ -519,6 +563,21 @@ parameter_list|,
 specifier|final
 name|int
 name|port
+parameter_list|,
+name|boolean
+name|getMaster
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|AdminProtocol
+name|getAdmin
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
 parameter_list|,
 name|boolean
 name|getMaster

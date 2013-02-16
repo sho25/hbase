@@ -13848,17 +13848,6 @@ name|moveInfo
 operator|.
 name|getServerName
 argument_list|()
-operator|.
-name|getHostname
-argument_list|()
-argument_list|,
-name|moveInfo
-operator|.
-name|getServerName
-argument_list|()
-operator|.
-name|getPort
-argument_list|()
 argument_list|,
 name|moveInfo
 operator|.
