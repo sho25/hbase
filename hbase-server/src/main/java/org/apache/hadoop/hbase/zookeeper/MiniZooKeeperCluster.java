@@ -569,6 +569,8 @@ operator|.
 name|setPreallocSize
 argument_list|(
 literal|100
+operator|*
+literal|1024
 argument_list|)
 expr_stmt|;
 block|}
