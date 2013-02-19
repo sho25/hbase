@@ -1900,7 +1900,7 @@ name|HFILE_ARCHIVE_DIRECTORY
 init|=
 literal|".archive"
 decl_stmt|;
-comment|/**    * Name of the directory to store snapshots all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
+comment|/**    * Name of the directory to store all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
 specifier|public
 specifier|static
 specifier|final

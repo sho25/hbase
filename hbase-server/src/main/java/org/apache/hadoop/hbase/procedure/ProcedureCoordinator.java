@@ -482,7 +482,7 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|// make sure we aren't already running an procedure of that name
+comment|// make sure we aren't already running a procedure of that name
 synchronized|synchronized
 init|(
 name|procedures
@@ -564,6 +564,11 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+synchronized|synchronized
+init|(
+name|procedures
+init|)
+block|{
 name|f
 operator|=
 name|this
@@ -576,11 +581,6 @@ name|proc
 argument_list|)
 expr_stmt|;
 comment|// if everything got started properly, we can add it known running procedures
-synchronized|synchronized
-init|(
-name|procedures
-init|)
-block|{
 name|this
 operator|.
 name|procedures

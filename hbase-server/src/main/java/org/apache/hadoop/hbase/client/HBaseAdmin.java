@@ -8970,7 +8970,7 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * Create a timestamp consistent snapshot for the given table.    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link HTableDescriptor#isLegalTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken.    *<p>    * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a    * snapshot with the same name (even a different type or with different parameters) will fail with    * a {@link SnapshotCreationException} indicating the duplicate naming.    *<p>    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link HTableDescriptor#isLegalTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 specifier|public
 name|void
 name|snapshot
@@ -9124,14 +9124,6 @@ name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
 block|{
-comment|// make sure the snapshot is valid
-name|SnapshotDescriptionUtils
-operator|.
-name|assertSnapshotRequestIsValid
-argument_list|(
-name|snapshot
-argument_list|)
-expr_stmt|;
 comment|// actually take the snapshot
 name|TakeSnapshotResponse
 name|response
@@ -9255,15 +9247,6 @@ name|tries
 operator|++
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Found sleep:"
-operator|+
-name|sleep
-argument_list|)
-expr_stmt|;
 name|sleep
 operator|=
 name|sleep
@@ -9278,13 +9261,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"(#"
+operator|+
 name|tries
 operator|+
 literal|") Sleeping: "
 operator|+
 name|sleep
 operator|+
-literal|" ms while we wait for snapshot to complete."
+literal|"ms while waiting for snapshot completion."
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -9395,7 +9380,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Take a snapshot and wait for the server to complete that snapshot (asynchronous)    *<p>    * Only a single snapshot should be taken at a time, or results may be undefined.    * @param snapshot snapshot to take    * @return response from the server indicating the max time to wait for the snapshot    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous)    *<p>    * Only a single snapshot should be taken at a time, or results may be undefined.    * @param snapshot snapshot to take    * @return response from the server indicating the max time to wait for the snapshot    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 specifier|public
 name|TakeSnapshotResponse
 name|takeSnapshotAsync
@@ -9531,7 +9516,7 @@ name|getDone
 argument_list|()
 return|;
 block|}
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * Before restoring the table, a new snapshot with the current table state is created.    * In case of failure, the table will be rolled back to the its original state.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled)    * Before restoring the table, a new snapshot with the current table state is created.    * In case of failure, the table will be rolled back to its original state.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 specifier|public
 name|void
 name|restoreSnapshot
@@ -9676,7 +9661,7 @@ literal|" failed. Rollback to snapshot="
 operator|+
 name|rollbackSnapshot
 operator|+
-literal|" succeded."
+literal|" succeeded."
 decl_stmt|;
 name|LOG
 operator|.

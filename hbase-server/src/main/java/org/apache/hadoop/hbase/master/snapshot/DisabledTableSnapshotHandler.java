@@ -671,7 +671,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 name|TableInfoCopyTask
-name|tableInfo
+name|tableInfoCopyTask
 init|=
 operator|new
 name|TableInfoCopyTask
@@ -692,7 +692,7 @@ name|conf
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|tableInfo
+name|tableInfoCopyTask
 operator|.
 name|call
 argument_list|()

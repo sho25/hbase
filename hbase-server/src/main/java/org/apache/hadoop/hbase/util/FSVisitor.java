@@ -574,7 +574,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Iterate over each region in the table the table and inform about recovered.edits    *    * @param fs {@link FileSystem}    * @param tableDir {@link Path} to the table directory    * @param visitor callback object to get the recovered.edits files    * @throws IOException if an error occurred while scanning the directory    */
+comment|/**    * Iterate over each region in the table and inform about recovered.edits    *    * @param fs {@link FileSystem}    * @param tableDir {@link Path} to the table directory    * @param visitor callback object to get the recovered.edits files    * @throws IOException if an error occurred while scanning the directory    */
 specifier|public
 specifier|static
 name|void

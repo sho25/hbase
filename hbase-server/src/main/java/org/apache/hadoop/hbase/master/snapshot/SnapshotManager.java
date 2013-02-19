@@ -774,7 +774,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class manages the procedure of taking and restoring snapshots. There is only one  * SnapshotManager for the master.  *<p>  * The class provides methods for monitoring in-progress snapshot actions.  *<p>  * Note: Currently there can only one snapshot being taken at a time over the cluster.  This is a  * simplification in the current implementation.  */
+comment|/**  * This class manages the procedure of taking and restoring snapshots. There is only one  * SnapshotManager for the master.  *<p>  * The class provides methods for monitoring in-progress snapshot actions.  *<p>  * Note: Currently there can only be one snapshot being taken at a time over the cluster. This is a  * simplification in the current implementation.  */
 end_comment
 
 begin_class
@@ -808,7 +808,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** By default, check to see if the snapshot is complete every WAKE MILLIS (ms) */
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|int
@@ -826,7 +826,7 @@ init|=
 literal|"hbase.snapshot.enabled"
 decl_stmt|;
 comment|/**    * Conf key for # of ms elapsed between checks for snapshot errors while waiting for    * completion.    */
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -835,7 +835,7 @@ init|=
 literal|"hbase.snapshot.master.wakeMillis"
 decl_stmt|;
 comment|/** By default, check to see if the snapshot is complete (ms) */
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|int
@@ -844,7 +844,7 @@ init|=
 literal|5000
 decl_stmt|;
 comment|/**    * Conf key for # of ms elapsed before injecting a snapshot timeout error when waiting for    * completion.    */
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -1400,6 +1400,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|master
 operator|.
 name|getMasterFileSystem
@@ -1565,6 +1566,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Return the handler if it is currently running and has the same snapshot target name.    * @param snapshot    * @return null if doesn't match, else a live handler.    */
+specifier|private
+specifier|synchronized
 name|TakeSnapshotHandler
 name|getTakeSnapshotHandler
 parameter_list|(
@@ -2011,7 +2014,7 @@ throw|;
 block|}
 try|try
 block|{
-comment|// delete the working directory, since we aren't running the snapshot.  Likely leftovers
+comment|// delete the working directory, since we aren't running the snapshot. Likely leftovers
 comment|// from a failed attempt.
 name|fs
 operator|.
@@ -2078,7 +2081,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Take a snapshot of a enabled table.    *<p>    * The thread limitation on the executorService's thread pool for snapshots ensures the    * snapshot won't be started if there is another snapshot already running. Does    *<b>not</b> check to see if another snapshot of the same name already exists.    * @param snapshot description of the snapshot to take.    * @throws HBaseSnapshotException if the snapshot could not be started    */
+comment|/**    * Take a snapshot of an enabled table.    *<p>    * The thread limitation on the executorService's thread pool for snapshots ensures the    * snapshot won't be started if there is another snapshot already running. Does    *<b>not</b> check to see if another snapshot of the same name already exists.    * @param snapshot description of the snapshot to take.    * @throws HBaseSnapshotException if the snapshot could not be started    */
 specifier|private
 specifier|synchronized
 name|void
@@ -2146,6 +2149,7 @@ try|try
 block|{
 if|if
 condition|(
+operator|!
 name|this
 operator|.
 name|master
@@ -2232,8 +2236,6 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|)
 throws|throws
-name|HBaseSnapshotException
-throws|,
 name|IOException
 block|{
 comment|// check to see if we already completed the snapshot
@@ -2671,6 +2673,7 @@ try|try
 block|{
 if|if
 condition|(
+operator|!
 name|this
 operator|.
 name|master
@@ -2838,7 +2841,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param waitTime timeout before considering the clone failed    */
+comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param waitTime timeout before considering the clone failed    */
 specifier|synchronized
 name|void
 name|cloneSnapshot
@@ -3418,7 +3421,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Verify if the the restore of the specified table is in progress.    *    * @param tableName table under restore    * @return<tt>true</tt> if there is a restore in progress of the specified table.    */
+comment|/**    * Verify if the restore of the specified table is in progress.    *    * @param tableName table under restore    * @return<tt>true</tt> if there is a restore in progress of the specified table.    */
 specifier|private
 name|boolean
 name|isRestoringTable
@@ -3452,7 +3455,7 @@ argument_list|()
 operator|)
 return|;
 block|}
-comment|/**    * Returns status of a restore request, specifically comparing source snapshot and target table    * names.  Throws exception if not a known snapshot.    * @param snapshot    * @return true if in progress, false if is not.    * @throws UnknownSnapshotException if specified source snapshot does not exit.    * @throws IOException if there was some sort of IO failure    */
+comment|/**    * Returns status of a restore request, specifically comparing source snapshot and target table    * names.  Throws exception if not a known snapshot.    * @param snapshot    * @return true if in progress, false if snapshot is completed.    * @throws UnknownSnapshotException if specified source snapshot does not exit.    * @throws IOException if there was some sort of IO failure    */
 specifier|public
 name|boolean
 name|isRestoringTable
@@ -3670,6 +3673,7 @@ block|}
 block|}
 comment|/**    * Scan the restore handlers and remove the finished ones.    */
 specifier|private
+specifier|synchronized
 name|void
 name|cleanupRestoreSentinels
 parameter_list|()
@@ -3871,7 +3875,7 @@ name|IOException
 throws|,
 name|UnsupportedOperationException
 block|{
-comment|// Verify if snapshot are disabled by the user
+comment|// Verify if snapshot is disabled by the user
 name|String
 name|enabled
 init|=
@@ -4160,7 +4164,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Mark snapshot feature as enabled if cleaners are present and user as not disabled it.
+comment|// Mark snapshot feature as enabled if cleaners are present and user has not disabled it.
 name|this
 operator|.
 name|isSnapshotSupported

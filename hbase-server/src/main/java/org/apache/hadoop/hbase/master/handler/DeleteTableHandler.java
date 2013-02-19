@@ -599,7 +599,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleting region "
+literal|"Archiving region "
 operator|+
 name|hri
 operator|.
@@ -636,6 +636,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// 5. Delete table from FS (temp directory)
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|delete
@@ -644,7 +647,18 @@ name|tempTableDir
 argument_list|,
 literal|true
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't delete "
+operator|+
+name|tempTableDir
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{

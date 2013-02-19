@@ -547,7 +547,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Maximum number of concurrent snapshot region tasks that can run concurrently */
+comment|/** Maximum number of snapshot region tasks that can run concurrently */
 specifier|private
 specifier|static
 specifier|final
@@ -1063,7 +1063,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Determine if the snapshot should be handled on this server    *    * NOTE: This is racy -- the master expects a list of regionservers, but the regions get the    * regions.  This means if a region moves somewhere between the calls we'll miss some regions.    * For example, a region move during a snapshot could result in a region to be skipped or done    * twice.  This is manageable because the {@link MasterSnapshotVerifier} will double check the    * region lists after the online portion of the snapshot completes and will explicitly fail the    * snapshot.    *    * @param snapshot    * @return the list of online regions. Empty list is returned if no regions are responsible for    *         the given snapshot.    * @throws IOException    */
+comment|/**    * Determine if the snapshot should be handled on this server    *    * NOTE: This is racy -- the master expects a list of regionservers.    * This means if a region moves somewhere between the calls we'll miss some regions.    * For example, a region move during a snapshot could result in a region to be skipped or done    * twice.  This is manageable because the {@link MasterSnapshotVerifier} will double check the    * region lists after the online portion of the snapshot completes and will explicitly fail the    * snapshot.    *    * @param snapshot    * @return the list of online regions. Empty list is returned if no regions are responsible for    *         the given snapshot.    * @throws IOException    */
 specifier|private
 name|List
 argument_list|<
@@ -1347,7 +1347,7 @@ name|f
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Wait for all of the currently outstanding tasks submitted via {@link #submitTask(Callable)}.      * This *must* be called to after all tasks are submitted via submitTask.      *      * @return<tt>true</tt> on success,<tt>false</tt> otherwise      * @throws InterruptedException      * @throws SnapshotCreationException if the snapshot failed while we were waiting      */
+comment|/**      * Wait for all of the currently outstanding tasks submitted via {@link #submitTask(Callable)}.      * This *must* be called after all tasks are submitted via submitTask.      *      * @return<tt>true</tt> on success,<tt>false</tt> otherwise      * @throws InterruptedException      * @throws SnapshotCreationException if the snapshot failed while we were waiting      */
 name|boolean
 name|waitForOutstandingTasks
 parameter_list|()
@@ -1421,6 +1421,8 @@ operator|.
 name|warn
 argument_list|(
 literal|"unexpected future"
+operator|+
+name|f
 argument_list|)
 expr_stmt|;
 block|}

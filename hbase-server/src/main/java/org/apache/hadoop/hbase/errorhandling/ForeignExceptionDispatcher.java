@@ -238,7 +238,7 @@ name|ForeignException
 argument_list|(
 name|name
 argument_list|,
-name|e
+literal|""
 argument_list|)
 expr_stmt|;
 block|}
@@ -252,6 +252,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|rethrowException
 parameter_list|()
@@ -266,7 +267,7 @@ literal|null
 condition|)
 block|{
 comment|// This gets the stack where this is caused, (instead of where it was deserialized).
-comment|// This which is much more useful for debugging
+comment|// This is much more useful for debugging
 throw|throw
 operator|new
 name|ForeignException
@@ -287,6 +288,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|boolean
 name|hasException
 parameter_list|()
@@ -319,15 +321,6 @@ name|e
 parameter_list|)
 block|{
 comment|// update all the listeners with the passed error
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|name
-operator|+
-literal|" Recieved error, notifying listeners..."
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|ForeignExceptionListener

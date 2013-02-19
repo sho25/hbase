@@ -255,6 +255,15 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+literal|null
+operator|==
+name|cache
+condition|)
+return|return
+literal|false
+return|;
 return|return
 operator|!
 name|cache

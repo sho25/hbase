@@ -432,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A handler for taking snapshots from the master.  *  * This is not a subclass of TableEventHandler because using that would incur an extra META scan.  */
+comment|/**  * A handler for taking snapshots from the master.  *  * This is not a subclass of TableEventHandler because using that would incur an extra META scan.  *   * The {@link #snapshotRegions(List)} call should get implemented for each snapshot flavor.  */
 end_comment
 
 begin_class
@@ -639,6 +639,10 @@ operator|new
 name|ForeignExceptionDispatcher
 argument_list|()
 expr_stmt|;
+name|loadTableDescriptor
+argument_list|()
+expr_stmt|;
+comment|// check that .tableinfo is present
 comment|// prepare the verify
 name|this
 operator|.
@@ -709,7 +713,7 @@ return|return
 name|htd
 return|;
 block|}
-comment|/**    * Execute the core common portions of taking a snapshot.  the {@link #snapshotRegions(List)}    * call should get implemented for each snapshot flavor.    */
+comment|/**    * Execute the core common portions of taking a snapshot. The {@link #snapshotRegions(List)}    * call should get implemented for each snapshot flavor.    */
 annotation|@
 name|Override
 specifier|public
@@ -735,51 +739,6 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|loadTableDescriptor
-argument_list|()
-expr_stmt|;
-comment|// check that .tableinfo is present
-name|byte
-index|[]
-name|ssbytes
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
-name|regionsAndLocations
-init|=
-name|MetaReader
-operator|.
-name|getTableRegionsAndLocations
-argument_list|(
-name|this
-operator|.
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
-argument_list|,
-name|ssbytes
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
 comment|// If regions move after this meta scan, the region specific snapshot should fail, triggering
 comment|// an external exception that gets captured here.
 comment|// write down the snapshot info in the working directory
@@ -816,6 +775,41 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|List
+argument_list|<
+name|Pair
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+argument_list|>
+name|regionsAndLocations
+init|=
+name|MetaReader
+operator|.
+name|getTableRegionsAndLocations
+argument_list|(
+name|this
+operator|.
+name|server
+operator|.
+name|getCatalogTracker
+argument_list|()
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
 comment|// run the snapshot
 name|snapshotRegions
 argument_list|(

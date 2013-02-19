@@ -595,7 +595,7 @@ operator|+
 literal|"' locally completed"
 argument_list|)
 expr_stmt|;
-comment|// Ack that the member has executed and relased local barrier
+comment|// Ack that the member has executed and released local barrier
 name|rpcs
 operator|.
 name|sendMemberCompleted

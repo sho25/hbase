@@ -328,7 +328,7 @@ name|HFILE_NAME_REGEX
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    * The link should be used for hfile and reference links    * that can be found in /hbase/table/region/family/    */
+comment|/**    * The pattern should be used for hfile and reference links    * that can be found in /hbase/table/region/family/    */
 specifier|private
 specifier|static
 specifier|final

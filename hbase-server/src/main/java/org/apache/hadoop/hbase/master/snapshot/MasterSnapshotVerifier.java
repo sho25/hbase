@@ -445,7 +445,7 @@ specifier|private
 name|MasterServices
 name|services
 decl_stmt|;
-comment|/**    * Build a util for the given snapshot    * @param services services for the master    * @param snapshot snapshot to check    * @param rootDir root directory of the hbase installation.    */
+comment|/**    * @param services services for the master    * @param snapshot snapshot to check    * @param rootDir root directory of the hbase installation.    */
 specifier|public
 name|MasterSnapshotVerifier
 parameter_list|(
@@ -613,7 +613,7 @@ name|snapshotDir
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check that all the regions in the the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach .META. or read the files from the FS    */
+comment|/**    * Check that all the regions in the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach .META. or read the files from the FS    */
 specifier|private
 name|void
 name|verifyRegions
@@ -664,7 +664,8 @@ name|region
 operator|.
 name|isOffline
 argument_list|()
-operator|||
+operator|&&
+operator|(
 name|region
 operator|.
 name|isSplit
@@ -674,6 +675,7 @@ name|region
 operator|.
 name|isSplitParent
 argument_list|()
+operator|)
 condition|)
 block|{
 continue|continue;
@@ -689,7 +691,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Verify that the region (regioninfo, hfiles) are valid    * @param snapshotDir snapshot directory to check    * @param region the region to check    */
+comment|/**    * Verify that the region (regioninfo, hfiles) are valid    * @param fs the FileSystem instance    * @param snapshotDir snapshot directory to check    * @param region the region to check    */
 specifier|private
 name|void
 name|verifyRegion
@@ -795,14 +797,18 @@ argument_list|)
 decl_stmt|;
 name|HRegionInfo
 name|found
-init|=
+decl_stmt|;
+try|try
+block|{
+name|found
+operator|=
 name|HRegionInfo
 operator|.
 name|parseFrom
 argument_list|(
 name|in
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -829,6 +835,15 @@ argument_list|,
 name|snapshot
 argument_list|)
 throw|;
+block|}
+block|}
+finally|finally
+block|{
+name|in
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|// make sure we have the expected recovered edits files
 name|TakeSnapshotUtils
@@ -1132,67 +1147,6 @@ throw|;
 block|}
 block|}
 block|}
-block|}
-comment|/**    * Check that the logs stored in the log directory for the snapshot are valid - it contains all    * the expected logs for all servers involved in the snapshot.    * @param snapshotDir snapshot directory to check    * @param snapshotServers list of the names of servers involved in the snapshot.    * @throws CorruptedSnapshotException if the hlogs in the snapshot are not correct    * @throws IOException if we can't reach the filesystem    */
-specifier|private
-name|void
-name|verifyLogs
-parameter_list|(
-name|Path
-name|snapshotDir
-parameter_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|snapshotServers
-parameter_list|)
-throws|throws
-name|CorruptedSnapshotException
-throws|,
-name|IOException
-block|{
-name|Path
-name|snapshotLogDir
-init|=
-operator|new
-name|Path
-argument_list|(
-name|snapshotDir
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_LOGDIR_NAME
-argument_list|)
-decl_stmt|;
-name|Path
-name|logsDir
-init|=
-operator|new
-name|Path
-argument_list|(
-name|rootDir
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_LOGDIR_NAME
-argument_list|)
-decl_stmt|;
-name|TakeSnapshotUtils
-operator|.
-name|verifyAllLogsGotReferenced
-argument_list|(
-name|fs
-argument_list|,
-name|logsDir
-argument_list|,
-name|snapshotServers
-argument_list|,
-name|snapshot
-argument_list|,
-name|snapshotLogDir
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class

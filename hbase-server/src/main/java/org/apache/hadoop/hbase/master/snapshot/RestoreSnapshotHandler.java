@@ -479,7 +479,7 @@ operator|=
 name|htd
 expr_stmt|;
 block|}
-comment|/**    * The restore table is executed in place.    *  - The on-disk data will be restored    *  - [if something fail here: you need to delete the table and re-run the restore]    *  - META will be updated    *  - [if something fail here: you need to run hbck to fix META entries]    */
+comment|/**    * The restore table is executed in place.    *  - The on-disk data will be restored - reference files are put in place without moving data    *  -  [if something fail here: you need to delete the table and re-run the restore]    *  - META will be updated    *  -  [if something fail here: you need to run hbck to fix META entries]    * The passed in list gets changed in this method    */
 annotation|@
 name|Override
 specifier|protected

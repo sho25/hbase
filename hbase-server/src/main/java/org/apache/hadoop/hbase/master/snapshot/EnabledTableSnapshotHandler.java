@@ -260,7 +260,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handle the master side of taking a snapshot of an online table, regardless of snapshot type.  * Uses a {@link Procedure} to run the snapshot across all the involved regions.  * @see ProcedureCoordinator  */
+comment|/**  * Handle the master side of taking a snapshot of an online table, regardless of snapshot type.  * Uses a {@link Procedure} to run the snapshot across all the involved region servers.  * @see ProcedureCoordinator  */
 end_comment
 
 begin_class
@@ -476,7 +476,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Done waiting - snapshot finished!"
+literal|"Done waiting - snapshot for "
+operator|+
+name|this
+operator|.
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" finished!"
 argument_list|)
 expr_stmt|;
 block|}

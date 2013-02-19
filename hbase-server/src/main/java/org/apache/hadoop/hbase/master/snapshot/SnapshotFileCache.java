@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Intelligently keep track of all the files for all the snapshots.  *<p>  * A cache of files is kept to avoid querying the {@link FileSystem} frequently. If there is a cache  * miss the directory modification time is used to ensure that we don't rescan directories that we  * already have in cache. We only check the modification times of the snapshot directories  * (/hbase/.snapshot/[snapshot_name]) to determine if the files need to be loaded into the cache.  *<p>  * New snapshots will be added to the cache and deleted snapshots will be removed when we refresh  * the cache. If the files underneath a snapshot directory are changed, but not the snapshot itself,  * we will ignore updates to that snapshot's files.  *<p>  * This is sufficient because each snapshot has its own directory and is added via an atomic rename  *<i>once</i>, when the snapshot is created. We don't need to worry about the data in the snapshot  * being run.  *<p>  * Further, the cache is periodically refreshed ensure that files in snapshots that were deleted are  * also removed from the cache.  *<p>  * A {@link SnapshotFileInspector} must be passed when creating<tt>this</tt> to allow extraction of files  * under the /hbase/.snapshot/[snapshot name] directory, for each snapshot. This allows you to only  * cache files under, for instance, all the logs in the .logs directory or all the files under all  * the regions.  *<p>  *<tt>this</tt> also considers all running snapshots (those under /hbase/.snapshot/.tmp) as valid  * snapshots and will attempt to cache files from those snapshots as well.  *<p>  * Queries about a given file are thread-safe with respect to multiple queries and cache refreshes.  */
+comment|/**  * Intelligently keep track of all the files for all the snapshots.  *<p>  * A cache of files is kept to avoid querying the {@link FileSystem} frequently. If there is a cache  * miss the directory modification time is used to ensure that we don't rescan directories that we  * already have in cache. We only check the modification times of the snapshot directories  * (/hbase/.snapshot/[snapshot_name]) to determine if the files need to be loaded into the cache.  *<p>  * New snapshots will be added to the cache and deleted snapshots will be removed when we refresh  * the cache. If the files underneath a snapshot directory are changed, but not the snapshot itself,  * we will ignore updates to that snapshot's files.  *<p>  * This is sufficient because each snapshot has its own directory and is added via an atomic rename  *<i>once</i>, when the snapshot is created. We don't need to worry about the data in the snapshot  * being run.  *<p>  * Further, the cache is periodically refreshed ensure that files in snapshots that were deleted are  * also removed from the cache.  *<p>  * A {@link SnapshotFileInspector} must be passed when creating<tt>this</tt> to allow extraction  * of files under the /hbase/.snapshot/[snapshot name] directory, for each snapshot.  * This allows you to only cache files under, for instance, all the logs in the .logs directory or  * all the files under all the regions.  *<p>  *<tt>this</tt> also considers all running snapshots (those under /hbase/.snapshot/.tmp) as valid  * snapshots and will attempt to cache files from those snapshots as well.  *<p>  * Queries about a given file are thread-safe with respect to multiple queries and cache refreshes.  */
 end_comment
 
 begin_class
@@ -286,7 +286,6 @@ name|SnapshotFileCache
 implements|implements
 name|Stoppable
 block|{
-specifier|public
 interface|interface
 name|SnapshotFileInspector
 block|{
@@ -435,7 +434,7 @@ name|inspectSnapshotFiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a snapshot file cache for all snapshots under the specified [root]/.snapshot on the    * filesystem    * @param fs {@link FileSystem} where the snapshots are stored    * @param rootDir hbase root directory    * @param cacheRefreshPeriod frequency (ms) with which the cache should be refreshed    * @param cacheRefreshDelay amount of time to wait for the cache to be refreshed    * @param refreshThreadName name of the cache refresh thread    * @param inspectSnapshotFiles Filter to apply to each snapshot to extract the files.    */
+comment|/**    * Create a snapshot file cache for all snapshots under the specified [root]/.snapshot on the    * filesystem    * @param fs {@link FileSystem} where the snapshots are stored    * @param rootDir hbase root directory    * @param cacheRefreshPeriod period (ms) with which the cache should be refreshed    * @param cacheRefreshDelay amount of time to wait for the cache to be refreshed    * @param refreshThreadName name of the cache refresh thread    * @param inspectSnapshotFiles Filter to apply to each snapshot to extract the files.    */
 specifier|public
 name|SnapshotFileCache
 parameter_list|(
@@ -516,20 +515,32 @@ name|void
 name|triggerCacheRefreshForTesting
 parameter_list|()
 block|{
+try|try
+block|{
+name|SnapshotFileCache
+operator|.
+name|this
+operator|.
+name|refreshCache
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
-literal|"Triggering cache refresh"
+literal|"Failed to refresh snapshot hfile cache!"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
-operator|new
-name|RefreshCacheTask
-argument_list|()
-operator|.
-name|run
-argument_list|()
-expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug
@@ -616,7 +627,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
 literal|"Snapshot directory: "
 operator|+

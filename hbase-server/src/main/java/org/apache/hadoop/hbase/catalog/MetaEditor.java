@@ -621,6 +621,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Delete the passed<code>deletes</code> from the<code>.META.</code> table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param deletes Deletes to add to .META.  This list should support #remove.    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|deleteFromMetaTable

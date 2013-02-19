@@ -1240,7 +1240,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Restore region by removing files not it in the snapshot    * and adding the missing ones from the snapshot.    */
+comment|/**    * Restore region by removing files not in the snapshot    * and adding the missing ones from the snapshot.    */
 specifier|private
 name|void
 name|restoreRegion

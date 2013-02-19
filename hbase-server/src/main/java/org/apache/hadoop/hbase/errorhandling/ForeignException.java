@@ -177,47 +177,6 @@ specifier|final
 name|String
 name|source
 decl_stmt|;
-comment|/**    * Create a new ForeignException that can be serialized.   It is assumed that this came from a    * remote source.    * @param source    * @param cause    */
-specifier|private
-name|ForeignException
-parameter_list|(
-name|String
-name|source
-parameter_list|,
-name|String
-name|clazz
-parameter_list|,
-name|ProxyThrowable
-name|cause
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|cause
-argument_list|)
-expr_stmt|;
-assert|assert
-name|source
-operator|!=
-literal|null
-assert|;
-assert|assert
-name|cause
-operator|!=
-literal|null
-assert|;
-assert|assert
-name|clazz
-operator|!=
-literal|null
-assert|;
-name|this
-operator|.
-name|source
-operator|=
-name|source
-expr_stmt|;
-block|}
 comment|/**    * Create a new ForeignException that can be serialized.  It is assumed that this came form a    * local source.    * @param source    * @param cause    */
 specifier|public
 name|ForeignException
@@ -333,7 +292,7 @@ name|getLocalizedMessage
 argument_list|()
 return|;
 block|}
-comment|/**    * Convert a stack trace to list of {@link StackTraceElement}.    * @param stackTrace the stack trace to convert to protobuf message    * @return<tt>null</tt> if the passed stack is<tt>null</tt>.    */
+comment|/**    * Convert a stack trace to list of {@link StackTraceElement}.    * @param trace the stack trace to convert to protobuf message    * @return<tt>null</tt> if the passed stack is<tt>null</tt>.    */
 specifier|private
 specifier|static
 name|List
@@ -480,7 +439,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Converts an ForeignException to a array of bytes.    * @param source the name of the external exception source    * @param t the "local" external exception (local)    * @return protobuf serialized version of ForeignThreadException    */
+comment|/**    * Converts a ForeignException to an array of bytes.    * @param source the name of the external exception source    * @param t the "local" external exception (local)    * @return protobuf serialized version of ForeignException    */
 specifier|public
 specifier|static
 name|byte
@@ -615,7 +574,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ExternalExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    */
+comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    */
 specifier|public
 specifier|static
 name|ForeignException
@@ -653,7 +612,7 @@ name|trace
 init|=
 name|ForeignException
 operator|.
-name|toStack
+name|toStackTrace
 argument_list|(
 name|gem
 operator|.
@@ -686,11 +645,6 @@ operator|.
 name|getSource
 argument_list|()
 argument_list|,
-name|gem
-operator|.
-name|getClassName
-argument_list|()
-argument_list|,
 name|dfe
 argument_list|)
 decl_stmt|;
@@ -703,7 +657,7 @@ specifier|private
 specifier|static
 name|StackTraceElement
 index|[]
-name|toStack
+name|toStackTrace
 parameter_list|(
 name|List
 argument_list|<

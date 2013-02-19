@@ -275,7 +275,6 @@ specifier|final
 name|ProcedureMemberRpcs
 name|rpcs
 decl_stmt|;
-comment|//  private final WeakValueMapping<String, Subprocedure> subprocs = new WeakValueMapping<String, Subprocedure>();
 specifier|private
 specifier|final
 name|ConcurrentMap
@@ -689,13 +688,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unexpected reached glabal barrier message for Procedure '"
+literal|"Unexpected reached glabal barrier message for Sub-Procedure '"
 operator|+
 name|procName
 operator|+
 literal|"'"
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 name|subproc
 operator|.
@@ -721,7 +721,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Shutdown the threadpool, and wait for upto timeoutMs millis before bailing    * @param timeoutMs timeout limit in millis    * @return true if successfully, false if bailed due to timeout.    * @throws InterruptedException    */
-specifier|public
 name|boolean
 name|closeAndWait
 parameter_list|(
@@ -774,15 +773,6 @@ operator|.
 name|values
 argument_list|()
 decl_stmt|;
-for|for
-control|(
-name|Subprocedure
-name|sub
-range|:
-name|toNotify
-control|)
-block|{
-comment|// TODO notify the elements, if they aren't null
 name|LOG
 operator|.
 name|error
@@ -792,6 +782,15 @@ argument_list|,
 name|cause
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|Subprocedure
+name|sub
+range|:
+name|toNotify
+control|)
+block|{
+comment|// TODO notify the elements, if they aren't null
 name|sub
 operator|.
 name|cancel

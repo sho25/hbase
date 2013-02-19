@@ -1203,7 +1203,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Unable to ensure that the table will be"
+literal|"Unable to ensure that "
+operator|+
+name|tableName
+operator|+
+literal|" will be"
 operator|+
 literal|" enabled because of a ZooKeeper issue"
 argument_list|,

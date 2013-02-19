@@ -234,7 +234,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This online snapshot implementation forces uses the distributed procedure framework to force a  * store flush and then records the hfiles.  Its enter stage does nothing.  Its leave stage then  * flushes the memstore, builds the region server's snapshot manifest from its hfiles list, and  * copies .regioninfos into the snapshot working directory.  At the master side, there is an atomic  * rename of the working dir into the proper snapshot directory.  */
+comment|/**  * This online snapshot implementation uses the distributed procedure framework to force a  * store flush and then records the hfiles.  Its enter stage does nothing.  Its leave stage then  * flushes the memstore, builds the region server's snapshot manifest from its hfiles list, and  * copies .regioninfos into the snapshot working directory.  At the master side, there is an atomic  * rename of the working dir into the proper snapshot directory.  */
 end_comment
 
 begin_class
@@ -514,7 +514,7 @@ argument_list|(
 name|snapshot
 argument_list|)
 operator|+
-literal|" but we have currently have outstanding tasks"
+literal|" but we currently have outstanding tasks"
 argument_list|)
 throw|;
 block|}

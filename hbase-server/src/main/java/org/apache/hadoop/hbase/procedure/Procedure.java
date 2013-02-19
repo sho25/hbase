@@ -554,7 +554,7 @@ return|return
 name|procName
 return|;
 block|}
-comment|/**    * Returns a copy of the procedure members still trying to enter the barrier.    * @return    */
+comment|/**    * @return String of the procedure members both trying to enter the barrier and already in barrier    */
 specifier|public
 name|String
 name|getStatus
@@ -601,7 +601,7 @@ operator|+
 literal|" }"
 return|;
 block|}
-comment|/**    * Get the ExternalErrorDispatcher    * @return the Procedure's monitor.    */
+comment|/**    * Get the ForeignExceptionDispatcher    * @return the Procedure's monitor.    */
 specifier|public
 name|ForeignExceptionDispatcher
 name|getErrorMonitor
@@ -1081,7 +1081,7 @@ name|member
 operator|+
 literal|" joined barrier, but we weren't waiting on it to join."
 operator|+
-literal|" Continuting on."
+literal|" Continuing on."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1199,7 +1199,7 @@ literal|" completed"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A callback that handles incoming ExternalExceptions.    */
+comment|/**    * A callback that handles incoming ForeignExceptions.    */
 annotation|@
 name|Override
 specifier|public
@@ -1265,23 +1265,7 @@ name|rethrowException
 argument_list|()
 expr_stmt|;
 block|}
-name|ForeignExceptionDispatcher
-operator|.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Waiting for '"
-operator|+
-name|latchDescription
-operator|+
-literal|"' latch. (sleep:"
-operator|+
-name|wakeFrequency
-operator|+
-literal|" ms)"
-argument_list|)
-expr_stmt|;
+comment|/*       ForeignExceptionDispatcher.LOG.debug("Waiting for '" + latchDescription + "' latch. (sleep:"           + wakeFrequency + " ms)"); */
 name|released
 operator|=
 name|latch

@@ -710,7 +710,6 @@ comment|// ---------------------------------------------------------------------
 comment|// internal debugging methods
 comment|// --------------------------------------------------------------------------
 comment|/**    * Recursively print the current state of ZK (non-transactional)    * @param root name of the root directory in zk to print    * @throws KeeperException    */
-specifier|public
 name|void
 name|logZKTree
 parameter_list|(

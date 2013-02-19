@@ -282,7 +282,7 @@ operator|=
 name|coordName
 expr_stmt|;
 block|}
-comment|/**    * The "acquire" phase.  The coordinator creates a new procType/acquired/ znode dir. If znodes    * appear, first acquire to relevant listener or sets watch waiting for notification of    * the acquire node    *    * @throws IOException if any failure occurs.    */
+comment|/**    * The "acquire" phase.  The coordinator creates a new procType/acquired/ znode dir. If znodes    * appear, first acquire to relevant listener or sets watch waiting for notification of    * the acquire node    *    * @param proc the Procedure    * @param info data to be stored in the acquire node    * @param nodeNames children of the acquire phase    * @throws IOException if any failure occurs.    */
 annotation|@
 name|Override
 specifier|final
@@ -364,7 +364,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to create abort"
+literal|"Failed to watch abort"
 argument_list|,
 name|e
 argument_list|)
@@ -732,7 +732,7 @@ name|start
 parameter_list|(
 specifier|final
 name|ProcedureCoordinator
-name|listener
+name|coordinator
 parameter_list|)
 block|{
 if|if
@@ -756,7 +756,7 @@ name|this
 operator|.
 name|coordinator
 operator|=
-name|listener
+name|coordinator
 expr_stmt|;
 try|try
 block|{
@@ -818,7 +818,7 @@ argument_list|)
 condition|)
 block|{
 comment|// node wasn't present when we created the watch so zk event triggers acquire
-name|listener
+name|coordinator
 operator|.
 name|memberAcquiredBarrier
 argument_list|(
@@ -843,6 +843,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
 if|if
 condition|(
 name|isReachedPathNode
@@ -851,9 +852,9 @@ name|path
 argument_list|)
 condition|)
 block|{
-comment|// node wasn't present when we created the watch so zk event triggers the finished barrier.
-comment|// TODO Nothing enforces that acquire and reached znodes from showing up in the wrong order.
-name|listener
+comment|// node was absent when we created the watch so zk event triggers the finished barrier.
+comment|// TODO Nothing enforces that acquire and reached znodes from showing up in wrong order.
+name|coordinator
 operator|.
 name|memberFinishedBarrier
 argument_list|(
@@ -878,6 +879,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
 if|if
 condition|(
 name|isAbortPathNode

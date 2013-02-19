@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown if a table should be online/offline but is partial open  */
+comment|/**  * Thrown if a table should be online/offline but is partially open  */
 end_comment
 
 begin_class

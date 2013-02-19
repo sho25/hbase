@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Exception for a timeout of a task.  * @see TimeoutExceptionInjector  */
+comment|/**  * Exception for timeout of a task.  * @see TimeoutExceptionInjector  */
 end_comment
 
 begin_class

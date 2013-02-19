@@ -238,7 +238,7 @@ specifier|private
 name|ZKProcedureUtil
 name|zkController
 decl_stmt|;
-comment|/**    * Must call {@link #start(ProcedureMember)} before this is can be used.    * @param watcher {@link ZooKeeperWatcher} to be owned by<tt>this</tt>. Closed via    *          {@link #close()}.    * @param procType name of the znode describing the procedure type    * @param memberName name of the member to join the procedure    * @throws KeeperException if we can't reach zookeeper    */
+comment|/**    * Must call {@link #start(ProcedureMember)} before this can be used.    * @param watcher {@link ZooKeeperWatcher} to be owned by<tt>this</tt>. Closed via    *          {@link #close()}.    * @param procType name of the znode describing the procedure type    * @param memberName name of the member to join the procedure    * @throws KeeperException if we can't reach zookeeper    */
 specifier|public
 name|ZKProcedureMemberRpcs
 parameter_list|(
@@ -476,25 +476,6 @@ return|return
 name|zkController
 return|;
 block|}
-specifier|public
-name|void
-name|start
-parameter_list|()
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Starting the procedure member"
-argument_list|)
-expr_stmt|;
-name|watchForAbortedProcedures
-argument_list|()
-expr_stmt|;
-name|waitForNewProcedures
-argument_list|()
-expr_stmt|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -645,7 +626,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Looking for new procedures under znode: '"
+literal|"Looking for new procedures under znode:'"
 operator|+
 name|zkController
 operator|.
@@ -659,13 +640,13 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|runningProcedure
+name|runningProcedures
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|runningProcedure
+name|runningProcedures
 operator|=
 name|ZKUtil
 operator|.
@@ -684,7 +665,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|runningProcedure
+name|runningProcedures
 operator|==
 literal|null
 condition|)
@@ -719,12 +700,28 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|runningProcedures
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"No running procedures."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 for|for
 control|(
 name|String
 name|procName
 range|:
-name|runningProcedure
+name|runningProcedures
 control|)
 block|{
 comment|// then read in the procedure information
@@ -750,7 +747,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Kick off a new procedure on the listener with the data stored in the passed znode.    *<p>    * Will attempt to create the same procedure multiple times if an procedure znode with the same    * name is created. It is left up the coordinator to ensure this doesn't occur.    * @param path full path to the znode for the procedure to start    */
+comment|/**    * Kick off a new sub-procedure on the listener with the data stored in the passed znode.    *<p>    * Will attempt to create the same procedure multiple times if an procedure znode with the same    * name is created. It is left up the coordinator to ensure this doesn't occur.    * @param path full path to the znode for the procedure to start    */
 specifier|private
 specifier|synchronized
 name|void
@@ -1187,7 +1184,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This acts as the ack for a completed    */
+comment|/**    * This acts as the ack for a completed snapshot    */
 annotation|@
 name|Override
 specifier|public
@@ -1310,6 +1307,7 @@ argument_list|,
 name|ee
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 name|String
 name|procName
@@ -1342,15 +1340,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Creating abort znode:"
-operator|+
-name|procAbortZNode
-argument_list|)
-expr_stmt|;
 name|String
 name|source
 init|=
@@ -1545,6 +1534,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 name|data
 operator|=
 name|Arrays
@@ -1572,6 +1563,7 @@ argument_list|(
 name|data
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1670,9 +1662,10 @@ name|member
 operator|=
 name|listener
 expr_stmt|;
-name|this
-operator|.
-name|start
+name|watchForAbortedProcedures
+argument_list|()
+expr_stmt|;
+name|waitForNewProcedures
 argument_list|()
 expr_stmt|;
 block|}
