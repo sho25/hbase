@@ -430,6 +430,11 @@ name|RS_CLOSE_META
 argument_list|(
 literal|25
 argument_list|)
+block|,
+name|RS_PARALLEL_SEEK
+argument_list|(
+literal|26
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

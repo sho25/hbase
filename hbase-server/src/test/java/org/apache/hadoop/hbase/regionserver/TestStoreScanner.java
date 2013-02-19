@@ -5247,6 +5247,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
