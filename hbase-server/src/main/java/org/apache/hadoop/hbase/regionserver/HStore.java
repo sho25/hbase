@@ -5287,12 +5287,7 @@ name|compactor
 operator|.
 name|compact
 argument_list|(
-name|filesToCompact
-argument_list|,
 name|cr
-operator|.
-name|isMajor
-argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Move the compaction into place.
@@ -5348,6 +5343,8 @@ argument_list|(
 name|this
 argument_list|,
 name|sf
+argument_list|,
+name|cr
 argument_list|)
 expr_stmt|;
 block|}
@@ -5841,7 +5838,7 @@ name|this
 operator|.
 name|compactor
 operator|.
-name|compact
+name|compactForTesting
 argument_list|(
 name|filesToCompact
 argument_list|,
@@ -5887,6 +5884,8 @@ argument_list|(
 name|this
 argument_list|,
 name|sf
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -6009,6 +6008,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|CompactionRequest
 name|requestCompaction
@@ -6022,15 +6023,22 @@ argument_list|(
 name|Store
 operator|.
 name|NO_PRIORITY
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|CompactionRequest
 name|requestCompaction
 parameter_list|(
 name|int
 name|priority
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -6051,11 +6059,6 @@ return|return
 literal|null
 return|;
 block|}
-name|CompactionRequest
-name|ret
-init|=
-literal|null
-decl_stmt|;
 name|this
 operator|.
 name|lock
@@ -6128,6 +6131,8 @@ argument_list|(
 name|this
 argument_list|,
 name|candidates
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -6239,6 +6244,8 @@ operator|.
 name|getFilesToCompact
 argument_list|()
 argument_list|)
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -6381,7 +6388,15 @@ argument_list|(
 name|priority
 argument_list|)
 decl_stmt|;
-name|ret
+comment|//not a special compaction request, so we need to make one
+if|if
+condition|(
+name|request
+operator|==
+literal|null
+condition|)
+block|{
+name|request
 operator|=
 operator|new
 name|CompactionRequest
@@ -6397,6 +6412,33 @@ argument_list|,
 name|pri
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|//update the request with what the system thinks the request should be
+comment|//its up to the request if it wants to listen
+name|request
+operator|.
+name|setSelection
+argument_list|(
+name|filesToCompact
+argument_list|)
+expr_stmt|;
+name|request
+operator|.
+name|setIsMajor
+argument_list|(
+name|isMajor
+argument_list|)
+expr_stmt|;
+name|request
+operator|.
+name|setPriority
+argument_list|(
+name|pri
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -6414,7 +6456,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|ret
+name|request
 operator|!=
 literal|null
 condition|)
@@ -6425,7 +6467,7 @@ name|region
 operator|.
 name|reportCompactionRequestStart
 argument_list|(
-name|ret
+name|request
 operator|.
 name|isMajor
 argument_list|()
@@ -6433,7 +6475,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|ret
+name|request
 return|;
 block|}
 specifier|public

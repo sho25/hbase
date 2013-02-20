@@ -516,6 +516,9 @@ name|requestCompaction
 parameter_list|(
 name|int
 name|priority
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException

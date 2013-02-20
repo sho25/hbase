@@ -529,6 +529,42 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|compactions
+operator|.
+name|CompactSelection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLogKey
@@ -1912,7 +1948,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext,    *    Store, List, ScanType, long, InternalScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long, InternalScanner, CompactionRequest)}    */
 specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
@@ -1931,6 +1967,9 @@ name|scanType
 parameter_list|,
 name|long
 name|earliestPutTs
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -2004,6 +2043,8 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|s
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -2037,7 +2078,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called prior to selecting the {@link StoreFile}s for compaction from    * the list of currently available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
+comment|/**    * Called prior to selecting the {@link StoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param request custom compaction request    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
 specifier|public
 name|boolean
 name|preCompactSelection
@@ -2050,6 +2091,9 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|candidates
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -2115,6 +2159,8 @@ argument_list|,
 name|store
 argument_list|,
 name|candidates
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -2155,7 +2201,7 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * Called after the {@link StoreFile}s to be compacted have been selected    * from the available candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    */
+comment|/**    * Called after the {@link StoreFile}s to be compacted have been selected from the available    * candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    * @param request custom compaction    */
 specifier|public
 name|void
 name|postCompactSelection
@@ -2168,6 +2214,9 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|selected
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 block|{
 name|ObserverContext
@@ -2226,6 +2275,8 @@ argument_list|,
 name|store
 argument_list|,
 name|selected
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -2256,7 +2307,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @throws IOException    */
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @param request the compaction that will be executed    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -2269,6 +2320,9 @@ name|scanner
 parameter_list|,
 name|ScanType
 name|scanType
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -2338,6 +2392,8 @@ argument_list|,
 name|scanner
 argument_list|,
 name|scanType
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -2382,7 +2438,7 @@ else|:
 name|scanner
 return|;
 block|}
-comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    * @throws IOException    */
+comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    * @param request the compaction that is being executed    * @throws IOException    */
 specifier|public
 name|void
 name|postCompact
@@ -2392,6 +2448,9 @@ name|store
 parameter_list|,
 name|StoreFile
 name|resultFile
+parameter_list|,
+name|CompactionRequest
+name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -2452,6 +2511,8 @@ argument_list|,
 name|store
 argument_list|,
 name|resultFile
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}

@@ -8410,6 +8410,8 @@ name|getName
 argument_list|()
 operator|+
 literal|" requests compaction"
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -8452,6 +8454,8 @@ name|getName
 argument_list|()
 operator|+
 literal|" requests major compaction; use default priority"
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -8477,6 +8481,8 @@ argument_list|,
 name|this
 operator|.
 name|majorCompactPriority
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -9966,6 +9972,8 @@ argument_list|,
 name|s
 argument_list|,
 literal|"Opening Region"
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -19697,6 +19705,8 @@ argument_list|,
 name|Store
 operator|.
 name|PRIORITY_USER
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -19713,6 +19723,8 @@ argument_list|,
 name|Store
 operator|.
 name|PRIORITY_USER
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -21573,6 +21585,24 @@ name|isNotBlank
 argument_list|(
 name|healthScriptLocation
 argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return the underlying {@link CompactSplitThread} for the servers    */
+end_comment
+
+begin_function
+specifier|public
+name|CompactSplitThread
+name|getCompactSplitThread
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|compactSplitThread
 return|;
 block|}
 end_function
