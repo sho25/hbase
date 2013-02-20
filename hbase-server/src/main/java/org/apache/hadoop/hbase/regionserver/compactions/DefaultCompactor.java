@@ -119,6 +119,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|Path
@@ -346,7 +360,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compact passed set of files.  * Create an instance and then call {@ink #compact(Collection, boolean, long)}.  */
+comment|/**  * Compact passed set of files.  * Create an instance and then call {@link #compact(Collection, boolean)}.  */
 end_comment
 
 begin_class
@@ -354,6 +368,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|DefaultCompactor
 extends|extends
@@ -374,17 +389,33 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|Store
+name|store
+decl_stmt|;
+specifier|public
 name|DefaultCompactor
 parameter_list|(
 specifier|final
-name|CompactionPolicy
-name|policy
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|Store
+name|store
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|policy
+name|conf
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|store
+operator|=
+name|store
 expr_stmt|;
 block|}
 comment|/**    * Do a minor/major compaction on an explicit set of storefiles from a Store.    *    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
@@ -433,13 +464,6 @@ name|int
 name|maxKeyCount
 init|=
 literal|0
-decl_stmt|;
-name|Store
-name|store
-init|=
-name|policy
-operator|.
-name|store
 decl_stmt|;
 name|long
 name|earliestPutTs
@@ -681,8 +705,9 @@ comment|// Get some configs
 name|int
 name|compactionKVMax
 init|=
-name|getConf
-argument_list|()
+name|this
+operator|.
+name|conf
 operator|.
 name|getInt
 argument_list|(

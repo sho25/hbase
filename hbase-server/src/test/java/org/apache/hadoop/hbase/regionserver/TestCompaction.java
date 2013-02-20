@@ -3701,10 +3701,7 @@ name|tool
 init|=
 name|store
 operator|.
-name|compactionPolicy
-operator|.
-name|getCompactor
-argument_list|()
+name|compactor
 decl_stmt|;
 name|List
 argument_list|<
