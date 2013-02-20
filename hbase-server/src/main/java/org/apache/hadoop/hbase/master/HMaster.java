@@ -13933,7 +13933,7 @@ annotation|@
 name|Override
 specifier|public
 name|ListSnapshotResponse
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|RpcController
 name|controller

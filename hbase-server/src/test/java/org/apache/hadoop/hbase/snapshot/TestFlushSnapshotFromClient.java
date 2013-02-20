@@ -1181,7 +1181,7 @@ name|snapshots
 operator|=
 name|admin
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|()
 expr_stmt|;
 name|SnapshotTestingUtils
@@ -2385,7 +2385,7 @@ name|taken
 init|=
 name|admin
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|()
 decl_stmt|;
 name|int

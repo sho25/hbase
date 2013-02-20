@@ -124206,7 +124206,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -126098,7 +126098,7 @@ operator|.
 name|Override
 specifier|public
 name|void
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -126155,7 +126155,7 @@ parameter_list|)
 block|{
 name|impl
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 name|controller
 argument_list|,
@@ -127232,7 +127232,7 @@ case|:
 return|return
 name|impl
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 name|controller
 argument_list|,
@@ -129950,7 +129950,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -131649,7 +131649,7 @@ literal|21
 case|:
 name|this
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 name|controller
 argument_list|,
@@ -136476,7 +136476,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -138366,7 +138366,7 @@ operator|.
 name|MasterAdminProtos
 operator|.
 name|ListSnapshotResponse
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -141002,7 +141002,7 @@ operator|.
 name|MasterAdminProtos
 operator|.
 name|ListSnapshotResponse
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|(
 name|com
 operator|.
@@ -142999,7 +142999,7 @@ literal|"\n\010snapshot\030\001 \001(\0132\024.SnapshotDescription\"3"
 operator|+
 literal|"\n\035IsRestoreSnapshotDoneResponse\022\022\n\004done\030"
 operator|+
-literal|"\001 \001(\010:\004true2\234\r\n\022MasterAdminService\0222\n\tad"
+literal|"\001 \001(\010:\004true2\244\r\n\022MasterAdminService\0222\n\tad"
 operator|+
 literal|"dColumn\022\021.AddColumnRequest\032\022.AddColumnRe"
 operator|+
@@ -143065,29 +143065,29 @@ literal|".CoprocessorServiceRequest\032\033.Coprocessor"
 operator|+
 literal|"ServiceResponse\0227\n\010snapshot\022\024.TakeSnapsh"
 block|,
-literal|"otRequest\032\025.TakeSnapshotResponse\022<\n\rlist"
+literal|"otRequest\032\025.TakeSnapshotResponse\022D\n\025getC"
 operator|+
-literal|"Snapshots\022\024.ListSnapshotRequest\032\025.ListSn"
+literal|"ompletedSnapshots\022\024.ListSnapshotRequest\032"
 operator|+
-literal|"apshotResponse\022A\n\016deleteSnapshot\022\026.Delet"
+literal|"\025.ListSnapshotResponse\022A\n\016deleteSnapshot"
 operator|+
-literal|"eSnapshotRequest\032\027.DeleteSnapshotRespons"
+literal|"\022\026.DeleteSnapshotRequest\032\027.DeleteSnapsho"
 operator|+
-literal|"e\022A\n\016isSnapshotDone\022\026.IsSnapshotDoneRequ"
+literal|"tResponse\022A\n\016isSnapshotDone\022\026.IsSnapshot"
 operator|+
-literal|"est\032\027.IsSnapshotDoneResponse\022D\n\017restoreS"
+literal|"DoneRequest\032\027.IsSnapshotDoneResponse\022D\n\017"
 operator|+
-literal|"napshot\022\027.RestoreSnapshotRequest\032\030.Resto"
+literal|"restoreSnapshot\022\027.RestoreSnapshotRequest"
 operator|+
-literal|"reSnapshotResponse\022V\n\025isRestoreSnapshotD"
+literal|"\032\030.RestoreSnapshotResponse\022V\n\025isRestoreS"
 operator|+
-literal|"one\022\035.IsRestoreSnapshotDoneRequest\032\036.IsR"
+literal|"napshotDone\022\035.IsRestoreSnapshotDoneReque"
 operator|+
-literal|"estoreSnapshotDoneResponseBG\n*org.apache"
+literal|"st\032\036.IsRestoreSnapshotDoneResponseBG\n*or"
 block|,
-literal|".hadoop.hbase.protobuf.generatedB\021Master"
+literal|"g.apache.hadoop.hbase.protobuf.generated"
 operator|+
-literal|"AdminProtosH\001\210\001\001\240\001\001"
+literal|"B\021MasterAdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

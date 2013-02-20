@@ -1473,7 +1473,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testListSnapshots
+name|testGetCompletedSnapshots
 parameter_list|()
 throws|throws
 name|Exception
@@ -1495,7 +1495,7 @@ name|response
 init|=
 name|master
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 literal|null
 argument_list|,
@@ -1564,7 +1564,7 @@ name|response
 operator|=
 name|master
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 literal|null
 argument_list|,
@@ -1670,7 +1670,7 @@ name|response
 operator|=
 name|master
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 literal|null
 argument_list|,

@@ -9578,7 +9578,7 @@ control|(
 name|SnapshotDescription
 name|snapshotInfo
 range|:
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|()
 control|)
 block|{
@@ -10127,13 +10127,13 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * List existing snapshots.    * @return a list of snapshot descriptor for existing snapshots    * @throws IOException if a network error occurs    */
+comment|/**    * List completed snapshots.    * @return a list of snapshot descriptors for completed snapshots    * @throws IOException if a network error occurs    */
 specifier|public
 name|List
 argument_list|<
 name|SnapshotDescription
 argument_list|>
-name|listSnapshots
+name|getCompletedSnapshots
 parameter_list|()
 throws|throws
 name|IOException
@@ -10166,7 +10166,7 @@ block|{
 return|return
 name|masterAdmin
 operator|.
-name|listSnapshots
+name|getCompletedSnapshots
 argument_list|(
 literal|null
 argument_list|,
