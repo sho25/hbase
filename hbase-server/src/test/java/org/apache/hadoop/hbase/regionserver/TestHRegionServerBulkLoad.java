@@ -1201,12 +1201,7 @@ name|getAdmin
 argument_list|(
 name|location
 operator|.
-name|getHostname
-argument_list|()
-argument_list|,
-name|location
-operator|.
-name|getPort
+name|getServerName
 argument_list|()
 argument_list|)
 decl_stmt|;

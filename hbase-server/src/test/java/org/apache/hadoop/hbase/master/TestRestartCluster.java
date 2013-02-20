@@ -622,11 +622,9 @@ control|)
 block|{
 name|UTIL
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|TABLE
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 block|}
@@ -779,8 +777,6 @@ operator|.
 name|waitTableAvailable
 argument_list|(
 name|TABLE
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 block|}

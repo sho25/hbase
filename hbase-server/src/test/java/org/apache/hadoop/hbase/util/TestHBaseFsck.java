@@ -3426,14 +3426,6 @@ operator|.
 name|getAdmin
 argument_list|(
 name|hsi
-operator|.
-name|getHostname
-argument_list|()
-argument_list|,
-name|hsi
-operator|.
-name|getPort
-argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// list all online regions from this region server

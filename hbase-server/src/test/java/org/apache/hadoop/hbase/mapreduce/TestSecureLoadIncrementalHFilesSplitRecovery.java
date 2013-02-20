@@ -174,13 +174,11 @@ expr_stmt|;
 comment|// Wait for the ACL table to become available
 name|util
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 block|}

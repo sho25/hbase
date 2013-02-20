@@ -617,7 +617,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|Bytes
 operator|.
@@ -625,10 +625,6 @@ name|toBytes
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-argument_list|,
-literal|15
-operator|*
-literal|1000
 argument_list|)
 expr_stmt|;
 name|t

@@ -1893,8 +1893,10 @@ name|store
 operator|.
 name|compactionPolicy
 operator|.
-name|updateConfiguration
-argument_list|()
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 try|try
 block|{
@@ -2107,8 +2109,12 @@ name|store
 operator|.
 name|compactionPolicy
 operator|.
-name|updateConfiguration
-argument_list|()
+name|setConf
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 comment|// Test with and without the flag.
 name|compactEquals

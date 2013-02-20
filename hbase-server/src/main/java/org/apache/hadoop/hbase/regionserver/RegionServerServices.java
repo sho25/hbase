@@ -107,6 +107,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|executor
+operator|.
+name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RpcServer
@@ -243,6 +259,12 @@ comment|/**    * @return The RegionServer's "Leases" service    */
 specifier|public
 name|Leases
 name|getLeases
+parameter_list|()
+function_decl|;
+comment|/**    * @return hbase executor service    */
+specifier|public
+name|ExecutorService
+name|getExecutorService
 parameter_list|()
 function_decl|;
 block|}

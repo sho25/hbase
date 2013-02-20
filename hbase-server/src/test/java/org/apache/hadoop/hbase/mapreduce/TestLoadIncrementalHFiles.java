@@ -968,11 +968,9 @@ argument_list|)
 decl_stmt|;
 name|util
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|TABLE
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 name|LoadIncrementalHFiles
@@ -1214,11 +1212,9 @@ argument_list|)
 decl_stmt|;
 name|util
 operator|.
-name|waitTableAvailable
+name|waitTableEnabled
 argument_list|(
 name|TABLE
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 name|LoadIncrementalHFiles

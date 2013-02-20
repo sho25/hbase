@@ -222,7 +222,6 @@ name|listener
 decl_stmt|;
 comment|// Time to wait for events to happen, should be kept short
 specifier|protected
-specifier|final
 name|int
 name|waitingTimeForEvents
 decl_stmt|;
@@ -522,8 +521,18 @@ name|ExecutorType
 operator|.
 name|MASTER_SERVER_OPERATIONS
 argument_list|)
-block|;
+block|,
 comment|// Master is processing recovery of regions found in ZK RIT
+comment|// RS controlled events to be executed on the RS
+name|RS_PARALLEL_SEEK
+argument_list|(
+literal|80
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_PARALLEL_SEEK
+argument_list|)
+block|;
 specifier|private
 specifier|final
 name|int
@@ -712,6 +721,13 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|server
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|waitingTimeForEvents
@@ -728,6 +744,7 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void

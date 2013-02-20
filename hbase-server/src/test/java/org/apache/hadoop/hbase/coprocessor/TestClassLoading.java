@@ -4006,8 +4006,6 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|name
-argument_list|,
-literal|5000
 argument_list|)
 expr_stmt|;
 comment|// Now wait a bit longer for the coprocessor hosts to load the CPs

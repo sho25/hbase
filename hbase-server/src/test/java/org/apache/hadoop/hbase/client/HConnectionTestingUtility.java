@@ -51,6 +51,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -94,38 +108,6 @@ operator|.
 name|hbase
 operator|.
 name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|AdminProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ClientProtocol
 import|;
 end_import
 
@@ -185,7 +167,7 @@ class|class
 name|HConnectionTestingUtility
 block|{
 comment|/*    * Not part of {@link HBaseTestingUtility} because this class is not    * in same package as {@link HConnection}.  Would have to reveal ugly    * {@link HConnectionManager} innards to HBaseTestingUtility to give it access.    */
-comment|/**    * Get a Mocked {@link HConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link HConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration, boolean)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get a Mocked {@link HConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link HConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(HConnectionKey, boolean)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|HConnection
@@ -276,7 +258,7 @@ name|connection
 return|;
 block|}
 block|}
-comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration, boolean)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocation is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(byte[], byte[], boolean)} is called,    * and that returns the passed {@link AdminProtocol} instance when    * {@link HConnection#getAdmin(String, int)} is called, returns the passed    * {@link ClientProtocol} instance when {@link HConnection#getClient(String, int)}    * is called (Be sure call    * {@link HConnectionManager#deleteConnection(org.apache.hadoop.conf.Configuration, boolean)}    * when done with this mocked Connection.    * @throws IOException    */
+comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(HConnectionKey, boolean)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocation is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(byte[], byte[], boolean)} is called,    * and that returns the passed {@link AdminProtocol} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtocol} instance when {@link HConnection#getClient(ServerName)}    * is called (Be sure call    * {@link HConnectionManager#deleteConnection(HConnectionKey, boolean)}    * when done with this mocked Connection.    * @throws IOException    */
 specifier|public
 specifier|static
 name|HConnection
@@ -339,14 +321,10 @@ argument_list|(
 name|hri
 argument_list|,
 name|sn
-operator|.
-name|getHostname
-argument_list|()
 argument_list|,
-name|sn
+name|HConstants
 operator|.
-name|getPort
-argument_list|()
+name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|Mockito
@@ -438,13 +416,12 @@ name|getAdmin
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
+name|any
+argument_list|(
+name|ServerName
 operator|.
-name|anyInt
-argument_list|()
+name|class
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
@@ -472,13 +449,12 @@ name|getClient
 argument_list|(
 name|Mockito
 operator|.
-name|anyString
-argument_list|()
-argument_list|,
-name|Mockito
+name|any
+argument_list|(
+name|ServerName
 operator|.
-name|anyInt
-argument_list|()
+name|class
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
@@ -492,7 +468,7 @@ return|return
 name|c
 return|;
 block|}
-comment|/**    * Get a Mockito spied-upon {@link HConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration, boolean)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @see http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)    */
+comment|/**    * Get a Mockito spied-upon {@link HConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(HConnectionKey, boolean)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @see @link    * {http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)}    */
 specifier|public
 specifier|static
 name|HConnection

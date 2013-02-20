@@ -3043,8 +3043,6 @@ operator|.
 name|waitTableAvailable
 argument_list|(
 name|TABLE_NAME
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 name|assertEquals
