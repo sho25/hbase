@@ -35,16 +35,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collection
 import|;
 end_import
@@ -153,7 +143,7 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
-comment|/**    * Do a minor/major compaction on an explicit set of storefiles from a Store.    * @param filesToCompact which files to compact    * @param request the requested compaction    * @return Product of compaction or an empty list if all cells expired or deleted and nothing made    *         it through the compaction.    * @throws IOException    */
+comment|/**    * Do a minor/major compaction on an explicit set of storefiles from a Store.    * @param request the requested compaction    * @return Product of compaction or an empty list if all cells expired or deleted and nothing made    *         it through the compaction.    * @throws IOException    */
 specifier|public
 specifier|abstract
 name|List

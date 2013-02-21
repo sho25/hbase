@@ -360,7 +360,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compact passed set of files.  * Create an instance and then call {@link #compact(Collection, boolean)}.  */
+comment|/**  * Compact passed set of files. Create an instance and then call {@link #compact(CompactionRequest)}  */
 end_comment
 
 begin_class
