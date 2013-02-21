@@ -516,7 +516,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #stop()} to be called  */
+comment|/**  * This manager class handles the work dealing with snapshots for a {@link HRegionServer}.  *<p>  * This provides the mechanism necessary to kick off a online snapshot specific  * {@link Subprocedure} that is responsible for the regions being served by this region server.  * If any failures occur with the subprocedure, the RegionSeverSnapshotManager's subprocedure  * handler, {@link ProcedureMember}, notifies the master's ProcedureCoordinator to abort all  * others.  *<p>  * On startup, requires {@link #start()} to be called.  *<p>  * On shutdown, requires {@link #stop(boolean)} to be called  */
 end_comment
 
 begin_class

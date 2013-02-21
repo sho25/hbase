@@ -7281,7 +7281,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Helper method to print the current state of the ZK tree.    * @see #logZKTree(String)    * @throws KeeperException if an unexpected exception occurs    */
+comment|/**    * Helper method to print the current state of the ZK tree.    * @see #logZKTree(ZooKeeperWatcher, String)    * @throws KeeperException if an unexpected exception occurs    */
 specifier|protected
 specifier|static
 name|void
