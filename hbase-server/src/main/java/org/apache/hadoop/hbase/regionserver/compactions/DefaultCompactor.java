@@ -418,12 +418,14 @@ operator|=
 name|store
 expr_stmt|;
 block|}
-comment|/**    * Do a minor/major compaction on an explicit set of storefiles from a Store.    *    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
+comment|/**    * Do a minor/major compaction on an explicit set of storefiles from a Store.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"deprecation"
 argument_list|)
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -432,19 +434,32 @@ argument_list|>
 name|compact
 parameter_list|(
 specifier|final
+name|CompactionRequest
+name|request
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+specifier|final
 name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
 name|filesToCompact
-parameter_list|,
-specifier|final
+init|=
+name|request
+operator|.
+name|getFiles
+argument_list|()
+decl_stmt|;
 name|boolean
 name|majorCompaction
-parameter_list|)
-throws|throws
-name|IOException
-block|{
+init|=
+name|request
+operator|.
+name|isMajor
+argument_list|()
+decl_stmt|;
 comment|// Max-sequenceID is the last key in the files we're compacting
 name|long
 name|maxId
@@ -845,6 +860,8 @@ operator|.
 name|MINOR_COMPACT
 argument_list|,
 name|earliestPutTs
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -938,6 +955,8 @@ argument_list|,
 name|scanner
 argument_list|,
 name|scanType
+argument_list|,
+name|request
 argument_list|)
 decl_stmt|;
 comment|// NULL scanner returned from coprocessor hooks means skip normal processing

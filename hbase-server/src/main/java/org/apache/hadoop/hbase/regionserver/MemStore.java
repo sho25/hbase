@@ -2362,13 +2362,28 @@ block|{
 comment|// if we get here we have seen at least one version visible to the oldest scanner,
 comment|// which means we can prove that no scanner will see this version
 comment|// false means there was a change, so give us the size.
-name|addedSize
-operator|-=
+name|long
+name|delta
+init|=
 name|heapSizeChange
 argument_list|(
 name|cur
 argument_list|,
 literal|true
+argument_list|)
+decl_stmt|;
+name|addedSize
+operator|-=
+name|delta
+expr_stmt|;
+name|this
+operator|.
+name|size
+operator|.
+name|addAndGet
+argument_list|(
+operator|-
+name|delta
 argument_list|)
 expr_stmt|;
 name|it
