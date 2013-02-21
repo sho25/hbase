@@ -18899,6 +18899,16 @@ literal|" - ignoring this new request for this region."
 argument_list|)
 expr_stmt|;
 block|}
+comment|// We are opening this region. If it moves back and forth for whatever reason, we don't
+comment|// want to keep returning the stale moved record while we are opening/if we close again.
+name|removeFromMovedRegions
+argument_list|(
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|previous
@@ -21293,6 +21303,25 @@ name|destination
 argument_list|,
 name|closeSeqNum
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
+specifier|private
+name|void
+name|removeFromMovedRegions
+parameter_list|(
+name|String
+name|encodedName
+parameter_list|)
+block|{
+name|movedRegions
+operator|.
+name|remove
+argument_list|(
+name|encodedName
 argument_list|)
 expr_stmt|;
 block|}
