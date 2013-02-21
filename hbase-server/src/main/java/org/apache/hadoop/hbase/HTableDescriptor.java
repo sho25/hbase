@@ -1644,6 +1644,15 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
+comment|// A non-capture group so that this can be embedded.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VALID_USER_TABLE_REGEX
+init|=
+literal|"(?:[a-zA-Z_0-9][a-zA-Z_0-9.-]*)"
+decl_stmt|;
 comment|/**    * Check passed byte buffer, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws NullPointerException If passed<code>tableName</code> is null    * @throws IllegalArgumentException if passed a tableName    * that is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9].    */
 specifier|public
 specifier|static

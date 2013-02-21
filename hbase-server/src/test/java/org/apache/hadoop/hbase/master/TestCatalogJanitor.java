@@ -1352,6 +1352,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|MasterCoprocessorHost
+name|getCoprocessorHost
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|ServerManager
 name|getServerManager
 parameter_list|()

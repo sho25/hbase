@@ -6804,7 +6804,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a delete KeyValue type to protocol buffer DeleteType.    *    * @param type    * @return a DeleteType    * @throws IOException    */
+comment|/**    * Convert a delete KeyValue type to protocol buffer DeleteType.    *    * @param type    * @return protocol buffer DeleteType    * @throws IOException    */
 specifier|public
 specifier|static
 name|DeleteType

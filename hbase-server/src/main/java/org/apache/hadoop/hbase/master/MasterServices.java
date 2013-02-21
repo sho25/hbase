@@ -192,6 +192,12 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */
+specifier|public
+name|MasterCoprocessorHost
+name|getCoprocessorHost
+parameter_list|()
+function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
 comment|// We actually throw the exceptions mentioned in the
 specifier|public

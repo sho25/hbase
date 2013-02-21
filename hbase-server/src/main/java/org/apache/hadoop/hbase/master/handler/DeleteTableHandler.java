@@ -89,6 +89,34 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -106,6 +134,22 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|backup
+operator|.
+name|HFileArchiver
 import|;
 end_import
 
@@ -170,6 +214,22 @@ operator|.
 name|master
 operator|.
 name|MasterCoprocessorHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|MasterFileSystem
 import|;
 end_import
 
@@ -343,6 +403,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|// 1. Wait because of region in transition
 name|AssignmentManager
 name|am
 init|=
@@ -471,24 +532,18 @@ literal|" in transitions"
 argument_list|)
 throw|;
 block|}
+block|}
+comment|// 2. Remove regions from META
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleting region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" from META and FS"
+literal|"Deleting regions from META"
 argument_list|)
 expr_stmt|;
-comment|// Remove region from META
 name|MetaEditor
 operator|.
-name|deleteRegion
+name|deleteRegions
 argument_list|(
 name|this
 operator|.
@@ -497,37 +552,117 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 argument_list|,
-name|region
+name|regions
 argument_list|)
 expr_stmt|;
-comment|// Delete region from FS
+comment|// 3. Move the table in /hbase/.tmp
+name|MasterFileSystem
+name|mfs
+init|=
 name|this
 operator|.
 name|masterServices
 operator|.
 name|getMasterFileSystem
 argument_list|()
+decl_stmt|;
+name|Path
+name|tempTableDir
+init|=
+name|mfs
 operator|.
-name|deleteRegion
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Delete table from FS
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|deleteTable
+name|moveTableToTemp
 argument_list|(
 name|tableName
 argument_list|)
+decl_stmt|;
+try|try
+block|{
+comment|// 4. Delete regions from FS (temp directory)
+name|FileSystem
+name|fs
+init|=
+name|mfs
+operator|.
+name|getFileSystem
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|HRegionInfo
+name|hri
+range|:
+name|regions
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Archiving region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" from FS"
+argument_list|)
 expr_stmt|;
-comment|// Update table descriptor cache
+name|HFileArchiver
+operator|.
+name|archiveRegion
+argument_list|(
+name|fs
+argument_list|,
+name|mfs
+operator|.
+name|getRootDir
+argument_list|()
+argument_list|,
+name|tempTableDir
+argument_list|,
+operator|new
+name|Path
+argument_list|(
+name|tempTableDir
+argument_list|,
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|// 5. Delete table from FS (temp directory)
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|tempTableDir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't delete "
+operator|+
+name|tempTableDir
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+comment|// 6. Update table descriptor cache
 name|this
 operator|.
 name|masterServices
@@ -545,7 +680,7 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// If entry for this table in zk, and up in AssignmentManager, remove it.
+comment|// 7. If entry for this table in zk, and up in AssignmentManager, remove it.
 name|am
 operator|.
 name|getZKTable
@@ -561,6 +696,7 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cpHost

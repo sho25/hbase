@@ -262,7 +262,7 @@ name|firstKeySeeked
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * @param fs    * @param p    * @param cacheConf    * @param r    * @throws IOException    */
+comment|/**    * Creates a half file reader for a normal hfile.    * @param fs fileystem to read from    * @param p path to hfile    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -297,6 +297,91 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|preferredEncodingInCache
+argument_list|)
+expr_stmt|;
+comment|// This is not actual midkey for this half-file; its just border
+comment|// around which we split top and bottom.  Have to look in files to find
+comment|// actual last and first keys for bottom and top halves.  Half-files don't
+comment|// have an actual midkey themselves. No midkey is how we indicate file is
+comment|// not splittable.
+name|this
+operator|.
+name|splitkey
+operator|=
+name|r
+operator|.
+name|getSplitKey
+argument_list|()
+expr_stmt|;
+comment|// Is it top or bottom half?
+name|this
+operator|.
+name|top
+operator|=
+name|Reference
+operator|.
+name|isTopFileRegion
+argument_list|(
+name|r
+operator|.
+name|getFileRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param link    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
+specifier|public
+name|HalfStoreFileReader
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|p
+parameter_list|,
+specifier|final
+name|HFileLink
+name|link
+parameter_list|,
+specifier|final
+name|CacheConfig
+name|cacheConf
+parameter_list|,
+specifier|final
+name|Reference
+name|r
+parameter_list|,
+name|DataBlockEncoding
+name|preferredEncodingInCache
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|super
+argument_list|(
+name|fs
+argument_list|,
+name|p
+argument_list|,
+name|link
+argument_list|,
+name|link
+operator|.
+name|getFileStatus
+argument_list|(
+name|fs
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+argument_list|,
+name|cacheConf
+argument_list|,
+name|preferredEncodingInCache
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border

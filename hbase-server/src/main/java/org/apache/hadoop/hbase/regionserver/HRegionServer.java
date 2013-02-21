@@ -2609,6 +2609,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|snapshot
+operator|.
+name|RegionServerSnapshotManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLog
@@ -3611,6 +3629,10 @@ decl_stmt|;
 specifier|private
 name|RegionServerCoprocessorHost
 name|rsHost
+decl_stmt|;
+comment|/** Handle all the snapshot requests to this server */
+name|RegionServerSnapshotManager
+name|snapshotManager
 decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    *    * @param conf    * @throws IOException    * @throws InterruptedException    */
 specifier|public
@@ -5356,6 +5378,34 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|// watch for snapshots
+try|try
+block|{
+name|this
+operator|.
+name|snapshotManager
+operator|=
+operator|new
+name|RegionServerSnapshotManager
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|this
+operator|.
+name|abort
+argument_list|(
+literal|"Failed to reach zk cluster when creating snapshot handler."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 
@@ -5690,6 +5740,14 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+comment|// start the snapshot handler, since the server is ready to run
+name|this
+operator|.
+name|snapshotManager
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// We registered with the Master.  Go into run mode.
 name|long
 name|lastMsg
@@ -6140,6 +6198,40 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
+try|try
+block|{
+if|if
+condition|(
+name|snapshotManager
+operator|!=
+literal|null
+condition|)
+name|snapshotManager
+operator|.
+name|stop
+argument_list|(
+name|this
+operator|.
+name|abortRequested
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to close snapshot handler cleanly"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -6220,6 +6312,45 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+comment|// stop the snapshot handler, forcefully killing all running tasks
+try|try
+block|{
+if|if
+condition|(
+name|snapshotManager
+operator|!=
+literal|null
+condition|)
+name|snapshotManager
+operator|.
+name|stop
+argument_list|(
+name|this
+operator|.
+name|abortRequested
+operator|||
+name|this
+operator|.
+name|killed
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to close snapshot handler cleanly"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Closing the compactSplit thread before closing meta regions
 if|if
 condition|(
@@ -20114,7 +20245,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate    * @return the Result    * @throws IOException    */
+comment|/**    * Execute an append mutation.    *    * @param region    * @param mutate    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    * @throws IOException    */
 end_comment
 
 begin_function

@@ -1900,6 +1900,24 @@ name|HFILE_ARCHIVE_DIRECTORY
 init|=
 literal|".archive"
 decl_stmt|;
+comment|/**    * Name of the directory to store all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_DIR_NAME
+init|=
+literal|".snapshot"
+decl_stmt|;
+comment|/** Temporary directory used for table creation and deletion */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_TEMP_DIRECTORY
+init|=
+literal|".tmp"
+decl_stmt|;
 comment|/** Directories that are not HBase table directories */
 specifier|public
 specifier|static
@@ -1933,6 +1951,10 @@ block|,
 name|HBCK_SIDELINEDIR_NAME
 block|,
 name|HFILE_ARCHIVE_DIRECTORY
+block|,
+name|SNAPSHOT_DIR_NAME
+block|,
+name|HBASE_TEMP_DIRECTORY
 block|}
 argument_list|)
 argument_list|)
