@@ -1802,7 +1802,7 @@ name|j
 init|=
 literal|0
 init|;
-name|i
+name|j
 operator|<
 name|cr
 operator|.
@@ -1835,7 +1835,7 @@ name|getMaxTimestamp
 argument_list|()
 operator|<
 operator|(
-name|System
+name|edge
 operator|.
 name|currentTimeMillis
 argument_list|()
