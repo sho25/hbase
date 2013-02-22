@@ -419,6 +419,11 @@ specifier|public
 name|String
 name|balancerZNode
 decl_stmt|;
+comment|// znode containing the lock for the tables
+specifier|public
+name|String
+name|tableLockZNode
+decl_stmt|;
 comment|// Certain ZooKeeper nodes need to be world-readable
 specifier|public
 specifier|static
@@ -488,7 +493,7 @@ specifier|final
 name|Exception
 name|constructorCaller
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -496,7 +501,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|descriptor
+name|identifier
 parameter_list|,
 name|Abortable
 name|abortable
@@ -510,7 +515,7 @@ name|this
 argument_list|(
 name|conf
 argument_list|,
-name|descriptor
+name|identifier
 argument_list|,
 name|abortable
 argument_list|,
@@ -518,7 +523,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -526,7 +531,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|descriptor
+name|identifier
 parameter_list|,
 name|Abortable
 name|abortable
@@ -587,7 +592,7 @@ name|this
 operator|.
 name|identifier
 operator|=
-name|descriptor
+name|identifier
 expr_stmt|;
 name|this
 operator|.
@@ -614,7 +619,7 @@ name|quorum
 argument_list|,
 name|this
 argument_list|,
-name|descriptor
+name|identifier
 argument_list|)
 expr_stmt|;
 if|if
@@ -698,6 +703,15 @@ argument_list|(
 name|this
 argument_list|,
 name|backupMasterAddressesZNode
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|createAndFailSilent
+argument_list|(
+name|this
+argument_list|,
+name|tableLockZNode
 argument_list|)
 expr_stmt|;
 block|}
@@ -979,6 +993,24 @@ literal|"balancer"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|tableLockZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.tableLock"
+argument_list|,
+literal|"table-lock"
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Register the specified listener to receive ZooKeeper events.    * @param listener    */
 specifier|public
@@ -1012,6 +1044,22 @@ name|add
 argument_list|(
 literal|0
 argument_list|,
+name|listener
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|unregisterListener
+parameter_list|(
+name|ZooKeeperListener
+name|listener
+parameter_list|)
+block|{
+name|listeners
+operator|.
+name|remove
+argument_list|(
 name|listener
 argument_list|)
 expr_stmt|;

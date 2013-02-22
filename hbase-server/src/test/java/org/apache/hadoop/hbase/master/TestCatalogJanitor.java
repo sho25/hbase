@@ -1711,6 +1711,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{ }
+annotation|@
+name|Override
+specifier|public
+name|TableLockManager
+name|getTableLockManager
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 annotation|@
 name|Test

@@ -3415,6 +3415,11 @@ specifier|private
 name|TableDescriptors
 name|tableDescriptors
 decl_stmt|;
+comment|// Table level lock manager for schema changes
+specifier|private
+name|TableLockManager
+name|tableLockManager
+decl_stmt|;
 comment|// Time stamps for when a hmaster was started and when it became active
 specifier|private
 name|long
@@ -4566,6 +4571,10 @@ argument_list|,
 name|this
 operator|.
 name|metricsMaster
+argument_list|,
+name|this
+operator|.
+name|tableLockManager
 argument_list|)
 expr_stmt|;
 name|zooKeeper
@@ -5049,6 +5058,37 @@ literal|"Initializing master service threads"
 argument_list|)
 expr_stmt|;
 name|startServiceThreads
+argument_list|()
+expr_stmt|;
+block|}
+comment|//Initialize table lock manager, and ensure that all write locks held previously
+comment|//are invalidated
+name|this
+operator|.
+name|tableLockManager
+operator|=
+name|TableLockManager
+operator|.
+name|createTableLockManager
+argument_list|(
+name|conf
+argument_list|,
+name|zooKeeper
+argument_list|,
+name|serverName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|masterRecovery
+condition|)
+block|{
+name|this
+operator|.
+name|tableLockManager
+operator|.
+name|reapAllTableWriteLocks
 argument_list|()
 expr_stmt|;
 block|}
@@ -9203,10 +9243,11 @@ name|conf
 argument_list|,
 name|newRegions
 argument_list|,
-name|catalogTracker
-argument_list|,
-name|assignmentManager
+name|this
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -9623,6 +9664,9 @@ name|this
 argument_list|,
 name|this
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -9852,6 +9896,7 @@ block|{
 return|return;
 block|}
 block|}
+comment|//TODO: we should process this (and some others) in an executor
 operator|new
 name|TableAddFamilyHandler
 argument_list|(
@@ -9863,6 +9908,9 @@ name|this
 argument_list|,
 name|this
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 operator|.
 name|process
 argument_list|()
@@ -10012,6 +10060,9 @@ argument_list|,
 name|this
 argument_list|)
 operator|.
+name|prepare
+argument_list|()
+operator|.
 name|process
 argument_list|()
 expr_stmt|;
@@ -10158,6 +10209,9 @@ argument_list|,
 name|this
 argument_list|)
 operator|.
+name|prepare
+argument_list|()
+operator|.
 name|process
 argument_list|()
 expr_stmt|;
@@ -10295,8 +10349,13 @@ name|catalogTracker
 argument_list|,
 name|assignmentManager
 argument_list|,
+name|tableLockManager
+argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -10423,8 +10482,13 @@ name|catalogTracker
 argument_list|,
 name|assignmentManager
 argument_list|,
+name|tableLockManager
+argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -10731,6 +10795,9 @@ name|this
 argument_list|,
 name|this
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 operator|.
 name|process
 argument_list|()
@@ -11863,6 +11930,22 @@ return|return
 name|this
 operator|.
 name|assignmentManager
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|TableLockManager
+name|getTableLockManager
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableLockManager
 return|;
 block|}
 end_function

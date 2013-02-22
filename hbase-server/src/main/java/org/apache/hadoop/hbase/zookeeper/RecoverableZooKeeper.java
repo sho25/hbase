@@ -360,7 +360,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A zookeeper that can handle 'recoverable' errors.  * To handle recoverable errors, developers need to realize that there are two   * classes of requests: idempotent and non-idempotent requests. Read requests   * and unconditional sets and deletes are examples of idempotent requests, they   * can be reissued with the same results.   * (Although, the delete may throw a NoNodeException on reissue its effect on   * the ZooKeeper state is the same.) Non-idempotent requests need special   * handling, application and library writers need to keep in mind that they may   * need to encode information in the data or name of znodes to detect   * retries. A simple example is a create that uses a sequence flag.   * If a process issues a create("/x-", ..., SEQUENCE) and gets a connection   * loss exception, that process will reissue another   * create("/x-", ..., SEQUENCE) and get back x-111. When the process does a   * getChildren("/"), it sees x-1,x-30,x-109,x-110,x-111, now it could be   * that x-109 was the result of the previous create, so the process actually   * owns both x-109 and x-111. An easy way around this is to use "x-process id-"   * when doing the create. If the process is using an id of 352, before reissuing  * the create it will do a getChildren("/") and see "x-222-1", "x-542-30",   * "x-352-109", x-333-110". The process will know that the original create   * succeeded an the znode it created is "x-352-109".  * @see "http://wiki.apache.org/hadoop/ZooKeeper/ErrorHandling"  */
+comment|/**  * A zookeeper that can handle 'recoverable' errors.  * To handle recoverable errors, developers need to realize that there are two  * classes of requests: idempotent and non-idempotent requests. Read requests  * and unconditional sets and deletes are examples of idempotent requests, they  * can be reissued with the same results.  * (Although, the delete may throw a NoNodeException on reissue its effect on  * the ZooKeeper state is the same.) Non-idempotent requests need special  * handling, application and library writers need to keep in mind that they may  * need to encode information in the data or name of znodes to detect  * retries. A simple example is a create that uses a sequence flag.  * If a process issues a create("/x-", ..., SEQUENCE) and gets a connection  * loss exception, that process will reissue another  * create("/x-", ..., SEQUENCE) and get back x-111. When the process does a  * getChildren("/"), it sees x-1,x-30,x-109,x-110,x-111, now it could be  * that x-109 was the result of the previous create, so the process actually  * owns both x-109 and x-111. An easy way around this is to use "x-process id-"  * when doing the create. If the process is using an id of 352, before reissuing  * the create it will do a getChildren("/") and see "x-222-1", "x-542-30",  * "x-352-109", x-333-110". The process will know that the original create  * succeeded an the znode it created is "x-352-109".  * @see "http://wiki.apache.org/hadoop/ZooKeeper/ErrorHandling"  */
 end_comment
 
 begin_class
@@ -499,6 +499,46 @@ throws|throws
 name|IOException
 block|{
 name|this
+argument_list|(
+name|quorumServers
+argument_list|,
+name|sessionTimeout
+argument_list|,
+name|watcher
+argument_list|,
+name|maxRetries
+argument_list|,
+name|retryIntervalMillis
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|RecoverableZooKeeper
+parameter_list|(
+name|String
+name|quorumServers
+parameter_list|,
+name|int
+name|sessionTimeout
+parameter_list|,
+name|Watcher
+name|watcher
+parameter_list|,
+name|int
+name|maxRetries
+parameter_list|,
+name|int
+name|retryIntervalMillis
+parameter_list|,
+name|String
+name|identifier
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
 operator|.
 name|zk
 operator|=
@@ -524,9 +564,21 @@ argument_list|,
 name|retryIntervalMillis
 argument_list|)
 expr_stmt|;
-comment|// the identifier = processID@hostName
-name|this
+if|if
+condition|(
+name|identifier
+operator|==
+literal|null
+operator|||
+name|identifier
 operator|.
+name|length
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+comment|// the identifier = processID@hostName
 name|identifier
 operator|=
 name|ManagementFactory
@@ -537,6 +589,7 @@ operator|.
 name|getName
 argument_list|()
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -545,6 +598,12 @@ literal|"The identifier of this process is "
 operator|+
 name|identifier
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|identifier
+operator|=
+name|identifier
 expr_stmt|;
 name|this
 operator|.
@@ -1452,7 +1511,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether     * badversion is caused by the result of previous correctly setData    * @return Stat instance    */
+comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether    * badversion is caused by the result of previous correctly setData    * @return Stat instance    */
 specifier|public
 name|Stat
 name|setData
@@ -1635,7 +1694,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.     * Retry before throwing exceptions.    * But this function will not throw the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add     * identifier to the path to verify, whether the previous one is successful     * or not.    *</p>    *     * @return Path    */
+comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.    * Retry before throwing exceptions.    * But this function will not throw the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add    * identifier to the path to verify, whether the previous one is successful    * or not.    *</p>    *    * @return Path    */
 specifier|public
 name|String
 name|create
@@ -2959,6 +3018,15 @@ block|}
 block|}
 return|return
 name|lockChildren
+return|;
+block|}
+specifier|public
+name|String
+name|getIdentifier
+parameter_list|()
+block|{
+return|return
+name|identifier
 return|;
 block|}
 block|}

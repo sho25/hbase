@@ -487,6 +487,24 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|TableLockManager
+operator|.
+name|NullTableLockManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|balancer
 operator|.
 name|DefaultLoadBalancer
@@ -1595,7 +1613,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test a balance going on at same time as a master failover    *    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException     */
+comment|/**    * Test a balance going on at same time as a master failover    *    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException    */
 annotation|@
 name|Test
 argument_list|(
@@ -2503,7 +2521,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests AssignmentManager balance function.  Runs a balance moving a region    * from one server to another mocking regionserver responding over zk.    * @throws IOException    * @throws KeeperException    * @throws DeserializationException     */
+comment|/**    * Tests AssignmentManager balance function.  Runs a balance moving a region    * from one server to another mocking regionserver responding over zk.    * @throws IOException    * @throws KeeperException    * @throws DeserializationException    */
 annotation|@
 name|Test
 specifier|public
@@ -2577,6 +2595,11 @@ argument_list|,
 name|executor
 argument_list|,
 literal|null
+argument_list|,
+name|master
+operator|.
+name|getTableLockManager
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|am
@@ -2898,7 +2921,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * To test closed region handler to remove rit and delete corresponding znode    * if region in pending close or closing while processing shutdown of a region    * server.(HBASE-5927).    *     * @throws KeeperException    * @throws IOException    * @throws ServiceException    */
+comment|/**    * To test closed region handler to remove rit and delete corresponding znode    * if region in pending close or closing while processing shutdown of a region    * server.(HBASE-5927).    *    * @throws KeeperException    * @throws IOException    * @throws ServiceException    */
 annotation|@
 name|Test
 specifier|public
@@ -2931,7 +2954,7 @@ name|DISABLED
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * To test if the split region is removed from RIT if the region was in SPLITTING state but the RS    * has actually completed the splitting in META but went down. See HBASE-6070 and also HBASE-5806    *     * @throws KeeperException    * @throws IOException    */
+comment|/**    * To test if the split region is removed from RIT if the region was in SPLITTING state but the RS    * has actually completed the splitting in META but went down. See HBASE-6070 and also HBASE-5806    *    * @throws KeeperException    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -3300,6 +3323,11 @@ argument_list|,
 name|executor
 argument_list|,
 literal|null
+argument_list|,
+name|master
+operator|.
+name|getTableLockManager
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// adding region to regions and servers maps.
@@ -3992,6 +4020,11 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+name|master
+operator|.
+name|getTableLockManager
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -4095,7 +4128,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests the processDeadServersAndRegionsInTransition should not fail with NPE    * when it failed to get the children. Let's abort the system in this    * situation    * @throws ServiceException     */
+comment|/**    * Tests the processDeadServersAndRegionsInTransition should not fail with NPE    * when it failed to get the children. Let's abort the system in this    * situation    * @throws ServiceException    */
 annotation|@
 name|Test
 argument_list|(
@@ -4258,7 +4291,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * TestCase verifies that the regionPlan is updated whenever a region fails to open     * and the master tries to process RS_ZK_FAILED_OPEN state.(HBASE-5546).    */
+comment|/**    * TestCase verifies that the regionPlan is updated whenever a region fails to open    * and the master tries to process RS_ZK_FAILED_OPEN state.(HBASE-5546).    */
 annotation|@
 name|Test
 argument_list|(
@@ -4998,7 +5031,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test verifies whether assignment is skipped for regions of tables in DISABLING state during    * clean cluster startup. See HBASE-6281.    *     * @throws KeeperException    * @throws IOException    * @throws Exception    */
+comment|/**    * Test verifies whether assignment is skipped for regions of tables in DISABLING state during    * clean cluster startup. See HBASE-6281.    *    * @throws KeeperException    * @throws IOException    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -5268,7 +5301,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test verifies whether all the enabling table regions assigned only once during master startup.    *     * @throws KeeperException    * @throws IOException    * @throws Exception    */
+comment|/**    * Test verifies whether all the enabling table regions assigned only once during master startup.    *    * @throws KeeperException    * @throws IOException    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -5428,8 +5461,15 @@ argument_list|()
 argument_list|,
 name|am
 argument_list|,
+operator|new
+name|NullTableLockManager
+argument_list|()
+argument_list|,
 literal|true
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 operator|.
 name|process
 argument_list|()
@@ -6311,6 +6351,10 @@ operator|.
 name|balancer
 argument_list|,
 name|executor
+argument_list|,
+operator|new
+name|NullTableLockManager
+argument_list|()
 argument_list|)
 decl_stmt|;
 return|return
@@ -6376,6 +6420,10 @@ parameter_list|,
 specifier|final
 name|ExecutorService
 name|service
+parameter_list|,
+specifier|final
+name|TableLockManager
+name|tableLockManager
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -6395,6 +6443,8 @@ argument_list|,
 name|service
 argument_list|,
 literal|null
+argument_list|,
+name|tableLockManager
 argument_list|)
 expr_stmt|;
 name|this

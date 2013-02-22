@@ -29,18 +29,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -153,6 +141,18 @@ name|ExecutorService
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
 begin_comment
 comment|/**  * Services Master supplies  */
 end_comment
@@ -190,6 +190,12 @@ comment|/**    * @return Master's instance of {@link ExecutorService}    */
 specifier|public
 name|ExecutorService
 name|getExecutorService
+parameter_list|()
+function_decl|;
+comment|/**    * @return Master's instance of {@link TableLockManager}    */
+specifier|public
+name|TableLockManager
+name|getTableLockManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */

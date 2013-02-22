@@ -179,8 +179,6 @@ specifier|final
 name|MasterServices
 name|masterServices
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(
@@ -195,16 +193,31 @@ argument_list|,
 name|masterServices
 argument_list|)
 expr_stmt|;
-comment|// Check table exists.
-name|getTableDescriptor
-argument_list|()
-expr_stmt|;
 comment|// This is the new schema we are going to write out as this modification.
 name|this
 operator|.
 name|htd
 operator|=
 name|htd
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|prepareWithTableLock
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|super
+operator|.
+name|prepareWithTableLock
+argument_list|()
+expr_stmt|;
+comment|// Check table exists.
+name|getTableDescriptor
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
