@@ -660,8 +660,6 @@ expr_stmt|;
 block|}
 comment|// Disabled until we fix hbase-7520
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
