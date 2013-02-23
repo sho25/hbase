@@ -47,20 +47,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|util
@@ -151,9 +137,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
-name|CellTool
+name|CellUtil
 import|;
 end_import
 
@@ -168,7 +152,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|KeyValueTool
+name|KeyValueUtil
 block|{
 comment|/**************** length *********************/
 specifier|public
@@ -519,7 +503,7 @@ argument_list|)
 expr_stmt|;
 name|nextOffset
 operator|=
-name|CellTool
+name|CellUtil
 operator|.
 name|copyRowTo
 argument_list|(
@@ -548,7 +532,7 @@ argument_list|)
 expr_stmt|;
 name|nextOffset
 operator|=
-name|CellTool
+name|CellUtil
 operator|.
 name|copyFamilyTo
 argument_list|(
@@ -561,7 +545,7 @@ argument_list|)
 expr_stmt|;
 name|nextOffset
 operator|=
-name|CellTool
+name|CellUtil
 operator|.
 name|copyQualifierTo
 argument_list|(
@@ -676,7 +660,7 @@ argument_list|,
 name|pos
 argument_list|)
 expr_stmt|;
-name|CellTool
+name|CellUtil
 operator|.
 name|copyValueTo
 argument_list|(
@@ -1133,21 +1117,21 @@ name|KeyValue
 operator|.
 name|createFirstOnRow
 argument_list|(
-name|CellTool
+name|CellUtil
 operator|.
 name|getRowArray
 argument_list|(
 name|in
 argument_list|)
 argument_list|,
-name|CellTool
+name|CellUtil
 operator|.
 name|getFamilyArray
 argument_list|(
 name|in
 argument_list|)
 argument_list|,
-name|CellTool
+name|CellUtil
 operator|.
 name|getQualifierArray
 argument_list|(
@@ -1160,6 +1144,31 @@ name|getTimestamp
 argument_list|()
 operator|-
 literal|1
+argument_list|)
+return|;
+block|}
+comment|/*************** misc **********************************/
+comment|/**    * @param cell    * @return<code>cell<code> if it is an instance of {@link KeyValue} else we will return a    * new {@link KeyValue} instance made from<code>cell</code>    */
+specifier|public
+specifier|static
+name|Cell
+name|ensureKeyValue
+parameter_list|(
+specifier|final
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+name|cell
+operator|instanceof
+name|KeyValue
+condition|?
+name|cell
+else|:
+name|copyToNewKeyValue
+argument_list|(
+name|cell
 argument_list|)
 return|;
 block|}

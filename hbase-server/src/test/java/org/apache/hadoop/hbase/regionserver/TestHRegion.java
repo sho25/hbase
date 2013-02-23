@@ -1091,8 +1091,6 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
 import|;
 end_import
@@ -13475,7 +13473,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This method tests https://issues.apache.org/jira/browse/HBASE-2516.    * @throws IOException     */
+comment|/**    * This method tests https://issues.apache.org/jira/browse/HBASE-2516.    * @throws IOException    */
 specifier|public
 name|void
 name|testGetScanner_WithRegionClosed
@@ -23490,7 +23488,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Testcase to check state of region initialization task set to ABORTED or not if any exceptions    * during initialization    *     * @throws Exception    */
+comment|/**    * Testcase to check state of region initialization task set to ABORTED or not if any exceptions    * during initialization    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

@@ -33,8 +33,20 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellScanner
+import|;
+end_import
+
 begin_comment
-comment|/**  * An extension of CellScanner indicating the scanner supports iterating backwards through cells.  *<p>  * Note: This was not added to suggest that HBase should support client facing reverse Scanners, but  * because some {@link CellSearcher} implementations, namely PrefixTree, need a method of backing up  * if the positionAt(..) method goes past the requested cell.  */
+comment|/**  * An extension of CellScanner indicating the scanner supports iterating backwards through cells.  *<p>  * Note: This was not added to suggest that HBase should support client facing reverse Scanners,  * but  * because some {@link CellSearcher} implementations, namely PrefixTree, need a method of backing  * up if the positionAt(..) method goes past the requested cell.  */
 end_comment
 
 begin_interface
@@ -48,12 +60,12 @@ name|ReversibleCellScanner
 extends|extends
 name|CellScanner
 block|{
-comment|/**    * Try to position the scanner one Cell before the current position.    * @return true if the operation was successful, meaning getCurrentCell() will return a valid    *         Cell.<br/>    *         false if there were no previous cells, meaning getCurrentCell() will return null.    *         Scanner position will be {@link org.apache.hbase.cell.CellScannerPosition#BEFORE_FIRST}    */
+comment|/**    * Try to position the scanner one Cell before the current position.    * @return true if the operation was successful, meaning getCurrentCell() will return a valid    *         Cell.<br/>    *         false if there were no previous cells, meaning getCurrentCell() will return null.    *         Scanner position will be    *         {@link org.apache.hbase.codec.prefixtree.scanner.CellScannerPosition#BEFORE_FIRST}    */
 name|boolean
 name|previous
 parameter_list|()
 function_decl|;
-comment|/**    * Try to position the scanner in the row before the current row.    * @param endOfRow true for the last cell in the previous row; false for the first cell    * @return true if the operation was successful, meaning getCurrentCell() will return a valid    *         Cell.<br/>    *         false if there were no previous cells, meaning getCurrentCell() will return null.    *         Scanner position will be {@link org.apache.hbase.cell.CellScannerPosition#BEFORE_FIRST}    */
+comment|/**    * Try to position the scanner in the row before the current row.    * @param endOfRow true for the last cell in the previous row; false for the first cell    * @return true if the operation was successful, meaning getCurrentCell() will return a valid    *         Cell.<br/>    *         false if there were no previous cells, meaning getCurrentCell() will return null.    *         Scanner position will be    *         {@link org.apache.hbase.codec.prefixtree.scanner.CellScannerPosition#BEFORE_FIRST}    */
 name|boolean
 name|previousRow
 parameter_list|(

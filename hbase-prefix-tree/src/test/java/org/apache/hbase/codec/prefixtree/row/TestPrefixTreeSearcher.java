@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -133,23 +133,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellScannerPosition
 import|;
 end_import
 
@@ -186,6 +170,24 @@ operator|.
 name|encode
 operator|.
 name|PrefixTreeEncoder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|scanner
+operator|.
+name|CellScannerPosition
 import|;
 end_import
 
@@ -434,7 +436,7 @@ while|while
 condition|(
 name|searcher
 operator|.
-name|next
+name|advance
 argument_list|()
 condition|)
 block|{
@@ -459,7 +461,7 @@ name|outputCell
 init|=
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 decl_stmt|;
 comment|// check all 3 permutations of equals()
@@ -605,13 +607,13 @@ decl_stmt|;
 name|KeyValue
 name|outputKv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -714,7 +716,7 @@ name|foundKv
 init|=
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 decl_stmt|;
 name|Assert
@@ -821,7 +823,7 @@ comment|//nextRow
 name|KeyValue
 name|inputNextRow
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|createFirstKeyInNextRow
 argument_list|(
@@ -895,7 +897,7 @@ comment|//previous KV
 name|KeyValue
 name|inputPreviousKv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|previousKey
 argument_list|(
@@ -987,7 +989,7 @@ argument_list|)
 argument_list|,
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 expr_stmt|;

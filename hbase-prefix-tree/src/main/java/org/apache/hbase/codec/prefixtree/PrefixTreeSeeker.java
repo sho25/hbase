@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -109,23 +109,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
-name|CellScannerPosition
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellTool
+name|CellUtil
 import|;
 end_import
 
@@ -162,6 +146,24 @@ operator|.
 name|decode
 operator|.
 name|PrefixTreeArraySearcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|scanner
+operator|.
+name|CellScannerPosition
 import|;
 end_import
 
@@ -257,13 +259,13 @@ name|getKeyDeepCopy
 parameter_list|()
 block|{
 return|return
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyKeyToNewByteBuffer
 argument_list|(
 name|ptSearcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 return|;
@@ -276,13 +278,13 @@ name|getValueShallowCopy
 parameter_list|()
 block|{
 return|return
-name|CellTool
+name|CellUtil
 operator|.
 name|getValueBufferShallowCopy
 argument_list|(
 name|ptSearcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 return|;
@@ -296,13 +298,13 @@ name|getKeyValueBuffer
 parameter_list|()
 block|{
 return|return
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewByteBuffer
 argument_list|(
 name|ptSearcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 return|;
@@ -316,28 +318,27 @@ name|getKeyValue
 parameter_list|()
 block|{
 return|return
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|ptSearcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Currently unused.    *<p/>    * A nice, lightweight reference, though the underlying cell is transient.  This method may return    * the same reference to the backing PrefixTreeCell repeatedly, while other implementations may    * return a different reference for each Cell.    *<p/>    * The goal will be to transition the upper layers of HBase, like Filters and KeyValueHeap, to use    * this method instead of the getKeyValue() methods above.    */
-comment|//  @Override
+comment|/**    * Currently unused.    *<p/>    * A nice, lightweight reference, though the underlying cell is transient. This method may return    * the same reference to the backing PrefixTreeCell repeatedly, while other implementations may    * return a different reference for each Cell.    *<p/>    * The goal will be to transition the upper layers of HBase, like Filters and KeyValueHeap, to    * use this method instead of the getKeyValue() methods above.    */
 specifier|public
 name|Cell
-name|getCurrent
+name|get
 parameter_list|()
 block|{
 return|return
 name|ptSearcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 return|;
 block|}
@@ -364,7 +365,7 @@ block|{
 return|return
 name|ptSearcher
 operator|.
-name|next
+name|advance
 argument_list|()
 return|;
 block|}
@@ -377,7 +378,7 @@ block|{
 return|return
 name|ptSearcher
 operator|.
-name|next
+name|advance
 argument_list|()
 return|;
 block|}
@@ -389,7 +390,7 @@ name|USE_POSITION_BEFORE
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Seek forward only (should be called reseekToKeyInBlock?).    *<p/>    * If the exact key is found look at the seekBefore variable and:<br/>    * - if true: go to the previous key if it's true<br/>    * - if false: stay on the exact key    *<p/>    * If the exact key is not found, then go to the previous key *if possible*, but remember to leave    * the scanner in a valid state if possible.    *<p/>    * @param keyOnlyBytes KeyValue format of a Cell's key at which to position the seeker    * @param offset offset into the keyOnlyBytes array    * @param length number of bytes of the keyOnlyBytes array to use    * @param forceBeforeOnExactMatch if an exact match is found and seekBefore=true, back up one Cell    * @return 0 if the seeker is on the exact key<br/>    *         1 if the seeker is not on the key for any reason, including seekBefore being true    */
+comment|/**    * Seek forward only (should be called reseekToKeyInBlock?).    *<p/>    * If the exact key is found look at the seekBefore variable and:<br/>    * - if true: go to the previous key if it's true<br/>    * - if false: stay on the exact key    *<p/>    * If the exact key is not found, then go to the previous key *if possible*, but remember to    * leave the scanner in a valid state if possible.    *<p/>    * @param keyOnlyBytes KeyValue format of a Cell's key at which to position the seeker    * @param offset offset into the keyOnlyBytes array    * @param length number of bytes of the keyOnlyBytes array to use    * @param forceBeforeOnExactMatch if an exact match is found and seekBefore=true, back up 1 Cell    * @return 0 if the seeker is on the exact key<br/>    *         1 if the seeker is not on the key for any reason, including seekBefore being true    */
 annotation|@
 name|Override
 specifier|public

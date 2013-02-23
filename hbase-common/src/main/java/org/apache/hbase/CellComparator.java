@@ -10,8 +10,6 @@ operator|.
 name|apache
 operator|.
 name|hbase
-operator|.
-name|cell
 package|;
 end_package
 
@@ -81,18 +79,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -106,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compare two traditional HBase cells.  *  * Note: This comparator is not valid for -ROOT- and .META. tables.  */
+comment|/**  * Compare two HBase cells.  Do not use this method comparing<code>-ROOT-</code> or  *<code>.META.</code> cells.  Cells from these tables need a specialized comparator, one that  * takes account of the special formatting of the row where we have commas to delimit table from  * regionname, from row.  See KeyValue for how it has a special comparator to do .META. cells  * and yet another for -ROOT-.  */
 end_comment
 
 begin_class

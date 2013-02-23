@@ -512,6 +512,27 @@ name|cl
 return|;
 block|}
 comment|/**    * Compression algorithms. The ordinal of these cannot change or else you    * risk breaking all existing HFiles out there.  Even the ones that are    * not compressed! (They use the NONE algorithm)    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"SE_TRANSIENT_FIELD_NOT_RESTORED"
+argument_list|,
+name|justification
+operator|=
+literal|"We are not serializing so doesn't apply (not sure why transient though)"
+argument_list|)
 specifier|public
 specifier|static
 enum|enum

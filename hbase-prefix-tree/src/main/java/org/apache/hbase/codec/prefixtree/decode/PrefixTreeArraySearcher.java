@@ -53,23 +53,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
-name|CellScannerPosition
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellTool
+name|CellUtil
 import|;
 end_import
 
@@ -86,6 +70,24 @@ operator|.
 name|prefixtree
 operator|.
 name|PrefixTreeBlockMeta
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|scanner
+operator|.
+name|CellScannerPosition
 import|;
 end_import
 
@@ -122,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Searcher extends the capabilities of the Scanner + ReversibleScanner to add the ability to  * position itself on a requested Cell without scanning through cells before it. The PrefixTree is  * set up to be a Trie of rows, so finding a particular row is extremely cheap.  *<p/>  * Once it finds the row, it does a binary search through the cells inside the row, which is not as  * fast as the trie search, but faster than iterating through every cell like existing block formats  * do. For this reason, this implementation is targeted towards schemas where rows are narrow enough  * to have several or many per block, and where you are generally looking for the entire row or the  * first cell. It will still be fast for wide rows or point queries, but could be improved upon.  */
+comment|/**  * Searcher extends the capabilities of the Scanner + ReversibleScanner to add the ability to  * position itself on a requested Cell without scanning through cells before it. The PrefixTree is  * set up to be a Trie of rows, so finding a particular row is extremely cheap.  *<p/>  * Once it finds the row, it does a binary search through the cells inside the row, which is not as  * fast as the trie search, but faster than iterating through every cell like existing block  * formats  * do. For this reason, this implementation is targeted towards schemas where rows are narrow  * enough  * to have several or many per block, and where you are generally looking for the entire row or  * the  * first cell. It will still be fast for wide rows or point queries, but could be improved upon.  */
 end_comment
 
 begin_class
@@ -300,7 +302,7 @@ comment|//keep hunting for the rest of the row
 name|byte
 name|searchForByte
 init|=
-name|CellTool
+name|CellUtil
 operator|.
 name|getRowByte
 argument_list|(
@@ -458,7 +460,7 @@ comment|//keep hunting for the rest of the row
 name|byte
 name|searchForByte
 init|=
-name|CellTool
+name|CellUtil
 operator|.
 name|getRowByte
 argument_list|(
@@ -839,7 +841,7 @@ return|;
 block|}
 if|if
 condition|(
-name|next
+name|advance
 argument_list|()
 condition|)
 block|{
@@ -998,7 +1000,7 @@ block|}
 name|byte
 name|keyByte
 init|=
-name|CellTool
+name|CellUtil
 operator|.
 name|getRowByte
 argument_list|(

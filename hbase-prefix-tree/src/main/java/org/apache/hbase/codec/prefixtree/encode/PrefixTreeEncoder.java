@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -161,23 +161,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
-name|CellOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellTool
+name|CellUtil
 import|;
 end_import
 
@@ -294,6 +278,20 @@ operator|.
 name|tokenize
 operator|.
 name|Tokenizer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|CellOutputStream
 import|;
 end_import
 
@@ -1027,7 +1025,7 @@ name|rowTokenizer
 operator|.
 name|addSorted
 argument_list|(
-name|CellTool
+name|CellUtil
 operator|.
 name|fillRowRange
 argument_list|(
@@ -1195,7 +1193,7 @@ operator|*
 name|totalValueBytes
 argument_list|)
 expr_stmt|;
-name|CellTool
+name|CellUtil
 operator|.
 name|copyValueTo
 argument_list|(
@@ -1239,7 +1237,7 @@ expr_stmt|;
 comment|// general
 name|totalUnencodedBytes
 operator|+=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|length
 argument_list|(
@@ -1267,7 +1265,7 @@ operator|==
 literal|0
 condition|)
 block|{
-name|CellTool
+name|CellUtil
 operator|.
 name|fillFamilyRange
 argument_list|(
@@ -1293,7 +1291,7 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-name|CellTool
+name|CellUtil
 operator|.
 name|fillQualifierRange
 argument_list|(

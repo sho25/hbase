@@ -115,8 +115,6 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
 import|;
 end_import
@@ -271,7 +269,7 @@ block|{
 name|int
 name|totalBytes
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|totalLengthWithMvccVersion
 argument_list|(
@@ -303,7 +301,7 @@ name|kvs
 argument_list|)
 control|)
 block|{
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|appendToByteBuffer
 argument_list|(
@@ -438,7 +436,7 @@ condition|)
 block|{
 name|kv
 operator|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|nextShallowCopy
 argument_list|(

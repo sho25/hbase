@@ -143,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -600,7 +600,7 @@ condition|(
 operator|(
 name|kv
 operator|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|nextShallowCopy
 argument_list|(
@@ -775,20 +775,20 @@ while|while
 condition|(
 name|searcher
 operator|.
-name|next
+name|advance
 argument_list|()
 condition|)
 block|{
 name|KeyValue
 name|currentCell
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -807,7 +807,7 @@ operator|.
 name|position
 argument_list|()
 decl_stmt|;
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|appendToByteArray
 argument_list|(
@@ -824,7 +824,7 @@ expr_stmt|;
 name|int
 name|keyValueLength
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|length
 argument_list|(
@@ -937,13 +937,13 @@ literal|null
 return|;
 block|}
 return|return
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyKeyToNewByteBuffer
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 return|;

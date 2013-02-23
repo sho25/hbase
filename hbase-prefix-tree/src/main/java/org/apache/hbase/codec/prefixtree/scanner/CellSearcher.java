@@ -45,20 +45,6 @@ name|Cell
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellScannerPosition
-import|;
-end_import
-
 begin_comment
 comment|/**  * Methods for seeking to a random {@link Cell} inside a sorted collection of cells. Indicates that  * the implementation is able to navigate between cells without iterating through every cell.  */
 end_comment
@@ -74,6 +60,11 @@ name|CellSearcher
 extends|extends
 name|ReversibleCellScanner
 block|{
+comment|/**    * Reset any state in the scanner so it appears it was freshly opened.    */
+name|void
+name|resetToBeforeFirstEntry
+parameter_list|()
+function_decl|;
 comment|/**    * Do everything within this scanner's power to find the key. Look forward and backwards.    *<p/>    * Abort as soon as we know it can't be found, possibly leaving the Searcher in an invalid state.    *<p/>    * @param key position the CellScanner exactly on this key    * @return true if the cell existed and getCurrentCell() holds a valid cell    */
 name|boolean
 name|positionAt
@@ -98,7 +89,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    * Note: Added for backwards compatibility with     * {@link org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek}    *<p/>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *<p/>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
+comment|/**    * Note: Added for backwards compatibility with    * {@link org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek}    *<p/>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *<p/>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
 name|boolean
 name|seekForwardTo
 parameter_list|(

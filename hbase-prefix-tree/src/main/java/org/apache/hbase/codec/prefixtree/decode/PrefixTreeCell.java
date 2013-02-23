@@ -57,7 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -80,8 +80,6 @@ operator|.
 name|apache
 operator|.
 name|hbase
-operator|.
-name|cell
 operator|.
 name|CellComparator
 import|;
@@ -304,7 +302,7 @@ block|{
 comment|//Temporary hack to maintain backwards compatibility with KeyValue.hashCode
 comment|//I don't think this is used in any hot code paths
 return|return
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
@@ -535,7 +533,7 @@ block|{
 name|KeyValue
 name|kv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(

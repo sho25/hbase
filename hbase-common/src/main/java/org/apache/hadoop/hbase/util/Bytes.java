@@ -2411,7 +2411,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert an int value to a byte array    * @param val value    * @return the byte array    */
+comment|/**    * Convert an int value to a byte array.  Big-endian.  Same as what DataOutputStream.writeInt    * does.    *    * @param val value    * @return the byte array    */
 specifier|public
 specifier|static
 name|byte

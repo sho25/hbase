@@ -30583,7 +30583,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes tableName = 1;
+comment|// optional bytes tableName = 1;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -30598,7 +30598,7 @@ name|ByteString
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|// required .ServerName lockOwner = 2;
+comment|// optional .ServerName lockOwner = 2;
 name|boolean
 name|hasLockOwner
 parameter_list|()
@@ -30639,7 +30639,7 @@ name|ServerNameOrBuilder
 name|getLockOwnerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required int64 threadId = 3;
+comment|// optional int64 threadId = 3;
 name|boolean
 name|hasThreadId
 parameter_list|()
@@ -30648,7 +30648,7 @@ name|long
 name|getThreadId
 parameter_list|()
 function_decl|;
-comment|// required bool isShared = 4;
+comment|// optional bool isShared = 4;
 name|boolean
 name|hasIsShared
 parameter_list|()
@@ -30797,7 +30797,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// optional bytes tableName = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -30848,7 +30848,7 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// required .ServerName lockOwner = 2;
+comment|// optional .ServerName lockOwner = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -30938,7 +30938,7 @@ return|return
 name|lockOwner_
 return|;
 block|}
-comment|// required int64 threadId = 3;
+comment|// optional int64 threadId = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -30977,7 +30977,7 @@ return|return
 name|threadId_
 return|;
 block|}
-comment|// required bool isShared = 4;
+comment|// optional bool isShared = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -31293,64 +31293,10 @@ literal|1
 return|;
 if|if
 condition|(
-operator|!
-name|hasTableName
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
 name|hasLockOwner
 argument_list|()
 condition|)
 block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasThreadId
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasIsShared
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 if|if
 condition|(
 operator|!
@@ -31368,6 +31314,7 @@ expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
 block|}
 name|memoizedIsInitialized
 operator|=
@@ -33875,48 +33822,10 @@ parameter_list|()
 block|{
 if|if
 condition|(
-operator|!
-name|hasTableName
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
 name|hasLockOwner
 argument_list|()
 condition|)
 block|{
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasThreadId
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasIsShared
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
 if|if
 condition|(
 operator|!
@@ -33930,6 +33839,7 @@ block|{
 return|return
 literal|false
 return|;
+block|}
 block|}
 return|return
 literal|true
@@ -34215,7 +34125,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// optional bytes tableName = 1;
 specifier|private
 name|com
 operator|.
@@ -34339,7 +34249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ServerName lockOwner = 2;
+comment|// optional .ServerName lockOwner = 2;
 specifier|private
 name|org
 operator|.
@@ -35033,7 +34943,7 @@ return|return
 name|lockOwnerBuilder_
 return|;
 block|}
-comment|// required int64 threadId = 3;
+comment|// optional int64 threadId = 3;
 specifier|private
 name|long
 name|threadId_
@@ -35112,7 +35022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bool isShared = 4;
+comment|// optional bool isShared = 4;
 specifier|private
 name|boolean
 name|isShared_
@@ -35756,11 +35666,11 @@ literal|"BLED\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010pos"
 operator|+
 literal|"ition\030\001 \002(\003\"$\n\017ReplicationLock\022\021\n\tlockOw"
 operator|+
-literal|"ner\030\001 \002(\t\"s\n\tTableLock\022\021\n\ttableName\030\001 \002("
+literal|"ner\030\001 \002(\t\"s\n\tTableLock\022\021\n\ttableName\030\001 \001("
 block|,
-literal|"\014\022\036\n\tlockOwner\030\002 \002(\0132\013.ServerName\022\020\n\010thr"
+literal|"\014\022\036\n\tlockOwner\030\002 \001(\0132\013.ServerName\022\020\n\010thr"
 operator|+
-literal|"eadId\030\003 \002(\003\022\020\n\010isShared\030\004 \002(\010\022\017\n\007purpose"
+literal|"eadId\030\003 \001(\003\022\020\n\010isShared\030\004 \001(\010\022\017\n\007purpose"
 operator|+
 literal|"\030\005 \001(\tBE\n*org.apache.hadoop.hbase.protob"
 operator|+

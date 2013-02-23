@@ -869,7 +869,7 @@ name|abs
 argument_list|(
 name|randomizer
 operator|.
-name|nextLong
+name|nextInt
 argument_list|()
 argument_list|)
 operator|/

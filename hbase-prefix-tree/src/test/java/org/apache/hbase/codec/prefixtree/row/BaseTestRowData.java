@@ -51,8 +51,6 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
 import|;
 end_import

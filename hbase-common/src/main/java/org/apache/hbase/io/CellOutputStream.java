@@ -11,7 +11,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
+name|io
 package|;
 end_package
 
@@ -65,8 +65,20 @@ name|Cell
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellScanner
+import|;
+end_import
+
 begin_comment
-comment|/**  * Accepts a stream of Cells and adds them to its internal data structure. This can be used to build  * a block of cells during compactions and flushes, or to build a byte[] to send to the client. This  * could be backed by a List<KeyValue>, but more efficient implementations will append results to a  * byte[] to eliminate overhead, and possibly encode the cells further.  */
+comment|/**  * Accepts a stream of Cells. This can be used to build a block of cells during compactions  * and flushes, or to build a byte[] to send to the client. This could be backed by a  * List<KeyValue>, but more efficient implementations will append results to a  * byte[] to eliminate overhead, and possibly encode the cells further.  *<p>To read Cells, use {@link CellScanner}  * @see CellScanner  */
 end_comment
 
 begin_interface
@@ -82,15 +94,17 @@ specifier|public
 interface|interface
 name|CellOutputStream
 block|{
-comment|/**    * Implementation must copy the entire state of the Cell. If the appended Cell is modified    * immediately after the append method returns, the modifications must have absolutely no effect    * on the copy of the Cell that was added to the appender. For example, calling someList.add(cell)    * is not correct.    */
+comment|/**    * Implementation must copy the entire state of the Cell. If the written Cell is modified    * immediately after the write method returns, the modifications must have absolutely no effect    * on the copy of the Cell that was added in the write.    * @param cell Cell to write out    * @throws IOException    */
 name|void
 name|write
 parameter_list|(
 name|Cell
 name|cell
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Let the implementation decide what to do.  Usually means writing accumulated data into a byte[]    * that can then be read from the implementation to be sent to disk, put in the block cache, or    * sent over the network.    */
+comment|/**    * Let the implementation decide what to do.  Usually means writing accumulated data into a    * byte[] that can then be read from the implementation to be sent to disk, put in the block    * cache, or sent over the network.    * @throws IOException    */
 name|void
 name|flush
 parameter_list|()

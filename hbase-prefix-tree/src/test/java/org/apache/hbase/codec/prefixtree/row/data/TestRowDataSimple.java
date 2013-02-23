@@ -97,23 +97,7 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|cell
-operator|.
-name|CellScannerPosition
 import|;
 end_import
 
@@ -132,6 +116,24 @@ operator|.
 name|row
 operator|.
 name|BaseTestRowData
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|scanner
+operator|.
+name|CellScannerPosition
 import|;
 end_import
 
@@ -424,7 +426,7 @@ expr_stmt|;
 comment|// test first cell
 name|searcher
 operator|.
-name|next
+name|advance
 argument_list|()
 expr_stmt|;
 name|Cell
@@ -432,7 +434,7 @@ name|first
 init|=
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 decl_stmt|;
 name|Assert
@@ -489,7 +491,7 @@ argument_list|)
 argument_list|,
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 argument_list|)
@@ -557,7 +559,7 @@ name|equals
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|,
 name|d
@@ -600,7 +602,7 @@ name|equals
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|,
 name|d
@@ -697,7 +699,7 @@ name|equals
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|,
 name|d
@@ -722,7 +724,7 @@ argument_list|)
 argument_list|,
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -812,7 +814,7 @@ name|equals
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|,
 name|CollectionUtils

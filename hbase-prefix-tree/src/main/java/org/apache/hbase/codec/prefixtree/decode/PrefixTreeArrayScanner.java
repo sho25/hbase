@@ -53,9 +53,19 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
-operator|.
 name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellScanner
 import|;
 end_import
 
@@ -152,24 +162,6 @@ operator|.
 name|timestamp
 operator|.
 name|TimestampDecoder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|codec
-operator|.
-name|prefixtree
-operator|.
-name|scanner
-operator|.
-name|CellScanner
 import|;
 end_import
 
@@ -524,8 +516,7 @@ name|resetToBeforeFirstEntry
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|// Does this have to be in the CellScanner Interface?  TODO
 specifier|public
 name|void
 name|resetToBeforeFirstEntry
@@ -617,8 +608,8 @@ comment|/********************** CellScanner **********************/
 annotation|@
 name|Override
 specifier|public
-name|PrefixTreeCell
-name|getCurrent
+name|Cell
+name|current
 parameter_list|()
 block|{
 if|if
@@ -632,6 +623,9 @@ literal|null
 return|;
 block|}
 return|return
+operator|(
+name|Cell
+operator|)
 name|this
 return|;
 block|}
@@ -678,10 +672,10 @@ name|String
 name|toString
 parameter_list|()
 block|{
-name|PrefixTreeCell
+name|Cell
 name|currentCell
 init|=
-name|getCurrent
+name|current
 argument_list|()
 decl_stmt|;
 if|if
@@ -696,7 +690,12 @@ literal|"null"
 return|;
 block|}
 return|return
+operator|(
+operator|(
+name|PrefixTreeCell
+operator|)
 name|currentCell
+operator|)
 operator|.
 name|getKeyValueString
 argument_list|()
@@ -712,7 +711,7 @@ name|reInitFirstNode
 argument_list|()
 expr_stmt|;
 return|return
-name|next
+name|advance
 argument_list|()
 return|;
 block|}
@@ -720,7 +719,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|next
+name|advance
 parameter_list|()
 block|{
 if|if

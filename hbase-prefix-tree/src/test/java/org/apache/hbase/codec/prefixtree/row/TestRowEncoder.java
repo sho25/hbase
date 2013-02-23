@@ -103,7 +103,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTool
+name|KeyValueUtil
 import|;
 end_import
 
@@ -593,7 +593,7 @@ while|while
 condition|(
 name|searcher
 operator|.
-name|next
+name|advance
 argument_list|()
 condition|)
 block|{
@@ -616,13 +616,13 @@ decl_stmt|;
 name|KeyValue
 name|outputKv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -714,13 +714,13 @@ decl_stmt|;
 name|KeyValue
 name|outputKv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -805,7 +805,7 @@ condition|)
 block|{
 name|searcher
 operator|.
-name|next
+name|advance
 argument_list|()
 expr_stmt|;
 name|searcher
@@ -845,13 +845,13 @@ decl_stmt|;
 name|KeyValue
 name|outputKv
 init|=
-name|KeyValueTool
+name|KeyValueUtil
 operator|.
 name|copyToNewKeyValue
 argument_list|(
 name|searcher
 operator|.
-name|getCurrent
+name|current
 argument_list|()
 argument_list|)
 decl_stmt|;

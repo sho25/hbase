@@ -11,7 +11,11 @@ name|apache
 operator|.
 name|hbase
 operator|.
-name|cell
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|scanner
 package|;
 end_package
 
@@ -44,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An indicator of the state of the scanner after an operation such as nextCell() or positionAt(..).  * For example:  *<ul>  *<li>In a DataBlockScanner, the AFTER_LAST position indicates to the parent StoreFileScanner that  * it should load the next block.</li>  *<li>In a StoreFileScanner, the AFTER_LAST position indicates that the file has been exhausted.</li>  *<li>In a RegionScanner, the AFTER_LAST position indicates that the scanner should move to the  * next region.</li>  *</ul>  */
+comment|/**  * An indicator of the state of the scanner after an operation such as nextCell() or  * positionAt(..). For example:  *<ul>  *<li>In a DataBlockScanner, the AFTER_LAST position indicates to the parent StoreFileScanner that  * it should load the next block.</li>  *<li>In a StoreFileScanner, the AFTER_LAST position indicates that the file has been exhausted.  *</li>  *<li>In a RegionScanner, the AFTER_LAST position indicates that the scanner should move to the  * next region.</li>  *</ul>  */
 end_comment
 
 begin_enum
