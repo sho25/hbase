@@ -3746,7 +3746,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param snapshotTimeRangeTracker    * @param flushedSize The number of bytes flushed    * @param status    * @return Path The path name of the tmp file to which the store was flushed    * @throws IOException    */
-specifier|private
+specifier|protected
 name|Path
 name|flushCache
 parameter_list|(

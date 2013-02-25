@@ -6558,6 +6558,31 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|rsServices
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|rsServices
+operator|.
+name|isAborted
+argument_list|()
+condition|)
+block|{
+comment|// Don't flush when server aborting, it's unsafe
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Aborting flush because server is abortted..."
+argument_list|)
+throw|;
+block|}
 specifier|final
 name|long
 name|startTime
