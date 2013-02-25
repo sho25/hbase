@@ -229,9 +229,13 @@ block|{
 name|HTableDescriptor
 name|htd
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
+argument_list|)
 decl_stmt|;
 specifier|final
 name|int

@@ -179,6 +179,9 @@ block|{
 name|HColumnDescriptor
 name|hcd
 init|=
+operator|new
+name|HColumnDescriptor
+argument_list|(
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
@@ -188,6 +191,7 @@ argument_list|()
 index|[
 literal|0
 index|]
+argument_list|)
 decl_stmt|;
 specifier|final
 name|int
