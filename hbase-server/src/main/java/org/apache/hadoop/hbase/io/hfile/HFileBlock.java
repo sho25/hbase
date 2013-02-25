@@ -20,26 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|BlockType
-operator|.
-name|MAGIC_LENGTH
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -223,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -387,22 +381,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|MemStore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -524,24 +502,6 @@ name|CHECKSUM_VERIFICATION_NUM_IO_THRESHOLD
 init|=
 literal|3
 decl_stmt|;
-comment|/** The size data structures with minor version is 0 */
-specifier|static
-specifier|final
-name|int
-name|HEADER_SIZE_NO_CHECKSUM
-init|=
-name|MAGIC_LENGTH
-operator|+
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -558,25 +518,6 @@ name|DONT_FILL_HEADER
 init|=
 literal|false
 decl_stmt|;
-comment|/** The size of a version 2 {@link HFile} block header, minor version 1.    * There is a 1 byte checksum type, followed by a 4 byte bytesPerChecksum    * followed by another 4 byte value to store sizeofDataOnDisk.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|HEADER_SIZE
-init|=
-name|HEADER_SIZE_NO_CHECKSUM
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_BYTE
-operator|+
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-decl_stmt|;
 comment|/**    * The size of block header when blockType is {@link BlockType#ENCODED_DATA}.    * This extends normal header by adding the id of encoder.    */
 specifier|public
 specifier|static
@@ -584,25 +525,13 @@ specifier|final
 name|int
 name|ENCODED_HEADER_SIZE
 init|=
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 operator|+
 name|DataBlockEncoding
 operator|.
 name|ID_SIZE
-decl_stmt|;
-comment|/** Just an array of bytes of the right size. */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|DUMMY_HEADER
-init|=
-operator|new
-name|byte
-index|[
-name|HEADER_SIZE
-index|]
 decl_stmt|;
 specifier|static
 specifier|final
@@ -613,7 +542,9 @@ init|=
 operator|new
 name|byte
 index|[
-name|HEADER_SIZE_NO_CHECKSUM
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 index|]
 decl_stmt|;
 specifier|public
@@ -941,7 +872,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * The on-disk size of the next block, including the header, obtained by    * peeking into the first {@link HEADER_SIZE} bytes of the next block's    * header, or -1 if unknown.    */
+comment|/**    * The on-disk size of the next block, including the header, obtained by    * peeking into the first {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes of the next block's    * header, or -1 if unknown.    */
 specifier|private
 name|int
 name|nextBlockOnDiskSizeWithHeader
@@ -949,7 +880,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is mostly used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer.     *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader compressed size of the block if compression    *          is used, otherwise uncompressed size, header size not included    * @param uncompressedSizeWithoutHeader uncompressed size of the block,    *          header size not included. Equals onDiskSizeWithoutHeader if    *          compression is disabled.    * @param prevBlockOffset the offset of the previous block in the    *          {@link HFile}    * @param buf block header ({@link #HEADER_SIZE} bytes) followed by    *          uncompressed data. This    * @param fillHeader true to fill in the first {@link #HEADER_SIZE} bytes of    *          the buffer based on the header fields provided    * @param offset the file offset the block was read from    * @param minorVersion the minor version of this block    * @param bytesPerChecksum the number of bytes per checksum chunk    * @param checksumType the checksum algorithm to use    * @param onDiskDataSizeWithHeader size of header and data on disk not    *        including checksum data    */
+comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is mostly used when the block data has already been read and uncompressed,    * and is sitting in a byte buffer.     *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader compressed size of the block if compression    *          is used, otherwise uncompressed size, header size not included    * @param uncompressedSizeWithoutHeader uncompressed size of the block,    *          header size not included. Equals onDiskSizeWithoutHeader if    *          compression is disabled.    * @param prevBlockOffset the offset of the previous block in the    *          {@link HFile}    * @param buf block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes) followed by    *          uncompressed data. This    * @param fillHeader true to fill in the first {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes of    *          the buffer based on the header fields provided    * @param offset the file offset the block was read from    * @param minorVersion the minor version of this block    * @param bytesPerChecksum the number of bytes per checksum chunk    * @param checksumType the checksum algorithm to use    * @param onDiskDataSizeWithHeader size of header and data on disk not    *        including checksum data    */
 name|HFileBlock
 parameter_list|(
 name|BlockType
@@ -1176,7 +1107,9 @@ name|onDiskDataSizeWithHeader
 operator|=
 name|onDiskSizeWithoutHeader
 operator|+
-name|HEADER_SIZE_NO_CHECKSUM
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 expr_stmt|;
 block|}
 name|buf
@@ -1284,7 +1217,7 @@ return|return
 name|prevBlockOffset
 return|;
 block|}
-comment|/**    * Writes header fields into the first {@link HEADER_SIZE} bytes of the    * buffer. Resets the buffer position to the end of header as side effect.    */
+comment|/**    * Writes header fields into the first {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes of the    * buffer. Resets the buffer position to the end of header as side effect.    */
 specifier|private
 name|void
 name|overwriteHeader
@@ -1493,7 +1426,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Checks if the block is internally consistent, i.e. the first    * {@link #HEADER_SIZE} bytes of the buffer contain a valid header consistent    * with the fields. This function is primary for testing and debugging, and    * is not thread-safe, because it alters the internal buffer pointer.    */
+comment|/**    * Checks if the block is internally consistent, i.e. the first    * {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes of the buffer contain a valid header consistent    * with the fields. This function is primary for testing and debugging, and    * is not thread-safe, because it alters the internal buffer pointer.    */
 name|void
 name|sanityCheck
 parameter_list|()
@@ -1667,7 +1600,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|// We might optionally allocate HEADER_SIZE more bytes to read the next
+comment|// We might optionally allocate HFILEBLOCK_HEADER_SIZE more bytes to read the next
 comment|// block's, header, so there are two sensible values for buffer capacity.
 name|int
 name|size
@@ -2356,7 +2289,7 @@ specifier|private
 name|HFileBlockDefaultEncodingContext
 name|defaultBlockEncodingCtx
 decl_stmt|;
-comment|/**      * The stream we use to accumulate data in uncompressed format for each      * block. We reset this stream at the end of each block and reuse it. The      * header is written as the first {@link #HEADER_SIZE} bytes into this      * stream.      */
+comment|/**      * The stream we use to accumulate data in uncompressed format for each      * block. We reset this stream at the end of each block and reuse it. The      * header is written as the first {@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes into this      * stream.      */
 specifier|private
 name|ByteArrayOutputStream
 name|baosInMemory
@@ -2383,7 +2316,7 @@ name|byte
 index|[]
 name|onDiskChecksum
 decl_stmt|;
-comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} + {@link HFileBlock#HEADER_SIZE}.      * Does not store checksums.      */
+comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} + {@link org.apache.hadoop.hbase.HConstants#HFILEBLOCK_HEADER_SIZE}.      * Does not store checksums.      */
 specifier|private
 name|byte
 index|[]
@@ -2464,7 +2397,9 @@ name|compressionAlgorithm
 argument_list|,
 literal|null
 argument_list|,
-name|DUMMY_HEADER
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
 argument_list|)
 expr_stmt|;
 name|dataBlockEncodingCtx
@@ -2477,14 +2412,18 @@ name|newOnDiskDataBlockEncodingContext
 argument_list|(
 name|compressionAlgorithm
 argument_list|,
-name|DUMMY_HEADER
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
 name|bytesPerChecksum
 operator|<
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 condition|)
 block|{
 throw|throw
@@ -2495,7 +2434,9 @@ literal|"Unsupported value of bytesPerChecksum. "
 operator|+
 literal|" Minimum is "
 operator|+
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 operator|+
 literal|" but the configured value is "
 operator|+
@@ -2621,7 +2562,9 @@ name|baosInMemory
 operator|.
 name|write
 argument_list|(
-name|DUMMY_HEADER
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
 argument_list|)
 expr_stmt|;
 name|state
@@ -2877,13 +2820,17 @@ name|wrap
 argument_list|(
 name|uncompressedBytesWithHeader
 argument_list|,
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 argument_list|,
 name|uncompressedBytesWithHeader
 operator|.
 name|length
 operator|-
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 argument_list|)
 operator|.
 name|slice
@@ -2970,7 +2917,9 @@ name|offset
 argument_list|,
 name|onDiskSize
 operator|-
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 argument_list|)
 expr_stmt|;
 name|offset
@@ -2985,7 +2934,9 @@ name|offset
 argument_list|,
 name|uncompressedSize
 operator|-
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 argument_list|)
 expr_stmt|;
 name|offset
@@ -3266,7 +3217,9 @@ name|onDiskChecksum
 operator|.
 name|length
 operator|-
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 return|;
 block|}
 comment|/**      * Returns the on-disk size of the block. Can only be called in the      * "block ready" state.      *      * @return the on-disk size of the block ready to be written, including the      *         header size, the data and the checksum data.      */
@@ -3308,7 +3261,9 @@ name|uncompressedBytesWithHeader
 operator|.
 name|length
 operator|-
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 return|;
 block|}
 comment|/**      * The uncompressed size of the block data, including header size.      */
@@ -4217,7 +4172,9 @@ init|=
 operator|new
 name|byte
 index|[
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 index|]
 decl_stmt|;
 name|ByteBuffer
@@ -4231,7 +4188,9 @@ name|header
 argument_list|,
 literal|0
 argument_list|,
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 argument_list|)
 decl_stmt|;
 block|}
@@ -6130,11 +6089,15 @@ name|MINOR_VERSION_WITH_CHECKSUM
 condition|)
 block|{
 return|return
-name|HEADER_SIZE_NO_CHECKSUM
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 return|;
 block|}
 return|return
-name|HEADER_SIZE
+name|HConstants
+operator|.
+name|HFILEBLOCK_HEADER_SIZE
 return|;
 block|}
 comment|/**    * Convert the contents of the block header into a human readable string.    * This is mostly helpful for debugging. This assumes that the block    * has minor version> 0.    */

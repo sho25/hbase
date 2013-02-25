@@ -155,6 +155,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|ZooKeeperConnectionException
 import|;
 end_import
@@ -1390,7 +1392,7 @@ name|RegionNameAndIndex
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * @param sn Name of this mock regionserver    * @throws IOException     * @throws ZooKeeperConnectionException     */
+comment|/**    * @param sn Name of this mock regionserver    * @throws IOException     * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    */
 name|MockRegionServer
 parameter_list|(
 specifier|final

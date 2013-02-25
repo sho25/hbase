@@ -221,6 +221,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -290,6 +292,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|InvalidFamilyOperationException
 import|;
@@ -449,9 +453,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|wal
+name|exceptions
 operator|.
 name|OrphanHLogAfterSplitException
 import|;

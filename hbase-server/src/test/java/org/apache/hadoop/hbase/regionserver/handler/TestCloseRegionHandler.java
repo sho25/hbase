@@ -103,6 +103,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -216,8 +218,6 @@ operator|.
 name|hbase
 operator|.
 name|executor
-operator|.
-name|EventHandler
 operator|.
 name|EventType
 import|;
@@ -918,7 +918,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**       * Test if the region can be closed properly       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws DeserializationException        */
+comment|/**       * Test if the region can be closed properly       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws org.apache.hadoop.hbase.exceptions.DeserializationException       */
 annotation|@
 name|Test
 specifier|public

@@ -45,16 +45,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -94,20 +84,6 @@ operator|.
 name|impl
 operator|.
 name|Log4JLogger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileSystem
 import|;
 end_import
 
@@ -170,6 +146,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|FailedLogCloseException
 import|;
 end_import
 

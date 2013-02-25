@@ -69,6 +69,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|MasterNotRunningException
 import|;
 end_import
@@ -401,7 +403,7 @@ return|return
 name|newActive
 return|;
 block|}
-comment|/**    * return the index of the active master in the cluster    *    * @throws org.apache.hadoop.hbase.MasterNotRunningException    *          if no active master found    */
+comment|/**    * return the index of the active master in the cluster    *    * @throws org.apache.hadoop.hbase.exceptions.MasterNotRunningException    *          if no active master found    */
 specifier|private
 name|int
 name|getActiveMasterIndex

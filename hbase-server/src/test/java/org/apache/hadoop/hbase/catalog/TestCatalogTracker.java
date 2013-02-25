@@ -235,6 +235,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|NotAllMetaRegionsOnlineException
 import|;
 end_import
@@ -391,7 +393,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|exceptions
 operator|.
 name|ServerNotRunningYetException
 import|;

@@ -105,6 +105,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|InvalidFamilyOperationException
 import|;
 end_import
@@ -120,6 +122,22 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|executor
+operator|.
+name|EventType
 import|;
 end_import
 

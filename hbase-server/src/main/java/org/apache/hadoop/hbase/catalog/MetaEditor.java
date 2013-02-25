@@ -63,16 +63,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -156,6 +146,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|NotAllMetaRegionsOnlineException
 import|;
@@ -1560,7 +1552,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Deletes daughters references in offlined split parent.    * @param catalogTracker    * @param parent Parent row we're to remove daughter reference from    * @throws NotAllMetaRegionsOnlineException    * @throws IOException    */
+comment|/**    * Deletes daughters references in offlined split parent.    * @param catalogTracker    * @param parent Parent row we're to remove daughter reference from    * @throws org.apache.hadoop.hbase.exceptions.NotAllMetaRegionsOnlineException    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

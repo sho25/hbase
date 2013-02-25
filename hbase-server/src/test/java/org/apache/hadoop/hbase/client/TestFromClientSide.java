@@ -367,6 +367,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -947,7 +949,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 operator|.
 name|NoSuchColumnFamilyException
 import|;
@@ -1030,20 +1032,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|DataInputBuffer
 import|;
 end_import
 

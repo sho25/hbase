@@ -287,6 +287,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|UnknownScannerException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -1506,7 +1522,7 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using mapred api.    *     * @throws DoNotRetryIOException    */
+comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using mapred api.    *     * @throws org.apache.hadoop.hbase.exceptions.DoNotRetryIOException    */
 annotation|@
 name|Test
 specifier|public
@@ -1535,12 +1551,22 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using mapred api.    *     * @throws DoNotRetryIOException    */
+comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using mapred api.    *     * @throws org.apache.hadoop.hbase.exceptions.DoNotRetryIOException    */
 annotation|@
 name|Test
 argument_list|(
 name|expected
 operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|DoNotRetryIOException
 operator|.
 name|class
@@ -1669,7 +1695,7 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws DoNotRetryIOException    */
+comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.exceptions.DoNotRetryIOException    */
 annotation|@
 name|Test
 specifier|public
@@ -1700,12 +1726,22 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws DoNotRetryIOException    */
+comment|/**    * Run test assuming UnknownScannerException (which is a type of    * DoNotRetryIOException) using newer mapreduce api    *     * @throws InterruptedException    * @throws org.apache.hadoop.hbase.exceptions.DoNotRetryIOException    */
 annotation|@
 name|Test
 argument_list|(
 name|expected
 operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|DoNotRetryIOException
 operator|.
 name|class

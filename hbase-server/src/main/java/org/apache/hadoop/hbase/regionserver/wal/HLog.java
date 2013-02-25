@@ -53,26 +53,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|OutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|UUID
@@ -143,20 +123,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileStatus
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|FileSystem
 import|;
 end_import
@@ -172,6 +138,22 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|FailedLogCloseException
 import|;
 end_import
 
@@ -323,14 +305,6 @@ name|String
 name|META_HLOG_FILE_EXTN
 init|=
 literal|".meta"
-decl_stmt|;
-comment|/*    * Name of directory that holds recovered edits written by the wal log    * splitting code, one per region    */
-specifier|static
-specifier|final
-name|String
-name|RECOVERED_EDITS_DIR
-init|=
-literal|"recovered.edits"
 decl_stmt|;
 specifier|static
 specifier|final
@@ -689,7 +663,7 @@ name|long
 name|getSequenceNumber
 parameter_list|()
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -701,7 +675,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *     * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *     * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]

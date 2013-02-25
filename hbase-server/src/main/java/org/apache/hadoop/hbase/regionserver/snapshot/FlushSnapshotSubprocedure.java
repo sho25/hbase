@@ -229,7 +229,7 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 import|;
 end_import
 
@@ -507,7 +507,7 @@ name|IllegalStateException
 argument_list|(
 literal|"Attempting to take snapshot "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

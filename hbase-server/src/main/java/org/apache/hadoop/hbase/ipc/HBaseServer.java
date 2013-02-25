@@ -555,6 +555,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|CallerDisconnectedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ServerNotRunningYetException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|monitoring
 operator|.
 name|MonitoredRPCHandler
@@ -747,8 +779,6 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|HBaseSaslRpcServer
-operator|.
 name|AuthMethod
 import|;
 end_import
@@ -801,9 +831,23 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|HBaseSaslRpcServer
-operator|.
 name|SaslStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|SaslUtil
 import|;
 end_import
 
@@ -1225,31 +1269,6 @@ decl_stmt|;
 specifier|protected
 name|boolean
 name|isSecurityEnabled
-decl_stmt|;
-comment|/**    * The first four bytes of Hadoop RPC connections    */
-specifier|public
-specifier|static
-specifier|final
-name|ByteBuffer
-name|HEADER
-init|=
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
-literal|"hrpc"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|byte
-name|CURRENT_VERSION
-init|=
-literal|5
 decl_stmt|;
 comment|/**    * How many calls/handler are allowed in the queue.    */
 specifier|private
@@ -6269,11 +6288,11 @@ argument_list|()
 argument_list|,
 literal|null
 argument_list|,
-name|HBaseSaslRpcServer
+name|SaslUtil
 operator|.
 name|SASL_DEFAULT_REALM
 argument_list|,
-name|HBaseSaslRpcServer
+name|SaslUtil
 operator|.
 name|SASL_PROPS
 argument_list|,
@@ -6325,7 +6344,7 @@ name|String
 name|names
 index|[]
 init|=
-name|HBaseSaslRpcServer
+name|SaslUtil
 operator|.
 name|splitKerberosName
 argument_list|(
@@ -6396,7 +6415,7 @@ index|[
 literal|1
 index|]
 argument_list|,
-name|HBaseSaslRpcServer
+name|SaslUtil
 operator|.
 name|SASL_PROPS
 argument_list|,
@@ -7026,7 +7045,9 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|HEADER
+name|HConstants
+operator|.
+name|RPC_HEADER
 operator|.
 name|equals
 argument_list|(
@@ -7035,6 +7056,8 @@ argument_list|)
 operator|||
 name|version
 operator|!=
+name|HConstants
+operator|.
 name|CURRENT_VERSION
 condition|)
 block|{
@@ -7056,6 +7079,8 @@ name|version
 operator|+
 literal|" expected version "
 operator|+
+name|HConstants
+operator|.
 name|CURRENT_VERSION
 argument_list|)
 expr_stmt|;
@@ -7165,7 +7190,7 @@ argument_list|,
 operator|new
 name|IntWritable
 argument_list|(
-name|HBaseSaslRpcServer
+name|SaslUtil
 operator|.
 name|SWITCH_TO_SIMPLE_AUTH
 argument_list|)
@@ -7403,6 +7428,8 @@ name|errMsg
 init|=
 literal|"Server IPC version "
 operator|+
+name|HConstants
+operator|.
 name|CURRENT_VERSION
 operator|+
 literal|" cannot communicate with client version "

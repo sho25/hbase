@@ -297,6 +297,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|executor
+operator|.
+name|EventType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|MasterServices
@@ -350,6 +366,22 @@ operator|.
 name|hbase
 operator|.
 name|snapshot
+operator|.
+name|ClientSnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
 operator|.
 name|SnapshotCreationException
 import|;
@@ -897,7 +929,7 @@ name|reason
 init|=
 literal|"Failed taking snapshot "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -943,7 +975,7 @@ name|cancel
 argument_list|(
 literal|"Failed to take snapshot '"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -1135,7 +1167,7 @@ name|info
 argument_list|(
 literal|"Stop taking snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

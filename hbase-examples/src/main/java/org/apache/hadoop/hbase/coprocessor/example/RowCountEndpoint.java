@@ -123,7 +123,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
+name|exceptions
 operator|.
 name|CoprocessorException
 import|;

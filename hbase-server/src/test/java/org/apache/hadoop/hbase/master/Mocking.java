@@ -39,6 +39,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -96,8 +98,6 @@ operator|.
 name|hbase
 operator|.
 name|executor
-operator|.
-name|EventHandler
 operator|.
 name|EventType
 import|;

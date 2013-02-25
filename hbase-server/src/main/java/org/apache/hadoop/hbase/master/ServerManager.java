@@ -229,6 +229,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|ClockOutOfSyncException
 import|;
 end_import
@@ -256,6 +258,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|PleaseHoldException
 import|;
@@ -327,6 +331,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|YouAreDeadException
 import|;
 end_import
@@ -340,6 +346,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|ZooKeeperConnectionException
 import|;
@@ -1439,7 +1447,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName    * @param what START or REPORT    * @throws YouAreDeadException    */
+comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName    * @param what START or REPORT    * @throws org.apache.hadoop.hbase.exceptions.YouAreDeadException    */
 specifier|private
 name|void
 name|checkIsDead

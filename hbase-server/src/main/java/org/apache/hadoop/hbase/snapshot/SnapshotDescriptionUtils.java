@@ -165,7 +165,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|exceptions
+operator|.
+name|CorruptedSnapshotException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|SnapshotCreationException
 import|;
 end_import
 
@@ -186,22 +204,6 @@ operator|.
 name|HBaseProtos
 operator|.
 name|SnapshotDescription
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -384,79 +386,6 @@ name|SnapshotDescriptionUtils
 parameter_list|()
 block|{
 comment|// private constructor for utility class
-block|}
-comment|/**    * Check to make sure that the description of the snapshot requested is valid    * @param snapshot description of the snapshot    * @throws IllegalArgumentException if the name of the snapshot or the name of the table to    *           snapshot are not valid names.    */
-specifier|public
-specifier|static
-name|void
-name|assertSnapshotRequestIsValid
-parameter_list|(
-name|SnapshotDescription
-name|snapshot
-parameter_list|)
-throws|throws
-name|IllegalArgumentException
-block|{
-comment|// FIXME these method names is really bad - trunk will probably change
-comment|// .META. and -ROOT- snapshots are not allowed
-if|if
-condition|(
-name|HTableDescriptor
-operator|.
-name|isMetaTable
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|".META. and -ROOT- snapshots are not allowed"
-argument_list|)
-throw|;
-block|}
-comment|// make sure the snapshot name is valid
-name|HTableDescriptor
-operator|.
-name|isLegalTableName
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// make sure the table name is valid
-name|HTableDescriptor
-operator|.
-name|isLegalTableName
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @param conf {@link Configuration} from which to check for the timeout    * @param type type of snapshot being taken    * @param defaultMaxWaitTime Default amount of time to wait, if none is in the configuration    * @return the max amount of time the master should wait for a snapshot to complete    */
 specifier|public
@@ -943,7 +872,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Read in the {@link SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws CorruptedSnapshotException if the snapshot cannot be read    */
+comment|/**    * Read in the {@link SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws org.apache.hadoop.hbase.exceptions.CorruptedSnapshotException if the snapshot cannot be read    */
 specifier|public
 specifier|static
 name|SnapshotDescription
@@ -1030,7 +959,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Move the finished snapshot to its final, publicly visible directory - this marks the snapshot    * as 'complete'.    * @param snapshot description of the snapshot being tabken    * @param rootdir root directory of the hbase installation    * @param workingDir directory where the in progress snapshot was built    * @param fs {@link FileSystem} where the snapshot was built    * @throws SnapshotCreationException if the snapshot could not be moved    * @throws IOException the filesystem could not be reached    */
+comment|/**    * Move the finished snapshot to its final, publicly visible directory - this marks the snapshot    * as 'complete'.    * @param snapshot description of the snapshot being tabken    * @param rootdir root directory of the hbase installation    * @param workingDir directory where the in progress snapshot was built    * @param fs {@link FileSystem} where the snapshot was built    * @throws org.apache.hadoop.hbase.exceptions.SnapshotCreationException if the snapshot could not be moved    * @throws IOException the filesystem could not be reached    */
 specifier|public
 specifier|static
 name|void
@@ -1107,52 +1036,6 @@ name|snapshot
 argument_list|)
 throw|;
 block|}
-block|}
-comment|/**    * Returns a single line (no \n) representation of snapshot metadata.  Use this instead of    * {@link SnapshotDescription#toString()}.  We don't replace SnapshotDescrpition's toString    * because it is auto-generated by protoc.    * @param ssd    * @return Single line string with a summary of the snapshot parameters    */
-specifier|public
-specifier|static
-name|String
-name|toString
-parameter_list|(
-name|SnapshotDescription
-name|ssd
-parameter_list|)
-block|{
-if|if
-condition|(
-name|ssd
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
-return|return
-literal|"{ ss="
-operator|+
-name|ssd
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" table="
-operator|+
-name|ssd
-operator|.
-name|getTable
-argument_list|()
-operator|+
-literal|" type="
-operator|+
-name|ssd
-operator|.
-name|getType
-argument_list|()
-operator|+
-literal|" }"
-return|;
 block|}
 block|}
 end_class

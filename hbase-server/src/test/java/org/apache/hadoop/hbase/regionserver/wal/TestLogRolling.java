@@ -131,6 +131,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|FailedLogCloseException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -1142,7 +1158,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Tests that logs are deleted    * @throws IOException    * @throws FailedLogCloseException    */
+comment|/**    * Tests that logs are deleted    * @throws IOException    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    */
 annotation|@
 name|Test
 specifier|public

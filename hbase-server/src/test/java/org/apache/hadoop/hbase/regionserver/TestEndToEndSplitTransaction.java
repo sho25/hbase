@@ -261,6 +261,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|NotServingRegionException
 import|;
 end_import

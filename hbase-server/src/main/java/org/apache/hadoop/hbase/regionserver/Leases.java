@@ -69,6 +69,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|LeaseException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|HasThread
@@ -628,7 +644,7 @@ name|leaseName
 return|;
 block|}
 block|}
-comment|/**    * Renew a lease    *    * @param leaseName name of lease    * @throws LeaseException    */
+comment|/**    * Renew a lease    *    * @param leaseName name of lease    * @throws org.apache.hadoop.hbase.exceptions.LeaseException    */
 specifier|public
 name|void
 name|renewLease

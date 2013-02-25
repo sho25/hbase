@@ -255,6 +255,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|SnapshotCreationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -2175,7 +2193,7 @@ name|info
 argument_list|(
 literal|"Submitting snapshot request: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2203,7 +2221,7 @@ name|info
 argument_list|(
 literal|"Exception during snapshot request: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2222,7 +2240,7 @@ name|info
 argument_list|(
 literal|"Submitted snapshot request: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

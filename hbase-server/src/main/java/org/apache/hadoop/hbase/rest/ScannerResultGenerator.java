@@ -103,6 +103,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|UnknownScannerException
 import|;
 end_import

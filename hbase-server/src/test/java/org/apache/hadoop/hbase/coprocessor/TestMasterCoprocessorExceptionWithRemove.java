@@ -218,7 +218,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests unhandled exceptions thrown by coprocessors running on master.  * Expected result is that the master will remove the buggy coprocessor from  * its set of coprocessors and throw a org.apache.hadoop.hbase.DoNotRetryIOException  * back to the client.  * (HBASE-4014).  */
+comment|/**  * Tests unhandled exceptions thrown by coprocessors running on master.  * Expected result is that the master will remove the buggy coprocessor from  * its set of coprocessors and throw a org.apache.hadoop.hbase.exceptions.DoNotRetryIOException  * back to the client.  * (HBASE-4014).  */
 end_comment
 
 begin_class
@@ -824,7 +824,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-literal|"org.apache.hadoop.hbase.DoNotRetryIOException"
+literal|"org.apache.hadoop.hbase.exceptions.DoNotRetryIOException"
 argument_list|)
 condition|)
 block|{

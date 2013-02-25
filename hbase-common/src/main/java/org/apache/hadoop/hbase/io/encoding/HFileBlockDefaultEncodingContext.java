@@ -348,7 +348,7 @@ name|checkNotNull
 argument_list|(
 name|headerBytes
 argument_list|,
-literal|"Please pass HFileBlock.DUMMY_HEADER instead of null for param headerBytes"
+literal|"Please pass HFileBlock.HFILEBLOCK_DUMMY_HEADER instead of null for param headerBytes"
 argument_list|)
 expr_stmt|;
 block|}

@@ -273,6 +273,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|SmallTests
 import|;
 end_import
@@ -883,9 +897,9 @@ decl_stmt|;
 name|int
 name|osOffset
 init|=
-name|HFileBlock
+name|HConstants
 operator|.
-name|HEADER_SIZE_NO_CHECKSUM
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 operator|+
 literal|9
 decl_stmt|;
@@ -1320,9 +1334,9 @@ literal|0
 argument_list|,
 literal|2173
 operator|+
-name|HFileBlock
+name|HConstants
 operator|.
-name|HEADER_SIZE_NO_CHECKSUM
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 operator|+
 name|b
 operator|.
@@ -1362,9 +1376,9 @@ literal|0
 argument_list|,
 name|wrongCompressedSize
 operator|+
-name|HFileBlock
+name|HConstants
 operator|.
-name|HEADER_SIZE_NO_CHECKSUM
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 argument_list|,
 operator|-
 literal|1
@@ -1911,9 +1925,9 @@ specifier|final
 name|int
 name|HEADER_SIZE
 init|=
-name|HFileBlock
+name|HConstants
 operator|.
-name|HEADER_SIZE_NO_CHECKSUM
+name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2005,7 +2019,7 @@ name|byte
 index|[]
 name|onDiskBytesWithHeader
 decl_stmt|;
-comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} + {@link HFileBlock#HEADER_SIZE}.      */
+comment|/**      * Valid in the READY state. Contains the header and the uncompressed (but      * potentially encoded, if this is a data block) bytes, so the length is      * {@link #uncompressedSizeWithoutHeader} + {@link org.apache.hadoop.hbase.HConstants#HFILEBLOCK_HEADER_SIZE}.      */
 specifier|private
 name|byte
 index|[]

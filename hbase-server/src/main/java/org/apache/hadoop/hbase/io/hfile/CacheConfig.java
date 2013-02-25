@@ -1177,7 +1177,7 @@ name|getInt
 argument_list|(
 literal|"hbase.offheapcache.minblocksize"
 argument_list|,
-name|HFile
+name|HConstants
 operator|.
 name|DEFAULT_BLOCKSIZE
 argument_list|)

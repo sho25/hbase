@@ -371,6 +371,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -483,6 +485,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|MasterNotRunningException
 import|;
 end_import
@@ -497,6 +501,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|NotAllMetaRegionsOnlineException
 import|;
 end_import
@@ -510,6 +516,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|PleaseHoldException
 import|;
@@ -595,6 +603,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|TableNotDisabledException
 import|;
 end_import
@@ -608,6 +618,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|TableNotFoundException
 import|;
@@ -623,21 +635,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|UnknownRegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ZooKeeperConnectionException
 import|;
 end_import
 
@@ -801,8 +801,6 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|ExecutorService
-operator|.
 name|ExecutorType
 import|;
 end_import
@@ -881,7 +879,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|exceptions
 operator|.
 name|UnknownProtocolException
 import|;
@@ -2702,6 +2700,22 @@ operator|.
 name|security
 operator|.
 name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
+name|ClientSnapshotDescriptionUtils
 import|;
 end_import
 
@@ -5436,7 +5450,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws ZooKeeperConnectionException    * @throws IOException    */
+comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -13917,7 +13931,7 @@ name|debug
 argument_list|(
 literal|"Submitting snapshot request for:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -14200,7 +14214,7 @@ name|debug
 argument_list|(
 literal|"Checking to see if snapshot from request:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

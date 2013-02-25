@@ -223,6 +223,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|executor
+operator|.
+name|EventType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|MasterFileSystem
@@ -310,6 +326,22 @@ operator|.
 name|hbase
 operator|.
 name|snapshot
+operator|.
+name|ClientSnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
 operator|.
 name|RestoreSnapshotException
 import|;
@@ -570,7 +602,7 @@ name|debug
 argument_list|(
 literal|"Starting restore snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -693,7 +725,7 @@ name|info
 argument_list|(
 literal|"Restore snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -724,7 +756,7 @@ name|msg
 init|=
 literal|"restore snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -833,7 +865,7 @@ name|msg
 init|=
 literal|"Stopping restore snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

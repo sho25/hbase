@@ -385,6 +385,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -456,6 +458,22 @@ operator|.
 name|hbase
 operator|.
 name|RemoteExceptionHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|FileSystemVersionException
 import|;
 end_import
 
@@ -1423,7 +1441,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    * @throws DeserializationException     */
+comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    * @throws org.apache.hadoop.hbase.exceptions.DeserializationException    */
 end_comment
 
 begin_function

@@ -159,6 +159,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|NotAllMetaRegionsOnlineException
 import|;
 end_import
@@ -172,6 +174,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|TableExistsException
 import|;
@@ -290,6 +294,22 @@ operator|.
 name|hbase
 operator|.
 name|snapshot
+operator|.
+name|ClientSnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
 operator|.
 name|RestoreSnapshotException
 import|;
@@ -617,7 +637,7 @@ name|msg
 init|=
 literal|"clone snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

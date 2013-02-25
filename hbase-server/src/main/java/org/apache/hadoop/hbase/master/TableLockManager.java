@@ -171,6 +171,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|LockTimeoutException
 import|;
 end_import

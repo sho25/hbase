@@ -33,6 +33,22 @@ name|Put
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ConstraintException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Always non-gracefully fail on attempt  */
 end_comment

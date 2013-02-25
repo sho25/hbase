@@ -253,6 +253,22 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
+name|ClientSnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
 name|CopyRecoveredEditsTask
 import|;
 end_import
@@ -270,22 +286,6 @@ operator|.
 name|snapshot
 operator|.
 name|ReferenceRegionHFilesTask
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|snapshot
-operator|.
-name|SnapshotDescriptionUtils
 import|;
 end_import
 
@@ -543,7 +543,7 @@ name|info
 argument_list|(
 literal|"Starting to write region info and WALs for regions for offline snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -662,7 +662,7 @@ name|info
 argument_list|(
 literal|"Starting to copy tableinfo for offline snapshot: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -715,7 +715,7 @@ name|reason
 init|=
 literal|"Failed snapshot "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -756,7 +756,7 @@ name|debug
 argument_list|(
 literal|"Marking snapshot"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

@@ -581,6 +581,22 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
+name|ClientSnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|HBaseSnapshotException
 import|;
 end_import
@@ -595,7 +611,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|RestoreSnapshotException
 import|;
@@ -627,7 +643,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|SnapshotCreationException
 import|;
@@ -659,7 +675,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|SnapshotDoesNotExistException
 import|;
@@ -675,7 +691,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|SnapshotExistsException
 import|;
@@ -691,7 +707,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|TablePartiallyOpenException
 import|;
@@ -707,7 +723,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|UnknownSnapshotException
 import|;
@@ -1652,7 +1668,7 @@ block|}
 name|String
 name|ssString
 init|=
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -1944,7 +1960,7 @@ name|SnapshotCreationException
 argument_list|(
 literal|"Rejected taking "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -1953,7 +1969,7 @@ argument_list|)
 operator|+
 literal|" because we are already running another snapshot "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -1987,7 +2003,7 @@ name|SnapshotCreationException
 argument_list|(
 literal|"Rejected taking "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -1996,7 +2012,7 @@ argument_list|)
 operator|+
 literal|" because we are already have a restore in progress on the same snapshot "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2178,7 +2194,7 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2204,7 +2220,7 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2472,7 +2488,7 @@ name|debug
 argument_list|(
 literal|"Started snapshot: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2517,7 +2533,7 @@ name|debug
 argument_list|(
 literal|"Started snapshot: "
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2702,7 +2718,7 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2728,7 +2744,7 @@ name|workingDir
 operator|+
 literal|" for snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -2948,7 +2964,7 @@ name|msg
 init|=
 literal|"Couldn't clone the snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -3390,7 +3406,7 @@ name|msg
 init|=
 literal|"Couldn't restore the snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -3601,7 +3617,7 @@ name|debug
 argument_list|(
 literal|"Restore snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
@@ -3629,7 +3645,7 @@ name|debug
 argument_list|(
 literal|"Sentinel is not yet finished with restoring snapshot="
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

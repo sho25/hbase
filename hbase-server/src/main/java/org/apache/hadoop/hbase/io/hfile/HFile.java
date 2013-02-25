@@ -439,6 +439,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|CorruptHFileException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -722,17 +738,6 @@ init|=
 name|Integer
 operator|.
 name|MAX_VALUE
-decl_stmt|;
-comment|/**    * Default block size for an HFile.    */
-specifier|public
-specifier|final
-specifier|static
-name|int
-name|DEFAULT_BLOCKSIZE
-init|=
-literal|64
-operator|*
-literal|1024
 decl_stmt|;
 comment|/**    * Default compression: none.    */
 specifier|public

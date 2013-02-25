@@ -195,6 +195,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -293,6 +295,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|MasterNotRunningException
 import|;
 end_import
@@ -363,6 +367,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|UnknownRegionException
 import|;
 end_import
@@ -376,6 +382,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|ZooKeeperConnectionException
 import|;
@@ -472,8 +480,6 @@ operator|.
 name|hbase
 operator|.
 name|executor
-operator|.
-name|EventHandler
 operator|.
 name|EventType
 import|;
@@ -5491,7 +5497,7 @@ name|d
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Ensure single table region is not on same server as the single .META. table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws InterruptedException    */
+comment|/**    * Ensure single table region is not on same server as the single .META. table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    * @throws InterruptedException    */
 specifier|private
 name|int
 name|ensureTableRegionNotOnSameServerAsMeta

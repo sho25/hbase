@@ -133,20 +133,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -177,9 +163,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|exceptions
 operator|.
-name|CoprocessorRpcChannel
+name|CoprocessorException
 import|;
 end_import
 
@@ -209,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 operator|.
 name|WrongRegionException
 import|;
@@ -280,28 +266,6 @@ operator|.
 name|ClientProtos
 operator|.
 name|Mutate
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|Mutate
-operator|.
-name|MutateType
 import|;
 end_import
 
@@ -603,6 +567,16 @@ block|{
 comment|// rows are split between regions, do not retry
 throw|throw
 operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|DoNotRetryIOException
 argument_list|(
 name|msg

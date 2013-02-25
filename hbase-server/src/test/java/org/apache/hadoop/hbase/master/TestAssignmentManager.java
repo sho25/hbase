@@ -151,6 +151,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -235,6 +237,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|RegionException
 import|;
 end_import
@@ -304,6 +308,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|ZooKeeperConnectionException
 import|;
@@ -417,8 +423,6 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
-operator|.
 name|EventType
 import|;
 end_import
@@ -450,8 +454,6 @@ operator|.
 name|hbase
 operator|.
 name|executor
-operator|.
-name|ExecutorService
 operator|.
 name|ExecutorType
 import|;

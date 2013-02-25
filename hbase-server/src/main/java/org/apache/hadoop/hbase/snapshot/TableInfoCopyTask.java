@@ -291,7 +291,7 @@ name|debug
 argument_list|(
 literal|"Attempting to copy table info for snapshot:"
 operator|+
-name|SnapshotDescriptionUtils
+name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(

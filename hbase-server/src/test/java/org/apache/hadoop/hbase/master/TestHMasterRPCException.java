@@ -389,7 +389,7 @@ argument_list|()
 operator|.
 name|startsWith
 argument_list|(
-literal|"org.apache.hadoop.hbase.ipc.ServerNotRunningYetException: Server is not running yet"
+literal|"org.apache.hadoop.hbase.exceptions.ServerNotRunningYetException: Server is not running yet"
 argument_list|)
 condition|)
 block|{

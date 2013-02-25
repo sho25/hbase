@@ -288,7 +288,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventHandler.EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and  * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventHandler.EventType, EventHandler.EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventHandler.EventType)}.  */
+comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and  * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventType, EventHandler.EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventType)}.  */
 end_comment
 
 begin_class
@@ -339,8 +339,6 @@ comment|// listeners that are called before and after an event is processed
 specifier|private
 name|ConcurrentHashMap
 argument_list|<
-name|EventHandler
-operator|.
 name|EventType
 argument_list|,
 name|EventHandlerListener
@@ -350,8 +348,6 @@ init|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|EventHandler
-operator|.
 name|EventType
 argument_list|,
 name|EventHandlerListener
@@ -364,111 +360,6 @@ specifier|final
 name|String
 name|servername
 decl_stmt|;
-comment|/**    * The following is a list of all executor types, both those that run in the    * master and those that run in the regionserver.    */
-specifier|public
-enum|enum
-name|ExecutorType
-block|{
-comment|// Master executor services
-name|MASTER_CLOSE_REGION
-argument_list|(
-literal|1
-argument_list|)
-block|,
-name|MASTER_OPEN_REGION
-argument_list|(
-literal|2
-argument_list|)
-block|,
-name|MASTER_SERVER_OPERATIONS
-argument_list|(
-literal|3
-argument_list|)
-block|,
-name|MASTER_TABLE_OPERATIONS
-argument_list|(
-literal|4
-argument_list|)
-block|,
-name|MASTER_RS_SHUTDOWN
-argument_list|(
-literal|5
-argument_list|)
-block|,
-name|MASTER_META_SERVER_OPERATIONS
-argument_list|(
-literal|6
-argument_list|)
-block|,
-comment|// RegionServer executor services
-name|RS_OPEN_REGION
-argument_list|(
-literal|20
-argument_list|)
-block|,
-name|RS_OPEN_ROOT
-argument_list|(
-literal|21
-argument_list|)
-block|,
-name|RS_OPEN_META
-argument_list|(
-literal|22
-argument_list|)
-block|,
-name|RS_CLOSE_REGION
-argument_list|(
-literal|23
-argument_list|)
-block|,
-name|RS_CLOSE_ROOT
-argument_list|(
-literal|24
-argument_list|)
-block|,
-name|RS_CLOSE_META
-argument_list|(
-literal|25
-argument_list|)
-block|,
-name|RS_PARALLEL_SEEK
-argument_list|(
-literal|26
-argument_list|)
-block|;
-name|ExecutorType
-parameter_list|(
-name|int
-name|value
-parameter_list|)
-block|{}
-comment|/**      * @param serverName      * @return Conflation of the executor type and the passed servername.      */
-name|String
-name|getExecutorName
-parameter_list|(
-name|String
-name|serverName
-parameter_list|)
-block|{
-return|return
-name|this
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"-"
-operator|+
-name|serverName
-operator|.
-name|replace
-argument_list|(
-literal|"%"
-argument_list|,
-literal|"%%"
-argument_list|)
-return|;
-block|}
-block|}
 comment|/**    * Default constructor.    * @param servername Name of the hosting server.    */
 specifier|public
 name|ExecutorService
@@ -850,14 +741,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Subscribe to updates before and after processing instances of    * {@link EventHandler.EventType}.  Currently only one listener per    * event type.    * @param type Type of event we're registering listener for    * @param listener The listener to run.    */
+comment|/**    * Subscribe to updates before and after processing instances of    * {@link EventType}.  Currently only one listener per    * event type.    * @param type Type of event we're registering listener for    * @param listener The listener to run.    */
 specifier|public
 name|void
 name|registerListener
 parameter_list|(
 specifier|final
-name|EventHandler
-operator|.
 name|EventType
 name|type
 parameter_list|,
@@ -878,14 +767,12 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Stop receiving updates before and after processing instances of    * {@link EventHandler.EventType}    * @param type Type of event we're registering listener for    * @return The listener we removed or null if we did not remove it.    */
+comment|/**    * Stop receiving updates before and after processing instances of    * {@link EventType}    * @param type Type of event we're registering listener for    * @return The listener we removed or null if we did not remove it.    */
 specifier|public
 name|EventHandlerListener
 name|unregisterListener
 parameter_list|(
 specifier|final
-name|EventHandler
-operator|.
 name|EventType
 name|type
 parameter_list|)
@@ -1007,8 +894,6 @@ specifier|private
 specifier|final
 name|Map
 argument_list|<
-name|EventHandler
-operator|.
 name|EventType
 argument_list|,
 name|EventHandlerListener
@@ -1044,8 +929,6 @@ parameter_list|,
 specifier|final
 name|Map
 argument_list|<
-name|EventHandler
-operator|.
 name|EventType
 argument_list|,
 name|EventHandlerListener

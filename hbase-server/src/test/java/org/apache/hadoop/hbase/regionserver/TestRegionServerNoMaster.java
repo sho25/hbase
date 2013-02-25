@@ -119,6 +119,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|NotServingRegionException
 import|;
 end_import
@@ -167,7 +169,7 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
+name|EventType
 import|;
 end_import
 
@@ -1538,8 +1540,6 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|,
-name|EventHandler
-operator|.
 name|EventType
 operator|.
 name|RS_ZK_REGION_FAILED_OPEN
@@ -1685,8 +1685,6 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|,
-name|EventHandler
-operator|.
 name|EventType
 operator|.
 name|M_ZK_REGION_CLOSING

@@ -323,8 +323,6 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
-operator|.
 name|EventType
 import|;
 end_import

@@ -223,7 +223,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|exceptions
 operator|.
 name|HBaseSnapshotException
 import|;

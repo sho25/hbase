@@ -321,6 +321,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
 name|DeserializationException
 import|;
 end_import
@@ -362,6 +364,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 operator|.
 name|NotServingRegionException
 import|;
@@ -432,6 +436,24 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ServerNotRunningYetException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
 operator|.
 name|TableNotFoundException
 import|;
@@ -513,8 +535,6 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
-operator|.
 name|EventType
 import|;
 end_import
@@ -532,22 +552,6 @@ operator|.
 name|executor
 operator|.
 name|ExecutorService
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|ServerNotRunningYetException
 import|;
 end_import
 
@@ -651,7 +655,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 operator|.
 name|RegionAlreadyInTransitionException
 import|;
@@ -683,7 +687,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 operator|.
 name|RegionServerStoppedException
 import|;
@@ -9122,8 +9126,6 @@ name|watcher
 argument_list|,
 name|encodedName
 argument_list|,
-name|EventHandler
-operator|.
 name|EventType
 operator|.
 name|M_ZK_REGION_CLOSING
@@ -9141,8 +9143,6 @@ name|watcher
 argument_list|,
 name|encodedName
 argument_list|,
-name|EventHandler
-operator|.
 name|EventType
 operator|.
 name|RS_ZK_REGION_CLOSED
@@ -10550,7 +10550,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *    * @throws KeeperException    * @throws TableNotFoundException    * @throws IOException    */
+comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *    * @throws KeeperException    * @throws org.apache.hadoop.hbase.exceptions.TableNotFoundException    * @throws IOException    */
 specifier|private
 name|void
 name|recoverTableInEnablingState

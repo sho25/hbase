@@ -277,22 +277,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TestGet
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -314,7 +298,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link TestGet} is a medley of tests of get all done up as a single test.  * This class  */
+comment|/**  * TestGet is a medley of tests of get all done up as a single test.  * This class  */
 end_comment
 
 begin_class

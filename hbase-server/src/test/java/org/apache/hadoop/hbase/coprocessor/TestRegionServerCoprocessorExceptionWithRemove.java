@@ -210,7 +210,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests unhandled exceptions thrown by coprocessors running on regionserver.  * Expected result is that the master will remove the buggy coprocessor from  * its set of coprocessors and throw a org.apache.hadoop.hbase.DoNotRetryIOException  * back to the client.  * (HBASE-4014).  */
+comment|/**  * Tests unhandled exceptions thrown by coprocessors running on regionserver.  * Expected result is that the master will remove the buggy coprocessor from  * its set of coprocessors and throw a org.apache.hadoop.hbase.exceptions.DoNotRetryIOException  * back to the client.  * (HBASE-4014).  */
 end_comment
 
 begin_class
