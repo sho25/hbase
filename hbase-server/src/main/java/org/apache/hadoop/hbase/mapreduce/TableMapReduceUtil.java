@@ -1944,6 +1944,81 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
+comment|// explicitly pull a class from each module
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|class
+argument_list|,
+comment|// hbase-common
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|class
+argument_list|,
+comment|// hbase-protocol
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Put
+operator|.
+name|class
+argument_list|,
+comment|// hbase-client
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|codec
+operator|.
+name|prefixtree
+operator|.
+name|PrefixTreeCodec
+operator|.
+name|class
+argument_list|,
+comment|// hbase-prefix-tree
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CompatibilityFactory
+operator|.
+name|class
+argument_list|,
+comment|// hbase-hadoop-compat
+comment|// pull necessary dependencies
 name|org
 operator|.
 name|apache
@@ -1964,6 +2039,7 @@ name|Message
 operator|.
 name|class
 argument_list|,
+comment|// pull job classes
 name|job
 operator|.
 name|getMapOutputKeyClass
