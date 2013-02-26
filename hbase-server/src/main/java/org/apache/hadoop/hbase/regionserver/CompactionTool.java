@@ -497,7 +497,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionContext
 import|;
 end_import
 
@@ -1114,14 +1114,21 @@ argument_list|)
 decl_stmt|;
 do|do
 block|{
-name|CompactionRequest
-name|cr
+name|CompactionContext
+name|compaction
 init|=
 name|store
 operator|.
 name|requestCompaction
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|compaction
+operator|==
+literal|null
+condition|)
+break|break;
 name|List
 argument_list|<
 name|StoreFile
@@ -1132,7 +1139,7 @@ name|store
 operator|.
 name|compact
 argument_list|(
-name|cr
+name|compaction
 argument_list|)
 decl_stmt|;
 if|if

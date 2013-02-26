@@ -124,6 +124,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 interface|interface
 name|StoreFileManager
 block|{
@@ -150,7 +151,7 @@ name|StoreFile
 name|sf
 parameter_list|)
 function_decl|;
-comment|/**    * Adds compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    * @return The files that can be removed from storage. Usually,    */
+comment|/**    * Adds compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    */
 specifier|public
 specifier|abstract
 name|void
