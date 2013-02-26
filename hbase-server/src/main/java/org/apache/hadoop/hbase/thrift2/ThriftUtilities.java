@@ -1174,6 +1174,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -1212,6 +1214,8 @@ control|(
 name|org
 operator|.
 name|apache
+operator|.
+name|hadoop
 operator|.
 name|hbase
 operator|.

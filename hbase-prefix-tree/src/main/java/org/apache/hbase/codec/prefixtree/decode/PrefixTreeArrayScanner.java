@@ -39,6 +39,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -51,6 +53,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|CellComparator
@@ -62,6 +66,8 @@ import|import
 name|org
 operator|.
 name|apache
+operator|.
+name|hadoop
 operator|.
 name|hbase
 operator|.

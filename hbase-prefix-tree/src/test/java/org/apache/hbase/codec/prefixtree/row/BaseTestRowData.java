@@ -39,7 +39,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellComparator
 import|;
 end_import
 
@@ -49,9 +49,11 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|KeyValue
 import|;
 end_import
 

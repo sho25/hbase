@@ -9,6 +9,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|codec
@@ -40,6 +42,8 @@ import|import
 name|org
 operator|.
 name|apache
+operator|.
+name|hadoop
 operator|.
 name|hbase
 operator|.

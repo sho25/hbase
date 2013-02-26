@@ -109,18 +109,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google

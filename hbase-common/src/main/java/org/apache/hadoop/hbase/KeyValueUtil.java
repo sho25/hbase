@@ -117,30 +117,6 @@ name|WritableUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|CellUtil
-import|;
-end_import
-
 begin_comment
 comment|/**  * static convenience methods for dealing with KeyValues and collections of KeyValues  */
 end_comment

@@ -9,6 +9,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|io
@@ -59,6 +61,8 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -70,6 +74,8 @@ import|import
 name|org
 operator|.
 name|apache
+operator|.
+name|hadoop
 operator|.
 name|hbase
 operator|.
