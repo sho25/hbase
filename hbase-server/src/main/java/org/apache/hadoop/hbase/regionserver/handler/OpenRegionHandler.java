@@ -217,6 +217,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|CancelableProgressable
@@ -475,7 +493,7 @@ init|=
 literal|false
 decl_stmt|;
 name|boolean
-name|transitionToFailedOpen
+name|transitionedToOpening
 init|=
 literal|false
 decl_stmt|;
@@ -487,6 +505,11 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+decl_stmt|;
+name|HRegion
+name|region
+init|=
+literal|null
 decl_stmt|;
 try|try
 block|{
@@ -550,19 +573,6 @@ operator|+
 literal|"Marking this new attempt as failed"
 argument_list|)
 expr_stmt|;
-name|tryTransitionFromOfflineToFailedOpen
-argument_list|(
-name|this
-operator|.
-name|rsServices
-argument_list|,
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|version
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 comment|// Check that we're still supposed to open the region and transition.
@@ -584,19 +594,6 @@ operator|+
 name|encodedName
 operator|+
 literal|" opening cancelled"
-argument_list|)
-expr_stmt|;
-name|tryTransitionFromOfflineToFailedOpen
-argument_list|(
-name|this
-operator|.
-name|rsServices
-argument_list|,
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|version
 argument_list|)
 expr_stmt|;
 return|return;
@@ -622,29 +619,19 @@ name|encodedName
 argument_list|)
 expr_stmt|;
 comment|// This is a desperate attempt: the znode is unlikely to be ours. But we can't do more.
-name|tryTransitionFromOfflineToFailedOpen
-argument_list|(
-name|this
-operator|.
-name|rsServices
-argument_list|,
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|version
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
+name|transitionedToOpening
+operator|=
+literal|true
+expr_stmt|;
 comment|// Open region.  After a successful open, failures in subsequent
 comment|// processing needs to do a close as part of cleanup.
-name|HRegion
 name|region
-init|=
+operator|=
 name|openRegion
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|region
@@ -652,15 +639,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|tryTransitionFromOpeningToFailedOpen
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
-name|transitionToFailedOpen
-operator|=
-literal|true
-expr_stmt|;
 return|return;
 block|}
 name|boolean
@@ -709,20 +687,6 @@ name|isStopping
 argument_list|()
 condition|)
 block|{
-name|cleanupFailedOpen
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-name|tryTransitionFromOpeningToFailedOpen
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
-name|transitionToFailedOpen
-operator|=
-literal|true
-expr_stmt|;
 return|return;
 block|}
 if|if
@@ -743,20 +707,6 @@ comment|//    (a) we lost our ZK lease
 comment|// OR (b) someone else opened the region before us
 comment|// OR (c) someone cancelled the open
 comment|// In all cases, we try to transition to failed_open to be safe.
-name|cleanupFailedOpen
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-name|tryTransitionFromOpeningToFailedOpen
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
-name|transitionToFailedOpen
-operator|=
-literal|true
-expr_stmt|;
 return|return;
 block|}
 comment|// We have a znode in the opened state now. We can't really delete it as the master job.
@@ -802,6 +752,21 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+comment|// Do all clean up here
+if|if
+condition|(
+operator|!
+name|openSuccessful
+condition|)
+block|{
+name|doCleanUpOnFailedOpen
+argument_list|(
+name|region
+argument_list|,
+name|transitionedToOpening
+argument_list|)
+expr_stmt|;
+block|}
 specifier|final
 name|Boolean
 name|current
@@ -866,7 +831,8 @@ name|current
 argument_list|)
 condition|)
 block|{
-comment|// Can happen, if we're really unlucky.
+comment|// Can happen, if we're
+comment|// really unlucky.
 name|LOG
 operator|.
 name|error
@@ -884,20 +850,68 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-elseif|else
+block|}
+block|}
+specifier|private
+name|void
+name|doCleanUpOnFailedOpen
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|boolean
+name|transitionedToOpening
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 if|if
 condition|(
-name|transitionToFailedOpen
-operator|==
-literal|false
+name|transitionedToOpening
 condition|)
 block|{
+try|try
+block|{
+if|if
+condition|(
+name|region
+operator|!=
+literal|null
+condition|)
+block|{
+name|cleanupFailedOpen
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+comment|// Even if cleanupFailed open fails we need to do this transition
+comment|// See HBASE-7698
 name|tryTransitionFromOpeningToFailedOpen
 argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+comment|// If still transition to OPENING is not done, we need to transition znode
+comment|// to FAILED_OPEN
+name|tryTransitionFromOfflineToFailedOpen
+argument_list|(
+name|this
+operator|.
+name|rsServices
+argument_list|,
+name|regionInfo
+argument_list|,
+name|versionOfOfflineNode
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Update ZK, ROOT or META.  This can take a while if for example the    * .META. is not available -- if server hosting .META. crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
