@@ -1031,6 +1031,10 @@ literal|"hadPrePut"
 block|,
 literal|"hadPostPut"
 block|,
+literal|"hadPreBatchMutate"
+block|,
+literal|"hadPostBatchMutate"
+block|,
 literal|"hadDelete"
 block|}
 argument_list|,
@@ -1043,6 +1047,10 @@ block|{
 literal|false
 block|,
 literal|false
+block|,
+literal|true
+block|,
+literal|true
 block|,
 literal|true
 block|,
@@ -1195,6 +1203,10 @@ literal|"hadPrePut"
 block|,
 literal|"hadPostPut"
 block|,
+literal|"hadPreBatchMutate"
+block|,
+literal|"hadPostBatchMutate"
+block|,
 literal|"hadDelete"
 block|}
 argument_list|,
@@ -1204,6 +1216,10 @@ operator|new
 name|Boolean
 index|[]
 block|{
+literal|true
+block|,
+literal|true
+block|,
 literal|true
 block|,
 literal|true
