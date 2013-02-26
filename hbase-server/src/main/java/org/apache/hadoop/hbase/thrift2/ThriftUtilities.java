@@ -69,6 +69,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|*
@@ -144,7 +158,7 @@ literal|"Can't initialize class"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Creates a {@link Get} (HBase) from a {@link TGet} (Thrift).    *     * This ignores any timestamps set on {@link TColumn} objects.    *     * @param in the<code>TGet</code> to convert    *     * @return<code>Get</code> object    *     * @throws IOException if an invalid time range or max version parameter is given    */
+comment|/**    * Creates a {@link Get} (HBase) from a {@link TGet} (Thrift).    *    * This ignores any timestamps set on {@link TColumn} objects.    *    * @param in the<code>TGet</code> to convert    *    * @return<code>Get</code> object    *    * @throws IOException if an invalid time range or max version parameter is given    */
 specifier|public
 specifier|static
 name|Get
@@ -304,7 +318,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Converts multiple {@link TGet}s (Thrift) into a list of {@link Get}s (HBase).    *     * @param in list of<code>TGet</code>s to convert    *     * @return list of<code>Get</code> objects    *     * @throws IOException if an invalid time range or max version parameter is given    * @see #getFromThrift(TGet)    */
+comment|/**    * Converts multiple {@link TGet}s (Thrift) into a list of {@link Get}s (HBase).    *    * @param in list of<code>TGet</code>s to convert    *    * @return list of<code>Get</code> objects    *    * @throws IOException if an invalid time range or max version parameter is given    * @see #getFromThrift(TGet)    */
 specifier|public
 specifier|static
 name|List
@@ -363,7 +377,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Creates a {@link TResult} (Thrift) from a {@link Result} (HBase).    *     * @param in the<code>Result</code> to convert    *     * @return converted result, returns an empty result if the input is<code>null</code>    */
+comment|/**    * Creates a {@link TResult} (Thrift) from a {@link Result} (HBase).    *    * @param in the<code>Result</code> to convert    *    * @return converted result, returns an empty result if the input is<code>null</code>    */
 specifier|public
 specifier|static
 name|TResult
@@ -503,7 +517,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Converts multiple {@link Result}s (HBase) into a list of {@link TResult}s (Thrift).    *     * @param in array of<code>Result</code>s to convert    *     * @return list of converted<code>TResult</code>s    *     * @see #resultFromHBase(Result)    */
+comment|/**    * Converts multiple {@link Result}s (HBase) into a list of {@link TResult}s (Thrift).    *    * @param in array of<code>Result</code>s to convert    *    * @return list of converted<code>TResult</code>s    *    * @see #resultFromHBase(Result)    */
 specifier|public
 specifier|static
 name|List
@@ -557,7 +571,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Creates a {@link Put} (HBase) from a {@link TPut} (Thrift)    *     * @param in the<code>TPut</code> to convert    *     * @return converted<code>Put</code>    */
+comment|/**    * Creates a {@link Put} (HBase) from a {@link TPut} (Thrift)    *    * @param in the<code>TPut</code> to convert    *    * @return converted<code>Put</code>    */
 specifier|public
 specifier|static
 name|Put
@@ -692,7 +706,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Converts multiple {@link TPut}s (Thrift) into a list of {@link Put}s (HBase).    *     * @param in list of<code>TPut</code>s to convert    *     * @return list of converted<code>Put</code>s    *     * @see #putFromThrift(TPut)    */
+comment|/**    * Converts multiple {@link TPut}s (Thrift) into a list of {@link Put}s (HBase).    *    * @param in list of<code>TPut</code>s to convert    *    * @return list of converted<code>Put</code>s    *    * @see #putFromThrift(TPut)    */
 specifier|public
 specifier|static
 name|List
@@ -749,7 +763,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Creates a {@link Delete} (HBase) from a {@link TDelete} (Thrift).    *     * @param in the<code>TDelete</code> to convert    *     * @return converted<code>Delete</code>    */
+comment|/**    * Creates a {@link Delete} (HBase) from a {@link TDelete} (Thrift).    *    * @param in the<code>TDelete</code> to convert    *    * @return converted<code>Delete</code>    */
 specifier|public
 specifier|static
 name|Delete
@@ -1021,7 +1035,7 @@ return|return
 name|out
 return|;
 block|}
-comment|/**    * Converts multiple {@link TDelete}s (Thrift) into a list of {@link Delete}s (HBase).    *     * @param in list of<code>TDelete</code>s to convert    *     * @return list of converted<code>Delete</code>s    *     * @see #deleteFromThrift(TDelete)    */
+comment|/**    * Converts multiple {@link TDelete}s (Thrift) into a list of {@link Delete}s (HBase).    *    * @param in list of<code>TDelete</code>s to convert    *    * @return list of converted<code>Delete</code>s    *    * @see #deleteFromThrift(TDelete)    */
 specifier|public
 specifier|static
 name|List
@@ -1154,7 +1168,15 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
 argument_list|>
 argument_list|>
 name|familyEntry
@@ -1187,8 +1209,14 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|keyValue
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+name|cell
 range|:
 name|familyEntry
 operator|.
@@ -1196,11 +1224,21 @@ name|getValue
 argument_list|()
 control|)
 block|{
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
 name|byte
 index|[]
 name|family
 init|=
-name|keyValue
+name|kv
 operator|.
 name|getFamily
 argument_list|()
@@ -1209,7 +1247,7 @@ name|byte
 index|[]
 name|qualifier
 init|=
-name|keyValue
+name|kv
 operator|.
 name|getQualifier
 argument_list|()
@@ -1217,7 +1255,7 @@ decl_stmt|;
 name|long
 name|timestamp
 init|=
-name|keyValue
+name|kv
 operator|.
 name|getTimestamp
 argument_list|()
@@ -1265,7 +1303,7 @@ name|column
 operator|.
 name|setTimestamp
 argument_list|(
-name|keyValue
+name|kv
 operator|.
 name|getTimestamp
 argument_list|()

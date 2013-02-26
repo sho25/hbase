@@ -279,15 +279,13 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hbase
 operator|.
-name|collect
-operator|.
-name|ImmutableList
+name|Cell
 import|;
 end_import
 
@@ -413,16 +411,18 @@ name|ScanInfo
 name|getScanInfo
 parameter_list|()
 function_decl|;
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param kvs    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return memstore size delta    * @throws IOException    */
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|upsert
 parameter_list|(
 name|Iterable
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 parameter_list|,
 name|long
 name|readpoint

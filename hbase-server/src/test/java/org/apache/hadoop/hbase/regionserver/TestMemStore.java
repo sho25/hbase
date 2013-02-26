@@ -221,6 +221,18 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -5322,7 +5334,7 @@ block|}
 comment|////////////////////////////////////
 comment|//Test for upsert with MSLAB
 comment|////////////////////////////////////
-comment|/**    * Test a pathological pattern that shows why we can't currently    * use the MSLAB for upsert workloads. This test inserts data    * in the following pattern:    *     * - row0001 through row1000 (fills up one 2M Chunk)    * - row0002 through row1001 (fills up another 2M chunk, leaves one reference    *   to the first chunk    * - row0003 through row1002 (another chunk, another dangling reference)    *     * This causes OOME pretty quickly if we use MSLAB for upsert    * since each 2M chunk is held onto by a single reference.    */
+comment|/**    * Test a pathological pattern that shows why we can't currently    * use the MSLAB for upsert workloads. This test inserts data    * in the following pattern:    *    * - row0001 through row1000 (fills up one 2M Chunk)    * - row0002 through row1001 (fills up another 2M chunk, leaves one reference    *   to the first chunk    * - row0003 through row1002 (another chunk, another dangling reference)    *    * This causes OOME pretty quickly if we use MSLAB for upsert    * since each 2M chunk is held onto by a single reference.    */
 specifier|public
 name|void
 name|testUpsertMSLAB
@@ -5646,14 +5658,14 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|l
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;

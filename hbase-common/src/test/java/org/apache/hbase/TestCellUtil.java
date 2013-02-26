@@ -208,6 +208,8 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -221,6 +223,8 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -256,7 +260,7 @@ argument_list|(
 name|i
 argument_list|)
 decl_stmt|;
-name|Cell
+name|KeyValue
 index|[]
 name|cs
 init|=
@@ -320,7 +324,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|static
-name|Cell
+name|KeyValue
 index|[]
 name|getCells
 parameter_list|(
@@ -334,12 +338,12 @@ index|[]
 name|family
 parameter_list|)
 block|{
-name|Cell
+name|KeyValue
 index|[]
 name|cells
 init|=
 operator|new
-name|Cell
+name|KeyValue
 index|[
 name|howMany
 index|]

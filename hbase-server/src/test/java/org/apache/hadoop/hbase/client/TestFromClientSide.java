@@ -30281,9 +30281,13 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// KeyValue v1 expectation.  Cast for now until we go all Cell all the time. TODO
 name|KeyValue
 name|kv
 init|=
+operator|(
+name|KeyValue
+operator|)
 name|put
 operator|.
 name|getFamilyMap

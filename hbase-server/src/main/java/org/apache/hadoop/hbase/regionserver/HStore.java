@@ -873,6 +873,18 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -8650,9 +8662,11 @@ name|upsert
 parameter_list|(
 name|Iterable
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 parameter_list|,
 name|long
 name|readpoint
@@ -8679,7 +8693,7 @@ name|memstore
 operator|.
 name|upsert
 argument_list|(
-name|kvs
+name|cells
 argument_list|,
 name|readpoint
 argument_list|)

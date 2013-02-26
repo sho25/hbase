@@ -31,6 +31,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|TextFormat
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -398,7 +410,7 @@ name|LOG_SCANNER_ACTIVITY
 init|=
 literal|"hbase.client.log.scanner.activity"
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|Log
@@ -721,14 +733,18 @@ name|rrs
 init|=
 literal|null
 decl_stmt|;
+name|ScanRequest
+name|request
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|incRPCcallsMetrics
 argument_list|()
 expr_stmt|;
-name|ScanRequest
 name|request
-init|=
+operator|=
 name|RequestConverter
 operator|.
 name|buildScanRequest
@@ -741,7 +757,7 @@ literal|false
 argument_list|,
 name|nextCallSeq
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|ScanResponse
 name|response
 init|=
@@ -911,9 +927,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Got exception in fetching from scanner="
+literal|"Got exception making request "
 operator|+
-name|scannerId
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|request
+argument_list|)
 argument_list|,
 name|e
 argument_list|)

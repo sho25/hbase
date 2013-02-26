@@ -57,7 +57,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
+name|ArrayList
 import|;
 end_import
 
@@ -247,6 +247,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Scan
@@ -316,6 +330,18 @@ operator|.
 name|util
 operator|.
 name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -2059,12 +2085,24 @@ block|}
 block|}
 comment|// create or update (upsert) a new KeyValue with
 comment|// 'now' and a 0 memstoreTS == immediately visible
-return|return
-name|upsert
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|cells
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Cell
+argument_list|>
 argument_list|(
-name|Arrays
+literal|1
+argument_list|)
+decl_stmt|;
+name|cells
 operator|.
-name|asList
+name|add
 argument_list|(
 operator|new
 name|KeyValue
@@ -2085,6 +2123,11 @@ name|newValue
 argument_list|)
 argument_list|)
 argument_list|)
+expr_stmt|;
+return|return
+name|upsert
+argument_list|(
+name|cells
 argument_list|,
 literal|1L
 argument_list|)
@@ -2104,16 +2147,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param kvs    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return change in memstore size    */
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return change in memstore size    */
 specifier|public
 name|long
 name|upsert
 parameter_list|(
 name|Iterable
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
-name|kvs
+name|cells
 parameter_list|,
 name|long
 name|readpoint
@@ -2138,17 +2183,17 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvs
+name|cells
 control|)
 block|{
 name|size
 operator|+=
 name|upsert
 argument_list|(
-name|kv
+name|cell
 argument_list|,
 name|readpoint
 argument_list|)
@@ -2172,13 +2217,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param kv    * @return change in size of MemStore    */
+comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param cell    * @return change in size of MemStore    */
 specifier|private
 name|long
 name|upsert
 parameter_list|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 parameter_list|,
 name|long
 name|readpoint
@@ -2190,6 +2235,16 @@ comment|// and (b) cannot safely use the MSLAB here without potentially
 comment|// hitting OOME - see TestMemStore.testUpsertMSLAB for a
 comment|// test that triggers the pathological case if we don't avoid MSLAB
 comment|// here.
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
 name|long
 name|addedSize
 init|=

@@ -291,6 +291,18 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|After
@@ -414,7 +426,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests invocation of the {@link org.apache.hadoop.hbase.coprocessor.MasterObserver}  * interface hooks at all appropriate times during normal HMaster operations.  */
+comment|/**  * Tests invocation of the  * {@link org.apache.hadoop.hbase.coprocessor.MasterObserver} interface hooks at  * all appropriate times during normal HMaster operations.  */
 end_comment
 
 begin_class
@@ -495,7 +507,7 @@ name|toBytes
 argument_list|(
 literal|"fam3"
 argument_list|)
-block|,   }
+block|, }
 decl_stmt|;
 specifier|private
 specifier|static
@@ -525,7 +537,7 @@ name|toBytes
 argument_list|(
 literal|"q3"
 argument_list|)
-block|,   }
+block|, }
 decl_stmt|;
 specifier|private
 specifier|static
@@ -555,7 +567,7 @@ name|toBytes
 argument_list|(
 literal|"v3"
 argument_list|)
-block|,   }
+block|, }
 decl_stmt|;
 specifier|private
 specifier|static
@@ -756,7 +768,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//this.cluster = TEST_UTIL.getDFSCluster();
+comment|// this.cluster = TEST_UTIL.getDFSCluster();
 name|this
 operator|.
 name|fs
@@ -909,7 +921,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test WAL write behavior with WALObserver. The coprocessor monitors    * a WALEdit written to WAL, and ignore, modify, and add KeyValue's for the    * WALEdit.    */
+comment|/**    * Test WAL write behavior with WALObserver. The coprocessor monitors a    * WALEdit written to WAL, and ignore, modify, and add KeyValue's for the    * WALEdit.    */
 annotation|@
 name|Test
 specifier|public
@@ -1094,7 +1106,9 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 argument_list|>
 name|familyMap
@@ -1464,8 +1478,10 @@ name|tableName
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|//final HRegionInfo hri = createBasic3FamilyHRegionInfo(Bytes.toString(tableName));
-comment|//final HRegionInfo hri1 = createBasic3FamilyHRegionInfo(Bytes.toString(tableName));
+comment|// final HRegionInfo hri =
+comment|// createBasic3FamilyHRegionInfo(Bytes.toString(tableName));
+comment|// final HRegionInfo hri1 =
+comment|// createBasic3FamilyHRegionInfo(Bytes.toString(tableName));
 specifier|final
 name|HRegionInfo
 name|hri
@@ -1533,7 +1549,7 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-comment|//HLog wal = new HLog(this.fs, this.dir, this.oldLogDir, this.conf);
+comment|// HLog wal = new HLog(this.fs, this.dir, this.oldLogDir, this.conf);
 name|HLog
 name|wal
 init|=
@@ -1544,7 +1560,7 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-comment|//Put p = creatPutWith2Families(TEST_ROW);
+comment|// Put p = creatPutWith2Families(TEST_ROW);
 name|WALEdit
 name|edit
 init|=
@@ -1560,14 +1576,14 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-comment|//addFamilyMapToWALEdit(p.getFamilyMap(), edit);
+comment|// addFamilyMapToWALEdit(p.getFamilyMap(), edit);
 specifier|final
 name|int
 name|countPerFamily
 init|=
 literal|1000
 decl_stmt|;
-comment|//for (HColumnDescriptor hcd: hri.getTableDesc().getFamilies()) {
+comment|// for (HColumnDescriptor hcd: hri.getTableDesc().getFamilies()) {
 for|for
 control|(
 name|HColumnDescriptor
@@ -1579,8 +1595,8 @@ name|getFamilies
 argument_list|()
 control|)
 block|{
-comment|//addWALEdits(tableName, hri, TEST_ROW, hcd.getName(), countPerFamily,
-comment|//EnvironmentEdgeManager.getDelegate(), wal);
+comment|// addWALEdits(tableName, hri, TEST_ROW, hcd.getName(), countPerFamily,
+comment|// EnvironmentEdgeManager.getDelegate(), wal);
 name|addWALEdits
 argument_list|(
 name|tableName
@@ -1797,7 +1813,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test to see CP loaded successfully or not. There is a duplication    * at TestHLog, but the purpose of that one is to see whether the loaded    * CP will impact existing HLog tests or not.    */
+comment|/**    * Test to see CP loaded successfully or not. There is a duplication at    * TestHLog, but the purpose of that one is to see whether the loaded CP will    * impact existing HLog tests or not.    */
 annotation|@
 name|Test
 specifier|public
@@ -1877,7 +1893,7 @@ operator|)
 name|c
 return|;
 block|}
-comment|/*    * Creates an HRI around an HTD that has<code>tableName</code> and three    * column families named.    * @param tableName Name of table to use when we create HTableDescriptor.    */
+comment|/*    * Creates an HRI around an HTD that has<code>tableName</code> and three    * column families named.    *     * @param tableName Name of table to use when we create HTableDescriptor.    */
 specifier|private
 name|HRegionInfo
 name|createBasic3FamilyHRegionInfo
@@ -2065,7 +2081,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Copied from HRegion.    *    * @param familyMap map of family->edits    * @param walEdit the destination entry to append into    */
+comment|/**    * Copied from HRegion.    *     * @param familyMap    *          map of family->edits    * @param walEdit    *          the destination entry to append into    */
 specifier|private
 name|void
 name|addFamilyMapToWALEdit
@@ -2077,7 +2093,9 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 argument_list|>
 name|familyMap
@@ -2090,7 +2108,9 @@ for|for
 control|(
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|edits
 range|:
@@ -2102,17 +2122,21 @@ control|)
 block|{
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
 name|edits
 control|)
 block|{
+comment|// KeyValue v1 expectation. Cast for now until we go all Cell all the time. TODO.
 name|walEdit
 operator|.
 name|add
 argument_list|(
-name|kv
+operator|(
+name|KeyValue
+operator|)
+name|cell
 argument_list|)
 expr_stmt|;
 block|}

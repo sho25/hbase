@@ -132,6 +132,7 @@ parameter_list|<
 name|R
 parameter_list|>
 block|{
+comment|// TODO: This class should not be visible outside of the client package.
 comment|// map of regions to lists of puts/gets/deletes for that region.
 specifier|public
 name|Map

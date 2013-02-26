@@ -91,6 +91,18 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -246,6 +258,11 @@ name|writeToWAL
 expr_stmt|;
 block|}
 comment|/**    * Advanced use only.    * Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Delete
 name|addDeleteMarker
@@ -256,6 +273,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: Deprecate and rename 'add' so it matches how we add KVs to Puts.
 if|if
 condition|(
 operator|!
@@ -369,7 +387,9 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|list
 init|=
@@ -392,12 +412,22 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
+comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
+operator|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
 name|list
+operator|)
 operator|.
 name|add
 argument_list|(
@@ -443,6 +473,11 @@ name|this
 return|;
 block|}
 comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Delete
 name|deleteFamily
@@ -457,7 +492,9 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|list
 init|=
@@ -480,7 +517,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -501,10 +538,9 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|list
-operator|.
-name|add
-argument_list|(
+name|KeyValue
+name|kv
+init|=
 operator|new
 name|KeyValue
 argument_list|(
@@ -522,6 +558,22 @@ name|Type
 operator|.
 name|DeleteFamily
 argument_list|)
+decl_stmt|;
+comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
+comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
+operator|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
+name|list
+operator|)
+operator|.
+name|add
+argument_list|(
+name|kv
 argument_list|)
 expr_stmt|;
 name|familyMap
@@ -569,6 +621,11 @@ name|this
 return|;
 block|}
 comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Delete
 name|deleteColumns
@@ -587,7 +644,9 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|list
 init|=
@@ -610,12 +669,22 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
+comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
+operator|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
 name|list
+operator|)
 operator|.
 name|add
 argument_list|(
@@ -685,6 +754,11 @@ name|this
 return|;
 block|}
 comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @return this for invocation chaining    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Delete
 name|deleteColumn
@@ -703,7 +777,9 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|list
 init|=
@@ -726,15 +802,16 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-name|list
-operator|.
-name|add
-argument_list|(
+comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
+comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
+name|KeyValue
+name|kv
+init|=
 operator|new
 name|KeyValue
 argument_list|(
@@ -754,6 +831,20 @@ name|Type
 operator|.
 name|Delete
 argument_list|)
+decl_stmt|;
+operator|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
+name|list
+operator|)
+operator|.
+name|add
+argument_list|(
+name|kv
 argument_list|)
 expr_stmt|;
 name|familyMap

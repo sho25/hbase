@@ -145,6 +145,7 @@ implements|implements
 name|Row
 block|{
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Mutation
@@ -162,17 +163,6 @@ specifier|private
 name|byte
 index|[]
 name|row
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-name|VERSION
-init|=
-operator|(
-name|byte
-operator|)
-literal|0
 decl_stmt|;
 comment|/** Constructor for Writable. DO NOT USE */
 specifier|public

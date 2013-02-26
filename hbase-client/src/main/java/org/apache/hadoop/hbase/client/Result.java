@@ -93,6 +93,54 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellScannable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|nio
@@ -182,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is NOT THREAD SAFE.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link KeyValue} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link KeyValue} objects can be accessed through the method {@link #list()}.  * Each KeyValue can then be accessed through  * {@link KeyValue#getRow()}, {@link KeyValue#getFamily()}, {@link KeyValue#getQualifier()},  * {@link KeyValue#getTimestamp()}, and {@link KeyValue#getValue()}.<p>  *   * If you need to overwrite a Result with another Result instance -- as in the old 'mapred' RecordReader next  * invocations -- then create an empty Result with the null constructor and in then use {@link #copyFrom(Result)}  */
+comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is<b>NOT THREAD SAFE</b>.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link KeyValue} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link KeyValue} objects can be accessed through the method {@link #list()}.  * Each KeyValue can then be accessed through  * {@link KeyValue#getRow()}, {@link KeyValue#getFamily()}, {@link KeyValue#getQualifier()},  * {@link KeyValue#getTimestamp()}, and {@link KeyValue#getValue()}.<p>  *  * If you need to overwrite a Result with another Result instance -- as in the old 'mapred' RecordReader next  * invocations -- then create an empty Result with the null constructor and in then use {@link #copyFrom(Result)}  */
 end_comment
 
 begin_class
@@ -197,6 +245,8 @@ name|Stable
 specifier|public
 class|class
 name|Result
+implements|implements
+name|CellScannable
 block|{
 specifier|private
 name|KeyValue
@@ -256,6 +306,16 @@ name|PAD_WIDTH
 init|=
 literal|128
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|Result
+name|EMPTY_RESULT
+init|=
+operator|new
+name|Result
+argument_list|()
+decl_stmt|;
 comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #raw()}.    * Use this to represent no results if<code>null</code> won't do or in old 'mapred' as oppposed to 'mapreduce' package    * MapReduce where you need to overwrite a Result    * instance with a {@link #copyFrom(Result)} call.    */
 specifier|public
 name|Result
@@ -287,11 +347,14 @@ name|Result
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|?
+extends|extends
+name|Cell
 argument_list|>
 name|kvs
 parameter_list|)
 block|{
+comment|// TODO: Here we presume the passed in Cells are KVs.  One day this won't always be so.
 name|this
 argument_list|(
 name|kvs
@@ -2619,6 +2682,24 @@ name|other
 operator|.
 name|kvs
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CellScanner
+name|cellScanner
+parameter_list|()
+block|{
+return|return
+name|CellUtil
+operator|.
+name|createCellScanner
+argument_list|(
+name|this
+operator|.
+name|kvs
+argument_list|)
+return|;
 block|}
 block|}
 end_class

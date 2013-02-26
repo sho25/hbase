@@ -98,6 +98,7 @@ class|class
 name|Operation
 block|{
 comment|// TODO make this configurable
+comment|// TODO Do we need this anymore now we have protobuffed it all?
 specifier|private
 specifier|static
 specifier|final

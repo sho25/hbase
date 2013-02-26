@@ -125,7 +125,7 @@ name|Operation
 implements|implements
 name|Attributes
 block|{
-comment|// a opaque blob of attributes
+comment|// An opaque blob of attributes
 specifier|private
 name|Map
 argument_list|<
