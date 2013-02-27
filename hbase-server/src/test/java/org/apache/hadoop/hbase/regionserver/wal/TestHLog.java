@@ -291,6 +291,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSHDFSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSUtils
 import|;
 end_import
@@ -432,20 +448,6 @@ operator|.
 name|namenode
 operator|.
 name|LeaseManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|SequenceFile
 import|;
 end_import
 
@@ -787,6 +789,18 @@ literal|1024
 argument_list|)
 expr_stmt|;
 comment|// needed for testAppendClose()
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"dfs.support.broken.append"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getConfiguration
@@ -2740,23 +2754,7 @@ block|}
 end_function
 
 begin_comment
-comment|// For this test to pass, requires:
-end_comment
-
-begin_comment
-comment|// 1. HDFS-200 (append support)
-end_comment
-
-begin_comment
-comment|// 2. HDFS-988 (SafeMode should freeze file operations
-end_comment
-
-begin_comment
-comment|//              [FSNamesystem.nextGenerationStampForBlock])
-end_comment
-
-begin_comment
-comment|// 3. HDFS-142 (on restart, maintain pendingCreates)
+comment|/*    * We pass different values to recoverFileLease() so that different code paths are covered    *     * For this test to pass, requires:    * 1. HDFS-200 (append support)    * 2. HDFS-988 (SafeMode should freeze file operations    *              [FSNamesystem.nextGenerationStampForBlock])    * 3. HDFS-142 (on restart, maintain pendingCreates)    */
 end_comment
 
 begin_function
@@ -2766,6 +2764,35 @@ specifier|public
 name|void
 name|testAppendClose
 parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|testAppendClose
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|testAppendClose
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
+comment|/*    * @param triggerDirectAppend whether to trigger direct call of fs.append()    */
+end_comment
+
+begin_function
+specifier|public
+name|void
+name|testAppendClose
+parameter_list|(
+specifier|final
+name|boolean
+name|triggerDirectAppend
+parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -2812,6 +2839,8 @@ argument_list|,
 name|dir
 argument_list|,
 literal|"hlogdir"
+operator|+
+name|triggerDirectAppend
 argument_list|,
 literal|"hlogdir_archive"
 argument_list|,
@@ -3201,6 +3230,17 @@ parameter_list|()
 block|{
 try|try
 block|{
+name|rlConf
+operator|.
+name|setBoolean
+argument_list|(
+name|FSHDFSUtils
+operator|.
+name|TEST_TRIGGER_DFS_APPEND
+argument_list|,
+name|triggerDirectAppend
+argument_list|)
+expr_stmt|;
 name|FSUtils
 operator|.
 name|getInstance
