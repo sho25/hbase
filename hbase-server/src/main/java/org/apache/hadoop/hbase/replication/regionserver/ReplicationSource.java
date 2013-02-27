@@ -1725,6 +1725,10 @@ name|gotIOE
 init|=
 literal|false
 decl_stmt|;
+name|currentNbOperations
+operator|=
+literal|0
+expr_stmt|;
 name|currentNbEntries
 operator|=
 literal|0
