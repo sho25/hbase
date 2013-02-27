@@ -475,24 +475,6 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-comment|// hdfs 2.0 may throw RecoveryInProgressException
-if|if
-condition|(
-operator|!
-name|e
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"RecoveryInProgressException"
-argument_list|)
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -511,7 +493,6 @@ name|ex
 operator|=
 name|e
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -534,6 +515,15 @@ operator|=
 literal|null
 expr_stmt|;
 comment|// assume the following append() call would succeed
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"trying fs.append for "
+operator|+
+name|p
+argument_list|)
+expr_stmt|;
 name|FSDataOutputStream
 name|out
 init|=
