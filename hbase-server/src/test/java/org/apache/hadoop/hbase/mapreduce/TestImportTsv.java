@@ -2111,6 +2111,16 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|// force use of combiner for testing purposes
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"min.num.spills.for.combine"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|Job
 name|job
 init|=
