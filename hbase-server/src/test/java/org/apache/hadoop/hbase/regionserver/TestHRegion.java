@@ -23917,17 +23917,17 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 argument_list|)
 decl_stmt|;
 comment|// Verify that the .regioninfo file is present
 name|assertTrue
 argument_list|(
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 operator|+
 literal|" should be present in the region dir"
 argument_list|,
@@ -23977,9 +23977,9 @@ expr_stmt|;
 comment|// Verify that the .regioninfo file is still there
 name|assertTrue
 argument_list|(
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 operator|+
 literal|" should be present in the region dir"
 argument_list|,
@@ -24001,9 +24001,9 @@ argument_list|)
 expr_stmt|;
 name|assertFalse
 argument_list|(
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 operator|+
 literal|" should be removed from the region dir"
 argument_list|,
@@ -24052,9 +24052,9 @@ expr_stmt|;
 comment|// Verify that the .regioninfo file is still there
 name|assertTrue
 argument_list|(
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 operator|+
 literal|" should be present in the region dir"
 argument_list|,
@@ -24067,9 +24067,9 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 argument_list|)
 argument_list|)
 argument_list|)

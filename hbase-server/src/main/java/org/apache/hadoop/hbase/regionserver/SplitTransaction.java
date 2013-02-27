@@ -541,14 +541,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|SPLITDIR
-init|=
-literal|".splits"
-decl_stmt|;
 comment|/*    * Region to split    */
 specifier|private
 specifier|final
@@ -2472,7 +2464,9 @@ operator|.
 name|getRegionDir
 argument_list|()
 argument_list|,
-name|SPLITDIR
+name|HRegionFileSystem
+operator|.
+name|REGION_SPLITS_DIR
 argument_list|)
 return|;
 block|}

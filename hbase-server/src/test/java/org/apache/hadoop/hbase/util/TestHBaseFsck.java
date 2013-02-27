@@ -741,7 +741,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HRegionFileSystem
 import|;
 end_import
 
@@ -2139,9 +2139,9 @@ name|Path
 argument_list|(
 name|p
 argument_list|,
-name|HRegion
+name|HRegionFileSystem
 operator|.
-name|REGIONINFO_FILE
+name|REGION_INFO_FILE
 argument_list|)
 decl_stmt|;
 name|fs
