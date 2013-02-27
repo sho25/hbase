@@ -233,7 +233,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"HealthChecker initialized."
+literal|"HealthChecker initialized with script at "
+operator|+
+name|this
+operator|.
+name|healthCheckScript
 argument_list|)
 expr_stmt|;
 block|}
@@ -251,6 +255,7 @@ name|SUCCESS
 decl_stmt|;
 try|try
 block|{
+comment|// Calling this execute leaves around running executor threads.
 name|shexec
 operator|.
 name|execute

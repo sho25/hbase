@@ -81,6 +81,25 @@ return|return
 name|status
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|status
+operator|+
+literal|" "
+operator|+
+name|this
+operator|.
+name|healthReport
+return|;
+block|}
 comment|/**    * Gets the health report of the region server.    *    * @return String    */
 name|String
 name|getHealthReport
