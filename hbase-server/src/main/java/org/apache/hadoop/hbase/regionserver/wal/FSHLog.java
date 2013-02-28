@@ -966,7 +966,7 @@ comment|/**    * Thread that handles optional sync'ing    */
 specifier|private
 specifier|final
 name|LogSyncer
-name|logSyncerThread
+name|logSyncer
 decl_stmt|;
 comment|/** Number of log close errors tolerated before we abort */
 specifier|private
@@ -1401,7 +1401,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|logSyncerThread
+name|logSyncer
 operator|=
 operator|new
 name|LogSyncer
@@ -1589,11 +1589,21 @@ operator|.
 name|hdfs_out
 argument_list|)
 expr_stmt|;
+comment|// When optionalFlushInterval is set as 0, don't start a thread for deferred log sync.
+if|if
+condition|(
+name|this
+operator|.
+name|optionalFlushInterval
+operator|>
+literal|0
+condition|)
+block|{
 name|Threads
 operator|.
 name|setDaemonThreadRunning
 argument_list|(
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|getThread
 argument_list|()
@@ -1609,6 +1619,25 @@ operator|+
 literal|".logSyncer"
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"hbase.regionserver.optionallogflushinterval is set as "
+operator|+
+name|this
+operator|.
+name|optionalFlushInterval
+operator|+
+literal|". Deferred log syncing won't work. "
+operator|+
+literal|"Any Mutation, marked to be deferred synced, will be flushed immediately."
+argument_list|)
+expr_stmt|;
+block|}
 name|coprocessorHost
 operator|=
 operator|new
@@ -3731,15 +3760,25 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// When optionalFlushInterval is 0, the logSyncer is not started as a Thread.
+if|if
+condition|(
+name|this
+operator|.
+name|optionalFlushInterval
+operator|>
+literal|0
+condition|)
+block|{
 try|try
 block|{
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
 comment|// Make sure we synced everything
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|join
 argument_list|(
@@ -3774,6 +3813,7 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 try|try
 block|{
@@ -4892,14 +4932,14 @@ argument_list|()
 expr_stmt|;
 name|pending
 operator|=
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|getPendingWrites
 argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|hlogFlush
 argument_list|(
@@ -4962,7 +5002,7 @@ name|this
 operator|.
 name|writer
 expr_stmt|;
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|hlogFlush
 argument_list|(
@@ -5601,7 +5641,7 @@ argument_list|)
 condition|)
 block|{
 comment|// write to our buffer for the Hlog file.
-name|logSyncerThread
+name|logSyncer
 operator|.
 name|append
 argument_list|(

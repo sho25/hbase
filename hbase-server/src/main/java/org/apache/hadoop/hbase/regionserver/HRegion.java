@@ -2515,6 +2515,11 @@ specifier|final
 name|MetricsRegionWrapperImpl
 name|metricsRegionWrapper
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|deferredLogSyncDisabled
+decl_stmt|;
 comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
 annotation|@
 name|Deprecated
@@ -2857,6 +2862,24 @@ literal|"hbase.hregion.row.processor.timeout"
 argument_list|,
 name|DEFAULT_ROW_PROCESSOR_TIMEOUT
 argument_list|)
+expr_stmt|;
+comment|// When hbase.regionserver.optionallogflushinterval<= 0 , deferred log sync is disabled.
+name|this
+operator|.
+name|deferredLogSyncDisabled
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.optionallogflushinterval"
+argument_list|,
+literal|1
+operator|*
+literal|1000
+argument_list|)
+operator|<=
+literal|0
 expr_stmt|;
 if|if
 condition|(
@@ -24096,6 +24119,10 @@ name|htableDescriptor
 operator|.
 name|isDeferredLogFlush
 argument_list|()
+operator|||
+name|this
+operator|.
+name|deferredLogSyncDisabled
 condition|)
 block|{
 name|this
