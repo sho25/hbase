@@ -828,6 +828,20 @@ operator|<
 name|numberOfTests
 condition|)
 block|{
+if|if
+condition|(
+name|columnLists
+index|[
+name|i
+index|]
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+continue|continue;
+comment|// HBASE-7700
 name|kvSet
 operator|=
 name|kvMaps
@@ -1558,6 +1572,20 @@ operator|<
 name|numberOfTests
 condition|)
 block|{
+if|if
+condition|(
+name|columnLists
+index|[
+name|i
+index|]
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+continue|continue;
+comment|// HBASE-7700
 name|kvSet
 operator|=
 name|kvMaps
