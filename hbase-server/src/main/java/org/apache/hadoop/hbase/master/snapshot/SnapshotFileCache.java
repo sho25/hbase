@@ -625,17 +625,6 @@ name|FileNotFoundException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Snapshot directory: "
-operator|+
-name|snapshotDir
-operator|+
-literal|" doesn't exist"
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 comment|// if the snapshot directory wasn't modified since we last check, we are done
