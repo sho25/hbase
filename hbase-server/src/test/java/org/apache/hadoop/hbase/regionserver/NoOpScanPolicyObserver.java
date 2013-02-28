@@ -255,7 +255,7 @@ argument_list|)
 argument_list|,
 name|ScanType
 operator|.
-name|MINOR_COMPACT
+name|COMPACT_RETAIN_DELETES
 argument_list|,
 name|store
 operator|.

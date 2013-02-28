@@ -44,9 +44,9 @@ specifier|public
 enum|enum
 name|ScanType
 block|{
-name|MAJOR_COMPACT
+name|COMPACT_DROP_DELETES
 block|,
-name|MINOR_COMPACT
+name|COMPACT_RETAIN_DELETES
 block|,
 name|USER_SCAN
 block|}

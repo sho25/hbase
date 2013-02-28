@@ -489,7 +489,7 @@ name|scanType
 operator|==
 name|ScanType
 operator|.
-name|MINOR_COMPACT
+name|COMPACT_RETAIN_DELETES
 operator|||
 name|scan
 operator|.

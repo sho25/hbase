@@ -2531,7 +2531,7 @@ name|scanners
 argument_list|,
 name|ScanType
 operator|.
-name|MAJOR_COMPACT
+name|COMPACT_DROP_DELETES
 argument_list|,
 name|Long
 operator|.
