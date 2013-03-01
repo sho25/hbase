@@ -2032,21 +2032,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hbase
-operator|.
-name|codec
-operator|.
-name|prefixtree
-operator|.
-name|PrefixTreeCodec
-operator|.
-name|class
-argument_list|,
-comment|// hbase-prefix-tree
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
