@@ -1063,6 +1063,20 @@ name|META_ROW_DELIMITER
 init|=
 literal|','
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|META_ROW_DELIMITER_BYTES
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|",,"
+argument_list|)
+decl_stmt|;
 comment|/** The catalog family as a string*/
 specifier|public
 specifier|static
