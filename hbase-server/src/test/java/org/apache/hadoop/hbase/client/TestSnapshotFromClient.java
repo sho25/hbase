@@ -1150,7 +1150,7 @@ name|snapshots
 operator|=
 name|admin
 operator|.
-name|getCompletedSnapshots
+name|listSnapshots
 argument_list|()
 expr_stmt|;
 name|SnapshotTestingUtils

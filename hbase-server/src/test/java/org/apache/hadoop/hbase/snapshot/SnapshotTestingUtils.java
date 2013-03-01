@@ -523,7 +523,7 @@ literal|0
 argument_list|,
 name|admin
 operator|.
-name|getCompletedSnapshots
+name|listSnapshots
 argument_list|()
 operator|.
 name|size
@@ -561,7 +561,7 @@ name|snapshots
 init|=
 name|admin
 operator|.
-name|getCompletedSnapshots
+name|listSnapshots
 argument_list|()
 decl_stmt|;
 name|List
@@ -696,7 +696,7 @@ name|snapshots
 init|=
 name|admin
 operator|.
-name|getCompletedSnapshots
+name|listSnapshots
 argument_list|()
 decl_stmt|;
 name|assertEquals

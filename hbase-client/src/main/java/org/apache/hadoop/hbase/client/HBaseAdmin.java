@@ -9522,7 +9522,7 @@ control|(
 name|SnapshotDescription
 name|snapshotInfo
 range|:
-name|getCompletedSnapshots
+name|listSnapshots
 argument_list|()
 control|)
 block|{
@@ -10077,7 +10077,7 @@ name|List
 argument_list|<
 name|SnapshotDescription
 argument_list|>
-name|getCompletedSnapshots
+name|listSnapshots
 parameter_list|()
 throws|throws
 name|IOException
