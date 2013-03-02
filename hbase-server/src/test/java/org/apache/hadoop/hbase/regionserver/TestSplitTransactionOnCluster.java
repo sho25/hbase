@@ -820,7 +820,7 @@ specifier|final
 name|int
 name|NB_SERVERS
 init|=
-literal|2
+literal|3
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2749,6 +2749,15 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Daughter we are going to split: "
+operator|+
+name|daughter
+argument_list|)
+expr_stmt|;
 comment|// Compact first to ensure we have cleaned up references -- else the split
 comment|// will fail.
 name|this
@@ -2797,10 +2806,22 @@ argument_list|(
 name|daughter
 argument_list|)
 condition|)
+block|{
 name|daughterRegion
 operator|=
 name|r
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Found matching HRI: "
+operator|+
+name|daughterRegion
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 block|}
 name|assertTrue
 argument_list|(
@@ -2843,12 +2864,21 @@ expr_stmt|;
 block|}
 name|assertFalse
 argument_list|(
-literal|"Waiting for refereces to be compacted"
+literal|"Waiting for reference to be compacted"
 argument_list|,
 name|daughterRegion
 operator|.
 name|hasReferences
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Daughter hri before split (has been compacted): "
+operator|+
+name|daughter
 argument_list|)
 expr_stmt|;
 name|split
@@ -2870,6 +2900,24 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|HRegion
+name|d
+range|:
+name|daughters
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Regions before crash: "
+operator|+
+name|d
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Now crash the server
 name|cluster
 operator|.
@@ -2923,8 +2971,21 @@ range|:
 name|regions
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Regions post crash "
+operator|+
+name|r
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
+literal|"Missing region post crash "
+operator|+
+name|r
+argument_list|,
 name|daughters
 operator|.
 name|contains
@@ -4241,7 +4302,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testShouldThrowIOExceptionIfStoreFileSizeIsEmptyAndSHouldSuccessfullyExecuteRollback
+name|testShouldThrowIOExceptionIfStoreFileSizeIsEmptyAndShouldSuccessfullyExecuteRollback
 parameter_list|()
 throws|throws
 name|Exception
@@ -5466,6 +5527,8 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Delete
 name|d
 init|=
@@ -5496,6 +5559,15 @@ argument_list|(
 name|d
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|metaTable
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Ensure single table region is not on same server as the single .META. table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    * @throws InterruptedException    */
 specifier|private
@@ -5632,6 +5704,13 @@ operator|+
 name|hri
 operator|.
 name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" from "
+operator|+
+name|metaRegionServer
+operator|.
+name|getServerName
 argument_list|()
 operator|+
 literal|" to "
