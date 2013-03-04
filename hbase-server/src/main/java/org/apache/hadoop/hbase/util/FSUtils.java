@@ -2987,6 +2987,82 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Checks for the presence of the root path (using the provided conf object) in the given path. If    * it exists, this method removes it and returns the String representation of remaining relative path.    * @param path    * @param conf    * @return String representation of the remaining relative path    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|String
+name|removeRootPath
+parameter_list|(
+name|Path
+name|path
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|root
+init|=
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|String
+name|pathStr
+init|=
+name|path
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+comment|// check that the path is absolute... it has the root path in it.
+if|if
+condition|(
+operator|!
+name|pathStr
+operator|.
+name|startsWith
+argument_list|(
+name|root
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+condition|)
+return|return
+name|pathStr
+return|;
+comment|// if not, return as it is.
+return|return
+name|pathStr
+operator|.
+name|substring
+argument_list|(
+name|root
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|length
+argument_list|()
+operator|+
+literal|1
+argument_list|)
+return|;
+comment|// remove the "/" too.
+block|}
+end_function
+
+begin_comment
 comment|/**    * If DFS, check safe mode and if so, wait until we clear it.    * @param conf configuration    * @param wait Sleep between retries    * @throws IOException e    */
 end_comment
 

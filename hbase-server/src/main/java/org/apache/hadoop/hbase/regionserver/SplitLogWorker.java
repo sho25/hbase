@@ -623,6 +623,8 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
+name|rootdir
+argument_list|,
 name|filename
 argument_list|)
 argument_list|)
