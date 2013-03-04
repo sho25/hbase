@@ -212,7 +212,7 @@ argument_list|)
 operator|.
 name|matches
 argument_list|(
-literal|"example[1-3]\\.com:"
+literal|"(example[1-3]\\.com,){2}example[1-3]\\.com:"
 operator|+
 name|port
 argument_list|)
