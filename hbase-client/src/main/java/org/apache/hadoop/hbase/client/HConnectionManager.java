@@ -4010,7 +4010,7 @@ literal|0
 operator|)
 return|;
 block|}
-comment|/*      * @param True if table is online      */
+comment|/*      * @param enabled True if table is enabled      */
 specifier|private
 name|boolean
 name|testTableOnlineState
@@ -4020,7 +4020,7 @@ index|[]
 name|tableName
 parameter_list|,
 name|boolean
-name|online
+name|enabled
 parameter_list|)
 throws|throws
 name|IOException
@@ -4041,7 +4041,7 @@ condition|)
 block|{
 comment|// The root region is always enabled
 return|return
-name|online
+name|enabled
 return|;
 block|}
 name|String
@@ -4064,7 +4064,7 @@ try|try
 block|{
 if|if
 condition|(
-name|online
+name|enabled
 condition|)
 block|{
 return|return
