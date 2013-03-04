@@ -255,6 +255,10 @@ argument_list|(
 name|this
 operator|.
 name|comparator
+argument_list|,
+name|this
+operator|.
+name|conf
 argument_list|)
 expr_stmt|;
 comment|// TODO: compactor and policy may be separately pluggable, but must derive from default ones.

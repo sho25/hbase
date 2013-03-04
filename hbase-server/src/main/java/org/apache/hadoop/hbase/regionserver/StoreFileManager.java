@@ -263,6 +263,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @return The store compaction priority.    */
+specifier|public
+specifier|abstract
+name|int
+name|getStoreCompactionPriority
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

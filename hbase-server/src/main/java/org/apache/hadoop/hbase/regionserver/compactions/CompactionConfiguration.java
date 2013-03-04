@@ -196,9 +196,6 @@ decl_stmt|;
 name|float
 name|majorCompactionJitter
 decl_stmt|;
-name|int
-name|blockingStoreFileCount
-decl_stmt|;
 name|CompactionConfiguration
 parameter_list|(
 name|Configuration
@@ -377,19 +374,6 @@ argument_list|,
 literal|0.20F
 argument_list|)
 expr_stmt|;
-name|blockingStoreFileCount
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.hstore.blockingStoreFiles"
-argument_list|,
-name|HStore
-operator|.
-name|DEFAULT_BLOCKING_STOREFILE_COUNT
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -443,17 +427,6 @@ name|majorCompactionPeriod
 argument_list|,
 name|majorCompactionJitter
 argument_list|)
-return|;
-block|}
-comment|/**    * @return store file count that will cause the memstore of this store to be blocked.    */
-name|int
-name|getBlockingStorefileCount
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|blockingStoreFileCount
 return|;
 block|}
 comment|/**    * @return lower bound below which compaction is selected without ratio test    */

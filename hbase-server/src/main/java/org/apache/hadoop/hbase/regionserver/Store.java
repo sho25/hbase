@@ -588,15 +588,6 @@ name|int
 name|getCompactPriority
 parameter_list|()
 function_decl|;
-comment|/**    * @param priority priority to check against. When priority is {@link Store#PRIORITY_USER},    *          {@link Store#PRIORITY_USER} is returned.    * @return The priority that this store has in the compaction queue.    */
-specifier|public
-name|int
-name|getCompactPriority
-parameter_list|(
-name|int
-name|priority
-parameter_list|)
-function_decl|;
 specifier|public
 name|StoreFlusher
 name|getStoreFlusher
