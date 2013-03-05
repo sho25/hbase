@@ -623,9 +623,7 @@ name|maxCachedThread
 argument_list|,
 name|timeout
 argument_list|,
-name|TimeUnit
-operator|.
-name|SECONDS
+name|unit
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
