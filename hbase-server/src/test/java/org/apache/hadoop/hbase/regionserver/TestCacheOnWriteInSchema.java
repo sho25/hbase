@@ -1171,13 +1171,9 @@ operator|=
 operator|new
 name|HStore
 argument_list|(
-name|basedir
-argument_list|,
 name|region
 argument_list|,
 name|hcd
-argument_list|,
-name|fs
 argument_list|,
 name|conf
 argument_list|)

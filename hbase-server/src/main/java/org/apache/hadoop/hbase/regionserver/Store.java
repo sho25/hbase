@@ -494,7 +494,7 @@ operator|.
 name|Writer
 name|createWriterInTmp
 parameter_list|(
-name|int
+name|long
 name|maxKeyCount
 parameter_list|,
 name|Compression

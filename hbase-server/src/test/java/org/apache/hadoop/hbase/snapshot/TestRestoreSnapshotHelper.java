@@ -413,7 +413,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -850,7 +850,7 @@ index|]
 operator|+
 literal|" should be a Referene"
 argument_list|,
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|isReference
 argument_list|(
@@ -1398,7 +1398,7 @@ literal|"cf"
 argument_list|)
 decl_stmt|;
 return|return
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|getReferredToFile
 argument_list|(

@@ -589,7 +589,7 @@ name|snapshotName
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the directory to store the snapshot instance    * @param snapshotsDir hbase-global directory for storing all snapshots    * @param snapshotName name of the snapshot to take    * @return    */
+comment|/**    * Get the directory to store the snapshot instance    * @param snapshotsDir hbase-global directory for storing all snapshots    * @param snapshotName name of the snapshot to take    * @return the final directory for the completed snapshot    */
 specifier|private
 specifier|static
 specifier|final

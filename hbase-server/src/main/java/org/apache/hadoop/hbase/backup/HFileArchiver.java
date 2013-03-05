@@ -1007,7 +1007,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param conf {@link Configuration} to examine to determine the archive directory    * @param fs the filesystem where the store files live    * @param parent Parent region hosting the store files    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
+comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param conf {@link Configuration} to examine to determine the archive directory    * @param fs the filesystem where the store files live    * @param regionInfo {@link HRegionInfo} of the region hosting the store files    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
 specifier|public
 specifier|static
 name|void
@@ -1019,8 +1019,11 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegion
-name|parent
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|Path
+name|tableDir
 parameter_list|,
 name|byte
 index|[]
@@ -1053,7 +1056,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|parent
+name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
@@ -1099,7 +1102,7 @@ block|}
 comment|// build the archive path
 if|if
 condition|(
-name|parent
+name|regionInfo
 operator|==
 literal|null
 operator|||
@@ -1111,7 +1114,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Need to have a parent region and a family to archive from."
+literal|"Need to have a region and a family to archive from."
 argument_list|)
 throw|;
 name|Path
@@ -1123,7 +1126,9 @@ name|getStoreArchivePath
 argument_list|(
 name|conf
 argument_list|,
-name|parent
+name|regionInfo
+argument_list|,
+name|tableDir
 argument_list|,
 name|family
 argument_list|)
@@ -1218,11 +1223,155 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|parent
+name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
+operator|+
+literal|", family:"
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+operator|+
+literal|" into "
+operator|+
+name|storeArchiveDir
+operator|+
+literal|". Something is probably awry on the filesystem."
+argument_list|)
+throw|;
+block|}
+block|}
+comment|/**    * Archive the store file    * @param fs the filesystem where the store files live    * @param regionInfo region hosting the store files    * @param conf {@link Configuration} to examine to determine the archive directory    * @param tableDir {@link Path} to where the table is being stored (for building the archive path)    * @param family the family hosting the store files    * @param storeFile file to be archived    * @throws IOException if the files could not be correctly disposed.    */
+specifier|public
+specifier|static
+name|void
+name|archiveStoreFile
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|FileSystem
+name|fs
+parameter_list|,
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|Path
+name|tableDir
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|Path
+name|storeFile
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|storeArchiveDir
+init|=
+name|HFileArchiveUtil
+operator|.
+name|getStoreArchivePath
+argument_list|(
+name|conf
+argument_list|,
+name|regionInfo
+argument_list|,
+name|tableDir
+argument_list|,
+name|family
+argument_list|)
+decl_stmt|;
+comment|// make sure we don't archive if we can't and that the archive dir exists
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|storeArchiveDir
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Could not make archive directory ("
+operator|+
+name|storeArchiveDir
+operator|+
+literal|") for store:"
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+operator|+
+literal|", deleting compacted files instead."
+argument_list|)
+throw|;
+block|}
+comment|// do the actual archive
+name|long
+name|start
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|File
+name|file
+init|=
+operator|new
+name|FileablePath
+argument_list|(
+name|fs
+argument_list|,
+name|storeFile
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|resolveAndArchiveFile
+argument_list|(
+name|storeArchiveDir
+argument_list|,
+name|file
+argument_list|,
+name|Long
+operator|.
+name|toString
+argument_list|(
+name|start
+argument_list|)
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to archive/delete the file for region:"
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
 literal|", family:"
 operator|+

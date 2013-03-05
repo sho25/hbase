@@ -23533,9 +23533,6 @@ name|firstRegion
 operator|.
 name|getRegionInfo
 argument_list|()
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|long

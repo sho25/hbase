@@ -545,7 +545,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -3393,9 +3393,6 @@ argument_list|(
 name|tableDir
 argument_list|,
 name|hri
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|c
 operator|.
@@ -3428,7 +3425,7 @@ control|)
 block|{
 name|refFound
 operator||=
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|isReference
 argument_list|(

@@ -1931,9 +1931,6 @@ argument_list|(
 name|tabledir
 argument_list|,
 name|splita
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|htd
 operator|.
@@ -3443,9 +3440,6 @@ argument_list|(
 name|tabledir
 argument_list|,
 name|parent
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|htd
 operator|.
@@ -3957,9 +3951,6 @@ argument_list|(
 name|tabledir
 argument_list|,
 name|parent
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|htd
 operator|.
@@ -4458,9 +4449,6 @@ argument_list|(
 name|tabledir
 argument_list|,
 name|daughter
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|htd
 operator|.

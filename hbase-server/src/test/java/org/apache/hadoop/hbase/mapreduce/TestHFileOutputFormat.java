@@ -4491,9 +4491,6 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|FAMILIES
 index|[
@@ -4880,9 +4877,6 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|FAMILIES
 index|[

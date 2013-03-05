@@ -646,9 +646,6 @@ argument_list|,
 name|tableDescriptor
 argument_list|,
 name|region
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|List

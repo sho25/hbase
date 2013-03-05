@@ -89,6 +89,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FSDataInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -329,7 +343,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param link    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
+comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStream}    * @param inNoChecksum {@link FSDataInputStream} opened on a filesystem without checksum    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -342,8 +356,15 @@ name|Path
 name|p
 parameter_list|,
 specifier|final
-name|HFileLink
-name|link
+name|FSDataInputStream
+name|in
+parameter_list|,
+specifier|final
+name|FSDataInputStream
+name|inNoChecksum
+parameter_list|,
+name|long
+name|size
 parameter_list|,
 specifier|final
 name|CacheConfig
@@ -353,6 +374,7 @@ specifier|final
 name|Reference
 name|r
 parameter_list|,
+specifier|final
 name|DataBlockEncoding
 name|preferredEncodingInCache
 parameter_list|)
@@ -365,17 +387,11 @@ name|fs
 argument_list|,
 name|p
 argument_list|,
-name|link
+name|in
 argument_list|,
-name|link
-operator|.
-name|getFileStatus
-argument_list|(
-name|fs
-argument_list|)
-operator|.
-name|getLen
-argument_list|()
+name|inNoChecksum
+argument_list|,
+name|size
 argument_list|,
 name|cacheConf
 argument_list|,

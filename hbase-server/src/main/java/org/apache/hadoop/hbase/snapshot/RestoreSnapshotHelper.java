@@ -379,7 +379,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -2170,7 +2170,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|isReference
 argument_list|(
@@ -2239,7 +2239,7 @@ decl_stmt|;
 name|Path
 name|refPath
 init|=
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|getReferredToFile
 argument_list|(

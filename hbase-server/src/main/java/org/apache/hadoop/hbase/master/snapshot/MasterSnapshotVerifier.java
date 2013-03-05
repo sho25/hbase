@@ -271,7 +271,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -995,7 +995,7 @@ comment|// make sure the name is correct
 if|if
 condition|(
 operator|!
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|validateStoreFileName
 argument_list|(

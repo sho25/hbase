@@ -967,7 +967,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -3195,7 +3195,7 @@ try|try
 block|{
 name|isReference
 operator|=
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|isReference
 argument_list|(
@@ -3223,7 +3223,7 @@ continue|continue;
 name|Path
 name|referredToFile
 init|=
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|getReferredToFile
 argument_list|(

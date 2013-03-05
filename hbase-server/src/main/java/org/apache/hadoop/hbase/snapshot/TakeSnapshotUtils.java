@@ -448,35 +448,6 @@ name|regionName
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the home directory for store-level snapshot files.    *<p>    * Specific files per store are kept in a similar layout as per the current directory layout.    * @param regionDir snapshot directory for the parent region,<b>not</b> the standard region    *          directory. See {@link #getRegionSnapshotDirectory}    * @param family name of the store to snapshot    * @return path to the snapshot home directory for the store/family    */
-specifier|public
-specifier|static
-name|Path
-name|getStoreSnapshotDirectory
-parameter_list|(
-name|Path
-name|regionDir
-parameter_list|,
-name|String
-name|family
-parameter_list|)
-block|{
-return|return
-name|HStore
-operator|.
-name|getStoreHomedir
-argument_list|(
-name|regionDir
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|family
-argument_list|)
-argument_list|)
-return|;
-block|}
 comment|/**    * Get the snapshot directory for each family to be added to the the snapshot    * @param snapshot description of the snapshot being take    * @param snapshotRegionDir directory in the snapshot where the region directory information    *          should be stored    * @param families families to be added (can be null)    * @return paths to the snapshot directory for each family, in the same order as the families    *         passed in    */
 specifier|public
 specifier|static
@@ -545,7 +516,8 @@ name|familyDirs
 operator|.
 name|add
 argument_list|(
-name|getStoreSnapshotDirectory
+operator|new
+name|Path
 argument_list|(
 name|snapshotRegionDir
 argument_list|,

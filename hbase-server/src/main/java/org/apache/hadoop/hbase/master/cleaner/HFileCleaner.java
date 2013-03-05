@@ -127,7 +127,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -232,7 +232,7 @@ literal|true
 return|;
 block|}
 return|return
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|validateStoreFileName
 argument_list|(

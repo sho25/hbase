@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileInfo
 import|;
 end_import
 
@@ -292,7 +292,7 @@ name|HRegionInfo
 operator|.
 name|ENCODED_REGION_NAME_REGEX
 argument_list|,
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|HFILE_NAME_REGEX
 argument_list|)
@@ -322,7 +322,7 @@ name|HRegionInfo
 operator|.
 name|ENCODED_REGION_NAME_REGEX
 argument_list|,
-name|StoreFile
+name|StoreFileInfo
 operator|.
 name|HFILE_NAME_REGEX
 argument_list|)

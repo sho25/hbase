@@ -511,9 +511,6 @@ argument_list|,
 name|tableName
 argument_list|,
 name|hri
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|familyName
 argument_list|)
@@ -530,9 +527,6 @@ argument_list|,
 name|tableLinkName
 argument_list|,
 name|hriLink
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|,
 name|familyName
 argument_list|)
