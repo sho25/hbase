@@ -547,6 +547,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -648,6 +658,8 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 annotation|@
+name|Ignore
+annotation|@
 name|BeforeClass
 specifier|public
 specifier|static
@@ -685,6 +697,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|AfterClass
 specifier|public
 specifier|static
@@ -700,6 +714,8 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -854,6 +870,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1236,6 +1254,8 @@ name|noOfDeletedRows
 return|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1457,6 +1477,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1704,6 +1726,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1989,6 +2013,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -2415,6 +2441,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -2847,6 +2875,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
