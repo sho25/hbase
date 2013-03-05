@@ -1907,6 +1907,12 @@ try|try
 block|{
 name|this
 operator|.
+name|reader
+operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
 name|repLogReader
 operator|.
 name|closeReader

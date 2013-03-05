@@ -263,6 +263,11 @@ condition|)
 block|{
 name|this
 operator|.
+name|closeReader
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|reader
 operator|=
 name|HLogFactory
