@@ -1557,7 +1557,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * A test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    * @throws DeserializationException     */
+comment|/**    * A test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    * @throws DeserializationException    */
 annotation|@
 name|Test
 argument_list|(
@@ -2950,6 +2950,24 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|HRegion
+name|d
+range|:
+name|daughters
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Regions after crash: "
+operator|+
+name|d
+argument_list|)
+expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|daughters
@@ -3024,7 +3042,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Verifies HBASE-5806.  When splitting is partially done and the master goes down    * when the SPLIT node is in either SPLIT or SPLITTING state.    *     * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    * @throws DeserializationException     */
+comment|/**    * Verifies HBASE-5806.  When splitting is partially done and the master goes down    * when the SPLIT node is in either SPLIT or SPLITTING state.    *    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    * @throws DeserializationException    */
 annotation|@
 name|Test
 argument_list|(
@@ -3802,7 +3820,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * While transitioning node from RS_ZK_REGION_SPLITTING to    * RS_ZK_REGION_SPLITTING during region split,if zookeper went down split always    * fails for the region. HBASE-6088 fixes this scenario.     * This test case is to test the znode is deleted(if created) or not in roll back.    *     * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    *    * While transitioning node from RS_ZK_REGION_SPLITTING to    * RS_ZK_REGION_SPLITTING during region split,if zookeper went down split always    * fails for the region. HBASE-6088 fixes this scenario.    * This test case is to test the znode is deleted(if created) or not in roll back.    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 annotation|@
 name|Test
 specifier|public
