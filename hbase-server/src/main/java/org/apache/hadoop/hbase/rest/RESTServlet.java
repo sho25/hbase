@@ -218,6 +218,18 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
+name|int
+name|maxSize
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.rest.htablepool.size"
+argument_list|,
+literal|10
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|pool
@@ -227,7 +239,7 @@ name|HTablePool
 argument_list|(
 name|conf
 argument_list|,
-literal|10
+name|maxSize
 argument_list|)
 expr_stmt|;
 name|this
