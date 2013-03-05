@@ -8347,6 +8347,7 @@ name|conf
 argument_list|)
 return|;
 block|}
+comment|/**    * Wait until all regions in a table have been assigned.  Waits default timeout before giving up    * (30 seconds).    * @param table Table to wait on.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
 name|waitTableAvailable
@@ -8368,6 +8369,7 @@ literal|30000
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Wait until all regions in a table have been assigned    * @param table Table to wait on.    * @param timeoutMillis Timeout.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
 name|waitTableAvailable
@@ -8434,6 +8436,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.  Will timeout after default period (30 seconds)    * @see #waitTableAvailable(byte[])    * @param table Table to wait on.    * @param table    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
 name|waitTableEnabled
@@ -8455,6 +8458,7 @@ literal|30000
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.    * @see #waitTableAvailable(byte[])    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked enabled.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
 name|waitTableEnabled
@@ -8479,17 +8483,25 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-while|while
-condition|(
-operator|!
-name|getHBaseAdmin
-argument_list|()
-operator|.
-name|isTableAvailable
+name|waitTableAvailable
 argument_list|(
 name|table
+argument_list|,
+name|timeoutMillis
 argument_list|)
-operator|&&
+expr_stmt|;
+name|long
+name|remainder
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|startWait
+decl_stmt|;
+while|while
+condition|(
 operator|!
 name|getHBaseAdmin
 argument_list|()
@@ -8516,7 +8528,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|startWait
+name|remainder
 operator|<
 name|timeoutMillis
 argument_list|)
