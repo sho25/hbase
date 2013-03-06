@@ -84,7 +84,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class holds all "physical" details necessary to run a compaction.  * It also has compaction request with all the logical details.  * Hence, this class is basically the compaction.  */
+comment|/**  * This class holds all "physical" details necessary to run a compaction,  * and abstracts away the details specific to a particular compaction.  * It also has compaction request with all the logical details.  * Hence, this class is basically the compaction.  */
 end_comment
 
 begin_class

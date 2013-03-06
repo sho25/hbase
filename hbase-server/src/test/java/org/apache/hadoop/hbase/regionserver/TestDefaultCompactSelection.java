@@ -1534,7 +1534,10 @@ name|DefaultCompactionPolicy
 operator|)
 name|store
 operator|.
-name|compactionPolicy
+name|storeEngine
+operator|.
+name|getCompactionPolicy
+argument_list|()
 operator|)
 operator|.
 name|selectCompaction
@@ -1920,7 +1923,10 @@ argument_list|)
 expr_stmt|;
 name|store
 operator|.
-name|compactionPolicy
+name|storeEngine
+operator|.
+name|getCompactionPolicy
+argument_list|()
 operator|.
 name|setConf
 argument_list|(
@@ -2136,7 +2142,10 @@ argument_list|)
 expr_stmt|;
 name|store
 operator|.
-name|compactionPolicy
+name|storeEngine
+operator|.
+name|getCompactionPolicy
+argument_list|()
 operator|.
 name|setConf
 argument_list|(

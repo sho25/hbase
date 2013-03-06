@@ -1993,7 +1993,10 @@ operator|)
 decl_stmt|;
 name|s
 operator|.
-name|compactionPolicy
+name|storeEngine
+operator|.
+name|getCompactionPolicy
+argument_list|()
 operator|.
 name|setConf
 argument_list|(
@@ -2051,7 +2054,10 @@ name|DefaultCompactionPolicy
 operator|)
 name|s
 operator|.
-name|compactionPolicy
+name|storeEngine
+operator|.
+name|getCompactionPolicy
+argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
