@@ -7787,21 +7787,21 @@ comment|// path with file system specification included. Set 'fs.defaultFS'
 comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
 comment|// accessors will be going against wrong filesystem (unless all is set
 comment|// to defaults).
+name|FSUtils
+operator|.
+name|setFsDefault
+argument_list|(
 name|this
 operator|.
 name|conf
-operator|.
-name|set
-argument_list|(
-literal|"fs.defaultFS"
 argument_list|,
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
 name|this
 operator|.
 name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.rootdir"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -7826,19 +7826,13 @@ name|this
 operator|.
 name|rootDir
 operator|=
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getRootDir
 argument_list|(
 name|this
 operator|.
 name|conf
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_DIR
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|this

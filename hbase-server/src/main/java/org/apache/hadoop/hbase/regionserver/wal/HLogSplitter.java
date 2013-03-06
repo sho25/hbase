@@ -2753,13 +2753,11 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|conf
+name|FSUtils
 operator|.
-name|get
+name|getRootDir
 argument_list|(
-name|HConstants
-operator|.
-name|HBASE_DIR
+name|conf
 argument_list|)
 argument_list|,
 name|conf

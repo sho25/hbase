@@ -3273,6 +3273,52 @@ expr_stmt|;
 block|}
 end_function
 
+begin_function
+specifier|public
+specifier|static
+name|void
+name|setFsDefault
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|,
+specifier|final
+name|Path
+name|root
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|c
+operator|.
+name|set
+argument_list|(
+literal|"fs.defaultFS"
+argument_list|,
+name|root
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// for hadoop 0.21+
+name|c
+operator|.
+name|set
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+name|root
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// for hadoop 0.20
+block|}
+end_function
+
 begin_comment
 comment|/**    * Checks if root region exists    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
 end_comment
