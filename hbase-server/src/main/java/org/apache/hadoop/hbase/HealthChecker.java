@@ -238,6 +238,10 @@ operator|+
 name|this
 operator|.
 name|healthCheckScript
+operator|+
+literal|", timeout="
+operator|+
+name|timeout
 argument_list|)
 expr_stmt|;
 block|}
