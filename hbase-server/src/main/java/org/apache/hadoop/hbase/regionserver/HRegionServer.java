@@ -7445,8 +7445,6 @@ name|boolean
 name|delete
 parameter_list|)
 block|{
-try|try
-block|{
 if|if
 condition|(
 name|this
@@ -7456,10 +7454,12 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|//All hlogs (meta and non-meta) are in the same directory. Don't call
-comment|//closeAndDelete here since that would delete all hlogs not just the
-comment|//meta ones. We will just 'close' the hlog for meta here, and leave
-comment|//the directory cleanup to the follow-on closeAndDelete call.
+comment|// All hlogs (meta and non-meta) are in the same directory. Don't call
+comment|// closeAndDelete here since that would delete all hlogs not just the
+comment|// meta ones. We will just 'close' the hlog for meta here, and leave
+comment|// the directory cleanup to the follow-on closeAndDelete call.
+try|try
+block|{
 name|this
 operator|.
 name|hlogForMeta
@@ -7467,6 +7467,28 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Metalog close and delete failed"
+argument_list|,
+name|RemoteExceptionHandler
+operator|.
+name|checkThrowable
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -7476,6 +7498,8 @@ name|hlog
 operator|!=
 literal|null
 condition|)
+block|{
+try|try
 block|{
 if|if
 condition|(
@@ -7495,7 +7519,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -7518,6 +7541,7 @@ name|e
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_function

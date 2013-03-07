@@ -2626,12 +2626,42 @@ expr_stmt|;
 name|Path
 name|logPath
 init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|FSUtils
+operator|.
+name|isStartingWithPath
+argument_list|(
+name|rootdir
+argument_list|,
+name|logfile
+argument_list|)
+condition|)
+block|{
+name|logPath
+operator|=
 operator|new
 name|Path
 argument_list|(
 name|logfile
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+else|else
+block|{
+name|logPath
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|rootdir
+argument_list|,
+name|logfile
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|ZKSplitLog
@@ -5226,7 +5256,7 @@ literal|true
 return|;
 block|}
 block|}
-comment|/**    * A class used in distributed log splitting    *     */
+comment|/**    * A class used in distributed log splitting    *    */
 class|class
 name|DistributedLogSplittingHelper
 block|{
@@ -5542,7 +5572,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**      *       * @return null if failed to report progress      * @throws IOException      */
+comment|/**      *      * @return null if failed to report progress      * @throws IOException      */
 name|List
 argument_list|<
 name|Path
