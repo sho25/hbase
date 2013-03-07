@@ -363,10 +363,7 @@ name|CONF
 init|=
 literal|null
 decl_stmt|;
-annotation|@
-name|Ignore
-annotation|@
-name|BeforeClass
+comment|// @Ignore @BeforeClass
 specifier|public
 specifier|static
 name|void
@@ -419,10 +416,7 @@ name|TEST_FAMILY
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|AfterClass
+comment|// @Ignore @AfterClass
 specifier|public
 specifier|static
 name|void
@@ -437,10 +431,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testEndpoint

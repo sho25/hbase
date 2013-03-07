@@ -657,10 +657,7 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-annotation|@
-name|Ignore
-annotation|@
-name|BeforeClass
+comment|// @Ignore @BeforeClass
 specifier|public
 specifier|static
 name|void
@@ -696,10 +693,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|AfterClass
+comment|// @Ignore @AfterClass
 specifier|public
 specifier|static
 name|void
@@ -714,10 +708,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteEndpoint
@@ -870,10 +861,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteEndpointWhenRowBatchSizeLessThanRowsToDeleteFromARegion
@@ -1253,10 +1241,7 @@ return|return
 name|noOfDeletedRows
 return|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteWithConditionBasedDelete
@@ -1477,10 +1462,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteColumn
@@ -1726,10 +1708,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteFamily
@@ -2013,10 +1992,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteColumnVersion
@@ -2441,10 +2417,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteColumnVersionBasedOnTS
@@ -2875,10 +2848,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testBulkDeleteWithNumberOfVersions

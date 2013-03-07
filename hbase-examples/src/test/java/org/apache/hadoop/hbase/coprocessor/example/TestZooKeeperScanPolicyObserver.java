@@ -434,10 +434,7 @@ argument_list|(
 literal|"row"
 argument_list|)
 decl_stmt|;
-annotation|@
-name|Ignore
-annotation|@
-name|BeforeClass
+comment|// @BeforeClass
 specifier|public
 specifier|static
 name|void
@@ -446,6 +443,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"HERE!!!!!!!!"
+argument_list|)
+expr_stmt|;
 comment|// Test we can first start the ZK cluster by itself
 name|Configuration
 name|conf
@@ -482,10 +488,7 @@ name|startMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|AfterClass
+comment|// @AfterClass
 specifier|public
 specifier|static
 name|void
@@ -500,10 +503,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
+comment|// @Ignore @Test
 specifier|public
 name|void
 name|testScanPolicyObserver
