@@ -4419,24 +4419,23 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|HRegionServer
-name|server
-init|=
-name|cluster
-operator|.
-name|getRegionServer
-argument_list|(
-name|tableRegionIndex
-argument_list|)
-decl_stmt|;
 name|printOutRegions
 argument_list|(
-name|server
+name|regionServer
 argument_list|,
 literal|"Initial regions: "
 argument_list|)
 expr_stmt|;
-comment|// find a splittable region
+comment|// find a splittable region.  Refresh the regions list
+name|regions
+operator|=
+name|cluster
+operator|.
+name|getRegions
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 specifier|final
 name|HRegion
 name|region
