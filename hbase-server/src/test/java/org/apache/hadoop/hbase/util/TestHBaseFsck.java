@@ -1001,6 +1001,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -10215,6 +10225,10 @@ expr_stmt|;
 comment|// 4 attempted, but 1 missing.
 block|}
 comment|/**    * This creates a table and simulates the race situation where a concurrent compaction or split    * has removed an colfam dir before the corruption checker got to it.    */
+comment|// Disabled because fails sporadically.  Is this test right?  Timing-wise, there could be no
+comment|// files in a column family on initial creation -- as suggested by Matteo.
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 argument_list|(
