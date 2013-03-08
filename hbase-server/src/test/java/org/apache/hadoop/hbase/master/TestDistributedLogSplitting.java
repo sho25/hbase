@@ -1861,7 +1861,7 @@ operator|<
 operator|(
 name|NUM_REGIONS_TO_CREATE
 operator|+
-literal|2
+literal|1
 operator|)
 condition|)
 block|{
@@ -2392,7 +2392,7 @@ operator|.
 name|size
 argument_list|()
 operator|!=
-literal|2
+literal|1
 condition|)
 block|{
 for|for
@@ -2414,7 +2414,7 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|regions
 operator|.
@@ -2475,7 +2475,7 @@ name|assertEquals
 argument_list|(
 name|numRegions
 operator|+
-literal|2
+literal|1
 argument_list|,
 name|regions
 operator|.

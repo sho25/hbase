@@ -1173,11 +1173,6 @@ name|hri
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|||
-name|hri
-operator|.
-name|isRootRegion
-argument_list|()
 condition|)
 name|serverLoad
 operator|--
@@ -1357,7 +1352,7 @@ name|KEYS
 operator|.
 name|length
 operator|+
-literal|2
+literal|1
 decl_stmt|;
 while|while
 condition|(

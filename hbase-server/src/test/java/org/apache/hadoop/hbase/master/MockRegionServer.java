@@ -2503,7 +2503,7 @@ name|convert
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 argument_list|)
 expr_stmt|;

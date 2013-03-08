@@ -17824,7 +17824,8 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *    * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to META table.    *    * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|// TODO remove since only test and merge use this
 specifier|public
 specifier|static
 name|void
@@ -23068,18 +23069,6 @@ init|=
 literal|null
 decl_stmt|;
 name|String
-name|rootStr
-init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-decl_stmt|;
-name|String
 name|metaStr
 init|=
 name|Bytes
@@ -23092,46 +23081,6 @@ name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
 comment|// Currently expects tables have one region only.
-if|if
-condition|(
-name|p
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|startsWith
-argument_list|(
-name|rootStr
-argument_list|)
-condition|)
-block|{
-name|region
-operator|=
-name|HRegion
-operator|.
-name|newHRegion
-argument_list|(
-name|p
-argument_list|,
-name|log
-argument_list|,
-name|fs
-argument_list|,
-name|c
-argument_list|,
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
 if|if
 condition|(
 name|p
@@ -23383,7 +23332,7 @@ index|[]
 name|checkSplit
 parameter_list|()
 block|{
-comment|// Can't split ROOT/META
+comment|// Can't split META
 if|if
 condition|(
 name|this
@@ -23405,7 +23354,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cannot split root/meta regions in HBase 0.20 and above"
+literal|"Cannot split meta region in HBase 0.20 and above"
 argument_list|)
 expr_stmt|;
 block|}

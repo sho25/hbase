@@ -2245,11 +2245,6 @@ name|hri
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|||
-name|hri
-operator|.
-name|isRootRegion
-argument_list|()
 condition|)
 continue|continue;
 name|String

@@ -1164,21 +1164,6 @@ operator|.
 name|getServerWithMeta
 argument_list|()
 decl_stmt|;
-name|int
-name|rootServerNum
-init|=
-name|cluster
-operator|.
-name|getServerWith
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|HRegionServer
 name|metaRS
 init|=
@@ -1193,13 +1178,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Killing metaRS and carryingRoot = "
-operator|+
-operator|(
-name|metaServerNum
-operator|==
-name|rootServerNum
-operator|)
+literal|"Killing metaRS"
 argument_list|)
 expr_stmt|;
 name|metaRS
@@ -1212,7 +1191,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-comment|/*      * Sleep double time of TestingMaster.sleep.duration, so we can ensure that      * master has already assigned ROOTandMETA or is blocking on assigning      * ROOTandMETA      */
+comment|/*      * Sleep double time of TestingMaster.sleep.duration, so we can ensure that      * master has already assigned META or is blocking on assigning      * META      */
 name|Thread
 operator|.
 name|sleep
@@ -1238,83 +1217,7 @@ name|TABLENAME
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|/*      * NO.2 -ROOT- region correctness . If the .META. server killed in the NO.1      * is also carrying -ROOT- region, it is not needed      */
-if|if
-condition|(
-name|rootServerNum
-operator|!=
-name|metaServerNum
-condition|)
-block|{
-comment|// First abort master
-name|abortMaster
-argument_list|(
-name|cluster
-argument_list|)
-expr_stmt|;
-name|master
-operator|=
-name|startMasterAndWaitUntilLogSplit
-argument_list|(
-name|cluster
-argument_list|)
-expr_stmt|;
-comment|// Second kill meta server
-name|HRegionServer
-name|rootRS
-init|=
-name|cluster
-operator|.
-name|getRegionServer
-argument_list|(
-name|rootServerNum
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Killing rootRS"
-argument_list|)
-expr_stmt|;
-name|rootRS
-operator|.
-name|kill
-argument_list|()
-expr_stmt|;
-name|rootRS
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-comment|/*        * Sleep double time of TestingMaster.sleep.duration, so we can ensure        * that master has already assigned ROOTandMETA or is blocking on        * assigning ROOTandMETA        */
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|10000
-operator|*
-literal|2
-argument_list|)
-expr_stmt|;
-name|waitUntilMasterIsInitialized
-argument_list|(
-name|master
-argument_list|)
-expr_stmt|;
-comment|// Third check whether data is correct in meta region
-name|assertTrue
-argument_list|(
-name|hbaseAdmin
-operator|.
-name|isTableAvailable
-argument_list|(
-name|TABLENAME
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|/* NO.3 data region correctness */
+comment|/* NO.2 data region correctness */
 name|ServerManager
 name|serverManager
 init|=

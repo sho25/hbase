@@ -1447,15 +1447,10 @@ operator|.
 name|getTableName
 argument_list|()
 decl_stmt|;
-comment|// 1. All users need read access to .META. and -ROOT- tables.
+comment|// 1. All users need read access to .META. table.
 comment|// this is a very common operation, so deal with it quickly.
 if|if
 condition|(
-name|hri
-operator|.
-name|isRootRegion
-argument_list|()
-operator|||
 name|hri
 operator|.
 name|isMetaRegion
@@ -1535,11 +1530,6 @@ operator|.
 name|WRITE
 operator|&&
 operator|(
-name|hri
-operator|.
-name|isRootRegion
-argument_list|()
-operator|||
 name|hri
 operator|.
 name|isMetaRegion

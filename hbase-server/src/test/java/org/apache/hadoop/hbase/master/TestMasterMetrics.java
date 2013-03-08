@@ -533,7 +533,7 @@ name|assertGauge
 argument_list|(
 literal|"averageLoad"
 argument_list|,
-literal|2
+literal|1
 argument_list|,
 name|masterSource
 argument_list|)

@@ -507,7 +507,7 @@ argument_list|)
 decl_stmt|;
 name|numRegions
 operator|+=
-literal|2
+literal|1
 expr_stmt|;
 comment|// catalogs
 name|log
@@ -572,7 +572,7 @@ operator|.
 name|size
 argument_list|()
 operator|!=
-literal|2
+literal|1
 condition|)
 block|{
 for|for
@@ -592,7 +592,7 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|regions
 operator|.
@@ -1211,21 +1211,6 @@ block|}
 block|}
 name|log
 argument_list|(
-literal|"Stopping server hosting ROOT"
-argument_list|)
-expr_stmt|;
-name|rootServer
-operator|.
-name|getRegionServer
-argument_list|()
-operator|.
-name|stop
-argument_list|(
-literal|"Stopping ROOT server"
-argument_list|)
-expr_stmt|;
-name|log
-argument_list|(
 literal|"Stopping server hosting META #1"
 argument_list|)
 expr_stmt|;
@@ -1245,20 +1230,6 @@ name|hbaseCluster
 operator|.
 name|waitOnRegionServer
 argument_list|(
-name|rootServer
-argument_list|)
-expr_stmt|;
-name|log
-argument_list|(
-literal|"Root server down"
-argument_list|)
-expr_stmt|;
-name|cluster
-operator|.
-name|hbaseCluster
-operator|.
-name|waitOnRegionServer
-argument_list|(
 name|metaServer
 argument_list|)
 expr_stmt|;
@@ -1268,8 +1239,7 @@ literal|"Meta server down #1"
 argument_list|)
 expr_stmt|;
 name|expectedNumRS
-operator|-=
-literal|2
+operator|--
 expr_stmt|;
 name|log
 argument_list|(
@@ -1814,7 +1784,7 @@ block|}
 block|}
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|cluster
 operator|.

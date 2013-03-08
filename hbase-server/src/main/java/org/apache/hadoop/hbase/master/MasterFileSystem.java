@@ -886,7 +886,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the root region exists and is readable, if not create it.    * Create hbase.version and the -ROOT- directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
+comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the meta region exists and is readable, if not create it.    * Create hbase.version and the .META. directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
 specifier|private
 name|Path
 name|createInitialFileSystemLayout
@@ -2375,13 +2375,13 @@ argument_list|,
 name|rd
 argument_list|)
 expr_stmt|;
-comment|// Make sure the root region directory exists!
+comment|// Make sure the meta region directory exists!
 if|if
 condition|(
 operator|!
 name|FSUtils
 operator|.
-name|rootRegionExists
+name|metaRegionExists
 argument_list|(
 name|fs
 argument_list|,
@@ -2397,23 +2397,7 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Create tableinfo-s for ROOT and META if not already there. This also updates the
-comment|//descriptors if they are older versions.
-name|FSTableDescriptors
-operator|.
-name|createTableDescriptor
-argument_list|(
-name|fs
-argument_list|,
-name|rd
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
+comment|// Create tableinfo-s for META if not already there.
 name|FSTableDescriptors
 operator|.
 name|createTableDescriptor
@@ -2582,7 +2566,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"BOOTSTRAP: creating ROOT and first META regions"
+literal|"BOOTSTRAP: creating first META region"
 argument_list|)
 expr_stmt|;
 try|try
@@ -2591,22 +2575,6 @@ comment|// Bootstrapping, make sure blockcache is off.  Else, one will be
 comment|// created here in bootstap and it'll need to be cleaned up.  Better to
 comment|// not make it in first place.  Turn off block caching for bootstrap.
 comment|// Enable after.
-name|HRegionInfo
-name|rootHRI
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-decl_stmt|;
-name|setInfoFamilyCachingForRoot
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|HRegionInfo
 name|metaHRI
 init|=
@@ -2623,24 +2591,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|HRegion
-name|root
-init|=
-name|HRegion
-operator|.
-name|createHRegion
-argument_list|(
-name|rootHRI
-argument_list|,
-name|rd
-argument_list|,
-name|c
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|)
-decl_stmt|;
 name|HRegion
 name|meta
 init|=
@@ -2659,31 +2609,9 @@ operator|.
 name|META_TABLEDESC
 argument_list|)
 decl_stmt|;
-name|setInfoFamilyCachingForRoot
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|setInfoFamilyCachingForMeta
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-comment|// Add first region from the META table to the ROOT region.
-name|HRegion
-operator|.
-name|addRegionToMETA
-argument_list|(
-name|root
-argument_list|,
-name|meta
-argument_list|)
-expr_stmt|;
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
-name|root
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -2721,64 +2649,6 @@ expr_stmt|;
 throw|throw
 name|e
 throw|;
-block|}
-block|}
-comment|/**    * Enable in-memory caching for -ROOT-    */
-specifier|public
-specifier|static
-name|void
-name|setInfoFamilyCachingForRoot
-parameter_list|(
-specifier|final
-name|boolean
-name|b
-parameter_list|)
-block|{
-for|for
-control|(
-name|HColumnDescriptor
-name|hcd
-range|:
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-operator|.
-name|getColumnFamilies
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|hcd
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|)
-condition|)
-block|{
-name|hcd
-operator|.
-name|setBlockCacheEnabled
-argument_list|(
-name|b
-argument_list|)
-expr_stmt|;
-name|hcd
-operator|.
-name|setInMemory
-argument_list|(
-name|b
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Enable in memory caching for .META.    */

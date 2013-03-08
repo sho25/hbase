@@ -2143,7 +2143,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|rootRegionExists
+name|metaRegionExists
 argument_list|(
 name|fs
 argument_list|,
@@ -3537,7 +3537,7 @@ begin_function
 specifier|public
 specifier|static
 name|boolean
-name|rootRegionExists
+name|metaRegionExists
 parameter_list|(
 name|FileSystem
 name|fs
@@ -3559,7 +3559,7 @@ name|rootdir
 argument_list|,
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
 return|return

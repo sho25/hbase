@@ -55,7 +55,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|exceptions
+operator|.
+name|DeserializationException
 import|;
 end_import
 
@@ -69,9 +71,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|DeserializationException
+name|ServerName
 import|;
 end_import
 
@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the root region server location node in zookeeper.  * Root region location is set by<code>RegionServerServices</code>.  * This class has a watcher on the root location and notices changes.  */
+comment|/**  * Tracks the meta region server location node in zookeeper.  * Meta region location is set by<code>RegionServerServices</code>.  * This class has a watcher on the meta location and notices changes.  */
 end_comment
 
 begin_class
@@ -150,13 +150,13 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|RootRegionTracker
+name|MetaRegionTracker
 extends|extends
 name|ZooKeeperNodeTracker
 block|{
-comment|/**    * Creates a root region location tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher    * @param abortable    */
+comment|/**    * Creates a meta region location tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher    * @param abortable    */
 specifier|public
-name|RootRegionTracker
+name|MetaRegionTracker
 parameter_list|(
 name|ZooKeeperWatcher
 name|watcher
@@ -171,13 +171,13 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|,
 name|abortable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if the root region location is available.    * @return true if root region location is available, false if not    */
+comment|/**    * Checks if the meta region location is available.    * @return true if meta region location is available, false if not    */
 specifier|public
 name|boolean
 name|isLocationAvailable
@@ -194,10 +194,10 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Gets the root region location, if available.  Does not block.  Sets a watcher.    * @return server name or null if we failed to get the data.    * @throws InterruptedException    */
+comment|/**    * Gets the meta region location, if available.  Does not block.  Sets a watcher.    * @return server name or null if we failed to get the data.    * @throws InterruptedException    */
 specifier|public
 name|ServerName
-name|getRootRegionLocation
+name|getMetaRegionLocation
 parameter_list|()
 throws|throws
 name|InterruptedException
@@ -238,11 +238,11 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Gets the root region location, if available.  Does not block.  Does not set    * a watcher (In this regard it differs from {@link #getRootRegionLocation()}.    * @param zkw    * @return server name or null if we failed to get the data.    * @throws KeeperException    */
+comment|/**    * Gets the meta region location, if available.  Does not block.  Does not set    * a watcher (In this regard it differs from {@link #getMetaRegionLocation}.    * @param zkw    * @return server name or null if we failed to get the data.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|ServerName
-name|getRootRegionLocation
+name|getMetaRegionLocation
 parameter_list|(
 specifier|final
 name|ZooKeeperWatcher
@@ -266,7 +266,7 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|)
 argument_list|)
 return|;
@@ -287,10 +287,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting root region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Gets the meta region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|ServerName
-name|waitRootRegionLocation
+name|waitMetaRegionLocation
 parameter_list|(
 name|long
 name|timeout
@@ -366,11 +366,11 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Sets the location of<code>-ROOT-</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location The server hosting<code>-ROOT-</code>    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Sets the location of<code>.META.</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location The server hosting<code>.META.</code>    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|void
-name|setRootLocation
+name|setMetaLocation
 parameter_list|(
 name|ZooKeeperWatcher
 name|zookeeper
@@ -386,12 +386,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting ROOT region location in ZooKeeper as "
+literal|"Setting META region location in ZooKeeper as "
 operator|+
 name|location
 argument_list|)
 expr_stmt|;
-comment|// Make the RootRegionServer pb and then get its bytes and save this as
+comment|// Make the MetaRegionServer pb and then get its bytes and save this as
 comment|// the znode content.
 name|byte
 index|[]
@@ -412,7 +412,7 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|,
 name|data
 argument_list|)
@@ -430,7 +430,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ROOT region location already existed, updated location"
+literal|"META region location already existed, updated location"
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -441,14 +441,14 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|,
 name|data
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Build up the znode content.    * @param sn What to put into the znode.    * @return The content of the root-region-server znode    */
+comment|/**    * Build up the znode content.    * @param sn What to put into the znode.    * @return The content of the meta-region-server znode    */
 specifier|static
 name|byte
 index|[]
@@ -531,11 +531,11 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes the location of<code>-ROOT-</code> in ZooKeeper.    * @param zookeeper zookeeper reference    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Deletes the location of<code>.META.</code> in ZooKeeper.    * @param zookeeper zookeeper reference    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|void
-name|deleteRootLocation
+name|deleteMetaLocation
 parameter_list|(
 name|ZooKeeperWatcher
 name|zookeeper
@@ -547,7 +547,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unsetting ROOT region location in ZooKeeper"
+literal|"Unsetting META region location in ZooKeeper"
 argument_list|)
 expr_stmt|;
 try|try
@@ -561,7 +561,7 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|)
 expr_stmt|;
 block|}
@@ -576,7 +576,7 @@ block|{
 comment|// Has already been deleted
 block|}
 block|}
-comment|/**    * Wait until the root region is available.    * @param zkw    * @param timeout    * @return ServerName or null if we timed out.    * @throws InterruptedException    */
+comment|/**    * Wait until the meta region is available.    * @param zkw    * @param timeout    * @return ServerName or null if we timed out.    * @throws InterruptedException    */
 specifier|public
 specifier|static
 name|ServerName
@@ -605,7 +605,7 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|,
 name|timeout
 argument_list|)

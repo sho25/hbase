@@ -520,35 +520,6 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Put the passed<code>p</code> to the<code>.META.</code> table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param p Put to add to .META.    * @throws IOException    */
-specifier|static
-name|void
-name|putToRootTable
-parameter_list|(
-specifier|final
-name|CatalogTracker
-name|ct
-parameter_list|,
-specifier|final
-name|Put
-name|p
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|put
-argument_list|(
-name|MetaReader
-operator|.
-name|getRootHTable
-argument_list|(
-name|ct
-argument_list|)
-argument_list|,
-name|p
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Put the passed<code>p</code> to a catalog table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param p Put to add    * @throws IOException    */
 specifier|static
 name|void
@@ -573,11 +544,6 @@ operator|.
 name|getCatalogHTable
 argument_list|(
 name|ct
-argument_list|,
-name|p
-operator|.
-name|getRow
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|put

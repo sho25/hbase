@@ -439,7 +439,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * The new format for a region name contains its encodedName at the end.    * The encoded name also serves as the directory name for the region    * in the filesystem.    *    * New region name format:    *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.    * where,    *&lt;encodedName> is a hex version of the MD5 hash of    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    *    * The old region name format:    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    * For region names in the old format, the encoded name is a 32-bit    * JenkinsHash integer value (in its decimal notation, string form).    *<p>    * **NOTE**    *    * ROOT, the first META region, and regions created by an older    * version of HBase (0.20 or prior) will continue to use the    * old region name format.    */
+comment|/**    * The new format for a region name contains its encodedName at the end.    * The encoded name also serves as the directory name for the region    * in the filesystem.    *    * New region name format:    *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.    * where,    *&lt;encodedName> is a hex version of the MD5 hash of    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    *    * The old region name format:    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    * For region names in the old format, the encoded name is a 32-bit    * JenkinsHash integer value (in its decimal notation, string form).    *<p>    * **NOTE**    *    * The first META region, and regions created by an older    * version of HBase (0.20 or prior) will continue to use the    * old region name format.    */
 comment|/** Separator used to demarcate the encodedName in a region name    * in the new format. See description on new format above.    */
 specifier|private
 specifier|static
@@ -559,7 +559,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// old format region name. ROOT and first META region also
+comment|// old format region name. First META region also
 comment|// use this format.EncodedName is the JenkinsHash value.
 name|int
 name|hashVal
@@ -599,7 +599,7 @@ return|return
 name|encodedName
 return|;
 block|}
-comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>-ROOT-</code> if passed<code>70236052</code> or    *<code>.META.</code> if passed</code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
+comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>.META.</code> if passed</code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
 specifier|public
 specifier|static
 name|String
@@ -610,23 +610,6 @@ name|String
 name|encodedRegionName
 parameter_list|)
 block|{
-if|if
-condition|(
-name|encodedRegionName
-operator|.
-name|equals
-argument_list|(
-literal|"70236052"
-argument_list|)
-condition|)
-block|{
-return|return
-name|encodedRegionName
-operator|+
-literal|"/-ROOT-"
-return|;
-block|}
-elseif|else
 if|if
 condition|(
 name|encodedRegionName
@@ -858,7 +841,7 @@ operator|=
 name|result
 expr_stmt|;
 block|}
-comment|/**    * Private constructor used constructing HRegionInfo for the catalog root and    * first meta regions    */
+comment|/**    * Private constructor used constructing HRegionInfo for the    * first meta regions    */
 specifier|private
 name|HRegionInfo
 parameter_list|(
@@ -888,7 +871,7 @@ operator|.
 name|clone
 argument_list|()
 expr_stmt|;
-comment|// Note: Root& First Meta regions names are still in old format
+comment|// Note: First Meta regions names are still in old format
 name|this
 operator|.
 name|regionName
@@ -2384,38 +2367,13 @@ argument_list|)
 operator|)
 return|;
 block|}
-comment|/** @return true if this is the root region */
-specifier|public
-name|boolean
-name|isRootRegion
-parameter_list|()
-block|{
-return|return
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-operator|.
-name|getTableName
-argument_list|()
-argument_list|)
-return|;
-block|}
-comment|/** @return true if this region is from a table that is a meta table,    * either<code>.META.</code> or<code>-ROOT-</code>    */
+comment|/**    * @return true if this region is from .META.    */
 specifier|public
 name|boolean
 name|isMetaTable
 parameter_list|()
 block|{
 return|return
-name|isRootRegion
-argument_list|()
-operator|||
 name|isMetaRegion
 argument_list|()
 return|;
@@ -3356,13 +3314,6 @@ name|getComparator
 parameter_list|()
 block|{
 return|return
-name|isRootRegion
-argument_list|()
-condition|?
-name|KeyValue
-operator|.
-name|ROOT_COMPARATOR
-else|:
 name|isMetaRegion
 argument_list|()
 condition|?
@@ -3553,25 +3504,6 @@ operator|.
 name|toByteArray
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-condition|)
-block|{
-return|return
-name|ROOT_REGIONINFO
-return|;
-block|}
-elseif|else
 if|if
 condition|(
 name|Bytes

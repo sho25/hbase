@@ -366,10 +366,10 @@ specifier|public
 name|String
 name|baseZNode
 decl_stmt|;
-comment|// znode containing location of server hosting root region
+comment|// znode containing location of server hosting meta region
 specifier|public
 name|String
-name|rootServerZNode
+name|metaServerZNode
 decl_stmt|;
 comment|// znode containing ephemeral nodes of the regionservers
 specifier|public
@@ -795,7 +795,7 @@ operator|.
 name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
 argument_list|)
 expr_stmt|;
-name|rootServerZNode
+name|metaServerZNode
 operator|=
 name|ZKUtil
 operator|.
@@ -807,9 +807,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"zookeeper.znode.rootserver"
+literal|"zookeeper.znode.metaserver"
 argument_list|,
-literal|"root-region-server"
+literal|"meta-region-server"
 argument_list|)
 argument_list|)
 expr_stmt|;

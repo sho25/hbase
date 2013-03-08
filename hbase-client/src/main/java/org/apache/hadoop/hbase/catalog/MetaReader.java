@@ -395,62 +395,6 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @return True if<code>row</code> is row of<code>-ROOT-</code> table.    */
-specifier|private
-specifier|static
-name|boolean
-name|isRootTableRow
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|)
-block|{
-if|if
-condition|(
-name|row
-operator|.
-name|length
-operator|<
-name|META_REGION_PREFIX
-operator|.
-name|length
-operator|+
-literal|2
-comment|/* ',', + '1' */
-condition|)
-block|{
-comment|// Can't be meta table region.
-return|return
-literal|false
-return|;
-block|}
-comment|// Compare the prefix of row.  If it matches META_REGION_PREFIX prefix,
-comment|// then this is row from -ROOT_ table.
-return|return
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|row
-argument_list|,
-literal|0
-argument_list|,
-name|META_REGION_PREFIX
-operator|.
-name|length
-argument_list|,
-name|META_REGION_PREFIX
-argument_list|,
-literal|0
-argument_list|,
-name|META_REGION_PREFIX
-operator|.
-name|length
-argument_list|)
-return|;
-block|}
 comment|/**    * Performs a full scan of<code>.META.</code>, skipping regions from any    * tables in the specified set of disabled tables.    * @param catalogTracker    * @param disabledTables set of disabled tables that will not be returned    * @return Returns a map of every region to it's currently assigned server,    * according to META.  If the region does not have an assignment it will have    * a null value in the map.    * @throws IOException    */
 specifier|public
 specifier|static
@@ -704,14 +648,14 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * Performs a full scan of a<code>-ROOT-</code> table.    * @return List of {@link Result}    * @throws IOException    */
+comment|/**    * Performs a full scan of a<code>.META.</code> table.    * @return List of {@link Result}    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
 argument_list|<
 name|Result
 argument_list|>
-name|fullScanOfRoot
+name|fullScanOfMeta
 parameter_list|(
 name|CatalogTracker
 name|catalogTracker
@@ -733,8 +677,6 @@ argument_list|,
 name|v
 argument_list|,
 literal|null
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 return|return
@@ -767,39 +709,6 @@ argument_list|,
 name|visitor
 argument_list|,
 literal|null
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Performs a full scan of<code>.META.</code>.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row (The visitor will stop the Scan when its done so no need to    * pass a stoprow).    * @throws IOException    */
-specifier|public
-specifier|static
-name|void
-name|fullScan
-parameter_list|(
-name|CatalogTracker
-name|catalogTracker
-parameter_list|,
-specifier|final
-name|Visitor
-name|visitor
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|startrow
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|fullScan
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|visitor
-argument_list|,
-name|startrow
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -870,7 +779,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @param row Row we are putting    * @return    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @return    * @throws IOException    */
 specifier|static
 name|HTable
 name|getCatalogHTable
@@ -878,26 +787,11 @@ parameter_list|(
 specifier|final
 name|CatalogTracker
 name|catalogTracker
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|row
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 return|return
-name|isRootTableRow
-argument_list|(
-name|row
-argument_list|)
-condition|?
-name|getRootHTable
-argument_list|(
-name|catalogTracker
-argument_list|)
-else|:
 name|getMetaHTable
 argument_list|(
 name|catalogTracker
@@ -924,29 +818,6 @@ argument_list|,
 name|HConstants
 operator|.
 name|META_TABLE_NAME
-argument_list|)
-return|;
-block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param ct    * @return An {@link HTable} for<code>-ROOT-</code>    * @throws IOException    */
-specifier|static
-name|HTable
-name|getRootHTable
-parameter_list|(
-specifier|final
-name|CatalogTracker
-name|ct
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|getHTable
-argument_list|(
-name|ct
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
 argument_list|)
 return|;
 block|}
@@ -986,31 +857,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-comment|/**    * Gets the location of<code>.META.</code> region by reading content of    *<code>-ROOT-</code>.    * @param ct    * @return location of<code>.META.</code> region as a {@link ServerName} or    * null if not found    * @throws IOException    */
-specifier|static
-name|ServerName
-name|getMetaRegionLocation
-parameter_list|(
-specifier|final
-name|CatalogTracker
-name|ct
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|MetaReader
-operator|.
-name|readRegionLocation
-argument_list|(
-name|ct
-argument_list|,
-name|CatalogTracker
-operator|.
-name|META_REGION_NAME
-argument_list|)
-return|;
 block|}
 comment|/**    * Reads the location of the specified region    * @param catalogTracker    * @param regionName region whose location we are after    * @return location of region as a {@link ServerName} or null if not found    * @throws IOException    */
 specifier|static
@@ -1111,8 +957,6 @@ argument_list|(
 name|getCatalogHTable
 argument_list|(
 name|catalogTracker
-argument_list|,
-name|regionName
 argument_list|)
 argument_list|,
 name|get
@@ -1157,18 +1001,6 @@ name|IOException
 block|{
 if|if
 condition|(
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-operator|.
-name|getNameAsString
-argument_list|()
-argument_list|)
-operator|||
 name|tableName
 operator|.
 name|equals
@@ -1780,17 +1612,17 @@ name|tableName
 argument_list|,
 name|HConstants
 operator|.
-name|ROOT_TABLE_NAME
+name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
-comment|// If root, do a bit of special handling.
+comment|// If meta, do a bit of special handling.
 name|ServerName
 name|serverName
 init|=
 name|catalogTracker
 operator|.
-name|getRootLocation
+name|getMetaLocation
 argument_list|()
 decl_stmt|;
 name|List
@@ -1830,7 +1662,7 @@ argument_list|>
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|serverName
 argument_list|)
@@ -2016,17 +1848,6 @@ argument_list|,
 name|getTableStartRowForMeta
 argument_list|(
 name|tableName
-argument_list|)
-argument_list|,
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|META_TABLE_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2320,7 +2141,8 @@ name|v
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs a full scan of a catalog table.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    * @param scanRoot True if we are to scan<code>-ROOT-</code> rather than    *<code>.META.</code>, the default (pass false to scan .META.)    * @throws IOException    */
+comment|/**    * Performs a full scan of a catalog table.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    *<code>.META.</code>, the default (pass false to scan .META.)    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|fullScan
@@ -2336,10 +2158,6 @@ specifier|final
 name|byte
 index|[]
 name|startrow
-parameter_list|,
-specifier|final
-name|boolean
-name|scanRoot
 parameter_list|)
 throws|throws
 name|IOException
@@ -2369,9 +2187,6 @@ condition|(
 name|startrow
 operator|==
 literal|null
-operator|&&
-operator|!
-name|scanRoot
 condition|)
 block|{
 name|int
@@ -2414,13 +2229,6 @@ expr_stmt|;
 name|HTable
 name|metaTable
 init|=
-name|scanRoot
-condition|?
-name|getRootHTable
-argument_list|(
-name|catalogTracker
-argument_list|)
-else|:
 name|getMetaHTable
 argument_list|(
 name|catalogTracker

@@ -1091,7 +1091,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|RootRegionTracker
+name|MetaRegionTracker
 import|;
 end_import
 
@@ -1515,7 +1515,7 @@ literal|false
 decl_stmt|;
 comment|// fix lingering reference store file
 comment|// limit checking/fixes to listed tables, if empty attempt to check/fix all
-comment|// -ROOT- and .META. are always checked
+comment|// .META. are always checked
 specifier|private
 name|Set
 argument_list|<
@@ -1650,7 +1650,7 @@ name|Result
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * This map from Tablename -> TableInfo contains the structures necessary to    * detect table consistency problems (holes, dupes, overlaps).  It is sorted    * to prevent dupes.    *    * If tablesIncluded is empty, this map contains all tables.    * Otherwise, it contains only meta tables and tables in tablesIncluded,    * unless checkMetaOnly is specified, in which case, it contains only    * the meta tables (.META. and -ROOT-).    */
+comment|/**    * This map from Tablename -> TableInfo contains the structures necessary to    * detect table consistency problems (holes, dupes, overlaps).  It is sorted    * to prevent dupes.    *    * If tablesIncluded is empty, this map contains all tables.    * Otherwise, it contains only meta tables and tables in tablesIncluded,    * unless checkMetaOnly is specified, in which case, it contains only    * the meta table    */
 specifier|private
 name|SortedMap
 argument_list|<
@@ -1759,6 +1759,13 @@ operator|new
 name|ScheduledThreadPoolExecutor
 argument_list|(
 name|numThreads
+argument_list|,
+name|Threads
+operator|.
+name|newDaemonThreadFactory
+argument_list|(
+literal|"hbasefsck"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3558,21 +3565,12 @@ operator|+
 operator|(
 name|td
 operator|.
-name|isRootRegion
-argument_list|()
-condition|?
-literal|"ROOT"
-else|:
-operator|(
-name|td
-operator|.
 name|isMetaRegion
 argument_list|()
 condition|?
 literal|"META"
 else|:
 literal|"    "
-operator|)
 operator|)
 operator|+
 literal|"\t"
@@ -4656,7 +4654,7 @@ block|}
 comment|/**    * This borrows code from MasterFileSystem.bootstrap()    *    * @return an open .META. HRegion    */
 specifier|private
 name|HRegion
-name|createNewRootAndMeta
+name|createNewMeta
 parameter_list|()
 throws|throws
 name|IOException
@@ -4679,24 +4677,6 @@ name|getConf
 argument_list|()
 decl_stmt|;
 name|HRegionInfo
-name|rootHRI
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-decl_stmt|;
-name|MasterFileSystem
-operator|.
-name|setInfoFamilyCachingForRoot
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-name|HRegionInfo
 name|metaHRI
 init|=
 operator|new
@@ -4714,24 +4694,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|HRegion
-name|root
-init|=
-name|HRegion
-operator|.
-name|createHRegion
-argument_list|(
-name|rootHRI
-argument_list|,
-name|rootdir
-argument_list|,
-name|c
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|)
-decl_stmt|;
 name|HRegion
 name|meta
 init|=
@@ -4752,33 +4714,9 @@ argument_list|)
 decl_stmt|;
 name|MasterFileSystem
 operator|.
-name|setInfoFamilyCachingForRoot
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|MasterFileSystem
-operator|.
 name|setInfoFamilyCachingForMeta
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-comment|// Add first region from the META table to the ROOT region.
-name|HRegion
-operator|.
-name|addRegionToMETA
-argument_list|(
-name|root
-argument_list|,
-name|meta
-argument_list|)
-expr_stmt|;
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
-name|root
 argument_list|)
 expr_stmt|;
 return|return
@@ -4846,27 +4784,9 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-comment|// skip "-ROOT-" and ".META."
+comment|// skip ".META."
 if|if
 condition|(
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|name
-argument_list|)
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-operator|==
-literal|0
-operator|||
 name|Bytes
 operator|.
 name|compareTo
@@ -5213,7 +5133,7 @@ block|}
 block|}
 block|}
 block|}
-comment|// we can rebuild, move old root and meta out of the way and start
+comment|// we can rebuild, move old meta out of the way and start
 name|LOG
 operator|.
 name|info
@@ -5224,7 +5144,7 @@ expr_stmt|;
 name|Path
 name|backupDir
 init|=
-name|sidelineOldRootAndMeta
+name|sidelineOldMeta
 argument_list|()
 decl_stmt|;
 name|LOG
@@ -5237,7 +5157,7 @@ expr_stmt|;
 name|HRegion
 name|meta
 init|=
-name|createNewRootAndMeta
+name|createNewMeta
 argument_list|()
 decl_stmt|;
 comment|// populate meta
@@ -5265,7 +5185,7 @@ name|fatal
 argument_list|(
 literal|"Problem encountered when creating new .META. entries.  "
 operator|+
-literal|"You may need to restore the previously sidelined -ROOT- and .META."
+literal|"You may need to restore the previously sidelined .META."
 argument_list|)
 expr_stmt|;
 return|return
@@ -5306,7 +5226,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Old -ROOT- and .META. are moved into "
+literal|"Old .META. is moved into "
 operator|+
 name|backupDir
 argument_list|)
@@ -6043,12 +5963,12 @@ block|}
 block|}
 comment|/**    * @return Path to backup of original directory    */
 name|Path
-name|sidelineOldRootAndMeta
+name|sidelineOldMeta
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// put current -ROOT- and .META. aside.
+comment|// put current .META. aside.
 name|Path
 name|hbaseDir
 init|=
@@ -6084,19 +6004,6 @@ argument_list|(
 name|backupDir
 argument_list|)
 expr_stmt|;
-name|sidelineTable
-argument_list|(
-name|fs
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|,
-name|hbaseDir
-argument_list|,
-name|backupDir
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|sidelineTable
@@ -6121,54 +6028,11 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
-argument_list|(
-literal|"Attempt to sideline meta failed, attempt to revert..."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-comment|// move it back.
-name|sidelineTable
-argument_list|(
-name|fs
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|,
-name|backupDir
-argument_list|,
-name|hbaseDir
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"... revert succeed.  -ROOT- and .META. still in "
-operator|+
-literal|"original state."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
 name|fatal
 argument_list|(
-literal|"... failed to sideline root and meta and failed to restore "
+literal|"... failed to sideline meta. Currently in inconsistent state.  To restore "
 operator|+
-literal|"prevoius state.  Currently in inconsistent state.  To restore "
-operator|+
-literal|"try to rename -ROOT- in "
+literal|"try to rename .META. in "
 operator|+
 name|backupDir
 operator|.
@@ -6184,10 +6048,9 @@ argument_list|()
 operator|+
 literal|"."
 argument_list|,
-name|ioe
+name|e
 argument_list|)
 expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
@@ -6433,13 +6296,6 @@ name|dirName
 operator|.
 name|equals
 argument_list|(
-literal|"-ROOT-"
-argument_list|)
-operator|||
-name|dirName
-operator|.
-name|equals
-argument_list|(
 literal|".META."
 argument_list|)
 condition|)
@@ -6651,16 +6507,16 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Record the location of the ROOT region as found in ZooKeeper,    * as if it were in a META table. This is so that we can check    * deployment of ROOT.    */
+comment|/**    * Record the location of the META region as found in ZooKeeper.    */
 specifier|private
 name|boolean
-name|recordRootRegion
+name|recordMetaRegion
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 name|HRegionLocation
-name|rootLocation
+name|metaLocation
 init|=
 name|connection
 operator|.
@@ -6668,28 +6524,28 @@ name|locateRegion
 argument_list|(
 name|HConstants
 operator|.
-name|ROOT_TABLE_NAME
+name|META_TABLE_NAME
 argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_START_ROW
 argument_list|)
 decl_stmt|;
-comment|// Check if Root region is valid and existing
+comment|// Check if Meta region is valid and existing
 if|if
 condition|(
-name|rootLocation
+name|metaLocation
 operator|==
 literal|null
 operator|||
-name|rootLocation
+name|metaLocation
 operator|.
 name|getRegionInfo
 argument_list|()
 operator|==
 literal|null
 operator|||
-name|rootLocation
+name|metaLocation
 operator|.
 name|getHostname
 argument_list|()
@@ -6703,9 +6559,9 @@ name|reportError
 argument_list|(
 name|ERROR_CODE
 operator|.
-name|NULL_ROOT_REGION
+name|NULL_META_REGION
 argument_list|,
-literal|"Root Region or some of its attributes are null."
+literal|"META region or some of its attributes are null."
 argument_list|)
 expr_stmt|;
 return|return
@@ -6719,7 +6575,7 @@ try|try
 block|{
 name|sn
 operator|=
-name|getRootRegionServerName
+name|getMetaRegionServerName
 argument_list|()
 expr_stmt|;
 block|}
@@ -6743,7 +6599,7 @@ init|=
 operator|new
 name|MetaEntry
 argument_list|(
-name|rootLocation
+name|metaLocation
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -6769,7 +6625,7 @@ name|regionInfoMap
 operator|.
 name|put
 argument_list|(
-name|rootLocation
+name|metaLocation
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -6851,7 +6707,7 @@ return|;
 block|}
 specifier|private
 name|ServerName
-name|getRootRegionServerName
+name|getMetaRegionServerName
 parameter_list|()
 throws|throws
 name|IOException
@@ -6873,9 +6729,9 @@ try|try
 block|{
 name|sn
 operator|=
-name|RootRegionTracker
+name|MetaRegionTracker
 operator|.
-name|getRootRegionLocation
+name|getMetaRegionLocation
 argument_list|(
 name|zkw
 argument_list|)
@@ -12768,7 +12624,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Scan .META. and -ROOT-, adding all regions found to the regionInfo map.    * @throws IOException if an error is encountered    */
+comment|/**    * Scan .META., adding all regions found to the regionInfo map.    * @throws IOException if an error is encountered    */
 name|boolean
 name|loadMetaEntries
 parameter_list|()
@@ -12780,7 +12636,7 @@ comment|// scanning the META table
 if|if
 condition|(
 operator|!
-name|recordRootRegion
+name|recordMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -12971,11 +12827,6 @@ name|hri
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|||
-name|hri
-operator|.
-name|isRootRegion
-argument_list|()
 operator|)
 condition|)
 block|{
@@ -13105,29 +12956,6 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|// Scan -ROOT- to pick up META regions
-name|MetaScanner
-operator|.
-name|metaScan
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|,
-name|visitor
-argument_list|,
-literal|null
-argument_list|,
-literal|null
-argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -14461,7 +14289,7 @@ name|UNKNOWN
 block|,
 name|NO_META_REGION
 block|,
-name|NULL_ROOT_REGION
+name|NULL_META_REGION
 block|,
 name|NO_VERSION_FILE
 block|,
@@ -16694,14 +16522,14 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -metaonly Only check the state of ROOT and META tables."
+literal|"   -metaonly Only check the state of the .META. table."
 argument_list|)
 expr_stmt|;
 name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta and root."
+literal|"   -sidelineDir<hdfs://> HDFS path to backup existing meta."
 argument_list|)
 expr_stmt|;
 name|out

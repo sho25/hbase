@@ -371,7 +371,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|RootRegionTracker
+name|MetaRegionTracker
 import|;
 end_import
 
@@ -840,7 +840,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// Immediately have it stop.  We used hang in assigning root.
+comment|// Immediately have it stop.  We used hang in assigning meta.
 name|master
 operator|.
 name|stopMaster
@@ -855,6 +855,11 @@ block|}
 comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|30000
+argument_list|)
 specifier|public
 name|void
 name|testFailover
@@ -983,12 +988,11 @@ argument_list|,
 name|sn2
 argument_list|)
 decl_stmt|;
-comment|// Put some data into the servers.  Make it look like sn0 has the root
-comment|// w/ an entry that points to sn1 as the host of .META.  Put data into sn2
-comment|// so it looks like it has a few regions for a table named 't'.
-name|RootRegionTracker
+comment|// Put some data into the servers.  Make it look like sn0 has the metaH
+comment|// Put data into sn2 so it looks like it has a few regions for a table named 't'.
+name|MetaRegionTracker
 operator|.
-name|setRootLocation
+name|setMetaLocation
 argument_list|(
 name|rs0
 operator|.
@@ -999,45 +1003,6 @@ name|rs0
 operator|.
 name|getServerName
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|byte
-index|[]
-name|rootregion
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"-ROOT-,,0"
-argument_list|)
-decl_stmt|;
-name|rs0
-operator|.
-name|setGetResult
-argument_list|(
-name|rootregion
-argument_list|,
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
-name|MetaMockingUtil
-operator|.
-name|getMetaTableRowResult
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|,
-name|rs1
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1539,6 +1504,11 @@ block|}
 comment|/**    * Test starting master getting it up post initialized state using mocks.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException     * @throws ServiceException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|30000
+argument_list|)
 specifier|public
 name|void
 name|testCatalogDeploys
@@ -1803,7 +1773,7 @@ argument_list|()
 argument_list|,
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
 return|return
@@ -1978,8 +1948,8 @@ name|rshostname
 argument_list|)
 expr_stmt|;
 comment|// Now master knows there is at least one regionserver checked in and so
-comment|// it'll wait a while to see if more and when none, will assign root and
-comment|// meta to this single server.  Will do an rpc open but we've
+comment|// it'll wait a while to see if more and when none, will assign meta
+comment|// to this single server.  Will do an rpc open but we've
 comment|// mocked it above in our master override to return 'success'.  As part of
 comment|// region open, master will have set an unassigned znode for the region up
 comment|// into zk for the regionserver to transition.  Lets do that now to
@@ -2002,7 +1972,7 @@ argument_list|()
 argument_list|,
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2012,13 +1982,13 @@ argument_list|(
 literal|"fakeRegionServerRegionOpenInZK has started"
 argument_list|)
 expr_stmt|;
-comment|// Need to set root location as r1.  Usually the regionserver does this
-comment|// when its figured it just opened the root region by setting the root
+comment|// Need to set meta location as r0.  Usually the regionserver does this
+comment|// when its figured it just opened the meta region by setting the meta
 comment|// location up into zk.  Since we're mocking regionserver, need to do this
 comment|// ourselves.
-name|RootRegionTracker
+name|MetaRegionTracker
 operator|.
-name|setRootLocation
+name|setMetaLocation
 argument_list|(
 name|rs0
 operator|.
@@ -2029,76 +1999,6 @@ name|rs0
 operator|.
 name|getServerName
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Do same transitions for .META. (presuming master has by now assigned
-comment|// .META. to rs1).
-name|Mocking
-operator|.
-name|fakeRegionServerRegionOpenInZK
-argument_list|(
-name|master
-argument_list|,
-name|rs0
-operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|rs0
-operator|.
-name|getServerName
-argument_list|()
-argument_list|,
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
-expr_stmt|;
-comment|// Now trigger our mock regionserver to start returning a row when we
-comment|// go to get .META. entry in -ROOT-.  We do it by setting into
-comment|// our MockRegionServer some data to be returned when there is a get on
-comment|// -ROOT- table (up to this its been returning null making master think
-comment|// nothing assigned, not even .META.). The region for -ROOT- table we
-comment|// hardcode below.  Its always the same, at least in tests.  We need to do
-comment|// this because CatalogTracker runs inside in Master initialization to
-comment|// confirm .META. has a server.
-name|byte
-index|[]
-name|rootregion
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"-ROOT-,,0"
-argument_list|)
-decl_stmt|;
-name|rs0
-operator|.
-name|setGetResult
-argument_list|(
-name|rootregion
-argument_list|,
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
-name|MetaMockingUtil
-operator|.
-name|getMetaTableRowResult
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|,
-name|rs0
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Master should now come up.

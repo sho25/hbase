@@ -816,7 +816,7 @@ name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Set of region servers which are dead and submitted to ServerShutdownHandler to    * process but not fully processed immediately.    *<p>    * If one server died before assignment manager finished the failover cleanup, the server    * will be added to this set and will be processed through calling    * {@link ServerManager#processQueuedDeadServers()} by assignment manager.    *<p>    * For all the region servers in this set, HLog split is already completed.    *<p>    * ServerShutdownHandler processes a dead server submitted to the handler after    * the handler is enabled. It may not be able to complete the processing because root/meta    * is not yet online or master is currently in startup mode.  In this case, the dead    * server will be parked in this set temporarily.    */
+comment|/**    * Set of region servers which are dead and submitted to ServerShutdownHandler to    * process but not fully processed immediately.    *<p>    * If one server died before assignment manager finished the failover cleanup, the server    * will be added to this set and will be processed through calling    * {@link ServerManager#processQueuedDeadServers()} by assignment manager.    *<p>    * For all the region servers in this set, HLog split is already completed.    *<p>    * ServerShutdownHandler processes a dead server submitted to the handler after    * the handler is enabled. It may not be able to complete the processing because meta    * is not yet online or master is currently in startup mode.  In this case, the dead    * server will be parked in this set temporarily.    */
 specifier|private
 name|Set
 argument_list|<
@@ -2100,19 +2100,6 @@ block|}
 return|return;
 block|}
 name|boolean
-name|carryingRoot
-init|=
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|isCarryingRoot
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-name|boolean
 name|carryingMeta
 init|=
 name|services
@@ -2127,8 +2114,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|carryingRoot
-operator|||
 name|carryingMeta
 condition|)
 block|{
@@ -2157,8 +2142,6 @@ operator|.
 name|deadservers
 argument_list|,
 name|serverName
-argument_list|,
-name|carryingRoot
 argument_list|,
 name|carryingMeta
 argument_list|)
@@ -2206,11 +2189,7 @@ literal|"Added="
 operator|+
 name|serverName
 operator|+
-literal|" to dead servers, submitted shutdown handler to be executed, root="
-operator|+
-name|carryingRoot
-operator|+
-literal|", meta="
+literal|" to dead servers, submitted shutdown handler to be executed meta="
 operator|+
 name|carryingMeta
 argument_list|)
@@ -2227,12 +2206,12 @@ name|serverName
 parameter_list|)
 block|{
 comment|// When assignment manager is cleaning up the zookeeper nodes and rebuilding the
-comment|// in-memory region states, region servers could be down. Root/meta table can and
+comment|// in-memory region states, region servers could be down. Meta table can and
 comment|// should be re-assigned, log splitting can be done too. However, it is better to
 comment|// wait till the cleanup is done before re-assigning user regions.
 comment|//
 comment|// We should not wait in the server shutdown handler thread since it can clog
-comment|// the handler threads and root/meta table could not be re-assigned in case
+comment|// the handler threads and meta table could not be re-assigned in case
 comment|// the corresponding server is down. So we queue them up here instead.
 if|if
 condition|(
@@ -2295,7 +2274,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process the servers which died during master's initialization. It will be    * called after HMaster#assignRootAndMeta and AssignmentManager#joinCluster.    * */
+comment|/**    * Process the servers which died during master's initialization. It will be    * called after HMaster#assignMeta and AssignmentManager#joinCluster.    * */
 specifier|synchronized
 name|void
 name|processQueuedDeadServers

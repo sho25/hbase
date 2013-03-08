@@ -350,24 +350,14 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|ServerName
-name|rootLocation
+name|metaLocation
 init|=
-name|getRootLocationOrNull
+name|getMetaLocationOrNull
 argument_list|(
 name|master
 argument_list|)
 decl_stmt|;
-name|ServerName
-name|metaLocation
-init|=
-name|master
-operator|.
-name|getCatalogTracker
-argument_list|()
-operator|.
-name|getMetaLocation
-argument_list|()
-decl_stmt|;
+comment|//ServerName metaLocation = master.getCatalogTracker().getMetaLocation();
 name|List
 argument_list|<
 name|ServerName
@@ -428,11 +418,6 @@ name|shouldShowAppendWarning
 argument_list|(
 name|conf
 argument_list|)
-argument_list|)
-operator|.
-name|setRootLocation
-argument_list|(
-name|rootLocation
 argument_list|)
 operator|.
 name|setMetaLocation
@@ -546,7 +531,7 @@ expr_stmt|;
 block|}
 specifier|private
 name|ServerName
-name|getRootLocationOrNull
+name|getMetaLocationOrNull
 parameter_list|(
 name|HMaster
 name|master
@@ -560,7 +545,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 operator|.
-name|getRootLocation
+name|getMetaLocation
 argument_list|()
 return|;
 block|}
@@ -574,7 +559,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to get root location"
+literal|"Unable to get meta location"
 argument_list|,
 name|e
 argument_list|)

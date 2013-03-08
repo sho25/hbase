@@ -677,7 +677,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MasterAddressTracker
+name|*
 import|;
 end_import
 
@@ -693,71 +693,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|RootRegionTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKClusterId
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKTableReadOnly
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
+name|MetaRegionTracker
 import|;
 end_import
 
@@ -1100,7 +1036,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages {@link HConnection}s.  * This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, root, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections  * makes clean up of {@link HConnection} instances a little awkward.  Currently,  * clients cleanup by calling  * {@link #deleteConnection(Configuration)}.  This will shutdown the  * zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
+comment|/**  * A non-instantiable class that manages {@link HConnection}s.  * This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections  * makes clean up of {@link HConnection} instances a little awkward.  Currently,  * clients cleanup by calling  * {@link #deleteConnection(Configuration)}.  This will shutdown the  * zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
 end_comment
 
 begin_class
@@ -4025,25 +3961,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-condition|)
-block|{
-comment|// The root region is always enabled
-return|return
-name|enabled
-return|;
-block|}
 name|String
 name|tableNameStr
 init|=
@@ -4432,7 +4349,7 @@ name|tableName
 argument_list|,
 name|HConstants
 operator|.
-name|ROOT_TABLE_NAME
+name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
@@ -4448,7 +4365,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Looking up root region location in ZK,"
+literal|"Looking up meta region location in ZK,"
 operator|+
 literal|" connection="
 operator|+
@@ -4458,7 +4375,7 @@ expr_stmt|;
 name|ServerName
 name|servername
 init|=
-name|RootRegionTracker
+name|MetaRegionTracker
 operator|.
 name|blockUntilAvailable
 argument_list|(
@@ -4473,7 +4390,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Looked up root region location, connection="
+literal|"Looked up meta region location, connection="
 operator|+
 name|this
 operator|+
@@ -4507,7 +4424,7 @@ name|HRegionLocation
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|servername
 argument_list|,
@@ -4541,40 +4458,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-elseif|else
-if|if
-condition|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-condition|)
-block|{
-return|return
-name|locateRegionInMeta
-argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|,
-name|tableName
-argument_list|,
-name|row
-argument_list|,
-name|useCache
-argument_list|,
-name|metaRegionLock
-argument_list|,
-name|retry
-argument_list|)
-return|;
 block|}
 else|else
 block|{
@@ -4802,7 +4685,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*       * Search one of the meta tables (-ROOT- or .META.) for the HRegionLocation       * info that contains the table and row we're seeking.       */
+comment|/*       * Search the .META. table for the HRegionLocation       * info that contains the table and row we're seeking.       */
 specifier|private
 name|HRegionLocation
 name|locateRegionInMeta
@@ -4944,7 +4827,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|// locate the root or meta region
+comment|// locate the meta region
 name|metaLocation
 operator|=
 name|locateRegion
@@ -5061,7 +4944,7 @@ name|row
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Query the root or meta region for the location of the meta region
+comment|// Query the meta region for the location of the meta region
 name|regionInfoRow
 operator|=
 name|ProtobufUtil
@@ -11176,30 +11059,6 @@ condition|)
 return|return
 literal|null
 return|;
-if|if
-condition|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-condition|)
-block|{
-return|return
-operator|new
-name|UnmodifyableHTableDescriptor
-argument_list|(
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|)
-return|;
-block|}
 if|if
 condition|(
 name|Bytes

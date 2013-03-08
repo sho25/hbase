@@ -1102,7 +1102,7 @@ expr_stmt|;
 comment|// at this point we only expect 2 regions to be assigned out (catalogs)
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|cluster
 operator|.
@@ -2420,7 +2420,7 @@ expr_stmt|;
 comment|// at this point we only expect 2 regions to be assigned out (catalogs)
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|cluster
 operator|.

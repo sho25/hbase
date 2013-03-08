@@ -865,8 +865,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Create root and meta regions
-name|createRootAndMetaRegions
+comment|// Create meta region
+name|createMetaRegion
 argument_list|()
 expr_stmt|;
 name|FSTableDescriptors
@@ -1679,7 +1679,7 @@ name|merged
 init|=
 name|mergeAndVerify
 argument_list|(
-literal|"merging regions 0 and 1"
+literal|"merging regions 0 and 1 "
 argument_list|,
 name|this
 operator|.

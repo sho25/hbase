@@ -579,15 +579,6 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * @return True if the server we are processing was carrying<code>-ROOT-</code>    */
-name|boolean
-name|isCarryingRoot
-parameter_list|()
-block|{
-return|return
-literal|false
-return|;
-block|}
 comment|/**    * @return True if the server we are processing was carrying<code>.META.</code>    */
 name|boolean
 name|isCarryingMeta
@@ -761,8 +752,8 @@ argument_list|)
 throw|;
 block|}
 comment|// We don't want worker thread in the MetaServerShutdownHandler
-comment|// executor pool to block by waiting availability of -ROOT-
-comment|// and .META. server. Otherwise, it could run into the following issue:
+comment|// executor pool to block by waiting availability of .META.
+comment|// Otherwise, it could run into the following issue:
 comment|// 1. The current MetaServerShutdownHandler instance For RS1 waits for the .META.
 comment|//    to come online.
 comment|// 2. The newly assigned .META. region server RS2 was shutdown right after
@@ -783,12 +774,9 @@ comment|// we are not ready to assign dead regions either. So we re-queue up
 comment|// the dead server for further processing too.
 if|if
 condition|(
-name|isCarryingRoot
-argument_list|()
-operator|||
 name|isCarryingMeta
 argument_list|()
-comment|// -ROOT- or .META.
+comment|// .META.
 operator|||
 operator|!
 name|services

@@ -191,11 +191,6 @@ block|{
 specifier|private
 specifier|final
 name|boolean
-name|carryingRoot
-decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
 name|carryingMeta
 decl_stmt|;
 specifier|private
@@ -234,10 +229,6 @@ name|serverName
 parameter_list|,
 specifier|final
 name|boolean
-name|carryingRoot
-parameter_list|,
-specifier|final
-name|boolean
 name|carryingMeta
 parameter_list|)
 block|{
@@ -257,12 +248,6 @@ name|M_META_SERVER_SHUTDOWN
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|carryingRoot
-operator|=
-name|carryingRoot
 expr_stmt|;
 name|this
 operator|.
@@ -356,75 +341,11 @@ block|}
 comment|// Assign root and meta if we were carrying them.
 if|if
 condition|(
-name|isCarryingRoot
-argument_list|()
-condition|)
-block|{
-comment|// -ROOT-
-comment|// Check again: region may be assigned to other where because of RIT
-comment|// timeout
-if|if
-condition|(
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|isCarryingRoot
-argument_list|(
-name|serverName
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|serverName
-operator|+
-literal|" was carrying ROOT. Trying to assign."
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|regionOffline
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-expr_stmt|;
-name|verifyAndAssignRootWithRetries
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"ROOT has been assigned to otherwhere, skip assigning."
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|// Carrying meta?
-if|if
-condition|(
 name|isCarryingMeta
 argument_list|()
 condition|)
 block|{
+comment|// .META.
 comment|// Check again: region may be assigned to other where because of RIT
 comment|// timeout
 if|if
@@ -467,14 +388,7 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|assignMeta
+name|verifyAndAssignMetaWithRetries
 argument_list|()
 expr_stmt|;
 block|}
@@ -495,10 +409,10 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Before assign the ROOT region, ensure it haven't    *  been assigned by other place    *<p>    * Under some scenarios, the ROOT region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the ROOT region has been assigned, so the operation can be canceled.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Before assign the META region, ensure it haven't    *  been assigned by other place    *<p>    * Under some scenarios, the META region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the META region has been assigned, so the operation can be canceled.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
-name|verifyAndAssignRoot
+name|verifyAndAssignMeta
 parameter_list|()
 throws|throws
 name|InterruptedException
@@ -534,7 +448,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 operator|.
-name|verifyRootRegionLocation
+name|verifyMetaRegionLocation
 argument_list|(
 name|timeout
 argument_list|)
@@ -547,7 +461,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|assignRoot
+name|assignMeta
 argument_list|()
 expr_stmt|;
 block|}
@@ -563,7 +477,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 operator|.
-name|getRootLocation
+name|getMetaLocation
 argument_list|()
 argument_list|)
 condition|)
@@ -591,7 +505,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 operator|.
-name|getRootLocation
+name|getMetaLocation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -600,7 +514,7 @@ block|}
 comment|/**    * Failed many times, shutdown processing    * @throws IOException    */
 specifier|private
 name|void
-name|verifyAndAssignRootWithRetries
+name|verifyAndAssignMetaWithRetries
 parameter_list|()
 throws|throws
 name|IOException
@@ -651,7 +565,7 @@ condition|)
 block|{
 try|try
 block|{
-name|verifyAndAssignRoot
+name|verifyAndAssignMeta
 argument_list|()
 expr_stmt|;
 break|break;
@@ -668,7 +582,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"In server shutdown processing, assigning root"
+literal|"In server shutdown processing, assigning meta"
 argument_list|,
 name|e
 argument_list|)
@@ -702,7 +616,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"verifyAndAssignRoot failed after"
+literal|"verifyAndAssignMeta failed after"
 operator|+
 name|iTimes
 operator|+
@@ -769,16 +683,6 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-block|}
-name|boolean
-name|isCarryingRoot
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|carryingRoot
-return|;
 block|}
 name|boolean
 name|isCarryingMeta

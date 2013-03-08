@@ -783,7 +783,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|RootRegionTracker
+name|MetaRegionTracker
 import|;
 end_import
 
@@ -2404,7 +2404,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This call is invoked only (1) master assign root and meta;    * (2) during failover mode startup, zk assignment node processing.    * The locker is set in the caller.    *    * It should be private but it is used by some test too.    */
+comment|/**    * This call is invoked only (1) master assign meta;    * (2) during failover mode startup, zk assignment node processing.    * The locker is set in the caller.    *    * It should be private but it is used by some test too.    */
 name|void
 name|processRegionsInTransition
 parameter_list|(
@@ -9426,40 +9426,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Assigns the ROOT region.    *<p>    * Assumes that ROOT is currently closed and is not being actively served by    * any RegionServer.    *<p>    * Forcibly unsets the current root region location in ZooKeeper and assigns    * ROOT to a random RegionServer.    * @throws KeeperException    */
+comment|/**    * Assigns the META region.    *<p>    * Assumes that META is currently closed and is not being actively served by    * any RegionServer.    *<p>    * Forcibly unsets the current meta region location in ZooKeeper and assigns    * META to a random RegionServer.    * @throws KeeperException    */
 specifier|public
 name|void
-name|assignRoot
+name|assignMeta
 parameter_list|()
 throws|throws
 name|KeeperException
 block|{
-name|RootRegionTracker
+name|MetaRegionTracker
 operator|.
-name|deleteRootLocation
+name|deleteMetaLocation
 argument_list|(
 name|this
 operator|.
 name|watcher
 argument_list|)
 expr_stmt|;
-name|assign
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Assigns the META region.    *<p>    * Assumes that META is currently closed and is not being actively served by    * any RegionServer.    *<p>    * Forcibly assigns META to a random RegionServer.    */
-specifier|public
-name|void
-name|assignMeta
-parameter_list|()
-block|{
-comment|// Force assignment to a random server
 name|assign
 argument_list|(
 name|HRegionInfo
@@ -11888,25 +11871,6 @@ name|regionInfo
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-specifier|public
-name|boolean
-name|isCarryingRoot
-parameter_list|(
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-return|return
-name|isCarryingRegion
-argument_list|(
-name|serverName
-argument_list|,
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-return|;
 block|}
 specifier|public
 name|boolean

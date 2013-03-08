@@ -759,8 +759,6 @@ argument_list|,
 name|v
 argument_list|,
 literal|null
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -820,14 +818,7 @@ argument_list|,
 name|v
 argument_list|)
 expr_stmt|;
-name|updateRootWithMetaMigrationStatus
-argument_list|(
-name|masterServices
-operator|.
-name|getCatalogTracker
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|//updateRootWithMetaMigrationStatus(masterServices.getCatalogTracker());
 name|LOG
 operator|.
 name|info
@@ -893,15 +884,8 @@ name|META_VERSION
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MetaEditor
-operator|.
-name|putToRootTable
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|p
-argument_list|)
-expr_stmt|;
+comment|// TODO so wrong
+comment|//MetaEditor.putToRootTable(catalogTracker, p);
 name|LOG
 operator|.
 name|info
@@ -934,7 +918,7 @@ name|results
 init|=
 name|MetaReader
 operator|.
-name|fullScanOfRoot
+name|fullScanOfMeta
 argument_list|(
 name|catalogTracker
 argument_list|)

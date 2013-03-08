@@ -1729,11 +1729,6 @@ name|r
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|||
-name|r
-operator|.
-name|isRootRegion
-argument_list|()
 condition|)
 block|{
 name|r

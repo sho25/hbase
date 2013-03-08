@@ -3370,7 +3370,7 @@ name|initialized
 init|=
 literal|false
 decl_stmt|;
-comment|// flag set after we complete assignRootAndMeta.
+comment|// flag set after we complete assignMeta.
 specifier|private
 specifier|volatile
 name|boolean
@@ -4866,7 +4866,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of root and meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @param masterRecovery    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @param masterRecovery    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 end_comment
 
 begin_function
@@ -5189,11 +5189,11 @@ operator|.
 name|fileSystemManager
 argument_list|)
 expr_stmt|;
-comment|// Make sure root and meta assigned before proceeding.
+comment|// Make sure meta assigned before proceeding.
 if|if
 condition|(
 operator|!
-name|assignRootAndMeta
+name|assignMeta
 argument_list|(
 name|status
 argument_list|)
@@ -5491,12 +5491,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if root and meta are healthy, assigned    */
+comment|/**    * Check<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if meta is healthy, assigned    */
 end_comment
 
 begin_function
 name|boolean
-name|assignRootAndMeta
+name|assignMeta
 parameter_list|(
 name|MonitoredTask
 name|status
@@ -5527,217 +5527,7 @@ argument_list|,
 literal|1000
 argument_list|)
 decl_stmt|;
-comment|// Work on ROOT region.  Is it in zk in transition?
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"Assigning ROOT region"
-argument_list|)
-expr_stmt|;
-name|assignmentManager
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|createRegionState
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-expr_stmt|;
-name|boolean
-name|rit
-init|=
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|processRegionInTransitionAndBlockUntilAssigned
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-decl_stmt|;
-name|ServerName
-name|currentRootServer
-init|=
-literal|null
-decl_stmt|;
-name|boolean
-name|rootRegionLocation
-init|=
-name|catalogTracker
-operator|.
-name|verifyRootRegionLocation
-argument_list|(
-name|timeout
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-operator|!
-name|rit
-operator|&&
-operator|!
-name|rootRegionLocation
-condition|)
-block|{
-name|currentRootServer
-operator|=
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|getRootLocation
-argument_list|()
-expr_stmt|;
-name|splitLogAndExpireIfOnline
-argument_list|(
-name|currentRootServer
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|assignRoot
-argument_list|()
-expr_stmt|;
-comment|// Make sure a -ROOT- location is set.
-if|if
-condition|(
-operator|!
-name|isRootLocation
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
-comment|// This guarantees that the transition assigning -ROOT- has completed
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|waitForAssignment
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-expr_stmt|;
-name|assigned
-operator|++
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|rit
-operator|&&
-operator|!
-name|rootRegionLocation
-condition|)
-block|{
-comment|// Make sure a -ROOT- location is set.
-if|if
-condition|(
-operator|!
-name|isRootLocation
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
-comment|// This guarantees that the transition assigning -ROOT- has completed
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|waitForAssignment
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-expr_stmt|;
-name|assigned
-operator|++
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|rootRegionLocation
-condition|)
-block|{
-comment|// Region already assigned.  We didn't assign it.  Add to in-memory state.
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|regionOnline
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|,
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|getRootLocation
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Enable the ROOT table if on process fail over the RS containing ROOT
-comment|// was active.
-name|enableCatalogTables
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// Check for stopped, just in case
-if|if
-condition|(
-name|this
-operator|.
-name|stopped
-condition|)
-return|return
-literal|false
-return|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"-ROOT- assigned="
-operator|+
-name|assigned
-operator|+
-literal|", rit="
-operator|+
-name|rit
-operator|+
-literal|", location="
-operator|+
-name|catalogTracker
-operator|.
-name|getRootLocation
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Work on meta region
+comment|// Work on .META. region.  Is it in zk in transition?
 name|status
 operator|.
 name|setStatus
@@ -5757,8 +5547,9 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
+name|boolean
 name|rit
-operator|=
+init|=
 name|this
 operator|.
 name|assignmentManager
@@ -5769,12 +5560,15 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|ServerName
+name|currentMetaServer
+init|=
+literal|null
+decl_stmt|;
 name|boolean
 name|metaRegionLocation
 init|=
-name|this
-operator|.
 name|catalogTracker
 operator|.
 name|verifyMetaRegionLocation
@@ -5791,37 +5585,22 @@ operator|!
 name|metaRegionLocation
 condition|)
 block|{
-name|ServerName
 name|currentMetaServer
-init|=
+operator|=
 name|this
 operator|.
 name|catalogTracker
 operator|.
-name|getMetaLocationOrReadLocationFromRoot
+name|getMetaLocation
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|currentMetaServer
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|currentMetaServer
-operator|.
-name|equals
-argument_list|(
-name|currentRootServer
-argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|splitLogAndExpireIfOnline
 argument_list|(
 name|currentMetaServer
 argument_list|)
 expr_stmt|;
-block|}
+name|this
+operator|.
 name|assignmentManager
 operator|.
 name|assignMeta
@@ -5829,6 +5608,28 @@ argument_list|()
 expr_stmt|;
 name|enableSSHandWaitForMeta
 argument_list|()
+expr_stmt|;
+comment|// Make sure a .META. location is set.
+if|if
+condition|(
+operator|!
+name|isMetaLocation
+argument_list|()
+condition|)
+return|return
+literal|false
+return|;
+comment|// This guarantees that the transition assigning .META. has completed
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|waitForAssignment
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
 expr_stmt|;
 name|assigned
 operator|++
@@ -5843,15 +5644,37 @@ operator|!
 name|metaRegionLocation
 condition|)
 block|{
-comment|// Wait until META region added to region server onlineRegions. See HBASE-5875.
-name|enableSSHandWaitForMeta
+comment|// Make sure a .META. location is set.
+if|if
+condition|(
+operator|!
+name|isMetaLocation
 argument_list|()
+condition|)
+return|return
+literal|false
+return|;
+comment|// This guarantees that the transition assigning .META. has completed
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|waitForAssignment
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
 expr_stmt|;
 name|assigned
 operator|++
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|metaRegionLocation
+condition|)
 block|{
 comment|// Region already assigned.  We didn't assign it.  Add to in-memory state.
 name|this
@@ -5909,7 +5732,7 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"META and ROOT assigned."
+literal|"META assigned."
 argument_list|)
 expr_stmt|;
 return|return
@@ -5955,13 +5778,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @return True if there a root available    * @throws InterruptedException    */
+comment|/**    * @return True if there a meta available    * @throws InterruptedException    */
 end_comment
 
 begin_function
 specifier|private
 name|boolean
-name|isRootLocation
+name|isMetaLocation
 parameter_list|()
 throws|throws
 name|InterruptedException
@@ -5984,7 +5807,7 @@ name|this
 operator|.
 name|catalogTracker
 operator|.
-name|waitForRoot
+name|waitForMeta
 argument_list|(
 literal|100
 argument_list|)
@@ -5999,7 +5822,7 @@ name|NotAllMetaRegionsOnlineException
 name|e
 parameter_list|)
 block|{
-comment|// Ignore.  I know -ROOT- is not online yet.
+comment|// Ignore.  I know .META. is not online yet.
 block|}
 block|}
 comment|// We got here because we came of above loop.
@@ -9372,17 +9195,6 @@ name|tableName
 argument_list|,
 name|HConstants
 operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-operator|||
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
 name|META_TABLE_NAME
 argument_list|)
 return|;
@@ -11339,7 +11151,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * We do the following in a different thread.  If it is not completed    * in time, we will time it out and assume it is not easy to recover.    *    * 1. Create a new ZK session. (since our current one is expired)    * 2. Try to become a primary master again    * 3. Initialize all ZK based system trackers.    * 4. Assign root and meta. (they are already assigned, but we need to update our    * internal memory state to reflect it)    * 5. Process any RIT if any during the process of our recovery.    *    * @return True if we could successfully recover from ZK session expiry.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @throws ExecutionException    */
+comment|/**    * We do the following in a different thread.  If it is not completed    * in time, we will time it out and assume it is not easy to recover.    *    * 1. Create a new ZK session. (since our current one is expired)    * 2. Try to become a primary master again    * 3. Initialize all ZK based system trackers.    * 4. Assign meta. (they are already assigned, but we need to update our    * internal memory state to reflect it)    * 5. Process any RIT if any during the process of our recovery.    *    * @return True if we could successfully recover from ZK session expiry.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @throws ExecutionException    */
 end_comment
 
 begin_function
@@ -12143,7 +11955,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * ServerShutdownHandlerEnabled is set false before completing    * assignRootAndMeta to prevent processing of ServerShutdownHandler.    * @return true if assignRootAndMeta has completed;    */
+comment|/**    * ServerShutdownHandlerEnabled is set false before completing    * assignMeta to prevent processing of ServerShutdownHandler.    * @return true if assignMeta has completed;    */
 end_comment
 
 begin_function

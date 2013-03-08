@@ -1534,7 +1534,7 @@ operator|==
 operator|(
 name|COUNT_OF_REGIONS
 operator|+
-literal|2
+literal|1
 comment|/*catalog regions*/
 operator|)
 return|;

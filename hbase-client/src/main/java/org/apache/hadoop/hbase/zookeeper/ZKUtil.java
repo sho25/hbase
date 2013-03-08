@@ -3850,7 +3850,7 @@ name|equals
 argument_list|(
 name|zkw
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|)
 operator|==
 literal|true
@@ -6196,11 +6196,11 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\nRegion server holding ROOT: "
+literal|"\nRegion server holding .META.: "
 operator|+
-name|RootRegionTracker
+name|MetaRegionTracker
 operator|.
-name|getRootRegionLocation
+name|getMetaRegionLocation
 argument_list|(
 name|zkw
 argument_list|)
@@ -6918,7 +6918,7 @@ name|startsWith
 argument_list|(
 name|zkw
 operator|.
-name|rootServerZNode
+name|metaServerZNode
 argument_list|)
 condition|?
 name|getServerNameOrEmptyString

@@ -510,7 +510,7 @@ argument_list|)
 decl_stmt|;
 name|numRegions
 operator|+=
-literal|2
+literal|1
 expr_stmt|;
 comment|// catalogs
 name|log
@@ -557,7 +557,7 @@ literal|"The number of regions for the table tableRestart should be 0 and only"
 operator|+
 literal|"the catalog tables should be present."
 argument_list|,
-literal|2
+literal|1
 argument_list|,
 name|regions
 operator|.
@@ -726,7 +726,7 @@ name|assertEquals
 argument_list|(
 literal|"The assigned regions were not onlined after master switch except for the catalog tables."
 argument_list|,
-literal|6
+literal|5
 argument_list|,
 name|regions
 operator|.
