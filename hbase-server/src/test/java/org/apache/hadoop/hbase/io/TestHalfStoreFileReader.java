@@ -337,9 +337,7 @@ init|=
 name|TEST_UTIL
 operator|.
 name|getDataTestDir
-argument_list|(
-literal|"TestHalfStoreFile"
-argument_list|)
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -719,9 +717,7 @@ init|=
 name|TEST_UTIL
 operator|.
 name|getDataTestDir
-argument_list|(
-literal|"TestHalfStoreFileScanBefore"
-argument_list|)
+argument_list|()
 operator|.
 name|toString
 argument_list|()
