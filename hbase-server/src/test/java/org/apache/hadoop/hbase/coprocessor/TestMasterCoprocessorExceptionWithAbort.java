@@ -945,10 +945,8 @@ operator|.
 name|getLoadedCoprocessors
 argument_list|()
 operator|.
-name|equals
+name|contains
 argument_list|(
-literal|"["
-operator|+
 name|TestMasterCoprocessorExceptionWithAbort
 operator|.
 name|BuggyMasterObserver
@@ -957,8 +955,6 @@ name|class
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|"]"
 argument_list|)
 argument_list|)
 expr_stmt|;

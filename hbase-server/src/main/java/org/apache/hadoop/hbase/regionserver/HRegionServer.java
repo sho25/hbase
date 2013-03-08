@@ -10146,10 +10146,6 @@ parameter_list|,
 specifier|final
 name|CatalogTracker
 name|ct
-parameter_list|,
-specifier|final
-name|boolean
-name|daughter
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -10169,10 +10165,6 @@ name|r
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|", daughter="
-operator|+
-name|daughter
 argument_list|)
 expr_stmt|;
 comment|// Do checks to see if we need to compact (references or too many files)
@@ -10312,33 +10304,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|daughter
-condition|)
-block|{
-comment|// If daughter of a split, update whole row, not just location.
-name|MetaEditor
-operator|.
-name|addDaughter
-argument_list|(
-name|ct
-argument_list|,
-name|r
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|serverNameFromMasterPOV
-argument_list|,
-name|openSeqNum
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|MetaEditor
 operator|.
 name|updateRegionLocation
@@ -10358,7 +10323,6 @@ name|openSeqNum
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 name|LOG
 operator|.
 name|info
@@ -10369,10 +10333,6 @@ name|r
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|", daughter="
-operator|+
-name|daughter
 argument_list|)
 expr_stmt|;
 block|}

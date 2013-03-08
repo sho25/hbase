@@ -1020,8 +1020,6 @@ name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Add to online regions
@@ -1080,8 +1078,6 @@ name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Add to online regions

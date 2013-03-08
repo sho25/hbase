@@ -1947,9 +1947,6 @@ name|r
 parameter_list|,
 name|CatalogTracker
 name|ct
-parameter_list|,
-name|boolean
-name|daughter
 parameter_list|)
 throws|throws
 name|KeeperException

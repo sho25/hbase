@@ -1508,7 +1508,11 @@ operator|.
 name|PONR
 argument_list|)
 expr_stmt|;
-comment|// Edit parent in meta.  Offlines parent region and adds splita and splitb.
+comment|// Edit parent in meta.  Offlines parent region and adds splita and splitb
+comment|// as an atomic update. See HBASE-7721. This update to META makes the region
+comment|// will determine whether the region is split or not in case of failures.
+comment|// If it is successful, master will roll-forward, if not, master will rollback
+comment|// and assign the parent region.
 if|if
 condition|(
 operator|!
@@ -1517,15 +1521,13 @@ condition|)
 block|{
 name|MetaEditor
 operator|.
-name|offlineParentInMeta
+name|splitRegion
 argument_list|(
 name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
 argument_list|,
-name|this
-operator|.
 name|parent
 operator|.
 name|getRegionInfo
@@ -1539,6 +1541,11 @@ argument_list|,
 name|b
 operator|.
 name|getRegionInfo
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1795,8 +1802,6 @@ name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Should add it to OnlineRegions
@@ -1817,8 +1822,6 @@ name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|services

@@ -1101,7 +1101,7 @@ return|return
 name|dir
 return|;
 block|}
-comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>overwrite the file if it exists</li>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -1132,7 +1132,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *     * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -1203,7 +1203,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the file permissions specified in the configuration, if they are    * enabled.    *     * @param fs filesystem that the file will be created on.    * @param conf configuration to read for determining if permissions are    *          enabled and which to use    * @param permssionConfKey property key in the configuration to use when    *          finding the permission    * @return the permission to use when creating a new file on the fs. If    *         special permissions are not specified in the configuration, then    *         the default permissions on the the fs will be returned.    */
+comment|/**    * Get the file permissions specified in the configuration, if they are    * enabled.    *    * @param fs filesystem that the file will be created on.    * @param conf configuration to read for determining if permissions are    *          enabled and which to use    * @param permssionConfKey property key in the configuration to use when    *          finding the permission    * @return the permission to use when creating a new file on the fs. If    *         special permissions are not specified in the configuration, then    *         the default permissions on the the fs will be returned.    */
 specifier|public
 specifier|static
 name|FsPermission
@@ -1590,7 +1590,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Check whether dfs is in safemode.     * @param conf    * @throws IOException    */
+comment|/**    * Check whether dfs is in safemode.    * @param conf    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2052,7 +2052,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    *    * @throws IOException e    * @throws DeserializationException     */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    *    * @throws IOException e    * @throws DeserializationException    */
 end_comment
 
 begin_function
@@ -2094,7 +2094,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException e    * @throws DeserializationException     */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException e    * @throws DeserializationException    */
 end_comment
 
 begin_function
@@ -2825,7 +2825,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param cid    * @throws IOException     */
+comment|/**    * @param cid    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3574,7 +3574,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Compute HDFS blocks distribution of a given file, or a portion of the file    * @param fs file system    * @param status file status of the file    * @param start start position of the portion    * @param length length of the portion     * @return The HDFS blocks distribution    */
+comment|/**    * Compute HDFS blocks distribution of a given file, or a portion of the file    * @param fs file system    * @param status file status of the file    * @param start start position of the portion    * @param length length of the portion    * @return The HDFS blocks distribution    */
 end_comment
 
 begin_function
@@ -3934,7 +3934,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *     * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -5161,7 +5161,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Recover file lease. Used when a file might be suspect     * to be had been left open by another process.    * @param fs FileSystem handle    * @param p Path of file to recover lease    * @param conf Configuration handle    * @throws IOException    */
+comment|/**    * Recover file lease. Used when a file might be suspect    * to be had been left open by another process.    * @param fs FileSystem handle    * @param p Path of file to recover lease    * @param conf Configuration handle    * @throws IOException    */
 end_comment
 
 begin_function_decl
@@ -5883,7 +5883,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for     * table StoreFile names to the full Path.     *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -6095,7 +6095,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This accommodates differences between hadoop versions    *     * @param fs file system    * @param dir directory    * @param filter path filter    * @return null if tabledir doesn't exist, otherwise FileStatus array    */
+comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This accommodates differences between hadoop versions    *    * @param fs file system    * @param dir directory    * @param filter path filter    * @return null if tabledir doesn't exist, otherwise FileStatus array    */
 end_comment
 
 begin_function
@@ -6225,7 +6225,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.delete() and returns the value returned by the fs.delete()    *     * @param fs    * @param path    * @param recursive    * @return the value returned by the fs.delete()    * @throws IOException    */
+comment|/**    * Calls fs.delete() and returns the value returned by the fs.delete()    *    * @param fs    * @param path    * @param recursive    * @return the value returned by the fs.delete()    * @throws IOException    */
 end_comment
 
 begin_function
@@ -6263,7 +6263,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.exists(). Checks if the specified path exists    *     * @param fs    * @param path    * @return the value returned by fs.exists()    * @throws IOException    */
+comment|/**    * Calls fs.exists(). Checks if the specified path exists    *    * @param fs    * @param path    * @return the value returned by fs.exists()    * @throws IOException    */
 end_comment
 
 begin_function
@@ -6295,7 +6295,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Throw an exception if an action is not permitted by a user on a file.    *     * @param ugi    *          the user    * @param file    *          the file    * @param action    *          the action    */
+comment|/**    * Throw an exception if an action is not permitted by a user on a file.    *    * @param ugi    *          the user    * @param file    *          the file    * @param action    *          the action    */
 end_comment
 
 begin_function
@@ -6523,7 +6523,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Recursive helper to log the state of the FS    *     * @see #logFileSystemState(FileSystem, Path, Log)    */
+comment|/**    * Recursive helper to log the state of the FS    *    * @see #logFileSystemState(FileSystem, Path, Log)    */
 end_comment
 
 begin_function

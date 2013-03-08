@@ -382,7 +382,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link TableDescriptors} that reads descriptors from the  * passed filesystem.  It expects descriptors to be in a file under the  * table's directory in FS.  Can be read-only -- i.e. does not modify  * the filesystem or can be read and write.  *   *<p>Also has utility for keeping up the table descriptors tableinfo file.  * The table schema file is kept under the table directory in the filesystem.  * It has a {@link #TABLEINFO_NAME} prefix and then a suffix that is the  * edit sequenceid: e.g.<code>.tableinfo.0000000003</code>.  This sequenceid  * is always increasing.  It starts at zero.  The table schema file with the  * highest sequenceid has the most recent schema edit. Usually there is one file  * only, the most recent but there may be short periods where there are more  * than one file. Old files are eventually cleaned.  Presumption is that there  * will not be lots of concurrent clients making table schema edits.  If so,  * the below needs a bit of a reworking and perhaps some supporting api in hdfs.  */
+comment|/**  * Implementation of {@link TableDescriptors} that reads descriptors from the  * passed filesystem.  It expects descriptors to be in a file under the  * table's directory in FS.  Can be read-only -- i.e. does not modify  * the filesystem or can be read and write.  *  *<p>Also has utility for keeping up the table descriptors tableinfo file.  * The table schema file is kept under the table directory in the filesystem.  * It has a {@link #TABLEINFO_NAME} prefix and then a suffix that is the  * edit sequenceid: e.g.<code>.tableinfo.0000000003</code>.  This sequenceid  * is always increasing.  It starts at zero.  The table schema file with the  * highest sequenceid has the most recent schema edit. Usually there is one file  * only, the most recent but there may be short periods where there are more  * than one file. Old files are eventually cleaned.  Presumption is that there  * will not be lots of concurrent clients making table schema edits.  If so,  * the below needs a bit of a reworking and perhaps some supporting api in hdfs.  */
 end_comment
 
 begin_class
@@ -1219,7 +1219,7 @@ name|getTableDescriptor
 argument_list|()
 return|;
 block|}
-comment|/**    * Checks if<code>.tableinfo<code> exists for given table    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @param tableName name of table    * @return true if exists    * @throws IOException    */
+comment|/**    * Checks if<code>.tableinfo<code> exists for given table    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param tableName name of table    * @return true if exists    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -2370,7 +2370,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param fs    * @param hTableDescriptor    * @param tableDir    * @param status    * @return Descriptor file or null if we failed write.    * @throws IOException     */
+comment|/**    * @param fs    * @param hTableDescriptor    * @param tableDir    * @param status    * @return Descriptor file or null if we failed write.    * @throws IOException    */
 specifier|private
 specifier|static
 name|Path
@@ -2695,7 +2695,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table.    *     * @param htableDescriptor    * @param conf    */
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table.    *    * @param htableDescriptor    * @param conf    */
 specifier|public
 specifier|static
 name|boolean
@@ -2722,7 +2722,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *     * @param htableDescriptor    * @param conf    * @param forceCreation True if we are to overwrite existing file.    */
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *    * @param htableDescriptor    * @param conf    * @param forceCreation True if we are to overwrite existing file.    */
 specifier|static
 name|boolean
 name|createTableDescriptor
@@ -2800,7 +2800,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *     * @param fs    * @param htableDescriptor    * @param rootdir    * @param forceCreation    * @return True if we successfully created file.    */
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *    * @param fs    * @param htableDescriptor    * @param rootdir    * @param forceCreation    * @return True if we successfully created file.    */
 specifier|public
 specifier|static
 name|boolean
@@ -2925,6 +2925,27 @@ operator|>
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|getTableDescriptor
+argument_list|(
+name|fs
+argument_list|,
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getParent
+argument_list|()
+argument_list|)
+operator|.
+name|equals
+argument_list|(
+name|htableDescriptor
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -2935,6 +2956,7 @@ expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
 block|}
 block|}
 block|}

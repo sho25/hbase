@@ -2397,7 +2397,8 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Create tableinfo-s for ROOT and META if not already there.
+comment|// Create tableinfo-s for ROOT and META if not already there. This also updates the
+comment|//descriptors if they are older versions.
 name|FSTableDescriptors
 operator|.
 name|createTableDescriptor

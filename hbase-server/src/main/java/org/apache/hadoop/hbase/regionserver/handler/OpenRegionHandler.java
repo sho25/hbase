@@ -217,24 +217,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLog
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|CancelableProgressable
@@ -1385,8 +1367,6 @@ name|server
 operator|.
 name|getCatalogTracker
 argument_list|()
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2071,7 +2051,7 @@ argument_list|)
 return|;
 comment|// true means opening for RIT
 block|}
-comment|/**    * Transition ZK node from OFFLINE to OPENING.    * @param encodedName Name of the znode file (Region encodedName is the znode    * name).    * @param versionOfOfflineNode - version Of OfflineNode that needs to be compared    * before changing the node's state from OFFLINE     * @return True if successful transition.    */
+comment|/**    * Transition ZK node from OFFLINE to OPENING.    * @param encodedName Name of the znode file (Region encodedName is the znode    * name).    * @param versionOfOfflineNode - version Of OfflineNode that needs to be compared    * before changing the node's state from OFFLINE    * @return True if successful transition.    */
 name|boolean
 name|transitionZookeeperOfflineToOpening
 parameter_list|(
