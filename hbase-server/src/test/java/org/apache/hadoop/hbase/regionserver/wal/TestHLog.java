@@ -3372,6 +3372,31 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+comment|// Reset the lease period
+name|setLeasePeriod
+operator|.
+name|invoke
+argument_list|(
+name|cluster
+argument_list|,
+operator|new
+name|Object
+index|[]
+block|{
+operator|new
+name|Long
+argument_list|(
+literal|60000
+argument_list|)
+block|,
+operator|new
+name|Long
+argument_list|(
+literal|3600000
+argument_list|)
+block|}
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 
