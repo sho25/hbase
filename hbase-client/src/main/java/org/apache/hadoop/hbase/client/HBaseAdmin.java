@@ -5151,7 +5151,7 @@ name|closeRegion
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|regionname
 argument_list|)
@@ -5580,7 +5580,7 @@ name|flush
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -5890,7 +5890,7 @@ name|compact
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -5942,7 +5942,7 @@ name|compact
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableOrRegionName
 argument_list|)
@@ -6004,7 +6004,7 @@ name|majorCompact
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -7068,7 +7068,7 @@ name|split
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -7119,14 +7119,14 @@ name|split
 argument_list|(
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
 argument_list|,
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|splitPoint
 argument_list|)
