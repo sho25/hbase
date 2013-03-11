@@ -683,10 +683,32 @@ name|tempTableDir
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Table '"
+operator|+
+name|tableName
+operator|+
+literal|"' archived!"
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
 comment|// 6. Update table descriptor cache
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing '"
+operator|+
+name|tableName
+operator|+
+literal|"' descriptor."
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|masterServices
@@ -705,6 +727,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// 7. If entry for this table in zk, and up in AssignmentManager, remove it.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Marking '"
+operator|+
+name|tableName
+operator|+
+literal|"' as deleted."
+argument_list|)
+expr_stmt|;
 name|am
 operator|.
 name|getZKTable

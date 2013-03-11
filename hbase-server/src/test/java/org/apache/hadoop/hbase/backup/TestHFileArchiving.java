@@ -1440,6 +1440,13 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Deleted table"
+argument_list|)
+expr_stmt|;
 comment|// then get the files in the archive directory.
 name|Path
 name|archiveDir
