@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|java
+operator|.
+name|lang
+operator|.
+name|String
+operator|.
+name|format
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -63,6 +75,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|classification
@@ -96,6 +136,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|conf
+operator|.
+name|Configured
 import|;
 end_import
 
@@ -349,6 +403,34 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|Tool
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|ToolRunner
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -405,7 +487,26 @@ name|Stable
 specifier|public
 class|class
 name|ImportTsv
+extends|extends
+name|Configured
+implements|implements
+name|Tool
 block|{
+specifier|protected
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|ImportTsv
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|final
 specifier|static
 name|String
@@ -413,6 +514,7 @@ name|NAME
 init|=
 literal|"importtsv"
 decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -420,13 +522,7 @@ name|MAPPER_CONF_KEY
 init|=
 literal|"importtsv.mapper.class"
 decl_stmt|;
-specifier|final
-specifier|static
-name|String
-name|SKIP_LINES_CONF_KEY
-init|=
-literal|"importtsv.skip.bad.lines"
-decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -434,6 +530,25 @@ name|BULK_OUTPUT_CONF_KEY
 init|=
 literal|"importtsv.bulk.output"
 decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|TIMESTAMP_CONF_KEY
+init|=
+literal|"importtsv.timestamp"
+decl_stmt|;
+comment|// TODO: the rest of these configs are used exclusively by TsvImporterMapper.
+comment|// Move them out of the tool and let the mapper handle its own validation.
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|SKIP_LINES_CONF_KEY
+init|=
+literal|"importtsv.skip.bad.lines"
+decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -441,19 +556,13 @@ name|COLUMNS_CONF_KEY
 init|=
 literal|"importtsv.columns"
 decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
 name|SEPARATOR_CONF_KEY
 init|=
 literal|"importtsv.separator"
-decl_stmt|;
-specifier|final
-specifier|static
-name|String
-name|TIMESTAMP_CONF_KEY
-init|=
-literal|"importtsv.timestamp"
 decl_stmt|;
 specifier|final
 specifier|static
@@ -471,11 +580,7 @@ name|TsvImporterMapper
 operator|.
 name|class
 decl_stmt|;
-specifier|private
-specifier|static
-name|HBaseAdmin
-name|hbaseAdmin
-decl_stmt|;
+specifier|public
 specifier|static
 class|class
 name|TsvParser
@@ -1246,6 +1351,15 @@ name|IOException
 throws|,
 name|ClassNotFoundException
 block|{
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 comment|// Support non-XML supported characters
 comment|// by re-encoding the passed separator as a Base64 string.
 name|String
@@ -1415,6 +1529,17 @@ argument_list|(
 name|BULK_OUTPUT_CONF_KEY
 argument_list|)
 decl_stmt|;
+name|String
+name|columns
+index|[]
+init|=
+name|conf
+operator|.
+name|getStrings
+argument_list|(
+name|COLUMNS_CONF_KEY
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|hfileOutPath
@@ -1425,17 +1550,35 @@ block|{
 if|if
 condition|(
 operator|!
-name|doesTableExist
+name|admin
+operator|.
+name|tableExists
 argument_list|(
 name|tableName
 argument_list|)
 condition|)
 block|{
-name|createTable
+name|LOG
+operator|.
+name|warn
 argument_list|(
-name|conf
+name|format
+argument_list|(
+literal|"Table '%s' does not exist."
 argument_list|,
 name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// TODO: this is backwards. Instead of depending on the existence of a table,
+comment|// create a sane splits file for HFileOutputFormat based on data sampling.
+name|createTable
+argument_list|(
+name|admin
+argument_list|,
+name|tableName
+argument_list|,
+name|columns
 argument_list|)
 expr_stmt|;
 block|}
@@ -1516,7 +1659,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// No reducers.  Just write straight to table.  Call initTableReducerJob
+comment|// No reducers. Just write straight to table. Call initTableReducerJob
 comment|// to set up the TableOutputFormat.
 name|TableMapReduceUtil
 operator|.
@@ -1573,37 +1716,18 @@ return|;
 block|}
 specifier|private
 specifier|static
-name|boolean
-name|doesTableExist
-parameter_list|(
-name|String
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|hbaseAdmin
-operator|.
-name|tableExists
-argument_list|(
-name|tableName
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-return|;
-block|}
-specifier|private
-specifier|static
 name|void
 name|createTable
 parameter_list|(
-name|Configuration
-name|conf
+name|HBaseAdmin
+name|admin
 parameter_list|,
 name|String
 name|tableName
+parameter_list|,
+name|String
+index|[]
+name|columns
 parameter_list|)
 throws|throws
 name|IOException
@@ -1618,17 +1742,6 @@ name|tableName
 operator|.
 name|getBytes
 argument_list|()
-argument_list|)
-decl_stmt|;
-name|String
-name|columns
-index|[]
-init|=
-name|conf
-operator|.
-name|getStrings
-argument_list|(
-name|COLUMNS_CONF_KEY
 argument_list|)
 decl_stmt|;
 name|Set
@@ -1713,7 +1826,21 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
-name|hbaseAdmin
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|format
+argument_list|(
+literal|"Creating table '%s' with '%s' columns and default descriptors."
+argument_list|,
+name|tableName
+argument_list|,
+name|cfSet
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -1765,7 +1892,11 @@ literal|"Usage: "
 operator|+
 name|NAME
 operator|+
-literal|" -Dimporttsv.columns=a,b,c<tablename><inputdir>\n"
+literal|" -D"
+operator|+
+name|COLUMNS_CONF_KEY
+operator|+
+literal|"=a,b,c<tablename><inputdir>\n"
 operator|+
 literal|"\n"
 operator|+
@@ -1773,27 +1904,59 @@ literal|"Imports the given input directory of TSV data into the specified table.
 operator|+
 literal|"\n"
 operator|+
-literal|"The column names of the TSV data must be specified using the -Dimporttsv.columns\n"
+literal|"The column names of the TSV data must be specified using the -D"
+operator|+
+name|COLUMNS_CONF_KEY
+operator|+
+literal|"\n"
 operator|+
 literal|"option. This option takes the form of comma-separated column names, where each\n"
 operator|+
 literal|"column name is either a simple column family, or a columnfamily:qualifier. The special\n"
 operator|+
-literal|"column name HBASE_ROW_KEY is used to designate that this column should be used\n"
+literal|"column name "
+operator|+
+name|TsvParser
+operator|.
+name|ROWKEY_COLUMN_SPEC
+operator|+
+literal|" is used to designate that this column should be used\n"
 operator|+
 literal|"as the row key for each imported record. You must specify exactly one column\n"
 operator|+
 literal|"to be the row key, and you must specify a column name for every column that exists in the\n"
 operator|+
-literal|"input data. Another special column HBASE_TS_KEY designates that this column should be\n"
+literal|"input data. Another special column"
 operator|+
-literal|"used as timestamp for each record. Unlike HBASE_ROW_KEY, HBASE_TS_KEY is optional.\n"
+name|TsvParser
+operator|.
+name|TIMESTAMPKEY_COLUMN_SPEC
 operator|+
-literal|"You must specify atmost one column as timestamp key for each imported record.\n"
+literal|" designates that this column should be\n"
+operator|+
+literal|"used as timestamp for each record. Unlike "
+operator|+
+name|TsvParser
+operator|.
+name|ROWKEY_COLUMN_SPEC
+operator|+
+literal|", "
+operator|+
+name|TsvParser
+operator|.
+name|TIMESTAMPKEY_COLUMN_SPEC
+operator|+
+literal|" is optional.\n"
+operator|+
+literal|"You must specify at most one column as timestamp key for each imported record.\n"
 operator|+
 literal|"Record with invalid timestamps (blank, non-numeric) will be treated as bad record.\n"
 operator|+
-literal|"Note: if you use this option, then 'importtsv.timestamp' option will be ignored.\n"
+literal|"Note: if you use this option, then '"
+operator|+
+name|TIMESTAMP_CONF_KEY
+operator|+
+literal|"' option will be ignored.\n"
 operator|+
 literal|"\n"
 operator|+
@@ -1860,31 +2023,11 @@ name|usage
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used only by test method    * @param conf    */
-specifier|static
-name|void
-name|createHbaseAdmin
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|hbaseAdmin
-operator|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Main entry point.    *    * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
+annotation|@
+name|Override
 specifier|public
-specifier|static
-name|void
-name|main
+name|int
+name|run
 parameter_list|(
 name|String
 index|[]
@@ -1893,14 +2036,17 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
+name|setConf
+argument_list|(
 name|HBaseConfiguration
 operator|.
 name|create
+argument_list|(
+name|getConf
 argument_list|()
-decl_stmt|;
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|String
 index|[]
 name|otherArgs
@@ -1908,7 +2054,8 @@ init|=
 operator|new
 name|GenericOptionsParser
 argument_list|(
-name|conf
+name|getConf
+argument_list|()
 argument_list|,
 name|args
 argument_list|)
@@ -1934,21 +2081,35 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
 block|}
+comment|// When MAPPER_CONF_KEY is null, the user wants to use the provided TsvImporterMapper, so
+comment|// perform validation on these additional args. When it's not null, user has provided their
+comment|// own mapper, thus these validation are not relevant.
+comment|// TODO: validation for TsvImporterMapper, not this tool. Move elsewhere.
+if|if
+condition|(
+literal|null
+operator|==
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|MAPPER_CONF_KEY
+argument_list|)
+condition|)
+block|{
 comment|// Make sure columns are specified
 name|String
 name|columns
 index|[]
 init|=
-name|conf
+name|getConf
+argument_list|()
 operator|.
 name|getStrings
 argument_list|(
@@ -1971,14 +2132,10 @@ operator|+
 literal|"=..."
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|// Make sure they specify exactly one column as the row key
 name|int
@@ -2025,14 +2182,10 @@ operator|.
 name|ROWKEY_COLUMN_SPEC
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|// Make sure we have at most one column as the timestamp key
 name|int
@@ -2079,14 +2232,10 @@ operator|.
 name|TIMESTAMPKEY_COLUMN_SPEC
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|// Make sure one or more columns are specified excluding rowkey and
 comment|// timestamp key
@@ -2110,20 +2259,18 @@ argument_list|(
 literal|"One or more columns in addition to the row key and timestamp(optional) are required"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
+block|}
 block|}
 comment|// If timestamp option is not specified, use current system time.
 name|long
 name|timstamp
 init|=
-name|conf
+name|getConf
+argument_list|()
 operator|.
 name|getLong
 argument_list|(
@@ -2137,7 +2284,8 @@ argument_list|)
 decl_stmt|;
 comment|// Set it back to replace invalid timestamp (non-numeric) with current
 comment|// system time
-name|conf
+name|getConf
+argument_list|()
 operator|.
 name|setLong
 argument_list|(
@@ -2146,28 +2294,18 @@ argument_list|,
 name|timstamp
 argument_list|)
 expr_stmt|;
-name|hbaseAdmin
-operator|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|Job
 name|job
 init|=
 name|createSubmittableJob
 argument_list|(
-name|conf
+name|getConf
+argument_list|()
 argument_list|,
 name|otherArgs
 argument_list|)
 decl_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 name|job
 operator|.
 name|waitForCompletion
@@ -2178,6 +2316,39 @@ condition|?
 literal|0
 else|:
 literal|1
+return|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|main
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|int
+name|status
+init|=
+name|ToolRunner
+operator|.
+name|run
+argument_list|(
+operator|new
+name|ImportTsv
+argument_list|()
+argument_list|,
+name|args
+argument_list|)
+decl_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+name|status
 argument_list|)
 expr_stmt|;
 block|}
