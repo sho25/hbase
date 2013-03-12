@@ -6162,6 +6162,14 @@ parameter_list|()
 block|{
 return|return
 name|timeRangeTracker
+operator|==
+literal|null
+condition|?
+name|Long
+operator|.
+name|MAX_VALUE
+else|:
+name|timeRangeTracker
 operator|.
 name|maximumTimestamp
 return|;
