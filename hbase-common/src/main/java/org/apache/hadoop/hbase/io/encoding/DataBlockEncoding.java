@@ -138,7 +138,7 @@ name|PREFIX_TREE
 argument_list|(
 literal|6
 argument_list|,
-literal|"org.apache.hbase.codec.prefixtree.PrefixTreeCodec"
+literal|"org.apache.hadoop.hbase.codec.prefixtree.PrefixTreeCodec"
 argument_list|)
 block|;
 specifier|private
