@@ -1367,6 +1367,13 @@ argument_list|)
 operator|&&
 name|reader
 operator|.
+name|passesKeyRangeFilter
+argument_list|(
+name|scan
+argument_list|)
+operator|&&
+name|reader
+operator|.
 name|passesBloomFilter
 argument_list|(
 name|scan
