@@ -258,15 +258,6 @@ name|enforceMVCC
 init|=
 literal|false
 decl_stmt|;
-comment|//The variable, realSeekDone, may cheat on store file scanner for the
-comment|// multi-column bloom-filter optimization.
-comment|// So this flag shows whether this storeFileScanner could do a reseek.
-specifier|private
-name|boolean
-name|isReseekable
-init|=
-literal|false
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -621,12 +612,6 @@ return|return
 literal|false
 return|;
 block|}
-name|this
-operator|.
-name|isReseekable
-operator|=
-literal|true
-expr_stmt|;
 name|cur
 operator|=
 name|hfs
@@ -970,6 +955,25 @@ operator|<=
 literal|0
 condition|)
 block|{
+comment|// If up to now scanner is not seeked yet, this means passed KV is smaller
+comment|// than first KV in file, and it is the first time we seek on this file.
+comment|// So we also need to work from the start of file.
+if|if
+condition|(
+operator|!
+name|s
+operator|.
+name|isSeeked
+argument_list|()
+condition|)
+block|{
+return|return
+name|s
+operator|.
+name|seekTo
+argument_list|()
+return|;
+block|}
 return|return
 literal|true
 return|;
@@ -1274,10 +1278,6 @@ return|return;
 if|if
 condition|(
 name|delayedReseek
-operator|&&
-name|this
-operator|.
-name|isReseekable
 condition|)
 block|{
 name|reseek
