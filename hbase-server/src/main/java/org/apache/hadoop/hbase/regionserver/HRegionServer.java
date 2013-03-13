@@ -3633,6 +3633,11 @@ specifier|final
 name|long
 name|startcode
 decl_stmt|;
+comment|/**    * Unique identifier for the cluster we are a part of.    */
+specifier|private
+name|String
+name|clusterId
+decl_stmt|;
 comment|/**    * MX Bean for RegionServerInfo    */
 specifier|private
 name|ObjectName
@@ -4265,14 +4270,7 @@ block|{
 return|return
 name|this
 operator|.
-name|conf
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|CLUSTER_ID
-argument_list|)
+name|clusterId
 return|;
 block|}
 end_function
@@ -5343,9 +5341,8 @@ comment|// Since cluster status is now up
 comment|// ID should have already been set by HMaster
 try|try
 block|{
-name|String
 name|clusterId
-init|=
+operator|=
 name|ZKClusterId
 operator|.
 name|readClusterIdZNode
@@ -5354,7 +5351,7 @@ name|this
 operator|.
 name|zooKeeper
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|clusterId
@@ -5370,19 +5367,6 @@ literal|"Cluster ID has not been set"
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|conf
-operator|.
-name|set
-argument_list|(
-name|HConstants
-operator|.
-name|CLUSTER_ID
-argument_list|,
-name|clusterId
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -5687,6 +5671,8 @@ operator|new
 name|ProtobufRpcClientEngine
 argument_list|(
 name|conf
+argument_list|,
+name|clusterId
 argument_list|)
 expr_stmt|;
 block|}

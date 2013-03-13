@@ -664,6 +664,8 @@ decl_stmt|;
 name|int
 name|zkClientPort
 init|=
+name|this
+operator|.
 name|conf
 operator|.
 name|getInt
@@ -746,6 +748,8 @@ operator|!=
 literal|0
 condition|)
 block|{
+name|this
+operator|.
 name|conf
 operator|.
 name|setInt

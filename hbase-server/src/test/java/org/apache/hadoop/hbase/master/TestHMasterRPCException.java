@@ -298,6 +298,10 @@ operator|new
 name|ProtobufRpcClientEngine
 argument_list|(
 name|conf
+argument_list|,
+name|HConstants
+operator|.
+name|CLUSTER_ID_DEFAULT
 argument_list|)
 decl_stmt|;
 try|try

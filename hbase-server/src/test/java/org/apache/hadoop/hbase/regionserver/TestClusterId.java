@@ -414,15 +414,8 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getConfiguration
+name|getClusterId
 argument_list|()
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|CLUSTER_ID
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

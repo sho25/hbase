@@ -1002,14 +1002,14 @@ name|CLUSTER_ID_FILE_NAME
 init|=
 literal|"hbase.id"
 decl_stmt|;
-comment|/** Configuration key storing the cluster ID */
+comment|/** Default value for cluster ID */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|CLUSTER_ID
+name|CLUSTER_ID_DEFAULT
 init|=
-literal|"hbase.cluster.id"
+literal|"default-cluster"
 decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.

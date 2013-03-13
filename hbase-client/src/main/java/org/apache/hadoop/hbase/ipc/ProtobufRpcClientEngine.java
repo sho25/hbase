@@ -254,6 +254,9 @@ name|ProtobufRpcClientEngine
 parameter_list|(
 name|Configuration
 name|conf
+parameter_list|,
+name|String
+name|clusterId
 parameter_list|)
 block|{
 name|this
@@ -264,6 +267,8 @@ operator|new
 name|HBaseClient
 argument_list|(
 name|conf
+argument_list|,
+name|clusterId
 argument_list|)
 expr_stmt|;
 block|}
