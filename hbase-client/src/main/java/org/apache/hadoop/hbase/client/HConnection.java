@@ -350,6 +350,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
