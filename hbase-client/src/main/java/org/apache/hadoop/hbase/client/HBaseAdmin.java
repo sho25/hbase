@@ -4727,7 +4727,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param table    *          name of table to check    * @param split    *          keys to check if the table has been created with all split keys    * @throws IOException    *           if a remote or network excpetion occurs    */
+comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          name of table to check    * @param splitKeys    *          keys to check if the table has been created with all split keys    * @throws IOException    *           if a remote or network excpetion occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -4759,7 +4759,7 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
-comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param table    *          name of table to check    * @param split    *          keys to check if the table has been created with all split keys    * @throws IOException    *           if a remote or network excpetion occurs    */
+comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          name of table to check    * @param splitKeys    *          keys to check if the table has been created with all split keys    * @throws IOException    *           if a remote or network excpetion occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
