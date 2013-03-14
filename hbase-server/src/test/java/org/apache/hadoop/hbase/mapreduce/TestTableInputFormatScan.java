@@ -18,12 +18,26 @@ package|;
 end_package
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|io
+name|junit
 operator|.
-name|File
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -96,20 +110,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileUtil
 import|;
 end_import
 
@@ -301,27 +301,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|AfterClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Before
 import|;
 end_import
 
@@ -356,30 +336,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -1487,19 +1443,14 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
 name|job
 operator|.
 name|waitForCompletion
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|job
-operator|.
-name|isComplete
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1755,19 +1706,14 @@ name|getJobName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
 name|job
 operator|.
 name|waitForCompletion
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|job
-operator|.
-name|isComplete
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG
