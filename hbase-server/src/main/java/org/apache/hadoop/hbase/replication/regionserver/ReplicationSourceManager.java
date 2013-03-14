@@ -85,6 +85,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedMap
 import|;
 end_import
@@ -492,6 +502,11 @@ specifier|final
 name|ThreadPoolExecutor
 name|executor
 decl_stmt|;
+specifier|private
+specifier|final
+name|Random
+name|rand
+decl_stmt|;
 comment|/**    * Creates a replication manager and sets the watch on all the other    * registered region servers    * @param zkHelper the zk helper for replication    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
 specifier|public
 name|ReplicationSourceManager
@@ -727,6 +742,14 @@ operator|.
 name|build
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|rand
+operator|=
+operator|new
+name|Random
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Provide the id of the peer and a log key and this method will figure which    * hlog it belongs to and will log, for this region server, the current    * position. It will also clean old logs from the queue.    * @param log Path to the log currently being replicated from    * replication status in zookeeper. It will also delete older entries.    * @param id id of the peer cluster    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    * @param holdLogInZK if true then the log is retained in ZK    */
@@ -2313,6 +2336,18 @@ operator|.
 name|sleep
 argument_list|(
 name|sleepBeforeFailover
+operator|+
+call|(
+name|long
+call|)
+argument_list|(
+name|rand
+operator|.
+name|nextFloat
+argument_list|()
+operator|*
+name|sleepBeforeFailover
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2453,10 +2488,8 @@ if|if
 condition|(
 name|newQueues
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 return|return;

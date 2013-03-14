@@ -3636,7 +3636,7 @@ operator|==
 literal|null
 condition|)
 return|return
-literal|null
+name|queues
 return|;
 comment|// node already processed
 for|for
@@ -3935,6 +3935,11 @@ literal|"Got exception in copyQueuesFromRSUsingMulti: "
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|queues
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 return|return
