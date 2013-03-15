@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|TreeMap
 import|;
 end_import
 
@@ -116,6 +116,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -227,14 +243,18 @@ argument_list|>
 name|puts
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|byte
 index|[]
 argument_list|,
 name|Put
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 for|for
 control|(

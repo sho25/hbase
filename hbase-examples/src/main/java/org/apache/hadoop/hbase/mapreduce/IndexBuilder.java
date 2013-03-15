@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|TreeMap
 import|;
 end_import
 
@@ -249,7 +249,7 @@ index|[]
 name|family
 decl_stmt|;
 specifier|private
-name|HashMap
+name|TreeMap
 argument_list|<
 name|byte
 index|[]
@@ -440,14 +440,18 @@ expr_stmt|;
 name|indexes
 operator|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|byte
 index|[]
 argument_list|,
 name|ImmutableBytesWritable
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 expr_stmt|;
 for|for
 control|(

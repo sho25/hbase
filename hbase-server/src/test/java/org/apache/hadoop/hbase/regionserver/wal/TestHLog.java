@@ -59,7 +59,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|TreeMap
 import|;
 end_import
 
@@ -2299,14 +2299,18 @@ argument_list|>
 name|regionsToSeqids
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|byte
 index|[]
 argument_list|,
 name|Long
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 for|for
 control|(
