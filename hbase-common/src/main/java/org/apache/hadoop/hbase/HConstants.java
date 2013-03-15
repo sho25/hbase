@@ -16,6 +16,26 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|BlockType
+operator|.
+name|MAGIC_LENGTH
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -144,26 +164,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|BlockType
-operator|.
-name|MAGIC_LENGTH
 import|;
 end_import
 
@@ -307,45 +307,6 @@ name|HFILEBLOCK_HEADER_SIZE
 index|]
 decl_stmt|;
 comment|//End HFileBlockConstants.
-specifier|private
-specifier|static
-name|byte
-index|[]
-name|toBytes
-parameter_list|(
-name|String
-name|target
-parameter_list|)
-block|{
-return|return
-name|target
-operator|.
-name|getBytes
-argument_list|(
-name|UTF8_CHARSET
-argument_list|)
-return|;
-block|}
-specifier|private
-specifier|static
-name|String
-name|toString
-parameter_list|(
-name|byte
-index|[]
-name|target
-parameter_list|)
-block|{
-return|return
-operator|new
-name|String
-argument_list|(
-name|target
-argument_list|,
-name|UTF8_CHARSET
-argument_list|)
-return|;
-block|}
 comment|/**    * Status codes used for return values of bulk operations.    */
 specifier|public
 enum|enum
@@ -1036,6 +997,8 @@ name|byte
 index|[]
 name|ROOT_TABLE_NAME
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"-ROOT-"
@@ -1049,6 +1012,8 @@ name|byte
 index|[]
 name|META_TABLE_NAME
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|".META."
@@ -1080,6 +1045,8 @@ name|byte
 index|[]
 name|CATALOG_FAMILY
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 name|CATALOG_FAMILY_STR
@@ -1102,6 +1069,8 @@ name|byte
 index|[]
 name|REGIONINFO_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 name|REGIONINFO_QUALIFIER_STR
@@ -1115,6 +1084,8 @@ name|byte
 index|[]
 name|SERVER_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"server"
@@ -1128,6 +1099,8 @@ name|byte
 index|[]
 name|STARTCODE_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"serverstartcode"
@@ -1141,6 +1114,8 @@ name|byte
 index|[]
 name|SEQNUM_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"seqnumDuringOpen"
@@ -1154,6 +1129,8 @@ name|byte
 index|[]
 name|SPLITA_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"splitA"
@@ -1167,6 +1144,8 @@ name|byte
 index|[]
 name|SPLITB_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"splitB"
@@ -1180,6 +1159,8 @@ name|byte
 index|[]
 name|META_VERSION_QUALIFIER
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"v"
@@ -1972,6 +1953,8 @@ name|byte
 index|[]
 name|NO_NEXT_INDEXED_KEY
 init|=
+name|Bytes
+operator|.
 name|toBytes
 argument_list|(
 literal|"NO_NEXT_INDEXED_KEY"
@@ -2134,11 +2117,15 @@ operator|new
 name|String
 index|[]
 block|{
+name|Bytes
+operator|.
 name|toString
 argument_list|(
 name|META_TABLE_NAME
 argument_list|)
 block|,
+name|Bytes
+operator|.
 name|toString
 argument_list|(
 name|ROOT_TABLE_NAME
