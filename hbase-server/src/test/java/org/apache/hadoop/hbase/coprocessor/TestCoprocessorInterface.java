@@ -1837,12 +1837,10 @@ control|)
 block|{
 try|try
 block|{
-name|Get
-name|g
+name|byte
+index|[]
+name|r
 init|=
-operator|new
-name|Get
-argument_list|(
 name|regions
 index|[
 name|i
@@ -1850,6 +1848,38 @@ index|]
 operator|.
 name|getStartKey
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|r
+operator|==
+literal|null
+operator|||
+name|r
+operator|.
+name|length
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// Its the start row.  Can't ask for null.  Ask for minimal key instead.
+name|r
+operator|=
+operator|new
+name|byte
+index|[]
+block|{
+literal|0
+block|}
+expr_stmt|;
+block|}
+name|Get
+name|g
+init|=
+operator|new
+name|Get
+argument_list|(
+name|r
 argument_list|)
 decl_stmt|;
 name|regions
@@ -2032,8 +2062,9 @@ argument_list|)
 expr_stmt|;
 comment|// new map and object created, hence the reference is different
 comment|// hence the old entry was indeed removed by the GC and new one has been created
-name|assertFalse
-argument_list|(
+name|Object
+name|o3
+init|=
 operator|(
 operator|(
 name|CoprocessorII
@@ -2048,6 +2079,10 @@ name|get
 argument_list|(
 literal|"test2"
 argument_list|)
+decl_stmt|;
+name|assertFalse
+argument_list|(
+name|o3
 operator|==
 name|o2
 argument_list|)

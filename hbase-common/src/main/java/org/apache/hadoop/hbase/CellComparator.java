@@ -99,6 +99,27 @@ end_comment
 
 begin_class
 annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"UNKNOWN"
+argument_list|,
+name|justification
+operator|=
+literal|"Findbugs doesn't like the way we are negating the result of a compare in below"
+argument_list|)
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private

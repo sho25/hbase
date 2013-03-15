@@ -152,6 +152,27 @@ comment|/**  * Generate list of key values which are very useful to test data bl
 end_comment
 
 begin_class
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RV_ABSOLUTE_VALUE_OF_RANDOM_INT"
+argument_list|,
+name|justification
+operator|=
+literal|"Should probably fix"
+argument_list|)
 specifier|public
 class|class
 name|RedundantKVGenerator

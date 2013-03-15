@@ -1302,16 +1302,6 @@ name|dummyAttributes
 argument_list|)
 expr_stmt|;
 comment|// non-utf8 is now allowed in row names because HBase stores values as binary
-name|ByteBuffer
-name|bf
-init|=
-name|ByteBuffer
-operator|.
-name|wrap
-argument_list|(
-name|invalid
-argument_list|)
-decl_stmt|;
 name|mutations
 operator|=
 operator|new

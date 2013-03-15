@@ -193,6 +193,7 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
 name|Cell
 name|parseCell
 parameter_list|()

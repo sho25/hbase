@@ -120,6 +120,27 @@ comment|/**  * JMX caches the beans that have been exported; even after the valu
 end_comment
 
 begin_class
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"LI_LAZY_INIT_STATIC"
+argument_list|,
+name|justification
+operator|=
+literal|"Yeah, its weird but its what we want"
+argument_list|)
 specifier|public
 class|class
 name|JmxCacheBuster

@@ -6261,12 +6261,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Couldn't get the replication znode dump."
-operator|+
+literal|"Couldn't get the replication znode dump"
+argument_list|,
 name|ke
-operator|.
-name|getStackTrace
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -689,7 +689,12 @@ name|debug
 argument_list|(
 literal|"Table '"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 operator|+
 literal|"' archived!"
 argument_list|)
@@ -697,6 +702,16 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|String
+name|tableNameStr
+init|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
 comment|// 6. Update table descriptor cache
 name|LOG
 operator|.
@@ -704,7 +719,7 @@ name|debug
 argument_list|(
 literal|"Removing '"
 operator|+
-name|tableName
+name|tableNameStr
 operator|+
 literal|"' descriptor."
 argument_list|)
@@ -733,7 +748,7 @@ name|debug
 argument_list|(
 literal|"Marking '"
 operator|+
-name|tableName
+name|tableNameStr
 operator|+
 literal|"' as deleted."
 argument_list|)
@@ -745,12 +760,7 @@ argument_list|()
 operator|.
 name|setDeletedTable
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
+name|tableNameStr
 argument_list|)
 expr_stmt|;
 block|}

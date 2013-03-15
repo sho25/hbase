@@ -1064,13 +1064,15 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException    */
+comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException    * @throws CloneNotSupportedException     */
 specifier|public
 name|void
 name|testScanAcrossSnapshot2
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|CloneNotSupportedException
 block|{
 comment|// we are going to the scanning across snapshot with two kvs
 comment|// kv1 should always be returned before kv2

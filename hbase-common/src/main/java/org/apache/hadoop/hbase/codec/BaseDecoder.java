@@ -52,6 +52,7 @@ import|;
 end_import
 
 begin_class
+specifier|public
 specifier|abstract
 class|class
 name|BaseDecoder
@@ -60,6 +61,7 @@ name|Codec
 operator|.
 name|Decoder
 block|{
+specifier|protected
 specifier|final
 name|InputStream
 name|in
@@ -76,6 +78,7 @@ name|current
 init|=
 literal|null
 decl_stmt|;
+specifier|public
 name|BaseDecoder
 parameter_list|(
 specifier|final
@@ -164,6 +167,7 @@ name|hasNext
 return|;
 block|}
 comment|/**    * @return extract a Cell    * @throws IOException    */
+specifier|protected
 specifier|abstract
 name|Cell
 name|parseCell

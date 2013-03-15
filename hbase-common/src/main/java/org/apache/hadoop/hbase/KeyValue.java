@@ -3329,14 +3329,21 @@ comment|//
 comment|//  KeyValue cloning
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * Clones a KeyValue.  This creates a copy, re-allocating the buffer.    * @return Fully copied clone of this KeyValue    */
+comment|/**    * Clones a KeyValue.  This creates a copy, re-allocating the buffer.    * @return Fully copied clone of this KeyValue    * @throws CloneNotSupportedException     */
 annotation|@
 name|Override
 specifier|public
 name|KeyValue
 name|clone
 parameter_list|()
+throws|throws
+name|CloneNotSupportedException
 block|{
+name|super
+operator|.
+name|clone
+argument_list|()
+expr_stmt|;
 name|byte
 index|[]
 name|b
@@ -3397,17 +3404,6 @@ argument_list|)
 expr_stmt|;
 return|return
 name|ret
-return|;
-block|}
-comment|/**    * Creates a deep copy of this KeyValue, re-allocating the buffer.    * Same function as {@link #clone()}.  Added for clarity vs shallowCopy()    * @return Deep copy of this KeyValue    */
-specifier|public
-name|KeyValue
-name|deepCopy
-parameter_list|()
-block|{
-return|return
-name|clone
-argument_list|()
 return|;
 block|}
 comment|/**    * Creates a shallow copy of this KeyValue, reusing the data byte buffer.    * http://en.wikipedia.org/wiki/Object_copy    * @return Shallow copy of this KeyValue    */

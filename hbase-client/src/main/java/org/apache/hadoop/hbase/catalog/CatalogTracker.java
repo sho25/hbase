@@ -376,7 +376,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the availability of the catalog tables  *<code>.META.</code>.  *   * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  Call {@link #stop()}} to  * interrupt waits and close up shop.  */
+comment|/**  * Tracks the availability of the catalog tables  *<code>.META.</code>.  *  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  Call {@link #stop()}} to  * interrupt waits and close up shop.  */
 end_comment
 
 begin_class
@@ -472,11 +472,6 @@ specifier|private
 name|Abortable
 name|abortable
 decl_stmt|;
-comment|/*    * Do not clear this address once set.  Its needed when we do    * server shutdown processing -- we need to know who had .META. last.  If you    * want to know if the address is good, rely on {@link #metaAvailable} value.    */
-specifier|private
-name|ServerName
-name|metaLocation
-decl_stmt|;
 specifier|private
 name|boolean
 name|stopped
@@ -517,7 +512,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException    */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -692,7 +687,7 @@ name|throwableAborter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts the catalog tracker.    * Determines current availability of catalog tables and ensures all further    * transitions of either region are tracked.    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Starts the catalog tracker.    * Determines current availability of catalog tables and ensures all further    * transitions of either region are tracked.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|start
@@ -851,7 +846,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> or null if location is    * not currently available.    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException     */
+comment|/**    * Gets the current location for<code>.META.</code> or null if location is    * not currently available.    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException    */
 specifier|public
 name|ServerName
 name|getMetaLocation
@@ -1019,22 +1014,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Retrying"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}
@@ -1442,7 +1421,7 @@ literal|" at address="
 operator|+
 name|address
 operator|+
-literal|"; "
+literal|", exception="
 operator|+
 name|t
 argument_list|)
@@ -1451,7 +1430,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Verify<code>.META.</code> is deployed and accessible.    * @param timeout How long to wait on zk for meta address (passed through to    * the internal call to {@link #waitForMetaServerConnection(long)}.    * @return True if the<code>.META.</code> location is healthy.    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Verify<code>.META.</code> is deployed and accessible.    * @param timeout How long to wait on zk for meta address (passed through to    * the internal call to {@link #waitForMetaServerConnection(long)}.    * @return True if the<code>.META.</code> location is healthy.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|boolean
 name|verifyMetaRegionLocation

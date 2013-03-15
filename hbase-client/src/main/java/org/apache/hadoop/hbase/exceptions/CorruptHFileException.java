@@ -31,22 +31,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This exception is thrown when attempts to read an HFile fail due to corruption or truncation  * issues.  */
 end_comment

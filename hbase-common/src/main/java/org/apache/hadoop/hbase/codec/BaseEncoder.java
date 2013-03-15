@@ -52,6 +52,7 @@ import|;
 end_import
 
 begin_class
+specifier|public
 specifier|abstract
 class|class
 name|BaseEncoder
@@ -100,6 +101,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|protected
 name|void
 name|checkFlushed
 parameter_list|()

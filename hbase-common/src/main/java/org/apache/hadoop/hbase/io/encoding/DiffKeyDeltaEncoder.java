@@ -997,6 +997,9 @@ name|state
 operator|.
 name|familyLength
 expr_stmt|;
+name|int
+name|read
+init|=
 name|source
 operator|.
 name|read
@@ -1013,7 +1016,14 @@ name|state
 operator|.
 name|familyLength
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+assert|assert
+name|read
+operator|==
+name|state
+operator|.
+name|familyLength
+assert|;
 block|}
 comment|// read flag
 name|byte

@@ -184,7 +184,7 @@ operator|.
 name|code
 decl_stmt|;
 comment|/** Return the object represented by the code. */
-specifier|private
+specifier|public
 specifier|static
 name|AuthMethod
 name|valueOf

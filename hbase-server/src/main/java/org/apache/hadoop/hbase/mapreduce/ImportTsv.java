@@ -631,6 +631,7 @@ name|DEFAULT_TIMESTAMP_COLUMN_INDEX
 decl_stmt|;
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|ROWKEY_COLUMN_SPEC
 init|=
@@ -638,6 +639,7 @@ literal|"HBASE_ROW_KEY"
 decl_stmt|;
 specifier|public
 specifier|static
+specifier|final
 name|String
 name|TIMESTAMPKEY_COLUMN_SPEC
 init|=

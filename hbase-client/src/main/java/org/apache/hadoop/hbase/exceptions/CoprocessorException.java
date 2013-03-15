@@ -45,22 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown if a coprocessor encounters any exception.  */
 end_comment

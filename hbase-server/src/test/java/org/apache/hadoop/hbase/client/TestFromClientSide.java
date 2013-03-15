@@ -34818,6 +34818,14 @@ parameter_list|)
 block|{
 comment|// success
 block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// success
+block|}
 comment|// try null family
 try|try
 block|{
