@@ -214,6 +214,8 @@ name|fix
 argument_list|,
 name|fix
 argument_list|,
+name|fix
+argument_list|,
 name|table
 argument_list|)
 return|;
@@ -249,6 +251,9 @@ name|fixVersionFile
 parameter_list|,
 name|boolean
 name|fixReferenceFiles
+parameter_list|,
+name|boolean
+name|fixEmptyMetaRegionInfo
 parameter_list|,
 name|String
 name|table
@@ -339,6 +344,13 @@ operator|.
 name|setFixReferenceFiles
 argument_list|(
 name|fixReferenceFiles
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixEmptyMetaCells
+argument_list|(
+name|fixEmptyMetaRegionInfo
 argument_list|)
 expr_stmt|;
 if|if
