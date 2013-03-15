@@ -254,11 +254,6 @@ name|void
 name|testRegionArchiveDir
 parameter_list|()
 block|{
-name|Configuration
-name|conf
-init|=
-literal|null
-decl_stmt|;
 name|Path
 name|tableDir
 init|=
@@ -283,8 +278,6 @@ name|HFileArchiveUtil
 operator|.
 name|getRegionArchiveDir
 argument_list|(
-name|conf
-argument_list|,
 name|tableDir
 argument_list|,
 name|regionDir

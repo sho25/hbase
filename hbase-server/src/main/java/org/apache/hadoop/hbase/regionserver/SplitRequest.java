@@ -497,9 +497,6 @@ literal|"Region split, META updated, and report to master. Parent="
 operator|+
 name|parent
 operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+

@@ -369,6 +369,8 @@ argument_list|,
 name|rootDir
 argument_list|,
 name|hri
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals

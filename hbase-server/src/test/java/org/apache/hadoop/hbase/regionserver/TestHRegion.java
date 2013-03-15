@@ -2060,6 +2060,9 @@ name|regiondir
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -2068,7 +2071,10 @@ name|fs
 init|=
 name|region
 operator|.
-name|getFilesystem
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 name|byte
@@ -2498,6 +2504,9 @@ name|regiondir
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -2506,7 +2515,10 @@ name|fs
 init|=
 name|region
 operator|.
-name|getFilesystem
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 name|byte
@@ -2962,6 +2974,9 @@ name|regiondir
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -2970,7 +2985,10 @@ name|fs
 init|=
 name|region
 operator|.
-name|getFilesystem
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 name|Path
@@ -12635,6 +12653,9 @@ name|oldRegionPath
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -12646,6 +12667,9 @@ index|[
 literal|0
 index|]
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -12656,6 +12680,9 @@ name|subregions
 index|[
 literal|1
 index|]
+operator|.
+name|getRegionFileSystem
+argument_list|()
 operator|.
 name|getRegionDir
 argument_list|()
@@ -23888,6 +23915,9 @@ name|regionDir
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -23896,7 +23926,10 @@ name|fs
 init|=
 name|region
 operator|.
-name|getFilesystem
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 name|HRegion
@@ -23959,6 +23992,9 @@ argument_list|(
 name|regionDir
 argument_list|,
 name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
 operator|.
 name|getRegionDir
 argument_list|()
@@ -24034,6 +24070,9 @@ argument_list|(
 name|regionDir
 argument_list|,
 name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
 operator|.
 name|getRegionDir
 argument_list|()

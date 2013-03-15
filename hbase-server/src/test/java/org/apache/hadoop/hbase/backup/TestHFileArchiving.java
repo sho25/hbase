@@ -849,19 +849,27 @@ argument_list|()
 decl_stmt|;
 comment|// now attempt to depose the region
 name|Path
-name|regionDir
+name|rootDir
 init|=
-name|HRegion
-operator|.
-name|getRegionDir
-argument_list|(
 name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
 operator|.
 name|getTableDir
 argument_list|()
 operator|.
 name|getParent
 argument_list|()
+decl_stmt|;
+name|Path
+name|regionDir
+init|=
+name|HRegion
+operator|.
+name|getRegionDir
+argument_list|(
+name|rootDir
 argument_list|,
 name|region
 operator|.
@@ -1025,7 +1033,10 @@ name|fs
 init|=
 name|region
 operator|.
-name|getFilesystem
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 decl_stmt|;
 comment|// make sure there are some files in the regiondir
@@ -1411,14 +1422,6 @@ name|clearArchiveDirectory
 argument_list|()
 expr_stmt|;
 comment|// then get the current store files
-name|Path
-name|regionDir
-init|=
-name|region
-operator|.
-name|getRegionDir
-argument_list|()
-decl_stmt|;
 name|List
 argument_list|<
 name|String
@@ -1427,9 +1430,7 @@ name|storeFiles
 init|=
 name|getRegionStoreFiles
 argument_list|(
-name|fs
-argument_list|,
-name|regionDir
+name|region
 argument_list|)
 decl_stmt|;
 comment|// then delete the table so the hfiles get archived
@@ -1732,14 +1733,6 @@ name|clearArchiveDirectory
 argument_list|()
 expr_stmt|;
 comment|// then get the current store files
-name|Path
-name|regionDir
-init|=
-name|region
-operator|.
-name|getRegionDir
-argument_list|()
-decl_stmt|;
 name|List
 argument_list|<
 name|String
@@ -1748,9 +1741,7 @@ name|storeFiles
 init|=
 name|getRegionStoreFiles
 argument_list|(
-name|fs
-argument_list|,
-name|regionDir
+name|region
 argument_list|)
 decl_stmt|;
 comment|// then delete the table so the hfiles get archived
@@ -2428,16 +2419,34 @@ argument_list|>
 name|getRegionStoreFiles
 parameter_list|(
 specifier|final
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
-name|Path
-name|regionDir
+name|HRegion
+name|region
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Path
+name|regionDir
+init|=
+name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getRegionDir
+argument_list|()
+decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
+argument_list|()
+decl_stmt|;
 name|List
 argument_list|<
 name|String

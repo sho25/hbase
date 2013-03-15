@@ -1522,11 +1522,11 @@ name|HFileArchiver
 operator|.
 name|archiveStoreFile
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|regionInfo
-argument_list|,
-name|conf
 argument_list|,
 name|tableDir
 argument_list|,

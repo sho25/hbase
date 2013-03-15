@@ -2980,6 +2980,9 @@ name|target
 init|=
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
@@ -11018,6 +11021,9 @@ name|debugLsr
 argument_list|(
 name|region
 operator|.
+name|getRegionFileSystem
+argument_list|()
+operator|.
 name|getRegionDir
 argument_list|()
 argument_list|)
@@ -11032,6 +11038,9 @@ name|Path
 name|target
 init|=
 name|region
+operator|.
+name|getRegionFileSystem
+argument_list|()
 operator|.
 name|getRegionDir
 argument_list|()
