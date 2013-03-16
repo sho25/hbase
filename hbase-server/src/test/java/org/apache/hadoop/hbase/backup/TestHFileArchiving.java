@@ -600,6 +600,21 @@ operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
+comment|// We don't want the cleaner to remove files. The tests do that.
+name|UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getHFileCleaner
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 specifier|static
