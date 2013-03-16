@@ -779,21 +779,6 @@ argument_list|(
 literal|"DELETE_FAMILY_COUNT"
 argument_list|)
 decl_stmt|;
-comment|/** See {@link #getEstimatedDiskDataSize()}. */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|DISK_DATA_SIZE_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"DISK_DATA_SIZE"
-argument_list|)
-decl_stmt|;
 comment|/** Last Bloom filter key in FileInfo */
 specifier|private
 specifier|static
@@ -922,19 +907,6 @@ name|AtomicBoolean
 name|majorCompaction
 init|=
 literal|null
-decl_stmt|;
-comment|/** See {@link #getEstimatedDiskDataSize()}. */
-specifier|private
-name|long
-name|diskDataSize
-decl_stmt|;
-comment|/** See {@link #getEstimatedDiskDataSize()}. */
-specifier|private
-specifier|static
-name|double
-name|DATA_SIZE_FRACTION_ESTIMATE
-init|=
-literal|0.98
 decl_stmt|;
 comment|// If true, this file should not be included in minor compactions.
 comment|// It's set whenever you get a Reader.
@@ -1274,16 +1246,6 @@ parameter_list|()
 block|{
 return|return
 name|modificationTimeStamp
-return|;
-block|}
-comment|/**    * @return Estimated number of bytes taken by the data blocks of this file. Either the exact    * number written into the file metadata ({@link #DISK_DATA_SIZE_KEY}); or estimated as    * {@link #DATA_SIZE_FRACTION_ESTIMATE} of the file, if there's no such field (old files).    */
-specifier|public
-name|long
-name|getEstimatedDiskDataSize
-parameter_list|()
-block|{
-return|return
-name|diskDataSize
 return|;
 block|}
 comment|/**    * Return the largest memstoreTS found across all storefiles in    * the given list. Store files that were created by a mapreduce    * bulk load are ignored, as they do not correspond to any specific    * put operation, and thus do not have a memstoreTS associated with them.    * @return 0 if no non-bulk-load files are provided or, this is Store that    * does not yet have any store files.    */
@@ -1958,47 +1920,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-name|b
-operator|=
-name|metadataMap
-operator|.
-name|get
-argument_list|(
-name|DISK_DATA_SIZE_KEY
-argument_list|)
-expr_stmt|;
-comment|// Estimate which fraction of the file is data if the file doesn't have this field.
-name|this
-operator|.
-name|diskDataSize
-operator|=
-operator|(
-name|b
-operator|!=
-literal|null
-operator|)
-condition|?
-name|Bytes
-operator|.
-name|toLong
-argument_list|(
-name|b
-argument_list|)
-else|:
-call|(
-name|long
-call|)
-argument_list|(
-name|this
-operator|.
-name|reader
-operator|.
-name|length
-argument_list|()
-operator|*
-name|DATA_SIZE_FRACTION_ESTIMATE
-argument_list|)
-expr_stmt|;
 return|return
 name|this
 operator|.
@@ -4248,37 +4169,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Estimate data size in this file before blooms and the HFile tail blocks.
-name|long
-name|currentSize
-init|=
-name|writer
-operator|.
-name|getCurrentSize
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|currentSize
-operator|>=
-literal|0
-condition|)
-block|{
-name|writer
-operator|.
-name|appendFileInfo
-argument_list|(
-name|DISK_DATA_SIZE_KEY
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|currentSize
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|boolean
 name|hasGeneralBloom
 init|=
@@ -4371,20 +4261,6 @@ parameter_list|()
 block|{
 return|return
 name|writer
-return|;
-block|}
-specifier|public
-name|long
-name|getCurrentSize
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-name|writer
-operator|.
-name|getCurrentSize
-argument_list|()
 return|;
 block|}
 block|}

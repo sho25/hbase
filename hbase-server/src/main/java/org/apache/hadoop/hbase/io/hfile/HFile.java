@@ -1394,13 +1394,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * @return Currently written raw data size on disk.      */
-name|long
-name|getCurrentSize
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 block|}
 comment|/**    * This variety of ways to construct writers is used throughout the code, and    * we want to be able to swap writer implementations.    */
 specifier|public
