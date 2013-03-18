@@ -174,7 +174,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Shutdown handler for the server hosting<code>-ROOT-</code>,  *<code>.META.</code>, or both.  */
+comment|/**  * Shutdown handler for the server hosting<code>.META.</code>  */
 end_comment
 
 begin_class
@@ -188,11 +188,6 @@ name|MetaServerShutdownHandler
 extends|extends
 name|ServerShutdownHandler
 block|{
-specifier|private
-specifier|final
-name|boolean
-name|carryingMeta
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -226,10 +221,6 @@ parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
-parameter_list|,
-specifier|final
-name|boolean
-name|carryingMeta
 parameter_list|)
 block|{
 name|super
@@ -249,12 +240,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|carryingMeta
-operator|=
-name|carryingMeta
-expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -264,6 +249,13 @@ name|process
 parameter_list|()
 throws|throws
 name|IOException
+block|{
+name|boolean
+name|gotException
+init|=
+literal|true
+decl_stmt|;
+try|try
 block|{
 try|try
 block|{
@@ -338,14 +330,7 @@ name|ioe
 argument_list|)
 throw|;
 block|}
-comment|// Assign root and meta if we were carrying them.
-if|if
-condition|(
-name|isCarryingMeta
-argument_list|()
-condition|)
-block|{
-comment|// .META.
+comment|// Assign meta if we were carrying it.
 comment|// Check again: region may be assigned to other where because of RIT
 comment|// timeout
 if|if
@@ -399,6 +384,29 @@ operator|.
 name|info
 argument_list|(
 literal|"META has been assigned to otherwhere, skip assigning."
+argument_list|)
+expr_stmt|;
+block|}
+name|gotException
+operator|=
+literal|false
+expr_stmt|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|gotException
+condition|)
+block|{
+comment|// If we had an exception, this.deadServers.finish will be skipped in super.process()
+name|this
+operator|.
+name|deadServers
+operator|.
+name|finish
+argument_list|(
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
@@ -486,7 +494,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"-ROOT- is onlined on the dead server "
+literal|".META. is onlined on the dead server "
 operator|+
 name|serverName
 argument_list|)
@@ -498,7 +506,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip assigning -ROOT-, because it is online on the "
+literal|"Skip assigning .META., because it is online on the "
 operator|+
 name|server
 operator|.
@@ -683,16 +691,6 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-block|}
-name|boolean
-name|isCarryingMeta
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|carryingMeta
-return|;
 block|}
 annotation|@
 name|Override

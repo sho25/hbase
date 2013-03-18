@@ -2142,8 +2142,6 @@ operator|.
 name|deadservers
 argument_list|,
 name|serverName
-argument_list|,
-name|carryingMeta
 argument_list|)
 argument_list|)
 expr_stmt|;
