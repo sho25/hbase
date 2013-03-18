@@ -538,6 +538,14 @@ name|TIMESTAMP_CONF_KEY
 init|=
 literal|"importtsv.timestamp"
 decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapred.job.name"
+decl_stmt|;
 comment|// TODO: the rest of these configs are used exclusively by TsvImporterMapper.
 comment|// Move them out of the tool and let the mapper handle its own validation.
 specifier|public
@@ -1474,6 +1482,22 @@ literal|1
 index|]
 argument_list|)
 decl_stmt|;
+name|String
+name|jobName
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|JOB_NAME_CONF_KEY
+argument_list|,
+name|NAME
+operator|+
+literal|"_"
+operator|+
+name|tableName
+argument_list|)
+decl_stmt|;
 name|Job
 name|job
 init|=
@@ -1482,11 +1506,7 @@ name|Job
 argument_list|(
 name|conf
 argument_list|,
-name|NAME
-operator|+
-literal|"_"
-operator|+
-name|tableName
+name|jobName
 argument_list|)
 decl_stmt|;
 name|job
@@ -2008,6 +2028,12 @@ name|getName
 argument_list|()
 operator|+
 literal|"\n"
+operator|+
+literal|"  -D"
+operator|+
+name|JOB_NAME_CONF_KEY
+operator|+
+literal|"=jobName - use the specified mapreduce job name for the import\n"
 operator|+
 literal|"For performance consider the following options:\n"
 operator|+
