@@ -982,6 +982,42 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called prior to marking a given region as offline.<code>ctx.bypass()</code> will not have any    * impact on this hook.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    */
+name|void
+name|preRegionOffline
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the region has been marked offline.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    */
+name|void
+name|postRegionOffline
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called prior to requesting rebalancing of the cluster regions, though after    * the initial checks for regions in transition and the balance switch flag.    * @param ctx the environment to interact with the framework and master    */
 name|void
 name|preBalance

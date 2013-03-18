@@ -12651,7 +12651,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Special method, only used by hbck.    */
+comment|/**    * Offline specified region from master's in-memory state. It will not attempt to    * reassign the region as in unassign.    *      * This is a special method that should be used by experts or hbck.    *     */
 end_comment
 
 begin_function
@@ -12769,6 +12769,21 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|preRegionOffline
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|assignmentManager
@@ -12778,6 +12793,21 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|postRegionOffline
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
