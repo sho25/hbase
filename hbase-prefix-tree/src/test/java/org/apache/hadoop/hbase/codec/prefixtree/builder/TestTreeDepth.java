@@ -107,18 +107,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|mortbay
-operator|.
-name|log
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -368,13 +356,6 @@ name|int
 name|expectedTreeDepth
 parameter_list|)
 block|{
-name|Log
-operator|.
-name|warn
-argument_list|(
-literal|"init logger"
-argument_list|)
-expr_stmt|;
 name|Tokenizer
 name|builder
 init|=
