@@ -153,6 +153,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -264,6 +280,8 @@ implements|implements
 name|Row
 implements|,
 name|CellScannable
+implements|,
+name|HeapSize
 block|{
 specifier|static
 specifier|final
@@ -1194,6 +1212,9 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @return Calculate what Mutation adds to class heap size.    */
+annotation|@
+name|Override
+specifier|public
 name|long
 name|heapSize
 parameter_list|()
@@ -1362,8 +1383,28 @@ operator|+=
 name|getAttributeSize
 argument_list|()
 expr_stmt|;
-return|return
 name|heapsize
+operator|+=
+name|extraHeapSize
+argument_list|()
+expr_stmt|;
+return|return
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|heapsize
+argument_list|)
+return|;
+block|}
+comment|/**    * Subclasses should override this method to add the heap size of their own fields.    * @return the heap size to add (will be aligned).    */
+specifier|protected
+name|long
+name|extraHeapSize
+parameter_list|()
+block|{
+return|return
+literal|0L
 return|;
 block|}
 comment|/**    * @param row Row to check    * @throws IllegalArgumentException Thrown if<code>row</code> is empty or null or    *&gt; {@link HConstants#MAX_ROW_LENGTH}    * @return<code>row</code>    */

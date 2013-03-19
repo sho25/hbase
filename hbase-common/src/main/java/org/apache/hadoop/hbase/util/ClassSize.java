@@ -287,6 +287,13 @@ specifier|final
 name|int
 name|COPYONWRITE_ARRAYLIST
 decl_stmt|;
+comment|/** Overhead for timerange */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TIMERANGE
+decl_stmt|;
 comment|/* Are we running on jdk7? */
 specifier|private
 specifier|static
@@ -720,6 +727,25 @@ name|REFERENCE
 operator|)
 operator|+
 name|ARRAY
+argument_list|)
+expr_stmt|;
+name|TIMERANGE
+operator|=
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+operator|*
+literal|2
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
 argument_list|)
 expr_stmt|;
 block|}
