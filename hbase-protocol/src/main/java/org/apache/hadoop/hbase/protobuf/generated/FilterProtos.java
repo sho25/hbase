@@ -69688,7 +69688,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated int64 timestamps = 1;
+comment|// repeated int64 timestamps = 1 [packed = true];
 name|java
 operator|.
 name|util
@@ -69842,7 +69842,7 @@ operator|.
 name|internal_static_TimestampsFilter_fieldAccessorTable
 return|;
 block|}
-comment|// repeated int64 timestamps = 1;
+comment|// repeated int64 timestamps = 1 [packed = true];
 specifier|public
 specifier|static
 specifier|final
@@ -69915,6 +69915,13 @@ name|index
 argument_list|)
 return|;
 block|}
+specifier|private
+name|int
+name|timestampsMemoizedSerializedSize
+init|=
+operator|-
+literal|1
+decl_stmt|;
 specifier|private
 name|void
 name|initFields
@@ -69994,6 +70001,32 @@ block|{
 name|getSerializedSize
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|getTimestampsList
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|output
+operator|.
+name|writeRawVarint32
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
+name|output
+operator|.
+name|writeRawVarint32
+argument_list|(
+name|timestampsMemoizedSerializedSize
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -70014,10 +70047,8 @@ control|)
 block|{
 name|output
 operator|.
-name|writeInt64
+name|writeInt64NoTag
 argument_list|(
-literal|1
-argument_list|,
 name|timestamps_
 operator|.
 name|get
@@ -70116,15 +70147,39 @@ name|size
 operator|+=
 name|dataSize
 expr_stmt|;
-name|size
-operator|+=
-literal|1
-operator|*
+if|if
+condition|(
+operator|!
 name|getTimestampsList
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
+condition|)
+block|{
+name|size
+operator|+=
+literal|1
+expr_stmt|;
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32SizeNoTag
+argument_list|(
+name|dataSize
+argument_list|)
+expr_stmt|;
+block|}
+name|timestampsMemoizedSerializedSize
+operator|=
+name|dataSize
 expr_stmt|;
 block|}
 name|size
@@ -71983,7 +72038,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated int64 timestamps = 1;
+comment|// repeated int64 timestamps = 1 [packed = true];
 specifier|private
 name|java
 operator|.
@@ -79283,17 +79338,19 @@ literal|"tor\030\004 \002(\0132\013.Comparator\022\027\n\017filterIfMissin"
 operator|+
 literal|"g\030\005 \001(\010\022\031\n\021latestVersionOnly\030\006 \001(\010\"%\n\nSk"
 operator|+
-literal|"ipFilter\022\027\n\006filter\030\001 \002(\0132\007.Filter\"&\n\020Tim"
+literal|"ipFilter\022\027\n\006filter\030\001 \002(\0132\007.Filter\"*\n\020Tim"
 operator|+
-literal|"estampsFilter\022\022\n\ntimestamps\030\001 \003(\003\"4\n\013Val"
+literal|"estampsFilter\022\026\n\ntimestamps\030\001 \003(\003B\002\020\001\"4\n"
 block|,
-literal|"ueFilter\022%\n\rcompareFilter\030\001 \002(\0132\016.Compar"
+literal|"\013ValueFilter\022%\n\rcompareFilter\030\001 \002(\0132\016.Co"
 operator|+
-literal|"eFilter\"+\n\020WhileMatchFilter\022\027\n\006filter\030\001 "
+literal|"mpareFilter\"+\n\020WhileMatchFilter\022\027\n\006filte"
 operator|+
-literal|"\002(\0132\007.FilterBB\n*org.apache.hadoop.hbase."
+literal|"r\030\001 \002(\0132\007.FilterBB\n*org.apache.hadoop.hb"
 operator|+
-literal|"protobuf.generatedB\014FilterProtosH\001\210\001\001\240\001\001"
+literal|"ase.protobuf.generatedB\014FilterProtosH\001\210\001"
+operator|+
+literal|"\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
