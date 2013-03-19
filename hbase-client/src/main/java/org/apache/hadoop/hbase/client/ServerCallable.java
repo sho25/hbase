@@ -19,6 +19,34 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -277,6 +305,20 @@ argument_list|<
 name|T
 argument_list|>
 block|{
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|ServerCallable
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|protected
 specifier|final
 name|HConnection
@@ -323,6 +365,14 @@ name|int
 name|MIN_RPC_TIMEOUT
 init|=
 literal|2000
+decl_stmt|;
+specifier|protected
+specifier|final
+specifier|static
+name|int
+name|MIN_WAIT_DEAD_SERVER
+init|=
+literal|10000
 decl_stmt|;
 comment|/**    * @param connection Connection to use.    * @param tableName Table name to which<code>row</code> belongs.    * @param row The row we want in<code>tableName</code>.    */
 specifier|public
@@ -672,14 +722,16 @@ name|tries
 init|=
 literal|0
 init|;
-name|tries
-operator|<
-name|numRetries
 condition|;
 name|tries
 operator|++
 control|)
 block|{
+name|long
+name|expectedSleep
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 name|beforeCall
@@ -692,6 +744,7 @@ operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
+comment|// if called with false, check table status on ZK
 return|return
 name|call
 argument_list|()
@@ -703,6 +756,26 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Received exception, tries="
+operator|+
+name|tries
+operator|+
+literal|", numRetries="
+operator|+
+name|numRetries
+operator|+
+literal|" message="
+operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|t
 operator|=
 name|translateException
@@ -710,6 +783,8 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+comment|// translateException throws an exception when we should not retry, i.e. when it's the
+comment|//  request that is bad.
 if|if
 condition|(
 name|t
@@ -723,35 +798,33 @@ operator|||
 name|t
 operator|instanceof
 name|RetriesExhaustedException
+operator|||
+name|getConnection
+argument_list|()
+operator|.
+name|isDeadServer
+argument_list|(
+name|location
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
 condition|)
 block|{
 comment|// if thrown these exceptions, we clear all the cache entries that
 comment|// map to that slow/dead server; otherwise, let cache miss and ask
 comment|// .META. again to find the new location
-name|HRegionLocation
-name|hrl
-init|=
-name|location
-decl_stmt|;
-if|if
-condition|(
-name|hrl
-operator|!=
-literal|null
-condition|)
-block|{
 name|getConnection
 argument_list|()
 operator|.
 name|clearCaches
 argument_list|(
-name|hrl
+name|location
 operator|.
-name|getHostnamePort
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|RetriesExhaustedException
 operator|.
@@ -784,7 +857,7 @@ expr_stmt|;
 if|if
 condition|(
 name|tries
-operator|==
+operator|>=
 name|numRetries
 operator|-
 literal|1
@@ -800,9 +873,10 @@ name|exceptions
 argument_list|)
 throw|;
 block|}
-name|long
+comment|// If the server is dead, we need to wait a little before retrying, to give
+comment|//  a chance to the regions to be
 name|expectedSleep
-init|=
+operator|=
 name|ConnectionUtils
 operator|.
 name|getPauseTime
@@ -811,7 +885,37 @@ name|pause
 argument_list|,
 name|tries
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+if|if
+condition|(
+name|expectedSleep
+operator|<
+name|MIN_WAIT_DEAD_SERVER
+operator|&&
+name|getConnection
+argument_list|()
+operator|.
+name|isDeadServer
+argument_list|(
+name|location
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|expectedSleep
+operator|=
+name|ConnectionUtils
+operator|.
+name|addJitter
+argument_list|(
+name|MIN_WAIT_DEAD_SERVER
+argument_list|,
+literal|0.10f
+argument_list|)
+expr_stmt|;
+block|}
 comment|// If, after the planned sleep, there won't be enough time left, we stop now.
 if|if
 condition|(
@@ -901,14 +1005,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|ConnectionUtils
-operator|.
-name|getPauseTime
-argument_list|(
-name|pause
-argument_list|,
-name|tries
-argument_list|)
+name|expectedSleep
 argument_list|)
 expr_stmt|;
 block|}
@@ -930,18 +1027,19 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Interrupted after tries="
+literal|"Interrupted after "
 operator|+
 name|tries
+operator|+
+literal|" tries  on "
+operator|+
+name|numRetries
 argument_list|,
 name|e
 argument_list|)
 throw|;
 block|}
 block|}
-return|return
-literal|null
-return|;
 block|}
 comment|/**    * Run this instance against the server once.    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
@@ -953,6 +1051,7 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
+comment|// The code of this method should be shared with withRetries.
 name|this
 operator|.
 name|globalStartTime
@@ -991,6 +1090,7 @@ argument_list|(
 name|t
 argument_list|)
 decl_stmt|;
+comment|// It would be nice to clear the location cache here.
 if|if
 condition|(
 name|t2
@@ -1023,6 +1123,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Get the good or the remote exception if any, throws the DoNotRetryIOException.    * @param t the throwable to analyze    * @return the translated exception, if it's not a DoNotRetryIOException    * @throws DoNotRetryIOException - if we find it, we throw it instead of translating.    */
 specifier|protected
 specifier|static
 name|Throwable
@@ -1032,7 +1133,7 @@ name|Throwable
 name|t
 parameter_list|)
 throws|throws
-name|IOException
+name|DoNotRetryIOException
 block|{
 if|if
 condition|(

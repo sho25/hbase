@@ -10440,6 +10440,12 @@ name|ServiceException
 name|ignored
 parameter_list|)
 block|{     }
+catch|catch
+parameter_list|(
+name|IOException
+name|ignored
+parameter_list|)
+block|{     }
 name|long
 name|end
 init|=

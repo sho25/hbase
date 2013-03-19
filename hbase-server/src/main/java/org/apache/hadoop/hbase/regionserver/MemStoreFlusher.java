@@ -563,15 +563,10 @@ name|Counter
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|FlushHandler
 index|[]
 name|flushHandlers
-init|=
-literal|null
-decl_stmt|;
-specifier|private
-name|int
-name|handlerCount
 decl_stmt|;
 comment|/**    * @param conf    * @param server    */
 specifier|public
@@ -720,10 +715,9 @@ argument_list|,
 literal|90000
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
+name|int
 name|handlerCount
-operator|=
+init|=
 name|conf
 operator|.
 name|getInt
@@ -732,6 +726,16 @@ literal|"hbase.hstore.flusher.count"
 argument_list|,
 literal|1
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|flushHandlers
+operator|=
+operator|new
+name|FlushHandler
+index|[
+name|handlerCount
+index|]
 expr_stmt|;
 name|LOG
 operator|.
@@ -1658,14 +1662,6 @@ argument_list|,
 name|eh
 argument_list|)
 decl_stmt|;
-name|flushHandlers
-operator|=
-operator|new
-name|FlushHandler
-index|[
-name|handlerCount
-index|]
-expr_stmt|;
 for|for
 control|(
 name|int
@@ -2730,7 +2726,7 @@ operator|>
 name|maximumWait
 return|;
 block|}
-comment|/**      * @return Count of times {@link #resetDelay()} was called; i.e this is      * number of times we've been requeued.      */
+comment|/**      * @return Count of times {@link #requeue(long)} was called; i.e this is      * number of times we've been requeued.      */
 specifier|public
 name|int
 name|getRequeueCount

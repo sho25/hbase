@@ -1062,7 +1062,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Possibly transient ZooKeeper exception: "
+literal|"Possibly transient ZooKeeper, quorum="
+operator|+
+name|quorumServers
+operator|+
+literal|", exception="
 operator|+
 name|e
 argument_list|)

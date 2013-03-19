@@ -124,6 +124,11 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
+specifier|public
+name|HBaseClient
+name|getClient
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

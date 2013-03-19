@@ -633,6 +633,24 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Wait for the namenode.    *    * @throws InterruptedException    */
+specifier|public
+name|void
+name|waitForNamenodeAvailable
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{   }
+specifier|public
+name|void
+name|waitForDatanodesRegistered
+parameter_list|(
+name|int
+name|nbDN
+parameter_list|)
+throws|throws
+name|Exception
+block|{   }
 block|}
 end_class
 

@@ -8508,6 +8508,18 @@ name|existingPlan
 operator|.
 name|getDestination
 argument_list|()
+operator|+
+literal|" accepted as a dest server = "
+operator|+
+name|destServers
+operator|.
+name|contains
+argument_list|(
+name|existingPlan
+operator|.
+name|getDestination
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -8621,6 +8633,10 @@ name|size
 argument_list|()
 operator|+
 literal|") available servers"
+operator|+
+literal|", forceNewPlan="
+operator|+
+name|forceNewPlan
 argument_list|)
 expr_stmt|;
 return|return

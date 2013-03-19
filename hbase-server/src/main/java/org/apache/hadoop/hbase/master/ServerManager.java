@@ -844,7 +844,7 @@ name|MasterServices
 name|services
 parameter_list|)
 throws|throws
-name|ZooKeeperConnectionException
+name|IOException
 block|{
 name|this
 argument_list|(
@@ -871,7 +871,7 @@ name|boolean
 name|connect
 parameter_list|)
 throws|throws
-name|ZooKeeperConnectionException
+name|IOException
 block|{
 name|this
 operator|.

@@ -716,9 +716,7 @@ name|void
 name|before
 parameter_list|()
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|Exception
 block|{
 name|this
 operator|.

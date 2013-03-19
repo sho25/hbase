@@ -69,6 +69,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|HasThread
 import|;
 end_import
@@ -151,6 +167,21 @@ argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|stopper
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"stopper cannot be null"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|sleeper
@@ -168,6 +199,20 @@ operator|.
 name|stopper
 operator|=
 name|stopper
+expr_stmt|;
+block|}
+comment|/**    * This constructor is for test only. It allows to create an object and to call chore() on    *  it. There is no sleeper nor stoppable.    */
+specifier|protected
+name|Chore
+parameter_list|()
+block|{
+name|sleeper
+operator|=
+literal|null
+expr_stmt|;
+name|stopper
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|/**    * @see java.lang.Thread#run()    */
@@ -199,7 +244,7 @@ block|{
 name|long
 name|startTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

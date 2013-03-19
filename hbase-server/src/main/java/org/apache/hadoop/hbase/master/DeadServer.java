@@ -274,7 +274,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * @param serverName    * @return true if this server is on the dead servers list.    */
+comment|/**    * @param serverName server name.    * @return true if this server is on the dead servers list false otherwise    */
 specifier|public
 specifier|synchronized
 name|boolean

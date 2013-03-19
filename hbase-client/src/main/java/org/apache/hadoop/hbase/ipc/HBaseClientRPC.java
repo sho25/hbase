@@ -131,6 +131,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|ConnectException
@@ -473,7 +483,16 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
-comment|// IGNORE
+name|Thread
+operator|.
+name|interrupted
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
+throw|;
 block|}
 block|}
 block|}

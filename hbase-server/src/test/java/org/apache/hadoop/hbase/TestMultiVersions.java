@@ -504,6 +504,8 @@ throws|throws
 name|MasterNotRunningException
 throws|,
 name|ZooKeeperConnectionException
+throws|,
+name|IOException
 block|{
 name|this
 operator|.

@@ -1793,6 +1793,8 @@ throws|throws
 name|MasterNotRunningException
 throws|,
 name|ZooKeeperConnectionException
+throws|,
+name|IOException
 block|{
 comment|// Will not leak connections, as the new implementation of the constructor
 comment|// does not throw exceptions anymore.
@@ -3176,19 +3178,6 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// Wait until all regions deleted
-name|ClientProtocol
-name|server
-init|=
-name|connection
-operator|.
-name|getClient
-argument_list|(
-name|firstMetaServer
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -3266,6 +3255,19 @@ init|=
 literal|null
 decl_stmt|;
 comment|// Get a batch at a time.
+name|ClientProtocol
+name|server
+init|=
+name|connection
+operator|.
+name|getClient
+argument_list|(
+name|firstMetaServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|ScanResponse
@@ -8100,6 +8102,8 @@ throws|,
 name|ZooKeeperConnectionException
 throws|,
 name|ServiceException
+throws|,
+name|IOException
 block|{
 name|Configuration
 name|copyOfConf
@@ -9829,7 +9833,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Execute Restore/Clone snapshot and wait for the server to complete (blocking).    * To check if the cloned table exists, use {@link #isTableAvailable} -- it is not safe to    * create an HTable instance to this table before it is available.    * @param snapshot snapshot to restore    * @param tableName table name to restore the snapshot on    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Execute Restore/Clone snapshot and wait for the server to complete (blocking).    * To check if the cloned table exists, use {@link #isTableAvailable} -- it is not safe to    * create an HTable instance to this table before it is available.    * @param snapshotName snapshot to restore    * @param tableName table name to restore the snapshot on    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 specifier|private
 name|void
 name|internalRestoreSnapshot

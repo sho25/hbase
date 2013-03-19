@@ -797,13 +797,13 @@ name|boolean
 name|isClosed
 parameter_list|()
 function_decl|;
-comment|/**    * Clear any caches that pertain to server name<code>sn</code>    * @param sn A server name as hostname:port    */
+comment|/**    * Clear any caches that pertain to server name<code>sn</code>    * @param sn A server name    */
 specifier|public
 name|void
 name|clearCaches
 parameter_list|(
 specifier|final
-name|String
+name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
@@ -822,6 +822,15 @@ name|getKeepAliveMasterAdmin
 parameter_list|()
 throws|throws
 name|MasterNotRunningException
+function_decl|;
+comment|/**    * @param serverName    * @return true if the server is known as dead, false otherwise.    */
+specifier|public
+name|boolean
+name|isDeadServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
 function_decl|;
 block|}
 end_interface

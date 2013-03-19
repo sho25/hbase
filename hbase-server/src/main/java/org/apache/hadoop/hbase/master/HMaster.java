@@ -3395,6 +3395,12 @@ name|Thread
 name|clusterStatusChore
 decl_stmt|;
 specifier|private
+name|ClusterStatusPublisher
+name|clusterStatusPublisherChore
+init|=
+literal|null
+decl_stmt|;
+specifier|private
 name|CatalogJanitor
 name|catalogJanitorChore
 decl_stmt|;
@@ -3996,11 +4002,71 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Do we publish the status?
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|ClusterStatusPublisher
+operator|.
+name|Publisher
+argument_list|>
+name|publisherClass
+init|=
+name|conf
+operator|.
+name|getClass
+argument_list|(
+name|ClusterStatusPublisher
+operator|.
+name|STATUS_PUBLISHER_CLASS
+argument_list|,
+name|ClusterStatusPublisher
+operator|.
+name|DEFAULT_STATUS_PUBLISHER_CLASS
+argument_list|,
+name|ClusterStatusPublisher
+operator|.
+name|Publisher
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|publisherClass
+operator|!=
+literal|null
+condition|)
+block|{
+name|clusterStatusPublisherChore
+operator|=
+operator|new
+name|ClusterStatusPublisher
+argument_list|(
+name|this
+argument_list|,
+name|conf
+argument_list|,
+name|publisherClass
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
+name|clusterStatusPublisherChore
+operator|.
+name|getThread
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
 begin_comment
-comment|/**    * Stall startup if we are designated a backup master; i.e. we want someone    * else to become the master before proceeding.    * @param c    * @param amm    * @throws InterruptedException    */
+comment|/**    * Stall startup if we are designated a backup master; i.e. we want someone    * else to become the master before proceeding.    * @param c configuration    * @param amm    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -6749,6 +6815,21 @@ block|{
 name|this
 operator|.
 name|catalogJanitorChore
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|clusterStatusPublisherChore
+operator|!=
+literal|null
+condition|)
+block|{
+name|clusterStatusPublisherChore
 operator|.
 name|interrupt
 argument_list|()
@@ -13973,7 +14054,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the status of the requested snapshot restore/clone operation.    * This method is not exposed to the user, it is just used internally by HBaseAdmin    * to verify if the restore is completed.    *    * No exceptions are thrown if the restore is not running, the result will be "done".    *    * @return done<tt>true</tt> if the restore/clone operation is completed.    * @throws RestoreSnapshotExcepton if the operation failed.    */
+comment|/**    * Returns the status of the requested snapshot restore/clone operation.    * This method is not exposed to the user, it is just used internally by HBaseAdmin    * to verify if the restore is completed.    *    * No exceptions are thrown if the restore is not running, the result will be "done".    *    * @return done<tt>true</tt> if the restore/clone operation is completed.    * @throws ServiceException if the operation failed.    */
 end_comment
 
 begin_function

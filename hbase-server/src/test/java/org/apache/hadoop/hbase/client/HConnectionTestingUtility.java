@@ -481,7 +481,7 @@ name|Configuration
 name|conf
 parameter_list|)
 throws|throws
-name|ZooKeeperConnectionException
+name|IOException
 block|{
 name|HConnectionKey
 name|connectionKey

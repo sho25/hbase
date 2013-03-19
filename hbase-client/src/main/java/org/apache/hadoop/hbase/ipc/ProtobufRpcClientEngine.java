@@ -245,6 +245,15 @@ argument_list|(
 literal|"org.apache.hadoop.hbase.ipc.ProtobufRpcClientEngine"
 argument_list|)
 decl_stmt|;
+specifier|public
+name|HBaseClient
+name|getClient
+parameter_list|()
+block|{
+return|return
+name|client
+return|;
+block|}
 specifier|protected
 name|HBaseClient
 name|client
