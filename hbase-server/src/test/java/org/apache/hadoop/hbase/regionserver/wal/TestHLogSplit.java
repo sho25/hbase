@@ -1241,6 +1241,30 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"dfs.support.broken.append"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"dfs.support.append"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// This is how you turn off shortcircuit read currently.  TODO: Fix.  Should read config.
 name|System
 operator|.
@@ -4630,6 +4654,14 @@ argument_list|(
 name|stop
 argument_list|)
 decl_stmt|;
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|splits
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|zombie
@@ -4657,6 +4689,8 @@ argument_list|,
 name|fs
 argument_list|)
 decl_stmt|;
+name|splits
+operator|=
 name|logSplitter
 operator|.
 name|splitLog
@@ -4671,8 +4705,9 @@ parameter_list|)
 block|{
 comment|/* expected */
 block|}
-name|int
-name|logFilesNumber
+name|FileStatus
+index|[]
+name|files
 init|=
 name|fs
 operator|.
@@ -4680,6 +4715,28 @@ name|listStatus
 argument_list|(
 name|HLOGDIR
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|files
+operator|==
+literal|null
+condition|)
+name|fail
+argument_list|(
+literal|"no files in "
+operator|+
+name|HLOGDIR
+operator|+
+literal|" with splits "
+operator|+
+name|splits
+argument_list|)
+expr_stmt|;
+name|int
+name|logFilesNumber
+init|=
+name|files
 operator|.
 name|length
 decl_stmt|;
