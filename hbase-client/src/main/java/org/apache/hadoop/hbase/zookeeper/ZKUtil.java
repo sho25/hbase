@@ -3594,7 +3594,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    *    * WARNING: this is not atomic -- it is possible to get a 0-byte data value in the znode before    * data is written    *    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException    */
+comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    *    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void
@@ -3636,9 +3636,13 @@ argument_list|(
 name|zkw
 argument_list|,
 name|znode
+argument_list|,
+name|data
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 name|ZKUtil
 operator|.
 name|setData
@@ -3650,6 +3654,7 @@ argument_list|,
 name|data
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Sets the data of the existing znode to be the specified data.  The node    * must exist but no checks are done on the existing data or version.    *    *<p>If the node does not exist, a {@link NoNodeException} will be thrown.    *    *<p>No watches are set but setting data will trigger other watchers of this    * node.    *    *<p>If there is another problem, a KeeperException will be thrown.    *    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
