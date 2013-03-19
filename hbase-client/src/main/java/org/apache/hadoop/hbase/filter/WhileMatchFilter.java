@@ -19,13 +19,11 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|IOException
 import|;
 end_import
 
@@ -123,11 +121,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -187,6 +187,8 @@ specifier|public
 name|void
 name|reset
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -211,10 +213,14 @@ operator|||
 name|value
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterAllRemaining
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -229,6 +235,8 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterRowKey
@@ -243,6 +251,8 @@ parameter_list|,
 name|int
 name|length
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|boolean
 name|value
@@ -267,6 +277,8 @@ return|return
 name|value
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
@@ -274,6 +286,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ReturnCode
 name|c
@@ -307,6 +321,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter
@@ -317,10 +333,14 @@ name|v
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|boolean
 name|filterRow
@@ -341,6 +361,8 @@ return|return
 name|filterRow
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|hasFilterRow
@@ -356,6 +378,8 @@ name|byte
 index|[]
 name|toByteArray
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|FilterProtos
 operator|.
@@ -533,6 +557,8 @@ name|byte
 index|[]
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter

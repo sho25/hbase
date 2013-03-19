@@ -19,6 +19,36 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -59,26 +89,6 @@ name|KeyValue
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
 begin_comment
 comment|/**  * Abstract base class to help you implement new Filters.  Common "ignore" or NOOP type  * methods can go here, helping to reduce boiler plate in an ever-expanding filter  * library.  *  * If you could instantiate FilterBase, it would end up being a "null" filter -  * that is one that never filters anything.  */
 end_comment
@@ -106,6 +116,8 @@ specifier|public
 name|void
 name|reset
 parameter_list|()
+throws|throws
+name|IOException
 block|{   }
 comment|/**    * Filters that do not filter by row key can inherit this implementation that    * never filters anything. (ie: returns false).    *    * @inheritDoc    */
 annotation|@
@@ -124,6 +136,8 @@ parameter_list|,
 name|int
 name|length
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 literal|false
@@ -136,6 +150,8 @@ specifier|public
 name|boolean
 name|filterAllRemaining
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 literal|false
@@ -151,6 +167,8 @@ parameter_list|(
 name|KeyValue
 name|ignored
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|ReturnCode
@@ -168,6 +186,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|v
@@ -186,6 +206,8 @@ name|KeyValue
 argument_list|>
 name|ignored
 parameter_list|)
+throws|throws
+name|IOException
 block|{   }
 comment|/**    * Fitlers that never filter by modifying the returned List of KeyValues can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
 annotation|@
@@ -206,6 +228,8 @@ specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 literal|false
@@ -219,6 +243,8 @@ parameter_list|(
 name|KeyValue
 name|currentKV
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 literal|null
@@ -233,6 +259,8 @@ name|byte
 index|[]
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 literal|true
@@ -282,6 +310,8 @@ name|byte
 index|[]
 name|toByteArray
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 operator|new

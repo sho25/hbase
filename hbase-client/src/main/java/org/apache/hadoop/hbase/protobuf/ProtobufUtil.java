@@ -6306,6 +6306,8 @@ parameter_list|(
 name|Filter
 name|filter
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|HBaseProtos
 operator|.

@@ -223,22 +223,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Delete
@@ -338,6 +322,22 @@ operator|.
 name|client
 operator|.
 name|Result
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ZooKeeperConnectionException
 import|;
 end_import
 
@@ -1380,6 +1380,8 @@ parameter_list|(
 name|KeyValue
 name|kv
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|// apply the filter and skip this kv if the filter doesn't apply
 if|if

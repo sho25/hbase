@@ -116,11 +116,13 @@ name|HRegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**    * @return True if a filter indicates that this scanner will return no    *         further rows.    */
+comment|/**    * @return True if a filter indicates that this scanner will return no further rows.    * @throws IOException in case of I/O failure on a filter.    */
 specifier|public
 name|boolean
 name|isFilterDone
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Do a reseek to the required row. Should not be used to seek to a key which    * may come before the current position. Always seeks to the beginning of a    * row boundary.    *    * @throws IOException    * @throws IllegalArgumentException    *           if row is null    *    */
 specifier|public

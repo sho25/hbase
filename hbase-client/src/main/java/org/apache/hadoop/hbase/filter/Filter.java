@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -75,16 +95,6 @@ name|DeserializationException
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
 begin_comment
 comment|/**  * Interface for row and column filters directly applied within the regionserver.  * A filter can expect the following call sequence:  *<ul>  *<li>{@link #reset()}</li>  *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>  *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,  * if false, we will also call</li>  *<li>{@link #filterKeyValue(KeyValue)} -> true to drop this key/value</li>  *<li>{@link #filterRow(List)} -> allows directmodification of the final list to be submitted  *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of  * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.  *</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *   * @see FilterBase  */
 end_comment
@@ -103,14 +113,16 @@ specifier|abstract
 class|class
 name|Filter
 block|{
-comment|/**    * Reset the state of the filter between rows.    */
+comment|/**    * Reset the state of the filter between rows.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|void
 name|reset
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire    * row will be excluded.  If false, each KeyValue in the row will be    * passed to {@link #filterKeyValue(KeyValue)} below.    *    * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(KeyValue)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
@@ -126,15 +138,19 @@ parameter_list|,
 name|int
 name|length
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * If this returns true, the scan will terminate.    *    * @return true to end scan, false to continue.    */
+comment|/**    * If this returns true, the scan will terminate.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to end scan, false to continue.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
 name|filterAllRemaining
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * A way to filter based on the column family, column qualifier and/or the    * column value. Return code is described below.  This allows filters to    * filter only certain number of columns, then terminate without matching ever    * column.    *    * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called    * just in case the caller calls for the next row.    *    * @param v the KeyValue in question    * @return code as described below    * @see Filter.ReturnCode    */
+comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param v the KeyValue in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
 specifier|abstract
 specifier|public
 name|ReturnCode
@@ -144,8 +160,10 @@ specifier|final
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Give the filter a chance to transform the passed KeyValue.    * If the KeyValue is changed a new KeyValue object must be returned.    * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *    * The transformed KeyValue is what is eventually returned to the    * client. Most filters will return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue)    * for an example of a transformation.    *    * @param v the KeyValue in question    * @return the changed KeyValue    */
+comment|/**    * Give the filter a chance to transform the passed KeyValue. If the KeyValue is changed a new    * KeyValue object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|KeyValue
@@ -155,6 +173,8 @@ specifier|final
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Return codes for filterValue().    */
 specifier|public
@@ -179,7 +199,7 @@ block|,
 comment|/**      * Seek to next key which is given as hint by the filter.      */
 name|SEEK_NEXT_USING_HINT
 block|, }
-comment|/**    * Chance to alter the list of keyvalues to be submitted.    * Modifications to the list will carry on    * @param kvs the list of keyvalues to be filtered    */
+comment|/**    * Chance to alter the list of keyvalues to be submitted. Modifications to the list will carry on    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param kvs the list of keyvalues to be filtered    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|void
@@ -191,22 +211,26 @@ name|KeyValue
 argument_list|>
 name|kvs
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @return True if this filter actively uses filterRow(List) or filterRow().    * Primarily used to check for conflicts with scans(such as scans    * that do not read a full row at a time)    */
+comment|/**    * Primarily used to check for conflicts with scans(such as scans that do not read a full row at a    * time).    *     * @return True if this filter actively uses filterRow(List) or filterRow().    */
 specifier|abstract
 specifier|public
 name|boolean
 name|hasFilterRow
 parameter_list|()
 function_decl|;
-comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(KeyValue)}    * calls. The filter needs to retain state then return a particular value for    * this call if they wish to exclude a row if a certain column is missing    * (for example).    * @return true to exclude row, false to include row.    */
+comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(KeyValue)} calls. The filter    * needs to retain state then return a particular value for this call if they wish to exclude a    * row if a certain column is missing (for example).    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to exclude row, false to include row.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * If the filter returns the match code SEEK_NEXT_USING_HINT, then    * it should also tell which is the next key it must seek to.    * After receiving the match code SEEK_NEXT_USING_HINT, the QueryMatcher would    * call this function to find out which key it must next seek to.    * @return KeyValue which must be next seeked. return null if the filter is    * not sure which key to seek to next.    */
+comment|/**    * If the filter returns the match code SEEK_NEXT_USING_HINT, then it should also tell which is    * the next key it must seek to. After receiving the match code SEEK_NEXT_USING_HINT, the    * QueryMatcher would call this function to find out which key it must next seek to.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return KeyValue which must be next seeked. return null if the filter is not sure which key to    *         seek to next.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|KeyValue
@@ -216,8 +240,10 @@ specifier|final
 name|KeyValue
 name|currentKV
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Check that given column family is essential for filter to check row.  Most    * filters always return true here. But some could have more sophisticated    * logic which could significantly reduce scanning process by not even    * touching columns until we are 100% sure that it's data is needed in result.    */
+comment|/**    * Check that given column family is essential for filter to check row. Most filters always return    * true here. But some could have more sophisticated logic which could significantly reduce    * scanning process by not even touching columns until we are 100% sure that it's data is needed    * in result.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
@@ -227,16 +253,20 @@ name|byte
 index|[]
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @return The filter serialized using pb    */
+comment|/**    * TODO: JAVADOC    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return The filter serialized using pb    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|byte
 index|[]
 name|toByteArray
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @see #toByteArray    */
+comment|/**    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param pbBytes A pb serialized {@link Filter} instance    * @return An instance of {@link Filter} made from<code>bytes</code>    * @throws DeserializationException    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see #toByteArray    */
 specifier|public
 specifier|static
 name|Filter
@@ -258,7 +288,7 @@ literal|"parseFrom called on base Filter, but should be called on derived type"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param other    * @return true if and only if the fields of the filter that are serialized are equal to the    *         corresponding fields in other. Used for testing.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 name|boolean
 name|areSerializedFieldsEqual

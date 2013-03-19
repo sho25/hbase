@@ -19,13 +19,21 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|InvalidProtocolBufferException
+name|util
+operator|.
+name|List
 import|;
 end_import
 
@@ -123,21 +131,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|util
-operator|.
-name|List
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -201,6 +201,8 @@ name|byte
 index|[]
 name|toByteArray
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|FilterProtos
 operator|.
@@ -326,6 +328,8 @@ specifier|public
 name|void
 name|reset
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -341,6 +345,8 @@ specifier|public
 name|boolean
 name|filterAllRemaining
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -357,6 +363,8 @@ specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -376,6 +384,8 @@ parameter_list|(
 name|KeyValue
 name|currentKV
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -404,6 +414,8 @@ parameter_list|,
 name|int
 name|length
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -429,6 +441,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -450,6 +464,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -490,6 +506,8 @@ name|KeyValue
 argument_list|>
 name|kvs
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|//To fix HBASE-6429,
 comment|//Filter with filterRow() returning true is incompatible with scan with limit
@@ -538,6 +556,8 @@ name|byte
 index|[]
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter
@@ -548,7 +568,6 @@ name|name
 argument_list|)
 return|;
 block|}
-empty_stmt|;
 comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual

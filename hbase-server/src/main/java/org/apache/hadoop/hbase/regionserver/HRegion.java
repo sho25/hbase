@@ -15226,11 +15226,13 @@ operator|.
 name|readPt
 return|;
 block|}
-comment|/**      * Reset both the filter and the old filter.      */
+comment|/**      * Reset both the filter and the old filter.      *       * @throws IOException in case a filter raises an I/O exception.      */
 specifier|protected
 name|void
 name|resetFilters
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -15722,6 +15724,8 @@ specifier|synchronized
 name|boolean
 name|isFilterDone
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|this
@@ -16301,6 +16305,8 @@ parameter_list|,
 name|short
 name|length
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter

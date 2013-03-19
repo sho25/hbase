@@ -18,12 +18,38 @@ package|;
 end_package
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|io
+name|junit
 operator|.
-name|ByteArrayInputStream
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -33,27 +59,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|ByteArrayOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutputStream
+name|IOException
 import|;
 end_import
 
@@ -92,18 +98,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
 import|;
 end_import
 
@@ -232,6 +226,8 @@ specifier|final
 name|int
 name|pageSize
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|int
 name|count

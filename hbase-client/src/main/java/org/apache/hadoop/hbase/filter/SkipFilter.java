@@ -19,13 +19,11 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|IOException
 import|;
 end_import
 
@@ -123,11 +121,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -183,10 +183,14 @@ return|return
 name|filter
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|reset
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|filter
 operator|.
@@ -213,6 +217,8 @@ operator|||
 name|value
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
@@ -220,6 +226,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ReturnCode
 name|c
@@ -253,6 +261,8 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter
@@ -287,6 +297,8 @@ name|byte
 index|[]
 name|toByteArray
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|FilterProtos
 operator|.
@@ -464,6 +476,8 @@ name|byte
 index|[]
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|filter
