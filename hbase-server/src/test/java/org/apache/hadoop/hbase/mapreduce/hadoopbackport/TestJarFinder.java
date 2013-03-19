@@ -37,6 +37,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -50,6 +64,20 @@ operator|.
 name|junit
 operator|.
 name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
 import|;
 end_import
 
@@ -194,6 +222,13 @@ comment|/**  * This file was forked from hadoop/common/branches/branch-2@1350012
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestJarFinder
