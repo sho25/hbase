@@ -307,6 +307,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|mapreduce
+operator|.
+name|hadoopbackport
+operator|.
+name|JarFinder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -2364,6 +2382,9 @@ name|String
 name|findOrCreateJar
 parameter_list|(
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|my_class
 parameter_list|)
 throws|throws
@@ -2388,8 +2409,7 @@ comment|// hadoop-0.23 has a JarFinder class that will create the jar
 comment|// if it doesn't exist.  Note that this is needed to run the mapreduce
 comment|// unit tests post-0.23, because mapreduce v2 requires the relevant jars
 comment|// to be in the mr cluster to do output, split, etc.  At unit test time,
-comment|// the hbase jars do not exist, so we need to create some.  Note that we
-comment|// can safely fall back to findContainingJars for pre-0.23 mapreduce.
+comment|// the hbase jars do not exist, so we need to create some.
 name|Method
 name|m
 init|=
@@ -2450,184 +2470,25 @@ name|debug
 argument_list|(
 literal|"New JarFinder: org.apache.hadoop.util.JarFinder.getJar "
 operator|+
-literal|"not available.  Using old findContainingJar"
+literal|"not available. Falling back to backported JarFinder"
 argument_list|)
 expr_stmt|;
+comment|// Use JarFinder because it will construct a jar from class files when
+comment|// one does not exist. This is relevant for cases when an HBase MR job
+comment|// is created in the context of another MR job (particularly common for
+comment|// tools consuming the bulk import APIs). In that case, the dependency
+comment|// jars have already been shipped to and expanded in the job's working
+comment|// directory, so it has no jars to package. We could just construct a
+comment|// classpath from those class files, but we don't know the context: are
+comment|// they on the local filesystem, are they are ephemeral tmp files,&c.
+comment|// Better to package them up and ship them via the normal means.
 return|return
-name|findContainingJar
+name|JarFinder
+operator|.
+name|getJar
 argument_list|(
 name|my_class
 argument_list|)
-return|;
-block|}
-comment|/**    * Find a jar that contains a class of the same name, if any.    * It will return a jar file, even if that is not the first thing    * on the class path that has a class with the same name.    *    * This is shamelessly copied from JobConf    *    * @param my_class the class to find.    * @return a jar file that contains the class, or null.    * @throws IOException    */
-specifier|private
-specifier|static
-name|String
-name|findContainingJar
-parameter_list|(
-name|Class
-name|my_class
-parameter_list|)
-block|{
-name|ClassLoader
-name|loader
-init|=
-name|my_class
-operator|.
-name|getClassLoader
-argument_list|()
-decl_stmt|;
-name|String
-name|class_file
-init|=
-name|my_class
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|replaceAll
-argument_list|(
-literal|"\\."
-argument_list|,
-literal|"/"
-argument_list|)
-operator|+
-literal|".class"
-decl_stmt|;
-try|try
-block|{
-for|for
-control|(
-name|Enumeration
-name|itr
-init|=
-name|loader
-operator|.
-name|getResources
-argument_list|(
-name|class_file
-argument_list|)
-init|;
-name|itr
-operator|.
-name|hasMoreElements
-argument_list|()
-condition|;
-control|)
-block|{
-name|URL
-name|url
-init|=
-operator|(
-name|URL
-operator|)
-name|itr
-operator|.
-name|nextElement
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-literal|"jar"
-operator|.
-name|equals
-argument_list|(
-name|url
-operator|.
-name|getProtocol
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|String
-name|toReturn
-init|=
-name|url
-operator|.
-name|getPath
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|toReturn
-operator|.
-name|startsWith
-argument_list|(
-literal|"file:"
-argument_list|)
-condition|)
-block|{
-name|toReturn
-operator|=
-name|toReturn
-operator|.
-name|substring
-argument_list|(
-literal|"file:"
-operator|.
-name|length
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|// URLDecoder is a misnamed class, since it actually decodes
-comment|// x-www-form-urlencoded MIME type rather than actual
-comment|// URL encoding (which the file path has). Therefore it would
-comment|// decode +s to ' 's which is incorrect (spaces are actually
-comment|// either unencoded or encoded as "%20"). Replace +s first, so
-comment|// that they are kept sacred during the decoding process.
-name|toReturn
-operator|=
-name|toReturn
-operator|.
-name|replaceAll
-argument_list|(
-literal|"\\+"
-argument_list|,
-literal|"%2B"
-argument_list|)
-expr_stmt|;
-name|toReturn
-operator|=
-name|URLDecoder
-operator|.
-name|decode
-argument_list|(
-name|toReturn
-argument_list|,
-literal|"UTF-8"
-argument_list|)
-expr_stmt|;
-return|return
-name|toReturn
-operator|.
-name|replaceAll
-argument_list|(
-literal|"!.*$"
-argument_list|,
-literal|""
-argument_list|)
-return|;
-block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
-return|return
-literal|null
 return|;
 block|}
 block|}
