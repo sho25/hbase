@@ -1690,6 +1690,25 @@ operator|.
 name|getLong
 argument_list|()
 decl_stmt|;
+comment|// Wait on all increments being flushed
+while|while
+condition|(
+name|handler
+operator|.
+name|coalescer
+operator|.
+name|getQueueSize
+argument_list|()
+operator|!=
+literal|0
+condition|)
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 operator|(

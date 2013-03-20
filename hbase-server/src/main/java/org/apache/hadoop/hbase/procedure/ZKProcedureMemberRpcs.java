@@ -145,6 +145,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|ZKUtil
@@ -898,9 +914,16 @@ literal|"Data in for starting procuedure "
 operator|+
 name|opName
 operator|+
-literal|" is illegally formatted. "
+literal|" is illegally formatted (no pb magic). "
 operator|+
-literal|"Killing the procedure."
+literal|"Killing the procedure: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|data
+argument_list|)
 decl_stmt|;
 name|LOG
 operator|.

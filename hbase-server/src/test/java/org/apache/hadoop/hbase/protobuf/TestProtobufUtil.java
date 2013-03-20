@@ -203,7 +203,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 import|;
 end_import
 
@@ -223,7 +223,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 import|;
@@ -245,7 +245,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -269,7 +269,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 import|;
@@ -291,9 +291,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 import|;
 end_import
 
@@ -577,12 +577,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|mutateBuilder
 init|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
@@ -603,7 +603,7 @@ name|mutateBuilder
 operator|.
 name|setMutateType
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 argument_list|)
@@ -725,7 +725,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Mutate
+name|MutationProto
 name|proto
 init|=
 name|mutateBuilder
@@ -747,7 +747,7 @@ expr_stmt|;
 comment|// set the default value for equal comparison
 name|mutateBuilder
 operator|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
@@ -769,6 +769,8 @@ operator|.
 name|toAppend
 argument_list|(
 name|proto
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// append always use the latest timestamp,
@@ -832,9 +834,9 @@ argument_list|()
 argument_list|,
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 argument_list|,
@@ -853,12 +855,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|mutateBuilder
 init|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
@@ -879,7 +881,7 @@ name|mutateBuilder
 operator|.
 name|setMutateType
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|DELETE
 argument_list|)
@@ -1009,7 +1011,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Mutate
+name|MutationProto
 name|proto
 init|=
 name|mutateBuilder
@@ -1031,7 +1033,7 @@ expr_stmt|;
 comment|// set the default value for equal comparison
 name|mutateBuilder
 operator|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
@@ -1103,9 +1105,9 @@ argument_list|()
 argument_list|,
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|DELETE
 argument_list|,
@@ -1124,12 +1126,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|mutateBuilder
 init|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
@@ -1150,7 +1152,7 @@ name|mutateBuilder
 operator|.
 name|setMutateType
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|INCREMENT
 argument_list|)
@@ -1275,7 +1277,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Mutate
+name|MutationProto
 name|proto
 init|=
 name|mutateBuilder
@@ -1297,7 +1299,7 @@ expr_stmt|;
 comment|// set the default value for equal comparison
 name|mutateBuilder
 operator|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
@@ -1319,6 +1321,8 @@ operator|.
 name|toIncrement
 argument_list|(
 name|proto
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1330,7 +1334,7 @@ argument_list|()
 argument_list|,
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
 name|increment
 argument_list|)
@@ -1347,12 +1351,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|mutateBuilder
 init|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
@@ -1373,7 +1377,7 @@ name|mutateBuilder
 operator|.
 name|setMutateType
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|PUT
 argument_list|)
@@ -1502,7 +1506,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Mutate
+name|MutationProto
 name|proto
 init|=
 name|mutateBuilder
@@ -1524,7 +1528,7 @@ expr_stmt|;
 comment|// set the default value for equal comparison
 name|mutateBuilder
 operator|=
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
@@ -1613,9 +1617,9 @@ argument_list|()
 argument_list|,
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|PUT
 argument_list|,

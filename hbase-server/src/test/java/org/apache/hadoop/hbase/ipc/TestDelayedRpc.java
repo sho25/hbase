@@ -321,6 +321,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test that delayed RPCs work. Fire up three calls, the first of which should  * be delayed. Check that the last two, which are undelayed, return before the  * first one.  */
 end_comment
@@ -1115,9 +1127,15 @@ block|{
 name|TestResponse
 name|test
 parameter_list|(
+specifier|final
+name|Object
+name|rpcController
+parameter_list|,
 name|TestArg
 name|delay
 parameter_list|)
+throws|throws
+name|ServiceException
 function_decl|;
 block|}
 end_interface
@@ -1157,9 +1175,15 @@ name|TestResponse
 name|test
 parameter_list|(
 specifier|final
+name|Object
+name|rpcController
+parameter_list|,
+specifier|final
 name|TestArg
 name|testArg
 parameter_list|)
+throws|throws
+name|ServiceException
 block|{
 name|boolean
 name|delay
@@ -1377,6 +1401,8 @@ name|server
 operator|.
 name|test
 argument_list|(
+literal|null
+argument_list|,
 name|TestArg
 operator|.
 name|newBuilder
@@ -1583,6 +1609,8 @@ name|client
 operator|.
 name|test
 argument_list|(
+literal|null
+argument_list|,
 name|TestArg
 operator|.
 name|newBuilder
@@ -1633,6 +1661,8 @@ name|client
 operator|.
 name|test
 argument_list|(
+literal|null
+argument_list|,
 name|TestArg
 operator|.
 name|newBuilder
@@ -1720,6 +1750,9 @@ specifier|public
 name|TestResponse
 name|test
 parameter_list|(
+name|Object
+name|rpcController
+parameter_list|,
 name|TestArg
 name|arg
 parameter_list|)

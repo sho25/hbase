@@ -4389,6 +4389,24 @@ argument_list|(
 name|otherRow
 argument_list|)
 expr_stmt|;
+comment|// If empty row, set it to first row.-f
+if|if
+condition|(
+name|otherRow
+operator|.
+name|length
+operator|<=
+literal|0
+condition|)
+name|otherRow
+operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"aaa"
+argument_list|)
+expr_stmt|;
 name|Put
 name|put2
 init|=

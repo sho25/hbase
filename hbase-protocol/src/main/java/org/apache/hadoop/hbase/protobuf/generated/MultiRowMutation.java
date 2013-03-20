@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .Mutate mutationRequest = 1;
+comment|// repeated .MutationProto mutationRequest = 1;
 name|java
 operator|.
 name|util
@@ -81,7 +81,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|getMutationRequestList
 parameter_list|()
@@ -100,7 +100,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|getMutationRequest
 parameter_list|(
 name|int
@@ -133,7 +133,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 name|getMutationRequestOrBuilderList
 parameter_list|()
@@ -152,7 +152,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 name|getMutationRequestOrBuilder
 parameter_list|(
 name|int
@@ -286,7 +286,7 @@ operator|.
 name|internal_static_MultiMutateRequest_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .Mutate mutationRequest = 1;
+comment|// repeated .MutationProto mutationRequest = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -316,7 +316,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|mutationRequest_
 decl_stmt|;
@@ -341,7 +341,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|getMutationRequestList
 parameter_list|()
@@ -373,7 +373,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 name|getMutationRequestOrBuilderList
 parameter_list|()
@@ -409,7 +409,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|getMutationRequest
 parameter_list|(
 name|int
@@ -440,7 +440,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 name|getMutationRequestOrBuilder
 parameter_list|(
 name|int
@@ -2640,7 +2640,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|subBuilder
@@ -2659,7 +2659,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
@@ -2690,7 +2690,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .Mutate mutationRequest = 1;
+comment|// repeated .MutationProto mutationRequest = 1;
 specifier|private
 name|java
 operator|.
@@ -2712,7 +2712,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|mutationRequest_
 init|=
@@ -2767,7 +2767,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 argument_list|(
 name|mutationRequest_
@@ -2802,7 +2802,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -2818,7 +2818,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -2836,7 +2836,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 name|mutationRequestBuilder_
 decl_stmt|;
@@ -2861,7 +2861,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|getMutationRequestList
 parameter_list|()
@@ -2940,7 +2940,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|getMutationRequest
 parameter_list|(
 name|int
@@ -2996,7 +2996,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
@@ -3073,7 +3073,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|builderForValue
@@ -3142,7 +3142,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
@@ -3215,7 +3215,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
@@ -3289,7 +3289,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|builderForValue
@@ -3357,7 +3357,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|builderForValue
@@ -3434,7 +3434,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|>
 name|values
 parameter_list|)
@@ -3582,7 +3582,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|getMutationRequestBuilder
@@ -3616,7 +3616,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 name|getMutationRequestOrBuilder
 parameter_list|(
 name|int
@@ -3674,7 +3674,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 name|getMutationRequestOrBuilderList
 parameter_list|()
@@ -3724,7 +3724,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|addMutationRequestBuilder
@@ -3750,7 +3750,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3772,7 +3772,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|addMutationRequestBuilder
@@ -3803,7 +3803,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3831,7 +3831,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|>
@@ -3869,7 +3869,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -3885,7 +3885,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -3903,7 +3903,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 name|getMutationRequestFieldBuilder
 parameter_list|()
@@ -3940,7 +3940,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -3956,7 +3956,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -3974,7 +3974,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 argument_list|(
 name|mutationRequest_
@@ -7476,19 +7476,19 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\026MultiRowMutation.proto\032\014Client.proto\"6"
+literal|"\n\026MultiRowMutation.proto\032\014Client.proto\"="
 operator|+
-literal|"\n\022MultiMutateRequest\022 \n\017mutationRequest\030"
+literal|"\n\022MultiMutateRequest\022\'\n\017mutationRequest\030"
 operator|+
-literal|"\001 \003(\0132\007.Mutate\"\025\n\023MultiMutateResponse2R\n"
+literal|"\001 \003(\0132\016.MutationProto\"\025\n\023MultiMutateResp"
 operator|+
-literal|"\027MultiRowMutationService\0227\n\nmutateRows\022\023"
+literal|"onse2R\n\027MultiRowMutationService\0227\n\nmutat"
 operator|+
-literal|".MultiMutateRequest\032\024.MultiMutateRespons"
+literal|"eRows\022\023.MultiMutateRequest\032\024.MultiMutate"
 operator|+
-literal|"eBF\n*org.apache.hadoop.hbase.protobuf.ge"
+literal|"ResponseBF\n*org.apache.hadoop.hbase.prot"
 operator|+
-literal|"neratedB\020MultiRowMutationH\001\210\001\001\240\001\001"
+literal|"obuf.generatedB\020MultiRowMutationH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

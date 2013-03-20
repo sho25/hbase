@@ -127,7 +127,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 import|;
 end_import
 
@@ -147,9 +147,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 import|;
 end_import
 
@@ -320,10 +320,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Mutate
+name|MutationProto
 name|proto
 init|=
-name|Mutate
+name|MutationProto
 operator|.
 name|parseDelimitedFrom
 argument_list|(
@@ -419,7 +419,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MutateType
+name|MutationType
 name|type
 decl_stmt|;
 if|if
@@ -431,7 +431,7 @@ condition|)
 block|{
 name|type
 operator|=
-name|MutateType
+name|MutationType
 operator|.
 name|PUT
 expr_stmt|;
@@ -446,7 +446,7 @@ condition|)
 block|{
 name|type
 operator|=
-name|MutateType
+name|MutationType
 operator|.
 name|DELETE
 expr_stmt|;
@@ -463,7 +463,7 @@ throw|;
 block|}
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
 name|type
 argument_list|,

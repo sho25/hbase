@@ -33,21 +33,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|google
 operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|RPCProtos
-operator|.
-name|RpcRequestBody
+name|Message
 import|;
 end_import
 
@@ -138,7 +130,7 @@ specifier|abstract
 name|void
 name|setRPCPacket
 parameter_list|(
-name|RpcRequestBody
+name|Message
 name|param
 parameter_list|)
 function_decl|;

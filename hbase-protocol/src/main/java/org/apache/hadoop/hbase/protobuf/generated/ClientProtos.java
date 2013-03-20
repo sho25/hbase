@@ -13249,7 +13249,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .KeyValue keyValue = 1;
+comment|// repeated .Cell cell = 1;
 name|java
 operator|.
 name|util
@@ -13270,9 +13270,9 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
-name|getKeyValueList
+name|getCellList
 parameter_list|()
 function_decl|;
 name|org
@@ -13289,15 +13289,15 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
-name|getKeyValue
+name|Cell
+name|getCell
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 function_decl|;
 name|int
-name|getKeyValueCount
+name|getCellCount
 parameter_list|()
 function_decl|;
 name|java
@@ -13322,9 +13322,9 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
-name|getKeyValueOrBuilderList
+name|getCellOrBuilderList
 parameter_list|()
 function_decl|;
 name|org
@@ -13341,12 +13341,21 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
-name|getKeyValueOrBuilder
+name|CellOrBuilder
+name|getCellOrBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
+function_decl|;
+comment|// optional int32 associatedCellCount = 2;
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+function_decl|;
+name|int
+name|getAssociatedCellCount
+parameter_list|()
 function_decl|;
 block|}
 specifier|public
@@ -13475,12 +13484,16 @@ operator|.
 name|internal_static_Result_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .KeyValue keyValue = 1;
+specifier|private
+name|int
+name|bitField0_
+decl_stmt|;
+comment|// repeated .Cell cell = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYVALUE_FIELD_NUMBER
+name|CELL_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -13505,9 +13518,9 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
-name|keyValue_
+name|cell_
 decl_stmt|;
 specifier|public
 name|java
@@ -13530,13 +13543,13 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
-name|getKeyValueList
+name|getCellList
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|cell_
 return|;
 block|}
 specifier|public
@@ -13562,22 +13575,22 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
-name|getKeyValueOrBuilderList
+name|getCellOrBuilderList
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|cell_
 return|;
 block|}
 specifier|public
 name|int
-name|getKeyValueCount
+name|getCellCount
 parameter_list|()
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|size
 argument_list|()
@@ -13598,15 +13611,15 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
-name|getKeyValue
+name|Cell
+name|getCell
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
@@ -13629,15 +13642,15 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
-name|getKeyValueOrBuilder
+name|CellOrBuilder
+name|getCellOrBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
@@ -13645,12 +13658,51 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional int32 associatedCellCount = 2;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+init|=
+literal|2
+decl_stmt|;
+specifier|private
+name|int
+name|associatedCellCount_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+return|;
+block|}
+specifier|public
+name|int
+name|getAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+name|associatedCellCount_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
 parameter_list|()
 block|{
-name|keyValue_
+name|cell_
 operator|=
 name|java
 operator|.
@@ -13660,6 +13712,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|private
@@ -13692,43 +13748,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getKeyValueCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getKeyValue
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -13769,7 +13788,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|keyValue_
+name|cell_
 operator|.
 name|size
 argument_list|()
@@ -13784,12 +13803,35 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt32
+argument_list|(
+literal|2
+argument_list|,
+name|associatedCellCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -13842,7 +13884,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|keyValue_
+name|cell_
 operator|.
 name|size
 argument_list|()
@@ -13865,12 +13907,43 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32Size
+argument_list|(
+literal|2
+argument_list|,
+name|associatedCellCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -14034,17 +14107,52 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getKeyValueList
+name|getCellList
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getKeyValueList
+name|getCellList
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|hasAssociatedCellCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasAssociatedCellCount
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getAssociatedCellCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getAssociatedCellCount
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
 name|result
 operator|=
 name|result
@@ -14096,7 +14204,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|getKeyValueCount
+name|getCellCount
 argument_list|()
 operator|>
 literal|0
@@ -14110,7 +14218,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|KEYVALUE_FIELD_NUMBER
+name|CELL_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14120,10 +14228,38 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getKeyValueList
+name|getCellList
 argument_list|()
 operator|.
 name|hashCode
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getAssociatedCellCount
 argument_list|()
 expr_stmt|;
 block|}
@@ -14949,7 +15085,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -14978,12 +15114,12 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|keyValue_
+name|cell_
 operator|=
 name|java
 operator|.
@@ -15006,12 +15142,25 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|associatedCellCount_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -15296,9 +15445,14 @@ name|from_bitField0_
 init|=
 name|bitField0_
 decl_stmt|;
+name|int
+name|to_bitField0_
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -15316,7 +15470,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|keyValue_
+name|cell_
 operator|=
 name|java
 operator|.
@@ -15326,7 +15480,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|keyValue_
+name|cell_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -15341,23 +15495,53 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|keyValue_
+name|cell_
 operator|=
-name|keyValue_
+name|cell_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|keyValue_
+name|cell_
 operator|=
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000001
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|associatedCellCount_
+operator|=
+name|associatedCellCount_
+expr_stmt|;
+name|result
+operator|.
+name|bitField0_
+operator|=
+name|to_bitField0_
+expr_stmt|;
 name|onBuilt
 argument_list|()
 expr_stmt|;
@@ -15488,7 +15672,7 @@ name|this
 return|;
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -15498,7 +15682,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|keyValue_
+name|cell_
 operator|.
 name|isEmpty
 argument_list|()
@@ -15506,17 +15690,17 @@ condition|)
 block|{
 if|if
 condition|(
-name|keyValue_
+name|cell_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|keyValue_
+name|cell_
 operator|=
 name|other
 operator|.
-name|keyValue_
+name|cell_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -15530,16 +15714,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|addAll
 argument_list|(
 name|other
 operator|.
-name|keyValue_
+name|cell_
 argument_list|)
 expr_stmt|;
 block|}
@@ -15555,7 +15739,7 @@ condition|(
 operator|!
 name|other
 operator|.
-name|keyValue_
+name|cell_
 operator|.
 name|isEmpty
 argument_list|()
@@ -15563,26 +15747,26 @@ condition|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|dispose
 argument_list|()
 expr_stmt|;
-name|keyValueBuilder_
+name|cellBuilder_
 operator|=
 literal|null
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|=
 name|other
 operator|.
-name|keyValue_
+name|cell_
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -15593,7 +15777,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|keyValueBuilder_
+name|cellBuilder_
 operator|=
 name|com
 operator|.
@@ -15605,7 +15789,7 @@ name|GeneratedMessage
 operator|.
 name|alwaysUseFieldBuilders
 condition|?
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 else|:
 literal|null
@@ -15613,17 +15797,34 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
 name|other
 operator|.
-name|keyValue_
+name|cell_
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|setAssociatedCellCount
+argument_list|(
+name|other
+operator|.
+name|getAssociatedCellCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -15645,39 +15846,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getKeyValueCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getKeyValue
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 return|return
 literal|true
 return|;
@@ -15829,7 +15997,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 name|subBuilder
@@ -15848,7 +16016,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|newBuilder
 argument_list|()
@@ -15862,13 +16030,30 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|addKeyValue
+name|addCell
 argument_list|(
 name|subBuilder
 operator|.
 name|buildPartial
 argument_list|()
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|16
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+name|input
+operator|.
+name|readInt32
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -15879,7 +16064,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .KeyValue keyValue = 1;
+comment|// repeated .Cell cell = 1;
 specifier|private
 name|java
 operator|.
@@ -15901,9 +16086,9 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
-name|keyValue_
+name|cell_
 init|=
 name|java
 operator|.
@@ -15916,7 +16101,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|void
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 parameter_list|()
 block|{
 if|if
@@ -15933,7 +16118,7 @@ literal|0x00000001
 operator|)
 condition|)
 block|{
-name|keyValue_
+name|cell_
 operator|=
 operator|new
 name|java
@@ -15956,10 +16141,10 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
-name|keyValue_
+name|cell_
 argument_list|)
 expr_stmt|;
 name|bitField0_
@@ -15991,7 +16176,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|,
 name|org
 operator|.
@@ -16007,7 +16192,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 argument_list|,
@@ -16025,9 +16210,9 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
-name|keyValueBuilder_
+name|cellBuilder_
 decl_stmt|;
 specifier|public
 name|java
@@ -16050,14 +16235,14 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
-name|getKeyValueList
+name|getCellList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -16071,14 +16256,14 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|keyValue_
+name|cell_
 argument_list|)
 return|;
 block|}
 else|else
 block|{
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|getMessageList
 argument_list|()
@@ -16087,18 +16272,18 @@ block|}
 block|}
 specifier|public
 name|int
-name|getKeyValueCount
+name|getCellCount
 parameter_list|()
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|size
 argument_list|()
@@ -16107,7 +16292,7 @@ block|}
 else|else
 block|{
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|getCount
 argument_list|()
@@ -16129,8 +16314,8 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
-name|getKeyValue
+name|Cell
+name|getCell
 parameter_list|(
 name|int
 name|index
@@ -16138,13 +16323,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
@@ -16155,7 +16340,7 @@ block|}
 else|else
 block|{
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|getMessage
 argument_list|(
@@ -16166,7 +16351,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setKeyValue
+name|setCell
 parameter_list|(
 name|int
 name|index
@@ -16185,13 +16370,13 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -16209,10 +16394,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|set
 argument_list|(
@@ -16227,7 +16412,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -16243,7 +16428,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setKeyValue
+name|setCell
 parameter_list|(
 name|int
 name|index
@@ -16262,7 +16447,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 name|builderForValue
@@ -16270,15 +16455,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|set
 argument_list|(
@@ -16296,7 +16481,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -16315,7 +16500,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addKeyValue
+name|addCell
 parameter_list|(
 name|org
 operator|.
@@ -16331,13 +16516,13 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -16355,10 +16540,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|add
 argument_list|(
@@ -16371,7 +16556,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -16385,7 +16570,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addKeyValue
+name|addCell
 parameter_list|(
 name|int
 name|index
@@ -16404,13 +16589,13 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
@@ -16428,10 +16613,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|add
 argument_list|(
@@ -16446,7 +16631,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -16462,7 +16647,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addKeyValue
+name|addCell
 parameter_list|(
 name|org
 operator|.
@@ -16478,7 +16663,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 name|builderForValue
@@ -16486,15 +16671,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|add
 argument_list|(
@@ -16510,7 +16695,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -16527,7 +16712,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addKeyValue
+name|addCell
 parameter_list|(
 name|int
 name|index
@@ -16546,7 +16731,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 name|builderForValue
@@ -16554,15 +16739,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|add
 argument_list|(
@@ -16580,7 +16765,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addMessage
 argument_list|(
@@ -16599,7 +16784,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|addAllKeyValue
+name|addAllCell
 parameter_list|(
 name|java
 operator|.
@@ -16623,19 +16808,19 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|>
 name|values
 parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
 name|super
@@ -16644,7 +16829,7 @@ name|addAll
 argument_list|(
 name|values
 argument_list|,
-name|keyValue_
+name|cell_
 argument_list|)
 expr_stmt|;
 name|onChanged
@@ -16653,7 +16838,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|addAllMessages
 argument_list|(
@@ -16667,17 +16852,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearKeyValue
+name|clearCell
 parameter_list|()
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|keyValue_
+name|cell_
 operator|=
 name|java
 operator|.
@@ -16703,7 +16888,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -16715,7 +16900,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|removeKeyValue
+name|removeCell
 parameter_list|(
 name|int
 name|index
@@ -16723,15 +16908,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|ensureKeyValueIsMutable
+name|ensureCellIsMutable
 argument_list|()
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|.
 name|remove
 argument_list|(
@@ -16744,7 +16929,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|remove
 argument_list|(
@@ -16771,17 +16956,17 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
-name|getKeyValueBuilder
+name|getCellBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -16805,8 +16990,8 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
-name|getKeyValueOrBuilder
+name|CellOrBuilder
+name|getCellOrBuilder
 parameter_list|(
 name|int
 name|index
@@ -16814,13 +16999,13 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|keyValue_
+name|cell_
 operator|.
 name|get
 argument_list|(
@@ -16831,7 +17016,7 @@ block|}
 else|else
 block|{
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|(
@@ -16863,20 +17048,20 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
-name|getKeyValueOrBuilderList
+name|getCellOrBuilderList
 parameter_list|()
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
 operator|.
 name|getMessageOrBuilderList
 argument_list|()
@@ -16893,7 +17078,7 @@ name|Collections
 operator|.
 name|unmodifiableList
 argument_list|(
-name|keyValue_
+name|cell_
 argument_list|)
 return|;
 block|}
@@ -16913,14 +17098,14 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
-name|addKeyValueBuilder
+name|addCellBuilder
 parameter_list|()
 block|{
 return|return
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -16939,7 +17124,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -16961,17 +17146,17 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
-name|addKeyValueBuilder
+name|addCellBuilder
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 block|{
 return|return
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 operator|.
 name|addBuilder
@@ -16992,7 +17177,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -17020,15 +17205,15 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 argument_list|>
-name|getKeyValueBuilderList
+name|getCellBuilderList
 parameter_list|()
 block|{
 return|return
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 argument_list|()
 operator|.
 name|getBuilderList
@@ -17058,7 +17243,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|,
 name|org
 operator|.
@@ -17074,7 +17259,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 argument_list|,
@@ -17092,19 +17277,19 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
-name|getKeyValueFieldBuilder
+name|getCellFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|keyValueBuilder_
+name|cellBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|keyValueBuilder_
+name|cellBuilder_
 operator|=
 operator|new
 name|com
@@ -17129,7 +17314,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 argument_list|,
 name|org
 operator|.
@@ -17145,7 +17330,7 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValue
+name|Cell
 operator|.
 name|Builder
 argument_list|,
@@ -17163,10 +17348,10 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
-name|KeyValueOrBuilder
+name|CellOrBuilder
 argument_list|>
 argument_list|(
-name|keyValue_
+name|cell_
 argument_list|,
 operator|(
 operator|(
@@ -17185,13 +17370,92 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|keyValue_
+name|cell_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|keyValueBuilder_
+name|cellBuilder_
+return|;
+block|}
+comment|// optional int32 associatedCellCount = 2;
+specifier|private
+name|int
+name|associatedCellCount_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+specifier|public
+name|int
+name|getAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+name|associatedCellCount_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setAssociatedCellCount
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearAssociatedCellCount
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:Result)
@@ -28414,31 +28678,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-if|if
-condition|(
-name|hasResult
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -30409,27 +30648,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-if|if
-condition|(
-name|hasResult
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 return|return
 literal|true
 return|;
@@ -32023,43 +32241,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getResultCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -34205,39 +34386,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getResultCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 return|return
 literal|true
 return|;
@@ -41080,7 +41228,7 @@ comment|// @@protoc_insertion_point(class_scope:Condition)
 block|}
 specifier|public
 interface|interface
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 extends|extends
 name|com
 operator|.
@@ -41090,7 +41238,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes row = 1;
+comment|// optional bytes row = 1;
 name|boolean
 name|hasRow
 parameter_list|()
@@ -41105,7 +41253,7 @@ name|ByteString
 name|getRow
 parameter_list|()
 function_decl|;
-comment|// required .Mutate.MutateType mutateType = 2;
+comment|// optional .MutationProto.MutationType mutateType = 2;
 name|boolean
 name|hasMutateType
 parameter_list|()
@@ -41124,13 +41272,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|getMutateType
 parameter_list|()
 function_decl|;
-comment|// repeated .Mutate.ColumnValue columnValue = 3;
+comment|// repeated .MutationProto.ColumnValue columnValue = 3;
 name|java
 operator|.
 name|util
@@ -41151,7 +41299,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -41172,7 +41320,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|getColumnValue
@@ -41207,7 +41355,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -41228,7 +41376,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 name|getColumnValueOrBuilder
@@ -41237,7 +41385,16 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .NameBytesPair attribute = 4;
+comment|// optional uint64 timestamp = 4;
+name|boolean
+name|hasTimestamp
+parameter_list|()
+function_decl|;
+name|long
+name|getTimestamp
+parameter_list|()
+function_decl|;
+comment|// repeated .NameBytesPair attribute = 5;
 name|java
 operator|.
 name|util
@@ -41336,15 +41493,6 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional uint64 timestamp = 5;
-name|boolean
-name|hasTimestamp
-parameter_list|()
-function_decl|;
-name|long
-name|getTimestamp
-parameter_list|()
-function_decl|;
 comment|// optional bool writeToWAL = 6 [default = true];
 name|boolean
 name|hasWriteToWAL
@@ -41354,7 +41502,7 @@ name|boolean
 name|getWriteToWAL
 parameter_list|()
 function_decl|;
-comment|// optional .TimeRange timeRange = 10;
+comment|// optional .TimeRange timeRange = 7;
 name|boolean
 name|hasTimeRange
 parameter_list|()
@@ -41395,12 +41543,21 @@ name|TimeRangeOrBuilder
 name|getTimeRangeOrBuilder
 parameter_list|()
 function_decl|;
+comment|// optional int32 associatedCellCount = 8;
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+function_decl|;
+name|int
+name|getAssociatedCellCount
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|Mutate
+name|MutationProto
 extends|extends
 name|com
 operator|.
@@ -41410,11 +41567,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 block|{
-comment|// Use Mutate.newBuilder() to construct.
+comment|// Use MutationProto.newBuilder() to construct.
 specifier|private
-name|Mutate
+name|MutationProto
 parameter_list|(
 name|Builder
 name|builder
@@ -41427,7 +41584,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|Mutate
+name|MutationProto
 parameter_list|(
 name|boolean
 name|noInit
@@ -41436,12 +41593,12 @@ block|{}
 specifier|private
 specifier|static
 specifier|final
-name|Mutate
+name|MutationProto
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|Mutate
+name|MutationProto
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -41450,7 +41607,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|Mutate
+name|MutationProto
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -41488,7 +41645,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -41519,12 +41676,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_fieldAccessorTable
+name|internal_static_MutationProto_fieldAccessorTable
 return|;
 block|}
 specifier|public
 enum|enum
-name|MutateType
+name|MutationType
 implements|implements
 name|com
 operator|.
@@ -41606,7 +41763,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|MutateType
+name|MutationType
 name|valueOf
 parameter_list|(
 name|int
@@ -41660,7 +41817,7 @@ name|Internal
 operator|.
 name|EnumLiteMap
 argument_list|<
-name|MutateType
+name|MutationType
 argument_list|>
 name|internalGetValueMap
 parameter_list|()
@@ -41681,7 +41838,7 @@ name|Internal
 operator|.
 name|EnumLiteMap
 argument_list|<
-name|MutateType
+name|MutationType
 argument_list|>
 name|internalValueMap
 init|=
@@ -41696,12 +41853,12 @@ name|Internal
 operator|.
 name|EnumLiteMap
 argument_list|<
-name|MutateType
+name|MutationType
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|MutateType
+name|MutationType
 name|findValueByNumber
 parameter_list|(
 name|int
@@ -41709,7 +41866,7 @@ name|number
 parameter_list|)
 block|{
 return|return
-name|MutateType
+name|MutationType
 operator|.
 name|valueOf
 argument_list|(
@@ -41795,7 +41952,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDescriptor
 argument_list|()
@@ -41812,7 +41969,7 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|MutateType
+name|MutationType
 index|[]
 name|VALUES
 init|=
@@ -41828,7 +41985,7 @@ block|,        }
 decl_stmt|;
 specifier|public
 specifier|static
-name|MutateType
+name|MutationType
 name|valueOf
 parameter_list|(
 name|com
@@ -41887,7 +42044,7 @@ name|int
 name|value
 decl_stmt|;
 specifier|private
-name|MutateType
+name|MutationType
 parameter_list|(
 name|int
 name|index
@@ -41909,7 +42066,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Mutate.MutateType)
+comment|// @@protoc_insertion_point(enum_scope:MutationProto.MutationType)
 block|}
 specifier|public
 enum|enum
@@ -42163,7 +42320,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDescriptor
 argument_list|()
@@ -42275,7 +42432,7 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:Mutate.DeleteType)
+comment|// @@protoc_insertion_point(enum_scope:MutationProto.DeleteType)
 block|}
 specifier|public
 interface|interface
@@ -42304,7 +42461,7 @@ name|ByteString
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|// repeated .Mutate.ColumnValue.QualifierValue qualifierValue = 2;
+comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifierValue = 2;
 name|java
 operator|.
 name|util
@@ -42325,7 +42482,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -42348,7 +42505,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -42385,7 +42542,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -42408,7 +42565,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -42512,7 +42669,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -42543,7 +42700,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
 return|;
 block|}
 specifier|public
@@ -42597,7 +42754,7 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .Mutate.DeleteType deleteType = 4;
+comment|// optional .MutationProto.DeleteType deleteType = 4;
 name|boolean
 name|hasDeleteType
 parameter_list|()
@@ -42616,7 +42773,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|getDeleteType
@@ -42715,7 +42872,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_QualifierValue_descriptor
+name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -42746,7 +42903,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 return|;
 block|}
 specifier|private
@@ -42894,7 +43051,7 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .Mutate.DeleteType deleteType = 4;
+comment|// optional .MutationProto.DeleteType deleteType = 4;
 specifier|public
 specifier|static
 specifier|final
@@ -42918,7 +43075,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|deleteType_
@@ -42955,7 +43112,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|getDeleteType
@@ -43014,7 +43171,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 operator|.
@@ -43446,7 +43603,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -43477,7 +43634,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -43499,7 +43656,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -43861,7 +44018,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -43915,7 +44072,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -43980,7 +44137,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44029,7 +44186,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44089,7 +44246,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44139,7 +44296,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44200,7 +44357,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44267,7 +44424,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44345,7 +44502,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44397,7 +44554,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44486,7 +44643,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44584,7 +44741,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44620,7 +44777,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_QualifierValue_descriptor
+name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -44651,10 +44808,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.Mutate.ColumnValue.QualifierValue.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.MutationProto.ColumnValue.QualifierValue.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -44791,7 +44948,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 operator|.
@@ -44854,7 +45011,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44879,7 +45036,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44902,7 +45059,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44927,7 +45084,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44949,7 +45106,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -44994,7 +45151,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45024,7 +45181,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45072,7 +45229,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45094,7 +45251,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45116,7 +45273,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45276,7 +45433,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45301,7 +45458,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45343,7 +45500,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45369,7 +45526,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -45679,7 +45836,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|value
@@ -45698,7 +45855,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 operator|.
@@ -46071,7 +46228,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .Mutate.DeleteType deleteType = 4;
+comment|// optional .MutationProto.DeleteType deleteType = 4;
 specifier|private
 name|org
 operator|.
@@ -46087,7 +46244,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|deleteType_
@@ -46106,7 +46263,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 operator|.
@@ -46144,7 +46301,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|getDeleteType
@@ -46172,7 +46329,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 name|value
@@ -46236,7 +46393,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|DeleteType
 operator|.
@@ -46249,7 +46406,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Mutate.ColumnValue.QualifierValue)
+comment|// @@protoc_insertion_point(builder_scope:MutationProto.ColumnValue.QualifierValue)
 block|}
 static|static
 block|{
@@ -46267,7 +46424,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Mutate.ColumnValue.QualifierValue)
+comment|// @@protoc_insertion_point(class_scope:MutationProto.ColumnValue.QualifierValue)
 block|}
 specifier|private
 name|int
@@ -46324,7 +46481,7 @@ return|return
 name|family_
 return|;
 block|}
-comment|// repeated .Mutate.ColumnValue.QualifierValue qualifierValue = 2;
+comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifierValue = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -46354,7 +46511,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -46383,7 +46540,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -46419,7 +46576,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -46459,7 +46616,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -46494,7 +46651,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -46889,7 +47046,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|)
@@ -46918,7 +47075,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|other
@@ -46938,7 +47095,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|)
@@ -47147,7 +47304,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47199,7 +47356,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47262,7 +47419,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47309,7 +47466,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47367,7 +47524,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47415,7 +47572,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47474,7 +47631,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseDelimitedFrom
@@ -47539,7 +47696,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseDelimitedFrom
@@ -47615,7 +47772,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47665,7 +47822,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|parseFrom
@@ -47752,7 +47909,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|prototype
@@ -47848,7 +48005,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 block|{
@@ -47882,7 +48039,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 return|;
 block|}
 specifier|protected
@@ -47913,10 +48070,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_ColumnValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.Mutate.ColumnValue.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.MutationProto.ColumnValue.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -48091,7 +48248,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -48114,7 +48271,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|getDefaultInstanceForType
@@ -48135,7 +48292,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -48158,7 +48315,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|build
@@ -48178,7 +48335,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|result
@@ -48221,7 +48378,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|buildParsed
@@ -48249,7 +48406,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|result
@@ -48295,7 +48452,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|buildPartial
@@ -48315,7 +48472,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|result
@@ -48335,7 +48492,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|(
@@ -48483,7 +48640,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 condition|)
@@ -48506,7 +48663,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|)
@@ -48546,7 +48703,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|other
@@ -48570,7 +48727,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -48935,7 +49092,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -48958,7 +49115,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49117,7 +49274,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Mutate.ColumnValue.QualifierValue qualifierValue = 2;
+comment|// repeated .MutationProto.ColumnValue.QualifierValue qualifierValue = 2;
 specifier|private
 name|java
 operator|.
@@ -49139,7 +49296,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49198,7 +49355,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49237,7 +49394,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49257,7 +49414,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49279,7 +49436,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49308,7 +49465,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49391,7 +49548,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49451,7 +49608,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49532,7 +49689,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49605,7 +49762,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49682,7 +49839,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49760,7 +49917,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49832,7 +49989,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -49913,7 +50070,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50065,7 +50222,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50103,7 +50260,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50165,7 +50322,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50219,7 +50376,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50249,7 +50406,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50275,7 +50432,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50310,7 +50467,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50342,7 +50499,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50384,7 +50541,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50404,7 +50561,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50426,7 +50583,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50467,7 +50624,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50487,7 +50644,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50509,7 +50666,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -50544,7 +50701,7 @@ return|return
 name|qualifierValueBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Mutate.ColumnValue)
+comment|// @@protoc_insertion_point(builder_scope:MutationProto.ColumnValue)
 block|}
 static|static
 block|{
@@ -50562,13 +50719,13 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Mutate.ColumnValue)
+comment|// @@protoc_insertion_point(class_scope:MutationProto.ColumnValue)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes row = 1;
+comment|// optional bytes row = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -50619,7 +50776,7 @@ return|return
 name|row_
 return|;
 block|}
-comment|// required .Mutate.MutateType mutateType = 2;
+comment|// optional .MutationProto.MutationType mutateType = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -50643,9 +50800,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|mutateType_
 decl_stmt|;
 specifier|public
@@ -50680,9 +50837,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|getMutateType
 parameter_list|()
 block|{
@@ -50690,7 +50847,7 @@ return|return
 name|mutateType_
 return|;
 block|}
-comment|// repeated .Mutate.ColumnValue columnValue = 3;
+comment|// repeated .MutationProto.ColumnValue columnValue = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -50720,7 +50877,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -50747,7 +50904,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -50781,7 +50938,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -50819,7 +50976,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|getColumnValue
@@ -50852,7 +51009,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 name|getColumnValueOrBuilder
@@ -50870,14 +51027,53 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 4;
+comment|// optional uint64 timestamp = 4;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TIMESTAMP_FIELD_NUMBER
+init|=
+literal|4
+decl_stmt|;
+specifier|private
+name|long
+name|timestamp_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasTimestamp
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getTimestamp
+parameter_list|()
+block|{
+return|return
+name|timestamp_
+return|;
+block|}
+comment|// repeated .NameBytesPair attribute = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
 name|ATTRIBUTE_FIELD_NUMBER
 init|=
-literal|4
+literal|5
 decl_stmt|;
 specifier|private
 name|java
@@ -51040,45 +51236,6 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional uint64 timestamp = 5;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|TIMESTAMP_FIELD_NUMBER
-init|=
-literal|5
-decl_stmt|;
-specifier|private
-name|long
-name|timestamp_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasTimestamp
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-return|;
-block|}
-specifier|public
-name|long
-name|getTimestamp
-parameter_list|()
-block|{
-return|return
-name|timestamp_
-return|;
-block|}
 comment|// optional bool writeToWAL = 6 [default = true];
 specifier|public
 specifier|static
@@ -51118,14 +51275,14 @@ return|return
 name|writeToWAL_
 return|;
 block|}
-comment|// optional .TimeRange timeRange = 10;
+comment|// optional .TimeRange timeRange = 7;
 specifier|public
 specifier|static
 specifier|final
 name|int
 name|TIMERANGE_FIELD_NUMBER
 init|=
-literal|10
+literal|7
 decl_stmt|;
 specifier|private
 name|org
@@ -51208,6 +51365,45 @@ return|return
 name|timeRange_
 return|;
 block|}
+comment|// optional int32 associatedCellCount = 8;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+init|=
+literal|8
+decl_stmt|;
+specifier|private
+name|int
+name|associatedCellCount_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+specifier|public
+name|int
+name|getAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+name|associatedCellCount_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -51241,9 +51437,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 expr_stmt|;
@@ -51258,6 +51454,10 @@ operator|.
 name|emptyList
 argument_list|()
 expr_stmt|;
+name|timestamp_
+operator|=
+literal|0L
+expr_stmt|;
 name|attribute_
 operator|=
 name|java
@@ -51268,10 +51468,6 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
-expr_stmt|;
-name|timestamp_
-operator|=
-literal|0L
 expr_stmt|;
 name|writeToWAL_
 operator|=
@@ -51297,6 +51493,10 @@ name|TimeRange
 operator|.
 name|getDefaultInstance
 argument_list|()
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|private
@@ -51329,36 +51529,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-if|if
-condition|(
-operator|!
-name|hasRow
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasMutateType
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 for|for
 control|(
 name|int
@@ -51546,6 +51716,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|4
+argument_list|,
+name|timestamp_
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -51568,7 +51761,7 @@ name|output
 operator|.
 name|writeMessage
 argument_list|(
-literal|4
+literal|5
 argument_list|,
 name|attribute_
 operator|.
@@ -51576,29 +51769,6 @@ name|get
 argument_list|(
 name|i
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-condition|)
-block|{
-name|output
-operator|.
-name|writeUInt64
-argument_list|(
-literal|5
-argument_list|,
-name|timestamp_
 argument_list|)
 expr_stmt|;
 block|}
@@ -51642,9 +51812,32 @@ name|output
 operator|.
 name|writeMessage
 argument_list|(
-literal|10
+literal|7
 argument_list|,
 name|timeRange_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt32
+argument_list|(
+literal|8
+argument_list|,
+name|associatedCellCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -51794,6 +51987,37 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|4
+argument_list|,
+name|timestamp_
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -51824,7 +52048,7 @@ name|CodedOutputStream
 operator|.
 name|computeMessageSize
 argument_list|(
-literal|4
+literal|5
 argument_list|,
 name|attribute_
 operator|.
@@ -51832,37 +52056,6 @@ name|get
 argument_list|(
 name|i
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeUInt64Size
-argument_list|(
-literal|5
-argument_list|,
-name|timestamp_
 argument_list|)
 expr_stmt|;
 block|}
@@ -51922,9 +52115,40 @@ name|CodedOutputStream
 operator|.
 name|computeMessageSize
 argument_list|(
-literal|10
+literal|7
 argument_list|,
 name|timeRange_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32Size
+argument_list|(
+literal|8
+argument_list|,
+name|associatedCellCount_
 argument_list|)
 expr_stmt|;
 block|}
@@ -52030,7 +52254,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|)
 condition|)
 block|{
@@ -52057,7 +52281,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|other
 init|=
 operator|(
@@ -52075,7 +52299,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|)
 name|obj
 decl_stmt|;
@@ -52174,21 +52398,6 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getAttributeList
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|other
-operator|.
-name|getAttributeList
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|result
-operator|=
-name|result
-operator|&&
 operator|(
 name|hasTimestamp
 argument_list|()
@@ -52220,6 +52429,21 @@ argument_list|()
 operator|)
 expr_stmt|;
 block|}
+name|result
+operator|=
+name|result
+operator|&&
+name|getAttributeList
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getAttributeList
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|result
 operator|=
 name|result
@@ -52289,6 +52513,41 @@ operator|.
 name|getTimeRange
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|hasAssociatedCellCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasAssociatedCellCount
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getAssociatedCellCount
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getAssociatedCellCount
+argument_list|()
+operator|)
 expr_stmt|;
 block|}
 name|result
@@ -52437,6 +52696,37 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|hasTimestamp
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|TIMESTAMP_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getTimestamp
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|getAttributeCount
 argument_list|()
 operator|>
@@ -52466,37 +52756,6 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasTimestamp
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|TIMESTAMP_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|hashLong
-argument_list|(
-name|getTimestamp
-argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -52561,6 +52820,34 @@ name|hashCode
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getAssociatedCellCount
+argument_list|()
+expr_stmt|;
+block|}
 name|hash
 operator|=
 operator|(
@@ -52595,7 +52882,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|com
@@ -52645,7 +52932,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|com
@@ -52706,7 +52993,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|byte
@@ -52751,7 +53038,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|byte
@@ -52807,7 +53094,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|java
@@ -52853,7 +53140,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|java
@@ -52910,7 +53197,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -52973,7 +53260,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -53047,7 +53334,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|com
@@ -53095,7 +53382,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|parseFrom
 parameter_list|(
 name|com
@@ -53180,7 +53467,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|prototype
 parameter_list|)
 block|{
@@ -53274,7 +53561,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -53306,7 +53593,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 return|;
 block|}
 specifier|protected
@@ -53337,10 +53624,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|internal_static_Mutate_fieldAccessorTable
+name|internal_static_MutationProto_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.Mutate.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ClientProtos.MutationProto.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -53453,9 +53740,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 expr_stmt|;
@@ -53504,6 +53791,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|timestamp_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
 if|if
 condition|(
 name|attributeBuilder_
@@ -53528,7 +53828,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000008
+literal|0x00000010
 operator|)
 expr_stmt|;
 block|}
@@ -53540,19 +53840,6 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|timestamp_
-operator|=
-literal|0L
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000010
-operator|)
-expr_stmt|;
 name|writeToWAL_
 operator|=
 literal|true
@@ -53612,6 +53899,19 @@ operator|~
 literal|0x00000040
 operator|)
 expr_stmt|;
+name|associatedCellCount_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -53660,7 +53960,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDescriptor
 argument_list|()
@@ -53681,7 +53981,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -53700,7 +54000,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -53721,7 +54021,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|build
 parameter_list|()
 block|{
@@ -53739,7 +54039,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|result
 init|=
 name|buildPartial
@@ -53780,7 +54080,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|buildParsed
 parameter_list|()
 throws|throws
@@ -53806,7 +54106,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|result
 init|=
 name|buildPartial
@@ -53850,7 +54150,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|buildPartial
 parameter_list|()
 block|{
@@ -53868,7 +54168,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|result
 init|=
 operator|new
@@ -53886,7 +54186,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|(
 name|this
 argument_list|)
@@ -54013,6 +54313,30 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|timestamp_
+operator|=
+name|timestamp_
+expr_stmt|;
+if|if
+condition|(
 name|attributeBuilder_
 operator|==
 literal|null
@@ -54024,10 +54348,10 @@ operator|(
 operator|(
 name|bitField0_
 operator|&
-literal|0x00000008
+literal|0x00000010
 operator|)
 operator|==
-literal|0x00000008
+literal|0x00000010
 operator|)
 condition|)
 block|{
@@ -54050,7 +54374,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000008
+literal|0x00000010
 operator|)
 expr_stmt|;
 block|}
@@ -54073,30 +54397,6 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00000010
-operator|)
-operator|==
-literal|0x00000010
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00000004
-expr_stmt|;
-block|}
-name|result
-operator|.
-name|timestamp_
-operator|=
-name|timestamp_
-expr_stmt|;
 if|if
 condition|(
 operator|(
@@ -54165,6 +54465,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|associatedCellCount_
+operator|=
+name|associatedCellCount_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -54210,7 +54534,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 condition|)
 block|{
 return|return
@@ -54231,7 +54555,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|)
 name|other
 argument_list|)
@@ -54269,7 +54593,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|other
 parameter_list|)
 block|{
@@ -54291,7 +54615,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -54474,6 +54798,23 @@ block|}
 block|}
 if|if
 condition|(
+name|other
+operator|.
+name|hasTimestamp
+argument_list|()
+condition|)
+block|{
+name|setTimestamp
+argument_list|(
+name|other
+operator|.
+name|getTimestamp
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|attributeBuilder_
 operator|==
 literal|null
@@ -54510,7 +54851,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000008
+literal|0x00000010
 operator|)
 expr_stmt|;
 block|}
@@ -54576,7 +54917,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000008
+literal|0x00000010
 operator|)
 expr_stmt|;
 name|attributeBuilder_
@@ -54615,23 +54956,6 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasTimestamp
-argument_list|()
-condition|)
-block|{
-name|setTimestamp
-argument_list|(
-name|other
-operator|.
-name|getTimestamp
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|other
-operator|.
 name|hasWriteToWAL
 argument_list|()
 condition|)
@@ -54662,6 +54986,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasAssociatedCellCount
+argument_list|()
+condition|)
+block|{
+name|setAssociatedCellCount
+argument_list|(
+name|other
+operator|.
+name|getAssociatedCellCount
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|mergeUnknownFields
@@ -54682,28 +55023,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-if|if
-condition|(
-operator|!
-name|hasRow
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|hasMutateType
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
 for|for
 control|(
 name|int
@@ -54946,9 +55265,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|value
 init|=
 name|org
@@ -54965,9 +55284,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 operator|.
 name|valueOf
 argument_list|(
@@ -55022,7 +55341,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -55043,7 +55362,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -55070,7 +55389,24 @@ expr_stmt|;
 break|break;
 block|}
 case|case
-literal|34
+literal|32
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|timestamp_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|42
 case|:
 block|{
 name|org
@@ -55131,23 +55467,6 @@ expr_stmt|;
 break|break;
 block|}
 case|case
-literal|40
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00000010
-expr_stmt|;
-name|timestamp_
-operator|=
-name|input
-operator|.
-name|readUInt64
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
-case|case
 literal|48
 case|:
 block|{
@@ -55165,7 +55484,7 @@ expr_stmt|;
 break|break;
 block|}
 case|case
-literal|82
+literal|58
 case|:
 block|{
 name|org
@@ -55240,6 +55559,23 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|64
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+name|input
+operator|.
+name|readInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -55247,7 +55583,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes row = 1;
+comment|// optional bytes row = 1;
 specifier|private
 name|com
 operator|.
@@ -55371,7 +55707,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .Mutate.MutateType mutateType = 2;
+comment|// optional .MutationProto.MutationType mutateType = 2;
 specifier|private
 name|org
 operator|.
@@ -55387,9 +55723,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|mutateType_
 init|=
 name|org
@@ -55406,9 +55742,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 decl_stmt|;
@@ -55444,9 +55780,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|getMutateType
 parameter_list|()
 block|{
@@ -55472,9 +55808,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 name|value
 parameter_list|)
 block|{
@@ -55536,9 +55872,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 operator|.
 name|APPEND
 expr_stmt|;
@@ -55549,7 +55885,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .Mutate.ColumnValue columnValue = 3;
+comment|// repeated .MutationProto.ColumnValue columnValue = 3;
 specifier|private
 name|java
 operator|.
@@ -55571,7 +55907,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -55628,7 +55964,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -55665,7 +56001,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|,
@@ -55683,7 +56019,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -55703,7 +56039,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -55730,7 +56066,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -55811,7 +56147,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|getColumnValue
@@ -55869,7 +56205,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|value
@@ -55948,7 +56284,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56019,7 +56355,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|value
@@ -56094,7 +56430,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 name|value
@@ -56170,7 +56506,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56240,7 +56576,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56319,7 +56655,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|>
@@ -56469,7 +56805,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56505,7 +56841,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 name|getColumnValueOrBuilder
@@ -56565,7 +56901,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -56617,7 +56953,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56645,7 +56981,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56669,7 +57005,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56702,7 +57038,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56732,7 +57068,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56772,7 +57108,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|,
@@ -56790,7 +57126,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56810,7 +57146,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -56849,7 +57185,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 argument_list|,
@@ -56867,7 +57203,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -56887,7 +57223,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValueOrBuilder
 argument_list|>
@@ -56920,7 +57256,86 @@ return|return
 name|columnValueBuilder_
 return|;
 block|}
-comment|// repeated .NameBytesPair attribute = 4;
+comment|// optional uint64 timestamp = 4;
+specifier|private
+name|long
+name|timestamp_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasTimestamp
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+specifier|public
+name|long
+name|getTimestamp
+parameter_list|()
+block|{
+return|return
+name|timestamp_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setTimestamp
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|timestamp_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearTimestamp
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
+name|timestamp_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// repeated .NameBytesPair attribute = 5;
 specifier|private
 name|java
 operator|.
@@ -56967,10 +57382,10 @@ operator|(
 operator|(
 name|bitField0_
 operator|&
-literal|0x00000008
+literal|0x00000010
 operator|)
 operator|==
-literal|0x00000008
+literal|0x00000010
 operator|)
 condition|)
 block|{
@@ -57005,7 +57420,7 @@ argument_list|)
 expr_stmt|;
 name|bitField0_
 operator||=
-literal|0x00000008
+literal|0x00000010
 expr_stmt|;
 block|}
 block|}
@@ -57735,7 +58150,7 @@ operator|(
 name|bitField0_
 operator|&
 operator|~
-literal|0x00000008
+literal|0x00000010
 operator|)
 expr_stmt|;
 name|onChanged
@@ -58213,10 +58628,10 @@ operator|(
 operator|(
 name|bitField0_
 operator|&
-literal|0x00000008
+literal|0x00000010
 operator|)
 operator|==
-literal|0x00000008
+literal|0x00000010
 operator|)
 argument_list|,
 name|getParentForChildren
@@ -58233,85 +58648,6 @@ expr_stmt|;
 block|}
 return|return
 name|attributeBuilder_
-return|;
-block|}
-comment|// optional uint64 timestamp = 5;
-specifier|private
-name|long
-name|timestamp_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasTimestamp
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000010
-operator|)
-operator|==
-literal|0x00000010
-operator|)
-return|;
-block|}
-specifier|public
-name|long
-name|getTimestamp
-parameter_list|()
-block|{
-return|return
-name|timestamp_
-return|;
-block|}
-specifier|public
-name|Builder
-name|setTimestamp
-parameter_list|(
-name|long
-name|value
-parameter_list|)
-block|{
-name|bitField0_
-operator||=
-literal|0x00000010
-expr_stmt|;
-name|timestamp_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|public
-name|Builder
-name|clearTimestamp
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000010
-operator|)
-expr_stmt|;
-name|timestamp_
-operator|=
-literal|0L
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
 return|;
 block|}
 comment|// optional bool writeToWAL = 6 [default = true];
@@ -58395,7 +58731,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .TimeRange timeRange = 10;
+comment|// optional .TimeRange timeRange = 7;
 specifier|private
 name|org
 operator|.
@@ -59089,14 +59425,93 @@ return|return
 name|timeRangeBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:Mutate)
+comment|// optional int32 associatedCellCount = 8;
+specifier|private
+name|int
+name|associatedCellCount_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+specifier|public
+name|int
+name|getAssociatedCellCount
+parameter_list|()
+block|{
+return|return
+name|associatedCellCount_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setAssociatedCellCount
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearAssociatedCellCount
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000080
+operator|)
+expr_stmt|;
+name|associatedCellCount_
+operator|=
+literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// @@protoc_insertion_point(builder_scope:MutationProto)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|Mutate
+name|MutationProto
 argument_list|(
 literal|true
 argument_list|)
@@ -59107,7 +59522,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:Mutate)
+comment|// @@protoc_insertion_point(class_scope:MutationProto)
 block|}
 specifier|public
 interface|interface
@@ -59162,9 +59577,9 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .Mutate mutate = 2;
+comment|// required .MutationProto mutation = 2;
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 function_decl|;
 name|org
@@ -59181,8 +59596,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 function_decl|;
 name|org
@@ -59199,8 +59614,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 function_decl|;
 comment|// optional .Condition condition = 3;
@@ -59465,12 +59880,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// required .Mutate mutate = 2;
+comment|// required .MutationProto mutation = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MUTATE_FIELD_NUMBER
+name|MUTATION_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -59489,12 +59904,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|mutate_
+name|MutationProto
+name|mutation_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 block|{
 return|return
@@ -59524,12 +59939,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 specifier|public
@@ -59547,12 +59962,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 comment|// optional .Condition condition = 3;
@@ -59671,7 +60086,7 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 expr_stmt|;
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -59687,7 +60102,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -59762,7 +60177,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -59795,7 +60210,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|isInitialized
@@ -59908,7 +60323,7 @@ name|writeMessage
 argument_list|(
 literal|2
 argument_list|,
-name|mutate_
+name|mutation_
 argument_list|)
 expr_stmt|;
 block|}
@@ -60033,7 +60448,7 @@ name|computeMessageSize
 argument_list|(
 literal|2
 argument_list|,
-name|mutate_
+name|mutation_
 argument_list|)
 expr_stmt|;
 block|}
@@ -60265,18 +60680,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasMutate
+name|hasMutation
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -60284,14 +60699,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -60414,7 +60829,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -60426,7 +60841,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MUTATE_FIELD_NUMBER
+name|MUTATION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -60436,7 +60851,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|hashCode
@@ -61299,7 +61714,7 @@ block|{
 name|getRegionFieldBuilder
 argument_list|()
 expr_stmt|;
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 argument_list|()
 expr_stmt|;
 name|getConditionFieldBuilder
@@ -61377,12 +61792,12 @@ operator|)
 expr_stmt|;
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -61398,7 +61813,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -61406,7 +61821,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -61820,25 +62235,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|mutate_
+name|mutation_
 operator|=
-name|mutate_
+name|mutation_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|mutate_
+name|mutation_
 operator|=
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|build
 argument_list|()
@@ -62043,15 +62458,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
-name|mergeMutate
+name|mergeMutation
 argument_list|(
 name|other
 operator|.
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -62107,7 +62522,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -62132,7 +62547,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|isInitialized
@@ -62391,7 +62806,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|subBuilder
@@ -62410,14 +62825,14 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -62425,7 +62840,7 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -62439,7 +62854,7 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|setMutate
+name|setMutation
 argument_list|(
 name|subBuilder
 operator|.
@@ -63226,7 +63641,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// required .Mutate mutate = 2;
+comment|// required .MutationProto mutation = 2;
 specifier|private
 name|org
 operator|.
@@ -63242,8 +63657,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|mutate_
+name|MutationProto
+name|mutation_
 init|=
 name|org
 operator|.
@@ -63259,7 +63674,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -63287,7 +63702,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -63303,7 +63718,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -63321,13 +63736,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
-name|mutateBuilder_
+name|mutationBuilder_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 block|{
 return|return
@@ -63357,25 +63772,25 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|getMessage
 argument_list|()
@@ -63384,7 +63799,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setMutate
+name|setMutation
 parameter_list|(
 name|org
 operator|.
@@ -63400,13 +63815,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
@@ -63424,7 +63839,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|mutate_
+name|mutation_
 operator|=
 name|value
 expr_stmt|;
@@ -63434,7 +63849,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -63452,7 +63867,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setMutate
+name|setMutation
 parameter_list|(
 name|org
 operator|.
@@ -63468,7 +63883,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|builderForValue
@@ -63476,12 +63891,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|builderForValue
 operator|.
@@ -63494,7 +63909,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -63515,7 +63930,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|mergeMutate
+name|mergeMutation
 parameter_list|(
 name|org
 operator|.
@@ -63531,13 +63946,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
@@ -63554,7 +63969,7 @@ operator|==
 literal|0x00000002
 operator|)
 operator|&&
-name|mutate_
+name|mutation_
 operator|!=
 name|org
 operator|.
@@ -63570,13 +63985,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -63592,11 +64007,11 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
-name|mutate_
+name|mutation_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -63610,7 +64025,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|value
 expr_stmt|;
@@ -63621,7 +64036,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -63639,17 +64054,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearMutate
+name|clearMutation
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -63665,7 +64080,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -63676,7 +64091,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -63710,10 +64125,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
-name|getMutateBuilder
+name|getMutationBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -63724,7 +64139,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -63746,19 +64161,19 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -63767,7 +64182,7 @@ block|}
 else|else
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 block|}
@@ -63794,7 +64209,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -63810,7 +64225,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -63828,19 +64243,19 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|=
 operator|new
 name|com
@@ -63865,7 +64280,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -63881,7 +64296,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -63899,10 +64314,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 argument_list|(
-name|mutate_
+name|mutation_
 argument_list|,
 name|getParentForChildren
 argument_list|()
@@ -63911,13 +64326,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|mutate_
+name|mutation_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 return|;
 block|}
 comment|// optional .Condition condition = 3;
@@ -65017,31 +65432,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-if|if
-condition|(
-name|hasResult
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -67012,27 +67402,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-if|if
-condition|(
-name|hasResult
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 return|return
 literal|true
 return|;
@@ -85795,43 +86164,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getResultCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 name|memoizedIsInitialized
 operator|=
 literal|1
@@ -88452,39 +88784,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|getResultCount
-argument_list|()
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|getResult
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 return|return
 literal|true
 return|;
@@ -113889,9 +114188,9 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .Mutate mutate = 1;
+comment|// optional .MutationProto mutation = 1;
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 function_decl|;
 name|org
@@ -113908,8 +114207,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 function_decl|;
 name|org
@@ -113926,8 +114225,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 function_decl|;
 comment|// optional .Get get = 2;
@@ -114102,12 +114401,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Mutate mutate = 1;
+comment|// optional .MutationProto mutation = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MUTATE_FIELD_NUMBER
+name|MUTATION_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -114126,12 +114425,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|mutate_
+name|MutationProto
+name|mutation_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 block|{
 return|return
@@ -114161,12 +114460,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 specifier|public
@@ -114184,12 +114483,12 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 comment|// optional .Get get = 2;
@@ -114287,7 +114586,7 @@ name|void
 name|initFields
 parameter_list|()
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -114303,7 +114602,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -114362,14 +114661,14 @@ literal|1
 return|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
 if|if
 condition|(
 operator|!
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|isInitialized
@@ -114460,7 +114759,7 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|mutate_
+name|mutation_
 argument_list|)
 expr_stmt|;
 block|}
@@ -114554,7 +114853,7 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|mutate_
+name|mutation_
 argument_list|)
 expr_stmt|;
 block|}
@@ -114750,18 +115049,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasMutate
+name|hasMutation
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -114769,14 +115068,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -114868,7 +115167,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -114880,7 +115179,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MUTATE_FIELD_NUMBER
+name|MUTATION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -114890,7 +115189,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|hashCode
@@ -115750,7 +116049,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 argument_list|()
 expr_stmt|;
 name|getGetFieldBuilder
@@ -115782,12 +116081,12 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -115803,7 +116102,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -115811,7 +116110,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -116181,25 +116480,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|mutate_
+name|mutation_
 operator|=
-name|mutate_
+name|mutation_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|mutate_
+name|mutation_
 operator|=
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|build
 argument_list|()
@@ -116387,15 +116686,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
-name|mergeMutate
+name|mergeMutation
 argument_list|(
 name|other
 operator|.
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -116439,14 +116738,14 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
 if|if
 condition|(
 operator|!
-name|getMutate
+name|getMutation
 argument_list|()
 operator|.
 name|isInitialized
@@ -116630,7 +116929,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|subBuilder
@@ -116649,14 +116948,14 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|hasMutate
+name|hasMutation
 argument_list|()
 condition|)
 block|{
@@ -116664,7 +116963,7 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|getMutate
+name|getMutation
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -116678,7 +116977,7 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 expr_stmt|;
-name|setMutate
+name|setMutation
 argument_list|(
 name|subBuilder
 operator|.
@@ -116771,7 +117070,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .Mutate mutate = 1;
+comment|// optional .MutationProto mutation = 1;
 specifier|private
 name|org
 operator|.
@@ -116787,8 +117086,8 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|mutate_
+name|MutationProto
+name|mutation_
 init|=
 name|org
 operator|.
@@ -116804,7 +117103,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -116832,7 +117131,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -116848,7 +117147,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -116866,13 +117165,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
-name|mutateBuilder_
+name|mutationBuilder_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasMutate
+name|hasMutation
 parameter_list|()
 block|{
 return|return
@@ -116902,25 +117201,25 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
-name|getMutate
+name|MutationProto
+name|getMutation
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|getMessage
 argument_list|()
@@ -116929,7 +117228,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setMutate
+name|setMutation
 parameter_list|(
 name|org
 operator|.
@@ -116945,13 +117244,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
@@ -116969,7 +117268,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|mutate_
+name|mutation_
 operator|=
 name|value
 expr_stmt|;
@@ -116979,7 +117278,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -116997,7 +117296,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|setMutate
+name|setMutation
 parameter_list|(
 name|org
 operator|.
@@ -117013,7 +117312,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 name|builderForValue
@@ -117021,12 +117320,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|builderForValue
 operator|.
@@ -117039,7 +117338,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -117060,7 +117359,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|mergeMutate
+name|mergeMutation
 parameter_list|(
 name|org
 operator|.
@@ -117076,13 +117375,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 name|value
 parameter_list|)
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
@@ -117099,7 +117398,7 @@ operator|==
 literal|0x00000001
 operator|)
 operator|&&
-name|mutate_
+name|mutation_
 operator|!=
 name|org
 operator|.
@@ -117115,13 +117414,13 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -117137,11 +117436,11 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|newBuilder
 argument_list|(
-name|mutate_
+name|mutation_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -117155,7 +117454,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|value
 expr_stmt|;
@@ -117166,7 +117465,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -117184,17 +117483,17 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearMutate
+name|clearMutation
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutate_
+name|mutation_
 operator|=
 name|org
 operator|.
@@ -117210,7 +117509,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -117221,7 +117520,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -117255,10 +117554,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
-name|getMutateBuilder
+name|getMutationBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -117269,7 +117568,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
@@ -117291,19 +117590,19 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
-name|getMutateOrBuilder
+name|MutationProtoOrBuilder
+name|getMutationOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -117312,7 +117611,7 @@ block|}
 else|else
 block|{
 return|return
-name|mutate_
+name|mutation_
 return|;
 block|}
 block|}
@@ -117339,7 +117638,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -117355,7 +117654,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -117373,19 +117672,19 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
-name|getMutateFieldBuilder
+name|getMutationFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|mutateBuilder_
+name|mutationBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|mutateBuilder_
+name|mutationBuilder_
 operator|=
 operator|new
 name|com
@@ -117410,7 +117709,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 argument_list|,
 name|org
 operator|.
@@ -117426,7 +117725,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 argument_list|,
@@ -117444,10 +117743,10 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|MutateOrBuilder
+name|MutationProtoOrBuilder
 argument_list|>
 argument_list|(
-name|mutate_
+name|mutation_
 argument_list|,
 name|getParentForChildren
 argument_list|()
@@ -117456,13 +117755,13 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|mutate_
+name|mutation_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|mutateBuilder_
+name|mutationBuilder_
 return|;
 block|}
 comment|// optional .Get get = 2;
@@ -118662,31 +118961,6 @@ name|isInitialized
 operator|==
 literal|1
 return|;
-if|if
-condition|(
-name|hasValue
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getValue
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-name|memoizedIsInitialized
-operator|=
-literal|0
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-block|}
 if|if
 condition|(
 name|hasException
@@ -120739,27 +121013,6 @@ name|boolean
 name|isInitialized
 parameter_list|()
 block|{
-if|if
-condition|(
-name|hasValue
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|getValue
-argument_list|()
-operator|.
-name|isInitialized
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
 if|if
 condition|(
 name|hasException
@@ -137786,7 +138039,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -137799,7 +138052,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Mutate_fieldAccessorTable
+name|internal_static_MutationProto_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -137812,7 +138065,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -137825,7 +138078,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Mutate_ColumnValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -137838,7 +138091,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_Mutate_ColumnValue_QualifierValue_descriptor
+name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -137851,7 +138104,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_Mutate_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -138301,159 +138554,165 @@ literal|"ns\030\006 \001(\r:\0011\022\031\n\013cacheBlocks\030\007 \001(\010:\00
 operator|+
 literal|"\n\nstoreLimit\030\010 \001(\r\022\023\n\013storeOffset\030\t \001(\r\""
 operator|+
-literal|"%\n\006Result\022\033\n\010keyValue\030\001 \003(\0132\t.KeyValue\"r"
+literal|":\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cell\022\033\n\023associ"
 operator|+
-literal|"\n\nGetRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
+literal|"atedCellCount\030\002 \001(\005\"r\n\nGetRequest\022 \n\006reg"
 block|,
-literal|"cifier\022\021\n\003get\030\002 \002(\0132\004.Get\022\030\n\020closestRowB"
+literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \002(\013"
 operator|+
-literal|"efore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001(\010\"w\n\017Mu"
+literal|"2\004.Get\022\030\n\020closestRowBefore\030\003 \001(\010\022\025\n\rexis"
 operator|+
-literal|"ltiGetRequest\022 \n\006region\030\001 \002(\0132\020.RegionSp"
+literal|"tenceOnly\030\004 \001(\010\"w\n\017MultiGetRequest\022 \n\006re"
 operator|+
-literal|"ecifier\022\021\n\003get\030\002 \003(\0132\004.Get\022\030\n\020closestRow"
+literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \003("
 operator|+
-literal|"Before\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001(\010\"6\n\013G"
+literal|"\0132\004.Get\022\030\n\020closestRowBefore\030\003 \001(\010\022\025\n\rexi"
 operator|+
-literal|"etResponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\016\n\006e"
+literal|"stenceOnly\030\004 \001(\010\"6\n\013GetResponse\022\027\n\006resul"
 operator|+
-literal|"xists\030\002 \001(\010\";\n\020MultiGetResponse\022\027\n\006resul"
+literal|"t\030\001 \001(\0132\007.Result\022\016\n\006exists\030\002 \001(\010\";\n\020Mult"
 operator|+
-literal|"t\030\001 \003(\0132\007.Result\022\016\n\006exists\030\002 \003(\010\"\177\n\tCond"
+literal|"iGetResponse\022\027\n\006result\030\001 \003(\0132\007.Result\022\016\n"
 operator|+
-literal|"ition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqu"
+literal|"\006exists\030\002 \003(\010\"\177\n\tCondition\022\013\n\003row\030\001 \002(\014\022"
 operator|+
-literal|"alifier\030\003 \002(\014\022!\n\013compareType\030\004 \002(\0162\014.Com"
+literal|"\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022!\n\013co"
 block|,
-literal|"pareType\022\037\n\ncomparator\030\005 \002(\0132\013.Comparato"
+literal|"mpareType\030\004 \002(\0162\014.CompareType\022\037\n\ncompara"
 operator|+
-literal|"r\"\266\004\n\006Mutate\022\013\n\003row\030\001 \002(\014\022&\n\nmutateType\030"
+literal|"tor\030\005 \002(\0132\013.Comparator\"\372\004\n\rMutationProto"
 operator|+
-literal|"\002 \002(\0162\022.Mutate.MutateType\022(\n\013columnValue"
+literal|"\022\013\n\003row\030\001 \001(\014\022/\n\nmutateType\030\002 \001(\0162\033.Muta"
 operator|+
-literal|"\030\003 \003(\0132\023.Mutate.ColumnValue\022!\n\tattribute"
+literal|"tionProto.MutationType\022/\n\013columnValue\030\003 "
 operator|+
-literal|"\030\004 \003(\0132\016.NameBytesPair\022\021\n\ttimestamp\030\005 \001("
+literal|"\003(\0132\032.MutationProto.ColumnValue\022\021\n\ttimes"
 operator|+
-literal|"\004\022\030\n\nwriteToWAL\030\006 \001(\010:\004true\022\035\n\ttimeRange"
+literal|"tamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016.NameByte"
 operator|+
-literal|"\030\n \001(\0132\n.TimeRange\032\310\001\n\013ColumnValue\022\016\n\006fa"
+literal|"sPair\022\030\n\nwriteToWAL\030\006 \001(\010:\004true\022\035\n\ttimeR"
 operator|+
-literal|"mily\030\001 \002(\014\022:\n\016qualifierValue\030\002 \003(\0132\".Mut"
+literal|"ange\030\007 \001(\0132\n.TimeRange\022\033\n\023associatedCell"
 operator|+
-literal|"ate.ColumnValue.QualifierValue\032m\n\016Qualif"
+literal|"Count\030\010 \001(\005\032\326\001\n\013ColumnValue\022\016\n\006family\030\001 "
+operator|+
+literal|"\002(\014\022A\n\016qualifierValue\030\002 \003(\0132).MutationPr"
+block|,
+literal|"oto.ColumnValue.QualifierValue\032t\n\016Qualif"
 operator|+
 literal|"ierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001"
+operator|+
+literal|"(\014\022\021\n\ttimestamp\030\003 \001(\004\022-\n\ndeleteType\030\004 \001("
+operator|+
+literal|"\0162\031.MutationProto.DeleteType\">\n\014Mutation"
+operator|+
+literal|"Type\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002"
+operator|+
+literal|"\022\n\n\006DELETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE"
+operator|+
+literal|"_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001"
+operator|+
+literal|"\022\021\n\rDELETE_FAMILY\020\002\"r\n\rMutateRequest\022 \n\006"
+operator|+
+literal|"region\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutati"
+operator|+
+literal|"on\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition\030\003 "
 block|,
-literal|"(\014\022\021\n\ttimestamp\030\003 \001(\004\022&\n\ndeleteType\030\004 \001("
+literal|"\001(\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006res"
 operator|+
-literal|"\0162\022.Mutate.DeleteType\"<\n\nMutateType\022\n\n\006A"
+literal|"ult\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\307\002"
 operator|+
-literal|"PPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELET"
+literal|"\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattri"
 operator|+
-literal|"E\020\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020"
+literal|"bute\030\002 \003(\0132\016.NameBytesPair\022\020\n\010startRow\030\003"
 operator|+
-literal|"\000\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELET"
+literal|" \001(\014\022\017\n\007stopRow\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007."
 operator|+
-literal|"E_FAMILY\020\002\"i\n\rMutateRequest\022 \n\006region\030\001 "
+literal|"Filter\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRange\022\026\n"
 operator|+
-literal|"\002(\0132\020.RegionSpecifier\022\027\n\006mutate\030\002 \002(\0132\007."
+literal|"\013maxVersions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001"
 operator|+
-literal|"Mutate\022\035\n\tcondition\030\003 \001(\0132\n.Condition\"<\n"
+literal|"(\010:\004true\022\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxResult"
 operator|+
-literal|"\016MutateResponse\022\027\n\006result\030\001 \001(\0132\007.Result"
+literal|"Size\030\n \001(\004\022\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013storeO"
 operator|+
-literal|"\022\021\n\tprocessed\030\002 \001(\010\"\307\002\n\004Scan\022\027\n\006column\030\001"
+literal|"ffset\030\014 \001(\r\022\"\n\032loadColumnFamiliesOnDeman"
 block|,
-literal|" \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\0132\016.NameB"
+literal|"d\030\r \001(\010\"\230\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132"
 operator|+
-literal|"ytesPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007stopRow\030\004 "
+literal|"\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021"
 operator|+
-literal|"\001(\014\022\027\n\006filter\030\005 \001(\0132\007.Filter\022\035\n\ttimeRang"
+literal|"\n\tscannerId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022"
 operator|+
-literal|"e\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVersions\030\007 \001(\r"
+literal|"\024\n\014closeScanner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001"
 operator|+
-literal|":\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true\022\021\n\tbatchS"
+literal|"(\004\"u\n\014ScanResponse\022\027\n\006result\030\001 \003(\0132\007.Res"
 operator|+
-literal|"ize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001(\004\022\022\n\nstor"
+literal|"ult\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreResults\030\003 "
 operator|+
-literal|"eLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 \001(\r\022\"\n\032loa"
+literal|"\001(\010\022\013\n\003ttl\030\004 \001(\r\022\027\n\017resultSizeBytes\030\005 \001("
 operator|+
-literal|"dColumnFamiliesOnDemand\030\r \001(\010\"\230\001\n\013ScanRe"
+literal|"\004\"\260\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002"
 operator|+
-literal|"quest\022 \n\006region\030\001 \001(\0132\020.RegionSpecifier\022"
+literal|"(\0132\020.RegionSpecifier\0224\n\nfamilyPath\030\002 \003(\013"
 operator|+
-literal|"\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscannerId\030\003 \001(\004\022"
+literal|"2 .BulkLoadHFileRequest.FamilyPath\022\024\n\014as"
 block|,
-literal|"\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014closeScanner\030\005 "
+literal|"signSeqNum\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
 operator|+
-literal|"\001(\010\022\023\n\013nextCallSeq\030\006 \001(\004\"u\n\014ScanResponse"
+literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
 operator|+
-literal|"\022\027\n\006result\030\001 \003(\0132\007.Result\022\021\n\tscannerId\030\002"
+literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"_\n\026CoprocessorServ"
 operator|+
-literal|" \001(\004\022\023\n\013moreResults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\027"
+literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002 \002("
 operator|+
-literal|"\n\017resultSizeBytes\030\005 \001(\004\"\260\001\n\024BulkLoadHFil"
+literal|"\t\022\022\n\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d"
 operator|+
-literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"\n\031CoprocessorServiceRequest\022 \n\006region\030\001 "
 operator|+
-literal|"er\0224\n\nfamilyPath\030\002 \003(\0132 .BulkLoadHFileRe"
+literal|"\002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Co"
 operator|+
-literal|"quest.FamilyPath\022\024\n\014assignSeqNum\030\003 \001(\010\032*"
+literal|"processorServiceCall\"]\n\032CoprocessorServi"
 operator|+
-literal|"\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002"
+literal|"ceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpeci"
 operator|+
-literal|"(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 "
+literal|"fier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B\n\013M"
 block|,
-literal|"\002(\010\"_\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002"
+literal|"ultiAction\022 \n\010mutation\030\001 \001(\0132\016.MutationP"
 operator|+
-literal|"(\014\022\023\n\013serviceName\030\002 \002(\t\022\022\n\nmethodName\030\003 "
+literal|"roto\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResult\022"
 operator|+
-literal|"\002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031CoprocessorServi"
+literal|"\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030\002 \001"
 operator|+
-literal|"ceRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
+literal|"(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006re"
 operator|+
-literal|"ier\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCa"
+literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action\030\002"
 operator|+
-literal|"ll\"]\n\032CoprocessorServiceResponse\022 \n\006regi"
+literal|" \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\rMu"
 operator|+
-literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002("
+literal|"ltiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionResu"
 operator|+
-literal|"\0132\016.NameBytesPair\"9\n\013MultiAction\022\027\n\006muta"
+literal|"lt2\342\002\n\rClientService\022 \n\003get\022\013.GetRequest"
 operator|+
-literal|"te\030\001 \001(\0132\007.Mutate\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014"
+literal|"\032\014.GetResponse\022/\n\010multiGet\022\020.MultiGetReq"
 operator|+
-literal|"ActionResult\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\t"
+literal|"uest\032\021.MultiGetResponse\022)\n\006mutate\022\016.Muta"
 block|,
-literal|"exception\030\002 \001(\0132\016.NameBytesPair\"^\n\014Multi"
+literal|"teRequest\032\017.MutateResponse\022#\n\004scan\022\014.Sca"
 operator|+
-literal|"Request\022 \n\006region\030\001 \002(\0132\020.RegionSpecifie"
+literal|"nRequest\032\r.ScanResponse\022>\n\rbulkLoadHFile"
 operator|+
-literal|"r\022\034\n\006action\030\002 \003(\0132\014.MultiAction\022\016\n\006atomi"
+literal|"\022\025.BulkLoadHFileRequest\032\026.BulkLoadHFileR"
 operator|+
-literal|"c\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006result\030\001 \003(\013"
+literal|"esponse\022F\n\013execService\022\032.CoprocessorServ"
 operator|+
-literal|"2\r.ActionResult2\342\002\n\rClientService\022 \n\003get"
+literal|"iceRequest\032\033.CoprocessorServiceResponse\022"
 operator|+
-literal|"\022\013.GetRequest\032\014.GetResponse\022/\n\010multiGet\022"
+literal|"&\n\005multi\022\r.MultiRequest\032\016.MultiResponseB"
 operator|+
-literal|"\020.MultiGetRequest\032\021.MultiGetResponse\022)\n\006"
+literal|"B\n*org.apache.hadoop.hbase.protobuf.gene"
 operator|+
-literal|"mutate\022\016.MutateRequest\032\017.MutateResponse\022"
-operator|+
-literal|"#\n\004scan\022\014.ScanRequest\032\r.ScanResponse\022>\n\r"
-operator|+
-literal|"bulkLoadHFile\022\025.BulkLoadHFileRequest\032\026.B"
-block|,
-literal|"ulkLoadHFileResponse\022F\n\013execService\022\032.Co"
-operator|+
-literal|"processorServiceRequest\032\033.CoprocessorSer"
-operator|+
-literal|"viceResponse\022&\n\005multi\022\r.MultiRequest\032\016.M"
-operator|+
-literal|"ultiResponseBB\n*org.apache.hadoop.hbase."
-operator|+
-literal|"protobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"ratedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -138719,7 +138978,9 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"KeyValue"
+literal|"Cell"
+block|,
+literal|"AssociatedCellCount"
 block|, }
 argument_list|,
 name|org
@@ -139175,7 +139436,7 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -139188,7 +139449,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_fieldAccessorTable
+name|internal_static_MutationProto_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -139201,7 +139462,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 argument_list|,
 operator|new
 name|java
@@ -139217,13 +139478,15 @@ literal|"MutateType"
 block|,
 literal|"ColumnValue"
 block|,
-literal|"Attribute"
-block|,
 literal|"Timestamp"
+block|,
+literal|"Attribute"
 block|,
 literal|"WriteToWAL"
 block|,
 literal|"TimeRange"
+block|,
+literal|"AssociatedCellCount"
 block|, }
 argument_list|,
 name|org
@@ -139240,7 +139503,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|class
 argument_list|,
@@ -139258,16 +139521,16 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|Builder
 operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 operator|=
-name|internal_static_Mutate_descriptor
+name|internal_static_MutationProto_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -139277,7 +139540,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_ColumnValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -139290,7 +139553,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 argument_list|,
 operator|new
 name|java
@@ -139319,7 +139582,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -139339,7 +139602,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -139348,9 +139611,9 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_ColumnValue_QualifierValue_descriptor
+name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
 operator|=
-name|internal_static_Mutate_ColumnValue_descriptor
+name|internal_static_MutationProto_ColumnValue_descriptor
 operator|.
 name|getNestedTypes
 argument_list|()
@@ -139360,7 +139623,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_Mutate_ColumnValue_QualifierValue_fieldAccessorTable
+name|internal_static_MutationProto_ColumnValue_QualifierValue_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -139373,7 +139636,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_Mutate_ColumnValue_QualifierValue_descriptor
+name|internal_static_MutationProto_ColumnValue_QualifierValue_descriptor
 argument_list|,
 operator|new
 name|java
@@ -139406,7 +139669,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -139428,7 +139691,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
 name|ColumnValue
 operator|.
@@ -139477,7 +139740,7 @@ index|[]
 block|{
 literal|"Region"
 block|,
-literal|"Mutate"
+literal|"Mutation"
 block|,
 literal|"Condition"
 block|, }
@@ -140400,7 +140663,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"Mutate"
+literal|"Mutation"
 block|,
 literal|"Get"
 block|, }

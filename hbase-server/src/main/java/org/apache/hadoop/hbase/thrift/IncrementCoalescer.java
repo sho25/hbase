@@ -1559,6 +1559,8 @@ operator|+
 literal|", "
 operator|+
 name|counter
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}

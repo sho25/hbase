@@ -239,7 +239,7 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-literal|"hrpc"
+literal|"HBas"
 operator|.
 name|getBytes
 argument_list|()
@@ -249,9 +249,9 @@ specifier|public
 specifier|static
 specifier|final
 name|byte
-name|CURRENT_VERSION
+name|RPC_CURRENT_VERSION
 init|=
-literal|5
+literal|0
 decl_stmt|;
 comment|// HFileBlock constants.
 comment|/** The size data structures with minor version is 0 */

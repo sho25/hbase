@@ -265,7 +265,7 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 import|;
 end_import
 
@@ -443,7 +443,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Mutate
+name|MutationProto
 argument_list|>
 name|mutateRequestList
 init|=
@@ -472,7 +472,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Mutate
+name|MutationProto
 name|m
 range|:
 name|mutateRequestList

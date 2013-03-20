@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MediumTests
+name|IpcProtocol
 import|;
 end_import
 
@@ -89,7 +89,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|IpcProtocol
+name|MediumTests
 import|;
 end_import
 
@@ -207,6 +207,30 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Level
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -282,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test for testing protocol buffer based RPC mechanism.  * This test depends on test.proto definition of types in   * hbase-server/src/test/protobuf/test.proto  * and protobuf service definition from   * hbase-server/src/test/protobuf/test_rpc_service.proto  */
+comment|/**  * Test for testing protocol buffer based RPC mechanism.  * This test depends on test.proto definition of types in  * hbase-server/src/test/protobuf/test.proto  * and protobuf service definition from  * hbase-server/src/test/protobuf/test_rpc_service.proto  */
 end_comment
 
 begin_class
@@ -456,6 +480,43 @@ operator|new
 name|Configuration
 argument_list|()
 expr_stmt|;
+name|Logger
+name|log
+init|=
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+literal|"org.apache.hadoop.ipc.HBaseServer"
+argument_list|)
+decl_stmt|;
+name|log
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|DEBUG
+argument_list|)
+expr_stmt|;
+name|log
+operator|=
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+literal|"org.apache.hadoop.ipc.HBaseServer.trace"
+argument_list|)
+expr_stmt|;
+name|log
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|TRACE
+argument_list|)
+expr_stmt|;
 comment|// Create server side implementation
 name|PBServerImpl
 name|serverImpl
@@ -568,7 +629,7 @@ name|addr
 argument_list|,
 name|conf
 argument_list|,
-literal|10000
+literal|100000
 argument_list|)
 decl_stmt|;
 comment|// Test ping method

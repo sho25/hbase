@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -92,20 +82,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -178,42 +154,22 @@ index|[]
 name|row
 parameter_list|)
 block|{
-if|if
-condition|(
-name|row
-operator|==
-literal|null
-operator|||
-name|row
+name|Mutation
 operator|.
-name|length
-operator|>
-name|HConstants
-operator|.
-name|MAX_ROW_LENGTH
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
+name|checkRow
 argument_list|(
-literal|"Row key is invalid"
+name|row
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 name|this
 operator|.
 name|row
 operator|=
-name|Arrays
+name|Bytes
 operator|.
-name|copyOf
+name|copy
 argument_list|(
 name|row
-argument_list|,
-name|row
-operator|.
-name|length
 argument_list|)
 expr_stmt|;
 block|}
@@ -287,9 +243,9 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|WrongRowIOException
 argument_list|(
-literal|"The row in the recently added Put/Delete "
+literal|"The row in the recently added Put/Delete<"
 operator|+
 name|Bytes
 operator|.
@@ -301,7 +257,7 @@ name|getRow
 argument_list|()
 argument_list|)
 operator|+
-literal|" doesn't match the original one "
+literal|"> doesn't match the original one<"
 operator|+
 name|Bytes
 operator|.
@@ -311,6 +267,8 @@ name|this
 operator|.
 name|row
 argument_list|)
+operator|+
+literal|">"
 argument_list|)
 throw|;
 block|}

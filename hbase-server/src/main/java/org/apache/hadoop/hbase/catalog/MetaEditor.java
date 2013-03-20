@@ -279,9 +279,9 @@ name|generated
 operator|.
 name|ClientProtos
 operator|.
-name|Mutate
+name|MutationProto
 operator|.
-name|MutateType
+name|MutationType
 import|;
 end_import
 
@@ -1314,9 +1314,9 @@ name|addMutationRequest
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toMutate
+name|toMutation
 argument_list|(
-name|MutateType
+name|MutationType
 operator|.
 name|PUT
 argument_list|,
