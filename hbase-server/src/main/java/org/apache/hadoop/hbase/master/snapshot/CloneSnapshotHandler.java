@@ -729,6 +729,13 @@ name|stopped
 operator|=
 literal|true
 expr_stmt|;
+name|super
+operator|.
+name|completed
+argument_list|(
+name|exception
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override

@@ -1020,7 +1020,40 @@ specifier|final
 name|Throwable
 name|exception
 parameter_list|)
-block|{   }
+block|{
+name|releaseTableLock
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|exception
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Try deleting the enabling node in case of error
+comment|// If this does not happen then if the client tries to create the table
+comment|// again with the same Active master
+comment|// It will block the creation saying TableAlreadyExists.
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|removeEnablingTable
+argument_list|(
+name|this
+operator|.
+name|hTableDescriptor
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Responsible of table creation (on-disk and META) and assignment.    * - Create the table directory and descriptor (temp folder)    * - Create the on-disk regions (temp folder)    *   [If something fails here: we've just some trash in temp]    * - Move the table from temp to the root directory    *   [If something fails here: we've the table in place but some of the rows required    *    present in META. (hbck needed)]    * - Add regions to META    *   [If something fails here: we don't have regions assigned: table disabled]    * - Assign regions to Region Servers    *   [If something fails here: we still have the table in disabled state]    * - Update ZooKeeper with the enabled state    */
 specifier|private
 name|void
@@ -1254,12 +1287,6 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
-block|}
-finally|finally
-block|{
-name|releaseTableLock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
