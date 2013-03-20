@@ -535,6 +535,11 @@ argument_list|,
 name|spec
 argument_list|,
 name|filter
+argument_list|,
+name|model
+operator|.
+name|getCaching
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|String

@@ -233,6 +233,14 @@ specifier|private
 specifier|static
 specifier|final
 name|int
+name|CACHING
+init|=
+literal|1000
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
 name|BATCH
 init|=
 literal|100
@@ -251,7 +259,9 @@ literal|" endTime=\"1245393318192\""
 operator|+
 literal|" endRow=\"enp5eng=\""
 operator|+
-literal|" batch=\"100\">"
+literal|" batch=\"100\""
+operator|+
+literal|" caching=\"1000\">"
 operator|+
 literal|"<column>Y29sdW1uMQ==</column>"
 operator|+
@@ -265,9 +275,9 @@ specifier|final
 name|String
 name|AS_PB
 init|=
-literal|"CgthYnJhY2FkYWJyYRIFenp5engaB2NvbHVtbjEaC2NvbHVtbjI6Zm9vIGQo47qL554kMLDi57mf"
+literal|"CgthYnJhY2FkYWJyYRIFenp5engaB2NvbHVtbjEaC2NvbHVtbjI6Zm9"
 operator|+
-literal|"JA=="
+literal|"vIGQo47qL554kMLDi57mfJDj/////B0joBw=="
 decl_stmt|;
 specifier|private
 name|JAXBContext
@@ -353,6 +363,13 @@ operator|.
 name|setBatch
 argument_list|(
 name|BATCH
+argument_list|)
+expr_stmt|;
+name|model
+operator|.
+name|setCaching
+argument_list|(
+name|CACHING
 argument_list|)
 expr_stmt|;
 return|return
@@ -612,6 +629,16 @@ name|getBatch
 argument_list|()
 argument_list|,
 name|BATCH
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|model
+operator|.
+name|getCaching
+argument_list|()
+argument_list|,
+name|CACHING
 argument_list|)
 expr_stmt|;
 block|}

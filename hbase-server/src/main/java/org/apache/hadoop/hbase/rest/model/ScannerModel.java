@@ -366,7 +366,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;sequence>  *&lt;element name="column" type="base64Binary" minOccurs="0" maxOccurs="unbounded"/&gt;  *&lt;/sequence&gt;  *&lt;element name="filter" type="string" minOccurs="0" maxOccurs="1"&gt;&lt;/element&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxVersions" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;sequence>  *&lt;element name="column" type="base64Binary" minOccurs="0" maxOccurs="unbounded"/&gt;  *&lt;/sequence&gt;  *&lt;element name="filter" type="string" minOccurs="0" maxOccurs="1"&gt;&lt;/element&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="caching" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxVersions" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -467,6 +467,13 @@ init|=
 name|Integer
 operator|.
 name|MAX_VALUE
+decl_stmt|;
+specifier|private
+name|int
+name|caching
+init|=
+operator|-
+literal|1
 decl_stmt|;
 annotation|@
 name|XmlRootElement
@@ -2682,9 +2689,32 @@ condition|)
 block|{
 name|model
 operator|.
-name|setBatch
+name|setCaching
 argument_list|(
 name|caching
+argument_list|)
+expr_stmt|;
+block|}
+name|int
+name|batch
+init|=
+name|scan
+operator|.
+name|getBatch
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|batch
+operator|>
+literal|0
+condition|)
+block|{
+name|model
+operator|.
+name|setBatch
+argument_list|(
+name|batch
 argument_list|)
 expr_stmt|;
 block|}
@@ -2746,7 +2776,7 @@ specifier|public
 name|ScannerModel
 parameter_list|()
 block|{}
-comment|/**    * Constructor    * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param endTime the upper bound on timestamps of values of interest    * @param maxVersions the maximum number of versions to return    * @param filter a filter specification    * (values with timestamps later than this are excluded)    */
+comment|/**    * Constructor    * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param caching the number of rows that the scanner will fetch at once    * @param endTime the upper bound on timestamps of values of interest    * @param maxVersions the maximum number of versions to return    * @param filter a filter specification    * (values with timestamps later than this are excluded)    */
 specifier|public
 name|ScannerModel
 parameter_list|(
@@ -2767,6 +2797,9 @@ name|columns
 parameter_list|,
 name|int
 name|batch
+parameter_list|,
+name|int
+name|caching
 parameter_list|,
 name|long
 name|endTime
@@ -2807,6 +2840,12 @@ name|batch
 expr_stmt|;
 name|this
 operator|.
+name|caching
+operator|=
+name|caching
+expr_stmt|;
+name|this
+operator|.
 name|endTime
 operator|=
 name|endTime
@@ -2824,7 +2863,7 @@ operator|=
 name|filter
 expr_stmt|;
 block|}
-comment|/**    * Constructor     * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param startTime the lower bound on timestamps of values of interest    * (values with timestamps earlier than this are excluded)    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    * @param filter a filter specification    */
+comment|/**    * Constructor     * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param caching the number of rows that the scanner will fetch at once    * @param startTime the lower bound on timestamps of values of interest    * (values with timestamps earlier than this are excluded)    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    * @param filter a filter specification    */
 specifier|public
 name|ScannerModel
 parameter_list|(
@@ -2845,6 +2884,9 @@ name|columns
 parameter_list|,
 name|int
 name|batch
+parameter_list|,
+name|int
+name|caching
 parameter_list|,
 name|long
 name|startTime
@@ -2882,6 +2924,12 @@ operator|.
 name|batch
 operator|=
 name|batch
+expr_stmt|;
+name|this
+operator|.
+name|caching
+operator|=
+name|caching
 expr_stmt|;
 name|this
 operator|.
@@ -3019,6 +3067,18 @@ return|return
 name|batch
 return|;
 block|}
+comment|/**    * @return the number of rows that the scanner to fetch at once    */
+annotation|@
+name|XmlAttribute
+specifier|public
+name|int
+name|getCaching
+parameter_list|()
+block|{
+return|return
+name|caching
+return|;
+block|}
 comment|/**    * @return the lower bound on timestamps of items of interest    */
 annotation|@
 name|XmlAttribute
@@ -3135,6 +3195,22 @@ operator|.
 name|batch
 operator|=
 name|batch
+expr_stmt|;
+block|}
+comment|/**    * @param caching the number of rows to fetch at once    */
+specifier|public
+name|void
+name|setCaching
+parameter_list|(
+name|int
+name|caching
+parameter_list|)
+block|{
+name|this
+operator|.
+name|caching
+operator|=
+name|caching
 expr_stmt|;
 block|}
 comment|/**    * @param maxVersions maximum number of versions to return    */
@@ -3335,6 +3411,21 @@ name|getBatch
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|caching
+operator|>
+literal|0
+condition|)
+block|{
+name|builder
+operator|.
+name|setCaching
+argument_list|(
+name|caching
+argument_list|)
+expr_stmt|;
+block|}
 name|builder
 operator|.
 name|setMaxVersions
@@ -3468,6 +3559,22 @@ operator|=
 name|builder
 operator|.
 name|getBatch
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|builder
+operator|.
+name|hasCaching
+argument_list|()
+condition|)
+block|{
+name|caching
+operator|=
+name|builder
+operator|.
+name|getCaching
 argument_list|()
 expr_stmt|;
 block|}
