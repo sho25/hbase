@@ -336,6 +336,20 @@ literal|8
 argument_list|,
 literal|8
 argument_list|)
+block|,
+name|FAILED_OPEN
+argument_list|(
+literal|9
+argument_list|,
+literal|9
+argument_list|)
+block|,
+name|FAILED_CLOSE
+argument_list|(
+literal|10
+argument_list|,
+literal|10
+argument_list|)
 block|,       ;
 specifier|public
 specifier|static
@@ -408,6 +422,22 @@ name|int
 name|SPLIT_VALUE
 init|=
 literal|8
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FAILED_OPEN_VALUE
+init|=
+literal|9
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FAILED_CLOSE_VALUE
+init|=
+literal|10
 decl_stmt|;
 specifier|public
 specifier|final
@@ -486,6 +516,18 @@ literal|8
 case|:
 return|return
 name|SPLIT
+return|;
+case|case
+literal|9
+case|:
+return|return
+name|FAILED_OPEN
+return|;
+case|case
+literal|10
+case|:
+return|return
+name|FAILED_CLOSE
 return|;
 default|default:
 return|return
@@ -679,6 +721,10 @@ block|,
 name|SPLITTING
 block|,
 name|SPLIT
+block|,
+name|FAILED_OPEN
+block|,
+name|FAILED_CLOSE
 block|,        }
 decl_stmt|;
 specifier|public
@@ -29656,49 +29702,49 @@ init|=
 block|{
 literal|"\n\023ClusterStatus.proto\032\013hbase.proto\032\017Clus"
 operator|+
-literal|"terId.proto\032\010FS.proto\"\346\001\n\013RegionState\022\037\n"
+literal|"terId.proto\032\010FS.proto\"\211\002\n\013RegionState\022\037\n"
 operator|+
 literal|"\nregionInfo\030\001 \002(\0132\013.RegionInfo\022!\n\005state\030"
 operator|+
 literal|"\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001(\004"
 operator|+
-literal|"\"\203\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020"
+literal|"\"\246\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020"
 operator|+
 literal|"\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLOS"
 operator|+
 literal|"E\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r\n\tSPLITTIN"
 operator|+
-literal|"G\020\007\022\t\n\005SPLIT\020\010\"W\n\022RegionInTransition\022\036\n\004"
+literal|"G\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAILE"
 operator|+
-literal|"spec\030\001 \002(\0132\020.RegionSpecifier\022!\n\013regionSt"
+literal|"D_CLOSE\020\n\"W\n\022RegionInTransition\022\036\n\004spec\030"
 operator|+
-literal|"ate\030\002 \002(\0132\014.RegionState\"N\n\016LiveServerInf"
+literal|"\001 \002(\0132\020.RegionSpecifier\022!\n\013regionState\030\002"
 block|,
-literal|"o\022\033\n\006server\030\001 \002(\0132\013.ServerName\022\037\n\nserver"
+literal|" \002(\0132\014.RegionState\"N\n\016LiveServerInfo\022\033\n\006"
 operator|+
-literal|"Load\030\002 \002(\0132\013.ServerLoad\"\327\002\n\rClusterStatu"
+literal|"server\030\001 \002(\0132\013.ServerName\022\037\n\nserverLoad\030"
 operator|+
-literal|"s\022.\n\014hbaseVersion\030\001 \001(\0132\030.HBaseVersionFi"
+literal|"\002 \002(\0132\013.ServerLoad\"\327\002\n\rClusterStatus\022.\n\014"
 operator|+
-literal|"leContent\022$\n\013liveServers\030\002 \003(\0132\017.LiveSer"
+literal|"hbaseVersion\030\001 \001(\0132\030.HBaseVersionFileCon"
 operator|+
-literal|"verInfo\022 \n\013deadServers\030\003 \003(\0132\013.ServerNam"
+literal|"tent\022$\n\013liveServers\030\002 \003(\0132\017.LiveServerIn"
 operator|+
-literal|"e\0220\n\023regionsInTransition\030\004 \003(\0132\023.RegionI"
+literal|"fo\022 \n\013deadServers\030\003 \003(\0132\013.ServerName\0220\n\023"
 operator|+
-literal|"nTransition\022\035\n\tclusterId\030\005 \001(\0132\n.Cluster"
+literal|"regionsInTransition\030\004 \003(\0132\023.RegionInTran"
 operator|+
-literal|"Id\022(\n\022masterCoprocessors\030\006 \003(\0132\014.Coproce"
+literal|"sition\022\035\n\tclusterId\030\005 \001(\0132\n.ClusterId\022(\n"
 operator|+
-literal|"ssor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022\"\n\rbac"
+literal|"\022masterCoprocessors\030\006 \003(\0132\014.Coprocessor\022"
 operator|+
-literal|"kupMasters\030\010 \003(\0132\013.ServerName\022\022\n\nbalance"
+literal|"\033\n\006master\030\007 \001(\0132\013.ServerName\022\"\n\rbackupMa"
 block|,
-literal|"rOn\030\t \001(\010BF\n*org.apache.hadoop.hbase.pro"
+literal|"sters\030\010 \003(\0132\013.ServerName\022\022\n\nbalancerOn\030\t"
 operator|+
-literal|"tobuf.generatedB\023ClusterStatusProtosH\001\240\001"
+literal|" \001(\010BF\n*org.apache.hadoop.hbase.protobuf"
 operator|+
-literal|"\001"
+literal|".generatedB\023ClusterStatusProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

@@ -1143,6 +1143,14 @@ name|isRegionInTransition
 argument_list|(
 name|region
 argument_list|)
+operator|&&
+operator|!
+name|regionStates
+operator|.
+name|isRegionFailedToClose
+argument_list|(
+name|region
+argument_list|)
 condition|)
 continue|continue;
 specifier|final
@@ -1173,6 +1181,8 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

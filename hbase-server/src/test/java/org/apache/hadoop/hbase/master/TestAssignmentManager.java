@@ -1738,6 +1738,15 @@ name|SERVERNAME_B
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Mocking
+operator|.
+name|waitForRegionFailedToCloseAndSetToPendingClose
+argument_list|(
+name|am
+argument_list|,
+name|REGIONINFO
+argument_list|)
+expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
 comment|// regionserver will have set the region in CLOSED state. This will
 comment|// trigger callback into AM. The below zk close call is from the RS close
@@ -2023,6 +2032,15 @@ name|SERVERNAME_B
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Mocking
+operator|.
+name|waitForRegionFailedToCloseAndSetToPendingClose
+argument_list|(
+name|am
+argument_list|,
+name|REGIONINFO
+argument_list|)
+expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
 comment|// regionserver will have set the region in CLOSED state. This will
 comment|// trigger callback into AM. The below zk close call is from the RS close
@@ -2306,6 +2324,15 @@ literal|null
 argument_list|,
 name|SERVERNAME_B
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|Mocking
+operator|.
+name|waitForRegionFailedToCloseAndSetToPendingClose
+argument_list|(
+name|am
+argument_list|,
+name|REGIONINFO
 argument_list|)
 expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
@@ -2656,6 +2683,35 @@ operator|.
 name|balance
 argument_list|(
 name|plan
+argument_list|)
+expr_stmt|;
+comment|// Must be failed to close since the server is fake
+name|assertTrue
+argument_list|(
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|isRegionFailedToClose
+argument_list|(
+name|REGIONINFO
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Move it back to pending_close
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|updateRegionState
+argument_list|(
+name|REGIONINFO
+argument_list|,
+name|State
+operator|.
+name|PENDING_CLOSE
 argument_list|)
 expr_stmt|;
 comment|// Now fake the region closing successfully over on the regionserver; the
