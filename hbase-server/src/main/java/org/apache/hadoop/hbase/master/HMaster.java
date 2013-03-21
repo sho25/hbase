@@ -3344,8 +3344,8 @@ name|isActiveMaster
 init|=
 literal|false
 decl_stmt|;
-comment|// flag set after we complete initialization once active (used for testing)
-specifier|private
+comment|// flag set after we complete initialization once active,
+comment|// it is not private since it's used in unit tests
 specifier|volatile
 name|boolean
 name|initialized
@@ -8511,6 +8511,53 @@ name|type
 argument_list|)
 expr_stmt|;
 block|}
+try|try
+block|{
+name|move
+argument_list|(
+name|encodedRegionName
+argument_list|,
+name|destServerName
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+name|ioe
+argument_list|)
+throw|;
+block|}
+return|return
+name|mrr
+return|;
+block|}
+end_function
+
+begin_function
+name|void
+name|move
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|destServerName
+parameter_list|)
+throws|throws
+name|UnknownRegionException
+block|{
 name|RegionState
 name|regionState
 init|=
@@ -8538,9 +8585,6 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ServiceException
-argument_list|(
-operator|new
 name|UnknownRegionException
 argument_list|(
 name|Bytes
@@ -8548,7 +8592,6 @@ operator|.
 name|toStringBinary
 argument_list|(
 name|encodedRegionName
-argument_list|)
 argument_list|)
 argument_list|)
 throw|;
@@ -8663,9 +8706,7 @@ operator|+
 literal|"."
 argument_list|)
 expr_stmt|;
-return|return
-name|mrr
-return|;
+return|return;
 block|}
 block|}
 comment|// Now we can do the move
@@ -8687,6 +8728,9 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|checkInitialized
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -8718,9 +8762,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-return|return
-name|mrr
-return|;
+return|return;
 block|}
 block|}
 name|LOG
@@ -8801,16 +8843,9 @@ name|ioe
 argument_list|)
 expr_stmt|;
 throw|throw
-operator|new
-name|ServiceException
-argument_list|(
 name|ure
-argument_list|)
 throw|;
 block|}
-return|return
-name|mrr
-return|;
 block|}
 end_function
 
