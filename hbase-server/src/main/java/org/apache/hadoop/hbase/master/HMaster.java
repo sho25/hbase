@@ -3567,7 +3567,7 @@ operator|.
 name|DEFAULT_MASTER_PORT
 argument_list|)
 decl_stmt|;
-comment|// Creation of a ISA will force a resolve.
+comment|// Test that the hostname is reachable
 name|InetSocketAddress
 name|initialIsa
 init|=
@@ -3593,11 +3593,60 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Failed resolve of "
+literal|"Failed resolve of hostname "
 operator|+
 name|initialIsa
 argument_list|)
 throw|;
+block|}
+comment|// Verify that the bind address is reachable if set
+name|String
+name|bindAddress
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.master.ipc.address"
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|bindAddress
+operator|!=
+literal|null
+condition|)
+block|{
+name|initialIsa
+operator|=
+operator|new
+name|InetSocketAddress
+argument_list|(
+name|bindAddress
+argument_list|,
+name|port
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|initialIsa
+operator|.
+name|getAddress
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Failed resolve of bind address "
+operator|+
+name|initialIsa
+argument_list|)
+throw|;
+block|}
 block|}
 name|int
 name|numHandlers
@@ -3657,7 +3706,7 @@ operator|.
 name|getHostName
 argument_list|()
 operator|,
-comment|// BindAddress is IP we got for this server.
+comment|// This is bindAddress if set else it's hostname
 name|initialIsa
 operator|.
 name|getPort
@@ -3702,12 +3751,7 @@ operator|=
 operator|new
 name|ServerName
 argument_list|(
-name|this
-operator|.
-name|isa
-operator|.
-name|getHostName
-argument_list|()
+name|hostname
 argument_list|,
 name|this
 operator|.

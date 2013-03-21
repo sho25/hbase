@@ -3937,6 +3937,12 @@ comment|// Server to handle client requests.
 name|String
 name|hostname
 init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.ipc.address"
+argument_list|,
 name|Strings
 operator|.
 name|domainNamePointerToHostName
@@ -3961,6 +3967,7 @@ argument_list|(
 literal|"hbase.regionserver.dns.nameserver"
 argument_list|,
 literal|"default"
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
