@@ -132,10 +132,6 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa1
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|HRegionLocation
@@ -149,10 +145,6 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa1
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -189,10 +181,6 @@ operator|.
 name|ROOT_REGIONINFO
 argument_list|,
 name|hsa1
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|assertNotSame
@@ -239,10 +227,6 @@ operator|.
 name|ROOT_REGIONINFO
 argument_list|,
 name|hsa2
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 comment|// These have same HRI but different locations so should be different.
@@ -323,10 +307,6 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa1
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|System
@@ -374,10 +354,6 @@ operator|.
 name|ROOT_REGIONINFO
 argument_list|,
 name|hsa1
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|ServerName
@@ -405,10 +381,6 @@ operator|.
 name|ROOT_REGIONINFO
 argument_list|,
 name|hsa2
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|assertTrue

@@ -3059,10 +3059,6 @@ literal|1
 argument_list|,
 literal|0L
 argument_list|)
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 comment|// Same server as already in cache reporting - overwrites any value despite seqNum.

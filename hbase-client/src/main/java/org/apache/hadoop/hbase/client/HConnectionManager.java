@@ -709,6 +709,22 @@ name|hbase
 operator|.
 name|exceptions
 operator|.
+name|RegionOpeningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
 name|RegionServerStoppedException
 import|;
 end_import
@@ -930,6 +946,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
 import|;
 end_import
 
@@ -4960,6 +4992,16 @@ return|;
 comment|// don't cache it
 block|}
 comment|// instantiate the location
+name|long
+name|seqNum
+init|=
+name|HRegionInfo
+operator|.
+name|getSeqNumDuringOpen
+argument_list|(
+name|result
+argument_list|)
+decl_stmt|;
 name|HRegionLocation
 name|loc
 init|=
@@ -4970,12 +5012,7 @@ name|regionInfo
 argument_list|,
 name|serverName
 argument_list|,
-name|HRegionInfo
-operator|.
-name|getSeqNumDuringOpen
-argument_list|(
-name|result
-argument_list|)
+name|seqNum
 argument_list|)
 decl_stmt|;
 comment|// cache this meta entry
@@ -8394,6 +8431,8 @@ literal|false
 decl_stmt|;
 name|HRegionLocation
 name|oldLocation
+init|=
+literal|null
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -8677,6 +8716,41 @@ name|rme
 operator|.
 name|getLocationSeqNum
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|RegionOpeningException
+operator|.
+name|find
+argument_list|(
+name|exception
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" is being opened on "
+operator|+
+name|source
+operator|.
+name|getHostnamePort
+argument_list|()
+operator|+
+literal|"; not deleting the cache entry"
 argument_list|)
 expr_stmt|;
 block|}
@@ -10125,7 +10199,17 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Retrying due to errors: "
+literal|"Retrying due to errors"
+operator|+
+operator|(
+name|lastRetry
+condition|?
+literal|" (one last time)"
+else|:
+literal|""
+operator|)
+operator|+
+literal|": "
 operator|+
 name|retriedErrors
 operator|.
@@ -10142,19 +10226,6 @@ condition|(
 name|lastRetry
 condition|)
 block|{
-if|if
-condition|(
-name|isTraceEnabled
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"No more retries"
-argument_list|)
-expr_stmt|;
-block|}
 name|noRetry
 operator|=
 literal|true
@@ -10314,7 +10385,7 @@ init|=
 name|makeException
 argument_list|()
 operator|.
-name|getMessage
+name|getExhaustiveDescription
 argument_list|()
 decl_stmt|;
 name|exceptions

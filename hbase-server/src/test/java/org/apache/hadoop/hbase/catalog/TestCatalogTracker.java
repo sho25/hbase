@@ -1830,10 +1830,6 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
 name|SN
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|Mockito

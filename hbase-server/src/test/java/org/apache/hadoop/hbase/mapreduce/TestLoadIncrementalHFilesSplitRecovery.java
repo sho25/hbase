@@ -1796,10 +1796,6 @@ literal|1234
 argument_list|,
 literal|0
 argument_list|)
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|Mockito

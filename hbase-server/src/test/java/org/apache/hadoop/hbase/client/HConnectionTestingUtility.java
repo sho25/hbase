@@ -323,10 +323,6 @@ argument_list|(
 name|hri
 argument_list|,
 name|sn
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
 argument_list|)
 decl_stmt|;
 name|Mockito
