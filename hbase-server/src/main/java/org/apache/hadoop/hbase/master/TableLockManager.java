@@ -555,6 +555,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 specifier|static
 class|class
 name|NullTableLockManager

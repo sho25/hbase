@@ -139,6 +139,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|TableLockManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -207,6 +223,12 @@ comment|/**    * @return the RegionServerAccounting for this Region Server    */
 specifier|public
 name|RegionServerAccounting
 name|getRegionServerAccounting
+parameter_list|()
+function_decl|;
+comment|/**    * @return RegionServer's instance of {@link TableLockManager}    */
+specifier|public
+name|TableLockManager
+name|getTableLockManager
 parameter_list|()
 function_decl|;
 comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @param ct Instance of {@link CatalogTracker}    * @throws KeeperException    * @throws IOException    */

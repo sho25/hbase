@@ -299,6 +299,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|TableLockManager
+operator|.
+name|NullTableLockManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -1392,7 +1410,7 @@ name|RegionNameAndIndex
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * @param sn Name of this mock regionserver    * @throws IOException     * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    */
+comment|/**    * @param sn Name of this mock regionserver    * @throws IOException    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    */
 name|MockRegionServer
 parameter_list|(
 specifier|final
@@ -1934,6 +1952,17 @@ block|{
 comment|// TODO Auto-generated method stub
 return|return
 literal|null
+return|;
+block|}
+specifier|public
+name|TableLockManager
+name|getTableLockManager
+parameter_list|()
+block|{
+return|return
+operator|new
+name|NullTableLockManager
+argument_list|()
 return|;
 block|}
 annotation|@
