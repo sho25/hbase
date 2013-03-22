@@ -4202,6 +4202,8 @@ name|getCompression
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -4222,6 +4224,9 @@ name|compression
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -4325,6 +4330,11 @@ operator|.
 name|withCompression
 argument_list|(
 name|compression
+argument_list|)
+operator|.
+name|includeMVCCReadpoint
+argument_list|(
+name|includeMVCCReadpoint
 argument_list|)
 operator|.
 name|build

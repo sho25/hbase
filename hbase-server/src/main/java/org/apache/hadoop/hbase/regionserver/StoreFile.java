@@ -2295,6 +2295,12 @@ name|HFile
 operator|.
 name|DEFAULT_BYTES_PER_CHECKSUM
 decl_stmt|;
+specifier|private
+name|boolean
+name|includeMVCCReadpoint
+init|=
+literal|true
+decl_stmt|;
 specifier|public
 name|WriterBuilder
 parameter_list|(
@@ -2549,6 +2555,25 @@ return|return
 name|this
 return|;
 block|}
+comment|/**      * @param includeMVCCReadpoint whether to write the mvcc readpoint to the file for each KV      * @return this (for chained invocation)      */
+specifier|public
+name|WriterBuilder
+name|includeMVCCReadpoint
+parameter_list|(
+name|boolean
+name|includeMVCCReadpoint
+parameter_list|)
+block|{
+name|this
+operator|.
+name|includeMVCCReadpoint
+operator|=
+name|includeMVCCReadpoint
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|/**      * Create a store file writer. Client is responsible for closing file when      * done. If metadata, add BEFORE closing using      * {@link Writer#appendMetadata}.      */
 specifier|public
 name|Writer
@@ -2716,6 +2741,8 @@ argument_list|,
 name|checksumType
 argument_list|,
 name|bytesPerChecksum
+argument_list|,
+name|includeMVCCReadpoint
 argument_list|)
 return|;
 block|}
@@ -3096,7 +3123,7 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
-comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param checksumType the checksum type      * @param bytesPerChecksum the number of bytes per checksum value      * @throws IOException problem writing to FS      */
+comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param checksumType the checksum type      * @param bytesPerChecksum the number of bytes per checksum value      * @param includeMVCCReadpoint whether to write the mvcc readpoint to the file for each KV      * @throws IOException problem writing to FS      */
 specifier|private
 name|Writer
 parameter_list|(
@@ -3141,6 +3168,10 @@ parameter_list|,
 specifier|final
 name|int
 name|bytesPerChecksum
+parameter_list|,
+specifier|final
+name|boolean
+name|includeMVCCReadpoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -3210,6 +3241,11 @@ operator|.
 name|withBytesPerChecksum
 argument_list|(
 name|bytesPerChecksum
+argument_list|)
+operator|.
+name|includeMVCCReadpoint
+argument_list|(
+name|includeMVCCReadpoint
 argument_list|)
 operator|.
 name|create

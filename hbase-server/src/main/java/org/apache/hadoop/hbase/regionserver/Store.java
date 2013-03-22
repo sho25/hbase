@@ -487,7 +487,7 @@ name|FileSystem
 name|getFileSystem
 parameter_list|()
 function_decl|;
-comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @return Writer for a new StoreFile in the tmp dir.    */
 specifier|public
 name|StoreFile
 operator|.
@@ -504,6 +504,9 @@ name|compression
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
 parameter_list|)
 throws|throws
 name|IOException

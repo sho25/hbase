@@ -482,8 +482,6 @@ specifier|private
 specifier|final
 name|boolean
 name|includeMemstoreTS
-init|=
-literal|true
 decl_stmt|;
 specifier|private
 name|long
@@ -553,6 +551,9 @@ parameter_list|,
 specifier|final
 name|int
 name|bytesPerChecksum
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -582,6 +583,8 @@ argument_list|,
 name|checksumType
 argument_list|,
 name|bytesPerChecksum
+argument_list|,
+name|includeMVCCReadpoint
 argument_list|)
 return|;
 block|}
@@ -627,6 +630,10 @@ parameter_list|,
 specifier|final
 name|int
 name|bytesPerChecksum
+parameter_list|,
+specifier|final
+name|boolean
+name|includeMVCCReadpoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -672,6 +679,12 @@ operator|.
 name|bytesPerChecksum
 operator|=
 name|bytesPerChecksum
+expr_stmt|;
+name|this
+operator|.
+name|includeMemstoreTS
+operator|=
+name|includeMVCCReadpoint
 expr_stmt|;
 name|finishInit
 argument_list|(
