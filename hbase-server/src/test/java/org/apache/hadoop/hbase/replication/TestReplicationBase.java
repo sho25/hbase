@@ -454,7 +454,7 @@ name|setInt
 argument_list|(
 literal|"replication.source.size.capacity"
 argument_list|,
-literal|1024
+literal|10240
 argument_list|)
 expr_stmt|;
 name|conf1
