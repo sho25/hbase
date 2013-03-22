@@ -4734,7 +4734,9 @@ operator|=
 name|logSplitter
 operator|.
 name|splitLog
-argument_list|()
+argument_list|(
+name|latch
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
