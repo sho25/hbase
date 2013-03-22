@@ -1755,9 +1755,10 @@ operator|.
 name|seekTo
 argument_list|(
 name|gaussianRandomRowBytes
+argument_list|)
 operator|<
 literal|0
-argument_list|)
+condition|)
 block|{
 name|LOG
 operator|.
