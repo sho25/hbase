@@ -608,7 +608,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hstore.blockingStoreFiles"
+name|HStore
+operator|.
+name|BLOCKING_STOREFILES_KEY
 argument_list|,
 name|HStore
 operator|.

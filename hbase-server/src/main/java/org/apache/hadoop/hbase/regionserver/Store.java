@@ -774,6 +774,12 @@ name|ChangedReadersObserver
 name|o
 parameter_list|)
 function_decl|;
+comment|/**    * @return Whether this store has too many store files.    */
+specifier|public
+name|boolean
+name|hasTooManyStoreFiles
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
