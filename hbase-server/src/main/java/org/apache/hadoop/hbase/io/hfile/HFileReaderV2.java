@@ -388,7 +388,15 @@ specifier|final
 name|int
 name|MAX_MINOR_VERSION
 init|=
-literal|2
+literal|3
+decl_stmt|;
+comment|/** Minor versions starting with this number have faked index key */
+specifier|static
+specifier|final
+name|int
+name|MINOR_VERSION_WITH_FAKED_KEY
+init|=
+literal|3
 decl_stmt|;
 comment|/**    * Opens a HFile. You must load the index before you can use it by calling    * {@link #loadFileInfo()}.    *    * @param path Path to HFile.    * @param trailer File trailer.    * @param fsdis input stream. Caller is responsible for closing the passed    *          stream.    * @param size Length of the stream.    * @param closeIStream Whether to close the stream.    * @param cacheConf Cache configuration.    * @param preferredEncodingInCache the encoding to use in cache in case we    *          have a choice. If the file is already encoded on disk, we will    *          still use its on-disk encoding in cache.    */
 specifier|public
@@ -1807,7 +1815,7 @@ name|isCompaction
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * An internal API function. Seek to the given key, optionally rewinding to      * the first key of the block before doing the seek.      *      * @param key key byte array      * @param offset key offset in the key byte array      * @param length key length      * @param rewind whether to rewind to the first key of the block before      *        doing the seek. If this is false, we are assuming we never go      *        back, otherwise the result is undefined.      * @return -1 if the key is earlier than the first key of the file,      *         0 if we are at the given key, and 1 if we are past the given key      * @throws IOException      */
+comment|/**      * An internal API function. Seek to the given key, optionally rewinding to      * the first key of the block before doing the seek.      *      * @param key key byte array      * @param offset key offset in the key byte array      * @param length key length      * @param rewind whether to rewind to the first key of the block before      *        doing the seek. If this is false, we are assuming we never go      *        back, otherwise the result is undefined.      * @return -1 if the key is earlier than the first key of the file,      *         0 if we are at the given key, 1 if we are past the given key      *         -2 if the key is earlier than the first key of the file while      *         using a faked index key      * @throws IOException      */
 specifier|protected
 name|int
 name|seekTo
@@ -3338,7 +3346,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Within a loaded block, seek looking for the last key that is smaller      * than (or equal to?) the key we are interested in.      *      * A note on the seekBefore: if you have seekBefore = true, AND the first      * key in the block = key, then you'll get thrown exceptions. The caller has      * to check for that case and load the previous block as appropriate.      *      * @param key the key to find      * @param seekBefore find the key before the given key in case of exact      *          match.      * @return 0 in case of an exact key match, 1 in case of an inexact match      */
+comment|/**      * Within a loaded block, seek looking for the last key that is smaller      * than (or equal to?) the key we are interested in.      *      * A note on the seekBefore: if you have seekBefore = true, AND the first      * key in the block = key, then you'll get thrown exceptions. The caller has      * to check for that case and load the previous block as appropriate.      *      * @param key the key to find      * @param seekBefore find the key before the given key in case of exact      *          match.      * @return 0 in case of an exact key match, 1 in case of an inexact match,      *         -2 in case of an inexact match and furthermore, the input key less      *         than the first key of current block(e.g. using a faked index key)      */
 specifier|private
 name|int
 name|blockSeek
@@ -3640,6 +3648,7 @@ literal|0
 return|;
 comment|// indicate exact match
 block|}
+elseif|else
 if|if
 condition|(
 name|comp
@@ -3668,6 +3677,38 @@ expr_stmt|;
 name|readKeyValueLen
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|lastKeyValueSize
+operator|==
+operator|-
+literal|1
+operator|&&
+name|blockBuffer
+operator|.
+name|position
+argument_list|()
+operator|==
+literal|0
+operator|&&
+name|this
+operator|.
+name|reader
+operator|.
+name|trailer
+operator|.
+name|getMinorVersion
+argument_list|()
+operator|>=
+name|MINOR_VERSION_WITH_FAKED_KEY
+condition|)
+block|{
+return|return
+name|HConstants
+operator|.
+name|INDEX_KEY_MAGIC
+return|;
+block|}
 return|return
 literal|1
 return|;

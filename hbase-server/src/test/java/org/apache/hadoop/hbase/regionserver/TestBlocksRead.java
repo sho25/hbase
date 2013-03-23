@@ -1704,7 +1704,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1744,7 +1744,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Expected block reads: 2. [HBASE-4443]
+comment|// Expected block reads: 1. [HBASE-4443]&[HBASE-7845]
 name|kvs
 operator|=
 name|getData
@@ -1760,7 +1760,7 @@ argument_list|(
 literal|"col5"
 argument_list|)
 argument_list|,
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2180,11 +2180,11 @@ literal|"row"
 argument_list|,
 literal|"col2"
 argument_list|,
+literal|2
+argument_list|,
 literal|3
 argument_list|,
-literal|4
-argument_list|,
-literal|4
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals

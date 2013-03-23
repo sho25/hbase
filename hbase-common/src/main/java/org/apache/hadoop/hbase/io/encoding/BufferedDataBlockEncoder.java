@@ -83,6 +83,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -1119,6 +1133,15 @@ block|{
 name|moveToPrevious
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+return|return
+name|HConstants
+operator|.
+name|INDEX_KEY_MAGIC
+return|;
+comment|// using optimized index key
 block|}
 return|return
 literal|1

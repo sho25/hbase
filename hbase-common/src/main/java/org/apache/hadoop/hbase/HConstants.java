@@ -219,6 +219,16 @@ literal|64
 operator|*
 literal|1024
 decl_stmt|;
+comment|/** Used as a magic return value while optimized index key feature enabled(HBASE-7845) */
+specifier|public
+specifier|final
+specifier|static
+name|int
+name|INDEX_KEY_MAGIC
+init|=
+operator|-
+literal|2
+decl_stmt|;
 comment|/*      * Name of directory that holds recovered edits written by the wal log      * splitting code, one per region      */
 specifier|public
 specifier|static

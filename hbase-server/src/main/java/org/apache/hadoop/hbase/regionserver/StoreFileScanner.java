@@ -133,6 +133,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -881,6 +895,20 @@ operator|<
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|result
+operator|==
+name|HConstants
+operator|.
+name|INDEX_KEY_MAGIC
+condition|)
+block|{
+comment|// using faked key
+return|return
+literal|true
+return|;
+block|}
 comment|// Passed KV is smaller than first KV in file, work from start of file
 return|return
 name|s
@@ -955,6 +983,20 @@ operator|<=
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|result
+operator|==
+name|HConstants
+operator|.
+name|INDEX_KEY_MAGIC
+condition|)
+block|{
+comment|// using faked key
+return|return
+literal|true
+return|;
+block|}
 comment|// If up to now scanner is not seeked yet, this means passed KV is smaller
 comment|// than first KV in file, and it is the first time we seek on this file.
 comment|// So we also need to work from the start of file.
@@ -978,8 +1020,6 @@ return|return
 literal|true
 return|;
 block|}
-else|else
-block|{
 comment|// passed KV is larger than current KV in file, if there is a next
 comment|// it is after, if not then this scanner is done.
 return|return
@@ -988,7 +1028,6 @@ operator|.
 name|next
 argument_list|()
 return|;
-block|}
 block|}
 annotation|@
 name|Override

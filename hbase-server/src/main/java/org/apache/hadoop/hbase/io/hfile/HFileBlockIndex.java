@@ -1209,7 +1209,7 @@ argument_list|)
 throw|;
 name|byte
 index|[]
-name|midKey
+name|targetMidKey
 init|=
 name|this
 operator|.
@@ -1220,13 +1220,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|midKey
+name|targetMidKey
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
-name|midKey
+name|targetMidKey
 return|;
+block|}
 if|if
 condition|(
 name|midLeafBlockOffset
@@ -1350,7 +1352,7 @@ name|keyRelOffset
 operator|+
 name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
-name|midKey
+name|targetMidKey
 operator|=
 name|Arrays
 operator|.
@@ -1372,7 +1374,7 @@ block|}
 else|else
 block|{
 comment|// The middle of the root-level index.
-name|midKey
+name|targetMidKey
 operator|=
 name|blockKeys
 index|[
@@ -1388,11 +1390,11 @@ name|midKey
 operator|.
 name|set
 argument_list|(
-name|midKey
+name|targetMidKey
 argument_list|)
 expr_stmt|;
 return|return
-name|midKey
+name|targetMidKey
 return|;
 block|}
 comment|/**      * @param i from 0 to {@link #getRootBlockCount() - 1}      */
