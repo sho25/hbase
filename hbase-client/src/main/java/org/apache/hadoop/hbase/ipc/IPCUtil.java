@@ -595,7 +595,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
-block|{}
+block|{
 if|if
 condition|(
 name|this
@@ -635,13 +635,7 @@ name|getByteBuffer
 argument_list|()
 return|;
 block|}
-end_class
-
-begin_comment
 comment|/**    * @param codec    * @param cellBlock    * @return CellScanner to work against the content of<code>cellBlock</code>    * @throws IOException    */
-end_comment
-
-begin_function
 name|CellScanner
 name|createCellScanner
 parameter_list|(
@@ -678,13 +672,7 @@ name|length
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param codec    * @param cellBlock    * @param offset    * @param length    * @return CellScanner to work against the content of<code>cellBlock</code>    * @throws IOException    */
-end_comment
-
-begin_function
 name|CellScanner
 name|createCellScanner
 parameter_list|(
@@ -885,13 +873,7 @@ name|is
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Write out header, param, and cell block if there to a {@link ByteBufferOutputStream} sized    * to hold these elements.    * @param header    * @param param    * @param cellBlock    * @return A {@link ByteBufferOutputStream} filled with the content of the passed in    *<code>header</code>,<code>param</code>, and<code>cellBlock</code>.    * @throws IOException    */
-end_comment
-
-begin_function
 specifier|static
 name|ByteBufferOutputStream
 name|write
@@ -965,13 +947,7 @@ return|return
 name|bbos
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Write out header, param, and cell block if there is one.    * @param dos    * @param header    * @param param    * @param cellBlock    * @return Total number of bytes written.    * @throws IOException    */
-end_comment
-
-begin_function
 specifier|static
 name|int
 name|write
@@ -1038,9 +1014,6 @@ name|totalSize
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|int
@@ -1134,13 +1107,7 @@ return|return
 name|totalSize
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param in Stream cue'd up just before a delimited message    * @return Bytes that hold the bytes that make up the message read from<code>in</code>    * @throws IOException    */
-end_comment
-
-begin_function
 specifier|static
 name|byte
 index|[]
@@ -1197,13 +1164,7 @@ return|return
 name|bytes
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param header    * @param body    * @return Size on the wire when the two messages are written with writeDelimitedTo    */
-end_comment
-
-begin_function
 specifier|static
 name|int
 name|getTotalSizeWhenWrittenDelimited
@@ -1268,8 +1229,8 @@ return|return
 name|totalSize
 return|;
 block|}
-end_function
+block|}
+end_class
 
-unit|}
 end_unit
 
