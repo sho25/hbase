@@ -472,6 +472,25 @@ name|monitor
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|DisabledTableSnapshotHandler
+name|prepare
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+return|return
+operator|(
+name|DisabledTableSnapshotHandler
+operator|)
+name|super
+operator|.
+name|prepare
+argument_list|()
+return|;
+block|}
 comment|// TODO consider parallelizing these operations since they are independent. Right now its just
 comment|// easier to keep them serial though
 annotation|@
