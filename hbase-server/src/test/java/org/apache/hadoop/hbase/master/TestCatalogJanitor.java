@@ -685,7 +685,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
+name|Triple
 import|;
 end_import
 
@@ -1708,6 +1708,24 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|dispatchMergingRegions
+parameter_list|(
+name|HRegionInfo
+name|region_a
+parameter_list|,
+name|HRegionInfo
+name|region_b
+parameter_list|,
+name|boolean
+name|forcible
+parameter_list|)
+throws|throws
+name|IOException
+block|{     }
 block|}
 annotation|@
 name|Test
@@ -3060,6 +3078,24 @@ name|splitab
 argument_list|)
 argument_list|)
 expr_stmt|;
+specifier|final
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Result
+argument_list|>
+name|mergedRegions
+init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Result
+argument_list|>
+argument_list|()
+decl_stmt|;
 name|CatalogJanitor
 name|janitor
 init|=
@@ -3077,9 +3113,16 @@ decl_stmt|;
 name|doReturn
 argument_list|(
 operator|new
-name|Pair
+name|Triple
 argument_list|<
 name|Integer
+argument_list|,
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Result
+argument_list|>
 argument_list|,
 name|Map
 argument_list|<
@@ -3091,6 +3134,8 @@ argument_list|>
 argument_list|(
 literal|10
 argument_list|,
+name|mergedRegions
+argument_list|,
 name|splitParents
 argument_list|)
 argument_list|)
@@ -3100,7 +3145,7 @@ argument_list|(
 name|janitor
 argument_list|)
 operator|.
-name|getSplitParents
+name|getMergedRegionsAndSplitParents
 argument_list|()
 expr_stmt|;
 comment|//create ref from splita to parent

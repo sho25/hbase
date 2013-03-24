@@ -285,6 +285,12 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
+comment|/**    * @return The RegionServer's CatalogTracker    */
+specifier|public
+name|CatalogTracker
+name|getCatalogTracker
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

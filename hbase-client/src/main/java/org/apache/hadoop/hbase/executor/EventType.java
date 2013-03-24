@@ -103,6 +103,24 @@ name|MASTER_CLOSE_REGION
 argument_list|)
 block|,
 comment|// RS failed to open a region
+name|RS_ZK_REGION_MERGING
+argument_list|(
+literal|8
+argument_list|,
+literal|null
+argument_list|)
+block|,
+comment|// RS has started merging regions
+name|RS_ZK_REGION_MERGE
+argument_list|(
+literal|9
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_SERVER_OPERATIONS
+argument_list|)
+block|,
+comment|// RS region merge has completed.
 comment|// Messages originating from Master to RS
 name|M_RS_OPEN_REGION
 argument_list|(
@@ -165,6 +183,16 @@ argument_list|)
 block|,
 comment|// Master asking RS to close meta
 comment|// Messages originating from Client to Master
+name|C_M_MERGE_REGION
+argument_list|(
+literal|30
+argument_list|,
+name|ExecutorType
+operator|.
+name|MASTER_TABLE_OPERATIONS
+argument_list|)
+block|,
+comment|// Client asking Master to merge regions
 name|C_M_DELETE_TABLE
 argument_list|(
 literal|40

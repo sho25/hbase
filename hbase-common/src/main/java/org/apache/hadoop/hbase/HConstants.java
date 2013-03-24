@@ -1161,6 +1161,36 @@ argument_list|(
 literal|"splitB"
 argument_list|)
 decl_stmt|;
+comment|/** The lower-half merge region column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|MERGEA_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"mergeA"
+argument_list|)
+decl_stmt|;
+comment|/** The upper-half merge region column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|MERGEB_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"mergeB"
+argument_list|)
+decl_stmt|;
 comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
 specifier|public
 specifier|static
