@@ -45,16 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when something happens related to region handling.  * Subclasses have to be more specific.  */
 end_comment
@@ -72,7 +62,7 @@ specifier|public
 class|class
 name|RegionException
 extends|extends
-name|IOException
+name|HBaseIOException
 block|{
 specifier|private
 specifier|static
