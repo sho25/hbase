@@ -3982,6 +3982,26 @@ try|try
 block|{
 if|if
 condition|(
+name|files
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"There are 0 store file to be copied. There may be no data in the table."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
 operator|!
 name|runCopyJob
 argument_list|(
@@ -4010,6 +4030,7 @@ argument_list|(
 literal|"Snapshot export failed!"
 argument_list|)
 throw|;
+block|}
 block|}
 comment|// Step 3 - Rename fs2:/.snapshot/.tmp/<snapshot> fs2:/.snapshot/<snapshot>
 if|if
