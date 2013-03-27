@@ -513,7 +513,6 @@ specifier|final
 name|long
 name|globalMemStoreLimitLowMark
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|float
@@ -529,7 +528,6 @@ name|DEFAULT_LOWER
 init|=
 literal|0.35f
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|String
