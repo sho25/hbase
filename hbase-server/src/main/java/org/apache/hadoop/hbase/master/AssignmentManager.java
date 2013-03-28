@@ -1210,6 +1210,26 @@ specifier|final
 name|boolean
 name|tomActivated
 decl_stmt|;
+comment|/**    * A map to track the count a region fails to open in a row.    * So that we don't try to open a region forever if the failure is    * unrecoverable.  We don't put this information in region states    * because we don't expect this to happen frequently; we don't    * want to copy this information over during each state transition either.    */
+specifier|private
+specifier|final
+name|ConcurrentHashMap
+argument_list|<
+name|String
+argument_list|,
+name|AtomicInteger
+argument_list|>
+name|failedOpenTracker
+init|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|String
+argument_list|,
+name|AtomicInteger
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|/**    * Constructs a new assignment manager.    *    * @param server    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException    * @throws IOException    */
 specifier|public
 name|AssignmentManager
@@ -2606,6 +2626,8 @@ argument_list|,
 name|sn
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -4121,6 +4143,80 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|AtomicInteger
+name|failedOpenCount
+init|=
+name|failedOpenTracker
+operator|.
+name|get
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|failedOpenCount
+operator|==
+literal|null
+condition|)
+block|{
+name|failedOpenCount
+operator|=
+operator|new
+name|AtomicInteger
+argument_list|()
+expr_stmt|;
+comment|// No need to use putIfAbsent, or extra synchronization since
+comment|// this whole handleRegion block is locked on the encoded region
+comment|// name, and failedOpenTracker is updated only in this block
+name|failedOpenTracker
+operator|.
+name|put
+argument_list|(
+name|encodedName
+argument_list|,
+name|failedOpenCount
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|failedOpenCount
+operator|.
+name|incrementAndGet
+argument_list|()
+operator|>=
+name|maximumAttempts
+condition|)
+block|{
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|FAILED_OPEN
+argument_list|)
+expr_stmt|;
+comment|// remove the tracking info to save memory, also reset
+comment|// the count for next open initiative
+name|failedOpenTracker
+operator|.
+name|remove
+argument_list|(
+name|encodedName
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|getRegionPlan
 argument_list|(
 name|regionState
@@ -4153,6 +4249,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 break|break;
 case|case
@@ -4253,6 +4350,28 @@ operator|+
 literal|" or not on the expected server"
 argument_list|)
 expr_stmt|;
+comment|// Close it without updating the internal region states,
+comment|// so as not to create double assignments in unlucky scenarios
+comment|// mentioned in OpenRegionHandler#process
+name|unassign
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+literal|null
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+literal|null
+argument_list|,
+literal|false
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 comment|// Handle OPENED by removing from transition and deleted zk node
@@ -4278,6 +4397,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|failedOpenTracker
+operator|.
+name|remove
+argument_list|(
+name|encodedName
+argument_list|)
+expr_stmt|;
+comment|// reset the count, if any
 name|this
 operator|.
 name|executorService
@@ -7005,7 +7132,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Send CLOSE RPC if the server is online, otherwise, offline the region    */
+comment|/**    * Send CLOSE RPC if the server is online, otherwise, offline the region.    *    * The RPC will be sent only to the region sever found in the region state    * if it is passed in, otherwise, to the src server specified. If region    * state is not specified, we don't update region state at all, instead    * we just send the RPC call. This is useful for some cleanup without    * messing around the region states (see handleRegion, on region opened    * on an unexpected server scenario, for an example)    */
 specifier|private
 name|void
 name|unassign
@@ -7029,16 +7156,32 @@ parameter_list|,
 specifier|final
 name|boolean
 name|transitionInZK
+parameter_list|,
+specifier|final
+name|ServerName
+name|src
 parameter_list|)
 block|{
 name|ServerName
 name|server
 init|=
+name|src
+decl_stmt|;
+if|if
+condition|(
+name|state
+operator|!=
+literal|null
+condition|)
+block|{
+name|server
+operator|=
 name|state
 operator|.
 name|getServerName
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -7080,11 +7223,19 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|state
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionOffline
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 try|try
@@ -7193,16 +7344,28 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|state
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionOffline
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 elseif|else
 if|if
 condition|(
+name|state
+operator|!=
+literal|null
+operator|&&
 name|t
 operator|instanceof
 name|RegionAlreadyInTransitionException
@@ -7266,6 +7429,10 @@ if|if
 condition|(
 operator|!
 name|tomActivated
+operator|&&
+name|state
+operator|!=
+literal|null
 condition|)
 block|{
 name|regionStates
@@ -7396,6 +7563,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|state
@@ -7716,34 +7885,28 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Unable to set offline in ZooKeeper to assign "
 operator|+
 name|region
 argument_list|)
 expr_stmt|;
+comment|// Setting offline in ZK must have been failed due to ZK racing or some
+comment|// exception which may make the server to abort. If it is ZK racing,
+comment|// we should retry since we already reset the region state,
+comment|// existing (re)assignment will fail anyway.
 if|if
 condition|(
 operator|!
-name|tomActivated
+name|server
+operator|.
+name|isAborted
+argument_list|()
 condition|)
 block|{
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|region
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|FAILED_OPEN
-argument_list|)
-expr_stmt|;
+continue|continue;
 block|}
-return|return;
 block|}
 if|if
 condition|(
@@ -7753,13 +7916,20 @@ name|server
 operator|.
 name|isStopped
 argument_list|()
+operator|||
+name|this
+operator|.
+name|server
+operator|.
+name|isAborted
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Server stopped; skipping assign of "
+literal|"Server stopped/aborted; skipping assign of "
 operator|+
 name|region
 argument_list|)
@@ -9603,6 +9773,8 @@ argument_list|,
 name|dest
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

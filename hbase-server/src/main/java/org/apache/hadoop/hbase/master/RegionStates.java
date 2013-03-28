@@ -1066,6 +1066,39 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|state
+operator|==
+name|State
+operator|.
+name|FAILED_CLOSE
+operator|||
+name|state
+operator|==
+name|State
+operator|.
+name|FAILED_OPEN
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to transition "
+operator|+
+name|hri
+operator|+
+literal|" on "
+operator|+
+name|serverName
+operator|+
+literal|": "
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
+block|}
 name|String
 name|regionName
 init|=
