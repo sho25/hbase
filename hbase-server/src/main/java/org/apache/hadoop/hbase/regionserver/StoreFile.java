@@ -5325,6 +5325,7 @@ literal|true
 return|;
 block|}
 comment|/**      * Checks whether the given scan rowkey range overlaps with the current storefile's      * @param scan the scan specification. Used to determine the rowkey range.      * @return true if there is overlap, false otherwise      */
+specifier|public
 name|boolean
 name|passesKeyRangeFilter
 parameter_list|(
