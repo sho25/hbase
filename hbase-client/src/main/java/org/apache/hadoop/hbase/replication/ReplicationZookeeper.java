@@ -3713,8 +3713,22 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
+name|listOfOps
+operator|.
+name|add
+argument_list|(
+name|ZKUtilOp
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|oldClusterZnode
+argument_list|)
+argument_list|)
+expr_stmt|;
 continue|continue;
 comment|// empty log queue.
+block|}
 comment|// create the new cluster znode
 name|SortedSet
 argument_list|<
