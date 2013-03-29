@@ -882,11 +882,6 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|htd
-operator|.
-name|getName
-argument_list|()
-argument_list|,
 name|numRegions
 argument_list|)
 expr_stmt|;
