@@ -801,6 +801,8 @@ name|util
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
+name|TEST_TABLE
+argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;

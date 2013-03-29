@@ -438,6 +438,8 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
+name|TABLE
+argument_list|,
 name|NUM_REGIONS
 argument_list|)
 expr_stmt|;

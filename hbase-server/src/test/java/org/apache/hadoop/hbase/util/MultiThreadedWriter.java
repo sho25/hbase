@@ -789,6 +789,8 @@ condition|)
 block|{
 name|insert
 argument_list|(
+name|table
+argument_list|,
 name|put
 argument_list|,
 name|rowKeyBase
@@ -840,6 +842,8 @@ expr_stmt|;
 block|}
 name|insert
 argument_list|(
+name|table
+argument_list|,
 name|put
 argument_list|,
 name|rowKeyBase
@@ -901,10 +905,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
 specifier|public
 name|void
 name|insert
 parameter_list|(
+name|HTable
+name|table
+parameter_list|,
 name|Put
 name|put
 parameter_list|,
@@ -1033,6 +1041,8 @@ literal|"; region information: "
 operator|+
 name|getRegionDebugInfoSafe
 argument_list|(
+name|table
+argument_list|,
 name|put
 operator|.
 name|getRow
@@ -1050,6 +1060,9 @@ specifier|private
 name|String
 name|getRegionDebugInfoSafe
 parameter_list|(
+name|HTable
+name|table
+parameter_list|,
 name|byte
 index|[]
 name|rowKey
@@ -1173,7 +1186,6 @@ block|}
 return|return
 name|result
 return|;
-block|}
 block|}
 comment|/**    * A thread that keeps track of the highest key in the contiguous range of    * inserted keys.    */
 specifier|private

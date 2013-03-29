@@ -4799,6 +4799,8 @@ name|UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
+name|TEST_TABLE
+argument_list|,
 name|countOfRegions
 argument_list|)
 expr_stmt|;
