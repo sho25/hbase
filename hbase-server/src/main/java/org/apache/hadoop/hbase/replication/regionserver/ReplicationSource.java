@@ -1203,7 +1203,7 @@ comment|// not queue recovered situation
 return|return;
 block|}
 comment|// extract dead servers
-name|extracDeadServersFromZNodeString
+name|extractDeadServersFromZNodeString
 argument_list|(
 name|parts
 index|[
@@ -1239,7 +1239,7 @@ comment|/**    * Parse dead server names from znode string servername can contai
 specifier|private
 specifier|static
 name|void
-name|extracDeadServersFromZNodeString
+name|extractDeadServersFromZNodeString
 parameter_list|(
 name|String
 name|deadServerListStr
