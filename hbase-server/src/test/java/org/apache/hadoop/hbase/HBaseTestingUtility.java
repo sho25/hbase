@@ -7528,6 +7528,24 @@ expr_stmt|;
 name|forceChangeTaskLogDir
 argument_list|()
 expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"yarn.nodemanager.pmem-check-enabled"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"yarn.nodemanager.vmem-check-enabled"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 comment|// Allow the user to override FS URI for this map-reduce cluster to use.
 name|mrCluster
 operator|=
