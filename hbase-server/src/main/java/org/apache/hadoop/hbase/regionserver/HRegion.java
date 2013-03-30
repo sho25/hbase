@@ -2861,7 +2861,7 @@ name|this
 argument_list|,
 name|rsServices
 argument_list|,
-name|conf
+name|baseConf
 argument_list|)
 expr_stmt|;
 name|this

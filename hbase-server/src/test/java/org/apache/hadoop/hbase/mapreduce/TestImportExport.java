@@ -1552,6 +1552,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// copy or add the necessary configuration values from the map reduce config to the hbase config
+name|copyConfigurationValues
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 name|args
 operator|=
 name|opts
@@ -2445,6 +2456,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// copy or add the necessary configuration values from the map reduce config to the hbase config
+name|copyConfigurationValues
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 name|args
 operator|=
 name|opts
@@ -2611,6 +2633,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|// copy or add the necessary configuration values from the map reduce config to the hbase config
+name|copyConfigurationValues
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 name|args
 operator|=
 name|opts
@@ -2762,6 +2795,17 @@ name|opts
 operator|.
 name|getConfiguration
 argument_list|()
+expr_stmt|;
+comment|// copy or add the necessary configuration values from the map reduce config to the hbase config
+name|copyConfigurationValues
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|conf
+argument_list|)
 expr_stmt|;
 name|args
 operator|=
