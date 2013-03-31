@@ -1433,6 +1433,13 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableEnabled
+argument_list|(
+name|TEST_TABLE
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|region
 init|=
