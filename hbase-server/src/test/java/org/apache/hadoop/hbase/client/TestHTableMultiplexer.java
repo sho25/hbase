@@ -438,7 +438,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|NUM_REGIONS
+name|TABLE
 argument_list|)
 expr_stmt|;
 name|byte

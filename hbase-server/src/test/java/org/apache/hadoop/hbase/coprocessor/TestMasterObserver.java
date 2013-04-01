@@ -4783,9 +4783,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|int
-name|countOfRegions
-init|=
 name|UTIL
 operator|.
 name|createMultiRegions
@@ -4794,12 +4791,12 @@ name|table
 argument_list|,
 name|TEST_FAMILY
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|countOfRegions
+name|TEST_TABLE
 argument_list|)
 expr_stmt|;
 name|NavigableMap

@@ -396,16 +396,22 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// Create a table of three families.  This will assign a region.
-name|TEST_UTIL
-operator|.
-name|createTable
-argument_list|(
+name|byte
+index|[]
+name|tableName
+init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 name|TABLENAME
 argument_list|)
+decl_stmt|;
+name|TEST_UTIL
+operator|.
+name|createTable
+argument_list|(
+name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
@@ -441,7 +447,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|countOfRegions
+name|tableName
 argument_list|)
 expr_stmt|;
 name|addToEachStartKey

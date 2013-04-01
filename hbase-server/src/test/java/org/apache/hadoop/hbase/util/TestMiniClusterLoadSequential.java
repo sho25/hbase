@@ -864,9 +864,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|int
-name|numRegions
-init|=
 name|HBaseTestingUtility
 operator|.
 name|createPreSplitLoadTestTable
@@ -877,12 +874,15 @@ name|htd
 argument_list|,
 name|hcd
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|numRegions
+name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

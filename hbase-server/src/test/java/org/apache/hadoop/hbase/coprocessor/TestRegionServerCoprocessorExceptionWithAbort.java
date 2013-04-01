@@ -407,16 +407,18 @@ argument_list|)
 decl_stmt|;
 name|TEST_UTIL
 operator|.
-name|waitUntilAllRegionsAssigned
-argument_list|(
-name|TEST_UTIL
-operator|.
 name|createMultiRegions
 argument_list|(
 name|table
 argument_list|,
 name|TEST_FAMILY
 argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|TEST_TABLE
 argument_list|)
 expr_stmt|;
 comment|// Note which regionServer will abort (after put is attempted).

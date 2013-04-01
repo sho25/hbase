@@ -804,7 +804,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|NUM_RS
+name|TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
