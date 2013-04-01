@@ -586,6 +586,14 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
+comment|// initialize global permissions based on configuration
+name|globalCache
+operator|=
+name|initGlobal
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|zkperms
@@ -626,14 +634,6 @@ name|ke
 argument_list|)
 expr_stmt|;
 block|}
-comment|// initialize global permissions based on configuration
-name|globalCache
-operator|=
-name|initGlobal
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Returns a new {@code PermissionCache} initialized with permission assignments    * from the {@code hbase.superuser} configuration key.    */
 specifier|private
