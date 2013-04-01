@@ -8619,16 +8619,22 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
+comment|// There are chances that before we get the region for the table from an RS the region may
+comment|// be going for CLOSE.  This may be because online schema change is enabled
+if|if
+condition|(
+name|regCount
+operator|>
+literal|0
+condition|)
+block|{
 name|idx
 operator|=
 name|random
 operator|.
 name|nextInt
 argument_list|(
-name|regions
-operator|.
-name|size
-argument_list|()
+name|regCount
 argument_list|)
 expr_stmt|;
 comment|// if we have just tried this region, there is no need to try again
@@ -8685,6 +8691,7 @@ argument_list|(
 name|idx
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|attempts
 operator|++

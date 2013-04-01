@@ -2180,6 +2180,13 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|region
+operator|!=
+literal|null
+condition|)
+block|{
 name|byte
 index|[]
 name|regionName
@@ -2210,6 +2217,21 @@ argument_list|(
 name|regionName
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not find suitable region for the table.  Possibly the "
+operator|+
+literal|"region got closed and the attempts got over before "
+operator|+
+literal|"the region could have got reassigned."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
