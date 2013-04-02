@@ -551,22 +551,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -1584,16 +1568,13 @@ argument_list|(
 literal|" === Async Snapshot Completed ==="
 argument_list|)
 expr_stmt|;
-name|HBaseFsck
+name|FSUtils
 operator|.
-name|debugLsr
+name|logFileSystemState
 argument_list|(
 name|UTIL
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getConfiguration
+name|getTestFileSystem
 argument_list|()
 argument_list|,
 name|FSUtils
@@ -1605,6 +1586,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+argument_list|,
+name|LOG
 argument_list|)
 expr_stmt|;
 comment|// make sure we get the snapshot
@@ -1635,16 +1618,13 @@ argument_list|(
 literal|" === Async Snapshot Deleted ==="
 argument_list|)
 expr_stmt|;
-name|HBaseFsck
+name|FSUtils
 operator|.
-name|debugLsr
+name|logFileSystemState
 argument_list|(
 name|UTIL
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getConfiguration
+name|getTestFileSystem
 argument_list|()
 argument_list|,
 name|FSUtils
@@ -1656,6 +1636,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+argument_list|,
+name|LOG
 argument_list|)
 expr_stmt|;
 comment|// make sure we don't have any snapshots
@@ -1878,19 +1860,18 @@ name|snapshotDir
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseFsck
+name|FSUtils
 operator|.
-name|debugLsr
+name|logFileSystemState
 argument_list|(
 name|UTIL
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getConfiguration
+name|getTestFileSystem
 argument_list|()
 argument_list|,
 name|snapshotDir
+argument_list|,
+name|LOG
 argument_list|)
 expr_stmt|;
 name|Path
@@ -2073,16 +2054,13 @@ argument_list|(
 name|snapshotName
 argument_list|)
 expr_stmt|;
-name|HBaseFsck
+name|FSUtils
 operator|.
-name|debugLsr
+name|logFileSystemState
 argument_list|(
 name|UTIL
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getConfiguration
+name|getTestFileSystem
 argument_list|()
 argument_list|,
 name|FSUtils
@@ -2094,6 +2072,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+argument_list|,
+name|LOG
 argument_list|)
 expr_stmt|;
 comment|// make sure we don't have any snapshots
