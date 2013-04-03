@@ -2148,7 +2148,7 @@ comment|// Output on stdout so user sees it in terminal.
 name|String
 name|msg
 init|=
-literal|"File system needs to be upgraded."
+literal|"HBase file layout needs to be upgraded."
 operator|+
 literal|"  You have version "
 operator|+
@@ -2160,7 +2160,9 @@ name|HConstants
 operator|.
 name|FILE_SYSTEM_VERSION
 operator|+
-literal|".  Run the '${HBASE_HOME}/bin/hbase migrate' script."
+literal|".  Is your hbase.rootdir valid?  If so, you may need to run "
+operator|+
+literal|"'hbase hbck -fixVersionFile'."
 decl_stmt|;
 if|if
 condition|(
