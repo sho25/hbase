@@ -1403,11 +1403,9 @@ argument_list|(
 name|kv
 argument_list|)
 decl_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|debug
 argument_list|(
 literal|"Filter returned:"
 operator|+
@@ -1443,19 +1441,9 @@ argument_list|)
 operator|)
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
+name|debug
 argument_list|(
 literal|"Skipping key: "
 operator|+
@@ -1466,7 +1454,6 @@ operator|+
 name|code
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|null
 return|;
