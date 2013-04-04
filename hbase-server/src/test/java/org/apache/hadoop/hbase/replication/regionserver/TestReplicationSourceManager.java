@@ -1536,7 +1536,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testNodeFailoverWorkerCopyQueuesFromRSUsingMulti
+name|testClaimQueues
 parameter_list|()
 throws|throws
 name|Exception
@@ -1925,7 +1925,7 @@ name|testMap
 init|=
 name|rz1
 operator|.
-name|copyQueuesFromRSUsingMulti
+name|claimQueues
 argument_list|(
 name|server
 operator|.
@@ -1960,7 +1960,7 @@ name|testMap
 operator|=
 name|rz2
 operator|.
-name|copyQueuesFromRSUsingMulti
+name|claimQueues
 argument_list|(
 name|s1
 operator|.
@@ -1995,7 +1995,7 @@ name|testMap
 operator|=
 name|rz3
 operator|.
-name|copyQueuesFromRSUsingMulti
+name|claimQueues
 argument_list|(
 name|s2
 operator|.
@@ -2184,7 +2184,7 @@ name|logZnodesMap
 operator|=
 name|rz
 operator|.
-name|copyQueuesFromRSUsingMulti
+name|claimQueues
 argument_list|(
 name|deadRsZnode
 argument_list|)

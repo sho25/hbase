@@ -275,7 +275,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|Stoppable
 import|;
 end_import
 
@@ -289,7 +289,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Stoppable
+name|replication
+operator|.
+name|ReplicationQueues
 import|;
 end_import
 
@@ -427,6 +429,11 @@ specifier|final
 name|ReplicationZookeeper
 name|zkHelper
 decl_stmt|;
+specifier|private
+specifier|final
+name|ReplicationQueues
+name|replicationQueues
+decl_stmt|;
 comment|// All about stopping
 specifier|private
 specifier|final
@@ -507,13 +514,17 @@ specifier|final
 name|Random
 name|rand
 decl_stmt|;
-comment|/**    * Creates a replication manager and sets the watch on all the other    * registered region servers    * @param zkHelper the zk helper for replication    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
+comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param zkHelper the zk helper for replication    * @param replicationQueues the interface for manipulating replication queues    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
 specifier|public
 name|ReplicationSourceManager
 parameter_list|(
 specifier|final
 name|ReplicationZookeeper
 name|zkHelper
+parameter_list|,
+specifier|final
+name|ReplicationQueues
+name|replicationQueues
 parameter_list|,
 specifier|final
 name|Configuration
@@ -562,6 +573,12 @@ operator|.
 name|zkHelper
 operator|=
 name|zkHelper
+expr_stmt|;
+name|this
+operator|.
+name|replicationQueues
+operator|=
+name|replicationQueues
 expr_stmt|;
 name|this
 operator|.
@@ -919,7 +936,7 @@ name|currentReplicators
 init|=
 name|this
 operator|.
-name|zkHelper
+name|replicationQueues
 operator|.
 name|getListOfReplicators
 argument_list|()
@@ -1572,7 +1589,7 @@ name|src
 return|;
 block|}
 comment|/**    * Transfer all the queues of the specified to this region server.    * First it tries to grab a lock and if it works it will move the    * znodes and finally will delete the old znodes.    *    * It creates one old source for any type of source of the old rs.    * @param rsZnode    */
-specifier|public
+specifier|private
 name|void
 name|transferQueues
 parameter_list|(
@@ -2404,86 +2421,16 @@ name|newQueues
 init|=
 literal|null
 decl_stmt|;
-comment|// check whether there is multi support. If yes, use it.
-if|if
-condition|(
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|ZOOKEEPER_USEMULTI
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Atomically moving "
-operator|+
-name|rsZnode
-operator|+
-literal|"'s hlogs to my queue"
-argument_list|)
-expr_stmt|;
 name|newQueues
 operator|=
 name|zkHelper
 operator|.
-name|copyQueuesFromRSUsingMulti
+name|claimQueues
 argument_list|(
 name|rsZnode
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving "
-operator|+
-name|rsZnode
-operator|+
-literal|"'s hlogs to my queue"
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|zkHelper
-operator|.
-name|lockOtherRS
-argument_list|(
-name|rsZnode
-argument_list|)
-condition|)
-block|{
-return|return;
-block|}
-name|newQueues
-operator|=
-name|zkHelper
-operator|.
-name|copyQueuesFromRS
-argument_list|(
-name|rsZnode
-argument_list|)
-expr_stmt|;
-name|zkHelper
-operator|.
-name|deleteRsQueues
-argument_list|(
-name|rsZnode
-argument_list|)
-expr_stmt|;
-block|}
-comment|// process of copying over the failed queue is completed.
+comment|// Copying over the failed queue is completed.
 if|if
 condition|(
 name|newQueues
@@ -2492,6 +2439,8 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+comment|// We either didn't get the lock or the failed region server didn't have any outstanding
+comment|// HLogs to replicate, so we are done.
 return|return;
 block|}
 for|for
