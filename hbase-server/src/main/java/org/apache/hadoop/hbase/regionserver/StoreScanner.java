@@ -1818,13 +1818,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|(
+name|limit
+operator|<
+literal|0
+operator|||
 name|matcher
 operator|.
 name|row
 operator|==
 literal|null
-operator|)
 operator|||
 operator|!
 name|Bytes
