@@ -159,6 +159,27 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
+name|SNAPSHOT_TIME_NAME
+init|=
+literal|"snapshotTime"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_RESTORE_TIME_NAME
+init|=
+literal|"snapshotRestoreTime"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_CLONE_TIME_NAME
+init|=
+literal|"snapshotCloneTime"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
 name|CLUSTER_REQUESTS_NAME
 init|=
 literal|"clusterRequests"
@@ -261,6 +282,27 @@ name|SPLIT_SIZE_DESC
 init|=
 literal|"Size of HLog files being split"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_TIME_DESC
+init|=
+literal|"Time it takes to finish snapshot()"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_RESTORE_TIME_DESC
+init|=
+literal|"Time it takes to finish restoreSnapshot()"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_CLONE_TIME_DESC
+init|=
+literal|"Time it takes to finish cloneSnapshot()"
+decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
 name|incRequests
@@ -306,6 +348,27 @@ name|updateSplitSize
 parameter_list|(
 name|long
 name|size
+parameter_list|)
+function_decl|;
+name|void
+name|updateSnapshotTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateSnapshotCloneTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateSnapshotRestoreTime
+parameter_list|(
+name|long
+name|time
 parameter_list|)
 function_decl|;
 block|}

@@ -215,6 +215,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|MetricsMaster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|monitoring
 operator|.
 name|MonitoredTask
@@ -478,6 +494,10 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
+parameter_list|,
+specifier|final
+name|MetricsMaster
+name|metricsMaster
 parameter_list|)
 throws|throws
 name|IOException
@@ -487,6 +507,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|masterServices
+argument_list|,
+name|metricsMaster
 argument_list|)
 expr_stmt|;
 comment|// setup the timer

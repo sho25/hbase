@@ -4865,6 +4865,10 @@ operator|new
 name|SnapshotManager
 argument_list|(
 name|this
+argument_list|,
+name|this
+operator|.
+name|metricsMaster
 argument_list|)
 expr_stmt|;
 block|}

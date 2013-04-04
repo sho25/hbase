@@ -302,6 +302,57 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Record a single instance of a snapshot    * @param time time that the snapshot took    */
+specifier|public
+name|void
+name|addSnapshot
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+block|{
+name|masterSource
+operator|.
+name|updateSnapshotTime
+argument_list|(
+name|time
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Record a single instance of a snapshot    * @param time time that the snapshot restore took    */
+specifier|public
+name|void
+name|addSnapshotRestore
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+block|{
+name|masterSource
+operator|.
+name|updateSnapshotRestoreTime
+argument_list|(
+name|time
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Record a single instance of a snapshot cloned table    * @param time time that the snapshot clone took    */
+specifier|public
+name|void
+name|addSnapshotClone
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+block|{
+name|masterSource
+operator|.
+name|updateSnapshotCloneTime
+argument_list|(
+name|time
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
