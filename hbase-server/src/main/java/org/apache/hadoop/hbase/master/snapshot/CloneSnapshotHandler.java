@@ -289,6 +289,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -412,6 +444,11 @@ name|ForeignExceptionDispatcher
 name|monitor
 decl_stmt|;
 specifier|private
+specifier|final
+name|MonitoredTask
+name|status
+decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|stopped
@@ -477,6 +514,32 @@ operator|new
 name|ForeignExceptionDispatcher
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|status
+operator|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Cloning  snapshot '"
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"' to table "
+operator|+
+name|hTableDescriptor
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -522,6 +585,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Creating regions for table: "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -583,6 +655,8 @@ argument_list|,
 name|tableDir
 argument_list|,
 name|monitor
+argument_list|,
+name|status
 argument_list|)
 decl_stmt|;
 name|RestoreSnapshotHelper
@@ -623,10 +697,9 @@ literal|"A clone should not have regions to remove"
 argument_list|)
 expr_stmt|;
 comment|// At this point the clone is complete. Next step is enabling the table.
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Clone snapshot="
 operator|+
 name|snapshot
@@ -639,6 +712,21 @@ operator|+
 name|tableName
 operator|+
 literal|" completed!"
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
+operator|+
+literal|" Waiting for table to be enabled..."
 argument_list|)
 expr_stmt|;
 comment|// 2. let the CreateTableHandler add the regions to meta
@@ -667,7 +755,12 @@ argument_list|(
 name|snapshot
 argument_list|)
 operator|+
-literal|" failed"
+literal|" failed because "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
@@ -729,6 +822,50 @@ name|stopped
 operator|=
 literal|true
 expr_stmt|;
+if|if
+condition|(
+name|exception
+operator|!=
+literal|null
+condition|)
+block|{
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Snapshot '"
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"' clone failed because "
+operator|+
+name|exception
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Snapshot '"
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"' clone completed and table enabled!"
+argument_list|)
+expr_stmt|;
+block|}
 name|super
 operator|.
 name|completed
@@ -784,10 +921,9 @@ name|stopped
 operator|=
 literal|true
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Stopping clone snapshot="
 operator|+
 name|snapshot
@@ -795,6 +931,19 @@ operator|+
 literal|" because: "
 operator|+
 name|why
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 name|this

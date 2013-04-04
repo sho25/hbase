@@ -293,6 +293,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|errorhandling
 operator|.
 name|ForeignExceptionDispatcher
@@ -523,6 +539,11 @@ name|monitor
 decl_stmt|;
 specifier|private
 specifier|final
+name|MonitoredTask
+name|status
+decl_stmt|;
+specifier|private
+specifier|final
 name|SnapshotDescription
 name|snapshotDesc
 decl_stmt|;
@@ -581,6 +602,10 @@ parameter_list|,
 specifier|final
 name|ForeignExceptionDispatcher
 name|monitor
+parameter_list|,
+specifier|final
+name|MonitoredTask
+name|status
 parameter_list|)
 block|{
 name|this
@@ -624,6 +649,12 @@ operator|.
 name|monitor
 operator|=
 name|monitor
+expr_stmt|;
+name|this
+operator|.
+name|status
+operator|=
+name|status
 expr_stmt|;
 block|}
 comment|/**    * Restore the on-disk table to a specified snapshot state.    * @return the set of regions touched by the restore operation    */
@@ -784,6 +815,13 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Restoring table regions..."
+argument_list|)
+expr_stmt|;
 name|restoreHdfsRegions
 argument_list|(
 name|metaChanges
@@ -792,11 +830,25 @@ name|getRegionsToRestore
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finished restoring all table regions."
+argument_list|)
+expr_stmt|;
 comment|// Remove regions from the current table
 name|monitor
 operator|.
 name|rethrowException
 argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Starting to delete excess regions from table"
+argument_list|)
 expr_stmt|;
 name|removeHdfsRegions
 argument_list|(
@@ -804,6 +856,13 @@ name|metaChanges
 operator|.
 name|getRegionsToRemove
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finished deleting excess regions from table."
 argument_list|)
 expr_stmt|;
 block|}
@@ -885,6 +944,13 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cloning regions..."
+argument_list|)
+expr_stmt|;
 name|HRegionInfo
 index|[]
 name|clonedRegions
@@ -901,6 +967,13 @@ argument_list|(
 name|clonedRegions
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finished cloning regions."
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Restore WALs
 name|monitor
@@ -908,8 +981,22 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Restoring WALs to table..."
+argument_list|)
+expr_stmt|;
 name|restoreWALs
 argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finished restoring WALs to table."
+argument_list|)
 expr_stmt|;
 return|return
 name|metaChanges

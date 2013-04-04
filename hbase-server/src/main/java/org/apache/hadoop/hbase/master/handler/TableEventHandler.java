@@ -765,6 +765,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|completed
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -788,6 +793,11 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|completed
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -808,6 +818,11 @@ argument_list|(
 name|tableName
 argument_list|)
 argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|completed
+argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
@@ -861,6 +876,16 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Called after that process() is completed.    * @param exception null if process() is successful or not null if something has failed.    */
+specifier|protected
+name|void
+name|completed
+parameter_list|(
+specifier|final
+name|Throwable
+name|exception
+parameter_list|)
+block|{   }
 specifier|public
 name|boolean
 name|reOpenAllRegions

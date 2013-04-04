@@ -215,6 +215,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -600,10 +632,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// 2. for each region, write all the info to disk
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Starting to write region info and WALs for regions for offline snapshot:"
 operator|+
 name|ClientSnapshotDescriptionUtils
@@ -612,6 +643,19 @@ name|toString
 argument_list|(
 name|snapshot
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 for|for
@@ -688,6 +732,18 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Completed copying recovered edits for offline snapshot of table: "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// 2.3 reference all the files in the region
 operator|new
 name|ReferenceRegionHFilesTask
@@ -710,6 +766,18 @@ name|monitor
 operator|.
 name|rethrowException
 argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Completed referencing HFiles for offline snapshot of table: "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 comment|// 3. write the table info to disk
@@ -759,6 +827,18 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finished copying tableinfo for snapshot of table: "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -802,6 +882,25 @@ operator|.
 name|receive
 argument_list|(
 name|ee
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Snapshot of table: "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+operator|+
+literal|" failed because "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

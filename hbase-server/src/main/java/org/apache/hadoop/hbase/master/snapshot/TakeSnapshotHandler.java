@@ -361,6 +361,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|TableLockManager
@@ -593,6 +625,11 @@ specifier|final
 name|TableLock
 name|tableLock
 decl_stmt|;
+specifier|protected
+specifier|final
+name|MonitoredTask
+name|status
+decl_stmt|;
 comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    * @throws IOException on unexpected error    */
 specifier|public
 name|TakeSnapshotHandler
@@ -767,6 +804,33 @@ argument_list|,
 name|rootDir
 argument_list|)
 expr_stmt|;
+comment|// update the running tasks
+name|this
+operator|.
+name|status
+operator|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Taking "
+operator|+
+name|snapshot
+operator|.
+name|getType
+argument_list|()
+operator|+
+literal|" snapshot on table: "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|HTableDescriptor
@@ -859,11 +923,24 @@ name|void
 name|process
 parameter_list|()
 block|{
-name|LOG
+name|String
+name|msg
+init|=
+literal|"Running "
+operator|+
+name|snapshot
 operator|.
-name|info
-argument_list|(
-literal|"Running table snapshot operation "
+name|getType
+argument_list|()
+operator|+
+literal|" table snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" "
 operator|+
 name|eventType
 operator|+
@@ -873,6 +950,19 @@ name|snapshot
 operator|.
 name|getTable
 argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 try|try
@@ -996,6 +1086,18 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// verify the snapshot is valid
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Verifying snapshot: "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|verifier
 operator|.
 name|verifySnapshot
@@ -1023,6 +1125,27 @@ operator|.
 name|fs
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" of table "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+operator|+
+literal|" completed"
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1030,6 +1153,32 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Failed to complete snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" on table "
+operator|+
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+operator|+
+literal|" because "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|String
 name|reason
 init|=
