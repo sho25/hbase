@@ -319,7 +319,7 @@ argument_list|,
 literal|0l
 argument_list|)
 expr_stmt|;
-name|splitTimeHisto
+name|splitSizeHisto
 operator|=
 name|metricsRegistry
 operator|.
@@ -330,7 +330,7 @@ argument_list|,
 name|SPLIT_SIZE_DESC
 argument_list|)
 expr_stmt|;
-name|splitSizeHisto
+name|splitTimeHisto
 operator|=
 name|metricsRegistry
 operator|.
