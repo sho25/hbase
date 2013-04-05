@@ -316,7 +316,7 @@ argument_list|,
 operator|new
 name|ChaosMonkey
 operator|.
-name|CompositeSequenialPolicy
+name|CompositeSequentialPolicy
 argument_list|(
 operator|new
 name|ChaosMonkey

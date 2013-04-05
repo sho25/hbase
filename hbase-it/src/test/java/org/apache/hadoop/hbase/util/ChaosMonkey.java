@@ -2309,7 +2309,7 @@ comment|/** A policy that runs multiple other policies one after the other */
 specifier|public
 specifier|static
 class|class
-name|CompositeSequenialPolicy
+name|CompositeSequentialPolicy
 extends|extends
 name|Policy
 block|{
@@ -2321,7 +2321,7 @@ argument_list|>
 name|policies
 decl_stmt|;
 specifier|public
-name|CompositeSequenialPolicy
+name|CompositeSequentialPolicy
 parameter_list|(
 name|Policy
 modifier|...
