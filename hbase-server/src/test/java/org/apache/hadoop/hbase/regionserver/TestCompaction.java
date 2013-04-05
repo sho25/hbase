@@ -523,7 +523,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|DefaultCompactionPolicy
+name|RatioBasedCompactionPolicy
 import|;
 end_import
 
@@ -2046,11 +2046,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// ensure that major compaction time is deterministic
-name|DefaultCompactionPolicy
+name|RatioBasedCompactionPolicy
 name|c
 init|=
 operator|(
-name|DefaultCompactionPolicy
+name|RatioBasedCompactionPolicy
 operator|)
 name|s
 operator|.

@@ -89,7 +89,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|DefaultCompactionPolicy
+name|RatioBasedCompactionPolicy
 import|;
 end_import
 
@@ -198,7 +198,7 @@ specifier|static
 class|class
 name|DummyCompactionPolicy
 extends|extends
-name|DefaultCompactionPolicy
+name|RatioBasedCompactionPolicy
 block|{
 specifier|public
 name|DummyCompactionPolicy
