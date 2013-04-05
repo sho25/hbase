@@ -6915,7 +6915,7 @@ name|time
 operator|+
 literal|"ms, sequenceid="
 operator|+
-name|sequenceId
+name|flushSeqId
 operator|+
 literal|", compaction requested="
 operator|+
