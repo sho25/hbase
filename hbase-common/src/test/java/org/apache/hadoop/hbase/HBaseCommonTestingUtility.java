@@ -445,9 +445,9 @@ block|{
 if|if
 condition|(
 name|dir
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|dir
 operator|.
@@ -497,10 +497,6 @@ block|}
 block|}
 block|}
 end_class
-
-begin_empty_stmt
-empty_stmt|;
-end_empty_stmt
 
 end_unit
 
