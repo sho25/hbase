@@ -4838,6 +4838,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// if the transaction that we are interested in is already
+comment|// synced, then return immediately.
+if|if
+condition|(
+name|txid
+operator|<=
+name|this
+operator|.
+name|syncedTillHere
+condition|)
+block|{
+return|return;
+block|}
 name|Writer
 name|tempWriter
 decl_stmt|;
@@ -4865,19 +4878,6 @@ name|this
 operator|.
 name|writer
 expr_stmt|;
-block|}
-comment|// if the transaction that we are interested in is already
-comment|// synced, then return immediately.
-if|if
-condition|(
-name|txid
-operator|<=
-name|this
-operator|.
-name|syncedTillHere
-condition|)
-block|{
-return|return;
 block|}
 try|try
 block|{

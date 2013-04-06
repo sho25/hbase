@@ -6629,6 +6629,24 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
+comment|// sync unflushed WAL changes when deferred log sync is enabled
+comment|// see HBASE-8208 for details
+if|if
+condition|(
+name|wal
+operator|!=
+literal|null
+operator|&&
+name|isDeferredLogSyncEnabled
+argument_list|()
+condition|)
+block|{
+name|wal
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
+block|}
 comment|// wait for all in-progress transactions to commit to HLog before
 comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
@@ -23881,16 +23899,8 @@ name|isMetaRegion
 argument_list|()
 operator|||
 operator|!
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|isDeferredLogFlush
+name|isDeferredLogSyncEnabled
 argument_list|()
-operator|||
-name|this
-operator|.
-name|deferredLogSyncDisabled
 condition|)
 block|{
 name|this
@@ -23903,6 +23913,28 @@ name|txid
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * check if current region is deferred sync enabled.    */
+specifier|private
+name|boolean
+name|isDeferredLogSyncEnabled
+parameter_list|()
+block|{
+return|return
+operator|(
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+operator|&&
+operator|!
+name|this
+operator|.
+name|deferredLogSyncDisabled
+operator|)
+return|;
 block|}
 comment|/**    * A mocked list implementaion - discards all updates.    */
 specifier|private
