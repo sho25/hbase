@@ -6393,12 +6393,6 @@ comment|// into the info file that sits beside the flushed files.
 comment|// We also set the memstore size to zero here before we allow updates
 comment|// again so its value will represent the size of the updates received
 comment|// during the flush
-name|long
-name|sequenceId
-init|=
-operator|-
-literal|1L
-decl_stmt|;
 name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
