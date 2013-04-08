@@ -705,6 +705,19 @@ argument_list|(
 literal|20
 argument_list|)
 expr_stmt|;
+comment|// Make sure check RIT first, then get region location, otherwise
+comment|// we would make a wrong result if region is online between getting
+comment|// region location and checking RIT
+name|boolean
+name|isRIT
+init|=
+name|regionStates
+operator|.
+name|isRegionInTransition
+argument_list|(
+name|region_b
+argument_list|)
+decl_stmt|;
 name|region_b_location
 operator|=
 name|masterServices
@@ -734,12 +747,7 @@ condition|(
 name|onSameRS
 operator|||
 operator|!
-name|regionStates
-operator|.
-name|isRegionInTransition
-argument_list|(
-name|region_b
-argument_list|)
+name|isRIT
 condition|)
 block|{
 comment|// Regions are on the same RS, or region_b is not in
