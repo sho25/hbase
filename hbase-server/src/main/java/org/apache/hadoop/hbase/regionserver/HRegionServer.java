@@ -20804,6 +20804,34 @@ name|long
 name|closeSeqNum
 parameter_list|)
 block|{
+if|if
+condition|(
+name|ServerName
+operator|.
+name|isSameHostnameAndPort
+argument_list|(
+name|destination
+argument_list|,
+name|this
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Not adding moved region record: "
+operator|+
+name|encodedName
+operator|+
+literal|" to self."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|info
