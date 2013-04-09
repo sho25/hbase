@@ -8024,7 +8024,9 @@ name|int
 name|getCompactPriority
 parameter_list|()
 block|{
-return|return
+name|int
+name|priority
+init|=
 name|this
 operator|.
 name|storeEngine
@@ -8034,6 +8036,24 @@ argument_list|()
 operator|.
 name|getStoreCompactionPriority
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|priority
+operator|==
+name|PRIORITY_USER
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Compaction priority is USER despite there being no user compaction"
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|priority
 return|;
 block|}
 annotation|@
