@@ -296,6 +296,14 @@ specifier|final
 name|HTableDescriptor
 name|htd
 decl_stmt|;
+specifier|private
+name|boolean
+name|tomActivated
+decl_stmt|;
+specifier|private
+name|int
+name|assignmentTimeout
+decl_stmt|;
 comment|// We get version of our znode at start of open process and monitor it across
 comment|// the total open. We'll fail the open if someone hijacks our znode; we can
 comment|// tell this has happened if version is not as expected.
@@ -449,6 +457,38 @@ operator|.
 name|versionOfOfflineNode
 operator|=
 name|versionOfOfflineNode
+expr_stmt|;
+name|tomActivated
+operator|=
+name|this
+operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.assignment.timeout.management"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|assignmentTimeout
+operator|=
+name|this
+operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.assignment.timeoutmonitor.period"
+argument_list|,
+literal|10000
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
@@ -962,40 +1002,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|boolean
-name|tomActivated
-init|=
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.assignment.timeout.management"
-argument_list|,
-literal|false
-argument_list|)
-decl_stmt|;
-name|int
-name|assignmentTimeout
-init|=
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.assignment.timeoutmonitor.period"
-argument_list|,
-literal|10000
-argument_list|)
-decl_stmt|;
 comment|// Total timeout for meta edit.  If we fail adding the edit then close out
 comment|// the region and let it be assigned elsewhere.
 name|long
@@ -1082,11 +1088,6 @@ name|now
 operator|)
 condition|)
 block|{
-if|if
-condition|(
-name|tomActivated
-condition|)
-block|{
 name|long
 name|elapsed
 init|=
@@ -1113,7 +1114,6 @@ argument_list|(
 literal|"post_open_deploy"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 synchronized|synchronized
 init|(
@@ -1247,7 +1247,7 @@ name|tickleOpening
 operator|)
 return|;
 block|}
-comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(    * HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}    * .    */
+comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(    * HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker)}    * .    */
 specifier|static
 class|class
 name|PostOpenDeployTasksThread
@@ -2229,6 +2229,8 @@ argument_list|,
 name|this
 operator|.
 name|version
+argument_list|,
+name|tomActivated
 argument_list|)
 expr_stmt|;
 block|}
