@@ -5372,9 +5372,9 @@ return|return;
 name|enableServerShutdownHandler
 argument_list|()
 expr_stmt|;
-comment|// Update meta with new PB serialization if required. i.e migrate all HRI
-comment|// to PB serialization in meta and update the status in ROOT. This must happen
-comment|// before we assign all user regions or else the assignment will fail.
+comment|// Update meta with new PB serialization if required. i.e migrate all HRI to PB serialization
+comment|// in meta. This must happen before we assign all user regions or else the assignment will
+comment|// fail.
 comment|// TODO: Remove this after 0.96, when we do 0.98.
 name|org
 operator|.
@@ -5388,7 +5388,7 @@ name|catalog
 operator|.
 name|MetaMigrationConvertingToPB
 operator|.
-name|updateRootAndMetaIfNecessary
+name|updateMetaIfNecessary
 argument_list|(
 name|this
 argument_list|)

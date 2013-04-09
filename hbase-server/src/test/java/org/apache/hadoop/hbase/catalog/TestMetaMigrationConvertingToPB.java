@@ -454,7 +454,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * TODO reenable the tests once a migration path is figured without ROOT  * Test migration that changes HRI serialization into PB. Tests by bringing up a cluster from actual  * data from a 0.92 cluster, as well as manually downgrading and then upgrading the META info.  * @deprecated Remove after 0.96  */
+comment|/**  * Test migration that changes HRI serialization into PB. Tests by bringing up a cluster from actual  * data from a 0.92 cluster, as well as manually downgrading and then upgrading the META info.  * @deprecated Remove after 0.96  */
 end_comment
 
 begin_class
@@ -1004,7 +1004,8 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMetaUpdatedFlagInROOT
@@ -1028,7 +1029,7 @@ name|metaUpdated
 init|=
 name|MetaMigrationConvertingToPB
 operator|.
-name|isMetaHRIUpdated
+name|isMetaTableUpdated
 argument_list|(
 name|master
 operator|.
@@ -1052,7 +1053,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMetaMigration
@@ -1226,7 +1228,7 @@ name|metaUpdated
 init|=
 name|MetaMigrationConvertingToPB
 operator|.
-name|isMetaHRIUpdated
+name|isMetaTableUpdated
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1254,7 +1256,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * This test assumes a master crash/failure during the meta migration process    * and attempts to continue the meta migration process when a new master takes over.    * When a master dies during the meta migration we will have some rows of    * META.CatalogFamily updated with PB serialization and some    * still hanging with writable serialization. When the backup master/ or    * fresh start of master attempts the migration it will encounter some rows of META    * already updated with new HRI and some still legacy. This test will simulate this    * scenario and validates that the migration process can safely skip the updated    * rows and migrate any pending rows at startup.    * @throws Exception    */
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMasterCrashDuringMetaMigration
@@ -1372,7 +1375,7 @@ name|numMigratedRows
 init|=
 name|MetaMigrationConvertingToPB
 operator|.
-name|updateRootAndMetaIfNecessary
+name|updateMetaIfNecessary
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1396,7 +1399,7 @@ name|metaUpdated
 init|=
 name|MetaMigrationConvertingToPB
 operator|.
-name|isMetaHRIUpdated
+name|isMetaTableUpdated
 argument_list|(
 name|TEST_UTIL
 operator|.

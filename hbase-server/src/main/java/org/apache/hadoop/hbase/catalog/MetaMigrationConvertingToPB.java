@@ -208,7 +208,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A tool to migrate the data stored in ROOT and META tables to pbuf serialization.  * Supports migrating from 0.92.x and 0.94.x to 0.96.x for the catalog tables.  * @deprecated will be removed for the major release after 0.96.  */
+comment|/**  * A tool to migrate the data stored in META table to pbuf serialization.  * Supports migrating from 0.92.x and 0.94.x to 0.96.x for the catalog table.  * @deprecated will be removed for the major release after 0.96.  */
 end_comment
 
 begin_class
@@ -603,11 +603,11 @@ name|hriBytes
 argument_list|)
 return|;
 block|}
-comment|/**    * Update ROOT and META to newer version, converting writable serialization to PB, if    * it is needed.    * @param services MasterServices to get a handle on master    * @return num migrated rows    * @throws IOException or RuntimeException if something goes wrong    */
+comment|/**    * Converting writable serialization to PB, if it is needed.    * @param services MasterServices to get a handle on master    * @return num migrated rows    * @throws IOException or RuntimeException if something goes wrong    */
 specifier|public
 specifier|static
 name|long
-name|updateRootAndMetaIfNecessary
+name|updateMetaIfNecessary
 parameter_list|(
 specifier|final
 name|MasterServices
@@ -618,7 +618,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|isMetaHRIUpdated
+name|isMetaTableUpdated
 argument_list|(
 name|services
 operator|.
@@ -631,7 +631,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ROOT/META already up-to date with PB serialization"
+literal|"META already up-to date with PB serialization"
 argument_list|)
 expr_stmt|;
 return|return
@@ -642,7 +642,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ROOT/META has Writable serializations, migrating ROOT and META to PB serialization"
+literal|"META has Writable serializations, migrating META to PB serialization"
 argument_list|)
 expr_stmt|;
 try|try
@@ -650,7 +650,7 @@ block|{
 name|long
 name|rows
 init|=
-name|updateRootAndMeta
+name|updateMeta
 argument_list|(
 name|services
 argument_list|)
@@ -659,7 +659,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ROOT and META updated with PB serialization. Total rows updated: "
+literal|"META updated with PB serialization. Total rows updated: "
 operator|+
 name|rows
 argument_list|)
@@ -678,7 +678,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Update ROOT/META with PB serialization failed."
+literal|"Update META with PB serialization failed."
 operator|+
 literal|"Master startup aborted."
 argument_list|)
@@ -687,96 +687,6 @@ throw|throw
 name|e
 throw|;
 block|}
-block|}
-comment|/**    * Update ROOT and META to newer version, converting writable serialization to PB    * @return  num migrated rows    */
-specifier|static
-name|long
-name|updateRootAndMeta
-parameter_list|(
-specifier|final
-name|MasterServices
-name|masterServices
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|long
-name|rows
-init|=
-name|updateRoot
-argument_list|(
-name|masterServices
-argument_list|)
-decl_stmt|;
-name|rows
-operator|+=
-name|updateMeta
-argument_list|(
-name|masterServices
-argument_list|)
-expr_stmt|;
-return|return
-name|rows
-return|;
-block|}
-comment|/**    * Update ROOT rows, converting writable serialization to PB    * @return num migrated rows    */
-specifier|static
-name|long
-name|updateRoot
-parameter_list|(
-specifier|final
-name|MasterServices
-name|masterServices
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Starting update of ROOT"
-argument_list|)
-expr_stmt|;
-name|ConvertToPBMetaVisitor
-name|v
-init|=
-operator|new
-name|ConvertToPBMetaVisitor
-argument_list|(
-name|masterServices
-argument_list|)
-decl_stmt|;
-name|MetaReader
-operator|.
-name|fullScan
-argument_list|(
-name|masterServices
-operator|.
-name|getCatalogTracker
-argument_list|()
-argument_list|,
-name|v
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Finished update of ROOT. Total rows updated:"
-operator|+
-name|v
-operator|.
-name|numMigratedRows
-argument_list|)
-expr_stmt|;
-return|return
-name|v
-operator|.
-name|numMigratedRows
-return|;
 block|}
 comment|/**    * Update META rows, converting writable serialization to PB    * @return num migrated rows    */
 specifier|static
@@ -818,7 +728,6 @@ argument_list|,
 name|v
 argument_list|)
 expr_stmt|;
-comment|//updateRootWithMetaMigrationStatus(masterServices.getCatalogTracker());
 name|LOG
 operator|.
 name|info
@@ -836,72 +745,10 @@ operator|.
 name|numMigratedRows
 return|;
 block|}
-comment|/**    * Update the version flag in -ROOT-.    * @param catalogTracker the catalog tracker    * @throws IOException    */
-specifier|static
-name|void
-name|updateRootWithMetaMigrationStatus
-parameter_list|(
-specifier|final
-name|CatalogTracker
-name|catalogTracker
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Put
-name|p
-init|=
-operator|new
-name|Put
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|p
-operator|.
-name|add
-argument_list|(
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|,
-name|HConstants
-operator|.
-name|META_VERSION_QUALIFIER
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|HConstants
-operator|.
-name|META_VERSION
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// TODO so wrong
-comment|//MetaEditor.putToRootTable(catalogTracker, p);
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Updated -ROOT- meta version="
-operator|+
-name|HConstants
-operator|.
-name|META_VERSION
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * @param catalogTracker the catalog tracker    * @return True if the meta table has been migrated.    * @throws IOException    */
 specifier|static
 name|boolean
-name|isMetaHRIUpdated
+name|isMetaTableUpdated
 parameter_list|(
 specifier|final
 name|CatalogTracker
@@ -939,24 +786,21 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|".META. is not migrated"
+literal|".META. doesn't have any entries to update."
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+literal|true
 return|;
 block|}
-comment|// Presume only the one result because we only support one meta region.
+for|for
+control|(
 name|Result
 name|r
-init|=
+range|:
 name|results
-operator|.
-name|get
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
+control|)
+block|{
 name|byte
 index|[]
 name|value
@@ -971,56 +815,25 @@ name|CATALOG_FAMILY
 argument_list|,
 name|HConstants
 operator|.
-name|META_VERSION_QUALIFIER
+name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
-name|short
-name|version
-init|=
-name|value
-operator|==
-literal|null
-operator|||
-name|value
-operator|.
-name|length
-operator|<=
-literal|0
-condition|?
-operator|-
-literal|1
-else|:
-name|Bytes
-operator|.
-name|toShort
+if|if
+condition|(
+operator|!
+name|isMigrated
 argument_list|(
 name|value
 argument_list|)
-decl_stmt|;
-name|boolean
-name|migrated
-init|=
-name|version
-operator|>=
-name|HConstants
-operator|.
-name|META_VERSION
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Meta version="
-operator|+
-name|version
-operator|+
-literal|"; migrated="
-operator|+
-name|migrated
-argument_list|)
-expr_stmt|;
+condition|)
+block|{
 return|return
-name|migrated
+literal|false
+return|;
+block|}
+block|}
+return|return
+literal|true
 return|;
 block|}
 block|}
