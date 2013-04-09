@@ -599,7 +599,7 @@ return|return
 name|encodedName
 return|;
 block|}
-comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>.META.</code> if passed</code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
+comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>.META.</code> if passed<code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
 specifier|public
 specifier|static
 name|String
