@@ -95,6 +95,20 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -128,7 +142,7 @@ specifier|final
 name|int
 name|SLEEP_TIME_MS
 init|=
-literal|5000
+literal|3000
 decl_stmt|;
 specifier|private
 specifier|static
@@ -140,22 +154,28 @@ call|(
 name|int
 call|)
 argument_list|(
-literal|0.05
+literal|0.10
 operator|*
 name|SLEEP_TIME_MS
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|volatile
-name|boolean
+specifier|final
+name|AtomicBoolean
 name|wasInterrupted
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
 annotation|@
 name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|6000
+literal|60000
 argument_list|)
 specifier|public
 name|void
@@ -205,7 +225,9 @@ literal|"Sleeper thread: finished sleeping"
 argument_list|)
 expr_stmt|;
 name|wasInterrupted
-operator|=
+operator|.
+name|set
+argument_list|(
 name|Thread
 operator|.
 name|currentThread
@@ -213,6 +235,7 @@ argument_list|()
 operator|.
 name|isInterrupted
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -246,8 +269,27 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Main thread: sleeping for 500 ms"
+literal|"Main thread: sleeping for 200 ms"
 argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|200
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Interrupting the sleeper thread and sleeping for 500 ms"
+argument_list|)
+expr_stmt|;
+name|sleeper
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
 name|Threads
 operator|.
@@ -260,7 +302,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Interrupting the sleeper thread and sleeping for 2000 ms"
+literal|"Interrupting the sleeper thread and sleeping for 800 ms"
 argument_list|)
 expr_stmt|;
 name|sleeper
@@ -272,26 +314,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|2000
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Interrupting the sleeper thread and sleeping for 1000 ms"
-argument_list|)
-expr_stmt|;
-name|sleeper
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1000
+literal|800
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -318,6 +341,9 @@ operator|+
 literal|"interrupted status"
 argument_list|,
 name|wasInterrupted
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|long
@@ -330,6 +356,7 @@ argument_list|()
 operator|-
 name|startTime
 decl_stmt|;
+comment|// We expect to wait at least SLEEP_TIME_MS, but we can wait more if there is a GC.
 name|assertTrue
 argument_list|(
 literal|"Elapsed time "
@@ -338,18 +365,13 @@ name|timeElapsed
 operator|+
 literal|" ms is out of the expected "
 operator|+
-literal|"range of the sleep time "
+literal|" sleep time of "
 operator|+
 name|SLEEP_TIME_MS
 argument_list|,
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|timeElapsed
-operator|-
 name|SLEEP_TIME_MS
-argument_list|)
+operator|-
+name|timeElapsed
 operator|<
 name|TOLERANCE_MS
 argument_list|)
