@@ -1279,7 +1279,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|20000
+literal|60000
 argument_list|)
 specifier|public
 name|void
