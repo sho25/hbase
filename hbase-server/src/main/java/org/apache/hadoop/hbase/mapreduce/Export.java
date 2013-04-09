@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|Path
 import|;
 end_import
@@ -545,6 +559,7 @@ argument_list|,
 name|outputDir
 argument_list|)
 expr_stmt|;
+comment|// job conf doesn't contain the conf so doesn't have a default fs.
 return|return
 name|job
 return|;

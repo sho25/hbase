@@ -7506,6 +7506,17 @@ expr_stmt|;
 name|forceChangeTaskLogDir
 argument_list|()
 expr_stmt|;
+comment|// Tests were failing because this process used 6GB of virtual memory and was getting killed.
+comment|// we up the VM usable so that processes don't get killed.
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"yarn.nodemanager.vmem-pmem-ratio"
+argument_list|,
+literal|8.0f
+argument_list|)
+expr_stmt|;
 comment|// Allow the user to override FS URI for this map-reduce cluster to use.
 name|mrCluster
 operator|=
@@ -7621,7 +7632,7 @@ literal|"yarn"
 argument_list|)
 expr_stmt|;
 name|String
-name|rmAdress
+name|rmAddress
 init|=
 name|jobConf
 operator|.
@@ -7632,7 +7643,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|rmAdress
+name|rmAddress
 operator|!=
 literal|null
 condition|)
@@ -7643,12 +7654,12 @@ name|set
 argument_list|(
 literal|"yarn.resourcemanager.address"
 argument_list|,
-name|rmAdress
+name|rmAddress
 argument_list|)
 expr_stmt|;
 block|}
 name|String
-name|schedulerAdress
+name|schedulerAddress
 init|=
 name|jobConf
 operator|.
@@ -7659,7 +7670,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|schedulerAdress
+name|schedulerAddress
 operator|!=
 literal|null
 condition|)
@@ -7670,7 +7681,7 @@ name|set
 argument_list|(
 literal|"yarn.resourcemanager.scheduler.address"
 argument_list|,
-name|schedulerAdress
+name|schedulerAddress
 argument_list|)
 expr_stmt|;
 block|}
