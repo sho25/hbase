@@ -6841,13 +6841,13 @@ condition|(
 operator|!
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 return|return;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|zkw
 operator|.

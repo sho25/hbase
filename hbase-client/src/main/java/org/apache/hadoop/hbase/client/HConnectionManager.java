@@ -8533,8 +8533,6 @@ literal|false
 decl_stmt|;
 name|HRegionLocation
 name|oldLocation
-init|=
-literal|null
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -8614,40 +8612,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-if|if
-condition|(
-name|isStaleDelete
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Received an error from "
-operator|+
-name|source
-operator|.
-name|getHostnamePort
-argument_list|()
-operator|+
-literal|" for region "
-operator|+
-name|hri
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|"; not removing "
-operator|+
-name|oldLocation
-operator|.
-name|getHostnamePort
-argument_list|()
-operator|+
-literal|" from cache."
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**      * Update the location with the new value (if the exception is a RegionMovedException)      * or delete it from the cache.      * @param exception an object (to simplify user code) on which we will try to find a nested      *                  or wrapped or both RegionMovedException      * @param source server that is the source of the location update.      */

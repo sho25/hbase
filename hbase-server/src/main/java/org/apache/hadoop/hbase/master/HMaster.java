@@ -7399,15 +7399,7 @@ name|msg
 init|=
 literal|"Region server "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|sn
-operator|.
-name|getVersionedBytes
-argument_list|()
-argument_list|)
 operator|+
 literal|" reported a fatal error:\n"
 operator|+
