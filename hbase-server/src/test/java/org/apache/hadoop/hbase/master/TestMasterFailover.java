@@ -3828,6 +3828,26 @@ argument_list|(
 literal|"Master is ready"
 argument_list|)
 expr_stmt|;
+comment|// Wait until SSH processing completed for dead server.
+while|while
+condition|(
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|areDeadServersInProgress
+argument_list|()
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Failover should be completed, now wait for no RIT
 name|log
 argument_list|(
