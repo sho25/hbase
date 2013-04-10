@@ -4618,6 +4618,20 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|/**   * @see {@link #buildRollWALWriterRequest()   */
+specifier|private
+specifier|static
+name|RollWALWriterRequest
+name|ROLL_WAL_WRITER_REQUEST
+init|=
+name|RollWALWriterRequest
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 comment|/**   * Create a new RollWALWriterRequest   *   * @return a ReplicateWALEntryRequest   */
 specifier|public
 specifier|static
@@ -4625,23 +4639,24 @@ name|RollWALWriterRequest
 name|buildRollWALWriterRequest
 parameter_list|()
 block|{
-name|RollWALWriterRequest
-operator|.
-name|Builder
-name|builder
+return|return
+name|ROLL_WAL_WRITER_REQUEST
+return|;
+block|}
+comment|/**   * @see {@link #buildGetServerInfoRequest()}   */
+specifier|private
+specifier|static
+name|GetServerInfoRequest
+name|GET_SERVER_INFO_REQUEST
 init|=
-name|RollWALWriterRequest
+name|GetServerInfoRequest
 operator|.
 name|newBuilder
 argument_list|()
-decl_stmt|;
-return|return
-name|builder
 operator|.
 name|build
 argument_list|()
-return|;
-block|}
+decl_stmt|;
 comment|/**   * Create a new GetServerInfoRequest   *   * @return a GetServerInfoRequest   */
 specifier|public
 specifier|static
@@ -4649,21 +4664,8 @@ name|GetServerInfoRequest
 name|buildGetServerInfoRequest
 parameter_list|()
 block|{
-name|GetServerInfoRequest
-operator|.
-name|Builder
-name|builder
-init|=
-name|GetServerInfoRequest
-operator|.
-name|newBuilder
-argument_list|()
-decl_stmt|;
 return|return
-name|builder
-operator|.
-name|build
-argument_list|()
+name|GET_SERVER_INFO_REQUEST
 return|;
 block|}
 comment|/**   * Create a new StopServerRequest   *   * @param reason the reason to stop the server   * @return a StopServerRequest   */
@@ -5734,6 +5736,21 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|/**    * @see {@link #buildGetClusterStatusRequest}    */
+specifier|private
+specifier|static
+specifier|final
+name|GetClusterStatusRequest
+name|GET_CLUSTER_STATUS_REQUEST
+init|=
+name|GetClusterStatusRequest
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 comment|/**    * Creates a protocol buffer GetClusterStatusRequest    *    * @return A GetClusterStatusRequest    */
 specifier|public
 specifier|static
@@ -5742,15 +5759,24 @@ name|buildGetClusterStatusRequest
 parameter_list|()
 block|{
 return|return
-name|GetClusterStatusRequest
+name|GET_CLUSTER_STATUS_REQUEST
+return|;
+block|}
+comment|/**    * @see {@link #buildCatalogScanRequest}    */
+specifier|private
+specifier|static
+specifier|final
+name|CatalogScanRequest
+name|CATALOG_SCAN_REQUEST
+init|=
+name|CatalogScanRequest
 operator|.
 name|newBuilder
 argument_list|()
 operator|.
 name|build
 argument_list|()
-return|;
-block|}
+decl_stmt|;
 comment|/**    * Creates a request for running a catalog scan    * @return A {@link CatalogScanRequest}    */
 specifier|public
 specifier|static
@@ -5759,13 +5785,7 @@ name|buildCatalogScanRequest
 parameter_list|()
 block|{
 return|return
-name|CatalogScanRequest
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|build
-argument_list|()
+name|CATALOG_SCAN_REQUEST
 return|;
 block|}
 comment|/**    * Creates a request for enabling/disabling the catalog janitor    * @return A {@link EnableCatalogJanitorRequest}    */
@@ -5793,6 +5813,21 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|/**    * @see {@link #buildIsCatalogJanitorEnabledRequest()}    */
+specifier|private
+specifier|static
+specifier|final
+name|IsCatalogJanitorEnabledRequest
+name|IS_CATALOG_JANITOR_ENABLED_REQUEST
+init|=
+name|IsCatalogJanitorEnabledRequest
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 comment|/**    * Creates a request for querying the master whether the catalog janitor is enabled    * @return A {@link IsCatalogJanitorEnabledRequest}    */
 specifier|public
 specifier|static
@@ -5801,13 +5836,7 @@ name|buildIsCatalogJanitorEnabledRequest
 parameter_list|()
 block|{
 return|return
-name|IsCatalogJanitorEnabledRequest
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|build
-argument_list|()
+name|IS_CATALOG_JANITOR_ENABLED_REQUEST
 return|;
 block|}
 comment|/**    * Creates a request for querying the master the last flushed sequence Id for a region    * @param regionName    * @return A {@link GetLastFlushedSequenceIdRequest}    */
