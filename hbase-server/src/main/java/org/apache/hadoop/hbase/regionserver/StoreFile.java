@@ -769,6 +769,7 @@ literal|"EXCLUDE_FROM_MINOR_COMPACTION"
 argument_list|)
 decl_stmt|;
 comment|/** Bloom filter Type in FileInfo */
+specifier|public
 specifier|static
 specifier|final
 name|byte
