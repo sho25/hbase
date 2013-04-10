@@ -645,18 +645,59 @@ name|tableNameStr
 argument_list|)
 condition|)
 block|{
+comment|// retainAssignment is true only during recovery.  In normal case it is false
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|retainAssignment
+condition|)
+block|{
 throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
+name|tableNameStr
 argument_list|)
 throw|;
+block|}
+try|try
+block|{
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|removeEnablingTable
+argument_list|(
+name|tableNameStr
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+comment|// TODO : Use HBCK to clear such nodes
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to delete the ENABLING node for the table "
+operator|+
+name|tableNameStr
+operator|+
+literal|".  The table will remain unusable. Run HBCK to manually fix the problem."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// There could be multiple client requests trying to disable or enable
 comment|// the table at the same time. Ensure only the first request is honored

@@ -1398,7 +1398,7 @@ name|DISABLING
 argument_list|)
 return|;
 block|}
-comment|/**    * If the table is found in ENABLING state the inmemory state is removed. This    * helps in cases where CreateTable is to be retried by the client incase of    * failures    *     * @param tableName    */
+comment|/**    * If the table is found in ENABLING state the inmemory state is removed. This    * helps in cases where CreateTable is to be retried by the client incase of    * failures.  If deleteZNode is true - the znode is also deleted    *     * @param tableName    * @param deleteZNode    * @throws KeeperException    */
 specifier|public
 name|void
 name|removeEnablingTable
@@ -1406,7 +1406,12 @@ parameter_list|(
 specifier|final
 name|String
 name|tableName
+parameter_list|,
+name|boolean
+name|deleteZNode
 parameter_list|)
+throws|throws
+name|KeeperException
 block|{
 synchronized|synchronized
 init|(
@@ -1432,6 +1437,34 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|deleteZNode
+condition|)
+block|{
+name|ZKUtil
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|this
+operator|.
+name|watcher
+operator|.
+name|tableZNode
+argument_list|,
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
