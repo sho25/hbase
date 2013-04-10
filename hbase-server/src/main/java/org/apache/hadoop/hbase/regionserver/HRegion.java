@@ -16235,7 +16235,7 @@ name|this
 operator|.
 name|joinedHeap
 operator|.
-name|seek
+name|requestSeek
 argument_list|(
 name|KeyValue
 operator|.
@@ -16247,6 +16247,10 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
+argument_list|,
+literal|true
+argument_list|,
+literal|true
 argument_list|)
 operator|&&
 name|joinedHeap
