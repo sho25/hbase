@@ -888,10 +888,9 @@ literal|0
 operator|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"No actions associated with user '"
 operator|+
 name|Bytes
@@ -905,9 +904,21 @@ argument_list|()
 argument_list|)
 operator|+
 literal|"'"
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
-return|return;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
 block|}
 name|byte
 index|[]
