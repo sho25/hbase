@@ -7644,7 +7644,7 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// No time period set so create one -- do half of balancer period.
+comment|// No time period set so create one
 name|int
 name|balancerPeriod
 init|=
@@ -7661,8 +7661,6 @@ decl_stmt|;
 name|balancerCutoffTime
 operator|=
 name|balancerPeriod
-operator|/
-literal|2
 expr_stmt|;
 comment|// If nonsense period, set it to balancerPeriod
 if|if
@@ -7730,16 +7728,6 @@ name|maximumBalanceTime
 init|=
 name|getBalancerCutoffTime
 argument_list|()
-decl_stmt|;
-name|long
-name|cutoffTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|+
-name|maximumBalanceTime
 decl_stmt|;
 name|boolean
 name|balancerRan
@@ -7978,6 +7966,16 @@ name|partialPlans
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|cutoffTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|maximumBalanceTime
+decl_stmt|;
 name|int
 name|rpCount
 init|=
@@ -8033,6 +8031,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+comment|//TODO: bulk assign
 name|this
 operator|.
 name|assignmentManager
@@ -8080,6 +8079,7 @@ operator|>
 name|cutoffTime
 condition|)
 block|{
+comment|//TODO: After balance, there should not be a cutoff time (keeping it as a security net for now)
 name|LOG
 operator|.
 name|debug
