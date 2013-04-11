@@ -50,7 +50,6 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
-comment|/**    * Protobuf service {@code TestProtobufRpcProto}    *    *<pre>    **    * A protobuf service for use in tests    *</pre>    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -73,7 +72,6 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc ping(.EmptyRequestProto) returns (.EmptyResponseProto);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -136,7 +134,6 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc echo(.EchoRequestProto) returns (.EchoResponseProto);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -199,7 +196,6 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc error(.EmptyRequestProto) returns (.EmptyResponseProto);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -1055,7 +1051,6 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc ping(.EmptyRequestProto) returns (.EmptyResponseProto);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -1118,7 +1113,6 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc echo(.EchoRequestProto) returns (.EchoResponseProto);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -1181,7 +1175,6 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc error(.EmptyRequestProto) returns (.EmptyResponseProto);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -3052,7 +3045,6 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// @@protoc_insertion_point(class_scope:TestProtobufRpcProto)
 block|}
 specifier|public
 specifier|static

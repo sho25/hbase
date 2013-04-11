@@ -1326,9 +1326,10 @@ name|rss
 init|=
 name|RootRegionServer
 operator|.
-name|PARSER
+name|newBuilder
+argument_list|()
 operator|.
-name|parseFrom
+name|mergeFrom
 argument_list|(
 name|data
 argument_list|,
@@ -1340,6 +1341,9 @@ name|length
 operator|-
 name|prefixLen
 argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 name|org
 operator|.
