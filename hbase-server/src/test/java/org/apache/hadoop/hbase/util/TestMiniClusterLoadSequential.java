@@ -1037,7 +1037,7 @@ name|numKeys
 parameter_list|()
 block|{
 return|return
-literal|10000
+literal|1000
 return|;
 block|}
 specifier|protected

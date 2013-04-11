@@ -204,18 +204,6 @@ name|encoding
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use a smaller number of keys in in this test.    */
-annotation|@
-name|Override
-specifier|protected
-name|int
-name|numKeys
-parameter_list|()
-block|{
-return|return
-literal|3000
-return|;
-block|}
 block|}
 end_class
 
