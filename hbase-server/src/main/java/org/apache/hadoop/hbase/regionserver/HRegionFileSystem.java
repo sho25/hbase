@@ -2325,6 +2325,16 @@ literal|null
 return|;
 block|}
 block|}
+name|f
+operator|.
+name|getReader
+argument_list|()
+operator|.
+name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|Path
 name|splitDir
 init|=
