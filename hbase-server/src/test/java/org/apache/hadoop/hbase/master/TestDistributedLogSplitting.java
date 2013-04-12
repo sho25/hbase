@@ -702,6 +702,17 @@ operator|.
 name|DEBUG
 argument_list|)
 expr_stmt|;
+comment|// test ThreeRSAbort fails under hadoop2 (2.0.2-alpha) if shortcircuit-read (scr) is on. this
+comment|// turns it off for this test.  TODO: Figure out why scr breaks recovery.
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"hbase.tests.use.shortcircuit.reads"
+argument_list|,
+literal|"false"
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Start a cluster with 2 masters and 6 regionservers
 specifier|final
