@@ -104,23 +104,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Grab the next row's worth of values.    * @param results return output array    * @param metric the metric name    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
-specifier|public
-name|boolean
-name|next
-parameter_list|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|results
-parameter_list|,
-name|String
-name|metric
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.    * @param result return output array    * @param limit limit on row count to get    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
 specifier|public
 name|boolean
@@ -134,26 +117,6 @@ name|result
 parameter_list|,
 name|int
 name|limit
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.    * @param result return output array    * @param limit limit on row count to get    * @param metric the metric name    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
-specifier|public
-name|boolean
-name|next
-parameter_list|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|result
-parameter_list|,
-name|int
-name|limit
-parameter_list|,
-name|String
-name|metric
 parameter_list|)
 throws|throws
 name|IOException

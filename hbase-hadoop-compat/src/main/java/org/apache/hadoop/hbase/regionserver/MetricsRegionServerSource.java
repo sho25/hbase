@@ -616,6 +616,13 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
+name|SCAN_NEXT_KEY
+init|=
+literal|"scanNext"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
 name|SLOW_MUTATE_KEY
 init|=
 literal|"slowPutCount"

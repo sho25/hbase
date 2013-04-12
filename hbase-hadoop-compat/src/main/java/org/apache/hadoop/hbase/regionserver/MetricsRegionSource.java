@@ -31,6 +31,22 @@ argument_list|<
 name|MetricsRegionSource
 argument_list|>
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OPS_SAMPLE_NAME
+init|=
+literal|"ops"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SIZE_VALUE_NAME
+init|=
+literal|"size"
+decl_stmt|;
 comment|/**    * Close the region's metrics as this region is closing.    */
 name|void
 name|close
@@ -46,10 +62,21 @@ name|void
 name|updateDelete
 parameter_list|()
 function_decl|;
-comment|/**    * Update related counts of gets.    */
+comment|/**    * Update count and sizes of gets.    * @param getSize size in bytes of the resulting key values for a get    */
 name|void
 name|updateGet
-parameter_list|()
+parameter_list|(
+name|long
+name|getSize
+parameter_list|)
+function_decl|;
+comment|/**    * Update the count and sizes of resultScanner.next()    * @param scanSize Size in bytes of the resulting key values for a next()    */
+name|void
+name|updateScan
+parameter_list|(
+name|long
+name|scanSize
+parameter_list|)
 function_decl|;
 comment|/**    * Update related counts of increments.    */
 name|void
