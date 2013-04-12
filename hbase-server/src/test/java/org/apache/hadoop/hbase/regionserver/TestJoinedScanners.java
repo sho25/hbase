@@ -616,7 +616,7 @@ decl_stmt|;
 name|long
 name|rows_to_insert
 init|=
-literal|10000
+literal|1000
 decl_stmt|;
 name|int
 name|insert_batch
