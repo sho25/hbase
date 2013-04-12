@@ -1185,7 +1185,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Create all of the RegionPlan's needed to move from the initial cluster state to the desired    * state.    *    * @param initialRegionMapping Initial mapping of Region to Server    * @param clusterState The desired mapping of ServerName to Regions    * @return List of RegionPlan's that represent the moves needed to get to desired final state.    */
+comment|/**    * Create all of the RegionPlan's needed to move from the initial cluster state to the desired    * state.    *    * @param cluster The state of the cluster    * @return List of RegionPlan's that represent the moves needed to get to desired final state.    */
 specifier|private
 name|List
 argument_list|<
@@ -1543,7 +1543,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * From a list of regions pick a random one. Null can be returned which    * {@link StochasticLoadBalancer#balanceCluster(Map)} recognize as signal to try a region move    * rather than swap.    *    * @param regions        list of regions.    * @param chanceOfNoSwap Chance that this will decide to try a move rather    *                       than a swap.    * @return a random {@link HRegionInfo} or null if an asymmetrical move is    *         suggested.    */
+comment|/**    * From a list of regions pick a random one. Null can be returned which    * {@link StochasticLoadBalancer#balanceCluster(Map)} recognize as signal to try a region move    * rather than swap.    *    * @param cluster The state of the cluster    * @param server index of the server    * @param chanceOfNoSwap Chance that this will decide to try a move rather    *                       than a swap.    * @return a random {@link HRegionInfo} or null if an asymmetrical move is    *         suggested.    */
 specifier|private
 name|int
 name|pickRandomRegion
@@ -1615,7 +1615,7 @@ name|rand
 index|]
 return|;
 block|}
-comment|/**    * Given a server we will want to switch regions with another server. This    * function picks a random server from the list.    *    * @param server     Current Server. This server will never be the return value.    * @param allServers list of all server from which to pick    * @return random server. Null if no other servers were found.    */
+comment|/**    * Given a server we will want to switch regions with another server. This    * function picks a random server from the list.    *    * @param serverIndex Current Server. This server will never be the return value.    * @param cluster The state of the cluster    * @return random server. Null if no other servers were found.    */
 specifier|private
 name|int
 name|pickOtherServer
@@ -1671,7 +1671,7 @@ return|;
 block|}
 block|}
 block|}
-comment|/**    * This is the main cost function.  It will compute a cost associated with a proposed cluster    * state.  All different costs will be combined with their multipliers to produce a double cost.    *    * @param initialRegionMapping Map of where the regions started.    * @param clusterState Map of ServerName to list of regions.    * @return a double of a cost associated with the proposed    */
+comment|/**    * This is the main cost function.  It will compute a cost associated with a proposed cluster    * state.  All different costs will be combined with their multipliers to produce a double cost.    *    * @param cluster The state of the cluster    * @return a double of a cost associated with the proposed    */
 specifier|protected
 name|double
 name|computeCost
@@ -1841,7 +1841,7 @@ return|return
 name|total
 return|;
 block|}
-comment|/**    * Given the starting state of the regions and a potential ending state    * compute cost based upon the number of regions that have moved.    *    * @param initialRegionMapping The starting location of regions.    * @param clusterState         The potential new cluster state.    * @return The cost. Between 0 and 1.    */
+comment|/**    * Given the starting state of the regions and a potential ending state    * compute cost based upon the number of regions that have moved.    *    * @param cluster The state of the cluster    * @return The cost. Between 0 and 1.    */
 name|double
 name|computeMoveCost
 parameter_list|(
@@ -1905,7 +1905,7 @@ name|moveCost
 argument_list|)
 return|;
 block|}
-comment|/**    * Compute the cost of a potential cluster state from skew in number of    * regions on a cluster    *    * @param clusterState The proposed cluster state    * @return The cost of region load imbalance.    */
+comment|/**    * Compute the cost of a potential cluster state from skew in number of    * regions on a cluster    *    * @param cluster The state of the cluster    * @return The cost of region load imbalance.    */
 name|double
 name|computeSkewLoadCost
 parameter_list|(
@@ -1948,7 +1948,7 @@ name|stats
 argument_list|)
 return|;
 block|}
-comment|/**    * Compute the cost of a potential cluster configuration based upon how evenly    * distributed tables are.    *    * @param clusterState Proposed cluster state.    * @return Cost of imbalance in table.    */
+comment|/**    * Compute the cost of a potential cluster configuration based upon how evenly    * distributed tables are.    *    * @param cluster The state of the cluster    * @return Cost of imbalance in table.    */
 name|double
 name|computeTableSkewLoadCost
 parameter_list|(
@@ -2019,7 +2019,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Compute a cost of a potential cluster configuration based upon where    * {@link org.apache.hadoop.hbase.regionserver.StoreFile}s are located.    *    * @param initialRegionMapping - not used    * @param clusterState The state of the cluster    * @return A cost between 0 and 1. 0 Means all regions are on the sever with    *         the most local store files.    */
+comment|/**    * Compute a cost of a potential cluster configuration based upon where    * {@link org.apache.hadoop.hbase.regionserver.StoreFile}s are located.    *    * @param cluster The state of the cluster    * @return A cost between 0 and 1. 0 Means all regions are on the sever with    *         the most local store files.    */
 name|double
 name|computeDataLocalityCost
 parameter_list|(
@@ -2198,7 +2198,7 @@ name|MEMSTORE_SIZE
 block|,
 name|STOREFILE_SIZE
 block|}
-comment|/**    * Compute the cost of the current cluster state due to some RegionLoadCost type    *    * @param clusterState the cluster    * @param costType     what type of cost to consider    * @return the scaled cost.    */
+comment|/**    * Compute the cost of the current cluster state due to some RegionLoadCost type    *    * @param cluster The state of the cluster    * @param costType     what type of cost to consider    * @return the scaled cost.    */
 specifier|private
 name|double
 name|computeRegionLoadCost
