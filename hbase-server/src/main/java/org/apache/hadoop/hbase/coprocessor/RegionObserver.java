@@ -255,6 +255,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|CompareFilter
@@ -1220,7 +1236,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|prePut
 parameter_list|(
@@ -1240,13 +1256,13 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postPut
 parameter_list|(
@@ -1266,13 +1282,13 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preDelete
 parameter_list|(
@@ -1292,13 +1308,13 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postDelete
 parameter_list|(
@@ -1318,8 +1334,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException

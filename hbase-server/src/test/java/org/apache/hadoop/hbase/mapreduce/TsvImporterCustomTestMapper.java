@@ -87,6 +87,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -255,9 +271,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 comment|//The value should look like this: VALUE1 or VALUE2. Let's multiply

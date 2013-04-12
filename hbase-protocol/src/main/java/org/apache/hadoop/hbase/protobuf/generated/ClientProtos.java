@@ -41493,13 +41493,29 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional bool writeToWAL = 6 [default = true];
+comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
 name|boolean
-name|hasWriteToWAL
+name|hasDurability
 parameter_list|()
 function_decl|;
-name|boolean
-name|getWriteToWAL
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|getDurability
 parameter_list|()
 function_decl|;
 comment|// optional .TimeRange timeRange = 7;
@@ -41678,6 +41694,418 @@ name|ClientProtos
 operator|.
 name|internal_static_MutationProto_fieldAccessorTable
 return|;
+block|}
+specifier|public
+enum|enum
+name|Durability
+implements|implements
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ProtocolMessageEnum
+block|{
+name|USE_DEFAULT
+argument_list|(
+literal|0
+argument_list|,
+literal|0
+argument_list|)
+block|,
+name|SKIP_WAL
+argument_list|(
+literal|1
+argument_list|,
+literal|1
+argument_list|)
+block|,
+name|ASYNC_WAL
+argument_list|(
+literal|2
+argument_list|,
+literal|2
+argument_list|)
+block|,
+name|SYNC_WAL
+argument_list|(
+literal|3
+argument_list|,
+literal|3
+argument_list|)
+block|,
+name|FSYNC_WAL
+argument_list|(
+literal|4
+argument_list|,
+literal|4
+argument_list|)
+block|,       ;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|USE_DEFAULT_VALUE
+init|=
+literal|0
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SKIP_WAL_VALUE
+init|=
+literal|1
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ASYNC_WAL_VALUE
+init|=
+literal|2
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SYNC_WAL_VALUE
+init|=
+literal|3
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FSYNC_WAL_VALUE
+init|=
+literal|4
+decl_stmt|;
+specifier|public
+specifier|final
+name|int
+name|getNumber
+parameter_list|()
+block|{
+return|return
+name|value
+return|;
+block|}
+specifier|public
+specifier|static
+name|Durability
+name|valueOf
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+switch|switch
+condition|(
+name|value
+condition|)
+block|{
+case|case
+literal|0
+case|:
+return|return
+name|USE_DEFAULT
+return|;
+case|case
+literal|1
+case|:
+return|return
+name|SKIP_WAL
+return|;
+case|case
+literal|2
+case|:
+return|return
+name|ASYNC_WAL
+return|;
+case|case
+literal|3
+case|:
+return|return
+name|SYNC_WAL
+return|;
+case|case
+literal|4
+case|:
+return|return
+name|FSYNC_WAL
+return|;
+default|default:
+return|return
+literal|null
+return|;
+block|}
+block|}
+specifier|public
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Durability
+argument_list|>
+name|internalGetValueMap
+parameter_list|()
+block|{
+return|return
+name|internalValueMap
+return|;
+block|}
+specifier|private
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Durability
+argument_list|>
+name|internalValueMap
+init|=
+operator|new
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Durability
+argument_list|>
+argument_list|()
+block|{
+specifier|public
+name|Durability
+name|findValueByNumber
+parameter_list|(
+name|int
+name|number
+parameter_list|)
+block|{
+return|return
+name|Durability
+operator|.
+name|valueOf
+argument_list|(
+name|number
+argument_list|)
+return|;
+block|}
+block|}
+decl_stmt|;
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|getValueDescriptor
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+operator|.
+name|getValues
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|index
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptorForType
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+return|;
+block|}
+specifier|public
+specifier|static
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptor
+parameter_list|()
+block|{
+return|return
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|getDescriptor
+argument_list|()
+operator|.
+name|getEnumTypes
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+specifier|final
+name|Durability
+index|[]
+name|VALUES
+init|=
+block|{
+name|USE_DEFAULT
+block|,
+name|SKIP_WAL
+block|,
+name|ASYNC_WAL
+block|,
+name|SYNC_WAL
+block|,
+name|FSYNC_WAL
+block|,        }
+decl_stmt|;
+specifier|public
+specifier|static
+name|Durability
+name|valueOf
+parameter_list|(
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|desc
+parameter_list|)
+block|{
+if|if
+condition|(
+name|desc
+operator|.
+name|getType
+argument_list|()
+operator|!=
+name|getDescriptor
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|java
+operator|.
+name|lang
+operator|.
+name|IllegalArgumentException
+argument_list|(
+literal|"EnumValueDescriptor is not for this type."
+argument_list|)
+throw|;
+block|}
+return|return
+name|VALUES
+index|[
+name|desc
+operator|.
+name|getIndex
+argument_list|()
+index|]
+return|;
+block|}
+specifier|private
+specifier|final
+name|int
+name|index
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|value
+decl_stmt|;
+specifier|private
+name|Durability
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|int
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|index
+operator|=
+name|index
+expr_stmt|;
+name|this
+operator|.
+name|value
+operator|=
+name|value
+expr_stmt|;
+block|}
+comment|// @@protoc_insertion_point(enum_scope:MutationProto.Durability)
 block|}
 specifier|public
 enum|enum
@@ -41962,7 +42390,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 return|;
 block|}
@@ -42330,7 +42758,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|1
+literal|2
 argument_list|)
 return|;
 block|}
@@ -51236,22 +51664,38 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional bool writeToWAL = 6 [default = true];
+comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WRITETOWAL_FIELD_NUMBER
+name|DURABILITY_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
 specifier|private
-name|boolean
-name|writeToWAL_
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|durability_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasWriteToWAL
+name|hasDurability
 parameter_list|()
 block|{
 return|return
@@ -51267,12 +51711,28 @@ operator|)
 return|;
 block|}
 specifier|public
-name|boolean
-name|getWriteToWAL
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|getDurability
 parameter_list|()
 block|{
 return|return
-name|writeToWAL_
+name|durability_
 return|;
 block|}
 comment|// optional .TimeRange timeRange = 7;
@@ -51469,9 +51929,27 @@ operator|.
 name|emptyList
 argument_list|()
 expr_stmt|;
-name|writeToWAL_
+name|durability_
 operator|=
-literal|true
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+operator|.
+name|USE_DEFAULT
 expr_stmt|;
 name|timeRange_
 operator|=
@@ -51787,11 +52265,14 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeBool
+name|writeEnum
 argument_list|(
 literal|6
 argument_list|,
-name|writeToWAL_
+name|durability_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -52082,11 +52563,14 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeBoolSize
+name|computeEnumSize
 argument_list|(
 literal|6
 argument_list|,
-name|writeToWAL_
+name|durability_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -52449,18 +52933,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasWriteToWAL
+name|hasDurability
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasWriteToWAL
+name|hasDurability
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasWriteToWAL
+name|hasDurability
 argument_list|()
 condition|)
 block|{
@@ -52469,12 +52953,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 operator|)
 expr_stmt|;
@@ -52760,7 +53244,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasWriteToWAL
+name|hasDurability
 argument_list|()
 condition|)
 block|{
@@ -52772,7 +53256,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WRITETOWAL_FIELD_NUMBER
+name|DURABILITY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -52782,9 +53266,9 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|hashBoolean
+name|hashEnum
 argument_list|(
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -53840,9 +54324,27 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-name|writeToWAL_
+name|durability_
 operator|=
-literal|true
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+operator|.
+name|USE_DEFAULT
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -54417,9 +54919,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|writeToWAL_
+name|durability_
 operator|=
-name|writeToWAL_
+name|durability_
 expr_stmt|;
 if|if
 condition|(
@@ -54956,15 +55458,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasWriteToWAL
+name|hasDurability
 argument_list|()
 condition|)
 block|{
-name|setWriteToWAL
+name|setDurability
 argument_list|(
 name|other
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -55470,17 +55972,84 @@ case|case
 literal|48
 case|:
 block|{
+name|int
+name|rawValue
+init|=
+name|input
+operator|.
+name|readEnum
+argument_list|()
+decl_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|value
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+operator|.
+name|valueOf
+argument_list|(
+name|rawValue
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+name|unknownFields
+operator|.
+name|mergeVarintField
+argument_list|(
+literal|6
+argument_list|,
+name|rawValue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|bitField0_
 operator||=
 literal|0x00000020
 expr_stmt|;
-name|writeToWAL_
+name|durability_
 operator|=
-name|input
-operator|.
-name|readBool
-argument_list|()
+name|value
 expr_stmt|;
+block|}
 break|break;
 block|}
 case|case
@@ -58650,16 +59219,50 @@ return|return
 name|attributeBuilder_
 return|;
 block|}
-comment|// optional bool writeToWAL = 6 [default = true];
+comment|// optional .MutationProto.Durability durability = 6 [default = USE_DEFAULT];
 specifier|private
-name|boolean
-name|writeToWAL_
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|durability_
 init|=
-literal|true
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+operator|.
+name|USE_DEFAULT
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasWriteToWAL
+name|hasDurability
 parameter_list|()
 block|{
 return|return
@@ -58675,27 +59278,72 @@ operator|)
 return|;
 block|}
 specifier|public
-name|boolean
-name|getWriteToWAL
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+name|getDurability
 parameter_list|()
 block|{
 return|return
-name|writeToWAL_
+name|durability_
 return|;
 block|}
 specifier|public
 name|Builder
-name|setWriteToWAL
+name|setDurability
 parameter_list|(
-name|boolean
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
 name|value
 parameter_list|)
 block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
 name|bitField0_
 operator||=
 literal|0x00000020
 expr_stmt|;
-name|writeToWAL_
+name|durability_
 operator|=
 name|value
 expr_stmt|;
@@ -58708,7 +59356,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearWriteToWAL
+name|clearDurability
 parameter_list|()
 block|{
 name|bitField0_
@@ -58720,9 +59368,27 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
-name|writeToWAL_
+name|durability_
 operator|=
-literal|true
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|MutationProto
+operator|.
+name|Durability
+operator|.
+name|USE_DEFAULT
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -138580,7 +139246,7 @@ literal|"\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\0
 block|,
 literal|"mpareType\030\004 \002(\0162\014.CompareType\022\037\n\ncompara"
 operator|+
-literal|"tor\030\005 \002(\0132\013.Comparator\"\372\004\n\rMutationProto"
+literal|"tor\030\005 \002(\0132\013.Comparator\"\365\005\n\rMutationProto"
 operator|+
 literal|"\022\013\n\003row\030\001 \001(\014\022/\n\nmutateType\030\002 \001(\0162\033.Muta"
 operator|+
@@ -138590,129 +139256,135 @@ literal|"\003(\0132\032.MutationProto.ColumnValue\022\021\n\ttimes"
 operator|+
 literal|"tamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016.NameByte"
 operator|+
-literal|"sPair\022\030\n\nwriteToWAL\030\006 \001(\010:\004true\022\035\n\ttimeR"
+literal|"sPair\022:\n\ndurability\030\006 \001(\0162\031.MutationProt"
 operator|+
-literal|"ange\030\007 \001(\0132\n.TimeRange\022\033\n\023associatedCell"
+literal|"o.Durability:\013USE_DEFAULT\022\035\n\ttimeRange\030\007"
 operator|+
-literal|"Count\030\010 \001(\005\032\326\001\n\013ColumnValue\022\016\n\006family\030\001 "
+literal|" \001(\0132\n.TimeRange\022\033\n\023associatedCellCount\030"
 operator|+
-literal|"\002(\014\022A\n\016qualifierValue\030\002 \003(\0132).MutationPr"
+literal|"\010 \001(\005\032\326\001\n\013ColumnValue\022\016\n\006family\030\001 \002(\014\022A\n"
 block|,
-literal|"oto.ColumnValue.QualifierValue\032t\n\016Qualif"
+literal|"\016qualifierValue\030\002 \003(\0132).MutationProto.Co"
 operator|+
-literal|"ierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001"
+literal|"lumnValue.QualifierValue\032t\n\016QualifierVal"
 operator|+
-literal|"(\014\022\021\n\ttimestamp\030\003 \001(\004\022-\n\ndeleteType\030\004 \001("
+literal|"ue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\t"
 operator|+
-literal|"\0162\031.MutationProto.DeleteType\">\n\014Mutation"
+literal|"timestamp\030\003 \001(\004\022-\n\ndeleteType\030\004 \001(\0162\031.Mu"
 operator|+
-literal|"Type\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002"
+literal|"tationProto.DeleteType\"W\n\nDurability\022\017\n\013"
 operator|+
-literal|"\022\n\n\006DELETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE"
+literal|"USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL"
 operator|+
-literal|"_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001"
+literal|"\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014Mutat"
 operator|+
-literal|"\022\021\n\rDELETE_FAMILY\020\002\"r\n\rMutateRequest\022 \n\006"
+literal|"ionType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PU"
 operator|+
-literal|"region\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutati"
+literal|"T\020\002\022\n\n\006DELETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_"
 operator|+
-literal|"on\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition\030\003 "
+literal|"ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERSION"
 block|,
-literal|"\001(\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006res"
+literal|"S\020\001\022\021\n\rDELETE_FAMILY\020\002\"r\n\rMutateRequest\022"
 operator|+
-literal|"ult\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\307\002"
+literal|" \n\006region\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mut"
 operator|+
-literal|"\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattri"
+literal|"ation\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition"
 operator|+
-literal|"bute\030\002 \003(\0132\016.NameBytesPair\022\020\n\010startRow\030\003"
+literal|"\030\003 \001(\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006"
 operator|+
-literal|" \001(\014\022\017\n\007stopRow\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007."
+literal|"result\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010"
 operator|+
-literal|"Filter\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRange\022\026\n"
+literal|"\"\307\002\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tat"
 operator|+
-literal|"\013maxVersions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001"
+literal|"tribute\030\002 \003(\0132\016.NameBytesPair\022\020\n\010startRo"
 operator|+
-literal|"(\010:\004true\022\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxResult"
+literal|"w\030\003 \001(\014\022\017\n\007stopRow\030\004 \001(\014\022\027\n\006filter\030\005 \001(\013"
 operator|+
-literal|"Size\030\n \001(\004\022\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013storeO"
+literal|"2\007.Filter\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRange"
 operator|+
-literal|"ffset\030\014 \001(\r\022\"\n\032loadColumnFamiliesOnDeman"
+literal|"\022\026\n\013maxVersions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030"
 block|,
-literal|"d\030\r \001(\010\"\230\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132"
+literal|"\010 \001(\010:\004true\022\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxRes"
 operator|+
-literal|"\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021"
+literal|"ultSize\030\n \001(\004\022\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013sto"
 operator|+
-literal|"\n\tscannerId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022"
+literal|"reOffset\030\014 \001(\r\022\"\n\032loadColumnFamiliesOnDe"
 operator|+
-literal|"\024\n\014closeScanner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001"
+literal|"mand\030\r \001(\010\"\230\001\n\013ScanRequest\022 \n\006region\030\001 \001"
 operator|+
-literal|"(\004\"u\n\014ScanResponse\022\027\n\006result\030\001 \003(\0132\007.Res"
+literal|"(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Sca"
 operator|+
-literal|"ult\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreResults\030\003 "
+literal|"n\022\021\n\tscannerId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001"
 operator|+
-literal|"\001(\010\022\013\n\003ttl\030\004 \001(\r\022\027\n\017resultSizeBytes\030\005 \001("
+literal|"(\r\022\024\n\014closeScanner\030\005 \001(\010\022\023\n\013nextCallSeq\030"
 operator|+
-literal|"\004\"\260\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002"
+literal|"\006 \001(\004\"u\n\014ScanResponse\022\027\n\006result\030\001 \003(\0132\007."
 operator|+
-literal|"(\0132\020.RegionSpecifier\0224\n\nfamilyPath\030\002 \003(\013"
+literal|"Result\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreResults"
 operator|+
-literal|"2 .BulkLoadHFileRequest.FamilyPath\022\024\n\014as"
+literal|"\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\027\n\017resultSizeBytes\030\005"
 block|,
-literal|"signSeqNum\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
+literal|" \001(\004\"\260\001\n\024BulkLoadHFileRequest\022 \n\006region\030"
 operator|+
-literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
+literal|"\001 \002(\0132\020.RegionSpecifier\0224\n\nfamilyPath\030\002 "
 operator|+
-literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"_\n\026CoprocessorServ"
+literal|"\003(\0132 .BulkLoadHFileRequest.FamilyPath\022\024\n"
 operator|+
-literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002 \002("
+literal|"\014assignSeqNum\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006fam"
 operator|+
-literal|"\t\022\022\n\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d"
+literal|"ily\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFile"
 operator|+
-literal|"\n\031CoprocessorServiceRequest\022 \n\006region\030\001 "
+literal|"Response\022\016\n\006loaded\030\001 \002(\010\"_\n\026CoprocessorS"
 operator|+
-literal|"\002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Co"
+literal|"erviceCall\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002"
 operator|+
-literal|"processorServiceCall\"]\n\032CoprocessorServi"
+literal|" \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002("
 operator|+
-literal|"ceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpeci"
+literal|"\014\"d\n\031CoprocessorServiceRequest\022 \n\006region"
 operator|+
-literal|"fier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B\n\013M"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027"
 block|,
-literal|"ultiAction\022 \n\010mutation\030\001 \001(\0132\016.MutationP"
+literal|".CoprocessorServiceCall\"]\n\032CoprocessorSe"
 operator|+
-literal|"roto\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResult\022"
+literal|"rviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSp"
 operator|+
-literal|"\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030\002 \001"
+literal|"ecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B"
 operator|+
-literal|"(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006re"
+literal|"\n\013MultiAction\022 \n\010mutation\030\001 \001(\0132\016.Mutati"
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action\030\002"
+literal|"onProto\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResu"
 operator|+
-literal|" \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\rMu"
+literal|"lt\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030"
 operator|+
-literal|"ltiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionResu"
+literal|"\002 \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n"
 operator|+
-literal|"lt2\342\002\n\rClientService\022 \n\003get\022\013.GetRequest"
+literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006actio"
 operator|+
-literal|"\032\014.GetResponse\022/\n\010multiGet\022\020.MultiGetReq"
+literal|"n\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n"
 operator|+
-literal|"uest\032\021.MultiGetResponse\022)\n\006mutate\022\016.Muta"
+literal|"\rMultiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionR"
 block|,
-literal|"teRequest\032\017.MutateResponse\022#\n\004scan\022\014.Sca"
+literal|"esult2\342\002\n\rClientService\022 \n\003get\022\013.GetRequ"
 operator|+
-literal|"nRequest\032\r.ScanResponse\022>\n\rbulkLoadHFile"
+literal|"est\032\014.GetResponse\022/\n\010multiGet\022\020.MultiGet"
 operator|+
-literal|"\022\025.BulkLoadHFileRequest\032\026.BulkLoadHFileR"
+literal|"Request\032\021.MultiGetResponse\022)\n\006mutate\022\016.M"
 operator|+
-literal|"esponse\022F\n\013execService\022\032.CoprocessorServ"
+literal|"utateRequest\032\017.MutateResponse\022#\n\004scan\022\014."
 operator|+
-literal|"iceRequest\032\033.CoprocessorServiceResponse\022"
+literal|"ScanRequest\032\r.ScanResponse\022>\n\rbulkLoadHF"
 operator|+
-literal|"&\n\005multi\022\r.MultiRequest\032\016.MultiResponseB"
+literal|"ile\022\025.BulkLoadHFileRequest\032\026.BulkLoadHFi"
 operator|+
-literal|"B\n*org.apache.hadoop.hbase.protobuf.gene"
+literal|"leResponse\022F\n\013execService\022\032.CoprocessorS"
 operator|+
-literal|"ratedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"erviceRequest\032\033.CoprocessorServiceRespon"
+operator|+
+literal|"se\022&\n\005multi\022\r.MultiRequest\032\016.MultiRespon"
+operator|+
+literal|"seBB\n*org.apache.hadoop.hbase.protobuf.g"
+block|,
+literal|"eneratedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -139482,7 +140154,7 @@ literal|"Timestamp"
 block|,
 literal|"Attribute"
 block|,
-literal|"WriteToWAL"
+literal|"Durability"
 block|,
 literal|"TimeRange"
 block|,

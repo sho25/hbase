@@ -2681,8 +2681,6 @@ operator|.
 name|delete
 argument_list|(
 name|dc
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|r

@@ -291,6 +291,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -1841,7 +1857,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer MutateRequest for a client increment    *    * @param regionName    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL    * @return a mutate request    */
+comment|/**    * Create a protocol buffer MutateRequest for a client increment    *    * @param regionName    * @param row    * @param family    * @param qualifier    * @param amount    * @param durability    * @return a mutate request    */
 specifier|public
 specifier|static
 name|MutateRequest
@@ -1872,8 +1888,8 @@ name|long
 name|amount
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 block|{
 name|MutateRequest
@@ -1938,9 +1954,14 @@ argument_list|)
 expr_stmt|;
 name|mutateBuilder
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-name|writeToWAL
+name|ProtobufUtil
+operator|.
+name|toDurability
+argument_list|(
+name|durability
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ColumnValue

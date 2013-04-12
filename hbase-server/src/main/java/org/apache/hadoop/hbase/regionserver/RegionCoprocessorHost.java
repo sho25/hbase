@@ -413,6 +413,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|CoprocessorHost
@@ -4303,7 +4319,7 @@ return|return
 name|exists
 return|;
 block|}
-comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
+comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param durability The durability used    * @return true if default processing should be bypassed    * @exception IOException Exception    */
 specifier|public
 name|boolean
 name|prePut
@@ -4315,8 +4331,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -4383,7 +4399,7 @@ name|put
 argument_list|,
 name|edit
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -4424,7 +4440,7 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
+comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param durability The durability used    * @exception IOException Exception    */
 specifier|public
 name|void
 name|postPut
@@ -4436,8 +4452,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -4499,7 +4515,7 @@ name|put
 argument_list|,
 name|edit
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -4530,7 +4546,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
+comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param durability The durability used    * @return true if default processing should be bypassed    * @exception IOException Exception    */
 specifier|public
 name|boolean
 name|preDelete
@@ -4542,8 +4558,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -4610,7 +4626,7 @@ name|delete
 argument_list|,
 name|edit
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -4651,7 +4667,7 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
+comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param durability The durability used    * @exception IOException Exception    */
 specifier|public
 name|void
 name|postDelete
@@ -4663,8 +4679,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -4726,7 +4742,7 @@ name|delete
 argument_list|,
 name|edit
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 expr_stmt|;
 block|}

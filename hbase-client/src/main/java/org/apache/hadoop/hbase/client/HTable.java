@@ -3359,7 +3359,9 @@ name|qualifier
 argument_list|,
 name|amount
 argument_list|,
-literal|true
+name|Durability
+operator|.
+name|SYNC_WAL
 argument_list|)
 return|;
 block|}
@@ -3390,8 +3392,8 @@ name|long
 name|amount
 parameter_list|,
 specifier|final
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -3516,7 +3518,7 @@ name|qualifier
 argument_list|,
 name|amount
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 decl_stmt|;
 name|PayloadCarryingRpcController

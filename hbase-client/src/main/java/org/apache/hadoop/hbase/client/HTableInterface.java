@@ -563,7 +563,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value.    *<p>    * Equivalent to {@link #incrementColumnValue(byte[], byte[], byte[],    * long, boolean) incrementColumnValue}(row, family, qualifier, amount,    *<b>true</b>)}    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
+comment|/**    * See {@link #incrementColumnValue(byte[], byte[], byte[], long, Durability)}    *<p>    * The {@link Durability} is defaulted to {@link Durability#SYNC_WAL}.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -585,7 +585,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @param writeToWAL if {@code true}, the operation will be applied to the    * Write Ahead Log (WAL).  This makes the operation slower but safer, as if    * the call returns successfully, it is guaranteed that the increment will    * be safely persisted.  When set to {@code false}, the call may return    * successfully before the increment is safely persisted, so it's possible    * that the increment be lost in the event of a failure happening before the    * operation gets persisted.    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting durability to {@link Durability#SKIP_WAL} means that in a fail    * scenario you will lose any increments that have not been flushed.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @param durability The persistence guarantee for this increment.    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -604,8 +604,8 @@ parameter_list|,
 name|long
 name|amount
 parameter_list|,
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException

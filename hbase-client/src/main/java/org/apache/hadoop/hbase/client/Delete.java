@@ -305,11 +305,11 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|writeToWAL
+name|durability
 operator|=
 name|d
 operator|.
-name|writeToWAL
+name|durability
 expr_stmt|;
 block|}
 comment|/**    * Advanced use only.    * Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    */

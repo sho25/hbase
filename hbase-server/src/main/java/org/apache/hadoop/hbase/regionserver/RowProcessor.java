@@ -109,6 +109,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -257,6 +273,11 @@ name|msg
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return The {@link Durability} to use    */
+name|Durability
+name|useDurability
+parameter_list|()
 function_decl|;
 block|}
 end_interface

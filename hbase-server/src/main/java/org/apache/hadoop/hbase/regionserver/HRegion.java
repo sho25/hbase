@@ -925,6 +925,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|errorhandling
 operator|.
 name|ForeignExceptionSnare
@@ -1807,14 +1823,6 @@ name|HRegion
 operator|.
 name|class
 argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|MERGEDIR
-init|=
-literal|".merges"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -7415,16 +7423,13 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @param delete delete object    * @param writeToWAL append to the write ahead lock or not    * @throws IOException read exceptions    */
+comment|/**    * @param delete delete object    * @throws IOException read exceptions    */
 specifier|public
 name|void
 name|delete
 parameter_list|(
 name|Delete
 name|delete
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -7447,15 +7452,11 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|byte
-index|[]
-name|row
-init|=
 name|delete
 operator|.
 name|getRow
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|doBatchMutate
 argument_list|(
@@ -7487,7 +7488,7 @@ argument_list|(
 literal|"ForUnitTestsOnly"
 argument_list|)
 decl_stmt|;
-comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param writeToWAL    * @throws IOException    */
+comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param clusterId    * @param durability    * @throws IOException    */
 name|void
 name|delete
 parameter_list|(
@@ -7508,8 +7509,8 @@ parameter_list|,
 name|UUID
 name|clusterId
 parameter_list|,
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -7539,9 +7540,9 @@ argument_list|)
 expr_stmt|;
 name|delete
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-name|writeToWAL
+name|durability
 argument_list|)
 expr_stmt|;
 name|doBatchMutate
@@ -7900,33 +7901,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|put
-argument_list|(
-name|put
-argument_list|,
-name|put
-operator|.
-name|getWriteToWAL
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param put    * @param writeToWAL    * @throws IOException    */
-specifier|public
-name|void
-name|put
-parameter_list|(
-name|Put
-name|put
-parameter_list|,
-name|boolean
-name|writeToWAL
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 name|checkReadOnly
 argument_list|()
 expr_stmt|;
@@ -7949,20 +7923,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// We obtain a per-row lock, so other clients will block while one client
-comment|// performs an update. The read lock is released by the client calling
-comment|// #commit or #abort or if the HRegionServer lease on the lock expires.
-comment|// See HRegionServer#RegionListener for how the expire on HRegionServer
-comment|// invokes a HRegion#abort.
-name|byte
-index|[]
-name|row
-init|=
-name|put
-operator|.
-name|getRow
-argument_list|()
-decl_stmt|;
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|doBatchMutate
 argument_list|(
@@ -8386,7 +8346,7 @@ name|walEdit
 argument_list|,
 name|m
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 condition|)
@@ -8429,7 +8389,7 @@ name|walEdit
 argument_list|,
 name|m
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 condition|)
@@ -9348,6 +9308,13 @@ block|}
 comment|// ------------------------------------
 comment|// STEP 4. Build WAL edit
 comment|// ----------------------------------
+name|Durability
+name|durability
+init|=
+name|Durability
+operator|.
+name|USE_DEFAULT
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -9407,13 +9374,39 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
+name|Durability
+name|tmpDur
+init|=
 name|m
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|tmpDur
+operator|.
+name|ordinal
+argument_list|()
+operator|>
+name|durability
+operator|.
+name|ordinal
+argument_list|()
+condition|)
+block|{
+name|durability
+operator|=
+name|tmpDur
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|tmpDur
+operator|==
+name|Durability
+operator|.
+name|SKIP_WAL
 condition|)
 block|{
 if|if
@@ -9598,6 +9591,8 @@ block|{
 name|syncOrDefer
 argument_list|(
 name|txid
+argument_list|,
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -9761,7 +9756,7 @@ name|walEdit
 argument_list|,
 name|m
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -9781,7 +9776,7 @@ name|walEdit
 argument_list|,
 name|m
 operator|.
-name|getWriteToWAL
+name|getDurability
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -11378,13 +11373,6 @@ argument_list|(
 name|HConstants
 operator|.
 name|DEFAULT_CLUSTER_ID
-argument_list|)
-expr_stmt|;
-name|p
-operator|.
-name|setWriteToWAL
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
 name|doBatchMutate
@@ -19689,6 +19677,11 @@ block|{
 name|syncOrDefer
 argument_list|(
 name|txid
+argument_list|,
+name|processor
+operator|.
+name|useDurability
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -20170,16 +20163,13 @@ block|}
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append
 parameter_list|(
 name|Append
 name|append
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -20204,6 +20194,18 @@ name|boolean
 name|flush
 init|=
 literal|false
+decl_stmt|;
+name|boolean
+name|writeToWAL
+init|=
+name|append
+operator|.
+name|getDurability
+argument_list|()
+operator|!=
+name|Durability
+operator|.
+name|SKIP_WAL
 decl_stmt|;
 name|WALEdit
 name|walEdits
@@ -21052,12 +21054,17 @@ condition|(
 name|writeToWAL
 condition|)
 block|{
+comment|// sync the transaction log outside the rowlock
 name|syncOrDefer
 argument_list|(
 name|txid
+argument_list|,
+name|append
+operator|.
+name|getDurability
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// sync the transaction log outside the rowlock
 block|}
 block|}
 finally|finally
@@ -21123,16 +21130,13 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|increment
 parameter_list|(
 name|Increment
 name|increment
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -21165,6 +21169,18 @@ name|boolean
 name|flush
 init|=
 literal|false
+decl_stmt|;
+name|boolean
+name|writeToWAL
+init|=
+name|increment
+operator|.
+name|getDurability
+argument_list|()
+operator|!=
+name|Durability
+operator|.
+name|SKIP_WAL
 decl_stmt|;
 name|WALEdit
 name|walEdits
@@ -21847,12 +21863,17 @@ condition|(
 name|writeToWAL
 condition|)
 block|{
+comment|// sync the transaction log outside the rowlock
 name|syncOrDefer
 argument_list|(
 name|txid
+argument_list|,
+name|increment
+operator|.
+name|getDurability
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// sync the transaction log outside the rowlock
 block|}
 block|}
 finally|finally
@@ -23481,6 +23502,9 @@ name|syncOrDefer
 parameter_list|(
 name|long
 name|txid
+parameter_list|,
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -23494,7 +23518,31 @@ argument_list|()
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|||
+condition|)
+block|{
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+switch|switch
+condition|(
+name|durability
+condition|)
+block|{
+case|case
+name|USE_DEFAULT
+case|:
+comment|// do what CF defaults to
+if|if
+condition|(
 operator|!
 name|isDeferredLogSyncEnabled
 argument_list|()
@@ -23509,6 +23557,53 @@ argument_list|(
 name|txid
 argument_list|)
 expr_stmt|;
+block|}
+break|break;
+case|case
+name|SKIP_WAL
+case|:
+comment|// nothing do to
+break|break;
+case|case
+name|ASYNC_WAL
+case|:
+comment|// defer the sync, unless we globally can't
+if|if
+condition|(
+name|this
+operator|.
+name|deferredLogSyncDisabled
+condition|)
+block|{
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+case|case
+name|SYNC_WAL
+case|:
+case|case
+name|FSYNC_WAL
+case|:
+comment|// sync the WAL edit (SYNC and FSYNC treated the same for now)
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 comment|/**    * check if current region is deferred sync enabled.    */

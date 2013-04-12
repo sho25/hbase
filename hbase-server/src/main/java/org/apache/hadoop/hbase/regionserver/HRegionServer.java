@@ -15049,11 +15049,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-name|delete
-operator|.
-name|getWriteToWAL
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|processed
@@ -19857,11 +19852,6 @@ operator|.
 name|append
 argument_list|(
 name|append
-argument_list|,
-name|append
-operator|.
-name|getWriteToWAL
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -19992,11 +19982,6 @@ operator|.
 name|increment
 argument_list|(
 name|increment
-argument_list|,
-name|increment
-operator|.
-name|getWriteToWAL
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

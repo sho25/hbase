@@ -519,8 +519,6 @@ operator|.
 name|append
 argument_list|(
 name|a
-argument_list|,
-literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -572,8 +570,6 @@ operator|.
 name|append
 argument_list|(
 name|a
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1268,8 +1264,6 @@ operator|.
 name|increment
 argument_list|(
 name|inc
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// verify: Make sure we only see completed increments
@@ -1555,8 +1549,6 @@ operator|.
 name|append
 argument_list|(
 name|a
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|Get

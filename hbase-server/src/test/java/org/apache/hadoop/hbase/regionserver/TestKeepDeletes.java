@@ -633,8 +633,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// a raw scan can see the delete markers
@@ -1079,8 +1077,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// scan still returns delete markers and deletes rows
@@ -1323,8 +1319,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// "past" get does not see rows behind delete marker
@@ -1748,8 +1742,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -1782,8 +1774,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -1816,8 +1806,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -2035,8 +2023,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2061,8 +2047,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2093,8 +2077,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2125,8 +2107,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// 1 family marker, 1 column marker, 2 version markers
@@ -2334,8 +2314,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2362,8 +2340,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2394,8 +2370,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2426,8 +2400,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// 1 family marker, 1 column marker, 2 version markers
@@ -2881,8 +2853,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2913,8 +2883,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -2945,8 +2913,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// add an older delete, to make sure it is filtered
@@ -2978,8 +2944,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// ts + 2 does NOT include the delete at ts+2
@@ -3412,8 +3376,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -3446,8 +3408,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -3480,8 +3440,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|region
@@ -3916,8 +3874,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|d
@@ -3937,8 +3893,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -4260,8 +4214,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// and a column delete marker
@@ -4295,8 +4247,6 @@ operator|.
 name|delete
 argument_list|(
 name|d
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|Get

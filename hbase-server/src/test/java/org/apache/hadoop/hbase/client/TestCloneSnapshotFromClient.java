@@ -1447,9 +1447,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 for|for

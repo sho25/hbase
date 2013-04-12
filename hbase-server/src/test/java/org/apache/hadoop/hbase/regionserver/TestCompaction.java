@@ -393,6 +393,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|encoding
@@ -1017,8 +1033,6 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 if|if
@@ -1627,8 +1641,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Assert deleted.
@@ -2651,8 +2663,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Make sure that we have only deleted family2 from secondRowBytes
@@ -3203,9 +3213,11 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 for|for
@@ -3467,8 +3479,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

@@ -661,6 +661,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|NoSuchColumnFamilyException
@@ -1591,8 +1607,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|region
@@ -4176,6 +4190,15 @@ argument_list|)
 decl_stmt|;
 name|append
 operator|.
+name|setDurability
+argument_list|(
+name|Durability
+operator|.
+name|SKIP_WAL
+argument_list|)
+expr_stmt|;
+name|append
+operator|.
 name|add
 argument_list|(
 name|Bytes
@@ -4207,8 +4230,6 @@ operator|.
 name|append
 argument_list|(
 name|append
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -4311,6 +4332,15 @@ argument_list|)
 decl_stmt|;
 name|inc
 operator|.
+name|setDurability
+argument_list|(
+name|Durability
+operator|.
+name|SKIP_WAL
+argument_list|)
+expr_stmt|;
+name|inc
+operator|.
 name|addColumn
 argument_list|(
 name|Bytes
@@ -4337,8 +4367,6 @@ operator|.
 name|increment
 argument_list|(
 name|inc
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -4499,8 +4527,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|results
@@ -4901,9 +4927,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 name|put
@@ -8496,8 +8524,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|Get
@@ -8750,7 +8776,9 @@ name|HConstants
 operator|.
 name|DEFAULT_CLUSTER_ID
 argument_list|,
-literal|true
+name|Durability
+operator|.
+name|SYNC_WAL
 argument_list|)
 expr_stmt|;
 block|}
@@ -8840,7 +8868,9 @@ name|HConstants
 operator|.
 name|DEFAULT_CLUSTER_ID
 argument_list|,
-literal|true
+name|Durability
+operator|.
+name|SYNC_WAL
 argument_list|)
 expr_stmt|;
 block|}
@@ -9130,8 +9160,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// assert some things:
@@ -9312,8 +9340,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -9535,8 +9561,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// make sure we still see our data
@@ -9596,8 +9620,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// make sure it is gone
@@ -9777,8 +9799,6 @@ operator|.
 name|put
 argument_list|(
 name|put
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 comment|// Make sure it shows up with an actual timestamp
@@ -9896,8 +9916,6 @@ operator|.
 name|put
 argument_list|(
 name|put
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Make sure it shows up with an actual timestamp
@@ -10110,8 +10128,6 @@ argument_list|(
 literal|"value"
 argument_list|)
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 comment|// TS out of range. should error
@@ -10150,8 +10166,6 @@ argument_list|(
 literal|"value"
 argument_list|)
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|fail
@@ -10321,8 +10335,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// now create data.
@@ -10647,8 +10659,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// ok put data:
@@ -11059,7 +11069,9 @@ name|HConstants
 operator|.
 name|DEFAULT_CLUSTER_ID
 argument_list|,
-literal|true
+name|Durability
+operator|.
+name|SYNC_WAL
 argument_list|)
 expr_stmt|;
 comment|// extract the key values out the memstore:
@@ -20000,9 +20012,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 name|put
@@ -20984,9 +20998,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 name|byte
@@ -21097,8 +21113,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -22041,8 +22055,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|put
@@ -22468,9 +22480,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 name|put
@@ -22821,9 +22835,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 for|for
@@ -23192,8 +23208,6 @@ operator|.
 name|delete
 argument_list|(
 name|del
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|region
@@ -24249,8 +24263,6 @@ operator|.
 name|increment
 argument_list|(
 name|inc
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -24759,8 +24771,6 @@ operator|.
 name|append
 argument_list|(
 name|app
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -25729,9 +25739,11 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 for|for

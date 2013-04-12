@@ -1003,9 +1003,11 @@ argument_list|)
 expr_stmt|;
 name|p
 operator|.
-name|setWriteToWAL
+name|setDurability
 argument_list|(
-literal|false
+name|Durability
+operator|.
+name|SKIP_WAL
 argument_list|)
 expr_stmt|;
 name|t

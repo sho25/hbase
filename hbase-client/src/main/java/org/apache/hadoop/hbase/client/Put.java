@@ -403,11 +403,11 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|writeToWAL
+name|durability
 operator|=
 name|putToCopy
 operator|.
-name|writeToWAL
+name|durability
 expr_stmt|;
 block|}
 comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    */

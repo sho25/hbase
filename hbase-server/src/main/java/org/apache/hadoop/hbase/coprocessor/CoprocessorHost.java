@@ -2532,8 +2532,8 @@ parameter_list|,
 name|long
 name|amount
 parameter_list|,
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -2551,7 +2551,7 @@ name|qualifier
 argument_list|,
 name|amount
 argument_list|,
-name|writeToWAL
+name|durability
 argument_list|)
 return|;
 block|}

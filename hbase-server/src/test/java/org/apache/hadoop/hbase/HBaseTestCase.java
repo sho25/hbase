@@ -1897,8 +1897,6 @@ operator|.
 name|delete
 argument_list|(
 name|delete
-argument_list|,
-name|writeToWAL
 argument_list|)
 expr_stmt|;
 block|}
