@@ -7540,6 +7540,7 @@ expr_stmt|;
 name|forceChangeTaskLogDir
 argument_list|()
 expr_stmt|;
+comment|//// hadoop2 specific settings
 comment|// Tests were failing because this process used 6GB of virtual memory and was getting killed.
 comment|// we up the VM usable so that processes don't get killed.
 name|conf
@@ -7551,6 +7552,27 @@ argument_list|,
 literal|8.0f
 argument_list|)
 expr_stmt|;
+comment|// Tests were failing due to MAPREDUCE-4880 / MAPREDUCE-4607 against hadoop 2.0.2-alpha and
+comment|// this avoids the problem by disabling speculative task execution in tests.
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"mapreduce.map.speculative"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"mapreduce.reduce.speculative"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+comment|////
 comment|// Allow the user to override FS URI for this map-reduce cluster to use.
 name|mrCluster
 operator|=
