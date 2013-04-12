@@ -1746,7 +1746,7 @@ expr_stmt|;
 comment|//now reap all table locks
 name|lockManager
 operator|.
-name|reapAllTableWriteLocks
+name|reapWriteLocks
 argument_list|()
 expr_stmt|;
 name|TEST_UTIL

@@ -85,7 +85,18 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * If supported, attempts to reap all the locks of this type by forcefully    * deleting the locks. Lock reaping is different than coordinated lock revocation    * in that, there is no coordination, and the behavior is undefined if the    * lock holder is still alive.    * @throws IOException If there is an unrecoverable error reaping the locks    */
+comment|/**    * If supported, attempts to reap all the locks of this type by forcefully    * deleting the locks (both held and attempted) that have expired according    * to the given timeout. Lock reaping is different than coordinated lock revocation    * in that, there is no coordination, and the behavior is undefined if the    * lock holder is still alive.    * @throws IOException If there is an unrecoverable error reaping the locks    */
+specifier|public
+name|void
+name|reapExpiredLocks
+parameter_list|(
+name|long
+name|expireTimeoutMs
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * If supported, attempts to reap all the locks of this type by forcefully    * deleting the locks (both held and attempted). Lock reaping is different    * than coordinated lock revocation in that, there is no coordination, and    * the behavior is undefined if the lock holder is still alive.    * Calling this should have the same affect as calling {@link #reapExpiredLocks(long)}    * with timeout=0.    * @throws IOException If there is an unrecoverable error reaping the locks    */
 specifier|public
 name|void
 name|reapAllLocks
@@ -110,6 +121,17 @@ name|metadata
 parameter_list|)
 function_decl|;
 block|}
+comment|/**    * Visits the locks (both held and attempted) of this type with the given    * {@link MetadataHandler}.    * @throws InterruptedException If there is an unrecoverable error    */
+specifier|public
+name|void
+name|visitLocks
+parameter_list|(
+name|MetadataHandler
+name|handler
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

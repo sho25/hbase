@@ -583,39 +583,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|MasterNotRunningException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|ZooKeeperConnectionException
 import|;
 end_import
 
@@ -875,6 +843,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|MasterNotRunningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -1086,6 +1086,24 @@ operator|.
 name|hbck
 operator|.
 name|TableIntegrityErrorHandlerImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|hbck
+operator|.
+name|TableLockChecker
 import|;
 end_import
 
@@ -1531,6 +1549,13 @@ init|=
 literal|false
 decl_stmt|;
 comment|// fix (remove) empty REGIONINFO_QUALIFIER rows
+specifier|private
+name|boolean
+name|fixTableLocks
+init|=
+literal|false
+decl_stmt|;
+comment|// fix table locks which are expired
 comment|// limit checking/fixes to listed tables, if empty attempt to check/fix all
 comment|// .META. are always checked
 specifier|private
@@ -2409,6 +2434,9 @@ argument_list|)
 expr_stmt|;
 block|}
 name|offlineReferenceFileRepair
+argument_list|()
+expr_stmt|;
+name|checkAndFixTableLocks
 argument_list|()
 expr_stmt|;
 comment|// Print table summary
@@ -12487,6 +12515,44 @@ return|return
 name|hbi
 return|;
 block|}
+specifier|private
+name|void
+name|checkAndFixTableLocks
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|TableLockChecker
+name|checker
+init|=
+operator|new
+name|TableLockChecker
+argument_list|(
+name|createZooKeeperWatcher
+argument_list|()
+argument_list|,
+name|errors
+argument_list|)
+decl_stmt|;
+name|checker
+operator|.
+name|checkTableLocks
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|fixTableLocks
+condition|)
+block|{
+name|checker
+operator|.
+name|fixExpiredTableLocks
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**     * Check values in regionInfo for .META.     * Check if zero or more than one regions with META are found.     * If there are inconsistencies (i.e. zero or more than one regions     * pretend to be holding the .META.) try to fix that and report an error.     * @throws IOException from HBaseFsckRepair functions    * @throws KeeperException    * @throws InterruptedException     */
 name|boolean
 name|checkMetaRegion
@@ -14558,6 +14624,8 @@ block|,
 name|WRONG_USAGE
 block|,
 name|EMPTY_META_CELL
+block|,
+name|EXPIRED_TABLE_LOCK
 block|}
 specifier|public
 name|void
@@ -16165,6 +16233,20 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**    * Set table locks fix mode.    * Delete table locks held for a long time    */
+specifier|public
+name|void
+name|setFixTableLocks
+parameter_list|(
+name|boolean
+name|shouldFix
+parameter_list|)
+block|{
+name|fixTableLocks
+operator|=
+name|shouldFix
+expr_stmt|;
+block|}
 comment|/**    * Check if we should rerun fsck again. This checks if we've tried to    * fix something and we should rerun fsck tool again.    * Display the full report from fsck. This displays all live and dead    * region servers, and all known regions.    */
 name|void
 name|setShouldRerun
@@ -16959,7 +17041,7 @@ name|println
 argument_list|(
 literal|"   -repair           Shortcut for -fixAssignments -fixMeta -fixHdfsHoles "
 operator|+
-literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps -fixReferenceFiles"
+literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps -fixReferenceFiles -fixTableLocks"
 argument_list|)
 expr_stmt|;
 name|out
@@ -16967,6 +17049,27 @@ operator|.
 name|println
 argument_list|(
 literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"  Table lock options"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -fixTableLocks    Deletes table locks held for a long time (hbase.table.lock.expire.ms, 10min by default)"
 argument_list|)
 expr_stmt|;
 name|out
@@ -17765,6 +17868,11 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|setFixTableLocks
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -18021,6 +18129,23 @@ condition|)
 block|{
 name|setCheckMetaOnly
 argument_list|()
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-fixTableLocks"
+argument_list|)
+condition|)
+block|{
+name|setFixTableLocks
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else

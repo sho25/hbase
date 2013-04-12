@@ -5198,7 +5198,7 @@ name|this
 operator|.
 name|tableLockManager
 operator|.
-name|reapAllTableWriteLocks
+name|reapWriteLocks
 argument_list|()
 expr_stmt|;
 block|}
