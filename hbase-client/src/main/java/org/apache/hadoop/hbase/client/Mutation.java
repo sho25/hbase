@@ -312,10 +312,10 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 operator|+
-comment|// writeToWAL
-name|Bytes
+comment|// durability
+name|ClassSize
 operator|.
-name|SIZEOF_BOOLEAN
+name|REFERENCE
 operator|+
 comment|// familyMap
 name|ClassSize
