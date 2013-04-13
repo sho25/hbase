@@ -2660,7 +2660,7 @@ name|getBoolean
 argument_list|(
 name|LOAD_CFS_ON_DEMAND_CONFIG_KEY
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 name|this
