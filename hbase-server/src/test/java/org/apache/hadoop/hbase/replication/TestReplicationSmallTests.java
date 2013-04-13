@@ -2435,9 +2435,7 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|10
+name|NB_ROWS_IN_BIG_BATCH
 argument_list|,
 name|res
 operator|.

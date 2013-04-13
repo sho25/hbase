@@ -294,6 +294,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|reader
@@ -301,6 +303,23 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"NPE resetting reader, likely HDFS-4380"
+argument_list|,
+name|npe
+argument_list|)
+throw|;
+block|}
 block|}
 return|return
 name|this

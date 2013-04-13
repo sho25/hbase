@@ -3044,8 +3044,28 @@ name|reader
 operator|=
 literal|null
 expr_stmt|;
-comment|// TODO Need a better way to determinate if a file is really gone but
-comment|// TODO without scanning all logs dir
+if|if
+condition|(
+name|ioe
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|NullPointerException
+condition|)
+block|{
+comment|// Workaround for race condition in HDFS-4380
+comment|// which throws a NPE if we open a file before any data node has the most recent block
+comment|// Just sleep and retry. Will require re-reading compressed HLogs for compressionContext.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Got NPE opening reader, will retry."
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
 if|if
 condition|(
 name|sleepMultiplier
@@ -3055,6 +3075,8 @@ operator|.
 name|maxRetriesMultiplier
 condition|)
 block|{
+comment|// TODO Need a better way to determine if a file is really gone but
+comment|// TODO without scanning all logs dir
 name|LOG
 operator|.
 name|warn
