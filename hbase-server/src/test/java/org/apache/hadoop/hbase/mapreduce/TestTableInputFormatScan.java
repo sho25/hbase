@@ -1443,6 +1443,13 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|TableMapReduceUtil
+operator|.
+name|addDependencyJars
+argument_list|(
+name|job
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|job
