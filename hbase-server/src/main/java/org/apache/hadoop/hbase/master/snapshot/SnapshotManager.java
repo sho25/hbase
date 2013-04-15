@@ -3374,6 +3374,8 @@ operator|.
 name|getNameAsString
 argument_list|()
 decl_stmt|;
+comment|// TODO: There is definite race condition for managing the single handler. We should fix
+comment|// and remove the limitation of single snapshot / restore at a time.
 comment|// make sure we aren't running a snapshot on the same table
 if|if
 condition|(
@@ -3428,6 +3430,9 @@ name|hTableDescriptor
 argument_list|,
 name|metricsMaster
 argument_list|)
+operator|.
+name|prepare
+argument_list|()
 decl_stmt|;
 name|this
 operator|.
