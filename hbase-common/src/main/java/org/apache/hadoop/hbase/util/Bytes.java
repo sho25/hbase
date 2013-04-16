@@ -5744,7 +5744,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"num cannot be< 0"
+literal|"num cannot be<= 0"
 argument_list|)
 throw|;
 block|}
