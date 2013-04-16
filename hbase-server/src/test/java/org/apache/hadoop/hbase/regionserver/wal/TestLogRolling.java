@@ -658,6 +658,17 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// TODO: testLogRollOnDatanodeDeath fails if short circuit reads are on under the hadoop2
+comment|// profile. See HBASE-9337 for related issues.
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"hbase.tests.use.shortcircuit.reads"
+argument_list|,
+literal|"false"
+argument_list|)
+expr_stmt|;
 comment|/**** configuration for testLogRolling ****/
 comment|// Force a region split after every 768KB
 name|TEST_UTIL
