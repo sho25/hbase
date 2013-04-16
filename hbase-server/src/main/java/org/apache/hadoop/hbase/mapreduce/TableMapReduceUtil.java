@@ -2848,46 +2848,15 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// now look in any jars we've packaged using JarFinder
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
-name|e
-range|:
+comment|// now look in any jars we've packaged using JarFinder. Returns null when
+comment|// no jar is found.
+return|return
 name|packagedClasses
 operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|e
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|equals
+name|get
 argument_list|(
 name|class_file
 argument_list|)
-condition|)
-return|return
-name|e
-operator|.
-name|getValue
-argument_list|()
-return|;
-block|}
-return|return
-literal|null
 return|;
 block|}
 comment|/**    * Invoke 'getJar' on a JarFinder implementation. Useful for some job    * configuration contexts (HBASE-8140) and also for testing on MRv2. First    * check if we have HADOOP-9426. Lacking that, fall back to the backport.    * @param my_class the class to find.    * @return a jar file that contains the class, or null.    */
