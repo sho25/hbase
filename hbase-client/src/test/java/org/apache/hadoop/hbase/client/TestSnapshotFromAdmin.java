@@ -784,7 +784,9 @@ name|builder
 operator|.
 name|setName
 argument_list|(
-literal|".snapshot"
+name|HConstants
+operator|.
+name|SNAPSHOT_DIR_NAME
 argument_list|)
 operator|.
 name|build

@@ -2075,6 +2075,15 @@ specifier|final
 name|String
 name|SNAPSHOT_DIR_NAME
 init|=
+literal|".hbase-snapshot"
+decl_stmt|;
+comment|/* Name of old snapshot directory. See HBASE-8352 for details on why it needs to be renamed */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OLD_SNAPSHOT_DIR_NAME
+init|=
 literal|".snapshot"
 decl_stmt|;
 comment|/** Temporary directory used for table creation and deletion */
@@ -2123,6 +2132,8 @@ block|,
 name|SNAPSHOT_DIR_NAME
 block|,
 name|HBASE_TEMP_DIRECTORY
+block|,
+name|OLD_SNAPSHOT_DIR_NAME
 block|}
 argument_list|)
 argument_list|)
