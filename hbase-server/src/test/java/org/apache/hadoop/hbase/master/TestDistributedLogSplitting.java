@@ -1204,6 +1204,11 @@ argument_list|,
 name|table
 argument_list|)
 decl_stmt|;
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 name|Path
 name|editsdir
 init|=

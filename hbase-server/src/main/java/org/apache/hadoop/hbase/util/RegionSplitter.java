@@ -3957,6 +3957,8 @@ name|table
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// parse split file and process remaining splits

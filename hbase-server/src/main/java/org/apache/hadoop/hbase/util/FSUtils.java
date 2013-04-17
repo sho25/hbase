@@ -1110,6 +1110,11 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -3513,6 +3518,11 @@ comment|/**    * Checks if root region exists    *    * @param fs file system   
 end_comment
 
 begin_function
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|boolean
@@ -5159,6 +5169,9 @@ name|p
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|CancelableProgressable
+name|reporter
 parameter_list|)
 throws|throws
 name|IOException

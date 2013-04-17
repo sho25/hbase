@@ -228,6 +228,9 @@ name|p
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|CancelableProgressable
+name|reporter
 parameter_list|)
 throws|throws
 name|IOException
@@ -410,6 +413,27 @@ operator|!
 name|recovered
 condition|)
 block|{
+if|if
+condition|(
+name|reporter
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|reporter
+operator|.
+name|progress
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|(
+literal|"Operation is cancelled"
+argument_list|)
+throw|;
+block|}
 comment|// try at least twice.
 if|if
 condition|(
