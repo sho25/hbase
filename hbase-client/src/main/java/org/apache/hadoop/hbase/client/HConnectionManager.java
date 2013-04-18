@@ -8855,9 +8855,17 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Region "
 operator|+
@@ -8888,6 +8896,7 @@ name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|updateCachedLocation
 argument_list|(
 name|regionInfo
@@ -8919,9 +8928,17 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Region "
 operator|+
@@ -8940,6 +8957,7 @@ operator|+
 literal|"; not deleting the cache entry"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
