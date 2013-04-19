@@ -6469,6 +6469,20 @@ name|hostname
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|connection
+operator|.
+name|shouldCloseConnection
+operator|.
+name|compareAndSet
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -6481,7 +6495,7 @@ literal|":"
 operator|+
 name|port
 operator|+
-literal|" is dead - stopping the connection "
+literal|" is dead - closing the connection "
 operator|+
 name|connection
 operator|.
@@ -6490,11 +6504,18 @@ argument_list|)
 expr_stmt|;
 name|connection
 operator|.
-name|closeConnection
+name|closeException
+operator|=
+name|ioe
+expr_stmt|;
+name|connection
+operator|.
+name|close
 argument_list|()
 expr_stmt|;
 comment|// We could do a connection.interrupt(), but it's safer not to do it, as the
 comment|//  interrupted exception behavior is not defined nor enforced enough.
+block|}
 block|}
 block|}
 block|}

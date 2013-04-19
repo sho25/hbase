@@ -111,6 +111,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|SocketException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -3108,7 +3118,16 @@ operator|.
 name|getPort
 argument_list|()
 argument_list|,
-literal|null
+operator|new
+name|SocketException
+argument_list|(
+name|sn
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" is dead: closing its connection."
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
