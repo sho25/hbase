@@ -407,6 +407,13 @@ specifier|final
 name|int
 name|minVersions
 decl_stmt|;
+comment|/**    * The number of KVs seen by the scanner. Includes explicitly skipped KVs, but not    * KVs skipped via seeking to next row/column. TODO: estimate them?    */
+specifier|private
+name|long
+name|kvsScanned
+init|=
+literal|0
+decl_stmt|;
 comment|/** We don't ever expect to change this, the constant is just for clarity. */
 specifier|static
 specifier|final
@@ -1885,6 +1892,9 @@ operator|!=
 literal|null
 condition|)
 block|{
+operator|++
+name|kvsScanned
+expr_stmt|;
 comment|// Check that the heap gives us KVs in an increasing order.
 assert|assert
 name|prevKV
@@ -2973,6 +2983,18 @@ name|lazySeekEnabledGlobally
 operator|=
 name|enable
 expr_stmt|;
+block|}
+comment|/**    * @return The estimated number of KVs seen by this scanner (includes some skipped KVs).    */
+specifier|public
+name|long
+name|getEstimatedNumberOfKvsScanned
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|kvsScanned
+return|;
 block|}
 block|}
 end_class
