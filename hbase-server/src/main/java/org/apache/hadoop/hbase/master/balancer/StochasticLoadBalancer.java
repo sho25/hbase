@@ -2213,6 +2213,13 @@ name|regionLocations
 index|[
 name|j
 index|]
+operator|>=
+literal|0
+operator|&&
+name|regionLocations
+index|[
+name|j
+index|]
 operator|==
 name|serverIndex
 condition|)
