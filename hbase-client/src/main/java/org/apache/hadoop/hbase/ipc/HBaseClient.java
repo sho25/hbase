@@ -5063,9 +5063,9 @@ index|[
 name|size
 index|]
 decl_stmt|;
-name|IOUtils
+name|IPCUtil
 operator|.
-name|readFully
+name|readChunked
 argument_list|(
 name|this
 operator|.
@@ -5075,9 +5075,7 @@ name|cellBlock
 argument_list|,
 literal|0
 argument_list|,
-name|cellBlock
-operator|.
-name|length
+name|size
 argument_list|)
 expr_stmt|;
 name|cellBlockScanner
