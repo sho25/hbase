@@ -760,7 +760,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * very hard to test nubs with this thing since the a nextRowKey function will usually skip them    */
 annotation|@
 name|Test
 specifier|public
@@ -799,6 +798,22 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+comment|//test both the positionAtOrBefore and positionAtOrAfter methods
+for|for
+control|(
+name|boolean
+name|beforeVsAfterOnMiss
+range|:
+operator|new
+name|boolean
+index|[]
+block|{
+literal|true
+block|,
+literal|false
+block|}
+control|)
+block|{
 for|for
 control|(
 name|int
@@ -847,9 +862,18 @@ decl_stmt|;
 name|CellScannerPosition
 name|position
 init|=
+name|beforeVsAfterOnMiss
+condition|?
 name|searcher
 operator|.
 name|positionAtOrBefore
+argument_list|(
+name|inputNextRow
+argument_list|)
+else|:
+name|searcher
+operator|.
+name|positionAtOrAfter
 argument_list|(
 name|inputNextRow
 argument_list|)
@@ -891,7 +915,11 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|//            int lastKvInRowI = rowStartIndexes.get(rowIndex + 1) - 1;
+if|if
+condition|(
+name|beforeVsAfterOnMiss
+condition|)
+block|{
 name|Assert
 operator|.
 name|assertEquals
@@ -903,8 +931,66 @@ argument_list|,
 name|position
 argument_list|)
 expr_stmt|;
-comment|/*              * Can't get this to work between nubs like rowB\x00<-> rowBB              *              * No reason to doubt that it works, but will have to come up with a smarter test.              */
-comment|//            Assert.assertEquals(rows.getInputs().get(lastKvInRowI), searcher.getCurrentCell());
+block|}
+else|else
+block|{
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|CellScannerPosition
+operator|.
+name|AFTER
+argument_list|,
+name|position
+argument_list|)
+expr_stmt|;
+block|}
+name|int
+name|expectedInputIndex
+init|=
+name|beforeVsAfterOnMiss
+condition|?
+name|rowStartIndexes
+operator|.
+name|get
+argument_list|(
+name|rowIndex
+operator|+
+literal|1
+argument_list|)
+operator|-
+literal|1
+else|:
+name|rowStartIndexes
+operator|.
+name|get
+argument_list|(
+name|rowIndex
+operator|+
+literal|1
+argument_list|)
+decl_stmt|;
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|rows
+operator|.
+name|getInputs
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|expectedInputIndex
+argument_list|)
+argument_list|,
+name|searcher
+operator|.
+name|current
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|//previous KV
@@ -984,7 +1070,7 @@ operator|==
 name|position
 argument_list|)
 expr_stmt|;
-comment|/*            * TODO: why i+1 instead of i?            */
+comment|/*              * TODO: why i+1 instead of i?              */
 name|Assert
 operator|.
 name|assertEquals
@@ -1007,6 +1093,7 @@ name|current
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
