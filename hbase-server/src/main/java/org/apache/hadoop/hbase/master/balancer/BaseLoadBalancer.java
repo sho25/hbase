@@ -103,6 +103,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1905,7 +1915,29 @@ name|ClusterLoadState
 name|cs
 parameter_list|)
 block|{
+if|if
+condition|(
+name|cs
+operator|.
+name|getNumServers
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"numServers=0 so skipping load balancing"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Check if we even need to do any load balancing
+comment|// HBASE-3681 check sloppiness first
 name|float
 name|average
 init|=
@@ -1915,7 +1947,6 @@ name|getLoadAverage
 argument_list|()
 decl_stmt|;
 comment|// for logging
-comment|// HBASE-3681 check sloppiness first
 name|int
 name|floor
 init|=
@@ -1954,7 +1985,10 @@ name|slop
 operator|)
 argument_list|)
 decl_stmt|;
-return|return
+if|if
+condition|(
+operator|!
+operator|(
 name|cs
 operator|.
 name|getMinLoad
@@ -1968,6 +2002,80 @@ name|getMaxLoad
 argument_list|()
 operator|<
 name|floor
+operator|)
+condition|)
+block|{
+name|NavigableMap
+argument_list|<
+name|ServerAndLoad
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|serversByLoad
+init|=
+name|cs
+operator|.
+name|getServersByLoad
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skipping load balancing because balanced cluster; "
+operator|+
+literal|"servers="
+operator|+
+name|cs
+operator|.
+name|getNumServers
+argument_list|()
+operator|+
+literal|" "
+operator|+
+literal|"regions="
+operator|+
+name|cs
+operator|.
+name|getNumRegions
+argument_list|()
+operator|+
+literal|" average="
+operator|+
+name|average
+operator|+
+literal|" "
+operator|+
+literal|"mostloaded="
+operator|+
+name|serversByLoad
+operator|.
+name|lastKey
+argument_list|()
+operator|.
+name|getLoad
+argument_list|()
+operator|+
+literal|" leastloaded="
+operator|+
+name|serversByLoad
+operator|.
+name|firstKey
+argument_list|()
+operator|.
+name|getLoad
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+return|return
+literal|true
 return|;
 block|}
 comment|/**    * Generates a bulk assignment plan to be used on cluster startup using a    * simple round-robin assignment.    *<p>    * Takes a list of all the regions and all the servers in the cluster and    * returns a map of each server to the regions that it should be assigned.    *<p>    * Currently implemented as a round-robin assignment. Same invariant as load    * balancing, all servers holding floor(avg) or ceiling(avg).    *    * TODO: Use block locations from HDFS to place regions with their blocks    *    * @param regions all regions    * @param servers all servers    * @return map of server to the regions it should take, or null if no    *         assignment is possible (ie. no regions or no servers)    */

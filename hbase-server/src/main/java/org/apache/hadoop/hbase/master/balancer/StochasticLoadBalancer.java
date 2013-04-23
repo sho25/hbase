@@ -504,13 +504,11 @@ specifier|private
 name|long
 name|maxRunningTime
 init|=
-literal|1
-operator|*
 literal|60
 operator|*
 literal|1000
 decl_stmt|;
-comment|//5 min
+comment|//1 min
 specifier|private
 name|int
 name|maxMoves
@@ -833,24 +831,19 @@ argument_list|>
 name|clusterState
 parameter_list|)
 block|{
-comment|// No need to balance a one node cluster.
 if|if
 condition|(
+operator|!
+name|needsBalance
+argument_list|(
+operator|new
+name|ClusterLoadState
+argument_list|(
 name|clusterState
-operator|.
-name|size
-argument_list|()
-operator|<=
-literal|1
+argument_list|)
+argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Skipping load balance as cluster has only one node."
-argument_list|)
-expr_stmt|;
 return|return
 literal|null
 return|;
@@ -1118,7 +1111,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished computing new laod balance plan.  Computation took "
+literal|"Finished computing new load balance plan.  Computation took "
 operator|+
 operator|(
 name|endTime
