@@ -388,6 +388,14 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
+name|String
+name|EXPECTED_MSG_FOR_NON_EXISTING_FAMILY
+init|=
+literal|"invalid family name found"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
 name|byte
 index|[]
 index|[]
@@ -1220,6 +1228,36 @@ argument_list|(
 name|TABLE
 argument_list|)
 decl_stmt|;
+comment|// set real family name to upper case in purpose to simulate the case that
+comment|// family name in HFiles is invalid
+name|HColumnDescriptor
+name|family
+init|=
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+operator|new
+name|String
+argument_list|(
+name|FAMILY
+argument_list|)
+operator|.
+name|toUpperCase
+argument_list|()
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|htd
+operator|.
+name|addFamily
+argument_list|(
+name|family
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|createTable
@@ -1296,6 +1334,35 @@ argument_list|,
 name|e
 operator|instanceof
 name|IOException
+argument_list|)
+expr_stmt|;
+comment|// further check whether the exception message is correct
+name|String
+name|errMsg
+init|=
+name|e
+operator|.
+name|getMessage
+argument_list|()
+decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Incorrect exception message, expected message: ["
+operator|+
+name|EXPECTED_MSG_FOR_NON_EXISTING_FAMILY
+operator|+
+literal|"], current message: ["
+operator|+
+name|errMsg
+operator|+
+literal|"]"
+argument_list|,
+name|errMsg
+operator|.
+name|contains
+argument_list|(
+name|EXPECTED_MSG_FOR_NON_EXISTING_FAMILY
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
