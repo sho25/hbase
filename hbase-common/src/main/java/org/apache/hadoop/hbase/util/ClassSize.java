@@ -1086,7 +1086,6 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-comment|// Write out region name as string and its encoded name.
 name|LOG
 operator|.
 name|debug
@@ -1192,7 +1191,6 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-comment|// Write out region name as string and its encoded name.
 name|LOG
 operator|.
 name|debug

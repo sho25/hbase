@@ -8620,8 +8620,12 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
 operator|(
-literal|17
+literal|16
 operator|*
 name|ClassSize
 operator|.
@@ -8629,7 +8633,7 @@ name|REFERENCE
 operator|)
 operator|+
 operator|(
-literal|5
+literal|4
 operator|*
 name|Bytes
 operator|.
@@ -8644,9 +8648,13 @@ operator|.
 name|SIZEOF_INT
 operator|)
 operator|+
+operator|(
+literal|2
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
+operator|)
 argument_list|)
 decl_stmt|;
 specifier|public

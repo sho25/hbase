@@ -165,9 +165,13 @@ operator|.
 name|SIZEOF_INT
 operator|)
 operator|+
+operator|(
+literal|2
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
+operator|)
 operator|+
 name|Bytes
 operator|.
