@@ -2326,6 +2326,21 @@ name|int
 name|getOffset
 parameter_list|()
 function_decl|;
+comment|// optional bytes columnOffset = 3;
+name|boolean
+name|hasColumnOffset
+parameter_list|()
+function_decl|;
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getColumnOffset
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -2535,6 +2550,57 @@ return|return
 name|offset_
 return|;
 block|}
+comment|// optional bytes columnOffset = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|COLUMNOFFSET_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|columnOffset_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasColumnOffset
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getColumnOffset
+parameter_list|()
+block|{
+return|return
+name|columnOffset_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -2547,6 +2613,18 @@ expr_stmt|;
 name|offset_
 operator|=
 literal|0
+expr_stmt|;
+name|columnOffset_
+operator|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
 expr_stmt|;
 block|}
 specifier|private
@@ -2671,6 +2749,29 @@ name|offset_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBytes
+argument_list|(
+literal|3
+argument_list|,
+name|columnOffset_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -2770,6 +2871,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|offset_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBytesSize
+argument_list|(
+literal|3
+argument_list|,
+name|columnOffset_
 argument_list|)
 expr_stmt|;
 block|}
@@ -3003,6 +3135,42 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasColumnOffset
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasColumnOffset
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasColumnOffset
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+name|getColumnOffset
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getColumnOffset
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -3101,6 +3269,37 @@ name|hash
 operator|)
 operator|+
 name|getOffset
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasColumnOffset
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|COLUMNOFFSET_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getColumnOffset
+argument_list|()
+operator|.
+name|hashCode
 argument_list|()
 expr_stmt|;
 block|}
@@ -3975,6 +4174,27 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|columnOffset_
+operator|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -4312,6 +4532,30 @@ name|offset_
 operator|=
 name|offset_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|columnOffset_
+operator|=
+name|columnOffset_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -4476,6 +4720,23 @@ argument_list|(
 name|other
 operator|.
 name|getOffset
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasColumnOffset
+argument_list|()
+condition|)
+block|{
+name|setColumnOffset
+argument_list|(
+name|other
+operator|.
+name|getColumnOffset
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4678,6 +4939,23 @@ argument_list|()
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|26
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|columnOffset_
+operator|=
+name|input
+operator|.
+name|readBytes
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -4835,6 +5113,130 @@ expr_stmt|;
 name|offset_
 operator|=
 literal|0
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bytes columnOffset = 3;
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|columnOffset_
+init|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasColumnOffset
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getColumnOffset
+parameter_list|()
+block|{
+return|return
+name|columnOffset_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setColumnOffset
+parameter_list|(
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|columnOffset_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearColumnOffset
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|columnOffset_
+operator|=
+name|getDefaultInstance
+argument_list|()
+operator|.
+name|getColumnOffset
+argument_list|()
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -79266,91 +79668,91 @@ literal|"\n\014Filter.proto\032\013hbase.proto\032\020Comparator."
 operator|+
 literal|"proto\"%\n\024ColumnCountGetFilter\022\r\n\005limit\030\001"
 operator|+
-literal|" \002(\005\"7\n\026ColumnPaginationFilter\022\r\n\005limit\030"
+literal|" \002(\005\"M\n\026ColumnPaginationFilter\022\r\n\005limit\030"
 operator|+
-literal|"\001 \002(\005\022\016\n\006offset\030\002 \001(\005\"$\n\022ColumnPrefixFil"
+literal|"\001 \002(\005\022\016\n\006offset\030\002 \001(\005\022\024\n\014columnOffset\030\003 "
 operator|+
-literal|"ter\022\016\n\006prefix\030\001 \002(\014\"q\n\021ColumnRangeFilter"
+literal|"\001(\014\"$\n\022ColumnPrefixFilter\022\016\n\006prefix\030\001 \002("
 operator|+
-literal|"\022\021\n\tminColumn\030\001 \001(\014\022\032\n\022minColumnInclusiv"
+literal|"\014\"q\n\021ColumnRangeFilter\022\021\n\tminColumn\030\001 \001("
 operator|+
-literal|"e\030\002 \001(\010\022\021\n\tmaxColumn\030\003 \001(\014\022\032\n\022maxColumnI"
+literal|"\014\022\032\n\022minColumnInclusive\030\002 \001(\010\022\021\n\tmaxColu"
 operator|+
-literal|"nclusive\030\004 \001(\010\"Q\n\rCompareFilter\022\037\n\tcompa"
+literal|"mn\030\003 \001(\014\022\032\n\022maxColumnInclusive\030\004 \001(\010\"Q\n\r"
 operator|+
-literal|"reOp\030\001 \002(\0162\014.CompareType\022\037\n\ncomparator\030\002"
+literal|"CompareFilter\022\037\n\tcompareOp\030\001 \002(\0162\014.Compa"
 operator|+
-literal|" \001(\0132\013.Comparator\"\212\001\n\025DependentColumnFil"
+literal|"reType\022\037\n\ncomparator\030\002 \001(\0132\013.Comparator\""
 block|,
-literal|"ter\022%\n\rcompareFilter\030\001 \002(\0132\016.CompareFilt"
+literal|"\212\001\n\025DependentColumnFilter\022%\n\rcompareFilt"
 operator|+
-literal|"er\022\024\n\014columnFamily\030\002 \001(\014\022\027\n\017columnQualif"
+literal|"er\030\001 \002(\0132\016.CompareFilter\022\024\n\014columnFamily"
 operator|+
-literal|"ier\030\003 \001(\014\022\033\n\023dropDependentColumn\030\004 \001(\010\"5"
+literal|"\030\002 \001(\014\022\027\n\017columnQualifier\030\003 \001(\014\022\033\n\023dropD"
 operator|+
-literal|"\n\014FamilyFilter\022%\n\rcompareFilter\030\001 \002(\0132\016."
+literal|"ependentColumn\030\004 \001(\010\"5\n\014FamilyFilter\022%\n\r"
 operator|+
-literal|"CompareFilter\"\200\001\n\nFilterList\022&\n\010operator"
+literal|"compareFilter\030\001 \002(\0132\016.CompareFilter\"\200\001\n\n"
 operator|+
-literal|"\030\001 \002(\0162\024.FilterList.Operator\022\030\n\007filters\030"
+literal|"FilterList\022&\n\010operator\030\001 \002(\0162\024.FilterLis"
 operator|+
-literal|"\002 \003(\0132\007.Filter\"0\n\010Operator\022\021\n\rMUST_PASS_"
+literal|"t.Operator\022\030\n\007filters\030\002 \003(\0132\007.Filter\"0\n\010"
 operator|+
-literal|"ALL\020\001\022\021\n\rMUST_PASS_ONE\020\002\"(\n\rFilterWrappe"
+literal|"Operator\022\021\n\rMUST_PASS_ALL\020\001\022\021\n\rMUST_PASS"
 operator|+
-literal|"r\022\027\n\006filter\030\001 \002(\0132\007.Filter\"\024\n\022FirstKeyOn"
+literal|"_ONE\020\002\"(\n\rFilterWrapper\022\027\n\006filter\030\001 \002(\0132"
 operator|+
-literal|"lyFilter\";\n%FirstKeyValueMatchingQualifi"
+literal|"\007.Filter\"\024\n\022FirstKeyOnlyFilter\";\n%FirstK"
 block|,
-literal|"ersFilter\022\022\n\nqualifiers\030\001 \003(\014\"8\n\016FuzzyRo"
+literal|"eyValueMatchingQualifiersFilter\022\022\n\nquali"
 operator|+
-literal|"wFilter\022&\n\rfuzzyKeysData\030\001 \003(\0132\017.BytesBy"
+literal|"fiers\030\001 \003(\014\"8\n\016FuzzyRowFilter\022&\n\rfuzzyKe"
 operator|+
-literal|"tesPair\")\n\023InclusiveStopFilter\022\022\n\nstopRo"
+literal|"ysData\030\001 \003(\0132\017.BytesBytesPair\")\n\023Inclusi"
 operator|+
-literal|"wKey\030\001 \001(\014\"!\n\rKeyOnlyFilter\022\020\n\010lenAsVal\030"
+literal|"veStopFilter\022\022\n\nstopRowKey\030\001 \001(\014\"!\n\rKeyO"
 operator|+
-literal|"\001 \002(\010\"4\n\032MultipleColumnPrefixFilter\022\026\n\016s"
+literal|"nlyFilter\022\020\n\010lenAsVal\030\001 \002(\010\"4\n\032MultipleC"
 operator|+
-literal|"ortedPrefixes\030\001 \003(\014\"\036\n\nPageFilter\022\020\n\010pag"
+literal|"olumnPrefixFilter\022\026\n\016sortedPrefixes\030\001 \003("
 operator|+
-literal|"eSize\030\001 \002(\003\"\036\n\014PrefixFilter\022\016\n\006prefix\030\001 "
+literal|"\014\"\036\n\nPageFilter\022\020\n\010pageSize\030\001 \002(\003\"\036\n\014Pre"
 operator|+
-literal|"\001(\014\"8\n\017QualifierFilter\022%\n\rcompareFilter\030"
+literal|"fixFilter\022\016\n\006prefix\030\001 \001(\014\"8\n\017QualifierFi"
 operator|+
-literal|"\001 \002(\0132\016.CompareFilter\"!\n\017RandomRowFilter"
+literal|"lter\022%\n\rcompareFilter\030\001 \002(\0132\016.CompareFil"
 operator|+
-literal|"\022\016\n\006chance\030\001 \002(\002\"2\n\tRowFilter\022%\n\rcompare"
+literal|"ter\"!\n\017RandomRowFilter\022\016\n\006chance\030\001 \002(\002\"2"
 block|,
-literal|"Filter\030\001 \002(\0132\016.CompareFilter\"[\n\036SingleCo"
+literal|"\n\tRowFilter\022%\n\rcompareFilter\030\001 \002(\0132\016.Com"
 operator|+
-literal|"lumnValueExcludeFilter\0229\n\027singleColumnVa"
+literal|"pareFilter\"[\n\036SingleColumnValueExcludeFi"
 operator|+
-literal|"lueFilter\030\001 \002(\0132\030.SingleColumnValueFilte"
+literal|"lter\0229\n\027singleColumnValueFilter\030\001 \002(\0132\030."
 operator|+
-literal|"r\"\276\001\n\027SingleColumnValueFilter\022\024\n\014columnF"
+literal|"SingleColumnValueFilter\"\276\001\n\027SingleColumn"
 operator|+
-literal|"amily\030\001 \001(\014\022\027\n\017columnQualifier\030\002 \001(\014\022\037\n\t"
+literal|"ValueFilter\022\024\n\014columnFamily\030\001 \001(\014\022\027\n\017col"
 operator|+
-literal|"compareOp\030\003 \002(\0162\014.CompareType\022\037\n\ncompara"
+literal|"umnQualifier\030\002 \001(\014\022\037\n\tcompareOp\030\003 \002(\0162\014."
 operator|+
-literal|"tor\030\004 \002(\0132\013.Comparator\022\027\n\017filterIfMissin"
+literal|"CompareType\022\037\n\ncomparator\030\004 \002(\0132\013.Compar"
 operator|+
-literal|"g\030\005 \001(\010\022\031\n\021latestVersionOnly\030\006 \001(\010\"%\n\nSk"
+literal|"ator\022\027\n\017filterIfMissing\030\005 \001(\010\022\031\n\021latestV"
 operator|+
-literal|"ipFilter\022\027\n\006filter\030\001 \002(\0132\007.Filter\"*\n\020Tim"
+literal|"ersionOnly\030\006 \001(\010\"%\n\nSkipFilter\022\027\n\006filter"
 operator|+
-literal|"estampsFilter\022\026\n\ntimestamps\030\001 \003(\003B\002\020\001\"4\n"
+literal|"\030\001 \002(\0132\007.Filter\"*\n\020TimestampsFilter\022\026\n\nt"
 block|,
-literal|"\013ValueFilter\022%\n\rcompareFilter\030\001 \002(\0132\016.Co"
+literal|"imestamps\030\001 \003(\003B\002\020\001\"4\n\013ValueFilter\022%\n\rco"
 operator|+
-literal|"mpareFilter\"+\n\020WhileMatchFilter\022\027\n\006filte"
+literal|"mpareFilter\030\001 \002(\0132\016.CompareFilter\"+\n\020Whi"
 operator|+
-literal|"r\030\001 \002(\0132\007.FilterBB\n*org.apache.hadoop.hb"
+literal|"leMatchFilter\022\027\n\006filter\030\001 \002(\0132\007.FilterBB"
 operator|+
-literal|"ase.protobuf.generatedB\014FilterProtosH\001\210\001"
+literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
 operator|+
-literal|"\001\240\001\001"
+literal|"atedB\014FilterProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -79523,6 +79925,8 @@ block|{
 literal|"Limit"
 block|,
 literal|"Offset"
+block|,
+literal|"ColumnOffset"
 block|, }
 argument_list|,
 name|org
