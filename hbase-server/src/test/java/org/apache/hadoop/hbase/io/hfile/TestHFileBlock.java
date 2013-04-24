@@ -1482,6 +1482,11 @@ argument_list|(
 name|dos
 argument_list|)
 expr_stmt|;
+name|dos
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
 name|byte
 index|[]
 name|headerAndData
@@ -1652,6 +1657,8 @@ literal|"\\x00"
 comment|// XFL (extra flags)
 comment|// OS (0 = FAT filesystems, 3 = Unix). However, this field
 comment|// sometimes gets set to 0 on Linux and Mac, so we reset it to 3.
+comment|// This appears to be a difference caused by the availability
+comment|// (and use) of the native GZ codec.
 operator|+
 literal|"\\x03"
 operator|+
@@ -1661,24 +1668,50 @@ literal|"\\xD6\\xE8\\xA3\\xB9K\\x84`\\x96Q\\xD3\\xA8\\xDB\\xA8e\\xD4c"
 operator|+
 literal|"\\xD46\\xEA5\\xEA3\\xEA7\\xE7\\x00LI\\x5Cs\\xA0\\x0F\\x00\\x00"
 operator|+
-literal|"\\xAB\\x85g\\x91"
+literal|"\\x00\\x00\\x00\\x00"
 decl_stmt|;
-comment|//  4 byte checksum
+comment|//  4 byte checksum (ignored)
 specifier|final
 name|int
 name|correctGzipBlockLength
 init|=
 literal|95
 decl_stmt|;
-name|assertEquals
-argument_list|(
-name|correctTestBlockStr
-argument_list|,
+specifier|final
+name|String
+name|testBlockStr
+init|=
 name|createTestBlockStr
 argument_list|(
 name|GZ
 argument_list|,
 name|correctGzipBlockLength
+argument_list|)
+decl_stmt|;
+comment|// We ignore the block checksum because createTestBlockStr can change the
+comment|// gzip header after the block is produced
+name|assertEquals
+argument_list|(
+name|correctTestBlockStr
+operator|.
+name|substring
+argument_list|(
+literal|0
+argument_list|,
+name|correctGzipBlockLength
+operator|-
+literal|4
+argument_list|)
+argument_list|,
+name|testBlockStr
+operator|.
+name|substring
+argument_list|(
+literal|0
+argument_list|,
+name|correctGzipBlockLength
+operator|-
+literal|4
 argument_list|)
 argument_list|)
 expr_stmt|;
