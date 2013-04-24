@@ -1071,9 +1071,9 @@ name|file
 argument_list|)
 operator|&&
 operator|!
-name|file
+name|fs
 operator|.
-name|equals
+name|exists
 argument_list|(
 name|archived
 argument_list|)
