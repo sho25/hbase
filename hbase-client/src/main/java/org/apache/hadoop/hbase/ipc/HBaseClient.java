@@ -2271,10 +2271,18 @@ name|authMethod
 operator|+
 literal|" authentication for protocol "
 operator|+
+operator|(
+name|protocol
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
 name|protocol
 operator|.
 name|getSimpleName
 argument_list|()
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4012,8 +4020,6 @@ block|}
 block|}
 name|boolean
 name|continueSasl
-init|=
-literal|false
 decl_stmt|;
 try|try
 block|{
@@ -4210,8 +4216,6 @@ argument_list|)
 expr_stmt|;
 name|IOException
 name|e
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -4948,7 +4952,16 @@ else|else
 block|{
 name|Message
 name|rpcResponseType
+init|=
+literal|null
 decl_stmt|;
+if|if
+condition|(
+name|call
+operator|!=
+literal|null
+condition|)
+block|{
 try|try
 block|{
 comment|// TODO: Why pb engine pollution in here in this class?  FIX.
@@ -4993,6 +5006,7 @@ name|e
 argument_list|)
 throw|;
 comment|//local exception
+block|}
 block|}
 name|Message
 name|value
