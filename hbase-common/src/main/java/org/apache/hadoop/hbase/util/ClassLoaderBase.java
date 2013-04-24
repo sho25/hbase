@@ -134,7 +134,7 @@ specifier|final
 name|ClassLoader
 name|parent
 decl_stmt|;
-comment|/**    * Creates a DynamicClassLoader that can load classes dynamically    * from jar files under a specific folder.    *    * @param conf the configuration for the cluster.    * @param parent the parent ClassLoader to set.    */
+comment|/**    * Creates a DynamicClassLoader that can load classes dynamically    * from jar files under a specific folder.    *    * @param parent the parent ClassLoader to set.    */
 specifier|public
 name|ClassLoaderBase
 parameter_list|(

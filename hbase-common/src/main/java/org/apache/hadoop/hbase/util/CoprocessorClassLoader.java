@@ -652,7 +652,7 @@ argument_list|()
 operator|.
 name|matches
 argument_list|(
-literal|"/lib/[^/]+\\.jar"
+literal|"[/]?lib/[^/]+\\.jar"
 argument_list|)
 condition|)
 block|{
