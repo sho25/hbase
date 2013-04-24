@@ -299,7 +299,7 @@ try|try
 block|{
 name|ZKUtil
 operator|.
-name|createAndWatch
+name|setData
 argument_list|(
 name|watcher
 argument_list|,
@@ -315,13 +315,13 @@ catch|catch
 parameter_list|(
 name|KeeperException
 operator|.
-name|NodeExistsException
-name|nee
+name|NoNodeException
+name|nne
 parameter_list|)
 block|{
 name|ZKUtil
 operator|.
-name|setData
+name|createAndWatch
 argument_list|(
 name|watcher
 argument_list|,
