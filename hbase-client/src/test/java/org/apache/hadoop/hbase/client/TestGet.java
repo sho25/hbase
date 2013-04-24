@@ -1107,12 +1107,6 @@ name|File
 operator|.
 name|separator
 operator|+
-literal|"dynamic"
-operator|+
-name|File
-operator|.
-name|separator
-operator|+
 literal|"jars"
 operator|+
 name|File

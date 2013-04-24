@@ -61,16 +61,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|URLClassLoader
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|HashMap
@@ -176,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a class loader that can load classes dynamically from new  * jar files under a configured folder. It always uses its parent class  * loader to load a class at first. Only if its parent class loader  * can not load a class, we will try to load it using the logic here.  *<p>  * We can't unload a class already loaded. So we will use the existing  * jar files we already know to load any class which can't be loaded  * using the parent class loader. If we still can't load the class from  * the existing jar files, we will check if any new jar file is added,  * if so, we will load the new jar file and try to load the class again.  * If still failed, a class not found exception will be thrown.  *<p>  * Be careful in uploading new jar files and make sure all classes  * are consistent, otherwise, we may not be able to load your  * classes properly.  */
+comment|/**  * This is a class loader that can load classes dynamically from new  * jar files under a configured folder. The paths to the jar files are  * converted to URLs, and URLClassLoader logic is actually used to load  * classes. This class loader always uses its parent class loader  * to load a class at first. Only if its parent class loader  * can not load a class, we will try to load it using the logic here.  *<p>  * The configured folder can be a HDFS path. In this case, the jar files  * under that folder will be copied to local at first under ${hbase.local.dir}/jars/.  * The local copy will be updated if the remote copy is updated, according to its  * last modified timestamp.  *<p>  * We can't unload a class already loaded. So we will use the existing  * jar files we already know to load any class which can't be loaded  * using the parent class loader. If we still can't load the class from  * the existing jar files, we will check if any new jar file is added,  * if so, we will load the new jar file and try to load the class again.  * If still failed, a class not found exception will be thrown.  *<p>  * Be careful in uploading new jar files and make sure all classes  * are consistent, otherwise, we may not be able to load your  * classes properly.  */
 end_comment
 
 begin_class
@@ -188,7 +178,7 @@ specifier|public
 class|class
 name|DynamicClassLoader
 extends|extends
-name|URLClassLoader
+name|ClassLoaderBase
 block|{
 specifier|private
 specifier|static
@@ -205,7 +195,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// Dynamic jars are put under ${hbase.local.dir}/dynamic/jars/
+comment|// Dynamic jars are put under ${hbase.local.dir}/jars/
 specifier|private
 specifier|static
 specifier|final
@@ -216,23 +206,19 @@ name|File
 operator|.
 name|separator
 operator|+
-literal|"dynamic"
-operator|+
-name|File
-operator|.
-name|separator
-operator|+
 literal|"jars"
 operator|+
 name|File
 operator|.
 name|separator
 decl_stmt|;
-comment|/**    * Parent class loader used to load any class at first.    */
 specifier|private
+specifier|static
 specifier|final
-name|ClassLoader
-name|parent
+name|String
+name|DYNAMIC_JARS_DIR_KEY
+init|=
+literal|"hbase.dynamic.jars.dir"
 decl_stmt|;
 specifier|private
 name|File
@@ -272,19 +258,8 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-operator|new
-name|URL
-index|[]
-block|{}
-argument_list|,
 name|parent
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|parent
-operator|=
-name|parent
 expr_stmt|;
 name|jarModifiedTime
 operator|=
@@ -304,7 +279,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.local.dir"
+name|LOCAL_DIR_KEY
+argument_list|,
+name|DEFAULT_LOCAL_DIR
 argument_list|)
 operator|+
 name|DYNAMIC_JARS_DIR
@@ -354,7 +331,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.dynamic.jars.dir"
+name|DYNAMIC_JARS_DIR_KEY
 argument_list|)
 decl_stmt|;
 if|if
@@ -477,6 +454,14 @@ literal|" not found - using dynamical class loader"
 argument_list|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|getClassLoadingLock
+argument_list|(
+name|name
+argument_list|)
+init|)
+block|{
 comment|// Check whether the class has already been loaded:
 name|Class
 argument_list|<
@@ -603,6 +588,7 @@ block|}
 return|return
 name|clasz
 return|;
+block|}
 block|}
 block|}
 specifier|private
