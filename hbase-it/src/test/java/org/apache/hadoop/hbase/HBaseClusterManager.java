@@ -158,6 +158,10 @@ specifier|private
 name|String
 name|sshOptions
 decl_stmt|;
+specifier|private
+name|String
+name|sshBeforeCommand
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -243,6 +247,31 @@ block|}
 argument_list|,
 literal|" "
 argument_list|)
+expr_stmt|;
+block|}
+name|sshBeforeCommand
+operator|=
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.it.clustermanager.ssh.beforeCommand"
+argument_list|,
+literal|""
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|sshBeforeCommand
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|sshBeforeCommand
+operator|+=
+literal|"&& "
 expr_stmt|;
 block|}
 name|LOG
@@ -470,6 +499,8 @@ block|,
 name|userAndHost
 block|,
 literal|"\""
+operator|+
+name|sshBeforeCommand
 operator|+
 name|StringUtils
 operator|.
