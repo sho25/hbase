@@ -2388,6 +2388,10 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|long
+name|flushCheckInterval
+decl_stmt|;
+specifier|private
+name|long
 name|blockingMemStoreSize
 decl_stmt|;
 specifier|final
@@ -2635,6 +2639,19 @@ name|htd
 operator|.
 name|getValues
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|flushCheckInterval
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|MEMSTORE_PERIODIC_FLUSH_INTERVAL
+argument_list|,
+name|DEFAULT_CACHE_FLUSH_INTERVAL
 argument_list|)
 expr_stmt|;
 name|this
@@ -4207,6 +4224,24 @@ init|=
 operator|new
 name|Object
 argument_list|()
+decl_stmt|;
+comment|/** Conf key for the periodic flush interval */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MEMSTORE_PERIODIC_FLUSH_INTERVAL
+init|=
+literal|"hbase.regionserver.optionalcacheflushinterval"
+decl_stmt|;
+comment|/** Default interval for the memstore flush */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_CACHE_FLUSH_INTERVAL
+init|=
+literal|3600000
 decl_stmt|;
 comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    */
 specifier|public
@@ -6230,6 +6265,74 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Should the memstore be flushed now    */
+name|boolean
+name|shouldFlush
+parameter_list|()
+block|{
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+comment|//if we flushed in the recent past, we don't need to do again now
+if|if
+condition|(
+operator|(
+name|now
+operator|-
+name|getLastFlushTime
+argument_list|()
+operator|<
+name|flushCheckInterval
+operator|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+comment|//since we didn't flush in the recent past, flush now if certain conditions
+comment|//are met. Return true on first such memstore hit.
+for|for
+control|(
+name|Store
+name|s
+range|:
+name|this
+operator|.
+name|getStores
+argument_list|()
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|s
+operator|.
+name|timeOfOldestEdit
+argument_list|()
+operator|<
+name|now
+operator|-
+name|flushCheckInterval
+condition|)
+block|{
+comment|// we have an old enough edit in the memstore, flush
+return|return
+literal|true
+return|;
+block|}
+block|}
+return|return
+literal|false
+return|;
 block|}
 comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    * @param status    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
@@ -22006,7 +22109,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|10
+literal|11
 operator|*
 name|Bytes
 operator|.

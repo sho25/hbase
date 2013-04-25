@@ -52,6 +52,17 @@ name|HRegion
 name|region
 parameter_list|)
 function_decl|;
+comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the HRegion requesting the cache flush    * @param delay after how much time should the flush happen    */
+name|void
+name|requestDelayedFlush
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|long
+name|delay
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

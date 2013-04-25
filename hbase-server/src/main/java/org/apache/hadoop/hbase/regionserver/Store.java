@@ -459,6 +459,11 @@ name|KeyValue
 name|kv
 parameter_list|)
 function_decl|;
+comment|/**    * When was the last edit done in the memstore    */
+name|long
+name|timeOfOldestEdit
+parameter_list|()
+function_decl|;
 comment|/**    * Removes a kv from the memstore. The KeyValue is removed only if its key& memstoreTS match the    * key& memstoreTS value of the kv parameter.    * @param kv    */
 specifier|public
 name|void

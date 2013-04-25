@@ -2337,6 +2337,20 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|timeOfOldestEdit
+parameter_list|()
+block|{
+return|return
+name|memstore
+operator|.
+name|timeOfOldestEdit
+argument_list|()
+return|;
+block|}
 comment|/**    * Adds a value to the memstore    *    * @param kv    * @return memstore size delta    */
 specifier|protected
 name|long

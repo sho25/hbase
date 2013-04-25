@@ -5543,6 +5543,21 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|requestDelayedFlush
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|long
+name|when
+parameter_list|)
+block|{
+comment|// TODO Auto-generated method stub
+block|}
 block|}
 specifier|private
 name|void
