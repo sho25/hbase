@@ -155,6 +155,10 @@ specifier|abstract
 class|class
 name|StoreEngine
 parameter_list|<
+name|SF
+extends|extends
+name|StoreFlusher
+parameter_list|,
 name|CP
 extends|extends
 name|CompactionPolicy
@@ -168,6 +172,10 @@ extends|extends
 name|StoreFileManager
 parameter_list|>
 block|{
+specifier|protected
+name|SF
+name|storeFlusher
+decl_stmt|;
 specifier|protected
 name|CP
 name|compactionPolicy
@@ -198,6 +206,8 @@ name|?
 extends|extends
 name|StoreEngine
 argument_list|<
+name|?
+argument_list|,
 name|?
 argument_list|,
 name|?
@@ -245,6 +255,18 @@ return|return
 name|this
 operator|.
 name|storeFileManager
+return|;
+block|}
+comment|/**    * @return Store flusher to use.    */
+specifier|public
+name|StoreFlusher
+name|getStoreFlusher
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|storeFlusher
 return|;
 block|}
 comment|/**    * Creates an instance of a compaction context specific to this engine.    * Doesn't actually select or start a compaction. See CompactionContext class comment.    * @return New CompactionContext object.    */
@@ -302,6 +324,10 @@ operator|&&
 name|storeFileManager
 operator|==
 literal|null
+operator|&&
+name|storeFlusher
+operator|==
+literal|null
 assert|;
 name|createComponents
 argument_list|(
@@ -324,6 +350,10 @@ operator|&&
 name|storeFileManager
 operator|!=
 literal|null
+operator|&&
+name|storeFlusher
+operator|!=
+literal|null
 assert|;
 block|}
 comment|/**    * Create the StoreEngine configured for the given Store.    * @param store The store. An unfortunate dependency needed due to it    *              being passed to coprocessors via the compactor.    * @param conf Store configuration.    * @param kvComparator KVComparator for storeFileManager.    * @return StoreEngine to use.    */
@@ -331,6 +361,8 @@ specifier|public
 specifier|static
 name|StoreEngine
 argument_list|<
+name|?
+argument_list|,
 name|?
 argument_list|,
 name|?
@@ -370,6 +402,8 @@ try|try
 block|{
 name|StoreEngine
 argument_list|<
+name|?
+argument_list|,
 name|?
 argument_list|,
 name|?

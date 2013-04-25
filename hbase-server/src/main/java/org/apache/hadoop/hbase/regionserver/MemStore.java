@@ -3620,6 +3620,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|/*    * Calculate how the MemStore size has changed.  Includes overhead of the    * backing Map.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
+specifier|static
 name|long
 name|heapSizeChange
 parameter_list|(

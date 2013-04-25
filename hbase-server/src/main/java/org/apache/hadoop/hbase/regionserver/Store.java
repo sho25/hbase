@@ -592,8 +592,8 @@ name|getCompactPriority
 parameter_list|()
 function_decl|;
 specifier|public
-name|StoreFlusher
-name|getStoreFlusher
+name|StoreFlushContext
+name|createFlushContext
 parameter_list|(
 name|long
 name|cacheFlushId
