@@ -180,9 +180,17 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|TESTS_ARG
+name|SHORT_REGEX_ARG
 init|=
-literal|"test"
+literal|"r"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|LONG_REGEX_ARG
+init|=
+literal|"regex"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -257,7 +265,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|".*"
+literal|".*\\.IntegrationTest.*"
 argument_list|)
 decl_stmt|;
 specifier|public
@@ -304,13 +312,6 @@ name|c
 parameter_list|)
 block|{
 return|return
-name|super
-operator|.
-name|isCandidateClass
-argument_list|(
-name|c
-argument_list|)
-operator|&&
 name|testFilterRe
 operator|.
 name|matcher
@@ -323,6 +324,26 @@ argument_list|)
 operator|.
 name|find
 argument_list|()
+operator|&&
+comment|// Our pattern will match the below NON-IntegrationTest. Rather than
+comment|// do exotic regex, just filter it out here
+operator|!
+name|c
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"IntegrationTestingUtility"
+argument_list|)
+operator|&&
+name|super
+operator|.
+name|isCandidateClass
+argument_list|(
+name|c
+argument_list|)
 return|;
 block|}
 block|}
@@ -335,9 +356,15 @@ parameter_list|()
 block|{
 name|addOptWithArg
 argument_list|(
-name|TESTS_ARG
+name|SHORT_REGEX_ARG
 argument_list|,
-literal|"a Java regular expression to filter tests on"
+name|LONG_REGEX_ARG
+argument_list|,
+literal|"Java regex to use selecting tests to run: e.g. .*TestBig.*"
+operator|+
+literal|" will select all tests that include TestBig in their name.  Default: "
+operator|+
+literal|".*IntegrationTest.*"
 argument_list|)
 expr_stmt|;
 block|}
@@ -358,7 +385,7 @@ name|cmd
 operator|.
 name|getOptionValue
 argument_list|(
-name|TESTS_ARG
+name|SHORT_REGEX_ARG
 argument_list|,
 literal|null
 argument_list|)
@@ -491,9 +518,39 @@ name|classes
 operator|.
 name|length
 operator|+
-literal|" integration tests to run"
+literal|" integration tests to run:"
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|classes
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"  "
+operator|+
+name|classes
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
 name|JUnitCore
 name|junit
 init|=
