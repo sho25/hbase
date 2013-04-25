@@ -12405,6 +12405,35 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// If no region server is online then master may stuck waiting on .META. to come on line.
+comment|// See HBASE-8422.
+if|if
+condition|(
+name|this
+operator|.
+name|catalogTracker
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getOnlineServers
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_function
 
