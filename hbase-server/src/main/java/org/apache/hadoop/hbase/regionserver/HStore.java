@@ -1664,6 +1664,15 @@ operator|.
 name|memstoreFlushSize
 return|;
 block|}
+specifier|public
+name|long
+name|getBlockingFileCount
+parameter_list|()
+block|{
+return|return
+name|blockingFileCount
+return|;
+block|}
 comment|/* End implementation of StoreConfigInformation */
 comment|/**    * Returns the configured bytesPerChecksum value.    * @param conf The configuration    * @return The bytesPerChecksum that is set in the configuration    */
 specifier|public

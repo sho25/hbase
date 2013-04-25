@@ -74,6 +74,12 @@ name|long
 name|getStoreFileTtl
 parameter_list|()
 function_decl|;
+comment|/**    * The number of files required before flushes for this store will be blocked.    */
+specifier|public
+name|long
+name|getBlockingFileCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
