@@ -283,6 +283,7 @@ name|CellScannable
 implements|,
 name|HeapSize
 block|{
+specifier|public
 specifier|static
 specifier|final
 name|long
@@ -297,8 +298,7 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-comment|// OperationWithAttributes map reference?  I don't know what the other reference is and if I
-comment|// remove it it breaks TestHeapSize so just leaving it.
+comment|// row + OperationWithAttributes.attributes
 literal|2
 operator|*
 name|ClassSize
