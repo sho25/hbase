@@ -2433,7 +2433,7 @@ name|KeyValue
 argument_list|(
 name|row
 argument_list|,
-name|HLog
+name|WALEdit
 operator|.
 name|METAFAMILY
 argument_list|,

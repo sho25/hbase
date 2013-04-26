@@ -265,6 +265,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|WAL
+operator|.
+name|CompactionDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|compactions
@@ -431,7 +451,7 @@ name|ScanInfo
 name|getScanInfo
 parameter_list|()
 function_decl|;
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs     * @return memstore size delta    * @throws IOException    */
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|upsert
@@ -604,6 +624,17 @@ name|long
 name|cacheFlushId
 parameter_list|)
 function_decl|;
+comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction    */
+specifier|public
+name|void
+name|completeCompactionMarker
+parameter_list|(
+name|CompactionDescriptor
+name|compaction
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|// Split oriented methods
 specifier|public
 name|boolean
@@ -629,7 +660,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *     * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
+comment|/**    * This method should only be called from HRegion. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
 specifier|public
 name|void
 name|bulkLoadHFile

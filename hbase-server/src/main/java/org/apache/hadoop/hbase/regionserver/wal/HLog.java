@@ -107,6 +107,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -151,36 +165,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|FailedLogCloseException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -209,9 +193,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|exceptions
 operator|.
-name|Bytes
+name|FailedLogCloseException
 import|;
 end_import
 
@@ -223,9 +207,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|io
 operator|.
-name|InterfaceAudience
+name|Writable
 import|;
 end_import
 
@@ -251,33 +235,6 @@ argument_list|(
 name|HLog
 operator|.
 name|class
-argument_list|)
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|METAFAMILY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"METAFAMILY"
-argument_list|)
-decl_stmt|;
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|METAROW
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"METAROW"
 argument_list|)
 decl_stmt|;
 comment|/** File Extension used while splitting an HLog into regions (HBASE-2312) */
@@ -468,7 +425,7 @@ name|HLogKey
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Constructor for both params      *       * @param edit      *          log's edit      * @param key      *          log's key      */
+comment|/**      * Constructor for both params      *      * @param edit      *          log's edit      * @param key      *          log's key      */
 specifier|public
 name|Entry
 parameter_list|(
@@ -495,7 +452,7 @@ operator|=
 name|edit
 expr_stmt|;
 block|}
-comment|/**      * Gets the edit      *       * @return edit      */
+comment|/**      * Gets the edit      *      * @return edit      */
 specifier|public
 name|WALEdit
 name|getEdit
@@ -505,7 +462,7 @@ return|return
 name|edit
 return|;
 block|}
-comment|/**      * Gets the key      *       * @return key      */
+comment|/**      * Gets the key      *      * @return key      */
 specifier|public
 name|HLogKey
 name|getKey
@@ -515,7 +472,7 @@ return|return
 name|key
 return|;
 block|}
-comment|/**      * Set compression context for this entry.      *       * @param compressionContext      *          Compression context      */
+comment|/**      * Set compression context for this entry.      *      * @param compressionContext      *          Compression context      */
 specifier|public
 name|void
 name|setCompressionContext
@@ -621,7 +578,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * registers WALActionsListener    *     * @param listener    */
+comment|/**    * registers WALActionsListener    *    * @param listener    */
 specifier|public
 name|void
 name|registerWALActionsListener
@@ -631,7 +588,7 @@ name|WALActionsListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * unregisters WALActionsListener    *     * @param listener    */
+comment|/**    * unregisters WALActionsListener    *    * @param listener    */
 specifier|public
 name|boolean
 name|unregisterWALActionsListener
@@ -647,7 +604,7 @@ name|long
 name|getFilenum
 parameter_list|()
 function_decl|;
-comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *     * @param newvalue    *          We'll set log edit/sequence number to this value if it is greater    *          than the current value.    */
+comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue    *          We'll set log edit/sequence number to this value if it is greater    *          than the current value.    */
 specifier|public
 name|void
 name|setSequenceNumber
@@ -663,7 +620,7 @@ name|long
 name|getSequenceNumber
 parameter_list|()
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -675,7 +632,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *     *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *     * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -690,7 +647,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Shut down the log.    *     * @throws IOException    */
+comment|/**    * Shut down the log.    *    * @throws IOException    */
 specifier|public
 name|void
 name|close
@@ -698,7 +655,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Shut down the log and delete the log directory    *     * @throws IOException    */
+comment|/**    * Shut down the log and delete the log directory    *    * @throws IOException    */
 specifier|public
 name|void
 name|closeAndDelete
@@ -706,7 +663,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param logKey    * @param doSync    *          shall we sync after writing the transaction    * @return The txid of this transaction    * @throws IOException    */
+comment|/**    * Append an entry to the log.    *    * @param regionInfo    * @param logEdit    * @param logKey    * @param doSync    *          shall we sync after writing the transaction    * @return The txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
 name|append
@@ -729,7 +686,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Only used in tests.    *     * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @throws IOException    */
+comment|/**    * Only used in tests.    *    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -754,7 +711,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *     * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @return txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
 name|appendNoSync
@@ -782,7 +739,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    *     * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
 name|append
@@ -885,7 +842,7 @@ name|WALCoprocessorHost
 name|getCoprocessorHost
 parameter_list|()
 function_decl|;
-comment|/**    * Get LowReplication-Roller status    *     * @return lowReplicationRollEnabled    */
+comment|/**    * Get LowReplication-Roller status    *    * @return lowReplicationRollEnabled    */
 specifier|public
 name|boolean
 name|isLowReplicationRollEnabled

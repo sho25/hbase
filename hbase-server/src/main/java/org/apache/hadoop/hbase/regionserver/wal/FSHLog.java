@@ -119,16 +119,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|LinkedList
 import|;
 end_import
@@ -710,10 +700,6 @@ name|boolean
 name|logRollRunning
 decl_stmt|;
 specifier|private
-name|boolean
-name|failIfLogDirExists
-decl_stmt|;
-specifier|private
 name|WALCoprocessorHost
 name|coprocessorHost
 decl_stmt|;
@@ -1268,12 +1254,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|this
-operator|.
-name|failIfLogDirExists
-operator|=
-name|failIfLogDirExists
-expr_stmt|;
 name|this
 operator|.
 name|blocksize
@@ -2114,7 +2094,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Method used internal to this class and for tests only.    * @return The wrapped stream our writer is using; its not the    * writer's 'out' FSDatoOutputStream but the stream that this 'out' wraps    * (In hdfs its an instance of DFSDataOutputStream).    *     * usage: see TestLogRolling.java    */
+comment|/**    * Method used internal to this class and for tests only.    * @return The wrapped stream our writer is using; its not the    * writer's 'out' FSDatoOutputStream but the stream that this 'out' wraps    * (In hdfs its an instance of DFSDataOutputStream).    *    * usage: see TestLogRolling.java    */
 end_comment
 
 begin_function
@@ -2557,7 +2537,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *     * @param fs    * @param path    * @param conf    * @return Writer instance    * @throws IOException    */
+comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *    * @param fs    * @param path    * @param conf    * @return Writer instance    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3568,6 +3548,13 @@ operator|.
 name|dir
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|files
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|FileStatus
@@ -3719,6 +3706,7 @@ name|oldLogDir
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -3943,7 +3931,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param now    * @param regionName    * @param tableName    * @param clusterId    * @return New log key.    */
+comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterId    * @return New log key.    */
 end_comment
 
 begin_function
@@ -3953,7 +3941,7 @@ name|makeKey
 parameter_list|(
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 parameter_list|,
 name|byte
 index|[]
@@ -3973,7 +3961,7 @@ return|return
 operator|new
 name|HLogKey
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|tableName
 argument_list|,
@@ -5554,6 +5542,10 @@ block|}
 block|}
 end_function
 
+begin_comment
+comment|// TODO: Remove info.  Unused.
+end_comment
+
 begin_function
 specifier|protected
 name|void
@@ -6100,7 +6092,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Get the directory we are making logs in.    *     * @return dir    */
+comment|/**    * Get the directory we are making logs in.    *    * @return dir    */
 end_comment
 
 begin_function
