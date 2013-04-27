@@ -381,6 +381,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|FSDataInputStreamWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -3538,6 +3554,13 @@ name|long
 name|endOffset
 parameter_list|)
 function_decl|;
+comment|/** Closes the backing streams */
+name|void
+name|closeStreams
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 comment|/**    * A common implementation of some methods of {@link FSReader} and some    * tools for implementing HFile format version-specific block readers.    */
 specifier|private
@@ -3548,18 +3571,6 @@ name|AbstractFSReader
 implements|implements
 name|FSReader
 block|{
-comment|/** The file system stream of the underlying {@link HFile} that       * does checksum validations in the filesystem */
-specifier|protected
-specifier|final
-name|FSDataInputStream
-name|istream
-decl_stmt|;
-comment|/** The file system stream of the underlying {@link HFile} that      * does not do checksum verification in the file system */
-specifier|protected
-specifier|final
-name|FSDataInputStream
-name|istreamNoFsChecksum
-decl_stmt|;
 comment|/** Compression algorithm used by the {@link HFile} */
 specifier|protected
 name|Compression
@@ -3616,12 +3627,6 @@ decl_stmt|;
 specifier|public
 name|AbstractFSReader
 parameter_list|(
-name|FSDataInputStream
-name|istream
-parameter_list|,
-name|FSDataInputStream
-name|istreamNoFsChecksum
-parameter_list|,
 name|Algorithm
 name|compressAlgo
 parameter_list|,
@@ -3640,12 +3645,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|istream
-operator|=
-name|istream
-expr_stmt|;
 name|this
 operator|.
 name|compressAlgo
@@ -3684,12 +3683,6 @@ name|headerSize
 argument_list|(
 name|minorVersion
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|istreamNoFsChecksum
-operator|=
-name|istreamNoFsChecksum
 expr_stmt|;
 block|}
 annotation|@
@@ -4100,48 +4093,6 @@ operator|+
 name|hdrSize
 return|;
 block|}
-comment|/**      * Creates a buffered stream reading a certain slice of the file system      * input stream. We need this because the decompression we use seems to      * expect the input stream to be bounded.      *      * @param offset the starting file offset the bounded stream reads from      * @param size the size of the segment of the file the stream should read      * @param pread whether to use position reads      * @return a stream restricted to the given portion of the file      */
-specifier|protected
-name|InputStream
-name|createBufferedBoundedStream
-parameter_list|(
-name|long
-name|offset
-parameter_list|,
-name|int
-name|size
-parameter_list|,
-name|boolean
-name|pread
-parameter_list|)
-block|{
-return|return
-operator|new
-name|BufferedInputStream
-argument_list|(
-operator|new
-name|BoundedRangeFileInputStream
-argument_list|(
-name|istream
-argument_list|,
-name|offset
-argument_list|,
-name|size
-argument_list|,
-name|pread
-argument_list|)
-argument_list|,
-name|Math
-operator|.
-name|min
-argument_list|(
-name|DEFAULT_BUFFER_SIZE
-argument_list|,
-name|size
-argument_list|)
-argument_list|)
-return|;
-block|}
 comment|/**      * @return The minorVersion of this HFile      */
 specifier|protected
 name|int
@@ -4201,30 +4152,10 @@ name|FSReaderV2
 extends|extends
 name|AbstractFSReader
 block|{
-comment|// The configuration states that we should validate hbase checksums
-specifier|private
-specifier|final
-name|boolean
-name|useHBaseChecksumConfigured
-decl_stmt|;
-comment|// Record the current state of this reader with respect to
-comment|// validating checkums in HBase. This is originally set the same
-comment|// value as useHBaseChecksumConfigured, but can change state as and when
-comment|// we encounter checksum verification failures.
-specifier|private
-specifier|volatile
-name|boolean
-name|useHBaseChecksum
-decl_stmt|;
-comment|// In the case of a checksum failure, do these many succeeding
-comment|// reads without hbase checksum verification.
-specifier|private
-specifier|volatile
-name|int
-name|checksumOffCount
-init|=
-operator|-
-literal|1
+comment|/** The file system stream of the underlying {@link HFile} that       * does or doesn't do checksum validations in the filesystem */
+specifier|protected
+name|FSDataInputStreamWrapper
+name|streamWrapper
 decl_stmt|;
 comment|/** Whether we include memstore timestamp in data blocks */
 specifier|protected
@@ -4280,11 +4211,8 @@ decl_stmt|;
 specifier|public
 name|FSReaderV2
 parameter_list|(
-name|FSDataInputStream
-name|istream
-parameter_list|,
-name|FSDataInputStream
-name|istreamNoFsChecksum
+name|FSDataInputStreamWrapper
+name|stream
 parameter_list|,
 name|Algorithm
 name|compressAlgo
@@ -4306,10 +4234,6 @@ name|IOException
 block|{
 name|super
 argument_list|(
-name|istream
-argument_list|,
-name|istreamNoFsChecksum
-argument_list|,
 name|compressAlgo
 argument_list|,
 name|fileSize
@@ -4321,53 +4245,33 @@ argument_list|,
 name|path
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|hfs
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Check the configuration to determine whether hbase-level
-comment|// checksum verification is needed or not.
-name|useHBaseChecksum
-operator|=
-name|hfs
+name|this
 operator|.
-name|useHBaseChecksum
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// The configuration does not specify anything about hbase checksum
-comment|// validations. Set it to true here assuming that we will verify
-comment|// hbase checksums for all reads. For older files that do not have
-comment|// stored checksums, this flag will be reset later.
-name|useHBaseChecksum
+name|streamWrapper
 operator|=
-literal|true
+name|stream
 expr_stmt|;
-block|}
-comment|// for older versions, hbase did not store checksums.
-if|if
-condition|(
+comment|// Older versions of HBase didn't support checksum.
+name|boolean
+name|forceNoHBaseChecksum
+init|=
+operator|(
+name|this
+operator|.
 name|getMinorVersion
 argument_list|()
 operator|<
 name|MINOR_VERSION_WITH_CHECKSUM
-condition|)
-block|{
-name|useHBaseChecksum
-operator|=
-literal|false
-expr_stmt|;
-block|}
+operator|)
+decl_stmt|;
 name|this
 operator|.
-name|useHBaseChecksumConfigured
-operator|=
-name|useHBaseChecksum
+name|streamWrapper
+operator|.
+name|prepareForBlockReader
+argument_list|(
+name|forceNoHBaseChecksum
+argument_list|)
 expr_stmt|;
 name|defaultDecodingCtx
 operator|=
@@ -4403,9 +4307,11 @@ name|IOException
 block|{
 name|this
 argument_list|(
+operator|new
+name|FSDataInputStreamWrapper
+argument_list|(
 name|istream
-argument_list|,
-name|istream
+argument_list|)
 argument_list|,
 name|compressAlgo
 argument_list|,
@@ -4443,15 +4349,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// It is ok to get a reference to the stream here without any
-comment|// locks because it is marked final.
-name|FSDataInputStream
-name|is
-init|=
-name|this
-operator|.
-name|istreamNoFsChecksum
-decl_stmt|;
 comment|// get a copy of the current state of whether to validate
 comment|// hbase checksums or not for this read call. This is not
 comment|// thread-safe but the one constaint is that if we decide
@@ -4460,23 +4357,21 @@ comment|// guaranteed to use hdfs checksum verification.
 name|boolean
 name|doVerificationThruHBaseChecksum
 init|=
-name|this
+name|streamWrapper
 operator|.
-name|useHBaseChecksum
+name|shouldUseHBaseChecksum
+argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
-name|doVerificationThruHBaseChecksum
-condition|)
-block|{
+name|FSDataInputStream
 name|is
-operator|=
-name|this
+init|=
+name|streamWrapper
 operator|.
-name|istream
-expr_stmt|;
-block|}
+name|getStream
+argument_list|(
+name|doVerificationThruHBaseChecksum
+argument_list|)
+decl_stmt|;
 name|HFileBlock
 name|blk
 init|=
@@ -4580,27 +4475,20 @@ comment|// next CHECKSUM_VERIFICATION_NUM_IO_THRESHOLD reads avoid
 comment|// hbase checksum verification, but since this value is set without
 comment|// holding any locks, it can so happen that we might actually do
 comment|// a few more than precisely this number.
-name|this
-operator|.
-name|checksumOffCount
-operator|=
-name|CHECKSUM_VERIFICATION_NUM_IO_THRESHOLD
-expr_stmt|;
-name|this
-operator|.
-name|useHBaseChecksum
-operator|=
-literal|false
-expr_stmt|;
-name|doVerificationThruHBaseChecksum
-operator|=
-literal|false
-expr_stmt|;
 name|is
 operator|=
 name|this
 operator|.
-name|istream
+name|streamWrapper
+operator|.
+name|fallbackToFsChecksum
+argument_list|(
+name|CHECKSUM_VERIFICATION_NUM_IO_THRESHOLD
+argument_list|)
+expr_stmt|;
+name|doVerificationThruHBaseChecksum
+operator|=
+literal|false
 expr_stmt|;
 name|blk
 operator|=
@@ -4698,37 +4586,11 @@ comment|// next checksumOffCount read requests will use HDFS checksums.
 comment|// The decrementing of this.checksumOffCount is not thread-safe,
 comment|// but it is harmless because eventually checksumOffCount will be
 comment|// a negative number.
-if|if
-condition|(
-operator|!
-name|this
+name|streamWrapper
 operator|.
-name|useHBaseChecksum
-operator|&&
-name|this
-operator|.
-name|useHBaseChecksumConfigured
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|checksumOffCount
-operator|--
-operator|<
-literal|0
-condition|)
-block|{
-name|this
-operator|.
-name|useHBaseChecksum
-operator|=
-literal|true
+name|checksumOk
+argument_list|()
 expr_stmt|;
-comment|// auto re-enable hbase checksums
-block|}
-block|}
 return|return
 name|blk
 return|;
@@ -5569,6 +5431,21 @@ argument_list|,
 name|hdrSize
 argument_list|)
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|closeStreams
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|streamWrapper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 annotation|@

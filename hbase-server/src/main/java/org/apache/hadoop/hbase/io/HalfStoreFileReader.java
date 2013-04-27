@@ -359,7 +359,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStream}    * @param inNoChecksum {@link FSDataInputStream} opened on a filesystem without checksum    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
+comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -372,12 +372,8 @@ name|Path
 name|p
 parameter_list|,
 specifier|final
-name|FSDataInputStream
+name|FSDataInputStreamWrapper
 name|in
-parameter_list|,
-specifier|final
-name|FSDataInputStream
-name|inNoChecksum
 parameter_list|,
 name|long
 name|size
@@ -405,15 +401,11 @@ name|p
 argument_list|,
 name|in
 argument_list|,
-name|inNoChecksum
-argument_list|,
 name|size
 argument_list|,
 name|cacheConf
 argument_list|,
 name|preferredEncodingInCache
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border
