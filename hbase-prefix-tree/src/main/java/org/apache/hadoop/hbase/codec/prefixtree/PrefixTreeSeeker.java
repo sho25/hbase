@@ -329,6 +329,20 @@ name|KeyValue
 name|getKeyValue
 parameter_list|()
 block|{
+if|if
+condition|(
+name|ptSearcher
+operator|.
+name|current
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 return|return
 name|KeyValueUtil
 operator|.
@@ -473,7 +487,7 @@ name|int
 name|length
 parameter_list|,
 name|boolean
-name|forceBeforeOnExactMatch
+name|seekBefore
 parameter_list|)
 block|{
 comment|// this does a deep copy of the key byte[] because the CellSearcher interface wants a Cell
@@ -512,7 +526,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|forceBeforeOnExactMatch
+name|seekBefore
 condition|)
 block|{
 name|ptSearcher
@@ -547,7 +561,7 @@ name|int
 name|length
 parameter_list|,
 name|boolean
-name|forceBeforeOnExactMatch
+name|seekBefore
 parameter_list|)
 block|{
 comment|// this does a deep copy of the key byte[] because the CellSearcher interface wants a Cell
@@ -587,7 +601,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|forceBeforeOnExactMatch
+name|seekBefore
 condition|)
 block|{
 name|ptSearcher
@@ -640,6 +654,17 @@ operator|.
 name|AFTER_LAST
 condition|)
 block|{
+if|if
+condition|(
+name|seekBefore
+condition|)
+block|{
+name|ptSearcher
+operator|.
+name|previous
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 literal|1
 return|;
