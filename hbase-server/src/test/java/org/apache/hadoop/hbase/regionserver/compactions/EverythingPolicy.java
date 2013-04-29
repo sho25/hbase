@@ -136,6 +136,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|mayUseOffPeak
+parameter_list|,
+specifier|final
+name|boolean
+name|mayBeStuck
 parameter_list|)
 throws|throws
 name|IOException

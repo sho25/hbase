@@ -124,12 +124,6 @@ name|ExploringCompactionPolicy
 extends|extends
 name|RatioBasedCompactionPolicy
 block|{
-comment|/** Computed number of files that are needed to assume compactions are stuck. */
-specifier|private
-specifier|final
-name|long
-name|filesNeededToForce
-decl_stmt|;
 comment|/**    * Constructor for ExploringCompactionPolicy.    * @param conf The configuration object    * @param storeConfigInfo An object to provide info about the store.    */
 specifier|public
 name|ExploringCompactionPolicy
@@ -149,13 +143,6 @@ name|conf
 argument_list|,
 name|storeConfigInfo
 argument_list|)
-expr_stmt|;
-name|filesNeededToForce
-operator|=
-name|storeConfigInfo
-operator|.
-name|getBlockingFileCount
-argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -177,6 +164,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|mayUseOffPeak
+parameter_list|,
+specifier|final
+name|boolean
+name|mightBeStuck
 parameter_list|)
 throws|throws
 name|IOException
@@ -223,16 +214,6 @@ init|=
 name|Long
 operator|.
 name|MAX_VALUE
-decl_stmt|;
-name|boolean
-name|mightBeStuck
-init|=
-name|candidates
-operator|.
-name|size
-argument_list|()
-operator|>=
-name|filesNeededToForce
 decl_stmt|;
 comment|// Consider every starting place.
 for|for
