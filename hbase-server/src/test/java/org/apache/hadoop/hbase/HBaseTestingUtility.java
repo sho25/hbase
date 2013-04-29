@@ -8867,6 +8867,15 @@ name|dfsCluster
 return|;
 block|}
 specifier|public
+name|MiniMRCluster
+name|getMRCluster
+parameter_list|()
+block|{
+return|return
+name|mrCluster
+return|;
+block|}
+specifier|public
 name|void
 name|setDFSCluster
 parameter_list|(
