@@ -94,10 +94,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compression class for {@link KeyValue}s written to the WAL. This is not  * synchronized, so synchronization should be handled outside.  *   * Class only compresses and uncompresses row keys, family names, and the  * qualifier. More may be added depending on use patterns.  */
+comment|/**  * DO NOT USE. This class is deprecated and should only be used in pre-PB WAL.  *   * Compression class for {@link KeyValue}s written to the WAL. This is not  * synchronized, so synchronization should be handled outside.  *   * Class only compresses and uncompresses row keys, family names, and the  * qualifier. More may be added depending on use patterns.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 class|class
 name|KeyValueCompression
 block|{

@@ -2440,7 +2440,7 @@ condition|)
 block|{
 name|removeNonReplicableEdits
 argument_list|(
-name|edit
+name|entry
 argument_list|)
 expr_stmt|;
 comment|// Don't replicate catalog entries, if the WALEdit wasn't
@@ -3197,13 +3197,15 @@ operator|<
 name|maxRetriesMultiplier
 return|;
 block|}
-comment|/**    * We only want KVs that are scoped other than local    * @param edit The KV to check for replication    */
+comment|/**    * We only want KVs that are scoped other than local    * @param entry The entry to check for replication    */
 specifier|protected
 name|void
 name|removeNonReplicableEdits
 parameter_list|(
-name|WALEdit
-name|edit
+name|HLog
+operator|.
+name|Entry
+name|entry
 parameter_list|)
 block|{
 name|NavigableMap
@@ -3215,7 +3217,10 @@ name|Integer
 argument_list|>
 name|scopes
 init|=
-name|edit
+name|entry
+operator|.
+name|getKey
+argument_list|()
 operator|.
 name|getScopes
 argument_list|()
@@ -3226,7 +3231,10 @@ name|KeyValue
 argument_list|>
 name|kvs
 init|=
-name|edit
+name|entry
+operator|.
+name|getEdit
+argument_list|()
 operator|.
 name|getKeyValues
 argument_list|()
@@ -3236,7 +3244,7 @@ control|(
 name|int
 name|i
 init|=
-name|edit
+name|kvs
 operator|.
 name|size
 argument_list|()

@@ -1483,7 +1483,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|WAL
+name|WALProtos
 operator|.
 name|CompactionDescriptor
 import|;

@@ -1188,7 +1188,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|logEdit
+name|logKey
 operator|.
 name|setScopes
 argument_list|(
