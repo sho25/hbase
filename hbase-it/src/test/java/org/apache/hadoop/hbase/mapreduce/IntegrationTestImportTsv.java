@@ -1522,7 +1522,12 @@ init|=
 name|HBaseConfiguration
 operator|.
 name|create
+argument_list|(
+name|context
+operator|.
+name|getConfiguration
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|conf
 operator|.
