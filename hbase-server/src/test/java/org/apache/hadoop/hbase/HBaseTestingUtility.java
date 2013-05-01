@@ -1587,6 +1587,17 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// hadoop-2.0.5+'s HDFS-4305 by default enforces a min blocks size of 1024*1024.  Many unit
+comment|// tests that use the hlog use smaller blocks.  Setting this config to 0 to have tets pass
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"dfs.namenode.fs-limits.min-block-size"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Returns this classes's instance of {@link Configuration}.  Be careful how    * you use the returned Configuration since {@link HConnection} instances    * can be shared.  The Map of HConnections is keyed by the Configuration.  If    * say, a Connection was being used against a cluster that had been shutdown,    * see {@link #shutdownMiniCluster()}, then the Connection will no longer    * be wholesome.  Rather than use the return direct, its usually best to    * make a copy and use that.  Do    *<code>Configuration c = new Configuration(INSTANCE.getConfiguration());</code>    * @return Instance of Configuration.    */
 specifier|public
