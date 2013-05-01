@@ -786,6 +786,40 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|this
+operator|.
+name|queuesZNode
+argument_list|,
+name|regionserverZnode
+argument_list|)
+operator|.
+name|equals
+argument_list|(
+name|this
+operator|.
+name|myQueuesZnode
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"An attempt was made to claim our own queues on region server "
+operator|+
+name|regionserverZnode
+argument_list|)
+expr_stmt|;
+return|return
+name|newQueues
+return|;
+block|}
 comment|// check whether there is multi support. If yes, use it.
 if|if
 condition|(
@@ -2059,6 +2093,10 @@ argument_list|(
 literal|"Failed parse of hlog position from the following znode: "
 operator|+
 name|z
+operator|+
+literal|", Exception: "
+operator|+
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -2231,6 +2269,21 @@ parameter_list|)
 throws|throws
 name|DeserializationException
 block|{
+if|if
+condition|(
+name|bytes
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|DeserializationException
+argument_list|(
+literal|"Unable to parse null HLog position."
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|ProtobufUtil

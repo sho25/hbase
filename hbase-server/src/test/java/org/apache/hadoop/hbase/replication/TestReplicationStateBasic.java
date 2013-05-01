@@ -560,8 +560,20 @@ name|getAllQueues
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO fix NPE if getting a log position on a file that does not exist
-comment|// assertEquals(0, rq1.getLogPosition("bogus", "bogus"));
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|rq1
+operator|.
+name|getLogPosition
+argument_list|(
+literal|"bogus"
+argument_list|,
+literal|"bogus"
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|assertNull
 argument_list|(
 name|rq1
@@ -599,8 +611,17 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO test setting a log position on a bogus file
-comment|// rq1.setLogPosition("bogus", "bogus", 5L);
+name|rq1
+operator|.
+name|setLogPosition
+argument_list|(
+literal|"bogus"
+argument_list|,
+literal|"bogus"
+argument_list|,
+literal|5L
+argument_list|)
+expr_stmt|;
 name|populateQueues
 argument_list|()
 expr_stmt|;
@@ -824,8 +845,22 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO test claimQueues on yourself
-comment|// rq2.claimQueues(server2);
+comment|// Try to claim our own queues
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|rq2
+operator|.
+name|claimQueues
+argument_list|(
+name|server2
+argument_list|)
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|6
