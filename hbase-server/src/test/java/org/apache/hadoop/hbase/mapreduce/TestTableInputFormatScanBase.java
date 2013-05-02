@@ -391,6 +391,17 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// test intermittently fails under hadoop2 (2.0.2-alpha) if shortcircuit-read (scr) is on.
+comment|// this turns it off for this test.  TODO: Figure out why scr breaks recovery.
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"hbase.tests.use.shortcircuit.reads"
+argument_list|,
+literal|"false"
+argument_list|)
+expr_stmt|;
 comment|// switch TIF to log at DEBUG level
 name|TEST_UTIL
 operator|.
