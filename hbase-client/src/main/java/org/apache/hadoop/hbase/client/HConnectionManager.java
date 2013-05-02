@@ -5391,6 +5391,33 @@ init|(
 name|regionLockObject
 init|)
 block|{
+comment|// Check the cache again for a hit in case some other thread made the
+comment|// same query while we were waiting on the lock.
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
+name|location
+operator|=
+name|getCachedLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|location
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|location
+return|;
+block|}
 comment|// If the parent table is META, we may want to pre-fetch some
 comment|// region info into the global region cache for this table.
 if|if
@@ -5422,15 +5449,6 @@ name|row
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check the cache again for a hit in case some other thread made the
-comment|// same query while we were waiting on the lock. If not supposed to
-comment|// be using the cache, delete any existing cached location so it won't
-comment|// interfere.
-if|if
-condition|(
-name|useCache
-condition|)
-block|{
 name|location
 operator|=
 name|getCachedLocation
@@ -5454,6 +5472,8 @@ block|}
 block|}
 else|else
 block|{
+comment|// If we are not supposed to be using the cache, delete any existing cached location
+comment|// so it won't interfere.
 name|forceDeleteCachedLocation
 argument_list|(
 name|tableName
