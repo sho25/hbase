@@ -209,22 +209,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|CancelableProgressable
 import|;
 end_import
@@ -814,12 +798,28 @@ name|msg
 operator|!=
 literal|null
 operator|&&
+operator|(
 name|msg
 operator|.
 name|contains
 argument_list|(
 literal|"Cannot obtain block length"
 argument_list|)
+operator|||
+name|msg
+operator|.
+name|contains
+argument_list|(
+literal|"Could not obtain the last block"
+argument_list|)
+operator|||
+name|msg
+operator|.
+name|matches
+argument_list|(
+literal|"Blocklist for [^ ]* has changed.*"
+argument_list|)
+operator|)
 condition|)
 block|{
 if|if

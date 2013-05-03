@@ -5641,7 +5641,8 @@ argument_list|(
 name|fs
 argument_list|)
 decl_stmt|;
-comment|// The "Cannot obtain block length" part is very important,
+comment|// The "Cannot obtain block length", "Could not obtain the last block",
+comment|// and "Blocklist for [^ ]* has changed.*" part is very important,
 comment|// that's how it comes out of HDFS. If HDFS changes the exception
 comment|// message, this test needs to be adjusted accordingly.
 comment|//
@@ -5661,6 +5662,27 @@ argument_list|>
 argument_list|()
 block|{
 specifier|private
+specifier|final
+name|String
+index|[]
+name|errors
+init|=
+operator|new
+name|String
+index|[]
+block|{
+literal|"Cannot obtain block length"
+block|,
+literal|"Could not obtain the last block"
+block|,
+literal|"Blocklist for "
+operator|+
+name|OLDLOGDIR
+operator|+
+literal|" has changed"
+block|}
+decl_stmt|;
+specifier|private
 name|int
 name|count
 init|=
@@ -5679,7 +5701,6 @@ block|{
 if|if
 condition|(
 name|count
-operator|++
 operator|<
 literal|3
 condition|)
@@ -5688,7 +5709,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot obtain block length"
+name|errors
+index|[
+name|count
+operator|++
+index|]
 argument_list|)
 throw|;
 block|}
