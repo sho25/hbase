@@ -245,7 +245,6 @@ name|encodedStream
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 name|byte
 index|[]
 name|dummyHeader
@@ -348,8 +347,24 @@ name|checkNotNull
 argument_list|(
 name|headerBytes
 argument_list|,
-literal|"Please pass HFileBlock.HFILEBLOCK_DUMMY_HEADER instead of null for param headerBytes"
+literal|"Please pass HConstants.HFILEBLOCK_DUMMY_HEADER instead of null for param headerBytes"
 argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setDummyHeader
+parameter_list|(
+name|byte
+index|[]
+name|headerBytes
+parameter_list|)
+block|{
+name|dummyHeader
+operator|=
+name|headerBytes
 expr_stmt|;
 block|}
 comment|/**    * prepare to start a new encoding.    * @throws IOException    */
@@ -411,7 +426,7 @@ operator|.
 name|flush
 argument_list|()
 expr_stmt|;
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 argument_list|(
 name|encodedStream
 operator|.
@@ -431,7 +446,7 @@ block|}
 comment|/**    * @param uncompressedBytesWithHeader    * @param blockType    * @throws IOException    */
 specifier|public
 name|void
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 parameter_list|(
 name|byte
 index|[]
@@ -651,21 +666,6 @@ return|return
 name|this
 operator|.
 name|encodingAlgo
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|int
-name|getHeaderSize
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|dummyHeader
-operator|.
-name|length
 return|;
 block|}
 block|}

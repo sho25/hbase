@@ -310,7 +310,7 @@ name|encodeCtx
 decl_stmt|;
 name|defaultContext
 operator|.
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 argument_list|(
 name|in
 operator|.

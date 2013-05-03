@@ -2712,7 +2712,7 @@ else|else
 block|{
 name|defaultBlockEncodingCtx
 operator|.
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 argument_list|(
 name|uncompressedBytesWithHeader
 argument_list|,
@@ -5949,8 +5949,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Maps a minor version to the size of the header.    */
+specifier|public
 specifier|static
-specifier|private
 name|int
 name|headerSize
 parameter_list|(
@@ -5975,6 +5975,48 @@ return|return
 name|HConstants
 operator|.
 name|HFILEBLOCK_HEADER_SIZE
+return|;
+block|}
+comment|/**    * Return the appropriate DUMMY_HEADER for the minor version    */
+specifier|public
+name|byte
+index|[]
+name|getDummyHeaderForVersion
+parameter_list|()
+block|{
+return|return
+name|getDummyHeaderForVersion
+argument_list|(
+name|minorVersion
+argument_list|)
+return|;
+block|}
+comment|/**    * Return the appropriate DUMMY_HEADER for the minor version    */
+specifier|static
+specifier|private
+name|byte
+index|[]
+name|getDummyHeaderForVersion
+parameter_list|(
+name|int
+name|minorVersion
+parameter_list|)
+block|{
+if|if
+condition|(
+name|minorVersion
+operator|<
+name|MINOR_VERSION_WITH_CHECKSUM
+condition|)
+block|{
+return|return
+name|DUMMY_HEADER_NO_CHECKSUM
+return|;
+block|}
+return|return
+name|HConstants
+operator|.
+name|HFILEBLOCK_DUMMY_HEADER
 return|;
 block|}
 comment|/**    * Convert the contents of the block header into a human readable string.    * This is mostly helpful for debugging. This assumes that the block    * has minor version> 0.    */

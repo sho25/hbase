@@ -2371,7 +2371,7 @@ else|else
 block|{
 name|defaultBlockEncodingCtx
 operator|.
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 argument_list|(
 name|uncompressedBytesWithHeader
 argument_list|,

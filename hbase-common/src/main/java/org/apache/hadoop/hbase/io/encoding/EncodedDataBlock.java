@@ -342,14 +342,17 @@ operator|=
 name|rawKVs
 expr_stmt|;
 block|}
-comment|/**    * Provides access to compressed value.    * @return Forwards sequential iterator.    */
+comment|/**    * Provides access to compressed value.    * @param headerSize header size of the block.    * @return Forwards sequential iterator.    */
 specifier|public
 name|Iterator
 argument_list|<
 name|KeyValue
 argument_list|>
 name|getIterator
-parameter_list|()
+parameter_list|(
+name|int
+name|headerSize
+parameter_list|)
 block|{
 specifier|final
 name|int
@@ -369,10 +372,7 @@ decl_stmt|;
 name|int
 name|bytesToSkip
 init|=
-name|encodingCtx
-operator|.
-name|getHeaderSize
-argument_list|()
+name|headerSize
 operator|+
 name|Bytes
 operator|.

@@ -118,11 +118,15 @@ name|Algorithm
 name|getCompression
 parameter_list|()
 function_decl|;
-comment|/**    * @return the header size used    */
+comment|/**    * sets the dummy header bytes    */
 specifier|public
-name|int
-name|getHeaderSize
-parameter_list|()
+name|void
+name|setDummyHeader
+parameter_list|(
+name|byte
+index|[]
+name|headerBytes
+parameter_list|)
 function_decl|;
 comment|/**    * @return the {@link DataBlockEncoding} encoding used    */
 specifier|public

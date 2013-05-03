@@ -2790,7 +2790,7 @@ argument_list|)
 expr_stmt|;
 name|defaultEncodingCtx
 operator|.
-name|compressAfterEncoding
+name|compressAfterEncodingWithBlockType
 argument_list|(
 name|rawBufWithHeader
 argument_list|,

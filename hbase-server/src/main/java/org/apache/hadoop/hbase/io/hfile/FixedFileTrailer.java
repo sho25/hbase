@@ -2364,6 +2364,7 @@ name|majorVersion
 return|;
 block|}
 comment|/**    * Returns the minor version of this HFile format    */
+specifier|public
 name|int
 name|getMinorVersion
 parameter_list|()
