@@ -2823,7 +2823,7 @@ argument_list|()
 operator|==
 literal|0
 condition|?
-literal|"0"
+literal|"0,"
 else|:
 operator|(
 name|StringUtils
@@ -2841,8 +2841,6 @@ operator|+
 literal|", "
 operator|)
 operator|)
-operator|+
-literal|", "
 operator|+
 literal|"evictions="
 operator|+
