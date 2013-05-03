@@ -150,8 +150,6 @@ block|{
 name|checkFlushed
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 comment|// Row
 name|write
 argument_list|(
@@ -259,21 +257,6 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|CodecException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 comment|/**      * Write int length followed by array bytes.      * @param bytes      * @param offset      * @param length      * @throws IOException      */
 specifier|private

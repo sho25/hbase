@@ -45,6 +45,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Arrays
@@ -212,6 +222,8 @@ specifier|public
 name|void
 name|testPutIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Put
 name|p
@@ -345,6 +357,8 @@ specifier|public
 name|void
 name|testPutConcurrentModificationOnIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Put
 name|p
@@ -496,6 +510,8 @@ specifier|public
 name|void
 name|testDeleteIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Delete
 name|d
@@ -624,6 +640,8 @@ specifier|public
 name|void
 name|testAppendIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Append
 name|a
@@ -767,6 +785,8 @@ specifier|public
 name|void
 name|testIncrementIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Increment
 name|increment
@@ -920,6 +940,8 @@ specifier|public
 name|void
 name|testResultIteration
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Cell
 index|[]

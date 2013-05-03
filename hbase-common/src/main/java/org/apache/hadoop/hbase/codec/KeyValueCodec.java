@@ -138,8 +138,6 @@ argument_list|()
 expr_stmt|;
 comment|// This is crass and will not work when KV changes. Also if passed a non-kv Cell, it will
 comment|// make expensive copy.
-try|try
-block|{
 name|KeyValue
 operator|.
 name|oswrite
@@ -159,21 +157,6 @@ operator|.
 name|out
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|CodecException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 block|}
 specifier|public

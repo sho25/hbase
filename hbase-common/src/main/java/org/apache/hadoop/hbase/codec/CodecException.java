@@ -19,34 +19,42 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseIOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrown when problems in the codec whether setup or context.  */
+end_comment
+
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|CodecException
 extends|extends
-name|IOException
+name|HBaseIOException
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-operator|-
-literal|2850095011686914405L
-decl_stmt|;
 specifier|public
 name|CodecException
 parameter_list|()
-block|{   }
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 specifier|public
 name|CodecException
 parameter_list|(

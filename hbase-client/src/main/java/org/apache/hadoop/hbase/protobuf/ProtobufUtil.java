@@ -3965,7 +3965,7 @@ return|return
 name|delete
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Mutate to an Append    * @param cellScanner    * @param proto the protocol buffer Mutate to convert    * @return the converted client Append    * @throws DoNotRetryIOException    */
+comment|/**    * Convert a protocol buffer Mutate to an Append    * @param cellScanner    * @param proto the protocol buffer Mutate to convert    * @return the converted client Append    * @throws IOException     */
 specifier|public
 specifier|static
 name|Append
@@ -3980,7 +3980,7 @@ name|CellScanner
 name|cellScanner
 parameter_list|)
 throws|throws
-name|DoNotRetryIOException
+name|IOException
 block|{
 name|MutationType
 name|type

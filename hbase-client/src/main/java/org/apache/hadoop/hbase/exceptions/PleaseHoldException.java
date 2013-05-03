@@ -45,6 +45,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseIOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * This exception is thrown by the master when a region server was shut down and  * restarted so fast that the master still hasn't processed the server shutdown  * of the first instance, or when master is initializing and client call admin  * operations, or when an operation is performed on a region server that is still starting.  */
 end_comment

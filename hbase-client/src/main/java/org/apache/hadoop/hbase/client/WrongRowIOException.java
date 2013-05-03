@@ -27,8 +27,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|HBaseIOException
 import|;
 end_import

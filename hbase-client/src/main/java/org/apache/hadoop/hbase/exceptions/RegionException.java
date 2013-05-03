@@ -45,6 +45,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseIOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown when something happens related to region handling.  * Subclasses have to be more specific.  */
 end_comment

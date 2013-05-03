@@ -45,6 +45,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseIOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Subclass if exception is not meant to be retried: e.g.  * {@link org.apache.hadoop.hbase.exceptions.UnknownScannerException}  */
 end_comment

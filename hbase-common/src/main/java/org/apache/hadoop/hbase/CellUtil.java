@@ -19,6 +19,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|nio
 operator|.
 name|ByteBuffer
@@ -769,6 +779,8 @@ specifier|public
 name|boolean
 name|advance
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
