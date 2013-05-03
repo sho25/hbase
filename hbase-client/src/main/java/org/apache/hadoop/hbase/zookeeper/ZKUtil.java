@@ -801,19 +801,26 @@ operator|.
 name|DEFAULT_ZK_SESSION_TIMEOUT
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
 name|identifier
 operator|+
-literal|" opening connection to ZooKeeper with ensemble ("
+literal|" opening connection to ZooKeeper ensemble="
 operator|+
 name|ensemble
-operator|+
-literal|")"
 argument_list|)
 expr_stmt|;
+block|}
 name|int
 name|retry
 init|=
@@ -1960,7 +1967,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Set watcher on existing znode "
+literal|"Set watcher on existing znode="
 operator|+
 name|znode
 argument_list|)
@@ -1977,9 +1984,9 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-name|znode
+literal|"Set watcher on znode that does not yet exist, "
 operator|+
-literal|" does not exist. Watcher is set."
+name|znode
 argument_list|)
 argument_list|)
 expr_stmt|;

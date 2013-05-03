@@ -437,7 +437,7 @@ argument_list|)
 decl_stmt|;
 comment|// Carry the cells over the proxy/pb Service interface using the payload carrying
 comment|// rpc controller.
-name|server
+name|stub
 operator|.
 name|multi
 argument_list|(
@@ -579,7 +579,7 @@ operator|.
 name|MultiResponse
 name|responseProto
 init|=
-name|server
+name|stub
 operator|.
 name|multi
 argument_list|(
@@ -687,7 +687,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|connect
+name|prepare
 parameter_list|(
 name|boolean
 name|reload
@@ -695,7 +695,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|server
+name|stub
 operator|=
 name|connection
 operator|.

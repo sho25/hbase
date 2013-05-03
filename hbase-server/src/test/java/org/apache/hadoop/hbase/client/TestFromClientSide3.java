@@ -213,9 +213,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|AdminProtocol
+name|ProtobufUtil
 import|;
 end_import
 
@@ -231,7 +231,9 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ProtobufUtil
+name|generated
+operator|.
+name|AdminProtos
 import|;
 end_import
 
@@ -707,7 +709,11 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|AdminProtocol
+name|AdminProtos
+operator|.
+name|AdminService
+operator|.
+name|BlockingInterface
 name|server
 init|=
 name|conn
@@ -962,7 +968,11 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-name|AdminProtocol
+name|AdminProtos
+operator|.
+name|AdminService
+operator|.
+name|BlockingInterface
 name|server
 init|=
 name|connection

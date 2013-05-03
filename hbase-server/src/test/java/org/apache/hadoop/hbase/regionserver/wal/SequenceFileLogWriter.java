@@ -829,11 +829,18 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"using new createWriter -- HADOOP-6840"
+literal|"Using new createWriter -- HADOOP-6840"
 argument_list|)
 expr_stmt|;
 block|}
@@ -844,9 +851,16 @@ operator|=
 name|getSequenceFilePrivateFSDataOutputStreamAccessible
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Path="
 operator|+

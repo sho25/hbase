@@ -1237,7 +1237,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
+name|RpcServer
 import|;
 end_import
 
@@ -16025,7 +16025,7 @@ block|}
 name|RpcCallContext
 name|rpcCall
 init|=
-name|HBaseServer
+name|RpcServer
 operator|.
 name|getCurrentCall
 argument_list|()

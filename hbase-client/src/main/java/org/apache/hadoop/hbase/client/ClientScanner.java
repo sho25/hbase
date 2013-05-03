@@ -1460,9 +1460,9 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Failed after retry"
+literal|"Failed after retry of "
 operator|+
-literal|", it could be cause by rpc timeout"
+literal|"OutOfOrderScannerNextException: was there a rpc timeout?"
 argument_list|,
 name|e
 argument_list|)

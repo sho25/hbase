@@ -207,7 +207,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
+name|RpcServer
 import|;
 end_import
 
@@ -566,7 +566,7 @@ argument_list|>
 name|secretManager
 decl_stmt|;
 specifier|private
-name|HBaseServer
+name|RpcServer
 operator|.
 name|Connection
 name|connection
@@ -580,7 +580,7 @@ name|TokenIdentifier
 argument_list|>
 name|secretManager
 parameter_list|,
-name|HBaseServer
+name|RpcServer
 operator|.
 name|Connection
 name|connection

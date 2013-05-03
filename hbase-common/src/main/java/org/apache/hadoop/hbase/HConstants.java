@@ -1606,22 +1606,6 @@ name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
 literal|10
 decl_stmt|;
-comment|/**    * Parameter name for maximum attempts, used to limit the number of times the    * client will try to obtain the proxy for a given region server.    */
-specifier|public
-specifier|static
-name|String
-name|HBASE_CLIENT_RPC_MAXATTEMPTS
-init|=
-literal|"hbase.client.rpc.maxattempts"
-decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_CLIENT_RPC_MAXATTEMPTS}.    */
-specifier|public
-specifier|static
-name|int
-name|DEFAULT_HBASE_CLIENT_RPC_MAXATTEMPTS
-init|=
-literal|1
-decl_stmt|;
 comment|/**    * Parameter name for client prefetch limit, used as the maximum number of regions    * info that will be prefetched.    */
 specifier|public
 specifier|static

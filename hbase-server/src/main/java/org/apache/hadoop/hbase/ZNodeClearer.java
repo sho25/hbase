@@ -206,9 +206,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No filename given to save the znode used, it won't be saved "
+literal|"Environment variable HBASE_ZNODE_FILE not set; znodes will not be cleared "
 operator|+
-literal|"(Environment variable HBASE_ZNODE_FILE is not set)."
+literal|"on crash by start scripts (Longer MTTR!)"
 argument_list|)
 expr_stmt|;
 return|return;

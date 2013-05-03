@@ -451,7 +451,7 @@ name|ProtobufUtil
 operator|.
 name|execService
 argument_list|(
-name|server
+name|stub
 argument_list|,
 name|call
 argument_list|,

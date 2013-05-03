@@ -25,12 +25,12 @@ implements|implements
 name|MetricsHBaseServerWrapper
 block|{
 specifier|private
-name|HBaseServer
+name|RpcServer
 name|server
 decl_stmt|;
 name|MetricsHBaseServerWrapperImpl
 parameter_list|(
-name|HBaseServer
+name|RpcServer
 name|server
 parameter_list|)
 block|{

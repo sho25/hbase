@@ -628,7 +628,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Master="
+literal|"Registered Active Master="
 operator|+
 name|this
 operator|.

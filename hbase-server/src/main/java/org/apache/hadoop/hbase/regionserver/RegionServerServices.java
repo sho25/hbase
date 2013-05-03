@@ -91,6 +91,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|catalog
 operator|.
 name|CatalogTracker
@@ -125,7 +139,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcServer
+name|RpcServerInterface
 import|;
 end_import
 
@@ -251,7 +265,7 @@ name|IOException
 function_decl|;
 comment|/**    * Returns a reference to the region server's RPC server    */
 specifier|public
-name|RpcServer
+name|RpcServerInterface
 name|getRpcServer
 parameter_list|()
 function_decl|;

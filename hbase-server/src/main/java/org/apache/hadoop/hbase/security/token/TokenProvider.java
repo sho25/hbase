@@ -165,7 +165,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
+name|RpcServer
 import|;
 end_import
 
@@ -197,7 +197,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcServer
+name|RpcServerInterface
 import|;
 end_import
 
@@ -408,7 +408,7 @@ name|RegionCoprocessorEnvironment
 operator|)
 name|env
 decl_stmt|;
-name|RpcServer
+name|RpcServerInterface
 name|server
 init|=
 name|regionEnv
@@ -427,7 +427,7 @@ name|mgr
 init|=
 operator|(
 operator|(
-name|HBaseServer
+name|RpcServer
 operator|)
 name|server
 operator|)

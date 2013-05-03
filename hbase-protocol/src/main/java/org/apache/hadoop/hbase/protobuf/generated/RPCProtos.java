@@ -3190,13 +3190,13 @@ name|UserInformationOrBuilder
 name|getUserInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
+comment|// optional string serviceName = 2;
 name|boolean
-name|hasProtocol
+name|hasServiceName
 parameter_list|()
 function_decl|;
 name|String
-name|getProtocol
+name|getServiceName
 parameter_list|()
 function_decl|;
 comment|// optional string cellBlockCodecClass = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];
@@ -3438,12 +3438,12 @@ return|return
 name|userInfo_
 return|;
 block|}
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
+comment|// optional string serviceName = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|PROTOCOL_FIELD_NUMBER
+name|SERVICENAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -3453,11 +3453,11 @@ operator|.
 name|lang
 operator|.
 name|Object
-name|protocol_
+name|serviceName_
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasProtocol
+name|hasServiceName
 parameter_list|()
 block|{
 return|return
@@ -3474,7 +3474,7 @@ return|;
 block|}
 specifier|public
 name|String
-name|getProtocol
+name|getServiceName
 parameter_list|()
 block|{
 name|java
@@ -3484,7 +3484,7 @@ operator|.
 name|Object
 name|ref
 init|=
-name|protocol_
+name|serviceName_
 decl_stmt|;
 if|if
 condition|(
@@ -3546,7 +3546,7 @@ name|bs
 argument_list|)
 condition|)
 block|{
-name|protocol_
+name|serviceName_
 operator|=
 name|s
 expr_stmt|;
@@ -3564,7 +3564,7 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-name|getProtocolBytes
+name|getServiceNameBytes
 parameter_list|()
 block|{
 name|java
@@ -3574,7 +3574,7 @@ operator|.
 name|Object
 name|ref
 init|=
-name|protocol_
+name|serviceName_
 decl_stmt|;
 if|if
 condition|(
@@ -3608,7 +3608,7 @@ operator|)
 name|ref
 argument_list|)
 decl_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|b
 expr_stmt|;
@@ -4046,9 +4046,9 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
-literal|"org.apache.hadoop.hbase.client.ClientProtocol"
+literal|""
 expr_stmt|;
 name|cellBlockCodecClass_
 operator|=
@@ -4187,7 +4187,7 @@ name|writeBytes
 argument_list|(
 literal|2
 argument_list|,
-name|getProtocolBytes
+name|getServiceNameBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4338,7 +4338,7 @@ name|computeBytesSize
 argument_list|(
 literal|2
 argument_list|,
-name|getProtocolBytes
+name|getServiceNameBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4604,18 +4604,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasProtocol
+name|hasServiceName
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasProtocol
+name|hasServiceName
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasProtocol
+name|hasServiceName
 argument_list|()
 condition|)
 block|{
@@ -4623,14 +4623,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getProtocol
+name|getServiceName
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getProtocol
+name|getServiceName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4789,7 +4789,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasProtocol
+name|hasServiceName
 argument_list|()
 condition|)
 block|{
@@ -4801,7 +4801,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|PROTOCOL_FIELD_NUMBER
+name|SERVICENAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4811,7 +4811,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getProtocol
+name|getServiceName
 argument_list|()
 operator|.
 name|hashCode
@@ -5775,9 +5775,9 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
-literal|"org.apache.hadoop.hbase.client.ClientProtocol"
+literal|""
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -6167,9 +6167,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|protocol_
+name|serviceName_
 operator|=
-name|protocol_
+name|serviceName_
 expr_stmt|;
 if|if
 condition|(
@@ -6374,15 +6374,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasProtocol
+name|hasServiceName
 argument_list|()
 condition|)
 block|{
-name|setProtocol
+name|setServiceName
 argument_list|(
 name|other
 operator|.
-name|getProtocol
+name|getServiceName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6679,7 +6679,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|input
 operator|.
@@ -7423,20 +7423,20 @@ return|return
 name|userInfoBuilder_
 return|;
 block|}
-comment|// optional string protocol = 2 [default = "org.apache.hadoop.hbase.client.ClientProtocol"];
+comment|// optional string serviceName = 2;
 specifier|private
 name|java
 operator|.
 name|lang
 operator|.
 name|Object
-name|protocol_
+name|serviceName_
 init|=
-literal|"org.apache.hadoop.hbase.client.ClientProtocol"
+literal|""
 decl_stmt|;
 specifier|public
 name|boolean
-name|hasProtocol
+name|hasServiceName
 parameter_list|()
 block|{
 return|return
@@ -7453,7 +7453,7 @@ return|;
 block|}
 specifier|public
 name|String
-name|getProtocol
+name|getServiceName
 parameter_list|()
 block|{
 name|java
@@ -7463,7 +7463,7 @@ operator|.
 name|Object
 name|ref
 init|=
-name|protocol_
+name|serviceName_
 decl_stmt|;
 if|if
 condition|(
@@ -7494,7 +7494,7 @@ operator|.
 name|toStringUtf8
 argument_list|()
 decl_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|s
 expr_stmt|;
@@ -7514,7 +7514,7 @@ block|}
 block|}
 specifier|public
 name|Builder
-name|setProtocol
+name|setServiceName
 parameter_list|(
 name|String
 name|value
@@ -7537,7 +7537,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|value
 expr_stmt|;
@@ -7550,7 +7550,7 @@ return|;
 block|}
 specifier|public
 name|Builder
-name|clearProtocol
+name|clearServiceName
 parameter_list|()
 block|{
 name|bitField0_
@@ -7562,12 +7562,12 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|getDefaultInstance
 argument_list|()
 operator|.
-name|getProtocol
+name|getServiceName
 argument_list|()
 expr_stmt|;
 name|onChanged
@@ -7578,7 +7578,7 @@ name|this
 return|;
 block|}
 name|void
-name|setProtocol
+name|setServiceName
 parameter_list|(
 name|com
 operator|.
@@ -7594,7 +7594,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|protocol_
+name|serviceName_
 operator|=
 name|value
 expr_stmt|;
@@ -24648,43 +24648,39 @@ literal|"\n\tRPC.proto\032\rTracing.proto\032\013hbase.proto\""
 operator|+
 literal|":\n\017UserInformation\022\025\n\reffectiveUser\030\001 \002("
 operator|+
-literal|"\t\022\020\n\010realUser\030\002 \001(\t\"\343\001\n\020ConnectionHeader"
+literal|"\t\022\020\n\010realUser\030\002 \001(\t\"\267\001\n\020ConnectionHeader"
 operator|+
-literal|"\022\"\n\010userInfo\030\001 \001(\0132\020.UserInformation\022?\n\010"
+literal|"\022\"\n\010userInfo\030\001 \001(\0132\020.UserInformation\022\023\n\013"
 operator|+
-literal|"protocol\030\002 \001(\t:-org.apache.hadoop.hbase."
+literal|"serviceName\030\002 \001(\t\022H\n\023cellBlockCodecClass"
 operator|+
-literal|"client.ClientProtocol\022H\n\023cellBlockCodecC"
+literal|"\030\003 \001(\t:+org.apache.hadoop.hbase.codec.Ke"
 operator|+
-literal|"lass\030\003 \001(\t:+org.apache.hadoop.hbase.code"
+literal|"yValueCodec\022 \n\030cellBlockCompressorClass\030"
 operator|+
-literal|"c.KeyValueCodec\022 \n\030cellBlockCompressorCl"
+literal|"\004 \001(\t\"\037\n\rCellBlockMeta\022\016\n\006length\030\001 \001(\r\"w"
 operator|+
-literal|"ass\030\004 \001(\t\"\037\n\rCellBlockMeta\022\016\n\006length\030\001 \001"
+literal|"\n\021ExceptionResponse\022\032\n\022exceptionClassNam"
 operator|+
-literal|"(\r\"w\n\021ExceptionResponse\022\032\n\022exceptionClas"
+literal|"e\030\001 \001(\t\022\022\n\nstackTrace\030\002 \001(\t\022\020\n\010hostname\030"
 block|,
-literal|"sName\030\001 \001(\t\022\022\n\nstackTrace\030\002 \001(\t\022\020\n\010hostn"
+literal|"\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\022\n\ndoNotRetry\030\005 \001(\010\""
 operator|+
-literal|"ame\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\022\n\ndoNotRetry\030\005 "
+literal|"\216\001\n\rRequestHeader\022\016\n\006callId\030\001 \001(\r\022\034\n\ttra"
 operator|+
-literal|"\001(\010\"\216\001\n\rRequestHeader\022\016\n\006callId\030\001 \001(\r\022\034\n"
+literal|"ceInfo\030\002 \001(\0132\t.RPCTInfo\022\022\n\nmethodName\030\003 "
 operator|+
-literal|"\ttraceInfo\030\002 \001(\0132\t.RPCTInfo\022\022\n\nmethodNam"
+literal|"\001(\t\022\024\n\014requestParam\030\004 \001(\010\022%\n\rcellBlockMe"
 operator|+
-literal|"e\030\003 \001(\t\022\024\n\014requestParam\030\004 \001(\010\022%\n\rcellBlo"
+literal|"ta\030\005 \001(\0132\016.CellBlockMeta\"n\n\016ResponseHead"
 operator|+
-literal|"ckMeta\030\005 \001(\0132\016.CellBlockMeta\"n\n\016Response"
+literal|"er\022\016\n\006callId\030\001 \001(\r\022%\n\texception\030\002 \001(\0132\022."
 operator|+
-literal|"Header\022\016\n\006callId\030\001 \001(\r\022%\n\texception\030\002 \001("
+literal|"ExceptionResponse\022%\n\rcellBlockMeta\030\003 \001(\013"
 operator|+
-literal|"\0132\022.ExceptionResponse\022%\n\rcellBlockMeta\030\003"
+literal|"2\016.CellBlockMetaB<\n*org.apache.hadoop.hb"
 operator|+
-literal|" \001(\0132\016.CellBlockMetaB<\n*org.apache.hadoo"
-operator|+
-literal|"p.hbase.protobuf.generatedB\tRPCProtosH\001\240"
-block|,
-literal|"\001\001"
+literal|"ase.protobuf.generatedB\tRPCProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -24858,7 +24854,7 @@ index|[]
 block|{
 literal|"UserInfo"
 block|,
-literal|"Protocol"
+literal|"ServiceName"
 block|,
 literal|"CellBlockCodecClass"
 block|,

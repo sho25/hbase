@@ -41,23 +41,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|IpcProtocol
+name|security
+operator|.
+name|User
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
+name|BlockingService
 import|;
 end_import
 
@@ -228,7 +226,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Initializes the client credentials for the current request.    * @param user    * @param remoteAddress    * @param protocol    */
+comment|/**    * Initializes the client credentials for the current request.    * @param user    * @param remoteAddress    * @param service    */
 specifier|public
 specifier|static
 name|void
@@ -240,13 +238,8 @@ parameter_list|,
 name|InetAddress
 name|remoteAddress
 parameter_list|,
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|IpcProtocol
-argument_list|>
-name|protocol
+name|BlockingService
+name|service
 parameter_list|)
 block|{
 name|RequestContext
@@ -271,9 +264,9 @@ name|remoteAddress
 expr_stmt|;
 name|ctx
 operator|.
-name|protocol
+name|service
 operator|=
-name|protocol
+name|service
 expr_stmt|;
 name|ctx
 operator|.
@@ -311,7 +304,7 @@ literal|null
 expr_stmt|;
 name|ctx
 operator|.
-name|protocol
+name|service
 operator|=
 literal|null
 expr_stmt|;
@@ -331,13 +324,8 @@ name|InetAddress
 name|remoteAddress
 decl_stmt|;
 specifier|private
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|IpcProtocol
-argument_list|>
-name|protocol
+name|BlockingService
+name|service
 decl_stmt|;
 comment|// indicates we're within a RPC request invocation
 specifier|private
@@ -353,13 +341,8 @@ parameter_list|,
 name|InetAddress
 name|remoteAddr
 parameter_list|,
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|IpcProtocol
-argument_list|>
-name|protocol
+name|BlockingService
+name|service
 parameter_list|)
 block|{
 name|this
@@ -376,9 +359,9 @@ name|remoteAddr
 expr_stmt|;
 name|this
 operator|.
-name|protocol
+name|service
 operator|=
-name|protocol
+name|service
 expr_stmt|;
 block|}
 specifier|public
@@ -400,17 +383,14 @@ name|remoteAddress
 return|;
 block|}
 specifier|public
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|IpcProtocol
-argument_list|>
-name|getProtocol
+name|BlockingService
+name|getService
 parameter_list|()
 block|{
 return|return
-name|protocol
+name|this
+operator|.
+name|service
 return|;
 block|}
 specifier|public

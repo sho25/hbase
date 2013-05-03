@@ -19,46 +19,72 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterAdminProtos
+name|Configuration
 import|;
 end_import
 
 begin_comment
-comment|/**  * A KeepAlive connection is not physically closed immediately after the close,  *  but rather kept alive for a few minutes. It makes sense only if it is shared.  *  *<p>This interface is implemented on a stub. It allows to have a #close function in a master  * client.  *  *<p>This class is intended to be used internally by HBase classes that need to make invocations  * against the master on the MasterAdminProtos.MasterAdminService.BlockingInterface; but not by  * final user code. Hence it's package protected.  */
+comment|/**  * This class makes it convenient for one to execute a command in the context  * of a {@link HConnection} instance based on the given {@link Configuration}.  *  *<p>  * If you find yourself wanting to use a {@link HConnection} for a relatively  * short duration of time, and do not want to deal with the hassle of creating  * and cleaning up that resource, then you should consider using this  * convenience class.  *  * @param<T>  *          the return type of the {@link HConnectable#connect(HConnection)}  *          method.  */
 end_comment
 
-begin_interface
-interface|interface
-name|MasterAdminKeepAliveConnection
-extends|extends
-name|MasterAdminProtos
-operator|.
-name|MasterAdminService
-operator|.
-name|BlockingInterface
-block|{
-comment|/**    * Close down all resources.    */
-comment|// The Closeable Interface wants to throw an IOE out of a close.
-comment|//  Thats a PITA.  Do this below instead of Closeable.
+begin_class
 specifier|public
-name|void
-name|close
-parameter_list|()
+specifier|abstract
+class|class
+name|HConnectable
+parameter_list|<
+name|T
+parameter_list|>
+block|{
+specifier|public
+name|Configuration
+name|conf
+decl_stmt|;
+specifier|protected
+name|HConnectable
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
+expr_stmt|;
+block|}
+specifier|public
+specifier|abstract
+name|T
+name|connect
+parameter_list|(
+name|HConnection
+name|connection
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
-end_interface
+end_class
 
 end_unit
 

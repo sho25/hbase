@@ -127,22 +127,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AdminProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HConnection
 import|;
 end_import
@@ -240,6 +224,26 @@ operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|AdminService
 import|;
 end_import
 
@@ -912,7 +916,9 @@ return|;
 block|}
 comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @param timeout How long to wait on meta location    * @see #waitForMeta for additional information    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use #getMetaServerConnection(long)    */
 specifier|public
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 name|waitForMetaServerConnection
 parameter_list|(
 name|long
@@ -933,7 +939,9 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link HTable} instead.    * @param timeout How long to wait on meta location    * @see #waitForMeta for additional information    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 name|getMetaServerConnection
 parameter_list|(
 name|long
@@ -1019,7 +1027,9 @@ block|}
 block|}
 comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
 specifier|private
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 name|getCachedConnection
 parameter_list|(
 name|ServerName
@@ -1039,14 +1049,16 @@ return|return
 literal|null
 return|;
 block|}
-name|AdminProtocol
-name|protocol
+name|AdminService
+operator|.
+name|BlockingInterface
+name|service
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|protocol
+name|service
 operator|=
 name|connection
 operator|.
@@ -1229,7 +1241,7 @@ throw|;
 block|}
 block|}
 return|return
-name|protocol
+name|service
 return|;
 block|}
 comment|/**    * Verify we can connect to<code>hostingServer</code> and that its carrying    *<code>regionName</code>.    * @param hostingServer Interface to the server hosting<code>regionName</code>    * @param address The servername that goes with the<code>metaServer</code>    * Interface.  Used logging.    * @param regionName The regionname we are interested in.    * @return True if we were able to verify the region located at other side of    * the Interface.    * @throws IOException    */
@@ -1241,7 +1253,9 @@ specifier|private
 name|boolean
 name|verifyRegionLocation
 parameter_list|(
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 name|hostingServer
 parameter_list|,
 specifier|final
@@ -1444,14 +1458,16 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
-name|AdminProtocol
-name|connection
+name|AdminService
+operator|.
+name|BlockingInterface
+name|service
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|connection
+name|service
 operator|=
 name|waitForMetaServerConnection
 argument_list|(
@@ -1485,7 +1501,7 @@ comment|// Pass -- server name doesn't resolve so it can't be assigned anything.
 block|}
 return|return
 operator|(
-name|connection
+name|service
 operator|==
 literal|null
 operator|)
@@ -1494,7 +1510,7 @@ literal|false
 else|:
 name|verifyRegionLocation
 argument_list|(
-name|connection
+name|service
 argument_list|,
 name|this
 operator|.

@@ -443,7 +443,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseClient
+name|RpcClient
 import|;
 end_import
 
@@ -459,7 +459,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
+name|RpcServer
 import|;
 end_import
 

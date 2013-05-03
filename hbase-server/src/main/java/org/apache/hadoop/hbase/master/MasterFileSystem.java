@@ -2566,7 +2566,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"BOOTSTRAP: creating first META region"
+literal|"BOOTSTRAP: creating META region"
 argument_list|)
 expr_stmt|;
 try|try

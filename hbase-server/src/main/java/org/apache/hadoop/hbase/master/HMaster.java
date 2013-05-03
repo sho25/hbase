@@ -431,48 +431,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MasterAdminProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MasterMonitorProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|RegionServerStatusProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|Server
 import|;
 end_import
@@ -839,23 +797,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|HBaseServerRPC
+name|RpcServerInterface
 import|;
 end_import
 
@@ -872,6 +814,24 @@ operator|.
 name|ipc
 operator|.
 name|RpcServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RpcServer
+operator|.
+name|BlockingServiceAndInterface
 import|;
 end_import
 
@@ -1352,6 +1312,24 @@ operator|.
 name|HBaseProtos
 operator|.
 name|SnapshotDescription
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterAdminProtos
 import|;
 end_import
 
@@ -2410,6 +2388,24 @@ operator|.
 name|generated
 operator|.
 name|MasterMonitorProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterMonitorProtos
 operator|.
 name|GetClusterStatusRequest
 import|;
@@ -2552,6 +2548,24 @@ operator|.
 name|MasterProtos
 operator|.
 name|IsMasterRunningResponse
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RegionServerStatusProtos
 import|;
 end_import
 
@@ -3242,7 +3256,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see MasterMonitorProtocol  * @see MasterAdminProtocol  * @see RegionServerStatusProtocol  * @see Watcher  */
+comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see Watcher  */
 end_comment
 
 begin_class
@@ -3261,11 +3275,23 @@ name|HMaster
 extends|extends
 name|HasThread
 implements|implements
-name|MasterMonitorProtocol
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
+operator|.
+name|BlockingInterface
 implements|,
-name|MasterAdminProtocol
+name|MasterAdminProtos
+operator|.
+name|MasterAdminService
+operator|.
+name|BlockingInterface
 implements|,
-name|RegionServerStatusProtocol
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStatusService
+operator|.
+name|BlockingInterface
 implements|,
 name|MasterServices
 implements|,
@@ -3338,7 +3364,7 @@ decl_stmt|;
 comment|// RPC server for the HMaster
 specifier|private
 specifier|final
-name|RpcServer
+name|RpcServerInterface
 name|rpcServer
 decl_stmt|;
 comment|// Set after we've called HBaseServer#openServer and ready to receive RPCs.
@@ -3581,18 +3607,6 @@ argument_list|,
 literal|0.0f
 argument_list|)
 expr_stmt|;
-comment|// Set how many times to retry talking to another server over HConnection.
-name|HConnectionManager
-operator|.
-name|setServerSideHConnectionRetries
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|,
-name|LOG
-argument_list|)
-expr_stmt|;
 comment|// Server to handle client requests.
 name|String
 name|hostname
@@ -3722,6 +3736,30 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|String
+name|name
+init|=
+literal|"master/"
+operator|+
+name|initialIsa
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+comment|// Set how many times to retry talking to another server over HConnection.
+name|HConnectionManager
+operator|.
+name|setServerSideHConnectionRetries
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
+name|name
+argument_list|,
+name|LOG
+argument_list|)
+expr_stmt|;
 name|int
 name|numHandlers
 init|=
@@ -3745,66 +3783,29 @@ name|this
 operator|.
 name|rpcServer
 operator|=
-name|HBaseServerRPC
-operator|.
-name|getServer
+operator|new
+name|RpcServer
 argument_list|(
-name|MasterMonitorProtocol
-operator|.
-name|class
-argument_list|,
 name|this
 argument_list|,
-operator|new
-name|Class
-argument_list|<
-name|?
-argument_list|>
-index|[]
-block|{
-name|MasterMonitorProtocol
-operator|.
-name|class
-operator|,
-name|MasterAdminProtocol
-operator|.
-name|class
-operator|,
-name|RegionServerStatusProtocol
-operator|.
-name|class
-block|}
-operator|,
-name|initialIsa
-operator|.
-name|getHostName
+name|name
+argument_list|,
+name|getServices
 argument_list|()
-operator|,
-comment|// This is bindAddress if set else it's hostname
+argument_list|,
 name|initialIsa
-operator|.
-name|getPort
-argument_list|()
-operator|,
+argument_list|,
+comment|// BindAddress is IP we got for this server.
 name|numHandlers
-operator|,
+argument_list|,
 literal|0
-operator|,
+argument_list|,
 comment|// we dont use high priority handlers in master
 name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.rpc.verbose"
 argument_list|,
-literal|false
-argument_list|)
-operator|,
-name|conf
-operator|,
 literal|0
-block|)
-empty_stmt|;
+argument_list|)
+expr_stmt|;
 comment|// this is a DNC w/o high priority handlers
 comment|// Set our address.
 name|this
@@ -3948,12 +3949,12 @@ expr_stmt|;
 name|Replication
 operator|.
 name|decorateMasterConfiguration
-parameter_list|(
+argument_list|(
 name|this
 operator|.
 name|conf
-parameter_list|)
-constructor_decl|;
+argument_list|)
+expr_stmt|;
 comment|// Hack! Maps DFSClient => Master for logs.  HDFS made this
 comment|// config param for task trackers, but we can piggyback off of it.
 if|if
@@ -4017,8 +4018,8 @@ operator|.
 name|rpcServer
 operator|.
 name|startThreads
-parameter_list|()
-constructor_decl|;
+argument_list|()
+expr_stmt|;
 comment|// metrics interval: using the same property as region server.
 name|this
 operator|.
@@ -4163,13 +4164,113 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_class
-
-begin_comment
+comment|/**    * @return list of blocking services and their security info classes that this server supports    */
+specifier|private
+name|List
+argument_list|<
+name|BlockingServiceAndInterface
+argument_list|>
+name|getServices
+parameter_list|()
+block|{
+name|List
+argument_list|<
+name|BlockingServiceAndInterface
+argument_list|>
+name|bssi
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|BlockingServiceAndInterface
+argument_list|>
+argument_list|(
+literal|3
+argument_list|)
+decl_stmt|;
+name|bssi
+operator|.
+name|add
+argument_list|(
+operator|new
+name|BlockingServiceAndInterface
+argument_list|(
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
+operator|.
+name|newReflectiveBlockingService
+argument_list|(
+name|this
+argument_list|)
+argument_list|,
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
+operator|.
+name|BlockingInterface
+operator|.
+name|class
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|bssi
+operator|.
+name|add
+argument_list|(
+operator|new
+name|BlockingServiceAndInterface
+argument_list|(
+name|MasterAdminProtos
+operator|.
+name|MasterAdminService
+operator|.
+name|newReflectiveBlockingService
+argument_list|(
+name|this
+argument_list|)
+argument_list|,
+name|MasterAdminProtos
+operator|.
+name|MasterAdminService
+operator|.
+name|BlockingInterface
+operator|.
+name|class
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|bssi
+operator|.
+name|add
+argument_list|(
+operator|new
+name|BlockingServiceAndInterface
+argument_list|(
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStatusService
+operator|.
+name|newReflectiveBlockingService
+argument_list|(
+name|this
+argument_list|)
+argument_list|,
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStatusService
+operator|.
+name|BlockingInterface
+operator|.
+name|class
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+name|bssi
+return|;
+block|}
 comment|/**    * Stall startup if we are designated a backup master; i.e. we want someone    * else to become the master before proceeding.    * @param c configuration    * @param amm    * @throws InterruptedException    */
-end_comment
-
-begin_function
 specifier|private
 specifier|static
 name|void
@@ -4255,9 +4356,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 name|MetricsMaster
 name|getMetrics
 parameter_list|()
@@ -4266,13 +4364,7 @@ return|return
 name|metricsMaster
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Main processing loop for the HMaster.    *<ol>    *<li>Block until becoming active master    *<li>Finish initialization via finishInitialization(MonitoredTask)    *<li>Enter loop until we are stopped    *<li>Stop services and perform cleanup once stopped    *</ol>    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4550,13 +4642,7 @@ literal|"HMaster main thread exiting"
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Try becoming active master.    * @param startupStatus    * @return True if we could successfully become the active master.    * @throws InterruptedException    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|becomeActiveMaster
@@ -4643,13 +4729,7 @@ name|clusterStatusTracker
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Initialize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|initializeZKBasedSystemTrackers
@@ -4828,7 +4908,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Server active/primary master; "
+literal|"Server active/primary master="
 operator|+
 name|this
 operator|.
@@ -4851,9 +4931,11 @@ name|getSessionId
 argument_list|()
 argument_list|)
 operator|+
-literal|", cluster-up flag was="
+literal|", setting cluster-up flag (Was="
 operator|+
 name|wasUp
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 comment|// create the snapshot manager
@@ -4872,13 +4954,7 @@ name|metricsMaster
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Create CatalogTracker.    * In its own method so can intercept and mock it over in tests.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop(String)} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our {@link Abortable}.    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException    */
-end_comment
-
-begin_function
 name|CatalogTracker
 name|createCatalogTracker
 parameter_list|(
@@ -4908,13 +4984,7 @@ name|abortable
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|// Check if we should stop every 100ms
-end_comment
-
-begin_decl_stmt
 specifier|private
 name|Sleeper
 name|stopSleeper
@@ -4927,9 +4997,6 @@ argument_list|,
 name|this
 argument_list|)
 decl_stmt|;
-end_decl_stmt
-
-begin_function
 specifier|private
 name|void
 name|loop
@@ -4991,13 +5058,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Emit the HMaster metrics, such as region in transition metrics.    * Surrounding in a try block just to be sure metrics doesn't abort HMaster.    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|doMetrics
@@ -5033,13 +5094,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, catalog tracker, etc</li>    *<li>Start necessary service threads - rpc server, info server,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of meta regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @param masterRecovery    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|finishInitialization
@@ -5549,13 +5604,7 @@ block|}
 block|}
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Useful for testing purpose also where we have    * master restart scenarios.    */
-end_comment
-
-begin_function
 specifier|protected
 name|void
 name|startCatalogJanitorChore
@@ -5572,13 +5621,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Override to change master's splitLogAfterStartup. Used testing    * @param mfs    */
-end_comment
-
-begin_function
 specifier|protected
 name|void
 name|splitLogAfterStartup
@@ -5594,13 +5637,7 @@ name|splitLogAfterStartup
 argument_list|()
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    * @throws IOException    */
-end_comment
-
-begin_function
 name|ServerManager
 name|createServerManager
 parameter_list|(
@@ -5627,13 +5664,7 @@ name|services
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * If ServerShutdownHandler is disabled, we enable it and expire those dead    * but not expired servers.    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|enableServerShutdownHandler
@@ -5658,13 +5689,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Check<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if meta is healthy, assigned    */
-end_comment
-
-begin_function
 name|boolean
 name|assignMeta
 parameter_list|(
@@ -5909,9 +5934,6 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|enableSSHandWaitForMeta
@@ -5945,13 +5967,7 @@ name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return True if there a meta available    * @throws InterruptedException    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|isMetaLocation
@@ -6003,9 +6019,6 @@ operator|.
 name|stopped
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|enableCatalogTables
@@ -6041,13 +6054,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Split a server's log and expire it if we find it is one of the online    * servers.    * @param sn ServerName to check.    * @throws IOException    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|splitLogAndExpireIfOnline
@@ -6107,9 +6114,6 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6123,13 +6127,7 @@ operator|.
 name|tableDescriptors
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/** @return InfoServer object. Maybe null.*/
-end_comment
-
-begin_function
 specifier|public
 name|InfoServer
 name|getInfoServer
@@ -6141,9 +6139,6 @@ operator|.
 name|infoServer
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6157,9 +6152,6 @@ operator|.
 name|conf
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6173,9 +6165,6 @@ operator|.
 name|serverManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6189,9 +6178,6 @@ operator|.
 name|executorService
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6205,13 +6191,7 @@ operator|.
 name|fileSystemManager
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get the ZK wrapper object - needed by master_jsp.java    * @return the zookeeper wrapper    */
-end_comment
-
-begin_function
 specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeperWatcher
@@ -6223,13 +6203,7 @@ operator|.
 name|zooKeeper
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/*    * Start up all services. If any of these threads gets an unhandled exception    * then they just die with a logged message.  This should be fine because    * in general, we do not expect the master to get such unhandled exceptions    *  as OOMEs; it should be lightly loaded. See what HRegionServer does if    *  need to install an unexpected exception handler.    */
-end_comment
-
-begin_function
 name|void
 name|startServiceThreads
 parameter_list|()
@@ -6598,26 +6572,20 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Started service threads"
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
-comment|/**    * Use this when trying to figure when its ok to send in rpcs.  Used by tests.    * @return True if we have successfully run {@link HBaseServer#openServer()}    */
-end_comment
-
-begin_function
+comment|/**    * Use this when trying to figure when its ok to send in rpcs.  Used by tests.    * @return True if we have successfully run {@link RpcServer#openServer()}    */
 name|boolean
 name|isRpcServerOpen
 parameter_list|()
@@ -6628,9 +6596,6 @@ operator|.
 name|rpcServerOpen
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|stopServiceThreads
@@ -6776,9 +6741,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|Thread
@@ -6830,9 +6792,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|Thread
@@ -6865,9 +6824,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|stopChores
@@ -6940,9 +6896,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7070,13 +7023,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Get remote side's InetAddress    * @throws UnknownHostException    */
-end_comment
-
-begin_function
 name|InetAddress
 name|getRemoteInetAddress
 parameter_list|(
@@ -7094,19 +7041,13 @@ block|{
 comment|// Do it out here in its own little method so can fake an address when
 comment|// mocking up in tests.
 return|return
-name|HBaseServer
+name|RpcServer
 operator|.
 name|getRemoteIp
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Subset of configuration to pass initializing regionservers: e.g.    * the filesystem to use and root directory to use.    */
-end_comment
-
-begin_function
 specifier|protected
 name|RegionServerStartupResponse
 operator|.
@@ -7140,9 +7081,6 @@ literal|"fs.default.name"
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|RegionServerStartupResponse
 operator|.
@@ -7201,9 +7139,6 @@ return|return
 name|resp
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7250,9 +7185,6 @@ name|seqId
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7355,9 +7287,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7429,9 +7358,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -7443,9 +7369,6 @@ name|isStopped
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|IsMasterRunningResponse
 name|isMasterRunning
@@ -7475,9 +7398,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7522,9 +7442,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7563,9 +7480,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -7610,13 +7524,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Maximum time we should run balancer for    */
-end_comment
-
-begin_function
 specifier|private
 name|int
 name|getBalancerCutoffTime
@@ -7678,9 +7586,6 @@ return|return
 name|balancerCutoffTime
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|balance
@@ -8133,9 +8038,6 @@ return|return
 name|balancerRan
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8184,9 +8086,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_enum
 enum|enum
 name|BalanceSwitchMode
 block|{
@@ -8194,13 +8093,7 @@ name|SYNC
 block|,
 name|ASYNC
 block|}
-end_enum
-
-begin_comment
 comment|/**    * Assigns balancer switch according to BalanceSwitchMode    * @param b new balancer switch    * @param mode BalanceSwitchMode    * @return old balancer switch    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|switchBalancer
@@ -8360,9 +8253,6 @@ return|return
 name|oldValue
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|synchronousBalanceSwitch
@@ -8385,9 +8275,6 @@ name|SYNC
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|balanceSwitch
@@ -8410,9 +8297,6 @@ name|ASYNC
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8486,13 +8370,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Switch for the background CatalogJanitor thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|setCatalogJanitorEnabled
@@ -8512,9 +8390,6 @@ name|b
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8794,9 +8669,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8845,9 +8717,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8986,9 +8855,6 @@ return|return
 name|mrr
 return|;
 block|}
-end_function
-
-begin_function
 name|void
 name|move
 parameter_list|(
@@ -9291,9 +9157,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9406,9 +9269,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|checkCompression
@@ -9446,9 +9306,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|checkCompression
@@ -9489,9 +9346,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9566,9 +9420,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|HRegionInfo
 index|[]
@@ -9714,9 +9565,6 @@ return|return
 name|hRegionInfos
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|boolean
@@ -9741,9 +9589,6 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9812,9 +9657,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9868,13 +9710,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get the number of regions of the table that have been updated by the alter.    *    * @return Pair indicating the number of regions updated Pair.getFirst is the    *         regions that are yet to be updated Pair.getSecond is the total number    *         of regions of the table    * @throws IOException    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9977,9 +9813,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10060,9 +9893,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10126,9 +9956,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10211,9 +10038,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10277,9 +10101,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10360,9 +10181,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10424,9 +10242,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10501,9 +10316,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10557,9 +10369,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10634,9 +10443,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10690,13 +10496,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Return the region and current deployment for the region containing    * the given row. If the region cannot be found, returns null. If it    * is found, but not currently deployed, the second element of the pair    * may be null.    */
-end_comment
-
-begin_function
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -10865,9 +10665,6 @@ name|get
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10947,9 +10744,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11013,9 +10807,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11111,9 +10902,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11157,13 +10945,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return cluster status    */
-end_comment
-
-begin_function
 specifier|public
 name|ClusterStatus
 name|getClusterStatus
@@ -11466,9 +11248,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|String
 name|getClusterId
@@ -11511,13 +11290,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * The set of loaded coprocessors is stored in a static set. Since it's    * statically allocated, it does not require that HMaster's cpHost be    * initialized prior to accessing it.    * @return a String representation of the set of names of the loaded    * coprocessors.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|String
@@ -11534,13 +11307,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return timestamp in millis when HMaster was started.    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMasterStartTime
@@ -11550,13 +11317,7 @@ return|return
 name|masterStartTime
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return timestamp in millis when HMaster became the active master.    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMasterActiveTime
@@ -11566,13 +11327,7 @@ return|return
 name|masterActiveTime
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return array of coprocessor SimpleNames.    */
-end_comment
-
-begin_function
 specifier|public
 name|String
 index|[]
@@ -11607,9 +11362,6 @@ index|]
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11690,13 +11442,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * We do the following in a different thread.  If it is not completed    * in time, we will time it out and assume it is not easy to recover.    *    * 1. Create a new ZK session. (since our current one is expired)    * 2. Try to become a primary master again    * 3. Initialize all ZK based system trackers.    * 4. Assign meta. (they are already assigned, but we need to update our    * internal memory state to reflect it)    * 5. Process any RIT if any during the process of our recovery.    *    * @return True if we could successfully recover from ZK session expiry.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @throws ExecutionException    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|tryRecoveringExpiredZKSession
@@ -11898,13 +11644,7 @@ return|return
 literal|false
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Check to see if the current trigger for abort is due to ZooKeeper session    * expiry, and If yes, whether we can recover from ZK session expiry.    *    * @param msg Original abort message    * @param t   The cause for current abort request    * @return true if we should proceed with abort operation, false other wise.    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|abortNow
@@ -11985,9 +11725,6 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11999,9 +11736,6 @@ return|return
 name|zooKeeper
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12013,9 +11747,6 @@ return|return
 name|cpHost
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12029,9 +11760,6 @@ operator|.
 name|serverName
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12043,9 +11771,6 @@ return|return
 name|catalogTracker
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12059,9 +11784,6 @@ operator|.
 name|assignmentManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12075,9 +11797,6 @@ operator|.
 name|tableLockManager
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|MemoryBoundedLogMessageBuffer
 name|getRegionServerFatalLogBuffer
@@ -12087,9 +11806,6 @@ return|return
 name|rsFatals
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|shutdown
@@ -12209,9 +11925,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12257,9 +11970,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|stopMaster
@@ -12294,9 +12004,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12342,9 +12049,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12435,9 +12139,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12451,9 +12152,6 @@ operator|.
 name|stopped
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|isAborted
@@ -12465,9 +12163,6 @@ operator|.
 name|abort
 return|;
 block|}
-end_function
-
-begin_function
 name|void
 name|checkInitialized
 parameter_list|()
@@ -12491,13 +12186,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|isActiveMaster
@@ -12507,13 +12196,7 @@ return|return
 name|isActiveMaster
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Report whether this master has completed with its initialization and is    * ready.  If ready, the master is also the active master.  A standby master    * is never ready.    *    * This method is used for testing.    *    * @return true if master is ready to go, false if not.    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|isInitialized
@@ -12523,13 +12206,7 @@ return|return
 name|initialized
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * ServerShutdownHandlerEnabled is set false before completing    * assignMeta to prevent processing of ServerShutdownHandler.    * @return true if assignMeta has completed;    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|isServerShutdownHandlerEnabled
@@ -12541,9 +12218,6 @@ operator|.
 name|serverShutdownHandlerEnabled
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12725,9 +12399,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|assignRegion
@@ -12746,9 +12417,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13022,13 +12690,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get list of TableDescriptors for requested tables.    * @param controller Unused (set to null).    * @param req GetTableDescriptorsRequest that contains:    * - tableNames: requested tables, or if empty, all are requested    * @return GetTableDescriptorsResponse    * @throws ServiceException    */
-end_comment
-
-begin_function
 specifier|public
 name|GetTableDescriptorsResponse
 name|getTableDescriptors
@@ -13208,13 +12870,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
-end_comment
-
-begin_function
 specifier|public
 name|double
 name|getAverageLoad
@@ -13261,13 +12917,7 @@ name|getAverageLoad
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
-comment|/**    * Offline specified region from master's in-memory state. It will not attempt to    * reassign the region as in unassign.    *      * This is a special method that should be used by experts or hbck.    *     */
-end_comment
-
-begin_function
+comment|/**    * Offline specified region from master's in-memory state. It will not attempt to    * reassign the region as in unassign.    *    * This is a special method that should be used by experts or hbck.    *    */
 annotation|@
 name|Override
 specifier|public
@@ -13446,9 +13096,6 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13540,9 +13187,6 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13875,13 +13519,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Utility for constructing an instance of the passed HMaster class.    * @param masterClass    * @param conf    * @return HMaster instance.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|HMaster
@@ -14025,13 +13663,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * @see org.apache.hadoop.hbase.master.HMasterCommandLine    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -14061,9 +13693,6 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|HFileCleaner
 name|getHFileCleaner
@@ -14075,13 +13704,7 @@ operator|.
 name|hfileCleaner
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Exposed for TESTING!    * @return the underlying snapshot manager    */
-end_comment
-
-begin_function
 specifier|public
 name|SnapshotManager
 name|getSnapshotManagerForTesting
@@ -14093,13 +13716,7 @@ operator|.
 name|snapshotManager
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Triggers an asynchronous attempt to take a snapshot.    * {@inheritDoc}    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14233,13 +13850,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * List the currently available/stored snapshots. Any in-progress snapshots are ignored    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14317,13 +13928,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Execute Delete Snapshot operation.    * @return DeleteSnapshotResponse (a protobuf wrapped void) if the snapshot existed and was    *    deleted properly.    * @throws ServiceException wrapping SnapshotDoesNotExistException if specified snapshot did not    *    exist.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14400,13 +14005,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Checks if the specified snapshot is done.    * @return true if the snapshot is in file system ready to use,    *   false if the snapshot is in the process of completing    * @throws ServiceException wrapping UnknownSnapshotException if invalid snapshot, or    *  a wrapped HBaseSnapshotException with progress failure reason.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14495,13 +14094,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Execute Restore/Clone snapshot operation.    *    *<p>If the specified table exists a "Restore" is executed, replacing the table    * schema and directory data with the content of the snapshot.    * The table must be disabled, or a UnsupportedOperationException will be thrown.    *    *<p>If the table doesn't exist a "Clone" is executed, a new table is created    * using the schema at the time of the snapshot, and the content of the snapshot.    *    *<p>The restore/clone operation does not require copying HFiles. Since HFiles    * are immutable the table can point to and use the same files as the original one.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14583,13 +14176,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the status of the requested snapshot restore/clone operation.    * This method is not exposed to the user, it is just used internally by HBaseAdmin    * to verify if the restore is completed.    *    * No exceptions are thrown if the restore is not running, the result will be "done".    *    * @return done<tt>true</tt> if the restore/clone operation is completed.    * @throws ServiceException if the operation failed.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14665,9 +14252,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|boolean
 name|isHealthCheckerConfigured
@@ -14704,8 +14288,8 @@ name|healthScriptLocation
 argument_list|)
 return|;
 block|}
-end_function
+block|}
+end_class
 
-unit|}
 end_unit
 

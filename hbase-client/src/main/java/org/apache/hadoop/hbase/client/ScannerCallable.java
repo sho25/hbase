@@ -561,7 +561,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|connect
+name|prepare
 parameter_list|(
 name|boolean
 name|reload
@@ -579,7 +579,7 @@ condition|)
 block|{
 name|super
 operator|.
-name|connect
+name|prepare
 argument_list|(
 name|reload
 argument_list|)
@@ -767,7 +767,7 @@ try|try
 block|{
 name|response
 operator|=
-name|server
+name|stub
 operator|.
 name|scan
 argument_list|(
@@ -1254,7 +1254,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|server
+name|stub
 operator|.
 name|scan
 argument_list|(
@@ -1345,7 +1345,7 @@ block|{
 name|ScanResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|scan
 argument_list|(

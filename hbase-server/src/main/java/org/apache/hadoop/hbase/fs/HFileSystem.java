@@ -826,18 +826,6 @@ name|ReorderBlocks
 name|lrb
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Starting addLocationsOrderInterceptor with class "
-operator|+
-name|lrb
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -909,11 +897,11 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
-literal|"The file system is not a DistributedFileSystem."
+literal|"The file system is not a DistributedFileSystem. "
 operator|+
-literal|"Not adding block location reordering"
+literal|"Skipping on block location reordering"
 argument_list|)
 expr_stmt|;
 return|return
@@ -1071,7 +1059,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Added intercepting call to namenode#getBlockLocations"
+literal|"Added intercepting call to namenode#getBlockLocations so can do block reordering"
+operator|+
+literal|" using class "
+operator|+
+name|lrb
+operator|.
+name|getClass
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -627,7 +627,7 @@ name|set
 argument_list|(
 name|HConnectionManager
 operator|.
-name|RETRIES_BY_SERVER
+name|RETRIES_BY_SERVER_KEY
 argument_list|,
 literal|"true"
 argument_list|)

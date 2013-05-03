@@ -1100,16 +1100,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"timeout = "
+literal|"timeout="
 operator|+
 name|timeout
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"unassigned timeout = "
+operator|+
+literal|", unassigned timeout="
 operator|+
 name|unassignedTimeout
 argument_list|)
@@ -4519,7 +4514,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"found "
+literal|"Found "
 operator|+
 operator|(
 name|orphans

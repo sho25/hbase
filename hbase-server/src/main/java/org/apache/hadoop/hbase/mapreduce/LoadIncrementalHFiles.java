@@ -3426,7 +3426,7 @@ name|ProtobufUtil
 operator|.
 name|bulkLoadHFile
 argument_list|(
-name|server
+name|stub
 argument_list|,
 name|famPaths
 argument_list|,

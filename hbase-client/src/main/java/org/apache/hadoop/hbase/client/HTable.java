@@ -249,24 +249,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
-operator|.
-name|HConnectable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|coprocessor
 operator|.
 name|Batch
@@ -2205,7 +2187,7 @@ name|ProtobufUtil
 operator|.
 name|getRowOrBefore
 argument_list|(
-name|server
+name|stub
 argument_list|,
 name|location
 operator|.
@@ -2399,7 +2381,7 @@ name|ProtobufUtil
 operator|.
 name|get
 argument_list|(
-name|server
+name|stub
 argument_list|,
 name|location
 operator|.
@@ -2782,7 +2764,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -3104,7 +3086,7 @@ argument_list|,
 name|rm
 argument_list|)
 decl_stmt|;
-name|server
+name|stub
 operator|.
 name|multi
 argument_list|(
@@ -3227,7 +3209,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -3373,7 +3355,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -3633,7 +3615,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -3799,7 +3781,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -3938,7 +3920,7 @@ decl_stmt|;
 name|MutateResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|mutate
 argument_list|(
@@ -4046,7 +4028,7 @@ decl_stmt|;
 name|GetResponse
 name|response
 init|=
-name|server
+name|stub
 operator|.
 name|get
 argument_list|(
@@ -4641,7 +4623,7 @@ decl_stmt|;
 name|MultiGetResponse
 name|responses
 init|=
-name|server
+name|stub
 operator|.
 name|multiGet
 argument_list|(

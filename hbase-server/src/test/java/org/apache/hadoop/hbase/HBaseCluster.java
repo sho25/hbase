@@ -115,9 +115,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|AdminProtocol
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|AdminService
 import|;
 end_import
 
@@ -131,9 +135,53 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|ClientProtocol
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|ClientService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterAdminProtos
+operator|.
+name|MasterAdminService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
 import|;
 end_import
 
@@ -260,19 +308,23 @@ return|return
 name|initialClusterStatus
 return|;
 block|}
-comment|/**    * Returns an {@link MasterAdminProtocol} to the active master    */
+comment|/**    * Returns an {@link MasterAdminService.BlockingInterface} to the active master    */
 specifier|public
 specifier|abstract
-name|MasterAdminProtocol
+name|MasterAdminService
+operator|.
+name|BlockingInterface
 name|getMasterAdmin
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns an {@link MasterMonitorProtocol} to the active master    */
+comment|/**    * Returns an {@link MasterMonitorService.BlockingInterface} to the active master    */
 specifier|public
 specifier|abstract
-name|MasterMonitorProtocol
+name|MasterMonitorService
+operator|.
+name|BlockingInterface
 name|getMasterMonitor
 parameter_list|()
 throws|throws
@@ -281,7 +333,9 @@ function_decl|;
 comment|/**    * Returns an AdminProtocol interface to the regionserver    */
 specifier|public
 specifier|abstract
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 name|getAdminProtocol
 parameter_list|(
 name|ServerName
@@ -293,7 +347,9 @@ function_decl|;
 comment|/**    * Returns a ClientProtocol interface to the regionserver    */
 specifier|public
 specifier|abstract
-name|ClientProtocol
+name|ClientService
+operator|.
+name|BlockingInterface
 name|getClientProtocol
 parameter_list|(
 name|ServerName

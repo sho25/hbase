@@ -594,9 +594,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The identifier of this process is "
+literal|"Process identifier="
 operator|+
 name|identifier
+operator|+
+literal|" connecting to ZooKeeper ensemble="
+operator|+
+name|quorumServers
 argument_list|)
 expr_stmt|;
 name|this

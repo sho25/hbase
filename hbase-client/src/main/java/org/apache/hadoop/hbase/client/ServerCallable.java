@@ -171,7 +171,27 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseClientRPC
+name|RpcClient
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|ClientService
 import|;
 end_import
 
@@ -296,7 +316,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract class that implements {@link Callable}.  Implementation stipulates  * return type and method we actually invoke on remote Server.  Usually  * used inside a try/catch that fields usual connection failures all wrapped  * up in a retry loop.  *<p>Call {@link #connect(boolean)} to connect to server hosting region  * that contains the passed row in the passed table before invoking  * {@link #call()}.  * @see HConnection#getRegionServerWithoutRetries(ServerCallable)  * @param<T> the class that the ServerCallable handles  */
+comment|/**  * Abstract class that implements {@link Callable}.  Implementation stipulates  * return type and method we actually invoke on remote Server.  Usually  * used inside a try/catch that fields usual connection failures all wrapped  * up in a retry loop.  *<p>Call {@link #prepare(boolean)} to connect to server hosting region  * that contains the passed row in the passed table before invoking  * {@link #call()}.  * @see HConnection#getRegionServerWithoutRetries(ServerCallable)  * @param<T> the class that the ServerCallable handles  */
 end_comment
 
 begin_class
@@ -357,8 +377,10 @@ name|HRegionLocation
 name|location
 decl_stmt|;
 specifier|protected
-name|ClientProtocol
-name|server
+name|ClientService
+operator|.
+name|BlockingInterface
+name|stub
 decl_stmt|;
 specifier|protected
 name|int
@@ -463,10 +485,10 @@ operator|=
 name|callTimeout
 expr_stmt|;
 block|}
-comment|/**    * Connect to the server hosting region with row from tablename.    * @param reload Set this to true if connection should re-find the region    * @throws IOException e    */
+comment|/**    * Prepare for connection to the server hosting region with row from tablename.  Does lookup    * to find region location and hosting server.    * @param reload Set this to true if connection should re-find the region    * @throws IOException e    */
 specifier|public
 name|void
-name|connect
+name|prepare
 parameter_list|(
 specifier|final
 name|boolean
@@ -492,7 +514,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|server
+name|stub
 operator|=
 name|connection
 operator|.
@@ -613,7 +635,7 @@ operator|=
 name|MIN_RPC_TIMEOUT
 expr_stmt|;
 block|}
-name|HBaseClientRPC
+name|RpcClient
 operator|.
 name|setRpcTimeout
 argument_list|(
@@ -626,7 +648,7 @@ name|void
 name|afterCall
 parameter_list|()
 block|{
-name|HBaseClientRPC
+name|RpcClient
 operator|.
 name|resetRpcTimeout
 argument_list|()
@@ -753,7 +775,7 @@ block|{
 name|beforeCall
 argument_list|()
 expr_stmt|;
-name|connect
+name|prepare
 argument_list|(
 name|tries
 operator|!=
@@ -784,7 +806,7 @@ literal|", numRetries="
 operator|+
 name|numRetries
 operator|+
-literal|" message="
+literal|":"
 operator|+
 name|t
 operator|.
@@ -1105,7 +1127,7 @@ block|{
 name|beforeCall
 argument_list|()
 expr_stmt|;
-name|connect
+name|prepare
 argument_list|(
 literal|false
 argument_list|)

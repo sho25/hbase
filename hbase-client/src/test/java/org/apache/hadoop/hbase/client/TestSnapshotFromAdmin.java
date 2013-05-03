@@ -489,7 +489,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterAdmin
+name|getKeepAliveMasterAdminService
 argument_list|()
 argument_list|)
 operator|.
@@ -938,7 +938,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterAdmin
+name|getKeepAliveMasterAdminService
 argument_list|()
 argument_list|)
 operator|.

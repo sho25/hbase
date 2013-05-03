@@ -167,7 +167,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseClient
+name|RpcClient
 import|;
 end_import
 
@@ -183,7 +183,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseServer
+name|RpcServer
 import|;
 end_import
 
@@ -435,7 +435,7 @@ operator|(
 operator|(
 name|Log4JLogger
 operator|)
-name|HBaseServer
+name|RpcServer
 operator|.
 name|LOG
 operator|)
@@ -454,7 +454,7 @@ operator|(
 operator|(
 name|Log4JLogger
 operator|)
-name|HBaseClient
+name|RpcClient
 operator|.
 name|LOG
 operator|)
@@ -496,6 +496,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// Don't report so often so easier to see other rpcs
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.msginterval"
+argument_list|,
+literal|3
+operator|*
+literal|10000
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setInt
@@ -645,6 +657,13 @@ argument_list|,
 name|r3
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Wrote our three values"
+argument_list|)
+expr_stmt|;
 name|RegionServerWithScanTimeout
 operator|.
 name|seqNoToSleepOn
@@ -698,6 +717,13 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Got expected first row"
 argument_list|)
 expr_stmt|;
 name|long
@@ -1017,6 +1043,19 @@ condition|)
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SLEEPING "
+operator|+
+operator|(
+name|rpcTimeout
+operator|+
+literal|500
+operator|)
+argument_list|)
+expr_stmt|;
 name|Thread
 operator|.
 name|sleep

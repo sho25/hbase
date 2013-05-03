@@ -185,13 +185,13 @@ argument_list|(
 name|ee
 argument_list|)
 expr_stmt|;
-name|HBaseClient
+name|RpcClient
 operator|.
 name|FailedServers
 name|fs
 init|=
 operator|new
-name|HBaseClient
+name|RpcClient
 operator|.
 name|FailedServers
 argument_list|(
@@ -327,7 +327,7 @@ name|ee
 operator|.
 name|incValue
 argument_list|(
-name|HBaseClient
+name|RpcClient
 operator|.
 name|FAILED_SERVER_EXPIRY_DEFAULT
 operator|+
@@ -431,7 +431,7 @@ name|ee
 operator|.
 name|incValue
 argument_list|(
-name|HBaseClient
+name|RpcClient
 operator|.
 name|FAILED_SERVER_EXPIRY_DEFAULT
 operator|+

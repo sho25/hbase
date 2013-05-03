@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -27,17 +37,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MasterMonitorProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|io
+name|generated
 operator|.
-name|Closeable
+name|MasterMonitorProtos
 import|;
 end_import
 
@@ -49,18 +53,14 @@ begin_interface
 interface|interface
 name|MasterMonitorKeepAliveConnection
 extends|extends
-name|MasterMonitorProtocol
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
+operator|.
+name|BlockingInterface
 extends|,
 name|Closeable
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|close
-parameter_list|()
-function_decl|;
-block|}
+block|{}
 end_interface
 
 end_unit

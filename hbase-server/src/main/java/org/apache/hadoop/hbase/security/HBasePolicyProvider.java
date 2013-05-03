@@ -41,9 +41,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|AdminProtocol
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|AdminService
 import|;
 end_import
 
@@ -57,9 +61,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|protobuf
 operator|.
-name|ClientProtocol
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|ClientService
 import|;
 end_import
 
@@ -73,7 +81,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MasterMonitorProtocol
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterAdminProtos
+operator|.
+name|MasterAdminService
 import|;
 end_import
 
@@ -87,7 +101,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MasterAdminProtocol
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterMonitorProtos
+operator|.
+name|MasterMonitorService
 import|;
 end_import
 
@@ -101,7 +121,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionServerStatusProtocol
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStatusService
 import|;
 end_import
 
@@ -177,7 +203,9 @@ name|Service
 argument_list|(
 literal|"security.client.protocol.acl"
 argument_list|,
-name|ClientProtocol
+name|ClientService
+operator|.
+name|BlockingInterface
 operator|.
 name|class
 argument_list|)
@@ -187,7 +215,9 @@ name|Service
 argument_list|(
 literal|"security.client.protocol.acl"
 argument_list|,
-name|AdminProtocol
+name|AdminService
+operator|.
+name|BlockingInterface
 operator|.
 name|class
 argument_list|)
@@ -197,7 +227,9 @@ name|Service
 argument_list|(
 literal|"security.admin.protocol.acl"
 argument_list|,
-name|MasterMonitorProtocol
+name|MasterMonitorService
+operator|.
+name|BlockingInterface
 operator|.
 name|class
 argument_list|)
@@ -207,7 +239,9 @@ name|Service
 argument_list|(
 literal|"security.admin.protocol.acl"
 argument_list|,
-name|MasterAdminProtocol
+name|MasterAdminService
+operator|.
+name|BlockingInterface
 operator|.
 name|class
 argument_list|)
@@ -217,7 +251,9 @@ name|Service
 argument_list|(
 literal|"security.masterregion.protocol.acl"
 argument_list|,
-name|RegionServerStatusProtocol
+name|RegionServerStatusService
+operator|.
+name|BlockingInterface
 operator|.
 name|class
 argument_list|)

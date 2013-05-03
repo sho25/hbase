@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcServer
+name|RpcServerInterface
 import|;
 end_import
 
@@ -629,7 +629,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RpcServer
+name|RpcServerInterface
 name|getRpcServer
 parameter_list|()
 block|{
