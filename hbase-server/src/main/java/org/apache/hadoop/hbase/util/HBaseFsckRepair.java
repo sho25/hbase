@@ -719,6 +719,8 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|ProtobufUtil
 operator|.
 name|closeRegion
@@ -733,6 +735,28 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception when closing region: "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|long
 name|timeout
 init|=
