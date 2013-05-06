@@ -6203,7 +6203,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This accommodates differences between hadoop versions    *    * @param fs file system    * @param dir directory    * @param filter path filter    * @return null if tabledir doesn't exist, otherwise FileStatus array    */
+comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This accommodates differences between hadoop versions, where hadoop 1    * does not throw a FileNotFoundException, and return an empty FileStatus[]    * while Hadoop 2 will throw FileNotFoundException.    *    * @param fs file system    * @param dir directory    * @param filter path filter    * @return null if tabledir doesn't exist, otherwise FileStatus array    */
 end_comment
 
 begin_function
