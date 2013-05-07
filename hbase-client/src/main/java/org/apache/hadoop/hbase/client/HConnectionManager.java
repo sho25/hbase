@@ -8290,6 +8290,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|closed
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|toString
+argument_list|()
+operator|+
+literal|" closed"
+argument_list|)
+throw|;
+block|}
 comment|// We don't check that our link to ZooKeeper is still valid
 comment|// But there is a retry mechanism in the ZooKeeperWatcher itself
 name|keepAliveZookeeper
@@ -13172,6 +13190,12 @@ expr_stmt|;
 name|closeMaster
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|closed
+operator|=
+literal|true
+expr_stmt|;
 name|closeZooKeeperWatcher
 argument_list|()
 expr_stmt|;
@@ -13195,12 +13219,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|closed
-operator|=
-literal|true
-expr_stmt|;
 block|}
 annotation|@
 name|Override
