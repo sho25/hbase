@@ -10729,7 +10729,7 @@ name|time
 argument_list|)
 return|;
 block|}
-comment|/**    * Setup response for the IPC Call.    *    * @param response buffer to serialize the response into    * @param call {@link Call} to which we are setting up the response    * @param status {@link Status} of the IPC call    * @param errorClass error class, if the the call failed    * @param error error message, if the call failed    * @throws IOException    */
+comment|/**    * Setup response for the IPC Call.    *    * @param response buffer to serialize the response into    * @param call {@link Call} to which we are setting up the response    * @param error error message, if the call failed    * @param t    * @throws IOException    */
 specifier|private
 name|void
 name|setupResponse
