@@ -3339,7 +3339,7 @@ comment|//
 comment|//  KeyValue cloning
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * Clones a KeyValue.  This creates a copy, re-allocating the buffer.    * @return Fully copied clone of this KeyValue    * @throws CloneNotSupportedException     */
+comment|/**    * Clones a KeyValue.  This creates a copy, re-allocating the buffer.    * @return Fully copied clone of this KeyValue    * @throws CloneNotSupportedException    */
 annotation|@
 name|Override
 specifier|public
@@ -11615,6 +11615,52 @@ argument_list|(
 name|sum
 argument_list|)
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsOffset
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implememnted"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsLength
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implememnted"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getTagsArray
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implememnted"
+argument_list|)
+throw|;
 block|}
 block|}
 end_class

@@ -553,6 +553,52 @@ name|toString
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsOffset
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsLength
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getTagsArray
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
 block|}
 end_class
 

@@ -84,7 +84,7 @@ index|[]
 name|getFamilyArray
 parameter_list|()
 function_decl|;
-comment|/**    * @return Array index of first row byte    */
+comment|/**    * @return Array index of first family byte    */
 name|int
 name|getFamilyOffset
 parameter_list|()
@@ -144,6 +144,22 @@ function_decl|;
 comment|/**    * @return Number of value bytes.  Must be< valueArray.length - offset.    */
 name|int
 name|getValueLength
+parameter_list|()
+function_decl|;
+comment|/**    * @return the tags byte array    */
+name|byte
+index|[]
+name|getTagsArray
+parameter_list|()
+function_decl|;
+comment|/**    * @return the first offset where the tags start in the Cell    */
+name|int
+name|getTagsOffset
+parameter_list|()
+function_decl|;
+comment|/**    * @return the total length of the tags in the Cell.    */
+name|int
+name|getTagsLength
 parameter_list|()
 function_decl|;
 block|}

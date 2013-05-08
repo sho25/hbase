@@ -568,6 +568,43 @@ operator|.
 name|SIZEOF_INT
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsOffset
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getTagsLength
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getTagsArray
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|null
+return|;
+block|}
 block|}
 return|;
 block|}
