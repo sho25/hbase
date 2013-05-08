@@ -332,6 +332,13 @@ specifier|protected
 name|Abortable
 name|abortable
 decl_stmt|;
+comment|// Used if abortable is null
+specifier|private
+name|boolean
+name|aborted
+init|=
+literal|false
+decl_stmt|;
 comment|// listeners to be notified
 specifier|private
 specifier|final
@@ -525,7 +532,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @param conf    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    * context.    * @param canCreateBaseZNode    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -1446,6 +1453,7 @@ name|abortable
 operator|!=
 literal|null
 condition|)
+block|{
 name|this
 operator|.
 name|abortable
@@ -1461,6 +1469,7 @@ name|SessionExpiredException
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 break|break;
 case|case
 name|ConnectedReadOnly
@@ -1618,6 +1627,14 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|abortable
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|abortable
@@ -1629,6 +1646,13 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+else|else
+name|this
+operator|.
+name|aborted
+operator|=
+literal|true
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1638,6 +1662,16 @@ name|isAborted
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
+name|abortable
+operator|==
+literal|null
+condition|?
+name|this
+operator|.
+name|aborted
+else|:
 name|this
 operator|.
 name|abortable

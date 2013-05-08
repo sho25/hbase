@@ -303,24 +303,8 @@ name|MasterMonitorService
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
-import|;
-end_import
-
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to recalibrate after they move.  * {@link HConnectionManager} manages instances of this class.   This is NOT a connection to a  * particular server but to all servers in the cluster.  An implementation takes care of individual  * connections at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, {@link CatalogTracker},  * and {@link ZooKeeperWatcher}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to recalibrate after they move.  * {@link HConnectionManager} manages instances of this class.   This is NOT a connection to a  * particular server but to all servers in the cluster.  An implementation takes care of individual  * connections at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
 end_comment
 
 begin_interface
@@ -345,16 +329,6 @@ specifier|public
 name|Configuration
 name|getConfiguration
 parameter_list|()
-function_decl|;
-comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    * @deprecated Removed because it was a mistake exposing zookeeper in this    * interface (ZooKeeper is an implementation detail).    * Deprecated in HBase 0.94    */
-annotation|@
-name|Deprecated
-specifier|public
-name|ZooKeeperWatcher
-name|getZooKeeperWatcher
-parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 comment|/** @return - true if the master server is running */
 specifier|public
@@ -402,7 +376,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Use this api to check if the table has been created with the specified number of     * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
+comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
