@@ -327,8 +327,6 @@ specifier|final
 name|MetricsMaster
 name|metricsMaster
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(

@@ -651,7 +651,7 @@ specifier|final
 name|MonitoredTask
 name|status
 decl_stmt|;
-comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    * @throws IOException on unexpected error    */
+comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    */
 specifier|public
 name|TakeSnapshotHandler
 parameter_list|(
@@ -666,8 +666,6 @@ specifier|final
 name|MetricsMaster
 name|metricsMaster
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(
@@ -1593,6 +1591,22 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|long
+name|getCompletionTimestamp
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|status
+operator|.
+name|getCompletionTimestamp
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|SnapshotDescription
 name|getSnapshot
 parameter_list|()
@@ -1614,6 +1628,21 @@ operator|.
 name|getException
 argument_list|()
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|rethrowExceptionIfFailed
+parameter_list|()
+throws|throws
+name|ForeignException
+block|{
+name|monitor
+operator|.
+name|rethrowException
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override

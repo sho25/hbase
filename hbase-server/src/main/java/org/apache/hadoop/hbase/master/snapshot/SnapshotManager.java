@@ -773,6 +773,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSTableDescriptors
 import|;
 end_import
@@ -848,6 +864,17 @@ name|SNAPSHOT_WAKE_MILLIS_DEFAULT
 init|=
 literal|500
 decl_stmt|;
+comment|/**    * Wait time before removing a finished sentinel from the in-progress map    *    * NOTE: This is used as a safety auto cleanup.    * The snapshot and restore handlers map entries are removed when a user asks if a snapshot or    * restore is completed. This operation is part of the HBaseAdmin snapshot/restore API flow.    * In case something fails on the client side and the snapshot/restore state is not reclaimed    * after a default timeout, the entry is removed from the in-progress map.    * At this point, if the user asks for the snapshot/restore status, the result will be    * snapshot done if exists or failed if it doesn't exists.    */
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|SNAPSHOT_SENTINELS_CLEANUP_TIMEOUT
+init|=
+literal|60
+operator|*
+literal|1000
+decl_stmt|;
 comment|/** Enable or disable snapshot support */
 specifier|public
 specifier|static
@@ -893,14 +920,21 @@ name|ONLINE_SNAPSHOT_CONTROLLER_DESCRIPTION
 init|=
 literal|"online-snapshot"
 decl_stmt|;
-comment|// TODO - enable having multiple snapshots with multiple monitors/threads
-comment|// this needs to be configuration based when running multiple snapshots is implemented
+comment|/** Conf key for # of threads used by the SnapshotManager thread pool */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_POOL_THREADS_KEY
+init|=
+literal|"hbase.snapshot.master.threads"
+decl_stmt|;
 comment|/** number of current operations running on the master */
 specifier|private
 specifier|static
 specifier|final
 name|int
-name|opThreads
+name|SNAPSHOT_POOL_THREADS_DEFAULT
 init|=
 literal|1
 decl_stmt|;
@@ -936,25 +970,32 @@ name|isSnapshotSupported
 init|=
 literal|false
 decl_stmt|;
-comment|// A reference to a handler.  If the handler is non-null, then it is assumed that a snapshot is
-comment|// in progress currently
-comment|// TODO: this is a bad smell;  likely replace with a collection in the future.  Also this gets
-comment|// reset by every operation.
+comment|// Snapshot handlers map, with table name as key.
+comment|// The map is always accessed and modified under the object lock using synchronized.
+comment|// snapshotTable() will insert an Handler in the table.
+comment|// isSnapshotDone() will remove the handler requested if the operation is finished.
 specifier|private
-name|TakeSnapshotHandler
-name|handler
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|SnapshotSentinel
+argument_list|>
+name|snapshotHandlers
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|SnapshotSentinel
+argument_list|>
+argument_list|()
 decl_stmt|;
-specifier|private
-specifier|final
-name|Path
-name|rootDir
-decl_stmt|;
-specifier|private
-specifier|final
-name|ExecutorService
-name|executorService
-decl_stmt|;
-comment|// Restore Sentinels map, with table name as key
+comment|// Restore Sentinels map, with table name as key.
+comment|// The map is always accessed and modified under the object lock using synchronized.
+comment|// restoreSnapshot()/cloneSnapshot() will insert an Handler in the table.
+comment|// isRestoreDone() will remove the handler requested if the operation is finished.
 specifier|private
 name|Map
 argument_list|<
@@ -972,6 +1013,16 @@ argument_list|,
 name|SnapshotSentinel
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|Path
+name|rootDir
+decl_stmt|;
+specifier|private
+specifier|final
+name|ExecutorService
+name|executorService
 decl_stmt|;
 comment|/**    * Construct a snapshot manager.    * @param master    */
 specifier|public
@@ -1061,6 +1112,18 @@ argument_list|(
 name|SNAPSHOT_TIMEOUT_MILLIS_KEY
 argument_list|,
 name|SNAPSHOT_TIMEOUT_MILLIS_DEFAULT
+argument_list|)
+decl_stmt|;
+name|int
+name|opThreads
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|SNAPSHOT_POOL_THREADS_KEY
+argument_list|,
+name|SNAPSHOT_POOL_THREADS_DEFAULT
 argument_list|)
 decl_stmt|;
 comment|// setup the default procedure coordinator
@@ -1653,64 +1716,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return the handler if it is currently running and has the same snapshot target name.    * @param snapshot    * @return null if doesn't match, else a live handler.    */
-specifier|private
-specifier|synchronized
-name|TakeSnapshotHandler
-name|getTakeSnapshotHandler
-parameter_list|(
-name|SnapshotDescription
-name|snapshot
-parameter_list|)
-block|{
-name|TakeSnapshotHandler
-name|h
-init|=
-name|this
-operator|.
-name|handler
-decl_stmt|;
-if|if
-condition|(
-name|h
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|h
-operator|.
-name|getSnapshot
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|snapshot
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-condition|)
-block|{
-comment|// specified snapshot is to the one currently running
-return|return
-literal|null
-return|;
-block|}
-return|return
-name|h
-return|;
-block|}
-comment|/**    * Check if the specified snapshot is done    * @param expected    * @return true if snapshot is ready to be restored, false if it is still being taken.    * @throws IOException IOException if error from HDFS or RPC    * @throws UnknownSnapshotException if snapshot is invalid or does not exist.    */
+comment|/**    * Check if the specified snapshot is done    *    * @param expected    * @return true if snapshot is ready to be restored, false if it is still being taken.    * @throws IOException IOException if error from HDFS or RPC    * @throws UnknownSnapshotException if snapshot is invalid or does not exist.    */
 specifier|public
 name|boolean
 name|isSnapshotDone
@@ -1747,15 +1753,24 @@ argument_list|(
 name|expected
 argument_list|)
 decl_stmt|;
-comment|// check to see if the sentinel exists
-name|TakeSnapshotHandler
+comment|// check to see if the sentinel exists,
+comment|// and if the task is complete removes it from the in-progress snapshots map.
+name|SnapshotSentinel
 name|handler
 init|=
-name|getTakeSnapshotHandler
+name|removeSentinelIfFinished
 argument_list|(
+name|this
+operator|.
+name|snapshotHandlers
+argument_list|,
 name|expected
 argument_list|)
 decl_stmt|;
+comment|// stop tracking "abandoned" handlers
+name|cleanupSentinels
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|handler
@@ -1763,7 +1778,12 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// doesn't exist, check if it is already completely done.
+comment|// If there's no handler in the in-progress map, it means one of the following:
+comment|//   - someone has already requested the snapshot state
+comment|//   - the requested snapshot was completed long time ago (cleanupSentinels() timeout)
+comment|//   - the snapshot was never requested
+comment|// In those cases returns to the user the "done state" if the snapshots exists on disk,
+comment|// otherwise raise an exception saying that the snapshot is not running and doesn't exist.
 if|if
 condition|(
 operator|!
@@ -1795,7 +1815,7 @@ try|try
 block|{
 name|handler
 operator|.
-name|rethrowException
+name|rethrowExceptionIfFailed
 argument_list|()
 expr_stmt|;
 block|}
@@ -1921,29 +1941,8 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Check to see if there are any snapshots in progress currently.  Currently we have a    * limitation only allowing a single snapshot attempt at a time.    * @return<tt>true</tt> if there any snapshots in progress,<tt>false</tt> otherwise    * @throws SnapshotCreationException if the snapshot failed    */
+comment|/**    * Check to see if the specified table has a snapshot in progress.  Currently we have a    * limitation only allowing a single snapshot per table at a time.    * @param tableName name of the table being snapshotted.    * @return<tt>true</tt> if there is a snapshot in progress on the specified table.    */
 specifier|synchronized
-name|boolean
-name|isTakingSnapshot
-parameter_list|()
-throws|throws
-name|SnapshotCreationException
-block|{
-comment|// TODO later when we handle multiple there would be a map with ssname to handler.
-return|return
-name|handler
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|handler
-operator|.
-name|isFinished
-argument_list|()
-return|;
-block|}
-comment|/**    * Check to see if the specified table has a snapshot in progress.  Currently we have a    * limitation only allowing a single snapshot attempt at a time.    * @param tableName name of the table being snapshotted.    * @return<tt>true</tt> if there is a snapshot in progress on the specified table.    */
-specifier|private
 name|boolean
 name|isTakingSnapshot
 parameter_list|(
@@ -1952,27 +1951,23 @@ name|String
 name|tableName
 parameter_list|)
 block|{
-if|if
-condition|(
+name|SnapshotSentinel
+name|handler
+init|=
+name|this
+operator|.
+name|snapshotHandlers
+operator|.
+name|get
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+return|return
 name|handler
 operator|!=
 literal|null
 operator|&&
-name|handler
-operator|.
-name|getSnapshot
-argument_list|()
-operator|.
-name|getTable
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|)
-condition|)
-block|{
-return|return
 operator|!
 name|handler
 operator|.
@@ -1980,11 +1975,7 @@ name|isFinished
 argument_list|()
 return|;
 block|}
-return|return
-literal|false
-return|;
-block|}
-comment|/**    * Check to make sure that we are OK to run the passed snapshot. Checks to make sure that we    * aren't already running a snapshot.    * @param snapshot description of the snapshot we want to start    * @throws HBaseSnapshotException if the filesystem could not be prepared to start the snapshot    */
+comment|/**    * Check to make sure that we are OK to run the passed snapshot. Checks to make sure that we    * aren't already running a snapshot or restore on the requested table.    * @param snapshot description of the snapshot we want to start    * @throws HBaseSnapshotException if the filesystem could not be prepared to start the snapshot    */
 specifier|private
 specifier|synchronized
 name|void
@@ -2023,9 +2014,29 @@ comment|// make sure we aren't already running a snapshot
 if|if
 condition|(
 name|isTakingSnapshot
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
 argument_list|()
+argument_list|)
 condition|)
 block|{
+name|SnapshotSentinel
+name|handler
+init|=
+name|this
+operator|.
+name|snapshotHandlers
+operator|.
+name|get
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+decl_stmt|;
 throw|throw
 operator|new
 name|SnapshotCreationException
@@ -2045,8 +2056,6 @@ name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
-name|this
-operator|.
 name|handler
 operator|.
 name|getSnapshot
@@ -2069,6 +2078,19 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|SnapshotSentinel
+name|handler
+init|=
+name|restoreHandlers
+operator|.
+name|get
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+decl_stmt|;
 throw|throw
 operator|new
 name|SnapshotCreationException
@@ -2088,8 +2110,6 @@ name|ClientSnapshotDescriptionUtils
 operator|.
 name|toString
 argument_list|(
-name|this
-operator|.
 name|handler
 operator|.
 name|getSnapshot
@@ -2169,7 +2189,65 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Take a snapshot of an enabled table.    *<p>    * The thread limitation on the executorService's thread pool for snapshots ensures the    * snapshot won't be started if there is another snapshot already running. Does    *<b>not</b> check to see if another snapshot of the same name already exists.    * @param snapshot description of the snapshot to take.    * @throws HBaseSnapshotException if the snapshot could not be started    */
+comment|/**    * Take a snapshot of a disabled table.    * @param snapshot description of the snapshot to take. Modified to be {@link Type#DISABLED}.    * @throws HBaseSnapshotException if the snapshot could not be started    */
+specifier|private
+specifier|synchronized
+name|void
+name|snapshotDisabledTable
+parameter_list|(
+name|SnapshotDescription
+name|snapshot
+parameter_list|)
+throws|throws
+name|HBaseSnapshotException
+block|{
+comment|// setup the snapshot
+name|prepareToTakeSnapshot
+argument_list|(
+name|snapshot
+argument_list|)
+expr_stmt|;
+comment|// set the snapshot to be a disabled snapshot, since the client doesn't know about that
+name|snapshot
+operator|=
+name|snapshot
+operator|.
+name|toBuilder
+argument_list|()
+operator|.
+name|setType
+argument_list|(
+name|Type
+operator|.
+name|DISABLED
+argument_list|)
+operator|.
+name|build
+argument_list|()
+expr_stmt|;
+comment|// Take the snapshot of the disabled table
+name|DisabledTableSnapshotHandler
+name|handler
+init|=
+operator|new
+name|DisabledTableSnapshotHandler
+argument_list|(
+name|snapshot
+argument_list|,
+name|master
+argument_list|,
+name|metricsMaster
+argument_list|)
+decl_stmt|;
+name|snapshotTable
+argument_list|(
+name|snapshot
+argument_list|,
+name|handler
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Take a snapshot of an enabled table.    * @param snapshot description of the snapshot to take.    * @throws HBaseSnapshotException if the snapshot could not be started    */
 specifier|private
 specifier|synchronized
 name|void
@@ -2181,13 +2259,16 @@ parameter_list|)
 throws|throws
 name|HBaseSnapshotException
 block|{
-name|TakeSnapshotHandler
+comment|// setup the snapshot
+name|prepareToTakeSnapshot
+argument_list|(
+name|snapshot
+argument_list|)
+expr_stmt|;
+comment|// Take the snapshot of the enabled table
+name|EnabledTableSnapshotHandler
 name|handler
-decl_stmt|;
-try|try
-block|{
-name|handler
-operator|=
+init|=
 operator|new
 name|EnabledTableSnapshotHandler
 argument_list|(
@@ -2199,6 +2280,34 @@ name|this
 argument_list|,
 name|metricsMaster
 argument_list|)
+decl_stmt|;
+name|snapshotTable
+argument_list|(
+name|snapshot
+argument_list|,
+name|handler
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Take a snapshot using the specified handler.    * On failure the snapshot temporary working directory is removed.    * NOTE: prepareToTakeSnapshot() called before this one takes care of the rejecting the    *       snapshot request if the table is busy with another snapshot/restore operation.    * @param snapshot the snapshot description    * @param handler the snapshot handler    */
+specifier|private
+specifier|synchronized
+name|void
+name|snapshotTable
+parameter_list|(
+name|SnapshotDescription
+name|snapshot
+parameter_list|,
+specifier|final
+name|TakeSnapshotHandler
+name|handler
+parameter_list|)
+throws|throws
+name|HBaseSnapshotException
+block|{
+try|try
+block|{
+name|handler
 operator|.
 name|prepare
 argument_list|()
@@ -2214,9 +2323,17 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|snapshotHandlers
+operator|.
+name|put
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|,
 name|handler
-operator|=
-name|handler
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2263,7 +2380,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
 literal|"Couldn't delete working directory ("
 operator|+
@@ -2289,7 +2406,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
 literal|"Couldn't delete working directory ("
 operator|+
@@ -2363,6 +2480,10 @@ name|debug
 argument_list|(
 literal|"No existing snapshot, attempting snapshot..."
 argument_list|)
+expr_stmt|;
+comment|// stop tracking "abandoned" handlers
+name|cleanupSentinels
+argument_list|()
 expr_stmt|;
 comment|// check to see if the table exists
 name|HTableDescriptor
@@ -2516,12 +2637,6 @@ name|desc
 argument_list|)
 expr_stmt|;
 block|}
-comment|// setup the snapshot
-name|prepareToTakeSnapshot
-argument_list|(
-name|snapshot
-argument_list|)
-expr_stmt|;
 comment|// if the table is enabled, then have the RS run actually the snapshot work
 name|AssignmentManager
 name|assignmentMgr
@@ -2680,189 +2795,52 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Take a snapshot of a disabled table.    *<p>    * The thread limitation on the executorService's thread pool for snapshots ensures the    * snapshot won't be started if there is another snapshot already running. Does    *<b>not</b> check to see if another snapshot of the same name already exists.    * @param snapshot description of the snapshot to take. Modified to be {@link Type#DISABLED}.    * @throws HBaseSnapshotException if the snapshot could not be started    */
-specifier|private
-specifier|synchronized
-name|void
-name|snapshotDisabledTable
-parameter_list|(
-name|SnapshotDescription
-name|snapshot
-parameter_list|)
-throws|throws
-name|HBaseSnapshotException
-block|{
-comment|// set the snapshot to be a disabled snapshot, since the client doesn't know about that
-name|snapshot
-operator|=
-name|snapshot
-operator|.
-name|toBuilder
-argument_list|()
-operator|.
-name|setType
-argument_list|(
-name|Type
-operator|.
-name|DISABLED
-argument_list|)
-operator|.
-name|build
-argument_list|()
-expr_stmt|;
-name|DisabledTableSnapshotHandler
-name|handler
-decl_stmt|;
-try|try
-block|{
-name|handler
-operator|=
-operator|new
-name|DisabledTableSnapshotHandler
-argument_list|(
-name|snapshot
-argument_list|,
-name|master
-argument_list|,
-name|metricsMaster
-argument_list|)
-operator|.
-name|prepare
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
-name|handler
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|handler
-operator|=
-name|handler
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-comment|// cleanup the working directory by trying to delete it from the fs.
-name|Path
-name|workingDir
-init|=
-name|SnapshotDescriptionUtils
-operator|.
-name|getWorkingSnapshotDir
-argument_list|(
-name|snapshot
-argument_list|,
-name|rootDir
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|master
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-operator|.
-name|delete
-argument_list|(
-name|workingDir
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Couldn't delete working directory ("
-operator|+
-name|workingDir
-operator|+
-literal|" for snapshot:"
-operator|+
-name|ClientSnapshotDescriptionUtils
-operator|.
-name|toString
-argument_list|(
-name|snapshot
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e1
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Couldn't delete working directory ("
-operator|+
-name|workingDir
-operator|+
-literal|" for snapshot:"
-operator|+
-name|ClientSnapshotDescriptionUtils
-operator|.
-name|toString
-argument_list|(
-name|snapshot
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|// fail the snapshot
-throw|throw
-operator|new
-name|SnapshotCreationException
-argument_list|(
-literal|"Could not build snapshot handler"
-argument_list|,
-name|e
-argument_list|,
-name|snapshot
-argument_list|)
-throw|;
-block|}
-block|}
-comment|/**    * Set the handler for the current snapshot    *<p>    * Exposed for TESTING    * @param handler handler the master should use    *    * TODO get rid of this if possible, repackaging, modify tests.    */
+comment|/**    * Set the handler for the current snapshot    *<p>    * Exposed for TESTING    * @param tableName    * @param handler handler the master should use    *    * TODO get rid of this if possible, repackaging, modify tests.    */
 specifier|public
 specifier|synchronized
 name|void
 name|setSnapshotHandlerForTesting
 parameter_list|(
-name|TakeSnapshotHandler
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|SnapshotSentinel
 name|handler
 parameter_list|)
 block|{
+if|if
+condition|(
+name|handler
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
+name|snapshotHandlers
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
 name|handler
-operator|=
-name|handler
+argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|snapshotHandlers
+operator|.
+name|remove
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return distributed commit coordinator for all running snapshots    */
 name|ProcedureCoordinator
@@ -2873,7 +2851,7 @@ return|return
 name|coordinator
 return|;
 block|}
-comment|/**    * Check to see if the snapshot is one of the currently completed snapshots    * @param expected snapshot to check    * @return<tt>true</tt> if the snapshot is stored on the {@link FileSystem},<tt>false</tt> if is    *         not stored    * @throws IOException if the filesystem throws an unexpected exception,    * @throws IllegalArgumentException if snapshot name is invalid.    */
+comment|/**    * Check to see if the snapshot is one of the currently completed snapshots    * Returns true if the snapshot exists in the "completed snapshots folder".    *    * @param snapshot expected snapshot to check    * @return<tt>true</tt> if the snapshot is stored on the {@link FileSystem},<tt>false</tt> if is    *         not stored    * @throws IOException if the filesystem throws an unexpected exception,    * @throws IllegalArgumentException if snapshot name is invalid.    */
 specifier|private
 name|boolean
 name|isSnapshotCompleted
@@ -2937,7 +2915,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param waitTime timeout before considering the clone failed    */
+comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    */
 specifier|synchronized
 name|void
 name|cloneSnapshot
@@ -3028,6 +3006,8 @@ argument_list|(
 name|handler
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|restoreHandlers
 operator|.
 name|put
@@ -3189,8 +3169,8 @@ operator|.
 name|getTable
 argument_list|()
 decl_stmt|;
-comment|// stop tracking completed restores
-name|cleanupRestoreSentinels
+comment|// stop tracking "abandoned" handlers
+name|cleanupSentinels
 argument_list|()
 expr_stmt|;
 comment|// Execute the restore/clone operation
@@ -3380,7 +3360,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor    * @param waitTime timeout before considering the restore failed    */
+comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor    */
 specifier|private
 specifier|synchronized
 name|void
@@ -3405,8 +3385,6 @@ operator|.
 name|getNameAsString
 argument_list|()
 decl_stmt|;
-comment|// TODO: There is definite race condition for managing the single handler. We should fix
-comment|// and remove the limitation of single snapshot / restore at a time.
 comment|// make sure we aren't running a snapshot on the same table
 if|if
 condition|(
@@ -3531,6 +3509,7 @@ block|}
 block|}
 comment|/**    * Verify if the restore of the specified table is in progress.    *    * @param tableName table under restore    * @return<tt>true</tt> if there is a restore in progress of the specified table.    */
 specifier|private
+specifier|synchronized
 name|boolean
 name|isRestoringTable
 parameter_list|(
@@ -3542,6 +3521,8 @@ block|{
 name|SnapshotSentinel
 name|sentinel
 init|=
+name|this
+operator|.
 name|restoreHandlers
 operator|.
 name|get
@@ -3563,10 +3544,10 @@ argument_list|()
 operator|)
 return|;
 block|}
-comment|/**    * Returns status of a restore request, specifically comparing source snapshot and target table    * names.  Throws exception if not a known snapshot.    * @param snapshot    * @return true if in progress, false if snapshot is completed.    * @throws UnknownSnapshotException if specified source snapshot does not exit.    * @throws IOException if there was some sort of IO failure    */
+comment|/**    * Returns the status of a restore operation.    * If the in-progress restore is failed throws the exception that caused the failure.    *    * @param snapshot    * @return false if in progress, true if restore is completed or not requested.    * @throws IOException if there was a failure during the restore    */
 specifier|public
 name|boolean
-name|isRestoringTable
+name|isRestoreDone
 parameter_list|(
 specifier|final
 name|SnapshotDescription
@@ -3575,42 +3556,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// check to see if the snapshot is already on the fs
-if|if
-condition|(
-operator|!
-name|isSnapshotCompleted
-argument_list|(
-name|snapshot
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|UnknownSnapshotException
-argument_list|(
-literal|"Snapshot:"
-operator|+
-name|snapshot
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" is not one of the known completed snapshots."
-argument_list|)
-throw|;
-block|}
+comment|// check to see if the sentinel exists,
+comment|// and if the task is complete removes it from the in-progress restore map.
 name|SnapshotSentinel
 name|sentinel
 init|=
-name|getRestoreSnapshotSentinel
+name|removeSentinelIfFinished
 argument_list|(
-name|snapshot
+name|this
 operator|.
-name|getTable
-argument_list|()
+name|restoreHandlers
+argument_list|,
+name|snapshot
 argument_list|)
 decl_stmt|;
+comment|// stop tracking "abandoned" handlers
+name|cleanupSentinels
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|sentinel
@@ -3620,32 +3583,7 @@ condition|)
 block|{
 comment|// there is no sentinel so restore is not in progress.
 return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-operator|!
-name|sentinel
-operator|.
-name|getSnapshot
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|snapshot
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-condition|)
-block|{
-comment|// another handler is trying to restore to the table, but it isn't the same snapshot source.
-return|return
-literal|false
+literal|true
 return|;
 block|}
 name|LOG
@@ -3677,23 +3615,12 @@ name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ForeignException
-name|e
-init|=
+comment|// If the restore is failed, rethrow the exception
 name|sentinel
 operator|.
-name|getExceptionIfFailed
+name|rethrowExceptionIfFailed
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|e
-operator|!=
-literal|null
-condition|)
-throw|throw
-name|e
-throw|;
+expr_stmt|;
 comment|// check to see if we are done
 if|if
 condition|(
@@ -3720,7 +3647,7 @@ literal|" has completed. Notifying the client."
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+literal|true
 return|;
 block|}
 if|if
@@ -3747,45 +3674,147 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-literal|true
+literal|false
 return|;
 block|}
-comment|/**    * Get the restore snapshot sentinel for the specified table    * @param tableName table under restore    * @return the restore snapshot handler    */
+comment|/**    * Return the handler if it is currently live and has the same snapshot target name.    * The handler is removed from the sentinels map if completed.    * @param sentinels live handlers    * @param snapshot snapshot description    * @return null if doesn't match, else a live handler.    */
 specifier|private
 specifier|synchronized
 name|SnapshotSentinel
-name|getRestoreSnapshotSentinel
+name|removeSentinelIfFinished
 parameter_list|(
 specifier|final
+name|Map
+argument_list|<
 name|String
-name|tableName
+argument_list|,
+name|SnapshotSentinel
+argument_list|>
+name|sentinels
+parameter_list|,
+specifier|final
+name|SnapshotDescription
+name|snapshot
 parameter_list|)
 block|{
-try|try
-block|{
-return|return
-name|restoreHandlers
+name|SnapshotSentinel
+name|h
+init|=
+name|sentinels
 operator|.
 name|get
 argument_list|(
-name|tableName
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|h
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
 return|;
 block|}
-finally|finally
-block|{
-name|cleanupRestoreSentinels
+if|if
+condition|(
+operator|!
+name|h
+operator|.
+name|getSnapshot
 argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// specified snapshot is to the one currently running
+return|return
+literal|null
+return|;
+block|}
+comment|// Remove from the "in-progress" list once completed
+if|if
+condition|(
+name|h
+operator|.
+name|isFinished
+argument_list|()
+condition|)
+block|{
+name|sentinels
+operator|.
+name|remove
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|h
+return|;
 block|}
-comment|/**    * Scan the restore handlers and remove the finished ones.    */
+comment|/**    * Removes "abandoned" snapshot/restore requests.    * As part of the HBaseAdmin snapshot/restore API the operation status is checked until completed,    * and the in-progress maps are cleaned up when the status of a completed task is requested.    * To avoid having sentinels staying around for long time if something client side is failed,    * each operation tries to clean up the in-progress maps sentinels finished from a long time.    */
+specifier|private
+name|void
+name|cleanupSentinels
+parameter_list|()
+block|{
+name|cleanupSentinels
+argument_list|(
+name|this
+operator|.
+name|snapshotHandlers
+argument_list|)
+expr_stmt|;
+name|cleanupSentinels
+argument_list|(
+name|this
+operator|.
+name|restoreHandlers
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Remove the sentinels that are marked as finished and the completion time    * has exceeded the removal timeout.    * @param sentinels map of sentinels to clean    */
 specifier|private
 specifier|synchronized
 name|void
-name|cleanupRestoreSentinels
-parameter_list|()
+name|cleanupSentinels
+parameter_list|(
+specifier|final
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|SnapshotSentinel
+argument_list|>
+name|sentinels
+parameter_list|)
 block|{
+name|long
+name|currentTime
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|Iterator
 argument_list|<
 name|Map
@@ -3799,7 +3828,7 @@ argument_list|>
 argument_list|>
 name|it
 init|=
-name|restoreHandlers
+name|sentinels
 operator|.
 name|entrySet
 argument_list|()
@@ -3844,6 +3873,17 @@ name|sentinel
 operator|.
 name|isFinished
 argument_list|()
+operator|&&
+operator|(
+name|currentTime
+operator|-
+name|sentinel
+operator|.
+name|getCompletionTimestamp
+argument_list|()
+operator|)
+operator|>
+name|SNAPSHOT_SENTINELS_CLEANUP_TIMEOUT
 condition|)
 block|{
 name|it
@@ -3883,23 +3923,27 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// pass the stop onto take snapshot handlers
-if|if
-condition|(
+for|for
+control|(
+name|SnapshotSentinel
+name|snapshotHandler
+range|:
 name|this
 operator|.
-name|handler
-operator|!=
-literal|null
-condition|)
-name|this
+name|snapshotHandlers
 operator|.
-name|handler
+name|values
+argument_list|()
+control|)
+block|{
+name|snapshotHandler
 operator|.
 name|cancel
 argument_list|(
 name|why
 argument_list|)
 expr_stmt|;
+block|}
 comment|// pass the stop onto all the restore handlers
 for|for
 control|(

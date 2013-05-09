@@ -104,6 +104,12 @@ name|boolean
 name|isFinished
 parameter_list|()
 function_decl|;
+comment|/**    * @return -1 if the snapshot is in progress, otherwise the completion timestamp.    */
+specifier|public
+name|long
+name|getCompletionTimestamp
+parameter_list|()
+function_decl|;
 comment|/**    * Actively cancel a running snapshot.    * @param why Reason for cancellation.    */
 specifier|public
 name|void
@@ -124,6 +130,14 @@ specifier|public
 name|ForeignException
 name|getExceptionIfFailed
 parameter_list|()
+function_decl|;
+comment|/**    * Rethrow the exception returned by {@link SnapshotSentinel#getExceptionIfFailed}.    * If there is no exception this is a no-op.    *    * @throws ForeignException all exceptions from remote sources are procedure exceptions    */
+specifier|public
+name|void
+name|rethrowExceptionIfFailed
+parameter_list|()
+throws|throws
+name|ForeignException
 function_decl|;
 block|}
 end_interface

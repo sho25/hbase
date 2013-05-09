@@ -484,7 +484,7 @@ specifier|final
 name|TimeoutExceptionInjector
 name|timeoutInjector
 decl_stmt|;
-comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    * @throws IOException on unexpected error    */
+comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    */
 specifier|public
 name|DisabledTableSnapshotHandler
 parameter_list|(
@@ -499,8 +499,6 @@ specifier|final
 name|MetricsMaster
 name|metricsMaster
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(
