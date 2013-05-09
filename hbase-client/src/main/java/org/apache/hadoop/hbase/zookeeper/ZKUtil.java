@@ -4794,6 +4794,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|znode
+argument_list|,
+name|data
 argument_list|)
 expr_stmt|;
 block|}
