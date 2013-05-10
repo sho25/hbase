@@ -1405,20 +1405,6 @@ argument_list|(
 literal|"Loading test table"
 argument_list|)
 expr_stmt|;
-comment|// Load some rows
-name|TEST_UTIL
-operator|.
-name|loadNumericRows
-argument_list|(
-name|table
-argument_list|,
-name|FAMILY
-argument_list|,
-literal|0
-argument_list|,
-name|FIRST_BATCH_COUNT
-argument_list|)
-expr_stmt|;
 comment|// Find the region
 name|List
 argument_list|<
@@ -1458,6 +1444,32 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Blocking compactions"
+argument_list|)
+expr_stmt|;
+name|compactingRegion
+operator|.
+name|stopCompactions
+argument_list|()
+expr_stmt|;
+comment|// Load some rows
+name|TEST_UTIL
+operator|.
+name|loadNumericRows
+argument_list|(
+name|table
+argument_list|,
+name|FAMILY
+argument_list|,
+literal|0
+argument_list|,
+name|FIRST_BATCH_COUNT
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|compactingRegion
@@ -1478,18 +1490,6 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Blocking compactions"
-argument_list|)
-expr_stmt|;
-name|compactingRegion
-operator|.
-name|stopCompactions
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
