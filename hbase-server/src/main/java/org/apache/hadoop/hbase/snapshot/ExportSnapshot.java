@@ -3933,7 +3933,33 @@ literal|"A snapshot with the same name '"
 operator|+
 name|snapshotName
 operator|+
-literal|"' is in-progress"
+literal|"' may be in-progress"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Please check "
+operator|+
+name|snapshotTmpDir
+operator|+
+literal|". If the snapshot has completed, "
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"consider removing "
+operator|+
+name|snapshotTmpDir
+operator|+
+literal|" before retrying export"
 argument_list|)
 expr_stmt|;
 return|return
