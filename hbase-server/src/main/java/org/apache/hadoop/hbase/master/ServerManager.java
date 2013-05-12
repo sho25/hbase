@@ -611,6 +611,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Triple
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -2517,7 +2533,7 @@ argument_list|)
 return|;
 block|}
 comment|// RPC methods to region servers
-comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param versionOfOfflineNode that needs to be present in the offline node    * when RS tries to change the state from OFFLINE to other states.    */
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param versionOfOfflineNode that needs to be present in the offline node    * when RS tries to change the state from OFFLINE to other states.    * @param favoredNodes    */
 specifier|public
 name|RegionOpeningState
 name|sendRegionOpen
@@ -2531,6 +2547,12 @@ name|region
 parameter_list|,
 name|int
 name|versionOfOfflineNode
+parameter_list|,
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|favoredNodes
 parameter_list|)
 throws|throws
 name|IOException
@@ -2582,6 +2604,8 @@ argument_list|(
 name|region
 argument_list|,
 name|versionOfOfflineNode
+argument_list|,
+name|favoredNodes
 argument_list|)
 decl_stmt|;
 try|try
@@ -2636,11 +2660,16 @@ name|server
 parameter_list|,
 name|List
 argument_list|<
-name|Pair
+name|Triple
 argument_list|<
 name|HRegionInfo
 argument_list|,
 name|Integer
+argument_list|,
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
 argument_list|>
 argument_list|>
 name|regionOpenInfos

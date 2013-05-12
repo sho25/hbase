@@ -104,7 +104,7 @@ specifier|public
 class|class
 name|LoadBalancerFactory
 block|{
-comment|/**    * Create a loadblanacer from the given conf.    * @param conf    * @return A {@link LoadBalancer}    */
+comment|/**    * Create a loadbalancer from the given conf.    * @param conf    * @return A {@link LoadBalancer}    */
 specifier|public
 specifier|static
 name|LoadBalancer

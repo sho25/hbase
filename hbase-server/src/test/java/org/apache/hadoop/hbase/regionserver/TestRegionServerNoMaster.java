@@ -594,6 +594,8 @@ argument_list|(
 name|hri
 argument_list|,
 literal|0
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|AdminProtos
@@ -1104,6 +1106,8 @@ argument_list|(
 name|hri
 argument_list|,
 literal|0
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|AdminProtos

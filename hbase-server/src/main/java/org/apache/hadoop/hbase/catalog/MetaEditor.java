@@ -648,6 +648,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Put the passed<code>ps</code> to the<code>.META.</code> table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param ps Put to add to .META.    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|putsToMetaTable

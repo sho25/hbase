@@ -8589,6 +8589,8 @@ name|region
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
