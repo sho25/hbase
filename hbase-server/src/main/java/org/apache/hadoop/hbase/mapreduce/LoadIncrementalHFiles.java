@@ -2059,6 +2059,29 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|queue
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|queue
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Bulk load aborted with some files not yet loaded."
+operator|+
+literal|"Please check log for more details."
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * This takes the LQI's grouped by likely regions and attempts to bulk load    * them.  Any failures are re-queued for another pass with the    * groupOrSplitPhase.    */
 specifier|protected
