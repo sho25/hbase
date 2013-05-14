@@ -1714,6 +1714,13 @@ name|e
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|children
+operator|==
+literal|null
+condition|)
+return|return;
 name|KeeperException
 name|deferred
 init|=
