@@ -1087,12 +1087,6 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|compactedFiles
-parameter_list|,
-name|Collection
-argument_list|<
-name|StoreFile
-argument_list|>
-name|result
 parameter_list|)
 throws|throws
 name|IOException
@@ -1133,8 +1127,6 @@ operator|.
 name|completeCompaction
 argument_list|(
 name|compactedFiles
-argument_list|,
-name|result
 argument_list|)
 expr_stmt|;
 block|}
