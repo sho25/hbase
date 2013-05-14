@@ -7746,7 +7746,9 @@ argument_list|(
 literal|"Mini mapreduce cluster started"
 argument_list|)
 expr_stmt|;
-comment|// Needed for TestImportTsv.
+comment|// In hadoop2, YARN/MR2 starts a mini cluster with its own conf instance and updates settings.
+comment|// Our HBase MR jobs need several of these settings in order to properly run.  So we copy the
+comment|// necessary config properties here.  YARN-129 required adding a few properties.
 name|conf
 operator|.
 name|set
@@ -7769,6 +7771,15 @@ argument_list|(
 literal|"mapreduce.framework.name"
 argument_list|,
 literal|"yarn"
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"yarn.is.minicluster"
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|String
