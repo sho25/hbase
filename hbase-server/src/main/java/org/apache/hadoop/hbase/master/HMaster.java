@@ -3345,7 +3345,6 @@ name|ActiveMasterManager
 name|activeMasterManager
 decl_stmt|;
 comment|// Region server tracker
-specifier|private
 name|RegionServerTracker
 name|regionServerTracker
 decl_stmt|;
@@ -3392,7 +3391,6 @@ name|MasterFileSystem
 name|fileSystemManager
 decl_stmt|;
 comment|// server manager to deal with region server info
-specifier|private
 name|ServerManager
 name|serverManager
 decl_stmt|;
@@ -4728,7 +4726,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Initialize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    */
-specifier|private
 name|void
 name|initializeZKBasedSystemTrackers
 parameter_list|()
@@ -5354,31 +5351,28 @@ name|isServerOnline
 argument_list|(
 name|sn
 argument_list|)
-condition|)
-block|{
-comment|// Not registered; add it.
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Registering server found up in zk but who has not yet "
-operator|+
-literal|"reported in: "
-operator|+
-name|sn
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
+operator|&&
 name|serverManager
 operator|.
-name|recordNewServer
+name|checkAlreadySameHostPortAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
 name|ServerLoad
 operator|.
 name|EMPTY_SERVERLOAD
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Registered server found up in zk but who has not yet "
+operator|+
+literal|"reported in: "
+operator|+
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -14247,10 +14241,7 @@ name|snapshotManager
 operator|.
 name|isRestoreDone
 argument_list|(
-name|request
-operator|.
-name|getSnapshot
-argument_list|()
+name|snapshot
 argument_list|)
 decl_stmt|;
 name|builder

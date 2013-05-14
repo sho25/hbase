@@ -605,22 +605,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Triple
 import|;
 end_import
@@ -1013,12 +997,10 @@ argument_list|,
 literal|"STARTUP"
 argument_list|)
 expr_stmt|;
-name|checkAlreadySameHostPort
-argument_list|(
-name|sn
-argument_list|)
-expr_stmt|;
-name|recordNewServer
+if|if
+condition|(
+operator|!
+name|checkAlreadySameHostPortAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
@@ -1026,7 +1008,20 @@ name|ServerLoad
 operator|.
 name|EMPTY_SERVERLOAD
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"THIS SHOULD NOT HAPPEN, RegionServerStartup"
+operator|+
+literal|" could not record the server: "
+operator|+
+name|sn
+argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|sn
 return|;
@@ -1190,8 +1185,6 @@ name|sl
 parameter_list|)
 throws|throws
 name|YouAreDeadException
-throws|,
-name|PleaseHoldException
 block|{
 name|checkIsDead
 argument_list|(
@@ -1214,23 +1207,34 @@ argument_list|)
 condition|)
 block|{
 comment|// Already have this host+port combo and its just different start code?
-name|checkAlreadySameHostPort
-argument_list|(
-name|sn
-argument_list|)
-expr_stmt|;
 comment|// Just let the server in. Presume master joining a running cluster.
 comment|// recordNewServer is what happens at the end of reportServerStartup.
 comment|// The only thing we are skipping is passing back to the regionserver
 comment|// the ServerName to use. Here we presume a master has already done
 comment|// that so we'll press on with whatever it gave us for ServerName.
-name|recordNewServer
+if|if
+condition|(
+operator|!
+name|checkAlreadySameHostPortAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
 name|sl
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"RegionServerReport ignored, could not record the sever: "
+operator|+
+name|sn
+argument_list|)
 expr_stmt|;
+return|return;
+comment|// Not recorded, so no need to move on
+block|}
 block|}
 else|else
 block|{
@@ -1254,27 +1258,24 @@ name|sl
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test to see if we have a server of same host and port already.    * @param serverName    * @throws PleaseHoldException    */
-name|void
-name|checkAlreadySameHostPort
+comment|/**    * Check is a server of same host and port already exists,    * if not, or the existed one got a smaller start code, record it.    *    * @param sn the server to check and record    * @param sl the server load on the server    * @return true if the server is recorded, otherwise, false    */
+name|boolean
+name|checkAlreadySameHostPortAndRecordNewServer
 parameter_list|(
 specifier|final
 name|ServerName
 name|serverName
+parameter_list|,
+specifier|final
+name|ServerLoad
+name|sl
 parameter_list|)
-throws|throws
-name|PleaseHoldException
 block|{
 name|ServerName
 name|existingServer
 init|=
-name|ServerName
-operator|.
 name|findServerWithSameHostnamePort
 argument_list|(
-name|getOnlineServersList
-argument_list|()
-argument_list|,
 name|serverName
 argument_list|)
 decl_stmt|;
@@ -1285,9 +1286,23 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|String
-name|message
-init|=
+if|if
+condition|(
+name|existingServer
+operator|.
+name|getStartcode
+argument_list|()
+operator|>
+name|serverName
+operator|.
+name|getStartcode
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
 literal|"Server serverName="
 operator|+
 name|serverName
@@ -1300,27 +1315,12 @@ name|toString
 argument_list|()
 operator|+
 literal|" registered with same hostname and port"
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|message
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|existingServer
-operator|.
-name|getStartcode
-argument_list|()
-operator|<
-name|serverName
-operator|.
-name|getStartcode
-argument_list|()
-condition|)
-block|{
+return|return
+literal|false
+return|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -1340,24 +1340,16 @@ name|existingServer
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|services
-operator|.
-name|isServerShutdownHandlerEnabled
-argument_list|()
-condition|)
-block|{
-comment|// master has completed the initialization
-throw|throw
-operator|new
-name|PleaseHoldException
+name|recordNewServer
 argument_list|(
-name|message
+name|serverName
+argument_list|,
+name|sl
 argument_list|)
-throw|;
-block|}
-block|}
+expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Checks if the clock skew between the server and the master. If the clock skew exceeds the    * configured max, it will throw an exception; if it exceeds the configured warning threshold,    * it will log a warning but start normally.    * @param serverName Incoming servers's name    * @param serverCurrentTime    * @throws ClockOutOfSyncException if the skew exceeds the configured max value    */
 specifier|private
@@ -1582,6 +1574,44 @@ literal|" removed it from the dead servers list"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * @return ServerName with matching hostname and port.    */
+specifier|private
+name|ServerName
+name|findServerWithSameHostnamePort
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+for|for
+control|(
+name|ServerName
+name|sn
+range|:
+name|getOnlineServersList
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|ServerName
+operator|.
+name|isSameHostnameAndPort
+argument_list|(
+name|serverName
+argument_list|,
+name|sn
+argument_list|)
+condition|)
+return|return
+name|sn
+return|;
+block|}
+return|return
+literal|null
+return|;
 block|}
 comment|/**    * Adds the onlineServers list.    * @param serverName The remote servers name.    * @param sl    */
 name|void
