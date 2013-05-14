@@ -183,6 +183,22 @@ name|Seekable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * The FileLink is a sort of hardlink, that allows access to a file given a set of locations.  *  *<p><b>The Problem:</b>  *<ul>  *<li>  *    HDFS doesn't have support for hardlinks, and this make impossible to referencing  *    the same data blocks using different names.  *</li>  *<li>  *    HBase store files in one location (e.g. table/region/family/) and when the file is not  *    needed anymore (e.g. compaction, region deletion, ...) moves it to an archive directory.  *</li>  *</ul>  * If we want to create a reference to a file, we need to remember that it can be in its  * original location or in the archive folder.  * The FileLink class tries to abstract this concept and given a set of locations  * it is able to switch between them making this operation transparent for the user.  * {@link HFileLink} is a more concrete implementation of the {@code FileLink}.  *  *<p><b>Back-references:</b>  * To help the {@link org.apache.hadoop.hbase.master.cleaner.CleanerChore} to keep track of  * the links to a particular file, during the {@code FileLink} creation, a new file is placed  * inside a back-reference directory. There's one back-reference directory for each file that  * has links, and in the directory there's one file per link.  *  *<p>HFileLink Example  *<ul>  *<li>  *      /hbase/table/region-x/cf/file-k  *      (Original File)  *</li>  *<li>  *      /hbase/table-cloned/region-y/cf/file-k.region-x.table  *     (HFileLink to the original file)  *</li>  *<li>  *      /hbase/table-2nd-cloned/region-z/cf/file-k.region-x.table  *      (HFileLink to the original file)  *</li>  *<li>  *      /hbase/.archive/table/region-x/.links-file-k/region-y.table-cloned  *      (Back-reference to the link in table-cloned)  *</li>  *<li>  *      /hbase/.archive/table/region-x/.links-file-k/region-z.table-2nd-cloned  *      (Back-reference to the link in table-2nd-cloned)  *</li>  *</ul>  */
 end_comment
@@ -285,16 +301,11 @@ name|fs
 argument_list|,
 name|fileLink
 argument_list|,
-name|fs
+name|FSUtils
 operator|.
-name|getConf
-argument_list|()
-operator|.
-name|getInt
+name|getDefaultBufferSize
 argument_list|(
-literal|"io.file.buffer.size"
-argument_list|,
-literal|4096
+name|fs
 argument_list|)
 argument_list|)
 expr_stmt|;
