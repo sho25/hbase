@@ -1073,6 +1073,31 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Clean all existing listeners    */
+specifier|public
+name|void
+name|unregisterAllListeners
+parameter_list|()
+block|{
+name|listeners
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * @return The number of currently registered listeners    */
+specifier|public
+name|int
+name|getNumberOfListeners
+parameter_list|()
+block|{
+return|return
+name|listeners
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 comment|/**    * Get the connection to ZooKeeper.    * @return connection reference to zookeeper    */
 specifier|public
 name|RecoverableZooKeeper

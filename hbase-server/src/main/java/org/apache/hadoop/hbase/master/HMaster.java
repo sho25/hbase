@@ -11481,6 +11481,13 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
+name|unregisterAllListeners
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|zooKeeper
+operator|.
 name|reconnectAfterExpiration
 argument_list|()
 expr_stmt|;

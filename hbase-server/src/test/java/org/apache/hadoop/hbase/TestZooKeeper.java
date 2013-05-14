@@ -2610,6 +2610,22 @@ operator|.
 name|getMaster
 argument_list|()
 decl_stmt|;
+name|ZooKeeperWatcher
+name|zkw
+init|=
+name|m
+operator|.
+name|getZooKeeperWatcher
+argument_list|()
+decl_stmt|;
+name|int
+name|expectedNumOfListeners
+init|=
+name|zkw
+operator|.
+name|getNumberOfListeners
+argument_list|()
+decl_stmt|;
 comment|// now the cluster is up. So assign some regions.
 name|HBaseAdmin
 name|admin
@@ -2783,6 +2799,17 @@ argument_list|,
 name|MockLoadBalancer
 operator|.
 name|retainAssignCalled
+argument_list|)
+expr_stmt|;
+comment|// number of listeners should be same as the value before master aborted
+name|assertEquals
+argument_list|(
+name|expectedNumOfListeners
+argument_list|,
+name|zkw
+operator|.
+name|getNumberOfListeners
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
