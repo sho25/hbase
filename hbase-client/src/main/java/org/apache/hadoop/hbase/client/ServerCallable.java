@@ -956,6 +956,11 @@ name|expectedSleep
 operator|<
 name|MIN_WAIT_DEAD_SERVER
 operator|&&
+operator|(
+name|location
+operator|==
+literal|null
+operator|||
 name|getConnection
 argument_list|()
 operator|.
@@ -966,6 +971,7 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|)
+operator|)
 condition|)
 block|{
 name|expectedSleep
