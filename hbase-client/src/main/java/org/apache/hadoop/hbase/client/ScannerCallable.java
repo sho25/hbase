@@ -1067,28 +1067,7 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Reset scanner"
-argument_list|,
-name|ioe
-argument_list|)
-throw|;
-block|}
-elseif|else
-if|if
-condition|(
-name|ioe
-operator|instanceof
-name|RegionServerStoppedException
-condition|)
-block|{
-comment|// Throw a DNRE so that we break out of cycle of calling RSSE
-comment|// when what we need is to open scanner against new location.
-comment|// Attach RSSE to signal client that it needs to resetup scanner.
-throw|throw
-operator|new
-name|DoNotRetryIOException
-argument_list|(
-literal|"Reset scanner"
+literal|"Resetting the scanner -- see exception cause"
 argument_list|,
 name|ioe
 argument_list|)

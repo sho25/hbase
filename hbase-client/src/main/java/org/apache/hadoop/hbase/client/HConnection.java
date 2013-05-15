@@ -755,9 +755,7 @@ index|[]
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Scan zookeeper to get the number of region servers    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    * @deprecated This method will be changed from public to package protected.    */
-annotation|@
-name|Deprecated
+comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    * @deprecated This method will be changed from public to package protected.    */
 specifier|public
 name|int
 name|getCurrentNrHRS

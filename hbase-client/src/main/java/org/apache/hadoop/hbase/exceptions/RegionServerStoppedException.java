@@ -31,16 +31,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown by the region server when it is in shutting down state.  */
 end_comment
@@ -59,7 +49,7 @@ specifier|public
 class|class
 name|RegionServerStoppedException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|public
 name|RegionServerStoppedException

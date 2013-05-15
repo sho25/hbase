@@ -798,7 +798,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received exception, tries="
+literal|"Call exception, tries="
 operator|+
 name|tries
 operator|+
@@ -806,12 +806,9 @@ literal|", numRetries="
 operator|+
 name|numRetries
 operator|+
-literal|":"
+literal|": "
 operator|+
 name|t
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|t

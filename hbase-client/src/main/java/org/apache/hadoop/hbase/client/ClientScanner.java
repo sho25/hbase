@@ -924,7 +924,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished with scanning at "
+literal|"Finished scanning region "
 operator|+
 name|this
 operator|.
@@ -1390,6 +1390,13 @@ operator|instanceof
 name|RegionServerStoppedException
 operator|)
 operator|)
+operator|)
+operator|&&
+operator|!
+operator|(
+name|e
+operator|instanceof
+name|RegionServerStoppedException
 operator|)
 operator|&&
 operator|!

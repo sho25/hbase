@@ -5334,9 +5334,20 @@ name|t
 argument_list|)
 condition|)
 block|{
+name|String
+name|prefix
+init|=
+name|t
+operator|instanceof
+name|YouAreDeadException
+condition|?
+literal|""
+else|:
+literal|"Unhandled: "
+decl_stmt|;
 name|abort
 argument_list|(
-literal|"Unhandled exception: "
+name|prefix
 operator|+
 name|t
 operator|.
