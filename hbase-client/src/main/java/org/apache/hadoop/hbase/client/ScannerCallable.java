@@ -1034,6 +1034,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// The below convertion of exceptions into DoNotRetryExceptions is a little strange.
+comment|// Why not just have these exceptions implment DNRIOE you ask?  Well, usually we want
+comment|// ServerCallable#withRetries to just retry when it gets these exceptions.  In here in
+comment|// a scan when doing a next in particular, we want to break out and get the scanner to
+comment|// reset itself up again.  Throwing a DNRIOE is how we signal this to happen (its ugly,
+comment|// yeah and hard to follow and in need of a refactor).
 if|if
 condition|(
 name|ioe
@@ -1043,7 +1049,7 @@ condition|)
 block|{
 comment|// Throw a DNRE so that we break out of cycle of calling NSRE
 comment|// when what we need is to open scanner against new location.
-comment|// Attach NSRE to signal client that it needs to resetup scanner.
+comment|// Attach NSRE to signal client that it needs to re-setup scanner.
 if|if
 condition|(
 name|this
@@ -1063,6 +1069,26 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Resetting the scanner -- see exception cause"
+argument_list|,
+name|ioe
+argument_list|)
+throw|;
+block|}
+elseif|else
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|RegionServerStoppedException
+condition|)
+block|{
+comment|// Throw a DNRE so that we break out of cycle of the retries and instead go and
+comment|// open scanner against new location.
 throw|throw
 operator|new
 name|DoNotRetryIOException

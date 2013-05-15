@@ -1294,6 +1294,8 @@ name|DoNotRetryIOException
 name|e
 parameter_list|)
 block|{
+comment|// DNRIOEs are thrown to make us break out of retries.  Some types of DNRIOEs want us
+comment|// to reset the scanner and come back in again.
 if|if
 condition|(
 name|e
@@ -1308,9 +1310,9 @@ name|lastNext
 operator|+
 name|scannerTimeout
 decl_stmt|;
-comment|// If we are over the timeout, throw this exception to the client
-comment|// Else, it's because the region moved and we used the old id
-comment|// against the new region server; reset the scanner.
+comment|// If we are over the timeout, throw this exception to the client wrapped in
+comment|// a ScannerTimeoutException. Else, it's because the region moved and we used the old
+comment|// id against the new region server; reset the scanner.
 if|if
 condition|(
 name|timeout
@@ -1360,6 +1362,8 @@ block|}
 block|}
 else|else
 block|{
+comment|// If exception is any but the list below throw it back to the client; else setup
+comment|// the scanner and retry.
 name|Throwable
 name|cause
 init|=
@@ -1372,48 +1376,41 @@ if|if
 condition|(
 operator|(
 name|cause
-operator|==
+operator|!=
 literal|null
-operator|||
-operator|(
-operator|!
-operator|(
+operator|&&
 name|cause
 operator|instanceof
 name|NotServingRegionException
 operator|)
-operator|&&
-operator|!
+operator|||
 operator|(
+name|cause
+operator|!=
+literal|null
+operator|&&
 name|cause
 operator|instanceof
 name|RegionServerStoppedException
 operator|)
-operator|)
-operator|)
-operator|&&
-operator|!
-operator|(
-name|e
-operator|instanceof
-name|RegionServerStoppedException
-operator|)
-operator|&&
-operator|!
-operator|(
+operator|||
 name|e
 operator|instanceof
 name|OutOfOrderScannerNextException
-operator|)
 condition|)
+block|{
+comment|// Pass
+comment|// It is easier writing the if loop test as list of what is allowed rather than
+comment|// as a list of what is not allowed... so if in here, it means we do not throw.
+block|}
+else|else
 block|{
 throw|throw
 name|e
 throw|;
 block|}
 block|}
-comment|// Else, its signal from depths of ScannerCallable that we got an
-comment|// NSRE on a next and that we need to reset the scanner.
+comment|// Else, its signal from depths of ScannerCallable that we need to reset the scanner.
 if|if
 condition|(
 name|this
@@ -1463,6 +1460,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// TODO: Why wrap this in a DNRIOE when it already is a DNRIOE?
 throw|throw
 operator|new
 name|DoNotRetryIOException
@@ -1476,17 +1474,20 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Clear region
+comment|// Clear region.
 name|this
 operator|.
 name|currentRegion
 operator|=
 literal|null
 expr_stmt|;
+comment|// Set this to zero so we don't try and do an rpc and close on remote server when
+comment|// the exception we got was UnknownScanner or the Server is going down.
 name|callable
 operator|=
 literal|null
 expr_stmt|;
+comment|// This continue will take us to while at end of loop where we will set up new scanner.
 continue|continue;
 block|}
 name|long
