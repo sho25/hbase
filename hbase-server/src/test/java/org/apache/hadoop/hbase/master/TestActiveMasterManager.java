@@ -565,8 +565,6 @@ operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
 name|status
-argument_list|,
-name|clusterStatusTracker
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -621,8 +619,6 @@ operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
 name|status
-argument_list|,
-name|clusterStatusTracker
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -794,8 +790,6 @@ name|MonitoredTask
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|clusterStatusTracker
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1161,13 +1155,6 @@ name|MonitoredTask
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|this
-operator|.
-name|dummyMaster
-operator|.
-name|getClusterStatusTracker
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG

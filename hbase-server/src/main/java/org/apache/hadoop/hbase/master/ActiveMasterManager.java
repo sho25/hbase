@@ -169,22 +169,6 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ClusterStatusTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
 name|MasterAddressTracker
 import|;
 end_import
@@ -288,6 +272,16 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+specifier|final
+name|AtomicBoolean
+name|clusterShutDown
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|final
 name|ServerName
@@ -355,6 +349,39 @@ name|String
 name|path
 parameter_list|)
 block|{
+comment|// We need to keep track of the cluster's shutdown status while
+comment|// we wait on the current master. We consider that, if the cluster
+comment|// was already in a "shutdown" state when we started, that this master
+comment|// is part of a new cluster that was started shortly after the old cluster
+comment|// shut down, so that state is now irrelevant. This means that the shutdown
+comment|// state must be set while we wait on the active master in order
+comment|// to shutdown this master. See HBASE-8519.
+if|if
+condition|(
+name|path
+operator|.
+name|equals
+argument_list|(
+name|watcher
+operator|.
+name|clusterStateZNode
+argument_list|)
+operator|&&
+operator|!
+name|master
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|clusterShutDown
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 name|handle
 argument_list|(
 name|path
@@ -487,9 +514,6 @@ name|blockUntilBecomingActiveMaster
 parameter_list|(
 name|MonitoredTask
 name|startupStatus
-parameter_list|,
-name|ClusterStatusTracker
-name|clusterStatusTracker
 parameter_list|)
 block|{
 while|while
@@ -902,10 +926,9 @@ block|}
 block|}
 if|if
 condition|(
-operator|!
-name|clusterStatusTracker
+name|clusterShutDown
 operator|.
-name|isClusterUp
+name|get
 argument_list|()
 condition|)
 block|{

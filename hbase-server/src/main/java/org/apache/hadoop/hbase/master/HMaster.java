@@ -4759,10 +4759,6 @@ operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
 name|startupStatus
-argument_list|,
-name|this
-operator|.
-name|clusterStatusTracker
 argument_list|)
 return|;
 block|}
