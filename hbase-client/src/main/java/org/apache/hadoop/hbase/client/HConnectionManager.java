@@ -3838,16 +3838,16 @@ name|HConstants
 operator|.
 name|CLUSTER_ID_DEFAULT
 expr_stmt|;
-block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"ClusterId is "
+literal|"clusterid came back null, using default "
 operator|+
 name|clusterId
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

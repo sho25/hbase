@@ -5372,7 +5372,7 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests that a closed connection does not have a live zookeeper    * @throws Exception    */
+comment|/**    * Tests that a destroyed connection does not have a live zookeeper.    * Below is timing based.  We put up a connection to a table and then close the connection while    * having a background thread running that is forcing close of the connection to try and    * provoke a close catastrophe; we are hoping for a car crash so we can see if we are leaking    * zk connections.    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -5395,11 +5395,54 @@ specifier|final
 name|Configuration
 name|config
 init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|)
 decl_stmt|;
+name|config
+operator|.
+name|setInt
+argument_list|(
+literal|"zookeeper.recovery.retry"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|config
+operator|.
+name|setInt
+argument_list|(
+literal|"zookeeper.recovery.retry.intervalmill"
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
+name|config
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.rpc.timeout"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
+name|config
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
 name|ThreadPoolExecutor
 name|pool
 init|=
@@ -5467,11 +5510,39 @@ argument_list|(
 name|config
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Connection "
+operator|+
+name|conn
+argument_list|)
+expr_stmt|;
 name|HConnectionManager
 operator|.
 name|deleteStaleConnection
 argument_list|(
 name|conn
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Connection closed "
+operator|+
+name|conn
+argument_list|)
+expr_stmt|;
+comment|// TODO: This sleep time should be less than the time that it takes to open and close
+comment|// a table.  Ideally we would do a few runs first to measure.  For now this is
+comment|// timing based; hopefully we hit the bad condition.
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|10
 argument_list|)
 expr_stmt|;
 block|}
@@ -5486,7 +5557,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|// use connection multiple times
+comment|// Use connection multiple times.
 for|for
 control|(
 name|int
@@ -5496,7 +5567,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|50
+literal|30
 condition|;
 name|i
 operator|++
@@ -5518,6 +5589,19 @@ argument_list|(
 name|config
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HTable connection "
+operator|+
+name|i
+operator|+
+literal|" "
+operator|+
+name|c1
+argument_list|)
+expr_stmt|;
 name|HTable
 name|table
 init|=
@@ -5536,13 +5620,36 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HTable connection "
+operator|+
+name|i
+operator|+
+literal|" closed "
+operator|+
+name|c1
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{       }
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"We actually want this to happen!!!!  So we can see if we are leaking zk"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 finally|finally
 block|{
 if|if
