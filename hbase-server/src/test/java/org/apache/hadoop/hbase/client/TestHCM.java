@@ -5542,7 +5542,7 @@ parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{         }
+block|{       }
 finally|finally
 block|{
 if|if
@@ -5617,6 +5617,34 @@ name|isAlive
 argument_list|()
 condition|)
 block|{
+comment|// non-synchronized access to watcher; sleep and check again in case zk connection
+comment|// hasn't been cleaned up yet.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|50
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|ZooKeeperWatcher
+operator|)
+name|watcher
+operator|)
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
+name|getState
+argument_list|()
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
 name|pool
 operator|.
 name|shutdownNow
@@ -5627,6 +5655,7 @@ argument_list|(
 literal|"Live zookeeper in closed connection"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
