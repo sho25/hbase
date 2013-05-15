@@ -1229,6 +1229,10 @@ operator|.
 name|getCacheKey
 argument_list|()
 decl_stmt|;
+name|msg
+operator|+=
+literal|". This is harmless and can happen in rare cases (see HBASE-8547)"
+expr_stmt|;
 name|LOG
 operator|.
 name|warn
