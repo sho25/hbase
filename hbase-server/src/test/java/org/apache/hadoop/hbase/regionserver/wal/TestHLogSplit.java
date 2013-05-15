@@ -7469,8 +7469,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|reporter
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HLogSplitter

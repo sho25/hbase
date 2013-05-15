@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 package|;
 end_package
 
@@ -31,31 +31,72 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
-comment|/**  * Last flushed sequence Ids for the regions on region server  */
+comment|/**  * Thrown when a read request issued against a region which is in recovering state.  */
 end_comment
 
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
-interface|interface
-name|LastSequenceId
+class|class
+name|RegionInRecoveryException
+extends|extends
+name|NotServingRegionException
 block|{
-comment|/**    * @param regionName Encoded region name    * @return Last flushed sequence Id for regionName or -1 if it can't be determined    */
-specifier|public
+specifier|private
+specifier|static
+specifier|final
 name|long
-name|getLastSequenceId
-parameter_list|(
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-function_decl|;
+name|serialVersionUID
+init|=
+literal|327302071153799L
+decl_stmt|;
+comment|/** default constructor */
+specifier|public
+name|RegionInRecoveryException
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
 block|}
-end_interface
+comment|/**    * Constructor    * @param s message    */
+specifier|public
+name|RegionInRecoveryException
+parameter_list|(
+name|String
+name|s
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+end_class
 
 end_unit
 

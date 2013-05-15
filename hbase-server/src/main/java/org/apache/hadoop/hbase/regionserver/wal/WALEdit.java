@@ -353,6 +353,11 @@ literal|1
 decl_stmt|;
 specifier|private
 specifier|final
+name|boolean
+name|isReplay
+decl_stmt|;
+specifier|private
+specifier|final
 name|ArrayList
 argument_list|<
 name|KeyValue
@@ -386,7 +391,27 @@ decl_stmt|;
 specifier|public
 name|WALEdit
 parameter_list|()
-block|{   }
+block|{
+name|this
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|WALEdit
+parameter_list|(
+name|boolean
+name|isReplay
+parameter_list|)
+block|{
+name|this
+operator|.
+name|isReplay
+operator|=
+name|isReplay
+expr_stmt|;
+block|}
 comment|/**    * @param f    * @return True is<code>f</code> is {@link #METAFAMILY}    */
 specifier|public
 specifier|static
@@ -408,6 +433,18 @@ name|METAFAMILY
 argument_list|,
 name|f
 argument_list|)
+return|;
+block|}
+comment|/**    * @return True when current WALEdit is created by log replay. Replication skips WALEdits from    *         replay.    */
+specifier|public
+name|boolean
+name|isReplay
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|isReplay
 return|;
 block|}
 specifier|public

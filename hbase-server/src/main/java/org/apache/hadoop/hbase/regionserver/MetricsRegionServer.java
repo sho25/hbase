@@ -321,6 +321,22 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|updateReplay
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+block|{
+name|serverSource
+operator|.
+name|updateReplay
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

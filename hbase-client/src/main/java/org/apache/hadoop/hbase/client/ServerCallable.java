@@ -834,6 +834,11 @@ name|t
 operator|instanceof
 name|RetriesExhaustedException
 operator|||
+operator|(
+name|location
+operator|!=
+literal|null
+operator|&&
 name|getConnection
 argument_list|()
 operator|.
@@ -844,6 +849,7 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|)
+operator|)
 condition|)
 block|{
 comment|// if thrown these exceptions, we clear all the cache entries that
@@ -1200,6 +1206,16 @@ operator|instanceof
 name|UndeclaredThrowableException
 condition|)
 block|{
+if|if
+condition|(
+name|t
+operator|.
+name|getCause
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|t
 operator|=
 name|t
@@ -1207,6 +1223,7 @@ operator|.
 name|getCause
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(

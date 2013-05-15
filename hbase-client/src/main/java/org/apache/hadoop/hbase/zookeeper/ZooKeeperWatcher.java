@@ -433,6 +433,11 @@ specifier|public
 name|String
 name|tableLockZNode
 decl_stmt|;
+comment|// znode containing the state of recovering regions
+specifier|public
+name|String
+name|recoveringRegionsZNode
+decl_stmt|;
 comment|// Certain ZooKeeper nodes need to be world-readable
 specifier|public
 specifier|static
@@ -532,7 +537,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @param conf    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    * context.    * @param canCreateBaseZNode    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param conf    * @param identifier string that is passed to RecoverableZookeeper to be used as identifier for    *          this instance. Use null for default.    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    *          context.    * @param canCreateBaseZNode    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -721,6 +726,15 @@ argument_list|(
 name|this
 argument_list|,
 name|tableLockZNode
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|createAndFailSilent
+argument_list|(
+name|this
+argument_list|,
+name|recoveringRegionsZNode
 argument_list|)
 expr_stmt|;
 block|}
@@ -1017,6 +1031,24 @@ argument_list|(
 literal|"zookeeper.znode.tableLock"
 argument_list|,
 literal|"table-lock"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|recoveringRegionsZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.recovering.regions"
+argument_list|,
+literal|"recovering-regions"
 argument_list|)
 argument_list|)
 expr_stmt|;

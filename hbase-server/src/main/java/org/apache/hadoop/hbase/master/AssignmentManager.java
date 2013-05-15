@@ -2112,6 +2112,7 @@ block|}
 name|boolean
 name|failover
 init|=
+operator|(
 operator|!
 name|serverManager
 operator|.
@@ -2120,6 +2121,16 @@ argument_list|()
 operator|.
 name|isEmpty
 argument_list|()
+operator|||
+operator|!
+name|serverManager
+operator|.
+name|getRequeuedDeadServers
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+operator|)
 decl_stmt|;
 if|if
 condition|(
@@ -12024,6 +12035,32 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|waitOnRegionToClearRegionsInTransition
+argument_list|(
+name|hri
+argument_list|,
+operator|-
+literal|1L
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Wait on region to clear regions-in-transition or time out    * @param hri    * @param timeOut Milliseconds to wait for current region to be out of transition state.    * @return True when a region clears regions-in-transition before timeout otherwise false    * @throws IOException    * @throws InterruptedException    */
+specifier|public
+name|boolean
+name|waitOnRegionToClearRegionsInTransition
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|,
+name|long
+name|timeOut
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
 if|if
 condition|(
 operator|!
@@ -12034,14 +12071,47 @@ argument_list|(
 name|hri
 argument_list|)
 condition|)
-return|return;
+return|return
+literal|true
+return|;
 name|RegionState
 name|rs
 init|=
 literal|null
 decl_stmt|;
+name|long
+name|end
+init|=
+operator|(
+name|timeOut
+operator|<=
+literal|0
+operator|)
+condition|?
+name|Long
+operator|.
+name|MAX_VALUE
+else|:
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|timeOut
+decl_stmt|;
 comment|// There is already a timeout monitor on regions in transition so I
 comment|// should not have to have one here too?
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting on "
+operator|+
+name|rs
+operator|+
+literal|" to clear regions-in-transition"
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 operator|!
@@ -12060,17 +12130,6 @@ name|hri
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Waiting on "
-operator|+
-name|rs
-operator|+
-literal|" to clear regions-in-transition"
-argument_list|)
-expr_stmt|;
 name|regionStates
 operator|.
 name|waitForUpdate
@@ -12078,6 +12137,34 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|>
+name|end
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Timed out on waiting for region:"
+operator|+
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" to be assigned."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 block|}
 if|if
 condition|(
@@ -12093,12 +12180,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Giving up wait on regions in "
-operator|+
-literal|"transition because stoppable.isStopped is set"
+literal|"Giving up wait on regions in transition because stoppable.isStopped is set"
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Update timers for all regions in transition going against the server in the    * serversInUpdatingTimer.    */
 specifier|public

@@ -5327,6 +5327,23 @@ name|logEdit
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|logEdit
+operator|.
+name|isReplay
+argument_list|()
+condition|)
+block|{
+comment|// set replication scope null so that this won't be replicated
+name|logKey
+operator|.
+name|setScopes
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|// write to our buffer for the Hlog file.
 name|logSyncer
 operator|.

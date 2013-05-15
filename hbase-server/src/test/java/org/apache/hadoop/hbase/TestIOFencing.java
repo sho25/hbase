@@ -1242,6 +1242,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+name|c
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|DISTRIBUTED_LOG_REPLAY_KEY
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 comment|// Insert our custom region
 name|c
 operator|.

@@ -118,6 +118,14 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Update the Replay time histogram.    *    * @param t time it took    */
+name|void
+name|updateReplay
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
 comment|/**    * Increment the number of slow Puts that have happened.    */
 name|void
 name|incrSlowPut
@@ -612,6 +620,13 @@ name|String
 name|APPEND_KEY
 init|=
 literal|"append"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|REPLAY_KEY
+init|=
+literal|"replay"
 decl_stmt|;
 specifier|static
 specifier|final

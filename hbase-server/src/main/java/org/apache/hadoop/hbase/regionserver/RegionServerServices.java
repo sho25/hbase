@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentMap
@@ -303,6 +313,17 @@ comment|/**    * @return The RegionServer's CatalogTracker    */
 specifier|public
 name|CatalogTracker
 name|getCatalogTracker
+parameter_list|()
+function_decl|;
+comment|/**    * @return set of recovering regions on the hosting region server    */
+specifier|public
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|HRegion
+argument_list|>
+name|getRecoveringRegions
 parameter_list|()
 function_decl|;
 block|}

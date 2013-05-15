@@ -1522,6 +1522,15 @@ operator|.
 name|tableZNode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|children
+operator|==
+literal|null
+condition|)
+return|return
+name|allTables
+return|;
 for|for
 control|(
 name|String

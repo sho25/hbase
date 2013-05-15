@@ -20486,6 +20486,15 @@ name|boolean
 name|getSplit
 parameter_list|()
 function_decl|;
+comment|// optional bool recovering = 7;
+name|boolean
+name|hasRecovering
+parameter_list|()
+function_decl|;
+name|boolean
+name|getRecovering
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -20887,6 +20896,45 @@ return|return
 name|split_
 return|;
 block|}
+comment|// optional bool recovering = 7;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|RECOVERING_FIELD_NUMBER
+init|=
+literal|7
+decl_stmt|;
+specifier|private
+name|boolean
+name|recovering_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasRecovering
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getRecovering
+parameter_list|()
+block|{
+return|return
+name|recovering_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -20937,6 +20985,10 @@ operator|=
 literal|false
 expr_stmt|;
 name|split_
+operator|=
+literal|false
+expr_stmt|;
+name|recovering_
 operator|=
 literal|false
 expr_stmt|;
@@ -21170,6 +21222,29 @@ name|split_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|7
+argument_list|,
+name|recovering_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -21393,6 +21468,37 @@ argument_list|(
 literal|6
 argument_list|,
 name|split_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|7
+argument_list|,
+name|recovering_
 argument_list|)
 expr_stmt|;
 block|}
@@ -21769,6 +21875,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasRecovering
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasRecovering
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasRecovering
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getRecovering
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getRecovering
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -21996,6 +22137,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getSplit
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasRecovering
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|RECOVERING_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -22947,6 +23119,19 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
+name|recovering_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -23380,6 +23565,30 @@ name|split_
 operator|=
 name|split_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|recovering_
+operator|=
+name|recovering_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -23612,6 +23821,23 @@ argument_list|(
 name|other
 operator|.
 name|getSplit
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasRecovering
+argument_list|()
+condition|)
+block|{
+name|setRecovering
+argument_list|(
+name|other
+operator|.
+name|getRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -23885,6 +24111,23 @@ operator||=
 literal|0x00000020
 expr_stmt|;
 name|split_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|56
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|recovering_
 operator|=
 name|input
 operator|.
@@ -24499,6 +24742,85 @@ literal|0x00000020
 operator|)
 expr_stmt|;
 name|split_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool recovering = 7;
+specifier|private
+name|boolean
+name|recovering_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasRecovering
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getRecovering
+parameter_list|()
+block|{
+return|return
+name|recovering_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setRecovering
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|recovering_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearRecovering
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|recovering_
 operator|=
 literal|false
 expr_stmt|;
@@ -89212,113 +89534,113 @@ literal|"Pair\"o\n\022ColumnFamilySchema\022\014\n\004name\030\001 \002(\014"
 operator|+
 literal|"\022#\n\nattributes\030\002 \003(\0132\017.BytesBytesPair\022&\n"
 operator|+
-literal|"\rconfiguration\030\003 \003(\0132\017.NameStringPair\"s\n"
+literal|"\rconfiguration\030\003 \003(\0132\017.NameStringPair\"\207\001"
 block|,
-literal|"\nRegionInfo\022\020\n\010regionId\030\001 \002(\004\022\021\n\ttableNa"
+literal|"\n\nRegionInfo\022\020\n\010regionId\030\001 \002(\004\022\021\n\ttableN"
 operator|+
-literal|"me\030\002 \002(\014\022\020\n\010startKey\030\003 \001(\014\022\016\n\006endKey\030\004 \001"
+literal|"ame\030\002 \002(\014\022\020\n\010startKey\030\003 \001(\014\022\016\n\006endKey\030\004 "
 operator|+
-literal|"(\014\022\017\n\007offline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\"0\n\014Fa"
+literal|"\001(\014\022\017\n\007offline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\022\022\n\nr"
 operator|+
-literal|"voredNodes\022 \n\013favoredNode\030\001 \003(\0132\013.Server"
+literal|"ecovering\030\007 \001(\010\"0\n\014FavoredNodes\022 \n\013favor"
 operator|+
-literal|"Name\"\225\001\n\017RegionSpecifier\0222\n\004type\030\001 \002(\0162$"
+literal|"edNode\030\001 \003(\0132\013.ServerName\"\225\001\n\017RegionSpec"
 operator|+
-literal|".RegionSpecifier.RegionSpecifierType\022\r\n\005"
+literal|"ifier\0222\n\004type\030\001 \002(\0162$.RegionSpecifier.Re"
 operator|+
-literal|"value\030\002 \002(\014\"?\n\023RegionSpecifierType\022\017\n\013RE"
+literal|"gionSpecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023Regi"
 operator|+
-literal|"GION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002\"\260\003\n"
+literal|"onSpecifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCO"
 operator|+
-literal|"\nRegionLoad\022)\n\017regionSpecifier\030\001 \002(\0132\020.R"
+literal|"DED_REGION_NAME\020\002\"\260\003\n\nRegionLoad\022)\n\017regi"
 operator|+
-literal|"egionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n\nstoref"
+literal|"onSpecifier\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006s"
 block|,
-literal|"iles\030\003 \001(\r\022\037\n\027storeUncompressedSizeMB\030\004 "
+literal|"tores\030\002 \001(\r\022\022\n\nstorefiles\030\003 \001(\r\022\037\n\027store"
 operator|+
-literal|"\001(\r\022\027\n\017storefileSizeMB\030\005 \001(\r\022\026\n\016memstore"
+literal|"UncompressedSizeMB\030\004 \001(\r\022\027\n\017storefileSiz"
 operator|+
-literal|"SizeMB\030\006 \001(\r\022\034\n\024storefileIndexSizeMB\030\007 \001"
+literal|"eMB\030\005 \001(\r\022\026\n\016memstoreSizeMB\030\006 \001(\r\022\034\n\024sto"
 operator|+
-literal|"(\r\022\031\n\021readRequestsCount\030\010 \001(\004\022\032\n\022writeRe"
+literal|"refileIndexSizeMB\030\007 \001(\r\022\031\n\021readRequestsC"
 operator|+
-literal|"questsCount\030\t \001(\004\022\032\n\022totalCompactingKVs\030"
+literal|"ount\030\010 \001(\004\022\032\n\022writeRequestsCount\030\t \001(\004\022\032"
 operator|+
-literal|"\n \001(\004\022\033\n\023currentCompactedKVs\030\013 \001(\004\022\027\n\017ro"
+literal|"\n\022totalCompactingKVs\030\n \001(\004\022\033\n\023currentCom"
 operator|+
-literal|"otIndexSizeKB\030\014 \001(\r\022\036\n\026totalStaticIndexS"
+literal|"pactedKVs\030\013 \001(\004\022\027\n\017rootIndexSizeKB\030\014 \001(\r"
 operator|+
-literal|"izeKB\030\r \001(\r\022\036\n\026totalStaticBloomSizeKB\030\016 "
+literal|"\022\036\n\026totalStaticIndexSizeKB\030\r \001(\r\022\036\n\026tota"
 operator|+
-literal|"\001(\r\022\032\n\022completeSequenceId\030\017 \001(\004\"\372\001\n\nServ"
+literal|"lStaticBloomSizeKB\030\016 \001(\r\022\032\n\022completeSequ"
 operator|+
-literal|"erLoad\022\030\n\020numberOfRequests\030\001 \001(\r\022\035\n\025tota"
+literal|"enceId\030\017 \001(\004\"\372\001\n\nServerLoad\022\030\n\020numberOfR"
 block|,
-literal|"lNumberOfRequests\030\002 \001(\r\022\022\n\nusedHeapMB\030\003 "
+literal|"equests\030\001 \001(\r\022\035\n\025totalNumberOfRequests\030\002"
 operator|+
-literal|"\001(\r\022\021\n\tmaxHeapMB\030\004 \001(\r\022 \n\013regionLoads\030\005 "
+literal|" \001(\r\022\022\n\nusedHeapMB\030\003 \001(\r\022\021\n\tmaxHeapMB\030\004 "
 operator|+
-literal|"\003(\0132\013.RegionLoad\022\"\n\014coprocessors\030\006 \003(\0132\014"
+literal|"\001(\r\022 \n\013regionLoads\030\005 \003(\0132\013.RegionLoad\022\"\n"
 operator|+
-literal|".Coprocessor\022\027\n\017reportStartTime\030\007 \001(\004\022\025\n"
+literal|"\014coprocessors\030\006 \003(\0132\014.Coprocessor\022\027\n\017rep"
 operator|+
-literal|"\rreportEndTime\030\010 \001(\004\022\026\n\016infoServerPort\030\t"
+literal|"ortStartTime\030\007 \001(\004\022\025\n\rreportEndTime\030\010 \001("
 operator|+
-literal|" \001(\r\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 "
+literal|"\004\022\026\n\016infoServerPort\030\t \001(\r\"%\n\tTimeRange\022\014"
 operator|+
-literal|"\001(\004\"0\n\006Filter\022\014\n\004name\030\001 \002(\t\022\030\n\020serialize"
+literal|"\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"0\n\006Filter\022\014\n\004na"
 operator|+
-literal|"dFilter\030\002 \001(\014\"x\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016"
+literal|"me\030\001 \002(\t\022\030\n\020serializedFilter\030\002 \001(\014\"x\n\010Ke"
 operator|+
-literal|"\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttim"
+literal|"yValue\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tq"
 operator|+
-literal|"estamp\030\004 \001(\004\022\032\n\007keyType\030\005 \001(\0162\t.CellType"
+literal|"ualifier\030\003 \002(\014\022\021\n\ttimestamp\030\004 \001(\004\022\032\n\007key"
 block|,
-literal|"\022\r\n\005value\030\006 \001(\014\"?\n\nServerName\022\020\n\010hostNam"
+literal|"Type\030\005 \001(\0162\t.CellType\022\r\n\005value\030\006 \001(\014\"?\n\n"
 operator|+
-literal|"e\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\021\n\tstartCode\030\003 \001(\004"
+literal|"ServerName\022\020\n\010hostName\030\001 \002(\t\022\014\n\004port\030\002 \001"
 operator|+
-literal|"\"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameStr"
+literal|"(\r\022\021\n\tstartCode\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n\004"
 operator|+
-literal|"ingPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\r"
+literal|"name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004name\030\001 \002"
 operator|+
-literal|"NameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001"
+literal|"(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair\022\014\n\004na"
 operator|+
-literal|"(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006s"
+literal|"me\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPai"
 operator|+
-literal|"econd\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030\001 \001"
+literal|"r\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rName"
 operator|+
-literal|"(\t\022\r\n\005value\030\002 \001(\003\"\255\001\n\023SnapshotDescriptio"
+literal|"Int64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\255"
 operator|+
-literal|"n\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\027\n\014creati"
+literal|"\001\n\023SnapshotDescription\022\014\n\004name\030\001 \002(\t\022\r\n\005"
 operator|+
-literal|"onTime\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\031.Snapshot"
+literal|"table\030\002 \001(\t\022\027\n\014creationTime\030\003 \001(\003:\0010\022.\n\004"
 block|,
-literal|"Description.Type:\005FLUSH\022\017\n\007version\030\005 \001(\005"
+literal|"type\030\004 \001(\0162\031.SnapshotDescription.Type:\005F"
 operator|+
-literal|"\"\037\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\"\n\n\010Emp"
+literal|"LUSH\022\017\n\007version\030\005 \001(\005\"\037\n\004Type\022\014\n\010DISABLE"
 operator|+
-literal|"tyMsg\"\032\n\007LongMsg\022\017\n\007longMsg\030\001 \002(\003\"&\n\rBig"
+literal|"D\020\000\022\t\n\005FLUSH\020\001\"\n\n\010EmptyMsg\"\032\n\007LongMsg\022\017\n"
 operator|+
-literal|"DecimalMsg\022\025\n\rbigdecimalMsg\030\001 \002(\014\"1\n\004UUI"
+literal|"\007longMsg\030\001 \002(\003\"&\n\rBigDecimalMsg\022\025\n\rbigde"
 operator|+
-literal|"D\022\024\n\014leastSigBits\030\001 \002(\004\022\023\n\013mostSigBits\030\002"
+literal|"cimalMsg\030\001 \002(\014\"1\n\004UUID\022\024\n\014leastSigBits\030\001"
 operator|+
-literal|" \002(\004*`\n\010CellType\022\013\n\007MINIMUM\020\000\022\007\n\003PUT\020\004\022\n"
+literal|" \002(\004\022\023\n\013mostSigBits\030\002 \002(\004*`\n\010CellType\022\013\n"
 operator|+
-literal|"\n\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014\022\021\n\rDELETE_"
+literal|"\007MINIMUM\020\000\022\007\n\003PUT\020\004\022\n\n\006DELETE\020\010\022\021\n\rDELET"
 operator|+
-literal|"FAMILY\020\016\022\014\n\007MAXIMUM\020\377\001*r\n\013CompareType\022\010\n"
+literal|"E_COLUMN\020\014\022\021\n\rDELETE_FAMILY\020\016\022\014\n\007MAXIMUM"
 operator|+
-literal|"\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n"
+literal|"\020\377\001*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_"
 operator|+
-literal|"\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GR"
+literal|"EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GRE"
 block|,
-literal|"EATER\020\005\022\t\n\005NO_OP\020\006B>\n*org.apache.hadoop."
+literal|"ATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006B"
 operator|+
-literal|"hbase.protobuf.generatedB\013HBaseProtosH\001\240"
+literal|">\n*org.apache.hadoop.hbase.protobuf.gene"
 operator|+
-literal|"\001\001"
+literal|"ratedB\013HBaseProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -89675,6 +89997,8 @@ block|,
 literal|"Offline"
 block|,
 literal|"Split"
+block|,
+literal|"Recovering"
 block|, }
 argument_list|,
 name|org

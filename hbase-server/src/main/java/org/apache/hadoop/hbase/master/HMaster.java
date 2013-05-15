@@ -117,6 +117,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -3564,6 +3574,20 @@ specifier|private
 name|HealthCheckChore
 name|healthCheckChore
 decl_stmt|;
+comment|/**    * is in distributedLogReplay mode. When true, SplitLogWorker directly replays WAL edits to newly    * assigned region servers instead of creating recovered.edits files.    */
+specifier|private
+specifier|final
+name|boolean
+name|distributedLogReplay
+decl_stmt|;
+comment|/** flag used in test cases in order to simulate RS failures during master initialization */
+specifier|private
+specifier|volatile
+name|boolean
+name|initializationBeforeMetaAssignment
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
 name|HMaster
@@ -4159,6 +4183,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|distributedLogReplay
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|DISTRIBUTED_LOG_REPLAY_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @return list of blocking services and their security info classes that this server supports    */
 specifier|private
@@ -5391,38 +5432,155 @@ name|startTimeOutMonitor
 argument_list|()
 expr_stmt|;
 block|}
-comment|// TODO: Should do this in background rather than block master startup
+comment|// get a list for previously failed RS which need log splitting work
+comment|// we recover .META. region servers inside master initialization and
+comment|// handle other failed servers in SSH in order to start up master node ASAP
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|previouslyFailedServers
+init|=
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|getFailedServersFromLogFolders
+argument_list|()
+decl_stmt|;
+comment|// remove stale recovering regions from previous run
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|removeStaleRecoveringRegionsFromZK
+argument_list|(
+name|previouslyFailedServers
+argument_list|)
+expr_stmt|;
+comment|// log splitting for .META. server
+name|ServerName
+name|oldMetaServerLocation
+init|=
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|getMetaLocation
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|oldMetaServerLocation
+operator|!=
+literal|null
+operator|&&
+name|previouslyFailedServers
+operator|.
+name|contains
+argument_list|(
+name|oldMetaServerLocation
+argument_list|)
+condition|)
+block|{
+name|splitMetaLogBeforeAssignment
+argument_list|(
+name|oldMetaServerLocation
+argument_list|)
+expr_stmt|;
+comment|// Note: we can't remove oldMetaServerLocation from previousFailedServers list because it
+comment|// may also host user regions
+block|}
+name|this
+operator|.
+name|initializationBeforeMetaAssignment
+operator|=
+literal|true
+expr_stmt|;
+comment|// Make sure meta assigned before proceeding.
 name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Splitting logs after master startup"
+literal|"Assigning Meta Region"
 argument_list|)
 expr_stmt|;
-name|splitLogAfterStartup
-argument_list|(
-name|this
-operator|.
-name|fileSystemManager
-argument_list|)
-expr_stmt|;
-comment|// Make sure meta assigned before proceeding.
-if|if
-condition|(
-operator|!
 name|assignMeta
 argument_list|(
 name|status
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|distributedLogReplay
+operator|&&
+name|oldMetaServerLocation
+operator|!=
+literal|null
+operator|&&
+name|previouslyFailedServers
+operator|.
+name|contains
+argument_list|(
+name|oldMetaServerLocation
+argument_list|)
 condition|)
-return|return;
+block|{
+comment|// replay WAL edits mode need new .META. RS is assigned firstly
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"replaying log for Meta Region"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|splitMetaLog
+argument_list|(
+name|oldMetaServerLocation
+argument_list|)
+expr_stmt|;
+block|}
 name|enableServerShutdownHandler
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Submitting log splitting work for previously failed region servers"
+argument_list|)
+expr_stmt|;
+comment|// Master has recovered META region server and we put
+comment|// other failed region servers in a queue to be handled later by SSH
+for|for
+control|(
+name|ServerName
+name|tmpServer
+range|:
+name|previouslyFailedServers
+control|)
+block|{
+name|this
+operator|.
+name|serverManager
+operator|.
+name|processDeadServer
+argument_list|(
+name|tmpServer
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Update meta with new PB serialization if required. i.e migrate all HRI to PB serialization
 comment|// in meta. This must happen before we assign all user regions or else the assignment will
 comment|// fail.
-comment|// TODO: Remove this after 0.96, when we do 0.98.
 name|org
 operator|.
 name|apache
@@ -5613,22 +5771,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Override to change master's splitLogAfterStartup. Used testing    * @param mfs    */
-specifier|protected
-name|void
-name|splitLogAfterStartup
-parameter_list|(
-specifier|final
-name|MasterFileSystem
-name|mfs
-parameter_list|)
-block|{
-name|mfs
-operator|.
-name|splitLogAfterStartup
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Create a {@link ServerManager} instance.    * @param master    * @param services    * @return An instance of {@link ServerManager}    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    * @throws IOException    */
 name|ServerManager
 name|createServerManager
@@ -5681,8 +5823,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return True if meta is healthy, assigned    */
-name|boolean
+comment|/**    * Check<code>.META.</code> is assigned. If not, assign it.    * @param status MonitoredTask    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+name|void
 name|assignMeta
 parameter_list|(
 name|MonitoredTask
@@ -5695,6 +5837,7 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
+comment|// Work on meta region
 name|int
 name|assigned
 init|=
@@ -5714,7 +5857,11 @@ argument_list|,
 literal|1000
 argument_list|)
 decl_stmt|;
-comment|// Work on .META. region.  Is it in zk in transition?
+name|boolean
+name|beingExpired
+init|=
+literal|false
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -5748,14 +5895,11 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
-name|ServerName
-name|currentMetaServer
-init|=
-literal|null
-decl_stmt|;
 name|boolean
 name|metaRegionLocation
 init|=
+name|this
+operator|.
 name|catalogTracker
 operator|.
 name|verifyMetaRegionLocation
@@ -5772,55 +5916,74 @@ operator|!
 name|metaRegionLocation
 condition|)
 block|{
+name|ServerName
 name|currentMetaServer
-operator|=
+init|=
 name|this
 operator|.
 name|catalogTracker
 operator|.
 name|getMetaLocation
 argument_list|()
-expr_stmt|;
-name|splitLogAndExpireIfOnline
+decl_stmt|;
+if|if
+condition|(
+name|currentMetaServer
+operator|!=
+literal|null
+condition|)
+block|{
+name|beingExpired
+operator|=
+name|expireIfOnline
 argument_list|(
 name|currentMetaServer
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
+block|}
+if|if
+condition|(
+name|beingExpired
+condition|)
+block|{
+name|splitMetaLogBeforeAssignment
+argument_list|(
+name|currentMetaServer
+argument_list|)
+expr_stmt|;
+block|}
 name|assignmentManager
 operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
+comment|// Make sure a .META. location is set.
 name|enableSSHandWaitForMeta
 argument_list|()
-expr_stmt|;
-comment|// Make sure a .META. location is set.
-if|if
-condition|(
-operator|!
-name|isMetaLocation
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
-comment|// This guarantees that the transition assigning .META. has completed
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|waitForAssignment
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
 expr_stmt|;
 name|assigned
 operator|++
 expr_stmt|;
+if|if
+condition|(
+name|beingExpired
+operator|&&
+name|this
+operator|.
+name|distributedLogReplay
+condition|)
+block|{
+comment|// In Replay WAL Mode, we need the new .META. server online
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|splitMetaLog
+argument_list|(
+name|currentMetaServer
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -5832,38 +5995,16 @@ name|metaRegionLocation
 condition|)
 block|{
 comment|// Make sure a .META. location is set.
-if|if
-condition|(
-operator|!
-name|isMetaLocation
+name|enableSSHandWaitForMeta
 argument_list|()
-condition|)
-return|return
-literal|false
-return|;
-comment|// This guarantees that the transition assigning .META. has completed
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|waitForAssignment
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
 expr_stmt|;
 name|assigned
 operator|++
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|metaRegionLocation
-condition|)
+else|else
 block|{
-comment|// Region already assigned.  We didn't assign it.  Add to in-memory state.
+comment|// Region already assigned. We didn't assign it. Add to in-memory state.
 name|this
 operator|.
 name|assignmentManager
@@ -5922,9 +6063,72 @@ argument_list|(
 literal|"META assigned."
 argument_list|)
 expr_stmt|;
-return|return
-literal|true
-return|;
+block|}
+specifier|private
+name|void
+name|splitMetaLogBeforeAssignment
+parameter_list|(
+name|ServerName
+name|currentMetaServer
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|distributedLogReplay
+condition|)
+block|{
+comment|// In log replay mode, we mark META region as recovering in ZK
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|regions
+operator|.
+name|add
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|prepareMetaLogReplay
+argument_list|(
+name|currentMetaServer
+argument_list|,
+name|regions
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// In recovered.edits mode: create recovered edits file for .META. server
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|splitMetaLog
+argument_list|(
+name|currentMetaServer
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
@@ -5958,58 +6162,6 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * @return True if there a meta available    * @throws InterruptedException    */
-specifier|private
-name|boolean
-name|isMetaLocation
-parameter_list|()
-throws|throws
-name|InterruptedException
-block|{
-comment|// Cycle up here in master rather than down in catalogtracker so we can
-comment|// check the master stopped flag every so often.
-while|while
-condition|(
-operator|!
-name|this
-operator|.
-name|stopped
-condition|)
-block|{
-try|try
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|waitForMeta
-argument_list|(
-literal|100
-argument_list|)
-operator|!=
-literal|null
-condition|)
-break|break;
-block|}
-catch|catch
-parameter_list|(
-name|NotAllMetaRegionsOnlineException
-name|e
-parameter_list|)
-block|{
-comment|// Ignore.  I know .META. is not online yet.
-block|}
-block|}
-comment|// We got here because we came of above loop.
-return|return
-operator|!
-name|this
-operator|.
-name|stopped
-return|;
 block|}
 specifier|private
 name|void
@@ -6046,10 +6198,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Split a server's log and expire it if we find it is one of the online    * servers.    * @param sn ServerName to check.    * @throws IOException    */
+comment|/**    * Expire a server if we find it is one of the online servers.    * @param sn ServerName to check.    * @return true when server<code>sn<code> is being expired by the function.    * @throws IOException    */
 specifier|private
-name|void
-name|splitLogAndExpireIfOnline
+name|boolean
+name|expireIfOnline
 parameter_list|(
 specifier|final
 name|ServerName
@@ -6073,28 +6225,16 @@ name|sn
 argument_list|)
 condition|)
 block|{
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Forcing splitLog and expire of "
+literal|"Forcing expire of "
 operator|+
-name|sn
-argument_list|)
-expr_stmt|;
-name|fileSystemManager
-operator|.
-name|splitMetaLog
-argument_list|(
-name|sn
-argument_list|)
-expr_stmt|;
-name|fileSystemManager
-operator|.
-name|splitLog
-argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
@@ -6105,6 +6245,9 @@ argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 annotation|@
 name|Override
@@ -12238,6 +12381,18 @@ return|return
 name|this
 operator|.
 name|serverShutdownHandlerEnabled
+return|;
+block|}
+comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization& about to assign META regions    */
+specifier|public
+name|boolean
+name|isInitializationStartsMetaRegionAssignment
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|initializationBeforeMetaAssignment
 return|;
 block|}
 annotation|@

@@ -1907,6 +1907,32 @@ name|DISTRIBUTED_LOG_SPLITTING_KEY
 init|=
 literal|"hbase.master.distributed.log.splitting"
 decl_stmt|;
+comment|/** Conf key that enables unflushed WAL edits directly being replayed to region servers */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DISTRIBUTED_LOG_REPLAY_KEY
+init|=
+literal|"hbase.master.distributed.log.replay"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
+init|=
+literal|true
+decl_stmt|;
+comment|/** Conf key that specifies timeout value to wait for a region ready */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOG_REPLAY_WAIT_REGION_TIMEOUT
+init|=
+literal|"hbase.master.log.replay.wait.region.timeout"
+decl_stmt|;
 comment|/**    * The name of the configuration parameter that specifies    * the number of bytes in a newly created checksum chunk.    */
 specifier|public
 specifier|static
@@ -2043,6 +2069,15 @@ init|=
 literal|5
 decl_stmt|;
 comment|// normal_QOS< replication_QOS< high_QOS
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLAY_QOS
+init|=
+literal|6
+decl_stmt|;
+comment|// REPLICATION_QOS< REPLAY_QOS< high_QOS
 comment|/** Directory under /hbase where archived hfiles are stored */
 specifier|public
 specifier|static

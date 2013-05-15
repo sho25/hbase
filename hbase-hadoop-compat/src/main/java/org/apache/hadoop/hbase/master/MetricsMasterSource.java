@@ -180,6 +180,20 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
+name|META_SPLIT_TIME_NAME
+init|=
+literal|"metaHlogSplitTime"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|META_SPLIT_SIZE_NAME
+init|=
+literal|"metaHlogSplitSize"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
 name|CLUSTER_REQUESTS_NAME
 init|=
 literal|"clusterRequests"
@@ -303,6 +317,20 @@ name|SNAPSHOT_CLONE_TIME_DESC
 init|=
 literal|"Time it takes to finish cloneSnapshot()"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|META_SPLIT_TIME_DESC
+init|=
+literal|"Time it takes to finish splitMetaLog()"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|META_SPLIT_SIZE_DESC
+init|=
+literal|"Size of META HLog files being split"
+decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
 name|incRequests
@@ -369,6 +397,20 @@ name|updateSnapshotRestoreTime
 parameter_list|(
 name|long
 name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateMetaWALSplitTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateMetaWALSplitSize
+parameter_list|(
+name|long
+name|size
 parameter_list|)
 function_decl|;
 block|}

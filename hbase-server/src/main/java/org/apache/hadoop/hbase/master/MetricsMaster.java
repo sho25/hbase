@@ -233,6 +233,34 @@ name|size
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Record a single instance of a split    * @param time time that the split took    * @param size length of original HLogs that were split    */
+specifier|public
+specifier|synchronized
+name|void
+name|addMetaWALSplit
+parameter_list|(
+name|long
+name|time
+parameter_list|,
+name|long
+name|size
+parameter_list|)
+block|{
+name|masterSource
+operator|.
+name|updateMetaWALSplitTime
+argument_list|(
+name|time
+argument_list|)
+expr_stmt|;
+name|masterSource
+operator|.
+name|updateMetaWALSplitSize
+argument_list|(
+name|size
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @param inc How much to add to requests.    */
 specifier|public
 name|void

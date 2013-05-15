@@ -1736,6 +1736,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{     }
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isInitialized
+parameter_list|()
+block|{
+comment|// Auto-generated method stub
+return|return
+literal|false
+return|;
+block|}
 block|}
 annotation|@
 name|Test
