@@ -625,6 +625,30 @@ name|FileNotFoundException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|cache
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Snapshot directory: "
+operator|+
+name|snapshotDir
+operator|+
+literal|" doesn't exist"
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 comment|// if the snapshot directory wasn't modified since we last check, we are done
@@ -699,6 +723,23 @@ literal|null
 condition|)
 block|{
 comment|// remove all the remembered snapshots because we don't have any left
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+operator|&&
+name|this
+operator|.
+name|snapshots
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -706,6 +747,7 @@ argument_list|(
 literal|"No snapshots on-disk, cache empty"
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|snapshots
