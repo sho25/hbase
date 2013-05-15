@@ -2047,6 +2047,22 @@ name|regionsToFlush
 init|=
 literal|null
 decl_stmt|;
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"HLog closed. Skipping rolling of writer"
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 try|try
 block|{
 name|this
@@ -2055,15 +2071,8 @@ name|logRollRunning
 operator|=
 literal|true
 expr_stmt|;
-name|boolean
-name|isClosed
-init|=
-name|closed
-decl_stmt|;
 if|if
 condition|(
-name|isClosed
-operator|||
 operator|!
 name|closeBarrier
 operator|.
@@ -2075,17 +2084,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HLog "
-operator|+
-operator|(
-name|isClosed
-condition|?
-literal|"closed"
-else|:
-literal|"closing"
-operator|)
-operator|+
-literal|". Skipping rolling of writer"
+literal|"HLog closing. Skipping rolling of writer"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4319,6 +4318,15 @@ expr_stmt|;
 name|requestLogRoll
 argument_list|()
 expr_stmt|;
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+name|this
+operator|.
+name|optionalFlushInterval
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -4846,7 +4854,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Could not sync. Requesting close of hlog"
+literal|"Could not sync. Requesting roll of hlog"
 argument_list|,
 name|e
 argument_list|)
@@ -5136,6 +5144,8 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|void
 name|hsync
@@ -5150,6 +5160,8 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|void
 name|hflush
@@ -5164,6 +5176,8 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|void
 name|sync
@@ -5178,6 +5192,8 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|void
 name|sync
