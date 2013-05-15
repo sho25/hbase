@@ -642,7 +642,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|null
+name|s
 return|;
 block|}
 annotation|@
@@ -1067,7 +1067,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|null
+name|s
 return|;
 block|}
 annotation|@
@@ -1988,7 +1988,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|null
+name|s
 return|;
 block|}
 annotation|@
