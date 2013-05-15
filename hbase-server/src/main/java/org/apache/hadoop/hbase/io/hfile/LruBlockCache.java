@@ -1215,13 +1215,32 @@ operator|!=
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|RuntimeException
+name|String
+name|msg
+init|=
+literal|"Cached an already cached block: "
+operator|+
+name|cacheKey
+operator|+
+literal|" cb:"
+operator|+
+name|cb
+operator|.
+name|getCacheKey
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Cached an already cached block"
+name|msg
 argument_list|)
-throw|;
+expr_stmt|;
+assert|assert
+literal|false
+operator|:
+name|msg
+assert|;
 block|}
 name|cb
 operator|=

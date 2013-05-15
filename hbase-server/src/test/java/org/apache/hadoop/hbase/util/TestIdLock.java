@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -111,6 +123,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -134,18 +158,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
 import|;
 end_import
 
@@ -566,6 +578,17 @@ name|exec
 operator|.
 name|shutdown
 argument_list|()
+expr_stmt|;
+name|exec
+operator|.
+name|awaitTermination
+argument_list|(
+literal|5000
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 expr_stmt|;
 block|}
 block|}
