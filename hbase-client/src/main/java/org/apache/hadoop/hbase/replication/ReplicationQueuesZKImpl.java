@@ -1498,6 +1498,41 @@ range|:
 name|peerIdsToProcess
 control|)
 block|{
+name|ReplicationQueueInfo
+name|replicationQueueInfo
+init|=
+operator|new
+name|ReplicationQueueInfo
+argument_list|(
+name|peerId
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|peerExists
+argument_list|(
+name|replicationQueueInfo
+operator|.
+name|getPeerId
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Peer "
+operator|+
+name|peerId
+operator|+
+literal|" didn't exist, skipping the replay"
+argument_list|)
+expr_stmt|;
+comment|// Protection against moving orphaned queues
+continue|continue;
+block|}
 name|String
 name|newPeerId
 init|=
@@ -1921,6 +1956,41 @@ range|:
 name|clusters
 control|)
 block|{
+name|ReplicationQueueInfo
+name|replicationQueueInfo
+init|=
+operator|new
+name|ReplicationQueueInfo
+argument_list|(
+name|cluster
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|peerExists
+argument_list|(
+name|replicationQueueInfo
+operator|.
+name|getPeerId
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Peer "
+operator|+
+name|cluster
+operator|+
+literal|" didn't exist, skipping the replay"
+argument_list|)
+expr_stmt|;
+comment|// Protection against moving orphaned queues
+continue|continue;
+block|}
 comment|// We add the name of the recovered RS to the new znode, we can even
 comment|// do that for queues that were recovered 10 times giving a znode like
 comment|// number-startcode-number-otherstartcode-number-anotherstartcode-etc
