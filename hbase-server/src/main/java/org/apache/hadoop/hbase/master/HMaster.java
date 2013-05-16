@@ -5506,6 +5506,15 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
+comment|// check if master is shutting down because above assignMeta could return even META isn't
+comment|// assigned when master is shutting down
+if|if
+condition|(
+name|this
+operator|.
+name|stopped
+condition|)
+return|return;
 if|if
 condition|(
 name|this
@@ -11694,9 +11703,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 return|return
-name|Boolean
-operator|.
-name|TRUE
+operator|!
+name|stopped
 return|;
 block|}
 finally|finally
