@@ -45,6 +45,20 @@ name|CompatibilityFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CompatibilitySingletonFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is the glue between the HRegion and whatever hadoop shim layer  * is loaded (hbase-hadoop1-compat or hbase-hadoop2-compat).  */
 end_comment
@@ -59,19 +73,21 @@ class|class
 name|MetricsRegion
 block|{
 specifier|private
+specifier|final
 name|MetricsRegionSource
 name|source
 decl_stmt|;
 specifier|public
 name|MetricsRegion
 parameter_list|(
+specifier|final
 name|MetricsRegionWrapper
 name|wrapper
 parameter_list|)
 block|{
 name|source
 operator|=
-name|CompatibilityFactory
+name|CompatibilitySingletonFactory
 operator|.
 name|getInstance
 argument_list|(
@@ -123,6 +139,7 @@ specifier|public
 name|void
 name|updateGet
 parameter_list|(
+specifier|final
 name|long
 name|getSize
 parameter_list|)
@@ -139,6 +156,7 @@ specifier|public
 name|void
 name|updateScanNext
 parameter_list|(
+specifier|final
 name|long
 name|scanSize
 parameter_list|)
