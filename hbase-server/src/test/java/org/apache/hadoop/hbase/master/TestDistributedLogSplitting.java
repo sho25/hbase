@@ -5186,6 +5186,17 @@ operator|+
 name|editsdir
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|editsdir
+argument_list|)
+condition|)
+continue|continue;
 name|FileStatus
 index|[]
 name|files
