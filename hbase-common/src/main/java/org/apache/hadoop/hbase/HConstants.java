@@ -1922,7 +1922,7 @@ specifier|final
 name|boolean
 name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
 init|=
-literal|true
+literal|false
 decl_stmt|;
 comment|/** Conf key that specifies timeout value to wait for a region ready */
 specifier|public
