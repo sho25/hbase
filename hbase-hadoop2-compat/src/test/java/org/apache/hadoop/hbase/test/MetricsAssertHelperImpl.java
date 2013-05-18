@@ -135,6 +135,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics2
+operator|.
+name|lib
+operator|.
+name|DefaultMetricsSystem
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -641,6 +657,23 @@ return|return
 name|mockMetricsBuilder
 return|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|init
+parameter_list|()
+block|{
+comment|// Make sure that the metrics system doesn't throw an exception when
+comment|// registering a source with the same name
+name|DefaultMetricsSystem
+operator|.
+name|setMiniClusterMode
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override

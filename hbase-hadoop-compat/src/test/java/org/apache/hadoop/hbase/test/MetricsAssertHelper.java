@@ -42,6 +42,12 @@ specifier|public
 interface|interface
 name|MetricsAssertHelper
 block|{
+comment|/**    * Init helper.  This method will make sure that the metrics system is set    * up for tests.    */
+specifier|public
+name|void
+name|init
+parameter_list|()
+function_decl|;
 comment|/**    * Assert that a tag exists and has a given value.    *    * @param name     The name of the tag.    * @param expected The expected value    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
 specifier|public
 name|void

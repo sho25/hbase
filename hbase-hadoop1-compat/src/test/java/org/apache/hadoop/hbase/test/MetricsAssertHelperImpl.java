@@ -121,6 +121,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics2
+operator|.
+name|lib
+operator|.
+name|DefaultMetricsSystem
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -577,6 +593,15 @@ return|return
 name|this
 return|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|init
+parameter_list|()
+block|{
+comment|// In hadoop 1 there's no minicluster mode so there's nothing to do here.
 block|}
 annotation|@
 name|Override
