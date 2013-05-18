@@ -3119,6 +3119,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZooKeeperListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -3587,6 +3603,14 @@ name|boolean
 name|initializationBeforeMetaAssignment
 init|=
 literal|false
+decl_stmt|;
+comment|/** The following is used in master recovery scenario to re-register listeners */
+specifier|private
+name|List
+argument_list|<
+name|ZooKeeperListener
+argument_list|>
+name|registeredZKListenersBeforeRecovery
 decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
@@ -4438,6 +4462,17 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|this
+operator|.
+name|registeredZKListenersBeforeRecovery
+operator|=
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|getListeners
+argument_list|()
+expr_stmt|;
 comment|/*        * Block on becoming the active master.        *        * We race with other masters to write our address into ZooKeeper.  If we        * succeed, we are the primary/active master and finish initialization.        *        * If we do not succeed, there is another active master and we should        * now wait until it dies to try and become the next active master.  If we        * do not succeed on our first attempt, this is no longer a cluster startup.        */
 name|becomeActiveMaster
 argument_list|(
@@ -11626,6 +11661,38 @@ operator|.
 name|unregisterAllListeners
 argument_list|()
 expr_stmt|;
+comment|// add back listeners which were registered before master initialization
+comment|// because they won't be added back in below Master re-initialization code
+if|if
+condition|(
+name|this
+operator|.
+name|registeredZKListenersBeforeRecovery
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|ZooKeeperListener
+name|curListener
+range|:
+name|this
+operator|.
+name|registeredZKListenersBeforeRecovery
+control|)
+block|{
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|registerListener
+argument_list|(
+name|curListener
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|zooKeeper

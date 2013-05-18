@@ -1117,6 +1117,26 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Get a copy of current registered listeners    */
+specifier|public
+name|List
+argument_list|<
+name|ZooKeeperListener
+argument_list|>
+name|getListeners
+parameter_list|()
+block|{
+return|return
+operator|new
+name|ArrayList
+argument_list|<
+name|ZooKeeperListener
+argument_list|>
+argument_list|(
+name|listeners
+argument_list|)
+return|;
+block|}
 comment|/**    * @return The number of currently registered listeners    */
 specifier|public
 name|int

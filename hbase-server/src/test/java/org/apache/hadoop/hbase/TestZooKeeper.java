@@ -2834,6 +2834,17 @@ operator|.
 name|retainAssignCalled
 argument_list|)
 expr_stmt|;
+comment|// number of listeners should be same as the value before master aborted
+name|assertEquals
+argument_list|(
+name|expectedNumOfListeners
+argument_list|,
+name|zkw
+operator|.
+name|getNumberOfListeners
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
