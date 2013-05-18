@@ -53,6 +53,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -64,6 +78,10 @@ comment|/**  * This provides an interface for maintaining a region server's repl
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|ReplicationQueues
@@ -76,6 +94,8 @@ parameter_list|(
 name|String
 name|serverName
 parameter_list|)
+throws|throws
+name|KeeperException
 function_decl|;
 comment|/**    * Remove a replication queue.    * @param queueId a String that identifies the queue.    */
 specifier|public

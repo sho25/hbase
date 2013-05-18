@@ -707,6 +707,13 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|replicationState
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

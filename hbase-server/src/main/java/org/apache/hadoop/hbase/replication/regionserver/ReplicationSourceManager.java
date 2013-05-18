@@ -917,9 +917,6 @@ name|zkHelper
 operator|.
 name|getPeerClusters
 argument_list|()
-operator|.
-name|keySet
-argument_list|()
 control|)
 block|{
 name|addSource
@@ -2502,12 +2499,14 @@ operator|.
 name|getPeerClusters
 argument_list|()
 operator|.
-name|containsKey
+name|contains
 argument_list|(
+operator|(
 name|src
 operator|.
 name|getPeerClusterId
 argument_list|()
+operator|)
 argument_list|)
 condition|)
 block|{

@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -305,6 +315,30 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Get the UUID for the provided ZK watcher. Doesn't handle any ZK exceptions    * @param zkw watcher connected to an ensemble    * @return the UUID read from zookeeper    * @throws KeeperException    */
+specifier|public
+specifier|static
+name|UUID
+name|getUUIDForCluster
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+return|return
+name|UUID
+operator|.
+name|fromString
+argument_list|(
+name|readClusterIdZNode
+argument_list|(
+name|zkw
+argument_list|)
+argument_list|)
+return|;
 block|}
 block|}
 end_class

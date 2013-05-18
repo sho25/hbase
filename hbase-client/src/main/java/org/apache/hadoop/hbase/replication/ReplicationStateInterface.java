@@ -23,6 +23,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -44,13 +58,25 @@ comment|/**  * This provides an interface for getting and setting the replicatio
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|ReplicationStateInterface
 extends|extends
 name|Closeable
 block|{
-comment|/**    * Get the current state of replication (i.e. ENABLED or DISABLED).    *     * @return true if replication is enabled, false otherwise    * @throws KeeperException    */
+comment|/**    * Initialize the replication state interface.    */
+specifier|public
+name|void
+name|init
+parameter_list|()
+throws|throws
+name|KeeperException
+function_decl|;
+comment|/**    * Get the current state of replication (i.e. ENABLED or DISABLED).    * @return true if replication is enabled, false otherwise    * @throws KeeperException    */
 specifier|public
 name|boolean
 name|getState
@@ -58,7 +84,7 @@ parameter_list|()
 throws|throws
 name|KeeperException
 function_decl|;
-comment|/**    * Set the state of replication.    *     * @param newState    * @throws KeeperException    */
+comment|/**    * Set the state of replication.    * @param newState    * @throws KeeperException    */
 specifier|public
 name|void
 name|setState

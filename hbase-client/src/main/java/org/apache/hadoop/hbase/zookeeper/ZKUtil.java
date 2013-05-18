@@ -7657,6 +7657,21 @@ name|DeserializationException
 block|{
 if|if
 condition|(
+name|bytes
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|DeserializationException
+argument_list|(
+literal|"Unable to parse null HLog position."
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|ProtobufUtil
 operator|.
 name|isPBMagicPrefix
