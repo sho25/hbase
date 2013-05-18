@@ -1280,11 +1280,6 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-assert|assert
-literal|false
-operator|:
-name|msg
-assert|;
 return|return;
 block|}
 name|cb

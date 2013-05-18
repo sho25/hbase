@@ -589,58 +589,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Re-add same blocks and ensure nothing has changed
-for|for
-control|(
-name|CachedItem
-name|block
-range|:
-name|blocks
-control|)
-block|{
-try|try
-block|{
-name|cache
-operator|.
-name|cacheBlock
-argument_list|(
-name|block
-operator|.
-name|cacheKey
-argument_list|,
-name|block
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-literal|"Cache should not allow re-caching a block"
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|AssertionError
-name|re
-parameter_list|)
-block|{
-comment|// expected
-name|assertTrue
-argument_list|(
-name|re
-operator|.
-name|getMessage
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"Cached an already cached block"
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|// Verify correctly calculated cache heap size
 name|assertEquals
 argument_list|(
