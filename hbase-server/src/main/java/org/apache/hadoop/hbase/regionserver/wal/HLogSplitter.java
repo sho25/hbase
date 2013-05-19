@@ -35,6 +35,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -4496,6 +4506,31 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|FileNotFoundException
+condition|)
+block|{
+comment|// A wal file may not exist anymore. Nothing can be recovered so move on
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"File "
+operator|+
+name|path
+operator|+
+literal|" doesn't exist anymore."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 operator|!
