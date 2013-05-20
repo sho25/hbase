@@ -472,8 +472,21 @@ name|DELAYED
 init|=
 literal|1
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|RPC_CLIENT_TIMEOUT
+init|=
+literal|30000
+decl_stmt|;
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testDelayedRpcImmediateReturnValue
@@ -489,6 +502,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testDelayedRpcDelayedReturnValue
@@ -512,6 +530,15 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running testDelayedRpc delayReturnValue="
+operator|+
+name|delayReturnValue
+argument_list|)
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -647,7 +674,7 @@ operator|.
 name|getCurrent
 argument_list|()
 argument_list|,
-literal|1000
+name|RPC_CLIENT_TIMEOUT
 argument_list|)
 decl_stmt|;
 name|TestDelayedRpcProtos
@@ -679,6 +706,7 @@ name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Setting true sets 'delayed' on the client.
 name|TestThread
 name|th1
 init|=
@@ -692,6 +720,7 @@ argument_list|,
 name|results
 argument_list|)
 decl_stmt|;
+comment|// Setting 'false' means we will return UNDELAYED as response immediately.
 name|TestThread
 name|th2
 init|=
@@ -762,6 +791,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+comment|// We should get the two undelayed responses first.
 name|assertEquals
 argument_list|(
 name|UNDELAYED
@@ -900,6 +930,11 @@ block|}
 comment|/**    * Tests that we see a WARN message in the logs.    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testTooManyDelayedRpcs
@@ -1091,7 +1126,7 @@ operator|.
 name|getCurrent
 argument_list|()
 argument_list|,
-literal|1000
+name|RPC_CLIENT_TIMEOUT
 argument_list|)
 decl_stmt|;
 name|TestDelayedRpcProtos
