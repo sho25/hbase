@@ -1914,6 +1914,10 @@ block|}
 if|if
 condition|(
 name|children
+operator|!=
+literal|null
+operator|&&
+name|children
 operator|.
 name|size
 argument_list|()
