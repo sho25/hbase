@@ -5440,7 +5440,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|ThreadPoolExecutor
@@ -5730,7 +5730,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|50
+literal|1000
 argument_list|)
 expr_stmt|;
 if|if
