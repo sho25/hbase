@@ -7040,6 +7040,30 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * Returns the lower of the thread-local RPC time from {@link #setRpcTimeout(int)} and the given    * default timeout.    */
+specifier|public
+specifier|static
+name|int
+name|getRpcTimeout
+parameter_list|(
+name|int
+name|defaultTimeout
+parameter_list|)
+block|{
+return|return
+name|Math
+operator|.
+name|min
+argument_list|(
+name|defaultTimeout
+argument_list|,
+name|rpcTimeout
+operator|.
+name|get
+argument_list|()
+argument_list|)
+return|;
+block|}
 specifier|public
 specifier|static
 name|void
@@ -7391,11 +7415,16 @@ name|rpcClient
 operator|=
 name|rpcClient
 expr_stmt|;
+comment|// Set the rpc timeout to be the minimum of configured timeout and whatever the current
+comment|// thread local setting is.
 name|this
 operator|.
 name|rpcTimeout
 operator|=
+name|getRpcTimeout
+argument_list|(
 name|rpcTimeout
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

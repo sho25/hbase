@@ -820,6 +820,15 @@ name|HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
 literal|"hbase.client.operation.timeout"
 decl_stmt|;
+comment|/** Parameter name for HBase client operation timeout, which overrides RPC timeout */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_META_OPERATION_TIMEOUT
+init|=
+literal|"hbase.client.meta.operation.timeout"
+decl_stmt|;
 comment|/** Default HBase client operation timeout, which is tantamount to a blocking call */
 specifier|public
 specifier|static

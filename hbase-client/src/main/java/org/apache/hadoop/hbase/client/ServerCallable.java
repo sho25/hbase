@@ -987,23 +987,17 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// If, after the planned sleep, there won't be enough time left, we stop now.
+name|long
+name|duration
+init|=
+name|singleCallDuration
+argument_list|(
+name|expectedSleep
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-operator|(
-operator|(
-name|this
-operator|.
-name|endTime
-operator|-
-name|this
-operator|.
-name|globalStartTime
-operator|)
-operator|+
-name|MIN_RPC_TIMEOUT
-operator|+
-name|expectedSleep
-operator|)
+name|duration
 operator|>
 name|this
 operator|.
@@ -1043,17 +1037,9 @@ name|this
 operator|.
 name|callTimeout
 operator|+
-literal|", time="
+literal|", callDuration="
 operator|+
-operator|(
-name|this
-operator|.
-name|endTime
-operator|-
-name|this
-operator|.
-name|startTime
-operator|)
+name|duration
 argument_list|)
 operator|.
 name|initCause
@@ -1110,6 +1096,32 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
+comment|/**    * @param expectedSleep    * @return Calculate how long a single call took    */
+specifier|private
+name|long
+name|singleCallDuration
+parameter_list|(
+specifier|final
+name|long
+name|expectedSleep
+parameter_list|)
+block|{
+return|return
+operator|(
+name|this
+operator|.
+name|endTime
+operator|-
+name|this
+operator|.
+name|globalStartTime
+operator|)
+operator|+
+name|MIN_RPC_TIMEOUT
+operator|+
+name|expectedSleep
+return|;
 block|}
 comment|/**    * Run this instance against the server once.    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
