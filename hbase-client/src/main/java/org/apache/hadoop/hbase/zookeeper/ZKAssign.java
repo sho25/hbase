@@ -2286,14 +2286,6 @@ operator|-
 literal|1
 return|;
 block|}
-name|RegionTransition
-name|rt
-init|=
-name|getRegionTransition
-argument_list|(
-name|existingBytes
-argument_list|)
-decl_stmt|;
 comment|// Verify it is the expected version
 if|if
 condition|(
@@ -2352,7 +2344,6 @@ operator|-
 literal|1
 return|;
 block|}
-elseif|else
 if|if
 condition|(
 name|beginState
@@ -2424,6 +2415,71 @@ operator|+
 literal|" not the expected version "
 operator|+
 name|expectedVersion
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1
+return|;
+block|}
+name|RegionTransition
+name|rt
+init|=
+name|getRegionTransition
+argument_list|(
+name|existingBytes
+argument_list|)
+decl_stmt|;
+comment|// Verify the server transition happens on is not changed
+if|if
+condition|(
+operator|!
+name|rt
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
+operator|+
+name|encoded
+operator|+
+literal|" from "
+operator|+
+name|beginState
+operator|+
+literal|" to "
+operator|+
+name|endState
+operator|+
+literal|" failed, "
+operator|+
+literal|"the server that tried to transition was "
+operator|+
+name|serverName
+operator|+
+literal|" not the expected "
+operator|+
+name|rt
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

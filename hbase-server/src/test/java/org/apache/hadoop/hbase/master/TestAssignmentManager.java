@@ -2724,7 +2724,7 @@ argument_list|()
 argument_list|,
 name|REGIONINFO
 argument_list|,
-name|SERVERNAME_A
+name|SERVERNAME_B
 argument_list|,
 name|EventType
 operator|.
