@@ -631,14 +631,6 @@ name|length
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
-name|filterMPONE
-operator|.
-name|filterRow
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -678,6 +670,14 @@ name|filterKeyValue
 argument_list|(
 name|kv
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+name|filterMPONE
+operator|.
+name|filterRow
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -707,14 +707,6 @@ name|length
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
-name|filterMPONE
-operator|.
-name|filterRow
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -756,7 +748,15 @@ name|kv
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|/* PageFilter will fail now, but should pass because we match yyy */
+name|assertFalse
+argument_list|(
+name|filterMPONE
+operator|.
+name|filterRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|/* reach MAX_PAGES already, should filter any rows */
 name|rowkey
 operator|=
 name|Bytes
@@ -766,7 +766,7 @@ argument_list|(
 literal|"yyy"
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|filterMPONE
 operator|.
@@ -780,14 +780,6 @@ name|rowkey
 operator|.
 name|length
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertFalse
-argument_list|(
-name|filterMPONE
-operator|.
-name|filterRow
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|kv
@@ -814,7 +806,7 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|Filter
 operator|.
@@ -828,6 +820,14 @@ name|filterKeyValue
 argument_list|(
 name|kv
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+name|filterMPONE
+operator|.
+name|filterRow
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|/* We should filter any row */
