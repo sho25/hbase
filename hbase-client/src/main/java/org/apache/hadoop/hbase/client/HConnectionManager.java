@@ -13471,7 +13471,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"Server tracker timeout is "
 operator|+
