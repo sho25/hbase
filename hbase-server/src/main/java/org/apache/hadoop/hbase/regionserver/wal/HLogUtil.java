@@ -281,17 +281,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
+name|TextFormat
 import|;
 end_import
 
@@ -1236,15 +1232,29 @@ argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Appended compaction marker "
 operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
 name|c
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class
