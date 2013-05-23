@@ -1508,6 +1508,11 @@ name|setKeepDeletedCells
 argument_list|(
 literal|true
 argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|desc
@@ -13752,6 +13757,8 @@ argument_list|(
 name|TABLE
 argument_list|,
 name|FAMILIES
+argument_list|,
+literal|3
 argument_list|)
 decl_stmt|;
 name|Put
@@ -36100,6 +36107,8 @@ name|FAMILY
 block|}
 argument_list|,
 name|conf
+argument_list|,
+literal|3
 argument_list|)
 decl_stmt|;
 name|table

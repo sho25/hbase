@@ -150,6 +150,8 @@ name|TestHRegionBusyWait
 extends|extends
 name|TestHRegion
 block|{
+comment|// TODO: This subclass runs all the tests in TestHRegion as well as the test below which means
+comment|// all TestHRegion tests are run twice.
 specifier|public
 name|TestHRegionBusyWait
 parameter_list|()

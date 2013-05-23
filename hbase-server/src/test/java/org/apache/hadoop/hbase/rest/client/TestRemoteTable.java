@@ -670,6 +670,11 @@ name|HColumnDescriptor
 argument_list|(
 name|COLUMN_1
 argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|htd
@@ -681,6 +686,11 @@ name|HColumnDescriptor
 argument_list|(
 name|COLUMN_2
 argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|htd
@@ -691,6 +701,11 @@ operator|new
 name|HColumnDescriptor
 argument_list|(
 name|COLUMN_3
+argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;

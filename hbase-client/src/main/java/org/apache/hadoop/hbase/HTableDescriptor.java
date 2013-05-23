@@ -347,6 +347,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|BloomType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|User
@@ -5333,6 +5349,14 @@ argument_list|(
 name|HConstants
 operator|.
 name|REPLICATION_SCOPE_LOCAL
+argument_list|)
+comment|// Disable blooms for meta.  Needs work.  Seems to mess w/ getClosestOrBefore.
+operator|.
+name|setBloomFilterType
+argument_list|(
+name|BloomType
+operator|.
+name|NONE
 argument_list|)
 block|}
 argument_list|)

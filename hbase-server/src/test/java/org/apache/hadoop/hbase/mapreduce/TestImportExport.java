@@ -864,6 +864,8 @@ name|EXPORT_TABLE
 argument_list|)
 argument_list|,
 name|FAMILYA
+argument_list|,
+literal|3
 argument_list|)
 decl_stmt|;
 name|Put
@@ -1027,6 +1029,8 @@ name|IMPORT_TABLE
 argument_list|)
 argument_list|,
 name|FAMILYB
+argument_list|,
+literal|3
 argument_list|)
 expr_stmt|;
 name|args

@@ -101,22 +101,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|StoreConfigInformation
 import|;
 end_import
@@ -361,8 +345,11 @@ operator|*
 literal|60
 operator|*
 literal|24
+operator|*
+literal|7
 argument_list|)
 expr_stmt|;
+comment|// Make it 0.5 so jitter has us fall evenly either side of when the compaction should run
 name|majorCompactionJitter
 operator|=
 name|conf
@@ -371,7 +358,7 @@ name|getFloat
 argument_list|(
 literal|"hbase.hregion.majorcompaction.jitter"
 argument_list|,
-literal|0.20F
+literal|0.50F
 argument_list|)
 expr_stmt|;
 name|LOG

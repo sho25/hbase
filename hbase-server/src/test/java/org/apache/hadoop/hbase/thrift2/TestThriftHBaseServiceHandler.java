@@ -703,6 +703,11 @@ name|HColumnDescriptor
 argument_list|(
 name|familyAname
 argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
+argument_list|)
 block|,
 operator|new
 name|HColumnDescriptor

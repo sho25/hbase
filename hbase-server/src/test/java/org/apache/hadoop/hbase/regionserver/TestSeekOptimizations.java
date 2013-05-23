@@ -823,6 +823,11 @@ name|setBloomFilterType
 argument_list|(
 name|bloomType
 argument_list|)
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|3
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Delete the given timestamp and everything before.

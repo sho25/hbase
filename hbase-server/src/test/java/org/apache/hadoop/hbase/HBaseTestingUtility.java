@@ -4486,15 +4486,32 @@ range|:
 name|families
 control|)
 block|{
-name|desc
-operator|.
-name|addFamily
-argument_list|(
+name|HColumnDescriptor
+name|hcd
+init|=
 operator|new
 name|HColumnDescriptor
 argument_list|(
 name|family
 argument_list|)
+decl_stmt|;
+comment|// Disable blooms (they are on by default as of 0.95) but we disable them here because
+comment|// tests have hard coded counts of what to expect in block cache, etc., and blooms being
+comment|// on is interfering.
+name|hcd
+operator|.
+name|setBloomFilterType
+argument_list|(
+name|BloomType
+operator|.
+name|NONE
+argument_list|)
+expr_stmt|;
+name|desc
+operator|.
+name|addFamily
+argument_list|(
+name|hcd
 argument_list|)
 expr_stmt|;
 block|}

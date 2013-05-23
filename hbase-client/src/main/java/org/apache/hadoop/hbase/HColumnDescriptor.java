@@ -592,7 +592,7 @@ specifier|final
 name|int
 name|DEFAULT_VERSIONS
 init|=
-literal|3
+literal|1
 decl_stmt|;
 comment|/**    * Default is not to keep a minimum of versions.    */
 specifier|public
@@ -676,7 +676,7 @@ name|DEFAULT_BLOOMFILTER
 init|=
 name|BloomType
 operator|.
-name|NONE
+name|ROW
 operator|.
 name|toString
 argument_list|()
@@ -2069,7 +2069,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/** @return compression type being used for the column family for major        compression */
+comment|/** @return compression type being used for the column family for major       compression */
 specifier|public
 name|Compression
 operator|.
