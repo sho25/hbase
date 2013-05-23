@@ -449,6 +449,24 @@ literal|"If this is specified, data blocks will only be encoded in block "
 operator|+
 literal|"cache but not on disk"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OPT_INMEMORY
+init|=
+literal|"in_memory"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OPT_USAGE_IN_MEMORY
+init|=
+literal|"Tries to keep the HFiles of the CF "
+operator|+
+literal|"inmemory as far as possible.  Not guaranteed that reads are always served from inmemory"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -592,6 +610,10 @@ decl_stmt|;
 specifier|private
 name|BloomType
 name|bloomType
+decl_stmt|;
+specifier|private
+name|boolean
+name|inMemoryCF
 decl_stmt|;
 comment|// Writer options
 specifier|private
@@ -911,6 +933,19 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|inMemoryCF
+condition|)
+block|{
+name|columnDesc
+operator|.
+name|setInMemory
+argument_list|(
+name|inMemoryCF
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|isNewCf
 condition|)
 block|{
@@ -1070,6 +1105,13 @@ argument_list|(
 name|OPT_ENCODE_IN_CACHE_ONLY
 argument_list|,
 name|OPT_ENCODE_IN_CACHE_ONLY_USAGE
+argument_list|)
+expr_stmt|;
+name|addOptNoArg
+argument_list|(
+name|OPT_INMEMORY
+argument_list|,
+name|OPT_USAGE_IN_MEMORY
 argument_list|)
 expr_stmt|;
 name|addOptWithArg
@@ -1745,6 +1787,15 @@ operator|.
 name|valueOf
 argument_list|(
 name|bloomStr
+argument_list|)
+expr_stmt|;
+name|inMemoryCF
+operator|=
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+name|OPT_INMEMORY
 argument_list|)
 expr_stmt|;
 block|}
