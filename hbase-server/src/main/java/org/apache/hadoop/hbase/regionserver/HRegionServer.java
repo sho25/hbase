@@ -10833,6 +10833,22 @@ throw|throw
 name|ioe
 throw|;
 block|}
+elseif|else
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|ServerNotRunningYetException
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Master is not running yet"
+argument_list|)
+expr_stmt|;
+block|}
 else|else
 block|{
 name|LOG
