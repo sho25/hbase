@@ -43,6 +43,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1094,6 +1104,10 @@ name|fs
 parameter_list|,
 name|Path
 name|path
+parameter_list|,
+name|InetSocketAddress
+index|[]
+name|favoredNodes
 parameter_list|)
 throws|throws
 name|IOException
@@ -1124,6 +1138,8 @@ argument_list|,
 name|path
 argument_list|,
 name|perms
+argument_list|,
+name|favoredNodes
 argument_list|)
 return|;
 block|}

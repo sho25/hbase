@@ -51,6 +51,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|nio
 operator|.
 name|ByteBuffer
@@ -2297,6 +2307,11 @@ name|Path
 name|filePath
 decl_stmt|;
 specifier|private
+name|InetSocketAddress
+index|[]
+name|favoredNodes
+decl_stmt|;
+specifier|private
 name|ChecksumType
 name|checksumType
 init|=
@@ -2433,6 +2448,26 @@ operator|.
 name|compressAlgo
 operator|=
 name|compressAlgo
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**      * @param favoredNodes an array of favored nodes or possibly null      * @return this (for chained invocation)      */
+specifier|public
+name|WriterBuilder
+name|withFavoredNodes
+parameter_list|(
+name|InetSocketAddress
+index|[]
+name|favoredNodes
+parameter_list|)
+block|{
+name|this
+operator|.
+name|favoredNodes
+operator|=
+name|favoredNodes
 expr_stmt|;
 return|return
 name|this
@@ -2760,6 +2795,8 @@ argument_list|,
 name|bytesPerChecksum
 argument_list|,
 name|includeMVCCReadpoint
+argument_list|,
+name|favoredNodes
 argument_list|)
 return|;
 block|}
@@ -3140,7 +3177,7 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
-comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param checksumType the checksum type      * @param bytesPerChecksum the number of bytes per checksum value      * @param includeMVCCReadpoint whether to write the mvcc readpoint to the file for each KV      * @throws IOException problem writing to FS      */
+comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param blocksize HDFS block size      * @param compress HDFS block compression      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param checksumType the checksum type      * @param bytesPerChecksum the number of bytes per checksum value      * @param includeMVCCReadpoint whether to write the mvcc readpoint to the file for each KV      * @param favoredNodes      * @throws IOException problem writing to FS      */
 specifier|private
 name|Writer
 parameter_list|(
@@ -3189,6 +3226,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|includeMVCCReadpoint
+parameter_list|,
+name|InetSocketAddress
+index|[]
+name|favoredNodes
 parameter_list|)
 throws|throws
 name|IOException
@@ -3258,6 +3299,11 @@ operator|.
 name|withBytesPerChecksum
 argument_list|(
 name|bytesPerChecksum
+argument_list|)
+operator|.
+name|withFavoredNodes
+argument_list|(
+name|favoredNodes
 argument_list|)
 operator|.
 name|includeMVCCReadpoint

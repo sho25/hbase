@@ -101,20 +101,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|catalog
 operator|.
 name|CatalogTracker
@@ -213,6 +199,8 @@ interface|interface
 name|RegionServerServices
 extends|extends
 name|OnlineRegions
+extends|,
+name|FavoredNodesForRegion
 block|{
 comment|/**    * @return True if this regionserver is stopping.    */
 specifier|public

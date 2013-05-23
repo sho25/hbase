@@ -1623,6 +1623,8 @@ argument_list|,
 name|p
 argument_list|,
 name|filePerm
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|out
@@ -1796,6 +1798,8 @@ argument_list|,
 name|p
 argument_list|,
 name|perms
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|out
@@ -1842,6 +1846,8 @@ argument_list|,
 name|p1
 argument_list|,
 name|perms
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|out1

@@ -2955,6 +2955,8 @@ argument_list|,
 name|regionInfoFile
 argument_list|,
 name|perms
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try

@@ -679,6 +679,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|path
+argument_list|,
+literal|null
 argument_list|)
 else|:
 name|ostream

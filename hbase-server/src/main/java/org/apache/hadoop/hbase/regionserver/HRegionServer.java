@@ -18526,7 +18526,9 @@ name|build
 argument_list|()
 return|;
 block|}
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|void
 name|updateRegionFavoredNodesMapping
 parameter_list|(
@@ -18629,6 +18631,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Return the favored nodes for a region given its encoded name. Look at the    * comment around {@link #regionFavoredNodesMap} on why it is InetSocketAddress[]    * @param encodedRegionName    * @return array of favored locations    */
+annotation|@
+name|Override
 specifier|public
 name|InetSocketAddress
 index|[]
