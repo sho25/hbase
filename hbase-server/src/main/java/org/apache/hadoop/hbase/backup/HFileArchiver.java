@@ -2477,10 +2477,12 @@ name|getPath
 argument_list|()
 decl_stmt|;
 return|return
-name|fs
+name|FSUtils
 operator|.
-name|rename
+name|renameAndSetModifyTime
 argument_list|(
+name|fs
+argument_list|,
 name|p
 argument_list|,
 name|dest

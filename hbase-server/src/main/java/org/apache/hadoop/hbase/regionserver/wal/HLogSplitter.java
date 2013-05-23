@@ -3816,10 +3816,12 @@ block|{
 if|if
 condition|(
 operator|!
-name|fs
+name|FSUtils
 operator|.
-name|rename
+name|renameAndSetModifyTime
 argument_list|(
+name|fs
+argument_list|,
 name|p
 argument_list|,
 name|newPath
