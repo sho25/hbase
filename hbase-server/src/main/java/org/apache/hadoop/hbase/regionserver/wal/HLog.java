@@ -221,6 +221,26 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|WALProtos
+operator|.
+name|WALTrailer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Writable
@@ -277,6 +297,26 @@ name|META_HLOG_FILE_EXTN
 init|=
 literal|".meta"
 decl_stmt|;
+comment|/**    * Configuration name of HLog Trailer's warning size. If a waltrailer's size is greater than the    * configured size, a warning is logged. This is used with Protobuf reader/writer.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WAL_TRAILER_WARN_SIZE
+init|=
+literal|"hbase.regionserver.waltrailer.warn.size"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_WAL_TRAILER_WARN_SIZE
+init|=
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|// 1MB
 specifier|static
 specifier|final
 name|Pattern
@@ -362,6 +402,11 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @return the WALTrailer of the current HLog. It may be null in case of legacy or corrupt WAL      *         files.      */
+name|WALTrailer
+name|getWALTrailer
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 interface|interface
@@ -408,6 +453,14 @@ name|getLength
 parameter_list|()
 throws|throws
 name|IOException
+function_decl|;
+comment|/**      * Sets HLog's WALTrailer. This trailer is appended at the end of WAL on closing.      * @param walTrailer trailer to append to WAL.      */
+name|void
+name|setWALTrailer
+parameter_list|(
+name|WALTrailer
+name|walTrailer
+parameter_list|)
 function_decl|;
 block|}
 comment|/**    * Utility class that lets us keep track of the edit with it's key Only used    * when splitting logs    */

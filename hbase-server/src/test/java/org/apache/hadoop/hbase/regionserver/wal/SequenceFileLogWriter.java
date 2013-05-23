@@ -199,6 +199,26 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|WALProtos
+operator|.
+name|WALTrailer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|SequenceFile
@@ -1225,6 +1245,17 @@ operator|.
 name|writer_out
 return|;
 block|}
+comment|/**    * This method is empty as trailer is added only in Protobuf based hlog readers/writers.    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setWALTrailer
+parameter_list|(
+name|WALTrailer
+name|walTrailer
+parameter_list|)
+block|{   }
 block|}
 end_class
 

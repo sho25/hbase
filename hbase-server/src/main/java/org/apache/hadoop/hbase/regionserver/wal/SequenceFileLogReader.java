@@ -215,7 +215,9 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|Text
+name|SequenceFile
+operator|.
+name|Metadata
 import|;
 end_import
 
@@ -229,9 +231,7 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|SequenceFile
-operator|.
-name|Metadata
+name|Text
 import|;
 end_import
 
