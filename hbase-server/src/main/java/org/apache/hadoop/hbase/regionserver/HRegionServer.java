@@ -5987,6 +5987,11 @@ block|}
 comment|//fsOk flag may be changed when closing regions throws exception.
 if|if
 condition|(
+operator|!
+name|this
+operator|.
+name|killed
+operator|&&
 name|this
 operator|.
 name|fsOk
