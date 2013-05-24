@@ -994,6 +994,13 @@ name|GENERATOR_NUM_MAPPERS_KEY
 init|=
 literal|"IntegrationTestBigLinkedList.generator.map.tasks"
 decl_stmt|;
+specifier|protected
+name|int
+name|NUM_SLAVES_BASE
+init|=
+literal|3
+decl_stmt|;
+comment|// number of slaves for the cluster
 specifier|static
 class|class
 name|CINode
@@ -3459,7 +3466,6 @@ return|;
 block|}
 block|}
 comment|/**    * Executes Generate and Verify in a loop. Data is not cleaned between runs, so each iteration    * adds more data.    */
-specifier|private
 specifier|static
 class|class
 name|Loop
@@ -5178,7 +5184,7 @@ return|return
 name|node
 return|;
 block|}
-specifier|private
+specifier|protected
 name|IntegrationTestingUtility
 name|util
 decl_stmt|;
@@ -5200,7 +5206,9 @@ name|util
 operator|.
 name|initializeCluster
 argument_list|(
-literal|3
+name|this
+operator|.
+name|NUM_SLAVES_BASE
 argument_list|)
 expr_stmt|;
 name|this
@@ -5296,7 +5304,7 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|IntegrationTestingUtility
 name|getTestingUtil
 parameter_list|()
