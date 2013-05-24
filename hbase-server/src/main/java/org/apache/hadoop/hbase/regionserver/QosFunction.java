@@ -1165,14 +1165,12 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"High priority: "
+literal|"High priority because region="
 operator|+
-name|TextFormat
+name|region
 operator|.
-name|shortDebugString
-argument_list|(
-name|param
-argument_list|)
+name|getRegionNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1284,11 +1282,12 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
+comment|// Scanner requests are small in size so TextFormat version should not overwhelm log.
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"High priority scanner request: "
+literal|"High priority scanner request "
 operator|+
 name|TextFormat
 operator|.
@@ -1305,29 +1304,6 @@ operator|.
 name|HIGH_QOS
 return|;
 block|}
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Low priority: "
-operator|+
-name|TextFormat
-operator|.
-name|shortDebugString
-argument_list|(
-name|param
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 return|return
 name|HConstants
