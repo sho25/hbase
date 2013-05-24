@@ -2229,13 +2229,34 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/**    * Min sequence id stored in store files of a region when opening the region    */
-specifier|private
-name|long
-name|minSeqIdForLogReplay
+comment|//
+comment|// Context: During replay we want to ensure that we do not lose any data. So, we
+comment|// have to be conservative in how we replay logs. For each store, we calculate
+comment|// the maxSeqId up to which the store was flushed. And, skip the edits which
+comment|// are equal to or lower than maxSeqId for each store.
+comment|// The following map is populated when opening the region
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|maxSeqIdInStores
 init|=
-operator|-
-literal|1
+operator|new
+name|TreeMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 comment|/**    * @return The smallest mvcc readPoint across all the scanners in this    * region. Writes older than this readPoint, are included  in every    * read operation.    */
 specifier|public
@@ -3410,34 +3431,6 @@ throws|,
 name|UnsupportedEncodingException
 block|{
 comment|// Load in all the HStores.
-comment|//
-comment|// Context: During replay we want to ensure that we do not lose any data. So, we
-comment|// have to be conservative in how we replay logs. For each store, we calculate
-comment|// the maxSeqId up to which the store was flushed. And, skip the edits which
-comment|// is equal to or lower than maxSeqId for each store.
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-name|maxSeqIdInStores
-init|=
-operator|new
-name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-decl_stmt|;
 name|long
 name|maxSeqId
 init|=
@@ -3628,29 +3621,6 @@ argument_list|,
 name|storeSeqIdForReplay
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|minSeqIdForLogReplay
-operator|==
-operator|-
-literal|1
-operator|||
-name|storeSeqIdForReplay
-operator|<
-name|this
-operator|.
-name|minSeqIdForLogReplay
-condition|)
-block|{
-name|this
-operator|.
-name|minSeqIdForLogReplay
-operator|=
-name|storeSeqIdForReplay
-expr_stmt|;
-block|}
 comment|// Include bulk loaded files when determining seqIdForAssignment
 name|long
 name|storeSeqIdForAssignment
@@ -22569,7 +22539,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|38
+literal|39
 operator|*
 name|ClassSize
 operator|.
@@ -22582,7 +22552,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|12
+literal|11
 operator|*
 name|Bytes
 operator|.
@@ -22671,6 +22641,11 @@ name|MultiVersionConsistencyControl
 operator|.
 name|FIXED_SIZE
 comment|// mvcc
+operator|+
+name|ClassSize
+operator|.
+name|TREEMAP
+comment|// maxSeqIdInStores
 decl_stmt|;
 annotation|@
 name|Override
@@ -24586,16 +24561,22 @@ operator|.
 name|openSeqNum
 return|;
 block|}
-comment|/**    * Gets the min sequence number that was read from storage when this region was opened. WAL Edits    * with smaller sequence number will be skipped from replay.    */
+comment|/**    * Gets max sequence ids of stores that was read from storage when this region was opened. WAL    * Edits with smaller or equal sequence number will be skipped from replay.    */
 specifier|public
-name|long
-name|getMinSeqIdForLogReplay
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|getMaxStoreSeqIdForLogReplay
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|minSeqIdForLogReplay
+name|maxSeqIdInStores
 return|;
 block|}
 comment|/**    * @return if a given region is in compaction now.    */

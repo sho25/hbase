@@ -533,6 +533,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ZooKeeperProtos
+operator|.
+name|RegionStoreSequenceIds
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|SplitLogWorker
@@ -5876,9 +5896,11 @@ name|nodePath
 argument_list|,
 name|ZKUtil
 operator|.
-name|positionToByteArray
+name|regionSequenceIdsToByteArray
 argument_list|(
 name|lastSequenceId
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6025,11 +6047,11 @@ return|return
 name|lastRecordedFlushedSequenceId
 return|;
 block|}
-comment|/**    * This function is used in distributedLogReplay to fetch last flushed sequence id from ZK    * @param zkw    * @param serverName    * @param encodedRegionName    * @return the last flushed sequence id recorded in ZK of the region for<code>serverName<code>    * @throws IOException    */
+comment|/**    * This function is used in distributedLogReplay to fetch last flushed sequence id from ZK    * @param zkw    * @param serverName    * @param encodedRegionName    * @return the last flushed sequence ids recorded in ZK of the region for<code>serverName<code>    * @throws IOException    */
 specifier|public
 specifier|static
-name|long
-name|getLastFlushedSequenceId
+name|RegionStoreSequenceIds
+name|getRegionFlushedSequenceId
 parameter_list|(
 name|ZooKeeperWatcher
 name|zkw
@@ -6050,11 +6072,10 @@ comment|// sequence Id name space (sequence Id only valid for a particular RS in
 comment|// when different newly assigned RS flushes the region.
 comment|// Therefore, in this mode we need to fetch last sequence Ids from ZK where we keep history of
 comment|// last flushed sequence Id for each failed RS instance.
-name|long
-name|lastFlushedSequenceId
+name|RegionStoreSequenceIds
+name|result
 init|=
-operator|-
-literal|1
+literal|null
 decl_stmt|;
 name|String
 name|nodePath
@@ -6103,11 +6124,11 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|lastFlushedSequenceId
+name|result
 operator|=
-name|SplitLogManager
+name|ZKUtil
 operator|.
-name|parseLastFlushedSequenceIdFrom
+name|parseRegionStoreSequenceIds
 argument_list|(
 name|data
 argument_list|)
@@ -6136,8 +6157,26 @@ name|e
 argument_list|)
 throw|;
 block|}
+catch|catch
+parameter_list|(
+name|DeserializationException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Can't parse last flushed sequence Id from znode:"
+operator|+
+name|nodePath
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 return|return
-name|lastFlushedSequenceId
+name|result
 return|;
 block|}
 comment|/**    * Keeps track of the batch of tasks submitted together by a caller in splitLogDistributed().    * Clients threads use this object to wait for all their tasks to be done.    *<p>    * All access is synchronized.    */
