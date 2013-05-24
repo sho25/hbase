@@ -734,7 +734,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Only used in tests.    *    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @throws IOException    */
+comment|/**    * Same as {@link #appendNoSync(HRegionInfo, byte[], WALEdit, UUID, long, HTableDescriptor)},    * except it causes a sync on the log    */
 specifier|public
 name|void
 name|append
@@ -759,10 +759,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
 specifier|public
-name|long
-name|appendNoSync
+name|void
+name|append
 parameter_list|(
 name|HRegionInfo
 name|info
@@ -774,23 +774,23 @@ parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
-name|UUID
-name|clusterId
-parameter_list|,
 specifier|final
 name|long
 name|now
 parameter_list|,
 name|HTableDescriptor
 name|htd
+parameter_list|,
+name|boolean
+name|isInMemstore
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
-name|append
+name|appendNoSync
 parameter_list|(
 name|HRegionInfo
 name|info
