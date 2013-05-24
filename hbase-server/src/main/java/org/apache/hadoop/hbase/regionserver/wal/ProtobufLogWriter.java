@@ -540,11 +540,19 @@ operator|.
 name|build
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Writing protobuf WAL; path="
+literal|"Initialized protobuf WAL="
 operator|+
 name|path
 operator|+
@@ -553,6 +561,7 @@ operator|+
 name|doCompress
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

@@ -485,6 +485,13 @@ argument_list|(
 name|flushed
 argument_list|)
 operator|+
+literal|", hasBloomFilter="
+operator|+
+name|writer
+operator|.
+name|hasGeneralBloom
+argument_list|()
+operator|+
 literal|", into tmp file "
 operator|+
 name|writer

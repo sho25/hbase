@@ -1413,7 +1413,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"HLog configuration: blocksize="
+literal|"WAL/HLog configuration: blocksize="
 operator|+
 name|StringUtils
 operator|.
@@ -2269,15 +2269,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Rolled log"
+literal|"Rolled WAL "
 operator|+
 operator|(
 name|oldFile
 operator|!=
 literal|null
 condition|?
-literal|" for file="
-operator|+
 name|FSUtils
 operator|.
 name|getPath
@@ -2291,6 +2289,10 @@ name|oldNumEntries
 operator|+
 literal|", filesize="
 operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|this
 operator|.
 name|fs
@@ -2302,11 +2304,12 @@ argument_list|)
 operator|.
 name|getLen
 argument_list|()
+argument_list|)
 else|:
 literal|""
 operator|)
 operator|+
-literal|"; new path="
+literal|"; new WAL="
 operator|+
 name|FSUtils
 operator|.

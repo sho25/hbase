@@ -33,16 +33,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -217,20 +207,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FSDataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|FileSystem
 import|;
 end_import
@@ -304,22 +280,6 @@ operator|.
 name|KeyValue
 operator|.
 name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-operator|.
-name|MetaKeyComparator
 import|;
 end_import
 
@@ -3362,9 +3322,16 @@ name|bloomType
 operator|=
 name|bloomType
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Bloom filter type for "
 operator|+
@@ -3457,9 +3424,16 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Delete Family Bloom filter type for "
 operator|+
@@ -4313,11 +4287,21 @@ argument_list|()
 expr_stmt|;
 comment|// Log final Bloom filter statistics. This needs to be done after close()
 comment|// because compound Bloom filters might be finalized as part of closing.
+if|if
+condition|(
 name|StoreFile
 operator|.
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|StoreFile
+operator|.
+name|LOG
+operator|.
+name|trace
 argument_list|(
 operator|(
 name|hasGeneralBloom
@@ -4339,14 +4323,13 @@ operator|)
 operator|+
 literal|"DeleteFamily"
 operator|+
-literal|" was added to HFile ("
+literal|" was added to HFile "
 operator|+
 name|getPath
 argument_list|()
-operator|+
-literal|") "
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
@@ -5731,9 +5714,17 @@ argument_list|,
 name|reader
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Loaded "
 operator|+
@@ -5742,7 +5733,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" ("
+literal|" "
 operator|+
 name|generalBloomFilter
 operator|.
@@ -5752,7 +5743,7 @@ operator|.
 name|getSimpleName
 argument_list|()
 operator|+
-literal|") metadata for "
+literal|" metadata for "
 operator|+
 name|reader
 operator|.
@@ -5760,6 +5751,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

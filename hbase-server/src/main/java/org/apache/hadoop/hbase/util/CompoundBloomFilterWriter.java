@@ -530,7 +530,7 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 operator|&&
 name|prevByteSize
@@ -543,7 +543,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Compacted Bloom chunk #"
 operator|+

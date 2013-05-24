@@ -6837,11 +6837,11 @@ block|}
 name|String
 name|s
 init|=
-literal|"Finished snapshotting "
+literal|"Finished memstore snapshotting "
 operator|+
 name|this
 operator|+
-literal|", commencing wait for mvcc, flushsize="
+literal|", syncing WAL and waiting on mvcc, flushsize="
 operator|+
 name|flushsize
 decl_stmt|;
@@ -6852,9 +6852,16 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|s
 argument_list|)
@@ -6889,18 +6896,31 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
+name|s
+operator|=
+literal|"Flushing stores of "
+operator|+
+name|this
+expr_stmt|;
 name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Flushing stores"
+name|s
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Finished snapshotting, commencing flushing stores"
+name|s
 argument_list|)
 expr_stmt|;
 comment|// Any failure from here on out will be catastrophic requiring server

@@ -900,7 +900,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Table is locked by: "
+literal|"Table is locked by "
 operator|+
 name|String
 operator|.
@@ -1072,13 +1072,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Attempt to acquire table "
 operator|+
@@ -1090,7 +1090,7 @@ else|:
 literal|"write"
 operator|)
 operator|+
-literal|" lock on :"
+literal|" lock on: "
 operator|+
 name|tableNameStr
 operator|+
@@ -1200,9 +1200,16 @@ literal|"Interrupted acquiring a lock"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Acquired table "
 operator|+
@@ -1214,11 +1221,11 @@ else|:
 literal|"write"
 operator|)
 operator|+
-literal|" lock on :"
+literal|" lock on "
 operator|+
 name|tableNameStr
 operator|+
-literal|" for:"
+literal|" for "
 operator|+
 name|purpose
 argument_list|)
@@ -1237,13 +1244,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Attempt to release table "
 operator|+
@@ -1255,7 +1262,7 @@ else|:
 literal|"write"
 operator|)
 operator|+
-literal|" lock on :"
+literal|" lock on "
 operator|+
 name|tableNameStr
 argument_list|)
@@ -1321,15 +1328,15 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Released table lock on :"
+literal|"Released table lock on "
 operator|+
 name|tableNameStr
 argument_list|)

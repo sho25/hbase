@@ -1729,11 +1729,6 @@ comment|/**    * Create the specified file on the filesystem. By default, this w
 end_comment
 
 begin_function
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -1754,9 +1749,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Creating file="
 operator|+
@@ -1765,8 +1768,13 @@ operator|+
 literal|" with permission="
 operator|+
 name|perm
+operator|+
+literal|", overwrite="
+operator|+
+name|overwrite
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|fs
 operator|.
