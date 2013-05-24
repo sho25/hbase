@@ -687,10 +687,6 @@ block|}
 comment|// initialize the scanner
 name|nextScanner
 argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -814,14 +810,11 @@ literal|false
 return|;
 comment|//unlikely.
 block|}
-comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().  We will go no further, just tidy      * up outstanding scanners, if<code>currentRegion != null</code> and      *<code>done</code> is true.      * @param nbRows      * @param done Server-side says we're done scanning.      */
+comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().  We will go no further, just tidy      * up outstanding scanners, if<code>currentRegion != null</code> and      *<code>done</code> is true.      * @param done Server-side says we're done scanning.      */
 specifier|private
 name|boolean
 name|nextScanner
 parameter_list|(
-name|int
-name|nbRows
-parameter_list|,
 specifier|final
 name|boolean
 name|done
@@ -1005,8 +998,6 @@ operator|=
 name|getScannerCallable
 argument_list|(
 name|localStartKey
-argument_list|,
-name|nbRows
 argument_list|)
 expr_stmt|;
 comment|// Open a scanner on the region server starting at the
@@ -1069,9 +1060,6 @@ parameter_list|(
 name|byte
 index|[]
 name|localStartKey
-parameter_list|,
-name|int
-name|nbRows
 parameter_list|)
 block|{
 name|scan
@@ -1104,7 +1092,9 @@ name|s
 operator|.
 name|setCaching
 argument_list|(
-name|nbRows
+name|this
+operator|.
+name|caching
 argument_list|)
 expr_stmt|;
 return|return
@@ -1211,17 +1201,6 @@ name|this
 operator|.
 name|caching
 decl_stmt|;
-comment|// We need to reset it if it's a new callable that was created
-comment|// with a countdown in nextScanner
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|)
-expr_stmt|;
 comment|// This flag is set when we want to skip the result returned.  We do
 comment|// this when we reset scanner because it split under us.
 name|boolean
@@ -1238,41 +1217,6 @@ do|do
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|skipFirst
-condition|)
-block|{
-comment|// Skip only the first row (which was the last row of the last
-comment|// already-processed batch).
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-name|values
-operator|=
-name|callable
-operator|.
-name|withRetries
-argument_list|()
-expr_stmt|;
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|)
-expr_stmt|;
-name|skipFirst
-operator|=
-literal|false
-expr_stmt|;
-block|}
 comment|// Server returns a null values if scanning is to stop.  Else,
 comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
@@ -1283,6 +1227,34 @@ operator|.
 name|withRetries
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|skipFirst
+operator|&&
+name|values
+operator|!=
+literal|null
+operator|&&
+name|values
+operator|.
+name|length
+operator|==
+literal|1
+condition|)
+block|{
+name|skipFirst
+operator|=
+literal|false
+expr_stmt|;
+comment|// Already skipped, unset it before scanning again
+name|values
+operator|=
+name|callable
+operator|.
+name|withRetries
+argument_list|()
+expr_stmt|;
+block|}
 name|retryAfterOutOfOrderException
 operator|=
 literal|true
@@ -1538,14 +1510,50 @@ operator|>
 literal|0
 condition|)
 block|{
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|skipFirst
+condition|)
+block|{
+name|skipFirst
+operator|=
+literal|false
+expr_stmt|;
+comment|// We will cache one row less, which is fine
+name|countdown
+operator|--
+expr_stmt|;
+name|i
+operator|=
+literal|1
+expr_stmt|;
+block|}
 for|for
 control|(
-name|Result
-name|rs
-range|:
+init|;
+name|i
+operator|<
 name|values
+operator|.
+name|length
+condition|;
+name|i
+operator|++
 control|)
 block|{
+name|Result
+name|rs
+init|=
+name|values
+index|[
+name|i
+index|]
+decl_stmt|;
 name|cache
 operator|.
 name|add
@@ -1597,8 +1605,6 @@ literal|0
 operator|&&
 name|nextScanner
 argument_list|(
-name|countdown
-argument_list|,
 name|values
 operator|==
 literal|null
@@ -1779,6 +1785,33 @@ name|closed
 operator|=
 literal|true
 expr_stmt|;
+block|}
+name|long
+name|currentScannerId
+parameter_list|()
+block|{
+return|return
+operator|(
+name|callable
+operator|==
+literal|null
+operator|)
+condition|?
+operator|-
+literal|1L
+else|:
+name|callable
+operator|.
+name|scannerId
+return|;
+block|}
+name|HRegionInfo
+name|currentRegionInfo
+parameter_list|()
+block|{
+return|return
+name|currentRegion
+return|;
 block|}
 block|}
 end_class
