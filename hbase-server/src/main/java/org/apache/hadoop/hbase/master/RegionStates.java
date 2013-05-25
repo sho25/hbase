@@ -1641,7 +1641,7 @@ name|assignedRegions
 init|=
 name|serverHoldings
 operator|.
-name|get
+name|remove
 argument_list|(
 name|sn
 argument_list|)
