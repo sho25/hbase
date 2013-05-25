@@ -2265,17 +2265,33 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|oldFile
+operator|==
+literal|null
+condition|)
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"New WAL "
+operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
+name|newPath
+argument_list|)
+argument_list|)
+expr_stmt|;
+else|else
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Rolled WAL "
 operator|+
-operator|(
-name|oldFile
-operator|!=
-literal|null
-condition|?
 name|FSUtils
 operator|.
 name|getPath
@@ -2283,7 +2299,7 @@ argument_list|(
 name|oldFile
 argument_list|)
 operator|+
-literal|", entries="
+literal|" with entries="
 operator|+
 name|oldNumEntries
 operator|+
@@ -2305,11 +2321,8 @@ operator|.
 name|getLen
 argument_list|()
 argument_list|)
-else|:
-literal|""
-operator|)
 operator|+
-literal|"; new WAL="
+literal|"; new WAL "
 operator|+
 name|FSUtils
 operator|.
@@ -3554,7 +3567,7 @@ name|files
 operator|.
 name|length
 operator|+
-literal|" log files to "
+literal|" WAL file(s) to "
 operator|+
 name|FSUtils
 operator|.
@@ -3752,7 +3765,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"closing hlog writer in "
+literal|"Closing WAL writer in "
 operator|+
 name|this
 operator|.

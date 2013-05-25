@@ -1653,8 +1653,22 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Ignoring (most likely Reflection related exception) "
-operator|+
+literal|"DFS Client does not support most favored nodes create; using default create"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Ignoring; use default create"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

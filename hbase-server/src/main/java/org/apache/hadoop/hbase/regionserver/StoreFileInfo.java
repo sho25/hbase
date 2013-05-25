@@ -117,20 +117,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FSDataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|FileStatus
 import|;
 end_import
@@ -187,22 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|fs
-operator|.
-name|HFileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|FSDataInputStreamWrapper
@@ -237,7 +207,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|Reference
+name|HalfStoreFileReader
 import|;
 end_import
 
@@ -253,7 +223,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|HalfStoreFileReader
+name|Reference
 import|;
 end_import
 
@@ -510,12 +480,17 @@ argument_list|,
 name|p
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Store file "
-operator|+
 name|p
 operator|+
 literal|" is a link"
@@ -586,12 +561,17 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Store file "
-operator|+
 name|p
 operator|+
 literal|" is a "

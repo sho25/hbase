@@ -2300,9 +2300,18 @@ operator|.
 name|getServersByLoad
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+comment|// If nothing to balance, then don't say anything unless trace-level logging.
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Skipping load balancing because balanced cluster; "
 operator|+
@@ -2349,6 +2358,7 @@ name|getLoad
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;

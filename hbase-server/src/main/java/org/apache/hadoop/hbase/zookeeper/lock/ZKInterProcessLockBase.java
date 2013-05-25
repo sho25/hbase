@@ -1009,7 +1009,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Successfully acquired a lock for "
+literal|"Acquired a lock for "
 operator|+
 name|createdZNode
 argument_list|)
@@ -1517,7 +1517,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Successfully released "
+literal|"Released "
 operator|+
 name|lock
 operator|.

@@ -912,7 +912,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attempting to create the table "
+literal|"Create table "
 operator|+
 name|tableName
 argument_list|)

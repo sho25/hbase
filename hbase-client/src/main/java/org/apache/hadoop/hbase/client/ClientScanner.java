@@ -972,8 +972,15 @@ name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
+operator|&&
+name|this
+operator|.
+name|currentRegion
+operator|!=
+literal|null
 condition|)
 block|{
+comment|// Only worth logging if NOT first region in scan.
 name|LOG
 operator|.
 name|debug
