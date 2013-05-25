@@ -9497,6 +9497,15 @@ name|auto
 condition|)
 block|{
 comment|// auto bind disabled throw BindException
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed binding http info server to port: "
+operator|+
+name|port
+argument_list|)
+expr_stmt|;
 throw|throw
 name|e
 throw|;
