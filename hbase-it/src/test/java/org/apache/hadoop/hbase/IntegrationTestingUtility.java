@@ -263,7 +263,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return whether we are interacting with a distributed cluster as opposed to and in-process mini    * cluster or a local cluster.    * @see IntegrationTestingUtility#setUseDistributedCluster(Configuration)    */
-specifier|private
+specifier|public
 name|boolean
 name|isDistributedCluster
 parameter_list|()
