@@ -375,6 +375,10 @@ block|}
 if|if
 condition|(
 name|data
+operator|!=
+literal|null
+operator|&&
+name|data
 operator|.
 name|hasCreateTime
 argument_list|()

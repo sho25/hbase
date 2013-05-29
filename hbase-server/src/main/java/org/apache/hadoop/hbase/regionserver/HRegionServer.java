@@ -14729,6 +14729,12 @@ else|:
 literal|null
 decl_stmt|;
 comment|// Clear scanner so we are not holding on to reference across call.
+if|if
+condition|(
+name|controller
+operator|!=
+literal|null
+condition|)
 name|controller
 operator|.
 name|setCellScanner
@@ -15339,6 +15345,10 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|controller
+operator|!=
+literal|null
+operator|&&
 name|cellsToReturn
 operator|!=
 literal|null
@@ -16657,6 +16667,12 @@ else|:
 literal|null
 decl_stmt|;
 comment|// Clear scanner so we are not holding on to reference across call.
+if|if
+condition|(
+name|controller
+operator|!=
+literal|null
+condition|)
 name|controller
 operator|.
 name|setCellScanner
@@ -17213,6 +17229,10 @@ name|cellsToReturn
 operator|.
 name|isEmpty
 argument_list|()
+operator|&&
+name|controller
+operator|!=
+literal|null
 condition|)
 block|{
 name|controller
@@ -19564,6 +19584,12 @@ else|:
 literal|null
 decl_stmt|;
 comment|// Clear scanner so we are not holding on to reference across call.
+if|if
+condition|(
+name|controller
+operator|!=
+literal|null
+condition|)
 name|controller
 operator|.
 name|setCellScanner
