@@ -636,15 +636,6 @@ argument_list|,
 name|fields
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"index.familyname"
-argument_list|,
-literal|"attributes"
-argument_list|)
-expr_stmt|;
 name|Job
 name|job
 init|=
