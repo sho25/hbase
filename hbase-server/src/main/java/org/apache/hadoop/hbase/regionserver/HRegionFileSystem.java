@@ -3480,6 +3480,7 @@ throw|;
 block|}
 if|if
 condition|(
+operator|!
 name|readOnly
 condition|)
 block|{
