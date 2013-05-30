@@ -1877,13 +1877,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Block cache LRU eviction started; Attempting to free "
 operator|+
@@ -2130,7 +2130,7 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
@@ -2160,7 +2160,7 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Block cache LRU eviction completed; "
 operator|+
