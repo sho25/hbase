@@ -55,6 +55,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|classification
@@ -124,6 +152,21 @@ name|ExploringCompactionPolicy
 extends|extends
 name|RatioBasedCompactionPolicy
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|ExploringCompactionPolicy
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * Constructor for ExploringCompactionPolicy.    * @param conf The configuration object    * @param storeConfigInfo An object to provide info about the store.    */
 specifier|public
 name|ExploringCompactionPolicy
@@ -215,6 +258,21 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+name|int
+name|opts
+init|=
+literal|0
+decl_stmt|,
+name|optsInRatio
+init|=
+literal|0
+decl_stmt|,
+name|bestStart
+init|=
+operator|-
+literal|1
+decl_stmt|;
+comment|// for debug logging
 comment|// Consider every starting place.
 for|for
 control|(
@@ -339,6 +397,21 @@ block|}
 if|if
 condition|(
 name|size
+operator|>
+name|comConf
+operator|.
+name|getMaxCompactSize
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
+operator|++
+name|opts
+expr_stmt|;
+if|if
+condition|(
+name|size
 operator|>=
 name|comConf
 operator|.
@@ -356,18 +429,9 @@ condition|)
 block|{
 continue|continue;
 block|}
-if|if
-condition|(
-name|size
-operator|>
-name|comConf
-operator|.
-name|getMaxCompactSize
-argument_list|()
-condition|)
-block|{
-continue|continue;
-block|}
+operator|++
+name|optsInRatio
+expr_stmt|;
 comment|// Keep if this gets rid of more files.  Or the same number of files for less io.
 if|if
 condition|(
@@ -406,6 +470,10 @@ name|bestSize
 operator|=
 name|size
 expr_stmt|;
+name|bestStart
+operator|=
+name|start
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -421,6 +489,24 @@ operator|&&
 name|mightBeStuck
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Exploring compaction algorithm has selected "
+operator|+
+name|smallest
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" files of size "
+operator|+
+name|smallestSize
+operator|+
+literal|" because the store might be stuck"
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|ArrayList
@@ -432,6 +518,36 @@ name|smallest
 argument_list|)
 return|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Exploring compaction algorithm has selected "
+operator|+
+name|bestSelection
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" files of size "
+operator|+
+name|bestSize
+operator|+
+literal|" starting at candidate #"
+operator|+
+name|bestStart
+operator|+
+literal|" after considering "
+operator|+
+name|opts
+operator|+
+literal|" permutations with "
+operator|+
+name|optsInRatio
+operator|+
+literal|" in ratio"
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|ArrayList

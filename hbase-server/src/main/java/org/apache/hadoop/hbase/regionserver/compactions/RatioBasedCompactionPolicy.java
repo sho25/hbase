@@ -513,6 +513,41 @@ argument_list|,
 name|filesCompacting
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Selecting compaction from "
+operator|+
+name|candidateFiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" store files, "
+operator|+
+name|filesCompacting
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" compacting, "
+operator|+
+name|candidateSelection
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" eligible, "
+operator|+
+name|storeConfigInfo
+operator|.
+name|getBlockingFileCount
+argument_list|()
+operator|+
+literal|" blocking"
+argument_list|)
+expr_stmt|;
 name|long
 name|cfTtl
 init|=
