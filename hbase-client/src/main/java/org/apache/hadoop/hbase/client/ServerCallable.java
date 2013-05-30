@@ -939,6 +939,7 @@ throw|;
 block|}
 comment|// If the server is dead, we need to wait a little before retrying, to give
 comment|//  a chance to the regions to be
+comment|// tries hasn't been bumped up yet so we use "tries + 1" to get right pause time
 name|expectedSleep
 operator|=
 name|ConnectionUtils
@@ -948,6 +949,8 @@ argument_list|(
 name|pause
 argument_list|,
 name|tries
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 if|if

@@ -95,7 +95,6 @@ name|IngestIntegrationTestBase
 block|{
 specifier|private
 specifier|static
-specifier|final
 name|int
 name|NUM_SLAVES_BASE
 init|=
@@ -128,6 +127,28 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|util
+operator|=
+name|getTestingUtil
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|util
+operator|.
+name|isDistributedCluster
+argument_list|()
+condition|)
+block|{
+comment|// In MiniCluster mode, we increase number of RS a little bit to speed the test
+name|NUM_SLAVES_BASE
+operator|=
+literal|5
+expr_stmt|;
+block|}
 name|super
 operator|.
 name|setUp

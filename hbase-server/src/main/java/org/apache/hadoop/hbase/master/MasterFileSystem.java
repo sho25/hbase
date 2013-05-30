@@ -693,7 +693,6 @@ specifier|final
 name|MasterServices
 name|services
 decl_stmt|;
-specifier|private
 specifier|final
 specifier|static
 name|PathFilter
@@ -722,7 +721,6 @@ return|;
 block|}
 block|}
 decl_stmt|;
-specifier|private
 specifier|final
 specifier|static
 name|PathFilter
