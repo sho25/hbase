@@ -3867,37 +3867,6 @@ return|return
 name|sf
 return|;
 block|}
-comment|/*    * @param maxKeyCount    * @return Writer for a new StoreFile in the tmp dir.    */
-specifier|private
-name|StoreFile
-operator|.
-name|Writer
-name|createWriterInTmp
-parameter_list|(
-name|long
-name|maxKeyCount
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|createWriterInTmp
-argument_list|(
-name|maxKeyCount
-argument_list|,
-name|this
-operator|.
-name|family
-operator|.
-name|getCompression
-argument_list|()
-argument_list|,
-literal|false
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
 comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @return Writer for a new StoreFile in the tmp dir.    */
 specifier|public
 name|StoreFile
