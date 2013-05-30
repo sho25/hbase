@@ -6655,9 +6655,17 @@ condition|(
 name|isNewCacheEntry
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Cached location for "
 operator|+
@@ -6678,6 +6686,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 elseif|else
 if|if
 condition|(
@@ -6692,9 +6701,17 @@ name|oldLocation
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Ignoring stale location update for "
 operator|+
@@ -6735,6 +6752,7 @@ name|getSeqNum
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Map keyed by service name + regionserver to service stub implementation
@@ -11197,6 +11215,22 @@ name|allActions
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|sb
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|' '
+argument_list|)
+expr_stmt|;
 name|sb
 operator|.
 name|append
@@ -11214,18 +11248,19 @@ name|getRow
 argument_list|()
 argument_list|)
 argument_list|)
-operator|.
-name|append
-argument_list|(
-literal|';'
-argument_list|)
 expr_stmt|;
 block|}
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Will retry requests to ["
+literal|"Attempt #"
+operator|+
+name|this
+operator|.
+name|curNumRetries
+operator|+
+literal|" against "
 operator|+
 name|e
 operator|.
@@ -11235,18 +11270,16 @@ operator|.
 name|getHostnamePort
 argument_list|()
 operator|+
-literal|"] after delay of ["
+literal|" after="
 operator|+
 name|backoffTime
 operator|+
-literal|"] for rows ["
+literal|"ms, row(s)="
 operator|+
 name|sb
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|"]"
 argument_list|)
 expr_stmt|;
 block|}
@@ -11546,8 +11579,7 @@ name|lastRetry
 init|=
 literal|false
 decl_stmt|;
-comment|// despite its name numRetries means number of tries. So if numRetries == 1 it means we
-comment|//  won't retry. And we compare vs. 2 in case someone set it to zero.
+comment|// If hci.numTries is 1 or 0, we do not retry.
 name|boolean
 name|noRetry
 init|=
@@ -11559,7 +11591,7 @@ operator|<
 literal|2
 operator|)
 decl_stmt|;
-comment|// Analyze and resubmit until all actions are done successfully or failed after numRetries
+comment|// Analyze and resubmit until all actions are done successfully or failed after numTries
 while|while
 condition|(
 operator|!
@@ -11999,7 +12031,11 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Retrying due to errors"
+literal|"Retrying #"
+operator|+
+name|this
+operator|.
+name|curNumRetries
 operator|+
 operator|(
 name|lastRetry
@@ -12009,7 +12045,7 @@ else|:
 literal|""
 operator|)
 operator|+
-literal|": "
+literal|" because "
 operator|+
 name|retriedErrors
 operator|.

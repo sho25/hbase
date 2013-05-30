@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A system test which does large data ingestion and verify using {@link LoadTestTool}.  * It performs a set of actions deterministically using ChaosMonkey, then starts killing  * things randomly. You can configure how long should the load test run by using   * "hbase.IntegrationTestDataIngestSlowDeterministic.runtime" configuration parameter.  */
+comment|/**  * A system test which does large data ingestion and verify using {@link LoadTestTool}.  * It performs a set of actions deterministically using ChaosMonkey, then starts killing  * things randomly. You can configure how long should the load test run by using  * "hbase.IntegrationTestDataIngestSlowDeterministic.runtime" configuration parameter.  */
 end_comment
 
 begin_class
@@ -198,7 +198,7 @@ specifier|final
 name|long
 name|DEFAULT_RUN_TIME
 init|=
-literal|30
+literal|10
 operator|*
 literal|60
 operator|*

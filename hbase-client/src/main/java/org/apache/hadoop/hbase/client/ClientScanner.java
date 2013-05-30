@@ -495,7 +495,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating scanner over "
+literal|"Scan table="
 operator|+
 name|Bytes
 operator|.
@@ -504,7 +504,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|+
-literal|" starting at key '"
+literal|", startRow="
 operator|+
 name|Bytes
 operator|.
@@ -515,8 +515,6 @@ operator|.
 name|getStartRow
 argument_list|()
 argument_list|)
-operator|+
-literal|"'"
 argument_list|)
 expr_stmt|;
 block|}
@@ -917,7 +915,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished scanning region "
+literal|"Finished region="
 operator|+
 name|this
 operator|.

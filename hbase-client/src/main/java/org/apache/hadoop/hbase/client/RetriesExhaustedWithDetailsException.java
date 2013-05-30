@@ -603,7 +603,7 @@ name|pw
 operator|.
 name|append
 argument_list|(
-literal|"Error"
+literal|"exception"
 argument_list|)
 expr_stmt|;
 if|if
@@ -632,11 +632,11 @@ name|pw
 operator|.
 name|append
 argument_list|(
-literal|" from ["
+literal|" from "
 operator|+
 name|server
 operator|+
-literal|"] for ["
+literal|" for "
 operator|+
 operator|(
 operator|(
@@ -657,8 +657,6 @@ name|getRow
 argument_list|()
 argument_list|)
 operator|)
-operator|+
-literal|"]"
 argument_list|)
 expr_stmt|;
 if|if
@@ -668,6 +666,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|pw
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
 name|t
 operator|.
 name|printStackTrace

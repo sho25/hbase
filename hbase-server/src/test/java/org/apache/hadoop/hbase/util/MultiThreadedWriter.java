@@ -920,8 +920,6 @@ name|long
 name|keyBase
 parameter_list|)
 block|{
-try|try
-block|{
 name|long
 name|start
 init|=
@@ -930,6 +928,8 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|table
 operator|.
 name|put
@@ -1037,7 +1037,18 @@ literal|"Failed to insert: "
 operator|+
 name|keyBase
 operator|+
-literal|"; region information: "
+literal|" after "
+operator|+
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|start
+operator|)
+operator|+
+literal|"ms; region information: "
 operator|+
 name|getRegionDebugInfoSafe
 argument_list|(

@@ -1613,7 +1613,7 @@ specifier|static
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
-literal|10
+literal|20
 decl_stmt|;
 comment|/**    * Parameter name for client prefetch limit, used as the maximum number of regions    * info that will be prefetched.    */
 specifier|public

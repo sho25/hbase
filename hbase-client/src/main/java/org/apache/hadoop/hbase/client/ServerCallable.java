@@ -512,6 +512,38 @@ argument_list|,
 name|reload
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|location
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to find location, tableName="
+operator|+
+name|tableName
+operator|+
+literal|", row="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|row
+argument_list|)
+operator|+
+literal|", reload="
+operator|+
+name|reload
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|stub
@@ -805,9 +837,7 @@ operator|+
 literal|", numRetries="
 operator|+
 name|numRetries
-operator|+
-literal|": "
-operator|+
+argument_list|,
 name|t
 argument_list|)
 expr_stmt|;

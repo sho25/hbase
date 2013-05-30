@@ -63,16 +63,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|LinkedList
 import|;
 end_import
@@ -114,16 +104,6 @@ operator|.
 name|util
 operator|.
 name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -249,7 +229,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|IntegrationTestingUtility
+name|IntegrationTestDataIngestWithChaosMonkey
 import|;
 end_import
 
@@ -263,7 +243,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|IntegrationTestDataIngestWithChaosMonkey
+name|IntegrationTestingUtility
 import|;
 end_import
 
@@ -378,18 +358,6 @@ operator|.
 name|collect
 operator|.
 name|Maps
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -734,6 +702,25 @@ operator|.
 name|getServers
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|regionServers
+operator|==
+literal|null
+operator|||
+name|regionServers
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|0
+condition|)
+return|return
+operator|new
+name|ServerName
+index|[]
+block|{}
+return|;
 return|return
 name|regionServers
 operator|.
