@@ -8641,7 +8641,7 @@ name|fs
 argument_list|,
 name|writers
 argument_list|,
-name|ENTRIES
+name|entries
 argument_list|,
 name|leaveOpen
 argument_list|)
