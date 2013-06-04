@@ -947,9 +947,7 @@ specifier|volatile
 name|long
 name|lastRecoveringNodeCreationTime
 init|=
-name|Long
-operator|.
-name|MAX_VALUE
+literal|0
 decl_stmt|;
 comment|// When lastRecoveringNodeCreationTime is older than the following threshold, we'll check
 comment|// whether to GC stale recovering znodes

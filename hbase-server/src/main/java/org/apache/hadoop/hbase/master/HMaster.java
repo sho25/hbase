@@ -5485,6 +5485,15 @@ expr_stmt|;
 comment|// Note: we can't remove oldMetaServerLocation from previousFailedServers list because it
 comment|// may also host user regions
 block|}
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|previouslyFailedMetaRSs
+init|=
+name|getPreviouselyFailedMetaServersFromZK
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|initializationBeforeMetaAssignment
@@ -5519,16 +5528,13 @@ name|this
 operator|.
 name|distributedLogReplay
 operator|&&
-name|oldMetaServerLocation
-operator|!=
-literal|null
-operator|&&
-name|previouslyFailedServers
+operator|(
+operator|!
+name|previouslyFailedMetaRSs
 operator|.
-name|contains
-argument_list|(
-name|oldMetaServerLocation
-argument_list|)
+name|isEmpty
+argument_list|()
+operator|)
 condition|)
 block|{
 comment|// replay WAL edits mode need new .META. RS is assigned firstly
@@ -5539,13 +5545,28 @@ argument_list|(
 literal|"replaying log for Meta Region"
 argument_list|)
 expr_stmt|;
+comment|// need to use union of previouslyFailedMetaRSs recorded in ZK and previouslyFailedServers
+comment|// instead of oldMetaServerLocation to address the following two situations:
+comment|// 1) the chained failure situation(recovery failed multiple times in a row).
+comment|// 2) master get killed right before it could delete the recovering META from ZK while the
+comment|// same server still has non-meta wals to be replayed so that
+comment|// removeStaleRecoveringRegionsFromZK can't delete the stale META region
+comment|// Passing more servers into splitMetaLog is all right. If a server doesn't have .META. wal,
+comment|// there is no op for the server.
+name|previouslyFailedMetaRSs
+operator|.
+name|addAll
+argument_list|(
+name|previouslyFailedServers
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|fileSystemManager
 operator|.
 name|splitMetaLog
 argument_list|(
-name|oldMetaServerLocation
+name|previouslyFailedMetaRSs
 argument_list|)
 expr_stmt|;
 block|}
@@ -6250,6 +6271,103 @@ argument_list|)
 expr_stmt|;
 return|return
 literal|true
+return|;
+block|}
+comment|/**    * This function returns a set of region server names under .META. recovering region ZK node    * @return Set of meta server names which were recorded in ZK    * @throws KeeperException    */
+specifier|private
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|getPreviouselyFailedMetaServersFromZK
+parameter_list|()
+throws|throws
+name|KeeperException
+block|{
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|result
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|String
+name|metaRecoveringZNode
+init|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|zooKeeper
+operator|.
+name|recoveringRegionsZNode
+argument_list|,
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|regionFailedServers
+init|=
+name|ZKUtil
+operator|.
+name|listChildrenNoWatch
+argument_list|(
+name|zooKeeper
+argument_list|,
+name|metaRecoveringZNode
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|regionFailedServers
+operator|==
+literal|null
+condition|)
+return|return
+name|result
+return|;
+for|for
+control|(
+name|String
+name|failedServer
+range|:
+name|regionFailedServers
+control|)
+block|{
+name|ServerName
+name|server
+init|=
+name|ServerName
+operator|.
+name|parseServerName
+argument_list|(
+name|failedServer
+argument_list|)
+decl_stmt|;
+name|result
+operator|.
+name|add
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
 return|;
 block|}
 annotation|@
