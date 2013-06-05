@@ -3943,13 +3943,13 @@ name|setName
 argument_list|(
 name|MASTER
 operator|+
-literal|"-"
+literal|":"
 operator|+
 name|this
 operator|.
 name|serverName
 operator|.
-name|toString
+name|toShortString
 argument_list|()
 argument_list|)
 expr_stmt|;

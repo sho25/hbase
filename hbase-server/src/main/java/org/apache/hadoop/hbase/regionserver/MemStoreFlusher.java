@@ -1700,7 +1700,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|.
-name|toString
+name|toShortString
 argument_list|()
 operator|+
 literal|"-MemStoreFlusher"

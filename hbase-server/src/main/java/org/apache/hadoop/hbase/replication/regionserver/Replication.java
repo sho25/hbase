@@ -695,6 +695,9 @@ name|server
 operator|.
 name|getServerName
 argument_list|()
+operator|.
+name|toShortString
+argument_list|()
 operator|+
 literal|"Replication Statistics #%d"
 argument_list|)

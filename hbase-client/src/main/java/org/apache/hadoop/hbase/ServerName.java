@@ -21,6 +21,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|net
+operator|.
+name|InetAddresses
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|InvalidProtocolBufferException
@@ -172,7 +186,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance and is made  * of the combination of hostname, port, and startcode. The startcode  * distingushes restarted servers on same hostname and port (startcode is  * usually timestamp of server startup). The {@link #toString()} format of  * ServerName is safe to use in the  filesystem and as znode name up in  * ZooKeeper.  Its format is:  *<code>&lt;hostname> '{@link #SERVERNAME_SEPARATOR}'&lt;port> '{@link #SERVERNAME_SEPARATOR}'&lt;startcode></code>.  * For example, if hostname is<code>example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>example.org,1234,1212121212</code>.  *   *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call {@link #parseVersionedServerName(byte[])}  *   *<p>Immutable.  */
+comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance in a cluster and is made  * of the combination of hostname, port, and startcode.  The startcode distingushes restarted  * servers on same hostname and port (startcode is usually timestamp of server startup). The  * {@link #toString()} format of ServerName is safe to use in the  filesystem and as znode name  * up in ZooKeeper.  Its format is:  *<code>&lt;hostname> '{@link #SERVERNAME_SEPARATOR}'&lt;port> '{@link #SERVERNAME_SEPARATOR}'&lt;startcode></code>.  * For example, if hostname is<code>www.example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>www.example.org,1234,1212121212</code>.  *   *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call {@link #parseVersionedServerName(byte[])}  *   *<p>Immutable.  */
 end_comment
 
 begin_class
@@ -282,7 +296,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|String
-name|hostname
+name|hostnameOnly
 decl_stmt|;
 specifier|private
 specifier|final
@@ -334,9 +348,11 @@ name|long
 name|startcode
 parameter_list|)
 block|{
+comment|// Drop the domain is there is one; no need of it in a local cluster.  With it, we get long
+comment|// unwieldy names.
 name|this
 operator|.
-name|hostname
+name|hostnameOnly
 operator|=
 name|hostname
 expr_stmt|;
@@ -358,13 +374,70 @@ name|servername
 operator|=
 name|getServerName
 argument_list|(
-name|hostname
+name|this
+operator|.
+name|hostnameOnly
 argument_list|,
 name|port
 argument_list|,
 name|startcode
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * @param hostname    * @return hostname minus the domain, if there is one (will do pass-through on ip addresses)    */
+specifier|static
+name|String
+name|getHostNameMinusDomain
+parameter_list|(
+specifier|final
+name|String
+name|hostname
+parameter_list|)
+block|{
+if|if
+condition|(
+name|InetAddresses
+operator|.
+name|isInetAddress
+argument_list|(
+name|hostname
+argument_list|)
+condition|)
+return|return
+name|hostname
+return|;
+name|String
+index|[]
+name|parts
+init|=
+name|hostname
+operator|.
+name|split
+argument_list|(
+literal|"\\."
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|parts
+operator|==
+literal|null
+operator|||
+name|parts
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+name|hostname
+return|;
+return|return
+name|parts
+index|[
+literal|0
+index|]
+return|;
 block|}
 specifier|public
 name|ServerName
@@ -559,6 +632,30 @@ name|getServerName
 argument_list|()
 return|;
 block|}
+comment|/**    * @return Return a SHORT version of {@link ServerName#toString()}, one that has the host only,    * minus the domain, and the port only -- no start code; the String is for us internally mostly    * tying threads to their server.  Not for external use.  It is lossy and will not work in    * in compares, etc.    */
+specifier|public
+name|String
+name|toShortString
+parameter_list|()
+block|{
+return|return
+name|Addressing
+operator|.
+name|createHostAndPortStr
+argument_list|(
+name|getHostNameMinusDomain
+argument_list|(
+name|this
+operator|.
+name|hostnameOnly
+argument_list|)
+argument_list|,
+name|this
+operator|.
+name|port
+argument_list|)
+return|;
+block|}
 comment|/**    * @return {@link #getServerName()} as bytes with a short-sized prefix with    * the ServerName#VERSION of this class.    */
 specifier|public
 specifier|synchronized
@@ -617,7 +714,7 @@ name|getHostname
 parameter_list|()
 block|{
 return|return
-name|hostname
+name|hostnameOnly
 return|;
 block|}
 specifier|public
@@ -638,8 +735,7 @@ return|return
 name|startcode
 return|;
 block|}
-comment|/**    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>    */
-specifier|public
+comment|/**    * For internal use only.    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>    */
 specifier|static
 name|String
 name|getServerName
@@ -798,7 +894,7 @@ name|createHostAndPortStr
 argument_list|(
 name|this
 operator|.
-name|hostname
+name|hostnameOnly
 argument_list|,
 name|this
 operator|.

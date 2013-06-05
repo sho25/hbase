@@ -260,7 +260,7 @@ name|super
 argument_list|(
 name|r
 argument_list|,
-literal|"RegionServer:"
+literal|"RS:"
 operator|+
 name|index
 operator|+
@@ -269,6 +269,9 @@ operator|+
 name|r
 operator|.
 name|getServerName
+argument_list|()
+operator|.
+name|toShortString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -490,7 +493,7 @@ name|super
 argument_list|(
 name|m
 argument_list|,
-literal|"Master:"
+literal|"M:"
 operator|+
 name|index
 operator|+
@@ -499,6 +502,9 @@ operator|+
 name|m
 operator|.
 name|getServerName
+argument_list|()
+operator|.
+name|toShortString
 argument_list|()
 argument_list|)
 expr_stmt|;
