@@ -1329,7 +1329,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|100
+literal|1000
 argument_list|)
 expr_stmt|;
 comment|// this time create a task node after starting the splitLogWorker
@@ -1372,7 +1372,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|8000
 argument_list|)
 expr_stmt|;
 name|assertEquals

@@ -9304,6 +9304,43 @@ name|start
 argument_list|()
 expr_stmt|;
 comment|// Create the log splitting worker and start it
+comment|// set a smaller retries to fast fail otherwise splitlogworker could be blocked for
+comment|// quite a while inside HConnection layer. The worker won't be available for other
+comment|// tasks even after current task is preempted after a split task times out.
+name|Configuration
+name|sinkConf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|sinkConf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
+operator|-
+literal|2
+argument_list|)
+expr_stmt|;
+name|sinkConf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.serverside.retries.multiplier"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|splitLogWorker
@@ -9315,10 +9352,7 @@ name|this
 operator|.
 name|zooKeeper
 argument_list|,
-name|this
-operator|.
-name|getConfiguration
-argument_list|()
+name|sinkConf
 argument_list|,
 name|this
 argument_list|,
