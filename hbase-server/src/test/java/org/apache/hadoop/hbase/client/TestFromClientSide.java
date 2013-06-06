@@ -37112,9 +37112,8 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|// need to have at one next roundtrip in order to collect metrics
-comment|// here we have less than<numRecord>+1 KVs, so no metrics were collected
-name|assertNull
+comment|// closing the scanner will set the metrics.
+name|assertNotNull
 argument_list|(
 name|scan
 operator|.

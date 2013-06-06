@@ -423,6 +423,12 @@ specifier|final
 name|int
 name|scannerTimeout
 decl_stmt|;
+specifier|private
+name|boolean
+name|scanMetricsPublished
+init|=
+literal|false
+decl_stmt|;
 comment|/**      * Create a new ClientScanner for the specified table. An HConnection will be      * retrieved using the passed Configuration.      * Note that the passed {@link Scan}'s start row maybe changed changed.      *      * @param conf The {@link Configuration} to use.      * @param scan {@link Scan} to use in this scanner      * @param tableName The table that we wish to scan      * @throws IOException      */
 specifier|public
 name|ClientScanner
@@ -1111,8 +1117,6 @@ specifier|private
 name|void
 name|writeScanMetrics
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1121,6 +1125,8 @@ operator|.
 name|scanMetrics
 operator|==
 literal|null
+operator|||
+name|scanMetricsPublished
 condition|)
 block|{
 return|return;
@@ -1150,6 +1156,10 @@ operator|.
 name|toByteArray
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|scanMetricsPublished
+operator|=
+literal|true
 expr_stmt|;
 block|}
 specifier|public
@@ -1734,6 +1744,14 @@ parameter_list|()
 block|{
 if|if
 condition|(
+operator|!
+name|scanMetricsPublished
+condition|)
+name|writeScanMetrics
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
 name|callable
 operator|!=
 literal|null
@@ -1762,24 +1780,6 @@ comment|// We used to catch this error, interpret, and rethrow. However, we
 comment|// have since decided that it's not nice for a scanner's close to
 comment|// throw exceptions. Chances are it was just an UnknownScanner
 comment|// exception due to lease time out.
-block|}
-finally|finally
-block|{
-comment|// we want to output the scan metrics even if an error occurred on close
-try|try
-block|{
-name|writeScanMetrics
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// As above, we still don't want the scanner close() method to throw.
-block|}
 block|}
 name|callable
 operator|=
