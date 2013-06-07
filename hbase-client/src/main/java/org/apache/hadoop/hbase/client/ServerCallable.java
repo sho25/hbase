@@ -527,7 +527,12 @@ name|IOException
 argument_list|(
 literal|"Failed to find location, tableName="
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 operator|+
 literal|", row="
 operator|+
