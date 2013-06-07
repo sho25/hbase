@@ -6928,15 +6928,24 @@ name|fnfe
 parameter_list|)
 block|{
 comment|// if directory doesn't exist, return null
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|dir
 operator|+
 literal|" doesn't exist"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
