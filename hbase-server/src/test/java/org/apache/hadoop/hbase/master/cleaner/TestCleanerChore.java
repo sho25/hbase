@@ -105,6 +105,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -877,6 +891,18 @@ argument_list|(
 name|parent
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Test parent didn't get created."
+argument_list|,
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|parent
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// touch a new file
 name|fs
 operator|.
@@ -900,6 +926,16 @@ name|file
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|FileStatus
+name|fStat
+init|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|parent
+argument_list|)
+decl_stmt|;
 name|chore
 operator|.
 name|chore
@@ -920,7 +956,7 @@ argument_list|)
 operator|.
 name|isFileDeletable
 argument_list|(
-name|parent
+name|fStat
 argument_list|)
 expr_stmt|;
 name|Mockito
@@ -1324,7 +1360,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|Path
+name|FileStatus
 operator|.
 name|class
 argument_list|)
@@ -1393,7 +1429,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|Path
+name|FileStatus
 operator|.
 name|class
 argument_list|)
@@ -1678,7 +1714,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|Path
+name|FileStatus
 operator|.
 name|class
 argument_list|)
@@ -1760,7 +1796,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|Path
+name|FileStatus
 operator|.
 name|class
 argument_list|)
@@ -1849,8 +1885,8 @@ specifier|public
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|file
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 return|return
@@ -1871,8 +1907,8 @@ specifier|public
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|file
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 return|return

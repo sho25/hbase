@@ -115,6 +115,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -242,8 +256,8 @@ specifier|synchronized
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|filePath
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 if|if
@@ -257,6 +271,14 @@ condition|)
 return|return
 literal|false
 return|;
+name|Path
+name|filePath
+init|=
+name|fStat
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
 comment|// HFile Link is always deletable
 if|if
 condition|(

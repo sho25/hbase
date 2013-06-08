@@ -470,7 +470,12 @@ name|cleaner
 operator|.
 name|isFileDeletable
 argument_list|(
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
 name|logFile
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

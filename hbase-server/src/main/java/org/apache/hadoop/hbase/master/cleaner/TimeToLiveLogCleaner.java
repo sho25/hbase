@@ -21,11 +21,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
 import|;
 end_import
 
@@ -35,25 +39,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|fs
+name|logging
 operator|.
-name|FileStatus
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|Path
+name|LogFactory
 import|;
 end_import
 
@@ -91,11 +81,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|fs
 operator|.
-name|Log
+name|FileStatus
 import|;
 end_import
 
@@ -105,11 +95,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|hbase
 operator|.
-name|LogFactory
+name|util
+operator|.
+name|EnvironmentEdgeManager
 import|;
 end_import
 
@@ -162,77 +154,26 @@ specifier|public
 name|boolean
 name|isLogDeletable
 parameter_list|(
-name|Path
-name|filePath
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 name|long
-name|time
-init|=
-literal|0
-decl_stmt|;
-name|long
 name|currentTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-try|try
-block|{
-name|FileStatus
-name|fStat
-init|=
-name|filePath
-operator|.
-name|getFileSystem
-argument_list|(
-name|this
-operator|.
-name|getConf
-argument_list|()
-argument_list|)
-operator|.
-name|getFileStatus
-argument_list|(
-name|filePath
-argument_list|)
-decl_stmt|;
+name|long
 name|time
-operator|=
+init|=
 name|fStat
 operator|.
 name|getModificationTime
 argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Unable to get modification time of file "
-operator|+
-name|filePath
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|", not deleting it."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
+decl_stmt|;
 name|long
 name|life
 init|=
@@ -240,6 +181,36 @@ name|currentTime
 operator|-
 name|time
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Log life:"
+operator|+
+name|life
+operator|+
+literal|", ttl:"
+operator|+
+name|ttl
+operator|+
+literal|", current:"
+operator|+
+name|currentTime
+operator|+
+literal|", from: "
+operator|+
+name|time
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|life
@@ -251,9 +222,22 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Found a log newer than current time, "
+literal|"Found a log ("
 operator|+
-literal|"probably a clock skew"
+name|fStat
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|") newer than current time ("
+operator|+
+name|currentTime
+operator|+
+literal|"< "
+operator|+
+name|time
+operator|+
+literal|"), probably a clock skew"
 argument_list|)
 expr_stmt|;
 return|return

@@ -234,8 +234,8 @@ specifier|public
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|file
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 try|try
@@ -243,17 +243,22 @@ block|{
 comment|// if its a directory, then it can be deleted
 if|if
 condition|(
-operator|!
-name|fs
+name|fStat
 operator|.
-name|isFile
-argument_list|(
-name|file
-argument_list|)
+name|isDir
+argument_list|()
 condition|)
 return|return
 literal|true
 return|;
+name|Path
+name|file
+init|=
+name|fStat
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
 comment|// check to see if
 name|FileStatus
 index|[]
@@ -362,7 +367,10 @@ name|error
 argument_list|(
 literal|"Failed to lookup status of:"
 operator|+
-name|file
+name|fStat
+operator|.
+name|getPath
+argument_list|()
 operator|+
 literal|", keeping it just incase."
 argument_list|,

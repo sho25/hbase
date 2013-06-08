@@ -57,7 +57,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|Path
+name|FileStatus
 import|;
 end_import
 
@@ -92,13 +92,13 @@ name|Configurable
 extends|,
 name|Stoppable
 block|{
-comment|/**    * Should the master delete the file or keep it?    * @param file full path to the file to check    * @return<tt>true</tt> if the file is deletable,<tt>false</tt> if not    */
+comment|/**    * Should the master delete the file or keep it?    * @param fStat file status of the file to check    * @return<tt>true</tt> if the file is deletable,<tt>false</tt> if not    */
 specifier|public
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|file
+name|FileStatus
+name|fStat
 parameter_list|)
 function_decl|;
 block|}

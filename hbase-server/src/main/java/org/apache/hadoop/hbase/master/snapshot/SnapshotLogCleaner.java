@@ -119,6 +119,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -249,8 +263,8 @@ specifier|synchronized
 name|boolean
 name|isFileDeletable
 parameter_list|(
-name|Path
-name|filePath
+name|FileStatus
+name|fStat
 parameter_list|)
 block|{
 try|try
@@ -270,7 +284,10 @@ name|cache
 operator|.
 name|contains
 argument_list|(
-name|filePath
+name|fStat
+operator|.
+name|getPath
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -289,7 +306,10 @@ name|error
 argument_list|(
 literal|"Exception while checking if:"
 operator|+
-name|filePath
+name|fStat
+operator|.
+name|getPath
+argument_list|()
 operator|+
 literal|" was valid, keeping it just in case."
 argument_list|,

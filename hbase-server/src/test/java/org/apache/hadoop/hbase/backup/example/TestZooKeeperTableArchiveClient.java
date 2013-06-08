@@ -2014,7 +2014,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|Path
+name|FileStatus
 operator|.
 name|class
 argument_list|)

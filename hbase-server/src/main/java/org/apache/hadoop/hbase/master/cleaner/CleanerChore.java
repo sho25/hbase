@@ -556,9 +556,6 @@ else|else
 name|checkAndDelete
 argument_list|(
 name|file
-operator|.
-name|getPath
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -753,7 +750,7 @@ condition|(
 operator|!
 name|checkAndDelete
 argument_list|(
-name|path
+name|child
 argument_list|)
 condition|)
 block|{
@@ -820,19 +817,27 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Run the given file through each of the cleaners to see if it should be deleted, deleting it if    * necessary.    * @param filePath path of the file to check (and possibly delete)    * @throws IOException if cann't delete a file because of a filesystem issue    * @throws IllegalArgumentException if the file is a directory and has children    */
+comment|/**    * Run the given file through each of the cleaners to see if it should be deleted, deleting it if    * necessary.    * @param fStat path of the file to check (and possibly delete)    * @throws IOException if cann't delete a file because of a filesystem issue    * @throws IllegalArgumentException if the file is a directory and has children    */
 specifier|private
 name|boolean
 name|checkAndDelete
 parameter_list|(
-name|Path
-name|filePath
+name|FileStatus
+name|fStat
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|IllegalArgumentException
 block|{
+name|Path
+name|filePath
+init|=
+name|fStat
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
 comment|// first check to see if the path is valid
 if|if
 condition|(
@@ -944,7 +949,7 @@ name|cleaner
 operator|.
 name|isFileDeletable
 argument_list|(
-name|filePath
+name|fStat
 argument_list|)
 condition|)
 block|{

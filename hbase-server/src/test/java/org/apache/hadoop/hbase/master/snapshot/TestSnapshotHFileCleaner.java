@@ -507,10 +507,11 @@ name|cleaner
 operator|.
 name|isFileDeletable
 argument_list|(
-operator|new
-name|Path
+name|fs
+operator|.
+name|getFileStatus
 argument_list|(
-name|hfile
+name|refFile
 argument_list|)
 argument_list|)
 argument_list|)
