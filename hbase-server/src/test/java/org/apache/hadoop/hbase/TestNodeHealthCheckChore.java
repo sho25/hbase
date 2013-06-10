@@ -23,6 +23,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertFalse
 import|;
 end_import
@@ -36,18 +48,6 @@ operator|.
 name|Assert
 operator|.
 name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
 import|;
 end_import
 
@@ -127,62 +127,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Stoppable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -230,6 +174,20 @@ operator|.
 name|HealthChecker
 operator|.
 name|HealthCheckerExitStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|Shell
 import|;
 end_import
 
@@ -307,6 +265,17 @@ decl_stmt|;
 specifier|private
 name|File
 name|healthScriptFile
+decl_stmt|;
+specifier|private
+name|String
+name|eol
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"line.separator"
+argument_list|)
 decl_stmt|;
 annotation|@
 name|After
@@ -473,7 +442,11 @@ expr_stmt|;
 name|String
 name|errorScript
 init|=
-literal|"echo ERROR\n echo \"Server not healthy\""
+literal|"echo ERROR"
+operator|+
+name|eol
+operator|+
+literal|"echo \"Server not healthy\""
 decl_stmt|;
 name|createScript
 argument_list|(
@@ -516,7 +489,11 @@ expr_stmt|;
 name|String
 name|timeOutScript
 init|=
-literal|"sleep 4\n echo\"I am fine\""
+literal|"sleep 4"
+operator|+
+name|eol
+operator|+
+literal|"echo \"I am fine\""
 decl_stmt|;
 name|createScript
 argument_list|(
@@ -589,7 +566,11 @@ decl_stmt|;
 name|String
 name|errorScript
 init|=
-literal|"echo ERROR\n echo \"Server not healthy\""
+literal|"echo ERROR"
+operator|+
+name|eol
+operator|+
+literal|" echo \"Server not healthy\""
 decl_stmt|;
 name|createScript
 argument_list|(
@@ -825,6 +806,17 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|String
+name|scriptName
+init|=
+name|Shell
+operator|.
+name|WINDOWS
+condition|?
+literal|"HealthScript.cmd"
+else|:
+literal|"HealthScript.sh"
+decl_stmt|;
 name|healthScriptFile
 operator|=
 operator|new
@@ -835,7 +827,7 @@ operator|.
 name|getAbsolutePath
 argument_list|()
 argument_list|,
-literal|"HealthScript.sh"
+name|scriptName
 argument_list|)
 expr_stmt|;
 name|conf

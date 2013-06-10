@@ -280,6 +280,13 @@ argument_list|(
 literal|"Caught exception : "
 operator|+
 name|e
+operator|+
+literal|",exit code:"
+operator|+
+name|e
+operator|.
+name|getExitCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|status
@@ -304,15 +311,6 @@ operator|+
 name|e
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|shexec
-operator|.
-name|isTimedOut
-argument_list|()
-condition|)
-block|{
 name|status
 operator|=
 name|HealthCheckerExitStatus
@@ -337,7 +335,15 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+finally|finally
+block|{
+if|if
+condition|(
+name|shexec
+operator|.
+name|isTimedOut
+argument_list|()
+condition|)
 block|{
 name|status
 operator|=
@@ -346,9 +352,6 @@ operator|.
 name|TIMED_OUT
 expr_stmt|;
 block|}
-block|}
-finally|finally
-block|{
 if|if
 condition|(
 name|status
