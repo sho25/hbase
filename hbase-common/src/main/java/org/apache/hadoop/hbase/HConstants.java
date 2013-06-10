@@ -1488,6 +1488,10 @@ block|,
 literal|16
 block|,
 literal|32
+block|,
+literal|64
+block|,
+literal|128
 block|}
 decl_stmt|;
 specifier|public
