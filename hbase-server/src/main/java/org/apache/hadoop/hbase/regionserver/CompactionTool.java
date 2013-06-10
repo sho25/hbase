@@ -665,6 +665,14 @@ specifier|private
 specifier|final
 specifier|static
 name|String
+name|CONF_COMPACT_MAJOR
+init|=
+literal|"hbase.compactiontool.compact.major"
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|String
 name|CONF_DELETE_COMPACTED
 init|=
 literal|"hbase.compactiontool.delete"
@@ -775,7 +783,7 @@ operator|=
 name|fs
 expr_stmt|;
 block|}
-comment|/**      * Execute the compaction on the specified path.      *      * @param path Directory path on which run a      * @param compactOnce Execute just a single step of compaction.      */
+comment|/**      * Execute the compaction on the specified path.      *      * @param path Directory path on which to run compaction.      * @param compactOnce Execute just a single step of compaction.      * @param major Request major compaction.      */
 specifier|public
 name|void
 name|compact
@@ -787,6 +795,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|IOException
@@ -855,6 +867,8 @@ name|getName
 argument_list|()
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -898,6 +912,8 @@ argument_list|,
 name|path
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -917,6 +933,8 @@ argument_list|(
 name|path
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -944,6 +962,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|IOException
@@ -984,6 +1006,8 @@ argument_list|,
 name|regionDir
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -1007,6 +1031,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|IOException
@@ -1052,6 +1080,8 @@ name|getName
 argument_list|()
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -1080,6 +1110,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|IOException
@@ -1127,6 +1161,17 @@ operator|+
 name|familyName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|major
+condition|)
+block|{
+name|store
+operator|.
+name|triggerMajorCompaction
+argument_list|()
+expr_stmt|;
+block|}
 do|do
 block|{
 name|CompactionContext
@@ -1135,7 +1180,13 @@ init|=
 name|store
 operator|.
 name|requestCompaction
-argument_list|()
+argument_list|(
+name|Store
+operator|.
+name|PRIORITY_USER
+argument_list|,
+literal|null
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -1441,6 +1492,12 @@ name|compactOnce
 init|=
 literal|false
 decl_stmt|;
+specifier|private
+name|boolean
+name|major
+init|=
+literal|false
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -1466,6 +1523,17 @@ operator|.
 name|getBoolean
 argument_list|(
 name|CONF_COMPACT_ONCE
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|major
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CONF_COMPACT_MAJOR
 argument_list|,
 literal|false
 argument_list|)
@@ -1553,6 +1621,8 @@ argument_list|(
 name|path
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -2127,6 +2197,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|Exception
@@ -2144,6 +2218,15 @@ argument_list|(
 name|CONF_COMPACT_ONCE
 argument_list|,
 name|compactOnce
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|CONF_COMPACT_MAJOR
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 name|Job
@@ -2315,6 +2398,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|compactOnce
+parameter_list|,
+specifier|final
+name|boolean
+name|major
 parameter_list|)
 throws|throws
 name|IOException
@@ -2346,6 +2433,8 @@ argument_list|(
 name|path
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 expr_stmt|;
 block|}
@@ -2381,6 +2470,11 @@ argument_list|()
 decl_stmt|;
 name|boolean
 name|compactOnce
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|major
 init|=
 literal|false
 decl_stmt|;
@@ -2443,6 +2537,22 @@ argument_list|)
 condition|)
 block|{
 name|compactOnce
+operator|=
+literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|opt
+operator|.
+name|equals
+argument_list|(
+literal|"-major"
+argument_list|)
+condition|)
+block|{
+name|major
 operator|=
 literal|true
 expr_stmt|;
@@ -2581,6 +2691,8 @@ argument_list|,
 name|toCompactDirs
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 return|;
 block|}
@@ -2594,6 +2706,8 @@ argument_list|,
 name|toCompactDirs
 argument_list|,
 name|compactOnce
+argument_list|,
+name|major
 argument_list|)
 return|;
 block|}
@@ -2667,7 +2781,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  [-compactOnce] [-mapred] [-D<property=value>]* files..."
+literal|"  [-compactOnce] [-major] [-mapred] [-D<property=value>]* files..."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2702,6 +2816,15 @@ operator|.
 name|println
 argument_list|(
 literal|" compactOnce    Execute just one compaction step. (default: while needed)"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" major          Trigger major compaction."
 argument_list|)
 expr_stmt|;
 name|System
