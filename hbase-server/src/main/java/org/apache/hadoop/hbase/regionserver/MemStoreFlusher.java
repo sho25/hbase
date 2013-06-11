@@ -1952,7 +1952,7 @@ name|server
 operator|.
 name|compactSplitThread
 operator|.
-name|requestCompaction
+name|requestSystemCompaction
 argument_list|(
 name|region
 argument_list|,
@@ -2143,7 +2143,7 @@ name|server
 operator|.
 name|compactSplitThread
 operator|.
-name|requestCompaction
+name|requestSystemCompaction
 argument_list|(
 name|region
 argument_list|,

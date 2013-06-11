@@ -8155,7 +8155,7 @@ name|instance
 operator|.
 name|compactSplitThread
 operator|.
-name|requestCompaction
+name|requestSystemCompaction
 argument_list|(
 name|r
 argument_list|,
@@ -8165,8 +8165,6 @@ name|getName
 argument_list|()
 operator|+
 literal|" requests compaction"
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -9883,18 +9881,17 @@ name|needsCompaction
 argument_list|()
 condition|)
 block|{
-name|getCompactionRequester
-argument_list|()
+name|this
 operator|.
-name|requestCompaction
+name|compactSplitThread
+operator|.
+name|requestSystemCompaction
 argument_list|(
 name|r
 argument_list|,
 name|s
 argument_list|,
 literal|"Opening Region"
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -18815,7 +18812,7 @@ name|this
 operator|.
 name|compactSplitThread
 operator|.
-name|requestCompaction
+name|requestSystemCompaction
 argument_list|(
 name|region
 argument_list|,
