@@ -876,9 +876,14 @@ block|{
 name|WALCellCodec
 name|codec
 init|=
-operator|new
 name|WALCellCodec
+operator|.
+name|create
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|this
 operator|.
 name|compressionContext

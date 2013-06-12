@@ -493,9 +493,12 @@ expr_stmt|;
 name|WALCellCodec
 name|codec
 init|=
-operator|new
 name|WALCellCodec
+operator|.
+name|create
 argument_list|(
+name|conf
+argument_list|,
 name|this
 operator|.
 name|compressionContext
