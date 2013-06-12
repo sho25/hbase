@@ -567,11 +567,9 @@ name|defaultPool
 argument_list|(
 name|nodeName
 argument_list|,
-name|POOL_KEEP_ALIVE
-argument_list|,
 literal|1
 argument_list|,
-name|WAKE_FREQUENCY
+name|POOL_KEEP_ALIVE
 argument_list|)
 decl_stmt|;
 return|return

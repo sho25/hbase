@@ -779,7 +779,12 @@ name|monitor
 operator|=
 operator|new
 name|ForeignExceptionDispatcher
+argument_list|(
+name|snapshot
+operator|.
+name|getName
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1097,6 +1102,11 @@ name|snapshotRegions
 argument_list|(
 name|regionsAndLocations
 argument_list|)
+expr_stmt|;
+name|monitor
+operator|.
+name|rethrowException
+argument_list|()
 expr_stmt|;
 comment|// extract each pair to separate lists
 name|Set
