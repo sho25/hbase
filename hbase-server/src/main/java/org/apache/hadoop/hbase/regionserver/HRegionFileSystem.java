@@ -4121,6 +4121,9 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
+operator|(
+name|long
+operator|)
 name|baseSleepBeforeRetries
 operator|*
 name|sleepMultiplier
