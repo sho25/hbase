@@ -2086,8 +2086,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * @param key The key.    * @param value The value.    */
-specifier|private
+comment|/*    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *    * @param key The key.    * @param value The value.    */
+specifier|public
 name|void
 name|setValue
 parameter_list|(
