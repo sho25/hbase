@@ -128,7 +128,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Number of mutations received with WAL explicitly turned off.    */
 name|long
-name|getNumPutsWithoutWAL
+name|getNumMutationsWithoutWAL
 parameter_list|()
 function_decl|;
 comment|/**    * Ammount of data in the memstore but not in the WAL because mutations explicitly had their    * WAL turned off.    */

@@ -382,7 +382,7 @@ decl_stmt|;
 specifier|private
 specifier|volatile
 name|long
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 init|=
 literal|0
 decl_stmt|;
@@ -1193,11 +1193,11 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getNumPutsWithoutWAL
+name|getNumMutationsWithoutWAL
 parameter_list|()
 block|{
 return|return
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 return|;
 block|}
 annotation|@
@@ -1358,7 +1358,7 @@ init|=
 literal|0
 decl_stmt|;
 name|long
-name|tempNumPutsWithoutWAL
+name|tempNumMutationsWithoutWAL
 init|=
 literal|0
 decl_stmt|;
@@ -1383,11 +1383,11 @@ name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{
-name|tempNumPutsWithoutWAL
+name|tempNumMutationsWithoutWAL
 operator|+=
 name|r
 operator|.
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|.
 name|get
 argument_list|()
@@ -1659,9 +1659,9 @@ name|totalStaticBloomSize
 operator|=
 name|tempTotalStaticBloomSize
 expr_stmt|;
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|=
-name|tempNumPutsWithoutWAL
+name|tempNumMutationsWithoutWAL
 expr_stmt|;
 name|dataInMemoryWithoutWAL
 operator|=

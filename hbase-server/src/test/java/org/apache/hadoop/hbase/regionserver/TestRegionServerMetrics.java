@@ -915,7 +915,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testPutsWithoutWal
+name|testMutationsWithoutWal
 parameter_list|()
 throws|throws
 name|Exception
@@ -928,7 +928,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testPutsWithoutWal"
+literal|"testMutationsWithoutWal"
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1056,7 +1056,7 @@ name|metricsHelper
 operator|.
 name|assertGauge
 argument_list|(
-literal|"putsWithoutWALCount"
+literal|"mutationsWithoutWALCount"
 argument_list|,
 literal|1
 argument_list|,
@@ -1086,7 +1086,7 @@ name|metricsHelper
 operator|.
 name|assertGaugeGt
 argument_list|(
-literal|"putsWithoutWALSize"
+literal|"mutationsWithoutWALSize"
 argument_list|,
 name|minLength
 argument_list|,

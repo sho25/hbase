@@ -2039,7 +2039,7 @@ decl_stmt|;
 comment|// Debug possible data loss due to WAL off
 specifier|final
 name|Counter
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 init|=
 operator|new
 name|Counter
@@ -6178,7 +6178,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|.
 name|get
 argument_list|()
@@ -6186,7 +6186,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|.
 name|set
 argument_list|(
@@ -9729,14 +9729,7 @@ operator|.
 name|SKIP_WAL
 condition|)
 block|{
-if|if
-condition|(
-name|m
-operator|instanceof
-name|Put
-condition|)
-block|{
-name|recordPutWithoutWal
+name|recordMutationWithoutWal
 argument_list|(
 name|m
 operator|.
@@ -9744,7 +9737,6 @@ name|getFamilyMap
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 continue|continue;
 block|}
 comment|// Add WAL edits by CP
@@ -21444,6 +21436,17 @@ name|htableDescriptor
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|recordMutationWithoutWal
+argument_list|(
+name|append
+operator|.
+name|getFamilyMap
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|//Actually write to Memstore now
 for|for
 control|(
@@ -22254,6 +22257,17 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|recordMutationWithoutWal
+argument_list|(
+name|increment
+operator|.
+name|getFamilyMap
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -23901,7 +23915,7 @@ block|}
 comment|/**    * Update counters for numer of puts without wal and the size of possible data loss.    * These information are exposed by the region server metrics.    */
 specifier|private
 name|void
-name|recordPutWithoutWal
+name|recordMutationWithoutWal
 parameter_list|(
 specifier|final
 name|Map
@@ -23919,14 +23933,14 @@ argument_list|>
 name|familyMap
 parameter_list|)
 block|{
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|.
 name|increment
 argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|numPutsWithoutWAL
+name|numMutationsWithoutWAL
 operator|.
 name|get
 argument_list|()
@@ -23947,7 +23961,7 @@ argument_list|)
 expr_stmt|;
 block|}
 name|long
-name|putSize
+name|mutationSize
 init|=
 literal|0
 decl_stmt|;
@@ -23985,7 +23999,7 @@ argument_list|(
 name|cell
 argument_list|)
 decl_stmt|;
-name|putSize
+name|mutationSize
 operator|+=
 name|kv
 operator|.
@@ -24003,7 +24017,7 @@ name|dataInMemoryWithoutWAL
 operator|.
 name|add
 argument_list|(
-name|putSize
+name|mutationSize
 argument_list|)
 expr_stmt|;
 block|}

@@ -237,7 +237,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getNumPutsWithoutWAL
+name|getNumMutationsWithoutWAL
 parameter_list|()
 block|{
 return|return

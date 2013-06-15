@@ -823,14 +823,14 @@ name|Interns
 operator|.
 name|info
 argument_list|(
-name|NUMBER_OF_PUTS_WITHOUT_WAL
+name|NUMBER_OF_MUTATIONS_WITHOUT_WAL
 argument_list|,
-name|NUMBER_OF_PUTS_WITHOUT_WAL_DESC
+name|NUMBER_OF_MUTATIONS_WITHOUT_WAL_DESC
 argument_list|)
 argument_list|,
 name|rsWrap
 operator|.
-name|getNumPutsWithoutWAL
+name|getNumMutationsWithoutWAL
 argument_list|()
 argument_list|)
 operator|.

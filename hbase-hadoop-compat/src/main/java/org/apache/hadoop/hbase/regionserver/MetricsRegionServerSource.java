@@ -337,14 +337,14 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|NUMBER_OF_PUTS_WITHOUT_WAL
+name|NUMBER_OF_MUTATIONS_WITHOUT_WAL
 init|=
-literal|"putsWithoutWALCount"
+literal|"mutationsWithoutWALCount"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|NUMBER_OF_PUTS_WITHOUT_WAL_DESC
+name|NUMBER_OF_MUTATIONS_WITHOUT_WAL_DESC
 init|=
 literal|"Number of mutations that have been sent by clients with the write ahead logging turned off."
 decl_stmt|;
@@ -353,7 +353,7 @@ specifier|final
 name|String
 name|DATA_SIZE_WITHOUT_WAL
 init|=
-literal|"putsWithoutWALSize"
+literal|"mutationsWithoutWALSize"
 decl_stmt|;
 specifier|static
 specifier|final

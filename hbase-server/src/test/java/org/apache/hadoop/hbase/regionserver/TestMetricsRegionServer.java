@@ -400,7 +400,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"putsWithoutWALCount"
+literal|"mutationsWithoutWALCount"
 argument_list|,
 literal|409
 argument_list|,
@@ -411,7 +411,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"putsWithoutWALSize"
+literal|"mutationsWithoutWALSize"
 argument_list|,
 literal|410
 argument_list|,
