@@ -1551,13 +1551,21 @@ break|break;
 case|case
 name|ConnectedReadOnly
 case|:
+case|case
+name|SaslAuthenticated
+case|:
 break|break;
 default|default:
 throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Received event is not valid."
+literal|"Received event is not valid: "
+operator|+
+name|event
+operator|.
+name|getState
+argument_list|()
 argument_list|)
 throw|;
 block|}
