@@ -677,21 +677,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|"Number of requests from cluster status and returned status did not match up. "
-argument_list|,
-name|status
-operator|.
-name|getRequestsCount
-argument_list|()
-argument_list|,
-name|returnedStatus
-operator|.
-name|getRequests
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Test
