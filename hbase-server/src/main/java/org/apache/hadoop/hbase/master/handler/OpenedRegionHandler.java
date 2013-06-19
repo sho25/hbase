@@ -514,11 +514,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The znode of region "
+literal|"Znode of region "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" could not be deleted."
@@ -536,7 +536,7 @@ literal|"Skipping the onlining of "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" because regions is NOT in RIT -- presuming this is because it SPLIT"
@@ -575,7 +575,7 @@ literal|"Opened region "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" but "
@@ -611,7 +611,7 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" from "
@@ -669,7 +669,7 @@ literal|"The znode of the region "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" would have already been deleted"

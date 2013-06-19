@@ -644,7 +644,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Writes HFiles. Passed KeyValues must arrive in order.  * Writes current time as the sequence id for the file. Sets the major compacted  * attribute on created hfiles. Calling write(null,null) will forceably roll  * all HFiles being written.  *<p>  * Using this class as part of a MapReduce job is best done   * using {@link #configureIncrementalLoad(Job, HTable)}.  * @see KeyValueSortReducer  */
+comment|/**  * Writes HFiles. Passed KeyValues must arrive in order.  * Writes current time as the sequence id for the file. Sets the major compacted  * attribute on created hfiles. Calling write(null,null) will forceably roll  * all HFiles being written.  *<p>  * Using this class as part of a MapReduce job is best done  * using {@link #configureIncrementalLoad(Job, HTable)}.  * @see KeyValueSortReducer  */
 end_comment
 
 begin_class
@@ -2045,7 +2045,15 @@ name|info
 argument_list|(
 literal|"Looking up current regions for table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|table
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|List
@@ -2125,7 +2133,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Incremental table output configured."
+literal|"Incremental table "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|table
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+operator|+
+literal|" output configured."
 argument_list|)
 expr_stmt|;
 block|}
@@ -2177,7 +2197,7 @@ name|BLOOM_TYPE_CONF_KEY
 argument_list|)
 return|;
 block|}
-comment|/**    * Run inside the task to deserialize column family to given conf value map.    *     * @param conf    * @param confName    * @return a map of column family to the given configuration value    */
+comment|/**    * Run inside the task to deserialize column family to given conf value map.    *    * @param conf    * @param confName    * @return a map of column family to the given configuration value    */
 specifier|private
 specifier|static
 name|Map

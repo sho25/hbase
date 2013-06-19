@@ -805,11 +805,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Tried to create a state of a region already in RegionStates "
+literal|"Tried to create a state of a region already in RegionStates, "
 operator|+
-name|hri
-operator|+
-literal|", used existing state: "
+literal|"used existing state: "
 operator|+
 name|regionState
 operator|+
@@ -1053,6 +1051,9 @@ argument_list|(
 literal|"Closed region "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 operator|+
 literal|" still on "
 operator|+
@@ -1088,6 +1089,9 @@ argument_list|(
 literal|"Failed to transition "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 operator|+
 literal|" on "
 operator|+
@@ -1158,11 +1162,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region "
-operator|+
-name|hri
-operator|+
-literal|" transitioned from "
+literal|"Region transitioned from "
 operator|+
 name|oldState
 operator|+
@@ -1268,6 +1268,9 @@ argument_list|(
 literal|"Online a region not in RegionStates: "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1314,7 +1317,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Online a region with current state="
+literal|"Online a region "
+operator|+
+name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
+operator|+
+literal|" with current state="
 operator|+
 name|state
 operator|+
@@ -1379,6 +1389,9 @@ argument_list|(
 literal|"Onlined region "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 operator|+
 literal|" on "
 operator|+
@@ -1445,6 +1458,9 @@ argument_list|(
 literal|"Offlined region "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 operator|+
 literal|" from "
 operator|+
@@ -1509,6 +1525,9 @@ argument_list|(
 literal|"Offline a region not in RegionStates: "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1547,7 +1566,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Offline a region with current state="
+literal|"Offline a region "
+operator|+
+name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
+operator|+
+literal|" with current state="
 operator|+
 name|state
 operator|+
@@ -1602,6 +1628,9 @@ argument_list|(
 literal|"Offlined region "
 operator|+
 name|hri
+operator|.
+name|getShortNameToLog
+argument_list|()
 operator|+
 literal|" from "
 operator|+

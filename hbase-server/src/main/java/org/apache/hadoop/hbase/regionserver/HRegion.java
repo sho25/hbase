@@ -3361,7 +3361,10 @@ literal|"Onlined "
 operator|+
 name|this
 operator|.
-name|toString
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|"; next sequenceid="
@@ -3467,11 +3470,14 @@ name|storeOpenerThreadPool
 init|=
 name|getStoreOpenAndCloseThreadPool
 argument_list|(
-literal|"StoreOpenerThread-"
+literal|"StoreOpener-"
 operator|+
 name|this
 operator|.
-name|getRegionNameAsString
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getShortNameToLog
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -18076,32 +18082,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"HRegion.openHRegion Region name =="
-operator|+
-name|info
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Opening region: "
+literal|"Open "
 operator|+
 name|info
 argument_list|)
 expr_stmt|;
-block|}
 name|Path
 name|dir
 init|=

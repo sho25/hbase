@@ -194,9 +194,9 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Initializing cluster with "
+literal|"Initializing/checking cluster has "
 operator|+
 name|numSlavesBase
 operator|+
@@ -212,9 +212,9 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Done initializing cluster"
+literal|"Done initializing/checking cluster"
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -354,7 +354,7 @@ name|Exception
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Restoring the cluster"
 argument_list|)
@@ -366,7 +366,7 @@ argument_list|()
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Done restoring the cluster"
 argument_list|)

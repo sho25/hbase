@@ -383,9 +383,15 @@ literal|" clear  Delete the master znode in ZooKeeper after a master crashes\n "
 operator|+
 literal|" where [opts] are:\n"
 operator|+
-literal|"   --minServers=<servers>    Minimum RegionServers needed to host user tables.\n"
+literal|"   --minRegionServers=<servers>   Minimum RegionServers needed to host user tables.\n"
 operator|+
-literal|"   --backup                  Master should start in backup mode"
+literal|"   --localRegionServers=<servers> "
+operator|+
+literal|"RegionServers to start in master process when in standalone mode.\n"
+operator|+
+literal|"   --masters=<servers>            Masters to start in this process.\n"
+operator|+
+literal|"   --backup                       Master should start in backup mode"
 decl_stmt|;
 specifier|private
 specifier|final
@@ -447,7 +453,29 @@ name|opt
 operator|.
 name|addOption
 argument_list|(
-literal|"minServers"
+literal|"localRegionServers"
+argument_list|,
+literal|true
+argument_list|,
+literal|"RegionServers to start in master process when running standalone"
+argument_list|)
+expr_stmt|;
+name|opt
+operator|.
+name|addOption
+argument_list|(
+literal|"masters"
+argument_list|,
+literal|true
+argument_list|,
+literal|"Masters to start in this process"
+argument_list|)
+expr_stmt|;
+name|opt
+operator|.
+name|addOption
+argument_list|(
+literal|"minRegionServers"
 argument_list|,
 literal|true
 argument_list|,
@@ -515,6 +543,52 @@ name|cmd
 operator|.
 name|hasOption
 argument_list|(
+literal|"minRegionServers"
+argument_list|)
+condition|)
+block|{
+name|String
+name|val
+init|=
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+literal|"minRegionServers"
+argument_list|)
+decl_stmt|;
+name|getConf
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regions.server.count.min"
+argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|val
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"minRegionServers set to "
+operator|+
+name|val
+argument_list|)
+expr_stmt|;
+block|}
+comment|// minRegionServers used to be minServers.  Support it too.
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
 literal|"minServers"
 argument_list|)
 condition|)
@@ -575,6 +649,99 @@ operator|.
 name|MASTER_TYPE_BACKUP
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|// How many regionservers to startup in this process (we run regionservers in same process as
+comment|// master when we are in local/standalone mode. Useful testing)
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"localRegionServers"
+argument_list|)
+condition|)
+block|{
+name|String
+name|val
+init|=
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+literal|"localRegionServers"
+argument_list|)
+decl_stmt|;
+name|getConf
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionservers"
+argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|val
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"localRegionServers set to "
+operator|+
+name|val
+argument_list|)
+expr_stmt|;
+block|}
+comment|// How many masters to startup inside this process; useful testing
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"masters"
+argument_list|)
+condition|)
+block|{
+name|String
+name|val
+init|=
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+literal|"masters"
+argument_list|)
+decl_stmt|;
+name|getConf
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.masters"
+argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|val
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"masters set to "
+operator|+
+name|val
 argument_list|)
 expr_stmt|;
 block|}
@@ -873,9 +1040,23 @@ name|LocalHBaseCluster
 argument_list|(
 name|conf
 argument_list|,
-literal|1
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.masters"
 argument_list|,
 literal|1
+argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionservers"
+argument_list|,
+literal|1
+argument_list|)
 argument_list|,
 name|LocalHMaster
 operator|.

@@ -281,6 +281,36 @@ argument_list|,
 name|DEFAULT_TUNNEL_CMD
 argument_list|)
 expr_stmt|;
+comment|// Print out ssh special config if any.
+if|if
+condition|(
+operator|(
+name|sshUserName
+operator|!=
+literal|null
+operator|&&
+name|sshUserName
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+operator|)
+operator|||
+operator|(
+name|sshOptions
+operator|!=
+literal|null
+operator|&&
+name|sshOptions
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+operator|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -296,6 +326,7 @@ operator|+
 literal|"]"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Executes commands over SSH    */
 specifier|protected

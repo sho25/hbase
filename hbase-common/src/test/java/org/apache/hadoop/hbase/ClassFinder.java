@@ -1284,7 +1284,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
 literal|"Failed to instantiate or check "
 operator|+
@@ -1314,7 +1314,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
 literal|"Failed to instantiate or check "
 operator|+

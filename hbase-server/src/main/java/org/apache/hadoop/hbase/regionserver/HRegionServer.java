@@ -7177,9 +7177,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|this
-operator|.
-name|serverNameFromMasterPOV
+name|hostnameFromMasterPOV
 operator|.
 name|equals
 argument_list|(
@@ -7207,12 +7205,7 @@ argument_list|()
 operator|+
 literal|", but now="
 operator|+
-name|this
-operator|.
-name|serverNameFromMasterPOV
-operator|.
-name|getHostname
-argument_list|()
+name|hostnameFromMasterPOV
 argument_list|)
 expr_stmt|;
 block|}
@@ -7414,7 +7407,7 @@ name|this
 operator|.
 name|serverNameFromMasterPOV
 operator|+
-literal|", RPC listening on "
+literal|", RpcServer on "
 operator|+
 name|this
 operator|.
@@ -8044,7 +8037,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Runs every "
+name|this
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" runs every "
 operator|+
 name|StringUtils
 operator|.
@@ -10585,20 +10583,6 @@ name|getPort
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Attempting connect to Master server at "
-operator|+
-name|this
-operator|.
-name|masterAddressManager
-operator|.
-name|getMasterAddress
-argument_list|()
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|BlockingRpcChannel
@@ -10846,13 +10830,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Telling master at "
+literal|"reportForDuty to master="
 operator|+
 name|masterServerName
 operator|+
-literal|" that we are up "
-operator|+
-literal|"with port="
+literal|" with port="
 operator|+
 name|this
 operator|.
@@ -17994,18 +17976,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received request to open region: "
+literal|"Open "
 operator|+
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" on "
-operator|+
-name|this
-operator|.
-name|serverNameFromMasterPOV
 argument_list|)
 expr_stmt|;
 name|htd

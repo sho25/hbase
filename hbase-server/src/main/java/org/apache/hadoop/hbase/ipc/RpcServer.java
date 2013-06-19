@@ -1563,7 +1563,7 @@ name|DEFAULT_MAX_CALLQUEUE_LENGTH_PER_HANDLER
 init|=
 literal|10
 decl_stmt|;
-comment|/**    * The maximum size that we can hold in the IPC queue    */
+comment|/**    * The maximum size that we can hold in the RPC queue    */
 specifier|private
 specifier|static
 specifier|final
@@ -3251,7 +3251,7 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"IPC Reader %d on port "
+literal|"RpcServer.reader=%d,port="
 operator|+
 name|port
 argument_list|)
@@ -3332,7 +3332,7 @@ name|this
 operator|.
 name|setName
 argument_list|(
-literal|"IPC Server listener on "
+literal|"RpcServer.listener,port="
 operator|+
 name|port
 argument_list|)
@@ -4696,7 +4696,7 @@ name|this
 operator|.
 name|setName
 argument_list|(
-literal|"IPC Server Responder"
+literal|"RpcServer.responder"
 argument_list|)
 expr_stmt|;
 name|this
@@ -9644,11 +9644,11 @@ expr_stmt|;
 name|String
 name|threadName
 init|=
-literal|"IPC Server handler "
+literal|"RpcServer.handler="
 operator|+
 name|instanceNumber
 operator|+
-literal|" on "
+literal|",port="
 operator|+
 name|port
 decl_stmt|;
@@ -9662,7 +9662,7 @@ block|{
 comment|// this is just an amazing hack, but it works.
 name|threadName
 operator|=
-literal|"PRI "
+literal|"Priority."
 operator|+
 name|threadName
 expr_stmt|;
@@ -9677,7 +9677,7 @@ condition|)
 block|{
 name|threadName
 operator|=
-literal|"REPL "
+literal|"Replication."
 operator|+
 name|threadName
 expr_stmt|;
@@ -10833,7 +10833,7 @@ name|time
 argument_list|)
 return|;
 block|}
-comment|/**    * Setup response for the IPC Call.    *    * @param response buffer to serialize the response into    * @param call {@link Call} to which we are setting up the response    * @param error error message, if the call failed    * @param t    * @throws IOException    */
+comment|/**    * Setup response for the RPC Call.    *    * @param response buffer to serialize the response into    * @param call {@link Call} to which we are setting up the response    * @param error error message, if the call failed    * @param t    * @throws IOException    */
 specifier|private
 name|void
 name|setupResponse

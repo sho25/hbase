@@ -513,12 +513,15 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"CatalogJanitor-"
+operator|+
 name|server
 operator|.
 name|getServerName
 argument_list|()
-operator|+
-literal|"-CatalogJanitor"
+operator|.
+name|toShortString
+argument_list|()
 argument_list|,
 name|server
 operator|.
@@ -1918,11 +1921,18 @@ operator|.
 name|getFileSystem
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Archiving parent region:"
+literal|"Archiving parent region: "
 operator|+
 name|parent
 argument_list|)

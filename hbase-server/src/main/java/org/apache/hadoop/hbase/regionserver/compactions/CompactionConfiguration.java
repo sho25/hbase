@@ -365,12 +365,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Compaction configuration "
-operator|+
 name|this
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

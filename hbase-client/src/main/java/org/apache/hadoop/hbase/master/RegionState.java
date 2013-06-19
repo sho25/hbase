@@ -199,7 +199,7 @@ name|stamp
 decl_stmt|;
 specifier|private
 name|HRegionInfo
-name|region
+name|hri
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -272,7 +272,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|region
+name|hri
 operator|=
 name|region
 expr_stmt|;
@@ -340,7 +340,7 @@ name|getRegion
 parameter_list|()
 block|{
 return|return
-name|region
+name|hri
 return|;
 block|}
 specifier|public
@@ -575,9 +575,9 @@ block|{
 return|return
 literal|"{"
 operator|+
-name|region
+name|hri
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" state="
@@ -620,7 +620,7 @@ operator|-
 name|lstamp
 decl_stmt|;
 return|return
-name|region
+name|hri
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -860,7 +860,7 @@ name|HRegionInfo
 operator|.
 name|convert
 argument_list|(
-name|region
+name|hri
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1087,13 +1087,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|region
+name|hri
 operator|=
 operator|new
 name|HRegionInfo
 argument_list|()
 expr_stmt|;
-name|region
+name|hri
 operator|.
 name|readFields
 argument_list|(
@@ -1138,7 +1138,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|region
+name|hri
 operator|.
 name|write
 argument_list|(

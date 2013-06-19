@@ -599,6 +599,22 @@ return|return
 name|encodedName
 return|;
 block|}
+comment|/**    * @return Return a short, printable name for this region (usually encoded name) for us logging.    */
+specifier|public
+name|String
+name|getShortNameToLog
+parameter_list|()
+block|{
+return|return
+name|prettyPrint
+argument_list|(
+name|this
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>.META.</code> if passed<code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
 specifier|public
 specifier|static
@@ -2571,7 +2587,12 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"{"
+literal|"{ENCODED => "
+operator|+
+name|getEncodedName
+argument_list|()
+operator|+
+literal|", "
 operator|+
 name|HConstants
 operator|.
@@ -2605,18 +2626,13 @@ operator|.
 name|endKey
 argument_list|)
 operator|+
-literal|"', ENCODED => "
-operator|+
-name|getEncodedName
-argument_list|()
-operator|+
-literal|","
+literal|"'"
 operator|+
 operator|(
 name|isOffline
 argument_list|()
 condition|?
-literal|" OFFLINE => true,"
+literal|", OFFLINE => true"
 else|:
 literal|""
 operator|)
@@ -2625,7 +2641,7 @@ operator|(
 name|isSplit
 argument_list|()
 condition|?
-literal|" SPLIT => true,"
+literal|", SPLIT => true"
 else|:
 literal|""
 operator|)

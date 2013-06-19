@@ -589,13 +589,6 @@ argument_list|,
 name|regionDir
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Have an archive directory, preparing to move files"
-argument_list|)
-expr_stmt|;
 name|FileStatusConverter
 name|getAsFile
 init|=
@@ -793,13 +786,6 @@ condition|(
 name|success
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Successfully resolved and archived, now can just delete region."
-argument_list|)
-expr_stmt|;
 return|return
 name|deleteRegionWithoutArchiving
 argument_list|(
@@ -1167,9 +1153,16 @@ argument_list|)
 throw|;
 block|}
 comment|// otherwise we attempt to archive the store files
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Archiving compacted store files."
 argument_list|)
@@ -1412,9 +1405,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Starting to archive files:"
 operator|+
@@ -1521,9 +1521,16 @@ operator|.
 name|emptyList
 argument_list|()
 return|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"moving files to the archive directory: "
 operator|+
@@ -1565,9 +1572,16 @@ literal|", quitting archive attempt."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Created archive directory:"
 operator|+
@@ -1609,11 +1623,18 @@ block|{
 comment|// if its a file archive it
 try|try
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Archiving:"
+literal|"Archiving: "
 operator|+
 name|file
 argument_list|)
@@ -1665,9 +1686,16 @@ block|}
 else|else
 block|{
 comment|// otherwise its a directory and we need to archive all files
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|file
 operator|+
@@ -1912,17 +1940,26 @@ name|archiveFile
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"No existing file in archive for:"
+literal|"No existing file in archive for: "
 operator|+
 name|archiveFile
 operator|+
 literal|", free to archive original file."
 argument_list|)
 expr_stmt|;
+block|}
 comment|// at this point, we should have a free spot for the archive file
 name|boolean
 name|success

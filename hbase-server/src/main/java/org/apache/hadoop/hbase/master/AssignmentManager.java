@@ -6379,7 +6379,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Bulk assigning "
+literal|"Assigning "
 operator|+
 name|regionCount
 operator|+
@@ -10700,11 +10700,19 @@ condition|)
 block|{
 comment|// Not use bulk assignment.  This could be more efficient in small
 comment|// cluster, especially mini cluster for testing, so that tests won't time out
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Not use bulk assigning since we are assigning only "
+literal|"Not using bulk assignment since we are assigning only "
 operator|+
 name|regions
 operator|+
@@ -10715,6 +10723,7 @@ operator|+
 literal|" server(s)"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Map
