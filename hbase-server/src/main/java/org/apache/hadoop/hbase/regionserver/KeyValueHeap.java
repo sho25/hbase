@@ -964,8 +964,16 @@ decl_stmt|;
 if|if
 condition|(
 name|isLazy
+operator|&&
+name|heap
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
 condition|)
 block|{
+comment|// If there is only one scanner left, we don't do lazy seek.
 name|seekResult
 operator|=
 name|scanner
