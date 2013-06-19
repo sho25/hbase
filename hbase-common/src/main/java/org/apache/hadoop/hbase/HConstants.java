@@ -1937,6 +1937,22 @@ name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
 init|=
 literal|false
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DISALLOW_WRITES_IN_RECOVERING
+init|=
+literal|"hbase.regionserver.disallow.writes.when.recovering"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_DISALLOW_WRITES_IN_RECOVERING_CONFIG
+init|=
+literal|false
+decl_stmt|;
 comment|/** Conf key that specifies timeout value to wait for a region ready */
 specifier|public
 specifier|static
