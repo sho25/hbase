@@ -87,14 +87,26 @@ name|HBaseConfiguration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperMain
+import|;
+end_import
+
 begin_comment
-comment|/**  * Tool for reading a ZooKeeper server from HBase XML configuration producing  * the '-server host:port' argument to pass ZooKeeperMain.  This program  * emits either '-server HOST:PORT" where HOST is one of the zk ensemble  * members plus zk client port OR it emits '' if no zk servers found (Yes,  * it emits '-server' too).  */
+comment|/**  * Tool for running ZookeeperMain from HBase by  reading a ZooKeeper server  * from HBase XML configuration.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ZooKeeperMainServerArg
+name|ZooKeeperMainServer
 block|{
 specifier|public
 name|String
@@ -318,6 +330,8 @@ name|String
 name|args
 index|[]
 parameter_list|)
+throws|throws
+name|Exception
 block|{
 name|Configuration
 name|conf
@@ -331,7 +345,7 @@ name|String
 name|hostport
 init|=
 operator|new
-name|ZooKeeperMainServerArg
+name|ZooKeeperMainServer
 argument_list|()
 operator|.
 name|parse
@@ -339,12 +353,9 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
+name|String
+name|zkArg
+init|=
 operator|(
 name|hostport
 operator|==
@@ -363,6 +374,17 @@ else|:
 literal|"-server "
 operator|+
 name|hostport
+decl_stmt|;
+name|ZooKeeperMain
+operator|.
+name|main
+argument_list|(
+operator|new
+name|String
+index|[]
+block|{
+name|zkArg
+block|}
 argument_list|)
 expr_stmt|;
 block|}
