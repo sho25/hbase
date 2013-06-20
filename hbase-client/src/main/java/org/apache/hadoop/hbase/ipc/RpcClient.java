@@ -1138,6 +1138,11 @@ specifier|protected
 name|String
 name|clusterId
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|fallbackAllowed
+decl_stmt|;
 specifier|final
 specifier|private
 specifier|static
@@ -1193,6 +1198,22 @@ name|int
 name|FAILED_SERVER_EXPIRY_DEFAULT
 init|=
 literal|2000
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_KEY
+init|=
+literal|"hbase.ipc.client.fallback-to-simple-auth-allowed"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_DEFAULT
+init|=
+literal|false
 decl_stmt|;
 comment|// thread-specific RPC timeout, which may override that of what was passed in.
 comment|// TODO: Verify still being used.
@@ -3594,6 +3615,8 @@ argument_list|,
 name|token
 argument_list|,
 name|serverPrincipal
+argument_list|,
+name|fallbackAllowed
 argument_list|)
 expr_stmt|;
 return|return
@@ -5866,6 +5889,19 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|fallbackAllowed
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_KEY
+argument_list|,
+name|IPC_CLIENT_FALLBACK_TO_SIMPLE_AUTH_ALLOWED_DEFAULT
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -5913,6 +5949,12 @@ operator|+
 name|this
 operator|.
 name|maxRetries
+operator|+
+literal|", fallbackAllowed="
+operator|+
+name|this
+operator|.
+name|fallbackAllowed
 operator|+
 literal|", ping interval="
 operator|+

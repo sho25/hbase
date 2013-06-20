@@ -362,6 +362,11 @@ specifier|final
 name|SaslClient
 name|saslClient
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|fallbackAllowed
+decl_stmt|;
 comment|/**    * Create a HBaseSaslRpcClient for an authentication method    *     * @param method    *          the requested authentication method    * @param token    *          token to use if needed by the authentication method    */
 specifier|public
 name|HBaseSaslRpcClient
@@ -379,10 +384,19 @@ name|token
 parameter_list|,
 name|String
 name|serverPrincipal
+parameter_list|,
+name|boolean
+name|fallbackAllowed
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|fallbackAllowed
+operator|=
+name|fallbackAllowed
+expr_stmt|;
 switch|switch
 condition|(
 name|method
@@ -810,11 +824,28 @@ condition|)
 block|{
 if|if
 condition|(
+operator|!
+name|fallbackAllowed
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Server asks us to fall back to SIMPLE auth, "
+operator|+
+literal|"but this client is configured to only allow secure connections."
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -822,6 +853,7 @@ argument_list|(
 literal|"Server asks us to fall back to simple auth."
 argument_list|)
 expr_stmt|;
+block|}
 name|saslClient
 operator|.
 name|dispose
