@@ -1133,6 +1133,12 @@ specifier|final
 name|int
 name|maximumAttempts
 decl_stmt|;
+comment|/**    * The sleep time for which the assignment will wait before retrying in case of META assignment    * failure due to lack of availability of region plan    */
+specifier|private
+specifier|final
+name|long
+name|sleepTimeBeforeRetryingMetaAssignment
+decl_stmt|;
 comment|/** Plans for region movement. Key is the encoded version of a region name*/
 comment|// TODO: When do plans get cleaned out?  Ever? In server open and in server
 comment|// shutdown processing -- St.Ack
@@ -1547,6 +1553,24 @@ argument_list|(
 literal|"hbase.assignment.maximum.attempts"
 argument_list|,
 literal|10
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|sleepTimeBeforeRetryingMetaAssignment
+operator|=
+name|this
+operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.meta.assignment.retry.sleeptime"
+argument_list|,
+literal|1000l
 argument_list|)
 expr_stmt|;
 name|this
@@ -8015,6 +8039,66 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|region
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+if|if
+condition|(
+name|i
+operator|!=
+name|maximumAttempts
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|this
+operator|.
+name|sleepTimeBeforeRetryingMetaAssignment
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+comment|// TODO : Ensure HBCK fixes this
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unable to determine a plan to assign META even after repeated attempts. Run HBCK to fix this"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Got exception while waiting for META assignment"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 name|regionStates
 operator|.
 name|updateRegionState
