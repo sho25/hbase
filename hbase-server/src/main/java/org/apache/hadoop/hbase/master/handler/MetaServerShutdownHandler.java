@@ -460,6 +460,28 @@ name|verifyAndAssignMetaWithRetries
 argument_list|()
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|services
+operator|.
+name|getCatalogTracker
+argument_list|()
+operator|.
+name|isMetaLocationAvailable
+argument_list|()
+condition|)
+block|{
+comment|// the meta location as per master is null. This could happen in case when meta assignment
+comment|// in previous run failed, while meta znode has been updated to null. We should try to
+comment|// assign the meta again.
+name|verifyAndAssignMetaWithRetries
+argument_list|()
+expr_stmt|;
+block|}
 else|else
 block|{
 name|LOG

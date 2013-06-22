@@ -867,6 +867,21 @@ name|getMetaRegionLocation
 argument_list|()
 return|;
 block|}
+comment|/**    * Checks whether meta regionserver znode has some non null data.    * @return true if data is not null, false otherwise.    */
+specifier|public
+name|boolean
+name|isMetaLocationAvailable
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metaRegionTracker
+operator|.
+name|isLocationAvailable
+argument_list|()
+return|;
+block|}
 comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
 specifier|public
 name|ServerName
