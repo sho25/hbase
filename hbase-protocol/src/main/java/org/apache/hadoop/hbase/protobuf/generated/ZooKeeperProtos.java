@@ -50,7 +50,7 @@ parameter_list|)
 block|{   }
 specifier|public
 interface|interface
-name|RootRegionServerOrBuilder
+name|MetaRegionServerOrBuilder
 extends|extends
 name|com
 operator|.
@@ -106,7 +106,7 @@ specifier|public
 specifier|static
 specifier|final
 class|class
-name|RootRegionServer
+name|MetaRegionServer
 extends|extends
 name|com
 operator|.
@@ -116,11 +116,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|RootRegionServerOrBuilder
+name|MetaRegionServerOrBuilder
 block|{
-comment|// Use RootRegionServer.newBuilder() to construct.
+comment|// Use MetaRegionServer.newBuilder() to construct.
 specifier|private
-name|RootRegionServer
+name|MetaRegionServer
 parameter_list|(
 name|Builder
 name|builder
@@ -133,7 +133,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|RootRegionServer
+name|MetaRegionServer
 parameter_list|(
 name|boolean
 name|noInit
@@ -142,12 +142,12 @@ block|{}
 specifier|private
 specifier|static
 specifier|final
-name|RootRegionServer
+name|MetaRegionServer
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|RootRegionServer
+name|MetaRegionServer
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -156,7 +156,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|RootRegionServer
+name|MetaRegionServer
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -194,7 +194,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_RootRegionServer_descriptor
+name|internal_static_MetaRegionServer_descriptor
 return|;
 block|}
 specifier|protected
@@ -225,7 +225,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_RootRegionServer_fieldAccessorTable
+name|internal_static_MetaRegionServer_fieldAccessorTable
 return|;
 block|}
 specifier|private
@@ -639,7 +639,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|)
 condition|)
 block|{
@@ -666,7 +666,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|other
 init|=
 operator|(
@@ -684,7 +684,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|)
 name|obj
 decl_stmt|;
@@ -843,7 +843,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|com
@@ -893,7 +893,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|com
@@ -954,7 +954,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|byte
@@ -999,7 +999,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|byte
@@ -1055,7 +1055,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|java
@@ -1101,7 +1101,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|java
@@ -1158,7 +1158,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1221,7 +1221,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1295,7 +1295,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|com
@@ -1343,7 +1343,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|parseFrom
 parameter_list|(
 name|com
@@ -1428,7 +1428,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|prototype
 parameter_list|)
 block|{
@@ -1522,7 +1522,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServerOrBuilder
+name|MetaRegionServerOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -1554,7 +1554,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_RootRegionServer_descriptor
+name|internal_static_MetaRegionServer_descriptor
 return|;
 block|}
 specifier|protected
@@ -1585,10 +1585,10 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|internal_static_RootRegionServer_fieldAccessorTable
+name|internal_static_MetaRegionServer_fieldAccessorTable
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ZooKeeperProtos.RootRegionServer.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.ZooKeeperProtos.MetaRegionServer.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -1752,7 +1752,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|getDescriptor
 argument_list|()
@@ -1773,7 +1773,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -1792,7 +1792,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -1813,7 +1813,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|build
 parameter_list|()
 block|{
@@ -1831,7 +1831,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|result
 init|=
 name|buildPartial
@@ -1872,7 +1872,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|buildParsed
 parameter_list|()
 throws|throws
@@ -1898,7 +1898,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|result
 init|=
 name|buildPartial
@@ -1942,7 +1942,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|buildPartial
 parameter_list|()
 block|{
@@ -1960,7 +1960,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|result
 init|=
 operator|new
@@ -1978,7 +1978,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 argument_list|(
 name|this
 argument_list|)
@@ -2082,7 +2082,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 condition|)
 block|{
 return|return
@@ -2103,7 +2103,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|)
 name|other
 argument_list|)
@@ -2141,7 +2141,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|other
 parameter_list|)
 block|{
@@ -2163,7 +2163,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3143,14 +3143,14 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RootRegionServer)
+comment|// @@protoc_insertion_point(builder_scope:MetaRegionServer)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|RootRegionServer
+name|MetaRegionServer
 argument_list|(
 literal|true
 argument_list|)
@@ -3161,7 +3161,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RootRegionServer)
+comment|// @@protoc_insertion_point(class_scope:MetaRegionServer)
 block|}
 specifier|public
 interface|interface
@@ -42652,7 +42652,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RootRegionServer_descriptor
+name|internal_static_MetaRegionServer_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -42665,7 +42665,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RootRegionServer_fieldAccessorTable
+name|internal_static_MetaRegionServer_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -43021,7 +43021,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"/\n\020RootRe"
+literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"/\n\020MetaRe"
 operator|+
 literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerName\""
 operator|+
@@ -43133,7 +43133,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_RootRegionServer_descriptor
+name|internal_static_MetaRegionServer_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -43146,7 +43146,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_RootRegionServer_fieldAccessorTable
+name|internal_static_MetaRegionServer_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -43159,7 +43159,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RootRegionServer_descriptor
+name|internal_static_MetaRegionServer_descriptor
 argument_list|,
 operator|new
 name|java
@@ -43186,7 +43186,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|class
 argument_list|,
@@ -43204,7 +43204,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|Builder
 operator|.

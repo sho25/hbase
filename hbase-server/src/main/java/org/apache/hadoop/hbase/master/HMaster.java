@@ -1241,7 +1241,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 import|;
 end_import
 
@@ -7442,7 +7442,7 @@ name|ServiceException
 block|{
 try|try
 block|{
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|sl

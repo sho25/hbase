@@ -131,7 +131,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 import|;
 end_import
 
@@ -423,12 +423,12 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|sl
 init|=
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.

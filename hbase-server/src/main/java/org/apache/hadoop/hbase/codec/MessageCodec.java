@@ -151,7 +151,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 import|;
 end_import
 
@@ -234,14 +234,14 @@ block|{
 name|checkFlushed
 argument_list|()
 expr_stmt|;
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
 name|Builder
 name|builder
 init|=
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -339,7 +339,7 @@ name|builder
 operator|.
 name|setCellType
 argument_list|(
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellType
 operator|.
@@ -377,7 +377,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|pbcell
@@ -424,12 +424,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|pbcell
 init|=
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.

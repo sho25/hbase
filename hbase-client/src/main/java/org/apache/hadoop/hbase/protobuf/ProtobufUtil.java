@@ -973,6 +973,24 @@ name|protobuf
 operator|.
 name|generated
 operator|.
+name|CellProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
 name|ClientProtos
 import|;
 end_import
@@ -1319,6 +1337,24 @@ name|protobuf
 operator|.
 name|generated
 operator|.
+name|FilterProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
 name|HBaseProtos
 import|;
 end_import
@@ -1377,7 +1413,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 import|;
@@ -3004,7 +3040,7 @@ name|hasFilter
 argument_list|()
 condition|)
 block|{
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter
@@ -5699,7 +5735,7 @@ name|hasFilter
 argument_list|()
 condition|)
 block|{
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter
@@ -7178,7 +7214,7 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -7209,7 +7245,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|c
@@ -7341,7 +7377,7 @@ block|}
 block|}
 name|List
 argument_list|<
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -7374,7 +7410,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|c
@@ -7611,7 +7647,7 @@ specifier|static
 name|Filter
 name|toFilter
 parameter_list|(
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|proto
@@ -7742,7 +7778,7 @@ block|}
 comment|/**    * Convert a client Filter to a protocol buffer Filter    *    * @param filter the Filter to convert    * @return the converted protocol buffer Filter    */
 specifier|public
 specifier|static
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|toFilter
@@ -7753,14 +7789,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
 name|Builder
 name|builder
 init|=
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11238,7 +11274,7 @@ throw|;
 block|}
 specifier|public
 specifier|static
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|toCell
@@ -11250,14 +11286,14 @@ parameter_list|)
 block|{
 comment|// Doing this is going to kill us if we do it for all data passed.
 comment|// St.Ack 20121205
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
 name|Builder
 name|kvbuilder
 init|=
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -11343,7 +11379,7 @@ name|kvbuilder
 operator|.
 name|setCellType
 argument_list|(
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellType
 operator|.
@@ -11404,7 +11440,7 @@ name|Cell
 name|toCell
 parameter_list|(
 specifier|final
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|cell

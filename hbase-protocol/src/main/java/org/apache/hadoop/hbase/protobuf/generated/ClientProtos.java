@@ -3336,7 +3336,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -3354,7 +3354,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -3981,7 +3981,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter_
@@ -4016,7 +4016,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -4039,7 +4039,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -4348,7 +4348,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -6863,7 +6863,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -8544,7 +8544,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -8563,7 +8563,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11523,7 +11523,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter_
@@ -11540,7 +11540,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11568,7 +11568,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -11584,7 +11584,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11602,7 +11602,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -11638,7 +11638,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -11681,7 +11681,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|value
@@ -11749,7 +11749,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11812,7 +11812,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|value
@@ -11851,7 +11851,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11873,7 +11873,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11946,7 +11946,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -11991,7 +11991,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -12027,7 +12027,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -12075,7 +12075,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -12091,7 +12091,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -12109,7 +12109,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -12146,7 +12146,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -12162,7 +12162,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -12180,7 +12180,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -13268,7 +13268,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -13287,7 +13287,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|getCell
@@ -13320,7 +13320,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -13339,7 +13339,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 name|getCellOrBuilder
@@ -13516,7 +13516,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -13541,7 +13541,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -13573,7 +13573,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -13609,7 +13609,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|getCell
@@ -13640,7 +13640,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 name|getCellOrBuilder
@@ -15995,7 +15995,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16014,7 +16014,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16084,7 +16084,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -16139,7 +16139,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -16174,7 +16174,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|,
@@ -16190,7 +16190,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16208,7 +16208,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -16233,7 +16233,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -16312,7 +16312,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|getCell
@@ -16368,7 +16368,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|value
@@ -16445,7 +16445,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16514,7 +16514,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|value
@@ -16587,7 +16587,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 name|value
@@ -16661,7 +16661,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16729,7 +16729,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16806,7 +16806,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|>
@@ -16954,7 +16954,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -16988,7 +16988,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 name|getCellOrBuilder
@@ -17046,7 +17046,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -17096,7 +17096,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17122,7 +17122,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17144,7 +17144,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17175,7 +17175,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17203,7 +17203,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17241,7 +17241,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|,
@@ -17257,7 +17257,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17275,7 +17275,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -17312,7 +17312,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 argument_list|,
@@ -17328,7 +17328,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|Cell
 operator|.
@@ -17346,7 +17346,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|CellProtos
 operator|.
 name|CellOrBuilder
 argument_list|>
@@ -69351,7 +69351,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -69369,7 +69369,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -70092,7 +70092,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter_
@@ -70127,7 +70127,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -70150,7 +70150,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -70666,7 +70666,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -73922,7 +73922,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -75920,7 +75920,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -75939,7 +75939,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79108,7 +79108,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|filter_
@@ -79125,7 +79125,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79153,7 +79153,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -79169,7 +79169,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79187,7 +79187,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -79223,7 +79223,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|getFilter
@@ -79266,7 +79266,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|value
@@ -79334,7 +79334,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79397,7 +79397,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 name|value
@@ -79436,7 +79436,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79458,7 +79458,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79531,7 +79531,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79576,7 +79576,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79612,7 +79612,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 name|getFilterOrBuilder
@@ -79660,7 +79660,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -79676,7 +79676,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79694,7 +79694,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -79731,7 +79731,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 argument_list|,
@@ -79747,7 +79747,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|Filter
 operator|.
@@ -79765,7 +79765,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|FilterProtos
 operator|.
 name|FilterOrBuilder
 argument_list|>
@@ -141267,191 +141267,193 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\014Client.proto\032\013hbase.proto\032\020Comparator."
+literal|"\n\014Client.proto\032\013hbase.proto\032\014Filter.prot"
 operator|+
-literal|"proto\"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tquali"
+literal|"o\032\nCell.proto\032\020Comparator.proto\"+\n\006Colum"
 operator|+
-literal|"fier\030\002 \003(\014\"\342\001\n\003Get\022\013\n\003row\030\001 \002(\014\022\027\n\006colum"
+literal|"n\022\016\n\006family\030\001 \002(\014\022\021\n\tqualifier\030\002 \003(\014\"\342\001\n"
 operator|+
-literal|"n\030\002 \003(\0132\007.Column\022!\n\tattribute\030\003 \003(\0132\016.Na"
+literal|"\003Get\022\013\n\003row\030\001 \002(\014\022\027\n\006column\030\002 \003(\0132\007.Colu"
 operator|+
-literal|"meBytesPair\022\027\n\006filter\030\004 \001(\0132\007.Filter\022\035\n\t"
+literal|"mn\022!\n\tattribute\030\003 \003(\0132\016.NameBytesPair\022\027\n"
 operator|+
-literal|"timeRange\030\005 \001(\0132\n.TimeRange\022\026\n\013maxVersio"
+literal|"\006filter\030\004 \001(\0132\007.Filter\022\035\n\ttimeRange\030\005 \001("
 operator|+
-literal|"ns\030\006 \001(\r:\0011\022\031\n\013cacheBlocks\030\007 \001(\010:\004true\022\022"
+literal|"\0132\n.TimeRange\022\026\n\013maxVersions\030\006 \001(\r:\0011\022\031\n"
 operator|+
-literal|"\n\nstoreLimit\030\010 \001(\r\022\023\n\013storeOffset\030\t \001(\r\""
+literal|"\013cacheBlocks\030\007 \001(\010:\004true\022\022\n\nstoreLimit\030\010"
 operator|+
-literal|":\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cell\022\033\n\023associ"
+literal|" \001(\r\022\023\n\013storeOffset\030\t \001(\r\":\n\006Result\022\023\n\004c"
 operator|+
-literal|"atedCellCount\030\002 \001(\005\"r\n\nGetRequest\022 \n\006reg"
+literal|"ell\030\001 \003(\0132\005.Cell\022\033\n\023associatedCellCount\030"
 block|,
-literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \002(\013"
+literal|"\002 \001(\005\"r\n\nGetRequest\022 \n\006region\030\001 \002(\0132\020.Re"
 operator|+
-literal|"2\004.Get\022\030\n\020closestRowBefore\030\003 \001(\010\022\025\n\rexis"
+literal|"gionSpecifier\022\021\n\003get\030\002 \002(\0132\004.Get\022\030\n\020clos"
 operator|+
-literal|"tenceOnly\030\004 \001(\010\"w\n\017MultiGetRequest\022 \n\006re"
+literal|"estRowBefore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001("
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\021\n\003get\030\002 \003("
+literal|"\010\"w\n\017MultiGetRequest\022 \n\006region\030\001 \002(\0132\020.R"
 operator|+
-literal|"\0132\004.Get\022\030\n\020closestRowBefore\030\003 \001(\010\022\025\n\rexi"
+literal|"egionSpecifier\022\021\n\003get\030\002 \003(\0132\004.Get\022\030\n\020clo"
 operator|+
-literal|"stenceOnly\030\004 \001(\010\"6\n\013GetResponse\022\027\n\006resul"
+literal|"sestRowBefore\030\003 \001(\010\022\025\n\rexistenceOnly\030\004 \001"
 operator|+
-literal|"t\030\001 \001(\0132\007.Result\022\016\n\006exists\030\002 \001(\010\";\n\020Mult"
+literal|"(\010\"6\n\013GetResponse\022\027\n\006result\030\001 \001(\0132\007.Resu"
 operator|+
-literal|"iGetResponse\022\027\n\006result\030\001 \003(\0132\007.Result\022\016\n"
+literal|"lt\022\016\n\006exists\030\002 \001(\010\";\n\020MultiGetResponse\022\027"
 operator|+
-literal|"\006exists\030\002 \003(\010\"\177\n\tCondition\022\013\n\003row\030\001 \002(\014\022"
+literal|"\n\006result\030\001 \003(\0132\007.Result\022\016\n\006exists\030\002 \003(\010\""
 operator|+
-literal|"\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022!\n\013co"
+literal|"\177\n\tCondition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002("
 block|,
-literal|"mpareType\030\004 \002(\0162\014.CompareType\022\037\n\ncompara"
+literal|"\014\022\021\n\tqualifier\030\003 \002(\014\022!\n\013compareType\030\004 \002("
 operator|+
-literal|"tor\030\005 \002(\0132\013.Comparator\"\365\005\n\rMutationProto"
+literal|"\0162\014.CompareType\022\037\n\ncomparator\030\005 \002(\0132\013.Co"
 operator|+
-literal|"\022\013\n\003row\030\001 \001(\014\022/\n\nmutateType\030\002 \001(\0162\033.Muta"
+literal|"mparator\"\365\005\n\rMutationProto\022\013\n\003row\030\001 \001(\014\022"
 operator|+
-literal|"tionProto.MutationType\022/\n\013columnValue\030\003 "
+literal|"/\n\nmutateType\030\002 \001(\0162\033.MutationProto.Muta"
 operator|+
-literal|"\003(\0132\032.MutationProto.ColumnValue\022\021\n\ttimes"
+literal|"tionType\022/\n\013columnValue\030\003 \003(\0132\032.Mutation"
 operator|+
-literal|"tamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016.NameByte"
+literal|"Proto.ColumnValue\022\021\n\ttimestamp\030\004 \001(\004\022!\n\t"
 operator|+
-literal|"sPair\022:\n\ndurability\030\006 \001(\0162\031.MutationProt"
+literal|"attribute\030\005 \003(\0132\016.NameBytesPair\022:\n\ndurab"
 operator|+
-literal|"o.Durability:\013USE_DEFAULT\022\035\n\ttimeRange\030\007"
+literal|"ility\030\006 \001(\0162\031.MutationProto.Durability:\013"
 operator|+
-literal|" \001(\0132\n.TimeRange\022\033\n\023associatedCellCount\030"
+literal|"USE_DEFAULT\022\035\n\ttimeRange\030\007 \001(\0132\n.TimeRan"
 operator|+
-literal|"\010 \001(\005\032\326\001\n\013ColumnValue\022\016\n\006family\030\001 \002(\014\022A\n"
+literal|"ge\022\033\n\023associatedCellCount\030\010 \001(\005\032\326\001\n\013Colu"
 block|,
-literal|"\016qualifierValue\030\002 \003(\0132).MutationProto.Co"
+literal|"mnValue\022\016\n\006family\030\001 \002(\014\022A\n\016qualifierValu"
 operator|+
-literal|"lumnValue.QualifierValue\032t\n\016QualifierVal"
+literal|"e\030\002 \003(\0132).MutationProto.ColumnValue.Qual"
 operator|+
-literal|"ue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\t"
+literal|"ifierValue\032t\n\016QualifierValue\022\021\n\tqualifie"
 operator|+
-literal|"timestamp\030\003 \001(\004\022-\n\ndeleteType\030\004 \001(\0162\031.Mu"
+literal|"r\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001("
 operator|+
-literal|"tationProto.DeleteType\"W\n\nDurability\022\017\n\013"
+literal|"\004\022-\n\ndeleteType\030\004 \001(\0162\031.MutationProto.De"
 operator|+
-literal|"USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL"
+literal|"leteType\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022"
 operator|+
-literal|"\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014Mutat"
+literal|"\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL"
 operator|+
-literal|"ionType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PU"
+literal|"\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006APP"
 operator|+
-literal|"T\020\002\022\n\n\006DELETE\020\003\"U\n\nDeleteType\022\026\n\022DELETE_"
+literal|"END\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020"
 operator|+
-literal|"ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERSION"
+literal|"\003\"U\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000\022"
 block|,
-literal|"S\020\001\022\021\n\rDELETE_FAMILY\020\002\"r\n\rMutateRequest\022"
+literal|"\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_"
 operator|+
-literal|" \n\006region\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mut"
+literal|"FAMILY\020\002\"r\n\rMutateRequest\022 \n\006region\030\001 \002("
 operator|+
-literal|"ation\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition"
+literal|"\0132\020.RegionSpecifier\022 \n\010mutation\030\002 \002(\0132\016."
 operator|+
-literal|"\030\003 \001(\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006"
+literal|"MutationProto\022\035\n\tcondition\030\003 \001(\0132\n.Condi"
 operator|+
-literal|"result\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010"
+literal|"tion\"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132\007"
 operator|+
-literal|"\"\362\002\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tat"
+literal|".Result\022\021\n\tprocessed\030\002 \001(\010\"\362\002\n\004Scan\022\027\n\006c"
 operator|+
-literal|"tribute\030\002 \003(\0132\016.NameBytesPair\022\020\n\010startRo"
+literal|"olumn\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\0132"
 operator|+
-literal|"w\030\003 \001(\014\022\017\n\007stopRow\030\004 \001(\014\022\027\n\006filter\030\005 \001(\013"
+literal|"\016.NameBytesPair\022\020\n\010startRow\030\003 \001(\014\022\017\n\007sto"
 operator|+
-literal|"2\007.Filter\022\035\n\ttimeRange\030\006 \001(\0132\n.TimeRange"
+literal|"pRow\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007.Filter\022\035\n\tt"
 operator|+
-literal|"\022\026\n\013maxVersions\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030"
+literal|"imeRange\030\006 \001(\0132\n.TimeRange\022\026\n\013maxVersion"
 block|,
-literal|"\010 \001(\010:\004true\022\021\n\tbatchSize\030\t \001(\r\022\025\n\rmaxRes"
+literal|"s\030\007 \001(\r:\0011\022\031\n\013cacheBlocks\030\010 \001(\010:\004true\022\021\n"
 operator|+
-literal|"ultSize\030\n \001(\004\022\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013sto"
+literal|"\tbatchSize\030\t \001(\r\022\025\n\rmaxResultSize\030\n \001(\004\022"
 operator|+
-literal|"reOffset\030\014 \001(\r\022\"\n\032loadColumnFamiliesOnDe"
+literal|"\022\n\nstoreLimit\030\013 \001(\r\022\023\n\013storeOffset\030\014 \001(\r"
 operator|+
-literal|"mand\030\r \001(\010\022\024\n\014cachingCount\030\016 \001(\r\022\023\n\013pref"
+literal|"\022\"\n\032loadColumnFamiliesOnDemand\030\r \001(\010\022\024\n\014"
 operator|+
-literal|"etching\030\017 \001(\010\"\230\001\n\013ScanRequest\022 \n\006region\030"
+literal|"cachingCount\030\016 \001(\r\022\023\n\013prefetching\030\017 \001(\010\""
 operator|+
-literal|"\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005."
+literal|"\230\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Region"
 operator|+
-literal|"Scan\022\021\n\tscannerId\030\003 \001(\004\022\024\n\014numberOfRows\030"
+literal|"Specifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\021\n\tscanne"
 operator|+
-literal|"\004 \001(\r\022\024\n\014closeScanner\030\005 \001(\010\022\023\n\013nextCallS"
+literal|"rId\030\003 \001(\004\022\024\n\014numberOfRows\030\004 \001(\r\022\024\n\014close"
 operator|+
-literal|"eq\030\006 \001(\004\"l\n\014ScanResponse\022\'\n\016resultCellMe"
+literal|"Scanner\030\005 \001(\010\022\023\n\013nextCallSeq\030\006 \001(\004\"l\n\014Sc"
 operator|+
-literal|"ta\030\001 \001(\0132\017.ResultCellMeta\022\021\n\tscannerId\030\002"
+literal|"anResponse\022\'\n\016resultCellMeta\030\001 \001(\0132\017.Res"
 block|,
-literal|" \001(\004\022\023\n\013moreResults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"%"
+literal|"ultCellMeta\022\021\n\tscannerId\030\002 \001(\004\022\023\n\013moreRe"
 operator|+
-literal|"\n\016ResultCellMeta\022\023\n\013cellsLength\030\001 \003(\r\"\260\001"
+literal|"sults\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\"%\n\016ResultCellMe"
 operator|+
-literal|"\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020"
+literal|"ta\022\023\n\013cellsLength\030\001 \003(\r\"\260\001\n\024BulkLoadHFil"
 operator|+
-literal|".RegionSpecifier\0224\n\nfamilyPath\030\002 \003(\0132 .B"
+literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
 operator|+
-literal|"ulkLoadHFileRequest.FamilyPath\022\024\n\014assign"
+literal|"er\0224\n\nfamilyPath\030\002 \003(\0132 .BulkLoadHFileRe"
 operator|+
-literal|"SeqNum\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002"
+literal|"quest.FamilyPath\022\024\n\014assignSeqNum\030\003 \001(\010\032*"
 operator|+
-literal|"(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRespons"
+literal|"\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002"
 operator|+
-literal|"e\022\016\n\006loaded\030\001 \002(\010\"_\n\026CoprocessorServiceC"
+literal|"(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 "
 operator|+
-literal|"all\022\013\n\003row\030\001 \002(\014\022\023\n\013serviceName\030\002 \002(\t\022\022\n"
+literal|"\002(\010\"_\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002"
 operator|+
-literal|"\nmethodName\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031Co"
+literal|"(\014\022\023\n\013serviceName\030\002 \002(\t\022\022\n\nmethodName\030\003 "
 block|,
-literal|"processorServiceRequest\022 \n\006region\030\001 \002(\0132"
+literal|"\002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031CoprocessorServi"
 operator|+
-literal|"\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Coproc"
+literal|"ceRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
 operator|+
-literal|"essorServiceCall\"]\n\032CoprocessorServiceRe"
+literal|"ier\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCa"
 operator|+
-literal|"sponse\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
+literal|"ll\"]\n\032CoprocessorServiceResponse\022 \n\006regi"
 operator|+
-literal|"\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B\n\013Multi"
+literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002("
 operator|+
-literal|"Action\022 \n\010mutation\030\001 \001(\0132\016.MutationProto"
+literal|"\0132\016.NameBytesPair\"B\n\013MultiAction\022 \n\010muta"
 operator|+
-literal|"\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResult\022\026\n\005v"
+literal|"tion\030\001 \001(\0132\016.MutationProto\022\021\n\003get\030\002 \001(\0132"
 operator|+
-literal|"alue\030\001 \001(\0132\007.Result\022!\n\texception\030\002 \001(\0132\016"
+literal|"\004.Get\"I\n\014ActionResult\022\026\n\005value\030\001 \001(\0132\007.R"
 operator|+
-literal|".NameBytesPair\"^\n\014MultiRequest\022 \n\006region"
+literal|"esult\022!\n\texception\030\002 \001(\0132\016.NameBytesPair"
 operator|+
-literal|"\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action\030\002 \003(\013"
+literal|"\"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020.Regio"
 block|,
-literal|"2\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiR"
+literal|"nSpecifier\022\034\n\006action\030\002 \003(\0132\014.MultiAction"
 operator|+
-literal|"esponse\022\035\n\006result\030\001 \003(\0132\r.ActionResult2\342"
+literal|"\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006res"
 operator|+
-literal|"\002\n\rClientService\022 \n\003get\022\013.GetRequest\032\014.G"
+literal|"ult\030\001 \003(\0132\r.ActionResult2\342\002\n\rClientServi"
 operator|+
-literal|"etResponse\022/\n\010multiGet\022\020.MultiGetRequest"
+literal|"ce\022 \n\003get\022\013.GetRequest\032\014.GetResponse\022/\n\010"
 operator|+
-literal|"\032\021.MultiGetResponse\022)\n\006mutate\022\016.MutateRe"
+literal|"multiGet\022\020.MultiGetRequest\032\021.MultiGetRes"
 operator|+
-literal|"quest\032\017.MutateResponse\022#\n\004scan\022\014.ScanReq"
+literal|"ponse\022)\n\006mutate\022\016.MutateRequest\032\017.Mutate"
 operator|+
-literal|"uest\032\r.ScanResponse\022>\n\rbulkLoadHFile\022\025.B"
+literal|"Response\022#\n\004scan\022\014.ScanRequest\032\r.ScanRes"
 operator|+
-literal|"ulkLoadHFileRequest\032\026.BulkLoadHFileRespo"
+literal|"ponse\022>\n\rbulkLoadHFile\022\025.BulkLoadHFileRe"
 operator|+
-literal|"nse\022F\n\013execService\022\032.CoprocessorServiceR"
+literal|"quest\032\026.BulkLoadHFileResponse\022F\n\013execSer"
 operator|+
-literal|"equest\032\033.CoprocessorServiceResponse\022&\n\005m"
+literal|"vice\022\032.CoprocessorServiceRequest\032\033.Copro"
 block|,
-literal|"ulti\022\r.MultiRequest\032\016.MultiResponseBB\n*o"
+literal|"cessorServiceResponse\022&\n\005multi\022\r.MultiRe"
 operator|+
-literal|"rg.apache.hadoop.hbase.protobuf.generate"
+literal|"quest\032\016.MultiResponseBB\n*org.apache.hado"
 operator|+
-literal|"dB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"op.hbase.protobuf.generatedB\014ClientProto"
+operator|+
+literal|"sH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -143811,6 +143813,40 @@ operator|.
 name|generated
 operator|.
 name|HBaseProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|FilterProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|CellProtos
 operator|.
 name|getDescriptor
 argument_list|()

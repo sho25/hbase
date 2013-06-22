@@ -57,6 +57,24 @@ name|protobuf
 operator|.
 name|generated
 operator|.
+name|ClusterStatusProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
 name|HBaseProtos
 import|;
 end_import
@@ -261,7 +279,7 @@ decl_stmt|;
 specifier|public
 name|ServerLoad
 parameter_list|(
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|serverLoad
@@ -275,7 +293,7 @@ name|serverLoad
 expr_stmt|;
 for|for
 control|(
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 name|rl
@@ -383,7 +401,7 @@ comment|// NOTE: Function name cannot start with "get" because then an OpenDataE
 comment|// HBaseProtos.ServerLoad cannot be converted to an open data type(see HBASE-5967).
 comment|/* @return the underlying ServerLoad protobuf object */
 specifier|public
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|obtainServerLoadPB
@@ -394,7 +412,7 @@ name|serverLoad
 return|;
 block|}
 specifier|protected
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|serverLoad
@@ -693,7 +711,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 name|rl
@@ -1346,7 +1364,7 @@ init|=
 operator|new
 name|ServerLoad
 argument_list|(
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.

@@ -7039,7 +7039,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|getLoad
@@ -7057,7 +7057,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 name|getLoadOrBuilder
@@ -7306,7 +7306,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|load_
@@ -7341,7 +7341,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|getLoad
@@ -7364,7 +7364,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 name|getLoadOrBuilder
@@ -7414,7 +7414,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -8947,7 +8947,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -9808,7 +9808,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -9827,7 +9827,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -10583,7 +10583,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|load_
@@ -10600,7 +10600,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -10628,7 +10628,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 argument_list|,
@@ -10644,7 +10644,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -10662,7 +10662,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 argument_list|>
@@ -10698,7 +10698,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|getLoad
@@ -10741,7 +10741,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|value
@@ -10809,7 +10809,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -10872,7 +10872,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|value
@@ -10911,7 +10911,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -10933,7 +10933,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -11006,7 +11006,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -11051,7 +11051,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -11087,7 +11087,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 name|getLoadOrBuilder
@@ -11135,7 +11135,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 argument_list|,
@@ -11151,7 +11151,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -11169,7 +11169,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 argument_list|>
@@ -11206,7 +11206,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 argument_list|,
@@ -11222,7 +11222,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
@@ -11240,7 +11240,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoadOrBuilder
 argument_list|>
@@ -27122,55 +27122,57 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\030RegionServerStatus.proto\032\013hbase.proto\""
+literal|"\n\030RegionServerStatus.proto\032\013hbase.proto\032"
 operator|+
-literal|"^\n\032RegionServerStartupRequest\022\014\n\004port\030\001 "
+literal|"\023ClusterStatus.proto\"^\n\032RegionServerStar"
 operator|+
-literal|"\002(\r\022\027\n\017serverStartCode\030\002 \002(\004\022\031\n\021serverCu"
+literal|"tupRequest\022\014\n\004port\030\001 \002(\r\022\027\n\017serverStartC"
 operator|+
-literal|"rrentTime\030\003 \002(\004\"B\n\033RegionServerStartupRe"
+literal|"ode\030\002 \002(\004\022\031\n\021serverCurrentTime\030\003 \002(\004\"B\n\033"
 operator|+
-literal|"sponse\022#\n\nmapEntries\030\001 \003(\0132\017.NameStringP"
+literal|"RegionServerStartupResponse\022#\n\nmapEntrie"
 operator|+
-literal|"air\"S\n\031RegionServerReportRequest\022\033\n\006serv"
+literal|"s\030\001 \003(\0132\017.NameStringPair\"S\n\031RegionServer"
 operator|+
-literal|"er\030\001 \002(\0132\013.ServerName\022\031\n\004load\030\002 \001(\0132\013.Se"
+literal|"ReportRequest\022\033\n\006server\030\001 \002(\0132\013.ServerNa"
 operator|+
-literal|"rverLoad\"\034\n\032RegionServerReportResponse\"N"
+literal|"me\022\031\n\004load\030\002 \001(\0132\013.ServerLoad\"\034\n\032RegionS"
 operator|+
-literal|"\n\031ReportRSFatalErrorRequest\022\033\n\006server\030\001 "
+literal|"erverReportResponse\"N\n\031ReportRSFatalErro"
 operator|+
-literal|"\002(\0132\013.ServerName\022\024\n\014errorMessage\030\002 \002(\t\"\034"
+literal|"rRequest\022\033\n\006server\030\001 \002(\0132\013.ServerName\022\024\n"
 block|,
-literal|"\n\032ReportRSFatalErrorResponse\"5\n\037GetLastF"
+literal|"\014errorMessage\030\002 \002(\t\"\034\n\032ReportRSFatalErro"
 operator|+
-literal|"lushedSequenceIdRequest\022\022\n\nregionName\030\001 "
+literal|"rResponse\"5\n\037GetLastFlushedSequenceIdReq"
 operator|+
-literal|"\002(\014\"A\n GetLastFlushedSequenceIdResponse\022"
+literal|"uest\022\022\n\nregionName\030\001 \002(\014\"A\n GetLastFlush"
 operator|+
-literal|"\035\n\025lastFlushedSequenceId\030\001 \002(\0042\354\002\n\031Regio"
+literal|"edSequenceIdResponse\022\035\n\025lastFlushedSeque"
 operator|+
-literal|"nServerStatusService\022P\n\023regionServerStar"
+literal|"nceId\030\001 \002(\0042\354\002\n\031RegionServerStatusServic"
 operator|+
-literal|"tup\022\033.RegionServerStartupRequest\032\034.Regio"
+literal|"e\022P\n\023regionServerStartup\022\033.RegionServerS"
 operator|+
-literal|"nServerStartupResponse\022M\n\022regionServerRe"
+literal|"tartupRequest\032\034.RegionServerStartupRespo"
 operator|+
-literal|"port\022\032.RegionServerReportRequest\032\033.Regio"
+literal|"nse\022M\n\022regionServerReport\022\032.RegionServer"
 operator|+
-literal|"nServerReportResponse\022M\n\022reportRSFatalEr"
+literal|"ReportRequest\032\033.RegionServerReportRespon"
 operator|+
-literal|"ror\022\032.ReportRSFatalErrorRequest\032\033.Report"
+literal|"se\022M\n\022reportRSFatalError\022\032.ReportRSFatal"
 block|,
-literal|"RSFatalErrorResponse\022_\n\030getLastFlushedSe"
+literal|"ErrorRequest\032\033.ReportRSFatalErrorRespons"
 operator|+
-literal|"quenceId\022 .GetLastFlushedSequenceIdReque"
+literal|"e\022_\n\030getLastFlushedSequenceId\022 .GetLastF"
 operator|+
-literal|"st\032!.GetLastFlushedSequenceIdResponseBN\n"
+literal|"lushedSequenceIdRequest\032!.GetLastFlushed"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"SequenceIdResponseBN\n*org.apache.hadoop."
 operator|+
-literal|"tedB\030RegionServerStatusProtosH\001\210\001\001\240\001\001"
+literal|"hbase.protobuf.generatedB\030RegionServerSt"
+operator|+
+literal|"atusProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -27899,6 +27901,23 @@ operator|.
 name|generated
 operator|.
 name|HBaseProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClusterStatusProtos
 operator|.
 name|getDescriptor
 argument_list|()

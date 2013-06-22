@@ -117,7 +117,7 @@ name|generated
 operator|.
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 import|;
 end_import
 
@@ -1402,10 +1402,10 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|RootRegionServer
+name|MetaRegionServer
 name|rss
 init|=
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|newBuilder
 argument_list|()

@@ -2441,7 +2441,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 import|;
 end_import
 
@@ -2499,7 +2499,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 import|;
@@ -6260,7 +6260,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|sl
@@ -6387,7 +6387,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 name|buildServerLoad
@@ -6436,14 +6436,14 @@ operator|.
 name|getHeapMemoryUsage
 argument_list|()
 decl_stmt|;
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.
 name|Builder
 name|serverLoad
 init|=
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|ServerLoad
 operator|.

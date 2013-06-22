@@ -501,12 +501,12 @@ argument_list|()
 decl_stmt|;
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 name|pbrsr
 init|=
 name|ZooKeeperProtos
 operator|.
-name|RootRegionServer
+name|MetaRegionServer
 operator|.
 name|newBuilder
 argument_list|()

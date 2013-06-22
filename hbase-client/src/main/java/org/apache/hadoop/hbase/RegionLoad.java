@@ -43,7 +43,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ClusterStatusProtos
 import|;
 end_import
 
@@ -93,7 +93,7 @@ class|class
 name|RegionLoad
 block|{
 specifier|protected
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 name|regionLoadPB
@@ -101,7 +101,7 @@ decl_stmt|;
 specifier|public
 name|RegionLoad
 parameter_list|(
-name|HBaseProtos
+name|ClusterStatusProtos
 operator|.
 name|RegionLoad
 name|regionLoadPB
