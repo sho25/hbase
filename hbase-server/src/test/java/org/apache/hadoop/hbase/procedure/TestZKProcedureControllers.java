@@ -580,8 +580,6 @@ argument_list|(
 name|watcher
 argument_list|,
 literal|"testSimple"
-argument_list|,
-name|COHORT_NODE_NAME
 argument_list|)
 decl_stmt|;
 comment|// mock out cohort member callbacks
@@ -726,6 +724,8 @@ name|controller
 operator|.
 name|start
 argument_list|(
+name|COHORT_NODE_NAME
+argument_list|,
 name|member
 argument_list|)
 expr_stmt|;
@@ -2362,14 +2362,14 @@ argument_list|(
 name|watcher
 argument_list|,
 name|operationName
-argument_list|,
-name|nodeName
 argument_list|)
 decl_stmt|;
 name|cc
 operator|.
 name|start
 argument_list|(
+name|nodeName
+argument_list|,
 name|member
 argument_list|)
 expr_stmt|;
@@ -2480,14 +2480,14 @@ argument_list|(
 name|watcher
 argument_list|,
 name|operationName
-argument_list|,
-name|nodeName
 argument_list|)
 decl_stmt|;
 name|cc
 operator|.
 name|start
 argument_list|(
+name|nodeName
+argument_list|,
 name|member
 argument_list|)
 expr_stmt|;

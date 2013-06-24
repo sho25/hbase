@@ -770,8 +770,6 @@ argument_list|(
 name|watcher
 argument_list|,
 name|procedureType
-argument_list|,
-name|coordName
 argument_list|)
 block|{
 annotation|@
@@ -928,10 +926,7 @@ name|debug
 argument_list|(
 literal|"Starting the controller for procedure member:"
 operator|+
-name|zkProc
-operator|.
-name|getMemberName
-argument_list|()
+name|coordName
 argument_list|)
 expr_stmt|;
 return|return

@@ -244,12 +244,7 @@ specifier|final
 name|String
 name|abortZnode
 decl_stmt|;
-specifier|protected
-specifier|final
-name|String
-name|memberName
-decl_stmt|;
-comment|/**    * Top-level watcher/controller for procedures across the cluster.    *<p>    * On instantiation, this ensures the procedure znodes exist.  This however requires the passed in    *  watcher has been started.    * @param watcher watcher for the cluster ZK. Owned by<tt>this</tt> and closed via    *          {@link #close()}    * @param procDescription name of the znode describing the procedure to run    * @param memberName name of the member from which we are interacting with running procedures    * @throws KeeperException when the procedure znodes cannot be created    */
+comment|/**    * Top-level watcher/controller for procedures across the cluster.    *<p>    * On instantiation, this ensures the procedure znodes exist.  This however requires the passed in    *  watcher has been started.    * @param watcher watcher for the cluster ZK. Owned by<tt>this</tt> and closed via    *          {@link #close()}    * @param procDescription name of the znode describing the procedure to run    * @throws KeeperException when the procedure znodes cannot be created    */
 specifier|public
 name|ZKProcedureUtil
 parameter_list|(
@@ -258,9 +253,6 @@ name|watcher
 parameter_list|,
 name|String
 name|procDescription
-parameter_list|,
-name|String
-name|memberName
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -269,12 +261,6 @@ name|super
 argument_list|(
 name|watcher
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|memberName
-operator|=
-name|memberName
 expr_stmt|;
 comment|// make sure we are listening for events
 name|watcher
@@ -458,15 +444,6 @@ parameter_list|()
 block|{
 return|return
 name|acquiredZnode
-return|;
-block|}
-specifier|public
-name|String
-name|getMemberName
-parameter_list|()
-block|{
-return|return
-name|memberName
 return|;
 block|}
 comment|/**    * Get the full znode path for the node used by the coordinator to trigger a global barrier    * acquire on each subprocedure.    * @param controller controller running the procedure    * @param opInstanceName name of the running procedure instance (not the procedure description).    * @return full znode path to the prepare barrier/start node    */

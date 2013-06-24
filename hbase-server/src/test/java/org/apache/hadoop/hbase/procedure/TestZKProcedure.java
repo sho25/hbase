@@ -949,8 +949,6 @@ argument_list|(
 name|watcher
 argument_list|,
 name|opDescription
-argument_list|,
-name|member
 argument_list|)
 decl_stmt|;
 name|ThreadPoolExecutor
@@ -1002,6 +1000,8 @@ name|comms
 operator|.
 name|start
 argument_list|(
+name|member
+argument_list|,
 name|procMember
 argument_list|)
 expr_stmt|;
@@ -1434,8 +1434,6 @@ argument_list|(
 name|watcher
 argument_list|,
 name|opDescription
-argument_list|,
-name|member
 argument_list|)
 decl_stmt|;
 name|ThreadPoolExecutor
@@ -1487,6 +1485,8 @@ name|controller
 operator|.
 name|start
 argument_list|(
+name|member
+argument_list|,
 name|mem
 argument_list|)
 expr_stmt|;
