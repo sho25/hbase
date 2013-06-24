@@ -1222,7 +1222,6 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-comment|// update progress per key
 operator|++
 name|progress
 operator|.
@@ -1262,9 +1261,16 @@ operator|.
 name|areWritesEnabled
 argument_list|()
 condition|)
+block|{
+name|progress
+operator|.
+name|cancel
+argument_list|()
+expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
 block|}
 block|}
 block|}
@@ -1279,6 +1285,11 @@ condition|(
 name|hasMore
 condition|)
 do|;
+name|progress
+operator|.
+name|complete
+argument_list|()
+expr_stmt|;
 return|return
 literal|true
 return|;

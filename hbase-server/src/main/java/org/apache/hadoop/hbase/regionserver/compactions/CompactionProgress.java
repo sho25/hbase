@@ -88,6 +88,38 @@ operator|/
 name|totalCompactingKVs
 return|;
 block|}
+comment|/**    * Cancels the compaction progress, setting things to 0.    */
+specifier|public
+name|void
+name|cancel
+parameter_list|()
+block|{
+name|this
+operator|.
+name|currentCompactedKVs
+operator|=
+name|this
+operator|.
+name|totalCompactingKVs
+operator|=
+literal|0
+expr_stmt|;
+block|}
+comment|/**    * Marks the compaction as complete by setting total to current KV count;    * Total KV count is an estimate, so there might be a discrepancy otherwise.    */
+specifier|public
+name|void
+name|complete
+parameter_list|()
+block|{
+name|this
+operator|.
+name|totalCompactingKVs
+operator|=
+name|this
+operator|.
+name|currentCompactedKVs
+expr_stmt|;
+block|}
 block|}
 end_class
 

@@ -1537,6 +1537,40 @@ operator|.
 name|firstKey
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getEntries
+parameter_list|()
+block|{
+comment|// Estimate the number of entries as half the original file; this may be wildly inaccurate.
+return|return
+name|super
+operator|.
+name|getEntries
+argument_list|()
+operator|/
+literal|2
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getFilterEntries
+parameter_list|()
+block|{
+comment|// Estimate the number of entries as half the original file; this may be wildly inaccurate.
+return|return
+name|super
+operator|.
+name|getFilterEntries
+argument_list|()
+operator|/
+literal|2
+return|;
+block|}
 block|}
 end_class
 
