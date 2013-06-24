@@ -242,6 +242,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|ActiveMasterManager
 extends|extends
