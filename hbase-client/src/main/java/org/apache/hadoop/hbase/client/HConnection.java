@@ -477,6 +477,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
+specifier|public
+name|void
+name|updateCachedLocations
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|rowkey
+parameter_list|,
+name|Object
+name|exception
+parameter_list|,
+name|HRegionLocation
+name|source
+parameter_list|)
+function_decl|;
 comment|/**    * Gets the location of the region of<i>regionName</i>.    * @param regionName name of the region to locate    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
@@ -784,7 +804,7 @@ name|boolean
 name|isClosed
 parameter_list|()
 function_decl|;
-comment|/**    * Clear any caches that pertain to server name<code>sn</code>    * @param sn A server name    */
+comment|/**    * Clear any caches that pertain to server name<code>sn</code>.    * @param sn A server name    */
 specifier|public
 name|void
 name|clearCaches
