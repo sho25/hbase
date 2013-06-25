@@ -251,13 +251,6 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|HRegionServer
-operator|.
-name|startRegionServer
-argument_list|(
-name|hrs
-argument_list|)
-expr_stmt|;
 name|Thread
 name|rsThread
 init|=
