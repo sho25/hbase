@@ -206,6 +206,8 @@ init|=
 name|getConf
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 comment|// If 'local', don't start a region server here. Defer to
 comment|// LocalHBaseCluster. It manages 'local' clusters.
 if|if
@@ -256,6 +258,57 @@ argument_list|(
 name|hrs
 argument_list|)
 expr_stmt|;
+name|Thread
+name|rsThread
+init|=
+name|HRegionServer
+operator|.
+name|startRegionServer
+argument_list|(
+name|hrs
+argument_list|)
+decl_stmt|;
+name|rsThread
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|hrs
+operator|.
+name|isAborted
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"HRegionServer Aborted"
+argument_list|)
+throw|;
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Region server exiting"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+return|return
+literal|1
+return|;
 block|}
 return|return
 literal|0
@@ -287,7 +340,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -339,7 +391,6 @@ literal|"the regionserver pid"
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -356,7 +407,6 @@ index|]
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}

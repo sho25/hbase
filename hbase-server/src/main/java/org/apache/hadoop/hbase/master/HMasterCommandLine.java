@@ -533,7 +533,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -772,7 +771,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -840,7 +838,6 @@ argument_list|)
 condition|?
 literal|0
 else|:
-operator|-
 literal|1
 operator|)
 return|;
@@ -855,7 +852,6 @@ name|command
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1125,7 +1121,6 @@ literal|"Won't bring the Master up as a shutdown is requested"
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1165,13 +1160,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to start master"
+literal|"Master exiting"
 argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1231,7 +1225,6 @@ literal|"Master not running"
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1249,7 +1242,6 @@ literal|"ZooKeeper not available"
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1274,7 +1266,6 @@ name|e
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
@@ -1302,7 +1293,6 @@ name|t
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 literal|1
 return|;
 block|}
