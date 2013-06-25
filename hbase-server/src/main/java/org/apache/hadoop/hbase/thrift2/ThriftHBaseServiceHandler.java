@@ -198,6 +198,20 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|thrift
+operator|.
+name|TBaseHelper
+operator|.
+name|byteBufferToByteArray
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -374,22 +388,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Delete
 import|;
 end_import
 
@@ -949,8 +947,7 @@ specifier|private
 name|HTableInterface
 name|getTable
 parameter_list|(
-name|byte
-index|[]
+name|ByteBuffer
 name|tableName
 parameter_list|)
 block|{
@@ -959,7 +956,10 @@ name|htablePool
 operator|.
 name|getTable
 argument_list|(
+name|byteBufferToByteArray
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -1024,7 +1024,7 @@ return|return
 name|err
 return|;
 block|}
-comment|/**    * Assigns a unique ID to the scanner and adds the mapping to an internal HashMap.    *     * @param scanner to add    * @return Id for this Scanner    */
+comment|/**    * Assigns a unique ID to the scanner and adds the mapping to an internal HashMap.    *    * @param scanner to add    * @return Id for this Scanner    */
 specifier|private
 name|int
 name|addScanner
@@ -1054,7 +1054,7 @@ return|return
 name|id
 return|;
 block|}
-comment|/**    * Returns the Scanner associated with the specified Id.    *     * @param id of the Scanner to get    * @return a Scanner, or null if the Id is invalid    */
+comment|/**    * Returns the Scanner associated with the specified Id.    *    * @param id of the Scanner to get    * @return a Scanner, or null if the Id is invalid    */
 specifier|private
 name|ResultScanner
 name|getScanner
@@ -1072,7 +1072,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**    * Removes the scanner associated with the specified ID from the internal HashMap.    *     * @param id of the Scanner to remove    * @return the removed Scanner, or<code>null</code> if the Id is invalid    */
+comment|/**    * Removes the scanner associated with the specified ID from the internal HashMap.    *    * @param id of the Scanner to remove    * @return the removed Scanner, or<code>null</code> if the Id is invalid    */
 specifier|protected
 name|ResultScanner
 name|removeScanner
@@ -1113,9 +1113,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1177,9 +1174,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1250,9 +1244,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1317,9 +1308,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1392,9 +1380,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1404,20 +1389,20 @@ name|htable
 operator|.
 name|checkAndPut
 argument_list|(
+name|byteBufferToByteArray
+argument_list|(
 name|row
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|family
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|qualifier
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
 operator|(
 name|value
@@ -1427,10 +1412,10 @@ operator|)
 condition|?
 literal|null
 else|:
+name|byteBufferToByteArray
+argument_list|(
 name|value
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
 name|putFromThrift
 argument_list|(
@@ -1487,9 +1472,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1550,9 +1532,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1619,9 +1598,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1700,9 +1676,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1719,20 +1692,20 @@ name|htable
 operator|.
 name|checkAndDelete
 argument_list|(
+name|byteBufferToByteArray
+argument_list|(
 name|row
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|family
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|qualifier
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
 literal|null
 argument_list|,
@@ -1750,25 +1723,25 @@ name|htable
 operator|.
 name|checkAndDelete
 argument_list|(
+name|byteBufferToByteArray
+argument_list|(
 name|row
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|family
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|qualifier
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
+name|byteBufferToByteArray
+argument_list|(
 name|value
-operator|.
-name|array
-argument_list|()
+argument_list|)
 argument_list|,
 name|deleteFromThrift
 argument_list|(
@@ -1823,9 +1796,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1890,9 +1860,6 @@ init|=
 name|getTable
 argument_list|(
 name|table
-operator|.
-name|array
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|ResultScanner
