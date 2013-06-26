@@ -613,7 +613,7 @@ name|FileDetails
 block|{
 comment|/** Maximum key count after compaction (for blooms) */
 specifier|public
-name|int
+name|long
 name|maxKeyCount
 init|=
 literal|0
