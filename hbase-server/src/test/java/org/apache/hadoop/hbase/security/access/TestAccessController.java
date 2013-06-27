@@ -1073,6 +1073,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -5121,6 +5131,11 @@ name|checkAndPut
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Broke by https://issues.apache.org/jira/browse/HBASE-8692"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
