@@ -1295,17 +1295,37 @@ operator|>
 literal|0
 condition|)
 block|{
-name|LOG
+return|return
+name|Response
 operator|.
-name|warn
+name|status
 argument_list|(
-literal|"Unknown check value: "
+name|Response
+operator|.
+name|Status
+operator|.
+name|BAD_REQUEST
+argument_list|)
+operator|.
+name|type
+argument_list|(
+name|MIMETYPE_TEXT
+argument_list|)
+operator|.
+name|entity
+argument_list|(
+literal|"Invalid check value '"
 operator|+
 name|check
 operator|+
-literal|", ignored"
+literal|"'"
+operator|+
+name|CRLF
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+return|;
 block|}
 name|HTablePool
 name|pool
