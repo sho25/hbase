@@ -6260,6 +6260,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|rssStub
+operator|==
+literal|null
+condition|)
+block|{
+comment|// the current server is stopping.
+return|return;
+block|}
 name|ClusterStatusProtos
 operator|.
 name|ServerLoad
