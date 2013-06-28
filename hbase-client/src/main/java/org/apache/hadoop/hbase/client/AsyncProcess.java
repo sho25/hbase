@@ -1839,9 +1839,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The call to the RS failed, we don't know where we stand. regionName="
+literal|"The call to the RS failed, we don't know where we stand. location="
 operator|+
-name|regionName
+name|loc
 argument_list|,
 name|e
 argument_list|)
@@ -1923,9 +1923,9 @@ name|warn
 argument_list|(
 literal|"The task was rejected by the pool. This is unexpected. "
 operator|+
-literal|"regionName="
+literal|"location="
 operator|+
-name|regionName
+name|loc
 argument_list|,
 name|ree
 argument_list|)
@@ -2320,6 +2320,57 @@ expr_stmt|;
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|toReplay
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Attempt #"
+operator|+
+name|numAttempt
+operator|+
+literal|"/"
+operator|+
+name|numTries
+operator|+
+literal|" failed for all ("
+operator|+
+name|initialActions
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|") operations on server "
+operator|+
+name|location
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" NOT resubmitting, tableName="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|", location="
+operator|+
+name|location
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|submit
 argument_list|(
 name|initialActions
@@ -2333,6 +2384,7 @@ argument_list|,
 name|errorsByServer
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Called when we receive the result of a server query.    *    * @param initialActions - the whole action list    * @param rsActions      - the actions for this location    * @param location       - the location    * @param responses      - the response, if any    * @param numAttempt     - the attempt    */
 specifier|private
@@ -2384,14 +2436,33 @@ literal|"Attempt #"
 operator|+
 name|numAttempt
 operator|+
-literal|" failed for all operations on server "
+literal|"/"
+operator|+
+name|numTries
+operator|+
+literal|" failed for all operations"
+operator|+
+literal|" on server "
 operator|+
 name|location
 operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" , trying to resubmit."
+literal|" , trying to resubmit,"
+operator|+
+literal|" tableName="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|", location="
+operator|+
+name|location
 argument_list|)
 expr_stmt|;
 name|resubmitAll
@@ -2701,11 +2772,43 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|long
+name|backOffTime
+init|=
+operator|(
+name|errorsByServer
+operator|!=
+literal|null
+condition|?
+name|errorsByServer
+operator|.
+name|calculateBackoffTime
+argument_list|(
+name|location
+argument_list|,
+name|pause
+argument_list|)
+else|:
+name|ConnectionUtils
+operator|.
+name|getPauseTime
+argument_list|(
+name|pause
+argument_list|,
+name|numAttempt
+argument_list|)
+operator|)
+decl_stmt|;
 if|if
 condition|(
 name|numAttempt
 operator|>
-literal|2
+literal|3
+operator|&&
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
 condition|)
 block|{
 comment|// We use this value to have some logs when we have multiple failures, but not too many
@@ -2717,6 +2820,10 @@ argument_list|(
 literal|"Attempt #"
 operator|+
 name|numAttempt
+operator|+
+literal|"/"
+operator|+
+name|numTries
 operator|+
 literal|" failed for "
 operator|+
@@ -2745,39 +2852,22 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|+
+literal|", location="
+operator|+
+name|location
+operator|+
 literal|", last exception was: "
 operator|+
 name|throwable
+operator|+
+literal|" - sleeping "
+operator|+
+name|backOffTime
+operator|+
+literal|" ms."
 argument_list|)
 expr_stmt|;
 block|}
-name|long
-name|backOffTime
-init|=
-operator|(
-name|errorsByServer
-operator|!=
-literal|null
-condition|?
-name|errorsByServer
-operator|.
-name|calculateBackoffTime
-argument_list|(
-name|location
-argument_list|,
-name|pause
-argument_list|)
-else|:
-name|ConnectionUtils
-operator|.
-name|getPauseTime
-argument_list|(
-name|pause
-argument_list|,
-name|numAttempt
-argument_list|)
-operator|)
-decl_stmt|;
 try|try
 block|{
 name|Thread
@@ -2813,6 +2903,10 @@ name|toString
 argument_list|(
 name|tableName
 argument_list|)
+operator|+
+literal|", location="
+operator|+
+name|location
 argument_list|,
 name|e
 argument_list|)
@@ -2856,6 +2950,10 @@ literal|"Attempt #"
 operator|+
 name|numAttempt
 operator|+
+literal|"/"
+operator|+
+name|numTries
+operator|+
 literal|" failed for "
 operator|+
 name|failureCount
@@ -2877,6 +2975,10 @@ name|toString
 argument_list|(
 name|tableName
 argument_list|)
+operator|+
+literal|", location="
+operator|+
+name|location
 argument_list|)
 expr_stmt|;
 block|}
@@ -2972,7 +3074,10 @@ block|{
 name|long
 name|lastLog
 init|=
-literal|0
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
 decl_stmt|;
 name|long
 name|currentTasksDone
@@ -3012,7 +3117,7 @@ name|now
 operator|>
 name|lastLog
 operator|+
-literal|5000
+literal|10000
 condition|)
 block|{
 name|lastLog
@@ -3023,25 +3128,36 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|": Waiting for the global number of running tasks to be equals or less than "
+operator|+
+name|max
+operator|+
+literal|", tasksSent="
+operator|+
+name|tasksSent
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", tasksDone="
+operator|+
+name|tasksDone
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", currentTasksDone="
+operator|+
+name|currentTasksDone
+operator|+
+literal|", tableName="
+operator|+
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|tableName
 argument_list|)
-operator|+
-literal|": Waiting for the global number of tasks to be equals or less than "
-operator|+
-name|max
-operator|+
-literal|", currently it's "
-operator|+
-name|this
-operator|.
-name|tasksDone
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -3257,6 +3257,36 @@ name|hasError
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|ap
+operator|.
+name|hasError
+argument_list|()
+operator|&&
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|": One or more of the operations have failed -"
+operator|+
+literal|" waiting for all operation in progress to finish (successfully or not)"
+argument_list|)
+expr_stmt|;
+block|}
 name|ap
 operator|.
 name|waitUntilDone
