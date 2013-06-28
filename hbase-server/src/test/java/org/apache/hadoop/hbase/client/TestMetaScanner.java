@@ -1454,6 +1454,27 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
+literal|"lastEndKey="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|lastEndKey
+argument_list|)
+operator|+
+literal|", startKey="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|hri
+operator|.
+name|getStartKey
+argument_list|()
+argument_list|)
+argument_list|,
 name|Bytes
 operator|.
 name|equals
