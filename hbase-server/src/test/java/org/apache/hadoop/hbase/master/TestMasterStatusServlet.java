@@ -450,6 +450,19 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
+comment|//Fake DeadServer
+name|DeadServer
+name|deadServer
+init|=
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|DeadServer
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|// Fake serverManager
 name|ServerManager
 name|serverManager
@@ -491,6 +504,21 @@ name|master
 argument_list|)
 operator|.
 name|getServerManager
+argument_list|()
+expr_stmt|;
+name|Mockito
+operator|.
+name|doReturn
+argument_list|(
+name|deadServer
+argument_list|)
+operator|.
+name|when
+argument_list|(
+name|serverManager
+argument_list|)
+operator|.
+name|getDeadServers
 argument_list|()
 expr_stmt|;
 comment|// Fake AssignmentManager and RIT
@@ -597,6 +625,21 @@ name|master
 argument_list|)
 operator|.
 name|getAssignmentManager
+argument_list|()
+expr_stmt|;
+name|Mockito
+operator|.
+name|doReturn
+argument_list|(
+name|serverManager
+argument_list|)
+operator|.
+name|when
+argument_list|(
+name|master
+argument_list|)
+operator|.
+name|getServerManager
 argument_list|()
 expr_stmt|;
 comment|// Fake ZKW
