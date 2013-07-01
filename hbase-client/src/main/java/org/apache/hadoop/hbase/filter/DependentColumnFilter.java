@@ -1370,6 +1370,12 @@ operator|.
 name|name
 argument_list|()
 argument_list|,
+name|this
+operator|.
+name|comparator
+operator|!=
+literal|null
+condition|?
 name|Bytes
 operator|.
 name|toStringBinary
@@ -1381,6 +1387,8 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|)
+else|:
+literal|"null"
 argument_list|)
 return|;
 block|}
