@@ -1132,11 +1132,20 @@ condition|)
 block|{
 comment|// always include or it is not time yet to check whether it is OK
 comment|// to purge deltes or not
+if|if
+condition|(
+operator|!
+name|isUserScan
+condition|)
+block|{
+comment|// if this is not a user scan (compaction), we can filter this deletemarker right here
+comment|// otherwise (i.e. a "raw" scan) we fall through to normal version and timerange checking
 return|return
 name|MatchCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 block|}
 elseif|else
 if|if
