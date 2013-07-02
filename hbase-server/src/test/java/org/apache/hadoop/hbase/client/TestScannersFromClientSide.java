@@ -3781,7 +3781,19 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
-literal|"There should have room before prefetching is submitted"
+literal|"There should have room before prefetching is submitted, maxSize="
+operator|+
+name|this
+operator|.
+name|maxSize
+operator|+
+literal|", prefetching="
+operator|+
+name|prefetching
+operator|+
+literal|", sizeBefore="
+operator|+
+name|sizeBefore
 argument_list|,
 name|prefetching
 operator|&&
