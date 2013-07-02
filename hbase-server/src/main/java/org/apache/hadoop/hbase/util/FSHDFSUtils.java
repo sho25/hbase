@@ -19,6 +19,48 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -147,48 +189,6 @@ name|LeaseExpiredException
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Method
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implementation for hdfs  */
 end_comment
@@ -273,7 +273,7 @@ name|reporter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Run the dfs recover lease. recoverLease is asynchronous. It returns:    *    -false when it starts the lease recovery (i.e. lease recovery not *yet* done)    *    - true when the lease recovery has succeeded or the file is closed.    * But, we have to be careful.  Each time we call recoverLease, it starts the recover lease    * process over from the beginning.  We could put ourselves in a situation where we are    * doing nothing but starting a recovery, interrupting it to start again, and so on.    * The findings over in HBASE-8354 have it that the namenode will try to recover the lease    * on the file's primary node.  If all is well, it should return near immediately.  But,    * as is common, it is the very primary node that has crashed and so the namenode will be    * stuck waiting on a socket timeout before it will ask another datanode to start the    * recovery. It does not help if we call recoverLease in the meantime and in particular,    * subsequent to the socket timeout, a recoverLease invocation will cause us to start    * over from square one (possibly waiting on socket timeout against primary node).  So,    * in the below, we do the following:    * 1. Call recoverLease.    * 2. If it returns true, break.    * 3. If it returns false, wait a few seconds and then call it again.    * 4. If it returns true, break.    * 5. If it returns false, wait for what we think the datanode socket timeout is    * (configurable) and then try again.    * 6. If it returns true, break.    * 7. If it returns false, repeat starting at step 5. above.    *     * If HDFS-4525 is available, call it every second and we might be able to exit early.    */
+comment|/*    * Run the dfs recover lease. recoverLease is asynchronous. It returns:    *    -false when it starts the lease recovery (i.e. lease recovery not *yet* done)    *    - true when the lease recovery has succeeded or the file is closed.    * But, we have to be careful.  Each time we call recoverLease, it starts the recover lease    * process over from the beginning.  We could put ourselves in a situation where we are    * doing nothing but starting a recovery, interrupting it to start again, and so on.    * The findings over in HBASE-8354 have it that the namenode will try to recover the lease    * on the file's primary node.  If all is well, it should return near immediately.  But,    * as is common, it is the very primary node that has crashed and so the namenode will be    * stuck waiting on a socket timeout before it will ask another datanode to start the    * recovery. It does not help if we call recoverLease in the meantime and in particular,    * subsequent to the socket timeout, a recoverLease invocation will cause us to start    * over from square one (possibly waiting on socket timeout against primary node).  So,    * in the below, we do the following:    * 1. Call recoverLease.    * 2. If it returns true, break.    * 3. If it returns false, wait a few seconds and then call it again.    * 4. If it returns true, break.    * 5. If it returns false, wait for what we think the datanode socket timeout is    * (configurable) and then try again.    * 6. If it returns true, break.    * 7. If it returns false, repeat starting at step 5. above.    *    * If HDFS-4525 is available, call it every second and we might be able to exit early.    */
 name|boolean
 name|recoverDFSFileLease
 parameter_list|(
@@ -330,7 +330,7 @@ argument_list|)
 operator|+
 name|startWaiting
 decl_stmt|;
-comment|// This setting should be what the cluster dfs heartbeat is set to.
+comment|// This setting should be a little bit above what the cluster dfs heartbeat is set to.
 name|long
 name|firstPause
 init|=
@@ -340,7 +340,7 @@ name|getInt
 argument_list|(
 literal|"hbase.lease.recovery.first.pause"
 argument_list|,
-literal|3000
+literal|4000
 argument_list|)
 decl_stmt|;
 comment|// This should be set to how long it'll take for us to timeout against primary datanode if it

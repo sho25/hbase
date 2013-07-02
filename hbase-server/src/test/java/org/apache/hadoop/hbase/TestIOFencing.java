@@ -1008,6 +1008,8 @@ name|rsServices
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|HStore
 name|instantiateHStore
@@ -1597,7 +1599,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|100
+literal|1000
 argument_list|)
 expr_stmt|;
 name|newRegion
@@ -1623,7 +1625,7 @@ argument_list|()
 operator|-
 name|startWaitTime
 operator|<
-literal|60000
+literal|300000
 argument_list|)
 expr_stmt|;
 block|}
@@ -1771,7 +1773,7 @@ argument_list|()
 operator|-
 name|startWaitTime
 operator|<
-literal|30000
+literal|180000
 argument_list|)
 expr_stmt|;
 block|}
