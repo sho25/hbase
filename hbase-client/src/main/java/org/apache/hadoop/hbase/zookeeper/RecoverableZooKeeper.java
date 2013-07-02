@@ -538,6 +538,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: Add support for zk 'chroot'; we don't add it to the quorumServers String as we should.
 name|this
 operator|.
 name|zk
