@@ -865,6 +865,29 @@ specifier|public
 class|class
 name|TestTokenAuthentication
 block|{
+static|static
+block|{
+comment|// Setting whatever system properties after recommendation from
+comment|// http://docs.oracle.com/javase/6/docs/technotes/guides/security/jgss/tutorials/KerberosReq.html
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"java.security.krb5.realm"
+argument_list|,
+literal|"hbase"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"java.security.krb5.kdc"
+argument_list|,
+literal|"blah"
+argument_list|)
+expr_stmt|;
+block|}
 specifier|private
 specifier|static
 name|Log
