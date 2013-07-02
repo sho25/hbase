@@ -10095,11 +10095,7 @@ throw|throw
 operator|new
 name|TableExistsException
 argument_list|(
-literal|"Table '"
-operator|+
 name|tableName
-operator|+
-literal|" already exists"
 argument_list|)
 throw|;
 block|}
