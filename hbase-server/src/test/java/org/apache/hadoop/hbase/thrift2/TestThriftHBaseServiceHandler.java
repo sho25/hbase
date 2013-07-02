@@ -3195,7 +3195,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * check that checkAndPut fails if the cell does not exist, then put in the cell, then check that the checkAndPut    * succeeds.    *     * @throws Exception    */
+comment|/**    * check that checkAndPut fails if the cell does not exist, then put in the cell, then check that the checkAndPut    * succeeds.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -3564,7 +3564,7 @@ name|returnedColumnValues
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * check that checkAndDelete fails if the cell does not exist, then put in the cell, then check that the    * checkAndDelete succeeds.    *     * @throws Exception    */
+comment|/**    * check that checkAndDelete fails if the cell does not exist, then put in the cell, then check that the    * checkAndDelete succeeds.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -4020,6 +4020,24 @@ name|getBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// only get the key part
+name|scan
+operator|.
+name|setFilterString
+argument_list|(
+name|ByteBuffer
+operator|.
+name|wrap
+argument_list|(
+operator|(
+literal|"KeyOnlyFilter()"
+operator|)
+operator|.
+name|getBytes
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|TColumnValue
 name|columnValue
 init|=
@@ -4187,6 +4205,34 @@ name|i
 argument_list|)
 operator|.
 name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertArrayEquals
+argument_list|(
+operator|(
+literal|""
+operator|)
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|results
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+operator|.
+name|getColumnValues
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
