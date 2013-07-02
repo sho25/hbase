@@ -1015,6 +1015,9 @@ name|LogsComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// TODO: This connection is replication specific or we should make it particular to
+comment|// replication and make replication specific settings such as compression or codec to use
+comment|// passing Cells.
 name|this
 operator|.
 name|conn

@@ -213,53 +213,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|io
 operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|ScanRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|RegionServerStatusProtos
-operator|.
-name|RegionServerReportRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|RegionServerStatusProtos
-operator|.
-name|RegionServerStartupRequest
+name|HeapSize
 import|;
 end_import
 
@@ -276,6 +232,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ClassSize
 import|;
 end_import
 
@@ -409,18 +381,6 @@ name|Message
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|TextFormat
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility to help ipc'ing.  */
 end_comment
@@ -444,16 +404,16 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|cellBlockBuildingInitialBufferSize
-decl_stmt|;
 comment|/**    * How much we think the decompressor will expand the original compressed content.    */
 specifier|private
 specifier|final
 name|int
 name|cellBlockDecompressionMultiplier
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|cellBlockBuildingInitialBufferSize
 decl_stmt|;
 specifier|private
 specifier|final
@@ -478,21 +438,6 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|cellBlockBuildingInitialBufferSize
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.ipc.cellblock.building.initial.buffersize"
-argument_list|,
-literal|16
-operator|*
-literal|1024
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|cellBlockDecompressionMultiplier
 operator|=
 name|conf
@@ -504,8 +449,30 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+comment|// Guess that 16k is a good size for rpc buffer.  Could go bigger.  See the TODO below in
+comment|// #buildCellBlock.
+name|this
+operator|.
+name|cellBlockBuildingInitialBufferSize
+operator|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.ipc.cellblock.building.initial.buffersize"
+argument_list|,
+literal|16
+operator|*
+literal|1024
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
-comment|/**    * Build a cell block using passed in<code>codec</code>    * @param codec    * @param compressor    * @Param cells    * @return Null or byte buffer filled with passed-in Cells encoded using passed in    *<code>codec</code>; the returned buffer has been flipped and is ready for    * reading.  Use limit to find total size.    * @throws IOException    */
+comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @Param cellScanner    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -524,32 +491,99 @@ name|compressor
 parameter_list|,
 specifier|final
 name|CellScanner
-name|cells
+name|cellScanner
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 if|if
 condition|(
-name|cells
+name|cellScanner
 operator|==
 literal|null
 condition|)
 return|return
 literal|null
 return|;
-comment|// TOOD: Reuse buffers?
-comment|// Presizing doesn't work because can't tell what size will be when serialized.
-comment|// BBOS will resize itself.
+name|int
+name|bufferSize
+init|=
+name|this
+operator|.
+name|cellBlockBuildingInitialBufferSize
+decl_stmt|;
+if|if
+condition|(
+name|cellScanner
+operator|instanceof
+name|HeapSize
+condition|)
+block|{
+name|long
+name|longSize
+init|=
+operator|(
+operator|(
+name|HeapSize
+operator|)
+name|cellScanner
+operator|)
+operator|.
+name|heapSize
+argument_list|()
+decl_stmt|;
+comment|// Just make sure we don't have a size bigger than an int.
+if|if
+condition|(
+name|longSize
+operator|>
+name|Integer
+operator|.
+name|MAX_VALUE
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Size "
+operator|+
+name|longSize
+operator|+
+literal|"> "
+operator|+
+name|Integer
+operator|.
+name|MAX_VALUE
+argument_list|)
+throw|;
+block|}
+name|bufferSize
+operator|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+operator|(
+name|int
+operator|)
+name|longSize
+argument_list|)
+expr_stmt|;
+block|}
+comment|// TODO: Else, get estimate on size of buffer rather than have the buffer resize.
+comment|// See TestIPCUtil main for experiment where we spin through the Cells getting estimate of
+comment|// total size before creating the buffer.  It costs somw small percentage.  If we are usually
+comment|// within the estimated buffer size, then the cost is not worth it.  If we are often well
+comment|// outside the guesstimated buffer size, the processing can be done in half the time if we
+comment|// go w/ the estimated size rather than let the buffer resize.
 name|ByteBufferOutputStream
 name|baos
 init|=
 operator|new
 name|ByteBufferOutputStream
 argument_list|(
-name|this
-operator|.
-name|cellBlockBuildingInitialBufferSize
+name|bufferSize
 argument_list|)
 decl_stmt|;
 name|OutputStream
@@ -626,7 +660,7 @@ argument_list|)
 decl_stmt|;
 while|while
 condition|(
-name|cells
+name|cellScanner
 operator|.
 name|advance
 argument_list|()
@@ -636,7 +670,7 @@ name|encoder
 operator|.
 name|write
 argument_list|(
-name|cells
+name|cellScanner
 operator|.
 name|current
 argument_list|()
@@ -680,9 +714,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|cellBlockBuildingInitialBufferSize
+name|bufferSize
 operator|<
 name|baos
 operator|.
@@ -694,11 +726,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Buffer grew from "
+literal|"Buffer grew from initial bufferSize="
 operator|+
-name|this
-operator|.
-name|cellBlockBuildingInitialBufferSize
+name|bufferSize
 operator|+
 literal|" to "
 operator|+
@@ -706,6 +736,8 @@ name|baos
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|"; up hbase.ipc.cellblock.building.initial.buffersize?"
 argument_list|)
 expr_stmt|;
 block|}

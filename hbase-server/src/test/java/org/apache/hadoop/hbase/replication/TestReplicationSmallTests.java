@@ -2452,6 +2452,14 @@ operator|new
 name|Scan
 argument_list|()
 expr_stmt|;
+name|long
+name|start
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -2587,6 +2595,19 @@ operator|+
 literal|" instead of "
 operator|+
 name|NB_ROWS_IN_BIG_BATCH
+operator|+
+literal|"; waited="
+operator|+
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|start
+operator|)
+operator|+
+literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}

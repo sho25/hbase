@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -51,11 +61,27 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|CellScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|wal
+name|apache
 operator|.
-name|HLog
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|WALEntry
 import|;
 end_import
 
@@ -74,16 +100,19 @@ name|ReplicationSinkService
 extends|extends
 name|ReplicationService
 block|{
-comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of entries to replicate    * @throws IOException    */
+comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @throws IOException    */
 specifier|public
 name|void
 name|replicateLogEntries
 parameter_list|(
-name|HLog
-operator|.
-name|Entry
-index|[]
+name|List
+argument_list|<
+name|WALEntry
+argument_list|>
 name|entries
+parameter_list|,
+name|CellScanner
+name|cells
 parameter_list|)
 throws|throws
 name|IOException
