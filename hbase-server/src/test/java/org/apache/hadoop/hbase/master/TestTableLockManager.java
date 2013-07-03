@@ -1919,7 +1919,7 @@ name|Exception
 block|{
 comment|// test plan: write some data to the table. Continuously alter the table and
 comment|// force splits
-comment|// concurrently until we have 6 regions. verify the data just in case.
+comment|// concurrently until we have 5 regions. verify the data just in case.
 comment|// Every region should contain the same table descriptor
 comment|// This is not an exact test
 name|prepareMiniCluster
@@ -2459,7 +2459,7 @@ operator|.
 name|size
 argument_list|()
 operator|>=
-literal|6
+literal|5
 condition|)
 block|{
 break|break;
