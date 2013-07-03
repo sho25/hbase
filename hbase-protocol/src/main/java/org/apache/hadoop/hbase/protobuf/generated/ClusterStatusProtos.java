@@ -350,6 +350,20 @@ literal|10
 argument_list|,
 literal|10
 argument_list|)
+block|,
+name|MERGING
+argument_list|(
+literal|11
+argument_list|,
+literal|11
+argument_list|)
+block|,
+name|MERGED
+argument_list|(
+literal|12
+argument_list|,
+literal|12
+argument_list|)
 block|,       ;
 specifier|public
 specifier|static
@@ -440,6 +454,22 @@ init|=
 literal|10
 decl_stmt|;
 specifier|public
+specifier|static
+specifier|final
+name|int
+name|MERGING_VALUE
+init|=
+literal|11
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MERGED_VALUE
+init|=
+literal|12
+decl_stmt|;
+specifier|public
 specifier|final
 name|int
 name|getNumber
@@ -528,6 +558,18 @@ literal|10
 case|:
 return|return
 name|FAILED_CLOSE
+return|;
+case|case
+literal|11
+case|:
+return|return
+name|MERGING
+return|;
+case|case
+literal|12
+case|:
+return|return
+name|MERGED
 return|;
 default|default:
 return|return
@@ -725,6 +767,10 @@ block|,
 name|FAILED_OPEN
 block|,
 name|FAILED_CLOSE
+block|,
+name|MERGING
+block|,
+name|MERGED
 block|,        }
 decl_stmt|;
 specifier|public
@@ -45669,13 +45715,13 @@ init|=
 block|{
 literal|"\n\023ClusterStatus.proto\032\013hbase.proto\032\017Clus"
 operator|+
-literal|"terId.proto\032\010FS.proto\"\211\002\n\013RegionState\022\037\n"
+literal|"terId.proto\032\010FS.proto\"\242\002\n\013RegionState\022\037\n"
 operator|+
 literal|"\nregionInfo\030\001 \002(\0132\013.RegionInfo\022!\n\005state\030"
 operator|+
 literal|"\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001(\004"
 operator|+
-literal|"\"\246\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020"
+literal|"\"\277\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020"
 operator|+
 literal|"\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLOS"
 operator|+
@@ -45683,71 +45729,71 @@ literal|"E\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r\
 operator|+
 literal|"G\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAILE"
 operator|+
-literal|"D_CLOSE\020\n\"W\n\022RegionInTransition\022\036\n\004spec\030"
+literal|"D_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\"W\n\022Re"
 operator|+
-literal|"\001 \002(\0132\020.RegionSpecifier\022!\n\013regionState\030\002"
+literal|"gionInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionS"
 block|,
-literal|" \002(\0132\014.RegionState\"\260\003\n\nRegionLoad\022)\n\017reg"
+literal|"pecifier\022!\n\013regionState\030\002 \002(\0132\014.RegionSt"
 operator|+
-literal|"ionSpecifier\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006"
+literal|"ate\"\260\003\n\nRegionLoad\022)\n\017regionSpecifier\030\001 "
 operator|+
-literal|"stores\030\002 \001(\r\022\022\n\nstorefiles\030\003 \001(\r\022\037\n\027stor"
+literal|"\002(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n"
 operator|+
-literal|"eUncompressedSizeMB\030\004 \001(\r\022\027\n\017storefileSi"
+literal|"\nstorefiles\030\003 \001(\r\022\037\n\027storeUncompressedSi"
 operator|+
-literal|"zeMB\030\005 \001(\r\022\026\n\016memstoreSizeMB\030\006 \001(\r\022\034\n\024st"
+literal|"zeMB\030\004 \001(\r\022\027\n\017storefileSizeMB\030\005 \001(\r\022\026\n\016m"
 operator|+
-literal|"orefileIndexSizeMB\030\007 \001(\r\022\031\n\021readRequests"
+literal|"emstoreSizeMB\030\006 \001(\r\022\034\n\024storefileIndexSiz"
 operator|+
-literal|"Count\030\010 \001(\004\022\032\n\022writeRequestsCount\030\t \001(\004\022"
+literal|"eMB\030\007 \001(\r\022\031\n\021readRequestsCount\030\010 \001(\004\022\032\n\022"
 operator|+
-literal|"\032\n\022totalCompactingKVs\030\n \001(\004\022\033\n\023currentCo"
+literal|"writeRequestsCount\030\t \001(\004\022\032\n\022totalCompact"
 operator|+
-literal|"mpactedKVs\030\013 \001(\004\022\027\n\017rootIndexSizeKB\030\014 \001("
+literal|"ingKVs\030\n \001(\004\022\033\n\023currentCompactedKVs\030\013 \001("
 operator|+
-literal|"\r\022\036\n\026totalStaticIndexSizeKB\030\r \001(\r\022\036\n\026tot"
+literal|"\004\022\027\n\017rootIndexSizeKB\030\014 \001(\r\022\036\n\026totalStati"
 block|,
-literal|"alStaticBloomSizeKB\030\016 \001(\r\022\032\n\022completeSeq"
+literal|"cIndexSizeKB\030\r \001(\r\022\036\n\026totalStaticBloomSi"
 operator|+
-literal|"uenceId\030\017 \001(\004\"\372\001\n\nServerLoad\022\030\n\020numberOf"
+literal|"zeKB\030\016 \001(\r\022\032\n\022completeSequenceId\030\017 \001(\004\"\372"
 operator|+
-literal|"Requests\030\001 \001(\r\022\035\n\025totalNumberOfRequests\030"
+literal|"\001\n\nServerLoad\022\030\n\020numberOfRequests\030\001 \001(\r\022"
 operator|+
-literal|"\002 \001(\r\022\022\n\nusedHeapMB\030\003 \001(\r\022\021\n\tmaxHeapMB\030\004"
+literal|"\035\n\025totalNumberOfRequests\030\002 \001(\r\022\022\n\nusedHe"
 operator|+
-literal|" \001(\r\022 \n\013regionLoads\030\005 \003(\0132\013.RegionLoad\022\""
+literal|"apMB\030\003 \001(\r\022\021\n\tmaxHeapMB\030\004 \001(\r\022 \n\013regionL"
 operator|+
-literal|"\n\014coprocessors\030\006 \003(\0132\014.Coprocessor\022\027\n\017re"
+literal|"oads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocessors\030"
 operator|+
-literal|"portStartTime\030\007 \001(\004\022\025\n\rreportEndTime\030\010 \001"
+literal|"\006 \003(\0132\014.Coprocessor\022\027\n\017reportStartTime\030\007"
 operator|+
-literal|"(\004\022\026\n\016infoServerPort\030\t \001(\r\"N\n\016LiveServer"
+literal|" \001(\004\022\025\n\rreportEndTime\030\010 \001(\004\022\026\n\016infoServe"
 operator|+
-literal|"Info\022\033\n\006server\030\001 \002(\0132\013.ServerName\022\037\n\nser"
+literal|"rPort\030\t \001(\r\"N\n\016LiveServerInfo\022\033\n\006server\030"
 operator|+
-literal|"verLoad\030\002 \002(\0132\013.ServerLoad\"\327\002\n\rClusterSt"
+literal|"\001 \002(\0132\013.ServerName\022\037\n\nserverLoad\030\002 \002(\0132\013"
 block|,
-literal|"atus\022.\n\014hbaseVersion\030\001 \001(\0132\030.HBaseVersio"
+literal|".ServerLoad\"\327\002\n\rClusterStatus\022.\n\014hbaseVe"
 operator|+
-literal|"nFileContent\022$\n\013liveServers\030\002 \003(\0132\017.Live"
+literal|"rsion\030\001 \001(\0132\030.HBaseVersionFileContent\022$\n"
 operator|+
-literal|"ServerInfo\022 \n\013deadServers\030\003 \003(\0132\013.Server"
+literal|"\013liveServers\030\002 \003(\0132\017.LiveServerInfo\022 \n\013d"
 operator|+
-literal|"Name\0220\n\023regionsInTransition\030\004 \003(\0132\023.Regi"
+literal|"eadServers\030\003 \003(\0132\013.ServerName\0220\n\023regions"
 operator|+
-literal|"onInTransition\022\035\n\tclusterId\030\005 \001(\0132\n.Clus"
+literal|"InTransition\030\004 \003(\0132\023.RegionInTransition\022"
 operator|+
-literal|"terId\022(\n\022masterCoprocessors\030\006 \003(\0132\014.Copr"
+literal|"\035\n\tclusterId\030\005 \001(\0132\n.ClusterId\022(\n\022master"
 operator|+
-literal|"ocessor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022\"\n\r"
+literal|"Coprocessors\030\006 \003(\0132\014.Coprocessor\022\033\n\006mast"
 operator|+
-literal|"backupMasters\030\010 \003(\0132\013.ServerName\022\022\n\nbala"
+literal|"er\030\007 \001(\0132\013.ServerName\022\"\n\rbackupMasters\030\010"
 operator|+
-literal|"ncerOn\030\t \001(\010BF\n*org.apache.hadoop.hbase."
+literal|" \003(\0132\013.ServerName\022\022\n\nbalancerOn\030\t \001(\010BF\n"
 operator|+
-literal|"protobuf.generatedB\023ClusterStatusProtosH"
+literal|"*org.apache.hadoop.hbase.protobuf.genera"
 block|,
-literal|"\001\240\001\001"
+literal|"tedB\023ClusterStatusProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

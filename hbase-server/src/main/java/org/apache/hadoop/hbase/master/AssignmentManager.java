@@ -2604,6 +2604,17 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+specifier|final
+name|String
+name|prettyPrintedRegionName
+init|=
+name|HRegionInfo
+operator|.
+name|prettyPrint
+argument_list|(
+name|encodedRegionName
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3046,10 +3057,7 @@ name|warn
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
@@ -3065,26 +3073,32 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|rt
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|SPLITTING
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
 name|et
-operator|+
-literal|" nothing to do."
 argument_list|)
 expr_stmt|;
-comment|// We don't do anything. The way the code is written in RS_ZK_REGION_SPLIT management,
-comment|//  it adds the RS_ZK_REGION_SPLITTING state if needed. So we don't have to do it here.
 block|}
 break|break;
 case|case
@@ -3117,10 +3131,7 @@ name|info
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
@@ -3136,28 +3147,68 @@ break|break;
 case|case
 name|RS_ZK_REGION_MERGING
 case|:
-comment|// nothing to do
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+comment|// The regionserver started the merge, but died before updating the status.
+comment|// It means (hopefully) that the merge was not finished
+comment|// This node should be gone soon since it is ephemeral.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Processed region "
+operator|+
+name|prettyPrintedRegionName
+operator|+
+literal|" in state : "
+operator|+
+name|et
+operator|+
+literal|" on a dead regionserver: "
+operator|+
+name|sn
+operator|+
+literal|" doing nothing"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|handleRegionMerging
+argument_list|(
+name|rt
+argument_list|,
+name|prettyPrintedRegionName
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
 name|et
-operator|+
-literal|" nothing to do."
 argument_list|)
 expr_stmt|;
+block|}
 break|break;
 case|case
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 case|:
 if|if
 condition|(
@@ -3177,10 +3228,7 @@ name|warn
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
@@ -3202,10 +3250,7 @@ name|info
 argument_list|(
 literal|"Processed region "
 operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|prettyPrintedRegionName
 operator|+
 literal|" in state : "
 operator|+
@@ -3947,10 +3992,19 @@ case|case
 name|RS_ZK_REGION_MERGING
 case|:
 comment|// Merged region is a new region, we can't find it in the region states now.
-comment|// Do nothing.
+comment|// However, the two merging regions are not new. They should be in state for merging.
+name|handleRegionMerging
+argument_list|(
+name|rt
+argument_list|,
+name|prettyPrintedRegionName
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
 break|break;
 case|case
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 case|:
 comment|// Assert that we can get a serverinfo for this server.
 if|if
@@ -4038,7 +4092,55 @@ argument_list|()
 operator|==
 literal|3
 assert|;
-comment|// Run handler to do the rest of the MERGE handling.
+name|HRegionInfo
+name|merge_a
+init|=
+name|mergeRegions
+operator|.
+name|get
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+name|HRegionInfo
+name|merge_b
+init|=
+name|mergeRegions
+operator|.
+name|get
+argument_list|(
+literal|2
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isInStateForMerging
+argument_list|(
+name|sn
+argument_list|,
+name|merge_a
+argument_list|,
+name|merge_b
+argument_list|)
+condition|)
+block|{
+comment|// Move on. Merge already happened (passed PONR), no point to stop now
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Got merge event, but not in state good for MERGED; rs_a="
+operator|+
+name|merge_a
+operator|+
+literal|", rs_b="
+operator|+
+name|merge_b
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Run handler to do the rest of the MERGED handling.
 name|this
 operator|.
 name|executorService
@@ -4637,6 +4739,74 @@ argument_list|)
 expr_stmt|;
 return|return
 literal|false
+return|;
+block|}
+comment|/**    * @return Returns true if both regions are merging/open on specified server    */
+specifier|private
+name|boolean
+name|isInStateForMerging
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|a
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|b
+parameter_list|)
+block|{
+name|RegionState
+name|rs_a
+init|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|a
+argument_list|)
+decl_stmt|;
+name|RegionState
+name|rs_b
+init|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|b
+argument_list|)
+decl_stmt|;
+return|return
+operator|(
+operator|(
+name|rs_a
+operator|==
+literal|null
+operator|||
+name|rs_a
+operator|.
+name|isOpenOrMergingOnServer
+argument_list|(
+name|sn
+argument_list|)
+operator|)
+operator|&&
+operator|(
+name|rs_b
+operator|==
+literal|null
+operator|||
+name|rs_b
+operator|.
+name|isOpenOrMergingOnServer
+argument_list|(
+name|sn
+argument_list|)
+operator|)
+operator|)
 return|;
 block|}
 comment|// TODO: processFavoredNodes might throw an exception, for e.g., if the
@@ -5327,36 +5497,6 @@ operator|.
 name|getRegion
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|rs
-operator|.
-name|isSplit
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Ephemeral node deleted, regionserver crashed?, "
-operator|+
-literal|"clearing from RIT; rs="
-operator|+
-name|rs
-argument_list|)
-expr_stmt|;
-name|regionOffline
-argument_list|(
-name|rs
-operator|.
-name|getRegion
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|String
 name|regionNameStr
 init|=
@@ -5373,7 +5513,9 @@ literal|"The znode of region "
 operator|+
 name|regionNameStr
 operator|+
-literal|" has been deleted."
+literal|" has been deleted, region state: "
+operator|+
+name|rs
 argument_list|)
 expr_stmt|;
 if|if
@@ -5482,7 +5624,6 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -5652,16 +5793,27 @@ name|data
 argument_list|)
 decl_stmt|;
 comment|//See HBASE-7551, handle splitting too, in case we miss the node change event
-if|if
-condition|(
+name|EventType
+name|type
+init|=
 name|rt
 operator|.
 name|getEventType
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|type
 operator|==
 name|EventType
 operator|.
 name|RS_ZK_REGION_SPLITTING
+operator|||
+name|type
+operator|==
+name|EventType
+operator|.
+name|RS_ZK_REGION_MERGING
 condition|)
 block|{
 name|handleRegion
@@ -9962,7 +10114,7 @@ try|try
 block|{
 if|if
 condition|(
-name|isSplitOrSplittingOrMergeOrMerging
+name|isSplitOrSplittingOrMergedOrMerging
 argument_list|(
 name|path
 argument_list|)
@@ -9974,7 +10126,7 @@ name|debug
 argument_list|(
 name|path
 operator|+
-literal|" is SPLIT or SPLITTING or MERGE or MERGING; "
+literal|" is SPLIT or SPLITTING or MERGED or MERGING; "
 operator|+
 literal|"skipping unassign because region no longer exists -- its split or merge"
 argument_list|)
@@ -10351,10 +10503,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING or MERGE or MERGING state.    * @throws KeeperException Can happen if the znode went away in meantime.    * @throws DeserializationException    */
+comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING or MERGED or MERGING state.    * @throws KeeperException Can happen if the znode went away in meantime.    * @throws DeserializationException    */
 specifier|private
 name|boolean
-name|isSplitOrSplittingOrMergeOrMerging
+name|isSplitOrSplittingOrMergedOrMerging
 parameter_list|(
 specifier|final
 name|String
@@ -10370,7 +10522,7 @@ name|result
 init|=
 literal|false
 decl_stmt|;
-comment|// This may fail if the SPLIT or SPLITTING or MERGE or MERGING znode gets
+comment|// This may fail if the SPLIT or SPLITTING or MERGED or MERGING znode gets
 comment|// cleaned up before we can get data from it.
 name|byte
 index|[]
@@ -10419,7 +10571,7 @@ case|case
 name|RS_ZK_REGION_SPLITTING
 case|:
 case|case
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 case|:
 case|case
 name|RS_ZK_REGION_MERGING
@@ -12834,6 +12986,9 @@ case|:
 case|case
 name|FAILED_CLOSE
 case|:
+case|case
+name|MERGING
+case|:
 break|break;
 default|default:
 throw|throw
@@ -13413,6 +13568,8 @@ name|regionStates
 operator|.
 name|serverOffline
 argument_list|(
+name|watcher
+argument_list|,
 name|sn
 argument_list|)
 decl_stmt|;
@@ -14031,6 +14188,164 @@ return|return
 literal|false
 return|;
 block|}
+return|return
+literal|true
+return|;
+block|}
+comment|/**    * A helper to handle region merging transition event.    * It transitions merging regions to MERGING state.    */
+specifier|private
+name|boolean
+name|handleRegionMerging
+parameter_list|(
+specifier|final
+name|RegionTransition
+name|rt
+parameter_list|,
+specifier|final
+name|String
+name|prettyPrintedRegionName
+parameter_list|,
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+name|byte
+index|[]
+name|payloadOfMerging
+init|=
+name|rt
+operator|.
+name|getPayload
+argument_list|()
+decl_stmt|;
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|mergingRegions
+decl_stmt|;
+try|try
+block|{
+name|mergingRegions
+operator|=
+name|HRegionInfo
+operator|.
+name|parseDelimitedFrom
+argument_list|(
+name|payloadOfMerging
+argument_list|,
+literal|0
+argument_list|,
+name|payloadOfMerging
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Dropped merging! Failed reading merging payload for "
+operator|+
+name|prettyPrintedRegionName
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+assert|assert
+name|mergingRegions
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|2
+assert|;
+name|HRegionInfo
+name|merging_a
+init|=
+name|mergingRegions
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+name|HRegionInfo
+name|merging_b
+init|=
+name|mergingRegions
+operator|.
+name|get
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isInStateForMerging
+argument_list|(
+name|sn
+argument_list|,
+name|merging_a
+argument_list|,
+name|merging_b
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Dropped merging! Not in state good for MERGING; rs_a="
+operator|+
+name|merging_a
+operator|+
+literal|", rs_b="
+operator|+
+name|merging_b
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|merging_a
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|MERGING
+argument_list|)
+expr_stmt|;
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|merging_b
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|MERGING
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;

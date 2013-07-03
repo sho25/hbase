@@ -220,7 +220,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles MERGE regions event on Master, master receive the merge report from  * the regionserver, then offline the merging regions and online the merged  * region.Here region_a sorts before region_b.  */
+comment|/**  * Handles MERGED regions event on Master, master receive the merge report from  * the regionserver, then offline the merging regions and online the merged  * region.Here region_a sorts before region_b.  */
 end_comment
 
 begin_class
@@ -302,7 +302,7 @@ name|server
 argument_list|,
 name|EventType
 operator|.
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 argument_list|)
 expr_stmt|;
 assert|assert
@@ -534,7 +534,7 @@ name|encodedRegionName
 argument_list|,
 name|EventType
 operator|.
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 argument_list|)
 expr_stmt|;
 block|}
@@ -589,7 +589,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"Error deleting MERGE node in ZK for transition ZK node ("
+literal|"Error deleting MERGED node in ZK for transition ZK node ("
 operator|+
 name|merged
 operator|.
@@ -607,7 +607,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Handled MERGE event; merged="
+literal|"Handled MERGED event; merged="
 operator|+
 name|this
 operator|.

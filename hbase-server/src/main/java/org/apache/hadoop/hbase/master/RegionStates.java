@@ -275,6 +275,50 @@ name|Pair
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKAssign
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Region state accountant. It holds the states of all regions in the memory.  * In normal scenario, it should match the meta table and the true region states.  *  * This map is used by AssignmentManager to track region states.  */
 end_comment
@@ -843,7 +887,7 @@ return|return
 name|regionState
 return|;
 block|}
-comment|/**    * Update a region state. If it is not splitting,    * it will be put in transition if not already there.    */
+comment|/**    * Update a region state. It will be put in transition if not already there.    */
 specifier|public
 specifier|synchronized
 name|RegionState
@@ -910,7 +954,7 @@ name|serverName
 argument_list|)
 return|;
 block|}
-comment|/**    * Update a region state. If it is not splitting,    * it will be put in transition if not already there.    *    * If we can't find the region info based on the region name in    * the transition, log a warning and return null.    */
+comment|/**    * Update a region state. It will be put in transition if not already there.    *    * If we can't find the region info based on the region name in    * the transition, log a warning and return null.    */
 specifier|public
 specifier|synchronized
 name|RegionState
@@ -999,7 +1043,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Update a region state. If it is not splitting,    * it will be put in transition if not already there.    */
+comment|/**    * Update a region state. It will be put in transition if not already there.    */
 specifier|public
 specifier|synchronized
 name|RegionState
@@ -1174,13 +1218,6 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|state
-operator|!=
-name|State
-operator|.
-name|SPLITTING
-operator|&&
-operator|(
 name|newServerName
 operator|!=
 literal|null
@@ -1197,7 +1234,6 @@ operator|!=
 name|State
 operator|.
 name|CLOSING
-operator|)
 operator|)
 condition|)
 block|{
@@ -1661,6 +1697,10 @@ argument_list|>
 name|serverOffline
 parameter_list|(
 specifier|final
+name|ZooKeeperWatcher
+name|watcher
+parameter_list|,
+specifier|final
 name|ServerName
 name|sn
 parameter_list|)
@@ -1756,7 +1796,7 @@ argument_list|)
 condition|)
 block|{
 comment|// Region is open on this region server, but in transition.
-comment|// This region must be moving away from this server.
+comment|// This region must be moving away from this server, or splitting/merging.
 comment|// SSH will handle it, either skip assigning, or re-assign.
 name|LOG
 operator|.
@@ -1771,6 +1811,65 @@ operator|+
 name|sn
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|state
+operator|.
+name|isSplitting
+argument_list|()
+operator|||
+name|state
+operator|.
+name|isMerging
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Offline splitting/merging region "
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// Delete the ZNode if exists
+name|ZKAssign
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|watcher
+argument_list|,
+name|hri
+argument_list|)
+expr_stmt|;
+name|regionOffline
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Unexpected ZK exception deleting node "
+operator|+
+name|hri
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 elseif|else
 if|if

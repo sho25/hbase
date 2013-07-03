@@ -800,12 +800,12 @@ operator|)
 operator|||
 name|state
 operator|.
-name|isSplit
+name|isSplitting
 argument_list|()
 operator|||
 name|state
 operator|.
-name|isSplitting
+name|isMerging
 argument_list|()
 condition|)
 block|{

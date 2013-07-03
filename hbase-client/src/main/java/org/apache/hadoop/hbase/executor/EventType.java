@@ -112,7 +112,7 @@ literal|null
 argument_list|)
 block|,
 comment|/**    * RS_ZK_REGION_MERGE<br>    *     * RS region merge has completed.    */
-name|RS_ZK_REGION_MERGE
+name|RS_ZK_REGION_MERGED
 argument_list|(
 literal|9
 argument_list|,

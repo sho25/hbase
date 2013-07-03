@@ -1280,15 +1280,10 @@ name|rit
 operator|.
 name|isOpened
 argument_list|()
-operator|||
-name|rit
-operator|.
-name|isSplit
-argument_list|()
 condition|)
 block|{
 comment|// Skip regions that are in transition on other server,
-comment|// or in state closed/opened/split
+comment|// or in state closed/opened
 name|LOG
 operator|.
 name|info
@@ -1365,34 +1360,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|rit
-operator|.
-name|isSplitting
-argument_list|()
-operator|||
-name|rit
-operator|.
-name|isSplit
-argument_list|()
-condition|)
-block|{
-comment|// This will happen when the RS went down and the call back for the SPLIITING or SPLIT
-comment|// has not yet happened for node Deleted event. In that case if the region was actually
-comment|// split
-comment|// but the RS had gone down before completing the split process then will not try to
-comment|// assign the parent region again. In that case we should make the region offline and
-comment|// also delete the region from RIT.
-name|am
-operator|.
-name|regionOffline
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
 if|if
 condition|(
 operator|(
