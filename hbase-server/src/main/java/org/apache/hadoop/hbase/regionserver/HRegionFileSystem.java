@@ -2212,6 +2212,16 @@ operator|.
 name|getLastKey
 argument_list|()
 decl_stmt|;
+comment|// If lastKey is null means storefile is empty.
+if|if
+condition|(
+name|lastKey
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 if|if
 condition|(
 name|f
@@ -2281,6 +2291,16 @@ operator|.
 name|getFirstKey
 argument_list|()
 decl_stmt|;
+comment|// If firstKey is null means storefile is empty.
+if|if
+condition|(
+name|firstKey
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 if|if
 condition|(
 name|f
