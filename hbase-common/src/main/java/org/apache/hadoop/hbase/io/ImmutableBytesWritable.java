@@ -239,7 +239,10 @@ operator|.
 name|get
 argument_list|()
 argument_list|,
-literal|0
+name|ibw
+operator|.
+name|getOffset
+argument_list|()
 argument_list|,
 name|ibw
 operator|.
