@@ -484,7 +484,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This function will define where in the priority queue the request will    * end up.  Those with the highest priorities will be first.  When the    * priorities are the same it will first compare priority then date    * to maintain a FIFO functionality.    *    *<p>Note: The date is only accurate to the millisecond which means it is    * possible that two requests were inserted into the queue within a    * millisecond.  When that is the case this function will break the tie    * arbitrarily.    */
+comment|/**    * This function will define where in the priority queue the request will    * end up.  Those with the highest priorities will be first.  When the    * priorities are the same it will first compare priority then date    * to maintain a FIFO functionality.    *    *<p>Note: The enqueue timestamp is accurate to the nanosecond. if two    * requests have same timestamp then this function will break the tie    * arbitrarily with hashCode() comparing.    */
 annotation|@
 name|Override
 specifier|public
