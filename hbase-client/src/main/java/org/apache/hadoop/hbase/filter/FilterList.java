@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>!AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>!OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.  */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  *  *<br/>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does  * not include the KeyValue.  *  *<br/>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.  *  *<br/>  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.  */
 end_comment
 
 begin_class
@@ -221,6 +221,20 @@ argument_list|<
 name|Filter
 argument_list|>
 argument_list|()
+decl_stmt|;
+comment|/** Reference KeyValue used by {@link #transform(KeyValue)} for validation purpose. */
+specifier|private
+name|KeyValue
+name|referenceKV
+init|=
+literal|null
+decl_stmt|;
+comment|/**    * When filtering a given KeyValue in {@link #filterKeyValue(KeyValue)},    * this stores the transformed KeyValue to be returned by {@link #transform(KeyValue)}.    *    * Individual filters transformation are applied only when the filter includes the KeyValue.    * Transformations are composed in the order specified by {@link #filters}.    */
+specifier|private
+name|KeyValue
+name|transformedKV
+init|=
+literal|null
 decl_stmt|;
 comment|/**    * Constructor that takes a set of {@link Filter}s. The default operator    * MUST_PASS_ALL is assumed.    *    * @param rowFilters list of filters    */
 specifier|public
@@ -651,31 +665,40 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|KeyValue
-name|current
-init|=
+comment|// transform() is expected to follow an inclusive filterKeyValue() immediately:
+if|if
+condition|(
+operator|!
 name|v
-decl_stmt|;
-for|for
-control|(
-name|Filter
-name|filter
-range|:
-name|filters
-control|)
-block|{
-name|current
-operator|=
-name|filter
 operator|.
-name|transform
+name|equals
 argument_list|(
-name|current
+name|this
+operator|.
+name|referenceKV
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Reference KeyValue: "
+operator|+
+name|this
+operator|.
+name|referenceKV
+operator|+
+literal|" does not match: "
+operator|+
+name|v
+argument_list|)
+throw|;
 block|}
 return|return
-name|current
+name|this
+operator|.
+name|transformedKV
 return|;
 block|}
 annotation|@
@@ -690,6 +713,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|referenceKV
+operator|=
+name|v
+expr_stmt|;
+comment|// Accumulates successive transformation of every filter that includes the KeyValue:
+name|KeyValue
+name|transformed
+init|=
+name|v
+decl_stmt|;
 name|ReturnCode
 name|rc
 init|=
@@ -766,6 +801,15 @@ expr_stmt|;
 case|case
 name|INCLUDE
 case|:
+name|transformed
+operator|=
+name|filter
+operator|.
+name|transform
+argument_list|(
+name|transformed
+argument_list|)
+expr_stmt|;
 continue|continue;
 default|default:
 return|return
@@ -822,6 +866,15 @@ operator|.
 name|INCLUDE
 expr_stmt|;
 block|}
+name|transformed
+operator|=
+name|filter
+operator|.
+name|transform
+argument_list|(
+name|transformed
+argument_list|)
+expr_stmt|;
 break|break;
 case|case
 name|INCLUDE_AND_NEXT_COL
@@ -832,6 +885,15 @@ name|ReturnCode
 operator|.
 name|INCLUDE_AND_NEXT_COL
 expr_stmt|;
+name|transformed
+operator|=
+name|filter
+operator|.
+name|transform
+argument_list|(
+name|transformed
+argument_list|)
+expr_stmt|;
 comment|// must continue here to evaluate all filters
 break|break;
 case|case
@@ -841,7 +903,6 @@ break|break;
 case|case
 name|SKIP
 case|:
-comment|// continue;
 break|break;
 case|case
 name|NEXT_COL
@@ -862,6 +923,13 @@ throw|;
 block|}
 block|}
 block|}
+comment|// Save the transformed KeyValue for transform():
+name|this
+operator|.
+name|transformedKV
+operator|=
+name|transformed
+expr_stmt|;
 return|return
 name|rc
 return|;
