@@ -441,9 +441,14 @@ name|String
 argument_list|>
 name|entry
 range|:
+operator|new
+name|Configuration
+argument_list|(
 name|conf
+argument_list|)
 control|)
 block|{
+comment|// copy for mt safety
 name|String
 name|key
 init|=

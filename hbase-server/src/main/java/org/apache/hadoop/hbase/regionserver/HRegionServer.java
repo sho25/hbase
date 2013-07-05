@@ -5329,6 +5329,17 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|stopped
+operator|&&
+name|isHealthy
+argument_list|()
+condition|)
+block|{
 comment|// start the snapshot handler, since the server is ready to run
 name|this
 operator|.
@@ -5337,6 +5348,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 comment|// We registered with the Master.  Go into run mode.
 name|long
 name|lastMsg
