@@ -547,6 +547,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+operator|.
+name|OperationStatusCode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -9351,13 +9367,36 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-name|HConstants
+name|conf
 operator|.
-name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
-operator|-
-literal|2
+name|getInt
+argument_list|(
+literal|"hbase.log.replay.retries.number"
+argument_list|,
+literal|8
+argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// 8 retries take about 23 seconds
+name|sinkConf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.log.replay.rpc.timeout"
+argument_list|,
+literal|30000
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// default 30 seconds
 name|sinkConf
 operator|.
 name|setInt
@@ -20685,6 +20724,27 @@ name|SUCCESS
 case|:
 break|break;
 block|}
+if|if
+condition|(
+name|isReplay
+operator|&&
+name|codes
+index|[
+name|i
+index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
+operator|!=
+name|OperationStatusCode
+operator|.
+name|SUCCESS
+condition|)
+block|{
+comment|// in replay mode, we only need to catpure the first error because we will retry the whole
+comment|// batch when an error happens
+break|break;
+block|}
 block|}
 block|}
 catch|catch
@@ -20730,6 +20790,15 @@ argument_list|,
 name|result
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isReplay
+condition|)
+block|{
+comment|// in replay mode, we only need to catpure the first error because we will retry the whole
+comment|// batch when an error happens
+break|break;
+block|}
 block|}
 block|}
 name|long

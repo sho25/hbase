@@ -333,6 +333,16 @@ operator|.
 name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
+comment|/**    * Master controlled events to be executed on the master.<br>    *     * M_LOG_REPLAY<br>    * Master is processing log replay of failed region server    */
+name|M_LOG_REPLAY
+argument_list|(
+literal|74
+argument_list|,
+name|ExecutorType
+operator|.
+name|M_LOG_REPLAY_OPS
+argument_list|)
+block|,
 comment|/**    * RS controlled events to be executed on the RS.<br>    *     * RS_PARALLEL_SEEK    */
 name|RS_PARALLEL_SEEK
 argument_list|(

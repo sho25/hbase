@@ -75,6 +75,11 @@ argument_list|(
 literal|6
 argument_list|)
 block|,
+name|M_LOG_REPLAY_OPS
+argument_list|(
+literal|7
+argument_list|)
+block|,
 comment|// RegionServer executor services
 name|RS_OPEN_REGION
 argument_list|(

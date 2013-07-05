@@ -1098,15 +1098,13 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// wait for master to create the splitLogZnode
 name|int
 name|res
-decl_stmt|;
-comment|// wait for master to create the splitLogZnode
-name|res
-operator|=
+init|=
 operator|-
 literal|1
-expr_stmt|;
+decl_stmt|;
 while|while
 condition|(
 name|res
@@ -2101,6 +2099,7 @@ operator|+
 name|path
 argument_list|)
 expr_stmt|;
+block|}
 name|endTask
 argument_list|(
 operator|new
@@ -2118,26 +2117,6 @@ operator|.
 name|tot_wkr_task_resigned
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|SplitLogCounters
-operator|.
-name|tot_wkr_preempt_task
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"task execution interrupted via zk by manager "
-operator|+
-name|path
-argument_list|)
-expr_stmt|;
-block|}
 break|break;
 block|}
 block|}
