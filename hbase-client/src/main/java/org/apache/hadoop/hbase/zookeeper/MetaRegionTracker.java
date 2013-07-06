@@ -55,6 +55,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -459,7 +473,7 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
-comment|// ZNode content is a pb message preceeded by some pb magic.
+comment|// ZNode content is a pb message preceded by some pb magic.
 name|HBaseProtos
 operator|.
 name|ServerName
@@ -514,6 +528,13 @@ operator|.
 name|setServer
 argument_list|(
 name|pbsn
+argument_list|)
+operator|.
+name|setRpcVersion
+argument_list|(
+name|HConstants
+operator|.
+name|RPC_CURRENT_VERSION
 argument_list|)
 operator|.
 name|build
