@@ -535,6 +535,16 @@ expr_stmt|;
 name|int
 name|maxVersions
 init|=
+name|scan
+operator|.
+name|isRaw
+argument_list|()
+condition|?
+name|scan
+operator|.
+name|getMaxVersions
+argument_list|()
+else|:
 name|Math
 operator|.
 name|min
