@@ -383,6 +383,8 @@ name|testExceptionFromCoprocessorDuringPut
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 comment|// When we try to write to TEST_TABLE, the buggy coprocessor will
 comment|// cause a NullPointerException, which will cause the regionserver (which

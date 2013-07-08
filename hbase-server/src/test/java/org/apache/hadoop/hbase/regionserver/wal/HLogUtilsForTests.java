@@ -19,34 +19,6 @@ name|wal
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
 begin_comment
 comment|/**  * An Utility testcase that returns the number of log files that  * were rolled to be accessed from outside packages.  *   * This class makes available methods that are package protected.  *  This is interesting for test only.  */
 end_comment

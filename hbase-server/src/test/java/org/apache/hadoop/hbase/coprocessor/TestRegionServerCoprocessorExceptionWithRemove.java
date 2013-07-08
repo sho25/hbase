@@ -401,6 +401,8 @@ name|testExceptionFromCoprocessorDuringPut
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 comment|// Set watches on the zookeeper nodes for all of the regionservers in the
 comment|// cluster. When we try to write to TEST_TABLE, the buggy coprocessor will

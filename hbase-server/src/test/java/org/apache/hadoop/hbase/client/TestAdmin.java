@@ -10661,6 +10661,8 @@ name|value
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 comment|// When the META table can be opened, the region servers are running
 operator|new

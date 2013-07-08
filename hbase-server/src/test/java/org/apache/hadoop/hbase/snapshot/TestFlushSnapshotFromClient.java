@@ -2698,6 +2698,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|HRegionServer
 name|rs
