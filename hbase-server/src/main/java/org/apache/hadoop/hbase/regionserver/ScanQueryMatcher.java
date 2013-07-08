@@ -1253,6 +1253,9 @@ return|;
 case|case
 name|VERSION_DELETED
 case|:
+case|case
+name|FAMILY_VERSION_DELETED
+case|:
 return|return
 name|MatchCode
 operator|.

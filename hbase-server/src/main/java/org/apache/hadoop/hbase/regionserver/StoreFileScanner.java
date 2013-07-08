@@ -1153,10 +1153,17 @@ operator|.
 name|hasNullColumnInQuery
 argument_list|()
 operator|&&
+operator|(
 name|kv
 operator|.
 name|isDeleteFamily
 argument_list|()
+operator|||
+name|kv
+operator|.
+name|isDeleteFamilyVersion
+argument_list|()
+operator|)
 condition|)
 block|{
 comment|// if there is no such delete family kv in the store file,

@@ -128,6 +128,9 @@ block|{
 name|FAMILY_DELETED
 block|,
 comment|// The KeyValue is deleted by a delete family.
+name|FAMILY_VERSION_DELETED
+block|,
+comment|// The KeyValue is deleted by a delete family version.
 name|COLUMN_DELETED
 block|,
 comment|// The KeyValue is deleted by a delete column.

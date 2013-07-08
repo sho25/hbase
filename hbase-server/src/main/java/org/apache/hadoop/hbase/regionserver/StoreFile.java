@@ -3940,6 +3940,12 @@ name|kv
 operator|.
 name|isDeleteFamily
 argument_list|()
+operator|&&
+operator|!
+name|kv
+operator|.
+name|isDeleteFamilyVersion
+argument_list|()
 condition|)
 block|{
 return|return;
