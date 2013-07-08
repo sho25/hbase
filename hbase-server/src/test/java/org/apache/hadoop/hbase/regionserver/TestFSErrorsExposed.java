@@ -1067,7 +1067,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.retries.number"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|3
 argument_list|)
@@ -1158,7 +1160,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.retries.number"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|1
 argument_list|)

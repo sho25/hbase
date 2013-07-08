@@ -1047,7 +1047,9 @@ argument_list|()
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.retries.number"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|5
 argument_list|)

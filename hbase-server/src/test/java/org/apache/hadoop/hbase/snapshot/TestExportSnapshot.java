@@ -37,18 +37,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -99,7 +87,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|HashSet
 import|;
 end_import
 
@@ -109,7 +97,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
+name|List
 import|;
 end_import
 
@@ -175,7 +163,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileSystem
+name|FSDataOutputStream
 import|;
 end_import
 
@@ -203,7 +191,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileUtil
+name|FileSystem
 import|;
 end_import
 
@@ -217,7 +205,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FSDataOutputStream
+name|FileUtil
 import|;
 end_import
 
@@ -315,53 +303,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MiniHBaseCluster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|snapshot
-operator|.
-name|SnapshotManager
 import|;
 end_import
 
@@ -407,41 +349,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|master
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|snapshot
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
+name|SnapshotManager
 import|;
 end_import
 
@@ -491,9 +403,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|util
 operator|.
-name|ExportSnapshot
+name|Bytes
 import|;
 end_import
 
@@ -507,9 +419,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|util
 operator|.
-name|SnapshotReferenceUtil
+name|FSUtils
 import|;
 end_import
 
@@ -521,9 +433,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|mapreduce
+name|hbase
 operator|.
-name|Job
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -718,7 +632,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.retries.number"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|6
 argument_list|)

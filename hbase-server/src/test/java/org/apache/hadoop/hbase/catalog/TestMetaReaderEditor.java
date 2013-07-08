@@ -511,7 +511,9 @@ name|c
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.retries.number"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|10
 argument_list|)
