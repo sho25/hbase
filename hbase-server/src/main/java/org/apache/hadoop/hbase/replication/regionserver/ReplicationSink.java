@@ -723,7 +723,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Replicate this array of entries directly into the local cluster using the native client.    * Like {@link #replicateEntries(org.apache.hadoop.hbase.regionserver.wal.HLog.Entry[])} only    * operates against raw protobuf type saving on a convertion from pb to pojo.    *    * @param entries    * @param cells    * @throws IOException    */
+comment|/**    * Replicate this array of entries directly into the local cluster using the native client.    * Only operates against raw protobuf type saving on a convertion from pb to pojo.    *    * @param entries    * @param cells    * @throws IOException    */
 specifier|public
 name|void
 name|replicateEntries
