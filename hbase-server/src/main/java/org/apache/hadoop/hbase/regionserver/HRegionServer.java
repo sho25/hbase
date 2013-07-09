@@ -1403,22 +1403,6 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ReplicationProtbufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
 name|RequestConverter
 import|;
 end_import
@@ -17989,6 +17973,37 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|Boolean
+name|closing
+init|=
+name|regionsInTransitionInRS
+operator|.
+name|get
+argument_list|(
+name|region
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// Map regionsInTransitionInRSOnly has an entry for a region only if the region
+comment|// is in transition on this RS, so here closing can be null. If not null, it can
+comment|// be true or false. True means the region is opening on this RS; while false
+comment|// means the region is closing. Only return ALREADY_OPENED if not closing (i.e.
+comment|// not in transition any more, or still transition to open.
+if|if
+condition|(
+operator|!
+name|Boolean
+operator|.
+name|FALSE
+operator|.
+name|equals
+argument_list|(
+name|closing
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
@@ -18013,6 +18028,7 @@ name|ALREADY_OPENED
 argument_list|)
 expr_stmt|;
 continue|continue;
+block|}
 block|}
 else|else
 block|{
