@@ -365,7 +365,7 @@ literal|1000
 decl_stmt|;
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|perform
 parameter_list|()
