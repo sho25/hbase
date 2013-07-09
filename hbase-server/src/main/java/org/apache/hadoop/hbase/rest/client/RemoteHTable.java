@@ -796,14 +796,6 @@ operator|.
 name|iterator
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|i
-operator|.
-name|hasNext
-argument_list|()
-condition|)
-block|{
 name|sb
 operator|.
 name|append
@@ -811,7 +803,6 @@ argument_list|(
 literal|'/'
 argument_list|)
 expr_stmt|;
-block|}
 while|while
 condition|(
 name|i
