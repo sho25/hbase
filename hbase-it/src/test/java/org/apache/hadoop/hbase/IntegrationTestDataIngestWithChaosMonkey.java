@@ -156,17 +156,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|25
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|conf
@@ -186,15 +175,6 @@ block|{
 comment|// when distributedLogReplay is enabled, we need to make sure rpc timeout& retires are
 comment|// smaller enough in order for the replay can complete before ChaosMonkey kills another region
 comment|// server
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.handler.count"
-argument_list|,
-literal|20
-argument_list|)
-expr_stmt|;
 name|conf
 operator|.
 name|setInt
