@@ -117,20 +117,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1558,15 +1544,6 @@ argument_list|(
 literal|"hostname0.example.org"
 argument_list|)
 decl_stmt|;
-name|AtomicBoolean
-name|replicating
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
 name|ReplicationZookeeper
 name|rz
 init|=
@@ -1574,8 +1551,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-name|replicating
 argument_list|)
 decl_stmt|;
 comment|// populate some znodes in the peer znode
@@ -1751,12 +1726,6 @@ argument_list|,
 name|populatedMap
 argument_list|)
 expr_stmt|;
-comment|// close out the resources.
-name|rz
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|server
 operator|.
 name|abort
@@ -1804,15 +1773,6 @@ argument_list|(
 literal|"ec2-54-234-230-108.compute-1.amazonaws.com"
 argument_list|)
 decl_stmt|;
-name|AtomicBoolean
-name|replicating
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
 name|ReplicationZookeeper
 name|rz
 init|=
@@ -1820,8 +1780,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-name|replicating
 argument_list|)
 decl_stmt|;
 comment|// populate some znodes in the peer znode
@@ -1893,12 +1851,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|s1
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|SortedMap
@@ -1925,11 +1877,6 @@ name|getServerName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|rz1
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|ReplicationZookeeper
 name|rz2
 init|=
@@ -1937,12 +1884,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|s2
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|testMap
@@ -1960,11 +1901,6 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|rz2
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|ReplicationZookeeper
 name|rz3
 init|=
@@ -1972,12 +1908,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|s3
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|testMap
@@ -1994,11 +1924,6 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|rz3
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 name|ReplicationQueueInfo
 name|replicationQueueInfo
@@ -2072,12 +1997,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// close out the resources.
-name|rz
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|server
 operator|.
 name|abort
@@ -2146,12 +2065,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2172,11 +2085,6 @@ name|claimQueues
 argument_list|(
 name|deadRsZnode
 argument_list|)
-expr_stmt|;
-name|rz
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 name|server
 operator|.

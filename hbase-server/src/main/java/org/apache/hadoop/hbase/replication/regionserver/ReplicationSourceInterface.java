@@ -31,20 +31,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -126,7 +112,7 @@ specifier|public
 interface|interface
 name|ReplicationSourceInterface
 block|{
-comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param replicating the status of the replication on this cluster    * @param peerClusterId the id of the peer cluster    * @throws IOException    */
+comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param peerClusterId the id of the peer cluster    * @throws IOException    */
 specifier|public
 name|void
 name|init
@@ -146,10 +132,6 @@ parameter_list|,
 specifier|final
 name|Stoppable
 name|stopper
-parameter_list|,
-specifier|final
-name|AtomicBoolean
-name|replicating
 parameter_list|,
 specifier|final
 name|String

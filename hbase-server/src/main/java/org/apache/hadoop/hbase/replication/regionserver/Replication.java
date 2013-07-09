@@ -570,17 +570,6 @@ name|ReplicationSourceManager
 name|replicationManager
 decl_stmt|;
 specifier|private
-specifier|final
-name|AtomicBoolean
-name|replicating
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
-specifier|private
 name|ReplicationZookeeper
 name|zkHelper
 decl_stmt|;
@@ -752,10 +741,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-name|this
-operator|.
-name|replicating
 argument_list|)
 expr_stmt|;
 name|this
@@ -807,13 +792,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed replication handler create "
-operator|+
-literal|"(replicating="
-operator|+
-name|this
-operator|.
-name|replicating
+literal|"Failed replication handler create"
 argument_list|,
 name|ke
 argument_list|)
@@ -837,10 +816,6 @@ operator|.
 name|server
 argument_list|,
 name|fs
-argument_list|,
-name|this
-operator|.
-name|replicating
 argument_list|,
 name|logDir
 argument_list|,

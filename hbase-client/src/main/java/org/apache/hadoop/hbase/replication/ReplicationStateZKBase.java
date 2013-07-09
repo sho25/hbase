@@ -149,12 +149,6 @@ specifier|final
 name|String
 name|peerStateNodeName
 decl_stmt|;
-comment|/** The name of the znode that contains the replication status of the local cluster. */
-specifier|protected
-specifier|final
-name|String
-name|stateZNode
-decl_stmt|;
 comment|/** The name of the base znode that contains all replication state. */
 specifier|protected
 specifier|final
@@ -298,18 +292,6 @@ argument_list|,
 literal|"rs"
 argument_list|)
 decl_stmt|;
-name|String
-name|stateZNodeName
-init|=
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"zookeeper.znode.replication.state"
-argument_list|,
-literal|"state"
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|peerStateNodeName
@@ -351,19 +333,6 @@ operator|.
 name|baseZNode
 argument_list|,
 name|replicationZNodeName
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|stateZNode
-operator|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|replicationZNode
-argument_list|,
-name|stateZNodeName
 argument_list|)
 expr_stmt|;
 name|this
@@ -449,7 +418,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param state    * @return Serialized protobuf of<code>state</code> with pb magic prefix prepended suitable for    *         use as content of either the cluster state znode -- whether or not we should be    *         replicating kept in /hbase/replication/state -- or as content of a peer-state znode    *         under a peer cluster id as in /hbase/replication/peers/PEER_ID/peer-state.    */
+comment|/**    * @param state    * @return Serialized protobuf of<code>state</code> with pb magic prefix prepended suitable for    *         use as content of a peer-state znode under a peer cluster id as in    *         /hbase/replication/peers/PEER_ID/peer-state.    */
 specifier|protected
 specifier|static
 name|byte

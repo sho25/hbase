@@ -357,10 +357,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|slaveClusterKey

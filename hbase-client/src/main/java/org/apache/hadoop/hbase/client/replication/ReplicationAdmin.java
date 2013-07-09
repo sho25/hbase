@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * This class provides the administrative interface to HBase cluster  * replication. In order to use it, the cluster and the client using  * ReplicationAdmin must be configured with<code>hbase.replication</code>  * set to true.  *</p>  *<p>  * Adding a new peer results in creating new outbound connections from every  * region server to a subset of region servers on the slave cluster. Each  * new stream of replication will start replicating from the beginning of the  * current HLog, meaning that edits from that past will be replicated.  *</p>  *<p>  * Removing a peer is a destructive and irreversible operation that stops  * all the replication streams for the given cluster and deletes the metadata  * used to keep track of the replication state.  *</p>  *<p>  * Enabling and disabling peers is currently not supported.  *</p>  *<p>  * As cluster replication is still experimental, a kill switch is provided  * in order to stop all replication-related operations, see  * {@link #setReplicating(boolean)}. When setting it back to true, the new  * state of all the replication streams will be unknown and may have holes.  * Use at your own risk.  *</p>  *<p>  * To see which commands are available in the shell, type  *<code>replication</code>.  *</p>  */
+comment|/**  *<p>  * This class provides the administrative interface to HBase cluster  * replication. In order to use it, the cluster and the client using  * ReplicationAdmin must be configured with<code>hbase.replication</code>  * set to true.  *</p>  *<p>  * Adding a new peer results in creating new outbound connections from every  * region server to a subset of region servers on the slave cluster. Each  * new stream of replication will start replicating from the beginning of the  * current HLog, meaning that edits from that past will be replicated.  *</p>  *<p>  * Removing a peer is a destructive and irreversible operation that stops  * all the replication streams for the given cluster and deletes the metadata  * used to keep track of the replication state.  *</p>  *<p>  * To see which commands are available in the shell, type  *<code>replication</code>.  *</p>  */
 end_comment
 
 begin_class
@@ -511,93 +511,6 @@ name|replicationZk
 operator|.
 name|listPeers
 argument_list|()
-return|;
-block|}
-comment|/**    * Get the current status of the kill switch, if the cluster is replicating    * or not.    * @return true if the cluster is replicated, otherwise false    */
-specifier|public
-name|boolean
-name|getReplicating
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-try|try
-block|{
-return|return
-name|this
-operator|.
-name|replicationZk
-operator|.
-name|getReplication
-argument_list|()
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Couldn't get the replication status"
-argument_list|)
-throw|;
-block|}
-block|}
-comment|/**    * Kill switch for all replication-related features    * @param newState true to start replication, false to stop it.    * completely    * @return the previous state    */
-specifier|public
-name|boolean
-name|setReplicating
-parameter_list|(
-name|boolean
-name|newState
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|boolean
-name|prev
-init|=
-literal|true
-decl_stmt|;
-try|try
-block|{
-name|prev
-operator|=
-name|getReplicating
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|replicationZk
-operator|.
-name|setReplication
-argument_list|(
-name|newState
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Unable to set the replication state"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
-return|return
-name|prev
 return|;
 block|}
 comment|/**    * Get the ZK-support tool created and used by this object for replication.    * @return the ZK-support tool    */

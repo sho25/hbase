@@ -693,11 +693,6 @@ specifier|private
 name|Random
 name|random
 decl_stmt|;
-comment|// should we replicate or not?
-specifier|private
-name|AtomicBoolean
-name|replicating
-decl_stmt|;
 specifier|private
 name|ReplicationQueueInfo
 name|replicationQueueInfo
@@ -836,7 +831,7 @@ specifier|private
 name|ReplicationHLogReaderManager
 name|repLogReader
 decl_stmt|;
-comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param stopper     the atomic boolean to use to stop the regionserver    * @param replicating the atomic boolean that starts/stops replication    * @param peerClusterZnode the name of our znode    * @throws IOException    */
+comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param stopper     the atomic boolean to use to stop the regionserver    * @param peerClusterZnode the name of our znode    * @throws IOException    */
 specifier|public
 name|void
 name|init
@@ -856,10 +851,6 @@ parameter_list|,
 specifier|final
 name|Stoppable
 name|stopper
-parameter_list|,
-specifier|final
-name|AtomicBoolean
-name|replicating
 parameter_list|,
 specifier|final
 name|String
@@ -1071,12 +1062,6 @@ operator|=
 operator|new
 name|Random
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|replicating
-operator|=
-name|replicating
 expr_stmt|;
 name|this
 operator|.
@@ -2233,11 +2218,6 @@ name|size
 argument_list|()
 operator|!=
 literal|0
-operator|&&
-name|replicating
-operator|.
-name|get
-argument_list|()
 condition|)
 block|{
 comment|// Only set the clusterId if is a local key.
@@ -3549,13 +3529,6 @@ name|isPeerEnabled
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|replicating
-operator|.
-name|get
-argument_list|()
-operator|&&
 name|this
 operator|.
 name|zkHelper

@@ -417,12 +417,6 @@ name|ReplicationSourceInterface
 argument_list|>
 name|oldsources
 decl_stmt|;
-comment|// Indicates if we are currently replicating
-specifier|private
-specifier|final
-name|AtomicBoolean
-name|replicating
-decl_stmt|;
 comment|// Helper for zookeeper
 specifier|private
 specifier|final
@@ -514,7 +508,7 @@ specifier|final
 name|Random
 name|rand
 decl_stmt|;
-comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param zkHelper the zk helper for replication    * @param replicationQueues the interface for manipulating replication queues    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
+comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param zkHelper the zk helper for replication    * @param replicationQueues the interface for manipulating replication queues    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
 specifier|public
 name|ReplicationSourceManager
 parameter_list|(
@@ -539,10 +533,6 @@ name|FileSystem
 name|fs
 parameter_list|,
 specifier|final
-name|AtomicBoolean
-name|replicating
-parameter_list|,
-specifier|final
 name|Path
 name|logDir
 parameter_list|,
@@ -561,12 +551,6 @@ argument_list|<
 name|ReplicationSourceInterface
 argument_list|>
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|replicating
-operator|=
-name|replicating
 expr_stmt|;
 name|this
 operator|.
@@ -1040,8 +1024,6 @@ name|this
 argument_list|,
 name|stopper
 argument_list|,
-name|replicating
-argument_list|,
 name|id
 argument_list|)
 decl_stmt|;
@@ -1277,26 +1259,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|replicating
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Replication stopped, won't add new log"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 synchronized|synchronized
 init|(
 name|this
@@ -1415,26 +1377,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|replicating
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Replication stopped, won't add new log"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// This only updates the sources we own, not the recovered ones
 for|for
 control|(
@@ -1465,7 +1407,7 @@ return|return
 name|zkHelper
 return|;
 block|}
-comment|/**    * Factory method to create a replication source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param replicating the status of the replication on this cluster    * @param peerId the id of the peer cluster    * @return the created source    * @throws IOException    */
+comment|/**    * Factory method to create a replication source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param peerId the id of the peer cluster    * @return the created source    * @throws IOException    */
 specifier|public
 name|ReplicationSourceInterface
 name|getReplicationSource
@@ -1485,10 +1427,6 @@ parameter_list|,
 specifier|final
 name|Stoppable
 name|stopper
-parameter_list|,
-specifier|final
-name|AtomicBoolean
-name|replicating
 parameter_list|,
 specifier|final
 name|String
@@ -1575,8 +1513,6 @@ argument_list|,
 name|manager
 argument_list|,
 name|stopper
-argument_list|,
-name|replicating
 argument_list|,
 name|peerId
 argument_list|)
@@ -2485,8 +2421,6 @@ operator|.
 name|this
 argument_list|,
 name|stopper
-argument_list|,
-name|replicating
 argument_list|,
 name|peerId
 argument_list|)

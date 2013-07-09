@@ -383,12 +383,6 @@ operator|new
 name|ReplicationZookeeper
 argument_list|(
 name|server
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|Path

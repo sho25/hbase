@@ -171,9 +171,6 @@ parameter_list|,
 name|Stoppable
 name|stopper
 parameter_list|,
-name|AtomicBoolean
-name|replicating
-parameter_list|,
 name|String
 name|peerClusterId
 parameter_list|)
