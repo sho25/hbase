@@ -1461,7 +1461,7 @@ name|CONFIGURATION
 init|=
 literal|"CONFIGURATION"
 decl_stmt|;
-comment|/**    * This is a retry backoff multiplier table similar to the BSD TCP syn    * backoff table, a bit more aggressive than simple exponential backoff.    */
+comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 10, 100, 100, 100, 100, 100, 100.    */
 specifier|public
 specifier|static
 name|int
@@ -1471,25 +1471,15 @@ init|=
 block|{
 literal|1
 block|,
-literal|1
-block|,
-literal|1
-block|,
 literal|2
 block|,
-literal|2
+literal|3
 block|,
-literal|4
+literal|5
 block|,
-literal|4
+literal|10
 block|,
-literal|8
-block|,
-literal|16
-block|,
-literal|32
-block|,
-literal|64
+literal|100
 block|}
 decl_stmt|;
 specifier|public
@@ -1615,7 +1605,7 @@ specifier|static
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
-literal|20
+literal|31
 decl_stmt|;
 comment|/**    * Parameter name for client prefetch limit, used as the maximum number of regions    * info that will be prefetched.    */
 specifier|public

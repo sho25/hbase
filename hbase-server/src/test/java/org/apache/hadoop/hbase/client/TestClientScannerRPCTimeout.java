@@ -546,6 +546,17 @@ argument_list|,
 name|CLIENT_RETRIES_NUMBER
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_PAUSE
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
