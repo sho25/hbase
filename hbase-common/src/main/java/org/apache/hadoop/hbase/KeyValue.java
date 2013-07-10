@@ -10014,7 +10014,6 @@ block|}
 block|}
 comment|/**    * Avoids redundant comparisons for better performance.    */
 specifier|public
-specifier|static
 interface|interface
 name|SamePrefixComparator
 parameter_list|<
@@ -10022,7 +10021,6 @@ name|T
 parameter_list|>
 block|{
 comment|/**      * Compare two keys assuming that the first n bytes are the same.      * @param commonPrefix How many bytes are the same.      */
-specifier|public
 name|int
 name|compareIgnoringPrefix
 parameter_list|(

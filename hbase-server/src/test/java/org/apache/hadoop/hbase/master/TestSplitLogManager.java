@@ -1116,7 +1116,6 @@ specifier|private
 interface|interface
 name|Expr
 block|{
-specifier|public
 name|long
 name|eval
 parameter_list|()

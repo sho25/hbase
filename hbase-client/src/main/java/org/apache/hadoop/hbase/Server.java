@@ -93,25 +93,21 @@ extends|,
 name|Stoppable
 block|{
 comment|/**    * Gets the configuration object for this server.    */
-specifier|public
 name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the ZooKeeper instance for this server.    */
-specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeper
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link CatalogTracker}    */
-specifier|public
 name|CatalogTracker
 name|getCatalogTracker
 parameter_list|()
 function_decl|;
 comment|/**    * @return The unique server name for this server.    */
-specifier|public
 name|ServerName
 name|getServerName
 parameter_list|()

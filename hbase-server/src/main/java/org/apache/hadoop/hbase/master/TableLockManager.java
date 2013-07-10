@@ -441,12 +441,10 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|static
 interface|interface
 name|TableLock
 block|{
 comment|/**      * Acquire the lock, with the configured lock timeout.      * @throws LockTimeoutException If unable to acquire a lock within a specified      * time period (if any)      * @throws IOException If unrecoverable error occurs      */
-specifier|public
 name|void
 name|acquire
 parameter_list|()
@@ -454,7 +452,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**      * Release the lock already held.      * @throws IOException If there is an unrecoverable error releasing the lock      */
-specifier|public
 name|void
 name|release
 parameter_list|()

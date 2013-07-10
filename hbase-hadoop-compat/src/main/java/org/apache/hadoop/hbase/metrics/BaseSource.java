@@ -26,9 +26,6 @@ specifier|public
 interface|interface
 name|BaseSource
 block|{
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|HBASE_METRICS_SYSTEM_NAME
 init|=

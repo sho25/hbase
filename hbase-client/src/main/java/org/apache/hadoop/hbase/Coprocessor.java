@@ -70,24 +70,18 @@ specifier|public
 interface|interface
 name|Coprocessor
 block|{
-specifier|static
-specifier|final
 name|int
 name|VERSION
 init|=
 literal|1
 decl_stmt|;
 comment|/** Highest installation priority */
-specifier|static
-specifier|final
 name|int
 name|PRIORITY_HIGHEST
 init|=
 literal|0
 decl_stmt|;
 comment|/** High (system) installation priority */
-specifier|static
-specifier|final
 name|int
 name|PRIORITY_SYSTEM
 init|=
@@ -98,8 +92,6 @@ operator|/
 literal|4
 decl_stmt|;
 comment|/** Default installation priority for user coprocessors */
-specifier|static
-specifier|final
 name|int
 name|PRIORITY_USER
 init|=
@@ -110,8 +102,6 @@ operator|/
 literal|2
 decl_stmt|;
 comment|/** Lowest installation priority */
-specifier|static
-specifier|final
 name|int
 name|PRIORITY_LOWEST
 init|=
@@ -120,7 +110,6 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Lifecycle state of a given coprocessor instance.    */
-specifier|public
 enum|enum
 name|State
 block|{

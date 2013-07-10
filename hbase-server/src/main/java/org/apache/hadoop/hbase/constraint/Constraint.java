@@ -107,7 +107,6 @@ extends|extends
 name|Configurable
 block|{
 comment|/**    * Check a {@link Put} to ensure it is valid for the table. If the {@link Put}    * is valid, then just return from the method. Otherwise, throw an    * {@link Exception} specifying what happened. This {@link Exception} is    * propagated back to the client so you can see what caused the {@link Put} to    * fail.    * @param p {@link Put} to check    * @throws org.apache.hadoop.hbase.exceptions.ConstraintException when the {@link Put} does not match the    *         constraint.    */
-specifier|public
 name|void
 name|check
 parameter_list|(

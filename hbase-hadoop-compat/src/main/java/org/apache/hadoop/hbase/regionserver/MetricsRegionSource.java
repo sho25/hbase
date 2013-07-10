@@ -31,17 +31,11 @@ argument_list|<
 name|MetricsRegionSource
 argument_list|>
 block|{
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|OPS_SAMPLE_NAME
 init|=
 literal|"ops"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|SIZE_VALUE_NAME
 init|=

@@ -501,7 +501,6 @@ interface|interface
 name|DeadServerHandler
 block|{
 comment|/**      * Called when a server is identified as dead. Called only once even if we receive the      * information multiple times.      *      * @param sn - the server name      */
-specifier|public
 name|void
 name|newDead
 parameter_list|(
@@ -511,7 +510,6 @@ parameter_list|)
 function_decl|;
 block|}
 comment|/**    * The interface to be implented by a listener of a cluster status event.    */
-specifier|static
 interface|interface
 name|Listener
 extends|extends
@@ -520,13 +518,11 @@ block|{
 comment|/**      * Called to close the resources, if any. Cannot throw an exception.      */
 annotation|@
 name|Override
-specifier|public
 name|void
 name|close
 parameter_list|()
 function_decl|;
 comment|/**      * Called to connect.      *      * @param conf Configuration to use.      * @throws IOException      */
-specifier|public
 name|void
 name|connect
 parameter_list|(

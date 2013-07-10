@@ -14568,8 +14568,6 @@ specifier|public
 interface|interface
 name|ErrorReporter
 block|{
-specifier|public
-specifier|static
 enum|enum
 name|ERROR_CODE
 block|{
@@ -14631,12 +14629,10 @@ name|EMPTY_META_CELL
 block|,
 name|EXPIRED_TABLE_LOCK
 block|}
-specifier|public
 name|void
 name|clear
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|report
 parameter_list|(
@@ -14644,7 +14640,6 @@ name|String
 name|message
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|reportError
 parameter_list|(
@@ -14652,7 +14647,6 @@ name|String
 name|message
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|reportError
 parameter_list|(
@@ -14663,7 +14657,6 @@ name|String
 name|message
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|reportError
 parameter_list|(
@@ -14677,7 +14670,6 @@ name|TableInfo
 name|table
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|reportError
 parameter_list|(
@@ -14694,7 +14686,6 @@ name|HbckInfo
 name|info
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|reportError
 parameter_list|(
@@ -14714,12 +14705,10 @@ name|HbckInfo
 name|info2
 parameter_list|)
 function_decl|;
-specifier|public
 name|int
 name|summarize
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|detail
 parameter_list|(
@@ -14727,7 +14716,6 @@ name|String
 name|details
 parameter_list|)
 function_decl|;
-specifier|public
 name|ArrayList
 argument_list|<
 name|ERROR_CODE
@@ -14735,12 +14723,10 @@ argument_list|>
 name|getErrorList
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|progress
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|print
 parameter_list|(
@@ -14748,12 +14734,10 @@ name|String
 name|message
 parameter_list|)
 function_decl|;
-specifier|public
 name|void
 name|resetErrors
 parameter_list|()
 function_decl|;
-specifier|public
 name|boolean
 name|tableHasErrors
 parameter_list|(

@@ -63,7 +63,6 @@ interface|interface
 name|SubprocedureFactory
 block|{
 comment|/**    * Build {@link Subprocedure} when requested.    * @param procName name of the procedure associated with this subprocedure    * @param procArgs  arguments passed from the coordinator about the procedure    * @return {@link Subprocedure} to run or<tt>null</tt> if the no operation should be run    * @throws IllegalArgumentException if the operation could not be run because of errors in the    *           request    * @throws IllegalStateException if the current runner cannot accept any more new requests    */
-specifier|public
 name|Subprocedure
 name|buildSubprocedure
 parameter_list|(

@@ -218,7 +218,6 @@ interface|interface
 name|EventHandlerListener
 block|{
 comment|/**      * Called before any event is processed      * @param event The event handler whose process method is about to be called.      */
-specifier|public
 name|void
 name|beforeProcess
 parameter_list|(
@@ -227,7 +226,6 @@ name|event
 parameter_list|)
 function_decl|;
 comment|/**      * Called after any event is processed      * @param event The event handler whose process method is about to be called.      */
-specifier|public
 name|void
 name|afterProcess
 parameter_list|(

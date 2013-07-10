@@ -200,7 +200,6 @@ block|{   }
 comment|// Devs: these APIs are the same contract as their counterparts in
 comment|// Configuration.java
 specifier|private
-specifier|static
 interface|interface
 name|ImmutableConfigMap
 extends|extends

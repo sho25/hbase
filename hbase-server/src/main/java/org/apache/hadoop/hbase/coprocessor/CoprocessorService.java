@@ -74,7 +74,6 @@ specifier|public
 interface|interface
 name|CoprocessorService
 block|{
-specifier|public
 name|Service
 name|getService
 parameter_list|()

@@ -51,19 +51,16 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|abstract
 interface|interface
 name|ProtobufMessageHandler
 block|{
 comment|/**    * @return the protobuf represention of the model    */
-specifier|public
 name|byte
 index|[]
 name|createProtobufOutput
 parameter_list|()
 function_decl|;
 comment|/**    * Initialize the model from a protobuf representation.    * @param message the raw bytes of the protobuf message    * @return reference to self for convenience    * @throws IOException    */
-specifier|public
 name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(

@@ -93,7 +93,6 @@ extends|extends
 name|CoprocessorEnvironment
 block|{
 comment|/** @return reference to the region server services */
-specifier|public
 name|HLog
 name|getWAL
 parameter_list|()

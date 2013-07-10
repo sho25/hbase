@@ -45,7 +45,6 @@ interface|interface
 name|LastSequenceId
 block|{
 comment|/**    * @param regionName Encoded region name    * @return Last flushed sequence Id for regionName or -1 if it can't be determined    */
-specifier|public
 name|long
 name|getLastSequenceId
 parameter_list|(

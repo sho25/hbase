@@ -45,7 +45,6 @@ interface|interface
 name|HeapSize
 block|{
 comment|/**    * @return Approximate 'exclusive deep size' of implementing object.  Includes    * count of payload and hosting object sizings.   */
-specifier|public
 name|long
 name|heapSize
 parameter_list|()

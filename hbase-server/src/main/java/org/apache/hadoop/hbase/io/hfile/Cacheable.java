@@ -75,13 +75,11 @@ extends|extends
 name|HeapSize
 block|{
 comment|/**    * Returns the length of the ByteBuffer required to serialized the object. If the    * object cannot be serialized, it should also return 0.    *    * @return int length in bytes of the serialized form.    */
-specifier|public
 name|int
 name|getSerializedLength
 parameter_list|()
 function_decl|;
 comment|/**    * Serializes its data into destination.    */
-specifier|public
 name|void
 name|serialize
 parameter_list|(
@@ -90,7 +88,6 @@ name|destination
 parameter_list|)
 function_decl|;
 comment|/**    * Returns CacheableDeserializer instance which reconstructs original object from ByteBuffer.    *    * @return CacheableDeserialzer instance.    */
-specifier|public
 name|CacheableDeserializer
 argument_list|<
 name|Cacheable
@@ -99,7 +96,6 @@ name|getDeserializer
 parameter_list|()
 function_decl|;
 comment|/**    * @return the block type of this cached HFile block    */
-specifier|public
 name|BlockType
 name|getBlockType
 parameter_list|()

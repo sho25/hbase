@@ -93,7 +93,6 @@ extends|,
 name|Stoppable
 block|{
 comment|/**    * Should the master delete the file or keep it?    * @param fStat file status of the file to check    * @return<tt>true</tt> if the file is deletable,<tt>false</tt> if not    */
-specifier|public
 name|boolean
 name|isFileDeletable
 parameter_list|(

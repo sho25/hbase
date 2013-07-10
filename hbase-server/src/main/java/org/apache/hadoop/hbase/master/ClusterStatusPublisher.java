@@ -1190,13 +1190,11 @@ argument_list|)
 return|;
 block|}
 specifier|public
-specifier|static
 interface|interface
 name|Publisher
 extends|extends
 name|Closeable
 block|{
-specifier|public
 name|void
 name|connect
 parameter_list|(
@@ -1206,7 +1204,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
 name|void
 name|publish
 parameter_list|(
@@ -1216,7 +1213,6 @@ parameter_list|)
 function_decl|;
 annotation|@
 name|Override
-specifier|public
 name|void
 name|close
 parameter_list|()

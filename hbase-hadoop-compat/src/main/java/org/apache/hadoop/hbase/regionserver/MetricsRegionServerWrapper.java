@@ -27,31 +27,26 @@ interface|interface
 name|MetricsRegionServerWrapper
 block|{
 comment|/**    * Get ServerName    */
-specifier|public
 name|String
 name|getServerName
 parameter_list|()
 function_decl|;
 comment|/**    * Get the Cluster ID    *    * @return Cluster ID    */
-specifier|public
 name|String
 name|getClusterId
 parameter_list|()
 function_decl|;
 comment|/**    * Get the Zookeeper Quorum Info    *    * @return Zookeeper Quorum Info    */
-specifier|public
 name|String
 name|getZookeeperQuorum
 parameter_list|()
 function_decl|;
 comment|/**    * Get the co-processors    *    * @return Co-processors    */
-specifier|public
 name|String
 name|getCoprocessors
 parameter_list|()
 function_decl|;
 comment|/**    * Get HRegionServer start time    *    * @return Start time of RegionServer in milliseconds    */
-specifier|public
 name|long
 name|getStartCode
 parameter_list|()

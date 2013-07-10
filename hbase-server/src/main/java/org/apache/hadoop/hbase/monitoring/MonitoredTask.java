@@ -73,50 +73,34 @@ name|COMPLETE
 block|,
 name|ABORTED
 block|;   }
-specifier|public
-specifier|abstract
 name|long
 name|getStartTime
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|String
 name|getDescription
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|String
 name|getStatus
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|long
 name|getStatusTime
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|State
 name|getState
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|long
 name|getStateTime
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|long
 name|getCompletionTimestamp
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|markComplete
 parameter_list|(
@@ -124,8 +108,6 @@ name|String
 name|msg
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|pause
 parameter_list|(
@@ -133,8 +115,6 @@ name|String
 name|msg
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|resume
 parameter_list|(
@@ -142,8 +122,6 @@ name|String
 name|msg
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|abort
 parameter_list|(
@@ -151,14 +129,10 @@ name|String
 name|msg
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|expireNow
 parameter_list|()
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|setStatus
 parameter_list|(
@@ -166,8 +140,6 @@ name|String
 name|status
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|abstract
 name|void
 name|setDescription
 parameter_list|(
@@ -176,22 +148,16 @@ name|description
 parameter_list|)
 function_decl|;
 comment|/**    * Explicitly mark this status as able to be cleaned up,    * even though it might not be complete.    */
-specifier|public
-specifier|abstract
 name|void
 name|cleanup
 parameter_list|()
 function_decl|;
 comment|/**    * Public exposure of Object.clone() in order to allow clients to easily     * capture current state.    * @return a copy of the object whose references will not change    */
-specifier|public
-specifier|abstract
 name|MonitoredTask
 name|clone
 parameter_list|()
 function_decl|;
 comment|/**    * Creates a string map of internal details for extensible exposure of     * monitored tasks.    * @return A Map containing information for this task.    */
-specifier|public
-specifier|abstract
 name|Map
 argument_list|<
 name|String
@@ -204,8 +170,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Creates a JSON object for parseable exposure of monitored tasks.    * @return An encoded JSON object containing information for this task.    */
-specifier|public
-specifier|abstract
 name|String
 name|toJSON
 parameter_list|()

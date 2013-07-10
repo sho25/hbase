@@ -96,14 +96,12 @@ name|Codec
 block|{
 comment|// TODO: interfacing with {@link DataBlockEncoder}
 comment|/**    * Call flush when done.  Some encoders may not put anything on the stream until flush is called.    * On flush, let go of any resources used by the encoder.    */
-specifier|public
 interface|interface
 name|Encoder
 extends|extends
 name|CellOutputStream
 block|{}
 comment|/**    * Implementations should implicitly clean up any resources allocated when the    * Decoder/CellScanner runs off the end of the cell block. Do this rather than require the user    * call close explicitly.    */
-specifier|public
 interface|interface
 name|Decoder
 extends|extends

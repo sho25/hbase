@@ -43,7 +43,6 @@ interface|interface
 name|InterProcessReadWriteLock
 block|{
 comment|/**    * Obtain a read lock containing given metadata.    * @param metadata Serialized lock metadata (this may contain information    *                 such as the process owning the lock or the purpose for    *                 which the lock was acquired).    * @return An instantiated InterProcessLock instance    */
-specifier|public
 name|InterProcessLock
 name|readLock
 parameter_list|(
@@ -53,7 +52,6 @@ name|metadata
 parameter_list|)
 function_decl|;
 comment|/**    * Obtain a write lock containing given metadata.    * @param metadata Serialized lock metadata (this may contain information    *                 such as the process owning the lock or the purpose for    *                 which the lock was acquired).    * @return An instantiated InterProcessLock instance    */
-specifier|public
 name|InterProcessLock
 name|writeLock
 parameter_list|(
