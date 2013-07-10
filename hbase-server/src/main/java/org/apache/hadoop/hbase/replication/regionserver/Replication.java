@@ -953,6 +953,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|scheduleThreadPool
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of entries to replicate    * @param cells The data -- the cells -- that<code>entries</code> describes (the entries    * do not contain the Cells we are replicating; they are passed here on the side in this    * CellScanner).    * @throws IOException    */
 specifier|public
