@@ -1611,7 +1611,7 @@ name|Threads
 operator|.
 name|newDaemonThreadFactory
 argument_list|(
-literal|"AM."
+literal|"hbase-am"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1692,7 +1692,7 @@ name|Threads
 operator|.
 name|newDaemonThreadFactory
 argument_list|(
-literal|"AM.ZK.Worker"
+literal|"hbase-am-zkevent-worker"
 argument_list|)
 decl_stmt|;
 name|zkEventWorkers
@@ -2619,7 +2619,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Processing "
+literal|"Processing region "
 operator|+
 name|regionInfo
 operator|.
@@ -3090,7 +3090,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Processed "
+literal|"Processed region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -3129,7 +3129,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Processed "
+literal|"Processed region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -3165,7 +3165,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Processed "
+literal|"Processed region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -3226,7 +3226,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Processed "
+literal|"Processed region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -3248,7 +3248,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Processed "
+literal|"Processed region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -4185,7 +4185,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received CLOSING for "
+literal|"Received CLOSING for region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -4242,7 +4242,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received CLOSED for "
+literal|"Received CLOSED for region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -4338,7 +4338,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received FAILED_OPEN for "
+literal|"Received FAILED_OPEN for region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -4515,7 +4515,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received OPENING for "
+literal|"Received OPENING for region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -4572,7 +4572,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received OPENED for "
+literal|"Received OPENED for region "
 operator|+
 name|prettyPrintedRegionName
 operator|+
@@ -5509,7 +5509,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The znode of "
+literal|"The znode of region "
 operator|+
 name|regionNameStr
 operator|+
@@ -5545,7 +5545,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The master has opened "
+literal|"The master has opened the region "
 operator|+
 name|regionNameStr
 operator|+
@@ -5586,7 +5586,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Opened "
+literal|"Opened region "
 operator|+
 name|regionNameStr
 operator|+
@@ -5612,7 +5612,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Opened "
+literal|"Opened region "
 operator|+
 name|regionNameStr
 operator|+
@@ -9093,7 +9093,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ALREADY_OPENED "
+literal|"ALREADY_OPENED region "
 operator|+
 name|region
 operator|.
@@ -9488,7 +9488,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't move "
+literal|"Can't move the region "
 operator|+
 name|encodedName
 operator|+
@@ -9716,7 +9716,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't find a destination for "
+literal|"Can't find a destination for region"
 operator|+
 name|encodedName
 argument_list|)
@@ -9781,7 +9781,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Using pre-existing plan for "
+literal|"Using pre-existing plan for region "
 operator|+
 name|region
 operator|.
@@ -9943,7 +9943,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting unassign of "
+literal|"Starting unassignment of region "
 operator|+
 name|region
 operator|.
@@ -10062,7 +10062,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempting to unassign "
+literal|"Attempting to unassign region "
 operator|+
 name|region
 operator|.
@@ -10266,7 +10266,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempting to unassign "
+literal|"Attempting to unassign region "
 operator|+
 name|region
 operator|.
@@ -10319,7 +10319,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempting to unassign "
+literal|"Attempting to unassign region "
 operator|+
 name|region
 operator|.
@@ -10454,7 +10454,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The deletion of the CLOSED node for "
+literal|"The deletion of the CLOSED node for the region "
 operator|+
 name|encodedName
 operator|+
@@ -10476,7 +10476,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"CLOSING/CLOSED node for "
+literal|"CLOSING/CLOSED node for the region "
 operator|+
 name|encodedName
 operator|+
@@ -12417,7 +12417,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Timed out on waiting for "
+literal|"Timed out on waiting for region:"
 operator|+
 name|hri
 operator|.
@@ -13651,7 +13651,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip "
+literal|"Skip region "
 operator|+
 name|hri
 operator|+

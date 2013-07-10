@@ -1206,7 +1206,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Transitioned from "
+literal|"Region transitioned from "
 operator|+
 name|oldState
 operator|+
@@ -1422,7 +1422,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Onlined "
+literal|"Onlined region "
 operator|+
 name|hri
 operator|.
@@ -1491,7 +1491,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Offlined "
+literal|"Offlined region "
 operator|+
 name|hri
 operator|.
@@ -1661,7 +1661,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Offlined "
+literal|"Offlined region "
 operator|+
 name|hri
 operator|.
@@ -1802,7 +1802,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Transitioning "
+literal|"Transitioning region "
 operator|+
 name|state
 operator|+

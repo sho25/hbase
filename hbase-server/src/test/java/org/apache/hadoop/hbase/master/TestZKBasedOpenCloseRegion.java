@@ -790,9 +790,6 @@ block|}
 name|waitUntilAllRegionsAssigned
 argument_list|()
 expr_stmt|;
-name|waitOnRIT
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Test we reopen a region once closed.    * @throws Exception    */
 annotation|@
@@ -1949,66 +1946,6 @@ argument_list|(
 literal|"Done with testCloseRegion"
 argument_list|)
 expr_stmt|;
-block|}
-specifier|private
-name|void
-name|waitOnRIT
-parameter_list|()
-block|{
-comment|// Close worked but we are going to open the region elsewhere.  Before going on, make sure
-comment|// this completes.
-while|while
-condition|(
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|isRegionsInTransition
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Waiting on regions in transition: "
-operator|+
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getRegionsInTransition
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|10
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * If region open fails with IOException in openRegion() while doing tableDescriptors.get()    * the region should not add into regionsInTransitionInRS map    * @throws Exception    */
 annotation|@
