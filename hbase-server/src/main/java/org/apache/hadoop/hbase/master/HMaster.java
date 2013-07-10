@@ -12046,6 +12046,10 @@ operator|!
 name|this
 operator|.
 name|isActiveMaster
+operator|||
+name|this
+operator|.
+name|stopped
 condition|)
 block|{
 return|return
