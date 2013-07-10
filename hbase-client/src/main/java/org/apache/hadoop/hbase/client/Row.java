@@ -68,6 +68,7 @@ name|Row
 argument_list|>
 block|{
 comment|/**    * @return The row.    */
+specifier|public
 name|byte
 index|[]
 name|getRow

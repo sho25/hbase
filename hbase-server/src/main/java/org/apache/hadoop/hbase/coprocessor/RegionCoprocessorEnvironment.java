@@ -119,16 +119,19 @@ extends|extends
 name|CoprocessorEnvironment
 block|{
 comment|/** @return the region associated with this coprocessor */
+specifier|public
 name|HRegion
 name|getRegion
 parameter_list|()
 function_decl|;
 comment|/** @return reference to the region server services */
+specifier|public
 name|RegionServerServices
 name|getRegionServerServices
 parameter_list|()
 function_decl|;
 comment|/** @return shared data between all instances of this coprocessor */
+specifier|public
 name|ConcurrentMap
 argument_list|<
 name|String

@@ -218,6 +218,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|static
 interface|interface
 name|Predicate
 parameter_list|<
@@ -227,6 +228,7 @@ name|Exception
 parameter_list|>
 block|{
 comment|/**      * Perform a predicate evaluation.      * @return the boolean result of the evaluation.      * @throws Exception thrown if the predicate evaluation could not evaluate.      */
+specifier|public
 name|boolean
 name|evaluate
 parameter_list|()

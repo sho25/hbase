@@ -224,6 +224,7 @@ specifier|public
 interface|interface
 name|Sink
 block|{
+specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
@@ -231,6 +232,7 @@ name|HRegionInfo
 name|region
 parameter_list|)
 function_decl|;
+specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
@@ -241,6 +243,7 @@ name|HColumnDescriptor
 name|column
 parameter_list|)
 function_decl|;
+specifier|public
 name|void
 name|publishReadTiming
 parameter_list|(

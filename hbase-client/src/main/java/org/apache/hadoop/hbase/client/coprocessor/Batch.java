@@ -77,6 +77,7 @@ name|Batch
 block|{
 comment|/**    * Defines a unit of work to be executed.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementations {@link Batch.Call#call(Object)} method will be invoked    * with a proxy to the    * {@link org.apache.hadoop.hbase.coprocessor.CoprocessorService}    * sub-type instance.    *</p>    * @see org.apache.hadoop.hbase.client.coprocessor    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    * @param<T> the instance type to be passed to    * {@link Batch.Call#call(Object)}    * @param<R> the return type from {@link Batch.Call#call(Object)}    */
 specifier|public
+specifier|static
 interface|interface
 name|Call
 parameter_list|<
@@ -85,6 +86,7 @@ parameter_list|,
 name|R
 parameter_list|>
 block|{
+specifier|public
 name|R
 name|call
 parameter_list|(
@@ -97,12 +99,14 @@ function_decl|;
 block|}
 comment|/**    * Defines a generic callback to be triggered for each {@link Batch.Call#call(Object)}    * result.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementation's {@link Batch.Callback#update(byte[], byte[], Object)}    * method will be called with the {@link Batch.Call#call(Object)} return value    * from each region in the selected range.    *</p>    * @param<R> the return type from the associated {@link Batch.Call#call(Object)}    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    */
 specifier|public
+specifier|static
 interface|interface
 name|Callback
 parameter_list|<
 name|R
 parameter_list|>
 block|{
+specifier|public
 name|void
 name|update
 parameter_list|(

@@ -125,6 +125,7 @@ interface|interface
 name|DataBlockEncoder
 block|{
 comment|/**    * Encodes KeyValues. It will first encode key value pairs, and then    * optionally do the compression for the encoded data.    *    * @param in    *          Source of KeyValue for compression.    * @param includesMemstoreTS    *          true if including memstore timestamp after every key-value pair    * @param encodingContext    *          the encoding context which will contain encoded uncompressed bytes    *          as well as compressed encoded bytes if compression is enabled, and    *          also it will reuse resources across multiple calls.    * @throws IOException    *           If there is an error writing to output stream.    */
+specifier|public
 name|void
 name|encodeKeyValues
 parameter_list|(
@@ -141,6 +142,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Decode.    * @param source Compressed stream of KeyValues.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
+specifier|public
 name|ByteBuffer
 name|decodeKeyValues
 parameter_list|(
@@ -154,6 +156,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Uncompress.    * @param source encoded stream of KeyValues.    * @param allocateHeaderLength allocate this many bytes for the header.    * @param skipLastBytes Do not copy n last bytes.    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
+specifier|public
 name|ByteBuffer
 name|decodeKeyValues
 parameter_list|(
@@ -173,6 +176,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Return first key in block. Useful for indexing. Typically does not make    * a deep copy but returns a buffer wrapping a segment of the actual block's    * byte array. This is because the first key in block is usually stored    * unencoded.    * @param block encoded block we want index, the position will not change    * @return First key in block.    */
+specifier|public
 name|ByteBuffer
 name|getFirstKeyInBlock
 parameter_list|(
@@ -181,6 +185,7 @@ name|block
 parameter_list|)
 function_decl|;
 comment|/**    * Create a HFileBlock seeker which find KeyValues within a block.    * @param comparator what kind of comparison should be used    * @param includesMemstoreTS true if including memstore timestamp after every    *          key-value pair    * @return A newly created seeker.    */
+specifier|public
 name|EncodedSeeker
 name|createSeeker
 parameter_list|(
@@ -196,6 +201,7 @@ name|includesMemstoreTS
 parameter_list|)
 function_decl|;
 comment|/**    * Creates a encoder specific encoding context    *    * @param compressionAlgorithm    *          compression algorithm used if the final data needs to be    *          compressed    * @param encoding    *          encoding strategy used    * @param headerBytes    *          header bytes to be written, put a dummy header here if the header    *          is unknown    * @return a newly created encoding context    */
+specifier|public
 name|HFileBlockEncodingContext
 name|newDataBlockEncodingContext
 parameter_list|(
@@ -211,6 +217,7 @@ name|headerBytes
 parameter_list|)
 function_decl|;
 comment|/**    * Creates an encoder specific decoding context, which will prepare the data    * before actual decoding    *    * @param compressionAlgorithm    *          compression algorithm used if the data needs to be decompressed    * @return a newly created decoding context    */
+specifier|public
 name|HFileBlockDecodingContext
 name|newDataBlockDecodingContext
 parameter_list|(
@@ -219,10 +226,13 @@ name|compressionAlgorithm
 parameter_list|)
 function_decl|;
 comment|/**    * An interface which enable to seek while underlying data is encoded.    *    * It works on one HFileBlock, but it is reusable. See    * {@link #setCurrentBuffer(ByteBuffer)}.    */
+specifier|public
+specifier|static
 interface|interface
 name|EncodedSeeker
 block|{
 comment|/**      * Set on which buffer there will be done seeking.      * @param buffer Used for seeking.      */
+specifier|public
 name|void
 name|setCurrentBuffer
 parameter_list|(
@@ -231,36 +241,43 @@ name|buffer
 parameter_list|)
 function_decl|;
 comment|/**      * Does a deep copy of the key at the current position. A deep copy is      * necessary because buffers are reused in the decoder.      * @return key at current position      */
+specifier|public
 name|ByteBuffer
 name|getKeyDeepCopy
 parameter_list|()
 function_decl|;
 comment|/**      * Does a shallow copy of the value at the current position. A shallow      * copy is possible because the returned buffer refers to the backing array      * of the original encoded buffer.      * @return value at current position      */
+specifier|public
 name|ByteBuffer
 name|getValueShallowCopy
 parameter_list|()
 function_decl|;
 comment|/** @return key value at current position with position set to limit */
+specifier|public
 name|ByteBuffer
 name|getKeyValueBuffer
 parameter_list|()
 function_decl|;
 comment|/**      * @return the KeyValue object at the current position. Includes memstore      *         timestamp.      */
+specifier|public
 name|KeyValue
 name|getKeyValue
 parameter_list|()
 function_decl|;
 comment|/** Set position to beginning of given block */
+specifier|public
 name|void
 name|rewind
 parameter_list|()
 function_decl|;
 comment|/**      * Move to next position      * @return true on success, false if there is no more positions.      */
+specifier|public
 name|boolean
 name|next
 parameter_list|()
 function_decl|;
 comment|/**      * Moves the seeker position within the current block to:      *<ul>      *<li>the last key that that is less than or equal to the given key if      *<code>seekBefore</code> is false</li>      *<li>the last key that is strictly less than the given key if<code>      * seekBefore</code> is true. The caller is responsible for loading the      * previous block if the requested key turns out to be the first key of the      * current block.</li>      *</ul>      * @param key byte array containing the key      * @param offset key position the array      * @param length key length in bytes      * @param seekBefore find the key strictly less than the given key in case      *          of an exact match. Does not matter in case of an inexact match.      * @return 0 on exact match, 1 on inexact match.      */
+specifier|public
 name|int
 name|seekToKeyInBlock
 parameter_list|(

@@ -24774,6 +24774,7 @@ assert|;
 block|}
 comment|/**    * Listener class to enable callers of    * bulkLoadHFile() to perform any necessary    * pre/post processing of a given bulkload call    */
 specifier|public
+specifier|static
 interface|interface
 name|BulkLoadListener
 block|{

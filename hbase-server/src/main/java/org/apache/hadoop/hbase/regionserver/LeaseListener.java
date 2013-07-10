@@ -45,6 +45,7 @@ interface|interface
 name|LeaseListener
 block|{
 comment|/** When a lease expires, this method is called. */
+specifier|public
 name|void
 name|leaseExpired
 parameter_list|()

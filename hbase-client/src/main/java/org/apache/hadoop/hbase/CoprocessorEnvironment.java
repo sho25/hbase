@@ -101,36 +101,43 @@ interface|interface
 name|CoprocessorEnvironment
 block|{
 comment|/** @return the Coprocessor interface version */
+specifier|public
 name|int
 name|getVersion
 parameter_list|()
 function_decl|;
 comment|/** @return the HBase version as a string (e.g. "0.21.0") */
+specifier|public
 name|String
 name|getHBaseVersion
 parameter_list|()
 function_decl|;
 comment|/** @return the loaded coprocessor instance */
+specifier|public
 name|Coprocessor
 name|getInstance
 parameter_list|()
 function_decl|;
 comment|/** @return the priority assigned to the loaded coprocessor */
+specifier|public
 name|int
 name|getPriority
 parameter_list|()
 function_decl|;
 comment|/** @return the load sequence number */
+specifier|public
 name|int
 name|getLoadSequence
 parameter_list|()
 function_decl|;
 comment|/** @return the configuration */
+specifier|public
 name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * @return an interface for accessing the given table    * @throws IOException    */
+specifier|public
 name|HTableInterface
 name|getTable
 parameter_list|(

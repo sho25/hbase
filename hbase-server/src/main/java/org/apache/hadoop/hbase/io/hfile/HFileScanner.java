@@ -81,6 +81,7 @@ interface|interface
 name|HFileScanner
 block|{
 comment|/**    * SeekTo or just before the passed<code>key</code>.  Examine the return    * code to figure whether we found the key or not.    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find.    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * The scanner will position itself between k[i] and k[i+1] where    * k[i]< key<= k[i+1].    * If there is no key k[i+1] greater than or equal to the input key, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @throws IOException    */
+specifier|public
 name|int
 name|seekTo
 parameter_list|(
@@ -91,6 +92,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|int
 name|seekTo
 parameter_list|(
@@ -108,6 +110,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Reseek to or just before the passed<code>key</code>. Similar to seekTo    * except that this can be called even if the scanner is not at the beginning    * of a file.    * This can be used to seek only to keys which come after the current position    * of the scanner.    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file after    * current position of HFileScanner.    * The scanner will position itself between k[i] and k[i+1] where    * k[i]< key<= k[i+1].    * If there is no key k[i+1] greater than or equal to the input key, then the    * scanner will position itself at the end of the file and next() will return    * false when it is called.    * @param key Key to find (should be non-null)    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * @throws IOException    */
+specifier|public
 name|int
 name|reseekTo
 parameter_list|(
@@ -118,6 +121,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|int
 name|reseekTo
 parameter_list|(
@@ -135,6 +139,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
+specifier|public
 name|boolean
 name|seekBefore
 parameter_list|(
@@ -145,6 +150,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|boolean
 name|seekBefore
 parameter_list|(
@@ -162,6 +168,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Positions this scanner at the start of the file.    * @return False if empty file; i.e. a call to next would return false and    * the current key and value are undefined.    * @throws IOException    */
+specifier|public
 name|boolean
 name|seekTo
 parameter_list|()
@@ -169,6 +176,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Scans to the next entry in the file.    * @return Returns false if you are at the end otherwise true if more in file.    * @throws IOException    */
+specifier|public
 name|boolean
 name|next
 parameter_list|()
@@ -176,31 +184,37 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Gets a buffer view to the current key. You must call    * {@link #seekTo(byte[])} before this method.    * @return byte buffer for the key. The limit is set to the key size, and the    * position is 0, the start of the buffer view.    */
+specifier|public
 name|ByteBuffer
 name|getKey
 parameter_list|()
 function_decl|;
 comment|/**    * Gets a buffer view to the current value.  You must call    * {@link #seekTo(byte[])} before this method.    *    * @return byte buffer for the value. The limit is set to the value size, and    * the position is 0, the start of the buffer view.    */
+specifier|public
 name|ByteBuffer
 name|getValue
 parameter_list|()
 function_decl|;
 comment|/**    * @return Instance of {@link KeyValue}.    */
+specifier|public
 name|KeyValue
 name|getKeyValue
 parameter_list|()
 function_decl|;
 comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(byte[])} before this method.    * @return key as a string    */
+specifier|public
 name|String
 name|getKeyString
 parameter_list|()
 function_decl|;
 comment|/**    * Convenience method to get a copy of the value as a string - interpreting    * the bytes as UTF8. You must call {@link #seekTo(byte[])} before this method.    * @return value as a string    */
+specifier|public
 name|String
 name|getValueString
 parameter_list|()
 function_decl|;
 comment|/**    * @return Reader that underlies this Scanner instance.    */
+specifier|public
 name|HFile
 operator|.
 name|Reader
@@ -208,6 +222,7 @@ name|getReader
 parameter_list|()
 function_decl|;
 comment|/**    * @return True is scanner has had one of the seek calls invoked; i.e.    * {@link #seekBefore(byte[])} or {@link #seekTo()} or {@link #seekTo(byte[])}.    * Otherwise returns false.    */
+specifier|public
 name|boolean
 name|isSeeked
 parameter_list|()

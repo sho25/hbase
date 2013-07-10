@@ -90,6 +90,7 @@ name|Result
 argument_list|>
 block|{
 comment|/**    * Grab the next row's worth of values. The scanner will return a Result.    * @return Result object if there is another row, null if the scanner is    * exhausted.    * @throws IOException e    */
+specifier|public
 name|Result
 name|next
 parameter_list|()
@@ -97,6 +98,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param nbRows number of rows to return    * @return Between zero and<param>nbRows</param> Results    * @throws IOException e    */
+specifier|public
 name|Result
 index|[]
 name|next
@@ -108,6 +110,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    */
+specifier|public
 name|void
 name|close
 parameter_list|()

@@ -4000,6 +4000,8 @@ parameter_list|<
 name|T
 parameter_list|>
 block|{
+specifier|abstract
+specifier|public
 name|int
 name|compareTo
 parameter_list|(

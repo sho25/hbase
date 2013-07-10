@@ -43,6 +43,7 @@ interface|interface
 name|Stoppable
 block|{
 comment|/**    * Stop this service.    * @param why Why we're stopping.    */
+specifier|public
 name|void
 name|stop
 parameter_list|(
@@ -51,6 +52,7 @@ name|why
 parameter_list|)
 function_decl|;
 comment|/**    * @return True if {@link #stop(String)} has been closed.    */
+specifier|public
 name|boolean
 name|isStopped
 parameter_list|()

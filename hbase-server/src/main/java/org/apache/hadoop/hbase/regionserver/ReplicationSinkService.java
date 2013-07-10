@@ -101,6 +101,7 @@ extends|extends
 name|ReplicationService
 block|{
 comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @throws IOException    */
+specifier|public
 name|void
 name|replicateLogEntries
 parameter_list|(

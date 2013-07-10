@@ -29,6 +29,7 @@ interface|interface
 name|HadoopShims
 block|{
 comment|/**    * Returns a TaskAttemptContext instance created from the given parameters.    * @param job an instance of o.a.h.mapreduce.Job    * @param taskId an identifier for the task attempt id. Should be parsable by    * TaskAttemptId.forName()    * @return a concrete TaskAttemptContext instance of o.a.h.mapreduce.TaskAttemptContext    */
+specifier|public
 parameter_list|<
 name|T
 parameter_list|,

@@ -2441,6 +2441,7 @@ interface|interface
 name|Visitor
 block|{
 comment|/**      * Visit the catalog table row.      * @param r A row from catalog table      * @return True if we are to proceed scanning the table, else false if      * we are to stop now.      */
+specifier|public
 name|boolean
 name|visit
 parameter_list|(

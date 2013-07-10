@@ -65,6 +65,7 @@ extends|extends
 name|ReplicationService
 block|{
 comment|/**    * Returns a WALObserver for the service. This is needed to     * observe log rolls and log archival events.    */
+specifier|public
 name|WALActionsListener
 name|getWALActionsListener
 parameter_list|()

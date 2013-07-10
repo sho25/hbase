@@ -5211,12 +5211,14 @@ argument_list|()
 decl_stmt|;
 comment|/**    * A specific runnable that works only on a region.    */
 specifier|private
+specifier|static
 interface|interface
 name|RegionRunnable
 extends|extends
 name|Runnable
 block|{
 comment|/**      * @return - the name of the region it works on.      */
+specifier|public
 name|String
 name|getRegionName
 parameter_list|()

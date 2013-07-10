@@ -903,6 +903,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|public
+specifier|static
 interface|interface
 name|AuthenticationServiceSecurityInfo
 block|{}

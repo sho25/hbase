@@ -256,6 +256,9 @@ specifier|public
 interface|interface
 name|HLog
 block|{
+specifier|public
+specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -269,28 +272,43 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** File Extension used while splitting an HLog into regions (HBASE-2312) */
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|SPLITTING_EXT
 init|=
 literal|"-splitting"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|boolean
 name|SPLIT_SKIP_ERRORS_DEFAULT
 init|=
 literal|false
 decl_stmt|;
 comment|/** The META region's HLog filename extension */
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|META_HLOG_FILE_EXTN
 init|=
 literal|".meta"
 decl_stmt|;
 comment|/**    * Configuration name of HLog Trailer's warning size. If a waltrailer's size is greater than the    * configured size, a warning is logged. This is used with Protobuf reader/writer.    */
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|WAL_TRAILER_WARN_SIZE
 init|=
 literal|"hbase.regionserver.waltrailer.warn.size"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|int
 name|DEFAULT_WAL_TRAILER_WARN_SIZE
 init|=
@@ -299,6 +317,8 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|// 1MB
+specifier|static
+specifier|final
 name|Pattern
 name|EDITFILES_NAME_PATTERN
 init|=
@@ -309,11 +329,15 @@ argument_list|(
 literal|"-?[0-9]+"
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|RECOVERED_LOG_TMPFILE_SUFFIX
 init|=
 literal|".temp"
 decl_stmt|;
+specifier|public
 interface|interface
 name|Reader
 block|{
@@ -384,6 +408,7 @@ name|getWALTrailer
 parameter_list|()
 function_decl|;
 block|}
+specifier|public
 interface|interface
 name|Writer
 block|{
@@ -439,6 +464,8 @@ parameter_list|)
 function_decl|;
 block|}
 comment|/**    * Utility class that lets us keep track of the edit with it's key Only used    * when splitting logs    */
+specifier|public
+specifier|static
 class|class
 name|Entry
 implements|implements
@@ -623,6 +650,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * registers WALActionsListener    *    * @param listener    */
+specifier|public
 name|void
 name|registerWALActionsListener
 parameter_list|(
@@ -632,6 +660,7 @@ name|listener
 parameter_list|)
 function_decl|;
 comment|/**    * unregisters WALActionsListener    *    * @param listener    */
+specifier|public
 name|boolean
 name|unregisterWALActionsListener
 parameter_list|(
@@ -641,11 +670,13 @@ name|listener
 parameter_list|)
 function_decl|;
 comment|/**    * @return Current state of the monotonically increasing file id.    */
+specifier|public
 name|long
 name|getFilenum
 parameter_list|()
 function_decl|;
 comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue    *          We'll set log edit/sequence number to this value if it is greater    *          than the current value.    */
+specifier|public
 name|void
 name|setSequenceNumber
 parameter_list|(
@@ -655,11 +686,13 @@ name|newvalue
 parameter_list|)
 function_decl|;
 comment|/**    * @return log sequence number    */
+specifier|public
 name|long
 name|getSequenceNumber
 parameter_list|()
 function_decl|;
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
+specifier|public
 name|byte
 index|[]
 index|[]
@@ -671,6 +704,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.exceptions.FailedLogCloseException    * @throws IOException    */
+specifier|public
 name|byte
 index|[]
 index|[]
@@ -685,6 +719,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Shut down the log.    *    * @throws IOException    */
+specifier|public
 name|void
 name|close
 parameter_list|()
@@ -692,6 +727,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Shut down the log and delete the log directory    *    * @throws IOException    */
+specifier|public
 name|void
 name|closeAndDelete
 parameter_list|()
@@ -699,6 +735,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Same as {@link #appendNoSync(HRegionInfo, byte[], WALEdit, UUID, long, HTableDescriptor)},    * except it causes a sync on the log    */
+specifier|public
 name|void
 name|append
 parameter_list|(
@@ -723,6 +760,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
+specifier|public
 name|void
 name|append
 parameter_list|(
@@ -750,6 +788,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+specifier|public
 name|long
 name|appendNoSync
 parameter_list|(
@@ -776,24 +815,28 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|void
 name|hsync
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|void
 name|hflush
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|void
 name|sync
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
 name|void
 name|sync
 parameter_list|(
@@ -804,11 +847,13 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Obtain a log sequence number.    */
+specifier|public
 name|long
 name|obtainSeqNum
 parameter_list|()
 function_decl|;
 comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, byte[], WALEdit, long, HTableDescriptor)}    * as new oldest seqnum. In case of flush being aborted, we put the stashed value back;    * in case of flush succeeding, the seqNum of that first edit after start becomes the    * valid oldest seqNum for this region.    *    * @return current seqNum, to pass on to flushers (who will put it into the metadata of    *         the resulting file as an upper-bound seqNum for that file), or NULL if flush    *         should not be started.    */
+specifier|public
 name|Long
 name|startCacheFlush
 parameter_list|(
@@ -819,6 +864,7 @@ name|encodedRegionName
 parameter_list|)
 function_decl|;
 comment|/**    * Complete the cache flush.    * @param encodedRegionName Encoded region name.    */
+specifier|public
 name|void
 name|completeCacheFlush
 parameter_list|(
@@ -829,6 +875,7 @@ name|encodedRegionName
 parameter_list|)
 function_decl|;
 comment|/**    * Abort a cache flush. Call if the flush fails. Note that the only recovery    * for an aborted flush currently is a restart of the regionserver so the    * snapshot content dropped by the failure gets restored to the memstore.v    * @param encodedRegionName Encoded region name.    */
+specifier|public
 name|void
 name|abortCacheFlush
 parameter_list|(
@@ -838,16 +885,19 @@ name|encodedRegionName
 parameter_list|)
 function_decl|;
 comment|/**    * @return Coprocessor host.    */
+specifier|public
 name|WALCoprocessorHost
 name|getCoprocessorHost
 parameter_list|()
 function_decl|;
 comment|/**    * Get LowReplication-Roller status    *    * @return lowReplicationRollEnabled    */
+specifier|public
 name|boolean
 name|isLowReplicationRollEnabled
 parameter_list|()
 function_decl|;
 comment|/** Gets the earliest sequence number in the memstore for this particular region.    * This can serve as best-effort "recent" WAL number for this region.    * @param encodedRegionName The region to get the number for.    * @return The number if present, HConstants.NO_SEQNUM if absent.    */
+specifier|public
 name|long
 name|getEarliestMemstoreSeqNum
 parameter_list|(

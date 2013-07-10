@@ -63,6 +63,7 @@ interface|interface
 name|ForeignExceptionSnare
 block|{
 comment|/**    * Rethrow an exception currently held by the {@link ForeignExceptionSnare}. If there is    * no exception this is a no-op    *    * @throws ForeignException    *           all exceptions from remote sources are procedure exceptions    */
+specifier|public
 name|void
 name|rethrowException
 parameter_list|()
@@ -70,11 +71,13 @@ throws|throws
 name|ForeignException
 function_decl|;
 comment|/**    * Non-exceptional form of {@link #rethrowException()}. Checks to see if any    * process to which the exception checkers is bound has created an error that    * would cause a failure.    *    * @return<tt>true</tt> if there has been an error,<tt>false</tt> otherwise    */
+specifier|public
 name|boolean
 name|hasException
 parameter_list|()
 function_decl|;
 comment|/**    * Get the value of the captured exception.    *    * @return the captured foreign exception or null if no exception captured.    */
+specifier|public
 name|ForeignException
 name|getException
 parameter_list|()

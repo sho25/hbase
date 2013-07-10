@@ -43,11 +43,13 @@ interface|interface
 name|MetricsAssertHelper
 block|{
 comment|/**    * Init helper.  This method will make sure that the metrics system is set    * up for tests.    */
+specifier|public
 name|void
 name|init
 parameter_list|()
 function_decl|;
 comment|/**    * Assert that a tag exists and has a given value.    *    * @param name     The name of the tag.    * @param expected The expected value    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertTag
 parameter_list|(
@@ -62,6 +64,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and that it's value is equal to the expected value.    *    * @param name     The name of the gauge    * @param expected The expected value of the gauge.    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGauge
 parameter_list|(
@@ -76,6 +79,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and it's value is greater than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be greater than    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGaugeGt
 parameter_list|(
@@ -90,6 +94,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and it's value is less than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be less than    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGaugeLt
 parameter_list|(
@@ -104,6 +109,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and that it's value is equal to the expected value.    *    * @param name     The name of the gauge    * @param expected The expected value of the gauge.    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGauge
 parameter_list|(
@@ -118,6 +124,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and it's value is greater than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be greater than    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGaugeGt
 parameter_list|(
@@ -132,6 +139,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a gauge exists and it's value is less than a given value    *    * @param name     The name of the gauge    * @param expected Value that the gauge is expected to be less than    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertGaugeLt
 parameter_list|(
@@ -146,6 +154,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a counter exists and that it's value is equal to the expected value.    *    * @param name     The name of the counter.    * @param expected The expected value    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertCounter
 parameter_list|(
@@ -160,6 +169,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a counter exists and that it's value is greater than the given value.    *    * @param name     The name of the counter.    * @param expected The value the counter is expected to be greater than.    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertCounterGt
 parameter_list|(
@@ -174,6 +184,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Assert that a counter exists and that it's value is less than the given value.    *    * @param name     The name of the counter.    * @param expected The value the counter is expected to be less than.    * @param source   The BaseSource{@link BaseSource} that will provide the tags,    *                 gauges, and counters.    */
+specifier|public
 name|void
 name|assertCounterLt
 parameter_list|(
@@ -188,6 +199,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Get the value of a counter.    *    * @param name   name of the counter.    * @param source The BaseSource{@link BaseSource} that will provide the tags,    *               gauges, and counters.    * @return long value of the counter.    */
+specifier|public
 name|long
 name|getCounter
 parameter_list|(
@@ -199,6 +211,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Get the value of a gauge as a double.    *    * @param name   name of the gauge.    * @param source The BaseSource{@link BaseSource} that will provide the tags,    *               gauges, and counters.    * @return double value of the gauge.    */
+specifier|public
 name|double
 name|getGaugeDouble
 parameter_list|(
@@ -210,6 +223,7 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Get the value of a gauge as a long.    *    * @param name   name of the gauge.    * @param source The BaseSource{@link BaseSource} that will provide the tags,    *               gauges, and counters.    * @return long value of the gauge.    */
+specifier|public
 name|long
 name|getGaugeLong
 parameter_list|(

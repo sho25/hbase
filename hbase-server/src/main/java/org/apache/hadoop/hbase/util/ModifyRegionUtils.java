@@ -408,6 +408,7 @@ specifier|public
 interface|interface
 name|RegionFillTask
 block|{
+specifier|public
 name|void
 name|fillRegion
 parameter_list|(

@@ -169,6 +169,7 @@ literal|"DATA_BLOCK_ENCODING"
 argument_list|)
 decl_stmt|;
 comment|/**    * Converts a block from the on-disk format to the in-cache format. Called in    * the following cases:    *<ul>    *<li>After an encoded or unencoded data block is read from disk, but before    * it is put into the cache.</li>    *<li>To convert brand-new blocks to the in-cache format when doing    * cache-on-write.</li>    *</ul>    * @param block a block in an on-disk format (read from HFile or freshly    *          generated).    * @return non null block which is coded according to the settings.    */
+specifier|public
 name|HFileBlock
 name|diskToCacheFormat
 parameter_list|(
@@ -180,6 +181,7 @@ name|isCompaction
 parameter_list|)
 function_decl|;
 comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @param encodingResult the encoded result    * @param blockType block type    * @throws IOException    */
+specifier|public
 name|void
 name|beforeWriteToDisk
 parameter_list|(
@@ -199,6 +201,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Decides whether we should use a scanner over encoded blocks.    * @param isCompaction whether we are in a compaction.    * @return Whether to use encoded scanner.    */
+specifier|public
 name|boolean
 name|useEncodedScanner
 parameter_list|(
@@ -207,6 +210,7 @@ name|isCompaction
 parameter_list|)
 function_decl|;
 comment|/**    * Save metadata in HFile which will be written to disk    * @param writer writer for a given HFile    * @exception IOException on disk problems    */
+specifier|public
 name|void
 name|saveMetadata
 parameter_list|(
@@ -219,16 +223,19 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/** @return the on-disk data block encoding */
+specifier|public
 name|DataBlockEncoding
 name|getEncodingOnDisk
 parameter_list|()
 function_decl|;
 comment|/** @return the preferred in-cache data block encoding for normal reads */
+specifier|public
 name|DataBlockEncoding
 name|getEncodingInCache
 parameter_list|()
 function_decl|;
 comment|/**    * @return the effective in-cache data block encoding, taking into account    *         whether we are doing a compaction.    */
+specifier|public
 name|DataBlockEncoding
 name|getEffectiveEncodingInCache
 parameter_list|(
@@ -237,6 +244,7 @@ name|isCompaction
 parameter_list|)
 function_decl|;
 comment|/**    * Create an encoder specific encoding context object for writing. And the    * encoding context should also perform compression if compressionAlgorithm is    * valid.    *    * @param compressionAlgorithm compression algorithm    * @param headerBytes header bytes    * @return a new {@link HFileBlockEncodingContext} object    */
+specifier|public
 name|HFileBlockEncodingContext
 name|newOnDiskDataBlockEncodingContext
 parameter_list|(
@@ -249,6 +257,7 @@ name|headerBytes
 parameter_list|)
 function_decl|;
 comment|/**    * create a encoder specific decoding context for reading. And the    * decoding context should also do decompression if compressionAlgorithm    * is valid.    *    * @param compressionAlgorithm    * @return a new {@link HFileBlockDecodingContext} object    */
+specifier|public
 name|HFileBlockDecodingContext
 name|newOnDiskDataBlockDecodingContext
 parameter_list|(

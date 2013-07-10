@@ -71,6 +71,7 @@ interface|interface
 name|TotesHRegionInfo
 block|{
 comment|/**    * @return HRegionInfo instance.    */
+specifier|public
 name|HRegionInfo
 name|getHRegionInfo
 parameter_list|()

@@ -47,24 +47,32 @@ extends|extends
 name|BaseSource
 block|{
 comment|/**    * The name of the metrics    */
+specifier|static
+specifier|final
 name|String
 name|METRICS_NAME
 init|=
 literal|"replay"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
+specifier|static
+specifier|final
 name|String
 name|METRICS_CONTEXT
 init|=
 literal|"regionserver"
 decl_stmt|;
 comment|/**    * Description    */
+specifier|static
+specifier|final
 name|String
 name|METRICS_DESCRIPTION
 init|=
 literal|"Metrics about HBase RegionServer HLog Edits Replay"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under in jmx    */
+specifier|static
+specifier|final
 name|String
 name|METRICS_JMX_CONTEXT
 init|=
@@ -72,31 +80,43 @@ literal|"RegionServer,sub="
 operator|+
 name|METRICS_NAME
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_TIME_NAME
 init|=
 literal|"replayTime"
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_TIME_DESC
 init|=
 literal|"Time an replay operation took."
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_BATCH_SIZE_NAME
 init|=
 literal|"replayBatchSize"
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_BATCH_SIZE_DESC
 init|=
 literal|"Number of changes in each replay batch."
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_DATA_SIZE_NAME
 init|=
 literal|"replayDataSize"
 decl_stmt|;
+specifier|static
+specifier|final
 name|String
 name|REPLAY_DATA_SIZE_DESC
 init|=

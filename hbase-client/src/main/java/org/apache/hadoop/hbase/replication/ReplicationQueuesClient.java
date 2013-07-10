@@ -37,6 +37,7 @@ interface|interface
 name|ReplicationQueuesClient
 block|{
 comment|/**    * Get a list of all region servers that have outstanding replication queues. These servers could    * be alive, dead or from a previous run of the cluster.    * @return a list of server names    */
+specifier|public
 name|List
 argument_list|<
 name|String
@@ -45,6 +46,7 @@ name|getListOfReplicators
 parameter_list|()
 function_decl|;
 comment|/**    * Get a list of all HLogs in the given queue on the given region server.    * @param serverName the server name of the region server that owns the queue    * @param queueId a String that identifies the queue    * @return a list of HLogs, null if this region server is dead and has no outstanding queues    */
+specifier|public
 name|List
 argument_list|<
 name|String
@@ -59,6 +61,7 @@ name|queueId
 parameter_list|)
 function_decl|;
 comment|/**    * Get a list of all queues for the specified region server.    * @param serverName the server name of the region server that owns the set of queues    * @return a list of queueIds, null if this region server is not a replicator.    */
+specifier|public
 name|List
 argument_list|<
 name|String

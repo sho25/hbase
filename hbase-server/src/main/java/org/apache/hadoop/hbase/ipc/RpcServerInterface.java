@@ -297,6 +297,7 @@ name|MetricsHBaseServer
 name|getMetrics
 parameter_list|()
 function_decl|;
+specifier|public
 name|void
 name|setQosFunction
 parameter_list|(

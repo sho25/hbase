@@ -99,16 +99,19 @@ interface|interface
 name|SnapshotSentinel
 block|{
 comment|/**    * Check to see if the snapshot is finished, where finished may be success or failure.    * @return<tt>false</tt> if the snapshot is still in progress,<tt>true</tt> if the snapshot has    *         finished    */
+specifier|public
 name|boolean
 name|isFinished
 parameter_list|()
 function_decl|;
 comment|/**    * @return -1 if the snapshot is in progress, otherwise the completion timestamp.    */
+specifier|public
 name|long
 name|getCompletionTimestamp
 parameter_list|()
 function_decl|;
 comment|/**    * Actively cancel a running snapshot.    * @param why Reason for cancellation.    */
+specifier|public
 name|void
 name|cancel
 parameter_list|(
@@ -117,16 +120,19 @@ name|why
 parameter_list|)
 function_decl|;
 comment|/**    * @return the description of the snapshot being run    */
+specifier|public
 name|SnapshotDescription
 name|getSnapshot
 parameter_list|()
 function_decl|;
 comment|/**    * Get the exception that caused the snapshot to fail, if the snapshot has failed.    * @return {@link ForeignException} that caused the snapshot to fail, or<tt>null</tt> if the    *  snapshot is still in progress or has succeeded    */
+specifier|public
 name|ForeignException
 name|getExceptionIfFailed
 parameter_list|()
 function_decl|;
 comment|/**    * Rethrow the exception returned by {@link SnapshotSentinel#getExceptionIfFailed}.    * If there is no exception this is a no-op.    *    * @throws ForeignException all exceptions from remote sources are procedure exceptions    */
+specifier|public
 name|void
 name|rethrowExceptionIfFailed
 parameter_list|()

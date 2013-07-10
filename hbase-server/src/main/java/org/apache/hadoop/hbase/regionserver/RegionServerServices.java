@@ -203,11 +203,13 @@ extends|,
 name|FavoredNodesForRegion
 block|{
 comment|/**    * @return True if this regionserver is stopping.    */
+specifier|public
 name|boolean
 name|isStopping
 parameter_list|()
 function_decl|;
 comment|/** @return the HLog for a particular region. Pass null for getting the    * default (common) WAL */
+specifier|public
 name|HLog
 name|getWAL
 parameter_list|(
@@ -218,26 +220,31 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
+specifier|public
 name|CompactionRequestor
 name|getCompactionRequester
 parameter_list|()
 function_decl|;
 comment|/**    * @return Implementation of {@link FlushRequester} or null.    */
+specifier|public
 name|FlushRequester
 name|getFlushRequester
 parameter_list|()
 function_decl|;
 comment|/**    * @return the RegionServerAccounting for this Region Server    */
+specifier|public
 name|RegionServerAccounting
 name|getRegionServerAccounting
 parameter_list|()
 function_decl|;
 comment|/**    * @return RegionServer's instance of {@link TableLockManager}    */
+specifier|public
 name|TableLockManager
 name|getTableLockManager
 parameter_list|()
 function_decl|;
 comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @param ct Instance of {@link CatalogTracker}    * @throws KeeperException    * @throws IOException    */
+specifier|public
 name|void
 name|postOpenDeployTasks
 parameter_list|(
@@ -255,11 +262,13 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Returns a reference to the region server's RPC server    */
+specifier|public
 name|RpcServerInterface
 name|getRpcServer
 parameter_list|()
 function_decl|;
 comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return map of regions in transition in this RS    */
+specifier|public
 name|ConcurrentMap
 argument_list|<
 name|byte
@@ -271,26 +280,31 @@ name|getRegionsInTransitionInRS
 parameter_list|()
 function_decl|;
 comment|/**    * @return Return the FileSystem object used by the regionserver    */
+specifier|public
 name|FileSystem
 name|getFileSystem
 parameter_list|()
 function_decl|;
 comment|/**    * @return The RegionServer's "Leases" service    */
+specifier|public
 name|Leases
 name|getLeases
 parameter_list|()
 function_decl|;
 comment|/**    * @return hbase executor service    */
+specifier|public
 name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
 comment|/**    * @return The RegionServer's CatalogTracker    */
+specifier|public
 name|CatalogTracker
 name|getCatalogTracker
 parameter_list|()
 function_decl|;
 comment|/**    * @return set of recovering regions on the hosting region server    */
+specifier|public
 name|Map
 argument_list|<
 name|String

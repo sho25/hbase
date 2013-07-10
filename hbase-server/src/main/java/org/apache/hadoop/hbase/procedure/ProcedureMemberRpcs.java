@@ -101,6 +101,7 @@ extends|extends
 name|Closeable
 block|{
 comment|/**    * Initialize and start any threads or connections the member needs.    */
+specifier|public
 name|void
 name|start
 parameter_list|(
@@ -114,11 +115,13 @@ name|member
 parameter_list|)
 function_decl|;
 comment|/**    * Each subprocedure is being executed on a member.  This is the identifier for the member.    * @return the member name    */
+specifier|public
 name|String
 name|getMemberName
 parameter_list|()
 function_decl|;
 comment|/**    * Notify the coordinator that we aborted the specified {@link Subprocedure}    *    * @param sub the {@link Subprocedure} we are aborting    * @param cause the reason why the member's subprocedure aborted    * @throws IOException thrown when the rpcs can't reach the other members of the procedure (and    *  thus can't recover).    */
+specifier|public
 name|void
 name|sendMemberAborted
 parameter_list|(
@@ -132,6 +135,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Notify the coordinator that the specified {@link Subprocedure} has acquired the locally required    * barrier condition.    *    * @param sub the specified {@link Subprocedure}    * @throws IOException if we can't reach the coordinator    */
+specifier|public
 name|void
 name|sendMemberAcquired
 parameter_list|(
@@ -142,6 +146,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Notify the coordinator that the specified {@link Subprocedure} has completed the work that    * needed to be done under the global barrier.    *    * @param sub the specified {@link Subprocedure}    * @throws IOException if we can't reach the coordinator    */
+specifier|public
 name|void
 name|sendMemberCompleted
 parameter_list|(

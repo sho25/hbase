@@ -91,6 +91,7 @@ extends|extends
 name|Closeable
 block|{
 comment|/**    * Grab the next row's worth of values.    * @param results return output array    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+specifier|public
 name|boolean
 name|next
 parameter_list|(
@@ -104,6 +105,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.    * @param result return output array    * @param limit limit on row count to get    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+specifier|public
 name|boolean
 name|next
 parameter_list|(
@@ -120,6 +122,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    * @throws IOException    */
+specifier|public
 name|void
 name|close
 parameter_list|()

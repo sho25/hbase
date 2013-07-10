@@ -289,6 +289,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * Same as {@link #batch(List, Object[])}, but with a callback.    * @since 0.96.0    */
+specifier|public
 parameter_list|<
 name|R
 parameter_list|>
@@ -324,6 +325,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * Same as {@link #batch(List)}, but with a callback.    * @since 0.96.0    */
+specifier|public
 parameter_list|<
 name|R
 parameter_list|>
@@ -526,6 +528,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Performs multiple mutations atomically on a single row. Currently    * {@link Put} and {@link Delete} are supported.    *    * @param rm object that specifies the set of mutations to perform atomically    * @throws IOException    */
+specifier|public
 name|void
 name|mutateRow
 parameter_list|(
@@ -537,6 +540,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Appends values to one or more columns within a single row.    *<p>    * This operation does not appear atomic to readers.  Appends are done    * under a single row lock, so write operations to a row are synchronized, but    * readers do not take row locks so get and scan operations can see this    * operation partially completed.    *    * @param append object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the append operation (maybe null)    */
+specifier|public
 name|Result
 name|append
 parameter_list|(
@@ -548,6 +552,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Increments one or more columns within a single row.    *<p>    * This operation does not appear atomic to readers.  Increments are done    * under a single row lock, so write operations to a row are synchronized, but    * readers do not take row locks so get and scan operations can see this    * operation partially completed.    *    * @param increment object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the increment    */
+specifier|public
 name|Result
 name|increment
 parameter_list|(
@@ -733,6 +738,7 @@ throws|,
 name|Throwable
 function_decl|;
 comment|/**    * See {@link #setAutoFlush(boolean, boolean)}    *    * @param autoFlush    *        Whether or not to enable 'auto-flush'.    */
+specifier|public
 name|void
 name|setAutoFlush
 parameter_list|(
@@ -741,6 +747,7 @@ name|autoFlush
 parameter_list|)
 function_decl|;
 comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed. Failed operations are not retried. This is    * slower but safer.    *<p>    * Turning off {@code autoFlush} means that multiple {@link Put}s will be    * accepted before any RPC is actually sent to do the write operations. If the    * application dies before pending writes get flushed to HBase, data will be    * lost.    *<p>    * When you turn {@code #autoFlush} off, you should also consider the    * {@code clearBufferOnFail} option. By default, asynchronous {@link Put}    * requests will be retried on failure until successful. However, this can    * pollute the writeBuffer and slow down batching performance. Additionally,    * you may want to issue a number of Put requests and call    * {@link #flushCommits()} as a barrier. In both use cases, consider setting    * clearBufferOnFail to true to erase the buffer after {@link #flushCommits()}    * has been called, regardless of success.    *    * @param autoFlush    *        Whether or not to enable 'auto-flush'.    * @param clearBufferOnFail    *        Whether to keep Put failures in the writeBuffer    * @see #flushCommits    */
+specifier|public
 name|void
 name|setAutoFlush
 parameter_list|(
@@ -752,11 +759,13 @@ name|clearBufferOnFail
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
+specifier|public
 name|long
 name|getWriteBufferSize
 parameter_list|()
 function_decl|;
 comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    */
+specifier|public
 name|void
 name|setWriteBufferSize
 parameter_list|(

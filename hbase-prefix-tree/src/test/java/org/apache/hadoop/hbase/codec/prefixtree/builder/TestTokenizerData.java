@@ -120,6 +120,8 @@ argument_list|>
 name|getOutputs
 parameter_list|()
 function_decl|;
+specifier|public
+specifier|static
 class|class
 name|InMemory
 block|{

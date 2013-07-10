@@ -81,6 +81,7 @@ interface|interface
 name|BlockCache
 block|{
 comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    */
+specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
@@ -95,6 +96,7 @@ name|inMemory
 parameter_list|)
 function_decl|;
 comment|/**    * Add block to cache (defaults to not in-memory).    * @param cacheKey The block's cache key.    * @param buf The object to cache.    */
+specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
@@ -106,6 +108,7 @@ name|buf
 parameter_list|)
 function_decl|;
 comment|/**    * Fetch block from cache.    * @param cacheKey Block to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return Block or null if block is not in 2 cache.    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType)    */
+specifier|public
 name|Cacheable
 name|getBlock
 parameter_list|(
@@ -120,6 +123,7 @@ name|repeat
 parameter_list|)
 function_decl|;
 comment|/**    * Evict block from cache.    * @param cacheKey Block to evict    * @return true if block existed and was evicted, false if not    */
+specifier|public
 name|boolean
 name|evictBlock
 parameter_list|(
@@ -128,6 +132,7 @@ name|cacheKey
 parameter_list|)
 function_decl|;
 comment|/**    * Evicts all blocks for the given HFile.    *    * @return the number of blocks evicted    */
+specifier|public
 name|int
 name|evictBlocksByHfileName
 parameter_list|(
@@ -136,41 +141,49 @@ name|hfileName
 parameter_list|)
 function_decl|;
 comment|/**    * Get the statistics for this block cache.    * @return Stats    */
+specifier|public
 name|CacheStats
 name|getStats
 parameter_list|()
 function_decl|;
 comment|/**    * Shutdown the cache.    */
+specifier|public
 name|void
 name|shutdown
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the total size of the block cache, in bytes.    * @return size of cache, in bytes    */
+specifier|public
 name|long
 name|size
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the free size of the block cache, in bytes.    * @return free space in cache, in bytes    */
+specifier|public
 name|long
 name|getFreeSize
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the occupied size of the block cache, in bytes.    * @return occupied space in cache, in bytes    */
+specifier|public
 name|long
 name|getCurrentSize
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of evictions that have occurred.    * @return number of evictions    */
+specifier|public
 name|long
 name|getEvictedCount
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of blocks currently cached in the block cache.    * @return number of blocks in the cache    */
+specifier|public
 name|long
 name|getBlockCount
 parameter_list|()
 function_decl|;
 comment|/**    * Performs a BlockCache summary and returns a List of BlockCacheColumnFamilySummary objects.    * This method could be fairly heavyweight in that it evaluates the entire HBase file-system    * against what is in the RegionServer BlockCache.    *<br><br>    * The contract of this interface is to return the List in sorted order by Table name, then    * ColumnFamily.    *    * @param conf HBaseConfiguration    * @return List of BlockCacheColumnFamilySummary    * @throws IOException exception    */
+specifier|public
 name|List
 argument_list|<
 name|BlockCacheColumnFamilySummary

@@ -8013,11 +8013,14 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * {@link SplitLogManager} can use objects implementing this interface to    * finish off a partially done task by {@link SplitLogWorker}. This provides    * a serialization point at the end of the task processing. Must be    * restartable and idempotent.    */
+specifier|static
 specifier|public
 interface|interface
 name|TaskFinisher
 block|{
 comment|/**      * status that can be returned finish()      */
+specifier|static
+specifier|public
 enum|enum
 name|Status
 block|{
@@ -8031,6 +8034,7 @@ block|)
 enum|;
 block|}
 comment|/**      * finish the partially done task. workername provides clue to where the      * partial results of the partially done tasks are present. taskname is the      * name of the task that was put up in zookeeper.      *<p>      * @param workerName      * @param taskname      * @return DONE if task completed successfully, ERR otherwise      */
+specifier|public
 name|Status
 name|finish
 parameter_list|(

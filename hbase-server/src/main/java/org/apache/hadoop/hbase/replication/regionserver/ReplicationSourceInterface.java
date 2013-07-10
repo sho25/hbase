@@ -113,6 +113,7 @@ interface|interface
 name|ReplicationSourceInterface
 block|{
 comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param peerClusterId the id of the peer cluster    * @throws IOException    */
+specifier|public
 name|void
 name|init
 parameter_list|(
@@ -140,6 +141,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Add a log to the list of logs to replicate    * @param log path to the log to replicate    */
+specifier|public
 name|void
 name|enqueueLog
 parameter_list|(
@@ -148,16 +150,19 @@ name|log
 parameter_list|)
 function_decl|;
 comment|/**    * Get the current log that's replicated    * @return the current log    */
+specifier|public
 name|Path
 name|getCurrentPath
 parameter_list|()
 function_decl|;
 comment|/**    * Start the replication    */
+specifier|public
 name|void
 name|startup
 parameter_list|()
 function_decl|;
 comment|/**    * End the replication    * @param reason why it's terminating    */
+specifier|public
 name|void
 name|terminate
 parameter_list|(
@@ -166,6 +171,7 @@ name|reason
 parameter_list|)
 function_decl|;
 comment|/**    * End the replication    * @param reason why it's terminating    * @param cause the error that's causing it    */
+specifier|public
 name|void
 name|terminate
 parameter_list|(
@@ -177,16 +183,19 @@ name|cause
 parameter_list|)
 function_decl|;
 comment|/**    * Get the id that the source is replicating to    *    * @return peer cluster id    */
+specifier|public
 name|String
 name|getPeerClusterZnode
 parameter_list|()
 function_decl|;
 comment|/**    * Get the id that the source is replicating to.    *    * @return peer cluster id    */
+specifier|public
 name|String
 name|getPeerClusterId
 parameter_list|()
 function_decl|;
 comment|/**    * Get a string representation of the current statistics    * for this source    * @return printable stats    */
+specifier|public
 name|String
 name|getStats
 parameter_list|()

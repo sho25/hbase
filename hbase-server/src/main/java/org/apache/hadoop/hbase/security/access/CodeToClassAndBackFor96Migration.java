@@ -58,6 +58,8 @@ interface|interface
 name|CodeToClassAndBackFor96Migration
 block|{
 comment|/**    * Static map that contains mapping from code to class    */
+specifier|static
+specifier|final
 name|Map
 argument_list|<
 name|Byte
@@ -82,6 +84,8 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Static map that contains mapping from class to code    */
+specifier|static
+specifier|final
 name|Map
 argument_list|<
 name|Class

@@ -1345,10 +1345,12 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Interface to implement to add a specific reordering logic in hdfs.    */
+specifier|static
 interface|interface
 name|ReorderBlocks
 block|{
 comment|/**      *      * @param conf - the conf to use      * @param lbs - the LocatedBlocks to reorder      * @param src - the file name currently read      * @throws IOException - if something went wrong      */
+specifier|public
 name|void
 name|reorderBlocks
 parameter_list|(

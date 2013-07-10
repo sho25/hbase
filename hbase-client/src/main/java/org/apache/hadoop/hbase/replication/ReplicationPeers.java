@@ -135,6 +135,7 @@ interface|interface
 name|ReplicationPeers
 block|{
 comment|/**    * Initialize the ReplicationPeers interface.    * @throws KeeperException    */
+specifier|public
 name|void
 name|init
 parameter_list|()
@@ -144,6 +145,7 @@ throws|,
 name|KeeperException
 function_decl|;
 comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param clusterKey the concatenation of the slave cluster's:    *          hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent    */
+specifier|public
 name|void
 name|addPeer
 parameter_list|(
@@ -157,6 +159,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Removes a remote slave cluster and stops the replication to it.    * @param peerId a short that identifies the cluster    */
+specifier|public
 name|void
 name|removePeer
 parameter_list|(
@@ -167,6 +170,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Restart the replication to the specified remote slave cluster.    * @param peerId a short that identifies the cluster    */
+specifier|public
 name|void
 name|enablePeer
 parameter_list|(
@@ -177,6 +181,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Stop the replication to the specified remote slave cluster.    * @param peerId a short that identifies the cluster    */
+specifier|public
 name|void
 name|disablePeer
 parameter_list|(
@@ -187,6 +192,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the replication status for the specified connected remote slave cluster.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    */
+specifier|public
 name|boolean
 name|getStatusOfConnectedPeer
 parameter_list|(
@@ -195,6 +201,7 @@ name|peerId
 parameter_list|)
 function_decl|;
 comment|/**    * Get a set of all connected remote slave clusters.    * @return set of peer ids    */
+specifier|public
 name|Set
 argument_list|<
 name|String
@@ -203,6 +210,7 @@ name|getConnectedPeers
 parameter_list|()
 function_decl|;
 comment|/**    * List the cluster keys of all remote slave clusters (whether they are enabled/disabled or    * connected/disconnected).    * @return A map of peer ids to peer cluster keys    */
+specifier|public
 name|Map
 argument_list|<
 name|String
@@ -213,6 +221,7 @@ name|getAllPeerClusterKeys
 parameter_list|()
 function_decl|;
 comment|/**    * List the peer ids of all remote slave clusters (whether they are enabled/disabled or    * connected/disconnected).    * @return A list of peer ids    */
+specifier|public
 name|List
 argument_list|<
 name|String
@@ -221,6 +230,7 @@ name|getAllPeerIds
 parameter_list|()
 function_decl|;
 comment|/**    * Attempt to connect to a new remote slave cluster.    * @param peerId a short that identifies the cluster    * @return true if a new connection was made, false if no new connection was made.    */
+specifier|public
 name|boolean
 name|connectToPeer
 parameter_list|(
@@ -233,6 +243,7 @@ throws|,
 name|KeeperException
 function_decl|;
 comment|/**    * Disconnect from a remote slave cluster.    * @param peerId a short that identifies the cluster    */
+specifier|public
 name|void
 name|disconnectFromPeer
 parameter_list|(
@@ -241,6 +252,7 @@ name|peerId
 parameter_list|)
 function_decl|;
 comment|/**    * Returns all region servers from given connected remote slave cluster.    * @param peerId a short that identifies the cluster    * @return addresses of all region servers in the peer cluster. Returns an empty list if the peer    *         cluster is unavailable or there are no region servers in the cluster.    */
+specifier|public
 name|List
 argument_list|<
 name|ServerName
@@ -252,6 +264,7 @@ name|peerId
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the UUID of the provided peer id.    * @param peerId the peer's ID that will be converted into a UUID    * @return a UUID or null if the peer cluster does not exist or is not connected.    */
+specifier|public
 name|UUID
 name|getPeerUUID
 parameter_list|(
@@ -260,6 +273,7 @@ name|peerId
 parameter_list|)
 function_decl|;
 comment|/**    * Returns the configuration needed to talk to the remote slave cluster.    * @param peerId a short that identifies the cluster    * @return the configuration for the peer cluster, null if it was unable to get the configuration    */
+specifier|public
 name|Configuration
 name|getPeerConf
 parameter_list|(

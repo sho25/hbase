@@ -53,6 +53,7 @@ interface|interface
 name|InterProcessLock
 block|{
 comment|/**    * Acquire the lock, waiting indefinitely until the lock is released or    * the thread is interrupted.    * @throws IOException If there is an unrecoverable error releasing the lock    * @throws InterruptedException If current thread is interrupted while    *                              waiting for the lock    */
+specifier|public
 name|void
 name|acquire
 parameter_list|()
@@ -62,6 +63,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * Acquire the lock within a wait time.    * @param timeoutMs The maximum time (in milliseconds) to wait for the lock,    *                  -1 to wait indefinitely    * @return True if the lock was acquired, false if waiting time elapsed    *         before the lock was acquired    * @throws IOException If there is an unrecoverable error talking talking    *                     (e.g., when talking to a lock service) when acquiring    *                     the lock    * @throws InterruptedException If the thread is interrupted while waiting to    *                              acquire the lock    */
+specifier|public
 name|boolean
 name|tryAcquire
 parameter_list|(
@@ -74,6 +76,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * Release the lock.    * @throws IOException If there is an unrecoverable error releasing the lock    * @throws InterruptedException If the thread is interrupted while releasing    *                              the lock    */
+specifier|public
 name|void
 name|release
 parameter_list|()
@@ -83,6 +86,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * If supported, attempts to reap all the locks of this type by forcefully    * deleting the locks (both held and attempted) that have expired according    * to the given timeout. Lock reaping is different than coordinated lock revocation    * in that, there is no coordination, and the behavior is undefined if the    * lock holder is still alive.    * @throws IOException If there is an unrecoverable error reaping the locks    */
+specifier|public
 name|void
 name|reapExpiredLocks
 parameter_list|(
@@ -93,6 +97,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * If supported, attempts to reap all the locks of this type by forcefully    * deleting the locks (both held and attempted). Lock reaping is different    * than coordinated lock revocation in that, there is no coordination, and    * the behavior is undefined if the lock holder is still alive.    * Calling this should have the same affect as calling {@link #reapExpiredLocks(long)}    * with timeout=0.    * @throws IOException If there is an unrecoverable error reaping the locks    */
+specifier|public
 name|void
 name|reapAllLocks
 parameter_list|()
@@ -100,10 +105,13 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * An interface for objects that process lock metadata.    */
+specifier|public
+specifier|static
 interface|interface
 name|MetadataHandler
 block|{
 comment|/**      * Called after lock metadata is successfully read from a distributed      * lock service. This method may contain any procedures for, e.g.,      * printing the metadata in a humanly-readable format.      * @param metadata The metadata      */
+specifier|public
 name|void
 name|handleMetadata
 parameter_list|(
@@ -114,6 +122,7 @@ parameter_list|)
 function_decl|;
 block|}
 comment|/**    * Visits the locks (both held and attempted) of this type with the given    * {@link MetadataHandler}.    * @throws InterruptedException If there is an unrecoverable error    */
+specifier|public
 name|void
 name|visitLocks
 parameter_list|(

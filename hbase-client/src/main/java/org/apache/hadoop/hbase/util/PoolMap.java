@@ -1056,10 +1056,12 @@ parameter_list|<
 name|R
 parameter_list|>
 block|{
+specifier|public
 name|R
 name|get
 parameter_list|()
 function_decl|;
+specifier|public
 name|R
 name|put
 parameter_list|(
@@ -1067,6 +1069,7 @@ name|R
 name|resource
 parameter_list|)
 function_decl|;
+specifier|public
 name|boolean
 name|remove
 parameter_list|(
@@ -1074,10 +1077,12 @@ name|R
 name|resource
 parameter_list|)
 function_decl|;
+specifier|public
 name|void
 name|clear
 parameter_list|()
 function_decl|;
+specifier|public
 name|Collection
 argument_list|<
 name|R
@@ -1085,6 +1090,7 @@ argument_list|>
 name|values
 parameter_list|()
 function_decl|;
+specifier|public
 name|int
 name|size
 parameter_list|()

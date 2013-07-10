@@ -63,21 +63,25 @@ interface|interface
 name|StoreConfigInformation
 block|{
 comment|/**    * TODO: remove after HBASE-7252 is fixed.    * @return Gets the Memstore flush size for the region that this store works with.    */
+specifier|public
 name|long
 name|getMemstoreFlushSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return Gets the cf-specific time-to-live for store files.    */
+specifier|public
 name|long
 name|getStoreFileTtl
 parameter_list|()
 function_decl|;
 comment|/**    * @return Gets the cf-specific compaction check frequency multiplier.    *         The need for compaction (outside of normal checks during flush, open, etc.) will    *         be ascertained every multiplier * HConstants.THREAD_WAKE_FREQUENCY milliseconds.    */
+specifier|public
 name|long
 name|getCompactionCheckMultiplier
 parameter_list|()
 function_decl|;
 comment|/**    * The number of files required before flushes for this store will be blocked.    */
+specifier|public
 name|long
 name|getBlockingFileCount
 parameter_list|()

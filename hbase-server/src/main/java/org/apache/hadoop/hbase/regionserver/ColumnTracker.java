@@ -73,6 +73,7 @@ interface|interface
 name|ColumnTracker
 block|{
 comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @param type The type of the KeyValue    * @param ignoreCount indicates if the KV needs to be excluded while counting    *   (used during compactions. We only count KV's that are older than all the    *   scanners' read points.)    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem    *      caused by a data corruption.    */
+specifier|public
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
@@ -101,26 +102,31 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Updates internal variables in between files    */
+specifier|public
 name|void
 name|update
 parameter_list|()
 function_decl|;
 comment|/**    * Resets the Matcher    */
+specifier|public
 name|void
 name|reset
 parameter_list|()
 function_decl|;
 comment|/**    *    * @return<code>true</code> when done.    */
+specifier|public
 name|boolean
 name|done
 parameter_list|()
 function_decl|;
 comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    *    * Implementations aren't required to return anything useful unless the most recent    * call was to checkColumn() and the return code was SKIP.  This is pretty implementation    * detail-y, but optimizations are like that.    *    * @return null, or a ColumnCount that we should seek to    */
+specifier|public
 name|ColumnCount
 name|getColumnHint
 parameter_list|()
 function_decl|;
 comment|/**    * Retrieve the MatchCode for the next row or column    */
+specifier|public
 name|MatchCode
 name|getNextRowOrNextColumn
 parameter_list|(
@@ -136,6 +142,7 @@ name|qualLength
 parameter_list|)
 function_decl|;
 comment|/**    * Give the tracker a chance to declare it's done based on only the timestamp    * to allow an early out.    *    * @param timestamp    * @return<code>true</code> to early out based on timestamp.    */
+specifier|public
 name|boolean
 name|isDone
 parameter_list|(

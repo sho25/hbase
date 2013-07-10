@@ -70,10 +70,12 @@ name|RandomDistribution
 block|{
 comment|/**    * Interface for discrete (integer) random distributions.    */
 specifier|public
+specifier|static
 interface|interface
 name|DiscreteRNG
 block|{
 comment|/**      * Get the next random number      *      * @return the next random number.      */
+specifier|public
 name|int
 name|nextInt
 parameter_list|()

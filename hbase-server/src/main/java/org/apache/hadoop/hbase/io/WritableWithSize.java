@@ -45,6 +45,7 @@ interface|interface
 name|WritableWithSize
 block|{
 comment|/**    * Provide a size hint to the caller. write() should ideally    * not go beyond this if at all possible.    *    * You can return 0 if there is no size hint.    *    * @return the size of the writable    */
+specifier|public
 name|long
 name|getWritableSize
 parameter_list|()

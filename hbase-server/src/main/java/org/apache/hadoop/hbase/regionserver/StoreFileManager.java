@@ -129,6 +129,8 @@ interface|interface
 name|StoreFileManager
 block|{
 comment|/**    * Loads the initial store files into empty StoreFileManager.    * @param storeFiles The files to load.    */
+specifier|public
+specifier|abstract
 name|void
 name|loadFiles
 parameter_list|(
@@ -140,6 +142,8 @@ name|storeFiles
 parameter_list|)
 function_decl|;
 comment|/**    * Adds new file, either for from MemStore flush or bulk insert, into the structure.    * @param sf New store file.    */
+specifier|public
+specifier|abstract
 name|void
 name|insertNewFile
 parameter_list|(
@@ -148,6 +152,8 @@ name|sf
 parameter_list|)
 function_decl|;
 comment|/**    * Adds compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    */
+specifier|public
+specifier|abstract
 name|void
 name|addCompactionResults
 parameter_list|(
@@ -165,6 +171,8 @@ name|results
 parameter_list|)
 function_decl|;
 comment|/**    * Clears all the files currently in use and returns them.    * @return The files previously in use.    */
+specifier|public
+specifier|abstract
 name|ImmutableCollection
 argument_list|<
 name|StoreFile
@@ -173,6 +181,8 @@ name|clearFiles
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the snapshot of the store files currently in use. Can be used for things like metrics    * and checks; should not assume anything about relations between store files in the list.    * @return The list of StoreFiles.    */
+specifier|public
+specifier|abstract
 name|Collection
 argument_list|<
 name|StoreFile
@@ -181,11 +191,15 @@ name|getStorefiles
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of files currently in use.    * @return The number of files.    */
+specifier|public
+specifier|abstract
 name|int
 name|getStorefileCount
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the store files to scan for a Scan or Get request.    * @param isGet Whether it's a get.    * @param startRow Start row of the request.    * @param stopRow Stop row of the request.    * @return The list of files that are to be read for this request.    */
+specifier|public
+specifier|abstract
 name|Collection
 argument_list|<
 name|StoreFile
@@ -205,6 +219,8 @@ name|stopRow
 parameter_list|)
 function_decl|;
 comment|/**    * Gets initial, full list of candidate store files to check for row-key-before.    * @param targetKey The key that is the basis of the search.    * @return The files that may have the key less than or equal to targetKey, in reverse    *         order of new-ness, and preference for target key.    */
+specifier|public
+specifier|abstract
 name|Iterator
 argument_list|<
 name|StoreFile
@@ -216,6 +232,8 @@ name|targetKey
 parameter_list|)
 function_decl|;
 comment|/**    * Updates the candidate list for finding row key before. Based on the list of candidates    * remaining to check from getCandidateFilesForRowKeyBefore, targetKey and current candidate,    * may trim and reorder the list to remove the files where a better candidate cannot be found.    * @param candidateFiles The candidate files not yet checked for better candidates - return    *                       value from {@link #getCandidateFilesForRowKeyBefore(KeyValue)},    *                       with some files already removed.    * @param targetKey The key to search for.    * @param candidate The current best candidate found.    * @return The list to replace candidateFiles.    */
+specifier|public
+specifier|abstract
 name|Iterator
 argument_list|<
 name|StoreFile
@@ -236,6 +254,8 @@ name|candidate
 parameter_list|)
 function_decl|;
 comment|/**    * Gets the split point for the split of this set of store files (approx. middle).    * @return The mid-point, or null if no split is possible.    * @throws IOException    */
+specifier|public
+specifier|abstract
 name|byte
 index|[]
 name|getSplitPoint
@@ -244,6 +264,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return The store compaction priority.    */
+specifier|public
+specifier|abstract
 name|int
 name|getStoreCompactionPriority
 parameter_list|()

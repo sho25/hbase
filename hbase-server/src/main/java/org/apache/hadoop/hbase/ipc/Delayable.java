@@ -55,6 +55,7 @@ interface|interface
 name|Delayable
 block|{
 comment|/**    * Signal that the call response should be delayed, thus freeing the RPC    * server to handle different requests.    *    * @param delayReturnValue Controls whether the return value of the call    * should be set when ending the delay or right away.  There are cases when    * the return value can be set right away, even if the call is delayed.    */
+specifier|public
 name|void
 name|startDelay
 parameter_list|(
@@ -63,16 +64,19 @@ name|delayReturnValue
 parameter_list|)
 function_decl|;
 comment|/**    * @return is the call delayed?    */
+specifier|public
 name|boolean
 name|isDelayed
 parameter_list|()
 function_decl|;
 comment|/**    * @return is the return value delayed?    */
+specifier|public
 name|boolean
 name|isReturnValueDelayed
 parameter_list|()
 function_decl|;
 comment|/**    * Signal that the  RPC server is now allowed to send the response.    * @param result The value to return to the caller.  If the corresponding    * delay response specified that the return value should    * not be delayed, this parameter must be null.    * @throws IOException    */
+specifier|public
 name|void
 name|endDelay
 parameter_list|(
@@ -83,6 +87,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Signal the end of a delayed RPC, without specifying the return value.  Use    * this only if the return value was not delayed    * @throws IOException    */
+specifier|public
 name|void
 name|endDelay
 parameter_list|()
@@ -90,6 +95,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * End the call, throwing and exception to the caller.  This works regardless    * of the return value being delayed.    * @param t Object to throw to the client.    * @throws IOException    */
+specifier|public
 name|void
 name|endDelayThrowing
 parameter_list|(

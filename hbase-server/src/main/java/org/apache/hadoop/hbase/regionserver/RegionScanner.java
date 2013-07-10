@@ -111,11 +111,13 @@ extends|extends
 name|InternalScanner
 block|{
 comment|/**    * @return The RegionInfo for this scanner.    */
+specifier|public
 name|HRegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
 comment|/**    * @return True if a filter indicates that this scanner will return no further rows.    * @throws IOException in case of I/O failure on a filter.    */
+specifier|public
 name|boolean
 name|isFilterDone
 parameter_list|()
@@ -123,6 +125,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Do a reseek to the required row. Should not be used to seek to a key which    * may come before the current position. Always seeks to the beginning of a    * row boundary.    *    * @throws IOException    * @throws IllegalArgumentException    *           if row is null    *    */
+specifier|public
 name|boolean
 name|reseek
 parameter_list|(
@@ -134,16 +137,19 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return The preferred max buffersize. See {@link Scan#setMaxResultSize(long)}    */
+specifier|public
 name|long
 name|getMaxResultSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return The Scanner's MVCC readPt see {@link MultiVersionConsistencyControl}    */
+specifier|public
 name|long
 name|getMvccReadPoint
 parameter_list|()
 function_decl|;
 comment|/**    * Grab the next row's worth of values with the default limit on the number of values    * to return.    * This is a special internal method to be called from coprocessor hooks to avoid expensive setup.    * Caller must set the thread's readpoint, start and close a region operation, an synchronize on the scanner object.    * See {@link #nextRaw(List, int)}    * @param result return output array    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+specifier|public
 name|boolean
 name|nextRaw
 parameter_list|(
@@ -157,6 +163,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.    * This is a special internal method to be called from coprocessor hooks to avoid expensive setup.    * Caller must set the thread's readpoint, start and close a region operation, an synchronize on the scanner object.    * Example:    *<code><pre>    * HRegion region = ...;    * RegionScanner scanner = ...    * MultiVersionConsistencyControl.setThreadReadPoint(scanner.getMvccReadPoint());    * region.startRegionOperation();    * try {    *   synchronized(scanner) {    *     ...    *     boolean moreRows = scanner.nextRaw(values);    *     ...    *   }    * } finally {    *   region.closeRegionOperation();    * }    *</pre></code>    * @param result return output array    * @param limit limit on row count to get    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+specifier|public
 name|boolean
 name|nextRaw
 parameter_list|(
