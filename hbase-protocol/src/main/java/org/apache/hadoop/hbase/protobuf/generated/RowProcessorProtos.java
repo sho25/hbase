@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string rowProcessorClassName = 1;
+comment|// required string row_processor_class_name = 1;
 name|boolean
 name|hasRowProcessorClassName
 parameter_list|()
@@ -69,7 +69,7 @@ name|String
 name|getRowProcessorClassName
 parameter_list|()
 function_decl|;
-comment|// optional string rowProcessorInitializerMessageName = 2;
+comment|// optional string row_processor_initializer_message_name = 2;
 name|boolean
 name|hasRowProcessorInitializerMessageName
 parameter_list|()
@@ -78,7 +78,7 @@ name|String
 name|getRowProcessorInitializerMessageName
 parameter_list|()
 function_decl|;
-comment|// optional bytes rowProcessorInitializerMessage = 3;
+comment|// optional bytes row_processor_initializer_message = 3;
 name|boolean
 name|hasRowProcessorInitializerMessage
 parameter_list|()
@@ -224,12 +224,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string rowProcessorClassName = 1;
+comment|// required string row_processor_class_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ROWPROCESSORCLASSNAME_FIELD_NUMBER
+name|ROW_PROCESSOR_CLASS_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -418,12 +418,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional string rowProcessorInitializerMessageName = 2;
+comment|// optional string row_processor_initializer_message_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ROWPROCESSORINITIALIZERMESSAGENAME_FIELD_NUMBER
+name|ROW_PROCESSOR_INITIALIZER_MESSAGE_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -612,12 +612,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional bytes rowProcessorInitializerMessage = 3;
+comment|// optional bytes row_processor_initializer_message = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ROWPROCESSORINITIALIZERMESSAGE_FIELD_NUMBER
+name|ROW_PROCESSOR_INITIALIZER_MESSAGE_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -1298,7 +1298,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ROWPROCESSORCLASSNAME_FIELD_NUMBER
+name|ROW_PROCESSOR_CLASS_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1329,7 +1329,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ROWPROCESSORINITIALIZERMESSAGENAME_FIELD_NUMBER
+name|ROW_PROCESSOR_INITIALIZER_MESSAGE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1360,7 +1360,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ROWPROCESSORINITIALIZERMESSAGE_FIELD_NUMBER
+name|ROW_PROCESSOR_INITIALIZER_MESSAGE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3037,7 +3037,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string rowProcessorClassName = 1;
+comment|// required string row_processor_class_name = 1;
 specifier|private
 name|java
 operator|.
@@ -3216,7 +3216,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional string rowProcessorInitializerMessageName = 2;
+comment|// optional string row_processor_initializer_message_name = 2;
 specifier|private
 name|java
 operator|.
@@ -3395,7 +3395,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional bytes rowProcessorInitializerMessage = 3;
+comment|// optional bytes row_processor_initializer_message = 3;
 specifier|private
 name|com
 operator|.
@@ -3551,7 +3551,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes rowProcessorResult = 1;
+comment|// required bytes row_processor_result = 1;
 name|boolean
 name|hasRowProcessorResult
 parameter_list|()
@@ -3697,12 +3697,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes rowProcessorResult = 1;
+comment|// required bytes row_processor_result = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ROWPROCESSORRESULT_FIELD_NUMBER
+name|ROW_PROCESSOR_RESULT_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -4191,7 +4191,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ROWPROCESSORRESULT_FIELD_NUMBER
+name|ROW_PROCESSOR_RESULT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5726,7 +5726,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes rowProcessorResult = 1;
+comment|// required bytes row_processor_result = 1;
 specifier|private
 name|com
 operator|.
@@ -7444,23 +7444,25 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\022RowProcessor.proto\"\210\001\n\023RowProcessorReq"
+literal|"\n\022RowProcessor.proto\"\222\001\n\023RowProcessorReq"
 operator|+
-literal|"uest\022\035\n\025rowProcessorClassName\030\001 \002(\t\022*\n\"r"
+literal|"uest\022 \n\030row_processor_class_name\030\001 \002(\t\022."
 operator|+
-literal|"owProcessorInitializerMessageName\030\002 \001(\t\022"
+literal|"\n&row_processor_initializer_message_name"
 operator|+
-literal|"&\n\036rowProcessorInitializerMessage\030\003 \001(\014\""
+literal|"\030\002 \001(\t\022)\n!row_processor_initializer_mess"
 operator|+
-literal|"0\n\022RowProcessorResult\022\032\n\022rowProcessorRes"
+literal|"age\030\003 \001(\014\"2\n\022RowProcessorResult\022\034\n\024row_p"
 operator|+
-literal|"ult\030\001 \002(\0142K\n\023RowProcessorService\0224\n\007proc"
+literal|"rocessor_result\030\001 \002(\0142K\n\023RowProcessorSer"
 operator|+
-literal|"ess\022\024.RowProcessorRequest\032\023.RowProcessor"
+literal|"vice\0224\n\007Process\022\024.RowProcessorRequest\032\023."
 operator|+
-literal|"ResultBH\n*org.apache.hadoop.hbase.protob"
+literal|"RowProcessorResultBH\n*org.apache.hadoop."
 operator|+
-literal|"uf.generatedB\022RowProcessorProtosH\001\210\001\001\240\001\001"
+literal|"hbase.protobuf.generatedB\022RowProcessorPr"
+operator|+
+literal|"otosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

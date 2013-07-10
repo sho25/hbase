@@ -69,7 +69,7 @@ name|int
 name|getPort
 parameter_list|()
 function_decl|;
-comment|// required uint64 serverStartCode = 2;
+comment|// required uint64 server_start_code = 2;
 name|boolean
 name|hasServerStartCode
 parameter_list|()
@@ -78,7 +78,7 @@ name|long
 name|getServerStartCode
 parameter_list|()
 function_decl|;
-comment|// required uint64 serverCurrentTime = 3;
+comment|// required uint64 server_current_time = 3;
 name|boolean
 name|hasServerCurrentTime
 parameter_list|()
@@ -257,12 +257,12 @@ return|return
 name|port_
 return|;
 block|}
-comment|// required uint64 serverStartCode = 2;
+comment|// required uint64 server_start_code = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERSTARTCODE_FIELD_NUMBER
+name|SERVER_START_CODE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -296,12 +296,12 @@ return|return
 name|serverStartCode_
 return|;
 block|}
-comment|// required uint64 serverCurrentTime = 3;
+comment|// required uint64 server_current_time = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERCURRENTTIME_FIELD_NUMBER
+name|SERVER_CURRENT_TIME_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -1013,7 +1013,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERSTARTCODE_FIELD_NUMBER
+name|SERVER_START_CODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1044,7 +1044,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERCURRENTTIME_FIELD_NUMBER
+name|SERVER_CURRENT_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2814,7 +2814,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 serverStartCode = 2;
+comment|// required uint64 server_start_code = 2;
 specifier|private
 name|long
 name|serverStartCode_
@@ -2893,7 +2893,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 serverCurrentTime = 3;
+comment|// required uint64 server_current_time = 3;
 specifier|private
 name|long
 name|serverCurrentTime_
@@ -3004,7 +3004,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .NameStringPair mapEntries = 1;
+comment|// repeated .NameStringPair map_entries = 1;
 name|java
 operator|.
 name|util
@@ -3230,12 +3230,12 @@ operator|.
 name|internal_static_RegionServerStartupResponse_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .NameStringPair mapEntries = 1;
+comment|// repeated .NameStringPair map_entries = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MAPENTRIES_FIELD_NUMBER
+name|MAP_ENTRIES_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -3865,7 +3865,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MAPENTRIES_FIELD_NUMBER
+name|MAP_ENTRIES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5634,7 +5634,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .NameStringPair mapEntries = 1;
+comment|// repeated .NameStringPair map_entries = 1;
 specifier|private
 name|java
 operator|.
@@ -13213,7 +13213,7 @@ name|ServerNameOrBuilder
 name|getServerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required string errorMessage = 2;
+comment|// required string error_message = 2;
 name|boolean
 name|hasErrorMessage
 parameter_list|()
@@ -13443,12 +13443,12 @@ return|return
 name|server_
 return|;
 block|}
-comment|// required string errorMessage = 2;
+comment|// required string error_message = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ERRORMESSAGE_FIELD_NUMBER
+name|ERROR_MESSAGE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -14249,7 +14249,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ERRORMESSAGE_FIELD_NUMBER
+name|ERROR_MESSAGE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -16682,7 +16682,7 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// required string errorMessage = 2;
+comment|// required string error_message = 2;
 specifier|private
 name|java
 operator|.
@@ -18770,7 +18770,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes regionName = 1;
+comment|// required bytes region_name = 1;
 name|boolean
 name|hasRegionName
 parameter_list|()
@@ -18916,12 +18916,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes regionName = 1;
+comment|// required bytes region_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONNAME_FIELD_NUMBER
+name|REGION_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -19410,7 +19410,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONNAME_FIELD_NUMBER
+name|REGION_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -20945,7 +20945,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes regionName = 1;
+comment|// required bytes region_name = 1;
 specifier|private
 name|com
 operator|.
@@ -21101,7 +21101,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 name|boolean
 name|hasLastFlushedSequenceId
 parameter_list|()
@@ -21241,12 +21241,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LASTFLUSHEDSEQUENCEID_FIELD_NUMBER
+name|LAST_FLUSHED_SEQUENCE_ID_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -21714,7 +21714,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LASTFLUSHEDSEQUENCEID_FIELD_NUMBER
+name|LAST_FLUSHED_SEQUENCE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -23241,7 +23241,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 specifier|private
 name|long
 name|lastFlushedSequenceId_
@@ -27124,55 +27124,55 @@ init|=
 block|{
 literal|"\n\030RegionServerStatus.proto\032\013hbase.proto\032"
 operator|+
-literal|"\023ClusterStatus.proto\"^\n\032RegionServerStar"
+literal|"\023ClusterStatus.proto\"b\n\032RegionServerStar"
 operator|+
-literal|"tupRequest\022\014\n\004port\030\001 \002(\r\022\027\n\017serverStartC"
+literal|"tupRequest\022\014\n\004port\030\001 \002(\r\022\031\n\021server_start"
 operator|+
-literal|"ode\030\002 \002(\004\022\031\n\021serverCurrentTime\030\003 \002(\004\"B\n\033"
+literal|"_code\030\002 \002(\004\022\033\n\023server_current_time\030\003 \002(\004"
 operator|+
-literal|"RegionServerStartupResponse\022#\n\nmapEntrie"
+literal|"\"C\n\033RegionServerStartupResponse\022$\n\013map_e"
 operator|+
-literal|"s\030\001 \003(\0132\017.NameStringPair\"S\n\031RegionServer"
+literal|"ntries\030\001 \003(\0132\017.NameStringPair\"S\n\031RegionS"
 operator|+
-literal|"ReportRequest\022\033\n\006server\030\001 \002(\0132\013.ServerNa"
+literal|"erverReportRequest\022\033\n\006server\030\001 \002(\0132\013.Ser"
 operator|+
-literal|"me\022\031\n\004load\030\002 \001(\0132\013.ServerLoad\"\034\n\032RegionS"
+literal|"verName\022\031\n\004load\030\002 \001(\0132\013.ServerLoad\"\034\n\032Re"
 operator|+
-literal|"erverReportResponse\"N\n\031ReportRSFatalErro"
+literal|"gionServerReportResponse\"O\n\031ReportRSFata"
 operator|+
-literal|"rRequest\022\033\n\006server\030\001 \002(\0132\013.ServerName\022\024\n"
+literal|"lErrorRequest\022\033\n\006server\030\001 \002(\0132\013.ServerNa"
 block|,
-literal|"\014errorMessage\030\002 \002(\t\"\034\n\032ReportRSFatalErro"
+literal|"me\022\025\n\rerror_message\030\002 \002(\t\"\034\n\032ReportRSFat"
 operator|+
-literal|"rResponse\"5\n\037GetLastFlushedSequenceIdReq"
+literal|"alErrorResponse\"6\n\037GetLastFlushedSequenc"
 operator|+
-literal|"uest\022\022\n\nregionName\030\001 \002(\014\"A\n GetLastFlush"
+literal|"eIdRequest\022\023\n\013region_name\030\001 \002(\014\"D\n GetLa"
 operator|+
-literal|"edSequenceIdResponse\022\035\n\025lastFlushedSeque"
+literal|"stFlushedSequenceIdResponse\022 \n\030last_flus"
 operator|+
-literal|"nceId\030\001 \002(\0042\354\002\n\031RegionServerStatusServic"
+literal|"hed_sequence_id\030\001 \002(\0042\354\002\n\031RegionServerSt"
 operator|+
-literal|"e\022P\n\023regionServerStartup\022\033.RegionServerS"
+literal|"atusService\022P\n\023RegionServerStartup\022\033.Reg"
 operator|+
-literal|"tartupRequest\032\034.RegionServerStartupRespo"
+literal|"ionServerStartupRequest\032\034.RegionServerSt"
 operator|+
-literal|"nse\022M\n\022regionServerReport\022\032.RegionServer"
+literal|"artupResponse\022M\n\022RegionServerReport\022\032.Re"
 operator|+
-literal|"ReportRequest\032\033.RegionServerReportRespon"
+literal|"gionServerReportRequest\032\033.RegionServerRe"
 operator|+
-literal|"se\022M\n\022reportRSFatalError\022\032.ReportRSFatal"
+literal|"portResponse\022M\n\022ReportRSFatalError\022\032.Rep"
 block|,
-literal|"ErrorRequest\032\033.ReportRSFatalErrorRespons"
+literal|"ortRSFatalErrorRequest\032\033.ReportRSFatalEr"
 operator|+
-literal|"e\022_\n\030getLastFlushedSequenceId\022 .GetLastF"
+literal|"rorResponse\022_\n\030GetLastFlushedSequenceId\022"
 operator|+
-literal|"lushedSequenceIdRequest\032!.GetLastFlushed"
+literal|" .GetLastFlushedSequenceIdRequest\032!.GetL"
 operator|+
-literal|"SequenceIdResponseBN\n*org.apache.hadoop."
+literal|"astFlushedSequenceIdResponseBN\n*org.apac"
 operator|+
-literal|"hbase.protobuf.generatedB\030RegionServerSt"
+literal|"he.hadoop.hbase.protobuf.generatedB\030Regi"
 operator|+
-literal|"atusProtosH\001\210\001\001\240\001\001"
+literal|"onServerStatusProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

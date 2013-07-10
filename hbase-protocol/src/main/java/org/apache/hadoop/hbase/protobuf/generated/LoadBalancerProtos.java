@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bool balancerOn = 1;
+comment|// optional bool balancer_on = 1;
 name|boolean
 name|hasBalancerOn
 parameter_list|()
@@ -200,12 +200,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool balancerOn = 1;
+comment|// optional bool balancer_on = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BALANCERON_FIELD_NUMBER
+name|BALANCER_ON_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -658,7 +658,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BALANCERON_FIELD_NUMBER
+name|BALANCER_ON_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2174,7 +2174,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool balancerOn = 1;
+comment|// optional bool balancer_on = 1;
 specifier|private
 name|boolean
 name|balancerOn_
@@ -2341,13 +2341,13 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\022LoadBalancer.proto\"\'\n\021LoadBalancerStat"
+literal|"\n\022LoadBalancer.proto\"(\n\021LoadBalancerStat"
 operator|+
-literal|"e\022\022\n\nbalancerOn\030\001 \001(\010BE\n*org.apache.hado"
+literal|"e\022\023\n\013balancer_on\030\001 \001(\010BE\n*org.apache.had"
 operator|+
-literal|"op.hbase.protobuf.generatedB\022LoadBalance"
+literal|"oop.hbase.protobuf.generatedB\022LoadBalanc"
 operator|+
-literal|"rProtosH\001\240\001\001"
+literal|"erProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

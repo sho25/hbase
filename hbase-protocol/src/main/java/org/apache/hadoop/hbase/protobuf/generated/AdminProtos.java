@@ -101,7 +101,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional bool compactionState = 2;
+comment|// optional bool compaction_state = 2;
 name|boolean
 name|hasCompactionState
 parameter_list|()
@@ -331,12 +331,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional bool compactionState = 2;
+comment|// optional bool compaction_state = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPACTIONSTATE_FIELD_NUMBER
+name|COMPACTION_STATE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -964,7 +964,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPACTIONSTATE_FIELD_NUMBER
+name|COMPACTION_STATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3386,7 +3386,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional bool compactionState = 2;
+comment|// optional bool compaction_state = 2;
 specifier|private
 name|boolean
 name|compactionState_
@@ -3497,7 +3497,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 name|boolean
 name|hasRegionInfo
 parameter_list|()
@@ -3538,7 +3538,7 @@ name|RegionInfoOrBuilder
 name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional .GetRegionInfoResponse.CompactionState compactionState = 2;
+comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
 name|boolean
 name|hasCompactionState
 parameter_list|()
@@ -4083,12 +4083,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -4173,12 +4173,12 @@ return|return
 name|regionInfo_
 return|;
 block|}
-comment|// optional .GetRegionInfoResponse.CompactionState compactionState = 2;
+comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPACTIONSTATE_FIELD_NUMBER
+name|COMPACTION_STATE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -4831,7 +4831,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4862,7 +4862,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPACTIONSTATE_FIELD_NUMBER
+name|COMPACTION_STATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6675,7 +6675,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 specifier|private
 name|org
 operator|.
@@ -7369,7 +7369,7 @@ return|return
 name|regionInfoBuilder_
 return|;
 block|}
-comment|// optional .GetRegionInfoResponse.CompactionState compactionState = 2;
+comment|// optional .GetRegionInfoResponse.CompactionState compaction_state = 2;
 specifier|private
 name|org
 operator|.
@@ -11409,7 +11409,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated string storeFile = 1;
+comment|// repeated string store_file = 1;
 name|java
 operator|.
 name|util
@@ -11559,12 +11559,12 @@ operator|.
 name|internal_static_GetStoreFileResponse_fieldAccessorTable
 return|;
 block|}
-comment|// repeated string storeFile = 1;
+comment|// repeated string store_file = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOREFILE_FIELD_NUMBER
+name|STORE_FILE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -12071,7 +12071,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOREFILE_FIELD_NUMBER
+name|STORE_FILE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -13642,7 +13642,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated string storeFile = 1;
+comment|// repeated string store_file = 1;
 specifier|private
 name|com
 operator|.
@@ -15840,7 +15840,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .RegionInfo regionInfo = 1;
+comment|// repeated .RegionInfo region_info = 1;
 name|java
 operator|.
 name|util
@@ -16066,12 +16066,12 @@ operator|.
 name|internal_static_GetOnlineRegionResponse_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .RegionInfo regionInfo = 1;
+comment|// repeated .RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -16701,7 +16701,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18470,7 +18470,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .RegionInfo regionInfo = 1;
+comment|// repeated .RegionInfo region_info = 1;
 specifier|private
 name|java
 operator|.
@@ -19817,7 +19817,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .OpenRegionRequest.RegionOpenInfo openInfo = 1;
+comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
 name|java
 operator|.
 name|util
@@ -20104,7 +20104,7 @@ name|RegionInfoOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint32 versionOfOfflineNode = 2;
+comment|// optional uint32 version_of_offline_node = 2;
 name|boolean
 name|hasVersionOfOfflineNode
 parameter_list|()
@@ -20113,7 +20113,7 @@ name|int
 name|getVersionOfOfflineNode
 parameter_list|()
 function_decl|;
-comment|// repeated .ServerName favoredNodes = 3;
+comment|// repeated .ServerName favored_nodes = 3;
 name|java
 operator|.
 name|util
@@ -20433,12 +20433,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional uint32 versionOfOfflineNode = 2;
+comment|// optional uint32 version_of_offline_node = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|VERSIONOFOFFLINENODE_FIELD_NUMBER
+name|VERSION_OF_OFFLINE_NODE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -20472,12 +20472,12 @@ return|return
 name|versionOfOfflineNode_
 return|;
 block|}
-comment|// repeated .ServerName favoredNodes = 3;
+comment|// repeated .ServerName favored_nodes = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FAVOREDNODES_FIELD_NUMBER
+name|FAVORED_NODES_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -21379,7 +21379,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|VERSIONOFOFFLINENODE_FIELD_NUMBER
+name|VERSION_OF_OFFLINE_NODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -21409,7 +21409,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FAVOREDNODES_FIELD_NUMBER
+name|FAVORED_NODES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -24217,7 +24217,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional uint32 versionOfOfflineNode = 2;
+comment|// optional uint32 version_of_offline_node = 2;
 specifier|private
 name|int
 name|versionOfOfflineNode_
@@ -24296,7 +24296,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .ServerName favoredNodes = 3;
+comment|// repeated .ServerName favored_nodes = 3;
 specifier|private
 name|java
 operator|.
@@ -25631,12 +25631,12 @@ expr_stmt|;
 block|}
 comment|// @@protoc_insertion_point(class_scope:OpenRegionRequest.RegionOpenInfo)
 block|}
-comment|// repeated .OpenRegionRequest.RegionOpenInfo openInfo = 1;
+comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|OPENINFO_FIELD_NUMBER
+name|OPEN_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -26276,7 +26276,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|OPENINFO_FIELD_NUMBER
+name|OPEN_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -28049,7 +28049,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .OpenRegionRequest.RegionOpenInfo openInfo = 1;
+comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
 specifier|private
 name|java
 operator|.
@@ -29452,7 +29452,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .OpenRegionResponse.RegionOpeningState openingState = 1;
+comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
 name|java
 operator|.
 name|util
@@ -30000,12 +30000,12 @@ expr_stmt|;
 block|}
 comment|// @@protoc_insertion_point(enum_scope:OpenRegionResponse.RegionOpeningState)
 block|}
-comment|// repeated .OpenRegionResponse.RegionOpeningState openingState = 1;
+comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|OPENINGSTATE_FIELD_NUMBER
+name|OPENING_STATE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -30565,7 +30565,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|OPENINGSTATE_FIELD_NUMBER
+name|OPENING_STATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32313,7 +32313,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .OpenRegionResponse.RegionOpeningState openingState = 1;
+comment|// repeated .OpenRegionResponse.RegionOpeningState opening_state = 1;
 specifier|private
 name|java
 operator|.
@@ -32762,7 +32762,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint32 versionOfClosingNode = 2;
+comment|// optional uint32 version_of_closing_node = 2;
 name|boolean
 name|hasVersionOfClosingNode
 parameter_list|()
@@ -32771,7 +32771,7 @@ name|int
 name|getVersionOfClosingNode
 parameter_list|()
 function_decl|;
-comment|// optional bool transitionInZK = 3 [default = true];
+comment|// optional bool transition_in_ZK = 3 [default = true];
 name|boolean
 name|hasTransitionInZK
 parameter_list|()
@@ -32780,7 +32780,7 @@ name|boolean
 name|getTransitionInZK
 parameter_list|()
 function_decl|;
-comment|// optional .ServerName destinationServer = 4;
+comment|// optional .ServerName destination_server = 4;
 name|boolean
 name|hasDestinationServer
 parameter_list|()
@@ -33042,12 +33042,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional uint32 versionOfClosingNode = 2;
+comment|// optional uint32 version_of_closing_node = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|VERSIONOFCLOSINGNODE_FIELD_NUMBER
+name|VERSION_OF_CLOSING_NODE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -33081,12 +33081,12 @@ return|return
 name|versionOfClosingNode_
 return|;
 block|}
-comment|// optional bool transitionInZK = 3 [default = true];
+comment|// optional bool transition_in_ZK = 3 [default = true];
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TRANSITIONINZK_FIELD_NUMBER
+name|TRANSITION_IN_ZK_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -33120,12 +33120,12 @@ return|return
 name|transitionInZK_
 return|;
 block|}
-comment|// optional .ServerName destinationServer = 4;
+comment|// optional .ServerName destination_server = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DESTINATIONSERVER_FIELD_NUMBER
+name|DESTINATION_SERVER_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -34033,7 +34033,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|VERSIONOFCLOSINGNODE_FIELD_NUMBER
+name|VERSION_OF_CLOSING_NODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -34061,7 +34061,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TRANSITIONINZK_FIELD_NUMBER
+name|TRANSITION_IN_ZK_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -34092,7 +34092,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|DESTINATIONSERVER_FIELD_NUMBER
+name|DESTINATION_SERVER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -36792,7 +36792,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional uint32 versionOfClosingNode = 2;
+comment|// optional uint32 version_of_closing_node = 2;
 specifier|private
 name|int
 name|versionOfClosingNode_
@@ -36871,7 +36871,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool transitionInZK = 3 [default = true];
+comment|// optional bool transition_in_ZK = 3 [default = true];
 specifier|private
 name|boolean
 name|transitionInZK_
@@ -36952,7 +36952,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ServerName destinationServer = 4;
+comment|// optional .ServerName destination_server = 4;
 specifier|private
 name|org
 operator|.
@@ -39970,7 +39970,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint64 ifOlderThanTs = 2;
+comment|// optional uint64 if_older_than_ts = 2;
 name|boolean
 name|hasIfOlderThanTs
 parameter_list|()
@@ -40200,12 +40200,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional uint64 ifOlderThanTs = 2;
+comment|// optional uint64 if_older_than_ts = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|IFOLDERTHANTS_FIELD_NUMBER
+name|IF_OLDER_THAN_TS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -40833,7 +40833,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|IFOLDERTHANTS_FIELD_NUMBER
+name|IF_OLDER_THAN_TS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -43255,7 +43255,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional uint64 ifOlderThanTs = 2;
+comment|// optional uint64 if_older_than_ts = 2;
 specifier|private
 name|long
 name|ifOlderThanTs_
@@ -43366,7 +43366,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint64 lastFlushTime = 1;
+comment|// required uint64 last_flush_time = 1;
 name|boolean
 name|hasLastFlushTime
 parameter_list|()
@@ -43515,12 +43515,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushTime = 1;
+comment|// required uint64 last_flush_time = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LASTFLUSHTIME_FIELD_NUMBER
+name|LAST_FLUSH_TIME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -44120,7 +44120,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LASTFLUSHTIME_FIELD_NUMBER
+name|LAST_FLUSH_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -45749,7 +45749,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushTime = 1;
+comment|// required uint64 last_flush_time = 1;
 specifier|private
 name|long
 name|lastFlushTime_
@@ -45980,7 +45980,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional bytes splitPoint = 2;
+comment|// optional bytes split_point = 2;
 name|boolean
 name|hasSplitPoint
 parameter_list|()
@@ -46216,12 +46216,12 @@ return|return
 name|region_
 return|;
 block|}
-comment|// optional bytes splitPoint = 2;
+comment|// optional bytes split_point = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SPLITPOINT_FIELD_NUMBER
+name|SPLIT_POINT_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -46870,7 +46870,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SPLITPOINT_FIELD_NUMBER
+name|SPLIT_POINT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -49300,7 +49300,7 @@ return|return
 name|regionBuilder_
 return|;
 block|}
-comment|// optional bytes splitPoint = 2;
+comment|// optional bytes split_point = 2;
 specifier|private
 name|com
 operator|.
@@ -57049,7 +57049,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier regionA = 1;
+comment|// required .RegionSpecifier region_a = 1;
 name|boolean
 name|hasRegionA
 parameter_list|()
@@ -57090,7 +57090,7 @@ name|RegionSpecifierOrBuilder
 name|getRegionAOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .RegionSpecifier regionB = 2;
+comment|// required .RegionSpecifier region_b = 2;
 name|boolean
 name|hasRegionB
 parameter_list|()
@@ -57271,12 +57271,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier regionA = 1;
+comment|// required .RegionSpecifier region_a = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONA_FIELD_NUMBER
+name|REGION_A_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -57361,12 +57361,12 @@ return|return
 name|regionA_
 return|;
 block|}
-comment|// required .RegionSpecifier regionB = 2;
+comment|// required .RegionSpecifier region_b = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONB_FIELD_NUMBER
+name|REGION_B_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -58197,7 +58197,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONA_FIELD_NUMBER
+name|REGION_A_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -58228,7 +58228,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONB_FIELD_NUMBER
+name|REGION_B_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -60198,7 +60198,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier regionA = 1;
+comment|// required .RegionSpecifier region_a = 1;
 specifier|private
 name|org
 operator|.
@@ -60892,7 +60892,7 @@ return|return
 name|regionABuilder_
 return|;
 block|}
-comment|// required .RegionSpecifier regionB = 2;
+comment|// required .RegionSpecifier region_b = 2;
 specifier|private
 name|org
 operator|.
@@ -63615,7 +63615,7 @@ name|WALKeyOrBuilder
 name|getKeyOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated bytes keyValueBytes = 2;
+comment|// repeated bytes key_value_bytes = 2;
 name|java
 operator|.
 name|util
@@ -63650,7 +63650,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional int32 associatedCellCount = 3;
+comment|// optional int32 associated_cell_count = 3;
 name|boolean
 name|hasAssociatedCellCount
 parameter_list|()
@@ -63880,12 +63880,12 @@ return|return
 name|key_
 return|;
 block|}
-comment|// repeated bytes keyValueBytes = 2;
+comment|// repeated bytes key_value_bytes = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYVALUEBYTES_FIELD_NUMBER
+name|KEY_VALUE_BYTES_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -63963,12 +63963,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional int32 associatedCellCount = 3;
+comment|// optional int32 associated_cell_count = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+name|ASSOCIATED_CELL_COUNT_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -64718,7 +64718,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|KEYVALUEBYTES_FIELD_NUMBER
+name|KEY_VALUE_BYTES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -64749,7 +64749,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ASSOCIATEDCELLCOUNT_FIELD_NUMBER
+name|ASSOCIATED_CELL_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -67304,7 +67304,7 @@ return|return
 name|keyBuilder_
 return|;
 block|}
-comment|// repeated bytes keyValueBytes = 2;
+comment|// repeated bytes key_value_bytes = 2;
 specifier|private
 name|java
 operator|.
@@ -67612,7 +67612,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int32 associatedCellCount = 3;
+comment|// optional int32 associated_cell_count = 3;
 specifier|private
 name|int
 name|associatedCellCount_
@@ -75454,7 +75454,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated bytes regionToFlush = 1;
+comment|// repeated bytes region_to_flush = 1;
 name|java
 operator|.
 name|util
@@ -75616,12 +75616,12 @@ operator|.
 name|internal_static_RollWALWriterResponse_fieldAccessorTable
 return|;
 block|}
-comment|// repeated bytes regionToFlush = 1;
+comment|// repeated bytes region_to_flush = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONTOFLUSH_FIELD_NUMBER
+name|REGION_TO_FLUSH_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -76147,7 +76147,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONTOFLUSH_FIELD_NUMBER
+name|REGION_TO_FLUSH_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -77717,7 +77717,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated bytes regionToFlush = 1;
+comment|// repeated bytes region_to_flush = 1;
 specifier|private
 name|java
 operator|.
@@ -84320,7 +84320,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerName serverName = 1;
+comment|// required .ServerName server_name = 1;
 name|boolean
 name|hasServerName
 parameter_list|()
@@ -84361,7 +84361,7 @@ name|ServerNameOrBuilder
 name|getServerNameOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint32 webuiPort = 2;
+comment|// optional uint32 webui_port = 2;
 name|boolean
 name|hasWebuiPort
 parameter_list|()
@@ -84501,12 +84501,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName serverName = 1;
+comment|// required .ServerName server_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -84591,12 +84591,12 @@ return|return
 name|serverName_
 return|;
 block|}
-comment|// optional uint32 webuiPort = 2;
+comment|// optional uint32 webui_port = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WEBUIPORT_FIELD_NUMBER
+name|WEBUI_PORT_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -85193,7 +85193,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -85224,7 +85224,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WEBUIPORT_FIELD_NUMBER
+name|WEBUI_PORT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -86949,7 +86949,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerName serverName = 1;
+comment|// required .ServerName server_name = 1;
 specifier|private
 name|org
 operator|.
@@ -87643,7 +87643,7 @@ return|return
 name|serverNameBuilder_
 return|;
 block|}
-comment|// optional uint32 webuiPort = 2;
+comment|// optional uint32 webui_port = 2;
 specifier|private
 name|int
 name|webuiPort_
@@ -87754,7 +87754,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ServerInfo serverInfo = 1;
+comment|// required .ServerInfo server_info = 1;
 name|boolean
 name|hasServerInfo
 parameter_list|()
@@ -87926,12 +87926,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerInfo serverInfo = 1;
+comment|// required .ServerInfo server_info = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERINFO_FIELD_NUMBER
+name|SERVER_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -88486,7 +88486,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERINFO_FIELD_NUMBER
+name|SERVER_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -90143,7 +90143,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ServerInfo serverInfo = 1;
+comment|// required .ServerInfo server_info = 1;
 specifier|private
 name|org
 operator|.
@@ -102027,151 +102027,153 @@ init|=
 block|{
 literal|"\n\013Admin.proto\032\014Client.proto\032\013hbase.proto"
 operator|+
-literal|"\032\tWAL.proto\"Q\n\024GetRegionInfoRequest\022 \n\006r"
+literal|"\032\tWAL.proto\"R\n\024GetRegionInfoRequest\022 \n\006r"
 operator|+
-literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\027\n\017compact"
+literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\030\n\020compact"
 operator|+
-literal|"ionState\030\002 \001(\010\"\301\001\n\025GetRegionInfoResponse"
+literal|"ion_state\030\002 \001(\010\"\303\001\n\025GetRegionInfoRespons"
 operator|+
-literal|"\022\037\n\nregionInfo\030\001 \002(\0132\013.RegionInfo\022?\n\017com"
+literal|"e\022 \n\013region_info\030\001 \002(\0132\013.RegionInfo\022@\n\020c"
 operator|+
-literal|"pactionState\030\002 \001(\0162&.GetRegionInfoRespon"
+literal|"ompaction_state\030\002 \001(\0162&.GetRegionInfoRes"
 operator|+
-literal|"se.CompactionState\"F\n\017CompactionState\022\010\n"
+literal|"ponse.CompactionState\"F\n\017CompactionState"
 operator|+
-literal|"\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_A"
+literal|"\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJO"
 operator|+
-literal|"ND_MINOR\020\003\"G\n\023GetStoreFileRequest\022 \n\006reg"
+literal|"R_AND_MINOR\020\003\"G\n\023GetStoreFileRequest\022 \n\006"
 operator|+
-literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006family\030\002 "
+literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006family"
 block|,
-literal|"\003(\014\")\n\024GetStoreFileResponse\022\021\n\tstoreFile"
+literal|"\030\002 \003(\014\"*\n\024GetStoreFileResponse\022\022\n\nstore_"
 operator|+
-literal|"\030\001 \003(\t\"\030\n\026GetOnlineRegionRequest\":\n\027GetO"
+literal|"file\030\001 \003(\t\"\030\n\026GetOnlineRegionRequest\";\n\027"
 operator|+
-literal|"nlineRegionResponse\022\037\n\nregionInfo\030\001 \003(\0132"
+literal|"GetOnlineRegionResponse\022 \n\013region_info\030\001"
 operator|+
-literal|"\013.RegionInfo\"\270\001\n\021OpenRegionRequest\0223\n\010op"
+literal|" \003(\0132\013.RegionInfo\"\275\001\n\021OpenRegionRequest\022"
 operator|+
-literal|"enInfo\030\001 \003(\0132!.OpenRegionRequest.RegionO"
+literal|"4\n\topen_info\030\001 \003(\0132!.OpenRegionRequest.R"
 operator|+
-literal|"penInfo\032n\n\016RegionOpenInfo\022\033\n\006region\030\001 \002("
+literal|"egionOpenInfo\032r\n\016RegionOpenInfo\022\033\n\006regio"
 operator|+
-literal|"\0132\013.RegionInfo\022\034\n\024versionOfOfflineNode\030\002"
+literal|"n\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_of_offli"
 operator|+
-literal|" \001(\r\022!\n\014favoredNodes\030\003 \003(\0132\013.ServerName\""
+literal|"ne_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 \003(\0132\013.S"
 operator|+
-literal|"\234\001\n\022OpenRegionResponse\022<\n\014openingState\030\001"
+literal|"erverName\"\235\001\n\022OpenRegionResponse\022=\n\ropen"
 operator|+
-literal|" \003(\0162&.OpenRegionResponse.RegionOpeningS"
+literal|"ing_state\030\001 \003(\0162&.OpenRegionResponse.Reg"
 block|,
-literal|"tate\"H\n\022RegionOpeningState\022\n\n\006OPENED\020\000\022\022"
+literal|"ionOpeningState\"H\n\022RegionOpeningState\022\n\n"
 operator|+
-literal|"\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002\"\232"
+literal|"\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_"
 operator|+
-literal|"\001\n\022CloseRegionRequest\022 \n\006region\030\001 \002(\0132\020."
+literal|"OPENING\020\002\"\240\001\n\022CloseRegionRequest\022 \n\006regi"
 operator|+
-literal|"RegionSpecifier\022\034\n\024versionOfClosingNode\030"
+literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027version_of"
 operator|+
-literal|"\002 \001(\r\022\034\n\016transitionInZK\030\003 \001(\010:\004true\022&\n\021d"
+literal|"_closing_node\030\002 \001(\r\022\036\n\020transition_in_ZK\030"
 operator|+
-literal|"estinationServer\030\004 \001(\0132\013.ServerName\"%\n\023C"
+literal|"\003 \001(\010:\004true\022\'\n\022destination_server\030\004 \001(\0132"
 operator|+
-literal|"loseRegionResponse\022\016\n\006closed\030\001 \002(\010\"M\n\022Fl"
+literal|"\013.ServerName\"%\n\023CloseRegionResponse\022\016\n\006c"
 operator|+
-literal|"ushRegionRequest\022 \n\006region\030\001 \002(\0132\020.Regio"
+literal|"losed\030\001 \002(\010\"P\n\022FlushRegionRequest\022 \n\006reg"
 operator|+
-literal|"nSpecifier\022\025\n\rifOlderThanTs\030\002 \001(\004\"=\n\023Flu"
+literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\030\n\020if_older_"
 operator|+
-literal|"shRegionResponse\022\025\n\rlastFlushTime\030\001 \002(\004\022"
+literal|"than_ts\030\002 \001(\004\"?\n\023FlushRegionResponse\022\027\n\017"
 block|,
-literal|"\017\n\007flushed\030\002 \001(\010\"J\n\022SplitRegionRequest\022 "
+literal|"last_flush_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K"
 operator|+
-literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022\022\n\nspli"
+literal|"\n\022SplitRegionRequest\022 \n\006region\030\001 \002(\0132\020.R"
 operator|+
-literal|"tPoint\030\002 \001(\014\"\025\n\023SplitRegionResponse\"W\n\024C"
+literal|"egionSpecifier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023S"
 operator|+
-literal|"ompactRegionRequest\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"plitRegionResponse\"W\n\024CompactRegionReque"
 operator|+
-literal|"gionSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003"
+literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005"
 operator|+
-literal|" \001(\014\"\027\n\025CompactRegionResponse\"t\n\023MergeRe"
+literal|"major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRe"
 operator|+
-literal|"gionsRequest\022!\n\007regionA\030\001 \002(\0132\020.RegionSp"
+literal|"gionResponse\"v\n\023MergeRegionsRequest\022\"\n\010r"
 operator|+
-literal|"ecifier\022!\n\007regionB\030\002 \002(\0132\020.RegionSpecifi"
+literal|"egion_a\030\001 \002(\0132\020.RegionSpecifier\022\"\n\010regio"
 operator|+
-literal|"er\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024MergeRegi"
+literal|"n_b\030\002 \002(\0132\020.RegionSpecifier\022\027\n\010forcible\030"
 operator|+
-literal|"onsResponse\"T\n\010WALEntry\022\024\n\003key\030\001 \002(\0132\007.W"
+literal|"\003 \001(\010:\005false\"\026\n\024MergeRegionsResponse\"X\n\010"
 block|,
-literal|"ALKey\022\025\n\rkeyValueBytes\030\002 \003(\014\022\033\n\023associat"
+literal|"WALEntry\022\024\n\003key\030\001 \002(\0132\007.WALKey\022\027\n\017key_va"
 operator|+
-literal|"edCellCount\030\003 \001(\005\"4\n\030ReplicateWALEntryRe"
+literal|"lue_bytes\030\002 \003(\014\022\035\n\025associated_cell_count"
 operator|+
-literal|"quest\022\030\n\005entry\030\001 \003(\0132\t.WALEntry\"\033\n\031Repli"
+literal|"\030\003 \001(\005\"4\n\030ReplicateWALEntryRequest\022\030\n\005en"
 operator|+
-literal|"cateWALEntryResponse\"\026\n\024RollWALWriterReq"
+literal|"try\030\001 \003(\0132\t.WALEntry\"\033\n\031ReplicateWALEntr"
 operator|+
-literal|"uest\".\n\025RollWALWriterResponse\022\025\n\rregionT"
+literal|"yResponse\"\026\n\024RollWALWriterRequest\"0\n\025Rol"
 operator|+
-literal|"oFlush\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006rea"
+literal|"lWALWriterResponse\022\027\n\017region_to_flush\030\001 "
 operator|+
-literal|"son\030\001 \002(\t\"\024\n\022StopServerResponse\"\026\n\024GetSe"
+literal|"\003(\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 \002(\t"
 operator|+
-literal|"rverInfoRequest\"@\n\nServerInfo\022\037\n\nserverN"
+literal|"\"\024\n\022StopServerResponse\"\026\n\024GetServerInfoR"
 operator|+
-literal|"ame\030\001 \002(\0132\013.ServerName\022\021\n\twebuiPort\030\002 \001("
+literal|"equest\"B\n\nServerInfo\022 \n\013server_name\030\001 \002("
 operator|+
-literal|"\r\"8\n\025GetServerInfoResponse\022\037\n\nserverInfo"
+literal|"\0132\013.ServerName\022\022\n\nwebui_port\030\002 \001(\r\"9\n\025Ge"
 block|,
-literal|"\030\001 \002(\0132\013.ServerInfo2\337\006\n\014AdminService\022>\n\r"
+literal|"tServerInfoResponse\022 \n\013server_info\030\001 \002(\013"
 operator|+
-literal|"getRegionInfo\022\025.GetRegionInfoRequest\032\026.G"
+literal|"2\013.ServerInfo2\337\006\n\014AdminService\022>\n\rGetReg"
 operator|+
-literal|"etRegionInfoResponse\022;\n\014getStoreFile\022\024.G"
+literal|"ionInfo\022\025.GetRegionInfoRequest\032\026.GetRegi"
 operator|+
-literal|"etStoreFileRequest\032\025.GetStoreFileRespons"
+literal|"onInfoResponse\022;\n\014GetStoreFile\022\024.GetStor"
 operator|+
-literal|"e\022D\n\017getOnlineRegion\022\027.GetOnlineRegionRe"
+literal|"eFileRequest\032\025.GetStoreFileResponse\022D\n\017G"
 operator|+
-literal|"quest\032\030.GetOnlineRegionResponse\0225\n\nopenR"
+literal|"etOnlineRegion\022\027.GetOnlineRegionRequest\032"
 operator|+
-literal|"egion\022\022.OpenRegionRequest\032\023.OpenRegionRe"
+literal|"\030.GetOnlineRegionResponse\0225\n\nOpenRegion\022"
 operator|+
-literal|"sponse\0228\n\013closeRegion\022\023.CloseRegionReque"
+literal|"\022.OpenRegionRequest\032\023.OpenRegionResponse"
 operator|+
-literal|"st\032\024.CloseRegionResponse\0228\n\013flushRegion\022"
+literal|"\0228\n\013CloseRegion\022\023.CloseRegionRequest\032\024.C"
 operator|+
-literal|"\023.FlushRegionRequest\032\024.FlushRegionRespon"
+literal|"loseRegionResponse\0228\n\013FlushRegion\022\023.Flus"
 block|,
-literal|"se\0228\n\013splitRegion\022\023.SplitRegionRequest\032\024"
+literal|"hRegionRequest\032\024.FlushRegionResponse\0228\n\013"
 operator|+
-literal|".SplitRegionResponse\022>\n\rcompactRegion\022\025."
+literal|"SplitRegion\022\023.SplitRegionRequest\032\024.Split"
 operator|+
-literal|"CompactRegionRequest\032\026.CompactRegionResp"
+literal|"RegionResponse\022>\n\rCompactRegion\022\025.Compac"
 operator|+
-literal|"onse\022;\n\014mergeRegions\022\024.MergeRegionsReque"
+literal|"tRegionRequest\032\026.CompactRegionResponse\022;"
 operator|+
-literal|"st\032\025.MergeRegionsResponse\022J\n\021replicateWA"
+literal|"\n\014MergeRegions\022\024.MergeRegionsRequest\032\025.M"
 operator|+
-literal|"LEntry\022\031.ReplicateWALEntryRequest\032\032.Repl"
+literal|"ergeRegionsResponse\022J\n\021ReplicateWALEntry"
 operator|+
-literal|"icateWALEntryResponse\022\'\n\006replay\022\r.MultiR"
+literal|"\022\031.ReplicateWALEntryRequest\032\032.ReplicateW"
 operator|+
-literal|"equest\032\016.MultiResponse\022>\n\rrollWALWriter\022"
+literal|"ALEntryResponse\022\'\n\006Replay\022\r.MultiRequest"
 operator|+
-literal|"\025.RollWALWriterRequest\032\026.RollWALWriterRe"
+literal|"\032\016.MultiResponse\022>\n\rRollWALWriter\022\025.Roll"
 operator|+
-literal|"sponse\022>\n\rgetServerInfo\022\025.GetServerInfoR"
+literal|"WALWriterRequest\032\026.RollWALWriterResponse"
 block|,
-literal|"equest\032\026.GetServerInfoResponse\0225\n\nstopSe"
+literal|"\022>\n\rGetServerInfo\022\025.GetServerInfoRequest"
 operator|+
-literal|"rver\022\022.StopServerRequest\032\023.StopServerRes"
+literal|"\032\026.GetServerInfoResponse\0225\n\nStopServer\022\022"
 operator|+
-literal|"ponseBA\n*org.apache.hadoop.hbase.protobu"
+literal|".StopServerRequest\032\023.StopServerResponseB"
 operator|+
-literal|"f.generatedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"A\n*org.apache.hadoop.hbase.protobuf.gene"
+operator|+
+literal|"ratedB\013AdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string clusterId = 1;
+comment|// required string cluster_id = 1;
 name|boolean
 name|hasClusterId
 parameter_list|()
@@ -200,12 +200,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string clusterId = 1;
+comment|// required string cluster_id = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -831,7 +831,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2358,7 +2358,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string clusterId = 1;
+comment|// required string cluster_id = 1;
 specifier|private
 name|java
 operator|.
@@ -2625,11 +2625,11 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ClusterId.proto\"\036\n\tClusterId\022\021\n\tcluste"
+literal|"\n\017ClusterId.proto\"\037\n\tClusterId\022\022\n\ncluste"
 operator|+
-literal|"rId\030\001 \002(\tBB\n*org.apache.hadoop.hbase.pro"
+literal|"r_id\030\001 \002(\tBB\n*org.apache.hadoop.hbase.pr"
 operator|+
-literal|"tobuf.generatedB\017ClusterIdProtosH\001\240\001\001"
+literal|"otobuf.generatedB\017ClusterIdProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .BytesBytesPair mapEntry = 1;
+comment|// repeated .BytesBytesPair map_entry = 1;
 name|java
 operator|.
 name|util
@@ -286,12 +286,12 @@ operator|.
 name|internal_static_FileInfoProto_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .BytesBytesPair mapEntry = 1;
+comment|// repeated .BytesBytesPair map_entry = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MAPENTRY_FIELD_NUMBER
+name|MAP_ENTRY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -921,7 +921,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MAPENTRY_FIELD_NUMBER
+name|MAP_ENTRY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2690,7 +2690,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .BytesBytesPair mapEntry = 1;
+comment|// repeated .BytesBytesPair map_entry = 1;
 specifier|private
 name|java
 operator|.
@@ -4037,7 +4037,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional uint64 fileInfoOffset = 1;
+comment|// optional uint64 file_info_offset = 1;
 name|boolean
 name|hasFileInfoOffset
 parameter_list|()
@@ -4046,7 +4046,7 @@ name|long
 name|getFileInfoOffset
 parameter_list|()
 function_decl|;
-comment|// optional uint64 loadOnOpenDataOffset = 2;
+comment|// optional uint64 load_on_open_data_offset = 2;
 name|boolean
 name|hasLoadOnOpenDataOffset
 parameter_list|()
@@ -4055,7 +4055,7 @@ name|long
 name|getLoadOnOpenDataOffset
 parameter_list|()
 function_decl|;
-comment|// optional uint64 uncompressedDataIndexSize = 3;
+comment|// optional uint64 uncompressed_data_index_size = 3;
 name|boolean
 name|hasUncompressedDataIndexSize
 parameter_list|()
@@ -4064,7 +4064,7 @@ name|long
 name|getUncompressedDataIndexSize
 parameter_list|()
 function_decl|;
-comment|// optional uint64 totalUncompressedBytes = 4;
+comment|// optional uint64 total_uncompressed_bytes = 4;
 name|boolean
 name|hasTotalUncompressedBytes
 parameter_list|()
@@ -4073,7 +4073,7 @@ name|long
 name|getTotalUncompressedBytes
 parameter_list|()
 function_decl|;
-comment|// optional uint32 dataIndexCount = 5;
+comment|// optional uint32 data_index_count = 5;
 name|boolean
 name|hasDataIndexCount
 parameter_list|()
@@ -4082,7 +4082,7 @@ name|int
 name|getDataIndexCount
 parameter_list|()
 function_decl|;
-comment|// optional uint32 metaIndexCount = 6;
+comment|// optional uint32 meta_index_count = 6;
 name|boolean
 name|hasMetaIndexCount
 parameter_list|()
@@ -4091,7 +4091,7 @@ name|int
 name|getMetaIndexCount
 parameter_list|()
 function_decl|;
-comment|// optional uint64 entryCount = 7;
+comment|// optional uint64 entry_count = 7;
 name|boolean
 name|hasEntryCount
 parameter_list|()
@@ -4100,7 +4100,7 @@ name|long
 name|getEntryCount
 parameter_list|()
 function_decl|;
-comment|// optional uint32 numDataIndexLevels = 8;
+comment|// optional uint32 num_data_index_levels = 8;
 name|boolean
 name|hasNumDataIndexLevels
 parameter_list|()
@@ -4109,7 +4109,7 @@ name|int
 name|getNumDataIndexLevels
 parameter_list|()
 function_decl|;
-comment|// optional uint64 firstDataBlockOffset = 9;
+comment|// optional uint64 first_data_block_offset = 9;
 name|boolean
 name|hasFirstDataBlockOffset
 parameter_list|()
@@ -4118,7 +4118,7 @@ name|long
 name|getFirstDataBlockOffset
 parameter_list|()
 function_decl|;
-comment|// optional uint64 lastDataBlockOffset = 10;
+comment|// optional uint64 last_data_block_offset = 10;
 name|boolean
 name|hasLastDataBlockOffset
 parameter_list|()
@@ -4127,7 +4127,7 @@ name|long
 name|getLastDataBlockOffset
 parameter_list|()
 function_decl|;
-comment|// optional string comparatorClassName = 11;
+comment|// optional string comparator_class_name = 11;
 name|boolean
 name|hasComparatorClassName
 parameter_list|()
@@ -4136,7 +4136,7 @@ name|String
 name|getComparatorClassName
 parameter_list|()
 function_decl|;
-comment|// optional uint32 compressionCodec = 12;
+comment|// optional uint32 compression_codec = 12;
 name|boolean
 name|hasCompressionCodec
 parameter_list|()
@@ -4276,12 +4276,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint64 fileInfoOffset = 1;
+comment|// optional uint64 file_info_offset = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FILEINFOOFFSET_FIELD_NUMBER
+name|FILE_INFO_OFFSET_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -4315,12 +4315,12 @@ return|return
 name|fileInfoOffset_
 return|;
 block|}
-comment|// optional uint64 loadOnOpenDataOffset = 2;
+comment|// optional uint64 load_on_open_data_offset = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LOADONOPENDATAOFFSET_FIELD_NUMBER
+name|LOAD_ON_OPEN_DATA_OFFSET_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -4354,12 +4354,12 @@ return|return
 name|loadOnOpenDataOffset_
 return|;
 block|}
-comment|// optional uint64 uncompressedDataIndexSize = 3;
+comment|// optional uint64 uncompressed_data_index_size = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|UNCOMPRESSEDDATAINDEXSIZE_FIELD_NUMBER
+name|UNCOMPRESSED_DATA_INDEX_SIZE_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -4393,12 +4393,12 @@ return|return
 name|uncompressedDataIndexSize_
 return|;
 block|}
-comment|// optional uint64 totalUncompressedBytes = 4;
+comment|// optional uint64 total_uncompressed_bytes = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALUNCOMPRESSEDBYTES_FIELD_NUMBER
+name|TOTAL_UNCOMPRESSED_BYTES_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -4432,12 +4432,12 @@ return|return
 name|totalUncompressedBytes_
 return|;
 block|}
-comment|// optional uint32 dataIndexCount = 5;
+comment|// optional uint32 data_index_count = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DATAINDEXCOUNT_FIELD_NUMBER
+name|DATA_INDEX_COUNT_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -4471,12 +4471,12 @@ return|return
 name|dataIndexCount_
 return|;
 block|}
-comment|// optional uint32 metaIndexCount = 6;
+comment|// optional uint32 meta_index_count = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|METAINDEXCOUNT_FIELD_NUMBER
+name|META_INDEX_COUNT_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -4510,12 +4510,12 @@ return|return
 name|metaIndexCount_
 return|;
 block|}
-comment|// optional uint64 entryCount = 7;
+comment|// optional uint64 entry_count = 7;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ENTRYCOUNT_FIELD_NUMBER
+name|ENTRY_COUNT_FIELD_NUMBER
 init|=
 literal|7
 decl_stmt|;
@@ -4549,12 +4549,12 @@ return|return
 name|entryCount_
 return|;
 block|}
-comment|// optional uint32 numDataIndexLevels = 8;
+comment|// optional uint32 num_data_index_levels = 8;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|NUMDATAINDEXLEVELS_FIELD_NUMBER
+name|NUM_DATA_INDEX_LEVELS_FIELD_NUMBER
 init|=
 literal|8
 decl_stmt|;
@@ -4588,12 +4588,12 @@ return|return
 name|numDataIndexLevels_
 return|;
 block|}
-comment|// optional uint64 firstDataBlockOffset = 9;
+comment|// optional uint64 first_data_block_offset = 9;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FIRSTDATABLOCKOFFSET_FIELD_NUMBER
+name|FIRST_DATA_BLOCK_OFFSET_FIELD_NUMBER
 init|=
 literal|9
 decl_stmt|;
@@ -4627,12 +4627,12 @@ return|return
 name|firstDataBlockOffset_
 return|;
 block|}
-comment|// optional uint64 lastDataBlockOffset = 10;
+comment|// optional uint64 last_data_block_offset = 10;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LASTDATABLOCKOFFSET_FIELD_NUMBER
+name|LAST_DATA_BLOCK_OFFSET_FIELD_NUMBER
 init|=
 literal|10
 decl_stmt|;
@@ -4666,12 +4666,12 @@ return|return
 name|lastDataBlockOffset_
 return|;
 block|}
-comment|// optional string comparatorClassName = 11;
+comment|// optional string comparator_class_name = 11;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPARATORCLASSNAME_FIELD_NUMBER
+name|COMPARATOR_CLASS_NAME_FIELD_NUMBER
 init|=
 literal|11
 decl_stmt|;
@@ -4860,12 +4860,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional uint32 compressionCodec = 12;
+comment|// optional uint32 compression_codec = 12;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPRESSIONCODEC_FIELD_NUMBER
+name|COMPRESSION_CODEC_FIELD_NUMBER
 init|=
 literal|12
 decl_stmt|;
@@ -6344,7 +6344,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FILEINFOOFFSET_FIELD_NUMBER
+name|FILE_INFO_OFFSET_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6375,7 +6375,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LOADONOPENDATAOFFSET_FIELD_NUMBER
+name|LOAD_ON_OPEN_DATA_OFFSET_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6406,7 +6406,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|UNCOMPRESSEDDATAINDEXSIZE_FIELD_NUMBER
+name|UNCOMPRESSED_DATA_INDEX_SIZE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6437,7 +6437,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALUNCOMPRESSEDBYTES_FIELD_NUMBER
+name|TOTAL_UNCOMPRESSED_BYTES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6468,7 +6468,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|DATAINDEXCOUNT_FIELD_NUMBER
+name|DATA_INDEX_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6496,7 +6496,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|METAINDEXCOUNT_FIELD_NUMBER
+name|META_INDEX_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6524,7 +6524,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ENTRYCOUNT_FIELD_NUMBER
+name|ENTRY_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6555,7 +6555,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|NUMDATAINDEXLEVELS_FIELD_NUMBER
+name|NUM_DATA_INDEX_LEVELS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6583,7 +6583,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FIRSTDATABLOCKOFFSET_FIELD_NUMBER
+name|FIRST_DATA_BLOCK_OFFSET_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6614,7 +6614,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LASTDATABLOCKOFFSET_FIELD_NUMBER
+name|LAST_DATA_BLOCK_OFFSET_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6645,7 +6645,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPARATORCLASSNAME_FIELD_NUMBER
+name|COMPARATOR_CLASS_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6676,7 +6676,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPRESSIONCODEC_FIELD_NUMBER
+name|COMPRESSION_CODEC_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -8970,7 +8970,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint64 fileInfoOffset = 1;
+comment|// optional uint64 file_info_offset = 1;
 specifier|private
 name|long
 name|fileInfoOffset_
@@ -9049,7 +9049,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 loadOnOpenDataOffset = 2;
+comment|// optional uint64 load_on_open_data_offset = 2;
 specifier|private
 name|long
 name|loadOnOpenDataOffset_
@@ -9128,7 +9128,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 uncompressedDataIndexSize = 3;
+comment|// optional uint64 uncompressed_data_index_size = 3;
 specifier|private
 name|long
 name|uncompressedDataIndexSize_
@@ -9207,7 +9207,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 totalUncompressedBytes = 4;
+comment|// optional uint64 total_uncompressed_bytes = 4;
 specifier|private
 name|long
 name|totalUncompressedBytes_
@@ -9286,7 +9286,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 dataIndexCount = 5;
+comment|// optional uint32 data_index_count = 5;
 specifier|private
 name|int
 name|dataIndexCount_
@@ -9365,7 +9365,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 metaIndexCount = 6;
+comment|// optional uint32 meta_index_count = 6;
 specifier|private
 name|int
 name|metaIndexCount_
@@ -9444,7 +9444,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 entryCount = 7;
+comment|// optional uint64 entry_count = 7;
 specifier|private
 name|long
 name|entryCount_
@@ -9523,7 +9523,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 numDataIndexLevels = 8;
+comment|// optional uint32 num_data_index_levels = 8;
 specifier|private
 name|int
 name|numDataIndexLevels_
@@ -9602,7 +9602,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 firstDataBlockOffset = 9;
+comment|// optional uint64 first_data_block_offset = 9;
 specifier|private
 name|long
 name|firstDataBlockOffset_
@@ -9681,7 +9681,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 lastDataBlockOffset = 10;
+comment|// optional uint64 last_data_block_offset = 10;
 specifier|private
 name|long
 name|lastDataBlockOffset_
@@ -9760,7 +9760,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional string comparatorClassName = 11;
+comment|// optional string comparator_class_name = 11;
 specifier|private
 name|java
 operator|.
@@ -9939,7 +9939,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional uint32 compressionCodec = 12;
+comment|// optional uint32 compression_codec = 12;
 specifier|private
 name|int
 name|compressionCodec_
@@ -10132,31 +10132,33 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013HFile.proto\032\013hbase.proto\"2\n\rFileInfoPr"
+literal|"\n\013HFile.proto\032\013hbase.proto\"3\n\rFileInfoPr"
 operator|+
-literal|"oto\022!\n\010mapEntry\030\001 \003(\0132\017.BytesBytesPair\"\335"
+literal|"oto\022\"\n\tmap_entry\030\001 \003(\0132\017.BytesBytesPair\""
 operator|+
-literal|"\002\n\020FileTrailerProto\022\026\n\016fileInfoOffset\030\001 "
+literal|"\371\002\n\020FileTrailerProto\022\030\n\020file_info_offset"
 operator|+
-literal|"\001(\004\022\034\n\024loadOnOpenDataOffset\030\002 \001(\004\022!\n\031unc"
+literal|"\030\001 \001(\004\022 \n\030load_on_open_data_offset\030\002 \001(\004"
 operator|+
-literal|"ompressedDataIndexSize\030\003 \001(\004\022\036\n\026totalUnc"
+literal|"\022$\n\034uncompressed_data_index_size\030\003 \001(\004\022 "
 operator|+
-literal|"ompressedBytes\030\004 \001(\004\022\026\n\016dataIndexCount\030\005"
+literal|"\n\030total_uncompressed_bytes\030\004 \001(\004\022\030\n\020data"
 operator|+
-literal|" \001(\r\022\026\n\016metaIndexCount\030\006 \001(\r\022\022\n\nentryCou"
+literal|"_index_count\030\005 \001(\r\022\030\n\020meta_index_count\030\006"
 operator|+
-literal|"nt\030\007 \001(\004\022\032\n\022numDataIndexLevels\030\010 \001(\r\022\034\n\024"
+literal|" \001(\r\022\023\n\013entry_count\030\007 \001(\004\022\035\n\025num_data_in"
 operator|+
-literal|"firstDataBlockOffset\030\t \001(\004\022\033\n\023lastDataBl"
+literal|"dex_levels\030\010 \001(\r\022\037\n\027first_data_block_off"
 operator|+
-literal|"ockOffset\030\n \001(\004\022\033\n\023comparatorClassName\030\013"
+literal|"set\030\t \001(\004\022\036\n\026last_data_block_offset\030\n \001("
 block|,
-literal|" \001(\t\022\030\n\020compressionCodec\030\014 \001(\rBA\n*org.ap"
+literal|"\004\022\035\n\025comparator_class_name\030\013 \001(\t\022\031\n\021comp"
 operator|+
-literal|"ache.hadoop.hbase.protobuf.generatedB\013HF"
+literal|"ression_codec\030\014 \001(\rBA\n*org.apache.hadoop"
 operator|+
-literal|"ileProtosH\001\210\001\001\240\001\001"
+literal|".hbase.protobuf.generatedB\013HFileProtosH\001"
+operator|+
+literal|"\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

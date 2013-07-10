@@ -101,7 +101,7 @@ name|ServerNameOrBuilder
 name|getServerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 name|boolean
 name|hasRpcVersion
 parameter_list|()
@@ -331,12 +331,12 @@ return|return
 name|server_
 return|;
 block|}
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|RPCVERSION_FIELD_NUMBER
+name|RPC_VERSION_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -964,7 +964,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|RPCVERSION_FIELD_NUMBER
+name|RPC_VERSION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3383,7 +3383,7 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 specifier|private
 name|int
 name|rpcVersion_
@@ -3535,7 +3535,7 @@ name|ServerNameOrBuilder
 name|getMasterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 name|boolean
 name|hasRpcVersion
 parameter_list|()
@@ -3765,12 +3765,12 @@ return|return
 name|master_
 return|;
 block|}
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|RPCVERSION_FIELD_NUMBER
+name|RPC_VERSION_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -4398,7 +4398,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|RPCVERSION_FIELD_NUMBER
+name|RPC_VERSION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6817,7 +6817,7 @@ return|return
 name|masterBuilder_
 return|;
 block|}
-comment|// optional uint32 rpcVersion = 2;
+comment|// optional uint32 rpc_version = 2;
 specifier|private
 name|int
 name|rpcVersion_
@@ -6928,7 +6928,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string startDate = 1;
+comment|// required string start_date = 1;
 name|boolean
 name|hasStartDate
 parameter_list|()
@@ -7068,12 +7068,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string startDate = 1;
+comment|// required string start_date = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STARTDATE_FIELD_NUMBER
+name|START_DATE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -7699,7 +7699,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STARTDATE_FIELD_NUMBER
+name|START_DATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -9226,7 +9226,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string startDate = 1;
+comment|// required string start_date = 1;
 specifier|private
 name|java
 operator|.
@@ -9437,7 +9437,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint32 eventTypeCode = 1;
+comment|// required uint32 event_type_code = 1;
 name|boolean
 name|hasEventTypeCode
 parameter_list|()
@@ -9446,7 +9446,7 @@ name|int
 name|getEventTypeCode
 parameter_list|()
 function_decl|;
-comment|// required bytes regionName = 2;
+comment|// required bytes region_name = 2;
 name|boolean
 name|hasRegionName
 parameter_list|()
@@ -9461,7 +9461,7 @@ name|ByteString
 name|getRegionName
 parameter_list|()
 function_decl|;
-comment|// required uint64 createTime = 3;
+comment|// required uint64 create_time = 3;
 name|boolean
 name|hasCreateTime
 parameter_list|()
@@ -9470,7 +9470,7 @@ name|long
 name|getCreateTime
 parameter_list|()
 function_decl|;
-comment|// required .ServerName serverName = 4;
+comment|// required .ServerName server_name = 4;
 name|boolean
 name|hasServerName
 parameter_list|()
@@ -9657,12 +9657,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint32 eventTypeCode = 1;
+comment|// required uint32 event_type_code = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|EVENTTYPECODE_FIELD_NUMBER
+name|EVENT_TYPE_CODE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -9696,12 +9696,12 @@ return|return
 name|eventTypeCode_
 return|;
 block|}
-comment|// required bytes regionName = 2;
+comment|// required bytes region_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONNAME_FIELD_NUMBER
+name|REGION_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -9747,12 +9747,12 @@ return|return
 name|regionName_
 return|;
 block|}
-comment|// required uint64 createTime = 3;
+comment|// required uint64 create_time = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CREATETIME_FIELD_NUMBER
+name|CREATE_TIME_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -9786,12 +9786,12 @@ return|return
 name|createTime_
 return|;
 block|}
-comment|// required .ServerName serverName = 4;
+comment|// required .ServerName server_name = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -10832,7 +10832,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|EVENTTYPECODE_FIELD_NUMBER
+name|EVENT_TYPE_CODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -10860,7 +10860,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONNAME_FIELD_NUMBER
+name|REGION_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -10891,7 +10891,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CREATETIME_FIELD_NUMBER
+name|CREATE_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -10922,7 +10922,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12943,7 +12943,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint32 eventTypeCode = 1;
+comment|// required uint32 event_type_code = 1;
 specifier|private
 name|int
 name|eventTypeCode_
@@ -13022,7 +13022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bytes regionName = 2;
+comment|// required bytes region_name = 2;
 specifier|private
 name|com
 operator|.
@@ -13146,7 +13146,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 createTime = 3;
+comment|// required uint64 create_time = 3;
 specifier|private
 name|long
 name|createTime_
@@ -13225,7 +13225,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ServerName serverName = 4;
+comment|// required .ServerName server_name = 4;
 specifier|private
 name|org
 operator|.
@@ -14100,7 +14100,7 @@ name|State
 name|getState
 parameter_list|()
 function_decl|;
-comment|// required .ServerName serverName = 2;
+comment|// required .ServerName server_name = 2;
 name|boolean
 name|hasServerName
 parameter_list|()
@@ -14755,12 +14755,12 @@ return|return
 name|state_
 return|;
 block|}
-comment|// required .ServerName serverName = 2;
+comment|// required .ServerName server_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -15478,7 +15478,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERNAME_FIELD_NUMBER
+name|SERVER_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -17480,7 +17480,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ServerName serverName = 2;
+comment|// required .ServerName server_name = 2;
 specifier|private
 name|org
 operator|.
@@ -28712,7 +28712,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string lockOwner = 1;
+comment|// required string lock_owner = 1;
 name|boolean
 name|hasLockOwner
 parameter_list|()
@@ -28852,12 +28852,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string lockOwner = 1;
+comment|// required string lock_owner = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LOCKOWNER_FIELD_NUMBER
+name|LOCK_OWNER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -29483,7 +29483,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LOCKOWNER_FIELD_NUMBER
+name|LOCK_OWNER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -31010,7 +31010,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string lockOwner = 1;
+comment|// required string lock_owner = 1;
 specifier|private
 name|java
 operator|.
@@ -31221,7 +31221,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bytes tableName = 1;
+comment|// optional bytes table_name = 1;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -31236,7 +31236,7 @@ name|ByteString
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|// optional .ServerName lockOwner = 2;
+comment|// optional .ServerName lock_owner = 2;
 name|boolean
 name|hasLockOwner
 parameter_list|()
@@ -31277,7 +31277,7 @@ name|ServerNameOrBuilder
 name|getLockOwnerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional int64 threadId = 3;
+comment|// optional int64 thread_id = 3;
 name|boolean
 name|hasThreadId
 parameter_list|()
@@ -31286,7 +31286,7 @@ name|long
 name|getThreadId
 parameter_list|()
 function_decl|;
-comment|// optional bool isShared = 4;
+comment|// optional bool is_shared = 4;
 name|boolean
 name|hasIsShared
 parameter_list|()
@@ -31304,7 +31304,7 @@ name|String
 name|getPurpose
 parameter_list|()
 function_decl|;
-comment|// optional int64 createTime = 6;
+comment|// optional int64 create_time = 6;
 name|boolean
 name|hasCreateTime
 parameter_list|()
@@ -31444,12 +31444,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes tableName = 1;
+comment|// optional bytes table_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -31495,12 +31495,12 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// optional .ServerName lockOwner = 2;
+comment|// optional .ServerName lock_owner = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LOCKOWNER_FIELD_NUMBER
+name|LOCK_OWNER_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -31585,12 +31585,12 @@ return|return
 name|lockOwner_
 return|;
 block|}
-comment|// optional int64 threadId = 3;
+comment|// optional int64 thread_id = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|THREADID_FIELD_NUMBER
+name|THREAD_ID_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -31624,12 +31624,12 @@ return|return
 name|threadId_
 return|;
 block|}
-comment|// optional bool isShared = 4;
+comment|// optional bool is_shared = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ISSHARED_FIELD_NUMBER
+name|IS_SHARED_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -31857,12 +31857,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional int64 createTime = 6;
+comment|// optional int64 create_time = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CREATETIME_FIELD_NUMBER
+name|CREATE_TIME_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -32835,7 +32835,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32866,7 +32866,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LOCKOWNER_FIELD_NUMBER
+name|LOCK_OWNER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32897,7 +32897,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|THREADID_FIELD_NUMBER
+name|THREAD_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32928,7 +32928,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ISSHARED_FIELD_NUMBER
+name|IS_SHARED_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32990,7 +32990,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CREATETIME_FIELD_NUMBER
+name|CREATE_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -35006,7 +35006,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes tableName = 1;
+comment|// optional bytes table_name = 1;
 specifier|private
 name|com
 operator|.
@@ -35130,7 +35130,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .ServerName lockOwner = 2;
+comment|// optional .ServerName lock_owner = 2;
 specifier|private
 name|org
 operator|.
@@ -35824,7 +35824,7 @@ return|return
 name|lockOwnerBuilder_
 return|;
 block|}
-comment|// optional int64 threadId = 3;
+comment|// optional int64 thread_id = 3;
 specifier|private
 name|long
 name|threadId_
@@ -35903,7 +35903,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool isShared = 4;
+comment|// optional bool is_shared = 4;
 specifier|private
 name|boolean
 name|isShared_
@@ -36161,7 +36161,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional int64 createTime = 6;
+comment|// optional int64 create_time = 6;
 specifier|private
 name|long
 name|createTime_
@@ -36272,7 +36272,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes familyName = 1;
+comment|// required bytes family_name = 1;
 name|boolean
 name|hasFamilyName
 parameter_list|()
@@ -36287,7 +36287,7 @@ name|ByteString
 name|getFamilyName
 parameter_list|()
 function_decl|;
-comment|// required uint64 sequenceId = 2;
+comment|// required uint64 sequence_id = 2;
 name|boolean
 name|hasSequenceId
 parameter_list|()
@@ -36427,12 +36427,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes familyName = 1;
+comment|// required bytes family_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FAMILYNAME_FIELD_NUMBER
+name|FAMILY_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -36478,12 +36478,12 @@ return|return
 name|familyName_
 return|;
 block|}
-comment|// required uint64 sequenceId = 2;
+comment|// required uint64 sequence_id = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SEQUENCEID_FIELD_NUMBER
+name|SEQUENCE_ID_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -37068,7 +37068,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FAMILYNAME_FIELD_NUMBER
+name|FAMILY_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -37099,7 +37099,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SEQUENCEID_FIELD_NUMBER
+name|SEQUENCE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -38716,7 +38716,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes familyName = 1;
+comment|// required bytes family_name = 1;
 specifier|private
 name|com
 operator|.
@@ -38840,7 +38840,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 sequenceId = 2;
+comment|// required uint64 sequence_id = 2;
 specifier|private
 name|long
 name|sequenceId_
@@ -38951,7 +38951,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 name|boolean
 name|hasLastFlushedSequenceId
 parameter_list|()
@@ -38960,7 +38960,7 @@ name|long
 name|getLastFlushedSequenceId
 parameter_list|()
 function_decl|;
-comment|// repeated .StoreSequenceId storeSequenceId = 2;
+comment|// repeated .StoreSequenceId store_sequence_id = 2;
 name|java
 operator|.
 name|util
@@ -39190,12 +39190,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LASTFLUSHEDSEQUENCEID_FIELD_NUMBER
+name|LAST_FLUSHED_SEQUENCE_ID_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -39229,12 +39229,12 @@ return|return
 name|lastFlushedSequenceId_
 return|;
 block|}
-comment|// repeated .StoreSequenceId storeSequenceId = 2;
+comment|// repeated .StoreSequenceId store_sequence_id = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STORESEQUENCEID_FIELD_NUMBER
+name|STORE_SEQUENCE_ID_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -39970,7 +39970,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LASTFLUSHEDSEQUENCEID_FIELD_NUMBER
+name|LAST_FLUSHED_SEQUENCE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -40003,7 +40003,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STORESEQUENCEID_FIELD_NUMBER
+name|STORE_SEQUENCE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -41865,7 +41865,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 lastFlushedSequenceId = 1;
+comment|// required uint64 last_flushed_sequence_id = 1;
 specifier|private
 name|long
 name|lastFlushedSequenceId_
@@ -41944,7 +41944,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .StoreSequenceId storeSequenceId = 2;
+comment|// repeated .StoreSequenceId store_sequence_id = 2;
 specifier|private
 name|java
 operator|.
@@ -43659,65 +43659,65 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"C\n\020MetaRe"
+literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"D\n\020MetaRe"
 operator|+
 literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerName\022"
 operator|+
-literal|"\022\n\nrpcVersion\030\002 \001(\r\"9\n\006Master\022\033\n\006master\030"
+literal|"\023\n\013rpc_version\030\002 \001(\r\":\n\006Master\022\033\n\006master"
 operator|+
-literal|"\001 \002(\0132\013.ServerName\022\022\n\nrpcVersion\030\002 \001(\r\"\036"
+literal|"\030\001 \002(\0132\013.ServerName\022\023\n\013rpc_version\030\002 \001(\r"
 operator|+
-literal|"\n\tClusterUp\022\021\n\tstartDate\030\001 \002(\t\"\203\001\n\020Regio"
+literal|"\"\037\n\tClusterUp\022\022\n\nstart_date\030\001 \002(\t\"\210\001\n\020Re"
 operator|+
-literal|"nTransition\022\025\n\reventTypeCode\030\001 \002(\r\022\022\n\nre"
+literal|"gionTransition\022\027\n\017event_type_code\030\001 \002(\r\022"
 operator|+
-literal|"gionName\030\002 \002(\014\022\022\n\ncreateTime\030\003 \002(\004\022\037\n\nse"
+literal|"\023\n\013region_name\030\002 \002(\014\022\023\n\013create_time\030\003 \002("
 operator|+
-literal|"rverName\030\004 \002(\0132\013.ServerName\022\017\n\007payload\030\005"
+literal|"\004\022 \n\013server_name\030\004 \002(\0132\013.ServerName\022\017\n\007p"
 operator|+
-literal|" \001(\014\"\230\001\n\014SplitLogTask\022\"\n\005state\030\001 \002(\0162\023.S"
+literal|"ayload\030\005 \001(\014\"\231\001\n\014SplitLogTask\022\"\n\005state\030\001"
 operator|+
-literal|"plitLogTask.State\022\037\n\nserverName\030\002 \002(\0132\013."
+literal|" \002(\0162\023.SplitLogTask.State\022 \n\013server_name"
 block|,
-literal|"ServerName\"C\n\005State\022\016\n\nUNASSIGNED\020\000\022\t\n\005O"
+literal|"\030\002 \002(\0132\013.ServerName\"C\n\005State\022\016\n\nUNASSIGN"
 operator|+
-literal|"WNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022\007\n\003ERR\020\004\""
+literal|"ED\020\000\022\t\n\005OWNED\020\001\022\014\n\010RESIGNED\020\002\022\010\n\004DONE\020\003\022"
 operator|+
-literal|"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table.State:\007E"
+literal|"\007\n\003ERR\020\004\"n\n\005Table\022$\n\005state\030\001 \002(\0162\014.Table"
 operator|+
-literal|"NABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED"
+literal|".State:\007ENABLED\"?\n\005State\022\013\n\007ENABLED\020\000\022\014\n"
 operator|+
-literal|"\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"%\n\017Repli"
+literal|"\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003"
 operator|+
-literal|"cationPeer\022\022\n\nclusterkey\030\001 \002(\t\"^\n\020Replic"
+literal|"\"%\n\017ReplicationPeer\022\022\n\nclusterkey\030\001 \002(\t\""
 operator|+
-literal|"ationState\022&\n\005state\030\001 \002(\0162\027.ReplicationS"
+literal|"^\n\020ReplicationState\022&\n\005state\030\001 \002(\0162\027.Rep"
 operator|+
-literal|"tate.State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010DISA"
+literal|"licationState.State\"\"\n\005State\022\013\n\007ENABLED\020"
 operator|+
-literal|"BLED\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010pos"
+literal|"\000\022\014\n\010DISABLED\020\001\"+\n\027ReplicationHLogPositi"
 operator|+
-literal|"ition\030\001 \002(\003\"$\n\017ReplicationLock\022\021\n\tlockOw"
+literal|"on\022\020\n\010position\030\001 \002(\003\"%\n\017ReplicationLock\022"
 block|,
-literal|"ner\030\001 \002(\t\"\207\001\n\tTableLock\022\021\n\ttableName\030\001 \001"
+literal|"\022\n\nlock_owner\030\001 \002(\t\"\214\001\n\tTableLock\022\022\n\ntab"
 operator|+
-literal|"(\014\022\036\n\tlockOwner\030\002 \001(\0132\013.ServerName\022\020\n\010th"
+literal|"le_name\030\001 \001(\014\022\037\n\nlock_owner\030\002 \001(\0132\013.Serv"
 operator|+
-literal|"readId\030\003 \001(\003\022\020\n\010isShared\030\004 \001(\010\022\017\n\007purpos"
+literal|"erName\022\021\n\tthread_id\030\003 \001(\003\022\021\n\tis_shared\030\004"
 operator|+
-literal|"e\030\005 \001(\t\022\022\n\ncreateTime\030\006 \001(\003\"9\n\017StoreSequ"
+literal|" \001(\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013create_time\030\006 \001"
 operator|+
-literal|"enceId\022\022\n\nfamilyName\030\001 \002(\014\022\022\n\nsequenceId"
+literal|"(\003\";\n\017StoreSequenceId\022\023\n\013family_name\030\001 \002"
 operator|+
-literal|"\030\002 \002(\004\"b\n\026RegionStoreSequenceIds\022\035\n\025last"
+literal|"(\014\022\023\n\013sequence_id\030\002 \002(\004\"g\n\026RegionStoreSe"
 operator|+
-literal|"FlushedSequenceId\030\001 \002(\004\022)\n\017storeSequence"
+literal|"quenceIds\022 \n\030last_flushed_sequence_id\030\001 "
 operator|+
-literal|"Id\030\002 \003(\0132\020.StoreSequenceIdBE\n*org.apache"
+literal|"\002(\004\022+\n\021store_sequence_id\030\002 \003(\0132\020.StoreSe"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\017ZooKee"
+literal|"quenceIdBE\n*org.apache.hadoop.hbase.prot"
 operator|+
-literal|"perProtosH\001\210\001\001\240\001\001"
+literal|"obuf.generatedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

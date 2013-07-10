@@ -69,7 +69,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|// optional bytes serializedComparator = 2;
+comment|// optional bytes serialized_comparator = 2;
 name|boolean
 name|hasSerializedComparator
 parameter_list|()
@@ -409,12 +409,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional bytes serializedComparator = 2;
+comment|// optional bytes serialized_comparator = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERIALIZEDCOMPARATOR_FIELD_NUMBER
+name|SERIALIZED_COMPARATOR_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -1030,7 +1030,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERIALIZEDCOMPARATOR_FIELD_NUMBER
+name|SERIALIZED_COMPARATOR_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2815,7 +2815,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional bytes serializedComparator = 2;
+comment|// optional bytes serialized_comparator = 2;
 specifier|private
 name|com
 operator|.
@@ -11483,7 +11483,7 @@ name|ByteArrayComparableOrBuilder
 name|getComparableOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .BitComparator.BitwiseOp bitwiseOp = 2;
+comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
 name|boolean
 name|hasBitwiseOp
 parameter_list|()
@@ -12095,12 +12095,12 @@ return|return
 name|comparable_
 return|;
 block|}
-comment|// required .BitComparator.BitwiseOp bitwiseOp = 2;
+comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BITWISEOP_FIELD_NUMBER
+name|BITWISE_OP_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -12781,7 +12781,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BITWISEOP_FIELD_NUMBER
+name|BITWISE_OP_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -15285,7 +15285,7 @@ return|return
 name|comparableBuilder_
 return|;
 block|}
-comment|// required .BitComparator.BitwiseOp bitwiseOp = 2;
+comment|// required .BitComparator.BitwiseOp bitwise_op = 2;
 specifier|private
 name|org
 operator|.
@@ -17381,7 +17381,7 @@ name|String
 name|getPattern
 parameter_list|()
 function_decl|;
-comment|// required int32 patternFlags = 2;
+comment|// required int32 pattern_flags = 2;
 name|boolean
 name|hasPatternFlags
 parameter_list|()
@@ -17724,12 +17724,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// required int32 patternFlags = 2;
+comment|// required int32 pattern_flags = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|PATTERNFLAGS_FIELD_NUMBER
+name|PATTERN_FLAGS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -18644,7 +18644,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|PATTERNFLAGS_FIELD_NUMBER
+name|PATTERN_FLAGS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -20542,7 +20542,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// required int32 patternFlags = 2;
+comment|// required int32 pattern_flags = 2;
 specifier|private
 name|int
 name|patternFlags_
@@ -23579,35 +23579,37 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\020Comparator.proto\"8\n\nComparator\022\014\n\004name"
+literal|"\n\020Comparator.proto\"9\n\nComparator\022\014\n\004name"
 operator|+
-literal|"\030\001 \002(\t\022\034\n\024serializedComparator\030\002 \001(\014\"$\n\023"
+literal|"\030\001 \002(\t\022\035\n\025serialized_comparator\030\002 \001(\014\"$\n"
 operator|+
-literal|"ByteArrayComparable\022\r\n\005value\030\001 \001(\014\"<\n\020Bi"
+literal|"\023ByteArrayComparable\022\r\n\005value\030\001 \001(\014\"<\n\020B"
 operator|+
-literal|"naryComparator\022(\n\ncomparable\030\001 \002(\0132\024.Byt"
+literal|"inaryComparator\022(\n\ncomparable\030\001 \002(\0132\024.By"
 operator|+
-literal|"eArrayComparable\"B\n\026BinaryPrefixComparat"
+literal|"teArrayComparable\"B\n\026BinaryPrefixCompara"
 operator|+
-literal|"or\022(\n\ncomparable\030\001 \002(\0132\024.ByteArrayCompar"
+literal|"tor\022(\n\ncomparable\030\001 \002(\0132\024.ByteArrayCompa"
 operator|+
-literal|"able\"\215\001\n\rBitComparator\022(\n\ncomparable\030\001 \002"
+literal|"rable\"\216\001\n\rBitComparator\022(\n\ncomparable\030\001 "
 operator|+
-literal|"(\0132\024.ByteArrayComparable\022+\n\tbitwiseOp\030\002 "
+literal|"\002(\0132\024.ByteArrayComparable\022,\n\nbitwise_op\030"
 operator|+
-literal|"\002(\0162\030.BitComparator.BitwiseOp\"%\n\tBitwise"
+literal|"\002 \002(\0162\030.BitComparator.BitwiseOp\"%\n\tBitwi"
 operator|+
-literal|"Op\022\007\n\003AND\020\001\022\006\n\002OR\020\002\022\007\n\003XOR\020\003\"\020\n\016NullComp"
+literal|"seOp\022\007\n\003AND\020\001\022\006\n\002OR\020\002\022\007\n\003XOR\020\003\"\020\n\016NullCo"
 block|,
-literal|"arator\"O\n\025RegexStringComparator\022\017\n\007patte"
+literal|"mparator\"P\n\025RegexStringComparator\022\017\n\007pat"
 operator|+
-literal|"rn\030\001 \002(\t\022\024\n\014patternFlags\030\002 \002(\005\022\017\n\007charse"
+literal|"tern\030\001 \002(\t\022\025\n\rpattern_flags\030\002 \002(\005\022\017\n\007cha"
 operator|+
-literal|"t\030\003 \002(\t\"%\n\023SubstringComparator\022\016\n\006substr"
+literal|"rset\030\003 \002(\t\"%\n\023SubstringComparator\022\016\n\006sub"
 operator|+
-literal|"\030\001 \002(\tBF\n*org.apache.hadoop.hbase.protob"
+literal|"str\030\001 \002(\tBF\n*org.apache.hadoop.hbase.pro"
 operator|+
-literal|"uf.generatedB\020ComparatorProtosH\001\210\001\001\240\001\001"
+literal|"tobuf.generatedB\020ComparatorProtosH\001\210\001\001\240\001"
+operator|+
+literal|"\001"
 block|}
 decl_stmt|;
 name|com

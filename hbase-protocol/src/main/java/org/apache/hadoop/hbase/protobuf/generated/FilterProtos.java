@@ -69,7 +69,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|// optional bytes serializedFilter = 2;
+comment|// optional bytes serialized_filter = 2;
 name|boolean
 name|hasSerializedFilter
 parameter_list|()
@@ -409,12 +409,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional bytes serializedFilter = 2;
+comment|// optional bytes serialized_filter = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERIALIZEDFILTER_FIELD_NUMBER
+name|SERIALIZED_FILTER_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -1030,7 +1030,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERIALIZEDFILTER_FIELD_NUMBER
+name|SERIALIZED_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2815,7 +2815,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional bytes serializedFilter = 2;
+comment|// optional bytes serialized_filter = 2;
 specifier|private
 name|com
 operator|.
@@ -5237,7 +5237,7 @@ name|int
 name|getOffset
 parameter_list|()
 function_decl|;
-comment|// optional bytes columnOffset = 3;
+comment|// optional bytes column_offset = 3;
 name|boolean
 name|hasColumnOffset
 parameter_list|()
@@ -5461,12 +5461,12 @@ return|return
 name|offset_
 return|;
 block|}
-comment|// optional bytes columnOffset = 3;
+comment|// optional bytes column_offset = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNOFFSET_FIELD_NUMBER
+name|COLUMN_OFFSET_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -6197,7 +6197,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNOFFSET_FIELD_NUMBER
+name|COLUMN_OFFSET_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -8032,7 +8032,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes columnOffset = 3;
+comment|// optional bytes column_offset = 3;
 specifier|private
 name|com
 operator|.
@@ -10519,7 +10519,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bytes minColumn = 1;
+comment|// optional bytes min_column = 1;
 name|boolean
 name|hasMinColumn
 parameter_list|()
@@ -10534,7 +10534,7 @@ name|ByteString
 name|getMinColumn
 parameter_list|()
 function_decl|;
-comment|// optional bool minColumnInclusive = 2;
+comment|// optional bool min_column_inclusive = 2;
 name|boolean
 name|hasMinColumnInclusive
 parameter_list|()
@@ -10543,7 +10543,7 @@ name|boolean
 name|getMinColumnInclusive
 parameter_list|()
 function_decl|;
-comment|// optional bytes maxColumn = 3;
+comment|// optional bytes max_column = 3;
 name|boolean
 name|hasMaxColumn
 parameter_list|()
@@ -10558,7 +10558,7 @@ name|ByteString
 name|getMaxColumn
 parameter_list|()
 function_decl|;
-comment|// optional bool maxColumnInclusive = 4;
+comment|// optional bool max_column_inclusive = 4;
 name|boolean
 name|hasMaxColumnInclusive
 parameter_list|()
@@ -10698,12 +10698,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes minColumn = 1;
+comment|// optional bytes min_column = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MINCOLUMN_FIELD_NUMBER
+name|MIN_COLUMN_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -10749,12 +10749,12 @@ return|return
 name|minColumn_
 return|;
 block|}
-comment|// optional bool minColumnInclusive = 2;
+comment|// optional bool min_column_inclusive = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MINCOLUMNINCLUSIVE_FIELD_NUMBER
+name|MIN_COLUMN_INCLUSIVE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -10788,12 +10788,12 @@ return|return
 name|minColumnInclusive_
 return|;
 block|}
-comment|// optional bytes maxColumn = 3;
+comment|// optional bytes max_column = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MAXCOLUMN_FIELD_NUMBER
+name|MAX_COLUMN_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -10839,12 +10839,12 @@ return|return
 name|maxColumn_
 return|;
 block|}
-comment|// optional bool maxColumnInclusive = 4;
+comment|// optional bool max_column_inclusive = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MAXCOLUMNINCLUSIVE_FIELD_NUMBER
+name|MAX_COLUMN_INCLUSIVE_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -11594,7 +11594,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MINCOLUMN_FIELD_NUMBER
+name|MIN_COLUMN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11625,7 +11625,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MINCOLUMNINCLUSIVE_FIELD_NUMBER
+name|MIN_COLUMN_INCLUSIVE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11656,7 +11656,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MAXCOLUMN_FIELD_NUMBER
+name|MAX_COLUMN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11687,7 +11687,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MAXCOLUMNINCLUSIVE_FIELD_NUMBER
+name|MAX_COLUMN_INCLUSIVE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -13432,7 +13432,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes minColumn = 1;
+comment|// optional bytes min_column = 1;
 specifier|private
 name|com
 operator|.
@@ -13556,7 +13556,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool minColumnInclusive = 2;
+comment|// optional bool min_column_inclusive = 2;
 specifier|private
 name|boolean
 name|minColumnInclusive_
@@ -13635,7 +13635,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes maxColumn = 3;
+comment|// optional bytes max_column = 3;
 specifier|private
 name|com
 operator|.
@@ -13759,7 +13759,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool maxColumnInclusive = 4;
+comment|// optional bool max_column_inclusive = 4;
 specifier|private
 name|boolean
 name|maxColumnInclusive_
@@ -13870,7 +13870,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareType compareOp = 1;
+comment|// required .CompareType compare_op = 1;
 name|boolean
 name|hasCompareOp
 parameter_list|()
@@ -14065,12 +14065,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareType compareOp = 1;
+comment|// required .CompareType compare_op = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREOP_FIELD_NUMBER
+name|COMPARE_OP_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -14814,7 +14814,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREOP_FIELD_NUMBER
+name|COMPARE_OP_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -16659,7 +16659,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareType compareOp = 1;
+comment|// required .CompareType compare_op = 1;
 specifier|private
 name|org
 operator|.
@@ -17553,7 +17553,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 name|boolean
 name|hasCompareFilter
 parameter_list|()
@@ -17594,7 +17594,7 @@ name|CompareFilterOrBuilder
 name|getCompareFilterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional bytes columnFamily = 2;
+comment|// optional bytes column_family = 2;
 name|boolean
 name|hasColumnFamily
 parameter_list|()
@@ -17609,7 +17609,7 @@ name|ByteString
 name|getColumnFamily
 parameter_list|()
 function_decl|;
-comment|// optional bytes columnQualifier = 3;
+comment|// optional bytes column_qualifier = 3;
 name|boolean
 name|hasColumnQualifier
 parameter_list|()
@@ -17624,7 +17624,7 @@ name|ByteString
 name|getColumnQualifier
 parameter_list|()
 function_decl|;
-comment|// optional bool dropDependentColumn = 4;
+comment|// optional bool drop_dependent_column = 4;
 name|boolean
 name|hasDropDependentColumn
 parameter_list|()
@@ -17764,12 +17764,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -17854,12 +17854,12 @@ return|return
 name|compareFilter_
 return|;
 block|}
-comment|// optional bytes columnFamily = 2;
+comment|// optional bytes column_family = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNFAMILY_FIELD_NUMBER
+name|COLUMN_FAMILY_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -17905,12 +17905,12 @@ return|return
 name|columnFamily_
 return|;
 block|}
-comment|// optional bytes columnQualifier = 3;
+comment|// optional bytes column_qualifier = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNQUALIFIER_FIELD_NUMBER
+name|COLUMN_QUALIFIER_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -17956,12 +17956,12 @@ return|return
 name|columnQualifier_
 return|;
 block|}
-comment|// optional bool dropDependentColumn = 4;
+comment|// optional bool drop_dependent_column = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DROPDEPENDENTCOLUMN_FIELD_NUMBER
+name|DROP_DEPENDENT_COLUMN_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -18762,7 +18762,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18793,7 +18793,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNFAMILY_FIELD_NUMBER
+name|COLUMN_FAMILY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18824,7 +18824,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNQUALIFIER_FIELD_NUMBER
+name|COLUMN_QUALIFIER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18855,7 +18855,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|DROPDEPENDENTCOLUMN_FIELD_NUMBER
+name|DROP_DEPENDENT_COLUMN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -20741,7 +20741,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -21435,7 +21435,7 @@ return|return
 name|compareFilterBuilder_
 return|;
 block|}
-comment|// optional bytes columnFamily = 2;
+comment|// optional bytes column_family = 2;
 specifier|private
 name|com
 operator|.
@@ -21559,7 +21559,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes columnQualifier = 3;
+comment|// optional bytes column_qualifier = 3;
 specifier|private
 name|com
 operator|.
@@ -21683,7 +21683,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool dropDependentColumn = 4;
+comment|// optional bool drop_dependent_column = 4;
 specifier|private
 name|boolean
 name|dropDependentColumn_
@@ -21794,7 +21794,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 name|boolean
 name|hasCompareFilter
 parameter_list|()
@@ -21966,12 +21966,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -22526,7 +22526,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -24183,7 +24183,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -37443,7 +37443,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .BytesBytesPair fuzzyKeysData = 1;
+comment|// repeated .BytesBytesPair fuzzy_keys_data = 1;
 name|java
 operator|.
 name|util
@@ -37669,12 +37669,12 @@ operator|.
 name|internal_static_FuzzyRowFilter_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .BytesBytesPair fuzzyKeysData = 1;
+comment|// repeated .BytesBytesPair fuzzy_keys_data = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FUZZYKEYSDATA_FIELD_NUMBER
+name|FUZZY_KEYS_DATA_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -38304,7 +38304,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FUZZYKEYSDATA_FIELD_NUMBER
+name|FUZZY_KEYS_DATA_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -40073,7 +40073,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .BytesBytesPair fuzzyKeysData = 1;
+comment|// repeated .BytesBytesPair fuzzy_keys_data = 1;
 specifier|private
 name|java
 operator|.
@@ -41420,7 +41420,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bytes stopRowKey = 1;
+comment|// optional bytes stop_row_key = 1;
 name|boolean
 name|hasStopRowKey
 parameter_list|()
@@ -41566,12 +41566,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes stopRowKey = 1;
+comment|// optional bytes stop_row_key = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOPROWKEY_FIELD_NUMBER
+name|STOP_ROW_KEY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -42045,7 +42045,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOPROWKEY_FIELD_NUMBER
+name|STOP_ROW_KEY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -43569,7 +43569,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes stopRowKey = 1;
+comment|// optional bytes stop_row_key = 1;
 specifier|private
 name|com
 operator|.
@@ -43725,7 +43725,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bool lenAsVal = 1;
+comment|// required bool len_as_val = 1;
 name|boolean
 name|hasLenAsVal
 parameter_list|()
@@ -43865,12 +43865,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bool lenAsVal = 1;
+comment|// required bool len_as_val = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LENASVAL_FIELD_NUMBER
+name|LEN_AS_VAL_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -44338,7 +44338,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LENASVAL_FIELD_NUMBER
+name|LEN_AS_VAL_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -45865,7 +45865,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bool lenAsVal = 1;
+comment|// required bool len_as_val = 1;
 specifier|private
 name|boolean
 name|lenAsVal_
@@ -45976,7 +45976,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated bytes sortedPrefixes = 1;
+comment|// repeated bytes sorted_prefixes = 1;
 name|java
 operator|.
 name|util
@@ -46138,12 +46138,12 @@ operator|.
 name|internal_static_MultipleColumnPrefixFilter_fieldAccessorTable
 return|;
 block|}
-comment|// repeated bytes sortedPrefixes = 1;
+comment|// repeated bytes sorted_prefixes = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SORTEDPREFIXES_FIELD_NUMBER
+name|SORTED_PREFIXES_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -46669,7 +46669,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SORTEDPREFIXES_FIELD_NUMBER
+name|SORTED_PREFIXES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -48239,7 +48239,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated bytes sortedPrefixes = 1;
+comment|// repeated bytes sorted_prefixes = 1;
 specifier|private
 name|java
 operator|.
@@ -48579,7 +48579,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required int64 pageSize = 1;
+comment|// required int64 page_size = 1;
 name|boolean
 name|hasPageSize
 parameter_list|()
@@ -48719,12 +48719,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 pageSize = 1;
+comment|// required int64 page_size = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|PAGESIZE_FIELD_NUMBER
+name|PAGE_SIZE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -49192,7 +49192,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|PAGESIZE_FIELD_NUMBER
+name|PAGE_SIZE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -50719,7 +50719,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 pageSize = 1;
+comment|// required int64 page_size = 1;
 specifier|private
 name|long
 name|pageSize_
@@ -53135,7 +53135,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 name|boolean
 name|hasCompareFilter
 parameter_list|()
@@ -53307,12 +53307,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -53867,7 +53867,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -55524,7 +55524,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -58513,7 +58513,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 name|boolean
 name|hasCompareFilter
 parameter_list|()
@@ -58685,12 +58685,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -59245,7 +59245,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -60902,7 +60902,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -61628,7 +61628,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .SingleColumnValueFilter singleColumnValueFilter = 1;
+comment|// required .SingleColumnValueFilter single_column_value_filter = 1;
 name|boolean
 name|hasSingleColumnValueFilter
 parameter_list|()
@@ -61800,12 +61800,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SingleColumnValueFilter singleColumnValueFilter = 1;
+comment|// required .SingleColumnValueFilter single_column_value_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SINGLECOLUMNVALUEFILTER_FIELD_NUMBER
+name|SINGLE_COLUMN_VALUE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -62360,7 +62360,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SINGLECOLUMNVALUEFILTER_FIELD_NUMBER
+name|SINGLE_COLUMN_VALUE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -64017,7 +64017,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .SingleColumnValueFilter singleColumnValueFilter = 1;
+comment|// required .SingleColumnValueFilter single_column_value_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -64743,7 +64743,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bytes columnFamily = 1;
+comment|// optional bytes column_family = 1;
 name|boolean
 name|hasColumnFamily
 parameter_list|()
@@ -64758,7 +64758,7 @@ name|ByteString
 name|getColumnFamily
 parameter_list|()
 function_decl|;
-comment|// optional bytes columnQualifier = 2;
+comment|// optional bytes column_qualifier = 2;
 name|boolean
 name|hasColumnQualifier
 parameter_list|()
@@ -64773,7 +64773,7 @@ name|ByteString
 name|getColumnQualifier
 parameter_list|()
 function_decl|;
-comment|// required .CompareType compareOp = 3;
+comment|// required .CompareType compare_op = 3;
 name|boolean
 name|hasCompareOp
 parameter_list|()
@@ -64837,7 +64837,7 @@ name|ComparatorOrBuilder
 name|getComparatorOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional bool filterIfMissing = 5;
+comment|// optional bool filter_if_missing = 5;
 name|boolean
 name|hasFilterIfMissing
 parameter_list|()
@@ -64846,7 +64846,7 @@ name|boolean
 name|getFilterIfMissing
 parameter_list|()
 function_decl|;
-comment|// optional bool latestVersionOnly = 6;
+comment|// optional bool latest_version_only = 6;
 name|boolean
 name|hasLatestVersionOnly
 parameter_list|()
@@ -64986,12 +64986,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes columnFamily = 1;
+comment|// optional bytes column_family = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNFAMILY_FIELD_NUMBER
+name|COLUMN_FAMILY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -65037,12 +65037,12 @@ return|return
 name|columnFamily_
 return|;
 block|}
-comment|// optional bytes columnQualifier = 2;
+comment|// optional bytes column_qualifier = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNQUALIFIER_FIELD_NUMBER
+name|COLUMN_QUALIFIER_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -65088,12 +65088,12 @@ return|return
 name|columnQualifier_
 return|;
 block|}
-comment|// required .CompareType compareOp = 3;
+comment|// required .CompareType compare_op = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREOP_FIELD_NUMBER
+name|COMPARE_OP_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -65245,12 +65245,12 @@ return|return
 name|comparator_
 return|;
 block|}
-comment|// optional bool filterIfMissing = 5;
+comment|// optional bool filter_if_missing = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FILTERIFMISSING_FIELD_NUMBER
+name|FILTER_IF_MISSING_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -65284,12 +65284,12 @@ return|return
 name|filterIfMissing_
 return|;
 block|}
-comment|// optional bool latestVersionOnly = 6;
+comment|// optional bool latest_version_only = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LATESTVERSIONONLY_FIELD_NUMBER
+name|LATEST_VERSION_ONLY_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -66313,7 +66313,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNFAMILY_FIELD_NUMBER
+name|COLUMN_FAMILY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66344,7 +66344,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNQUALIFIER_FIELD_NUMBER
+name|COLUMN_QUALIFIER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66375,7 +66375,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREOP_FIELD_NUMBER
+name|COMPARE_OP_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66437,7 +66437,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FILTERIFMISSING_FIELD_NUMBER
+name|FILTER_IF_MISSING_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66468,7 +66468,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LATESTVERSIONONLY_FIELD_NUMBER
+name|LATEST_VERSION_ONLY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -68586,7 +68586,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bytes columnFamily = 1;
+comment|// optional bytes column_family = 1;
 specifier|private
 name|com
 operator|.
@@ -68710,7 +68710,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes columnQualifier = 2;
+comment|// optional bytes column_qualifier = 2;
 specifier|private
 name|com
 operator|.
@@ -68834,7 +68834,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .CompareType compareOp = 3;
+comment|// required .CompareType compare_op = 3;
 specifier|private
 name|org
 operator|.
@@ -69696,7 +69696,7 @@ return|return
 name|comparatorBuilder_
 return|;
 block|}
-comment|// optional bool filterIfMissing = 5;
+comment|// optional bool filter_if_missing = 5;
 specifier|private
 name|boolean
 name|filterIfMissing_
@@ -69775,7 +69775,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool latestVersionOnly = 6;
+comment|// optional bool latest_version_only = 6;
 specifier|private
 name|boolean
 name|latestVersionOnly_
@@ -75639,7 +75639,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 name|boolean
 name|hasCompareFilter
 parameter_list|()
@@ -75811,12 +75811,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -76371,7 +76371,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPAREFILTER_FIELD_NUMBER
+name|COMPARE_FILTER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -78028,7 +78028,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .CompareFilter compareFilter = 1;
+comment|// required .CompareFilter compare_filter = 1;
 specifier|private
 name|org
 operator|.
@@ -82603,95 +82603,97 @@ init|=
 block|{
 literal|"\n\014Filter.proto\032\013hbase.proto\032\020Comparator."
 operator|+
-literal|"proto\"0\n\006Filter\022\014\n\004name\030\001 \002(\t\022\030\n\020seriali"
+literal|"proto\"1\n\006Filter\022\014\n\004name\030\001 \002(\t\022\031\n\021seriali"
 operator|+
-literal|"zedFilter\030\002 \001(\014\"%\n\024ColumnCountGetFilter\022"
+literal|"zed_filter\030\002 \001(\014\"%\n\024ColumnCountGetFilter"
 operator|+
-literal|"\r\n\005limit\030\001 \002(\005\"M\n\026ColumnPaginationFilter"
+literal|"\022\r\n\005limit\030\001 \002(\005\"N\n\026ColumnPaginationFilte"
 operator|+
-literal|"\022\r\n\005limit\030\001 \002(\005\022\016\n\006offset\030\002 \001(\005\022\024\n\014colum"
+literal|"r\022\r\n\005limit\030\001 \002(\005\022\016\n\006offset\030\002 \001(\005\022\025\n\rcolu"
 operator|+
-literal|"nOffset\030\003 \001(\014\"$\n\022ColumnPrefixFilter\022\016\n\006p"
+literal|"mn_offset\030\003 \001(\014\"$\n\022ColumnPrefixFilter\022\016\n"
 operator|+
-literal|"refix\030\001 \002(\014\"q\n\021ColumnRangeFilter\022\021\n\tminC"
+literal|"\006prefix\030\001 \002(\014\"w\n\021ColumnRangeFilter\022\022\n\nmi"
 operator|+
-literal|"olumn\030\001 \001(\014\022\032\n\022minColumnInclusive\030\002 \001(\010\022"
+literal|"n_column\030\001 \001(\014\022\034\n\024min_column_inclusive\030\002"
 operator|+
-literal|"\021\n\tmaxColumn\030\003 \001(\014\022\032\n\022maxColumnInclusive"
+literal|" \001(\010\022\022\n\nmax_column\030\003 \001(\014\022\034\n\024max_column_i"
 operator|+
-literal|"\030\004 \001(\010\"Q\n\rCompareFilter\022\037\n\tcompareOp\030\001 \002"
+literal|"nclusive\030\004 \001(\010\"R\n\rCompareFilter\022 \n\ncompa"
 block|,
-literal|"(\0162\014.CompareType\022\037\n\ncomparator\030\002 \001(\0132\013.C"
+literal|"re_op\030\001 \002(\0162\014.CompareType\022\037\n\ncomparator\030"
 operator|+
-literal|"omparator\"\212\001\n\025DependentColumnFilter\022%\n\rc"
+literal|"\002 \001(\0132\013.Comparator\"\217\001\n\025DependentColumnFi"
 operator|+
-literal|"ompareFilter\030\001 \002(\0132\016.CompareFilter\022\024\n\014co"
+literal|"lter\022&\n\016compare_filter\030\001 \002(\0132\016.CompareFi"
 operator|+
-literal|"lumnFamily\030\002 \001(\014\022\027\n\017columnQualifier\030\003 \001("
+literal|"lter\022\025\n\rcolumn_family\030\002 \001(\014\022\030\n\020column_qu"
 operator|+
-literal|"\014\022\033\n\023dropDependentColumn\030\004 \001(\010\"5\n\014Family"
+literal|"alifier\030\003 \001(\014\022\035\n\025drop_dependent_column\030\004"
 operator|+
-literal|"Filter\022%\n\rcompareFilter\030\001 \002(\0132\016.CompareF"
+literal|" \001(\010\"6\n\014FamilyFilter\022&\n\016compare_filter\030\001"
 operator|+
-literal|"ilter\"\200\001\n\nFilterList\022&\n\010operator\030\001 \002(\0162\024"
+literal|" \002(\0132\016.CompareFilter\"\200\001\n\nFilterList\022&\n\010o"
 operator|+
-literal|".FilterList.Operator\022\030\n\007filters\030\002 \003(\0132\007."
+literal|"perator\030\001 \002(\0162\024.FilterList.Operator\022\030\n\007f"
 operator|+
-literal|"Filter\"0\n\010Operator\022\021\n\rMUST_PASS_ALL\020\001\022\021\n"
+literal|"ilters\030\002 \003(\0132\007.Filter\"0\n\010Operator\022\021\n\rMUS"
 operator|+
-literal|"\rMUST_PASS_ONE\020\002\"(\n\rFilterWrapper\022\027\n\006fil"
+literal|"T_PASS_ALL\020\001\022\021\n\rMUST_PASS_ONE\020\002\"(\n\rFilte"
 block|,
-literal|"ter\030\001 \002(\0132\007.Filter\"\024\n\022FirstKeyOnlyFilter"
+literal|"rWrapper\022\027\n\006filter\030\001 \002(\0132\007.Filter\"\024\n\022Fir"
 operator|+
-literal|"\";\n%FirstKeyValueMatchingQualifiersFilte"
+literal|"stKeyOnlyFilter\";\n%FirstKeyValueMatching"
 operator|+
-literal|"r\022\022\n\nqualifiers\030\001 \003(\014\"8\n\016FuzzyRowFilter\022"
+literal|"QualifiersFilter\022\022\n\nqualifiers\030\001 \003(\014\":\n\016"
 operator|+
-literal|"&\n\rfuzzyKeysData\030\001 \003(\0132\017.BytesBytesPair\""
+literal|"FuzzyRowFilter\022(\n\017fuzzy_keys_data\030\001 \003(\0132"
 operator|+
-literal|")\n\023InclusiveStopFilter\022\022\n\nstopRowKey\030\001 \001"
+literal|"\017.BytesBytesPair\"+\n\023InclusiveStopFilter\022"
 operator|+
-literal|"(\014\"!\n\rKeyOnlyFilter\022\020\n\010lenAsVal\030\001 \002(\010\"4\n"
+literal|"\024\n\014stop_row_key\030\001 \001(\014\"#\n\rKeyOnlyFilter\022\022"
 operator|+
-literal|"\032MultipleColumnPrefixFilter\022\026\n\016sortedPre"
+literal|"\n\nlen_as_val\030\001 \002(\010\"5\n\032MultipleColumnPref"
 operator|+
-literal|"fixes\030\001 \003(\014\"\036\n\nPageFilter\022\020\n\010pageSize\030\001 "
+literal|"ixFilter\022\027\n\017sorted_prefixes\030\001 \003(\014\"\037\n\nPag"
 operator|+
-literal|"\002(\003\"\036\n\014PrefixFilter\022\016\n\006prefix\030\001 \001(\014\"8\n\017Q"
+literal|"eFilter\022\021\n\tpage_size\030\001 \002(\003\"\036\n\014PrefixFilt"
 operator|+
-literal|"ualifierFilter\022%\n\rcompareFilter\030\001 \002(\0132\016."
+literal|"er\022\016\n\006prefix\030\001 \001(\014\"9\n\017QualifierFilter\022&\n"
 block|,
-literal|"CompareFilter\"!\n\017RandomRowFilter\022\016\n\006chan"
+literal|"\016compare_filter\030\001 \002(\0132\016.CompareFilter\"!\n"
 operator|+
-literal|"ce\030\001 \002(\002\"2\n\tRowFilter\022%\n\rcompareFilter\030\001"
+literal|"\017RandomRowFilter\022\016\n\006chance\030\001 \002(\002\"3\n\tRowF"
 operator|+
-literal|" \002(\0132\016.CompareFilter\"[\n\036SingleColumnValu"
+literal|"ilter\022&\n\016compare_filter\030\001 \002(\0132\016.CompareF"
 operator|+
-literal|"eExcludeFilter\0229\n\027singleColumnValueFilte"
+literal|"ilter\"^\n\036SingleColumnValueExcludeFilter\022"
 operator|+
-literal|"r\030\001 \002(\0132\030.SingleColumnValueFilter\"\276\001\n\027Si"
+literal|"<\n\032single_column_value_filter\030\001 \002(\0132\030.Si"
 operator|+
-literal|"ngleColumnValueFilter\022\024\n\014columnFamily\030\001 "
+literal|"ngleColumnValueFilter\"\305\001\n\027SingleColumnVa"
 operator|+
-literal|"\001(\014\022\027\n\017columnQualifier\030\002 \001(\014\022\037\n\tcompareO"
+literal|"lueFilter\022\025\n\rcolumn_family\030\001 \001(\014\022\030\n\020colu"
 operator|+
-literal|"p\030\003 \002(\0162\014.CompareType\022\037\n\ncomparator\030\004 \002("
+literal|"mn_qualifier\030\002 \001(\014\022 \n\ncompare_op\030\003 \002(\0162\014"
 operator|+
-literal|"\0132\013.Comparator\022\027\n\017filterIfMissing\030\005 \001(\010\022"
+literal|".CompareType\022\037\n\ncomparator\030\004 \002(\0132\013.Compa"
 operator|+
-literal|"\031\n\021latestVersionOnly\030\006 \001(\010\"%\n\nSkipFilter"
+literal|"rator\022\031\n\021filter_if_missing\030\005 \001(\010\022\033\n\023late"
 block|,
-literal|"\022\027\n\006filter\030\001 \002(\0132\007.Filter\"*\n\020TimestampsF"
+literal|"st_version_only\030\006 \001(\010\"%\n\nSkipFilter\022\027\n\006f"
 operator|+
-literal|"ilter\022\026\n\ntimestamps\030\001 \003(\003B\002\020\001\"4\n\013ValueFi"
+literal|"ilter\030\001 \002(\0132\007.Filter\"*\n\020TimestampsFilter"
 operator|+
-literal|"lter\022%\n\rcompareFilter\030\001 \002(\0132\016.CompareFil"
+literal|"\022\026\n\ntimestamps\030\001 \003(\003B\002\020\001\"5\n\013ValueFilter\022"
 operator|+
-literal|"ter\"+\n\020WhileMatchFilter\022\027\n\006filter\030\001 \002(\0132"
+literal|"&\n\016compare_filter\030\001 \002(\0132\016.CompareFilter\""
 operator|+
-literal|"\007.FilterBB\n*org.apache.hadoop.hbase.prot"
+literal|"+\n\020WhileMatchFilter\022\027\n\006filter\030\001 \002(\0132\007.Fi"
 operator|+
-literal|"obuf.generatedB\014FilterProtosH\001\210\001\001\240\001\001"
+literal|"lterBB\n*org.apache.hadoop.hbase.protobuf"
+operator|+
+literal|".generatedB\014FilterProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

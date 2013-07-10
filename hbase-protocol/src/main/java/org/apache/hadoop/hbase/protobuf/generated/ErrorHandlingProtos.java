@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional string declaringClass = 1;
+comment|// optional string declaring_class = 1;
 name|boolean
 name|hasDeclaringClass
 parameter_list|()
@@ -69,7 +69,7 @@ name|String
 name|getDeclaringClass
 parameter_list|()
 function_decl|;
-comment|// optional string methodName = 2;
+comment|// optional string method_name = 2;
 name|boolean
 name|hasMethodName
 parameter_list|()
@@ -78,7 +78,7 @@ name|String
 name|getMethodName
 parameter_list|()
 function_decl|;
-comment|// optional string fileName = 3;
+comment|// optional string file_name = 3;
 name|boolean
 name|hasFileName
 parameter_list|()
@@ -87,7 +87,7 @@ name|String
 name|getFileName
 parameter_list|()
 function_decl|;
-comment|// optional int32 lineNumber = 4;
+comment|// optional int32 line_number = 4;
 name|boolean
 name|hasLineNumber
 parameter_list|()
@@ -227,12 +227,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional string declaringClass = 1;
+comment|// optional string declaring_class = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DECLARINGCLASS_FIELD_NUMBER
+name|DECLARING_CLASS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -421,12 +421,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional string methodName = 2;
+comment|// optional string method_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|METHODNAME_FIELD_NUMBER
+name|METHOD_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -615,12 +615,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional string fileName = 3;
+comment|// optional string file_name = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FILENAME_FIELD_NUMBER
+name|FILE_NAME_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -809,12 +809,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional int32 lineNumber = 4;
+comment|// optional int32 line_number = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LINENUMBER_FIELD_NUMBER
+name|LINE_NUMBER_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -1555,7 +1555,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|DECLARINGCLASS_FIELD_NUMBER
+name|DECLARING_CLASS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1586,7 +1586,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|METHODNAME_FIELD_NUMBER
+name|METHOD_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1617,7 +1617,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FILENAME_FIELD_NUMBER
+name|FILE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1648,7 +1648,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LINENUMBER_FIELD_NUMBER
+name|LINE_NUMBER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3374,7 +3374,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional string declaringClass = 1;
+comment|// optional string declaring_class = 1;
 specifier|private
 name|java
 operator|.
@@ -3553,7 +3553,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional string methodName = 2;
+comment|// optional string method_name = 2;
 specifier|private
 name|java
 operator|.
@@ -3732,7 +3732,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional string fileName = 3;
+comment|// optional string file_name = 3;
 specifier|private
 name|java
 operator|.
@@ -3911,7 +3911,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional int32 lineNumber = 4;
+comment|// optional int32 line_number = 4;
 specifier|private
 name|int
 name|lineNumber_
@@ -4022,7 +4022,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional string className = 1;
+comment|// optional string class_name = 1;
 name|boolean
 name|hasClassName
 parameter_list|()
@@ -4040,7 +4040,7 @@ name|String
 name|getMessage
 parameter_list|()
 function_decl|;
-comment|// optional bytes errorInfo = 3;
+comment|// optional bytes error_info = 3;
 name|boolean
 name|hasErrorInfo
 parameter_list|()
@@ -4285,12 +4285,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional string className = 1;
+comment|// optional string class_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CLASSNAME_FIELD_NUMBER
+name|CLASS_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -4673,12 +4673,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional bytes errorInfo = 3;
+comment|// optional bytes error_info = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ERRORINFO_FIELD_NUMBER
+name|ERROR_INFO_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -5614,7 +5614,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CLASSNAME_FIELD_NUMBER
+name|CLASS_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5676,7 +5676,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ERRORINFO_FIELD_NUMBER
+name|ERROR_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -7677,7 +7677,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional string className = 1;
+comment|// optional string class_name = 1;
 specifier|private
 name|java
 operator|.
@@ -8035,7 +8035,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional bytes errorInfo = 3;
+comment|// optional bytes error_info = 3;
 specifier|private
 name|com
 operator|.
@@ -9515,7 +9515,7 @@ name|String
 name|getSource
 parameter_list|()
 function_decl|;
-comment|// optional .GenericExceptionMessage genericException = 2;
+comment|// optional .GenericExceptionMessage generic_exception = 2;
 name|boolean
 name|hasGenericException
 parameter_list|()
@@ -9881,12 +9881,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional .GenericExceptionMessage genericException = 2;
+comment|// optional .GenericExceptionMessage generic_exception = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|GENERICEXCEPTION_FIELD_NUMBER
+name|GENERIC_EXCEPTION_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -10535,7 +10535,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|GENERICEXCEPTION_FIELD_NUMBER
+name|GENERIC_EXCEPTION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12417,7 +12417,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional .GenericExceptionMessage genericException = 2;
+comment|// optional .GenericExceptionMessage generic_exception = 2;
 specifier|private
 name|org
 operator|.
@@ -13251,27 +13251,27 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023ErrorHandling.proto\"l\n\030StackTraceEleme"
+literal|"\n\023ErrorHandling.proto\"p\n\030StackTraceEleme"
 operator|+
-literal|"ntMessage\022\026\n\016declaringClass\030\001 \001(\t\022\022\n\nmet"
+literal|"ntMessage\022\027\n\017declaring_class\030\001 \001(\t\022\023\n\013me"
 operator|+
-literal|"hodName\030\002 \001(\t\022\020\n\010fileName\030\003 \001(\t\022\022\n\nlineN"
+literal|"thod_name\030\002 \001(\t\022\021\n\tfile_name\030\003 \001(\t\022\023\n\013li"
 operator|+
-literal|"umber\030\004 \001(\005\"z\n\027GenericExceptionMessage\022\021"
+literal|"ne_number\030\004 \001(\005\"|\n\027GenericExceptionMessa"
 operator|+
-literal|"\n\tclassName\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\021\n\ter"
+literal|"ge\022\022\n\nclass_name\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022"
 operator|+
-literal|"rorInfo\030\003 \001(\014\022(\n\005trace\030\004 \003(\0132\031.StackTrac"
+literal|"\022\n\nerror_info\030\003 \001(\014\022(\n\005trace\030\004 \003(\0132\031.Sta"
 operator|+
-literal|"eElementMessage\"]\n\027ForeignExceptionMessa"
+literal|"ckTraceElementMessage\"^\n\027ForeignExceptio"
 operator|+
-literal|"ge\022\016\n\006source\030\001 \001(\t\0222\n\020genericException\030\002"
+literal|"nMessage\022\016\n\006source\030\001 \001(\t\0223\n\021generic_exce"
 operator|+
-literal|" \001(\0132\030.GenericExceptionMessageBF\n*org.ap"
+literal|"ption\030\002 \001(\0132\030.GenericExceptionMessageBF\n"
 operator|+
-literal|"ache.hadoop.hbase.protobuf.generatedB\023Er"
+literal|"*org.apache.hadoop.hbase.protobuf.genera"
 block|,
-literal|"rorHandlingProtosH\001\240\001\001"
+literal|"tedB\023ErrorHandlingProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

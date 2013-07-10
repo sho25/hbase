@@ -1937,7 +1937,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bool isMasterRunning = 1;
+comment|// required bool is_master_running = 1;
 name|boolean
 name|hasIsMasterRunning
 parameter_list|()
@@ -2077,12 +2077,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bool isMasterRunning = 1;
+comment|// required bool is_master_running = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ISMASTERRUNNING_FIELD_NUMBER
+name|IS_MASTER_RUNNING_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -2550,7 +2550,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ISMASTERRUNNING_FIELD_NUMBER
+name|IS_MASTER_RUNNING_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4077,7 +4077,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bool isMasterRunning = 1;
+comment|// required bool is_master_running = 1;
 specifier|private
 name|boolean
 name|isMasterRunning_
@@ -5752,17 +5752,17 @@ init|=
 block|{
 literal|"\n\014Master.proto\"\030\n\026IsMasterRunningRequest"
 operator|+
-literal|"\"2\n\027IsMasterRunningResponse\022\027\n\017isMasterR"
+literal|"\"4\n\027IsMasterRunningResponse\022\031\n\021is_master"
 operator|+
-literal|"unning\030\001 \002(\0102U\n\rMasterService\022D\n\017isMaste"
+literal|"_running\030\001 \002(\0102U\n\rMasterService\022D\n\017IsMas"
 operator|+
-literal|"rRunning\022\027.IsMasterRunningRequest\032\030.IsMa"
+literal|"terRunning\022\027.IsMasterRunningRequest\032\030.Is"
 operator|+
-literal|"sterRunningResponseBB\n*org.apache.hadoop"
+literal|"MasterRunningResponseBB\n*org.apache.hado"
 operator|+
-literal|".hbase.protobuf.generatedB\014MasterProtosH"
+literal|"op.hbase.protobuf.generatedB\014MasterProto"
 operator|+
-literal|"\001\210\001\001\240\001\001"
+literal|"sH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

@@ -69,7 +69,7 @@ name|int
 name|getId
 parameter_list|()
 function_decl|;
-comment|// required int64 expirationDate = 2;
+comment|// required int64 expiration_date = 2;
 name|boolean
 name|hasExpirationDate
 parameter_list|()
@@ -263,12 +263,12 @@ return|return
 name|id_
 return|;
 block|}
-comment|// required int64 expirationDate = 2;
+comment|// required int64 expiration_date = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|EXPIRATIONDATE_FIELD_NUMBER
+name|EXPIRATION_DATE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -1040,7 +1040,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|EXPIRATIONDATE_FIELD_NUMBER
+name|EXPIRATION_DATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2849,7 +2849,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required int64 expirationDate = 2;
+comment|// required int64 expiration_date = 2;
 specifier|private
 name|long
 name|expirationDate_
@@ -3124,7 +3124,7 @@ name|ByteString
 name|getUsername
 parameter_list|()
 function_decl|;
-comment|// required int32 keyId = 3;
+comment|// required int32 key_id = 3;
 name|boolean
 name|hasKeyId
 parameter_list|()
@@ -3133,7 +3133,7 @@ name|int
 name|getKeyId
 parameter_list|()
 function_decl|;
-comment|// optional int64 issueDate = 4;
+comment|// optional int64 issue_date = 4;
 name|boolean
 name|hasIssueDate
 parameter_list|()
@@ -3142,7 +3142,7 @@ name|long
 name|getIssueDate
 parameter_list|()
 function_decl|;
-comment|// optional int64 expirationDate = 5;
+comment|// optional int64 expiration_date = 5;
 name|boolean
 name|hasExpirationDate
 parameter_list|()
@@ -3151,7 +3151,7 @@ name|long
 name|getExpirationDate
 parameter_list|()
 function_decl|;
-comment|// optional int64 sequenceNumber = 6;
+comment|// optional int64 sequence_number = 6;
 name|boolean
 name|hasSequenceNumber
 parameter_list|()
@@ -3733,12 +3733,12 @@ return|return
 name|username_
 return|;
 block|}
-comment|// required int32 keyId = 3;
+comment|// required int32 key_id = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYID_FIELD_NUMBER
+name|KEY_ID_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -3772,12 +3772,12 @@ return|return
 name|keyId_
 return|;
 block|}
-comment|// optional int64 issueDate = 4;
+comment|// optional int64 issue_date = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ISSUEDATE_FIELD_NUMBER
+name|ISSUE_DATE_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -3811,12 +3811,12 @@ return|return
 name|issueDate_
 return|;
 block|}
-comment|// optional int64 expirationDate = 5;
+comment|// optional int64 expiration_date = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|EXPIRATIONDATE_FIELD_NUMBER
+name|EXPIRATION_DATE_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -3850,12 +3850,12 @@ return|return
 name|expirationDate_
 return|;
 block|}
-comment|// optional int64 sequenceNumber = 6;
+comment|// optional int64 sequence_number = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SEQUENCENUMBER_FIELD_NUMBER
+name|SEQUENCE_NUMBER_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -4913,7 +4913,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|KEYID_FIELD_NUMBER
+name|KEY_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4941,7 +4941,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ISSUEDATE_FIELD_NUMBER
+name|ISSUE_DATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4972,7 +4972,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|EXPIRATIONDATE_FIELD_NUMBER
+name|EXPIRATION_DATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5003,7 +5003,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SEQUENCENUMBER_FIELD_NUMBER
+name|SEQUENCE_NUMBER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -7302,7 +7302,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required int32 keyId = 3;
+comment|// required int32 key_id = 3;
 specifier|private
 name|int
 name|keyId_
@@ -7381,7 +7381,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int64 issueDate = 4;
+comment|// optional int64 issue_date = 4;
 specifier|private
 name|long
 name|issueDate_
@@ -7460,7 +7460,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int64 expirationDate = 5;
+comment|// optional int64 expiration_date = 5;
 specifier|private
 name|long
 name|expirationDate_
@@ -7539,7 +7539,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int64 sequenceNumber = 6;
+comment|// optional int64 sequence_number = 6;
 specifier|private
 name|long
 name|sequenceNumber_
@@ -17579,7 +17579,7 @@ name|String
 name|getUsername
 parameter_list|()
 function_decl|;
-comment|// optional string authMethod = 2;
+comment|// optional string auth_method = 2;
 name|boolean
 name|hasAuthMethod
 parameter_list|()
@@ -17913,12 +17913,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional string authMethod = 2;
+comment|// optional string auth_method = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|AUTHMETHOD_FIELD_NUMBER
+name|AUTH_METHOD_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -18656,7 +18656,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|AUTHMETHOD_FIELD_NUMBER
+name|AUTH_METHOD_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -20422,7 +20422,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional string authMethod = 2;
+comment|// optional string auth_method = 2;
 specifier|private
 name|java
 operator|.
@@ -20704,7 +20704,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -20864,7 +20864,7 @@ operator|.
 name|Override
 specifier|public
 name|void
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -20921,7 +20921,7 @@ parameter_list|)
 block|{
 name|impl
 operator|.
-name|whoami
+name|whoAmI
 argument_list|(
 name|controller
 argument_list|,
@@ -21098,7 +21098,7 @@ case|:
 return|return
 name|impl
 operator|.
-name|whoami
+name|whoAmI
 argument_list|(
 name|controller
 argument_list|,
@@ -21432,7 +21432,7 @@ function_decl|;
 specifier|public
 specifier|abstract
 name|void
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -21699,7 +21699,7 @@ literal|1
 case|:
 name|this
 operator|.
-name|whoami
+name|whoAmI
 argument_list|(
 name|controller
 argument_list|,
@@ -22242,7 +22242,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -22484,7 +22484,7 @@ operator|.
 name|AuthenticationProtos
 operator|.
 name|WhoAmIResponse
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -22688,7 +22688,7 @@ operator|.
 name|AuthenticationProtos
 operator|.
 name|WhoAmIResponse
-name|whoami
+name|whoAmI
 parameter_list|(
 name|com
 operator|.
@@ -23009,39 +23009,39 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\024Authentication.proto\"D\n\021Authentication"
+literal|"\n\024Authentication.proto\"E\n\021Authentication"
 operator|+
-literal|"Key\022\n\n\002id\030\001 \002(\005\022\026\n\016expirationDate\030\002 \002(\003\022"
+literal|"Key\022\n\n\002id\030\001 \002(\005\022\027\n\017expiration_date\030\002 \002(\003"
 operator|+
-literal|"\013\n\003key\030\003 \002(\014\"\270\001\n\017TokenIdentifier\022#\n\004kind"
+literal|"\022\013\n\003key\030\003 \002(\014\"\274\001\n\017TokenIdentifier\022#\n\004kin"
 operator|+
-literal|"\030\001 \002(\0162\025.TokenIdentifier.Kind\022\020\n\010usernam"
+literal|"d\030\001 \002(\0162\025.TokenIdentifier.Kind\022\020\n\010userna"
 operator|+
-literal|"e\030\002 \002(\014\022\r\n\005keyId\030\003 \002(\005\022\021\n\tissueDate\030\004 \001("
+literal|"me\030\002 \002(\014\022\016\n\006key_id\030\003 \002(\005\022\022\n\nissue_date\030\004"
 operator|+
-literal|"\003\022\026\n\016expirationDate\030\005 \001(\003\022\026\n\016sequenceNum"
+literal|" \001(\003\022\027\n\017expiration_date\030\005 \001(\003\022\027\n\017sequenc"
 operator|+
-literal|"ber\030\006 \001(\003\"\034\n\004Kind\022\024\n\020HBASE_AUTH_TOKEN\020\000\""
+literal|"e_number\030\006 \001(\003\"\034\n\004Kind\022\024\n\020HBASE_AUTH_TOK"
 operator|+
-literal|">\n\005Token\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password"
+literal|"EN\020\000\">\n\005Token\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010pas"
 operator|+
-literal|"\030\002 \001(\014\022\017\n\007service\030\003 \001(\014\"\016\n\014TokenRequest\""
+literal|"sword\030\002 \001(\014\022\017\n\007service\030\003 \001(\014\"\016\n\014TokenReq"
 operator|+
-literal|"&\n\rTokenResponse\022\025\n\005token\030\001 \001(\0132\006.Token\""
+literal|"uest\"&\n\rTokenResponse\022\025\n\005token\030\001 \001(\0132\006.T"
 block|,
-literal|"\017\n\rWhoAmIRequest\"6\n\016WhoAmIResponse\022\020\n\010us"
+literal|"oken\"\017\n\rWhoAmIRequest\"7\n\016WhoAmIResponse\022"
 operator|+
-literal|"ername\030\001 \001(\t\022\022\n\nauthMethod\030\002 \001(\t2{\n\025Auth"
+literal|"\020\n\010username\030\001 \001(\t\022\023\n\013auth_method\030\002 \001(\t2{"
 operator|+
-literal|"enticationService\0227\n\026getAuthenticationTo"
+literal|"\n\025AuthenticationService\0227\n\026GetAuthentica"
 operator|+
-literal|"ken\022\r.TokenRequest\032\016.TokenResponse\022)\n\006wh"
+literal|"tionToken\022\r.TokenRequest\032\016.TokenResponse"
 operator|+
-literal|"oami\022\016.WhoAmIRequest\032\017.WhoAmIResponseBJ\n"
+literal|"\022)\n\006WhoAmI\022\016.WhoAmIRequest\032\017.WhoAmIRespo"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"nseBJ\n*org.apache.hadoop.hbase.protobuf."
 operator|+
-literal|"tedB\024AuthenticationProtosH\001\210\001\001\240\001\001"
+literal|"generatedB\024AuthenticationProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

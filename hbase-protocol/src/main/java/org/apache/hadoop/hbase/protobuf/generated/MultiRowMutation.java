@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .MutationProto mutationRequest = 1;
+comment|// repeated .MutationProto mutation_request = 1;
 name|java
 operator|.
 name|util
@@ -286,12 +286,12 @@ operator|.
 name|internal_static_MultiMutateRequest_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .MutationProto mutationRequest = 1;
+comment|// repeated .MutationProto mutation_request = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MUTATIONREQUEST_FIELD_NUMBER
+name|MUTATION_REQUEST_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -921,7 +921,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MUTATIONREQUEST_FIELD_NUMBER
+name|MUTATION_REQUEST_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2690,7 +2690,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .MutationProto mutationRequest = 1;
+comment|// repeated .MutationProto mutation_request = 1;
 specifier|private
 name|java
 operator|.
@@ -7476,19 +7476,21 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\026MultiRowMutation.proto\032\014Client.proto\"="
+literal|"\n\026MultiRowMutation.proto\032\014Client.proto\">"
 operator|+
-literal|"\n\022MultiMutateRequest\022\'\n\017mutationRequest\030"
+literal|"\n\022MultiMutateRequest\022(\n\020mutation_request"
 operator|+
-literal|"\001 \003(\0132\016.MutationProto\"\025\n\023MultiMutateResp"
+literal|"\030\001 \003(\0132\016.MutationProto\"\025\n\023MultiMutateRes"
 operator|+
-literal|"onse2R\n\027MultiRowMutationService\0227\n\nmutat"
+literal|"ponse2R\n\027MultiRowMutationService\0227\n\nMuta"
 operator|+
-literal|"eRows\022\023.MultiMutateRequest\032\024.MultiMutate"
+literal|"teRows\022\023.MultiMutateRequest\032\024.MultiMutat"
 operator|+
-literal|"ResponseBF\n*org.apache.hadoop.hbase.prot"
+literal|"eResponseBF\n*org.apache.hadoop.hbase.pro"
 operator|+
-literal|"obuf.generatedB\020MultiRowMutationH\001\210\001\001\240\001\001"
+literal|"tobuf.generatedB\020MultiRowMutationH\001\210\001\001\240\001"
+operator|+
+literal|"\001"
 block|}
 decl_stmt|;
 name|com

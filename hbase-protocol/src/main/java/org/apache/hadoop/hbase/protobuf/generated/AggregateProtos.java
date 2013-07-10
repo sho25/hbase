@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string interpreterClassName = 1;
+comment|// required string interpreter_class_name = 1;
 name|boolean
 name|hasInterpreterClassName
 parameter_list|()
@@ -110,7 +110,7 @@ name|ScanOrBuilder
 name|getScanOrBuilder
 parameter_list|()
 function_decl|;
-comment|// optional bytes interpreterSpecificBytes = 3;
+comment|// optional bytes interpreter_specific_bytes = 3;
 name|boolean
 name|hasInterpreterSpecificBytes
 parameter_list|()
@@ -256,12 +256,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string interpreterClassName = 1;
+comment|// required string interpreter_class_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|INTERPRETERCLASSNAME_FIELD_NUMBER
+name|INTERPRETER_CLASS_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -540,12 +540,12 @@ return|return
 name|scan_
 return|;
 block|}
-comment|// optional bytes interpreterSpecificBytes = 3;
+comment|// optional bytes interpreter_specific_bytes = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|INTERPRETERSPECIFICBYTES_FIELD_NUMBER
+name|INTERPRETER_SPECIFIC_BYTES_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -1274,7 +1274,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|INTERPRETERCLASSNAME_FIELD_NUMBER
+name|INTERPRETER_CLASS_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1336,7 +1336,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|INTERPRETERSPECIFICBYTES_FIELD_NUMBER
+name|INTERPRETER_SPECIFIC_BYTES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3154,7 +3154,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string interpreterClassName = 1;
+comment|// required string interpreter_class_name = 1;
 specifier|private
 name|java
 operator|.
@@ -4027,7 +4027,7 @@ return|return
 name|scanBuilder_
 return|;
 block|}
-comment|// optional bytes interpreterSpecificBytes = 3;
+comment|// optional bytes interpreter_specific_bytes = 3;
 specifier|private
 name|com
 operator|.
@@ -4183,7 +4183,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated bytes firstPart = 1;
+comment|// repeated bytes first_part = 1;
 name|java
 operator|.
 name|util
@@ -4218,7 +4218,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional bytes secondPart = 2;
+comment|// optional bytes second_part = 2;
 name|boolean
 name|hasSecondPart
 parameter_list|()
@@ -4364,12 +4364,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated bytes firstPart = 1;
+comment|// repeated bytes first_part = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FIRSTPART_FIELD_NUMBER
+name|FIRST_PART_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -4447,12 +4447,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional bytes secondPart = 2;
+comment|// optional bytes second_part = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SECONDPART_FIELD_NUMBER
+name|SECOND_PART_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -5048,7 +5048,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FIRSTPART_FIELD_NUMBER
+name|FIRST_PART_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5079,7 +5079,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SECONDPART_FIELD_NUMBER
+name|SECOND_PART_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6739,7 +6739,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated bytes firstPart = 1;
+comment|// repeated bytes first_part = 1;
 specifier|private
 name|java
 operator|.
@@ -7047,7 +7047,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes secondPart = 2;
+comment|// optional bytes second_part = 2;
 specifier|private
 name|com
 operator|.
@@ -12869,39 +12869,39 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017Aggregate.proto\032\014Client.proto\"h\n\021Aggre"
+literal|"\n\017Aggregate.proto\032\014Client.proto\"l\n\021Aggre"
 operator|+
-literal|"gateArgument\022\034\n\024interpreterClassName\030\001 \002"
+literal|"gateArgument\022\036\n\026interpreter_class_name\030\001"
 operator|+
-literal|"(\t\022\023\n\004scan\030\002 \002(\0132\005.Scan\022 \n\030interpreterSp"
+literal|" \002(\t\022\023\n\004scan\030\002 \002(\0132\005.Scan\022\"\n\032interpreter"
 operator|+
-literal|"ecificBytes\030\003 \001(\014\":\n\021AggregateResponse\022\021"
+literal|"_specific_bytes\030\003 \001(\014\"<\n\021AggregateRespon"
 operator|+
-literal|"\n\tfirstPart\030\001 \003(\014\022\022\n\nsecondPart\030\002 \001(\0142\366\002"
+literal|"se\022\022\n\nfirst_part\030\001 \003(\014\022\023\n\013second_part\030\002 "
 operator|+
-literal|"\n\020AggregateService\0220\n\006getMax\022\022.Aggregate"
+literal|"\001(\0142\366\002\n\020AggregateService\0220\n\006GetMax\022\022.Agg"
 operator|+
-literal|"Argument\032\022.AggregateResponse\0220\n\006getMin\022\022"
+literal|"regateArgument\032\022.AggregateResponse\0220\n\006Ge"
 operator|+
-literal|".AggregateArgument\032\022.AggregateResponse\0220"
+literal|"tMin\022\022.AggregateArgument\032\022.AggregateResp"
 operator|+
-literal|"\n\006getSum\022\022.AggregateArgument\032\022.Aggregate"
+literal|"onse\0220\n\006GetSum\022\022.AggregateArgument\032\022.Agg"
 operator|+
-literal|"Response\0223\n\tgetRowNum\022\022.AggregateArgumen"
+literal|"regateResponse\0223\n\tGetRowNum\022\022.AggregateA"
 block|,
-literal|"t\032\022.AggregateResponse\0220\n\006getAvg\022\022.Aggreg"
+literal|"rgument\032\022.AggregateResponse\0220\n\006GetAvg\022\022."
 operator|+
-literal|"ateArgument\032\022.AggregateResponse\0220\n\006getSt"
+literal|"AggregateArgument\032\022.AggregateResponse\0220\n"
 operator|+
-literal|"d\022\022.AggregateArgument\032\022.AggregateRespons"
+literal|"\006GetStd\022\022.AggregateArgument\032\022.AggregateR"
 operator|+
-literal|"e\0223\n\tgetMedian\022\022.AggregateArgument\032\022.Agg"
+literal|"esponse\0223\n\tGetMedian\022\022.AggregateArgument"
 operator|+
-literal|"regateResponseBE\n*org.apache.hadoop.hbas"
+literal|"\032\022.AggregateResponseBE\n*org.apache.hadoo"
 operator|+
-literal|"e.protobuf.generatedB\017AggregateProtosH\001\210"
+literal|"p.hbase.protobuf.generatedB\017AggregatePro"
 operator|+
-literal|"\001\001\240\001\001"
+literal|"tosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

@@ -1716,7 +1716,7 @@ specifier|public
 name|AuthenticationProtos
 operator|.
 name|WhoAmIResponse
-name|whoami
+name|whoAmI
 parameter_list|(
 name|RpcController
 name|controller
@@ -1733,7 +1733,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"whoami() request from "
+literal|"whoAmI() request from "
 operator|+
 name|RequestContext
 operator|.
@@ -1766,7 +1766,7 @@ name|WhoAmIResponse
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|whoami
+name|whoAmI
 argument_list|(
 name|serverController
 argument_list|,
@@ -2371,7 +2371,7 @@ name|response
 init|=
 name|stub
 operator|.
-name|whoami
+name|whoAmI
 argument_list|(
 literal|null
 argument_list|,

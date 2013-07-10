@@ -547,7 +547,7 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .CellType cellType = 5;
+comment|// optional .CellType cell_type = 5;
 name|boolean
 name|hasCellType
 parameter_list|()
@@ -908,12 +908,12 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .CellType cellType = 5;
+comment|// optional .CellType cell_type = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CELLTYPE_FIELD_NUMBER
+name|CELL_TYPE_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -2092,7 +2092,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CELLTYPE_FIELD_NUMBER
+name|CELL_TYPE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4556,7 +4556,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .CellType cellType = 5;
+comment|// optional .CellType cell_type = 5;
 specifier|private
 name|org
 operator|.
@@ -4934,7 +4934,7 @@ name|long
 name|getTimestamp
 parameter_list|()
 function_decl|;
-comment|// optional .CellType keyType = 5;
+comment|// optional .CellType key_type = 5;
 name|boolean
 name|hasKeyType
 parameter_list|()
@@ -5295,12 +5295,12 @@ return|return
 name|timestamp_
 return|;
 block|}
-comment|// optional .CellType keyType = 5;
+comment|// optional .CellType key_type = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|KEYTYPE_FIELD_NUMBER
+name|KEY_TYPE_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -6524,7 +6524,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|KEYTYPE_FIELD_NUMBER
+name|KEY_TYPE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -9021,7 +9021,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .CellType keyType = 5;
+comment|// optional .CellType key_type = 5;
 specifier|private
 name|org
 operator|.
@@ -9427,27 +9427,27 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\nCell.proto\"u\n\004Cell\022\013\n\003row\030\001 \001(\014\022\016\n\006fam"
+literal|"\n\nCell.proto\"v\n\004Cell\022\013\n\003row\030\001 \001(\014\022\016\n\006fam"
 operator|+
 literal|"ily\030\002 \001(\014\022\021\n\tqualifier\030\003 \001(\014\022\021\n\ttimestam"
 operator|+
-literal|"p\030\004 \001(\004\022\033\n\010cellType\030\005 \001(\0162\t.CellType\022\r\n\005"
+literal|"p\030\004 \001(\004\022\034\n\tcell_type\030\005 \001(\0162\t.CellType\022\r\n"
 operator|+
-literal|"value\030\006 \001(\014\"x\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016\n\006"
+literal|"\005value\030\006 \001(\014\"y\n\010KeyValue\022\013\n\003row\030\001 \002(\014\022\016\n"
 operator|+
-literal|"family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttimes"
+literal|"\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\021\n\ttime"
 operator|+
-literal|"tamp\030\004 \001(\004\022\032\n\007keyType\030\005 \001(\0162\t.CellType\022\r"
+literal|"stamp\030\004 \001(\004\022\033\n\010key_type\030\005 \001(\0162\t.CellType"
 operator|+
-literal|"\n\005value\030\006 \001(\014*`\n\010CellType\022\013\n\007MINIMUM\020\000\022\007"
+literal|"\022\r\n\005value\030\006 \001(\014*`\n\010CellType\022\013\n\007MINIMUM\020\000"
 operator|+
-literal|"\n\003PUT\020\004\022\n\n\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014\022\021"
+literal|"\022\007\n\003PUT\020\004\022\n\n\006DELETE\020\010\022\021\n\rDELETE_COLUMN\020\014"
 operator|+
-literal|"\n\rDELETE_FAMILY\020\016\022\014\n\007MAXIMUM\020\377\001B=\n*org.a"
+literal|"\022\021\n\rDELETE_FAMILY\020\016\022\014\n\007MAXIMUM\020\377\001B=\n*org"
 operator|+
-literal|"pache.hadoop.hbase.protobuf.generatedB\nC"
+literal|".apache.hadoop.hbase.protobuf.generatedB"
 block|,
-literal|"ellProtosH\001\240\001\001"
+literal|"\nCellProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

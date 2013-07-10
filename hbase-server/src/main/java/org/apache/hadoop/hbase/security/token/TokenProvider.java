@@ -748,7 +748,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|whoami
+name|whoAmI
 parameter_list|(
 name|RpcController
 name|controller

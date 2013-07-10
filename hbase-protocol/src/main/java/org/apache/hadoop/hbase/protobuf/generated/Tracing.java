@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional int64 traceId = 1;
+comment|// optional int64 trace_id = 1;
 name|boolean
 name|hasTraceId
 parameter_list|()
@@ -69,7 +69,7 @@ name|long
 name|getTraceId
 parameter_list|()
 function_decl|;
-comment|// optional int64 parentId = 2;
+comment|// optional int64 parent_id = 2;
 name|boolean
 name|hasParentId
 parameter_list|()
@@ -209,12 +209,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional int64 traceId = 1;
+comment|// optional int64 trace_id = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TRACEID_FIELD_NUMBER
+name|TRACE_ID_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -248,12 +248,12 @@ return|return
 name|traceId_
 return|;
 block|}
-comment|// optional int64 parentId = 2;
+comment|// optional int64 parent_id = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|PARENTID_FIELD_NUMBER
+name|PARENT_ID_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -799,7 +799,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TRACEID_FIELD_NUMBER
+name|TRACE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -830,7 +830,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|PARENTID_FIELD_NUMBER
+name|PARENT_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2417,7 +2417,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional int64 traceId = 1;
+comment|// optional int64 trace_id = 1;
 specifier|private
 name|long
 name|traceId_
@@ -2496,7 +2496,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional int64 parentId = 2;
+comment|// optional int64 parent_id = 2;
 specifier|private
 name|long
 name|parentId_
@@ -2663,13 +2663,13 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\rTracing.proto\"-\n\010RPCTInfo\022\017\n\007traceId\030\001"
+literal|"\n\rTracing.proto\"/\n\010RPCTInfo\022\020\n\010trace_id\030"
 operator|+
-literal|" \001(\003\022\020\n\010parentId\030\002 \001(\003B:\n*org.apache.had"
+literal|"\001 \001(\003\022\021\n\tparent_id\030\002 \001(\003B:\n*org.apache.h"
 operator|+
-literal|"oop.hbase.protobuf.generatedB\007TracingH\001\240"
+literal|"adoop.hbase.protobuf.generatedB\007TracingH"
 operator|+
-literal|"\001\001"
+literal|"\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

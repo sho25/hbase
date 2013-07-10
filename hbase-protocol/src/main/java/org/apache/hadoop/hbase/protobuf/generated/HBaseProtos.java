@@ -630,7 +630,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .ColumnFamilySchema columnFamilies = 3;
+comment|// repeated .ColumnFamilySchema column_families = 3;
 name|java
 operator|.
 name|util
@@ -1180,12 +1180,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .ColumnFamilySchema columnFamilies = 3;
+comment|// repeated .ColumnFamilySchema column_families = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COLUMNFAMILIES_FIELD_NUMBER
+name|COLUMN_FAMILIES_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -2425,7 +2425,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COLUMNFAMILIES_FIELD_NUMBER
+name|COLUMN_FAMILIES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -6424,7 +6424,7 @@ return|return
 name|attributesBuilder_
 return|;
 block|}
-comment|// repeated .ColumnFamilySchema columnFamilies = 3;
+comment|// repeated .ColumnFamilySchema column_families = 3;
 specifier|private
 name|java
 operator|.
@@ -15594,7 +15594,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint64 regionId = 1;
+comment|// required uint64 region_id = 1;
 name|boolean
 name|hasRegionId
 parameter_list|()
@@ -15603,7 +15603,7 @@ name|long
 name|getRegionId
 parameter_list|()
 function_decl|;
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -15618,7 +15618,7 @@ name|ByteString
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|// optional bytes startKey = 3;
+comment|// optional bytes start_key = 3;
 name|boolean
 name|hasStartKey
 parameter_list|()
@@ -15633,7 +15633,7 @@ name|ByteString
 name|getStartKey
 parameter_list|()
 function_decl|;
-comment|// optional bytes endKey = 4;
+comment|// optional bytes end_key = 4;
 name|boolean
 name|hasEndKey
 parameter_list|()
@@ -15806,12 +15806,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 regionId = 1;
+comment|// required uint64 region_id = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONID_FIELD_NUMBER
+name|REGION_ID_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -15845,12 +15845,12 @@ return|return
 name|regionId_
 return|;
 block|}
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -15896,12 +15896,12 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// optional bytes startKey = 3;
+comment|// optional bytes start_key = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STARTKEY_FIELD_NUMBER
+name|START_KEY_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -15947,12 +15947,12 @@ return|return
 name|startKey_
 return|;
 block|}
-comment|// optional bytes endKey = 4;
+comment|// optional bytes end_key = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ENDKEY_FIELD_NUMBER
+name|END_KEY_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -17149,7 +17149,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONID_FIELD_NUMBER
+name|REGION_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -17180,7 +17180,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -17211,7 +17211,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STARTKEY_FIELD_NUMBER
+name|START_KEY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -17242,7 +17242,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ENDKEY_FIELD_NUMBER
+name|END_KEY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -19323,7 +19323,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 regionId = 1;
+comment|// required uint64 region_id = 1;
 specifier|private
 name|long
 name|regionId_
@@ -19402,7 +19402,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 specifier|private
 name|com
 operator|.
@@ -19526,7 +19526,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes startKey = 3;
+comment|// optional bytes start_key = 3;
 specifier|private
 name|com
 operator|.
@@ -19650,7 +19650,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bytes endKey = 4;
+comment|// optional bytes end_key = 4;
 specifier|private
 name|com
 operator|.
@@ -20043,7 +20043,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .ServerName favoredNode = 1;
+comment|// repeated .ServerName favored_node = 1;
 name|java
 operator|.
 name|util
@@ -20269,12 +20269,12 @@ operator|.
 name|internal_static_FavoredNodes_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .ServerName favoredNode = 1;
+comment|// repeated .ServerName favored_node = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FAVOREDNODE_FIELD_NUMBER
+name|FAVORED_NODE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -20904,7 +20904,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FAVOREDNODE_FIELD_NUMBER
+name|FAVORED_NODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -22673,7 +22673,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .ServerName favoredNode = 1;
+comment|// repeated .ServerName favored_node = 1;
 specifier|private
 name|java
 operator|.
@@ -29845,7 +29845,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string hostName = 1;
+comment|// required string host_name = 1;
 name|boolean
 name|hasHostName
 parameter_list|()
@@ -29863,7 +29863,7 @@ name|int
 name|getPort
 parameter_list|()
 function_decl|;
-comment|// optional uint64 startCode = 3;
+comment|// optional uint64 start_code = 3;
 name|boolean
 name|hasStartCode
 parameter_list|()
@@ -30003,12 +30003,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string hostName = 1;
+comment|// required string host_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|HOSTNAME_FIELD_NUMBER
+name|HOST_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -30236,12 +30236,12 @@ return|return
 name|port_
 return|;
 block|}
-comment|// optional uint64 startCode = 3;
+comment|// optional uint64 start_code = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STARTCODE_FIELD_NUMBER
+name|START_CODE_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -30898,7 +30898,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|HOSTNAME_FIELD_NUMBER
+name|HOST_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -30957,7 +30957,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STARTCODE_FIELD_NUMBER
+name|START_CODE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32626,7 +32626,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string hostName = 1;
+comment|// required string host_name = 1;
 specifier|private
 name|java
 operator|.
@@ -32884,7 +32884,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 startCode = 3;
+comment|// optional uint64 start_code = 3;
 specifier|private
 name|long
 name|startCode_
@@ -47112,7 +47112,7 @@ name|String
 name|getTable
 parameter_list|()
 function_decl|;
-comment|// optional int64 creationTime = 3 [default = 0];
+comment|// optional int64 creation_time = 3 [default = 0];
 name|boolean
 name|hasCreationTime
 parameter_list|()
@@ -48017,12 +48017,12 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional int64 creationTime = 3 [default = 0];
+comment|// optional int64 creation_time = 3 [default = 0];
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CREATIONTIME_FIELD_NUMBER
+name|CREATION_TIME_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -49064,7 +49064,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CREATIONTIME_FIELD_NUMBER
+name|CREATION_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -51377,7 +51377,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// optional int64 creationTime = 3 [default = 0];
+comment|// optional int64 creation_time = 3 [default = 0];
 specifier|private
 name|long
 name|creationTime_
@@ -53622,7 +53622,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required int64 longMsg = 1;
+comment|// required int64 long_msg = 1;
 name|boolean
 name|hasLongMsg
 parameter_list|()
@@ -53762,12 +53762,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 longMsg = 1;
+comment|// required int64 long_msg = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LONGMSG_FIELD_NUMBER
+name|LONG_MSG_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -54235,7 +54235,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LONGMSG_FIELD_NUMBER
+name|LONG_MSG_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -55762,7 +55762,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required int64 longMsg = 1;
+comment|// required int64 long_msg = 1;
 specifier|private
 name|long
 name|longMsg_
@@ -55873,7 +55873,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes bigdecimalMsg = 1;
+comment|// required bytes bigdecimal_msg = 1;
 name|boolean
 name|hasBigdecimalMsg
 parameter_list|()
@@ -56019,12 +56019,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes bigdecimalMsg = 1;
+comment|// required bytes bigdecimal_msg = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BIGDECIMALMSG_FIELD_NUMBER
+name|BIGDECIMAL_MSG_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -56513,7 +56513,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BIGDECIMALMSG_FIELD_NUMBER
+name|BIGDECIMAL_MSG_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -58048,7 +58048,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes bigdecimalMsg = 1;
+comment|// required bytes bigdecimal_msg = 1;
 specifier|private
 name|com
 operator|.
@@ -58204,7 +58204,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required uint64 leastSigBits = 1;
+comment|// required uint64 least_sig_bits = 1;
 name|boolean
 name|hasLeastSigBits
 parameter_list|()
@@ -58213,7 +58213,7 @@ name|long
 name|getLeastSigBits
 parameter_list|()
 function_decl|;
-comment|// required uint64 mostSigBits = 2;
+comment|// required uint64 most_sig_bits = 2;
 name|boolean
 name|hasMostSigBits
 parameter_list|()
@@ -58353,12 +58353,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 leastSigBits = 1;
+comment|// required uint64 least_sig_bits = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LEASTSIGBITS_FIELD_NUMBER
+name|LEAST_SIG_BITS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -58392,12 +58392,12 @@ return|return
 name|leastSigBits_
 return|;
 block|}
-comment|// required uint64 mostSigBits = 2;
+comment|// required uint64 most_sig_bits = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MOSTSIGBITS_FIELD_NUMBER
+name|MOST_SIG_BITS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -58973,7 +58973,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LEASTSIGBITS_FIELD_NUMBER
+name|LEAST_SIG_BITS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -59004,7 +59004,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MOSTSIGBITS_FIELD_NUMBER
+name|MOST_SIG_BITS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -60613,7 +60613,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required uint64 leastSigBits = 1;
+comment|// required uint64 least_sig_bits = 1;
 specifier|private
 name|long
 name|leastSigBits_
@@ -60692,7 +60692,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 mostSigBits = 2;
+comment|// required uint64 most_sig_bits = 2;
 specifier|private
 name|long
 name|mostSigBits_
@@ -61275,77 +61275,79 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013hbase.proto\032\nCell.proto\"\225\001\n\013TableSchem"
+literal|"\n\013hbase.proto\032\nCell.proto\"\226\001\n\013TableSchem"
 operator|+
 literal|"a\022\014\n\004name\030\001 \001(\014\022#\n\nattributes\030\002 \003(\0132\017.By"
 operator|+
-literal|"tesBytesPair\022+\n\016columnFamilies\030\003 \003(\0132\023.C"
+literal|"tesBytesPair\022,\n\017column_families\030\003 \003(\0132\023."
 operator|+
-literal|"olumnFamilySchema\022&\n\rconfiguration\030\004 \003(\013"
+literal|"ColumnFamilySchema\022&\n\rconfiguration\030\004 \003("
 operator|+
-literal|"2\017.NameStringPair\"o\n\022ColumnFamilySchema\022"
+literal|"\0132\017.NameStringPair\"o\n\022ColumnFamilySchema"
 operator|+
-literal|"\014\n\004name\030\001 \002(\014\022#\n\nattributes\030\002 \003(\0132\017.Byte"
+literal|"\022\014\n\004name\030\001 \002(\014\022#\n\nattributes\030\002 \003(\0132\017.Byt"
 operator|+
-literal|"sBytesPair\022&\n\rconfiguration\030\003 \003(\0132\017.Name"
+literal|"esBytesPair\022&\n\rconfiguration\030\003 \003(\0132\017.Nam"
 operator|+
-literal|"StringPair\"\207\001\n\nRegionInfo\022\020\n\010regionId\030\001 "
+literal|"eStringPair\"\213\001\n\nRegionInfo\022\021\n\tregion_id\030"
 operator|+
-literal|"\002(\004\022\021\n\ttableName\030\002 \002(\014\022\020\n\010startKey\030\003 \001(\014"
+literal|"\001 \002(\004\022\022\n\ntable_name\030\002 \002(\014\022\021\n\tstart_key\030\003"
 operator|+
-literal|"\022\016\n\006endKey\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r\n\005spl"
+literal|" \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r"
 block|,
-literal|"it\030\006 \001(\010\022\022\n\nrecovering\030\007 \001(\010\"0\n\014FavoredN"
+literal|"\n\005split\030\006 \001(\010\022\022\n\nrecovering\030\007 \001(\010\"1\n\014Fav"
 operator|+
-literal|"odes\022 \n\013favoredNode\030\001 \003(\0132\013.ServerName\"\225"
+literal|"oredNodes\022!\n\014favored_node\030\001 \003(\0132\013.Server"
 operator|+
-literal|"\001\n\017RegionSpecifier\0222\n\004type\030\001 \002(\0162$.Regio"
+literal|"Name\"\225\001\n\017RegionSpecifier\0222\n\004type\030\001 \002(\0162$"
 operator|+
-literal|"nSpecifier.RegionSpecifierType\022\r\n\005value\030"
+literal|".RegionSpecifier.RegionSpecifierType\022\r\n\005"
 operator|+
-literal|"\002 \002(\014\"?\n\023RegionSpecifierType\022\017\n\013REGION_N"
+literal|"value\030\002 \002(\014\"?\n\023RegionSpecifierType\022\017\n\013RE"
 operator|+
-literal|"AME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002\"%\n\tTimeRa"
+literal|"GION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002\"%\n\t"
 operator|+
-literal|"nge\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"?\n\nServerN"
+literal|"TimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"A\n\nS"
 operator|+
-literal|"ame\022\020\n\010hostName\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\021\n\ts"
+literal|"erverName\022\021\n\thost_name\030\001 \002(\t\022\014\n\004port\030\002 \001"
 operator|+
-literal|"tartCode\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n\004name\030\001 "
+literal|"(\r\022\022\n\nstart_code\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n"
 operator|+
-literal|"\002(\t\"-\n\016NameStringPair\022\014\n\004name\030\001 \002(\t\022\r\n\005v"
+literal|"\004name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004name\030\001 "
 block|,
-literal|"alue\030\002 \002(\t\",\n\rNameBytesPair\022\014\n\004name\030\001 \002("
+literal|"\002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair\022\014\n\004n"
 operator|+
-literal|"\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPair\022\r\n\005fi"
+literal|"ame\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPa"
 operator|+
-literal|"rst\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNameInt64Pa"
+literal|"ir\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNam"
 operator|+
-literal|"ir\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\255\001\n\023Snap"
+literal|"eInt64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\""
 operator|+
-literal|"shotDescription\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002"
+literal|"\256\001\n\023SnapshotDescription\022\014\n\004name\030\001 \002(\t\022\r\n"
 operator|+
-literal|" \001(\t\022\027\n\014creationTime\030\003 \001(\003:\0010\022.\n\004type\030\004 "
+literal|"\005table\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\022."
 operator|+
-literal|"\001(\0162\031.SnapshotDescription.Type:\005FLUSH\022\017\n"
+literal|"\n\004type\030\004 \001(\0162\031.SnapshotDescription.Type:"
 operator|+
-literal|"\007version\030\005 \001(\005\"\037\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005"
+literal|"\005FLUSH\022\017\n\007version\030\005 \001(\005\"\037\n\004Type\022\014\n\010DISAB"
 operator|+
-literal|"FLUSH\020\001\"\n\n\010EmptyMsg\"\032\n\007LongMsg\022\017\n\007longMs"
+literal|"LED\020\000\022\t\n\005FLUSH\020\001\"\n\n\010EmptyMsg\"\033\n\007LongMsg\022"
 operator|+
-literal|"g\030\001 \002(\003\"&\n\rBigDecimalMsg\022\025\n\rbigdecimalMs"
+literal|"\020\n\010long_msg\030\001 \002(\003\"\'\n\rBigDecimalMsg\022\026\n\016bi"
 block|,
-literal|"g\030\001 \002(\014\"1\n\004UUID\022\024\n\014leastSigBits\030\001 \002(\004\022\023\n"
+literal|"gdecimal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_"
 operator|+
-literal|"\013mostSigBits\030\002 \002(\004*r\n\013CompareType\022\010\n\004LES"
+literal|"bits\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004*r\n\013Com"
 operator|+
-literal|"S\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT"
+literal|"pareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n"
 operator|+
-literal|"_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATE"
+literal|"\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQ"
 operator|+
-literal|"R\020\005\022\t\n\005NO_OP\020\006B>\n*org.apache.hadoop.hbas"
+literal|"UAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006B>\n*org.apa"
 operator|+
-literal|"e.protobuf.generatedB\013HBaseProtosH\001\240\001\001"
+literal|"che.hadoop.hbase.protobuf.generatedB\013HBa"
+operator|+
+literal|"seProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

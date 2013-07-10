@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 name|boolean
 name|hasRegionInfo
 parameter_list|()
@@ -862,12 +862,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -1757,7 +1757,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONINFO_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3714,7 +3714,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionInfo regionInfo = 1;
+comment|// required .RegionInfo region_info = 1;
 specifier|private
 name|org
 operator|.
@@ -4738,7 +4738,7 @@ name|RegionSpecifierOrBuilder
 name|getSpecOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .RegionState regionState = 2;
+comment|// required .RegionState region_state = 2;
 name|boolean
 name|hasRegionState
 parameter_list|()
@@ -5000,12 +5000,12 @@ return|return
 name|spec_
 return|;
 block|}
-comment|// required .RegionState regionState = 2;
+comment|// required .RegionState region_state = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONSTATE_FIELD_NUMBER
+name|REGION_STATE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -5735,7 +5735,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONSTATE_FIELD_NUMBER
+name|REGION_STATE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -8297,7 +8297,7 @@ return|return
 name|specBuilder_
 return|;
 block|}
-comment|// required .RegionState regionState = 2;
+comment|// required .RegionState region_state = 2;
 specifier|private
 name|org
 operator|.
@@ -9023,7 +9023,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionSpecifier regionSpecifier = 1;
+comment|// required .RegionSpecifier region_specifier = 1;
 name|boolean
 name|hasRegionSpecifier
 parameter_list|()
@@ -9082,7 +9082,7 @@ name|int
 name|getStorefiles
 parameter_list|()
 function_decl|;
-comment|// optional uint32 storeUncompressedSizeMB = 4;
+comment|// optional uint32 store_uncompressed_size_MB = 4;
 name|boolean
 name|hasStoreUncompressedSizeMB
 parameter_list|()
@@ -9091,7 +9091,7 @@ name|int
 name|getStoreUncompressedSizeMB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 storefileSizeMB = 5;
+comment|// optional uint32 storefile_size_MB = 5;
 name|boolean
 name|hasStorefileSizeMB
 parameter_list|()
@@ -9100,7 +9100,7 @@ name|int
 name|getStorefileSizeMB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 memstoreSizeMB = 6;
+comment|// optional uint32 memstore_size_MB = 6;
 name|boolean
 name|hasMemstoreSizeMB
 parameter_list|()
@@ -9109,7 +9109,7 @@ name|int
 name|getMemstoreSizeMB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 storefileIndexSizeMB = 7;
+comment|// optional uint32 storefile_index_size_MB = 7;
 name|boolean
 name|hasStorefileIndexSizeMB
 parameter_list|()
@@ -9118,7 +9118,7 @@ name|int
 name|getStorefileIndexSizeMB
 parameter_list|()
 function_decl|;
-comment|// optional uint64 readRequestsCount = 8;
+comment|// optional uint64 read_requests_count = 8;
 name|boolean
 name|hasReadRequestsCount
 parameter_list|()
@@ -9127,7 +9127,7 @@ name|long
 name|getReadRequestsCount
 parameter_list|()
 function_decl|;
-comment|// optional uint64 writeRequestsCount = 9;
+comment|// optional uint64 write_requests_count = 9;
 name|boolean
 name|hasWriteRequestsCount
 parameter_list|()
@@ -9136,7 +9136,7 @@ name|long
 name|getWriteRequestsCount
 parameter_list|()
 function_decl|;
-comment|// optional uint64 totalCompactingKVs = 10;
+comment|// optional uint64 total_compacting_KVs = 10;
 name|boolean
 name|hasTotalCompactingKVs
 parameter_list|()
@@ -9145,7 +9145,7 @@ name|long
 name|getTotalCompactingKVs
 parameter_list|()
 function_decl|;
-comment|// optional uint64 currentCompactedKVs = 11;
+comment|// optional uint64 current_compacted_KVs = 11;
 name|boolean
 name|hasCurrentCompactedKVs
 parameter_list|()
@@ -9154,7 +9154,7 @@ name|long
 name|getCurrentCompactedKVs
 parameter_list|()
 function_decl|;
-comment|// optional uint32 rootIndexSizeKB = 12;
+comment|// optional uint32 root_index_size_KB = 12;
 name|boolean
 name|hasRootIndexSizeKB
 parameter_list|()
@@ -9163,7 +9163,7 @@ name|int
 name|getRootIndexSizeKB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 totalStaticIndexSizeKB = 13;
+comment|// optional uint32 total_static_index_size_KB = 13;
 name|boolean
 name|hasTotalStaticIndexSizeKB
 parameter_list|()
@@ -9172,7 +9172,7 @@ name|int
 name|getTotalStaticIndexSizeKB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 totalStaticBloomSizeKB = 14;
+comment|// optional uint32 total_static_bloom_size_KB = 14;
 name|boolean
 name|hasTotalStaticBloomSizeKB
 parameter_list|()
@@ -9181,7 +9181,7 @@ name|int
 name|getTotalStaticBloomSizeKB
 parameter_list|()
 function_decl|;
-comment|// optional uint64 completeSequenceId = 15;
+comment|// optional uint64 complete_sequence_id = 15;
 name|boolean
 name|hasCompleteSequenceId
 parameter_list|()
@@ -9321,12 +9321,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier regionSpecifier = 1;
+comment|// required .RegionSpecifier region_specifier = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONSPECIFIER_FIELD_NUMBER
+name|REGION_SPECIFIER_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -9489,12 +9489,12 @@ return|return
 name|storefiles_
 return|;
 block|}
-comment|// optional uint32 storeUncompressedSizeMB = 4;
+comment|// optional uint32 store_uncompressed_size_MB = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOREUNCOMPRESSEDSIZEMB_FIELD_NUMBER
+name|STORE_UNCOMPRESSED_SIZE_MB_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -9528,12 +9528,12 @@ return|return
 name|storeUncompressedSizeMB_
 return|;
 block|}
-comment|// optional uint32 storefileSizeMB = 5;
+comment|// optional uint32 storefile_size_MB = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOREFILESIZEMB_FIELD_NUMBER
+name|STOREFILE_SIZE_MB_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -9567,12 +9567,12 @@ return|return
 name|storefileSizeMB_
 return|;
 block|}
-comment|// optional uint32 memstoreSizeMB = 6;
+comment|// optional uint32 memstore_size_MB = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MEMSTORESIZEMB_FIELD_NUMBER
+name|MEMSTORE_SIZE_MB_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -9606,12 +9606,12 @@ return|return
 name|memstoreSizeMB_
 return|;
 block|}
-comment|// optional uint32 storefileIndexSizeMB = 7;
+comment|// optional uint32 storefile_index_size_MB = 7;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOREFILEINDEXSIZEMB_FIELD_NUMBER
+name|STOREFILE_INDEX_SIZE_MB_FIELD_NUMBER
 init|=
 literal|7
 decl_stmt|;
@@ -9645,12 +9645,12 @@ return|return
 name|storefileIndexSizeMB_
 return|;
 block|}
-comment|// optional uint64 readRequestsCount = 8;
+comment|// optional uint64 read_requests_count = 8;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|READREQUESTSCOUNT_FIELD_NUMBER
+name|READ_REQUESTS_COUNT_FIELD_NUMBER
 init|=
 literal|8
 decl_stmt|;
@@ -9684,12 +9684,12 @@ return|return
 name|readRequestsCount_
 return|;
 block|}
-comment|// optional uint64 writeRequestsCount = 9;
+comment|// optional uint64 write_requests_count = 9;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WRITEREQUESTSCOUNT_FIELD_NUMBER
+name|WRITE_REQUESTS_COUNT_FIELD_NUMBER
 init|=
 literal|9
 decl_stmt|;
@@ -9723,12 +9723,12 @@ return|return
 name|writeRequestsCount_
 return|;
 block|}
-comment|// optional uint64 totalCompactingKVs = 10;
+comment|// optional uint64 total_compacting_KVs = 10;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALCOMPACTINGKVS_FIELD_NUMBER
+name|TOTAL_COMPACTING_KVS_FIELD_NUMBER
 init|=
 literal|10
 decl_stmt|;
@@ -9762,12 +9762,12 @@ return|return
 name|totalCompactingKVs_
 return|;
 block|}
-comment|// optional uint64 currentCompactedKVs = 11;
+comment|// optional uint64 current_compacted_KVs = 11;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CURRENTCOMPACTEDKVS_FIELD_NUMBER
+name|CURRENT_COMPACTED_KVS_FIELD_NUMBER
 init|=
 literal|11
 decl_stmt|;
@@ -9801,12 +9801,12 @@ return|return
 name|currentCompactedKVs_
 return|;
 block|}
-comment|// optional uint32 rootIndexSizeKB = 12;
+comment|// optional uint32 root_index_size_KB = 12;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ROOTINDEXSIZEKB_FIELD_NUMBER
+name|ROOT_INDEX_SIZE_KB_FIELD_NUMBER
 init|=
 literal|12
 decl_stmt|;
@@ -9840,12 +9840,12 @@ return|return
 name|rootIndexSizeKB_
 return|;
 block|}
-comment|// optional uint32 totalStaticIndexSizeKB = 13;
+comment|// optional uint32 total_static_index_size_KB = 13;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALSTATICINDEXSIZEKB_FIELD_NUMBER
+name|TOTAL_STATIC_INDEX_SIZE_KB_FIELD_NUMBER
 init|=
 literal|13
 decl_stmt|;
@@ -9879,12 +9879,12 @@ return|return
 name|totalStaticIndexSizeKB_
 return|;
 block|}
-comment|// optional uint32 totalStaticBloomSizeKB = 14;
+comment|// optional uint32 total_static_bloom_size_KB = 14;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALSTATICBLOOMSIZEKB_FIELD_NUMBER
+name|TOTAL_STATIC_BLOOM_SIZE_KB_FIELD_NUMBER
 init|=
 literal|14
 decl_stmt|;
@@ -9918,12 +9918,12 @@ return|return
 name|totalStaticBloomSizeKB_
 return|;
 block|}
-comment|// optional uint64 completeSequenceId = 15;
+comment|// optional uint64 complete_sequence_id = 15;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPLETESEQUENCEID_FIELD_NUMBER
+name|COMPLETE_SEQUENCE_ID_FIELD_NUMBER
 init|=
 literal|15
 decl_stmt|;
@@ -11729,7 +11729,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONSPECIFIER_FIELD_NUMBER
+name|REGION_SPECIFIER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11816,7 +11816,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOREUNCOMPRESSEDSIZEMB_FIELD_NUMBER
+name|STORE_UNCOMPRESSED_SIZE_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11844,7 +11844,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOREFILESIZEMB_FIELD_NUMBER
+name|STOREFILE_SIZE_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11872,7 +11872,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MEMSTORESIZEMB_FIELD_NUMBER
+name|MEMSTORE_SIZE_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11900,7 +11900,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOREFILEINDEXSIZEMB_FIELD_NUMBER
+name|STOREFILE_INDEX_SIZE_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11928,7 +11928,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|READREQUESTSCOUNT_FIELD_NUMBER
+name|READ_REQUESTS_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11959,7 +11959,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WRITEREQUESTSCOUNT_FIELD_NUMBER
+name|WRITE_REQUESTS_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -11990,7 +11990,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALCOMPACTINGKVS_FIELD_NUMBER
+name|TOTAL_COMPACTING_KVS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12021,7 +12021,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CURRENTCOMPACTEDKVS_FIELD_NUMBER
+name|CURRENT_COMPACTED_KVS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12052,7 +12052,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ROOTINDEXSIZEKB_FIELD_NUMBER
+name|ROOT_INDEX_SIZE_KB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12080,7 +12080,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALSTATICINDEXSIZEKB_FIELD_NUMBER
+name|TOTAL_STATIC_INDEX_SIZE_KB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12108,7 +12108,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALSTATICBLOOMSIZEKB_FIELD_NUMBER
+name|TOTAL_STATIC_BLOOM_SIZE_KB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12136,7 +12136,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPLETESEQUENCEID_FIELD_NUMBER
+name|COMPLETE_SEQUENCE_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14787,7 +14787,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionSpecifier regionSpecifier = 1;
+comment|// required .RegionSpecifier region_specifier = 1;
 specifier|private
 name|org
 operator|.
@@ -15639,7 +15639,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 storeUncompressedSizeMB = 4;
+comment|// optional uint32 store_uncompressed_size_MB = 4;
 specifier|private
 name|int
 name|storeUncompressedSizeMB_
@@ -15718,7 +15718,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 storefileSizeMB = 5;
+comment|// optional uint32 storefile_size_MB = 5;
 specifier|private
 name|int
 name|storefileSizeMB_
@@ -15797,7 +15797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 memstoreSizeMB = 6;
+comment|// optional uint32 memstore_size_MB = 6;
 specifier|private
 name|int
 name|memstoreSizeMB_
@@ -15876,7 +15876,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 storefileIndexSizeMB = 7;
+comment|// optional uint32 storefile_index_size_MB = 7;
 specifier|private
 name|int
 name|storefileIndexSizeMB_
@@ -15955,7 +15955,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 readRequestsCount = 8;
+comment|// optional uint64 read_requests_count = 8;
 specifier|private
 name|long
 name|readRequestsCount_
@@ -16034,7 +16034,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 writeRequestsCount = 9;
+comment|// optional uint64 write_requests_count = 9;
 specifier|private
 name|long
 name|writeRequestsCount_
@@ -16113,7 +16113,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 totalCompactingKVs = 10;
+comment|// optional uint64 total_compacting_KVs = 10;
 specifier|private
 name|long
 name|totalCompactingKVs_
@@ -16192,7 +16192,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 currentCompactedKVs = 11;
+comment|// optional uint64 current_compacted_KVs = 11;
 specifier|private
 name|long
 name|currentCompactedKVs_
@@ -16271,7 +16271,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 rootIndexSizeKB = 12;
+comment|// optional uint32 root_index_size_KB = 12;
 specifier|private
 name|int
 name|rootIndexSizeKB_
@@ -16350,7 +16350,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 totalStaticIndexSizeKB = 13;
+comment|// optional uint32 total_static_index_size_KB = 13;
 specifier|private
 name|int
 name|totalStaticIndexSizeKB_
@@ -16429,7 +16429,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 totalStaticBloomSizeKB = 14;
+comment|// optional uint32 total_static_bloom_size_KB = 14;
 specifier|private
 name|int
 name|totalStaticBloomSizeKB_
@@ -16508,7 +16508,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 completeSequenceId = 15;
+comment|// optional uint64 complete_sequence_id = 15;
 specifier|private
 name|long
 name|completeSequenceId_
@@ -16619,7 +16619,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional uint32 numberOfRequests = 1;
+comment|// optional uint32 number_of_requests = 1;
 name|boolean
 name|hasNumberOfRequests
 parameter_list|()
@@ -16628,7 +16628,7 @@ name|int
 name|getNumberOfRequests
 parameter_list|()
 function_decl|;
-comment|// optional uint32 totalNumberOfRequests = 2;
+comment|// optional uint32 total_number_of_requests = 2;
 name|boolean
 name|hasTotalNumberOfRequests
 parameter_list|()
@@ -16637,7 +16637,7 @@ name|int
 name|getTotalNumberOfRequests
 parameter_list|()
 function_decl|;
-comment|// optional uint32 usedHeapMB = 3;
+comment|// optional uint32 used_heap_MB = 3;
 name|boolean
 name|hasUsedHeapMB
 parameter_list|()
@@ -16646,7 +16646,7 @@ name|int
 name|getUsedHeapMB
 parameter_list|()
 function_decl|;
-comment|// optional uint32 maxHeapMB = 4;
+comment|// optional uint32 max_heap_MB = 4;
 name|boolean
 name|hasMaxHeapMB
 parameter_list|()
@@ -16655,7 +16655,7 @@ name|int
 name|getMaxHeapMB
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionLoad regionLoads = 5;
+comment|// repeated .RegionLoad region_loads = 5;
 name|java
 operator|.
 name|util
@@ -16853,7 +16853,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional uint64 reportStartTime = 7;
+comment|// optional uint64 report_start_time = 7;
 name|boolean
 name|hasReportStartTime
 parameter_list|()
@@ -16862,7 +16862,7 @@ name|long
 name|getReportStartTime
 parameter_list|()
 function_decl|;
-comment|// optional uint64 reportEndTime = 8;
+comment|// optional uint64 report_end_time = 8;
 name|boolean
 name|hasReportEndTime
 parameter_list|()
@@ -16871,7 +16871,7 @@ name|long
 name|getReportEndTime
 parameter_list|()
 function_decl|;
-comment|// optional uint32 infoServerPort = 9;
+comment|// optional uint32 info_server_port = 9;
 name|boolean
 name|hasInfoServerPort
 parameter_list|()
@@ -17011,12 +17011,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 numberOfRequests = 1;
+comment|// optional uint32 number_of_requests = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|NUMBEROFREQUESTS_FIELD_NUMBER
+name|NUMBER_OF_REQUESTS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -17050,12 +17050,12 @@ return|return
 name|numberOfRequests_
 return|;
 block|}
-comment|// optional uint32 totalNumberOfRequests = 2;
+comment|// optional uint32 total_number_of_requests = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALNUMBEROFREQUESTS_FIELD_NUMBER
+name|TOTAL_NUMBER_OF_REQUESTS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -17089,12 +17089,12 @@ return|return
 name|totalNumberOfRequests_
 return|;
 block|}
-comment|// optional uint32 usedHeapMB = 3;
+comment|// optional uint32 used_heap_MB = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|USEDHEAPMB_FIELD_NUMBER
+name|USED_HEAP_MB_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -17128,12 +17128,12 @@ return|return
 name|usedHeapMB_
 return|;
 block|}
-comment|// optional uint32 maxHeapMB = 4;
+comment|// optional uint32 max_heap_MB = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MAXHEAPMB_FIELD_NUMBER
+name|MAX_HEAP_MB_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -17167,12 +17167,12 @@ return|return
 name|maxHeapMB_
 return|;
 block|}
-comment|// repeated .RegionLoad regionLoads = 5;
+comment|// repeated .RegionLoad region_loads = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONLOADS_FIELD_NUMBER
+name|REGION_LOADS_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -17507,12 +17507,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional uint64 reportStartTime = 7;
+comment|// optional uint64 report_start_time = 7;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REPORTSTARTTIME_FIELD_NUMBER
+name|REPORT_START_TIME_FIELD_NUMBER
 init|=
 literal|7
 decl_stmt|;
@@ -17546,12 +17546,12 @@ return|return
 name|reportStartTime_
 return|;
 block|}
-comment|// optional uint64 reportEndTime = 8;
+comment|// optional uint64 report_end_time = 8;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REPORTENDTIME_FIELD_NUMBER
+name|REPORT_END_TIME_FIELD_NUMBER
 init|=
 literal|8
 decl_stmt|;
@@ -17585,12 +17585,12 @@ return|return
 name|reportEndTime_
 return|;
 block|}
-comment|// optional uint32 infoServerPort = 9;
+comment|// optional uint32 info_server_port = 9;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|INFOSERVERPORT_FIELD_NUMBER
+name|INFO_SERVER_PORT_FIELD_NUMBER
 init|=
 literal|9
 decl_stmt|;
@@ -18875,7 +18875,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|NUMBEROFREQUESTS_FIELD_NUMBER
+name|NUMBER_OF_REQUESTS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18903,7 +18903,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALNUMBEROFREQUESTS_FIELD_NUMBER
+name|TOTAL_NUMBER_OF_REQUESTS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18931,7 +18931,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|USEDHEAPMB_FIELD_NUMBER
+name|USED_HEAP_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18959,7 +18959,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MAXHEAPMB_FIELD_NUMBER
+name|MAX_HEAP_MB_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -18989,7 +18989,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONLOADS_FIELD_NUMBER
+name|REGION_LOADS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -19053,7 +19053,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REPORTSTARTTIME_FIELD_NUMBER
+name|REPORT_START_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -19084,7 +19084,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REPORTENDTIME_FIELD_NUMBER
+name|REPORT_END_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -19115,7 +19115,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|INFOSERVERPORT_FIELD_NUMBER
+name|INFO_SERVER_PORT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -21723,7 +21723,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 numberOfRequests = 1;
+comment|// optional uint32 number_of_requests = 1;
 specifier|private
 name|int
 name|numberOfRequests_
@@ -21802,7 +21802,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 totalNumberOfRequests = 2;
+comment|// optional uint32 total_number_of_requests = 2;
 specifier|private
 name|int
 name|totalNumberOfRequests_
@@ -21881,7 +21881,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 usedHeapMB = 3;
+comment|// optional uint32 used_heap_MB = 3;
 specifier|private
 name|int
 name|usedHeapMB_
@@ -21960,7 +21960,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 maxHeapMB = 4;
+comment|// optional uint32 max_heap_MB = 4;
 specifier|private
 name|int
 name|maxHeapMB_
@@ -22039,7 +22039,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated .RegionLoad regionLoads = 5;
+comment|// repeated .RegionLoad region_loads = 5;
 specifier|private
 name|java
 operator|.
@@ -24669,7 +24669,7 @@ return|return
 name|coprocessorsBuilder_
 return|;
 block|}
-comment|// optional uint64 reportStartTime = 7;
+comment|// optional uint64 report_start_time = 7;
 specifier|private
 name|long
 name|reportStartTime_
@@ -24748,7 +24748,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint64 reportEndTime = 8;
+comment|// optional uint64 report_end_time = 8;
 specifier|private
 name|long
 name|reportEndTime_
@@ -24827,7 +24827,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 infoServerPort = 9;
+comment|// optional uint32 info_server_port = 9;
 specifier|private
 name|int
 name|infoServerPort_
@@ -24979,7 +24979,7 @@ name|ServerNameOrBuilder
 name|getServerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required .ServerLoad serverLoad = 2;
+comment|// required .ServerLoad server_load = 2;
 name|boolean
 name|hasServerLoad
 parameter_list|()
@@ -25241,12 +25241,12 @@ return|return
 name|server_
 return|;
 block|}
-comment|// required .ServerLoad serverLoad = 2;
+comment|// required .ServerLoad server_load = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SERVERLOAD_FIELD_NUMBER
+name|SERVER_LOAD_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -25976,7 +25976,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SERVERLOAD_FIELD_NUMBER
+name|SERVER_LOAD_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -28538,7 +28538,7 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// required .ServerLoad serverLoad = 2;
+comment|// required .ServerLoad server_load = 2;
 specifier|private
 name|org
 operator|.
@@ -29264,7 +29264,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional .HBaseVersionFileContent hbaseVersion = 1;
+comment|// optional .HBaseVersionFileContent hbase_version = 1;
 name|boolean
 name|hasHbaseVersion
 parameter_list|()
@@ -29305,7 +29305,7 @@ name|HBaseVersionFileContentOrBuilder
 name|getHbaseVersionOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .LiveServerInfo liveServers = 2;
+comment|// repeated .LiveServerInfo live_servers = 2;
 name|java
 operator|.
 name|util
@@ -29404,7 +29404,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .ServerName deadServers = 3;
+comment|// repeated .ServerName dead_servers = 3;
 name|java
 operator|.
 name|util
@@ -29503,7 +29503,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated .RegionInTransition regionsInTransition = 4;
+comment|// repeated .RegionInTransition regions_in_transition = 4;
 name|java
 operator|.
 name|util
@@ -29602,7 +29602,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional .ClusterId clusterId = 5;
+comment|// optional .ClusterId cluster_id = 5;
 name|boolean
 name|hasClusterId
 parameter_list|()
@@ -29643,7 +29643,7 @@ name|ClusterIdOrBuilder
 name|getClusterIdOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .Coprocessor masterCoprocessors = 6;
+comment|// repeated .Coprocessor master_coprocessors = 6;
 name|java
 operator|.
 name|util
@@ -29783,7 +29783,7 @@ name|ServerNameOrBuilder
 name|getMasterOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .ServerName backupMasters = 8;
+comment|// repeated .ServerName backup_masters = 8;
 name|java
 operator|.
 name|util
@@ -29882,7 +29882,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional bool balancerOn = 9;
+comment|// optional bool balancer_on = 9;
 name|boolean
 name|hasBalancerOn
 parameter_list|()
@@ -30022,12 +30022,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .HBaseVersionFileContent hbaseVersion = 1;
+comment|// optional .HBaseVersionFileContent hbase_version = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|HBASEVERSION_FIELD_NUMBER
+name|HBASE_VERSION_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -30112,12 +30112,12 @@ return|return
 name|hbaseVersion_
 return|;
 block|}
-comment|// repeated .LiveServerInfo liveServers = 2;
+comment|// repeated .LiveServerInfo live_servers = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LIVESERVERS_FIELD_NUMBER
+name|LIVE_SERVERS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -30282,12 +30282,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .ServerName deadServers = 3;
+comment|// repeated .ServerName dead_servers = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEADSERVERS_FIELD_NUMBER
+name|DEAD_SERVERS_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -30452,12 +30452,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated .RegionInTransition regionsInTransition = 4;
+comment|// repeated .RegionInTransition regions_in_transition = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGIONSINTRANSITION_FIELD_NUMBER
+name|REGIONS_IN_TRANSITION_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -30622,12 +30622,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional .ClusterId clusterId = 5;
+comment|// optional .ClusterId cluster_id = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -30712,12 +30712,12 @@ return|return
 name|clusterId_
 return|;
 block|}
-comment|// repeated .Coprocessor masterCoprocessors = 6;
+comment|// repeated .Coprocessor master_coprocessors = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|MASTERCOPROCESSORS_FIELD_NUMBER
+name|MASTER_COPROCESSORS_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -30972,12 +30972,12 @@ return|return
 name|master_
 return|;
 block|}
-comment|// repeated .ServerName backupMasters = 8;
+comment|// repeated .ServerName backup_masters = 8;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BACKUPMASTERS_FIELD_NUMBER
+name|BACKUP_MASTERS_FIELD_NUMBER
 init|=
 literal|8
 decl_stmt|;
@@ -31142,12 +31142,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional bool balancerOn = 9;
+comment|// optional bool balancer_on = 9;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BALANCERON_FIELD_NUMBER
+name|BALANCER_ON_FIELD_NUMBER
 init|=
 literal|9
 decl_stmt|;
@@ -32693,7 +32693,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|HBASEVERSION_FIELD_NUMBER
+name|HBASE_VERSION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32726,7 +32726,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LIVESERVERS_FIELD_NUMBER
+name|LIVE_SERVERS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32759,7 +32759,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|DEADSERVERS_FIELD_NUMBER
+name|DEAD_SERVERS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32792,7 +32792,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGIONSINTRANSITION_FIELD_NUMBER
+name|REGIONS_IN_TRANSITION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32823,7 +32823,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32856,7 +32856,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|MASTERCOPROCESSORS_FIELD_NUMBER
+name|MASTER_COPROCESSORS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32920,7 +32920,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BACKUPMASTERS_FIELD_NUMBER
+name|BACKUP_MASTERS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -32951,7 +32951,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BALANCERON_FIELD_NUMBER
+name|BALANCER_ON_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -36759,7 +36759,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional .HBaseVersionFileContent hbaseVersion = 1;
+comment|// optional .HBaseVersionFileContent hbase_version = 1;
 specifier|private
 name|org
 operator|.
@@ -37453,7 +37453,7 @@ return|return
 name|hbaseVersionBuilder_
 return|;
 block|}
-comment|// repeated .LiveServerInfo liveServers = 2;
+comment|// repeated .LiveServerInfo live_servers = 2;
 specifier|private
 name|java
 operator|.
@@ -38768,7 +38768,7 @@ return|return
 name|liveServersBuilder_
 return|;
 block|}
-comment|// repeated .ServerName deadServers = 3;
+comment|// repeated .ServerName dead_servers = 3;
 specifier|private
 name|java
 operator|.
@@ -40083,7 +40083,7 @@ return|return
 name|deadServersBuilder_
 return|;
 block|}
-comment|// repeated .RegionInTransition regionsInTransition = 4;
+comment|// repeated .RegionInTransition regions_in_transition = 4;
 specifier|private
 name|java
 operator|.
@@ -41398,7 +41398,7 @@ return|return
 name|regionsInTransitionBuilder_
 return|;
 block|}
-comment|// optional .ClusterId clusterId = 5;
+comment|// optional .ClusterId cluster_id = 5;
 specifier|private
 name|org
 operator|.
@@ -42092,7 +42092,7 @@ return|return
 name|clusterIdBuilder_
 return|;
 block|}
-comment|// repeated .Coprocessor masterCoprocessors = 6;
+comment|// repeated .Coprocessor master_coprocessors = 6;
 specifier|private
 name|java
 operator|.
@@ -44101,7 +44101,7 @@ return|return
 name|masterBuilder_
 return|;
 block|}
-comment|// repeated .ServerName backupMasters = 8;
+comment|// repeated .ServerName backup_masters = 8;
 specifier|private
 name|java
 operator|.
@@ -45416,7 +45416,7 @@ return|return
 name|backupMastersBuilder_
 return|;
 block|}
-comment|// optional bool balancerOn = 9;
+comment|// optional bool balancer_on = 9;
 specifier|private
 name|boolean
 name|balancerOn_
@@ -45715,85 +45715,89 @@ init|=
 block|{
 literal|"\n\023ClusterStatus.proto\032\013hbase.proto\032\017Clus"
 operator|+
-literal|"terId.proto\032\010FS.proto\"\242\002\n\013RegionState\022\037\n"
+literal|"terId.proto\032\010FS.proto\"\243\002\n\013RegionState\022 \n"
 operator|+
-literal|"\nregionInfo\030\001 \002(\0132\013.RegionInfo\022!\n\005state\030"
+literal|"\013region_info\030\001 \002(\0132\013.RegionInfo\022!\n\005state"
 operator|+
-literal|"\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001(\004"
+literal|"\030\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001("
 operator|+
-literal|"\"\277\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN\020"
+literal|"\004\"\277\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN"
 operator|+
-literal|"\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLOS"
+literal|"\020\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLO"
 operator|+
-literal|"E\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r\n\tSPLITTIN"
+literal|"SE\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r\n\tSPLITTI"
 operator|+
-literal|"G\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAILE"
+literal|"NG\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAIL"
 operator|+
-literal|"D_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\"W\n\022Re"
+literal|"ED_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\"X\n\022R"
 operator|+
-literal|"gionInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionS"
+literal|"egionInTransition\022\036\n\004spec\030\001 \002(\0132\020.Region"
 block|,
-literal|"pecifier\022!\n\013regionState\030\002 \002(\0132\014.RegionSt"
+literal|"Specifier\022\"\n\014region_state\030\002 \002(\0132\014.Region"
 operator|+
-literal|"ate\"\260\003\n\nRegionLoad\022)\n\017regionSpecifier\030\001 "
+literal|"State\"\320\003\n\nRegionLoad\022*\n\020region_specifier"
 operator|+
-literal|"\002(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r"
 operator|+
-literal|"\nstorefiles\030\003 \001(\r\022\037\n\027storeUncompressedSi"
+literal|"\022\022\n\nstorefiles\030\003 \001(\r\022\"\n\032store_uncompress"
 operator|+
-literal|"zeMB\030\004 \001(\r\022\027\n\017storefileSizeMB\030\005 \001(\r\022\026\n\016m"
+literal|"ed_size_MB\030\004 \001(\r\022\031\n\021storefile_size_MB\030\005 "
 operator|+
-literal|"emstoreSizeMB\030\006 \001(\r\022\034\n\024storefileIndexSiz"
+literal|"\001(\r\022\030\n\020memstore_size_MB\030\006 \001(\r\022\037\n\027storefi"
 operator|+
-literal|"eMB\030\007 \001(\r\022\031\n\021readRequestsCount\030\010 \001(\004\022\032\n\022"
+literal|"le_index_size_MB\030\007 \001(\r\022\033\n\023read_requests_"
 operator|+
-literal|"writeRequestsCount\030\t \001(\004\022\032\n\022totalCompact"
+literal|"count\030\010 \001(\004\022\034\n\024write_requests_count\030\t \001("
 operator|+
-literal|"ingKVs\030\n \001(\004\022\033\n\023currentCompactedKVs\030\013 \001("
+literal|"\004\022\034\n\024total_compacting_KVs\030\n \001(\004\022\035\n\025curre"
 operator|+
-literal|"\004\022\027\n\017rootIndexSizeKB\030\014 \001(\r\022\036\n\026totalStati"
+literal|"nt_compacted_KVs\030\013 \001(\004\022\032\n\022root_index_siz"
 block|,
-literal|"cIndexSizeKB\030\r \001(\r\022\036\n\026totalStaticBloomSi"
+literal|"e_KB\030\014 \001(\r\022\"\n\032total_static_index_size_KB"
 operator|+
-literal|"zeKB\030\016 \001(\r\022\032\n\022completeSequenceId\030\017 \001(\004\"\372"
+literal|"\030\r \001(\r\022\"\n\032total_static_bloom_size_KB\030\016 \001"
 operator|+
-literal|"\001\n\nServerLoad\022\030\n\020numberOfRequests\030\001 \001(\r\022"
+literal|"(\r\022\034\n\024complete_sequence_id\030\017 \001(\004\"\212\002\n\nSer"
 operator|+
-literal|"\035\n\025totalNumberOfRequests\030\002 \001(\r\022\022\n\nusedHe"
+literal|"verLoad\022\032\n\022number_of_requests\030\001 \001(\r\022 \n\030t"
 operator|+
-literal|"apMB\030\003 \001(\r\022\021\n\tmaxHeapMB\030\004 \001(\r\022 \n\013regionL"
+literal|"otal_number_of_requests\030\002 \001(\r\022\024\n\014used_he"
 operator|+
-literal|"oads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocessors\030"
+literal|"ap_MB\030\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014regi"
 operator|+
-literal|"\006 \003(\0132\014.Coprocessor\022\027\n\017reportStartTime\030\007"
+literal|"on_loads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocess"
 operator|+
-literal|" \001(\004\022\025\n\rreportEndTime\030\010 \001(\004\022\026\n\016infoServe"
+literal|"ors\030\006 \003(\0132\014.Coprocessor\022\031\n\021report_start_"
 operator|+
-literal|"rPort\030\t \001(\r\"N\n\016LiveServerInfo\022\033\n\006server\030"
+literal|"time\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030\n\020i"
 operator|+
-literal|"\001 \002(\0132\013.ServerName\022\037\n\nserverLoad\030\002 \002(\0132\013"
+literal|"nfo_server_port\030\t \001(\r\"O\n\016LiveServerInfo\022"
 block|,
-literal|".ServerLoad\"\327\002\n\rClusterStatus\022.\n\014hbaseVe"
+literal|"\033\n\006server\030\001 \002(\0132\013.ServerName\022 \n\013server_l"
 operator|+
-literal|"rsion\030\001 \001(\0132\030.HBaseVersionFileContent\022$\n"
+literal|"oad\030\002 \002(\0132\013.ServerLoad\"\340\002\n\rClusterStatus"
 operator|+
-literal|"\013liveServers\030\002 \003(\0132\017.LiveServerInfo\022 \n\013d"
+literal|"\022/\n\rhbase_version\030\001 \001(\0132\030.HBaseVersionFi"
 operator|+
-literal|"eadServers\030\003 \003(\0132\013.ServerName\0220\n\023regions"
+literal|"leContent\022%\n\014live_servers\030\002 \003(\0132\017.LiveSe"
 operator|+
-literal|"InTransition\030\004 \003(\0132\023.RegionInTransition\022"
+literal|"rverInfo\022!\n\014dead_servers\030\003 \003(\0132\013.ServerN"
 operator|+
-literal|"\035\n\tclusterId\030\005 \001(\0132\n.ClusterId\022(\n\022master"
+literal|"ame\0222\n\025regions_in_transition\030\004 \003(\0132\023.Reg"
 operator|+
-literal|"Coprocessors\030\006 \003(\0132\014.Coprocessor\022\033\n\006mast"
+literal|"ionInTransition\022\036\n\ncluster_id\030\005 \001(\0132\n.Cl"
 operator|+
-literal|"er\030\007 \001(\0132\013.ServerName\022\"\n\rbackupMasters\030\010"
+literal|"usterId\022)\n\023master_coprocessors\030\006 \003(\0132\014.C"
 operator|+
-literal|" \003(\0132\013.ServerName\022\022\n\nbalancerOn\030\t \001(\010BF\n"
+literal|"oprocessor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"#\n\016backup_masters\030\010 \003(\0132\013.ServerName\022\023\n\013"
 block|,
-literal|"tedB\023ClusterStatusProtosH\001\240\001\001"
+literal|"balancer_on\030\t \001(\010BF\n*org.apache.hadoop.h"
+operator|+
+literal|"base.protobuf.generatedB\023ClusterStatusPr"
+operator|+
+literal|"otosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

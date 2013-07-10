@@ -401,7 +401,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bool hasCompression = 1;
+comment|// optional bool has_compression = 1;
 name|boolean
 name|hasHasCompression
 parameter_list|()
@@ -541,12 +541,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool hasCompression = 1;
+comment|// optional bool has_compression = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|HASCOMPRESSION_FIELD_NUMBER
+name|HAS_COMPRESSION_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -999,7 +999,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|HASCOMPRESSION_FIELD_NUMBER
+name|HAS_COMPRESSION_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2515,7 +2515,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool hasCompression = 1;
+comment|// optional bool has_compression = 1;
 specifier|private
 name|boolean
 name|hasCompression_
@@ -2626,7 +2626,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes encodedRegionName = 1;
+comment|// required bytes encoded_region_name = 1;
 name|boolean
 name|hasEncodedRegionName
 parameter_list|()
@@ -2641,7 +2641,7 @@ name|ByteString
 name|getEncodedRegionName
 parameter_list|()
 function_decl|;
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -2656,7 +2656,7 @@ name|ByteString
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|// required uint64 logSequenceNumber = 3;
+comment|// required uint64 log_sequence_number = 3;
 name|boolean
 name|hasLogSequenceNumber
 parameter_list|()
@@ -2665,7 +2665,7 @@ name|long
 name|getLogSequenceNumber
 parameter_list|()
 function_decl|;
-comment|// required uint64 writeTime = 4;
+comment|// required uint64 write_time = 4;
 name|boolean
 name|hasWriteTime
 parameter_list|()
@@ -2674,7 +2674,7 @@ name|long
 name|getWriteTime
 parameter_list|()
 function_decl|;
-comment|// optional .UUID clusterId = 5;
+comment|// optional .UUID cluster_id = 5;
 name|boolean
 name|hasClusterId
 parameter_list|()
@@ -2814,7 +2814,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional uint32 followingKvCount = 7;
+comment|// optional uint32 following_kv_count = 7;
 name|boolean
 name|hasFollowingKvCount
 parameter_list|()
@@ -2954,12 +2954,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes encodedRegionName = 1;
+comment|// required bytes encoded_region_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ENCODEDREGIONNAME_FIELD_NUMBER
+name|ENCODED_REGION_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -3005,12 +3005,12 @@ return|return
 name|encodedRegionName_
 return|;
 block|}
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -3056,12 +3056,12 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// required uint64 logSequenceNumber = 3;
+comment|// required uint64 log_sequence_number = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LOGSEQUENCENUMBER_FIELD_NUMBER
+name|LOG_SEQUENCE_NUMBER_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -3095,12 +3095,12 @@ return|return
 name|logSequenceNumber_
 return|;
 block|}
-comment|// required uint64 writeTime = 4;
+comment|// required uint64 write_time = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|WRITETIME_FIELD_NUMBER
+name|WRITE_TIME_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -3134,12 +3134,12 @@ return|return
 name|writeTime_
 return|;
 block|}
-comment|// optional .UUID clusterId = 5;
+comment|// optional .UUID cluster_id = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -3394,12 +3394,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional uint32 followingKvCount = 7;
+comment|// optional uint32 following_kv_count = 7;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FOLLOWINGKVCOUNT_FIELD_NUMBER
+name|FOLLOWING_KV_COUNT_FIELD_NUMBER
 init|=
 literal|7
 decl_stmt|;
@@ -4575,7 +4575,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ENCODEDREGIONNAME_FIELD_NUMBER
+name|ENCODED_REGION_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4606,7 +4606,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4637,7 +4637,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LOGSEQUENCENUMBER_FIELD_NUMBER
+name|LOG_SEQUENCE_NUMBER_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4668,7 +4668,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|WRITETIME_FIELD_NUMBER
+name|WRITE_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4699,7 +4699,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CLUSTERID_FIELD_NUMBER
+name|CLUSTER_ID_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4763,7 +4763,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FOLLOWINGKVCOUNT_FIELD_NUMBER
+name|FOLLOWING_KV_COUNT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -7162,7 +7162,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes encodedRegionName = 1;
+comment|// required bytes encoded_region_name = 1;
 specifier|private
 name|com
 operator|.
@@ -7286,7 +7286,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bytes tableName = 2;
+comment|// required bytes table_name = 2;
 specifier|private
 name|com
 operator|.
@@ -7410,7 +7410,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 logSequenceNumber = 3;
+comment|// required uint64 log_sequence_number = 3;
 specifier|private
 name|long
 name|logSequenceNumber_
@@ -7489,7 +7489,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required uint64 writeTime = 4;
+comment|// required uint64 write_time = 4;
 specifier|private
 name|long
 name|writeTime_
@@ -7568,7 +7568,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional .UUID clusterId = 5;
+comment|// optional .UUID cluster_id = 5;
 specifier|private
 name|org
 operator|.
@@ -9577,7 +9577,7 @@ return|return
 name|scopesBuilder_
 return|;
 block|}
-comment|// optional uint32 followingKvCount = 7;
+comment|// optional uint32 following_kv_count = 7;
 specifier|private
 name|int
 name|followingKvCount_
@@ -9703,7 +9703,7 @@ name|ByteString
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|// required .ScopeType scopeType = 2;
+comment|// required .ScopeType scope_type = 2;
 name|boolean
 name|hasScopeType
 parameter_list|()
@@ -9908,12 +9908,12 @@ return|return
 name|family_
 return|;
 block|}
-comment|// required .ScopeType scopeType = 2;
+comment|// required .ScopeType scope_type = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SCOPETYPE_FIELD_NUMBER
+name|SCOPE_TYPE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -10579,7 +10579,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SCOPETYPE_FIELD_NUMBER
+name|SCOPE_TYPE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -12399,7 +12399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .ScopeType scopeType = 2;
+comment|// required .ScopeType scope_type = 2;
 specifier|private
 name|org
 operator|.
@@ -12599,7 +12599,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -12614,7 +12614,7 @@ name|ByteString
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|// required bytes encodedRegionName = 2;
+comment|// required bytes encoded_region_name = 2;
 name|boolean
 name|hasEncodedRegionName
 parameter_list|()
@@ -12629,7 +12629,7 @@ name|ByteString
 name|getEncodedRegionName
 parameter_list|()
 function_decl|;
-comment|// required bytes familyName = 3;
+comment|// required bytes family_name = 3;
 name|boolean
 name|hasFamilyName
 parameter_list|()
@@ -12644,7 +12644,7 @@ name|ByteString
 name|getFamilyName
 parameter_list|()
 function_decl|;
-comment|// repeated string compactionInput = 4;
+comment|// repeated string compaction_input = 4;
 name|java
 operator|.
 name|util
@@ -12667,7 +12667,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// repeated string compactionOutput = 5;
+comment|// repeated string compaction_output = 5;
 name|java
 operator|.
 name|util
@@ -12690,7 +12690,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// required string storeHomeDir = 6;
+comment|// required string store_home_dir = 6;
 name|boolean
 name|hasStoreHomeDir
 parameter_list|()
@@ -12830,12 +12830,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -12881,12 +12881,12 @@ return|return
 name|tableName_
 return|;
 block|}
-comment|// required bytes encodedRegionName = 2;
+comment|// required bytes encoded_region_name = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ENCODEDREGIONNAME_FIELD_NUMBER
+name|ENCODED_REGION_NAME_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -12932,12 +12932,12 @@ return|return
 name|encodedRegionName_
 return|;
 block|}
-comment|// required bytes familyName = 3;
+comment|// required bytes family_name = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FAMILYNAME_FIELD_NUMBER
+name|FAMILY_NAME_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -12983,12 +12983,12 @@ return|return
 name|familyName_
 return|;
 block|}
-comment|// repeated string compactionInput = 4;
+comment|// repeated string compaction_input = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPACTIONINPUT_FIELD_NUMBER
+name|COMPACTION_INPUT_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -13047,12 +13047,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// repeated string compactionOutput = 5;
+comment|// repeated string compaction_output = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|COMPACTIONOUTPUT_FIELD_NUMBER
+name|COMPACTION_OUTPUT_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
@@ -13111,12 +13111,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// required string storeHomeDir = 6;
+comment|// required string store_home_dir = 6;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|STOREHOMEDIR_FIELD_NUMBER
+name|STORE_HOME_DIR_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
@@ -14333,7 +14333,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14364,7 +14364,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ENCODEDREGIONNAME_FIELD_NUMBER
+name|ENCODED_REGION_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14395,7 +14395,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FAMILYNAME_FIELD_NUMBER
+name|FAMILY_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14428,7 +14428,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPACTIONINPUT_FIELD_NUMBER
+name|COMPACTION_INPUT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14461,7 +14461,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|COMPACTIONOUTPUT_FIELD_NUMBER
+name|COMPACTION_OUTPUT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14492,7 +14492,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STOREHOMEDIR_FIELD_NUMBER
+name|STORE_HOME_DIR_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -16563,7 +16563,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|private
 name|com
 operator|.
@@ -16687,7 +16687,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bytes encodedRegionName = 2;
+comment|// required bytes encoded_region_name = 2;
 specifier|private
 name|com
 operator|.
@@ -16811,7 +16811,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required bytes familyName = 3;
+comment|// required bytes family_name = 3;
 specifier|private
 name|com
 operator|.
@@ -16935,7 +16935,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// repeated string compactionInput = 4;
+comment|// repeated string compaction_input = 4;
 specifier|private
 name|com
 operator|.
@@ -17224,7 +17224,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// repeated string compactionOutput = 5;
+comment|// repeated string compaction_output = 5;
 specifier|private
 name|com
 operator|.
@@ -17513,7 +17513,7 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 block|}
-comment|// required string storeHomeDir = 6;
+comment|// required string store_home_dir = 6;
 specifier|private
 name|java
 operator|.
@@ -19761,37 +19761,39 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tWAL.proto\032\013hbase.proto\"#\n\tWALHeader\022\026\n"
+literal|"\n\tWAL.proto\032\013hbase.proto\"$\n\tWALHeader\022\027\n"
 operator|+
-literal|"\016hasCompression\030\001 \001(\010\"\266\001\n\006WALKey\022\031\n\021enco"
+literal|"\017has_compression\030\001 \001(\010\"\277\001\n\006WALKey\022\033\n\023enc"
 operator|+
-literal|"dedRegionName\030\001 \002(\014\022\021\n\ttableName\030\002 \002(\014\022\031"
+literal|"oded_region_name\030\001 \002(\014\022\022\n\ntable_name\030\002 \002"
 operator|+
-literal|"\n\021logSequenceNumber\030\003 \002(\004\022\021\n\twriteTime\030\004"
+literal|"(\014\022\033\n\023log_sequence_number\030\003 \002(\004\022\022\n\nwrite"
 operator|+
-literal|" \002(\004\022\030\n\tclusterId\030\005 \001(\0132\005.UUID\022\034\n\006scopes"
+literal|"_time\030\004 \002(\004\022\031\n\ncluster_id\030\005 \001(\0132\005.UUID\022\034"
 operator|+
-literal|"\030\006 \003(\0132\014.FamilyScope\022\030\n\020followingKvCount"
+literal|"\n\006scopes\030\006 \003(\0132\014.FamilyScope\022\032\n\022followin"
 operator|+
-literal|"\030\007 \001(\r\"<\n\013FamilyScope\022\016\n\006family\030\001 \002(\014\022\035\n"
+literal|"g_kv_count\030\007 \001(\r\"=\n\013FamilyScope\022\016\n\006famil"
 operator|+
-literal|"\tscopeType\030\002 \002(\0162\n.ScopeType\"\241\001\n\024Compact"
+literal|"y\030\001 \002(\014\022\036\n\nscope_type\030\002 \002(\0162\n.ScopeType\""
 operator|+
-literal|"ionDescriptor\022\021\n\ttableName\030\001 \002(\014\022\031\n\021enco"
+literal|"\251\001\n\024CompactionDescriptor\022\022\n\ntable_name\030\001"
 operator|+
-literal|"dedRegionName\030\002 \002(\014\022\022\n\nfamilyName\030\003 \002(\014\022"
+literal|" \002(\014\022\033\n\023encoded_region_name\030\002 \002(\014\022\023\n\013fam"
 block|,
-literal|"\027\n\017compactionInput\030\004 \003(\t\022\030\n\020compactionOu"
+literal|"ily_name\030\003 \002(\014\022\030\n\020compaction_input\030\004 \003(\t"
 operator|+
-literal|"tput\030\005 \003(\t\022\024\n\014storeHomeDir\030\006 \002(\t\"\014\n\nWALT"
+literal|"\022\031\n\021compaction_output\030\005 \003(\t\022\026\n\016store_hom"
 operator|+
-literal|"railer*F\n\tScopeType\022\033\n\027REPLICATION_SCOPE"
+literal|"e_dir\030\006 \002(\t\"\014\n\nWALTrailer*F\n\tScopeType\022\033"
 operator|+
-literal|"_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL\020\001B?"
+literal|"\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030REPLICATI"
 operator|+
-literal|"\n*org.apache.hadoop.hbase.protobuf.gener"
+literal|"ON_SCOPE_GLOBAL\020\001B?\n*org.apache.hadoop.h"
 operator|+
-literal|"atedB\tWALProtosH\001\210\001\000\240\001\001"
+literal|"base.protobuf.generatedB\tWALProtosH\001\210\001\000\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com

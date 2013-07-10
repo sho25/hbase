@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .BulkLoadHFileRequest.FamilyPath familyPath = 1;
+comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 1;
 name|java
 operator|.
 name|util
@@ -167,7 +167,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|// optional bool assignSeqNum = 2;
+comment|// optional bool assign_seq_num = 2;
 name|boolean
 name|hasAssignSeqNum
 parameter_list|()
@@ -176,7 +176,7 @@ name|boolean
 name|getAssignSeqNum
 parameter_list|()
 function_decl|;
-comment|// required .DelegationTokenProto fsToken = 3;
+comment|// required .DelegationTokenProto fs_token = 3;
 name|boolean
 name|hasFsToken
 parameter_list|()
@@ -217,7 +217,7 @@ name|DelegationTokenProtoOrBuilder
 name|getFsTokenOrBuilder
 parameter_list|()
 function_decl|;
-comment|// required string bulkToken = 4;
+comment|// required string bulk_token = 4;
 name|boolean
 name|hasBulkToken
 parameter_list|()
@@ -357,12 +357,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .BulkLoadHFileRequest.FamilyPath familyPath = 1;
+comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FAMILYPATH_FIELD_NUMBER
+name|FAMILY_PATH_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -537,12 +537,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|// optional bool assignSeqNum = 2;
+comment|// optional bool assign_seq_num = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|ASSIGNSEQNUM_FIELD_NUMBER
+name|ASSIGN_SEQ_NUM_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -576,12 +576,12 @@ return|return
 name|assignSeqNum_
 return|;
 block|}
-comment|// required .DelegationTokenProto fsToken = 3;
+comment|// required .DelegationTokenProto fs_token = 3;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FSTOKEN_FIELD_NUMBER
+name|FS_TOKEN_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
@@ -666,12 +666,12 @@ return|return
 name|fsToken_
 return|;
 block|}
-comment|// required string bulkToken = 4;
+comment|// required string bulk_token = 4;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
@@ -1655,7 +1655,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FAMILYPATH_FIELD_NUMBER
+name|FAMILY_PATH_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1686,7 +1686,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|ASSIGNSEQNUM_FIELD_NUMBER
+name|ASSIGN_SEQ_NUM_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1717,7 +1717,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|FSTOKEN_FIELD_NUMBER
+name|FS_TOKEN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -1748,7 +1748,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3882,7 +3882,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .BulkLoadHFileRequest.FamilyPath familyPath = 1;
+comment|// repeated .BulkLoadHFileRequest.FamilyPath family_path = 1;
 specifier|private
 name|java
 operator|.
@@ -5253,7 +5253,7 @@ return|return
 name|familyPathBuilder_
 return|;
 block|}
-comment|// optional bool assignSeqNum = 2;
+comment|// optional bool assign_seq_num = 2;
 specifier|private
 name|boolean
 name|assignSeqNum_
@@ -5332,7 +5332,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .DelegationTokenProto fsToken = 3;
+comment|// required .DelegationTokenProto fs_token = 3;
 specifier|private
 name|org
 operator|.
@@ -6026,7 +6026,7 @@ return|return
 name|fsTokenBuilder_
 return|;
 block|}
-comment|// required string bulkToken = 4;
+comment|// required string bulk_token = 4;
 specifier|private
 name|java
 operator|.
@@ -12355,7 +12355,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -12501,12 +12501,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -12995,7 +12995,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -14530,7 +14530,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|private
 name|com
 operator|.
@@ -14686,7 +14686,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 name|boolean
 name|hasBulkToken
 parameter_list|()
@@ -14826,12 +14826,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -15457,7 +15457,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -16984,7 +16984,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 specifier|private
 name|java
 operator|.
@@ -17195,7 +17195,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 name|boolean
 name|hasBulkToken
 parameter_list|()
@@ -17335,12 +17335,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -17966,7 +17966,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|BULKTOKEN_FIELD_NUMBER
+name|BULK_TOKEN_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -19493,7 +19493,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required string bulkToken = 1;
+comment|// required string bulk_token = 1;
 specifier|private
 name|java
 operator|.
@@ -24643,47 +24643,47 @@ init|=
 block|{
 literal|"\n\024SecureBulkLoad.proto\032\013hbase.proto\032\014Cli"
 operator|+
-literal|"ent.proto\"\244\001\n\033SecureBulkLoadHFilesReques"
+literal|"ent.proto\"\251\001\n\033SecureBulkLoadHFilesReques"
 operator|+
-literal|"t\0224\n\nfamilyPath\030\001 \003(\0132 .BulkLoadHFileReq"
+literal|"t\0225\n\013family_path\030\001 \003(\0132 .BulkLoadHFileRe"
 operator|+
-literal|"uest.FamilyPath\022\024\n\014assignSeqNum\030\002 \001(\010\022&\n"
+literal|"quest.FamilyPath\022\026\n\016assign_seq_num\030\002 \001(\010"
 operator|+
-literal|"\007fsToken\030\003 \002(\0132\025.DelegationTokenProto\022\021\n"
+literal|"\022\'\n\010fs_token\030\003 \002(\0132\025.DelegationTokenProt"
 operator|+
-literal|"\tbulkToken\030\004 \002(\t\".\n\034SecureBulkLoadHFiles"
+literal|"o\022\022\n\nbulk_token\030\004 \002(\t\".\n\034SecureBulkLoadH"
 operator|+
-literal|"Response\022\016\n\006loaded\030\001 \002(\010\"[\n\024DelegationTo"
+literal|"FilesResponse\022\016\n\006loaded\030\001 \002(\010\"[\n\024Delegat"
 operator|+
-literal|"kenProto\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password"
+literal|"ionTokenProto\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010pas"
 operator|+
-literal|"\030\002 \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"+\n"
+literal|"sword\030\002 \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001"
 operator|+
-literal|"\026PrepareBulkLoadRequest\022\021\n\ttableName\030\001 \002"
+literal|"(\t\",\n\026PrepareBulkLoadRequest\022\022\n\ntable_na"
 block|,
-literal|"(\014\",\n\027PrepareBulkLoadResponse\022\021\n\tbulkTok"
+literal|"me\030\001 \002(\014\"-\n\027PrepareBulkLoadResponse\022\022\n\nb"
 operator|+
-literal|"en\030\001 \002(\t\"+\n\026CleanupBulkLoadRequest\022\021\n\tbu"
+literal|"ulk_token\030\001 \002(\t\",\n\026CleanupBulkLoadReques"
 operator|+
-literal|"lkToken\030\001 \002(\t\"\031\n\027CleanupBulkLoadResponse"
+literal|"t\022\022\n\nbulk_token\030\001 \002(\t\"\031\n\027CleanupBulkLoad"
 operator|+
-literal|"2\370\001\n\025SecureBulkLoadService\022D\n\017prepareBul"
+literal|"Response2\370\001\n\025SecureBulkLoadService\022D\n\017Pr"
 operator|+
-literal|"kLoad\022\027.PrepareBulkLoadRequest\032\030.Prepare"
+literal|"epareBulkLoad\022\027.PrepareBulkLoadRequest\032\030"
 operator|+
-literal|"BulkLoadResponse\022S\n\024secureBulkLoadHFiles"
+literal|".PrepareBulkLoadResponse\022S\n\024SecureBulkLo"
 operator|+
-literal|"\022\034.SecureBulkLoadHFilesRequest\032\035.SecureB"
+literal|"adHFiles\022\034.SecureBulkLoadHFilesRequest\032\035"
 operator|+
-literal|"ulkLoadHFilesResponse\022D\n\017cleanupBulkLoad"
+literal|".SecureBulkLoadHFilesResponse\022D\n\017Cleanup"
 operator|+
-literal|"\022\027.CleanupBulkLoadRequest\032\030.CleanupBulkL"
+literal|"BulkLoad\022\027.CleanupBulkLoadRequest\032\030.Clea"
 operator|+
-literal|"oadResponseBJ\n*org.apache.hadoop.hbase.p"
+literal|"nupBulkLoadResponseBJ\n*org.apache.hadoop"
 block|,
-literal|"rotobuf.generatedB\024SecureBulkLoadProtosH"
+literal|".hbase.protobuf.generatedB\024SecureBulkLoa"
 operator|+
-literal|"\001\210\001\001\240\001\001"
+literal|"dProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

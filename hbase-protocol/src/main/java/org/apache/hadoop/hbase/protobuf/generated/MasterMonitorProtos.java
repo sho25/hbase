@@ -60,7 +60,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 name|boolean
 name|hasTableName
 parameter_list|()
@@ -206,12 +206,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -700,7 +700,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAME_FIELD_NUMBER
+name|TABLE_NAME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2235,7 +2235,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required bytes tableName = 1;
+comment|// required bytes table_name = 1;
 specifier|private
 name|com
 operator|.
@@ -2391,7 +2391,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional uint32 yetToUpdateRegions = 1;
+comment|// optional uint32 yet_to_update_regions = 1;
 name|boolean
 name|hasYetToUpdateRegions
 parameter_list|()
@@ -2400,7 +2400,7 @@ name|int
 name|getYetToUpdateRegions
 parameter_list|()
 function_decl|;
-comment|// optional uint32 totalRegions = 2;
+comment|// optional uint32 total_regions = 2;
 name|boolean
 name|hasTotalRegions
 parameter_list|()
@@ -2540,12 +2540,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 yetToUpdateRegions = 1;
+comment|// optional uint32 yet_to_update_regions = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|YETTOUPDATEREGIONS_FIELD_NUMBER
+name|YET_TO_UPDATE_REGIONS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -2579,12 +2579,12 @@ return|return
 name|yetToUpdateRegions_
 return|;
 block|}
-comment|// optional uint32 totalRegions = 2;
+comment|// optional uint32 total_regions = 2;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TOTALREGIONS_FIELD_NUMBER
+name|TOTAL_REGIONS_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
@@ -3130,7 +3130,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|YETTOUPDATEREGIONS_FIELD_NUMBER
+name|YET_TO_UPDATE_REGIONS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -3158,7 +3158,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TOTALREGIONS_FIELD_NUMBER
+name|TOTAL_REGIONS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -4742,7 +4742,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional uint32 yetToUpdateRegions = 1;
+comment|// optional uint32 yet_to_update_regions = 1;
 specifier|private
 name|int
 name|yetToUpdateRegions_
@@ -4821,7 +4821,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional uint32 totalRegions = 2;
+comment|// optional uint32 total_regions = 2;
 specifier|private
 name|int
 name|totalRegions_
@@ -4932,7 +4932,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated string tableNames = 1;
+comment|// repeated string table_names = 1;
 name|java
 operator|.
 name|util
@@ -5082,12 +5082,12 @@ operator|.
 name|internal_static_GetTableDescriptorsRequest_fieldAccessorTable
 return|;
 block|}
-comment|// repeated string tableNames = 1;
+comment|// repeated string table_names = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLENAMES_FIELD_NUMBER
+name|TABLE_NAMES_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -5594,7 +5594,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLENAMES_FIELD_NUMBER
+name|TABLE_NAMES_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -7165,7 +7165,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated string tableNames = 1;
+comment|// repeated string table_names = 1;
 specifier|private
 name|com
 operator|.
@@ -7486,7 +7486,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// repeated .TableSchema tableSchema = 1;
+comment|// repeated .TableSchema table_schema = 1;
 name|java
 operator|.
 name|util
@@ -7712,12 +7712,12 @@ operator|.
 name|internal_static_GetTableDescriptorsResponse_fieldAccessorTable
 return|;
 block|}
-comment|// repeated .TableSchema tableSchema = 1;
+comment|// repeated .TableSchema table_schema = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TABLESCHEMA_FIELD_NUMBER
+name|TABLE_SCHEMA_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -8347,7 +8347,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|TABLESCHEMA_FIELD_NUMBER
+name|TABLE_SCHEMA_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -10116,7 +10116,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// repeated .TableSchema tableSchema = 1;
+comment|// repeated .TableSchema table_schema = 1;
 specifier|private
 name|java
 operator|.
@@ -13340,7 +13340,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .ClusterStatus clusterStatus = 1;
+comment|// required .ClusterStatus cluster_status = 1;
 name|boolean
 name|hasClusterStatus
 parameter_list|()
@@ -13512,12 +13512,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ClusterStatus clusterStatus = 1;
+comment|// required .ClusterStatus cluster_status = 1;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CLUSTERSTATUS_FIELD_NUMBER
+name|CLUSTER_STATUS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -14072,7 +14072,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CLUSTERSTATUS_FIELD_NUMBER
+name|CLUSTER_STATUS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -15729,7 +15729,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .ClusterStatus clusterStatus = 1;
+comment|// required .ClusterStatus cluster_status = 1;
 specifier|private
 name|org
 operator|.
@@ -20175,45 +20175,45 @@ init|=
 block|{
 literal|"\n\023MasterMonitor.proto\032\014Master.proto\032\013hba"
 operator|+
-literal|"se.proto\032\023ClusterStatus.proto\"0\n\033GetSche"
+literal|"se.proto\032\023ClusterStatus.proto\"1\n\033GetSche"
 operator|+
-literal|"maAlterStatusRequest\022\021\n\ttableName\030\001 \002(\014\""
+literal|"maAlterStatusRequest\022\022\n\ntable_name\030\001 \002(\014"
 operator|+
-literal|"P\n\034GetSchemaAlterStatusResponse\022\032\n\022yetTo"
+literal|"\"T\n\034GetSchemaAlterStatusResponse\022\035\n\025yet_"
 operator|+
-literal|"UpdateRegions\030\001 \001(\r\022\024\n\014totalRegions\030\002 \001("
+literal|"to_update_regions\030\001 \001(\r\022\025\n\rtotal_regions"
 operator|+
-literal|"\r\"0\n\032GetTableDescriptorsRequest\022\022\n\ntable"
+literal|"\030\002 \001(\r\"1\n\032GetTableDescriptorsRequest\022\023\n\013"
 operator|+
-literal|"Names\030\001 \003(\t\"@\n\033GetTableDescriptorsRespon"
+literal|"table_names\030\001 \003(\t\"A\n\033GetTableDescriptors"
 operator|+
-literal|"se\022!\n\013tableSchema\030\001 \003(\0132\014.TableSchema\"\031\n"
+literal|"Response\022\"\n\014table_schema\030\001 \003(\0132\014.TableSc"
 operator|+
-literal|"\027GetClusterStatusRequest\"A\n\030GetClusterSt"
+literal|"hema\"\031\n\027GetClusterStatusRequest\"B\n\030GetCl"
 operator|+
-literal|"atusResponse\022%\n\rclusterStatus\030\001 \002(\0132\016.Cl"
+literal|"usterStatusResponse\022&\n\016cluster_status\030\001 "
 block|,
-literal|"usterStatus2\314\002\n\024MasterMonitorService\022S\n\024"
+literal|"\002(\0132\016.ClusterStatus2\314\002\n\024MasterMonitorSer"
 operator|+
-literal|"getSchemaAlterStatus\022\034.GetSchemaAlterSta"
+literal|"vice\022S\n\024GetSchemaAlterStatus\022\034.GetSchema"
 operator|+
-literal|"tusRequest\032\035.GetSchemaAlterStatusRespons"
+literal|"AlterStatusRequest\032\035.GetSchemaAlterStatu"
 operator|+
-literal|"e\022P\n\023getTableDescriptors\022\033.GetTableDescr"
+literal|"sResponse\022P\n\023GetTableDescriptors\022\033.GetTa"
 operator|+
-literal|"iptorsRequest\032\034.GetTableDescriptorsRespo"
+literal|"bleDescriptorsRequest\032\034.GetTableDescript"
 operator|+
-literal|"nse\022G\n\020getClusterStatus\022\030.GetClusterStat"
+literal|"orsResponse\022G\n\020GetClusterStatus\022\030.GetClu"
 operator|+
-literal|"usRequest\032\031.GetClusterStatusResponse\022D\n\017"
+literal|"sterStatusRequest\032\031.GetClusterStatusResp"
 operator|+
-literal|"isMasterRunning\022\027.IsMasterRunningRequest"
+literal|"onse\022D\n\017IsMasterRunning\022\027.IsMasterRunnin"
 operator|+
-literal|"\032\030.IsMasterRunningResponseBI\n*org.apache"
+literal|"gRequest\032\030.IsMasterRunningResponseBI\n*or"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\023Master"
+literal|"g.apache.hadoop.hbase.protobuf.generated"
 block|,
-literal|"MonitorProtosH\001\210\001\001\240\001\001"
+literal|"B\023MasterMonitorProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
