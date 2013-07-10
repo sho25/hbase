@@ -107,6 +107,16 @@ name|DEFAULT_MAX_COLS
 init|=
 literal|5
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|ObjectMapper
+name|MAPPER
+init|=
+operator|new
+name|ObjectMapper
+argument_list|()
+decl_stmt|;
 comment|/**    * Produces a Map containing a fingerprint which identifies the type and     * the static schema components of a query (i.e. column families)    * @return a map containing fingerprint information (i.e. column families)    */
 specifier|public
 specifier|abstract
@@ -163,15 +173,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ObjectMapper
-name|mapper
-init|=
-operator|new
-name|ObjectMapper
-argument_list|()
-decl_stmt|;
 return|return
-name|mapper
+name|MAPPER
 operator|.
 name|writeValueAsString
 argument_list|(

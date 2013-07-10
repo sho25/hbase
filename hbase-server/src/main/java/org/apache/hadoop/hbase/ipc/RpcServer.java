@@ -1784,8 +1784,8 @@ name|long
 name|purgeTimeout
 decl_stmt|;
 comment|// in milliseconds
-specifier|volatile
 specifier|protected
+specifier|volatile
 name|boolean
 name|running
 init|=
@@ -1939,6 +1939,16 @@ operator|*
 literal|1024
 operator|*
 literal|1024
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|ObjectMapper
+name|MAPPER
+init|=
+operator|new
+name|ObjectMapper
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -11769,14 +11779,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// for JSON encoding
-name|ObjectMapper
-name|mapper
-init|=
-operator|new
-name|ObjectMapper
-argument_list|()
-decl_stmt|;
 comment|// base information that is reported regardless of type of call
 name|Map
 argument_list|<
@@ -11965,7 +11967,7 @@ name|tag
 operator|+
 literal|"): "
 operator|+
-name|mapper
+name|MAPPER
 operator|.
 name|writeValueAsString
 argument_list|(
@@ -12025,7 +12027,7 @@ name|tag
 operator|+
 literal|"): "
 operator|+
-name|mapper
+name|MAPPER
 operator|.
 name|writeValueAsString
 argument_list|(
@@ -12057,7 +12059,7 @@ name|tag
 operator|+
 literal|"): "
 operator|+
-name|mapper
+name|MAPPER
 operator|.
 name|writeValueAsString
 argument_list|(

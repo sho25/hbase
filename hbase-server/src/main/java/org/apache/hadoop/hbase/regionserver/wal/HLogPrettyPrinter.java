@@ -401,8 +401,14 @@ name|out
 decl_stmt|;
 comment|// for JSON encoding
 specifier|private
+specifier|static
+specifier|final
 name|ObjectMapper
-name|mapper
+name|MAPPER
+init|=
+operator|new
+name|ObjectMapper
+argument_list|()
 decl_stmt|;
 comment|/**    * Basic constructor that simply initializes values to reasonable defaults.    */
 specifier|public
@@ -443,12 +449,6 @@ operator|=
 name|System
 operator|.
 name|out
-expr_stmt|;
-name|mapper
-operator|=
-operator|new
-name|ObjectMapper
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Fully specified constructor.    *     * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this     *          PrettyPrinter's output.    */
@@ -1042,7 +1042,7 @@ name|out
 operator|.
 name|print
 argument_list|(
-name|mapper
+name|MAPPER
 operator|.
 name|writeValueAsString
 argument_list|(
