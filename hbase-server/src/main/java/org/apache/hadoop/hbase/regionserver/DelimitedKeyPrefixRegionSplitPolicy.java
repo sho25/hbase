@@ -233,6 +233,10 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|splitPoint
+operator|!=
+literal|null
+operator|&&
 name|delimiter
 operator|!=
 literal|null
