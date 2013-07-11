@@ -801,22 +801,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|CollectionBackedScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|EnvironmentEdgeManager
 import|;
 end_import
@@ -7701,11 +7685,6 @@ name|hasReferences
 argument_list|()
 condition|)
 block|{
-assert|assert
-literal|false
-operator|:
-literal|"getSplitPoint() called on a region that can't split!"
-assert|;
 return|return
 literal|null
 return|;
