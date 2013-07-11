@@ -18002,6 +18002,16 @@ name|equals
 argument_list|(
 name|closing
 argument_list|)
+operator|&&
+name|getFromOnlineRegions
+argument_list|(
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+operator|!=
+literal|null
 condition|)
 block|{
 name|LOG
