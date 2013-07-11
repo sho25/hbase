@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Get operations on a single row.  *  * The scope can be further narrowed down by specifying a list of  * columns or column families.  *  * To get everything for a row, instantiate a Get object with just the row to get.  * To further define the scope of what to get you can add a timestamp or time range  * with an optional maximum number of versions to return.  *  * If you specify a time range and a timestamp the range is ignored.  * Timestamps on TColumns are ignored.  *  * TODO: Filter, Locks  */
+comment|/**  * Used to perform Get operations on a single row.  *   * The scope can be further narrowed down by specifying a list of  * columns or column families.  *   * To get everything for a row, instantiate a Get object with just the row to get.  * To further define the scope of what to get you can add a timestamp or time range  * with an optional maximum number of versions to return.  *   * If you specify a time range and a timestamp the range is ignored.  * Timestamps on TColumns are ignored.  */
 end_comment
 
 begin_class
