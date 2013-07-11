@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Enum describing the durability guarantees for {@link Mutation}  * Note that the items must be sorted in order of increasing durability  */
+comment|/**  * Enum describing the durability guarantees for tables and {@link Mutation}s  * Note that the items must be sorted in order of increasing durability  */
 end_comment
 
 begin_enum
@@ -62,7 +62,8 @@ specifier|public
 enum|enum
 name|Durability
 block|{
-comment|/**    * Use the column family's default setting to determine durability.    * This must remain the first option.    */
+comment|/* Developer note: Do not rename the enum field names. They are serialized in HTableDescriptor */
+comment|/**    * If this is for tables durability, use HBase's global default value (SYNC_WAL).    * Otherwise, if this is for mutation, use the table's default setting to determine durability.    * This must remain the first option.    */
 name|USE_DEFAULT
 block|,
 comment|/**    * Do not write the Mutation to the WAL    */

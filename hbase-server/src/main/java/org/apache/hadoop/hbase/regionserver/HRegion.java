@@ -1253,7 +1253,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcServer
+name|RpcCallContext
 import|;
 end_import
 
@@ -1269,7 +1269,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcCallContext
+name|RpcServer
 import|;
 end_import
 
@@ -1872,6 +1872,17 @@ name|String
 name|LOAD_CFS_ON_DEMAND_CONFIG_KEY
 init|=
 literal|"hbase.hregion.scan.loadColumnFamiliesOnDemand"
+decl_stmt|;
+comment|/**    * This is the global default value for durability. All tables/mutations not    * defining a durability or using USE_DEFAULT will default to this value.    */
+specifier|private
+specifier|static
+specifier|final
+name|Durability
+name|DEFAULT_DURABLITY
+init|=
+name|Durability
+operator|.
+name|SYNC_WAL
 decl_stmt|;
 specifier|final
 name|AtomicBoolean
@@ -2571,6 +2582,11 @@ specifier|final
 name|boolean
 name|deferredLogSyncDisabled
 decl_stmt|;
+specifier|private
+specifier|final
+name|Durability
+name|durability
+decl_stmt|;
 comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
 annotation|@
 name|Deprecated
@@ -2944,6 +2960,26 @@ literal|1000
 argument_list|)
 operator|<=
 literal|0
+expr_stmt|;
+name|this
+operator|.
+name|durability
+operator|=
+name|htd
+operator|.
+name|getDurability
+argument_list|()
+operator|==
+name|Durability
+operator|.
+name|USE_DEFAULT
+condition|?
+name|DEFAULT_DURABLITY
+else|:
+name|htd
+operator|.
+name|getDurability
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
@@ -3558,6 +3594,8 @@ name|HStore
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|HStore
 name|call
@@ -4799,6 +4837,8 @@ argument_list|>
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Pair
 argument_list|<
@@ -5339,6 +5379,8 @@ name|count
 init|=
 literal|1
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|Thread
 name|newThread
@@ -6884,7 +6926,8 @@ name|wal
 operator|!=
 literal|null
 operator|&&
-name|isDeferredLogSyncEnabled
+operator|!
+name|shouldSyncLog
 argument_list|()
 condition|)
 block|{
@@ -9752,10 +9795,13 @@ decl_stmt|;
 name|Durability
 name|tmpDur
 init|=
+name|getEffectiveDurability
+argument_list|(
 name|m
 operator|.
 name|getDurability
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -9859,6 +9905,16 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|walEdit
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|txid
 operator|=
 name|this
@@ -9893,6 +9949,7 @@ operator|.
 name|htableDescriptor
 argument_list|)
 expr_stmt|;
+block|}
 comment|// -------------------------------
 comment|// STEP 6. Release row locks, etc.
 comment|// -------------------------------
@@ -10352,6 +10409,29 @@ operator|=
 name|lastIndexExclusive
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Returns effective durability from the passed durability and    * the table descriptor.    */
+specifier|protected
+name|Durability
+name|getEffectiveDurability
+parameter_list|(
+name|Durability
+name|d
+parameter_list|)
+block|{
+return|return
+name|d
+operator|==
+name|Durability
+operator|.
+name|USE_DEFAULT
+condition|?
+name|this
+operator|.
+name|durability
+else|:
+name|d
+return|;
 block|}
 comment|//TODO, Think that gets/puts and deletes should be refactored a bit so that
 comment|//the getting of the lock happens before, so that you would just pass it into
@@ -15445,6 +15525,8 @@ specifier|private
 name|HRegion
 name|region
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -16344,6 +16426,8 @@ name|nextKv
 return|;
 block|}
 comment|/*      * @return True if a filter rules the scanner is over, done.      */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|boolean
@@ -20236,10 +20320,13 @@ name|syncOrDefer
 argument_list|(
 name|txid
 argument_list|,
+name|getEffectiveDurability
+argument_list|(
 name|processor
 operator|.
 name|useDurability
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -20753,13 +20840,21 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 init|=
+name|getEffectiveDurability
+argument_list|(
 name|append
 operator|.
 name|getDurability
 argument_list|()
+argument_list|)
+decl_stmt|;
+name|boolean
+name|writeToWAL
+init|=
+name|durability
 operator|!=
 name|Durability
 operator|.
@@ -21632,10 +21727,7 @@ name|syncOrDefer
 argument_list|(
 name|txid
 argument_list|,
-name|append
-operator|.
-name|getDurability
-argument_list|()
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -21743,13 +21835,21 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
-name|boolean
-name|writeToWAL
+name|Durability
+name|durability
 init|=
+name|getEffectiveDurability
+argument_list|(
 name|increment
 operator|.
 name|getDurability
 argument_list|()
+argument_list|)
+decl_stmt|;
+name|boolean
+name|writeToWAL
+init|=
+name|durability
 operator|!=
 name|Durability
 operator|.
@@ -22456,10 +22556,7 @@ name|syncOrDefer
 argument_list|(
 name|txid
 argument_list|,
-name|increment
-operator|.
-name|getDurability
-argument_list|()
+name|durability
 argument_list|)
 expr_stmt|;
 block|}
@@ -22605,7 +22702,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|11
+literal|12
 operator|*
 name|Bytes
 operator|.
@@ -24260,11 +24357,10 @@ block|{
 case|case
 name|USE_DEFAULT
 case|:
-comment|// do what CF defaults to
+comment|// do what table defaults to
 if|if
 condition|(
-operator|!
-name|isDeferredLogSyncEnabled
+name|shouldSyncLog
 argument_list|()
 condition|)
 block|{
@@ -24326,26 +24422,28 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * check if current region is deferred sync enabled.    */
+comment|/**    * Check whether we should sync the log from the table's durability settings    */
 specifier|private
 name|boolean
-name|isDeferredLogSyncEnabled
+name|shouldSyncLog
 parameter_list|()
 block|{
 return|return
-operator|(
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|isDeferredLogFlush
-argument_list|()
-operator|&&
-operator|!
 name|this
 operator|.
 name|deferredLogSyncDisabled
-operator|)
+operator|||
+name|durability
+operator|.
+name|ordinal
+argument_list|()
+operator|>
+name|Durability
+operator|.
+name|ASYNC_WAL
+operator|.
+name|ordinal
+argument_list|()
 return|;
 block|}
 comment|/**    * A mocked list implementaion - discards all updates.    */
