@@ -735,7 +735,7 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// Kill the master (No sleep time because there is only one master running at this time.)
+comment|// Kill the master
 name|restartMasterAction
 operator|=
 operator|new
@@ -743,7 +743,7 @@ name|ChaosMonkey
 operator|.
 name|RestartActiveMaster
 argument_list|(
-literal|0l
+literal|1000
 argument_list|)
 expr_stmt|;
 comment|// Give the action the access to the cluster.
