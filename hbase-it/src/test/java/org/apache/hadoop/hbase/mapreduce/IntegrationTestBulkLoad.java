@@ -738,7 +738,7 @@ specifier|static
 name|int
 name|CHAIN_LENGTH
 init|=
-literal|900000
+literal|500000
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1648,7 +1648,7 @@ name|RandomStringUtils
 operator|.
 name|randomAlphabetic
 argument_list|(
-literal|100
+literal|50
 argument_list|)
 argument_list|)
 argument_list|)
@@ -2844,7 +2844,7 @@ operator|.
 name|getServersSize
 argument_list|()
 operator|*
-literal|20
+literal|10
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2857,7 +2857,7 @@ name|setIfUnset
 argument_list|(
 name|NUM_IMPORT_ROUNDS_KEY
 argument_list|,
-literal|"3"
+literal|"5"
 argument_list|)
 expr_stmt|;
 block|}
