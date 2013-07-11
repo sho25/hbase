@@ -85,33 +85,28 @@ interface|interface
 name|HFileBlockEncodingContext
 block|{
 comment|/**    * @return OutputStream to which encoded data is written    */
-specifier|public
 name|OutputStream
 name|getOutputStreamForEncoder
 parameter_list|()
 function_decl|;
 comment|/**    * @return encoded and compressed bytes with header which are ready to write    *         out to disk    */
-specifier|public
 name|byte
 index|[]
 name|getOnDiskBytesWithHeader
 parameter_list|()
 function_decl|;
 comment|/**    * @return encoded but not heavily compressed bytes with header which can be    *         cached in block cache    */
-specifier|public
 name|byte
 index|[]
 name|getUncompressedBytesWithHeader
 parameter_list|()
 function_decl|;
 comment|/**    * @return the block type after encoding    */
-specifier|public
 name|BlockType
 name|getBlockType
 parameter_list|()
 function_decl|;
 comment|/**    * @return the compression algorithm used by this encoding context    */
-specifier|public
 name|Compression
 operator|.
 name|Algorithm
@@ -119,7 +114,6 @@ name|getCompression
 parameter_list|()
 function_decl|;
 comment|/**    * sets the dummy header bytes    */
-specifier|public
 name|void
 name|setDummyHeader
 parameter_list|(
@@ -129,13 +123,11 @@ name|headerBytes
 parameter_list|)
 function_decl|;
 comment|/**    * @return the {@link DataBlockEncoding} encoding used    */
-specifier|public
 name|DataBlockEncoding
 name|getDataBlockEncoding
 parameter_list|()
 function_decl|;
 comment|/**    * Do any action that needs to be performed after the encoding.    * Compression is also included if {@link #getCompression()} returns non-null    * compression algorithm    *    * @param blockType    * @throws IOException    */
-specifier|public
 name|void
 name|postEncoding
 parameter_list|(
@@ -146,7 +138,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Releases the resources used.    */
-specifier|public
 name|void
 name|close
 parameter_list|()

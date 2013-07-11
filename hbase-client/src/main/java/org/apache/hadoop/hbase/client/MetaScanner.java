@@ -1196,7 +1196,6 @@ extends|extends
 name|Closeable
 block|{
 comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *      * @param rowResult result      * @return A boolean to know if it should continue to loop in the region      * @throws IOException e      */
-specifier|public
 name|boolean
 name|processRow
 parameter_list|(

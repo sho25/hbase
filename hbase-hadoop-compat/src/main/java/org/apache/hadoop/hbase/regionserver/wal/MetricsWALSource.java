@@ -47,32 +47,24 @@ extends|extends
 name|BaseSource
 block|{
 comment|/**    * The name of the metrics    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_NAME
 init|=
 literal|"WAL"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_CONTEXT
 init|=
 literal|"regionserver"
 decl_stmt|;
 comment|/**    * Description    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_DESCRIPTION
 init|=
 literal|"Metrics about HBase RegionServer HLog"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under in jmx    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_JMX_CONTEXT
 init|=
@@ -80,71 +72,51 @@ literal|"RegionServer,sub="
 operator|+
 name|METRICS_NAME
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_TIME
 init|=
 literal|"appendTime"
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_TIME_DESC
 init|=
 literal|"Time an append to the log took."
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_COUNT
 init|=
 literal|"appendCount"
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_COUNT_DESC
 init|=
 literal|"Number of appends to the write ahead log."
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_SIZE
 init|=
 literal|"appendSize"
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|APPEND_SIZE_DESC
 init|=
 literal|"Size (in bytes) of the data appended to the HLog."
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|SLOW_APPEND_COUNT
 init|=
 literal|"slowAppendCount"
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|SLOW_APPEND_COUNT_DESC
 init|=
 literal|"Number of appends that were slow."
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|SYNC_TIME
 init|=
 literal|"syncTime"
 decl_stmt|;
-specifier|static
-specifier|final
 name|String
 name|SYNC_TIME_DESC
 init|=

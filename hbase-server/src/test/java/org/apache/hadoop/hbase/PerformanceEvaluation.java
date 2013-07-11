@@ -1414,7 +1414,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Implementations can have their status set.    */
-specifier|static
 interface|interface
 name|Status
 block|{

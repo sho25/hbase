@@ -52,7 +52,6 @@ block|{
 comment|/**    * Close down all resources.    */
 comment|// The Closeable Interface wants to throw an IOE out of a close.
 comment|//  Thats a PITA.  Do this below instead of Closeable.
-specifier|public
 name|void
 name|close
 parameter_list|()

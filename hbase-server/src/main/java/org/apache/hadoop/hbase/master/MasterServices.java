@@ -187,44 +187,37 @@ extends|extends
 name|Server
 block|{
 comment|/**    * @return Master's instance of the {@link AssignmentManager}    */
-specifier|public
 name|AssignmentManager
 name|getAssignmentManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's filesystem {@link MasterFileSystem} utility class.    */
-specifier|public
 name|MasterFileSystem
 name|getMasterFileSystem
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's {@link ServerManager} instance.    */
-specifier|public
 name|ServerManager
 name|getServerManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link ExecutorService}    */
-specifier|public
 name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link TableLockManager}    */
-specifier|public
 name|TableLockManager
 name|getTableLockManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */
-specifier|public
 name|MasterCoprocessorHost
 name|getCoprocessorHost
 parameter_list|()
 function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
 comment|// We actually throw the exceptions mentioned in the
-specifier|public
 name|void
 name|checkTableModifiable
 parameter_list|(
@@ -241,7 +234,6 @@ throws|,
 name|TableNotDisabledException
 function_decl|;
 comment|/**    * Create a table using the given table definition.    * @param desc The table definition    * @param splitKeys Starting row keys for the initial table regions.  If null    *     a single region is created.    */
-specifier|public
 name|void
 name|createTable
 parameter_list|(
@@ -257,7 +249,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a table    * @param tableName The table name    * @throws IOException    */
-specifier|public
 name|void
 name|deleteTable
 parameter_list|(
@@ -270,7 +261,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Modify the descriptor of an existing table    * @param tableName The table name    * @param descriptor The updated table descriptor    * @throws IOException    */
-specifier|public
 name|void
 name|modifyTable
 parameter_list|(
@@ -287,7 +277,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Enable an existing table    * @param tableName The table name    * @throws IOException    */
-specifier|public
 name|void
 name|enableTable
 parameter_list|(
@@ -300,7 +289,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Disable an existing table    * @param tableName The table name    * @throws IOException    */
-specifier|public
 name|void
 name|disableTable
 parameter_list|(
@@ -313,7 +301,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Add a new column to an existing table    * @param tableName The table name    * @param column The column definition    * @throws IOException    */
-specifier|public
 name|void
 name|addColumn
 parameter_list|(
@@ -330,7 +317,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Modify the column descriptor of an existing column in an existing table    * @param tableName The table name    * @param descriptor The updated column definition    * @throws IOException    */
-specifier|public
 name|void
 name|modifyColumn
 parameter_list|(
@@ -345,7 +331,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a column from an existing table    * @param tableName The table name    * @param columnName The column name    * @throws IOException    */
-specifier|public
 name|void
 name|deleteColumn
 parameter_list|(
@@ -363,19 +348,16 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return Return table descriptors implementation.    */
-specifier|public
 name|TableDescriptors
 name|getTableDescriptors
 parameter_list|()
 function_decl|;
 comment|/**    * @return true if master enables ServerShutdownHandler;    */
-specifier|public
 name|boolean
 name|isServerShutdownHandlerEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Registers a new protocol buffer {@link Service} subclass as a master coprocessor endpoint.    *    *<p>    * Only a single instance may be registered for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */
-specifier|public
 name|boolean
 name|registerService
 parameter_list|(
@@ -384,7 +366,6 @@ name|instance
 parameter_list|)
 function_decl|;
 comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
-specifier|public
 name|void
 name|dispatchMergingRegions
 parameter_list|(
@@ -404,7 +385,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return true if master is initialized    */
-specifier|public
 name|boolean
 name|isInitialized
 parameter_list|()

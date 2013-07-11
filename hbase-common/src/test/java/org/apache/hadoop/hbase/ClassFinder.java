@@ -239,11 +239,9 @@ name|FileFilter
 name|fileFilter
 decl_stmt|;
 specifier|public
-specifier|static
 interface|interface
 name|ResourcePathFilter
 block|{
-specifier|public
 name|boolean
 name|isCandidatePath
 parameter_list|(
@@ -257,11 +255,9 @@ function_decl|;
 block|}
 empty_stmt|;
 specifier|public
-specifier|static
 interface|interface
 name|FileNameFilter
 block|{
-specifier|public
 name|boolean
 name|isCandidateFile
 parameter_list|(
@@ -275,11 +271,9 @@ function_decl|;
 block|}
 empty_stmt|;
 specifier|public
-specifier|static
 interface|interface
 name|ClassFilter
 block|{
-specifier|public
 name|boolean
 name|isCandidateClass
 parameter_list|(

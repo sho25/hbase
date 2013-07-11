@@ -123,7 +123,6 @@ extends|extends
 name|Configurable
 block|{
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
-specifier|public
 name|void
 name|setClusterStatus
 parameter_list|(
@@ -132,7 +131,6 @@ name|st
 parameter_list|)
 function_decl|;
 comment|/**    * Set the master service.    * @param masterServices    */
-specifier|public
 name|void
 name|setMasterServices
 parameter_list|(
@@ -141,7 +139,6 @@ name|masterServices
 parameter_list|)
 function_decl|;
 comment|/**    * Perform the major balance operation    * @param clusterState    * @return List of plans    */
-specifier|public
 name|List
 argument_list|<
 name|RegionPlan
@@ -161,7 +158,6 @@ name|clusterState
 parameter_list|)
 function_decl|;
 comment|/**    * Perform a Round Robin assignment of regions.    * @param regions    * @param servers    * @return Map of servername to regioninfos    */
-specifier|public
 name|Map
 argument_list|<
 name|ServerName
@@ -187,7 +183,6 @@ name|servers
 parameter_list|)
 function_decl|;
 comment|/**    * Assign regions to the previously hosting region server    * @param regions    * @param servers    * @return List of plans    */
-specifier|public
 name|Map
 argument_list|<
 name|ServerName
@@ -215,7 +210,6 @@ name|servers
 parameter_list|)
 function_decl|;
 comment|/**    * Sync assign a region    * @param regions    * @param servers     * @return Map regioninfos to servernames    */
-specifier|public
 name|Map
 argument_list|<
 name|HRegionInfo
@@ -238,7 +232,6 @@ name|servers
 parameter_list|)
 function_decl|;
 comment|/**    * Get a random region server from the list    * @param regionInfo Region for which this selection is being done.    * @param servers    * @return Servername    */
-specifier|public
 name|ServerName
 name|randomAssignment
 parameter_list|(

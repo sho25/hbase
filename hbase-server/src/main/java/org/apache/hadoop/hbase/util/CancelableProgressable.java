@@ -45,7 +45,6 @@ interface|interface
 name|CancelableProgressable
 block|{
 comment|/**    * Report progress.  Returns true if operations should continue, false if the    * operation should be canceled and rolled back.    * @return whether to continue (true) or cancel (false) the operation    */
-specifier|public
 name|boolean
 name|progress
 parameter_list|()

@@ -47,24 +47,18 @@ extends|extends
 name|BaseSource
 block|{
 comment|/**    * The name of the metrics    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_NAME
 init|=
 literal|"Replication"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_CONTEXT
 init|=
 literal|"regionserver"
 decl_stmt|;
 comment|/**    * The name of the metrics context that metrics will be under.    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_JMX_CONTEXT
 init|=
@@ -73,8 +67,6 @@ operator|+
 name|METRICS_NAME
 decl_stmt|;
 comment|/**    * A description.    */
-specifier|static
-specifier|final
 name|String
 name|METRICS_DESCRIPTION
 init|=

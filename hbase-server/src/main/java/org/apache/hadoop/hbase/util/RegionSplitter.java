@@ -604,7 +604,6 @@ argument_list|)
 decl_stmt|;
 comment|/**    * A generic interface for the RegionSplitter code to use for all it's    * functionality. Note that the original authors of this code use    * {@link HexStringSplit} to partition their table and set it as default, but    * provided this for your custom algorithm. To use, create a new derived class    * from this interface and call {@link RegionSplitter#createPresplitTable} or    * {@link RegionSplitter#rollingSplit(String, SplitAlgorithm, Configuration)} with the    * argument splitClassName giving the name of your class.    */
 specifier|public
-specifier|static
 interface|interface
 name|SplitAlgorithm
 block|{

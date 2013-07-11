@@ -474,8 +474,6 @@ name|CellSearcher
 name|searcher
 parameter_list|)
 function_decl|;
-specifier|public
-specifier|static
 class|class
 name|InMemory
 block|{

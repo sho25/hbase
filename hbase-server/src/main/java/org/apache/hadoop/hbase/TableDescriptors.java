@@ -81,7 +81,6 @@ interface|interface
 name|TableDescriptors
 block|{
 comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
-specifier|public
 name|HTableDescriptor
 name|get
 parameter_list|(
@@ -93,7 +92,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
-specifier|public
 name|HTableDescriptor
 name|get
 parameter_list|(
@@ -106,7 +104,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get Map of all HTableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
-specifier|public
 name|Map
 argument_list|<
 name|String
@@ -119,7 +116,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Add or update descriptor    * @param htd Descriptor to set into TableDescriptors    * @throws IOException    */
-specifier|public
 name|void
 name|add
 parameter_list|(
@@ -131,7 +127,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param tablename    * @return Instance of table descriptor or null if none found.    * @throws IOException    */
-specifier|public
 name|HTableDescriptor
 name|remove
 parameter_list|(

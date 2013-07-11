@@ -97,7 +97,6 @@ interface|interface
 name|ReplicationService
 block|{
 comment|/**    * Initializes the replication service object.    * @throws IOException    */
-specifier|public
 name|void
 name|initialize
 parameter_list|(
@@ -117,7 +116,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Start replication services.    * @throws IOException    */
-specifier|public
 name|void
 name|startReplicationService
 parameter_list|()
@@ -125,7 +123,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Stops replication service.    */
-specifier|public
 name|void
 name|stopReplicationService
 parameter_list|()

@@ -45,7 +45,6 @@ interface|interface
 name|DeleteTracker
 block|{
 comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @param type delete type as byte    */
-specifier|public
 name|void
 name|add
 parameter_list|(
@@ -67,7 +66,6 @@ name|type
 parameter_list|)
 function_decl|;
 comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
-specifier|public
 name|DeleteResult
 name|isDeleted
 parameter_list|(
@@ -86,19 +84,16 @@ name|timestamp
 parameter_list|)
 function_decl|;
 comment|/**    * @return true if there are no current delete, false otherwise    */
-specifier|public
 name|boolean
 name|isEmpty
 parameter_list|()
 function_decl|;
 comment|/**    * Called at the end of every StoreFile.    *<p>    * Many optimized implementations of Trackers will require an update at    * when the end of each StoreFile is reached.    */
-specifier|public
 name|void
 name|update
 parameter_list|()
 function_decl|;
 comment|/**    * Called between rows.    *<p>    * This clears everything as if a new DeleteTracker was instantiated.    */
-specifier|public
 name|void
 name|reset
 parameter_list|()
@@ -120,8 +115,6 @@ block|,
 name|NEXT_NEW
 block|}
 comment|/**    * Returns codes for delete result.    * The codes tell the ScanQueryMatcher whether the kv is deleted and why.    * Based on the delete result, the ScanQueryMatcher will decide the next    * operation    */
-specifier|public
-specifier|static
 enum|enum
 name|DeleteResult
 block|{

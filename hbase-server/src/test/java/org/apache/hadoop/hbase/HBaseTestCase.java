@@ -1750,12 +1750,10 @@ return|;
 block|}
 comment|/**    * Implementors can flushcache.    */
 specifier|public
-specifier|static
 interface|interface
 name|FlushCache
 block|{
 comment|/**      * @throws IOException      */
-specifier|public
 name|void
 name|flushcache
 parameter_list|()
@@ -1765,12 +1763,10 @@ function_decl|;
 block|}
 comment|/**    * Interface used by tests so can do common operations against an HTable    * or an HRegion.    *    * TOOD: Come up w/ a better name for this interface.    */
 specifier|public
-specifier|static
 interface|interface
 name|Incommon
 block|{
 comment|/**      *      * @param delete      * @param writeToWAL      * @throws IOException      */
-specifier|public
 name|void
 name|delete
 parameter_list|(
@@ -1784,7 +1780,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**      * @param put      * @throws IOException      */
-specifier|public
 name|void
 name|put
 parameter_list|(
@@ -1794,7 +1789,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
 name|Result
 name|get
 parameter_list|(
@@ -1805,7 +1799,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**      * @param family      * @param qualifiers      * @param firstRow      * @param ts      * @return scanner for specified columns, first row and timestamp      * @throws IOException      */
-specifier|public
 name|ScannerIncommon
 name|getScanner
 parameter_list|(
@@ -2256,7 +2249,6 @@ argument_list|<
 name|Result
 argument_list|>
 block|{
-specifier|public
 name|boolean
 name|next
 parameter_list|(
@@ -2269,7 +2261,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
 name|void
 name|close
 parameter_list|()

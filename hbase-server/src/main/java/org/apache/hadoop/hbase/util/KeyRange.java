@@ -44,13 +44,11 @@ specifier|public
 interface|interface
 name|KeyRange
 block|{
-specifier|abstract
 name|byte
 index|[]
 name|getStartKey
 parameter_list|()
 function_decl|;
-specifier|abstract
 name|byte
 index|[]
 name|getEndKey

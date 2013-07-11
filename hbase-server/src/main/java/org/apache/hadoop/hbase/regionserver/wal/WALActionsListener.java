@@ -99,7 +99,6 @@ interface|interface
 name|WALActionsListener
 block|{
 comment|/**    * The WAL is going to be rolled. The oldPath can be null if this is    * the first log file from the regionserver.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
-specifier|public
 name|void
 name|preLogRoll
 parameter_list|(
@@ -113,7 +112,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * The WAL has been rolled. The oldPath can be null if this is    * the first log file from the regionserver.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
-specifier|public
 name|void
 name|postLogRoll
 parameter_list|(
@@ -127,7 +125,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * The WAL is going to be archived.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
-specifier|public
 name|void
 name|preLogArchive
 parameter_list|(
@@ -141,7 +138,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * The WAL has been archived.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
-specifier|public
 name|void
 name|postLogArchive
 parameter_list|(
@@ -155,19 +151,16 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * A request was made that the WAL be rolled.    */
-specifier|public
 name|void
 name|logRollRequested
 parameter_list|()
 function_decl|;
 comment|/**    * The WAL is about to close.    */
-specifier|public
 name|void
 name|logCloseRequested
 parameter_list|()
 function_decl|;
 comment|/**   * Called before each write.   * @param info   * @param logKey   * @param logEdit   */
-specifier|public
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
@@ -182,7 +175,6 @@ name|logEdit
 parameter_list|)
 function_decl|;
 comment|/**    *    * @param htd    * @param logKey    * @param logEdit    */
-specifier|public
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(
