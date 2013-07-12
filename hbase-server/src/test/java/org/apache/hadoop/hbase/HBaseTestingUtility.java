@@ -4557,6 +4557,12 @@ argument_list|,
 name|numRegions
 argument_list|)
 expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|HTable
@@ -4644,6 +4650,12 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|HTable
@@ -4724,6 +4736,12 @@ operator|.
 name|createTable
 argument_list|(
 name|desc
+argument_list|)
+expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return
@@ -4840,6 +4858,12 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|HTable
@@ -4929,6 +4953,12 @@ operator|.
 name|createTable
 argument_list|(
 name|desc
+argument_list|)
+expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return
@@ -5026,6 +5056,12 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|HTable
@@ -5095,6 +5131,12 @@ argument_list|(
 name|desc
 argument_list|,
 name|splitRows
+argument_list|)
+expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return
@@ -5173,6 +5215,12 @@ argument_list|(
 name|desc
 argument_list|,
 name|splitRows
+argument_list|)
+expr_stmt|;
+comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return

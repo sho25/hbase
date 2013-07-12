@@ -849,16 +849,42 @@ name|getCatalogTracker
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Set a very high timeout, we want to test what happens when a RS
+comment|// fails but the region is recovered before the lease times out.
+comment|// Since the RS is already created, this conf is client-side only for
+comment|// this new table
+name|Configuration
+name|conf
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+argument_list|,
+name|SCANNER_TIMEOUT
+operator|*
+literal|100
+argument_list|)
+expr_stmt|;
 name|HTable
 name|table
 init|=
 operator|new
 name|HTable
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|,
 name|TABLE_NAME
 argument_list|)
