@@ -871,7 +871,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 argument_list|,
 name|SCANNER_TIMEOUT
 operator|*
