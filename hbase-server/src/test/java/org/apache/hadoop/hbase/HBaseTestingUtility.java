@@ -7031,11 +7031,12 @@ operator|+
 name|regionToDeleteInFS
 argument_list|)
 decl_stmt|;
-name|getDFSCluster
-argument_list|()
+name|FileSystem
 operator|.
-name|getFileSystem
-argument_list|()
+name|get
+argument_list|(
+name|c
+argument_list|)
 operator|.
 name|delete
 argument_list|(
