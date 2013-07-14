@@ -1137,6 +1137,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|tool
+operator|.
+name|Canary
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hdfs
 operator|.
 name|DFSClient
@@ -7577,7 +7593,7 @@ return|return
 name|rows
 return|;
 block|}
-comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in .META.    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in .META.    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|HRegionServer
 name|getRSForFirstRegionInTable
@@ -9469,6 +9485,43 @@ argument_list|(
 literal|200
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Finally make sure all regions are fully open and online out on the cluster. Regions may be
+comment|// in the .META. table and almost open on all regionservers but there setting the region
+comment|// online in the regionserver is the very last thing done and can take a little while to happen.
+comment|// Below we do a get.  The get will retry if a NotServeringRegionException or a
+comment|// RegionOpeningException.  It is crass but when done all will be online.
+try|try
+block|{
+name|Canary
+operator|.
+name|sniff
+argument_list|(
+name|getHBaseAdmin
+argument_list|()
+argument_list|,
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|table
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @return true if we started some servers    * @throws IOException    */
