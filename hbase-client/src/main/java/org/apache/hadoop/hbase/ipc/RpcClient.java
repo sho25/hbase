@@ -4432,7 +4432,7 @@ operator|=
 operator|new
 name|IOException
 argument_list|(
-literal|"Coundn't set up IO Streams"
+literal|"Could not set up IO Streams"
 argument_list|,
 name|t
 argument_list|)

@@ -1051,7 +1051,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cound not find "
+literal|"Could not find "
 operator|+
 name|Bytes
 operator|.

@@ -12150,7 +12150,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cound not find class for "
+literal|"Could not find class for "
 operator|+
 name|classname
 argument_list|)
