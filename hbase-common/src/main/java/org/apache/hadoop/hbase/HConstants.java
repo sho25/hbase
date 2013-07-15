@@ -1671,6 +1671,16 @@ name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
 literal|"hbase.client.scanner.timeout.period"
 decl_stmt|;
+comment|/**    * Use {@link #HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD} instead.    * @deprecated This config option is deprecated. Will be removed at later releases after 0.96.    */
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+name|String
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+init|=
+literal|"hbase.regionserver.lease.period"
+decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD}.    */
 specifier|public
 specifier|static

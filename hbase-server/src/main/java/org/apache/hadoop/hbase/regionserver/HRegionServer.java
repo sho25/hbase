@@ -1257,6 +1257,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|PayloadCarryingRpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcClient
 import|;
 end_import
@@ -1289,7 +1305,9 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|RpcServer
+operator|.
+name|BlockingServiceAndInterface
 import|;
 end_import
 
@@ -1306,24 +1324,6 @@ operator|.
 name|ipc
 operator|.
 name|RpcServerInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|RpcServer
-operator|.
-name|BlockingServiceAndInterface
 import|;
 end_import
 
@@ -2459,6 +2459,26 @@ name|protobuf
 operator|.
 name|generated
 operator|.
+name|ClusterStatusProtos
+operator|.
+name|RegionLoad
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
 name|HBaseProtos
 operator|.
 name|Coprocessor
@@ -2482,26 +2502,6 @@ operator|.
 name|HBaseProtos
 operator|.
 name|NameStringPair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClusterStatusProtos
-operator|.
-name|RegionLoad
 import|;
 end_import
 
@@ -4130,13 +4130,19 @@ name|this
 operator|.
 name|scannerLeaseTimeoutPeriod
 operator|=
-name|conf
+name|HBaseConfiguration
 operator|.
 name|getInt
 argument_list|(
+name|conf
+argument_list|,
 name|HConstants
 operator|.
 name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
+argument_list|,
+name|HConstants
+operator|.
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
 name|HConstants
 operator|.
@@ -4419,6 +4425,8 @@ operator|new
 name|UncaughtExceptionHandler
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|uncaughtException
@@ -5255,6 +5263,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -7550,6 +7560,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|RegionServerAccounting
 name|getRegionServerAccounting
@@ -10059,6 +10071,8 @@ name|rpcServer
 return|;
 block|}
 comment|/**    * Cause the server to exit without closing the regions it is serving, the log    * it is using and without notifying the master. Used unit testing and on    * catastrophic events such as HDFS is yanked out from under hbase or we OOME.    *    * @param reason    *          the reason we are aborting    * @param cause    *          the exception that caused the abort, or null    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|abort
@@ -10262,6 +10276,8 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isAborted
@@ -11348,6 +11364,8 @@ name|infoServer
 return|;
 block|}
 comment|/**    * @return true if a stop has been requested.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isStopped
@@ -11372,6 +11390,8 @@ operator|.
 name|stopping
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
@@ -11389,6 +11409,8 @@ name|recoveringRegions
 return|;
 block|}
 comment|/**    *    * @return the configuration    */
+annotation|@
+name|Override
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -11533,6 +11555,8 @@ name|Long
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -11605,6 +11629,8 @@ name|startcode
 return|;
 block|}
 comment|/** @return reference to FlushRequester */
+annotation|@
+name|Override
 specifier|public
 name|FlushRequester
 name|getFlushRequester
@@ -11722,6 +11748,8 @@ name|rootDir
 return|;
 block|}
 comment|/**    * @return Return the fs.    */
+annotation|@
+name|Override
 specifier|public
 name|FileSystem
 name|getFileSystem
@@ -11731,6 +11759,8 @@ return|return
 name|fs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -11842,6 +11872,8 @@ operator|.
 name|rsHost
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ConcurrentMap
 argument_list|<
@@ -11859,6 +11891,8 @@ operator|.
 name|regionsInTransitionInRS
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ExecutorService
 name|getExecutorService
@@ -12396,6 +12430,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory onlineRegions.  It does not go to<code>.META.</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will not be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -12581,6 +12617,8 @@ operator|=
 name|n
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|leaseExpired
@@ -13773,6 +13811,8 @@ operator|)
 return|;
 block|}
 comment|/*    * Check if an OOME and, if so, abort immediately to avoid creating more objects.    *    * @param e    *    * @return True if we OOME'd and are aborting.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|checkOOME
