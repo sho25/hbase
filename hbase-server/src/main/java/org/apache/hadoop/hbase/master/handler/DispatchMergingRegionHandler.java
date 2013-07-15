@@ -133,6 +133,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|RegionOpeningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|EventHandler
@@ -677,6 +693,18 @@ argument_list|,
 name|region_a_location
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving regions to same server for merge: "
+operator|+
+name|regionPlan
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|masterServices
 operator|.
 name|getAssignmentManager
@@ -800,6 +828,22 @@ condition|(
 name|onSameRS
 condition|)
 block|{
+name|startTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
+while|while
+condition|(
+operator|!
+name|masterServices
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 name|masterServices
@@ -822,25 +866,22 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully send MERGE REGIONS RPC to server "
+literal|"Sent merge to server "
 operator|+
 name|region_a_location
-operator|.
-name|toString
-argument_list|()
 operator|+
 literal|" for region "
 operator|+
 name|region_a
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 literal|","
 operator|+
 name|region_b
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 literal|", focible="
@@ -848,6 +889,48 @@ operator|+
 name|forcible
 argument_list|)
 expr_stmt|;
+break|break;
+block|}
+catch|catch
+parameter_list|(
+name|RegionOpeningException
+name|roe
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|startTime
+operator|)
+operator|>
+name|timeout
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed sending merge to "
+operator|+
+name|region_a_location
+operator|+
+literal|" after "
+operator|+
+name|timeout
+operator|+
+literal|"ms"
+argument_list|,
+name|roe
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+comment|// Do a retry since region should be online on RS immediately
 block|}
 catch|catch
 parameter_list|(
@@ -857,41 +940,35 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
-literal|"Failed send MERGE REGIONS RPC to server "
+literal|"Failed sending merge to "
 operator|+
 name|region_a_location
-operator|.
-name|toString
-argument_list|()
 operator|+
 literal|" for region "
 operator|+
 name|region_a
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 literal|","
 operator|+
 name|region_b
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 literal|", focible="
 operator|+
 name|forcible
-operator|+
-literal|", "
-operator|+
+argument_list|,
 name|ie
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 else|else
