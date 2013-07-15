@@ -787,6 +787,25 @@ name|FULL_RWX_PERMISSIONS
 init|=
 literal|"777"
 decl_stmt|;
+comment|/** Set to true on Windows platforms */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|WINDOWS
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"os.name"
+argument_list|)
+operator|.
+name|startsWith
+argument_list|(
+literal|"Windows"
+argument_list|)
+decl_stmt|;
 specifier|protected
 name|FSUtils
 parameter_list|()
@@ -795,7 +814,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Compare of path component. Does not consider schema; i.e. if schemas different but<code>path    *<code> starts with<code>rootPath<code>, then the function returns true    * @param rootPath    * @param path     * @return True if<code>path</code> starts with<code>rootPath</code>    */
+comment|/**    * Compare of path component. Does not consider schema; i.e. if schemas different but<code>path    *<code> starts with<code>rootPath<code>, then the function returns true    * @param rootPath    * @param path    * @return True if<code>path</code> starts with<code>rootPath</code>    */
 specifier|public
 specifier|static
 name|boolean
@@ -2085,7 +2104,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * FSConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *     * @param dfs    * @return whether we're in safe mode    * @throws IOException    */
+comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * FSConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *    * @param dfs    * @return whether we're in safe mode    * @throws IOException    */
 end_comment
 
 begin_function
