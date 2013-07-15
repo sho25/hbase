@@ -1435,6 +1435,13 @@ block|{
 return|return;
 block|}
 block|}
+name|SplitLogCounters
+operator|.
+name|tot_wkr_task_grabing
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 synchronized|synchronized
 init|(
 name|taskReadyLock
