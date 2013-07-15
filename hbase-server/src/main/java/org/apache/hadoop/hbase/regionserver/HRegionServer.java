@@ -15738,6 +15738,15 @@ operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Client tried to access missing scanner "
+operator|+
+name|scannerName
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|UnknownScannerException

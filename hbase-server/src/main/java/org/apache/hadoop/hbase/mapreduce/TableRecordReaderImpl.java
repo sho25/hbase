@@ -385,7 +385,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TableRecordReader
+name|TableRecordReaderImpl
 operator|.
 name|class
 argument_list|)
