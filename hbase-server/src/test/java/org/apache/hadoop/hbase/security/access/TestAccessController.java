@@ -1243,19 +1243,6 @@ specifier|private
 specifier|static
 name|byte
 index|[]
-name|TEST_TABLE2
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable2"
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-name|byte
-index|[]
 name|TEST_FAMILY
 init|=
 name|Bytes
@@ -11992,6 +11979,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|30000
+argument_list|)
 specifier|public
 name|void
 name|testGlobalAuthorizationForNewRegisteredRS
@@ -12139,13 +12131,25 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+specifier|final
+name|byte
+index|[]
+name|tableName
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"testGlobalAuthorizationForNewRegisteredRS"
+argument_list|)
+decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TEST_TABLE2
+name|tableName
 argument_list|)
 decl_stmt|;
 name|htd
@@ -12198,7 +12202,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|TEST_TABLE2
+name|tableName
 argument_list|)
 decl_stmt|;
 try|try
@@ -12307,7 +12311,7 @@ specifier|final
 name|int
 name|RETRIES_LIMIT
 init|=
-literal|10
+literal|100
 decl_stmt|;
 name|int
 name|retries
@@ -12320,7 +12324,7 @@ name|newRs
 operator|.
 name|getOnlineRegions
 argument_list|(
-name|TEST_TABLE2
+name|tableName
 argument_list|)
 operator|.
 name|size
@@ -12337,7 +12341,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for region to be opened. Already retried "
+literal|"Waiting for a region to be opened. Already retried "
 operator|+
 name|retries
 operator|+
@@ -12350,7 +12354,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|200
+literal|1000
 argument_list|)
 expr_stmt|;
 block|}
@@ -12374,7 +12378,14 @@ condition|)
 block|{
 name|fail
 argument_list|(
-literal|"Retry exhaust for waiting region to be opened."
+literal|"Retry exhaust for waiting region to be opened: "
+operator|+
+name|newRs
+operator|.
+name|getOnlineRegions
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -12406,7 +12417,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|TEST_TABLE2
+name|tableName
 argument_list|)
 decl_stmt|;
 name|Put
