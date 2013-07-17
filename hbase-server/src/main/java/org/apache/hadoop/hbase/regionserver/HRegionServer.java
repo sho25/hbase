@@ -11489,8 +11489,7 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return A new Map of online regions sorted by region size with the first    *         entry being the biggest.    */
-specifier|public
+comment|/**    * @return A new Map of online regions sorted by region size with the first entry being the    * biggest.  If two regions are the same size, then the last one found wins; i.e. this method    * may NOT return all regions.    */
 name|SortedMap
 argument_list|<
 name|Long
