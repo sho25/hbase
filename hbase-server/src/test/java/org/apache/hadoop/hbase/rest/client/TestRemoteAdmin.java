@@ -257,6 +257,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -446,6 +456,11 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
+argument_list|(
+literal|"See hbase-8965; REENABLE"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
@@ -661,7 +676,7 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|"Region count from cluster status and returned status did not match up. "
+literal|"Region count from cluster status and returned status did not match up"
 argument_list|,
 name|status
 operator|.
@@ -676,7 +691,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"Dead server count from cluster status and returned status did not match up. "
+literal|"Dead server count from cluster status and returned status did not match up"
 argument_list|,
 name|status
 operator|.
