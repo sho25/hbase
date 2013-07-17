@@ -2873,7 +2873,7 @@ name|getBoolean
 argument_list|(
 name|propName
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 return|;
 block|}

@@ -8620,10 +8620,14 @@ condition|(
 name|this
 operator|.
 name|hlogForMeta
-operator|==
+operator|!=
 literal|null
 condition|)
-block|{
+return|return
+name|this
+operator|.
+name|hlogForMeta
+return|;
 specifier|final
 name|String
 name|logName
@@ -8701,7 +8705,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|this
 operator|.
@@ -8890,7 +8893,7 @@ argument_list|()
 argument_list|,
 name|n
 operator|+
-literal|"MetaLogRoller"
+literal|"-MetaLogRoller"
 argument_list|,
 name|uncaughtExceptionHandler
 argument_list|)

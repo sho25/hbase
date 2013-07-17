@@ -8426,7 +8426,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Assigning region "
+literal|"Assigning "
 operator|+
 name|region
 operator|.

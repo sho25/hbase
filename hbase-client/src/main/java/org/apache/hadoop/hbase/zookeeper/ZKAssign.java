@@ -2207,7 +2207,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Attempting to transition node "
+literal|"Transitioning "
 operator|+
 name|HRegionInfo
 operator|.
@@ -3060,24 +3060,15 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-for|for
-control|(
-name|String
-name|znode
-range|:
-name|znodes
-control|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ZK RIT -> "
+literal|"Waiting on RIT: "
 operator|+
-name|znode
+name|znodes
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|Thread
 operator|.
