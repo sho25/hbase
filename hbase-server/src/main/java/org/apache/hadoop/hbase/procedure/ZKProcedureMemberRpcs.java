@@ -1668,8 +1668,6 @@ name|debug
 argument_list|(
 literal|"Starting procedure member '"
 operator|+
-name|this
-operator|.
 name|memberName
 operator|+
 literal|"'"

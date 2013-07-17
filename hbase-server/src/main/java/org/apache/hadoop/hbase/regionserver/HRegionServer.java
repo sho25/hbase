@@ -5834,6 +5834,7 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Stop the snapshot handler, forcefully killing all running tasks
 try|try
 block|{
 if|if
@@ -5849,6 +5850,10 @@ argument_list|(
 name|this
 operator|.
 name|abortRequested
+operator|||
+name|this
+operator|.
+name|killed
 argument_list|)
 expr_stmt|;
 block|}
@@ -5948,45 +5953,6 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
-comment|// stop the snapshot handler, forcefully killing all running tasks
-try|try
-block|{
-if|if
-condition|(
-name|snapshotManager
-operator|!=
-literal|null
-condition|)
-name|snapshotManager
-operator|.
-name|stop
-argument_list|(
-name|this
-operator|.
-name|abortRequested
-operator|||
-name|this
-operator|.
-name|killed
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to close snapshot handler cleanly"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Closing the compactSplit thread before closing meta regions
 if|if
 condition|(
