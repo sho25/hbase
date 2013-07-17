@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run the same test as TestReplication but with HLog compression enabled  */
+comment|/**  * Run the same test as TestReplicationKillMasterRS but with HLog compression enabled  * Do not add other tests in this class.  */
 end_comment
 
 begin_class
@@ -83,9 +83,9 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestReplicationQueueFailoverCompressed
+name|TestReplicationKillMasterRSCompressed
 extends|extends
-name|TestReplicationQueueFailover
+name|TestReplicationKillMasterRS
 block|{
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
