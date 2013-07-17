@@ -513,22 +513,6 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|update
-parameter_list|()
-block|{
-comment|// no-op, shouldn't even be called
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"ScanWildcardColumnTracker.update should never be called!"
-argument_list|)
-throw|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
 name|reset
 parameter_list|()
 block|{

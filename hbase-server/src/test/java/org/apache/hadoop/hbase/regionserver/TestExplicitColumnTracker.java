@@ -1127,7 +1127,7 @@ expr_stmt|;
 block|}
 name|explicit
 operator|.
-name|update
+name|reset
 argument_list|()
 expr_stmt|;
 for|for
