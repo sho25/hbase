@@ -664,6 +664,11 @@ block|}
 comment|/**    * This tests region assignment    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testAssignRegion
@@ -828,6 +833,11 @@ block|}
 comment|/**    * This tests region assignment on a simulated restarted server    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testAssignRegionOnRestartedServer
@@ -1170,6 +1180,11 @@ block|}
 comment|/**    * This tests offlining a region    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testOfflineRegion
@@ -2030,7 +2045,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|30000
+literal|60000
 argument_list|)
 specifier|public
 name|void
@@ -2288,7 +2303,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|30000
+literal|60000
 argument_list|)
 specifier|public
 name|void
@@ -2530,7 +2545,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|30000
+literal|60000
 argument_list|)
 specifier|public
 name|void
@@ -2809,6 +2824,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testSSHWhenDisablingTableRegionsInOpeningOrPendingOpenState
