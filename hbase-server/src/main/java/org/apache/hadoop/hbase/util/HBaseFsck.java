@@ -5320,7 +5320,7 @@ return|;
 block|}
 name|meta
 operator|.
-name|put
+name|batchMutate
 argument_list|(
 name|puts
 operator|.

@@ -1548,7 +1548,7 @@ name|ret
 init|=
 name|region
 operator|.
-name|put
+name|batchMutate
 argument_list|(
 name|in
 argument_list|)

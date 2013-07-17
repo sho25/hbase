@@ -1486,12 +1486,7 @@ parameter_list|,
 specifier|final
 name|MiniBatchOperationInProgress
 argument_list|<
-name|Pair
-argument_list|<
 name|Mutation
-argument_list|,
-name|Integer
-argument_list|>
 argument_list|>
 name|miniBatchOp
 parameter_list|)
@@ -1514,12 +1509,7 @@ parameter_list|,
 specifier|final
 name|MiniBatchOperationInProgress
 argument_list|<
-name|Pair
-argument_list|<
 name|Mutation
-argument_list|,
-name|Integer
-argument_list|>
 argument_list|>
 name|miniBatchOp
 parameter_list|)
