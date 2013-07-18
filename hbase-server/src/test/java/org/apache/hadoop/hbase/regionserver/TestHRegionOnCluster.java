@@ -295,6 +295,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|mortbay
+operator|.
+name|log
+operator|.
+name|Log
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests that need to spin up a cluster testing an {@link HRegion}.  Use  * {@link TestHRegion} if you don't need a cluster, if you can test w/ a  * standalone {@link HRegion}.  */
 end_comment
@@ -326,7 +338,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|180000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -445,6 +457,20 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Put data: r1->v1
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Loading r1 to v1 into "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|TABLENAME
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|HTable
 name|table
 init|=
@@ -540,6 +566,25 @@ name|targetServer
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Moving "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|targetServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|hbaseAdmin
 operator|.
 name|move
@@ -589,6 +634,20 @@ name|originServerNum
 condition|)
 do|;
 comment|// Put data: r2->v2
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Loading r2 to v2 into "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|TABLENAME
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|putDataAndVerify
 argument_list|(
 name|table
@@ -603,6 +662,25 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// Move region to origin server
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Moving "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|originServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|hbaseAdmin
 operator|.
 name|move
@@ -652,6 +730,20 @@ name|targetServerNum
 condition|)
 do|;
 comment|// Put data: r3->v3
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Loading r3 to v3 into "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|TABLENAME
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|putDataAndVerify
 argument_list|(
 name|table
@@ -666,6 +758,18 @@ literal|3
 argument_list|)
 expr_stmt|;
 comment|// Kill target server
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Killing target server "
+operator|+
+name|targetServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|targetServer
 operator|.
 name|kill
@@ -705,6 +809,18 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Kill origin server
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Killing origin server "
+operator|+
+name|targetServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|originServer
 operator|.
 name|kill
@@ -724,6 +840,20 @@ name|join
 argument_list|()
 expr_stmt|;
 comment|// Put data: r4->v4
+name|Log
+operator|.
+name|info
+argument_list|(
+literal|"Loading r4 to v4 into "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|TABLENAME
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|putDataAndVerify
 argument_list|(
 name|table
