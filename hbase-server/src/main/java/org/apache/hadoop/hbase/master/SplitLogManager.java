@@ -6650,6 +6650,12 @@ name|TimeoutMonitor
 extends|extends
 name|Chore
 block|{
+specifier|private
+name|long
+name|lastLog
+init|=
+literal|0
+decl_stmt|;
 specifier|public
 name|TimeoutMonitor
 parameter_list|(
@@ -6870,9 +6876,30 @@ operator|>
 literal|0
 condition|)
 block|{
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|now
+operator|>
+name|lastLog
+operator|+
+literal|5000
+condition|)
+block|{
+name|lastLog
+operator|=
+name|now
+expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"total tasks = "
 operator|+
@@ -6881,8 +6908,13 @@ operator|+
 literal|" unassigned = "
 operator|+
 name|unassigned
+operator|+
+literal|" tasks="
+operator|+
+name|tasks
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
