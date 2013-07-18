@@ -1134,10 +1134,15 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|sn
 operator|.
-name|getVersionedBytes
+name|toString
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 while|while
