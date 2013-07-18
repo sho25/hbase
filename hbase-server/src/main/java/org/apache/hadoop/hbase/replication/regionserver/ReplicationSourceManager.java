@@ -802,6 +802,31 @@ condition|)
 block|{
 return|return;
 block|}
+name|cleanOldLogs
+argument_list|(
+name|key
+argument_list|,
+name|id
+argument_list|,
+name|queueRecovered
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Cleans a log file and all older files from ZK. Called when we are sure that a    * log file is closed and has no more entries.    * @param key Path to the log    * @param id id of the peer cluster    * @param queueRecovered Whether this is a recovered queue    */
+specifier|public
+name|void
+name|cleanOldLogs
+parameter_list|(
+name|String
+name|key
+parameter_list|,
+name|String
+name|id
+parameter_list|,
+name|boolean
+name|queueRecovered
+parameter_list|)
+block|{
 synchronized|synchronized
 init|(
 name|this
@@ -826,10 +851,8 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-operator|!
 name|queueRecovered
-operator|&&
-operator|!
+operator|||
 name|hlogs
 operator|.
 name|first
@@ -841,6 +864,8 @@ name|key
 argument_list|)
 condition|)
 block|{
+return|return;
+block|}
 name|SortedSet
 argument_list|<
 name|String
@@ -879,7 +904,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Adds a normal source per registered peer cluster and tries to process all    * old region server hlog queues    */
