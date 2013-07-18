@@ -27,16 +27,6 @@ end_import
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -109,6 +99,16 @@ name|LoadTestTool
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+import|;
+end_import
+
 begin_comment
 comment|/**  * A base class for tests that do something with the cluster while running  * {@link LoadTestTool} to write and verify some data.  */
 end_comment
@@ -119,7 +119,7 @@ specifier|abstract
 class|class
 name|IngestIntegrationTestBase
 block|{
-specifier|private
+specifier|protected
 specifier|static
 name|String
 name|tableName
