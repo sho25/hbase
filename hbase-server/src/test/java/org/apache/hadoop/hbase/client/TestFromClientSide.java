@@ -37295,6 +37295,11 @@ block|}
 block|}
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey: HBASE-8989"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -37727,11 +37732,21 @@ name|assertEquals
 argument_list|(
 literal|"The number of versions of '"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|FAMILY
+argument_list|)
 operator|+
 literal|":"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|QUALIFIER
+argument_list|)
 operator|+
 literal|" did not match "
 operator|+
