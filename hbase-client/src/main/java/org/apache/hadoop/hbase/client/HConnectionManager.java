@@ -2640,15 +2640,12 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    */
+comment|/**    * Delete information for all connections.    */
 specifier|public
 specifier|static
 name|void
 name|deleteAllConnections
-parameter_list|(
-name|boolean
-name|staleConnection
-parameter_list|)
+parameter_list|()
 block|{
 synchronized|synchronized
 init|(
@@ -2690,7 +2687,7 @@ name|deleteConnection
 argument_list|(
 name|connectionKey
 argument_list|,
-name|staleConnection
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2700,21 +2697,6 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-comment|/**    * Delete information for all connections..    * @deprecated kept for backward compatibility, but the behavior is broken. HBASE-8983    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|void
-name|deleteAllConnections
-parameter_list|()
-block|{
-name|deleteAllConnections
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 specifier|static

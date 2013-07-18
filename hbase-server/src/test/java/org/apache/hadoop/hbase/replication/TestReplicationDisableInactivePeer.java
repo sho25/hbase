@@ -148,16 +148,6 @@ import|;
 end_import
 
 begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
 import|import static
 name|org
 operator|.
@@ -235,13 +225,7 @@ argument_list|)
 expr_stmt|;
 name|utility2
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|shutdown
+name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
 name|byte
