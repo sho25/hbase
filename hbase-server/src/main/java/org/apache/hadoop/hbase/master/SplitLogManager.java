@@ -1059,7 +1059,7 @@ name|failedDeletions
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *     * @param zkw    * @param conf    * @param stopper    * @param serverName    */
+comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName,    *   boolean masterRecovery, TaskFinisher tf)}    * with masterRecovery = false, and tf = null.  Used in unit tests.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    */
 specifier|public
 name|SplitLogManager
 parameter_list|(
@@ -1091,6 +1091,50 @@ argument_list|,
 name|master
 argument_list|,
 name|serverName
+argument_list|,
+literal|false
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName,    *   boolean masterRecovery, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    * @param masterRecovery an indication if the master is in recovery    */
+specifier|public
+name|SplitLogManager
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+name|Stoppable
+name|stopper
+parameter_list|,
+name|MasterServices
+name|master
+parameter_list|,
+name|ServerName
+name|serverName
+parameter_list|,
+name|boolean
+name|masterRecovery
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|zkw
+argument_list|,
+name|conf
+argument_list|,
+name|stopper
+argument_list|,
+name|master
+argument_list|,
+name|serverName
+argument_list|,
+name|masterRecovery
 argument_list|,
 operator|new
 name|TaskFinisher
@@ -1154,7 +1198,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block waiting for them    * to be done.    *    * @param zkw    * @param conf    * @param stopper    * @param serverName    * @param tf task finisher     */
+comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block waiting for them    * to be done.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    * @param masterRecovery an indication if the master is in recovery    * @param tf task finisher    */
 specifier|public
 name|SplitLogManager
 parameter_list|(
@@ -1172,6 +1216,9 @@ name|master
 parameter_list|,
 name|ServerName
 name|serverName
+parameter_list|,
+name|boolean
+name|masterRecovery
 parameter_list|,
 name|TaskFinisher
 name|tf
@@ -1342,15 +1389,6 @@ operator|.
 name|distributedLogReplay
 argument_list|)
 expr_stmt|;
-block|}
-specifier|public
-name|void
-name|finishInitialization
-parameter_list|(
-name|boolean
-name|masterRecovery
-parameter_list|)
-block|{
 if|if
 condition|(
 operator|!
@@ -8138,25 +8176,6 @@ return|;
 block|}
 end_expr_stmt
 
-begin_comment
-unit|}
-comment|/**    * Completes the initialization    */
-end_comment
-
-begin_function
-unit|public
-name|void
-name|finishInitialization
-parameter_list|()
-block|{
-name|finishInitialization
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-unit|}
+unit|} }
 end_unit
 

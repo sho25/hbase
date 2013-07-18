@@ -1909,15 +1909,6 @@ name|LOCALHOST_IP
 init|=
 literal|"127.0.0.1"
 decl_stmt|;
-comment|/** Conf key that enables distributed log splitting */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|DISTRIBUTED_LOG_SPLITTING_KEY
-init|=
-literal|"hbase.master.distributed.log.splitting"
-decl_stmt|;
 comment|/** Conf key that enables unflushed WAL edits directly being replayed to region servers */
 specifier|public
 specifier|static

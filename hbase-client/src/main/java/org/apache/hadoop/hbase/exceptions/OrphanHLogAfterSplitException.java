@@ -52,6 +52,15 @@ name|OrphanHLogAfterSplitException
 extends|extends
 name|IOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|4363805979687710634L
+decl_stmt|;
 comment|/**    * Create this exception without a message    */
 specifier|public
 name|OrphanHLogAfterSplitException
