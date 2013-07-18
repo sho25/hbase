@@ -853,6 +853,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|SimpleRpcScheduler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|balancer
@@ -3774,16 +3790,44 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.handler.count"
+name|HConstants
+operator|.
+name|MASTER_HANDLER_COUNT
 argument_list|,
 name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.handler.count"
+name|HConstants
+operator|.
+name|REGION_SERVER_HANDLER_COUNT
 argument_list|,
-literal|25
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_HANLDER_COUNT
 argument_list|)
+argument_list|)
+decl_stmt|;
+name|SimpleRpcScheduler
+name|scheduler
+init|=
+operator|new
+name|SimpleRpcScheduler
+argument_list|(
+name|conf
+argument_list|,
+name|numHandlers
+argument_list|,
+literal|0
+argument_list|,
+comment|// we don't use high priority handlers in master
+literal|0
+argument_list|,
+comment|// we don't use replication handlers in master
+literal|null
+argument_list|,
+comment|// this is a DNC w/o high priority handlers
+literal|0
 argument_list|)
 decl_stmt|;
 name|this
@@ -3803,17 +3847,11 @@ argument_list|,
 name|initialIsa
 argument_list|,
 comment|// BindAddress is IP we got for this server.
-name|numHandlers
-argument_list|,
-literal|0
-argument_list|,
-comment|// we dont use high priority handlers in master
 name|conf
 argument_list|,
-literal|0
+name|scheduler
 argument_list|)
 expr_stmt|;
-comment|// this is a DNC w/o high priority handlers
 comment|// Set our address.
 name|this
 operator|.

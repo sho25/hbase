@@ -774,6 +774,17 @@ argument_list|,
 name|CELL_BYTES
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|Configuration
+name|CONF
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 comment|// We are using the test TestRpcServiceProtos generated classes and Service because they are
 comment|// available and basic with methods like 'echo', and ping.  Below we make a blocking service
 comment|// by passing in implementation of blocking interface.  We use this service in all tests that
@@ -1011,16 +1022,23 @@ argument_list|,
 literal|0
 argument_list|)
 argument_list|,
-literal|1
+name|CONF
+argument_list|,
+operator|new
+name|SimpleRpcScheduler
+argument_list|(
+name|CONF
 argument_list|,
 literal|1
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+literal|1
 argument_list|,
 literal|0
+argument_list|,
+literal|null
+argument_list|,
+literal|0
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

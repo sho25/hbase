@@ -297,23 +297,6 @@ name|MetricsHBaseServer
 name|getMetrics
 parameter_list|()
 function_decl|;
-name|void
-name|setQosFunction
-parameter_list|(
-name|Function
-argument_list|<
-name|Pair
-argument_list|<
-name|RequestHeader
-argument_list|,
-name|Message
-argument_list|>
-argument_list|,
-name|Integer
-argument_list|>
-name|newFunc
-parameter_list|)
-function_decl|;
 comment|/**    * Refresh autentication manager policy.    * @param pp    */
 annotation|@
 name|VisibleForTesting
