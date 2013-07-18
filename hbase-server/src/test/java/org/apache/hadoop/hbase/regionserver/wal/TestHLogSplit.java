@@ -1076,7 +1076,9 @@ name|Path
 argument_list|(
 name|HBASEDIR
 argument_list|,
-literal|".corrupt"
+name|HConstants
+operator|.
+name|CORRUPT_DIR_NAME
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -8022,7 +8024,9 @@ name|get
 argument_list|(
 literal|"hbase.regionserver.hlog.splitlog.corrupt.dir"
 argument_list|,
-literal|".corrupt"
+name|HConstants
+operator|.
+name|CORRUPT_DIR_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;

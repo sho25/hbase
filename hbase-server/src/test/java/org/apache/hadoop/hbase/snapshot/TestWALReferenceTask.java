@@ -389,7 +389,9 @@ name|Path
 argument_list|(
 name|testDir
 argument_list|,
-literal|".logs"
+name|HConstants
+operator|.
+name|HREGION_LOGDIR_NAME
 argument_list|)
 decl_stmt|;
 name|Path

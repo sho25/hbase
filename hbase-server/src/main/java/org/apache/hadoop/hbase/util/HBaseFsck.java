@@ -2648,7 +2648,9 @@ name|cfName
 operator|.
 name|equals
 argument_list|(
-literal|"splitlog"
+name|HConstants
+operator|.
+name|SPLIT_LOGDIR_NAME
 argument_list|)
 condition|)
 continue|continue;

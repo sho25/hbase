@@ -919,7 +919,9 @@ name|Path
 argument_list|(
 name|hbaseDir
 argument_list|,
-literal|".oldlogs"
+name|HConstants
+operator|.
+name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 expr_stmt|;
 name|dir
@@ -2717,7 +2719,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * We pass different values to recoverFileLease() so that different code paths are covered    *     * For this test to pass, requires:    * 1. HDFS-200 (append support)    * 2. HDFS-988 (SafeMode should freeze file operations    *              [FSNamesystem.nextGenerationStampForBlock])    * 3. HDFS-142 (on restart, maintain pendingCreates)    */
+comment|/*    * We pass different values to recoverFileLease() so that different code paths are covered    *    * For this test to pass, requires:    * 1. HDFS-200 (append support)    * 2. HDFS-988 (SafeMode should freeze file operations    *              [FSNamesystem.nextGenerationStampForBlock])    * 3. HDFS-142 (on restart, maintain pendingCreates)    */
 end_comment
 
 begin_function

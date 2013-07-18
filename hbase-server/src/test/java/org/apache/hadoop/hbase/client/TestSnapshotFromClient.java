@@ -687,7 +687,9 @@ operator|.
 name|getDefaultRootDirPath
 argument_list|()
 argument_list|,
-literal|".archive"
+name|HConstants
+operator|.
+name|HFILE_ARCHIVE_DIRECTORY
 argument_list|)
 argument_list|,
 literal|true
@@ -830,7 +832,7 @@ block|{
 comment|// expected
 block|}
 block|}
-comment|/**    * Test HBaseAdmin#deleteSnapshots(String) which deletes snapshots whose names match the parameter    *     * @throws Exception    */
+comment|/**    * Test HBaseAdmin#deleteSnapshots(String) which deletes snapshots whose names match the parameter    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

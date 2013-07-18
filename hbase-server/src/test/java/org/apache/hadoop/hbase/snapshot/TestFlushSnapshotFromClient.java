@@ -956,7 +956,9 @@ operator|.
 name|getDefaultRootDirPath
 argument_list|()
 argument_list|,
-literal|".archive"
+name|HConstants
+operator|.
+name|HFILE_ARCHIVE_DIRECTORY
 argument_list|)
 argument_list|,
 literal|true

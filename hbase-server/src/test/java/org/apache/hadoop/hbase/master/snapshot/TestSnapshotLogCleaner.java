@@ -442,7 +442,9 @@ name|Path
 argument_list|(
 name|rootDir
 argument_list|,
-literal|".oldlogs"
+name|HConstants
+operator|.
+name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
 name|Path
