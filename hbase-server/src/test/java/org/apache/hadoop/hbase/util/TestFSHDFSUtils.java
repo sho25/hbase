@@ -536,9 +536,6 @@ operator|.
 name|isFileClosed
 argument_list|(
 name|FILE
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -578,7 +575,7 @@ name|Mockito
 operator|.
 name|times
 argument_list|(
-literal|3
+literal|2
 argument_list|)
 argument_list|)
 operator|.
@@ -604,9 +601,6 @@ operator|.
 name|isFileClosed
 argument_list|(
 name|FILE
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -621,7 +615,7 @@ specifier|public
 name|boolean
 name|isFileClosed
 parameter_list|(
-name|String
+name|Path
 name|f
 parameter_list|)
 throws|throws
