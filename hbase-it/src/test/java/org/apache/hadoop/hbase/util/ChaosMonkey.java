@@ -621,6 +621,7 @@ operator|=
 name|util
 expr_stmt|;
 block|}
+specifier|public
 name|IntegrationTestingUtility
 name|getHaseIntegrationTestingUtility
 parameter_list|()
@@ -629,6 +630,7 @@ return|return
 name|util
 return|;
 block|}
+specifier|public
 name|HBaseCluster
 name|getHBaseCluster
 parameter_list|()
@@ -3843,13 +3845,14 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * A context for a Policy    */
-specifier|private
+specifier|public
 specifier|static
 class|class
 name|PolicyContext
 extends|extends
 name|ActionContext
 block|{
+specifier|public
 name|PolicyContext
 parameter_list|(
 name|IntegrationTestingUtility
@@ -3874,6 +3877,7 @@ name|StoppableImplementation
 implements|implements
 name|Runnable
 block|{
+specifier|protected
 name|PolicyContext
 name|context
 decl_stmt|;

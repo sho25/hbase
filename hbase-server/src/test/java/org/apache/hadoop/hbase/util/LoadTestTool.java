@@ -262,13 +262,13 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** Table name for the test */
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
 comment|/** Table name to use of not overridden on the command line */
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -277,6 +277,7 @@ init|=
 literal|"cluster_test"
 decl_stmt|;
 comment|/** Column family used by the test */
+specifier|protected
 specifier|static
 name|byte
 index|[]
@@ -290,6 +291,7 @@ literal|"test_cf"
 argument_list|)
 decl_stmt|;
 comment|/** Column families used by the test */
+specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -302,7 +304,7 @@ name|COLUMN_FAMILY
 block|}
 decl_stmt|;
 comment|/** The number of reader/writer threads if not specified */
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -311,7 +313,7 @@ init|=
 literal|20
 decl_stmt|;
 comment|/** Usage string for the load option */
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -326,7 +328,7 @@ operator|+
 literal|">]"
 decl_stmt|;
 comment|/** Usa\ge string for the read option */
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -338,7 +340,7 @@ name|DEFAULT_NUM_THREADS
 operator|+
 literal|">]"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -356,7 +358,7 @@ name|values
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -467,7 +469,7 @@ literal|"Tries to keep the HFiles of the CF "
 operator|+
 literal|"inmemory as far as possible.  Not guaranteed that reads are always served from inmemory"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -475,7 +477,7 @@ name|OPT_KEY_WINDOW
 init|=
 literal|"key_window"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -483,7 +485,7 @@ name|OPT_WRITE
 init|=
 literal|"write"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -491,7 +493,7 @@ name|OPT_MAX_READ_ERRORS
 init|=
 literal|"max_read_errors"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -499,7 +501,7 @@ name|OPT_MULTIPUT
 init|=
 literal|"multiput"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -507,7 +509,7 @@ name|OPT_NUM_KEYS
 init|=
 literal|"num_keys"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -515,7 +517,7 @@ name|OPT_READ
 init|=
 literal|"read"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -523,7 +525,7 @@ name|OPT_START_KEY
 init|=
 literal|"start_key"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -531,7 +533,7 @@ name|OPT_TABLE_NAME
 init|=
 literal|"tn"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -539,7 +541,7 @@ name|OPT_ZK_QUORUM
 init|=
 literal|"zk"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -547,7 +549,7 @@ name|OPT_SKIP_INIT
 init|=
 literal|"skip_init"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|String
@@ -555,7 +557,7 @@ name|OPT_INIT_ONLY
 init|=
 literal|"init_only"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|long
@@ -564,50 +566,50 @@ init|=
 literal|0
 decl_stmt|;
 comment|/** This will be removed as we factor out the dependency on command line */
-specifier|private
+specifier|protected
 name|CommandLine
 name|cmd
 decl_stmt|;
-specifier|private
+specifier|protected
 name|MultiThreadedWriter
 name|writerThreads
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|MultiThreadedReader
 name|readerThreads
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|long
 name|startKey
 decl_stmt|,
 name|endKey
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|isWrite
 decl_stmt|,
 name|isRead
 decl_stmt|;
 comment|// Column family options
-specifier|private
+specifier|protected
 name|DataBlockEncoding
 name|dataBlockEncodingAlgo
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|encodeInCacheOnly
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Compression
 operator|.
 name|Algorithm
 name|compressAlgo
 decl_stmt|;
-specifier|private
+specifier|protected
 name|BloomType
 name|bloomType
 decl_stmt|;
@@ -616,36 +618,36 @@ name|boolean
 name|inMemoryCF
 decl_stmt|;
 comment|// Writer options
-specifier|private
+specifier|protected
 name|int
 name|numWriterThreads
 init|=
 name|DEFAULT_NUM_THREADS
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|minColsPerKey
 decl_stmt|,
 name|maxColsPerKey
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|minColDataSize
 decl_stmt|,
 name|maxColDataSize
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|isMultiPut
 decl_stmt|;
 comment|// Reader options
-specifier|private
+specifier|protected
 name|int
 name|numReaderThreads
 init|=
 name|DEFAULT_NUM_THREADS
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|keyWindow
 init|=
@@ -653,7 +655,7 @@ name|MultiThreadedReader
 operator|.
 name|DEFAULT_KEY_WINDOW
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|maxReadErrors
 init|=
@@ -661,25 +663,25 @@ name|MultiThreadedReader
 operator|.
 name|DEFAULT_MAX_ERRORS
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|verifyPercent
 decl_stmt|;
 comment|// TODO: refactor LoadTestToolImpl somewhere to make the usage from tests less bad,
 comment|//       console tool itself should only be used from console.
-specifier|private
+specifier|protected
 name|boolean
 name|isSkipInit
 init|=
 literal|false
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|isInitOnly
 init|=
 literal|false
 decl_stmt|;
-specifier|private
+specifier|protected
 name|String
 index|[]
 name|splitColonSeparated
@@ -760,7 +762,7 @@ return|return
 name|cols
 return|;
 block|}
-specifier|private
+specifier|protected
 name|int
 name|getNumThreads
 parameter_list|(
@@ -782,7 +784,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Apply column family options such as Bloom filters, compression, and data    * block encoding.    */
-specifier|private
+specifier|protected
 name|void
 name|applyColumnFamilyOptions
 parameter_list|(
