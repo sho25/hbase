@@ -3081,18 +3081,10 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ignored
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Not able to close an output stream"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
+comment|// Can happen if the socket is already closed
 block|}
 try|try
 block|{
@@ -3119,18 +3111,10 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ignored
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Not able to close an input stream"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
+comment|// Can happen if the socket is already closed
 block|}
 try|try
 block|{
@@ -3157,18 +3141,10 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ignored
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Not able to close a channel"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
+comment|// Can happen if the socket is already closed
 block|}
 try|try
 block|{
