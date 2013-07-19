@@ -5773,6 +5773,11 @@ expr_stmt|;
 block|}
 comment|/**    * Tests that a destroyed connection does not have a live zookeeper.    * Below is timing based.  We put up a connection to a table and then close the connection while    * having a background thread running that is forcing close of the connection to try and    * provoke a close catastrophe; we are hoping for a car crash so we can see if we are leaking    * zk connections.    * @throws Exception    */
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey test: See HBASE-8996"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
