@@ -669,6 +669,32 @@ name|READONLY
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata    * attribute which denotes if the table is compaction enabled    *    * @see #isCompactionEnabled()    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPACTION_ENABLED
+init|=
+literal|"COMPACTION_ENABLED"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|ImmutableBytesWritable
+name|COMPACTION_ENABLED_KEY
+init|=
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|COMPACTION_ENABLED
+argument_list|)
+argument_list|)
+decl_stmt|;
 comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata    * attribute which represents the maximum size of the memstore after which    * its contents are flushed onto the disk    *    * @see #getMemStoreFlushSize()    */
 specifier|public
 specifier|static
@@ -875,6 +901,15 @@ name|boolean
 name|DEFAULT_READONLY
 init|=
 literal|false
+decl_stmt|;
+comment|/**    * Constant that denotes whether the table is compaction enabled by default    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_COMPACTION_ENABLED
+init|=
+literal|true
 decl_stmt|;
 comment|/**    * Constant that denotes the maximum default size of the memstore after which    * the contents are flushed to the store files    */
 specifier|public
@@ -2400,6 +2435,43 @@ argument_list|(
 name|READONLY_KEY
 argument_list|,
 name|readOnly
+condition|?
+name|TRUE
+else|:
+name|FALSE
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Check if the compaction enable flag of the table is true. If flag is    * false then no minor/major compactions will be done in real.    *    * @return true if table compaction enabled    */
+specifier|public
+name|boolean
+name|isCompactionEnabled
+parameter_list|()
+block|{
+return|return
+name|isSomething
+argument_list|(
+name|COMPACTION_ENABLED_KEY
+argument_list|,
+name|DEFAULT_COMPACTION_ENABLED
+argument_list|)
+return|;
+block|}
+comment|/**    * Setting the table compaction enable flag.    *    * @param isEnable True if enable compaction.    */
+specifier|public
+name|void
+name|setCompactionEnabled
+parameter_list|(
+specifier|final
+name|boolean
+name|isEnable
+parameter_list|)
+block|{
+name|setValue
+argument_list|(
+name|COMPACTION_ENABLED_KEY
+argument_list|,
+name|isEnable
 condition|?
 name|TRUE
 else|:
