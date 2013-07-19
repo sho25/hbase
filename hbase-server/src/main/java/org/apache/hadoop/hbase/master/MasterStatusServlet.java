@@ -378,6 +378,27 @@ name|isActiveMaster
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|response
+operator|.
+name|sendError
+argument_list|(
+literal|503
+argument_list|,
+literal|"Master not ready"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|metaLocation
 operator|=
 name|getMetaLocationOrNull
