@@ -892,6 +892,18 @@ name|path
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Ignoring created notification for node:"
+operator|+
+name|path
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 expr_stmt|;

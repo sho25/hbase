@@ -1005,7 +1005,7 @@ literal|"member: '"
 operator|+
 name|member
 operator|+
-literal|"' joining prepared barrier for procedure '"
+literal|"' joining acquired barrier for procedure '"
 operator|+
 name|procName
 operator|+

@@ -648,18 +648,6 @@ init|(
 name|procedures
 init|)
 block|{
-name|f
-operator|=
-name|this
-operator|.
-name|pool
-operator|.
-name|submit
-argument_list|(
-name|proc
-argument_list|)
-expr_stmt|;
-comment|// if everything got started properly, we can add it known running procedures
 name|this
 operator|.
 name|procedures
@@ -668,6 +656,17 @@ name|put
 argument_list|(
 name|procName
 argument_list|,
+name|proc
+argument_list|)
+expr_stmt|;
+name|f
+operator|=
+name|this
+operator|.
+name|pool
+operator|.
+name|submit
+argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
@@ -695,6 +694,16 @@ operator|+
 literal|"cancelling operation."
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+comment|// Remove the procedure from the list since is not started
+name|this
+operator|.
+name|procedures
+operator|.
+name|remove
+argument_list|(
+name|procName
 argument_list|)
 expr_stmt|;
 comment|// the thread pool is full and we can't run the procedure
@@ -973,10 +982,27 @@ decl_stmt|;
 if|if
 condition|(
 name|proc
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Member '"
+operator|+
+name|member
+operator|+
+literal|"' is trying to acquire an unknown procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|proc
 operator|.
 name|barrierAcquiredByMember
@@ -984,7 +1010,6 @@ argument_list|(
 name|member
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Notification that the procedure had another member finished executing its in-barrier subproc    * via {@link Subprocedure#insideBarrier()}.    * @param procName name of the subprocedure that finished    * @param member name of the member that executed and released its barrier    */
 name|void
@@ -1011,10 +1036,27 @@ decl_stmt|;
 if|if
 condition|(
 name|proc
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Member '"
+operator|+
+name|member
+operator|+
+literal|"' is trying to release an unknown procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|proc
 operator|.
 name|barrierReleasedByMember
@@ -1022,7 +1064,6 @@ argument_list|(
 name|member
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * @return the rpcs implementation for all current procedures    */
 name|ProcedureCoordinatorRpcs
