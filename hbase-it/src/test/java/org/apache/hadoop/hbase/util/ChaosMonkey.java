@@ -1785,6 +1785,11 @@ name|byte
 index|[]
 name|tableNameBytes
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|MoveRegionsOfTable
 parameter_list|(
@@ -1827,6 +1832,12 @@ name|toBytes
 argument_list|(
 name|tableName
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
 expr_stmt|;
 block|}
 annotation|@
@@ -1896,6 +1907,15 @@ argument_list|()
 index|]
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Move regions of table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|HRegionInfo
@@ -1906,14 +1926,9 @@ control|)
 block|{
 try|try
 block|{
-name|byte
-index|[]
+name|String
 name|destServerName
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|servers
 index|[
 name|RandomUtils
@@ -1928,8 +1943,23 @@ index|]
 operator|.
 name|getServerName
 argument_list|()
-argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Moving "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|destServerName
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|move
@@ -1939,7 +1969,12 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|destServerName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1995,6 +2030,11 @@ name|byte
 index|[]
 name|tableNameBytes
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|MoveRandomRegionOfTable
 parameter_list|(
@@ -2037,6 +2077,12 @@ name|toBytes
 argument_list|(
 name|tableName
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
 expr_stmt|;
 block|}
 annotation|@
@@ -2097,6 +2143,22 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Move random region of table "
+operator|+
+name|tableName
+operator|+
+literal|", region="
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|unassign
@@ -2144,6 +2206,11 @@ specifier|final
 name|long
 name|sleepTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|SplitRandomRegionOfTable
 parameter_list|(
@@ -2186,6 +2253,12 @@ operator|.
 name|sleepTime
 operator|=
 name|sleepTime
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
 expr_stmt|;
 block|}
 annotation|@
@@ -2246,6 +2319,22 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Split random region of table "
+operator|+
+name|tableName
+operator|+
+literal|", region="
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|split
@@ -2371,6 +2460,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Merge random adjacent regions of table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -2443,6 +2541,25 @@ argument_list|(
 name|i
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Merging "
+operator|+
+name|a
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" and "
+operator|+
+name|b
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|mergeRegions
@@ -2500,6 +2617,11 @@ specifier|final
 name|long
 name|sleepTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|CompactTable
 parameter_list|(
@@ -2564,6 +2686,12 @@ name|sleepTime
 operator|=
 name|sleepTime
 expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2590,8 +2718,9 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
+name|boolean
+name|major
+init|=
 name|RandomUtils
 operator|.
 name|nextInt
@@ -2600,6 +2729,23 @@ literal|100
 argument_list|)
 operator|<
 name|majorRatio
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Compact table "
+operator|+
+name|tableName
+operator|+
+literal|", major="
+operator|+
+name|major
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|major
 condition|)
 block|{
 name|admin
@@ -2660,6 +2806,11 @@ specifier|final
 name|long
 name|sleepTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|CompactRandomRegionOfTable
 parameter_list|(
@@ -2723,6 +2874,12 @@ operator|.
 name|sleepTime
 operator|=
 name|sleepTime
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
 expr_stmt|;
 block|}
 annotation|@
@@ -2783,8 +2940,9 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+name|boolean
+name|major
+init|=
 name|RandomUtils
 operator|.
 name|nextInt
@@ -2793,6 +2951,30 @@ literal|100
 argument_list|)
 operator|<
 name|majorRatio
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Compact random region of table "
+operator|+
+name|tableName
+operator|+
+literal|", major="
+operator|+
+name|major
+operator|+
+literal|", region="
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|major
 condition|)
 block|{
 name|admin
@@ -2854,6 +3036,11 @@ specifier|final
 name|long
 name|sleepTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|FlushTable
 parameter_list|(
@@ -2897,6 +3084,12 @@ name|sleepTime
 operator|=
 name|sleepTime
 expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2923,6 +3116,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Flush table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|flush
@@ -2965,6 +3167,11 @@ specifier|final
 name|long
 name|sleepTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|tableName
+decl_stmt|;
 specifier|public
 name|FlushRandomRegionOfTable
 parameter_list|(
@@ -3007,6 +3214,12 @@ operator|.
 name|sleepTime
 operator|=
 name|sleepTime
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
 expr_stmt|;
 block|}
 annotation|@
@@ -3067,6 +3280,22 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Flush random region of table "
+operator|+
+name|tableName
+operator|+
+literal|", region="
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|flush
@@ -3187,6 +3416,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Snapshot table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|snapshot
