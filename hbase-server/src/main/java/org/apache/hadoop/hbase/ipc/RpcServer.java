@@ -8149,21 +8149,6 @@ throws|throws
 name|FatalConnectionException
 block|{
 comment|// TODO: Plug in other supported decoders.
-if|if
-condition|(
-operator|!
-name|header
-operator|.
-name|hasCellBlockCodecClass
-argument_list|()
-condition|)
-throw|throw
-operator|new
-name|FatalConnectionException
-argument_list|(
-literal|"No codec"
-argument_list|)
-throw|;
 name|String
 name|className
 init|=
