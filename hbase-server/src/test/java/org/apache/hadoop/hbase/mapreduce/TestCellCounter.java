@@ -511,6 +511,11 @@ block|}
 comment|/**    * Test CellCounter all data should print to output    *     */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCellCounter
@@ -939,6 +944,11 @@ block|}
 comment|/**    * Test main method of CellCounter    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCellCounterMain

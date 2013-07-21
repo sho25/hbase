@@ -771,6 +771,11 @@ comment|/**    * ****************** Test cases for Median **********************
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMedianWithValidRange
@@ -848,6 +853,11 @@ comment|/**    * **************************** ROW COUNT Test cases *************
 comment|/**    * This will test rowcount with a valid range, i.e., a subset of rows. It will    * be the most common use case.    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithValidRange
@@ -944,6 +954,11 @@ block|}
 comment|/**    * This will test the row count on the entire table. Startrow and endrow will    * be null.    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountAllTable
@@ -1020,6 +1035,11 @@ block|}
 comment|/**    * This will test the row count with startrow> endrow. The result should be    * -1.    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithInvalidRange1
@@ -1142,6 +1162,11 @@ block|}
 comment|/**    * This will test the row count with startrow = endrow and they will be    * non-null. The result should be 0, as it assumes a non-get query.    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithInvalidRange2
@@ -1255,6 +1280,11 @@ block|}
 comment|/**    * This should return a 0    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithNullCF
@@ -1358,6 +1388,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithNullCQ
@@ -1431,6 +1466,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRowCountWithPrefixFilter
@@ -1529,6 +1569,11 @@ comment|/**    * ***************Test cases for Maximum *******************    */
 comment|/**    * give max for the entire table.    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithValidRange
@@ -1605,6 +1650,11 @@ block|}
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithValidRange2
@@ -1700,6 +1750,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithValidRangeWithNoCQ
@@ -1773,6 +1828,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithValidRange2WithNoCQ
@@ -1866,6 +1926,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithValidRangeWithNullCF
@@ -1950,6 +2015,11 @@ comment|// null column family, and max will be set to 0
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithInvalidRange
@@ -2064,6 +2134,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithInvalidRange2
@@ -2180,6 +2255,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMaxWithFilter
@@ -2282,6 +2362,11 @@ comment|/**    * **************************Test cases for Minimum **************
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithValidRange
@@ -2379,6 +2464,11 @@ block|}
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithValidRange2
@@ -2474,6 +2564,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithValidRangeWithNoCQ
@@ -2565,6 +2660,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithValidRange2WithNoCQ
@@ -2658,6 +2758,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithValidRangeWithNullCF
@@ -2757,6 +2862,11 @@ comment|// null column family, and max will be set to 0
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithInvalidRange
@@ -2862,6 +2972,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithInvalidRange2
@@ -2967,6 +3082,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMinWithFilter
@@ -3069,6 +3189,11 @@ comment|/**    * *************** Test cases for Sum *********************    */
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithValidRange
@@ -3145,6 +3270,11 @@ block|}
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithValidRange2
@@ -3240,6 +3370,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithValidRangeWithNoCQ
@@ -3315,6 +3450,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithValidRange2WithNoCQ
@@ -3410,6 +3550,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithValidRangeWithNullCF
@@ -3509,6 +3654,11 @@ comment|// null column family, and max will be set to 0
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithInvalidRange
@@ -3614,6 +3764,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSumWithFilter
@@ -3714,6 +3869,11 @@ comment|/**    * ****************************** Test Cases for Avg *************
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithValidRange
@@ -3792,6 +3952,11 @@ block|}
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithValidRange2
@@ -3889,6 +4054,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithValidRangeWithNoCQ
@@ -3964,6 +4134,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithValidRange2WithNoCQ
@@ -4061,6 +4236,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithValidRangeWithNullCF
@@ -4140,6 +4320,11 @@ comment|// null column family, and max will be set to 0
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithInvalidRange
@@ -4247,6 +4432,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAvgWithFilter
@@ -4353,6 +4543,11 @@ comment|/**    * ****************** Test cases for STD **********************   
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithValidRange
@@ -4431,6 +4626,11 @@ block|}
 comment|/**    * @throws Throwable    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithValidRange2
@@ -4528,6 +4728,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithValidRangeWithNoCQ
@@ -4603,6 +4808,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithValidRange2WithNoCQ
@@ -4698,6 +4908,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithValidRangeWithNullCF
@@ -4797,6 +5012,11 @@ comment|// null column family, and max will be set to 0
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithInvalidRange
@@ -4902,6 +5122,11 @@ comment|// control should go to the catch block
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStdWithFilter

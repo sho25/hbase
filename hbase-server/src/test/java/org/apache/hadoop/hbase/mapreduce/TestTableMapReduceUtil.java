@@ -174,6 +174,11 @@ block|{
 comment|/**    * Test different variants ofinitTableMapperJob method    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|600000
+argument_list|)
 specifier|public
 name|void
 name|testInitTableMapperJob
