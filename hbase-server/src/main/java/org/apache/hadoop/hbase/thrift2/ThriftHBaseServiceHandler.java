@@ -340,7 +340,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is a glue object that connects Thrift RPC calls to the HBase client API primarily defined in the  * HTableInterface.  */
+comment|/**  * This class is a glue object that connects Thrift RPC calls to the HBase client API primarily  * defined in the HTableInterface.  */
 end_comment
 
 begin_class
@@ -734,7 +734,7 @@ return|return
 name|err
 return|;
 block|}
-comment|/**    * Assigns a unique ID to the scanner and adds the mapping to an internal HashMap.    *    * @param scanner to add    * @return Id for this Scanner    */
+comment|/**    * Assigns a unique ID to the scanner and adds the mapping to an internal HashMap.    * @param scanner to add    * @return Id for this Scanner    */
 specifier|private
 name|int
 name|addScanner
@@ -764,7 +764,7 @@ return|return
 name|id
 return|;
 block|}
-comment|/**    * Returns the Scanner associated with the specified Id.    *    * @param id of the Scanner to get    * @return a Scanner, or null if the Id is invalid    */
+comment|/**    * Returns the Scanner associated with the specified Id.    * @param id of the Scanner to get    * @return a Scanner, or null if the Id is invalid    */
 specifier|private
 name|ResultScanner
 name|getScanner
@@ -782,7 +782,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**    * Removes the scanner associated with the specified ID from the internal HashMap.    *    * @param id of the Scanner to remove    * @return the removed Scanner, or<code>null</code> if the Id is invalid    */
+comment|/**    * Removes the scanner associated with the specified ID from the internal HashMap.    * @param id of the Scanner to remove    * @return the removed Scanner, or<code>null</code> if the Id is invalid    */
 specifier|protected
 name|ResultScanner
 name|removeScanner
@@ -1702,6 +1702,115 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|List
+argument_list|<
+name|TResult
+argument_list|>
+name|getScannerResults
+parameter_list|(
+name|ByteBuffer
+name|table
+parameter_list|,
+name|TScan
+name|scan
+parameter_list|,
+name|int
+name|numRows
+parameter_list|)
+throws|throws
+name|TIOError
+throws|,
+name|TException
+block|{
+name|HTableInterface
+name|htable
+init|=
+name|getTable
+argument_list|(
+name|table
+argument_list|)
+decl_stmt|;
+name|List
+argument_list|<
+name|TResult
+argument_list|>
+name|results
+init|=
+literal|null
+decl_stmt|;
+name|ResultScanner
+name|scanner
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|scanner
+operator|=
+name|htable
+operator|.
+name|getScanner
+argument_list|(
+name|scanFromThrift
+argument_list|(
+name|scan
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|results
+operator|=
+name|resultsFromHBase
+argument_list|(
+name|scanner
+operator|.
+name|next
+argument_list|(
+name|numRows
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+throw|throw
+name|getTIOError
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|scanner
+operator|!=
+literal|null
+condition|)
+block|{
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+name|closeTable
+argument_list|(
+name|htable
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|results
+return|;
 block|}
 annotation|@
 name|Override
