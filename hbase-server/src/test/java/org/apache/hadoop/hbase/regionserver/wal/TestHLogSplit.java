@@ -1552,6 +1552,11 @@ block|{   }
 comment|/**    * Simulates splitting a WAL out from under a regionserver that is still trying to write it.  Ensures we do not    * lose edits.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testLogCannotBeWrittenOnceParsed
@@ -2375,6 +2380,11 @@ block|}
 comment|/**    * @throws IOException    * @see https://issues.apache.org/jira/browse/HBASE-3020    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRecoveredEditsPathForMeta
@@ -2534,6 +2544,11 @@ block|}
 comment|/**    * Test old recovered edits file doesn't break HLogSplitter.    * This is useful in upgrading old instances.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOldRecoveredEditsFileSidelined
@@ -2736,6 +2751,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitPreservesEdits
@@ -2860,6 +2880,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testEmptyLogFiles
@@ -3000,6 +3025,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testEmptyOpenLogFiles
@@ -3140,6 +3170,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOpenZeroLengthReportedFileButWithDataGetsSplit
@@ -3260,6 +3295,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTralingGarbageCorruptionFileSkipErrorsPasses
@@ -3411,6 +3451,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testFirstLineCorruptionLogFileSkipErrorsPasses
@@ -3569,6 +3614,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMiddleGarbageCorruptionSkipErrorsReadsHalfOfFile
@@ -3753,6 +3803,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCorruptedFileGetsArchivedIfSkipErrors
@@ -3978,6 +4033,10 @@ block|}
 annotation|@
 name|Test
 argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|,
 name|expected
 operator|=
 name|IOException
@@ -4122,6 +4181,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCorruptedLogFilesSkipErrorsFalseDoesNotTouchLogs
@@ -4285,6 +4349,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testEOFisIgnored
@@ -4494,6 +4563,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCorruptWALTrailer
@@ -4701,6 +4775,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testLogsGetArchivedAfterSplit
@@ -4775,6 +4854,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplit
@@ -4895,6 +4979,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testLogDirectoryShouldBeDeletedAfterSuccessfulSplit
@@ -4997,6 +5086,10 @@ block|}
 annotation|@
 name|Test
 argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|,
 name|expected
 operator|=
 name|IOException
@@ -5333,6 +5426,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitDeletedRegion
@@ -5424,6 +5522,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testIOEOnOutputThread
@@ -5615,6 +5718,11 @@ block|}
 comment|// Test for HBASE-3412
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMovedHLogDuringRecovery
@@ -5743,6 +5851,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRetryOpenDuringRecovery
@@ -5950,6 +6063,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTerminationAskedByReporter
@@ -6185,6 +6303,11 @@ block|}
 comment|/**    * Test log split process with fake data and lots of edits to trigger threading    * issues.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testThreading
@@ -6209,6 +6332,11 @@ block|}
 comment|/**    * Test blocking behavior of the log split process if writers are writing slower    * than the reader is reading.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testThreadingSlowWriterSmallBuffer
@@ -6818,6 +6946,11 @@ comment|// comes back online after the master declared it dead and started to sp
 comment|// Want log rolling after a master split to fail
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 annotation|@
 name|Ignore
 argument_list|(
@@ -7474,6 +7607,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitLogFileWithOneRegion
@@ -7603,6 +7741,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitLogFileDeletedRegionDir
@@ -7722,6 +7865,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitLogFileEmpty
@@ -7820,6 +7968,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitLogFileMultipleRegions
@@ -7922,6 +8075,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitLogFileFirstLineCorruptionLog
@@ -8048,6 +8206,11 @@ block|}
 comment|/**    * @throws IOException    * @see https://issues.apache.org/jira/browse/HBASE-4862    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testConcurrentSplitLogAndReplayRecoverEdit
