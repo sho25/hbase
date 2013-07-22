@@ -47,16 +47,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|experimental
 operator|.
 name|categories
@@ -83,11 +73,6 @@ name|TestReplicationKillMasterRS
 extends|extends
 name|TestReplicationKillRS
 block|{
-annotation|@
-name|Ignore
-argument_list|(
-literal|"Flakey.  See HBASE-9008 and HBASE-9007"
-argument_list|)
 annotation|@
 name|Test
 argument_list|(
