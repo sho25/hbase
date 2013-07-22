@@ -4543,8 +4543,6 @@ argument_list|)
 expr_stmt|;
 name|boolean
 name|wasFlushing
-init|=
-literal|false
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -6791,9 +6789,6 @@ block|}
 name|flushSeqId
 operator|=
 name|startSeqId
-operator|.
-name|longValue
-argument_list|()
 expr_stmt|;
 block|}
 else|else
@@ -10255,14 +10250,6 @@ argument_list|(
 literal|"Action must be Put or Delete"
 argument_list|)
 throw|;
-name|Row
-name|r
-init|=
-operator|(
-name|Row
-operator|)
-name|w
-decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -10272,7 +10259,7 @@ name|equals
 argument_list|(
 name|row
 argument_list|,
-name|r
+name|w
 operator|.
 name|getRow
 argument_list|()
@@ -10353,8 +10340,6 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|result
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -12479,10 +12464,6 @@ condition|)
 continue|continue;
 name|long
 name|maxSeqId
-init|=
-name|Long
-operator|.
-name|MAX_VALUE
 decl_stmt|;
 name|String
 name|fileName
@@ -13547,7 +13528,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param fs    * @param compaction    */
+comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction    */
 name|void
 name|completeCompactionMarker
 parameter_list|(
@@ -14897,21 +14878,11 @@ name|Object
 name|o
 parameter_list|)
 block|{
-if|if
-condition|(
-operator|!
-operator|(
+return|return
 name|o
 operator|instanceof
 name|HRegion
-operator|)
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-return|return
+operator|&&
 name|Bytes
 operator|.
 name|equals
@@ -16611,19 +16582,16 @@ name|resetFilters
 argument_list|()
 expr_stmt|;
 comment|// Calling the hook in CP which allows it to do a fast forward
-if|if
-condition|(
+return|return
 name|this
 operator|.
 name|region
 operator|.
 name|getCoprocessorHost
 argument_list|()
-operator|!=
+operator|==
 literal|null
-condition|)
-block|{
-return|return
+operator|||
 name|this
 operator|.
 name|region
@@ -16637,10 +16605,6 @@ name|this
 argument_list|,
 name|currentRow
 argument_list|)
-return|;
-block|}
-return|return
-literal|true
 return|;
 block|}
 specifier|private
@@ -18781,8 +18745,6 @@ argument_list|)
 expr_stmt|;
 name|HRegion
 name|dstRegion
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -20385,8 +20347,6 @@ literal|null
 decl_stmt|;
 name|RowLock
 name|rowLock
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -22735,8 +22695,6 @@ name|IOException
 block|{
 name|HRegion
 name|region
-init|=
-literal|null
 decl_stmt|;
 name|String
 name|metaStr
@@ -22863,8 +22821,6 @@ argument_list|()
 decl_stmt|;
 name|boolean
 name|done
-init|=
-literal|false
 decl_stmt|;
 do|do
 block|{
