@@ -2163,6 +2163,52 @@ name|int
 name|maxVersions
 parameter_list|)
 block|{
+if|if
+condition|(
+name|maxVersions
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// TODO: Allow maxVersion of 0 to be the way you say "Keep all versions".
+comment|// Until there is support, consider 0 or< 0 -- a configuration error.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Maximum versions must be positive"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|maxVersions
+operator|<
+name|this
+operator|.
+name|getMinVersions
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Set MaxVersion to "
+operator|+
+name|maxVersions
+operator|+
+literal|" while minVersion is "
+operator|+
+name|this
+operator|.
+name|getMinVersions
+argument_list|()
+operator|+
+literal|". Maximum versions must be>= minimum versions "
+argument_list|)
+throw|;
+block|}
 name|setValue
 argument_list|(
 name|HConstants
