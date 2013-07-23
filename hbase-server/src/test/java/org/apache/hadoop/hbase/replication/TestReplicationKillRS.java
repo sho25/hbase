@@ -566,9 +566,17 @@ argument_list|)
 expr_stmt|;
 name|utility
 operator|.
-name|expireRegionServerSession
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getRegionServer
 argument_list|(
 name|rs
+argument_list|)
+operator|.
+name|stop
+argument_list|(
+literal|"Stopping as part of the test"
 argument_list|)
 expr_stmt|;
 block|}

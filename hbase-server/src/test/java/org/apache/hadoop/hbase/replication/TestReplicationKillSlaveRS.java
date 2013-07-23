@@ -84,11 +84,6 @@ extends|extends
 name|TestReplicationKillRS
 block|{
 annotation|@
-name|Ignore
-argument_list|(
-literal|"Flakey.  See HBASE-9008 and HBASE-9007"
-argument_list|)
-annotation|@
 name|Test
 argument_list|(
 name|timeout

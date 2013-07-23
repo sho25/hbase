@@ -3654,7 +3654,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished recovering the queue"
+literal|"Finished recovering the queue with the following stats "
+operator|+
+name|getStats
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
