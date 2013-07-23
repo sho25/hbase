@@ -1342,7 +1342,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 comment|// this time create a task node after starting the splitLogWorker
