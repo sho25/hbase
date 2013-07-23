@@ -99,16 +99,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -670,14 +660,6 @@ name|ServerName
 index|[]
 name|initialServers
 decl_stmt|;
-specifier|protected
-name|Random
-name|random
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 specifier|public
 name|void
 name|init
@@ -1150,7 +1132,7 @@ block|{
 name|int
 name|victimIx
 init|=
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -1242,7 +1224,7 @@ block|{
 name|int
 name|targetIx
 init|=
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -1752,7 +1734,7 @@ name|restartRs
 argument_list|(
 name|nameArray
 index|[
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -2110,6 +2092,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Move random region of table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -2145,13 +2136,9 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Performing action: Move random region of table "
-operator|+
-name|tableName
-operator|+
-literal|", region="
+literal|"Unassigning region "
 operator|+
 name|region
 operator|.
@@ -2286,6 +2273,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Split random region of table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -2321,13 +2317,9 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Performing action: Split random region of table "
-operator|+
-name|tableName
-operator|+
-literal|", region="
+literal|"Splitting region "
 operator|+
 name|region
 operator|.
@@ -2920,26 +2912,6 @@ argument_list|(
 name|tableNameBytes
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
-name|region
-init|=
-name|selectRandomItem
-argument_list|(
-name|regions
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|HRegionInfo
-index|[
-name|regions
-operator|.
-name|size
-argument_list|()
-index|]
-argument_list|)
-argument_list|)
-decl_stmt|;
 name|boolean
 name|major
 init|=
@@ -2963,8 +2935,38 @@ operator|+
 literal|", major="
 operator|+
 name|major
-operator|+
-literal|", region="
+argument_list|)
+expr_stmt|;
+name|HRegionInfo
+name|region
+init|=
+name|selectRandomItem
+argument_list|(
+name|regions
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|HRegionInfo
+index|[
+name|regions
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|major
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Major compacting region "
 operator|+
 name|region
 operator|.
@@ -2972,11 +2974,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|major
-condition|)
-block|{
 name|admin
 operator|.
 name|majorCompact
@@ -2990,6 +2987,18 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Compacting region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|compact
@@ -3247,6 +3256,15 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Performing action: Flush random region of table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -3282,13 +3300,9 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Performing action: Flush random region of table "
-operator|+
-name|tableName
-operator|+
-literal|", region="
+literal|"Flushing region "
 operator|+
 name|region
 operator|.
@@ -3820,7 +3834,7 @@ else|else
 block|{
 name|action
 operator|=
-name|random
+name|RandomUtils
 operator|.
 name|nextBoolean
 argument_list|()
@@ -3870,7 +3884,7 @@ expr_stmt|;
 block|}
 name|sleep
 argument_list|(
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -4018,7 +4032,7 @@ block|{
 name|int
 name|victimIx
 init|=
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -4303,9 +4317,7 @@ comment|// Add some jitter.
 name|int
 name|jitter
 init|=
-operator|new
-name|Random
-argument_list|()
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -4867,17 +4879,10 @@ index|[]
 name|items
 parameter_list|)
 block|{
-name|Random
-name|random
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 return|return
 name|items
 index|[
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -4908,13 +4913,6 @@ argument_list|>
 name|items
 parameter_list|)
 block|{
-name|Random
-name|random
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 name|int
 name|totalWeight
 init|=
@@ -4944,7 +4942,7 @@ block|}
 name|int
 name|cutoff
 init|=
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -5044,13 +5042,6 @@ name|float
 name|ratio
 parameter_list|)
 block|{
-name|Random
-name|random
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 name|int
 name|remaining
 init|=
@@ -5106,7 +5097,7 @@ control|)
 block|{
 if|if
 condition|(
-name|random
+name|RandomUtils
 operator|.
 name|nextFloat
 argument_list|()
