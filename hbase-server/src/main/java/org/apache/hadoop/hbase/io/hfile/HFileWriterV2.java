@@ -974,11 +974,21 @@ name|IOException
 argument_list|(
 literal|"Unexpected getShortMidpointKey result, fakeKey:"
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|fakeKey
+argument_list|)
 operator|+
 literal|", firstKeyInBlock:"
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|firstKeyInBlock
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1008,7 +1018,7 @@ literal|"Unexpected getShortMidpointKey result, lastKeyOfPreviousBlock:"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|lastKeyOfPreviousBlock
 argument_list|)
@@ -1017,7 +1027,7 @@ literal|", fakeKey:"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|fakeKey
 argument_list|)

@@ -1737,7 +1737,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%s AND (5/8): [%s, %s, %s, %s, %s]"
+literal|"%s AND (5/8): [%s, %s, %s, %s, %s, %s]"
 argument_list|,
 name|L_FILTER_LIST
 operator|.

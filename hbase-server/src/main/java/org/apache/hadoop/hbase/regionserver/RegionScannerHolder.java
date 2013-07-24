@@ -1420,10 +1420,6 @@ comment|// coprocessor postNext hook
 if|if
 condition|(
 name|region
-operator|!=
-literal|null
-operator|&&
-name|region
 operator|.
 name|getCoprocessorHost
 argument_list|()

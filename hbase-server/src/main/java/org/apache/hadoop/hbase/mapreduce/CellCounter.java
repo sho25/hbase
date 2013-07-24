@@ -602,10 +602,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|thisRowFamilyName
-operator|!=
-literal|null
-operator|&&
 operator|!
 name|thisRowFamilyName
 operator|.
@@ -687,10 +683,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|thisRowQualifierName
-operator|!=
-literal|null
-operator|&&
 operator|!
 name|thisRowQualifierName
 operator|.

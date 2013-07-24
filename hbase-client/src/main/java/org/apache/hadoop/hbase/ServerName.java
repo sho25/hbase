@@ -157,6 +157,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|Serializable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -206,6 +216,8 @@ name|Comparable
 argument_list|<
 name|ServerName
 argument_list|>
+implements|,
+name|Serializable
 block|{
 comment|/**    * Version for this class.    * Its a short rather than a byte so I can for sure distinguish between this    * version of this class and the version previous to this which did not have    * a version.    */
 specifier|private

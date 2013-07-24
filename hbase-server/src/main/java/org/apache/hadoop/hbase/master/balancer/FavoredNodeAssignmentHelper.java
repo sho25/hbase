@@ -45,6 +45,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -1077,7 +1087,12 @@ argument_list|()
 operator|+
 literal|" with favored nodes "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|favoredNodes
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

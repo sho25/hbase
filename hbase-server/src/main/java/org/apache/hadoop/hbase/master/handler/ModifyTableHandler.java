@@ -507,9 +507,14 @@ argument_list|)
 operator|+
 literal|" from table="
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for

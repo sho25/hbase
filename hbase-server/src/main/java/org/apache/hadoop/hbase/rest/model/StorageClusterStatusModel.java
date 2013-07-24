@@ -227,13 +227,23 @@ name|serialVersionUID
 init|=
 literal|1L
 decl_stmt|;
-comment|/** 	 * Represents a region server. 	 */
+comment|/**    * Represents a region server.    */
 specifier|public
 specifier|static
 class|class
 name|Node
+implements|implements
+name|Serializable
 block|{
-comment|/** 	   * Represents a region hosted on a region server. 	   */
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+decl_stmt|;
+comment|/**      * Represents a region hosted on a region server.      */
 specifier|public
 specifier|static
 class|class
@@ -292,12 +302,12 @@ specifier|private
 name|long
 name|currentCompactedKVs
 decl_stmt|;
-comment|/** 	     * Default constructor 	     */
+comment|/**        * Default constructor        */
 specifier|public
 name|Region
 parameter_list|()
-block|{}
-comment|/** 	     * Constructor 	     * @param name the region name 	     */
+block|{       }
+comment|/**        * Constructor        * @param name the region name        */
 specifier|public
 name|Region
 parameter_list|(
@@ -313,7 +323,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/** 	     * Constructor 	     * @param name the region name 	     * @param stores the number of stores 	     * @param storefiles the number of store files 	     * @param storefileSizeMB total size of store files, in MB 	     * @param memstoreSizeMB total size of memstore, in MB 	     * @param storefileIndexSizeMB total size of store file indexes, in MB 	     */
+comment|/**        * Constructor        * @param name the region name        * @param stores the number of stores        * @param storefiles the number of store files        * @param storefileSizeMB total size of store files, in MB        * @param memstoreSizeMB total size of memstore, in MB        * @param storefileIndexSizeMB total size of store file indexes, in MB        */
 specifier|public
 name|Region
 parameter_list|(
@@ -437,7 +447,7 @@ operator|=
 name|currentCompactedKVs
 expr_stmt|;
 block|}
-comment|/** 	     * @return the region name 	     */
+comment|/**        * @return the region name        */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -450,7 +460,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/** 	     * @return the number of stores  	     */
+comment|/**        * @return the number of stores        */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -706,7 +716,7 @@ operator|=
 name|totalStaticIndexSizeKB
 expr_stmt|;
 block|}
-comment|/** 	     * @param name the region name 	     */
+comment|/**        * @param name the region name        */
 specifier|public
 name|void
 name|setName
@@ -723,7 +733,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/** 	     * @param stores the number of stores 	     */
+comment|/**        * @param stores the number of stores        */
 specifier|public
 name|void
 name|setStores
@@ -1187,7 +1197,7 @@ specifier|private
 name|double
 name|averageLoad
 decl_stmt|;
-comment|/** 	 * Add a live node to the cluster representation. 	 * @param name the region server name 	 * @param startCode the region server's start code 	 * @param heapSizeMB the current heap size, in MB 	 * @param maxHeapSizeMB the maximum heap size, in MB 	 */
+comment|/**    * Add a live node to the cluster representation.    * @param name the region server name    * @param startCode the region server's start code    * @param heapSizeMB the current heap size, in MB    * @param maxHeapSizeMB the maximum heap size, in MB    */
 specifier|public
 name|Node
 name|addLiveNode
@@ -1241,7 +1251,7 @@ return|return
 name|node
 return|;
 block|}
-comment|/** 	 * @param index the index 	 * @return the region server model 	 */
+comment|/**    * @param index the index    * @return the region server model    */
 specifier|public
 name|Node
 name|getLiveNode
@@ -1259,7 +1269,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/** 	 * Add a dead node to the cluster representation. 	 * @param node the dead region server's name 	 */
+comment|/**    * Add a dead node to the cluster representation.    * @param node the dead region server's name    */
 specifier|public
 name|void
 name|addDeadNode
@@ -1276,7 +1286,7 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** 	 * @param index the index 	 * @return the dead region server's name 	 */
+comment|/**    * @param index the index    * @return the dead region server's name    */
 specifier|public
 name|String
 name|getDeadNode
@@ -1294,12 +1304,12 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/** 	 * Default constructor 	 */
+comment|/**    * Default constructor    */
 specifier|public
 name|StorageClusterStatusModel
 parameter_list|()
-block|{}
-comment|/** 	 * @return the list of live nodes 	 */
+block|{   }
+comment|/**    * @return the list of live nodes    */
 annotation|@
 name|XmlElement
 argument_list|(
@@ -1326,7 +1336,7 @@ return|return
 name|liveNodes
 return|;
 block|}
-comment|/** 	 * @return the list of dead nodes 	 */
+comment|/**    * @return the list of dead nodes    */
 annotation|@
 name|XmlElement
 argument_list|(
@@ -1475,7 +1485,7 @@ operator|=
 name|averageLoad
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
+comment|/*    * (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public

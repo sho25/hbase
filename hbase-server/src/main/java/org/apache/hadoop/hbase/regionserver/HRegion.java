@@ -15698,13 +15698,6 @@ name|totalSize
 init|=
 literal|0
 decl_stmt|;
-if|if
-condition|(
-name|outResults
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|KeyValue
@@ -15720,7 +15713,6 @@ operator|.
 name|getLength
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 name|region
 operator|.
