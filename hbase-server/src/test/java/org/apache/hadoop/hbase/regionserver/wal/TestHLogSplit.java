@@ -5674,6 +5674,17 @@ return|;
 block|}
 block|}
 decl_stmt|;
+comment|// Start up background thread that will thread dump if we are stuck here.
+name|Threads
+operator|.
+name|threadDumpingIsAlive
+argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|logSplitter

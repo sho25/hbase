@@ -3637,10 +3637,11 @@ name|IOException
 condition|)
 block|{
 throw|throw
-operator|(
+operator|new
 name|IOException
-operator|)
+argument_list|(
 name|thrown
+argument_list|)
 throw|;
 block|}
 else|else
@@ -4366,7 +4367,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error in log splitting write thread"
+literal|"Exiting thread"
 argument_list|,
 name|t
 argument_list|)
