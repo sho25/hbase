@@ -814,6 +814,13 @@ argument_list|(
 name|STRING_TABLE_NAME
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|DEFAULT_NUM_ROWS
+init|=
+literal|100
+decl_stmt|;
 comment|/**    * Setup the config for the cluster    * @throws Exception on failure    */
 annotation|@
 name|BeforeClass
@@ -1174,7 +1181,7 @@ name|loadData
 argument_list|(
 name|table
 argument_list|,
-literal|10000
+name|DEFAULT_NUM_ROWS
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -1784,7 +1791,7 @@ block|{
 name|int
 name|numRows
 init|=
-literal|10000
+name|DEFAULT_NUM_ROWS
 decl_stmt|;
 name|HBaseAdmin
 name|admin
@@ -2125,7 +2132,7 @@ block|{
 name|int
 name|numRows
 init|=
-literal|10000
+name|DEFAULT_NUM_ROWS
 decl_stmt|;
 name|HBaseAdmin
 name|admin
@@ -2456,7 +2463,7 @@ argument_list|,
 name|TABLE_NAME
 argument_list|)
 argument_list|,
-literal|10000
+name|DEFAULT_NUM_ROWS
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -2903,7 +2910,7 @@ argument_list|,
 name|TABLE_NAME
 argument_list|)
 argument_list|,
-literal|10000
+name|DEFAULT_NUM_ROWS
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -2921,7 +2928,7 @@ argument_list|,
 name|TABLE2_NAME
 argument_list|)
 argument_list|,
-literal|10000
+name|DEFAULT_NUM_ROWS
 argument_list|,
 name|TEST_FAM
 argument_list|)
