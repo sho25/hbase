@@ -5280,6 +5280,25 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Submitting close of "
+operator|+
+operator|(
+operator|(
+name|WriterAndPath
+operator|)
+name|writersEntry
+operator|.
+name|getValue
+argument_list|()
+operator|)
+operator|.
+name|p
+argument_list|)
+expr_stmt|;
 name|completionService
 operator|.
 name|submit
@@ -5309,6 +5328,17 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Closing "
+operator|+
+name|wap
+operator|.
+name|p
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|wap
@@ -5353,7 +5383,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closed path "
+literal|"Closed wap "
 operator|+
 name|wap
 operator|.
@@ -5987,7 +6017,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closed path "
+literal|"Closed log "
 operator|+
 name|wap
 operator|.
@@ -6737,7 +6767,7 @@ name|BYTES_COMPARATOR
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**      * Map key -> value layout       *<servername>:<table name> -> Queue<Row>      */
+comment|/**      * Map key -> value layout      *<servername>:<table name> -> Queue<Row>      */
 specifier|private
 name|Map
 argument_list|<
