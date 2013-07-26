@@ -4962,10 +4962,10 @@ throw|throw
 name|iie
 throw|;
 block|}
+block|}
 name|checkForErrors
 argument_list|()
 expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
