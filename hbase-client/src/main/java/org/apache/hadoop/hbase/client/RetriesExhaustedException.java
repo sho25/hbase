@@ -75,6 +75,18 @@ name|List
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Callable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Exception thrown by HTable methods when an attempt to do something (like  * commit changes) fails after a bunch of retries.  */
 end_comment
@@ -224,7 +236,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param callableVitals Details from the {@link ServerCallable} we were using    * when we got this exception.    * @param numTries The number of tries we made    * @param exceptions List of exceptions that failed before giving up    */
+comment|/**    * Create a new RetriesExhaustedException from the list of prior failures.    * @param callableVitals Details from the Callable we were using    * when we got this exception.    * @param numTries The number of tries we made    * @param exceptions List of exceptions that failed before giving up    */
 specifier|public
 name|RetriesExhaustedException
 parameter_list|(

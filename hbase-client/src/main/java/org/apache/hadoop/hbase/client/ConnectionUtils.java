@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility used by client connections such as {@link HConnection} and  * {@link ServerCallable}  */
+comment|/**  * Utility used by client connections.  */
 end_comment
 
 begin_class

@@ -45,16 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when a table exists but should not  */
 end_comment
@@ -72,7 +62,7 @@ specifier|public
 class|class
 name|TableExistsException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|private
 specifier|static

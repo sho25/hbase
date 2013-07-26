@@ -221,6 +221,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionServerCallable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -253,7 +269,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
+name|RpcRetryingCaller
 import|;
 end_import
 
@@ -269,7 +285,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ServerCallable
+name|Scan
 import|;
 end_import
 
@@ -1040,6 +1056,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// bulk load HFiles
+specifier|final
 name|HConnection
 name|conn
 init|=
@@ -1062,8 +1079,14 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|RegionServerCallable
+argument_list|<
+name|Void
+argument_list|>
+name|callable
+init|=
 operator|new
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|Void
 argument_list|>
@@ -1095,7 +1118,8 @@ name|debug
 argument_list|(
 literal|"Going to connect to server "
 operator|+
-name|location
+name|getLocation
+argument_list|()
 operator|+
 literal|" for row "
 operator|+
@@ -1103,7 +1127,8 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1111,7 +1136,8 @@ name|byte
 index|[]
 name|regionName
 init|=
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -1133,7 +1159,8 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|bulkLoadHFile
 argument_list|(
@@ -1147,9 +1174,31 @@ literal|null
 return|;
 block|}
 block|}
-operator|.
-name|withRetries
+decl_stmt|;
+name|RpcRetryingCaller
+argument_list|<
+name|Void
+argument_list|>
+name|caller
+init|=
+operator|new
+name|RpcRetryingCaller
+argument_list|<
+name|Void
+argument_list|>
 argument_list|()
+decl_stmt|;
+name|caller
+operator|.
+name|callWithRetries
+argument_list|(
+name|callable
+argument_list|,
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Periodically do compaction to reduce the number of open file handles.
 if|if
@@ -1165,8 +1214,10 @@ literal|0
 condition|)
 block|{
 comment|// 10 * 50 = 500 open file handles!
+name|callable
+operator|=
 operator|new
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|Void
 argument_list|>
@@ -1198,7 +1249,8 @@ name|debug
 argument_list|(
 literal|"compacting "
 operator|+
-name|location
+name|getLocation
+argument_list|()
 operator|+
 literal|" for row "
 operator|+
@@ -1206,7 +1258,8 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1217,11 +1270,12 @@ operator|.
 name|BlockingInterface
 name|server
 init|=
-name|connection
+name|conn
 operator|.
 name|getAdmin
 argument_list|(
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getServerName
 argument_list|()
@@ -1234,7 +1288,8 @@ name|RequestConverter
 operator|.
 name|buildCompactRegionRequest
 argument_list|(
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -1266,9 +1321,18 @@ literal|null
 return|;
 block|}
 block|}
+expr_stmt|;
+name|caller
 operator|.
-name|withRetries
+name|callWithRetries
+argument_list|(
+name|callable
+argument_list|,
+name|UTIL
+operator|.
+name|getConfiguration
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}

@@ -59,18 +59,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|Callable
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -212,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Callable that handles the<code>multi</code> method call going against a single  * regionserver; i.e. A {@link ServerCallable} for the multi call (It is not a  * {@link Callable} that goes against multiple regions.  * @param<R>  */
+comment|/**  * Callable that handles the<code>multi</code> method call going against a single  * regionserver; i.e. A {@link RegionServerCallable} for the multi call (It is not a  * {@link RegionServerCallable} that goes against multiple regions.  * @param<R>  */
 end_comment
 
 begin_class
@@ -222,7 +210,7 @@ parameter_list|<
 name|R
 parameter_list|>
 extends|extends
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|MultiResponse
 argument_list|>
@@ -234,11 +222,6 @@ argument_list|<
 name|R
 argument_list|>
 name|multi
-decl_stmt|;
-specifier|private
-specifier|final
-name|HRegionLocation
-name|loc
 decl_stmt|;
 name|MultiServerCallable
 parameter_list|(
@@ -253,7 +236,7 @@ name|tableName
 parameter_list|,
 specifier|final
 name|HRegionLocation
-name|loc
+name|location
 parameter_list|,
 specifier|final
 name|MultiAction
@@ -278,12 +261,24 @@ name|multi
 operator|=
 name|multi
 expr_stmt|;
+name|setLocation
+argument_list|(
+name|location
+argument_list|)
+expr_stmt|;
+block|}
+name|MultiAction
+argument_list|<
+name|R
+argument_list|>
+name|getMulti
+parameter_list|()
+block|{
+return|return
 name|this
 operator|.
-name|loc
-operator|=
-name|loc
-expr_stmt|;
+name|multi
+return|;
 block|}
 annotation|@
 name|Override
@@ -437,7 +432,8 @@ argument_list|)
 decl_stmt|;
 comment|// Carry the cells over the proxy/pb Service interface using the payload carrying
 comment|// rpc controller.
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|multi
 argument_list|(
@@ -579,7 +575,8 @@ operator|.
 name|MultiResponse
 name|responseProto
 init|=
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|multi
 argument_list|(
@@ -695,16 +692,20 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|stub
-operator|=
-name|connection
+comment|// Use the location we were given in the constructor rather than go look it up.
+name|setStub
+argument_list|(
+name|getConnection
+argument_list|()
 operator|.
 name|getClient
 argument_list|(
-name|loc
+name|getLocation
+argument_list|()
 operator|.
 name|getServerName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

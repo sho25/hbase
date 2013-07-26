@@ -73,7 +73,7 @@ name|Public
 annotation|@
 name|InterfaceStability
 operator|.
-name|Stable
+name|Evolving
 specifier|public
 class|class
 name|RegionOfflineException

@@ -416,7 +416,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Retries scanner operations such as create, next, etc.  * Used by {@link ResultScanner}s made by {@link HTable}.  */
+comment|/**  * Scanner operations such as create, next, etc.  * Used by {@link ResultScanner}s made by {@link HTable}. Passed to a retrying caller such as  * {@link RpcRetryingCaller} so fails are retried.  */
 end_comment
 
 begin_class
@@ -432,7 +432,7 @@ specifier|public
 class|class
 name|ScannerCallable
 extends|extends
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|Result
 index|[]
@@ -721,9 +721,8 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getHostname
 argument_list|()
@@ -846,7 +845,8 @@ try|try
 block|{
 name|response
 operator|=
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|scan
 argument_list|(
@@ -1071,11 +1071,13 @@ block|{
 name|HRegionLocation
 name|location
 init|=
-name|connection
+name|getConnection
+argument_list|()
 operator|.
 name|relocateRegion
 argument_list|(
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
 name|scan
 operator|.
@@ -1379,7 +1381,8 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|scan
 argument_list|(
@@ -1446,9 +1449,8 @@ name|RequestConverter
 operator|.
 name|buildScanRequest
 argument_list|(
-name|this
-operator|.
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -1470,7 +1472,8 @@ block|{
 name|ScanResponse
 name|response
 init|=
-name|stub
+name|getStub
+argument_list|()
 operator|.
 name|scan
 argument_list|(
@@ -1509,18 +1512,16 @@ argument_list|()
 operator|+
 literal|" on region "
 operator|+
-name|this
-operator|.
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|toString
 argument_list|()
 operator|+
 literal|" ip:"
 operator|+
-name|this
-operator|.
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getHostnamePort
 argument_list|()
@@ -1586,7 +1587,8 @@ literal|null
 return|;
 block|}
 return|return
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()

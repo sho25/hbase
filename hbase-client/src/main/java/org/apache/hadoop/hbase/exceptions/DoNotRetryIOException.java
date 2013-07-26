@@ -78,6 +78,7 @@ name|DoNotRetryIOException
 extends|extends
 name|HBaseIOException
 block|{
+comment|// TODO: This would be more useful as a marker interface than as a class.
 specifier|private
 specifier|static
 specifier|final

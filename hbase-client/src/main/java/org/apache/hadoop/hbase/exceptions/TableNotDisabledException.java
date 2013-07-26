@@ -61,16 +61,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown if a table should be offline but is not  */
 end_comment
@@ -88,7 +78,7 @@ specifier|public
 class|class
 name|TableNotDisabledException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|private
 specifier|static

@@ -1805,9 +1805,9 @@ name|res
 decl_stmt|;
 try|try
 block|{
-name|ServerCallable
+name|MultiServerCallable
 argument_list|<
-name|MultiResponse
+name|Row
 argument_list|>
 name|callable
 init|=
@@ -1822,10 +1822,15 @@ try|try
 block|{
 name|res
 operator|=
+name|createCaller
+argument_list|(
 name|callable
+argument_list|)
 operator|.
-name|withoutRetries
-argument_list|()
+name|callWithoutRetries
+argument_list|(
+name|callable
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1953,15 +1958,15 @@ block|}
 block|}
 comment|/**    * Create a callable. Isolated to be easily overridden in the tests.    */
 specifier|protected
-name|ServerCallable
+name|MultiServerCallable
 argument_list|<
-name|MultiResponse
+name|Row
 argument_list|>
 name|createCallable
 parameter_list|(
 specifier|final
 name|HRegionLocation
-name|loc
+name|location
 parameter_list|,
 specifier|final
 name|MultiAction
@@ -1982,10 +1987,35 @@ name|hConnection
 argument_list|,
 name|tableName
 argument_list|,
-name|loc
+name|location
 argument_list|,
 name|multi
 argument_list|)
+return|;
+block|}
+comment|/**    * For tests.    * @param callable    * @return Returns a caller.    */
+specifier|protected
+name|RpcRetryingCaller
+argument_list|<
+name|MultiResponse
+argument_list|>
+name|createCaller
+parameter_list|(
+name|MultiServerCallable
+argument_list|<
+name|Row
+argument_list|>
+name|callable
+parameter_list|)
+block|{
+comment|// callable is unused.
+return|return
+operator|new
+name|RpcRetryingCaller
+argument_list|<
+name|MultiResponse
+argument_list|>
+argument_list|()
 return|;
 block|}
 comment|/**    * Check that we can retry acts accordingly: logs, set the error status, call the callbacks.    *    * @param numAttempt    the number of this attempt    * @param originalIndex the position in the list sent    * @param row           the row    * @param canRetry      if false, we won't retry whatever the settings.    * @param throwable     the throwable, if any (can be null)    * @param location      the location, if any (can be null)    * @return true if the action can be retried, false otherwise.    */

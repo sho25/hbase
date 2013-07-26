@@ -62,7 +62,7 @@ specifier|public
 class|class
 name|TableNotFoundException
 extends|extends
-name|RegionException
+name|DoNotRetryIOException
 block|{
 specifier|private
 specifier|static

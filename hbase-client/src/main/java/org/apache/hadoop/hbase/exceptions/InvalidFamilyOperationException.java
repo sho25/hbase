@@ -72,7 +72,7 @@ specifier|public
 class|class
 name|InvalidFamilyOperationException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|private
 specifier|static

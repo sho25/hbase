@@ -324,6 +324,15 @@ name|Abortable
 extends|,
 name|Closeable
 block|{
+comment|/**    * Key for configuration in Configuration whose value is the class we implement making a    * new HConnection instance.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_CONNECTION_IMPL
+init|=
+literal|"hbase.client.connection.impl"
+decl_stmt|;
 comment|/**    * @return Configuration instance being used by this HConnection instance.    */
 name|Configuration
 name|getConfiguration
@@ -610,46 +619,6 @@ name|reload
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
-annotation|@
-name|Deprecated
-argument_list|<
-name|T
-argument_list|>
-name|T
-name|getRegionServerWithRetries
-parameter_list|(
-name|ServerCallable
-argument_list|<
-name|T
-argument_list|>
-name|callable
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|RuntimeException
-function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
-annotation|@
-name|Deprecated
-argument_list|<
-name|T
-argument_list|>
-name|T
-name|getRegionServerWithoutRetries
-parameter_list|(
-name|ServerCallable
-argument_list|<
-name|T
-argument_list|>
-name|callable
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|RuntimeException
 function_decl|;
 comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call.    *    *    * @param actions The collection of actions.    * @param tableName Name of the hbase table    * @param pool thread pool for parallel execution    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    * @deprecated since 0.96 - Use {@link HTableInterface#batch} instead    */
 annotation|@

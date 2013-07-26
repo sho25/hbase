@@ -23,6 +23,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|PrintWriter
 import|;
 end_import
@@ -511,7 +521,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * @param millis How long to sleep for in milliseconds.    */
+comment|/**    * If interrupted, just prints out the interrupt on STDOUT, resets interrupt and returns    * @param millis How long to sleep for in milliseconds.    */
 specifier|public
 specifier|static
 name|void
@@ -540,6 +550,14 @@ block|{
 name|e
 operator|.
 name|printStackTrace
+argument_list|()
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
 argument_list|()
 expr_stmt|;
 block|}

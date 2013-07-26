@@ -543,7 +543,23 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ServerCallable
+name|RegionServerCallable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RpcRetryingCaller
 import|;
 end_import
 
@@ -3367,14 +3383,14 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|final
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|Boolean
 argument_list|>
 name|svrCallable
 init|=
 operator|new
-name|ServerCallable
+name|RegionServerCallable
 argument_list|<
 name|Boolean
 argument_list|>
@@ -3413,7 +3429,8 @@ name|debug
 argument_list|(
 literal|"Going to connect to server "
 operator|+
-name|location
+name|getLocation
+argument_list|()
 operator|+
 literal|" for row "
 operator|+
@@ -3421,7 +3438,8 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3429,7 +3447,8 @@ name|byte
 index|[]
 name|regionName
 init|=
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -3449,7 +3468,8 @@ name|ProtobufUtil
 operator|.
 name|bulkLoadHFile
 argument_list|(
-name|stub
+name|getStub
+argument_list|()
 argument_list|,
 name|famPaths
 argument_list|,
@@ -3472,7 +3492,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|secureClient
@@ -3495,7 +3516,8 @@ name|userToken
 argument_list|,
 name|bulkToken
 argument_list|,
-name|location
+name|getLocation
+argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -3688,10 +3710,20 @@ decl_stmt|;
 name|boolean
 name|success
 init|=
-name|svrCallable
-operator|.
-name|withRetries
+operator|new
+name|RpcRetryingCaller
+argument_list|<
+name|Boolean
+argument_list|>
 argument_list|()
+operator|.
+name|callWithRetries
+argument_list|(
+name|svrCallable
+argument_list|,
+name|getConf
+argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
