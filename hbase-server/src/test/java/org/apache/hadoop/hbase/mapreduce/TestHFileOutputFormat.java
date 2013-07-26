@@ -125,16 +125,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 import|;
 end_import
@@ -157,27 +147,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -645,7 +625,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|BloomType
 import|;
 end_import
 
@@ -661,7 +641,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|BloomType
+name|HStore
 import|;
 end_import
 
@@ -855,6 +835,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -880,20 +870,6 @@ operator|.
 name|mockito
 operator|.
 name|Mockito
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
 import|;
 end_import
 
@@ -4371,6 +4347,11 @@ block|}
 block|}
 block|}
 comment|/**    * This test is to test the scenario happened in HBASE-6901.    * All files are bulk loaded and excluded from minor compaction.    * Without the fix of HBASE-6901, an ArrayIndexOutOfBoundsException    * will be thrown.    */
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Flakey: See HBASE-9051"
+argument_list|)
 annotation|@
 name|Test
 specifier|public
