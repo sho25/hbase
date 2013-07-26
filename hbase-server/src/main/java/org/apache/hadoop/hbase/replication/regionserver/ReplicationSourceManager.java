@@ -368,7 +368,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the HLog queue it had up in ZK</li>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *   * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
+comment|/**  * This class is responsible to manage all the replication  * sources. There are two classes of sources:  *<li> Normal sources are persistent and one per peer cluster</li>  *<li> Old sources are recovered from a failed region server and our  * only goal is to finish replicating the HLog queue it had up in ZK</li>  *  * When a region server dies, this class uses a watcher to get notified and it  * tries to grab a lock in order to transfer all the queues in a local  * old source.  *  * This class implements the ReplicationListener interface so that it can track changes in  * replication state.  */
 end_comment
 
 begin_class
@@ -500,7 +500,7 @@ specifier|final
 name|Random
 name|rand
 decl_stmt|;
-comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param zkHelper the zk helper for replication    * @param replicationQueues the interface for manipulating replication queues    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
+comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param replicationQueues the interface for manipulating replication queues    * @param replicationPeers    * @param replicationTracker    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    * @param clusterId    */
 specifier|public
 name|ReplicationSourceManager
 parameter_list|(

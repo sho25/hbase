@@ -154,7 +154,7 @@ specifier|public
 interface|interface
 name|ReplicationSourceInterface
 block|{
-comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param peerClusterId the id of the peer cluster    * @throws IOException    */
+comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param replicationQueues    * @param replicationPeers    * @param stopper the stopper object for this region server    * @param peerClusterZnode    * @param clusterId    * @throws IOException    */
 specifier|public
 name|void
 name|init

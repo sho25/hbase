@@ -71,7 +71,7 @@ name|ReplicationListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Returns a list of other live region servers in the cluster.    * @return    */
+comment|/**    * Returns a list of other live region servers in the cluster.    * @return List of region servers.    */
 specifier|public
 name|List
 argument_list|<
