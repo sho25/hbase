@@ -338,6 +338,11 @@ parameter_list|()
 throws|throws
 name|KeeperException
 block|{
+name|rqc
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 comment|// Test methods with empty state
 name|assertEquals
 argument_list|(
