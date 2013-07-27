@@ -819,7 +819,7 @@ specifier|final
 name|int
 name|DEFAULT_NUM_ROWS
 init|=
-literal|100
+literal|1000
 decl_stmt|;
 comment|/**    * Setup the config for the cluster    * @throws Exception on failure    */
 annotation|@
