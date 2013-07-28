@@ -957,6 +957,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
+literal|null
+argument_list|,
 name|visitor
 argument_list|,
 name|tableName

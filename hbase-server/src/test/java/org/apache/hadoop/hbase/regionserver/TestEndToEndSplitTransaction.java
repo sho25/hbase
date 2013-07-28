@@ -1578,6 +1578,8 @@ name|allTableRegions
 argument_list|(
 name|conf
 argument_list|,
+literal|null
+argument_list|,
 name|tableName
 argument_list|,
 literal|false
@@ -1965,6 +1967,8 @@ operator|.
 name|allTableRegions
 argument_list|(
 name|conf
+argument_list|,
+literal|null
 argument_list|,
 name|tableName
 argument_list|,

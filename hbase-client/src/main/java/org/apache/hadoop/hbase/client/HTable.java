@@ -1146,26 +1146,6 @@ name|IOException
 block|{
 if|if
 condition|(
-name|pool
-operator|==
-literal|null
-operator|||
-name|pool
-operator|.
-name|isShutdown
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Pool is null or shut down."
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
 name|connection
 operator|==
 literal|null
@@ -1949,6 +1929,10 @@ name|allTableRegions
 argument_list|(
 name|getConfiguration
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|connection
 argument_list|,
 name|getTableName
 argument_list|()

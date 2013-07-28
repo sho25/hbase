@@ -656,6 +656,8 @@ name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -725,6 +727,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertEquals

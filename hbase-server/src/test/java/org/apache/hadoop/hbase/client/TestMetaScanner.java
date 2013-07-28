@@ -609,6 +609,8 @@ name|metaScan
 argument_list|(
 name|conf
 argument_list|,
+literal|null
+argument_list|,
 name|visitor
 argument_list|,
 name|TABLENAME
@@ -1328,6 +1330,8 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+literal|null
 argument_list|,
 name|TABLENAME
 argument_list|,

@@ -4099,6 +4099,8 @@ name|metaScan
 argument_list|(
 name|conf
 argument_list|,
+name|this
+argument_list|,
 name|visitor
 argument_list|,
 name|tableName
@@ -4339,6 +4341,8 @@ name|metaScan
 argument_list|(
 name|conf
 argument_list|,
+name|this
+argument_list|,
 name|visitor
 argument_list|,
 name|tableName
@@ -4501,6 +4505,8 @@ operator|.
 name|allTableRegions
 argument_list|(
 name|conf
+argument_list|,
+name|this
 argument_list|,
 name|tableName
 argument_list|,
@@ -4931,6 +4937,8 @@ name|metaScan
 argument_list|(
 name|conf
 argument_list|,
+name|this
+argument_list|,
 name|visitor
 argument_list|,
 name|tableName
@@ -4940,6 +4948,10 @@ argument_list|,
 name|this
 operator|.
 name|prefetchRegionLimit
+argument_list|,
+name|HConstants
+operator|.
+name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}

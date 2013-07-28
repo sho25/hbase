@@ -1856,6 +1856,13 @@ specifier|private
 name|boolean
 name|aborted
 decl_stmt|;
+specifier|private
+name|boolean
+name|cleanupConnectionOnClose
+init|=
+literal|false
+decl_stmt|;
+comment|// close the connection in close()
 comment|/**    * Constructor.    * See {@link #HBaseAdmin(HConnection connection)}    *    * @param c Configuration object. Copied internally.    */
 specifier|public
 name|HBaseAdmin
@@ -1885,6 +1892,12 @@ name|c
 argument_list|)
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|cleanupConnectionOnClose
+operator|=
+literal|true
 expr_stmt|;
 block|}
 comment|/**   * Constructor for externally managed HConnections.   * The connection to master will be created when required by admin functions.   *   * @param connection The HConnection instance to use   * @throws MasterNotRunningException, ZooKeeperConnectionException are not   *  thrown anymore but kept into the interface for backward api compatibility   */
@@ -2797,6 +2810,8 @@ operator|.
 name|metaScan
 argument_list|(
 name|conf
+argument_list|,
+name|connection
 argument_list|,
 name|visitor
 argument_list|,
@@ -8026,7 +8041,11 @@ name|metaScan
 argument_list|(
 name|conf
 argument_list|,
+name|connection
+argument_list|,
 name|visitor
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|pair
@@ -8669,6 +8688,8 @@ name|IOException
 block|{
 if|if
 condition|(
+name|cleanupConnectionOnClose
+operator|&&
 name|this
 operator|.
 name|connection
