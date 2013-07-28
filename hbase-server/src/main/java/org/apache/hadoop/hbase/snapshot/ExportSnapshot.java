@@ -1695,13 +1695,7 @@ argument_list|(
 name|inputFileSize
 argument_list|)
 operator|+
-literal|" (%.3f%%) from "
-operator|+
-name|inputPath
-operator|+
-literal|" to "
-operator|+
-name|outputPath
+literal|" (%.3f%%)"
 decl_stmt|;
 try|try
 block|{
@@ -1801,13 +1795,21 @@ argument_list|(
 name|totalBytesWritten
 argument_list|)
 argument_list|,
-name|reportBytes
+name|totalBytesWritten
 operator|/
 operator|(
 name|float
 operator|)
 name|inputFileSize
 argument_list|)
+operator|+
+literal|" from "
+operator|+
+name|inputPath
+operator|+
+literal|" to "
+operator|+
+name|outputPath
 argument_list|)
 expr_stmt|;
 name|reportBytes
@@ -1847,13 +1849,21 @@ argument_list|(
 name|totalBytesWritten
 argument_list|)
 argument_list|,
-name|reportBytes
+name|totalBytesWritten
 operator|/
 operator|(
 name|float
 operator|)
 name|inputFileSize
 argument_list|)
+operator|+
+literal|" from "
+operator|+
+name|inputPath
+operator|+
+literal|" to "
+operator|+
+name|outputPath
 argument_list|)
 expr_stmt|;
 comment|// Verify that the written size match
