@@ -739,7 +739,7 @@ argument_list|(
 literal|"MAJOR_COMPACTION_KEY"
 argument_list|)
 decl_stmt|;
-comment|/** Major compaction flag in FileInfo */
+comment|/** Minor compaction flag in FileInfo */
 specifier|public
 specifier|static
 specifier|final
