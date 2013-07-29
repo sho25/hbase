@@ -1696,7 +1696,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|+
-literal|100
+literal|1000
 decl_stmt|;
 while|while
 condition|(
@@ -3049,6 +3049,17 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|hri
+operator|!=
+literal|null
+operator|&&
+name|serverName
+operator|!=
+literal|null
+condition|)
+block|{
 name|am
 operator|.
 name|regionOnline
@@ -3058,6 +3069,7 @@ argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
 name|am
 operator|.
 name|getZKTable
