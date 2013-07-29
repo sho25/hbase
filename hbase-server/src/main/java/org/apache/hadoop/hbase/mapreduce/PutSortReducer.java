@@ -260,7 +260,7 @@ name|getLong
 argument_list|(
 literal|"putsortreducer.row.threshold"
 argument_list|,
-literal|2L
+literal|1L
 operator|*
 operator|(
 literal|1
@@ -379,7 +379,7 @@ name|curSize
 operator|+=
 name|kv
 operator|.
-name|getLength
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
