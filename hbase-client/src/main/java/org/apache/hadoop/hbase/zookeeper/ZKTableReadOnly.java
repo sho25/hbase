@@ -559,13 +559,7 @@ operator|<=
 literal|0
 condition|)
 return|return
-name|ZooKeeperProtos
-operator|.
-name|Table
-operator|.
-name|State
-operator|.
-name|ENABLED
+literal|null
 return|;
 try|try
 block|{
