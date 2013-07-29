@@ -939,18 +939,6 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
 comment|// Ensure no extra cleaners on by default (e.g. TimeToLiveHFileCleaner)
 name|conf
 operator|.
@@ -1169,7 +1157,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1516,6 +1504,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testGetCompletedSnapshots
@@ -1753,6 +1746,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDeleteSnapshot
@@ -1871,6 +1869,11 @@ block|}
 comment|/**    * Test that the snapshot hfile archive cleaner works correctly. HFiles that are in snapshots    * should be retained, while those that are not in a snapshot should be deleted.    * @throws Exception on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshotHFileArchiving
