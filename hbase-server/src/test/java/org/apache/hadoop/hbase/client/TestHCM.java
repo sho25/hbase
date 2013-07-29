@@ -965,6 +965,11 @@ argument_list|()
 return|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"Fails in IDEs: HBASE-9042"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|expected
