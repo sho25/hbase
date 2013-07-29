@@ -2698,25 +2698,38 @@ argument_list|(
 name|plan
 argument_list|)
 expr_stmt|;
-comment|// Must be failed to close since the server is fake
-name|assertTrue
-argument_list|(
+name|RegionStates
+name|regionStates
+init|=
 name|am
 operator|.
 name|getRegionStates
 argument_list|()
+decl_stmt|;
+comment|// Must be failed to close since the server is fake
+name|assertTrue
+argument_list|(
+name|regionStates
 operator|.
-name|isRegionFailedToClose
+name|isRegionInTransition
 argument_list|(
 name|REGIONINFO
+argument_list|)
+operator|&&
+name|regionStates
+operator|.
+name|isRegionInState
+argument_list|(
+name|REGIONINFO
+argument_list|,
+name|State
+operator|.
+name|FAILED_CLOSE
 argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Move it back to pending_close
-name|am
-operator|.
-name|getRegionStates
-argument_list|()
+name|regionStates
 operator|.
 name|updateRegionState
 argument_list|(
@@ -2862,10 +2875,7 @@ expr_stmt|;
 comment|// Wait on the handler removing the OPENED znode.
 while|while
 condition|(
-name|am
-operator|.
-name|getRegionStates
-argument_list|()
+name|regionStates
 operator|.
 name|isRegionInTransition
 argument_list|(
