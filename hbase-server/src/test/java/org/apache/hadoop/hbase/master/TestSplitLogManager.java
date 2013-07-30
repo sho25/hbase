@@ -2187,9 +2187,9 @@ name|waitForCounter
 argument_list|(
 name|tot_mgr_heartbeat
 argument_list|,
-literal|1
-argument_list|,
 literal|2
+argument_list|,
+literal|3
 argument_list|,
 name|to
 operator|/
