@@ -425,7 +425,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.regionmerge.timeout"
 argument_list|,
-literal|30
+literal|120
 operator|*
 literal|1000
 argument_list|)
