@@ -1381,21 +1381,9 @@ name|ss
 init|=
 literal|null
 decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|retries
-condition|;
-name|i
-operator|++
-control|)
-block|{
+name|ServerSocket
+name|ssI
+decl_stmt|;
 try|try
 block|{
 name|ss
@@ -1407,7 +1395,14 @@ name|port
 argument_list|)
 expr_stmt|;
 comment|// We're taking the port to have a timeout issue later.
-break|break;
+name|ssI
+operator|=
+operator|new
+name|ServerSocket
+argument_list|(
+name|ipcPort
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1415,38 +1410,40 @@ name|BindException
 name|be
 parameter_list|)
 block|{
-comment|// This rarely happens. HBASE-9012
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Got bind exception trying to set up socket on "
 operator|+
 name|port
 operator|+
-literal|"; waiting a while; retry="
+literal|" or "
 operator|+
-name|i
-argument_list|)
-expr_stmt|;
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|1000
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|ServerSocket
-name|ssI
-init|=
-operator|new
-name|ServerSocket
-argument_list|(
 name|ipcPort
+operator|+
+literal|", this means that the datanode has not closed the socket or"
+operator|+
+literal|" someone else took it. It may happen, skipping this test for this time."
+argument_list|,
+name|be
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+if|if
+condition|(
+name|ss
+operator|!=
+literal|null
+condition|)
+block|{
+name|ss
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+return|return;
+block|}
 comment|// Now it will fail with a timeout, unfortunately it does not always connect to the same box,
 comment|// so we try retries times;  with the reorder it will never last more than a few milli seconds
 for|for
