@@ -221,6 +221,22 @@ name|hbase
 operator|.
 name|SplitLogCounters
 operator|.
+name|tot_mgr_resubmit_force
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SplitLogCounters
+operator|.
 name|tot_mgr_resubmit_threshold_reached
 import|;
 end_import
@@ -2211,6 +2227,11 @@ argument_list|(
 literal|2L
 argument_list|,
 name|tot_mgr_resubmit
+operator|.
+name|get
+argument_list|()
+operator|-
+name|tot_mgr_resubmit_force
 operator|.
 name|get
 argument_list|()

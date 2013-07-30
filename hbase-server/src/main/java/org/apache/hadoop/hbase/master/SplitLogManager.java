@@ -4666,6 +4666,13 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|SplitLogCounters
+operator|.
+name|tot_mgr_resubmit_force
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 name|version
 operator|=
 operator|-

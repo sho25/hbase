@@ -489,6 +489,18 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|AtomicLong
+name|tot_mgr_resubmit_force
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// SplitLogWorker counters
 specifier|public
 specifier|final
