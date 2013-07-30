@@ -523,7 +523,6 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
 name|conf
 operator|.
 name|setInt
@@ -531,26 +530,6 @@ argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
 literal|100
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.client.pause"
-argument_list|,
-literal|250
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|6
 argument_list|)
 expr_stmt|;
 name|conf
@@ -697,6 +676,11 @@ block|}
 comment|/**    * Verify that adding data to the cloned table will not affect the original, and vice-versa when    * it is taken as an online snapshot.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOnlineSnapshotAppendIndependent
@@ -713,6 +697,11 @@ block|}
 comment|/**    * Verify that adding data to the cloned table will not affect the original, and vice-versa when    * it is taken as an offline snapshot.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOfflineSnapshotAppendIndependent
@@ -729,6 +718,11 @@ block|}
 comment|/**    * Verify that adding metadata to the cloned table will not affect the original, and vice-versa    * when it is taken as an online snapshot.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOnlineSnapshotMetadataChangesIndependent
@@ -745,6 +739,11 @@ block|}
 comment|/**    * Verify that adding netadata to the cloned table will not affect the original, and vice-versa    * when is taken as an online snapshot.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOfflineSnapshotMetadataChangesIndependent
@@ -761,6 +760,11 @@ block|}
 comment|/**    * Verify that region operations, in this case splitting a region, are independent between the    * cloned table and the original.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOfflineSnapshotRegionOperationsIndependent
@@ -777,6 +781,11 @@ block|}
 comment|/**    * Verify that region operations, in this case splitting a region, are independent between the    * cloned table and the original.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOnlineSnapshotRegionOperationsIndependent

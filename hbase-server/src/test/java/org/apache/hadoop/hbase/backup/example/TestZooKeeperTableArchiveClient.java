@@ -724,18 +724,6 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|After
@@ -848,6 +836,11 @@ block|}
 comment|/**    * Test turning on/off archiving    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testArchivingEnableDisable
@@ -945,6 +938,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testArchivingOnSingleTable
@@ -1190,6 +1188,11 @@ block|}
 comment|/**    * Test archiving/cleaning across multiple tables, where some are retained, and others aren't    * @throws Exception on failure    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMultipleTables

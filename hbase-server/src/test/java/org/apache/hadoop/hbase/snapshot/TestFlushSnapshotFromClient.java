@@ -963,18 +963,6 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
 comment|// Enable snapshot
 name|conf
 operator|.
@@ -1157,6 +1145,11 @@ block|}
 comment|/**    * Test simple flush snapshotting a table that is online    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testFlushTableSnapshot
@@ -1465,6 +1458,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshotFailsOnNonExistantTable
@@ -1603,7 +1601,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1723,6 +1721,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshotStateAfterMerge
@@ -2049,6 +2052,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTakeSnapshotAfterMerge
@@ -2331,6 +2339,11 @@ block|}
 comment|/**    * Basic end-to-end test of simple-flush-based snapshots    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testFlushCreateListDestroy
@@ -2715,7 +2728,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|300000
 argument_list|)
 specifier|public
 name|void

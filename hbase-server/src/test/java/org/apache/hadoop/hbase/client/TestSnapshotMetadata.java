@@ -698,7 +698,6 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
 name|conf
 operator|.
 name|setInt
@@ -706,26 +705,6 @@ argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
 literal|100
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.client.pause"
-argument_list|,
-literal|250
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|6
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1012,6 +991,11 @@ block|}
 comment|/**    * Verify that the describe for a cloned table matches the describe from the original.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterClone
@@ -1273,6 +1257,11 @@ block|}
 comment|/**    * Verify that the describe for a restored table matches the describe for one the original.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterRestore
@@ -1289,6 +1278,11 @@ block|}
 comment|/**    * Verify that if metadata changed after a snapshot was taken, that the old metadata replaces the    * new metadata during a restore    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterMetadataChangeAndRestore
@@ -1305,6 +1299,11 @@ block|}
 comment|/**    * Verify that when the table is empty, making metadata changes after the restore does not affect    * the restored table's original metadata    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDescribeOnEmptyTableMatchesAfterMetadataChangeAndRestore

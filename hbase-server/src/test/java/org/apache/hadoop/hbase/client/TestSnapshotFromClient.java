@@ -83,18 +83,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|regex
-operator|.
-name|Pattern
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -591,18 +579,6 @@ argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
-comment|// drop the number of attempts for the hbase admin
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
 comment|// Enable snapshot
 name|conf
 operator|.
@@ -749,6 +725,11 @@ block|}
 comment|/**    * Test snapshotting not allowed .META. and -ROOT-    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMetaTablesSnapshot
@@ -833,6 +814,11 @@ block|}
 comment|/**    * Test HBaseAdmin#deleteSnapshots(String) which deletes snapshots whose names match the parameter    *    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshotDeletionWithRegex
@@ -1027,6 +1013,11 @@ block|}
 comment|/**    * Test snapshotting a table that is offline    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOfflineTableSnapshot
@@ -1383,6 +1374,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshotFailsOnNonExistantTable
