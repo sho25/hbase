@@ -393,8 +393,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|UnknownRegionException
 import|;
 end_import

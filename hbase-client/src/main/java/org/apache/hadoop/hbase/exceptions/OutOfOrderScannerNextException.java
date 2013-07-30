@@ -31,6 +31,20 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown by a RegionServer while doing next() calls on a ResultScanner. Both client and server  * maintain a nextCallSeq and if they do not match, RS will throw this exception.  */
 end_comment

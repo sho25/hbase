@@ -105,8 +105,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|InvalidFamilyOperationException
 import|;
 end_import

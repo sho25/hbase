@@ -203,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|catalog
 operator|.
 name|CatalogTracker
@@ -254,22 +268,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|ZooKeeperConnectionException
 import|;
 end_import
 
@@ -1548,7 +1546,7 @@ name|RegionNameAndIndex
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * @param sn Name of this mock regionserver    * @throws IOException    * @throws org.apache.hadoop.hbase.exceptions.ZooKeeperConnectionException    */
+comment|/**    * @param sn Name of this mock regionserver    * @throws IOException    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    */
 name|MockRegionServer
 parameter_list|(
 specifier|final

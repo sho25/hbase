@@ -67,9 +67,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|DoNotRetryIOException
+name|Cell
 import|;
 end_import
 
@@ -83,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|DoNotRetryIOException
 import|;
 end_import
 

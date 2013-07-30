@@ -1840,8 +1840,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|DoNotRetryIOException
 name|xc
 parameter_list|)

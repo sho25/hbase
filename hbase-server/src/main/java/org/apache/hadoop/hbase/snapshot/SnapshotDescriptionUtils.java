@@ -175,38 +175,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
-name|CorruptedSnapshotException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|SnapshotCreationException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|generated
@@ -851,7 +819,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Read in the {@link SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws org.apache.hadoop.hbase.exceptions.CorruptedSnapshotException if the snapshot cannot be read    */
+comment|/**    * Read in the {@link SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws org.apache.hadoop.hbase.snapshot.CorruptedSnapshotException if the    * snapshot cannot be read    */
 specifier|public
 specifier|static
 name|SnapshotDescription
@@ -938,7 +906,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Move the finished snapshot to its final, publicly visible directory - this marks the snapshot    * as 'complete'.    * @param snapshot description of the snapshot being tabken    * @param rootdir root directory of the hbase installation    * @param workingDir directory where the in progress snapshot was built    * @param fs {@link FileSystem} where the snapshot was built    * @throws org.apache.hadoop.hbase.exceptions.SnapshotCreationException if the snapshot could not be moved    * @throws IOException the filesystem could not be reached    */
+comment|/**    * Move the finished snapshot to its final, publicly visible directory - this marks the snapshot    * as 'complete'.    * @param snapshot description of the snapshot being tabken    * @param rootdir root directory of the hbase installation    * @param workingDir directory where the in progress snapshot was built    * @param fs {@link FileSystem} where the snapshot was built    * @throws org.apache.hadoop.hbase.snapshot.SnapshotCreationException if the    * snapshot could not be moved    * @throws IOException the filesystem could not be reached    */
 specifier|public
 specifier|static
 name|void

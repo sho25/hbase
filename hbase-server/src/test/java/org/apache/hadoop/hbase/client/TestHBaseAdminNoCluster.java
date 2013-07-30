@@ -133,8 +133,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|MasterNotRunningException
 import|;
 end_import
@@ -149,8 +147,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|PleaseHoldException
 import|;
 end_import
@@ -164,8 +160,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|exceptions
 operator|.
 name|ZooKeeperConnectionException
 import|;

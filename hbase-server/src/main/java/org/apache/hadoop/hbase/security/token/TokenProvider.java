@@ -261,7 +261,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|security
 operator|.
 name|AccessDeniedException
 import|;

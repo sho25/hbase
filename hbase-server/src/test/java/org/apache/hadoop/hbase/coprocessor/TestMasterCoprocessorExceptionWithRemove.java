@@ -932,7 +932,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-literal|"org.apache.hadoop.hbase.exceptions.DoNotRetryIOException"
+literal|"org.apache.hadoop.hbase.DoNotRetryIOException"
 argument_list|)
 condition|)
 block|{

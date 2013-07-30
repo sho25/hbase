@@ -17,22 +17,6 @@ name|ipc
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|CallerDisconnectedException
-import|;
-end_import
-
 begin_interface
 specifier|public
 interface|interface

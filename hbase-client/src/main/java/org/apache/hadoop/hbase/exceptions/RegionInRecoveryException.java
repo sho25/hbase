@@ -45,6 +45,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|NotServingRegionException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown when a read request issued against a region which is in recovering state.  */
 end_comment

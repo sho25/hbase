@@ -527,7 +527,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|snapshot
 operator|.
 name|UnknownSnapshotException
 import|;

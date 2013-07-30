@@ -55,8 +55,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|RegionException
 import|;
 end_import

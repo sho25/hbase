@@ -215,8 +215,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -285,7 +283,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|snapshot
 operator|.
 name|SnapshotCreationException
 import|;

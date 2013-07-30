@@ -97,7 +97,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|regionserver
+operator|.
+name|wal
 operator|.
 name|FailedLogCloseException
 import|;

@@ -237,7 +237,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|coprocessor
 operator|.
 name|CoprocessorException
 import|;

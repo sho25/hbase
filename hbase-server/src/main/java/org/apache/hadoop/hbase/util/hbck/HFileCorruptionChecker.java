@@ -303,7 +303,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|io
+operator|.
+name|hfile
 operator|.
 name|CorruptHFileException
 import|;

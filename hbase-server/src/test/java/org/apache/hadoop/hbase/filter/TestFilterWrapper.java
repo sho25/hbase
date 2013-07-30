@@ -183,8 +183,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|MasterNotRunningException
 import|;
 end_import
@@ -198,8 +196,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|exceptions
 operator|.
 name|ZooKeeperConnectionException
 import|;

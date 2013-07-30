@@ -469,8 +469,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
-operator|.
 name|NotServingRegionException
 import|;
 end_import
@@ -485,7 +483,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|regionserver
 operator|.
 name|RegionAlreadyInTransitionException
 import|;
@@ -501,7 +499,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|regionserver
 operator|.
 name|RegionServerStoppedException
 import|;
@@ -517,7 +515,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|ipc
 operator|.
 name|ServerNotRunningYetException
 import|;
@@ -532,8 +530,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|exceptions
 operator|.
 name|TableNotFoundException
 import|;
@@ -761,7 +757,39 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionAlreadyInTransitionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionOpeningState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|RegionServerStoppedException
 import|;
 end_import
 
@@ -11905,7 +11933,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *    * @throws KeeperException    * @throws org.apache.hadoop.hbase.exceptions.TableNotFoundException    * @throws IOException    */
+comment|/**    * Recover the tables that are not fully moved to ENABLED state. These tables    * are in ENABLING state when the master restarted/switched    *    * @throws KeeperException    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException    */
 specifier|private
 name|void
 name|recoverTableInEnablingState
