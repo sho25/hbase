@@ -467,6 +467,10 @@ specifier|protected
 name|int
 name|serverTrackerTimeout
 decl_stmt|;
+specifier|protected
+name|RpcRetryingCallerFactory
+name|rpcCallerFactory
+decl_stmt|;
 comment|/**    * This interface allows to keep the interface of the previous synchronous interface, that uses    * an array of object to return the result.    *<p/>    * This interface allows the caller to specify the behavior on errors:<list>    *<li>If we have not yet reach the maximum number of retries, the user can nevertheless    * specify if this specific operation should be retried or not.    *</li>    *<li>If an operation fails (i.e. is not retried or fails after all retries), the user can    * specify is we should mark this AsyncProcess as in error or not.    *</li>    *</list>    */
 interface|interface
 name|AsyncProcessCallback
@@ -702,6 +706,9 @@ name|callback
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|RpcRetryingCallerFactory
+name|rpcCaller
 parameter_list|)
 block|{
 name|this
@@ -858,6 +865,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|this
+operator|.
+name|rpcCallerFactory
+operator|=
+name|rpcCaller
+expr_stmt|;
 block|}
 comment|/**    * Extract from the rows list what we can submit. The rows we can not submit are kept in the    * list.    *    * @param rows - the submitted row. Modified by the method: we remove the rows we took.    * @param atLeastOne true if we should submit at least a subset.    */
 specifier|public
@@ -2008,11 +2021,12 @@ parameter_list|)
 block|{
 comment|// callable is unused.
 return|return
-operator|new
-name|RpcRetryingCaller
-argument_list|<
+name|rpcCallerFactory
+operator|.
+expr|<
 name|MultiResponse
-argument_list|>
+operator|>
+name|newCaller
 argument_list|()
 return|;
 block|}

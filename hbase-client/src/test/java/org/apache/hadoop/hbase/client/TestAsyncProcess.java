@@ -358,6 +358,8 @@ name|getBytes
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
 name|Configuration
 name|conf
 init|=
@@ -508,6 +510,12 @@ argument_list|,
 name|callback
 argument_list|,
 name|conf
+argument_list|,
+operator|new
+name|RpcRetryingCallerFactory
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -550,7 +558,9 @@ name|RpcRetryingCaller
 argument_list|<
 name|MultiResponse
 argument_list|>
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 block|{
 annotation|@
 name|Override
