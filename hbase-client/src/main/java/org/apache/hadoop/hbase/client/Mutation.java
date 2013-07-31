@@ -919,6 +919,62 @@ operator|.
 name|durability
 return|;
 block|}
+comment|/**    * Set the durability for this mutation. If this is set to true,    * the default durability of the table is set.    * @param writeToWal    */
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|setWriteToWal
+parameter_list|(
+name|boolean
+name|writeToWal
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|writeToWal
+condition|)
+block|{
+name|setDurability
+argument_list|(
+name|Durability
+operator|.
+name|SKIP_WAL
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// This is required to handle the case where this method is
+comment|// called twice, first with writeToWal = false,
+comment|// and then with writeToWal = true
+name|setDurability
+argument_list|(
+name|Durability
+operator|.
+name|USE_DEFAULT
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Get the durability for this mutation.    * @return - true if this mutation is set to write to the WAL either    * synchronously, asynchronously or fsync to disk on the file system.    * - to get the exact durability, use the {#getDurability} method.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|boolean
+name|getWriteToWal
+parameter_list|()
+block|{
+return|return
+name|Durability
+operator|.
+name|SKIP_WAL
+operator|!=
+name|getDurability
+argument_list|()
+return|;
+block|}
 comment|/**    * Method for retrieving the put's familyMap    * @return familyMap    */
 specifier|public
 name|NavigableMap
