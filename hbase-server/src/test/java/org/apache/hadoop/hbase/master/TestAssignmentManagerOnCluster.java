@@ -49,6 +49,30 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -2466,6 +2490,15 @@ name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Failed to open since no plan, so it's on no server
+name|assertNull
+argument_list|(
+name|state
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|MockLoadBalancer
 operator|.
 name|controledRegion
@@ -2748,6 +2781,17 @@ argument_list|,
 name|state
 operator|.
 name|getState
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Failed to open due to file system issue. Region state should
+comment|// carry the opening region server so that we can force close it
+comment|// later on before opening it again. See HBASE-9092.
+name|assertNotNull
+argument_list|(
+name|state
+operator|.
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;

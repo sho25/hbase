@@ -1116,7 +1116,7 @@ literal|" on "
 operator|+
 name|serverName
 operator|+
-literal|": "
+literal|", set to "
 operator|+
 name|state
 argument_list|)

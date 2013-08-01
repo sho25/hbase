@@ -757,39 +757,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionAlreadyInTransitionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionOpeningState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionServerStoppedException
 import|;
 end_import
 
@@ -4403,31 +4371,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// Handle this the same as if it were opened and then closed.
-name|regionState
-operator|=
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|rt
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|CLOSED
-argument_list|)
-expr_stmt|;
-comment|// When there are more than one region server a new RS is selected as the
-comment|// destination and the same is updated in the regionplan. (HBASE-5546)
-if|if
-condition|(
-name|regionState
-operator|!=
-literal|null
-condition|)
-block|{
 name|AtomicInteger
 name|failedOpenCount
 init|=
@@ -4478,10 +4421,7 @@ name|regionStates
 operator|.
 name|updateRegionState
 argument_list|(
-name|regionState
-operator|.
-name|getRegion
-argument_list|()
+name|rt
 argument_list|,
 name|RegionState
 operator|.
@@ -4502,6 +4442,31 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Handle this the same as if it were opened and then closed.
+name|regionState
+operator|=
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|rt
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|regionState
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// When there are more than one region server a new RS is selected as the
+comment|// destination and the same is updated in the regionplan. (HBASE-5546)
 name|getRegionPlan
 argument_list|(
 name|regionState
@@ -8012,6 +7977,9 @@ case|:
 case|case
 name|FAILED_CLOSE
 case|:
+case|case
+name|FAILED_OPEN
+case|:
 name|unassign
 argument_list|(
 name|region
@@ -8045,9 +8013,6 @@ name|isOffline
 argument_list|()
 condition|)
 break|break;
-case|case
-name|FAILED_OPEN
-case|:
 case|case
 name|CLOSED
 case|:
