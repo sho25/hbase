@@ -251,6 +251,14 @@ name|String
 name|peerId
 parameter_list|)
 function_decl|;
+comment|/**    * Get the timestamp of the last change in composition of a given peer cluster.    * @param peerId identifier of the peer cluster for which the timestamp is requested    * @return the timestamp (in milliseconds) of the last change to the composition of    *         the peer cluster    */
+name|long
+name|getTimestampOfLastChangeToPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+function_decl|;
 comment|/**    * Returns the UUID of the provided peer id.    * @param peerId the peer's ID that will be converted into a UUID    * @return a UUID or null if the peer cluster does not exist or is not connected.    */
 name|UUID
 name|getPeerUUID
