@@ -1196,16 +1196,70 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Initial active master : "
+operator|+
+name|initial
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getHostname
+argument_list|()
+operator|+
+literal|" has changed to : "
+operator|+
+name|current
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// If initial master is stopped, start it, before restoring the state.
+comment|// It will come up as a backup master, if there is already an active master.
+if|if
+condition|(
+operator|!
+name|clusterManager
+operator|.
+name|isRunning
+argument_list|(
+name|ServiceType
+operator|.
+name|HBASE_MASTER
+argument_list|,
+name|initial
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|startMaster
+argument_list|(
+name|initial
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|//master has changed, we would like to undo this.
 comment|//1. Kill the current backups
 comment|//2. Stop current master
-comment|//3. Start a master at the initial hostname (if not already running as backup)
-comment|//4. Start backup masters
-name|boolean
-name|foundOldMaster
-init|=
-literal|false
-decl_stmt|;
+comment|//3. Start backup masters
 for|for
 control|(
 name|ServerName
@@ -1239,13 +1293,6 @@ name|currentBackup
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-name|foundOldMaster
-operator|=
-literal|true
-expr_stmt|;
-block|}
 block|}
 name|stopMaster
 argument_list|(
@@ -1255,24 +1302,6 @@ name|getMaster
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|foundOldMaster
-condition|)
-block|{
-comment|//if initial master is not running as a backup
-name|startMaster
-argument_list|(
-name|initial
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getHostname
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|waitForActiveAndReadyMaster
 argument_list|()
 expr_stmt|;
@@ -1668,6 +1697,51 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// While restoring above, if the HBase Master which was initially the Active one, was down
+comment|// and the restore put the cluster back to Initial configuration, HAdmin instance will need
+comment|// to refresh its connections (otherwise it will return incorrect information) or we can
+comment|// point it to new instance.
+try|try
+block|{
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"While closing the old connection"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Added new HBaseAdmin"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
