@@ -655,9 +655,13 @@ begin_import
 import|import
 name|org
 operator|.
-name|slf4j
+name|apache
 operator|.
-name|Logger
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
 import|;
 end_import
 
@@ -665,9 +669,13 @@ begin_import
 import|import
 name|org
 operator|.
-name|slf4j
+name|apache
 operator|.
-name|LoggerFactory
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
 import|;
 end_import
 
@@ -689,12 +697,13 @@ name|TestMasterNoCluster
 block|{
 specifier|private
 specifier|static
-name|Logger
+specifier|final
+name|Log
 name|LOG
 init|=
-name|LoggerFactory
+name|LogFactory
 operator|.
-name|getLogger
+name|getLog
 argument_list|(
 name|TestMasterNoCluster
 operator|.
@@ -1556,7 +1565,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test starting master getting it up post initialized state using mocks.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException     * @throws ServiceException    */
+comment|/**    * Test starting master getting it up post initialized state using mocks.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws DeserializationException    * @throws ServiceException    */
 annotation|@
 name|Test
 argument_list|(
