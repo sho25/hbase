@@ -35568,14 +35568,14 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"a"
+literal|"b"
 argument_list|)
 block|,
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"b"
+literal|"a"
 argument_list|)
 block|}
 decl_stmt|;
