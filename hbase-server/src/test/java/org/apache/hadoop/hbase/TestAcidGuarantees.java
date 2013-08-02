@@ -287,6 +287,20 @@ name|hadoop
 operator|.
 name|util
 operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
 name|Tool
 import|;
 end_import
@@ -344,7 +358,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test case that uses multiple threads to read and write multifamily rows  * into a table, verifying that reads never see partially-complete writes.  *   * This can run as a junit test, or with a main() function which runs against  * a real cluster (eg for testing with failures, region movement, etc)  */
+comment|/**  * Test case that uses multiple threads to read and write multifamily rows  * into a table, verifying that reads never see partially-complete writes.  *  * This can run as a junit test, or with a main() function which runs against  * a real cluster (eg for testing with failures, region movement, etc)  */
 end_comment
 
 begin_class
@@ -1650,6 +1664,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+block|{
 name|admin
 operator|.
 name|flush
@@ -1657,6 +1673,28 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Ignoring exception while flushing: "
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|ioe
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Flushing has been a source of ACID violations previously (see HBASE-2856), so ideally,
 comment|// we would flush as often as possible.  On a running cluster, this isn't practical:
 comment|// (1) we will cause a lot of load due to all the flushing and compacting
