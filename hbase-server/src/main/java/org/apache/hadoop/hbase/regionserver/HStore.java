@@ -113,6 +113,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedSet
 import|;
 end_import
@@ -149,7 +159,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|CopyOnWriteArraySet
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -1033,18 +1043,25 @@ decl_stmt|;
 comment|// All access must be synchronized.
 specifier|private
 specifier|final
-name|CopyOnWriteArraySet
+name|Set
 argument_list|<
 name|ChangedReadersObserver
 argument_list|>
 name|changedReaderObservers
 init|=
+name|Collections
+operator|.
+name|newSetFromMap
+argument_list|(
 operator|new
-name|CopyOnWriteArraySet
+name|ConcurrentHashMap
 argument_list|<
 name|ChangedReadersObserver
+argument_list|,
+name|Boolean
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
