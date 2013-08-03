@@ -245,7 +245,7 @@ name|AbstractHBaseTool
 implements|implements
 name|Tool
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -253,7 +253,7 @@ name|EXIT_SUCCESS
 init|=
 literal|0
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -322,6 +322,13 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|protected
+name|String
+index|[]
+name|cmdLineArgs
+init|=
+literal|null
 decl_stmt|;
 comment|/**    * Override this to add command-line options using {@link #addOptWithArg}    * and similar methods.    */
 specifier|protected
@@ -425,6 +432,10 @@ name|parseArgs
 argument_list|(
 name|args
 argument_list|)
+expr_stmt|;
+name|cmdLineArgs
+operator|=
+name|args
 expr_stmt|;
 block|}
 catch|catch
@@ -573,7 +584,7 @@ return|return
 name|success
 return|;
 block|}
-specifier|private
+specifier|protected
 name|CommandLine
 name|parseArgs
 parameter_list|(
@@ -618,7 +629,7 @@ name|args
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|printUsage
 parameter_list|()
