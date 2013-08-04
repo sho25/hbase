@@ -20409,6 +20409,27 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|Collections
+operator|.
+name|sort
+argument_list|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
+name|family
+operator|.
+name|getValue
+argument_list|()
+argument_list|,
+name|store
+operator|.
+name|getComparator
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Get previous values for all columns in this family
 name|Get
 name|get
