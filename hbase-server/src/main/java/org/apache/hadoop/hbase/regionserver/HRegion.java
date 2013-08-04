@@ -22934,6 +22934,36 @@ return|return
 literal|null
 return|;
 block|}
+comment|// Can't split region which is in recovering state
+if|if
+condition|(
+name|this
+operator|.
+name|isRecovering
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Cannot split region "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" in recovery."
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 operator|!
