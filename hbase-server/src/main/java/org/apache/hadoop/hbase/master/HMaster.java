@@ -6362,7 +6362,7 @@ name|this
 operator|.
 name|fileSystemManager
 operator|.
-name|prepareMetaLogReplay
+name|prepareLogReplay
 argument_list|(
 name|currentMetaServer
 argument_list|,

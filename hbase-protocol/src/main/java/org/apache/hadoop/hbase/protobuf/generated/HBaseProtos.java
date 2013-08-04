@@ -15666,15 +15666,6 @@ name|boolean
 name|getSplit
 parameter_list|()
 function_decl|;
-comment|// optional bool recovering = 7;
-name|boolean
-name|hasRecovering
-parameter_list|()
-function_decl|;
-name|boolean
-name|getRecovering
-parameter_list|()
-function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -16076,45 +16067,6 @@ return|return
 name|split_
 return|;
 block|}
-comment|// optional bool recovering = 7;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|RECOVERING_FIELD_NUMBER
-init|=
-literal|7
-decl_stmt|;
-specifier|private
-name|boolean
-name|recovering_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasRecovering
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000040
-operator|)
-operator|==
-literal|0x00000040
-operator|)
-return|;
-block|}
-specifier|public
-name|boolean
-name|getRecovering
-parameter_list|()
-block|{
-return|return
-name|recovering_
-return|;
-block|}
 specifier|private
 name|void
 name|initFields
@@ -16165,10 +16117,6 @@ operator|=
 literal|false
 expr_stmt|;
 name|split_
-operator|=
-literal|false
-expr_stmt|;
-name|recovering_
 operator|=
 literal|false
 expr_stmt|;
@@ -16402,29 +16350,6 @@ name|split_
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000040
-operator|)
-operator|==
-literal|0x00000040
-operator|)
-condition|)
-block|{
-name|output
-operator|.
-name|writeBool
-argument_list|(
-literal|7
-argument_list|,
-name|recovering_
-argument_list|)
-expr_stmt|;
-block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -16648,37 +16573,6 @@ argument_list|(
 literal|6
 argument_list|,
 name|split_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000040
-operator|)
-operator|==
-literal|0x00000040
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeBoolSize
-argument_list|(
-literal|7
-argument_list|,
-name|recovering_
 argument_list|)
 expr_stmt|;
 block|}
@@ -17055,41 +16949,6 @@ name|result
 operator|=
 name|result
 operator|&&
-operator|(
-name|hasRecovering
-argument_list|()
-operator|==
-name|other
-operator|.
-name|hasRecovering
-argument_list|()
-operator|)
-expr_stmt|;
-if|if
-condition|(
-name|hasRecovering
-argument_list|()
-condition|)
-block|{
-name|result
-operator|=
-name|result
-operator|&&
-operator|(
-name|getRecovering
-argument_list|()
-operator|==
-name|other
-operator|.
-name|getRecovering
-argument_list|()
-operator|)
-expr_stmt|;
-block|}
-name|result
-operator|=
-name|result
-operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -17317,37 +17176,6 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getSplit
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasRecovering
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|RECOVERING_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|hashBoolean
-argument_list|(
-name|getRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -18299,19 +18127,6 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
-name|recovering_
-operator|=
-literal|false
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000040
-operator|)
-expr_stmt|;
 return|return
 name|this
 return|;
@@ -18745,30 +18560,6 @@ name|split_
 operator|=
 name|split_
 expr_stmt|;
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00000040
-operator|)
-operator|==
-literal|0x00000040
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00000040
-expr_stmt|;
-block|}
-name|result
-operator|.
-name|recovering_
-operator|=
-name|recovering_
-expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -19001,23 +18792,6 @@ argument_list|(
 name|other
 operator|.
 name|getSplit
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|other
-operator|.
-name|hasRecovering
-argument_list|()
-condition|)
-block|{
-name|setRecovering
-argument_list|(
-name|other
-operator|.
-name|getRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -19291,23 +19065,6 @@ operator||=
 literal|0x00000020
 expr_stmt|;
 name|split_
-operator|=
-name|input
-operator|.
-name|readBool
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
-case|case
-literal|56
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00000040
-expr_stmt|;
-name|recovering_
 operator|=
 name|input
 operator|.
@@ -19922,85 +19679,6 @@ literal|0x00000020
 operator|)
 expr_stmt|;
 name|split_
-operator|=
-literal|false
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-comment|// optional bool recovering = 7;
-specifier|private
-name|boolean
-name|recovering_
-decl_stmt|;
-specifier|public
-name|boolean
-name|hasRecovering
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000040
-operator|)
-operator|==
-literal|0x00000040
-operator|)
-return|;
-block|}
-specifier|public
-name|boolean
-name|getRecovering
-parameter_list|()
-block|{
-return|return
-name|recovering_
-return|;
-block|}
-specifier|public
-name|Builder
-name|setRecovering
-parameter_list|(
-name|boolean
-name|value
-parameter_list|)
-block|{
-name|bitField0_
-operator||=
-literal|0x00000040
-expr_stmt|;
-name|recovering_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|public
-name|Builder
-name|clearRecovering
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000040
-operator|)
-expr_stmt|;
-name|recovering_
 operator|=
 literal|false
 expr_stmt|;
@@ -61289,65 +60967,63 @@ literal|"\022\014\n\004name\030\001 \002(\014\022#\n\nattributes\030\002 \003(\0
 operator|+
 literal|"esBytesPair\022&\n\rconfiguration\030\003 \003(\0132\017.Nam"
 operator|+
-literal|"eStringPair\"\213\001\n\nRegionInfo\022\021\n\tregion_id\030"
+literal|"eStringPair\"w\n\nRegionInfo\022\021\n\tregion_id\030\001"
 operator|+
-literal|"\001 \002(\004\022\022\n\ntable_name\030\002 \002(\014\022\021\n\tstart_key\030\003"
+literal|" \002(\004\022\022\n\ntable_name\030\002 \002(\014\022\021\n\tstart_key\030\003 "
 operator|+
-literal|" \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r"
+literal|"\001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r\n"
 block|,
-literal|"\n\005split\030\006 \001(\010\022\022\n\nrecovering\030\007 \001(\010\"1\n\014Fav"
+literal|"\005split\030\006 \001(\010\"1\n\014FavoredNodes\022!\n\014favored_"
 operator|+
-literal|"oredNodes\022!\n\014favored_node\030\001 \003(\0132\013.Server"
+literal|"node\030\001 \003(\0132\013.ServerName\"\225\001\n\017RegionSpecif"
 operator|+
-literal|"Name\"\225\001\n\017RegionSpecifier\0222\n\004type\030\001 \002(\0162$"
+literal|"ier\0222\n\004type\030\001 \002(\0162$.RegionSpecifier.Regi"
 operator|+
-literal|".RegionSpecifier.RegionSpecifierType\022\r\n\005"
+literal|"onSpecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023Region"
 operator|+
-literal|"value\030\002 \002(\014\"?\n\023RegionSpecifierType\022\017\n\013RE"
+literal|"SpecifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODE"
 operator|+
-literal|"GION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002\"%\n\t"
+literal|"D_REGION_NAME\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 \001"
 operator|+
-literal|"TimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\"A\n\nS"
+literal|"(\004\022\n\n\002to\030\002 \001(\004\"A\n\nServerName\022\021\n\thost_nam"
 operator|+
-literal|"erverName\022\021\n\thost_name\030\001 \002(\t\022\014\n\004port\030\002 \001"
+literal|"e\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_code\030\003 \001("
 operator|+
-literal|"(\r\022\022\n\nstart_code\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n"
+literal|"\004\"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameSt"
 operator|+
-literal|"\004name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004name\030\001 "
+literal|"ringPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n"
 block|,
-literal|"\002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair\022\014\n\004n"
+literal|"\rNameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 "
 operator|+
-literal|"ame\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesBytesPa"
+literal|"\001(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006"
 operator|+
-literal|"ir\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNam"
+literal|"second\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030\001 "
 operator|+
-literal|"eInt64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\""
+literal|"\001(\t\022\r\n\005value\030\002 \001(\003\"\256\001\n\023SnapshotDescripti"
 operator|+
-literal|"\256\001\n\023SnapshotDescription\022\014\n\004name\030\001 \002(\t\022\r\n"
+literal|"on\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcreat"
 operator|+
-literal|"\005table\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\022."
+literal|"ion_time\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\031.Snapsh"
 operator|+
-literal|"\n\004type\030\004 \001(\0162\031.SnapshotDescription.Type:"
+literal|"otDescription.Type:\005FLUSH\022\017\n\007version\030\005 \001"
 operator|+
-literal|"\005FLUSH\022\017\n\007version\030\005 \001(\005\"\037\n\004Type\022\014\n\010DISAB"
+literal|"(\005\"\037\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\"\n\n\010E"
 operator|+
-literal|"LED\020\000\022\t\n\005FLUSH\020\001\"\n\n\010EmptyMsg\"\033\n\007LongMsg\022"
+literal|"mptyMsg\"\033\n\007LongMsg\022\020\n\010long_msg\030\001 \002(\003\"\'\n\r"
 operator|+
-literal|"\020\n\010long_msg\030\001 \002(\003\"\'\n\rBigDecimalMsg\022\026\n\016bi"
+literal|"BigDecimalMsg\022\026\n\016bigdecimal_msg\030\001 \002(\014\"5\n"
 block|,
-literal|"gdecimal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_"
+literal|"\004UUID\022\026\n\016least_sig_bits\030\001 \002(\004\022\025\n\rmost_si"
 operator|+
-literal|"bits\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004*r\n\013Com"
+literal|"g_bits\030\002 \002(\004*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n"
 operator|+
-literal|"pareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n"
+literal|"\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL"
 operator|+
-literal|"\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQ"
+literal|"\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n"
 operator|+
-literal|"UAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006B>\n*org.apa"
+literal|"\005NO_OP\020\006B>\n*org.apache.hadoop.hbase.prot"
 operator|+
-literal|"che.hadoop.hbase.protobuf.generatedB\013HBa"
-operator|+
-literal|"seProtosH\001\240\001\001"
+literal|"obuf.generatedB\013HBaseProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -61616,8 +61292,6 @@ block|,
 literal|"Offline"
 block|,
 literal|"Split"
-block|,
-literal|"Recovering"
 block|, }
 argument_list|,
 name|org

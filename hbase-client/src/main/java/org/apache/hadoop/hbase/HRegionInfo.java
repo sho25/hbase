@@ -746,14 +746,6 @@ name|tableNameAsString
 init|=
 literal|null
 decl_stmt|;
-comment|// when a region is in recovering state, it can only accept writes not reads
-specifier|private
-specifier|volatile
-name|boolean
-name|recovering
-init|=
-literal|false
-decl_stmt|;
 comment|/** HRegionInfo for root region */
 specifier|public
 specifier|static
@@ -1189,12 +1181,6 @@ operator|.
 name|clone
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|recovering
-operator|=
-literal|false
-expr_stmt|;
 name|setHashCode
 argument_list|()
 expr_stmt|;
@@ -1302,15 +1288,6 @@ operator|=
 name|other
 operator|.
 name|tableName
-expr_stmt|;
-name|this
-operator|.
-name|recovering
-operator|=
-name|other
-operator|.
-name|isRecovering
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
@@ -2485,34 +2462,6 @@ operator|=
 name|split
 expr_stmt|;
 block|}
-comment|/**    * @return True if current region is in recovering    */
-specifier|public
-name|boolean
-name|isRecovering
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|recovering
-return|;
-block|}
-comment|/**    * @param newState set recovering state    */
-specifier|public
-name|void
-name|setRecovering
-parameter_list|(
-name|boolean
-name|newState
-parameter_list|)
-block|{
-name|this
-operator|.
-name|recovering
-operator|=
-name|newState
-expr_stmt|;
-block|}
 comment|/**    * @return True if this region is offline.    */
 specifier|public
 name|boolean
@@ -3550,16 +3499,6 @@ name|isSplit
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|builder
-operator|.
-name|setRecovering
-argument_list|(
-name|info
-operator|.
-name|isRecovering
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|builder
 operator|.
@@ -3728,25 +3667,6 @@ argument_list|(
 name|proto
 operator|.
 name|getOffline
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|proto
-operator|.
-name|hasRecovering
-argument_list|()
-condition|)
-block|{
-name|hri
-operator|.
-name|setRecovering
-argument_list|(
-name|proto
-operator|.
-name|getRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;

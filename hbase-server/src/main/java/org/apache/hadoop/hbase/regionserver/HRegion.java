@@ -2215,6 +2215,14 @@ name|disallowWritesInRecovering
 init|=
 literal|false
 decl_stmt|;
+comment|// when a region is in recovering state, it can only accept writes not reads
+specifier|private
+specifier|volatile
+name|boolean
+name|isRecovering
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * @return The smallest mvcc readPoint across all the scanners in this    * region. Writes older than this readPoint, are included  in every    * read operation.    */
 specifier|public
 name|long
@@ -4140,13 +4148,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|setRecovering
-argument_list|(
+name|isRecovering
+operator|=
 name|newState
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return True if current region is in recovering    */
@@ -4158,11 +4162,7 @@ block|{
 return|return
 name|this
 operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
 name|isRecovering
-argument_list|()
 return|;
 block|}
 comment|/** @return true if region is available (not closed and not closing) */

@@ -7947,7 +7947,7 @@ condition|)
 return|return
 name|loc
 return|;
-comment|// fetch location from .META.
+comment|// fetch location from .META. directly without using cache to avoid hit old dead server
 name|loc
 operator|=
 name|hconn
@@ -7958,7 +7958,7 @@ name|table
 argument_list|,
 name|row
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 if|if
@@ -8223,16 +8223,25 @@ name|lastFlushedSequenceId
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
+comment|// check if the region to be recovered is marked as recovering in ZK
+try|try
+block|{
 if|if
 condition|(
+name|SplitLogManager
+operator|.
+name|isRegionMarkedRecoveringInZK
+argument_list|(
+name|watcher
+argument_list|,
 name|loc
 operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isRecovering
+name|getEncodedName
 argument_list|()
+argument_list|)
 operator|==
 literal|false
 condition|)
@@ -8273,6 +8282,31 @@ operator|+
 literal|" because it's not in recovering."
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to retrieve recovering state of region "
+operator|+
+name|loc
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+throw|;
 block|}
 name|onlineRegions
 operator|.
@@ -8554,19 +8588,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|loc
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|setRecovering
-argument_list|(
-name|region
-operator|.
-name|isRecovering
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|loc
 return|;
