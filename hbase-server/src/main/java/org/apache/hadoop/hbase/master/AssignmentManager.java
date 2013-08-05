@@ -1194,6 +1194,55 @@ specifier|final
 name|ExecutorService
 name|executorService
 decl_stmt|;
+comment|// For unit tests, keep track of calls to ClosedRegionHandler
+specifier|private
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|AtomicBoolean
+argument_list|>
+name|closedRegionHandlerCalled
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|AtomicBoolean
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// For unit tests, keep track of calls to OpenedRegionHandler
+specifier|private
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|AtomicBoolean
+argument_list|>
+name|openedRegionHandlerCalled
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|AtomicBoolean
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// For unit tests, keep track of calls to SplitRegionHandler
+specifier|private
+name|AtomicBoolean
+name|splitRegionHandlerCalled
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
 comment|//Thread pool executor service for timeout monitor
 specifier|private
 name|java
@@ -3977,12 +4026,6 @@ expr_stmt|;
 break|break;
 block|}
 comment|// Run handler to do the rest of the SPLIT handling.
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
 operator|new
 name|SplitRegionHandler
 argument_list|(
@@ -3999,6 +4042,15 @@ name|sn
 argument_list|,
 name|daughters
 argument_list|)
+operator|.
+name|process
+argument_list|()
+expr_stmt|;
+name|splitRegionHandlerCalled
+operator|.
+name|set
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 break|break;
@@ -4155,12 +4207,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Run handler to do the rest of the MERGED handling.
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
 operator|new
 name|MergedRegionHandler
 argument_list|(
@@ -4172,7 +4218,9 @@ name|sn
 argument_list|,
 name|mergeRegions
 argument_list|)
-argument_list|)
+operator|.
+name|process
+argument_list|()
 expr_stmt|;
 break|break;
 case|case
@@ -4308,12 +4356,6 @@ name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
 operator|new
 name|ClosedRegionHandler
 argument_list|(
@@ -4325,6 +4367,24 @@ name|regionState
 operator|.
 name|getRegion
 argument_list|()
+argument_list|)
+operator|.
+name|process
+argument_list|()
+expr_stmt|;
+name|closedRegionHandlerCalled
+operator|.
+name|put
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4479,12 +4539,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
 operator|new
 name|ClosedRegionHandler
 argument_list|(
@@ -4497,7 +4551,9 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|)
-argument_list|)
+operator|.
+name|process
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -4655,12 +4711,6 @@ name|encodedName
 argument_list|)
 expr_stmt|;
 comment|// reset the count, if any
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
 operator|new
 name|OpenedRegionHandler
 argument_list|(
@@ -4676,6 +4726,24 @@ argument_list|,
 name|sn
 argument_list|,
 name|expectedVersion
+argument_list|)
+operator|.
+name|process
+argument_list|()
+expr_stmt|;
+name|openedRegionHandlerCalled
+operator|.
+name|put
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4699,6 +4767,101 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|//For unit tests only
+name|boolean
+name|wasClosedHandlerCalled
+parameter_list|(
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+name|AtomicBoolean
+name|b
+init|=
+name|closedRegionHandlerCalled
+operator|.
+name|get
+argument_list|(
+name|hri
+argument_list|)
+decl_stmt|;
+comment|//compareAndSet to be sure that unit tests don't see stale values. Means,
+comment|//we will return true exactly once unless the handler code resets to true
+comment|//this value.
+return|return
+name|b
+operator|==
+literal|null
+condition|?
+literal|false
+else|:
+name|b
+operator|.
+name|compareAndSet
+argument_list|(
+literal|true
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|//For unit tests only
+name|boolean
+name|wasOpenedHandlerCalled
+parameter_list|(
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+name|AtomicBoolean
+name|b
+init|=
+name|openedRegionHandlerCalled
+operator|.
+name|get
+argument_list|(
+name|hri
+argument_list|)
+decl_stmt|;
+comment|//compareAndSet to be sure that unit tests don't see stale values. Means,
+comment|//we will return true exactly once unless the handler code resets to true
+comment|//this value.
+return|return
+name|b
+operator|==
+literal|null
+condition|?
+literal|false
+else|:
+name|b
+operator|.
+name|compareAndSet
+argument_list|(
+literal|true
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|//For unit tests only
+name|boolean
+name|wasSplitHandlerCalled
+parameter_list|()
+block|{
+comment|//compareAndSet to be sure that unit tests don't see stale values. Means,
+comment|//we will return true exactly once unless the handler code resets to true
+comment|//this value.
+return|return
+name|splitRegionHandlerCalled
+operator|.
+name|compareAndSet
+argument_list|(
+literal|true
+argument_list|,
+literal|false
+argument_list|)
+return|;
 block|}
 comment|/**    * @return Returns true if this RegionState is splittable; i.e. the    * RegionState is currently in splitting state or pending_close or    * null (Anything else will return false). (Anything else will return false).    */
 specifier|private
