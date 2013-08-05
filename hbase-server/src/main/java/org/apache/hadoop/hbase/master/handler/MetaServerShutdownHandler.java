@@ -498,9 +498,11 @@ name|regionAssignmentWaitTimeout
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
+comment|// Wait here is to avoid log replay hits current dead server and incur a RPC timeout
+comment|// when replay happens before region assignment completes.
+name|LOG
+operator|.
+name|warn
 argument_list|(
 literal|"Region "
 operator|+
@@ -513,7 +515,7 @@ argument_list|()
 operator|+
 literal|" didn't complete assignment in time"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 name|this
 operator|.

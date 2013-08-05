@@ -12312,7 +12312,7 @@ literal|1L
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait on region to clear regions-in-transition or time out    * @param hri    * @param timeOut Milliseconds to wait for current region to be out of transition state.    * @return True when a region clears regions-in-transition before timeout otherwise false    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Wait on region to clear regions-in-transition or time out    * @param hri    * @param timeOut Milliseconds to wait for current region to be out of transition state.    * @return True when a region clears regions-in-transition before timeout otherwise false    * @throws InterruptedException    */
 specifier|public
 name|boolean
 name|waitOnRegionToClearRegionsInTransition
@@ -12325,8 +12325,6 @@ name|long
 name|timeOut
 parameter_list|)
 throws|throws
-name|IOException
-throws|,
 name|InterruptedException
 block|{
 if|if

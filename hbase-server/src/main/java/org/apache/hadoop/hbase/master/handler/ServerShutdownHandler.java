@@ -33,6 +33,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1503,8 +1513,6 @@ name|ie
 argument_list|)
 throw|;
 block|}
-try|try
-block|{
 if|if
 condition|(
 name|this
@@ -1525,6 +1533,8 @@ range|:
 name|toAssignRegions
 control|)
 block|{
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -1538,9 +1548,11 @@ name|regionAssignmentWaitTimeout
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
+comment|// Wait here is to avoid log replay hits current dead server and incur a RPC timeout
+comment|// when replay happens before region assignment completes.
+name|LOG
+operator|.
+name|warn
 argument_list|(
 literal|"Region "
 operator|+
@@ -1550,6 +1562,25 @@ name|getEncodedName
 argument_list|()
 operator|+
 literal|" didn't complete assignment in time"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|(
+literal|"Caught "
+operator|+
+name|ie
+operator|+
+literal|" during waitOnRegionToClearRegionsInTransition"
 argument_list|)
 throw|;
 block|}
@@ -1589,42 +1620,6 @@ name|hasLogReplayWork
 operator|=
 literal|true
 expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|ex
-parameter_list|)
-block|{
-if|if
-condition|(
-name|ex
-operator|instanceof
-name|IOException
-condition|)
-block|{
-name|resubmit
-argument_list|(
-name|serverName
-argument_list|,
-operator|(
-name|IOException
-operator|)
-name|ex
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|ex
-argument_list|)
-throw|;
-block|}
 block|}
 block|}
 finally|finally
