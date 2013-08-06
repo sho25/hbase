@@ -936,13 +936,15 @@ argument_list|,
 name|LOG
 argument_list|)
 expr_stmt|;
+operator|new
 name|FSTableDescriptors
+argument_list|(
+name|conf
+argument_list|)
 operator|.
 name|createTableDescriptor
 argument_list|(
 name|htdClone
-argument_list|,
-name|conf
 argument_list|)
 expr_stmt|;
 name|RestoreSnapshotHelper

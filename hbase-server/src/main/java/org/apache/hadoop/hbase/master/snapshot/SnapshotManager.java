@@ -3132,7 +3132,7 @@ name|snapshotTableDesc
 init|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|fs
 argument_list|,

@@ -789,7 +789,7 @@ name|htd
 operator|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|mfs
 operator|.

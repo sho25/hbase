@@ -941,15 +941,22 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// Write the .tableinfo
 name|FSTableDescriptors
-operator|.
-name|createTableDescriptor
+name|fstd
+init|=
+operator|new
+name|FSTableDescriptors
 argument_list|(
 name|filesystem
 argument_list|,
 name|rootdir
-argument_list|,
+argument_list|)
+decl_stmt|;
+comment|// Write the .tableinfo
+name|fstd
+operator|.
+name|createTableDescriptor
+argument_list|(
 name|htdEnabled
 argument_list|)
 expr_stmt|;
@@ -1032,14 +1039,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|filesystem
-argument_list|,
-name|rootdir
-argument_list|,
 name|htdDisabled
 argument_list|)
 expr_stmt|;
@@ -2198,15 +2201,22 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// Write the .tableinfo
 name|FSTableDescriptors
-operator|.
-name|createTableDescriptor
+name|fstd
+init|=
+operator|new
+name|FSTableDescriptors
 argument_list|(
 name|filesystem
 argument_list|,
 name|rootdir
-argument_list|,
+argument_list|)
+decl_stmt|;
+comment|// Write the .tableinfo
+name|fstd
+operator|.
+name|createTableDescriptor
+argument_list|(
 name|htdEnabled
 argument_list|)
 expr_stmt|;
@@ -2289,14 +2299,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|filesystem
-argument_list|,
-name|rootdir
-argument_list|,
 name|htdDisabled
 argument_list|)
 expr_stmt|;

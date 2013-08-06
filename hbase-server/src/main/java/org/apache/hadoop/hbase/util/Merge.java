@@ -457,11 +457,6 @@ decl_stmt|;
 comment|// Name of region 2
 specifier|private
 specifier|volatile
-name|boolean
-name|isMetaTable
-decl_stmt|;
-specifier|private
-specifier|volatile
 name|HRegionInfo
 name|mergeInfo
 decl_stmt|;
@@ -914,7 +909,7 @@ name|htd
 init|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|FileSystem
 operator|.
@@ -928,9 +923,14 @@ name|this
 operator|.
 name|rootdir
 argument_list|,
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1321,21 +1321,6 @@ index|[
 literal|0
 index|]
 argument_list|)
-expr_stmt|;
-name|isMetaTable
-operator|=
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-operator|==
-literal|0
 expr_stmt|;
 name|region1
 operator|=

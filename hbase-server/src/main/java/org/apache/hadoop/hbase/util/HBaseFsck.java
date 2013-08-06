@@ -4087,7 +4087,7 @@ name|htd
 init|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|hbaseRoot
 operator|.
@@ -4299,11 +4299,14 @@ return|return
 name|columns
 return|;
 block|}
-comment|/**    * To fabricate a .tableinfo file with following contents<br>    * 1. the correct tablename<br>    * 2. the correct colfamily list<br>    * 3. the default properties for both {@link HTableDescriptor} and {@link HColumnDescriptor}<br>    * @param tableName    * @throws IOException    */
+comment|/**    * To fabricate a .tableinfo file with following contents<br>    * 1. the correct tablename<br>    * 2. the correct colfamily list<br>    * 3. the default properties for both {@link HTableDescriptor} and {@link HColumnDescriptor}<br>    * @throws IOException    */
 specifier|private
 name|boolean
 name|fabricateTableInfo
 parameter_list|(
+name|FSTableDescriptors
+name|fstd
+parameter_list|,
 name|String
 name|tableName
 parameter_list|,
@@ -4359,14 +4362,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
 name|htd
-argument_list|,
-name|getConf
-argument_list|()
 argument_list|,
 literal|true
 argument_list|)
@@ -4458,17 +4458,6 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|Path
-name|hbaseRoot
-init|=
-name|FSUtils
-operator|.
-name|getRootDir
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|List
 argument_list|<
 name|String
@@ -4532,6 +4521,16 @@ name|int
 name|numFailedCase
 init|=
 literal|0
+decl_stmt|;
+name|FSTableDescriptors
+name|fstd
+init|=
+operator|new
+name|FSTableDescriptors
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
 decl_stmt|;
 while|while
 condition|(
@@ -4634,20 +4633,10 @@ operator|+
 literal|" from cache"
 argument_list|)
 expr_stmt|;
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|hbaseRoot
-operator|.
-name|getFileSystem
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|)
-argument_list|,
-name|hbaseRoot
-argument_list|,
 name|htd
 argument_list|,
 literal|true
@@ -4669,6 +4658,8 @@ if|if
 condition|(
 name|fabricateTableInfo
 argument_list|(
+name|fstd
+argument_list|,
 name|tableName
 argument_list|,
 name|entry

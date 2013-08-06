@@ -2346,20 +2346,43 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Create tableinfo-s for META if not already there.
-name|FSTableDescriptors
+else|else
+block|{
+comment|// Migrate table descriptor files if necessary
+name|org
 operator|.
-name|createTableDescriptor
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSTableDescriptorMigrationToSubdir
+operator|.
+name|migrateFSTableDescriptorsIfNecessary
 argument_list|(
 name|fs
 argument_list|,
 name|rd
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Create tableinfo-s for META if not already there.
+operator|new
+name|FSTableDescriptors
+argument_list|(
+name|fs
 argument_list|,
+name|rd
+argument_list|)
+operator|.
+name|createTableDescriptor
+argument_list|(
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 return|return
@@ -2521,7 +2544,7 @@ expr_stmt|;
 try|try
 block|{
 comment|// Bootstrapping, make sure blockcache is off.  Else, one will be
-comment|// created here in bootstap and it'll need to be cleaned up.  Better to
+comment|// created here in bootstrap and it'll need to be cleaned up.  Better to
 comment|// not make it in first place.  Turn off block caching for bootstrap.
 comment|// Enable after.
 name|HRegionInfo
@@ -2981,27 +3004,6 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-comment|/**    * Create new HTableDescriptor in HDFS.    *    * @param htableDescriptor    */
-specifier|public
-name|void
-name|createTableDescriptor
-parameter_list|(
-name|HTableDescriptor
-name|htableDescriptor
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|FSTableDescriptors
-operator|.
-name|createTableDescriptor
-argument_list|(
-name|htableDescriptor
-argument_list|,
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Delete column of a table    * @param tableName    * @param familyName    * @return Modified HTableDescriptor with requested column deleted.    * @throws IOException    */
 specifier|public

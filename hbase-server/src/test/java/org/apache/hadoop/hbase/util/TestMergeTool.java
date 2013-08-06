@@ -869,9 +869,8 @@ comment|// Create meta region
 name|createMetaRegion
 argument_list|()
 expr_stmt|;
+operator|new
 name|FSTableDescriptors
-operator|.
-name|createTableDescriptor
 argument_list|(
 name|this
 operator|.
@@ -880,7 +879,10 @@ argument_list|,
 name|this
 operator|.
 name|testDir
-argument_list|,
+argument_list|)
+operator|.
+name|createTableDescriptor
+argument_list|(
 name|this
 operator|.
 name|desc

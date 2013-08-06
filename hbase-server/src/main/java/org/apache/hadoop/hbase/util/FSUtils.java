@@ -4179,7 +4179,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Checks if root region exists    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
+comment|/**    * Checks if meta region exists    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
 end_comment
 
 begin_function
@@ -4203,7 +4203,7 @@ throws|throws
 name|IOException
 block|{
 name|Path
-name|rootRegionDir
+name|metaRegionDir
 init|=
 name|HRegion
 operator|.
@@ -4221,7 +4221,7 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|rootRegionDir
+name|metaRegionDir
 argument_list|)
 return|;
 block|}

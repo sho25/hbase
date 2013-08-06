@@ -181,6 +181,17 @@ argument_list|,
 name|name
 argument_list|)
 decl_stmt|;
+name|FSTableDescriptors
+name|fstd
+init|=
+operator|new
+name|FSTableDescriptors
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|)
+decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -194,14 +205,10 @@ name|assertTrue
 argument_list|(
 literal|"Should create new table descriptor"
 argument_list|,
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|fs
-argument_list|,
-name|rootdir
-argument_list|,
 name|htd
 argument_list|,
 literal|false
@@ -237,7 +244,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Cleanup old tests if any detrius laying around.
+comment|// Cleanup old tests if any detritus laying around.
 name|Path
 name|rootdir
 init|=
@@ -252,8 +259,8 @@ argument_list|,
 name|name
 argument_list|)
 decl_stmt|;
-name|TableDescriptors
-name|htds
+name|FSTableDescriptors
+name|fstd
 init|=
 operator|new
 name|FSTableDescriptors
@@ -272,7 +279,7 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-name|htds
+name|fstd
 operator|.
 name|add
 argument_list|(
@@ -283,14 +290,10 @@ name|assertFalse
 argument_list|(
 literal|"Should not create new table descriptor"
 argument_list|,
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|fs
-argument_list|,
-name|rootdir
-argument_list|,
 name|htd
 argument_list|,
 literal|false
@@ -340,6 +343,17 @@ argument_list|,
 name|name
 argument_list|)
 decl_stmt|;
+name|FSTableDescriptors
+name|fstd
+init|=
+operator|new
+name|FSTableDescriptors
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|)
+decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -349,14 +363,10 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|fs
-argument_list|,
-name|rootdir
-argument_list|,
 name|htd
 argument_list|,
 literal|false
@@ -366,14 +376,10 @@ name|assertTrue
 argument_list|(
 literal|"Should create new table descriptor"
 argument_list|,
-name|FSTableDescriptors
+name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|fs
-argument_list|,
-name|rootdir
-argument_list|,
 name|htd
 argument_list|,
 literal|true

@@ -2451,13 +2451,13 @@ name|desc
 init|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|fs
 argument_list|,
 name|rootDir
 argument_list|,
-name|TABLE_NAME
+name|STRING_TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -2465,7 +2465,7 @@ name|snapshotDesc
 init|=
 name|FSTableDescriptors
 operator|.
-name|getTableDescriptor
+name|getTableDescriptorFromFs
 argument_list|(
 name|fs
 argument_list|,
@@ -2476,12 +2476,7 @@ argument_list|(
 name|rootDir
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|snapshotName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertEquals
