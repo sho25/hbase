@@ -315,7 +315,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** The number of used fields by version. Indexed by version minus one. */
+comment|/**    * The number of used fields by version. Indexed by version minus two.     * Min version that we support is V2    */
 specifier|private
 specifier|static
 specifier|final
@@ -327,8 +327,6 @@ operator|new
 name|int
 index|[]
 block|{
-literal|9
-block|,
 literal|14
 block|}
 decl_stmt|;
@@ -516,28 +514,6 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|version
-operator|==
-literal|1
-condition|)
-block|{
-name|t
-operator|.
-name|setFileInfoOffset
-argument_list|(
-literal|876
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|version
-operator|==
-literal|2
-condition|)
-block|{
 name|t
 operator|.
 name|setLastDataBlockOffset
@@ -580,7 +556,6 @@ literal|827398717L
 argument_list|)
 expr_stmt|;
 comment|// Something random.
-block|}
 name|t
 operator|.
 name|setLoadOnOpenOffset
@@ -909,7 +884,7 @@ name|NUM_FIELDS_BY_VERSION
 index|[
 name|version
 operator|-
-literal|1
+literal|2
 index|]
 argument_list|,
 name|trailerStr

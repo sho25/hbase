@@ -589,24 +589,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
-operator|.
-name|WriterBuilder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|BloomFilterWriter
@@ -789,7 +771,7 @@ specifier|final
 name|int
 name|MIN_FORMAT_VERSION
 init|=
-literal|1
+literal|2
 decl_stmt|;
 comment|/** Maximum supported HFile format version    */
 specifier|public
