@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell.  Uses ints  * delimiting all lengths. Profligate. Needs tune up.  Does not write the mvcc stamp.  * Use a different codec if you want that in the stream.  */
+comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell.  Uses ints  * delimiting all lengths. Profligate. Needs tune up.   */
 end_comment
 
 begin_class
@@ -255,6 +255,24 @@ name|cell
 operator|.
 name|getValueLength
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// MvccVersion
+name|this
+operator|.
+name|out
+operator|.
+name|write
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|cell
+operator|.
+name|getMvccVersion
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -419,6 +437,40 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+comment|// Read memstore version
+name|byte
+index|[]
+name|memstoreTSArray
+init|=
+operator|new
+name|byte
+index|[
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+index|]
+decl_stmt|;
+name|IOUtils
+operator|.
+name|readFully
+argument_list|(
+name|this
+operator|.
+name|in
+argument_list|,
+name|memstoreTSArray
+argument_list|)
+expr_stmt|;
+name|long
+name|memstoreTS
+init|=
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
+name|memstoreTSArray
+argument_list|)
+decl_stmt|;
 return|return
 name|CellUtil
 operator|.
@@ -435,6 +487,8 @@ argument_list|,
 name|type
 argument_list|,
 name|value
+argument_list|,
+name|memstoreTS
 argument_list|)
 return|;
 block|}

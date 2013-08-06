@@ -475,6 +475,15 @@ literal|"v"
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|kv
+operator|.
+name|setMvccVersion
+argument_list|(
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|)
+expr_stmt|;
 name|encoder
 operator|.
 name|write
