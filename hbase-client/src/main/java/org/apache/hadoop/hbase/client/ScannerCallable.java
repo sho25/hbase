@@ -463,6 +463,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 name|long
 name|scannerId
 init|=
@@ -741,11 +742,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @see java.util.concurrent.Callable#call()    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|Result
 index|[]
