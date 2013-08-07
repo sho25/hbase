@@ -3898,6 +3898,51 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// check that the user has not set the "dfs.client.read.shortcircuit.skip.checksum" property.
+name|boolean
+name|shortCircuitSkipChecksum
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"dfs.client.read.shortcircuit.skip.checksum"
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|shortCircuitSkipChecksum
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Configuration \"dfs.client.read.shortcircuit.skip.checksum\" should not "
+operator|+
+literal|"be set to true."
+operator|+
+operator|(
+name|this
+operator|.
+name|useHBaseChecksum
+condition|?
+literal|" HBase checksum doesn't require "
+operator|+
+literal|"it, see https://issues.apache.org/jira/browse/HBASE-6868."
+else|:
+literal|""
+operator|)
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|!
+name|shortCircuitSkipChecksum
+assert|;
+comment|//this will fail if assertions are on
+block|}
 comment|// Config'ed params
 name|this
 operator|.
