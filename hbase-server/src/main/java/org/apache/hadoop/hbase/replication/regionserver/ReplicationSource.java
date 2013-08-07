@@ -753,6 +753,11 @@ specifier|private
 name|ReplicationSinkManager
 name|replicationSinkMgr
 decl_stmt|;
+comment|//WARN threshold for the number of queued logs, defaults to 2
+specifier|private
+name|int
+name|logQueueWarnThreshold
+decl_stmt|;
 comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param stopper     the atomic boolean to use to stop the regionserver    * @param peerClusterZnode the name of our znode    * @throws IOException    */
 specifier|public
 name|void
@@ -1069,6 +1074,21 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|logQueueWarnThreshold
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"replication.source.log.queue.warn"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1089,18 +1109,47 @@ argument_list|(
 name|log
 argument_list|)
 expr_stmt|;
+name|int
+name|queueSize
+init|=
+name|queue
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|metrics
 operator|.
 name|setSizeOfLogQueue
 argument_list|(
-name|queue
-operator|.
-name|size
-argument_list|()
+name|queueSize
 argument_list|)
 expr_stmt|;
+comment|// This will log a warning for each new log that gets created above the warn threshold
+if|if
+condition|(
+name|queueSize
+operator|>
+name|this
+operator|.
+name|logQueueWarnThreshold
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Queue size: "
+operator|+
+name|queueSize
+operator|+
+literal|" exceeds value of replication.source.log.queue.warn: "
+operator|+
+name|logQueueWarnThreshold
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
