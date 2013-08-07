@@ -1769,6 +1769,18 @@ name|getPosition
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Reset the sleep multiplier if nothing has actually gone wrong
+if|if
+condition|(
+operator|!
+name|gotIOE
+condition|)
+block|{
+name|sleepMultiplier
+operator|=
+literal|1
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|sleepForRetries
