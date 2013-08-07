@@ -51,6 +51,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1043,6 +1055,9 @@ name|conf
 parameter_list|,
 name|boolean
 name|managed
+parameter_list|,
+name|ExecutorService
+name|pool
 parameter_list|)
 throws|throws
 name|IOException
@@ -1217,6 +1232,9 @@ name|conf
 parameter_list|,
 name|boolean
 name|managed
+parameter_list|,
+name|ExecutorService
+name|pool
 parameter_list|)
 throws|throws
 name|IOException
@@ -1391,6 +1409,9 @@ name|conf
 parameter_list|,
 name|boolean
 name|managed
+parameter_list|,
+name|ExecutorService
+name|pool
 parameter_list|)
 throws|throws
 name|IOException

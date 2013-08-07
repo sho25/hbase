@@ -334,6 +334,58 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
+comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @return an HTable to use for interactions with this table    */
+specifier|public
+name|HTableInterface
+name|getTable
+parameter_list|(
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @return an HTable to use for interactions with this table    */
+specifier|public
+name|HTableInterface
+name|getTable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @param pool The thread pool to use for batch operations, null to use a default pool.    * @return an HTable to use for interactions with this table    */
+specifier|public
+name|HTableInterface
+name|getTable
+parameter_list|(
+name|String
+name|tableName
+parameter_list|,
+name|ExecutorService
+name|pool
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Retrieve an HTableInterface implementation for access to a table.    * The returned HTableInterface is not thread safe, a new instance should    * be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned HTableInterface    * is neither required nor desired.    * Note that the HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    * @param tableName    * @param pool The thread pool to use for batch operations, null to use a default pool.    * @return an HTable to use for interactions with this table    */
+specifier|public
+name|HTableInterface
+name|getTable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|ExecutorService
+name|pool
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/** @return - true if the master server is running */
 name|boolean
 name|isMasterRunning
