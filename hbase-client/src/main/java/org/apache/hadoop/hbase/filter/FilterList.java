@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  *  *<br/>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does  * not include the KeyValue.  *  *<br/>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.  *  *<br/>  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.  */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  *  *<br/>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does  * not include the KeyValue.  *  *<br/>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.  *  *<br/>  * Defaults to {@link Operator#MUST_PASS_ALL}.  */
 end_comment
 
 begin_class
@@ -221,6 +221,12 @@ argument_list|<
 name|Filter
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|private
+name|Filter
+name|seekHintFilter
+init|=
+literal|null
 decl_stmt|;
 comment|/** Reference KeyValue used by {@link #transform(KeyValue)} for validation purpose. */
 specifier|private
@@ -464,6 +470,10 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
+name|seekHintFilter
+operator|=
+literal|null
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -811,6 +821,16 @@ name|transformed
 argument_list|)
 expr_stmt|;
 continue|continue;
+case|case
+name|SEEK_NEXT_USING_HINT
+case|:
+name|seekHintFilter
+operator|=
+name|filter
+expr_stmt|;
+return|return
+name|code
+return|;
 default|default:
 return|return
 name|code
@@ -1277,12 +1297,12 @@ name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
 name|Filter
-name|o
+name|other
 parameter_list|)
 block|{
 if|if
 condition|(
-name|o
+name|other
 operator|==
 name|this
 condition|)
@@ -1293,7 +1313,7 @@ if|if
 condition|(
 operator|!
 operator|(
-name|o
+name|other
 operator|instanceof
 name|FilterList
 operator|)
@@ -1302,12 +1322,12 @@ return|return
 literal|false
 return|;
 name|FilterList
-name|other
+name|o
 init|=
 operator|(
 name|FilterList
 operator|)
-name|o
+name|other
 decl_stmt|;
 return|return
 name|this
@@ -1317,7 +1337,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|other
+name|o
 operator|.
 name|getOperator
 argument_list|()
@@ -1330,7 +1350,7 @@ operator|.
 name|getFilters
 argument_list|()
 operator|==
-name|other
+name|o
 operator|.
 name|getFilters
 argument_list|()
@@ -1343,7 +1363,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|other
+name|o
 operator|.
 name|getFilters
 argument_list|()
@@ -1368,6 +1388,29 @@ name|keyHint
 init|=
 literal|null
 decl_stmt|;
+if|if
+condition|(
+name|operator
+operator|==
+name|Operator
+operator|.
+name|MUST_PASS_ALL
+condition|)
+block|{
+name|keyHint
+operator|=
+name|seekHintFilter
+operator|.
+name|getNextKeyHint
+argument_list|(
+name|currentKV
+argument_list|)
+expr_stmt|;
+return|return
+name|keyHint
+return|;
+block|}
+comment|// If any condition can pass, we need to keep the min hint
 for|for
 control|(
 name|Filter
@@ -1391,12 +1434,6 @@ condition|(
 name|curKeyHint
 operator|==
 literal|null
-operator|&&
-name|operator
-operator|==
-name|Operator
-operator|.
-name|MUST_PASS_ONE
 condition|)
 block|{
 comment|// If we ever don't have a hint and this is must-pass-one, then no hint
@@ -1425,44 +1462,8 @@ name|curKeyHint
 expr_stmt|;
 continue|continue;
 block|}
-comment|// There is an existing hint
 if|if
 condition|(
-name|operator
-operator|==
-name|Operator
-operator|.
-name|MUST_PASS_ALL
-operator|&&
-name|KeyValue
-operator|.
-name|COMPARATOR
-operator|.
-name|compare
-argument_list|(
-name|keyHint
-argument_list|,
-name|curKeyHint
-argument_list|)
-operator|<
-literal|0
-condition|)
-block|{
-comment|// If all conditions must pass, we can keep the max hint
-name|keyHint
-operator|=
-name|curKeyHint
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|operator
-operator|==
-name|Operator
-operator|.
-name|MUST_PASS_ONE
-operator|&&
 name|KeyValue
 operator|.
 name|COMPARATOR
@@ -1477,7 +1478,6 @@ operator|>
 literal|0
 condition|)
 block|{
-comment|// If any condition can pass, we need to keep the min hint
 name|keyHint
 operator|=
 name|curKeyHint
