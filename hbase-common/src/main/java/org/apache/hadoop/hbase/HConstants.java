@@ -185,6 +185,7 @@ specifier|final
 class|class
 name|HConstants
 block|{
+comment|//Bytes.UTF8_ENCODING should be updated if this changed
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|public
 specifier|static
@@ -194,6 +195,7 @@ name|UTF8_ENCODING
 init|=
 literal|"UTF-8"
 decl_stmt|;
+comment|//Bytes.UTF8_CHARSET should be updated if this changed
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|public
 specifier|static
@@ -372,7 +374,7 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/**    * Current version of file system.    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    * Version 6 enables blockcaching on catalog tables.    * Version 7 introduces hfile -- hbase 0.19 to 0.20..    */
+comment|/**    * Current version of file system.    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    * Version 6 enables blockcaching on catalog tables.    * Version 7 introduces hfile -- hbase 0.19 to 0.20..    * Version 8 introduces namespace    */
 comment|// public static final String FILE_SYSTEM_VERSION = "6";
 specifier|public
 specifier|static
@@ -380,7 +382,7 @@ specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"7"
+literal|"8"
 decl_stmt|;
 comment|// Configuration parameters
 comment|//TODO: Is having HBase homed on port 60k OK?
@@ -1008,35 +1010,13 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/** The root table's name.*/
 specifier|public
 specifier|static
 specifier|final
-name|byte
-index|[]
-name|ROOT_TABLE_NAME
+name|String
+name|BASE_NAMESPACE_DIR
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"-ROOT-"
-argument_list|)
-decl_stmt|;
-comment|/** The META table's name. */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|META_TABLE_NAME
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|".META."
-argument_list|)
+literal|".data"
 decl_stmt|;
 comment|/** delimiter used between portions of a region name */
 specifier|public
@@ -2235,6 +2215,8 @@ block|,
 name|HBASE_TEMP_DIRECTORY
 block|,
 name|OLD_SNAPSHOT_DIR_NAME
+block|,
+name|BASE_NAMESPACE_DIR
 block|}
 argument_list|)
 argument_list|)
@@ -2269,19 +2251,19 @@ operator|new
 name|String
 index|[]
 block|{
-name|Bytes
+name|TableName
 operator|.
-name|toString
-argument_list|(
 name|META_TABLE_NAME
-argument_list|)
-block|,
-name|Bytes
 operator|.
-name|toString
-argument_list|(
+name|getNameAsString
+argument_list|()
+block|,
+name|TableName
+operator|.
 name|ROOT_TABLE_NAME
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 block|}
 argument_list|,
 name|HBASE_NON_TABLE_DIRS

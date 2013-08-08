@@ -143,6 +143,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -279,8 +293,7 @@ parameter_list|,
 name|MetaScannerVisitor
 name|visitor
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|userTableName
 parameter_list|)
 throws|throws
@@ -302,7 +315,7 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -320,8 +333,7 @@ parameter_list|,
 name|MetaScannerVisitor
 name|visitor
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|userTableName
 parameter_list|,
 name|byte
@@ -348,7 +360,7 @@ name|row
 argument_list|,
 name|rowLimit
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -371,8 +383,7 @@ name|MetaScannerVisitor
 name|visitor
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -385,8 +396,7 @@ name|int
 name|rowLimit
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|metaTableName
 parameter_list|)
 throws|throws
@@ -422,7 +432,7 @@ name|HTable
 argument_list|(
 name|configuration
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
@@ -437,7 +447,7 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
@@ -511,14 +521,18 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-literal|"Cannot find row in .META. for table: "
+literal|"Cannot find row in "
 operator|+
-name|Bytes
+name|TableName
 operator|.
-name|toString
-argument_list|(
+name|META_TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" for table: "
+operator|+
 name|tableName
-argument_list|)
 operator|+
 literal|", row="
 operator|+
@@ -552,12 +566,7 @@ name|IOException
 argument_list|(
 literal|"HRegionInfo was null or empty in Meta for "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", row="
 operator|+
@@ -605,6 +614,9 @@ operator|==
 literal|null
 operator|||
 name|tableName
+operator|.
+name|getName
+argument_list|()
 operator|.
 name|length
 operator|==
@@ -703,12 +715,10 @@ name|trace
 argument_list|(
 literal|"Scanning "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|metaTableName
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 operator|+
 literal|" starting at row="
 operator|+
@@ -1114,9 +1124,8 @@ name|HConnection
 name|connection
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|tablename
+name|TableName
+name|tableName
 parameter_list|,
 specifier|final
 name|boolean
@@ -1149,7 +1158,7 @@ init|=
 operator|new
 name|TableMetaScannerVisitor
 argument_list|(
-name|tablename
+name|tableName
 argument_list|)
 block|{
 annotation|@
@@ -1209,7 +1218,7 @@ name|connection
 argument_list|,
 name|visitor
 argument_list|,
-name|tablename
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return
@@ -1350,15 +1359,13 @@ extends|extends
 name|DefaultMetaScannerVisitor
 block|{
 specifier|private
-name|byte
-index|[]
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|public
 name|TableMetaScannerVisitor
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -1408,15 +1415,13 @@ if|if
 condition|(
 operator|!
 operator|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
 name|info
 operator|.
 name|getTableName
 argument_list|()
-argument_list|,
+operator|.
+name|equals
+argument_list|(
 name|tableName
 argument_list|)
 operator|)

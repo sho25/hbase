@@ -161,6 +161,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ZooKeeperConnectionException
 import|;
 end_import
@@ -423,7 +437,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testMasterMonitorCollableRetries"
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Pass any old htable descriptor; not important

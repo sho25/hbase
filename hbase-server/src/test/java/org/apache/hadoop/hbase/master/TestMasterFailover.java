@@ -233,6 +233,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -907,7 +921,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|enabledTable
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htdEnabled
@@ -968,7 +987,7 @@ name|HRegionInfo
 argument_list|(
 name|htdEnabled
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -1007,13 +1026,12 @@ argument_list|,
 name|SPLIT_KEYS
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|disabledTable
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"disabledTable"
 argument_list|)
@@ -1054,7 +1072,7 @@ name|HRegionInfo
 argument_list|(
 name|htdDisabled
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -1095,13 +1113,13 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Regions in META have been created"
+literal|"Regions in META and namespace have been created"
 argument_list|)
 expr_stmt|;
-comment|// at this point we only expect 2 regions to be assigned out (catalogs)
+comment|// at this point we only expect 3 regions to be assigned out (catalogs and namespace)
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|cluster
 operator|.
@@ -1390,12 +1408,7 @@ name|zktable
 operator|.
 name|setDisabledTable
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|disabledTable
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|/*      *  ZK = OFFLINE      */
@@ -2167,7 +2180,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|enabledTable
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htdEnabled
@@ -2228,7 +2246,7 @@ name|HRegionInfo
 argument_list|(
 name|htdEnabled
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -2267,13 +2285,12 @@ argument_list|,
 name|SPLIT_KEYS
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|disabledTable
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"disabledTable"
 argument_list|)
@@ -2314,7 +2331,7 @@ name|HRegionInfo
 argument_list|(
 name|htdDisabled
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -2355,13 +2372,13 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Regions in META have been created"
+literal|"Regions in META and Namespace have been created"
 argument_list|)
 expr_stmt|;
-comment|// at this point we only expect 2 regions to be assigned out (catalogs)
+comment|// at this point we only expect 2 regions to be assigned out (catalogs and namespace  )
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|cluster
 operator|.
@@ -2617,7 +2634,12 @@ argument_list|()
 operator|.
 name|isEnabledTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"enabledTable"
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2947,12 +2969,7 @@ name|zktable
 operator|.
 name|setDisabledTable
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|disabledTable
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2963,7 +2980,12 @@ name|zktable
 operator|.
 name|isEnabledTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"enabledTable"
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

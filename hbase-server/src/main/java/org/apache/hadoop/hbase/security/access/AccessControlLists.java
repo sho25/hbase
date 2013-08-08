@@ -171,6 +171,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -648,6 +662,19 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
+name|TableName
+name|ACL_TABLE
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|ACL_TABLE_NAME
+argument_list|)
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|byte
 index|[]
 name|ACL_GLOBAL_NAME
@@ -687,7 +714,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|ACL_TABLE_NAME
+name|ACL_TABLE
 argument_list|)
 decl_stmt|;
 static|static
@@ -803,7 +830,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 argument_list|,
-name|ACL_TABLE_NAME_STR
+name|ACL_TABLE
 argument_list|)
 condition|)
 block|{
@@ -859,6 +886,9 @@ else|:
 name|userPerm
 operator|.
 name|getTable
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -988,15 +1018,10 @@ name|debug
 argument_list|(
 literal|"Writing permission for table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|userPerm
 operator|.
 name|getTable
 argument_list|()
-argument_list|)
 operator|+
 literal|" "
 operator|+
@@ -1089,6 +1114,9 @@ name|userPerm
 operator|.
 name|getTable
 argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1178,8 +1206,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -1192,6 +1219,9 @@ operator|new
 name|Delete
 argument_list|(
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -1208,12 +1238,7 @@ name|debug
 argument_list|(
 literal|"Removing permissions of removed table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1265,8 +1290,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -1299,12 +1323,7 @@ argument_list|)
 operator|+
 literal|" from table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1474,6 +1493,9 @@ operator|new
 name|Delete
 argument_list|(
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for
@@ -1644,18 +1666,16 @@ name|region
 parameter_list|)
 block|{
 return|return
-name|Bytes
+name|ACL_TABLE
 operator|.
 name|equals
 argument_list|(
-name|ACL_TABLE_NAME
-argument_list|,
 name|region
 operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 return|;
@@ -1670,15 +1690,13 @@ name|desc
 parameter_list|)
 block|{
 return|return
-name|Bytes
+name|ACL_TABLE
 operator|.
 name|equals
 argument_list|(
-name|ACL_TABLE_NAME
-argument_list|,
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 return|;
@@ -1687,8 +1705,7 @@ comment|/**    * Loads all of the permission grants stored in a region of the {@
 specifier|static
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1726,8 +1743,7 @@ throw|;
 block|}
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1741,8 +1757,7 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1751,11 +1766,7 @@ argument_list|,
 name|TablePermission
 argument_list|>
 argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// do a full scan of _acl_ table
 name|Scan
@@ -1829,8 +1840,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|table
 init|=
 literal|null
@@ -1852,10 +1862,15 @@ condition|)
 block|{
 name|table
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|kv
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|Pair
@@ -1958,8 +1973,7 @@ comment|/**    * Load all permissions from the region server holding {@code _acl
 specifier|static
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1978,8 +1992,7 @@ name|IOException
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1993,8 +2006,7 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|byte
-index|[]
+name|TableName
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -2003,11 +2015,7 @@ argument_list|,
 name|TablePermission
 argument_list|>
 argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// do a full scan of _acl_, filtering on only first table region rows
 name|Scan
@@ -2063,6 +2071,19 @@ range|:
 name|scanner
 control|)
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|row
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|ListMultimap
 argument_list|<
 name|String
@@ -2073,10 +2094,7 @@ name|resultPerms
 init|=
 name|parseTablePermissions
 argument_list|(
-name|row
-operator|.
-name|getRow
-argument_list|()
+name|tableName
 argument_list|,
 name|row
 argument_list|)
@@ -2085,10 +2103,7 @@ name|allPerms
 operator|.
 name|put
 argument_list|(
-name|row
-operator|.
-name|getRow
-argument_list|()
+name|tableName
 argument_list|,
 name|resultPerms
 argument_list|)
@@ -2137,8 +2152,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -2152,7 +2166,7 @@ literal|null
 condition|)
 name|tableName
 operator|=
-name|ACL_TABLE_NAME
+name|ACL_TABLE
 expr_stmt|;
 comment|// for normal user tables, we just read the table row from _acl_
 name|ListMultimap
@@ -2182,7 +2196,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-name|ACL_TABLE_NAME
+name|ACL_TABLE
 argument_list|)
 expr_stmt|;
 name|Get
@@ -2192,6 +2206,9 @@ operator|new
 name|Get
 argument_list|(
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|get
@@ -2242,12 +2259,7 @@ name|ACL_TABLE_NAME_STR
 operator|+
 literal|" for table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2281,8 +2293,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -2405,8 +2416,7 @@ name|TablePermission
 argument_list|>
 name|parseTablePermissions
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|,
 name|Result
@@ -2515,8 +2525,7 @@ name|TablePermission
 argument_list|>
 name|parseTablePermissionRecord
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|table
 parameter_list|,
 name|KeyValue

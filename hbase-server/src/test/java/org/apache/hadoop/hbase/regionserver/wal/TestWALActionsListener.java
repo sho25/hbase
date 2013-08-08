@@ -469,7 +469,12 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|SOME_BYTES
+argument_list|)
 argument_list|,
 name|SOME_BYTES
 argument_list|,
@@ -557,7 +562,12 @@ name|append
 argument_list|(
 name|hri
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|b
+argument_list|)
 argument_list|,
 name|edit
 argument_list|,

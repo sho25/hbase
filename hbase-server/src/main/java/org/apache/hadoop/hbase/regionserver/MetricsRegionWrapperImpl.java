@@ -280,6 +280,9 @@ block|}
 return|return
 name|tableDesc
 operator|.
+name|getTableName
+argument_list|()
+operator|.
 name|getNameAsString
 argument_list|()
 return|;

@@ -147,6 +147,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -348,9 +362,8 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** Table name for the test */
-specifier|protected
-name|byte
-index|[]
+specifier|private
+name|TableName
 name|tableName
 decl_stmt|;
 comment|/** Table name to use of not overridden on the command line */
@@ -888,8 +901,7 @@ specifier|protected
 name|void
 name|applyColumnFamilyOptions
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -925,12 +937,7 @@ name|info
 argument_list|(
 literal|"Disabling table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1080,12 +1087,7 @@ name|info
 argument_list|(
 literal|"Enabling table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1275,9 +1277,9 @@ name|cmd
 expr_stmt|;
 name|tableName
 operator|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|cmd
 operator|.

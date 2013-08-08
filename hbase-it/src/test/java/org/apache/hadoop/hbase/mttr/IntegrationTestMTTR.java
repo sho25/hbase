@@ -171,6 +171,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HBaseAdmin
@@ -552,25 +566,13 @@ decl_stmt|;
 comment|/**    * Configurable table names.    */
 specifier|private
 specifier|static
-name|String
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
 specifier|static
-name|byte
-index|[]
-name|tableNameBytes
-decl_stmt|;
-specifier|private
-specifier|static
-name|String
+name|TableName
 name|loadTableName
-decl_stmt|;
-specifier|private
-specifier|static
-name|byte
-index|[]
-name|loadTableNameBytes
 decl_stmt|;
 comment|/**    * Util to get at the cluster.    */
 specifier|private
@@ -709,6 +711,9 @@ argument_list|(
 name|SLEEP_TIME
 argument_list|,
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Set up the action that will kill the region holding meta.
@@ -733,6 +738,9 @@ argument_list|(
 name|SLEEP_TIME
 argument_list|,
 name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Kill the master
@@ -800,6 +808,10 @@ block|{
 comment|// Get the table name.
 name|tableName
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|util
 operator|.
 name|getConfiguration
@@ -811,18 +823,14 @@ literal|"hbase.IntegrationTestMTTR.tableName"
 argument_list|,
 literal|"IntegrationTestMTTR"
 argument_list|)
-expr_stmt|;
-name|tableNameBytes
-operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|tableName
 argument_list|)
 expr_stmt|;
 name|loadTableName
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|util
 operator|.
 name|getConfiguration
@@ -834,14 +842,6 @@ literal|"hbase.IntegrationTestMTTR.loadTableName"
 argument_list|,
 literal|"IntegrationTestMTTRLoadTestTool"
 argument_list|)
-expr_stmt|;
-name|loadTableNameBytes
-operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|loadTableName
 argument_list|)
 expr_stmt|;
 if|if
@@ -853,7 +853,7 @@ argument_list|()
 operator|.
 name|tableExists
 argument_list|(
-name|tableNameBytes
+name|tableName
 argument_list|)
 condition|)
 block|{
@@ -861,7 +861,7 @@ name|util
 operator|.
 name|deleteTable
 argument_list|(
-name|tableNameBytes
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -874,7 +874,7 @@ argument_list|()
 operator|.
 name|tableExists
 argument_list|(
-name|loadTableNameBytes
+name|loadTableName
 argument_list|)
 condition|)
 block|{
@@ -882,7 +882,7 @@ name|util
 operator|.
 name|deleteTable
 argument_list|(
-name|loadTableNameBytes
+name|loadTableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -893,7 +893,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|tableNameBytes
+name|tableName
 argument_list|)
 decl_stmt|;
 comment|// Make the max file size huge so that splits don't happen during the test.
@@ -954,6 +954,9 @@ block|{
 literal|"-tn"
 block|,
 name|loadTableName
+operator|.
+name|getNameAsString
+argument_list|()
 block|,
 literal|"-init_only"
 block|}
@@ -1905,7 +1908,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableNameBytes
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2029,7 +2032,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|tableNameBytes
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2361,6 +2364,9 @@ block|{
 literal|"-tn"
 block|,
 name|loadTableName
+operator|.
+name|getNameAsString
+argument_list|()
 block|,
 literal|"-write"
 block|,

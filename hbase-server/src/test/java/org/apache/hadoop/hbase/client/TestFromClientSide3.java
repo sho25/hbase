@@ -143,6 +143,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -863,13 +877,12 @@ name|tableName
 init|=
 literal|"testAdvancedConfigOverride"
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|TABLE
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
@@ -1010,6 +1023,9 @@ operator|.
 name|compact
 argument_list|(
 name|TABLE
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// poll wait for the compactions to happen
@@ -1251,6 +1267,9 @@ operator|.
 name|compact
 argument_list|(
 name|TABLE
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// This time, the compaction request should not happen
@@ -1428,6 +1447,9 @@ operator|.
 name|compact
 argument_list|(
 name|TABLE
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// poll wait for the compactions to happen
@@ -2541,11 +2563,16 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"test"
+argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;

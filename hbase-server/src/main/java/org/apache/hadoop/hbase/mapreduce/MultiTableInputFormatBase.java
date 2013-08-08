@@ -872,7 +872,10 @@ init|=
 operator|new
 name|TableSplit
 argument_list|(
-name|tableName
+name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|scan
 argument_list|,

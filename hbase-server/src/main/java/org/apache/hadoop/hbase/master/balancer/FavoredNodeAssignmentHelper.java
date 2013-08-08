@@ -185,6 +185,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -657,7 +671,7 @@ parameter_list|,
 specifier|final
 name|Set
 argument_list|<
-name|String
+name|TableName
 argument_list|>
 name|disabledTables
 parameter_list|,
@@ -778,7 +792,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 operator|==
 literal|null
@@ -794,7 +808,7 @@ name|contains
 argument_list|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 condition|)

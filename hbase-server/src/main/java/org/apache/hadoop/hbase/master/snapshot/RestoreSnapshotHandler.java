@@ -131,6 +131,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -439,7 +453,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|FSUtils
 import|;
 end_import
 
@@ -537,7 +551,7 @@ name|C_M_RESTORE_SNAPSHOT
 argument_list|,
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|masterServices
@@ -600,7 +614,7 @@ literal|"' to table "
 operator|+
 name|hTableDescriptor
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -670,26 +684,13 @@ operator|.
 name|getRootDir
 argument_list|()
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
 name|hTableDescriptor
 operator|.
-name|getName
+name|getTableName
 argument_list|()
-decl_stmt|;
-name|Path
-name|tableDir
-init|=
-name|HTableDescriptor
-operator|.
-name|getTableDir
-argument_list|(
-name|rootDir
-argument_list|,
-name|tableName
-argument_list|)
 decl_stmt|;
 try|try
 block|{
@@ -752,7 +753,7 @@ name|snapshotDir
 argument_list|,
 name|hTableDescriptor
 argument_list|,
-name|tableDir
+name|rootDir
 argument_list|,
 name|monitor
 argument_list|,
@@ -854,12 +855,7 @@ argument_list|)
 operator|+
 literal|" on table="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|" completed!"
 argument_list|)

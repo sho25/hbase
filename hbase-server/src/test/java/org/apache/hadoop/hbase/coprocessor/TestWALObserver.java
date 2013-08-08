@@ -1446,13 +1446,12 @@ name|Exception
 block|{
 comment|// WAL replay is handled at HRegion::replayRecoveredEdits(), which is
 comment|// ultimately called by HRegion::initialize()
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testWALCoprocessorReplay"
 argument_list|)
@@ -1463,12 +1462,7 @@ name|htd
 init|=
 name|getBasic3FamilyHTableDescriptor
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// final HRegionInfo hri =
@@ -1493,19 +1487,15 @@ specifier|final
 name|Path
 name|basedir
 init|=
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getTableDir
 argument_list|(
 name|this
 operator|.
 name|hbaseRootDir
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|deleteDir
@@ -1902,7 +1892,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -1948,7 +1943,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -2258,8 +2253,7 @@ name|void
 name|addWALEdits
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -2409,7 +2403,7 @@ name|HTableDescriptor
 name|getBasic3FamilyHTableDescriptor
 parameter_list|(
 specifier|final
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -2478,7 +2472,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor

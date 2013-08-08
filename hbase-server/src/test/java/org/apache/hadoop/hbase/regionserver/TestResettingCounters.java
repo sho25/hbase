@@ -380,7 +380,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -410,7 +415,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null

@@ -43,6 +43,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown when a table exists but should not  */
 end_comment
@@ -94,6 +108,22 @@ block|{
 name|super
 argument_list|(
 name|s
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|TableExistsException
+parameter_list|(
+name|TableName
+name|t
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|t
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

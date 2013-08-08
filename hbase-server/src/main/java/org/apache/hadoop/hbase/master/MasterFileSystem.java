@@ -241,6 +241,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -2707,8 +2721,7 @@ specifier|public
 name|void
 name|deleteTable
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -2718,49 +2731,54 @@ name|fs
 operator|.
 name|delete
 argument_list|(
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getTableDir
 argument_list|(
 name|rootdir
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Move the specified file/directory to the hbase temp directory.    * @param path The path of the file/directory to move    * @return The temp location of the file/directory moved    * @throws IOException in case of file-system failure    */
+comment|/**    * Move the specified table to the hbase temp directory    * @param tableName Table name to move    * @return The temp location of the table moved    * @throws IOException in case of file-system failure    */
 specifier|public
 name|Path
-name|moveToTemp
+name|moveTableToTemp
 parameter_list|(
-specifier|final
-name|Path
-name|path
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|Path
+name|srcPath
+init|=
+name|FSUtils
+operator|.
+name|getTableDir
+argument_list|(
+name|rootdir
+argument_list|,
+name|tableName
+argument_list|)
+decl_stmt|;
+name|Path
 name|tempPath
 init|=
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getTableDir
 argument_list|(
 name|this
 operator|.
 name|tempdir
 argument_list|,
-name|path
-operator|.
-name|getName
-argument_list|()
+name|tableName
 argument_list|)
 decl_stmt|;
 comment|// Ensure temp exists
@@ -2771,7 +2789,10 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|tempdir
+name|tempPath
+operator|.
+name|getParent
+argument_list|()
 argument_list|)
 operator|&&
 operator|!
@@ -2779,7 +2800,10 @@ name|fs
 operator|.
 name|mkdirs
 argument_list|(
-name|tempdir
+name|tempPath
+operator|.
+name|getParent
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -2789,7 +2813,10 @@ name|IOException
 argument_list|(
 literal|"HBase temp directory '"
 operator|+
-name|tempdir
+name|tempPath
+operator|.
+name|getParent
+argument_list|()
 operator|+
 literal|"' creation failure."
 argument_list|)
@@ -2802,7 +2829,7 @@ name|fs
 operator|.
 name|rename
 argument_list|(
-name|path
+name|srcPath
 argument_list|,
 name|tempPath
 argument_list|)
@@ -2814,7 +2841,7 @@ name|IOException
 argument_list|(
 literal|"Unable to move '"
 operator|+
-name|path
+name|srcPath
 operator|+
 literal|"' to temp '"
 operator|+
@@ -2826,34 +2853,6 @@ throw|;
 block|}
 return|return
 name|tempPath
-return|;
-block|}
-comment|/**    * Move the specified table to the hbase temp directory    * @param tableName Table name to move    * @return The temp location of the table moved    * @throws IOException in case of file-system failure    */
-specifier|public
-name|Path
-name|moveTableToTemp
-parameter_list|(
-name|byte
-index|[]
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|moveToTemp
-argument_list|(
-name|HTableDescriptor
-operator|.
-name|getTableDir
-argument_list|(
-name|this
-operator|.
-name|rootdir
-argument_list|,
-name|tableName
-argument_list|)
-argument_list|)
 return|;
 block|}
 specifier|public
@@ -2886,14 +2885,15 @@ comment|// archive family store files
 name|Path
 name|tableDir
 init|=
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getTableDir
 argument_list|(
 name|rootdir
 argument_list|,
 name|region
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -3010,8 +3010,7 @@ specifier|public
 name|HTableDescriptor
 name|deleteColumn
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -3027,12 +3026,7 @@ name|info
 argument_list|(
 literal|"DeleteColumn. Table = "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|" family = "
 operator|+
@@ -3087,8 +3081,7 @@ specifier|public
 name|HTableDescriptor
 name|modifyColumn
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
@@ -3103,12 +3096,7 @@ name|info
 argument_list|(
 literal|"AddModifyColumn. Table = "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|" HCD = "
 operator|+
@@ -3198,8 +3186,7 @@ specifier|public
 name|HTableDescriptor
 name|addColumn
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
@@ -3214,12 +3201,7 @@ name|info
 argument_list|(
 literal|"AddColumn. Table = "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|" HCD = "
 operator|+

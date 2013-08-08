@@ -275,7 +275,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"TestMultipleColumnPrefixFilter"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -310,7 +315,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -747,7 +752,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"TestMultipleColumnPrefixFilter"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -804,7 +814,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -1270,7 +1280,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"TestMultipleColumnPrefixFilter"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -1292,7 +1307,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null

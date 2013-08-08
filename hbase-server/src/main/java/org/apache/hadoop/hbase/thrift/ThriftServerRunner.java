@@ -421,6 +421,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -3559,6 +3573,9 @@ index|[
 name|i
 index|]
 operator|.
+name|getTableName
+argument_list|()
+operator|.
 name|getName
 argument_list|()
 argument_list|)
@@ -5753,7 +5770,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -8821,9 +8843,12 @@ name|table
 init|=
 name|getTable
 argument_list|(
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|byte
@@ -8860,7 +8885,13 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot find row in .META., row="
+literal|"Cannot find row in "
+operator|+
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|+
+literal|", row="
 operator|+
 name|Bytes
 operator|.

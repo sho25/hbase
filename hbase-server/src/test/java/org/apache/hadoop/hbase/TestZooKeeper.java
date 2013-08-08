@@ -1376,7 +1376,7 @@ name|tableName
 init|=
 name|testName
 operator|+
-literal|"."
+literal|"_"
 operator|+
 name|System
 operator|.
@@ -1389,7 +1389,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -1557,7 +1562,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -1593,7 +1598,7 @@ name|HTable
 argument_list|(
 name|otherConf
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -2765,7 +2770,12 @@ argument_list|(
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 argument_list|,
 name|SPLIT_KEYS
@@ -2972,7 +2982,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor

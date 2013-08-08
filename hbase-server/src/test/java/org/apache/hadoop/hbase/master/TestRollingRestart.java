@@ -562,7 +562,7 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Verifying only catalog regions are assigned\n"
+literal|"Verifying only catalog and namespace regions are assigned\n"
 argument_list|)
 expr_stmt|;
 if|if
@@ -572,7 +572,7 @@ operator|.
 name|size
 argument_list|()
 operator|!=
-literal|1
+literal|2
 condition|)
 block|{
 for|for
@@ -592,7 +592,7 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|regions
 operator|.

@@ -179,6 +179,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -682,15 +696,15 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as {@link #appendNoSync(HRegionInfo, byte[], WALEdit, UUID, long, HTableDescriptor)},    * except it causes a sync on the log    */
+comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, UUID, long, HTableDescriptor)},    * except it causes a sync on the log    */
+specifier|public
 name|void
 name|append
 parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|WALEdit
@@ -707,14 +721,14 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
+specifier|public
 name|void
 name|append
 parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|WALEdit
@@ -734,14 +748,14 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+specifier|public
 name|long
 name|appendNoSync
 parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|WALEdit
@@ -792,7 +806,7 @@ name|long
 name|obtainSeqNum
 parameter_list|()
 function_decl|;
-comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, byte[], WALEdit, long, HTableDescriptor)}    * as new oldest seqnum. In case of flush being aborted, we put the stashed value back;    * in case of flush succeeding, the seqNum of that first edit after start becomes the    * valid oldest seqNum for this region.    *    * @return current seqNum, to pass on to flushers (who will put it into the metadata of    *         the resulting file as an upper-bound seqNum for that file), or NULL if flush    *         should not be started.    */
+comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, TableName, WALEdit, long, HTableDescriptor)}    * as new oldest seqnum. In case of flush being aborted, we put the stashed value back;    * in case of flush succeeding, the seqNum of that first edit after start becomes the    * valid oldest seqNum for this region.    *    * @return current seqNum, to pass on to flushers (who will put it into the metadata of    *         the resulting file as an upper-bound seqNum for that file), or NULL if flush    *         should not be started.    */
 name|Long
 name|startCacheFlush
 parameter_list|(

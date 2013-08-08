@@ -69,6 +69,48 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionLocation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -352,8 +394,7 @@ name|hConnection
 decl_stmt|;
 specifier|protected
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|protected
@@ -691,8 +732,7 @@ parameter_list|(
 name|HConnection
 name|hc
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|ExecutorService
@@ -1288,12 +1328,7 @@ literal|"No location found, aborting submit for"
 operator|+
 literal|" tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|" rowkey="
 operator|+
@@ -2397,12 +2432,7 @@ argument_list|()
 operator|+
 literal|" NOT resubmitting, tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", location="
 operator|+
@@ -2494,12 +2524,7 @@ literal|" , trying to resubmit,"
 operator|+
 literal|" tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", location="
 operator|+
@@ -2886,12 +2911,7 @@ argument_list|()
 operator|+
 literal|", tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", location="
 operator|+
@@ -2938,12 +2958,7 @@ argument_list|()
 operator|+
 literal|" operations,  tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", location="
 operator|+
@@ -3010,12 +3025,7 @@ literal|" NOT resubmitting."
 operator|+
 literal|", tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", location="
 operator|+
@@ -3083,12 +3093,7 @@ name|currentNumberOfTask
 operator|+
 literal|",  tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", tasksDone="
 operator|+
@@ -3193,12 +3198,7 @@ name|currentTasksDone
 operator|+
 literal|", tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

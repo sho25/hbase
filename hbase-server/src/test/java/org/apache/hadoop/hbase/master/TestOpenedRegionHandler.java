@@ -711,7 +711,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testShouldNotCompeleteOpenedRegionSuccessfullyIfVersionMismatches"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HRegionInfo
@@ -722,7 +727,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes

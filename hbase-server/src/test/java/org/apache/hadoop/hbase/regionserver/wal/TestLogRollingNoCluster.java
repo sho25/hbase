@@ -680,7 +680,7 @@ name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|edit

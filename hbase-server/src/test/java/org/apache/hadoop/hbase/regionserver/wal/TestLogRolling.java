@@ -355,6 +355,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Get
@@ -1371,7 +1385,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -2120,7 +2134,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc
@@ -2688,7 +2707,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -2726,7 +2745,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc
@@ -3619,7 +3643,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -3693,7 +3717,7 @@ name|getOnlineRegions
 argument_list|(
 name|table2
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 operator|.
@@ -3714,6 +3738,19 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
+comment|//have to flush namespace to ensure it doesn't affect wall tests
+name|admin
+operator|.
+name|flush
+argument_list|(
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Put some stuff into table2, to make sure we have some files to compact.
 for|for
 control|(
@@ -4010,7 +4047,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc

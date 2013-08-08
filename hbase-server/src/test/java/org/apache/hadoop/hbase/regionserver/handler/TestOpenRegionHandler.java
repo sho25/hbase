@@ -382,7 +382,12 @@ operator|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"TestOpenRegionHandler.java"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -421,7 +426,7 @@ name|HRegionInfo
 argument_list|(
 name|TEST_HTD
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes

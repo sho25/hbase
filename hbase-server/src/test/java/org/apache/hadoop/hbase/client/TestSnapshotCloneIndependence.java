@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -916,12 +930,17 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 specifier|final
-name|String
-name|localTableNameAsString
+name|TableName
+name|localTableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|STRING_TABLE_NAME
 operator|+
 name|startTime
+argument_list|)
 decl_stmt|;
 name|HTable
 name|original
@@ -930,12 +949,7 @@ name|UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|localTableNameAsString
-argument_list|)
+name|localTableName
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -969,7 +983,7 @@ name|snapshotNameAsString
 init|=
 literal|"snapshot_"
 operator|+
-name|localTableNameAsString
+name|localTableName
 decl_stmt|;
 name|byte
 index|[]
@@ -988,7 +1002,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|localTableNameAsString
+name|localTableName
 argument_list|,
 name|TEST_FAM_STR
 argument_list|,
@@ -1011,7 +1025,7 @@ name|admin
 operator|.
 name|enableTable
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1025,7 +1039,7 @@ name|toBytes
 argument_list|(
 literal|"test-clone-"
 operator|+
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 decl_stmt|;
 name|admin
@@ -1335,12 +1349,17 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 specifier|final
-name|String
-name|localTableNameAsString
+name|TableName
+name|localTableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|STRING_TABLE_NAME
 operator|+
 name|startTime
+argument_list|)
 decl_stmt|;
 name|HTable
 name|original
@@ -1349,12 +1368,7 @@ name|UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|localTableNameAsString
-argument_list|)
+name|localTableName
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -1398,7 +1412,7 @@ name|snapshotNameAsString
 init|=
 literal|"snapshot_"
 operator|+
-name|localTableNameAsString
+name|localTableName
 decl_stmt|;
 comment|// Create a snapshot
 name|SnapshotTestingUtils
@@ -1407,7 +1421,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|localTableNameAsString
+name|localTableName
 argument_list|,
 name|TEST_FAM_STR
 argument_list|,
@@ -1430,7 +1444,7 @@ name|admin
 operator|.
 name|enableTable
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1444,7 +1458,7 @@ name|toBytes
 argument_list|(
 literal|"test-clone-"
 operator|+
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 decl_stmt|;
 comment|// Clone the snapshot
@@ -1484,12 +1498,7 @@ name|admin
 operator|.
 name|getTableRegions
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|localTableNameAsString
-argument_list|)
+name|localTableName
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1640,12 +1649,17 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 specifier|final
-name|String
-name|localTableNameAsString
+name|TableName
+name|localTableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|STRING_TABLE_NAME
 operator|+
 name|startTime
+argument_list|)
 decl_stmt|;
 name|HTable
 name|original
@@ -1654,12 +1668,7 @@ name|UTIL
 operator|.
 name|createTable
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|localTableNameAsString
-argument_list|)
+name|localTableName
 argument_list|,
 name|TEST_FAM
 argument_list|)
@@ -1679,7 +1688,7 @@ name|snapshotNameAsString
 init|=
 literal|"snapshot_"
 operator|+
-name|localTableNameAsString
+name|localTableName
 decl_stmt|;
 comment|// Create a snapshot
 name|SnapshotTestingUtils
@@ -1688,7 +1697,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|localTableNameAsString
+name|localTableName
 argument_list|,
 name|TEST_FAM_STR
 argument_list|,
@@ -1711,7 +1720,7 @@ name|admin
 operator|.
 name|enableTable
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1725,7 +1734,7 @@ name|toBytes
 argument_list|(
 literal|"test-clone-"
 operator|+
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 decl_stmt|;
 comment|// Clone the snapshot
@@ -1774,14 +1783,14 @@ name|admin
 operator|.
 name|disableTable
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 expr_stmt|;
 name|admin
 operator|.
 name|addColumn
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|,
 name|hcd
 argument_list|)
@@ -1791,7 +1800,7 @@ name|admin
 operator|.
 name|enableTable
 argument_list|(
-name|localTableNameAsString
+name|localTableName
 argument_list|)
 expr_stmt|;
 comment|// get a description of the cloned table

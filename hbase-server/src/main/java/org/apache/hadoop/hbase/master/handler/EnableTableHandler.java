@@ -113,6 +113,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -395,22 +409,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Pair
 import|;
 end_import
@@ -471,14 +469,8 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
-decl_stmt|;
-specifier|private
-specifier|final
-name|String
-name|tableNameStr
 decl_stmt|;
 specifier|private
 specifier|final
@@ -511,8 +503,7 @@ parameter_list|(
 name|Server
 name|server
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|CatalogTracker
@@ -542,17 +533,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-expr_stmt|;
-name|this
-operator|.
-name|tableNameStr
-operator|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -635,9 +615,7 @@ name|tableExists
 argument_list|(
 name|catalogTracker
 argument_list|,
-name|this
-operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 condition|)
 block|{
@@ -654,7 +632,7 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-name|tableNameStr
+name|tableName
 argument_list|)
 throw|;
 block|}
@@ -669,7 +647,7 @@ argument_list|()
 operator|.
 name|removeEnablingTable
 argument_list|(
-name|tableNameStr
+name|tableName
 argument_list|,
 literal|true
 argument_list|)
@@ -688,7 +666,7 @@ name|warn
 argument_list|(
 literal|"Failed to delete the ENABLING node for the table "
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|".  The table will remain unusable. Run HBCK to manually fix the problem."
 argument_list|)
@@ -721,7 +699,7 @@ name|checkDisabledAndSetEnablingTable
 argument_list|(
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 condition|)
 block|{
@@ -731,7 +709,7 @@ name|info
 argument_list|(
 literal|"Table "
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|" isn't disabled; skipping enable"
 argument_list|)
@@ -742,7 +720,7 @@ name|TableNotDisabledException
 argument_list|(
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 throw|;
 block|}
@@ -843,7 +821,7 @@ argument_list|()
 operator|+
 literal|"-"
 operator|+
-name|tableNameStr
+name|tableName
 return|;
 block|}
 annotation|@
@@ -863,7 +841,7 @@ literal|"Attempting to enable the table "
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 name|MasterCoprocessorHost
@@ -933,7 +911,7 @@ literal|"Error trying to enable the table "
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|,
 name|e
 argument_list|)
@@ -953,7 +931,7 @@ literal|"Error trying to enable the table "
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|,
 name|e
 argument_list|)
@@ -973,7 +951,7 @@ literal|"Error trying to enable the table "
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|,
 name|e
 argument_list|)
@@ -1053,7 +1031,7 @@ name|setEnablingTable
 argument_list|(
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -1134,7 +1112,7 @@ literal|"Table '"
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 operator|+
 literal|"' has "
 operator|+
@@ -1196,7 +1174,7 @@ literal|"Enable operation was interrupted when enabling table '"
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 operator|+
 literal|"'"
 argument_list|)
@@ -1228,7 +1206,7 @@ name|setEnabledTable
 argument_list|(
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1239,7 +1217,7 @@ literal|"Table '"
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 operator|+
 literal|"' was successfully enabled. Status: done="
 operator|+
@@ -1257,7 +1235,7 @@ literal|"Table '"
 operator|+
 name|this
 operator|.
-name|tableNameStr
+name|tableName
 operator|+
 literal|"' wasn't successfully enabled. Status: done="
 operator|+
@@ -1446,7 +1424,7 @@ literal|" during enable table "
 operator|+
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" because its already in tranition or assigned."

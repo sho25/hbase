@@ -80,25 +80,28 @@ specifier|public
 interface|interface
 name|TableDescriptors
 block|{
-comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
+comment|/**    * @param tableName    * @return HTableDescriptor for tablename    * @throws IOException    */
 name|HTableDescriptor
 name|get
 parameter_list|(
 specifier|final
-name|String
-name|tablename
+name|TableName
+name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tablename    * @return HTableDescriptor for tablename    * @throws IOException    */
+comment|/**    * Get Map of all NamespaceDescriptors for a given namespace.    * @return Map of all descriptors.    * @throws IOException    */
+name|Map
+argument_list|<
+name|String
+argument_list|,
 name|HTableDescriptor
-name|get
+argument_list|>
+name|getByNamespace
 parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|tablename
+name|String
+name|name
 parameter_list|)
 throws|throws
 name|IOException
@@ -131,7 +134,7 @@ name|HTableDescriptor
 name|remove
 parameter_list|(
 specifier|final
-name|String
+name|TableName
 name|tablename
 parameter_list|)
 throws|throws

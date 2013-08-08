@@ -127,6 +127,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -422,8 +436,7 @@ name|connection
 decl_stmt|;
 specifier|private
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
@@ -458,8 +471,7 @@ name|Scan
 name|scan
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -495,8 +507,7 @@ name|Scan
 name|scan
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|HConnection
@@ -536,8 +547,7 @@ name|Scan
 name|scan
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|HConnection
@@ -563,12 +573,7 @@ name|trace
 argument_list|(
 literal|"Scan table="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", startRow="
 operator|+
@@ -790,8 +795,7 @@ name|connection
 return|;
 block|}
 specifier|protected
-name|byte
-index|[]
+name|TableName
 name|getTableName
 parameter_list|()
 block|{

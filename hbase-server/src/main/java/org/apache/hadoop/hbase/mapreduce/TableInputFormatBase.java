@@ -766,7 +766,7 @@ name|TableSplit
 argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|,
 name|HConstants
@@ -1151,7 +1151,7 @@ name|TableSplit
 argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|,
 name|splitStart

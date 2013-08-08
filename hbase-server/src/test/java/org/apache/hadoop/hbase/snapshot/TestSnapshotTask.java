@@ -35,18 +35,6 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
-operator|.
-name|anyString
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
 name|Mockito
 operator|.
 name|mock
@@ -76,6 +64,20 @@ operator|.
 name|hbase
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -123,11 +125,7 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|HBaseProtos
-operator|.
-name|SnapshotDescription
+name|ProtobufUtil
 import|;
 end_import
 
@@ -141,9 +139,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|protobuf
 operator|.
-name|SnapshotTask
+name|generated
+operator|.
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
 import|;
 end_import
 

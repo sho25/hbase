@@ -801,12 +801,7 @@ name|TEST_UTIL
 operator|.
 name|createTestRegion
 argument_list|(
-name|TestSeekOptimizations
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
+literal|"testMultipleTimestampRanges"
 argument_list|,
 operator|new
 name|HColumnDescriptor

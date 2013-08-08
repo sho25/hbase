@@ -318,7 +318,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testwidescan"
+argument_list|)
 argument_list|)
 decl_stmt|;
 static|static

@@ -382,14 +382,10 @@ argument_list|()
 operator|+
 literal|" user Constraints on table: "
 operator|+
-operator|new
-name|String
-argument_list|(
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

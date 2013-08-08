@@ -436,6 +436,14 @@ specifier|public
 name|String
 name|recoveringRegionsZNode
 decl_stmt|;
+comment|// znode containing namespace descriptors
+specifier|public
+specifier|static
+name|String
+name|namespaceZNode
+init|=
+literal|"namespace"
+decl_stmt|;
 comment|// Certain ZooKeeper nodes need to be world-readable
 specifier|public
 specifier|static
@@ -1047,6 +1055,24 @@ argument_list|(
 literal|"zookeeper.znode.recovering.regions"
 argument_list|,
 literal|"recovering-regions"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|namespaceZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.namespace"
+argument_list|,
+literal|"namespace"
 argument_list|)
 argument_list|)
 expr_stmt|;

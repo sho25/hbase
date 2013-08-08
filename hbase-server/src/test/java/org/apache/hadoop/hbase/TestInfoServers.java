@@ -295,7 +295,9 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|".META."
+name|TableName
+operator|.
+name|META_TABLE_NAME
 argument_list|)
 operator|.
 name|close
@@ -392,7 +394,9 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|".META."
+name|TableName
+operator|.
+name|META_TABLE_NAME
 argument_list|)
 operator|.
 name|close

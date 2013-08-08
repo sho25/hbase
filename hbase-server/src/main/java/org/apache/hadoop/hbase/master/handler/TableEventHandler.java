@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -437,14 +451,8 @@ name|masterServices
 decl_stmt|;
 specifier|protected
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
-decl_stmt|;
-specifier|protected
-specifier|final
-name|String
-name|tableNameStr
 decl_stmt|;
 specifier|protected
 name|TableLock
@@ -462,8 +470,7 @@ parameter_list|(
 name|EventType
 name|eventType
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|Server
@@ -491,19 +498,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-expr_stmt|;
-name|this
-operator|.
-name|tableNameStr
-operator|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|this
-operator|.
-name|tableName
-argument_list|)
 expr_stmt|;
 block|}
 specifier|public
@@ -688,12 +682,7 @@ name|eventType
 operator|+
 literal|" on table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|List
@@ -740,12 +729,7 @@ argument_list|()
 operator|.
 name|isEnabledTable
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -767,12 +751,7 @@ name|eventType
 operator|+
 literal|" on table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -805,12 +784,7 @@ name|error
 argument_list|(
 literal|"Error manipulating table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -833,12 +807,7 @@ name|error
 argument_list|(
 literal|"Error manipulating table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1203,17 +1172,6 @@ name|FileNotFoundException
 throws|,
 name|IOException
 block|{
-specifier|final
-name|String
-name|name
-init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -1226,7 +1184,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-name|name
+name|tableName
 argument_list|)
 decl_stmt|;
 if|if
@@ -1242,7 +1200,7 @@ name|IOException
 argument_list|(
 literal|"HTableDescriptor missing for "
 operator|+
-name|name
+name|tableName
 argument_list|)
 throw|;
 block|}

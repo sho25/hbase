@@ -205,6 +205,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -652,7 +666,7 @@ parameter_list|,
 name|String
 name|snapshotName
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -707,10 +721,15 @@ name|tableName
 operator|.
 name|equals
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|sd
 operator|.
 name|getTable
 argument_list|()
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -765,10 +784,15 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|snapshot
 operator|.
 name|getTable
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -787,7 +811,7 @@ parameter_list|,
 name|String
 name|snapshotName
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -836,6 +860,10 @@ name|assertEquals
 argument_list|(
 name|tableName
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|snapshots
 operator|.
 name|get
@@ -845,6 +873,7 @@ argument_list|)
 operator|.
 name|getTable
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -867,8 +896,7 @@ name|byte
 index|[]
 name|snapshot
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -886,12 +914,7 @@ argument_list|(
 name|snapshot
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -904,8 +927,7 @@ parameter_list|(
 name|SnapshotDescription
 name|snapshotDescriptor
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|List
@@ -1038,8 +1060,7 @@ parameter_list|(
 name|SnapshotDescription
 name|snapshotDescriptor
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -1103,8 +1124,7 @@ parameter_list|(
 name|SnapshotDescription
 name|snapshotDescriptor
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -1225,12 +1245,7 @@ name|fs
 argument_list|,
 name|rootDir
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -1932,8 +1947,8 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|String
-name|tableNameString
+name|TableName
+name|tableName
 parameter_list|,
 name|String
 name|familyName
@@ -1957,7 +1972,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|,
 name|familyName
 argument_list|,
@@ -1982,8 +1997,8 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|String
-name|tableNameString
+name|TableName
+name|tableName
 parameter_list|,
 name|String
 name|familyName
@@ -2006,17 +2021,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|tableNameString
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -2029,7 +2033,7 @@ name|admin
 operator|.
 name|disableTable
 argument_list|(
-name|tableNameString
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2045,7 +2049,7 @@ name|info
 argument_list|(
 literal|"In attempting to disable "
 operator|+
-name|tableNameString
+name|tableName
 operator|+
 literal|" it turns out that this table is already disabled."
 argument_list|)
@@ -2058,7 +2062,7 @@ name|snapshot
 argument_list|(
 name|snapshotNameString
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|)
 expr_stmt|;
 name|List
@@ -2075,7 +2079,7 @@ name|admin
 argument_list|,
 name|snapshotNameString
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|)
 decl_stmt|;
 if|if
@@ -2098,12 +2102,7 @@ name|fail
 argument_list|(
 literal|"Incorrect number of snapshots for table "
 operator|+
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|tableNameString
-argument_list|)
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2159,8 +2158,8 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|String
-name|tableNameString
+name|TableName
+name|tableName
 parameter_list|,
 name|String
 name|familyName
@@ -2181,7 +2180,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|,
 name|familyName
 argument_list|,
@@ -2206,8 +2205,8 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|String
-name|tableNameString
+name|TableName
+name|tableName
 parameter_list|,
 name|String
 name|familyName
@@ -2231,7 +2230,7 @@ name|createSnapshotAndValidate
 argument_list|(
 name|admin
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|,
 name|familyName
 argument_list|,
@@ -2255,8 +2254,8 @@ parameter_list|(
 name|HBaseAdmin
 name|admin
 parameter_list|,
-name|String
-name|tableNameString
+name|TableName
+name|tableName
 parameter_list|,
 name|List
 argument_list|<
@@ -2284,24 +2283,13 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|tableNameString
-argument_list|)
-decl_stmt|;
 try|try
 block|{
 name|admin
 operator|.
 name|disableTable
 argument_list|(
-name|tableNameString
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2317,9 +2305,11 @@ name|info
 argument_list|(
 literal|"In attempting to disable "
 operator|+
-name|tableNameString
+name|tableName
 operator|+
-literal|" it turns out that the this table is already disabled."
+literal|" it turns out that the this table is "
+operator|+
+literal|"already disabled."
 argument_list|)
 expr_stmt|;
 block|}
@@ -2329,7 +2319,7 @@ name|snapshot
 argument_list|(
 name|snapshotNameString
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|)
 expr_stmt|;
 name|List
@@ -2346,7 +2336,7 @@ name|admin
 argument_list|,
 name|snapshotNameString
 argument_list|,
-name|tableNameString
+name|tableName
 argument_list|)
 decl_stmt|;
 comment|// Create test-timestamp-clone
@@ -2370,12 +2360,7 @@ name|fail
 argument_list|(
 literal|"Incorrect number of snapshots for table "
 operator|+
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|tableNameString
-argument_list|)
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2431,8 +2416,7 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -2498,8 +2482,7 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -2652,8 +2635,7 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|int
@@ -2888,7 +2870,7 @@ name|util
 argument_list|,
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3088,8 +3070,7 @@ name|HBaseTestingUtility
 name|util
 parameter_list|,
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|long

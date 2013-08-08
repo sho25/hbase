@@ -351,13 +351,12 @@ comment|/**    * Creating the test infrastructure.    */
 specifier|private
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TEST_TABLE
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"TestTable"
 argument_list|)

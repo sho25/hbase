@@ -199,6 +199,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -330,6 +344,22 @@ operator|.
 name|snapshot
 operator|.
 name|SnapshotManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -759,14 +789,6 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|String
-name|STRING_TABLE_NAME
-init|=
-literal|"test"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
 name|byte
 index|[]
 name|TEST_FAM
@@ -781,15 +803,14 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
-name|STRING_TABLE_NAME
+literal|"test"
 argument_list|)
 decl_stmt|;
 comment|// refresh the cache every 1/2 second
@@ -1027,7 +1048,7 @@ argument_list|()
 operator|.
 name|setSnapshotHandlerForTesting
 argument_list|(
-name|STRING_TABLE_NAME
+name|TABLE_NAME
 argument_list|,
 literal|null
 argument_list|)
@@ -1157,7 +1178,10 @@ argument_list|)
 operator|.
 name|setTable
 argument_list|(
-name|STRING_TABLE_NAME
+name|TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 operator|.
 name|build
@@ -1273,7 +1297,7 @@ argument_list|()
 operator|.
 name|setSnapshotHandlerForTesting
 argument_list|(
-name|STRING_TABLE_NAME
+name|TABLE_NAME
 argument_list|,
 name|mockHandler
 argument_list|)
@@ -2094,7 +2118,7 @@ name|rootDir
 argument_list|,
 name|fs
 argument_list|,
-name|STRING_TABLE_NAME
+name|TABLE_NAME
 argument_list|)
 decl_stmt|;
 comment|// and make sure that there is a proper subset
@@ -2239,7 +2263,7 @@ name|rootDir
 argument_list|,
 name|fs
 argument_list|,
-name|STRING_TABLE_NAME
+name|TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2273,7 +2297,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|String
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -2282,8 +2306,9 @@ block|{
 name|Path
 name|tableArchive
 init|=
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getTableDir
 argument_list|(
 name|archiveDir
 argument_list|,

@@ -257,11 +257,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheConfig
+name|TableName
 import|;
 end_import
 
@@ -279,7 +275,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFile
+name|CacheConfig
 import|;
 end_import
 
@@ -2335,7 +2331,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"table"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -2362,7 +2363,7 @@ name|HRegionInfo
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|STARTROW

@@ -1151,13 +1151,12 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
-name|byte
-index|[]
+name|TableName
 name|TABLE_NAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"tabletest"
 argument_list|)
@@ -1573,6 +1572,9 @@ operator|.
 name|majorCompact
 argument_list|(
 name|TABLE_NAME
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1802,6 +1804,9 @@ operator|.
 name|majorCompact
 argument_list|(
 name|TABLE_NAME
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|startWaitTime

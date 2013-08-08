@@ -555,9 +555,9 @@ name|assertEquals
 argument_list|(
 literal|"The number of regions for the table tableRestart should be 0 and only"
 operator|+
-literal|"the catalog tables should be present."
+literal|"the catalog and namespace tables should be present."
 argument_list|,
-literal|1
+literal|2
 argument_list|,
 name|regions
 operator|.
@@ -660,7 +660,12 @@ argument_list|()
 operator|.
 name|isDisablingOrDisabledTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"tableRestart"
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -724,9 +729,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"The assigned regions were not onlined after master switch except for the catalog tables."
+literal|"The assigned regions were not onlined after master switch except for the catalog and namespace tables."
 argument_list|,
-literal|5
+literal|6
 argument_list|,
 name|regions
 operator|.
@@ -751,7 +756,12 @@ argument_list|()
 operator|.
 name|isEnabledTable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"tableRestart"
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

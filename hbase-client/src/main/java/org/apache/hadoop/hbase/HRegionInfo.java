@@ -734,15 +734,8 @@ literal|null
 decl_stmt|;
 comment|// Current TableName
 specifier|private
-name|byte
-index|[]
+name|TableName
 name|tableName
-init|=
-literal|null
-decl_stmt|;
-specifier|private
-name|String
-name|tableNameAsString
 init|=
 literal|null
 decl_stmt|;
@@ -758,12 +751,9 @@ name|HRegionInfo
 argument_list|(
 literal|0L
 argument_list|,
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
-argument_list|(
-literal|"-ROOT-"
-argument_list|)
+name|ROOT_TABLE_NAME
 argument_list|)
 decl_stmt|;
 comment|/** HRegionInfo for first meta region */
@@ -778,12 +768,9 @@ name|HRegionInfo
 argument_list|(
 literal|1L
 argument_list|,
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
-argument_list|(
-literal|".META."
-argument_list|)
+name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -854,6 +841,9 @@ argument_list|(
 name|this
 operator|.
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -870,8 +860,7 @@ parameter_list|(
 name|long
 name|regionId
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -889,9 +878,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-operator|.
-name|clone
-argument_list|()
 expr_stmt|;
 comment|// Note: First Meta regions names are still in old format
 name|this
@@ -941,8 +927,7 @@ specifier|public
 name|HRegionInfo
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 block|{
@@ -961,8 +946,7 @@ specifier|public
 name|HRegionInfo
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -995,8 +979,7 @@ specifier|public
 name|HRegionInfo
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -1038,8 +1021,7 @@ specifier|public
 name|HRegionInfo
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -1077,7 +1059,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"tableName cannot be null"
+literal|"TableName cannot be null"
 argument_list|)
 throw|;
 block|}
@@ -1086,9 +1068,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-operator|.
-name|clone
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1177,9 +1156,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-operator|.
-name|clone
-argument_list|()
 expr_stmt|;
 name|setHashCode
 argument_list|()
@@ -1298,8 +1274,7 @@ index|[]
 name|createRegionName
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -1341,8 +1316,7 @@ index|[]
 name|createRegionName
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -1384,8 +1358,7 @@ index|[]
 name|createRegionName
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -1410,6 +1383,9 @@ operator|new
 name|byte
 index|[
 name|tableName
+operator|.
+name|getName
+argument_list|()
 operator|.
 name|length
 operator|+
@@ -1449,6 +1425,9 @@ name|offset
 init|=
 name|tableName
 operator|.
+name|getName
+argument_list|()
+operator|.
 name|length
 decl_stmt|;
 name|System
@@ -1456,6 +1435,9 @@ operator|.
 name|arraycopy
 argument_list|(
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|0
 argument_list|,
@@ -1652,8 +1634,7 @@ block|}
 comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    */
 specifier|public
 specifier|static
-name|byte
-index|[]
+name|TableName
 name|getTableName
 parameter_list|(
 name|byte
@@ -1705,7 +1686,7 @@ block|}
 block|}
 name|byte
 index|[]
-name|tableName
+name|buff
 init|=
 operator|new
 name|byte
@@ -1721,7 +1702,7 @@ name|regionName
 argument_list|,
 literal|0
 argument_list|,
-name|tableName
+name|buff
 argument_list|,
 literal|0
 argument_list|,
@@ -1729,7 +1710,12 @@ name|offset
 argument_list|)
 expr_stmt|;
 return|return
-name|tableName
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|buff
+argument_list|)
 return|;
 block|}
 comment|/**    * Gets the start key from the specified region name.    * @param regionName    * @return Start key.    */
@@ -2199,8 +2185,7 @@ return|;
 block|}
 comment|/**    * Get current table name of the region    * @return byte array of table name    */
 specifier|public
-name|byte
-index|[]
+name|TableName
 name|getTableName
 parameter_list|()
 block|{
@@ -2211,6 +2196,9 @@ operator|==
 literal|null
 operator|||
 name|tableName
+operator|.
+name|getName
+argument_list|()
 operator|.
 name|length
 operator|==
@@ -2228,33 +2216,6 @@ expr_stmt|;
 block|}
 return|return
 name|tableName
-return|;
-block|}
-comment|/**    * Get current table name as string    * @return string representation of current table    */
-specifier|public
-name|String
-name|getTableNameAsString
-parameter_list|()
-block|{
-if|if
-condition|(
-name|tableNameAsString
-operator|==
-literal|null
-condition|)
-block|{
-name|tableNameAsString
-operator|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|tableNameAsString
 return|;
 block|}
 comment|/**    * Returns true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie end< start)    */
@@ -2419,12 +2380,10 @@ name|isMetaRegion
 parameter_list|()
 block|{
 return|return
-name|Bytes
+name|tableName
 operator|.
 name|equals
 argument_list|(
-name|tableName
-argument_list|,
 name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
@@ -2761,6 +2720,9 @@ argument_list|(
 name|out
 argument_list|,
 name|tableName
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|out
@@ -2899,7 +2861,7 @@ name|tableName
 operator|=
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 expr_stmt|;
 block|}
@@ -3015,11 +2977,16 @@ name|this
 operator|.
 name|tableName
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|Bytes
 operator|.
 name|readByteArray
 argument_list|(
 name|in
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -3147,14 +3114,12 @@ comment|// Are regions of same table?
 name|int
 name|result
 init|=
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
 name|this
 operator|.
 name|tableName
-argument_list|,
+operator|.
+name|compareTo
+argument_list|(
 name|o
 operator|.
 name|tableName
@@ -3406,9 +3371,9 @@ name|builder
 operator|.
 name|setTableName
 argument_list|(
-name|ByteString
+name|ProtobufUtil
 operator|.
-name|copyFrom
+name|toProtoTableName
 argument_list|(
 name|info
 operator|.
@@ -3506,7 +3471,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Convert a RegionInfo to a HRegionInfo    *    * @param proto the RegionInfo to convert    * @return the converted HRegionInfo    */
+comment|/**    * Convert a RegionInfo to a HRegionInfo    *    * @param proto the RegionInfo to convert    * @return the converted HRegionInfho    */
 specifier|public
 specifier|static
 name|HRegionInfo
@@ -3526,27 +3491,26 @@ condition|)
 return|return
 literal|null
 return|;
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
+name|ProtobufUtil
+operator|.
+name|toTableName
+argument_list|(
 name|proto
 operator|.
 name|getTableName
 argument_list|()
-operator|.
-name|toByteArray
-argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|Bytes
+name|tableName
 operator|.
 name|equals
 argument_list|(
-name|tableName
-argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)

@@ -293,7 +293,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableNameAsString
+name|getTableName
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 decl_stmt|;
 if|if
@@ -411,13 +414,12 @@ comment|// hosts the region we attempted to write to) to abort. In turn, this wi
 comment|// cause the nodeDeleted() method of the DeadRegionServer tracker to
 comment|// execute, which will set the rsZKNodeDeleted flag to true, which will
 comment|// pass this test.
-name|byte
-index|[]
+name|TableName
 name|TEST_TABLE
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"observed_table"
 argument_list|)

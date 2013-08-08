@@ -572,7 +572,7 @@ name|this
 operator|.
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|,
 name|startKeys

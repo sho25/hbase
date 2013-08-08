@@ -119,6 +119,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -372,8 +386,7 @@ decl_stmt|;
 specifier|public
 name|DeleteTableHandler
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|Server
@@ -747,12 +760,7 @@ name|debug
 argument_list|(
 literal|"Table '"
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|"' archived!"
 argument_list|)
@@ -760,16 +768,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|String
-name|tableNameStr
-init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
 comment|// 6. Update table descriptor cache
 name|LOG
 operator|.
@@ -777,7 +775,7 @@ name|debug
 argument_list|(
 literal|"Removing '"
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|"' descriptor."
 argument_list|)
@@ -791,12 +789,7 @@ argument_list|()
 operator|.
 name|remove
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// 7. If entry for this table in zk, and up in AssignmentManager, remove it.
@@ -806,7 +799,7 @@ name|debug
 argument_list|(
 literal|"Marking '"
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|"' as deleted."
 argument_list|)
@@ -818,7 +811,7 @@ argument_list|()
 operator|.
 name|setDeletedTable
 argument_list|(
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -938,7 +931,7 @@ argument_list|()
 operator|+
 literal|"-"
 operator|+
-name|tableNameStr
+name|tableName
 return|;
 block|}
 block|}

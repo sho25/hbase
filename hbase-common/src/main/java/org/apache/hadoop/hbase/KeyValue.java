@@ -308,6 +308,22 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|META_LENGTH
+init|=
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|length
+decl_stmt|;
+comment|// 'hbase.meta' length
 comment|// TODO: Group Key-only comparators and operations into a Key class, just
 comment|// for neatness sake, if can figure what to call it.
 comment|/**    * Colon character in UTF-8    */
@@ -405,21 +421,18 @@ specifier|static
 name|KeyComparator
 name|getRowComparator
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 block|{
 if|if
 condition|(
-name|Bytes
+name|TableName
+operator|.
+name|ROOT_TABLE_NAME
 operator|.
 name|equals
 argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|,
 name|tableName
 argument_list|)
 condition|)
@@ -433,14 +446,12 @@ return|;
 block|}
 if|if
 condition|(
-name|Bytes
+name|TableName
+operator|.
+name|META_TABLE_NAME
 operator|.
 name|equals
 argument_list|(
-name|HConstants
-operator|.
-name|META_TABLE_NAME
-argument_list|,
 name|tableName
 argument_list|)
 condition|)
@@ -9422,19 +9433,14 @@ block|{
 comment|// Rows look like this: .META.,ROW_FROM_META,RID
 comment|//        LOG.info("ROOT " + Bytes.toString(left, loffset, llength) +
 comment|//          "---" + Bytes.toString(right, roffset, rlength));
-specifier|final
-name|int
-name|metalength
-init|=
-literal|7
-decl_stmt|;
-comment|// '.META.' length
 name|int
 name|lmetaOffsetPlusDelimiter
 init|=
 name|loffset
 operator|+
-name|metalength
+name|META_LENGTH
+operator|+
+literal|1
 decl_stmt|;
 name|int
 name|leftFarDelimiter
@@ -9447,7 +9453,9 @@ name|lmetaOffsetPlusDelimiter
 argument_list|,
 name|llength
 operator|-
-name|metalength
+name|META_LENGTH
+operator|-
+literal|1
 argument_list|,
 name|HConstants
 operator|.
@@ -9459,7 +9467,9 @@ name|rmetaOffsetPlusDelimiter
 init|=
 name|roffset
 operator|+
-name|metalength
+name|META_LENGTH
+operator|+
+literal|1
 decl_stmt|;
 name|int
 name|rightFarDelimiter
@@ -9472,7 +9482,9 @@ name|rmetaOffsetPlusDelimiter
 argument_list|,
 name|rlength
 operator|-
-name|metalength
+name|META_LENGTH
+operator|-
+literal|1
 argument_list|,
 name|HConstants
 operator|.

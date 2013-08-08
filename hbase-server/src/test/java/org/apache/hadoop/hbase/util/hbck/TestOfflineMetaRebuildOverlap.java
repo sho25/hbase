@@ -327,7 +327,7 @@ expr_stmt|;
 comment|// is meta really messed up?
 name|assertEquals
 argument_list|(
-literal|0
+literal|1
 argument_list|,
 name|scanMeta
 argument_list|()
@@ -361,7 +361,7 @@ block|,
 name|ERROR_CODE
 operator|.
 name|NOT_IN_META_OR_DEPLOYED
-block|, }
+block|}
 argument_list|)
 expr_stmt|;
 comment|// Note, would like to check # of tables, but this takes a while to time
@@ -481,10 +481,77 @@ argument_list|(
 literal|"No more RIT in ZK, now doing final test verification"
 argument_list|)
 expr_stmt|;
+name|int
+name|tries
+init|=
+literal|60
+decl_stmt|;
+while|while
+condition|(
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsInTransition
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+operator|&&
+name|tries
+operator|--
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting for RIT: "
+operator|+
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsInTransition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Meta still messed up.
 name|assertEquals
 argument_list|(
-literal|0
+literal|1
 argument_list|,
 name|scanMeta
 argument_list|()
@@ -555,7 +622,7 @@ block|,
 name|ERROR_CODE
 operator|.
 name|NOT_IN_META_OR_DEPLOYED
-block|, }
+block|}
 argument_list|)
 expr_stmt|;
 block|}

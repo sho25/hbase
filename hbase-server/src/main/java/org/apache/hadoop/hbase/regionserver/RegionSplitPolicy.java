@@ -470,7 +470,7 @@ literal|"' for table '"
 operator|+
 name|htd
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|"'"

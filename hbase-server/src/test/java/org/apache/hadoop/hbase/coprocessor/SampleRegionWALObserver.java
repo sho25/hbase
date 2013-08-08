@@ -139,6 +139,22 @@ name|WALEdit
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class for testing WALObserver coprocessor.  *  * It will monitor WAL writing and restoring, and modify passed-in WALEdit, i.e,  * ignore specified columns when writing, or add a KeyValue. On the other  * side, it checks whether the ignored column is still in WAL when Restoreed  * at region reconstruct.  */
 end_comment
@@ -380,19 +396,17 @@ comment|// check table name matches or not.
 if|if
 condition|(
 operator|!
-name|Arrays
+name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|HRegionInfo
-operator|.
-name|getTableName
-argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getTableName
 argument_list|()
-argument_list|)
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|this
 operator|.

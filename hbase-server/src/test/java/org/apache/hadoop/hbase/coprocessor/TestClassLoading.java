@@ -245,18 +245,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|jar
-operator|.
-name|*
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|junit
@@ -849,7 +837,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -1020,7 +1013,7 @@ name|waitForTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1515,7 +1508,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|cpName3
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -1570,7 +1568,7 @@ name|waitForTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1672,7 +1670,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|cpName4
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -1727,7 +1730,7 @@ name|waitForTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1941,7 +1944,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -2127,7 +2135,7 @@ name|waitForTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2603,7 +2611,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -2720,7 +2733,7 @@ name|waitForTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3327,8 +3340,7 @@ specifier|private
 name|void
 name|waitForTable
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|name
 parameter_list|)
 throws|throws
@@ -3342,6 +3354,9 @@ operator|.
 name|waitTableEnabled
 argument_list|(
 name|name
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now wait a bit longer for the coprocessor hosts to load the CPs

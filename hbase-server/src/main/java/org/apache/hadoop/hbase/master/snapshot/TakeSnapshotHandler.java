@@ -175,6 +175,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -429,6 +443,22 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
+name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
 name|generated
 operator|.
 name|HBaseProtos
@@ -498,22 +528,6 @@ operator|.
 name|snapshot
 operator|.
 name|TableInfoCopyTask
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -651,6 +665,11 @@ specifier|final
 name|MonitoredTask
 name|status
 decl_stmt|;
+specifier|protected
+specifier|final
+name|TableName
+name|snapshotTable
+decl_stmt|;
 comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    */
 specifier|public
 name|TakeSnapshotHandler
@@ -707,6 +726,20 @@ operator|.
 name|snapshot
 operator|=
 name|snapshot
+expr_stmt|;
+name|this
+operator|.
+name|snapshotTable
+operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|snapshot
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -805,15 +838,7 @@ name|tableLockManager
 operator|.
 name|writeLock
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
+name|snapshotTable
 argument_list|,
 name|EventType
 operator|.
@@ -859,10 +884,7 @@ argument_list|()
 operator|+
 literal|" snapshot on table: "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 argument_list|)
 expr_stmt|;
 block|}
@@ -875,15 +897,6 @@ name|FileNotFoundException
 throws|,
 name|IOException
 block|{
-specifier|final
-name|String
-name|name
-init|=
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -896,7 +909,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-name|name
+name|snapshotTable
 argument_list|)
 decl_stmt|;
 if|if
@@ -912,7 +925,7 @@ name|IOException
 argument_list|(
 literal|"HTableDescriptor missing for "
 operator|+
-name|name
+name|snapshotTable
 argument_list|)
 throw|;
 block|}
@@ -1005,10 +1018,7 @@ name|eventType
 operator|+
 literal|" on table "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 decl_stmt|;
 name|LOG
 operator|.
@@ -1084,15 +1094,7 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
+name|snapshotTable
 argument_list|,
 literal|true
 argument_list|)
@@ -1202,10 +1204,7 @@ argument_list|()
 operator|+
 literal|" of table "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 operator|+
 literal|" completed"
 argument_list|)
@@ -1245,10 +1244,7 @@ argument_list|()
 operator|+
 literal|" on table "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 operator|+
 literal|" because "
 operator|+

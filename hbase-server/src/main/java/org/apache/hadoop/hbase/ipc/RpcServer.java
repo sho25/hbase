@@ -535,6 +535,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -11467,10 +11481,13 @@ condition|)
 block|{
 comment|// if the slow process is a query, we want to log its table as well
 comment|// as its own fingerprint
-name|byte
-index|[]
+name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|HRegionInfo
 operator|.
 name|parseRegionName
@@ -11487,6 +11504,7 @@ argument_list|)
 index|[
 literal|0
 index|]
+argument_list|)
 decl_stmt|;
 name|responseInfo
 operator|.
@@ -11494,12 +11512,10 @@ name|put
 argument_list|(
 literal|"table"
 argument_list|,
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
 name|tableName
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// annotate the response map with operation details

@@ -354,7 +354,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|"MERGE_REGIONS:"

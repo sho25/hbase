@@ -352,6 +352,9 @@ name|TableModel
 argument_list|(
 name|htd
 operator|.
+name|getTableName
+argument_list|()
+operator|.
 name|getNameAsString
 argument_list|()
 argument_list|)

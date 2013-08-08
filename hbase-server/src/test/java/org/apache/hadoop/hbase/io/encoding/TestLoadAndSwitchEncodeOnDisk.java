@@ -572,6 +572,9 @@ operator|.
 name|majorCompact
 argument_list|(
 name|TABLE
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Wait until compaction completes

@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Base64
@@ -183,7 +197,7 @@ literal|" name=\"test1\" maxHeapSizeMB=\"1024\" heapSizeMB=\"128\">"
 operator|+
 literal|"<Region stores=\"1\" storefiles=\"1\" storefileSizeMB=\"0\""
 operator|+
-literal|" storefileIndexSizeMB=\"0\" name=\"LVJPT1QtLCww\""
+literal|" storefileIndexSizeMB=\"0\" name=\"aGJhc2U6cm9vdCwsMA==\""
 operator|+
 literal|" memstoreSizeMB=\"0\" readRequestsCount=\"1\""
 operator|+
@@ -199,7 +213,7 @@ literal|" maxHeapSizeMB=\"1024\" heapSizeMB=\"512\">"
 operator|+
 literal|"<Region stores=\"1\" storefiles=\"1\" storefileSizeMB=\"0\""
 operator|+
-literal|" storefileIndexSizeMB=\"0\" name=\"Lk1FVEEuLCwxMjQ2MDAwMDQzNzI0\""
+literal|" storefileIndexSizeMB=\"0\" name=\"aGJhc2U6bWV0YSwsMTI0NjAwMDA0MzcyNA==\""
 operator|+
 literal|" memstoreSizeMB=\"0\" readRequestsCount=\"1\""
 operator|+
@@ -217,11 +231,11 @@ specifier|final
 name|String
 name|AS_PB
 init|=
-literal|"CjsKBXRlc3QxEOO6i+eeJBgAIIABKIAIMiMKCS1ST09ULSwsMBABGAEgACgAMAA4AUACSAFQAVgB"
+literal|"Cj8KBXRlc3QxEOO6i+eeJBgAIIABKIAIMicKDWhiYXNlOnJvb3QsLDAQARgBIAAoADAAOAFAAkgB"
 operator|+
-literal|"YAFoAQpHCgV0ZXN0MhD+krHwniQYACCABCiACDIvChUuTUVUQS4sLDEyNDYwMDAwNDM3MjQQARgB"
+literal|"UAFYAWABaAEKSwoFdGVzdDIQ/pKx8J4kGAAggAQogAgyMwoZaGJhc2U6bWV0YSwsMTI0NjAwMDA0"
 operator|+
-literal|"IAAoADAAOAFAAkgBUAFYAWABaAEYAiAAKQAAAAAAAPA/"
+literal|"MzcyNBABGAEgACgAMAA4AUACSAFQAVgBYAFoARgCIAApAAAAAAAA8D8="
 decl_stmt|;
 specifier|private
 name|JAXBContext
@@ -300,7 +314,11 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"-ROOT-,,0"
+name|TableName
+operator|.
+name|ROOT_TABLE_NAME
+operator|+
+literal|",,0"
 argument_list|)
 argument_list|,
 literal|1
@@ -347,7 +365,11 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|".META.,,1246000043724"
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|+
+literal|",,1246000043724"
 argument_list|)
 argument_list|,
 literal|1
@@ -647,7 +669,11 @@ argument_list|)
 operator|.
 name|equals
 argument_list|(
-literal|"-ROOT-,,0"
+name|TableName
+operator|.
+name|ROOT_TABLE_NAME
+operator|+
+literal|",,0"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -855,7 +881,11 @@ name|getName
 argument_list|()
 argument_list|)
 argument_list|,
-literal|".META.,,1246000043724"
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|+
+literal|",,1246000043724"
 argument_list|)
 expr_stmt|;
 name|assertEquals

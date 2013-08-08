@@ -141,6 +141,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|RegionMovedException
@@ -231,8 +245,7 @@ name|connection
 decl_stmt|;
 specifier|private
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
@@ -266,8 +279,7 @@ parameter_list|(
 name|HConnection
 name|connection
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|byte
@@ -336,12 +348,7 @@ name|IOException
 argument_list|(
 literal|"Failed to find location, tableName="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 operator|+
 literal|", row="
 operator|+
@@ -443,8 +450,7 @@ name|location
 expr_stmt|;
 block|}
 specifier|public
-name|byte
-index|[]
+name|TableName
 name|getTableName
 parameter_list|()
 block|{
@@ -591,12 +597,7 @@ argument_list|)
 operator|+
 literal|"' on table '"
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
 return|;
 block|}
 annotation|@

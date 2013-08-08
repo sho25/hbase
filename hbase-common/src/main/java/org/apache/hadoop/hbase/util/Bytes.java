@@ -151,6 +151,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|Charset
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|security
 operator|.
 name|AccessController
@@ -293,20 +305,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -410,6 +408,45 @@ specifier|public
 class|class
 name|Bytes
 block|{
+comment|//HConstants.UTF8_ENCODING should be updated if this changed
+comment|/** When we encode strings, we always specify UTF8 encoding */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|UTF8_ENCODING
+init|=
+literal|"UTF-8"
+decl_stmt|;
+comment|//HConstants.UTF8_CHARSET should be updated if this changed
+comment|/** When we encode strings, we always specify UTF8 encoding */
+specifier|private
+specifier|static
+specifier|final
+name|Charset
+name|UTF8_CHARSET
+init|=
+name|Charset
+operator|.
+name|forName
+argument_list|(
+name|UTF8_ENCODING
+argument_list|)
+decl_stmt|;
+comment|//HConstants.EMPTY_BYTE_ARRAY should be updated if this changed
+specifier|private
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|EMPTY_BYTE_ARRAY
+init|=
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1373,8 +1410,6 @@ name|off
 argument_list|,
 name|len
 argument_list|,
-name|HConstants
-operator|.
 name|UTF8_CHARSET
 argument_list|)
 return|;
@@ -1948,8 +1983,6 @@ name|s
 operator|.
 name|getBytes
 argument_list|(
-name|HConstants
-operator|.
 name|UTF8_CHARSET
 argument_list|)
 return|;
@@ -5223,8 +5256,6 @@ name|a
 argument_list|,
 name|b
 argument_list|,
-name|HConstants
-operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 return|;

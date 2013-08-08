@@ -232,10 +232,15 @@ throws|,
 name|KeeperException
 block|{
 specifier|final
-name|String
+name|TableName
 name|name
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testDisabled"
+argument_list|)
 decl_stmt|;
 name|Abortable
 name|abortable
@@ -292,6 +297,9 @@ name|getConfiguration
 argument_list|()
 argument_list|,
 name|name
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|,
 name|abortable
 argument_list|,

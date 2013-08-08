@@ -134,8 +134,7 @@ comment|/**    * @return an interface for accessing the given table    * @throws
 name|HTableInterface
 name|getTable
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws

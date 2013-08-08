@@ -758,10 +758,7 @@ name|setStatus
 argument_list|(
 literal|"Completed copying recovered edits for offline snapshot of table: "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 argument_list|)
 expr_stmt|;
 comment|// 2.3 reference all the files in the region
@@ -793,10 +790,7 @@ name|setStatus
 argument_list|(
 literal|"Completed referencing HFiles for offline snapshot of table: "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 argument_list|)
 expr_stmt|;
 block|}
@@ -853,10 +847,7 @@ name|setStatus
 argument_list|(
 literal|"Finished copying tableinfo for snapshot of table: "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 argument_list|)
 expr_stmt|;
 block|}
@@ -910,10 +901,7 @@ name|abort
 argument_list|(
 literal|"Snapshot of table: "
 operator|+
-name|snapshot
-operator|.
-name|getTable
-argument_list|()
+name|snapshotTable
 operator|+
 literal|" failed because "
 operator|+

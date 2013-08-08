@@ -43,26 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Random
 import|;
 end_import
@@ -143,7 +123,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
+name|TableName
 import|;
 end_import
 
@@ -157,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HRegionLocation
 import|;
 end_import
 
@@ -224,24 +204,6 @@ operator|.
 name|test
 operator|.
 name|LoadTestDataGenerator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|test
-operator|.
-name|LoadTestKVGenerator
 import|;
 end_import
 
@@ -380,8 +342,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|double

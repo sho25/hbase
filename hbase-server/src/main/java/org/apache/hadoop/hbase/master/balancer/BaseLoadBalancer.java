@@ -279,22 +279,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -847,7 +831,10 @@ name|tableName
 init|=
 name|region
 operator|.
-name|getTableNameAsString
+name|getTableName
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 decl_stmt|;
 name|Integer

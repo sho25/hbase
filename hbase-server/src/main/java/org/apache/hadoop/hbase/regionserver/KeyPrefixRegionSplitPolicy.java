@@ -205,7 +205,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|". Using default RegionSplitPolicy"
@@ -256,7 +256,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|":"

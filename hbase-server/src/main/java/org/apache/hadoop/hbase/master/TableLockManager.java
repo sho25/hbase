@@ -113,6 +113,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|InterProcessLock
 import|;
 end_import
@@ -313,18 +327,6 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
 name|InvalidProtocolBufferException
 import|;
 end_import
@@ -465,8 +467,7 @@ specifier|abstract
 name|TableLock
 name|writeLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -479,8 +480,7 @@ specifier|abstract
 name|TableLock
 name|readLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -523,8 +523,7 @@ specifier|abstract
 name|void
 name|tableDeleted
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -660,8 +659,7 @@ specifier|public
 name|TableLock
 name|writeLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -680,8 +678,7 @@ specifier|public
 name|TableLock
 name|readLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -718,8 +715,7 @@ specifier|public
 name|void
 name|tableDeleted
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -965,12 +961,8 @@ block|{
 name|long
 name|lockTimeoutMs
 decl_stmt|;
-name|byte
-index|[]
+name|TableName
 name|tableName
-decl_stmt|;
-name|String
-name|tableNameStr
 decl_stmt|;
 name|InterProcessLock
 name|lock
@@ -990,8 +982,7 @@ decl_stmt|;
 specifier|public
 name|TableLockImpl
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|ZooKeeperWatcher
@@ -1015,15 +1006,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-expr_stmt|;
-name|tableNameStr
-operator|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1089,7 +1071,7 @@ operator|)
 operator|+
 literal|" lock on: "
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|" for:"
 operator|+
@@ -1148,7 +1130,7 @@ operator|)
 operator|+
 literal|"lock for table:"
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|"for:"
 operator|+
@@ -1176,7 +1158,7 @@ name|warn
 argument_list|(
 literal|"Interrupted acquiring a lock for "
 operator|+
-name|tableNameStr
+name|tableName
 argument_list|,
 name|e
 argument_list|)
@@ -1220,7 +1202,7 @@ operator|)
 operator|+
 literal|" lock on "
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|" for "
 operator|+
@@ -1261,7 +1243,7 @@ operator|)
 operator|+
 literal|" lock on "
 operator|+
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1278,7 +1260,7 @@ name|IllegalStateException
 argument_list|(
 literal|"Table "
 operator|+
-name|tableNameStr
+name|tableName
 operator|+
 literal|" is not locked!"
 argument_list|)
@@ -1304,7 +1286,7 @@ name|warn
 argument_list|(
 literal|"Interrupted while releasing a lock for "
 operator|+
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1335,7 +1317,7 @@ name|trace
 argument_list|(
 literal|"Released table lock on "
 operator|+
-name|tableNameStr
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1356,7 +1338,10 @@ name|zkWatcher
 operator|.
 name|tableLockZNode
 argument_list|,
-name|tableNameStr
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|ZooKeeperProtos
@@ -1373,9 +1358,9 @@ argument_list|()
 operator|.
 name|setTableName
 argument_list|(
-name|ByteString
+name|ProtobufUtil
 operator|.
-name|copyFrom
+name|toProtoTableName
 argument_list|(
 name|tableName
 argument_list|)
@@ -1570,8 +1555,7 @@ specifier|public
 name|TableLock
 name|writeLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -1600,8 +1584,7 @@ specifier|public
 name|TableLock
 name|readLock
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|String
@@ -1951,8 +1934,7 @@ specifier|public
 name|void
 name|tableDeleted
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -1962,12 +1944,10 @@ comment|//table write lock from DeleteHandler is already released, just delete t
 name|String
 name|tableNameStr
 init|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 decl_stmt|;
 name|String
 name|tableLockZNode

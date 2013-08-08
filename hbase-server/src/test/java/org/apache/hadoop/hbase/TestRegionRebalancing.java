@@ -508,7 +508,12 @@ operator|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"test"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -596,7 +601,7 @@ name|this
 operator|.
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;

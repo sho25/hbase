@@ -1260,15 +1260,10 @@ name|path
 operator|.
 name|append
 argument_list|(
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|path

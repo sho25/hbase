@@ -1360,7 +1360,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 condition|)
@@ -1738,7 +1738,7 @@ name|isTablePresent
 argument_list|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1756,7 +1756,7 @@ literal|"The table "
 operator|+
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" was deleted.  Hence not proceeding."
@@ -1779,7 +1779,7 @@ name|isDisabledTable
 argument_list|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1796,7 +1796,7 @@ literal|"The table "
 operator|+
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" was disabled.  Hence not proceeding."
@@ -1838,7 +1838,7 @@ name|isDisablingTable
 argument_list|(
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1855,7 +1855,7 @@ literal|"The table "
 operator|+
 name|hri
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" is disabled.  Hence not assigning region"

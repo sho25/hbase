@@ -401,7 +401,7 @@ name|TestRegionServerNoMaster
 operator|.
 name|class
 operator|.
-name|getName
+name|getSimpleName
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -111,7 +111,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileSystem
+name|Path
 import|;
 end_import
 
@@ -123,9 +123,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|hbase
 operator|.
-name|Path
+name|TableName
 import|;
 end_import
 
@@ -546,13 +546,12 @@ init|=
 literal|"tablename"
 decl_stmt|;
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tn
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
@@ -704,7 +703,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testtable"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HRegionInfo
@@ -715,7 +719,7 @@ name|HRegionInfo
 argument_list|(
 name|tableDesc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -942,7 +946,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testtable"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HRegionInfo
@@ -953,7 +962,7 @@ name|HRegionInfo
 argument_list|(
 name|tableDesc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -978,7 +987,7 @@ name|HRegionInfo
 argument_list|(
 name|tableDesc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -1034,13 +1043,12 @@ name|void
 name|testComparator
 parameter_list|()
 block|{
-name|byte
-index|[]
+name|TableName
 name|tablename
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"comparatorTablename"
 argument_list|)

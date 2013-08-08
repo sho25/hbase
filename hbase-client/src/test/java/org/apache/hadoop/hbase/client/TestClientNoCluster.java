@@ -113,6 +113,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -466,8 +480,7 @@ specifier|public
 name|boolean
 name|isTableOnlineState
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|boolean
@@ -541,7 +554,7 @@ name|HTable
 argument_list|(
 name|localConfig
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -720,7 +733,7 @@ name|HTable
 argument_list|(
 name|localConfig
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -873,7 +886,7 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
@@ -972,7 +985,7 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)

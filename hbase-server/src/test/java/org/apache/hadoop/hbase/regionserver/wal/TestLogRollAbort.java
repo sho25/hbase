@@ -746,7 +746,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|HConstants
+name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)

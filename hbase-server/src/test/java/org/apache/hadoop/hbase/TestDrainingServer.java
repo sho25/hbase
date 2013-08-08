@@ -1677,12 +1677,12 @@ argument_list|()
 operator|.
 name|countServedRegions
 argument_list|()
-operator|==
+operator|>=
 operator|(
 name|COUNT_OF_REGIONS
 operator|+
-literal|1
-comment|/*catalog regions*/
+literal|2
+comment|/*catalog and namespace regions*/
 operator|)
 return|;
 block|}

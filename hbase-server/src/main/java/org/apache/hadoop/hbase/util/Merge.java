@@ -149,6 +149,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -436,8 +450,7 @@ name|MetaUtils
 name|utils
 decl_stmt|;
 specifier|private
-name|byte
-index|[]
+name|TableName
 name|tableName
 decl_stmt|;
 comment|// Name of table
@@ -732,14 +745,9 @@ argument_list|)
 operator|+
 literal|" in table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|this
 operator|.
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -923,14 +931,9 @@ name|this
 operator|.
 name|rootdir
 argument_list|,
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|this
 operator|.
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1312,9 +1315,9 @@ return|;
 block|}
 name|tableName
 operator|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|remainingArgs
 index|[
@@ -1409,8 +1412,7 @@ name|boolean
 name|notInTable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tn
 parameter_list|,
 specifier|final
@@ -1426,10 +1428,16 @@ operator|.
 name|compareBytes
 argument_list|(
 name|tn
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|0
 argument_list|,
 name|tn
+operator|.
+name|getName
+argument_list|()
 operator|.
 name|length
 argument_list|,
@@ -1438,6 +1446,9 @@ argument_list|,
 literal|0
 argument_list|,
 name|tn
+operator|.
+name|getName
+argument_list|()
 operator|.
 name|length
 argument_list|)
@@ -1460,12 +1471,7 @@ argument_list|)
 operator|+
 literal|" does not belong to table "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tn
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

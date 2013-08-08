@@ -89,6 +89,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -104,22 +118,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -413,8 +411,7 @@ condition|)
 return|return
 literal|0
 return|;
-name|byte
-index|[]
+name|TableName
 name|tablename
 init|=
 name|this
@@ -424,7 +421,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 decl_stmt|;
 name|int
@@ -478,12 +475,7 @@ name|debug
 argument_list|(
 literal|"Failed getOnlineRegions "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tablename
-argument_list|)
 argument_list|,
 name|e
 argument_list|)

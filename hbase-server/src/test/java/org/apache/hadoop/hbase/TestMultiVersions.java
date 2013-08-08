@@ -522,7 +522,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testTimestamps"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -572,7 +577,7 @@ argument_list|()
 argument_list|,
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -736,7 +741,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -1175,7 +1185,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc

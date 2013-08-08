@@ -523,7 +523,7 @@ literal|"RegionOpenAndInitThread-"
 operator|+
 name|hTableDescriptor
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 argument_list|,
 name|regionNumber

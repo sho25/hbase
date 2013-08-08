@@ -813,6 +813,9 @@ name|key
 operator|.
 name|getTablename
 argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

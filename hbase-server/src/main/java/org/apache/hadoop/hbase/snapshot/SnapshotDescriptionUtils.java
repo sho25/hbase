@@ -39,6 +39,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -162,6 +174,24 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|HBaseProtos
 import|;
 end_import
 
@@ -819,7 +849,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Read in the {@link SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws org.apache.hadoop.hbase.snapshot.CorruptedSnapshotException if the    * snapshot cannot be read    */
+comment|/**    * Read in the {@link org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescription} stored for the snapshot in the passed directory    * @param fs filesystem where the snapshot was taken    * @param snapshotDir directory where the snapshot was stored    * @return the stored snapshot description    * @throws CorruptedSnapshotException if the    * snapshot cannot be read    */
 specifier|public
 specifier|static
 name|SnapshotDescription
@@ -863,13 +893,18 @@ argument_list|(
 name|snapshotInfo
 argument_list|)
 expr_stmt|;
-return|return
+name|SnapshotDescription
+name|desc
+init|=
 name|SnapshotDescription
 operator|.
 name|parseFrom
 argument_list|(
 name|in
 argument_list|)
+decl_stmt|;
+return|return
+name|desc
 return|;
 block|}
 finally|finally

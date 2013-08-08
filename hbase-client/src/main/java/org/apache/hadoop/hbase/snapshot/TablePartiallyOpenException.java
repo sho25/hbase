@@ -55,6 +55,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -121,6 +135,23 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param tableName Name of table that is partial open    */
+specifier|public
+name|TablePartiallyOpenException
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**     * @param tableName Name of table that is partial open     */
 specifier|public
 name|TablePartiallyOpenException
 parameter_list|(

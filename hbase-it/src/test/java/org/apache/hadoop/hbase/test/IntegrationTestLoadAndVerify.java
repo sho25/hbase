@@ -161,6 +161,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -1934,6 +1948,9 @@ name|TABLE_NAME_KEY
 argument_list|,
 name|htd
 operator|.
+name|getTableName
+argument_list|()
+operator|.
 name|getNameAsString
 argument_list|()
 argument_list|)
@@ -1957,7 +1974,7 @@ literal|" Load for "
 operator|+
 name|htd
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2100,7 +2117,7 @@ literal|" Verification for "
 operator|+
 name|htd
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2116,6 +2133,9 @@ operator|.
 name|initTableMapperJob
 argument_list|(
 name|htd
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -2325,7 +2345,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_NAME
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -2429,7 +2454,7 @@ literal|"Disabling table "
 operator|+
 name|htd
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" "
@@ -2441,7 +2466,7 @@ name|disableTableAsync
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2464,7 +2489,7 @@ name|isTableDisabled
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 condition|)
@@ -2519,7 +2544,7 @@ literal|"Deleting table "
 operator|+
 name|htd
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|+
 literal|" "
@@ -2531,7 +2556,7 @@ name|deleteTable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2829,7 +2854,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd

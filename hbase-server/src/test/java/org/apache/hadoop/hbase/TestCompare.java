@@ -85,9 +85,9 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"a"
 argument_list|)
@@ -103,9 +103,9 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"b"
 argument_list|)
@@ -133,7 +133,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"t"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|byte
@@ -154,7 +159,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|null
@@ -169,7 +174,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|midway
@@ -227,7 +232,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -252,7 +257,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -289,7 +294,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -314,7 +319,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -351,7 +356,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes
@@ -376,7 +381,7 @@ name|HRegionInfo
 argument_list|(
 name|t
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|Bytes

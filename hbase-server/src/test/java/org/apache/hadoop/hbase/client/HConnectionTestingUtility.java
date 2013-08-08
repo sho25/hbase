@@ -51,6 +51,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -262,7 +276,7 @@ name|connection
 return|;
 block|}
 block|}
-comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocation is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(byte[], byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
+comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocation is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
 specifier|public
 specifier|static
 name|HConnection
@@ -344,8 +358,7 @@ operator|.
 name|getRegionLocation
 argument_list|(
 operator|(
-name|byte
-index|[]
+name|TableName
 operator|)
 name|Mockito
 operator|.
@@ -382,8 +395,7 @@ operator|.
 name|locateRegion
 argument_list|(
 operator|(
-name|byte
-index|[]
+name|TableName
 operator|)
 name|Mockito
 operator|.

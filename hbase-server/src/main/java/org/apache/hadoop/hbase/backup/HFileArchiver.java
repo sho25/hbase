@@ -185,7 +185,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -199,7 +199,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|HRegionInfo
 import|;
 end_import
 
@@ -450,7 +450,7 @@ name|fs
 argument_list|,
 name|rootDir
 argument_list|,
-name|HTableDescriptor
+name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
@@ -584,9 +584,17 @@ name|getRegionArchiveDir
 argument_list|(
 name|rootdir
 argument_list|,
+name|FSUtils
+operator|.
+name|getTableName
+argument_list|(
 name|tableDir
+argument_list|)
 argument_list|,
 name|regionDir
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|FileStatusConverter

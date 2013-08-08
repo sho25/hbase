@@ -93,6 +93,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -208,6 +222,11 @@ comment|/**    * Gets the name of this table.    *    * @return the table name. 
 name|byte
 index|[]
 name|getTableName
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the fully qualified table name instance of this table.    */
+name|TableName
+name|getName
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the {@link Configuration} object used by this instance.    *<p>    * The reference returned is not a copy, so any change made to it will    * affect this instance.    */

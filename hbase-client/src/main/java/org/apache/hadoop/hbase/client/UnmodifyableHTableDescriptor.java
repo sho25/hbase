@@ -113,7 +113,7 @@ name|super
 argument_list|(
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|getUnmodifyableFamilies

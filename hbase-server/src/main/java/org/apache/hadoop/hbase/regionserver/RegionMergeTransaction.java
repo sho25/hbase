@@ -599,7 +599,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 operator|.
 name|equals
@@ -609,7 +609,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getNameAsString
+name|getTableName
 argument_list|()
 argument_list|)
 condition|)

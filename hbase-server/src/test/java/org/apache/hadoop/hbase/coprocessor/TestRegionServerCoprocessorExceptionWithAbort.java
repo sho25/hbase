@@ -290,10 +290,15 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|String
+name|TableName
 name|TABLE_NAME
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"observed_table"
+argument_list|)
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -389,16 +394,10 @@ block|{
 comment|// When we try to write to TEST_TABLE, the buggy coprocessor will
 comment|// cause a NullPointerException, which will cause the regionserver (which
 comment|// hosts the region we attempted to write to) to abort.
-name|byte
-index|[]
+name|TableName
 name|TEST_TABLE
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|TABLE_NAME
-argument_list|)
 decl_stmt|;
 name|byte
 index|[]
@@ -569,7 +568,7 @@ name|Durability
 name|durability
 parameter_list|)
 block|{
-name|String
+name|TableName
 name|tableName
 init|=
 name|c
@@ -583,7 +582,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableNameAsString
+name|getTableName
 argument_list|()
 decl_stmt|;
 if|if

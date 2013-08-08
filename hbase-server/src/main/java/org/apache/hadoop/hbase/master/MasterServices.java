@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -38,6 +48,20 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -80,6 +104,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|NamespaceDescriptor
 import|;
 end_import
 
@@ -218,8 +256,7 @@ name|void
 name|checkTableModifiable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -249,8 +286,7 @@ name|void
 name|deleteTable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -261,8 +297,7 @@ name|void
 name|modifyTable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -277,8 +312,7 @@ name|void
 name|enableTable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -289,8 +323,7 @@ name|void
 name|disableTable
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|)
 throws|throws
@@ -301,8 +334,7 @@ name|void
 name|addColumn
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -316,8 +348,7 @@ comment|/**    * Modify the column descriptor of an existing column in an existi
 name|void
 name|modifyColumn
 parameter_list|(
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
@@ -331,8 +362,7 @@ name|void
 name|deleteColumn
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|tableName
 parameter_list|,
 specifier|final
@@ -384,6 +414,75 @@ comment|/**    * @return true if master is initialized    */
 name|boolean
 name|isInitialized
 parameter_list|()
+function_decl|;
+comment|/**    * Create a new namespace    * @param descriptor descriptor which describes the new namespace    * @throws IOException    */
+specifier|public
+name|void
+name|createNamespace
+parameter_list|(
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing namespace    * @param descriptor descriptor which updates the existing namespace    * @throws IOException    */
+specifier|public
+name|void
+name|modifyNamespace
+parameter_list|(
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @throws IOException    */
+specifier|public
+name|void
+name|deleteNamespace
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return    * @throws IOException    */
+specifier|public
+name|NamespaceDescriptor
+name|getNamespaceDescriptor
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List available namespace descriptors    * @return    * @throws IOException    */
+specifier|public
+name|List
+argument_list|<
+name|NamespaceDescriptor
+argument_list|>
+name|listNamespaceDescriptors
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return    * @throws IOException    */
+specifier|public
+name|List
+argument_list|<
+name|HTableDescriptor
+argument_list|>
+name|getTableDescriptorsByNamespace
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

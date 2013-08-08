@@ -281,7 +281,7 @@ expr_stmt|;
 comment|// is meta really messed up?
 name|assertEquals
 argument_list|(
-literal|0
+literal|1
 argument_list|,
 name|scanMeta
 argument_list|()
@@ -315,7 +315,7 @@ block|,
 name|ERROR_CODE
 operator|.
 name|NOT_IN_META_OR_DEPLOYED
-block|, }
+block|}
 argument_list|)
 expr_stmt|;
 comment|// Note, would like to check # of tables, but this takes a while to time
@@ -406,7 +406,7 @@ expr_stmt|;
 comment|// everything is good again.
 name|assertEquals
 argument_list|(
-literal|4
+literal|5
 argument_list|,
 name|scanMeta
 argument_list|()

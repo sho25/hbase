@@ -448,9 +448,9 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|TABLE
 argument_list|)

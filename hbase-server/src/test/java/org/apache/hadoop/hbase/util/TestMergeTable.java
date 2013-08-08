@@ -390,11 +390,16 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"test"
+argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -676,7 +681,7 @@ name|ct
 argument_list|,
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -711,7 +716,7 @@ name|disableTable
 argument_list|(
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -730,7 +735,7 @@ argument_list|)
 argument_list|,
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -748,7 +753,7 @@ name|ct
 argument_list|,
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -855,7 +860,7 @@ name|HRegionInfo
 argument_list|(
 name|desc
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|startKey

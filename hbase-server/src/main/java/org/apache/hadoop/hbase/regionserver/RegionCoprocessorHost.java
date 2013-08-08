@@ -949,7 +949,7 @@ condition|(
 operator|!
 name|HTableDescriptor
 operator|.
-name|isMetaTable
+name|isSystemTable
 argument_list|(
 name|region
 operator|.
@@ -1331,18 +1331,16 @@ name|className
 operator|+
 literal|" from HTD of "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|region
 operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getName
+name|getTableName
 argument_list|()
-argument_list|)
+operator|.
+name|getNameAsString
+argument_list|()
 operator|+
 literal|" successfully."
 argument_list|)
