@@ -437,6 +437,14 @@ operator|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 operator|.
 name|valueOf
