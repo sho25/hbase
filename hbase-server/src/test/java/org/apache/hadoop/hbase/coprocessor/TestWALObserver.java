@@ -1108,7 +1108,7 @@ name|familyMap
 init|=
 name|p
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|WALEdit

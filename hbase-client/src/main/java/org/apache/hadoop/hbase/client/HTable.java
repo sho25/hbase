@@ -5956,7 +5956,7 @@ name|list
 range|:
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values

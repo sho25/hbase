@@ -1500,7 +1500,7 @@ name|cells
 range|:
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values
@@ -2699,7 +2699,7 @@ name|l
 range|:
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values
@@ -2949,7 +2949,7 @@ argument_list|()
 argument_list|,
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|,
 name|delete

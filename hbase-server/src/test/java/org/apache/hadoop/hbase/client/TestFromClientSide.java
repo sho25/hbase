@@ -31689,7 +31689,7 @@ name|assertEquals
 argument_list|(
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|get
@@ -31712,7 +31712,7 @@ name|KeyValue
 operator|)
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|get

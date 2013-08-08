@@ -656,7 +656,7 @@ name|map
 init|=
 name|super
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|Map

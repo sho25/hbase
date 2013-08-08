@@ -7585,7 +7585,7 @@ if|if
 condition|(
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|isEmpty
@@ -7631,7 +7631,7 @@ name|family
 range|:
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|keySet
@@ -8867,7 +8867,7 @@ name|familyMap
 init|=
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 comment|// store the family map reference to allow for mutations
@@ -8935,7 +8935,7 @@ name|checkTimestamps
 argument_list|(
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|,
 name|now
@@ -9141,7 +9141,7 @@ name|putsCfSet
 operator|=
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|keySet
@@ -9156,7 +9156,7 @@ name|putsCfSetConsistent
 operator|&&
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|keySet
@@ -9182,7 +9182,7 @@ name|deletesCfSet
 operator|=
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|keySet
@@ -9197,7 +9197,7 @@ name|deletesCfSetConsistent
 operator|&&
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|keySet
@@ -9578,7 +9578,7 @@ name|recordMutationWithoutWal
 argument_list|(
 name|m
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -20376,7 +20376,7 @@ name|family
 range|:
 name|append
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet
@@ -20954,7 +20954,7 @@ name|recordMutationWithoutWal
 argument_list|(
 name|append
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -21394,7 +21394,7 @@ name|family
 range|:
 name|increment
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet
@@ -21783,7 +21783,7 @@ name|recordMutationWithoutWal
 argument_list|(
 name|increment
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;

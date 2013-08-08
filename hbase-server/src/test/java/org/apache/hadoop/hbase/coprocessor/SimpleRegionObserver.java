@@ -2005,7 +2005,7 @@ name|familyMap
 init|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|RegionCoprocessorEnvironment
@@ -2278,7 +2278,7 @@ name|familyMap
 init|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|RegionCoprocessorEnvironment
@@ -2554,7 +2554,7 @@ name|familyMap
 init|=
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|RegionCoprocessorEnvironment
@@ -2644,7 +2644,7 @@ name|familyMap
 init|=
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|RegionCoprocessorEnvironment

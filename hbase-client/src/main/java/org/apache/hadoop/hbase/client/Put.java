@@ -405,7 +405,7 @@ name|entry
 range|:
 name|putToCopy
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet

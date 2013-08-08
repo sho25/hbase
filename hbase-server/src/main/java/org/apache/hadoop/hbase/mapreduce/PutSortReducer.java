@@ -343,7 +343,7 @@ name|cells
 range|:
 name|p
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values

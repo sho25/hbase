@@ -5561,7 +5561,7 @@ argument_list|()
 argument_list|,
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5606,7 +5606,7 @@ argument_list|()
 argument_list|,
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5657,7 +5657,7 @@ argument_list|()
 argument_list|,
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5704,7 +5704,7 @@ argument_list|()
 argument_list|,
 name|delete
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6051,7 +6051,7 @@ argument_list|()
 argument_list|,
 name|append
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6122,7 +6122,7 @@ name|entry
 range|:
 name|increment
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet

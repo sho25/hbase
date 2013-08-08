@@ -1619,7 +1619,7 @@ name|cell
 init|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values
@@ -1695,7 +1695,7 @@ name|cell
 init|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values

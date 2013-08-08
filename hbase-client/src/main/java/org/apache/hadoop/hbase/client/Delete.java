@@ -331,7 +331,7 @@ name|putAll
 argument_list|(
 name|d
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -6496,7 +6496,7 @@ name|family
 range|:
 name|increment
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet
@@ -6697,7 +6697,7 @@ name|family
 range|:
 name|mutation
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet

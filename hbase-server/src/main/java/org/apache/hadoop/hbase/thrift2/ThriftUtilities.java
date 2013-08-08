@@ -1347,7 +1347,7 @@ name|familyEntry
 range|:
 name|in
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet

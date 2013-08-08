@@ -339,7 +339,7 @@ name|familyMap
 operator|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 expr_stmt|;
 block|}
@@ -363,7 +363,7 @@ name|entry
 range|:
 name|p
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|entrySet

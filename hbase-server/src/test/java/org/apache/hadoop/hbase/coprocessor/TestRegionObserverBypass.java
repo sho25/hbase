@@ -1463,7 +1463,7 @@ name|familyMap
 init|=
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 if|if

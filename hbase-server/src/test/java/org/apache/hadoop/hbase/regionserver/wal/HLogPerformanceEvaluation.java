@@ -668,7 +668,7 @@ name|addFamilyMapToWALEdit
 argument_list|(
 name|put
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|,
 name|walEdit

@@ -415,7 +415,7 @@ name|familyMap
 init|=
 name|m
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
 name|region
@@ -479,7 +479,7 @@ name|prepareDeleteTimestamps
 argument_list|(
 name|d
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|,
 name|byteNow
@@ -516,7 +516,7 @@ name|cells
 range|:
 name|m
 operator|.
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 operator|.
 name|values

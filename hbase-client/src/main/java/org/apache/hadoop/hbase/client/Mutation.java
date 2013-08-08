@@ -407,7 +407,7 @@ name|CellUtil
 operator|.
 name|createCellScanner
 argument_list|(
-name|getFamilyMap
+name|getFamilyCellMap
 argument_list|()
 argument_list|)
 return|;
@@ -933,7 +933,7 @@ extends|extends
 name|Cell
 argument_list|>
 argument_list|>
-name|getFamilyMap
+name|getFamilyCellMap
 parameter_list|()
 block|{
 return|return
