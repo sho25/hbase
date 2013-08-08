@@ -889,6 +889,11 @@ name|Exception
 block|{   }
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSplitFlushCompactUnknownTable
@@ -1008,6 +1013,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDeleteEditUnknownColumnFamilyAndOrTable
@@ -1470,6 +1480,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDisableAndEnableTable
@@ -1764,6 +1779,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDisableAndEnableTables
@@ -2074,6 +2094,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTable
@@ -2168,6 +2193,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testGetTableDescriptor
@@ -2288,6 +2318,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testHColumnValidName
@@ -2324,6 +2359,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testIsEnabledOnNonexistentTable
@@ -2359,6 +2399,11 @@ block|}
 comment|/**    * Verify schema modification takes.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOnlineChangeTableSchema
@@ -2962,6 +3007,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testShouldFailOnlineSchemaUpdateIfOnlineSchemaIsNotEnabled
@@ -3490,6 +3540,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableNumberOfRegions
@@ -3978,6 +4033,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithRegions
@@ -6029,6 +6089,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTableAvailableWithRandomSplitKeys
@@ -6148,6 +6213,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithOnlyEmptyStartRow
@@ -6238,6 +6308,11 @@ block|{     }
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithEmptyRowInTheSplitKeys
@@ -6348,6 +6423,11 @@ block|{     }
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTableExist
@@ -6421,6 +6501,11 @@ block|}
 comment|/**    * Tests forcing split from client and having scanners successfully ride over split.    * @throws Exception    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testForceSplit
@@ -6510,6 +6595,11 @@ block|}
 comment|/**    * Test round-robin assignment on enableTable.    *    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testEnableTableRoundRobinAssignment
@@ -7023,6 +7113,11 @@ block|}
 comment|/**    * Multi-family scenario. Tests forcing split from client and    * having scanners successfully ride over split.    * @throws Exception    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testForceSplitMultiFamily
@@ -8068,6 +8163,10 @@ operator|=
 name|IllegalArgumentException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -8096,6 +8195,10 @@ operator|=
 name|IllegalArgumentException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -8302,6 +8405,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateBadTables
@@ -8638,6 +8746,11 @@ block|}
 comment|/**    * Test for hadoop-1581 'HBASE: Unopenable tablename bug'.    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTableNameClash
@@ -8703,6 +8816,11 @@ block|}
 comment|/***    * HMaster.createTable used to be kind of synchronous call    * Thus creating of table with lots of regions can cause RPC timeout    * After the fix to make createTable truly async, RPC timeout shouldn't be an    * issue anymore    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCreateTableRPCTimeOut
@@ -8869,6 +8987,11 @@ block|}
 comment|/**    * Test read only tables    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testReadOnlyTable
@@ -8953,6 +9076,11 @@ block|}
 comment|/**    * Test that user table names can contain '-' and '.' so long as they do not    * start with same. HBASE-771    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testTableNames
@@ -9096,6 +9224,10 @@ operator|=
 name|TableExistsException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -9151,6 +9283,10 @@ operator|=
 name|TableNotEnabledException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -9213,6 +9349,10 @@ operator|=
 name|TableNotDisabledException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -9277,6 +9417,10 @@ operator|=
 name|TableNotFoundException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -9299,6 +9443,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testShouldCloseTheRegionBasedOnTheEncodedRegionName
@@ -9463,6 +9612,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCloseRegionIfInvalidRegionNameIsPassed
@@ -9601,6 +9755,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCloseRegionThatFetchesTheHRIFromMeta
@@ -9779,6 +9938,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCloseRegionWhenServerNameIsNull
@@ -9887,6 +10051,11 @@ block|{     }
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCloseRegionWhenServerNameIsEmpty
@@ -9995,6 +10164,11 @@ block|{     }
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCloseRegionWhenEncodedRegionNameIsNotGiven
@@ -10275,6 +10449,11 @@ block|}
 comment|/**    * For HBASE-2556    * @throws IOException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testGetTableRegions
@@ -10430,6 +10609,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testHLogRollWriting
@@ -10607,6 +10791,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMoveToPreviouslyAssignedRS
@@ -11179,6 +11368,11 @@ block|}
 comment|/**    * HBASE-4417 checkHBaseAvailable() doesn't close zk connections    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCheckHBaseAvailableClosesConnection
@@ -11230,6 +11424,11 @@ block|}
 comment|/**    * Check that we have an exception if the cluster is not there.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testCheckHBaseAvailableWithoutCluster
@@ -11370,6 +11569,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testDisableCatalogTable
@@ -11453,6 +11657,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testGetRegion
