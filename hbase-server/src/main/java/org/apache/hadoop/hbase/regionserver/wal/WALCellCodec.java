@@ -199,6 +199,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|IOUtils
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -1275,10 +1289,12 @@ operator|+=
 name|elemLen
 expr_stmt|;
 comment|// the rest
-name|in
+name|IOUtils
 operator|.
-name|read
+name|readFully
 argument_list|(
+name|in
+argument_list|,
 name|backingArray
 argument_list|,
 name|pos
@@ -1345,10 +1361,12 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
-name|in
+name|IOUtils
 operator|.
-name|read
+name|readFully
 argument_list|(
+name|in
+argument_list|,
 name|to
 argument_list|,
 name|offset
