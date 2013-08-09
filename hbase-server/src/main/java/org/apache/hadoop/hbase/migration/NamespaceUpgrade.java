@@ -560,6 +560,17 @@ range|:
 name|baseDirs
 control|)
 block|{
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|baseDir
+argument_list|)
+condition|)
+continue|continue;
 name|List
 argument_list|<
 name|Path
