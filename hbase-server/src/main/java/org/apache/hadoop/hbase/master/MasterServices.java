@@ -448,7 +448,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return    * @throws IOException    */
+comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
@@ -459,7 +459,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List available namespace descriptors    * @return    * @throws IOException    */
+comment|/**    * List available namespace descriptors    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -470,7 +470,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<

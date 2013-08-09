@@ -432,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a helper class used to manage the namespace  * metadata that is stored in {@see HConstants.NAMESPACE_TABLE_NAME}  * It also mirrors updates to the ZK store by forwarding updates to  * {@link org.apache.hadoop.hbase.ZKNamespaceManager}  */
+comment|/**  * This is a helper class used to manage the namespace  * metadata that is stored in TableName.NAMESPACE_TABLE_NAME  * It also mirrors updates to the ZK store by forwarding updates to  * {@link org.apache.hadoop.hbase.ZKNamespaceManager}  */
 end_comment
 
 begin_class

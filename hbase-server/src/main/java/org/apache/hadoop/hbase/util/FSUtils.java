@@ -5326,7 +5326,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the {@link org.apache.hadoop.hbase.TableName} object representing    * the table directory under    * path rootdir    *    * @param rootdir qualified path of HBase root directory    * @param tablePath path of table    * @return {@link org.apache.hadoop.fs.Path} for table    */
+comment|/**    * Returns the {@link org.apache.hadoop.hbase.TableName} object representing    * the table directory under    * path rootdir    *    * @param tablePath path of table    * @return {@link org.apache.hadoop.fs.Path} for table    */
 end_comment
 
 begin_function

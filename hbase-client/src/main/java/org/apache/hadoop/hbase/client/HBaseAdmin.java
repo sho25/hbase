@@ -9028,7 +9028,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return    * @throws IOException    */
+comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
@@ -9098,7 +9098,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * List available namespace descriptors    * @return    * @throws IOException    */
+comment|/**    * List available namespace descriptors    * @return List of descriptors    * @throws IOException    */
 specifier|public
 name|NamespaceDescriptor
 index|[]
@@ -9216,7 +9216,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return A descriptor    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -9671,7 +9671,7 @@ name|tableNames
 argument_list|)
 return|;
 block|}
-comment|/**    * Get tableDescriptors    * @param tableNames List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors    * @param names List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -10406,7 +10406,7 @@ name|FLUSH
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    public void snapshot(final String snapshotName,     * Create a timestamp consistent snapshot for the given table.                         final byte[] tableName) throws IOException,     *<p>     * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a     * snapshot with the same name (even a different type or with different parameters) will fail with     * a {@link SnapshotCreationException} indicating the duplicate naming.     *<p>     * Snapshot names follow the same naming constraints as tables in HBase. See     * {@link HTableDescriptor#isLegalTableName(byte[])}.     * @param snapshotName name of the snapshot to be created     * @param tableName name of the table for which snapshot is created     * @throws IOException if a remote or network exception occurs     * @throws SnapshotCreationException if snapshot creation failed     * @throws IllegalArgumentException if the snapshot request is formatted incorrectly     */
+comment|/**    public void snapshot(final String snapshotName,     * Create a timestamp consistent snapshot for the given table.                         final byte[] tableName) throws IOException,     *<p>     * Snapshots are considered unique based on<b>the name of the snapshot</b>. Attempts to take a     * snapshot with the same name (even a different type or with different parameters) will fail with     * a {@link SnapshotCreationException} indicating the duplicate naming.     *<p>     * Snapshot names follow the same naming constraints as tables in HBase.     * @param snapshotName name of the snapshot to be created     * @param tableName name of the table for which snapshot is created     * @throws IOException if a remote or network exception occurs     * @throws SnapshotCreationException if snapshot creation failed     * @throws IllegalArgumentException if the snapshot request is formatted incorrectly     */
 specifier|public
 name|void
 name|snapshot

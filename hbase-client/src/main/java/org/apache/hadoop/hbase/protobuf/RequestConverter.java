@@ -3072,7 +3072,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer ScanRequest for a scanner id    *     * @param scannerId    * @param numberOfRows    * @param closeScanner    * @param nextCallSeq    * @return a scan request    */
+comment|/**    * Create a protocol buffer ScanRequest for a scanner id    *    * @param scannerId    * @param numberOfRows    * @param closeScanner    * @param nextCallSeq    * @return a scan request    */
 specifier|public
 specifier|static
 name|ScanRequest
@@ -5588,7 +5588,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer ModifyTableRequest    *    * @param table    * @param hTableDesc    * @return a ModifyTableRequest    */
+comment|/**    * Creates a protocol buffer ModifyTableRequest    *    * @param tableName    * @param hTableDesc    * @return a ModifyTableRequest    */
 specifier|public
 specifier|static
 name|ModifyTableRequest
