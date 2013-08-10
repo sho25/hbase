@@ -1895,6 +1895,8 @@ block|,
 name|BATCH_MUTATE
 block|,
 name|REPLAY_BATCH_MUTATE
+block|,
+name|COMPACT_REGION
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Members
@@ -23236,6 +23238,9 @@ case|:
 case|case
 name|BATCH_MUTATE
 case|:
+case|case
+name|COMPACT_REGION
+case|:
 comment|// when a region is in recovering state, no read, split or merge is allowed
 if|if
 condition|(
@@ -23301,9 +23306,16 @@ operator|==
 name|Operation
 operator|.
 name|SPLIT_REGION
+operator|||
+name|op
+operator|==
+name|Operation
+operator|.
+name|COMPACT_REGION
 condition|)
 block|{
-comment|// split or merge region doesn't need to check the closing/closed state or lock the region
+comment|// split, merge or compact region doesn't need to check the closing/closed state or lock the
+comment|// region
 return|return;
 block|}
 if|if

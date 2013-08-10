@@ -4440,7 +4440,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"testLogReplayWithNonMetaRSDown"
+literal|"testLogReplayForDisablingTable"
 argument_list|)
 expr_stmt|;
 name|Configuration

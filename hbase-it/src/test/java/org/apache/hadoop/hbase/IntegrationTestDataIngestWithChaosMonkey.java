@@ -220,6 +220,15 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
+name|setInt
+argument_list|(
+literal|"hbase.log.replay.rpc.timeout"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
 name|setBoolean
 argument_list|(
 name|HConstants

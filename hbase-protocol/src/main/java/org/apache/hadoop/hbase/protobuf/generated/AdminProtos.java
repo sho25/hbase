@@ -3563,6 +3563,15 @@ name|CompactionState
 name|getCompactionState
 parameter_list|()
 function_decl|;
+comment|// optional bool isRecovering = 3;
+name|boolean
+name|hasIsRecovering
+parameter_list|()
+function_decl|;
+name|boolean
+name|getIsRecovering
+parameter_list|()
+function_decl|;
 block|}
 specifier|public
 specifier|static
@@ -4244,6 +4253,45 @@ return|return
 name|compactionState_
 return|;
 block|}
+comment|// optional bool isRecovering = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ISRECOVERING_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|boolean
+name|isRecovering_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasIsRecovering
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getIsRecovering
+parameter_list|()
+block|{
+return|return
+name|isRecovering_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -4291,6 +4339,10 @@ operator|.
 name|CompactionState
 operator|.
 name|NONE
+expr_stmt|;
+name|isRecovering_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -4436,6 +4488,29 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|3
+argument_list|,
+name|isRecovering_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -4538,6 +4613,37 @@ name|compactionState_
 operator|.
 name|getNumber
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|3
+argument_list|,
+name|isRecovering_
 argument_list|)
 expr_stmt|;
 block|}
@@ -4772,6 +4878,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasIsRecovering
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasIsRecovering
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasIsRecovering
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getIsRecovering
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getIsRecovering
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -4875,6 +5016,37 @@ operator|+
 name|hashEnum
 argument_list|(
 name|getCompactionState
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasIsRecovering
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|ISRECOVERING_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getIsRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5805,6 +5977,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|isRecovering_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -6162,6 +6347,30 @@ name|compactionState_
 operator|=
 name|compactionState_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|isRecovering_
+operator|=
+name|isRecovering_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -6326,6 +6535,23 @@ argument_list|(
 name|other
 operator|.
 name|getCompactionState
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasIsRecovering
+argument_list|()
+condition|)
+block|{
+name|setIsRecovering
+argument_list|(
+name|other
+operator|.
+name|getIsRecovering
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6666,6 +6892,23 @@ operator|=
 name|value
 expr_stmt|;
 block|}
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|isRecovering_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
 break|break;
 block|}
 block|}
@@ -7539,6 +7782,85 @@ operator|.
 name|CompactionState
 operator|.
 name|NONE
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool isRecovering = 3;
+specifier|private
+name|boolean
+name|isRecovering_
+decl_stmt|;
+specifier|public
+name|boolean
+name|hasIsRecovering
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|getIsRecovering
+parameter_list|()
+block|{
+return|return
+name|isRecovering_
+return|;
+block|}
+specifier|public
+name|Builder
+name|setIsRecovering
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|isRecovering_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
+name|Builder
+name|clearIsRecovering
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|isRecovering_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -102031,149 +102353,151 @@ literal|"\032\tWAL.proto\"R\n\024GetRegionInfoRequest\022 \n\006r"
 operator|+
 literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\030\n\020compact"
 operator|+
-literal|"ion_state\030\002 \001(\010\"\303\001\n\025GetRegionInfoRespons"
+literal|"ion_state\030\002 \001(\010\"\331\001\n\025GetRegionInfoRespons"
 operator|+
 literal|"e\022 \n\013region_info\030\001 \002(\0132\013.RegionInfo\022@\n\020c"
 operator|+
 literal|"ompaction_state\030\002 \001(\0162&.GetRegionInfoRes"
 operator|+
-literal|"ponse.CompactionState\"F\n\017CompactionState"
+literal|"ponse.CompactionState\022\024\n\014isRecovering\030\003 "
 operator|+
-literal|"\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJO"
+literal|"\001(\010\"F\n\017CompactionState\022\010\n\004NONE\020\000\022\t\n\005MINO"
 operator|+
-literal|"R_AND_MINOR\020\003\"G\n\023GetStoreFileRequest\022 \n\006"
+literal|"R\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_AND_MINOR\020\003\"G\n\023G"
 operator|+
-literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006family"
+literal|"etStoreFileRequest\022 \n\006region\030\001 \002(\0132\020.Reg"
 block|,
-literal|"\030\002 \003(\014\"*\n\024GetStoreFileResponse\022\022\n\nstore_"
+literal|"ionSpecifier\022\016\n\006family\030\002 \003(\014\"*\n\024GetStore"
 operator|+
-literal|"file\030\001 \003(\t\"\030\n\026GetOnlineRegionRequest\";\n\027"
+literal|"FileResponse\022\022\n\nstore_file\030\001 \003(\t\"\030\n\026GetO"
 operator|+
-literal|"GetOnlineRegionResponse\022 \n\013region_info\030\001"
+literal|"nlineRegionRequest\";\n\027GetOnlineRegionRes"
 operator|+
-literal|" \003(\0132\013.RegionInfo\"\275\001\n\021OpenRegionRequest\022"
+literal|"ponse\022 \n\013region_info\030\001 \003(\0132\013.RegionInfo\""
 operator|+
-literal|"4\n\topen_info\030\001 \003(\0132!.OpenRegionRequest.R"
+literal|"\275\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
 operator|+
-literal|"egionOpenInfo\032r\n\016RegionOpenInfo\022\033\n\006regio"
+literal|"2!.OpenRegionRequest.RegionOpenInfo\032r\n\016R"
 operator|+
-literal|"n\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_of_offli"
+literal|"egionOpenInfo\022\033\n\006region\030\001 \002(\0132\013.RegionIn"
 operator|+
-literal|"ne_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 \003(\0132\013.S"
+literal|"fo\022\037\n\027version_of_offline_node\030\002 \001(\r\022\"\n\rf"
 operator|+
-literal|"erverName\"\235\001\n\022OpenRegionResponse\022=\n\ropen"
+literal|"avored_nodes\030\003 \003(\0132\013.ServerName\"\235\001\n\022Open"
 operator|+
-literal|"ing_state\030\001 \003(\0162&.OpenRegionResponse.Reg"
+literal|"RegionResponse\022=\n\ropening_state\030\001 \003(\0162&."
 block|,
-literal|"ionOpeningState\"H\n\022RegionOpeningState\022\n\n"
+literal|"OpenRegionResponse.RegionOpeningState\"H\n"
 operator|+
-literal|"\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_"
+literal|"\022RegionOpeningState\022\n\n\006OPENED\020\000\022\022\n\016ALREA"
 operator|+
-literal|"OPENING\020\002\"\240\001\n\022CloseRegionRequest\022 \n\006regi"
+literal|"DY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002\"\240\001\n\022Clos"
 operator|+
-literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027version_of"
+literal|"eRegionRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
 operator|+
-literal|"_closing_node\030\002 \001(\r\022\036\n\020transition_in_ZK\030"
+literal|"pecifier\022\037\n\027version_of_closing_node\030\002 \001("
 operator|+
-literal|"\003 \001(\010:\004true\022\'\n\022destination_server\030\004 \001(\0132"
+literal|"\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004true\022\'\n\022des"
 operator|+
-literal|"\013.ServerName\"%\n\023CloseRegionResponse\022\016\n\006c"
+literal|"tination_server\030\004 \001(\0132\013.ServerName\"%\n\023Cl"
 operator|+
-literal|"losed\030\001 \002(\010\"P\n\022FlushRegionRequest\022 \n\006reg"
+literal|"oseRegionResponse\022\016\n\006closed\030\001 \002(\010\"P\n\022Flu"
 operator|+
-literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022\030\n\020if_older_"
+literal|"shRegionRequest\022 \n\006region\030\001 \002(\0132\020.Region"
 operator|+
-literal|"than_ts\030\002 \001(\004\"?\n\023FlushRegionResponse\022\027\n\017"
+literal|"Specifier\022\030\n\020if_older_than_ts\030\002 \001(\004\"?\n\023F"
 block|,
-literal|"last_flush_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K"
+literal|"lushRegionResponse\022\027\n\017last_flush_time\030\001 "
 operator|+
-literal|"\n\022SplitRegionRequest\022 \n\006region\030\001 \002(\0132\020.R"
+literal|"\002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitRegionReque"
 operator|+
-literal|"egionSpecifier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023S"
+literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\023\n\013"
 operator|+
-literal|"plitRegionResponse\"W\n\024CompactRegionReque"
+literal|"split_point\030\002 \001(\014\"\025\n\023SplitRegionResponse"
 operator|+
-literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005"
+literal|"\"W\n\024CompactRegionRequest\022 \n\006region\030\001 \002(\013"
 operator|+
-literal|"major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRe"
+literal|"2\020.RegionSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006fam"
 operator|+
-literal|"gionResponse\"v\n\023MergeRegionsRequest\022\"\n\010r"
+literal|"ily\030\003 \001(\014\"\027\n\025CompactRegionResponse\"v\n\023Me"
 operator|+
-literal|"egion_a\030\001 \002(\0132\020.RegionSpecifier\022\"\n\010regio"
+literal|"rgeRegionsRequest\022\"\n\010region_a\030\001 \002(\0132\020.Re"
 operator|+
-literal|"n_b\030\002 \002(\0132\020.RegionSpecifier\022\027\n\010forcible\030"
+literal|"gionSpecifier\022\"\n\010region_b\030\002 \002(\0132\020.Region"
 operator|+
-literal|"\003 \001(\010:\005false\"\026\n\024MergeRegionsResponse\"X\n\010"
+literal|"Specifier\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024Me"
 block|,
-literal|"WALEntry\022\024\n\003key\030\001 \002(\0132\007.WALKey\022\027\n\017key_va"
+literal|"rgeRegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 "
 operator|+
-literal|"lue_bytes\030\002 \003(\014\022\035\n\025associated_cell_count"
+literal|"\002(\0132\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n"
 operator|+
-literal|"\030\003 \001(\005\"4\n\030ReplicateWALEntryRequest\022\030\n\005en"
+literal|"\025associated_cell_count\030\003 \001(\005\"4\n\030Replicat"
 operator|+
-literal|"try\030\001 \003(\0132\t.WALEntry\"\033\n\031ReplicateWALEntr"
+literal|"eWALEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEnt"
 operator|+
-literal|"yResponse\"\026\n\024RollWALWriterRequest\"0\n\025Rol"
+literal|"ry\"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollW"
 operator|+
-literal|"lWALWriterResponse\022\027\n\017region_to_flush\030\001 "
+literal|"ALWriterRequest\"0\n\025RollWALWriterResponse"
 operator|+
-literal|"\003(\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 \002(\t"
+literal|"\022\027\n\017region_to_flush\030\001 \003(\014\"#\n\021StopServerR"
 operator|+
-literal|"\"\024\n\022StopServerResponse\"\026\n\024GetServerInfoR"
+literal|"equest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerResp"
 operator|+
-literal|"equest\"B\n\nServerInfo\022 \n\013server_name\030\001 \002("
+literal|"onse\"\026\n\024GetServerInfoRequest\"B\n\nServerIn"
 operator|+
-literal|"\0132\013.ServerName\022\022\n\nwebui_port\030\002 \001(\r\"9\n\025Ge"
+literal|"fo\022 \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\n"
 block|,
-literal|"tServerInfoResponse\022 \n\013server_info\030\001 \002(\013"
+literal|"webui_port\030\002 \001(\r\"9\n\025GetServerInfoRespons"
 operator|+
-literal|"2\013.ServerInfo2\337\006\n\014AdminService\022>\n\rGetReg"
+literal|"e\022 \n\013server_info\030\001 \002(\0132\013.ServerInfo2\337\006\n\014"
 operator|+
-literal|"ionInfo\022\025.GetRegionInfoRequest\032\026.GetRegi"
+literal|"AdminService\022>\n\rGetRegionInfo\022\025.GetRegio"
 operator|+
-literal|"onInfoResponse\022;\n\014GetStoreFile\022\024.GetStor"
+literal|"nInfoRequest\032\026.GetRegionInfoResponse\022;\n\014"
 operator|+
-literal|"eFileRequest\032\025.GetStoreFileResponse\022D\n\017G"
+literal|"GetStoreFile\022\024.GetStoreFileRequest\032\025.Get"
 operator|+
-literal|"etOnlineRegion\022\027.GetOnlineRegionRequest\032"
+literal|"StoreFileResponse\022D\n\017GetOnlineRegion\022\027.G"
 operator|+
-literal|"\030.GetOnlineRegionResponse\0225\n\nOpenRegion\022"
+literal|"etOnlineRegionRequest\032\030.GetOnlineRegionR"
 operator|+
-literal|"\022.OpenRegionRequest\032\023.OpenRegionResponse"
+literal|"esponse\0225\n\nOpenRegion\022\022.OpenRegionReques"
 operator|+
-literal|"\0228\n\013CloseRegion\022\023.CloseRegionRequest\032\024.C"
+literal|"t\032\023.OpenRegionResponse\0228\n\013CloseRegion\022\023."
 operator|+
-literal|"loseRegionResponse\0228\n\013FlushRegion\022\023.Flus"
+literal|"CloseRegionRequest\032\024.CloseRegionResponse"
 block|,
-literal|"hRegionRequest\032\024.FlushRegionResponse\0228\n\013"
+literal|"\0228\n\013FlushRegion\022\023.FlushRegionRequest\032\024.F"
 operator|+
-literal|"SplitRegion\022\023.SplitRegionRequest\032\024.Split"
+literal|"lushRegionResponse\0228\n\013SplitRegion\022\023.Spli"
 operator|+
-literal|"RegionResponse\022>\n\rCompactRegion\022\025.Compac"
+literal|"tRegionRequest\032\024.SplitRegionResponse\022>\n\r"
 operator|+
-literal|"tRegionRequest\032\026.CompactRegionResponse\022;"
+literal|"CompactRegion\022\025.CompactRegionRequest\032\026.C"
 operator|+
-literal|"\n\014MergeRegions\022\024.MergeRegionsRequest\032\025.M"
+literal|"ompactRegionResponse\022;\n\014MergeRegions\022\024.M"
 operator|+
-literal|"ergeRegionsResponse\022J\n\021ReplicateWALEntry"
+literal|"ergeRegionsRequest\032\025.MergeRegionsRespons"
 operator|+
-literal|"\022\031.ReplicateWALEntryRequest\032\032.ReplicateW"
+literal|"e\022J\n\021ReplicateWALEntry\022\031.ReplicateWALEnt"
 operator|+
-literal|"ALEntryResponse\022\'\n\006Replay\022\r.MultiRequest"
+literal|"ryRequest\032\032.ReplicateWALEntryResponse\022\'\n"
 operator|+
-literal|"\032\016.MultiResponse\022>\n\rRollWALWriter\022\025.Roll"
+literal|"\006Replay\022\r.MultiRequest\032\016.MultiResponse\022>"
 operator|+
-literal|"WALWriterRequest\032\026.RollWALWriterResponse"
+literal|"\n\rRollWALWriter\022\025.RollWALWriterRequest\032\026"
 block|,
-literal|"\022>\n\rGetServerInfo\022\025.GetServerInfoRequest"
+literal|".RollWALWriterResponse\022>\n\rGetServerInfo\022"
 operator|+
-literal|"\032\026.GetServerInfoResponse\0225\n\nStopServer\022\022"
+literal|"\025.GetServerInfoRequest\032\026.GetServerInfoRe"
 operator|+
-literal|".StopServerRequest\032\023.StopServerResponseB"
+literal|"sponse\0225\n\nStopServer\022\022.StopServerRequest"
 operator|+
-literal|"A\n*org.apache.hadoop.hbase.protobuf.gene"
+literal|"\032\023.StopServerResponseBA\n*org.apache.hado"
 operator|+
-literal|"ratedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"op.hbase.protobuf.generatedB\013AdminProtos"
+operator|+
+literal|"H\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -102348,6 +102672,8 @@ block|{
 literal|"RegionInfo"
 block|,
 literal|"CompactionState"
+block|,
+literal|"IsRecovering"
 block|, }
 argument_list|,
 name|org
