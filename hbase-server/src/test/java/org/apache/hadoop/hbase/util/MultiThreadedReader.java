@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Set
 import|;
 end_import
@@ -68,6 +58,22 @@ operator|.
 name|atomic
 operator|.
 name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang
+operator|.
+name|math
+operator|.
+name|RandomUtils
 import|;
 end_import
 
@@ -123,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HRegionLocation
 import|;
 end_import
 
@@ -137,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
+name|TableName
 import|;
 end_import
 
@@ -258,7 +264,7 @@ name|boolean
 name|aborted
 decl_stmt|;
 specifier|private
-name|MultiThreadedWriter
+name|MultiThreadedWriterBase
 name|writer
 init|=
 literal|null
@@ -371,7 +377,7 @@ specifier|public
 name|void
 name|linkToWriter
 parameter_list|(
-name|MultiThreadedWriter
+name|MultiThreadedWriterBase
 name|writer
 parameter_list|)
 block|{
@@ -383,7 +389,7 @@ name|writer
 expr_stmt|;
 name|writer
 operator|.
-name|setTrackInsertedKeys
+name|setTrackWroteKeys
 argument_list|(
 literal|true
 argument_list|)
@@ -522,15 +528,6 @@ specifier|private
 specifier|final
 name|HTable
 name|table
-decl_stmt|;
-specifier|private
-specifier|final
-name|Random
-name|random
-init|=
-operator|new
-name|Random
-argument_list|()
 decl_stmt|;
 comment|/** The "current" key being read. Increases from startKey to endKey. */
 specifier|private
@@ -782,7 +779,7 @@ name|insertedUpToKey
 init|=
 name|writer
 operator|.
-name|insertedUpToKey
+name|wroteUpToKey
 argument_list|()
 decl_stmt|;
 if|if
@@ -813,7 +810,7 @@ literal|1
 argument_list|,
 name|writer
 operator|.
-name|insertedUpToKey
+name|wroteUpToKey
 argument_list|()
 operator|-
 name|keyWindow
@@ -902,7 +899,7 @@ name|Math
 operator|.
 name|abs
 argument_list|(
-name|random
+name|RandomUtils
 operator|.
 name|nextLong
 argument_list|()
@@ -1036,7 +1033,7 @@ name|queryKey
 argument_list|(
 name|get
 argument_list|,
-name|random
+name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
@@ -1289,7 +1286,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"At the time of failure, writer inserted "
+literal|"At the time of failure, writer wrote "
 operator|+
 name|writer
 operator|.
