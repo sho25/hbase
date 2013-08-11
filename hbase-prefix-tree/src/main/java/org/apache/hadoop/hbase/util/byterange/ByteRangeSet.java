@@ -113,6 +113,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|SimpleByteRange
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -398,7 +414,7 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|ByteRange
+name|SimpleByteRange
 argument_list|()
 argument_list|)
 expr_stmt|;

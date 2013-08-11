@@ -167,7 +167,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteRangeTool
+name|ByteRangeUtils
 import|;
 end_import
 
@@ -661,7 +661,7 @@ literal|0
 else|:
 literal|1
 decl_stmt|;
-name|ByteRangeTool
+name|ByteRangeUtils
 operator|.
 name|write
 argument_list|(

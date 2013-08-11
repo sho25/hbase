@@ -119,7 +119,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteRange
+name|SimpleByteRange
 import|;
 end_import
 
@@ -290,7 +290,7 @@ operator|.
 name|addSorted
 argument_list|(
 operator|new
-name|ByteRange
+name|SimpleByteRange
 argument_list|(
 name|array
 argument_list|)

@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteRangeTool
+name|ByteRangeUtils
 import|;
 end_import
 
@@ -438,7 +438,7 @@ index|[]
 argument_list|>
 name|copies
 init|=
-name|ByteRangeTool
+name|ByteRangeUtils
 operator|.
 name|copyToNewArrays
 argument_list|(

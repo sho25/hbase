@@ -81,7 +81,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteRangeTool
+name|ByteRangeUtils
 import|;
 end_import
 
@@ -179,7 +179,7 @@ literal|"abc"
 argument_list|)
 expr_stmt|;
 return|return
-name|ByteRangeTool
+name|ByteRangeUtils
 operator|.
 name|fromArrays
 argument_list|(
@@ -235,7 +235,7 @@ literal|"bbc"
 argument_list|)
 expr_stmt|;
 return|return
-name|ByteRangeTool
+name|ByteRangeUtils
 operator|.
 name|fromArrays
 argument_list|(

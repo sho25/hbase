@@ -67,7 +67,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteRange
+name|SimpleByteRange
 import|;
 end_import
 
@@ -1036,7 +1036,7 @@ index|[]
 name|thisRow
 init|=
 operator|new
-name|ByteRange
+name|SimpleByteRange
 argument_list|(
 name|in
 operator|.
