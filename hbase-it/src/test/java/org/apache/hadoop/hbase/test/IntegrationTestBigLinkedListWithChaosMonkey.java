@@ -627,10 +627,17 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
-comment|// run the test
 name|int
 name|ret
 init|=
+operator|-
+literal|1
+decl_stmt|;
+try|try
+block|{
+comment|// run the test
+name|ret
+operator|=
 name|ToolRunner
 operator|.
 name|run
@@ -647,12 +654,17 @@ name|test
 argument_list|,
 name|args
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// Make 100% sure that the monkey stops.
 name|test
 operator|.
 name|tearDown
 argument_list|()
 expr_stmt|;
+block|}
 name|System
 operator|.
 name|exit
