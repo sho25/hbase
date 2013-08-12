@@ -339,7 +339,6 @@ name|foundABigStore
 operator|=
 literal|true
 expr_stmt|;
-break|break;
 block|}
 block|}
 return|return
