@@ -3520,7 +3520,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Handles various states an unassigned node can be in.    *<p>    * Method is called when a state change is suspected for an unassigned node.    *<p>    * This deals with skipped transitions (we got a CLOSED but didn't see CLOSING    * yet).    * @param rt    * @param expectedVersion    */
-specifier|private
 name|void
 name|handleRegion
 parameter_list|(
@@ -4263,9 +4262,9 @@ comment|// times after already being in state of CLOSING
 if|if
 condition|(
 name|regionState
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|regionState
 operator|.
@@ -4283,17 +4282,18 @@ literal|"Received CLOSING for "
 operator|+
 name|prettyPrintedRegionName
 operator|+
-literal|" from server "
+literal|" from "
 operator|+
 name|sn
 operator|+
-literal|" but region was in the state "
+literal|" but the region isn't PENDING_CLOSE/CLOSING here: "
 operator|+
-name|regionState
-operator|+
-literal|" and not in expected PENDING_CLOSE or CLOSING states,"
-operator|+
-literal|" or not on the expected server"
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4320,9 +4320,9 @@ comment|// Should see CLOSED after CLOSING but possible after PENDING_CLOSE
 if|if
 condition|(
 name|regionState
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|regionState
 operator|.
@@ -4340,17 +4340,18 @@ literal|"Received CLOSED for "
 operator|+
 name|prettyPrintedRegionName
 operator|+
-literal|" from server "
+literal|" from "
 operator|+
 name|sn
 operator|+
-literal|" but region was in the state "
+literal|" but the region isn't PENDING_CLOSE/CLOSING here: "
 operator|+
-name|regionState
-operator|+
-literal|" and not in expected PENDING_CLOSE or CLOSING states,"
-operator|+
-literal|" or not on the expected server"
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4428,9 +4429,9 @@ case|:
 if|if
 condition|(
 name|regionState
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|regionState
 operator|.
@@ -4448,17 +4449,18 @@ literal|"Received FAILED_OPEN for "
 operator|+
 name|prettyPrintedRegionName
 operator|+
-literal|" from server "
+literal|" from "
 operator|+
 name|sn
 operator|+
-literal|" but region was in the state "
+literal|" but the region isn't PENDING_OPEN/OPENING here: "
 operator|+
-name|regionState
-operator|+
-literal|" and not in expected PENDING_OPEN or OPENING states,"
-operator|+
-literal|" or not on the expected server"
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4598,9 +4600,9 @@ comment|// times after already being in state of OPENING
 if|if
 condition|(
 name|regionState
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|regionState
 operator|.
@@ -4618,17 +4620,18 @@ literal|"Received OPENING for "
 operator|+
 name|prettyPrintedRegionName
 operator|+
-literal|" from server "
+literal|" from "
 operator|+
 name|sn
 operator|+
-literal|" but region was in the state "
+literal|" but the region isn't PENDING_OPEN/OPENING here: "
 operator|+
-name|regionState
-operator|+
-literal|" and not in expected PENDING_OPEN or OPENING states,"
-operator|+
-literal|" or not on the expected server"
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4651,13 +4654,13 @@ break|break;
 case|case
 name|RS_ZK_REGION_OPENED
 case|:
-comment|// Should see OPENED after OPENING but possible after PENDING_OPEN
+comment|// Should see OPENED after OPENING but possible after PENDING_OPEN.
 if|if
 condition|(
 name|regionState
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 operator|!
 name|regionState
 operator|.
@@ -4675,17 +4678,18 @@ literal|"Received OPENED for "
 operator|+
 name|prettyPrintedRegionName
 operator|+
-literal|" from server "
+literal|" from "
 operator|+
 name|sn
 operator|+
-literal|" but region was in the state "
+literal|" but the region isn't PENDING_OPEN/OPENING here: "
 operator|+
-name|regionState
-operator|+
-literal|" and not in expected PENDING_OPEN or OPENING states,"
-operator|+
-literal|" or not on the expected server"
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Close it without updating the internal region states,
