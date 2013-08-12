@@ -471,15 +471,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// Name of the HDFS directory that contains the temporary rep logs
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_LOG_DIR
-init|=
-literal|".replogs"
-decl_stmt|;
 specifier|private
 specifier|final
 name|Configuration
