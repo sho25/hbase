@@ -886,6 +886,15 @@ name|HBCK_SIDELINEDIR_NAME
 init|=
 literal|".hbck"
 decl_stmt|;
+comment|/** Any artifacts left from migration can be moved here */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MIGRATION_NAME
+init|=
+literal|".migration"
+decl_stmt|;
 comment|/** Used to construct the name of the compaction directory during compaction */
 specifier|public
 specifier|static
@@ -2233,6 +2242,8 @@ block|,
 name|OLD_SNAPSHOT_DIR_NAME
 block|,
 name|BASE_NAMESPACE_DIR
+block|,
+name|MIGRATION_NAME
 block|}
 argument_list|)
 argument_list|)

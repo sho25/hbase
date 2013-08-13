@@ -606,6 +606,9 @@ argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ADMIN

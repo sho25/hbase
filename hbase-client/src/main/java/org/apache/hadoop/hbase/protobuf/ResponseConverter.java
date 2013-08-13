@@ -860,7 +860,7 @@ control|)
 block|{
 name|builder
 operator|.
-name|addPermission
+name|addUserPermission
 argument_list|(
 name|ProtobufUtil
 operator|.

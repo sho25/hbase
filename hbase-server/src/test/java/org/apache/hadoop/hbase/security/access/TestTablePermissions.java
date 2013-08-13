@@ -681,6 +681,9 @@ argument_list|(
 name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ZKW
@@ -776,7 +779,7 @@ name|conf
 argument_list|,
 name|AccessControlLists
 operator|.
-name|ACL_TABLE
+name|ACL_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
@@ -1572,7 +1575,8 @@ expr_stmt|;
 comment|// check full load
 name|Map
 argument_list|<
-name|TableName
+name|byte
+index|[]
 argument_list|,
 name|ListMultimap
 argument_list|<
@@ -1609,6 +1613,9 @@ operator|.
 name|get
 argument_list|(
 name|TEST_TABLE
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 operator|.
 name|get
@@ -1686,6 +1693,9 @@ operator|.
 name|get
 argument_list|(
 name|TEST_TABLE2
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 operator|.
 name|get

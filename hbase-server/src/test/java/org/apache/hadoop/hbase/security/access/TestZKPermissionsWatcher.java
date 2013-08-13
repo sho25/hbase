@@ -662,7 +662,7 @@ argument_list|)
 expr_stmt|;
 name|AUTH_A
 operator|.
-name|setUserPermissions
+name|setTableUserPermissions
 argument_list|(
 literal|"george"
 argument_list|,
@@ -870,7 +870,7 @@ argument_list|)
 expr_stmt|;
 name|AUTH_B
 operator|.
-name|setUserPermissions
+name|setTableUserPermissions
 argument_list|(
 literal|"hubert"
 argument_list|,
