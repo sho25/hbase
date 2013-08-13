@@ -1685,6 +1685,22 @@ name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
 literal|60000
 decl_stmt|;
+comment|/**    * timeout for short operation RPC    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY
+init|=
+literal|"hbase.rpc.shortoperation.timeout"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY}    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_RPC_SHORTOPERATION_TIMEOUT
+init|=
+literal|10000
+decl_stmt|;
 comment|/**    * Value indicating the server name was saved with no sequence number.    */
 specifier|public
 specifier|static

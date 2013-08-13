@@ -4077,11 +4077,11 @@ name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_RPC_TIMEOUT_KEY
+name|HBASE_RPC_SHORTOPERATION_TIMEOUT_KEY
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_HBASE_RPC_TIMEOUT
+name|DEFAULT_HBASE_RPC_SHORTOPERATION_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|this
