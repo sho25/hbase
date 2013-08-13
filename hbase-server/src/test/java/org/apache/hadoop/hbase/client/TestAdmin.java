@@ -6419,7 +6419,17 @@ parameter_list|(
 name|IllegalArgumentException
 name|e
 parameter_list|)
-block|{     }
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -9509,10 +9519,15 @@ block|{
 if|if
 condition|(
 operator|!
+name|HTableDescriptor
+operator|.
+name|isSystemTable
+argument_list|(
 name|regionInfo
 operator|.
-name|isMetaTable
+name|getTableName
 argument_list|()
+argument_list|)
 condition|)
 block|{
 name|info
