@@ -2679,6 +2679,10 @@ operator|.
 name|getRow
 argument_list|()
 expr_stmt|;
+name|maxRowBytes
+operator|=
+name|curRowBytes
+expr_stmt|;
 block|}
 name|curRowBytes
 operator|=
