@@ -1453,6 +1453,34 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+comment|// we can first check if the value was changed in the store, if it wasn't then fail right away
+if|if
+condition|(
+name|status
+operator|!=
+name|rp
+operator|.
+name|getStatusOfPeerFromBackingStore
+argument_list|(
+name|peerId
+argument_list|)
+condition|)
+block|{
+name|fail
+argument_list|(
+literal|"ConnectedPeerStatus was "
+operator|+
+operator|!
+name|status
+operator|+
+literal|" but expected "
+operator|+
+name|status
+operator|+
+literal|" in ZK"
+argument_list|)
+expr_stmt|;
+block|}
 while|while
 condition|(
 literal|true

@@ -717,8 +717,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param bytes    * @return True if the passed in<code>bytes</code> are those of a pb serialized ENABLED state.    * @throws DeserializationException    */
-specifier|private
+comment|/**    * Parse the raw data from ZK to get a peer's state    * @param bytes raw ZK data    * @return True if the passed in<code>bytes</code> are those of a pb serialized ENABLED state.    * @throws DeserializationException    */
+specifier|public
 specifier|static
 name|boolean
 name|isStateEnabled
