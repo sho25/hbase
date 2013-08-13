@@ -791,9 +791,10 @@ parameter_list|)
 block|{
 return|return
 operator|(
-name|this
+name|EnvironmentEdgeManager
 operator|.
-name|endTime
+name|currentTimeMillis
+argument_list|()
 operator|-
 name|this
 operator|.
