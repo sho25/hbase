@@ -1746,7 +1746,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Gives a Pair with first object as Sum and second object as row count,    * computed for a given combination of column qualifier and column family in    * the given row range as defined in the Scan object. In its current    * implementation, it takes one column family and one column qualifier (if    * provided). In case of null column qualifier, an aggregate sum over all the    * entire column family will be returned.    *<p>    * The average is computed in    * {@link AggregationClient#avg(byte[], ColumnInterpreter, Scan)} by    * processing results from all regions, so its "ok" to pass sum and a Long    * type.    */
+comment|/**    * Gives a Pair with first object as Sum and second object as row count,    * computed for a given combination of column qualifier and column family in    * the given row range as defined in the Scan object. In its current    * implementation, it takes one column family and one column qualifier (if    * provided). In case of null column qualifier, an aggregate sum over all the    * entire column family will be returned.    *<p>    * The average is computed in    * AggregationClient#avg(byte[], ColumnInterpreter, Scan) by    * processing results from all regions, so its "ok" to pass sum and a Long    * type.    */
 annotation|@
 name|Override
 specifier|public
