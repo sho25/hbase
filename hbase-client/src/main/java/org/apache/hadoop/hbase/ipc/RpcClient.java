@@ -6581,12 +6581,32 @@ operator|.
 name|done
 condition|)
 block|{
+if|if
+condition|(
+name|connection
+operator|.
+name|shouldCloseConnection
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unexpected closed connection"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|call
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
 comment|// wait for the result
 block|}
