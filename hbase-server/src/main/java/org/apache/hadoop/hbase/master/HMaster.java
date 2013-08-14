@@ -14361,7 +14361,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Get list of table names    * @param controller Unused (set to null).    * @param req GetTableNamesRequest    * @return GetTableNamesResponse    * @throws ServiceException    */
+comment|/**    * Get list of userspace table names    * @param controller Unused (set to null).    * @param req GetTableNamesRequest    * @return GetTableNamesResponse    * @throws ServiceException    */
 specifier|public
 name|GetTableNamesResponse
 name|getTableNames
@@ -14411,6 +14411,16 @@ range|:
 name|descriptors
 control|)
 block|{
+if|if
+condition|(
+name|descriptor
+operator|.
+name|isMetaTable
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
 name|builder
 operator|.
 name|addTableNames
