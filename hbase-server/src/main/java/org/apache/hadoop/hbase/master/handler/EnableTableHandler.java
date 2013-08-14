@@ -1583,6 +1583,8 @@ name|Trace
 operator|.
 name|wrap
 argument_list|(
+literal|"BulkEnabler.populatePool"
+argument_list|,
 operator|new
 name|Runnable
 argument_list|()

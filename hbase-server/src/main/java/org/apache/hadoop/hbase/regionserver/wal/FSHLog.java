@@ -585,6 +585,30 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|cloudera
+operator|.
+name|htrace
+operator|.
+name|Trace
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|cloudera
+operator|.
+name|htrace
+operator|.
+name|TraceScope
+import|;
+end_import
+
 begin_comment
 comment|/**  * HLog stores all the edits to the HStore.  Its the hbase write-ahead-log  * implementation.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * There is one HLog per RegionServer.  All edits for all Regions carried by  * a particular RegionServer are entered first in the HLog.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *  *<p>To read an HLog, call {@link HLogFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  *  */
 end_comment
@@ -4014,6 +4038,18 @@ literal|"Cannot append; log is closed"
 argument_list|)
 throw|;
 block|}
+name|TraceScope
+name|traceScope
+init|=
+name|Trace
+operator|.
+name|startSpan
+argument_list|(
+literal|"FSHlog.append"
+argument_list|)
+decl_stmt|;
+try|try
+block|{
 name|long
 name|txid
 init|=
@@ -4152,6 +4188,15 @@ block|}
 return|return
 name|txid
 return|;
+block|}
+finally|finally
+block|{
+name|traceScope
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_function
 

@@ -1197,6 +1197,8 @@ name|Trace
 operator|.
 name|wrap
 argument_list|(
+literal|"DisableTableHandler.BulkDisabler"
+argument_list|,
 operator|new
 name|Runnable
 argument_list|()

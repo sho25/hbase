@@ -14990,7 +14990,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// DebugPrint.println("HRegionScanner.<init>");
 name|this
 operator|.
 name|region

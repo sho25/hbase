@@ -4809,7 +4809,7 @@ name|s
 init|=
 name|Trace
 operator|.
-name|currentTrace
+name|currentSpan
 argument_list|()
 decl_stmt|;
 name|builder

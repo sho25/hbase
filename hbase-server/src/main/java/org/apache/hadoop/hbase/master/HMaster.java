@@ -5676,17 +5676,13 @@ argument_list|)
 expr_stmt|;
 name|spanReceiverHost
 operator|=
-operator|new
 name|SpanReceiverHost
+operator|.
+name|getInstance
 argument_list|(
 name|getConfiguration
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|spanReceiverHost
-operator|.
-name|loadSpanReceivers
-argument_list|()
 expr_stmt|;
 comment|// start up all service threads.
 name|status
