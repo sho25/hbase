@@ -540,6 +540,25 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|// This is a bit ugly - We call this getTableNames in 0.94 and the
+comment|// successor function, returning TableName, listTableNames in later versions
+comment|// because Java polymorphism doesn't consider return value types
+annotation|@
+name|Deprecated
+name|String
+index|[]
+name|getTableNames
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+name|TableName
+index|[]
+name|listTableNames
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 name|getHTableDescriptor

@@ -721,7 +721,7 @@ name|descs
 init|=
 name|admin
 operator|.
-name|getTableDescriptorsByNamespace
+name|listTableDescriptorsByNamespace
 argument_list|(
 name|NamespaceDescriptor
 operator|.

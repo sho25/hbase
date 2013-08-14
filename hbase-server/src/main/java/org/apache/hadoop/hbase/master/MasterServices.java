@@ -470,13 +470,27 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return A descriptor    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace    * @param name namespace name    * @return descriptors    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
 name|HTableDescriptor
 argument_list|>
-name|getTableDescriptorsByNamespace
+name|listTableDescriptorsByNamespace
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get list of table names by namespace    * @param name namespace name    * @return table names    * @throws IOException    */
+specifier|public
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+name|listTableNamesByNamespace
 parameter_list|(
 name|String
 name|name

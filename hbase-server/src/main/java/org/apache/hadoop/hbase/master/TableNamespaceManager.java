@@ -1039,7 +1039,7 @@ name|tableCount
 init|=
 name|masterServices
 operator|.
-name|getTableDescriptorsByNamespace
+name|listTableDescriptorsByNamespace
 argument_list|(
 name|name
 argument_list|)

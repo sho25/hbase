@@ -1731,7 +1731,7 @@ name|List
 argument_list|<
 name|HTableDescriptor
 argument_list|>
-name|getTableDescriptorsByNamespace
+name|listTableDescriptorsByNamespace
 parameter_list|(
 name|String
 name|name
@@ -1743,6 +1743,25 @@ return|return
 literal|null
 return|;
 comment|//To change body of implemented methods use File | Settings | File Templates.
+block|}
+annotation|@
+name|Override
+specifier|public
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+name|listTableNamesByNamespace
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+literal|null
+return|;
 block|}
 annotation|@
 name|Override
