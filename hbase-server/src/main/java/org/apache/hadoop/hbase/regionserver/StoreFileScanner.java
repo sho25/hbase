@@ -777,7 +777,7 @@ operator|&&
 operator|(
 name|cur
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|>
 name|readPoint
@@ -821,7 +821,7 @@ if|if
 condition|(
 name|cur
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|<=
 name|readPoint
@@ -829,7 +829,7 @@ condition|)
 block|{
 name|cur
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 literal|0
 argument_list|)

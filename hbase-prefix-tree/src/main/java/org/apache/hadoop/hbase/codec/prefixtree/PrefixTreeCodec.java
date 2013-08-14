@@ -129,22 +129,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|RootKeyComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValueUtil
 import|;
 end_import
@@ -1085,23 +1069,6 @@ operator|new
 name|IllegalArgumentException
 argument_list|(
 literal|"DataBlockEncoding.PREFIX_TREE not compatible with META "
-operator|+
-literal|"table"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|comparator
-operator|instanceof
-name|RootKeyComparator
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"DataBlockEncoding.PREFIX_TREE not compatible with ROOT "
 operator|+
 literal|"table"
 argument_list|)

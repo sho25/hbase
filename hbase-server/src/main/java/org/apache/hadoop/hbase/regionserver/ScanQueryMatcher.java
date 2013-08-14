@@ -1086,7 +1086,7 @@ name|includeDeleteMarker
 operator|&&
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|<=
 name|maxReadPointToTrackVersions
@@ -1134,7 +1134,7 @@ operator|)
 operator|||
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|>
 name|maxReadPointToTrackVersions
@@ -1438,7 +1438,7 @@ name|type
 argument_list|,
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|>
 name|maxReadPointToTrackVersions

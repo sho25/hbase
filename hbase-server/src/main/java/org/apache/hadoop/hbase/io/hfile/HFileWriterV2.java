@@ -1439,7 +1439,7 @@ name|append
 argument_list|(
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 argument_list|,
 name|kv
@@ -1487,7 +1487,7 @@ name|maxMemstoreTS
 argument_list|,
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 argument_list|)
 expr_stmt|;

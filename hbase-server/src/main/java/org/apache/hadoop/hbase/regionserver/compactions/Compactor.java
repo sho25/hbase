@@ -1201,7 +1201,7 @@ if|if
 condition|(
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|<=
 name|smallestReadPoint
@@ -1209,7 +1209,7 @@ condition|)
 block|{
 name|kv
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 literal|0
 argument_list|)

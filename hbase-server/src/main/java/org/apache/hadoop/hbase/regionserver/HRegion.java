@@ -11608,7 +11608,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|localizedWriteEntry
 operator|.
@@ -19574,7 +19574,7 @@ control|)
 block|{
 name|kv
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|writeEntry
 operator|.
@@ -20849,7 +20849,7 @@ argument_list|)
 expr_stmt|;
 name|newKV
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|w
 operator|.
@@ -21678,7 +21678,7 @@ argument_list|)
 decl_stmt|;
 name|newKV
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|w
 operator|.

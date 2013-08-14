@@ -857,7 +857,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|current
 operator|.

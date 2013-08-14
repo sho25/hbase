@@ -2558,7 +2558,7 @@ condition|)
 block|{
 name|ret
 operator|.
-name|setMemstoreTS
+name|setMvccVersion
 argument_list|(
 name|currMemstoreTS
 argument_list|)

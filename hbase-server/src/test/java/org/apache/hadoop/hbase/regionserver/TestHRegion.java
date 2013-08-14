@@ -22305,7 +22305,7 @@ literal|"(memStoreTS:"
 operator|+
 name|previousKV
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|+
 literal|")"
@@ -22318,7 +22318,7 @@ literal|"(memStoreTS:"
 operator|+
 name|kv
 operator|.
-name|getMemstoreTS
+name|getMvccVersion
 argument_list|()
 operator|+
 literal|")"
