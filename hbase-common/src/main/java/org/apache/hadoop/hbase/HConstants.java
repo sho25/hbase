@@ -842,14 +842,14 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/** Used to construct the name of the log directory for a region server    * Use '.' as a special character to seperate the log files from table data */
+comment|/** Used to construct the name of the log directory for a region server */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|HREGION_LOGDIR_NAME
 init|=
-literal|".logs"
+literal|"WALs"
 decl_stmt|;
 comment|/** Used to construct the name of the splitlog directory for a region server */
 specifier|public
@@ -858,15 +858,7 @@ specifier|final
 name|String
 name|SPLIT_LOGDIR_NAME
 init|=
-literal|"splitlog"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|CORRUPT_DIR_NAME
-init|=
-literal|".corrupt"
+literal|"splitWAL"
 decl_stmt|;
 comment|/** Like the previous, but for old logs that are about to be deleted */
 specifier|public
@@ -875,7 +867,15 @@ specifier|final
 name|String
 name|HREGION_OLDLOGDIR_NAME
 init|=
-literal|".oldlogs"
+literal|"oldWALs"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CORRUPT_DIR_NAME
+init|=
+literal|"corrupt"
 decl_stmt|;
 comment|/** Used by HBCK to sideline backup data */
 specifier|public
@@ -1025,7 +1025,7 @@ specifier|final
 name|String
 name|BASE_NAMESPACE_DIR
 init|=
-literal|".data"
+literal|"data"
 decl_stmt|;
 comment|/** delimiter used between portions of a region name */
 specifier|public
@@ -2172,7 +2172,7 @@ specifier|final
 name|String
 name|HFILE_ARCHIVE_DIRECTORY
 init|=
-literal|".archive"
+literal|"archive"
 decl_stmt|;
 comment|/**    * Name of the directory to store all snapshots. See SnapshotDescriptionUtils for    * remaining snapshot constants; this is here to keep HConstants dependencies at a minimum and    * uni-directional.    */
 specifier|public

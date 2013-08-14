@@ -5131,6 +5131,12 @@ literal|"qdf"
 argument_list|)
 argument_list|)
 expr_stmt|;
+specifier|final
+name|String
+name|wals
+init|=
+literal|"/WALs/"
+decl_stmt|;
 name|ServerName
 name|parsed
 init|=
@@ -5153,7 +5159,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"/.logs/"
+name|wals
 operator|+
 name|sn
 operator|+
@@ -5216,7 +5222,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"/.logs/"
+name|wals
 operator|+
 name|sn
 operator|+
