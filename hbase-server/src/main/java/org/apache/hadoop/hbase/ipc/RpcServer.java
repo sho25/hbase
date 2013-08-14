@@ -2943,7 +2943,10 @@ name|Override
 specifier|public
 name|void
 name|throwExceptionIfCallerDisconnected
-parameter_list|()
+parameter_list|(
+name|String
+name|regionName
+parameter_list|)
 throws|throws
 name|CallerDisconnectedException
 block|{
@@ -2972,7 +2975,11 @@ throw|throw
 operator|new
 name|CallerDisconnectedException
 argument_list|(
-literal|"Aborting call "
+literal|"Aborting on region "
+operator|+
+name|regionName
+operator|+
+literal|", call "
 operator|+
 name|this
 operator|+

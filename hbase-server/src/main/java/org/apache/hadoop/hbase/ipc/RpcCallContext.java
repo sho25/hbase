@@ -27,7 +27,10 @@ block|{
 comment|/**    * Throw an exception if the caller who made this IPC call has disconnected.    * If called from outside the context of IPC, this does nothing.    * @throws CallerDisconnectedException    */
 name|void
 name|throwExceptionIfCallerDisconnected
-parameter_list|()
+parameter_list|(
+name|String
+name|regionName
+parameter_list|)
 throws|throws
 name|CallerDisconnectedException
 function_decl|;
