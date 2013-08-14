@@ -6084,6 +6084,36 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Checks if the given path is the one with 'recovered.edits' dir.    * @param path    * @return    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|boolean
+name|isRecoveredEdits
+parameter_list|(
+name|Path
+name|path
+parameter_list|)
+block|{
+return|return
+name|path
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|HConstants
+operator|.
+name|RECOVERED_EDITS_DIR
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Filter for all dirs that don't start with '.'    */
 end_comment
 

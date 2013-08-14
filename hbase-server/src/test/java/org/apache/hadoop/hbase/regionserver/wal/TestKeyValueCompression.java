@@ -427,6 +427,8 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|DataOutputBuffer

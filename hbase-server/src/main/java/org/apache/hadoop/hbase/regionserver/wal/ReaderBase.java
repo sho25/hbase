@@ -119,6 +119,22 @@ name|WALTrailer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -289,6 +305,13 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|FSUtils
+operator|.
+name|isRecoveredEdits
+argument_list|(
+name|path
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

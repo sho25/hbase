@@ -51,6 +51,13 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+name|void
+name|init
+parameter_list|(
+name|int
+name|initialSize
+parameter_list|)
+function_decl|;
 comment|/**    * Gets an entry from the dictionary.    *     * @param idx index of the entry    * @return the entry, or null if non existent    */
 name|byte
 index|[]
