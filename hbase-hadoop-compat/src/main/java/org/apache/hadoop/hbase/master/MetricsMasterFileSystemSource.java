@@ -33,14 +33,10 @@ name|BaseSource
 import|;
 end_import
 
-begin_comment
-comment|/**  * Interface that classes that expose metrics about the master will implement.  */
-end_comment
-
 begin_interface
 specifier|public
 interface|interface
-name|MetricsMasterSource
+name|MetricsMasterFileSystemSource
 extends|extends
 name|BaseSource
 block|{
@@ -48,7 +44,7 @@ comment|/**    * The name of the metrics    */
 name|String
 name|METRICS_NAME
 init|=
-literal|"Server"
+literal|"FileSystem"
 decl_stmt|;
 comment|/**    * The context metrics will be under.    */
 name|String
@@ -68,111 +64,74 @@ comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase master server"
-decl_stmt|;
-comment|// Strings used for exporting to metrics system.
-name|String
-name|MASTER_ACTIVE_TIME_NAME
-init|=
-literal|"masterActiveTime"
+literal|"Metrics about HBase master file system."
 decl_stmt|;
 name|String
-name|MASTER_START_TIME_NAME
+name|META_SPLIT_TIME_NAME
 init|=
-literal|"masterStartTime"
+literal|"metaHlogSplitTime"
 decl_stmt|;
 name|String
-name|AVERAGE_LOAD_NAME
+name|META_SPLIT_SIZE_NAME
 init|=
-literal|"averageLoad"
+literal|"metaHlogSplitSize"
 decl_stmt|;
 name|String
-name|NUM_REGION_SERVERS_NAME
+name|SPLIT_TIME_NAME
 init|=
-literal|"numRegionServers"
+literal|"hlogSplitTime"
 decl_stmt|;
 name|String
-name|NUM_DEAD_REGION_SERVERS_NAME
+name|SPLIT_SIZE_NAME
 init|=
-literal|"numDeadRegionServers"
+literal|"hlogSplitSize"
 decl_stmt|;
 name|String
-name|ZOOKEEPER_QUORUM_NAME
+name|META_SPLIT_TIME_DESC
 init|=
-literal|"zookeeperQuorum"
+literal|"Time it takes to finish splitMetaLog()"
 decl_stmt|;
 name|String
-name|SERVER_NAME_NAME
+name|META_SPLIT_SIZE_DESC
 init|=
-literal|"serverName"
+literal|"Size of META HLog files being split"
 decl_stmt|;
 name|String
-name|CLUSTER_ID_NAME
+name|SPLIT_TIME_DESC
 init|=
-literal|"clusterId"
+literal|"Time it takes to finish HLog.splitLog()"
 decl_stmt|;
 name|String
-name|IS_ACTIVE_MASTER_NAME
+name|SPLIT_SIZE_DESC
 init|=
-literal|"isActiveMaster"
+literal|"Size of HLog files being split"
 decl_stmt|;
-name|String
-name|CLUSTER_REQUESTS_NAME
-init|=
-literal|"clusterRequests"
-decl_stmt|;
-name|String
-name|MASTER_ACTIVE_TIME_DESC
-init|=
-literal|"Master Active Time"
-decl_stmt|;
-name|String
-name|MASTER_START_TIME_DESC
-init|=
-literal|"Master Start Time"
-decl_stmt|;
-name|String
-name|AVERAGE_LOAD_DESC
-init|=
-literal|"AverageLoad"
-decl_stmt|;
-name|String
-name|NUMBER_OF_REGION_SERVERS_DESC
-init|=
-literal|"Number of RegionServers"
-decl_stmt|;
-name|String
-name|NUMBER_OF_DEAD_REGION_SERVERS_DESC
-init|=
-literal|"Number of dead RegionServers"
-decl_stmt|;
-name|String
-name|ZOOKEEPER_QUORUM_DESC
-init|=
-literal|"Zookeeper Quorum"
-decl_stmt|;
-name|String
-name|SERVER_NAME_DESC
-init|=
-literal|"Server Name"
-decl_stmt|;
-name|String
-name|CLUSTER_ID_DESC
-init|=
-literal|"Cluster Id"
-decl_stmt|;
-name|String
-name|IS_ACTIVE_MASTER_DESC
-init|=
-literal|"Is Active Master"
-decl_stmt|;
-comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
-name|incRequests
+name|updateMetaWALSplitTime
 parameter_list|(
-specifier|final
-name|int
-name|inc
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateMetaWALSplitSize
+parameter_list|(
+name|long
+name|size
+parameter_list|)
+function_decl|;
+name|void
+name|updateSplitTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateSplitSize
+parameter_list|(
+name|long
+name|size
 parameter_list|)
 function_decl|;
 block|}

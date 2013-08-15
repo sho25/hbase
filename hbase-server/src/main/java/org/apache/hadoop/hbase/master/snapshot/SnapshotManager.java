@@ -2228,8 +2228,6 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|master
-argument_list|,
-name|metricsMaster
 argument_list|)
 decl_stmt|;
 name|snapshotTable
@@ -2270,8 +2268,6 @@ argument_list|,
 name|master
 argument_list|,
 name|this
-argument_list|,
-name|metricsMaster
 argument_list|)
 decl_stmt|;
 name|snapshotTable
@@ -3000,8 +2996,6 @@ argument_list|,
 name|snapshot
 argument_list|,
 name|hTableDescriptor
-argument_list|,
-name|metricsMaster
 argument_list|)
 operator|.
 name|prepare
@@ -3460,8 +3454,6 @@ argument_list|,
 name|snapshot
 argument_list|,
 name|hTableDescriptor
-argument_list|,
-name|metricsMaster
 argument_list|)
 operator|.
 name|prepare

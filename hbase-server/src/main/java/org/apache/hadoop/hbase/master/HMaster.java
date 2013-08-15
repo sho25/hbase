@@ -5524,8 +5524,6 @@ name|this
 argument_list|,
 name|this
 argument_list|,
-name|metricsMaster
-argument_list|,
 name|masterRecovery
 argument_list|)
 expr_stmt|;

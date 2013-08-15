@@ -2078,6 +2078,15 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|protected
+specifier|final
+name|MetricsBalancer
+name|metricsBalancer
+init|=
+operator|new
+name|MetricsBalancer
+argument_list|()
+decl_stmt|;
+specifier|protected
 name|MasterServices
 name|services
 decl_stmt|;
@@ -2380,6 +2389,11 @@ argument_list|>
 name|servers
 parameter_list|)
 block|{
+name|metricsBalancer
+operator|.
+name|incrMiscInvocations
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|regions
@@ -2598,6 +2612,11 @@ argument_list|>
 name|servers
 parameter_list|)
 block|{
+name|metricsBalancer
+operator|.
+name|incrMiscInvocations
+argument_list|()
+expr_stmt|;
 name|Map
 argument_list|<
 name|HRegionInfo
@@ -2657,6 +2676,11 @@ argument_list|>
 name|servers
 parameter_list|)
 block|{
+name|metricsBalancer
+operator|.
+name|incrMiscInvocations
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|servers
@@ -2725,6 +2749,12 @@ argument_list|>
 name|servers
 parameter_list|)
 block|{
+comment|// Update metrics
+name|metricsBalancer
+operator|.
+name|incrMiscInvocations
+argument_list|()
+expr_stmt|;
 comment|// Group all of the old assignments by their hostname.
 comment|// We can't group directly by ServerName since the servers all have
 comment|// new start-codes.

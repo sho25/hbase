@@ -605,8 +605,14 @@ name|Server
 name|master
 decl_stmt|;
 comment|// metrics for master
-name|MetricsMaster
-name|metricsMaster
+specifier|private
+specifier|final
+name|MetricsMasterFileSystem
+name|metricsMasterFilesystem
+init|=
+operator|new
+name|MetricsMasterFileSystem
+argument_list|()
 decl_stmt|;
 comment|// Persisted unique cluster ID
 specifier|private
@@ -733,9 +739,6 @@ parameter_list|,
 name|MasterServices
 name|services
 parameter_list|,
-name|MetricsMaster
-name|metricsMaster
-parameter_list|,
 name|boolean
 name|masterRecovery
 parameter_list|)
@@ -762,12 +765,6 @@ operator|.
 name|services
 operator|=
 name|services
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 comment|// Set filesystem to be that of this.rootdir else we get complaints about
 comment|// mismatched filesystems if hbase.rootdir is hdfs and fs.defaultFS is
@@ -2080,7 +2077,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|metricsMaster
+name|metricsMasterFilesystem
 operator|!=
 literal|null
 condition|)
@@ -2094,7 +2091,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|metricsMaster
+name|metricsMasterFilesystem
 operator|.
 name|addMetaWALSplit
 argument_list|(
@@ -2108,7 +2105,7 @@ else|else
 block|{
 name|this
 operator|.
-name|metricsMaster
+name|metricsMasterFilesystem
 operator|.
 name|addSplit
 argument_list|(

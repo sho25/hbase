@@ -33,14 +33,10 @@ name|BaseSource
 import|;
 end_import
 
-begin_comment
-comment|/**  * Interface that classes that expose metrics about the master will implement.  */
-end_comment
-
 begin_interface
 specifier|public
 interface|interface
-name|MetricsMasterSource
+name|MetricsSnapshotSource
 extends|extends
 name|BaseSource
 block|{
@@ -48,7 +44,7 @@ comment|/**    * The name of the metrics    */
 name|String
 name|METRICS_NAME
 init|=
-literal|"Server"
+literal|"Snapshots"
 decl_stmt|;
 comment|/**    * The context metrics will be under.    */
 name|String
@@ -70,109 +66,55 @@ name|METRICS_DESCRIPTION
 init|=
 literal|"Metrics about HBase master server"
 decl_stmt|;
-comment|// Strings used for exporting to metrics system.
 name|String
-name|MASTER_ACTIVE_TIME_NAME
+name|SNAPSHOT_TIME_NAME
 init|=
-literal|"masterActiveTime"
+literal|"snapshotTime"
 decl_stmt|;
 name|String
-name|MASTER_START_TIME_NAME
+name|SNAPSHOT_RESTORE_TIME_NAME
 init|=
-literal|"masterStartTime"
+literal|"snapshotRestoreTime"
 decl_stmt|;
 name|String
-name|AVERAGE_LOAD_NAME
+name|SNAPSHOT_CLONE_TIME_NAME
 init|=
-literal|"averageLoad"
+literal|"snapshotCloneTime"
 decl_stmt|;
 name|String
-name|NUM_REGION_SERVERS_NAME
+name|SNAPSHOT_TIME_DESC
 init|=
-literal|"numRegionServers"
+literal|"Time it takes to finish snapshot()"
 decl_stmt|;
 name|String
-name|NUM_DEAD_REGION_SERVERS_NAME
+name|SNAPSHOT_RESTORE_TIME_DESC
 init|=
-literal|"numDeadRegionServers"
+literal|"Time it takes to finish restoreSnapshot()"
 decl_stmt|;
 name|String
-name|ZOOKEEPER_QUORUM_NAME
+name|SNAPSHOT_CLONE_TIME_DESC
 init|=
-literal|"zookeeperQuorum"
+literal|"Time it takes to finish cloneSnapshot()"
 decl_stmt|;
-name|String
-name|SERVER_NAME_NAME
-init|=
-literal|"serverName"
-decl_stmt|;
-name|String
-name|CLUSTER_ID_NAME
-init|=
-literal|"clusterId"
-decl_stmt|;
-name|String
-name|IS_ACTIVE_MASTER_NAME
-init|=
-literal|"isActiveMaster"
-decl_stmt|;
-name|String
-name|CLUSTER_REQUESTS_NAME
-init|=
-literal|"clusterRequests"
-decl_stmt|;
-name|String
-name|MASTER_ACTIVE_TIME_DESC
-init|=
-literal|"Master Active Time"
-decl_stmt|;
-name|String
-name|MASTER_START_TIME_DESC
-init|=
-literal|"Master Start Time"
-decl_stmt|;
-name|String
-name|AVERAGE_LOAD_DESC
-init|=
-literal|"AverageLoad"
-decl_stmt|;
-name|String
-name|NUMBER_OF_REGION_SERVERS_DESC
-init|=
-literal|"Number of RegionServers"
-decl_stmt|;
-name|String
-name|NUMBER_OF_DEAD_REGION_SERVERS_DESC
-init|=
-literal|"Number of dead RegionServers"
-decl_stmt|;
-name|String
-name|ZOOKEEPER_QUORUM_DESC
-init|=
-literal|"Zookeeper Quorum"
-decl_stmt|;
-name|String
-name|SERVER_NAME_DESC
-init|=
-literal|"Server Name"
-decl_stmt|;
-name|String
-name|CLUSTER_ID_DESC
-init|=
-literal|"Cluster Id"
-decl_stmt|;
-name|String
-name|IS_ACTIVE_MASTER_DESC
-init|=
-literal|"Is Active Master"
-decl_stmt|;
-comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
-name|incRequests
+name|updateSnapshotTime
 parameter_list|(
-specifier|final
-name|int
-name|inc
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateSnapshotCloneTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateSnapshotRestoreTime
+parameter_list|(
+name|long
+name|time
 parameter_list|)
 function_decl|;
 block|}

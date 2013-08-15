@@ -1078,6 +1078,15 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|metricsBalancer
+operator|.
+name|balanceCluster
+argument_list|(
+name|endTime
+operator|-
+name|startTime
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|initCost

@@ -494,10 +494,6 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
-parameter_list|,
-specifier|final
-name|MetricsMaster
-name|metricsMaster
 parameter_list|)
 block|{
 name|super
@@ -505,8 +501,6 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|masterServices
-argument_list|,
-name|metricsMaster
 argument_list|)
 expr_stmt|;
 comment|// setup the timer

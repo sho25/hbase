@@ -33,14 +33,10 @@ name|BaseSource
 import|;
 end_import
 
-begin_comment
-comment|/**  * Interface that classes that expose metrics about the master will implement.  */
-end_comment
-
 begin_interface
 specifier|public
 interface|interface
-name|MetricsMasterSource
+name|MetricsAssignmentManagerSource
 extends|extends
 name|BaseSource
 block|{
@@ -48,7 +44,7 @@ comment|/**    * The name of the metrics    */
 name|String
 name|METRICS_NAME
 init|=
-literal|"Server"
+literal|"AssignmentManger"
 decl_stmt|;
 comment|/**    * The context metrics will be under.    */
 name|String
@@ -68,111 +64,69 @@ comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase master server"
-decl_stmt|;
-comment|// Strings used for exporting to metrics system.
-name|String
-name|MASTER_ACTIVE_TIME_NAME
-init|=
-literal|"masterActiveTime"
+literal|"Metrics about HBase master assingment manager."
 decl_stmt|;
 name|String
-name|MASTER_START_TIME_NAME
+name|RIT_COUNT_NAME
 init|=
-literal|"masterStartTime"
+literal|"ritCount"
 decl_stmt|;
 name|String
-name|AVERAGE_LOAD_NAME
+name|RIT_COUNT_OVER_THRESHOLD_NAME
 init|=
-literal|"averageLoad"
+literal|"ritCountOverThreshold"
 decl_stmt|;
 name|String
-name|NUM_REGION_SERVERS_NAME
+name|RIT_OLDEST_AGE_NAME
 init|=
-literal|"numRegionServers"
+literal|"ritOldestAge"
 decl_stmt|;
 name|String
-name|NUM_DEAD_REGION_SERVERS_NAME
+name|ASSIGN_TIME_NAME
 init|=
-literal|"numDeadRegionServers"
+literal|"assign"
 decl_stmt|;
 name|String
-name|ZOOKEEPER_QUORUM_NAME
+name|BULK_ASSIGN_TIME_NAME
 init|=
-literal|"zookeeperQuorum"
+literal|"bulkAssign"
 decl_stmt|;
-name|String
-name|SERVER_NAME_NAME
-init|=
-literal|"serverName"
-decl_stmt|;
-name|String
-name|CLUSTER_ID_NAME
-init|=
-literal|"clusterId"
-decl_stmt|;
-name|String
-name|IS_ACTIVE_MASTER_NAME
-init|=
-literal|"isActiveMaster"
-decl_stmt|;
-name|String
-name|CLUSTER_REQUESTS_NAME
-init|=
-literal|"clusterRequests"
-decl_stmt|;
-name|String
-name|MASTER_ACTIVE_TIME_DESC
-init|=
-literal|"Master Active Time"
-decl_stmt|;
-name|String
-name|MASTER_START_TIME_DESC
-init|=
-literal|"Master Start Time"
-decl_stmt|;
-name|String
-name|AVERAGE_LOAD_DESC
-init|=
-literal|"AverageLoad"
-decl_stmt|;
-name|String
-name|NUMBER_OF_REGION_SERVERS_DESC
-init|=
-literal|"Number of RegionServers"
-decl_stmt|;
-name|String
-name|NUMBER_OF_DEAD_REGION_SERVERS_DESC
-init|=
-literal|"Number of dead RegionServers"
-decl_stmt|;
-name|String
-name|ZOOKEEPER_QUORUM_DESC
-init|=
-literal|"Zookeeper Quorum"
-decl_stmt|;
-name|String
-name|SERVER_NAME_DESC
-init|=
-literal|"Server Name"
-decl_stmt|;
-name|String
-name|CLUSTER_ID_DESC
-init|=
-literal|"Cluster Id"
-decl_stmt|;
-name|String
-name|IS_ACTIVE_MASTER_DESC
-init|=
-literal|"Is Active Master"
-decl_stmt|;
-comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
-name|incRequests
+name|updateAssignmentTime
 parameter_list|(
-specifier|final
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateBulkAssignTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+comment|/**    * Set the number of regions in transition.    *    * @param ritCount count of the regions in transition.    */
+name|void
+name|setRIT
+parameter_list|(
 name|int
-name|inc
+name|ritCount
+parameter_list|)
+function_decl|;
+comment|/**    * Set the count of the number of regions that have been in transition over the threshold time.    *    * @param ritCountOverThreshold number of regions in transition for longer than threshold.    */
+name|void
+name|setRITCountOverThreshold
+parameter_list|(
+name|int
+name|ritCountOverThreshold
+parameter_list|)
+function_decl|;
+comment|/**    * Set the oldest region in transition.    *    * @param age age of the oldest RIT.    */
+name|void
+name|setRITOldestAge
+parameter_list|(
+name|long
+name|age
 parameter_list|)
 function_decl|;
 block|}

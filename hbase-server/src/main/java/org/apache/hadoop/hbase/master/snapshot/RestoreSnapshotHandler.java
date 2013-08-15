@@ -287,7 +287,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MetricsMaster
+name|MetricsSnapshot
 import|;
 end_import
 
@@ -441,22 +441,6 @@ name|SnapshotDescriptionUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handler to Restore a snapshot.  *  *<p>Uses {@link RestoreSnapshotHelper} to replace the table content with the  * data available in the snapshot.  */
 end_comment
@@ -506,8 +490,12 @@ name|monitor
 decl_stmt|;
 specifier|private
 specifier|final
-name|MetricsMaster
-name|metricsMaster
+name|MetricsSnapshot
+name|metricsSnapshot
+init|=
+operator|new
+name|MetricsSnapshot
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -535,10 +523,6 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
-parameter_list|,
-specifier|final
-name|MetricsMaster
-name|metricsMaster
 parameter_list|)
 throws|throws
 name|IOException
@@ -558,12 +542,6 @@ name|masterServices
 argument_list|,
 name|masterServices
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 comment|// Snapshot information
 name|this
@@ -981,7 +959,7 @@ literal|"'!"
 argument_list|)
 expr_stmt|;
 block|}
-name|metricsMaster
+name|metricsSnapshot
 operator|.
 name|addSnapshotRestore
 argument_list|(

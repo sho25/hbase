@@ -251,7 +251,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MetricsMaster
+name|MetricsSnapshot
 import|;
 end_import
 
@@ -419,22 +419,6 @@ name|Preconditions
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handler to Clone a snapshot.  *  *<p>Uses {@link RestoreSnapshotHelper} to create a new table with the same  * content of the specified snapshot.  */
 end_comment
@@ -487,8 +471,12 @@ name|monitor
 decl_stmt|;
 specifier|private
 specifier|final
-name|MetricsMaster
-name|metricsMaster
+name|MetricsSnapshot
+name|metricsSnapshot
+init|=
+operator|new
+name|MetricsSnapshot
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -516,10 +504,6 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|hTableDescriptor
-parameter_list|,
-specifier|final
-name|MetricsMaster
-name|metricsMaster
 parameter_list|)
 block|{
 name|super
@@ -542,12 +526,6 @@ literal|null
 argument_list|,
 name|masterServices
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 comment|// Snapshot information
 name|this
@@ -906,7 +884,7 @@ literal|"' clone completed and table enabled!"
 argument_list|)
 expr_stmt|;
 block|}
-name|metricsMaster
+name|metricsSnapshot
 operator|.
 name|addSnapshotClone
 argument_list|(

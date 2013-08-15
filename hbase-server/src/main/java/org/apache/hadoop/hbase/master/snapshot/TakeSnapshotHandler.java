@@ -345,7 +345,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MetricsMaster
+name|MetricsSnapshot
 import|;
 end_import
 
@@ -428,22 +428,6 @@ operator|.
 name|monitoring
 operator|.
 name|TaskMonitor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
 import|;
 end_import
 
@@ -607,8 +591,12 @@ name|master
 decl_stmt|;
 specifier|protected
 specifier|final
-name|MetricsMaster
-name|metricsMaster
+name|MetricsSnapshot
+name|metricsSnapshot
+init|=
+operator|new
+name|MetricsSnapshot
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -680,10 +668,6 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
-parameter_list|,
-specifier|final
-name|MetricsMaster
-name|metricsMaster
 parameter_list|)
 block|{
 name|super
@@ -714,12 +698,6 @@ operator|.
 name|master
 operator|=
 name|masterServices
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 name|this
 operator|.
@@ -1209,7 +1187,7 @@ operator|+
 literal|" completed"
 argument_list|)
 expr_stmt|;
-name|metricsMaster
+name|metricsSnapshot
 operator|.
 name|addSnapshot
 argument_list|(

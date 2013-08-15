@@ -322,10 +322,6 @@ parameter_list|,
 specifier|final
 name|SnapshotManager
 name|manager
-parameter_list|,
-specifier|final
-name|MetricsMaster
-name|metricsMaster
 parameter_list|)
 block|{
 name|super
@@ -333,8 +329,6 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|master
-argument_list|,
-name|metricsMaster
 argument_list|)
 expr_stmt|;
 name|this
