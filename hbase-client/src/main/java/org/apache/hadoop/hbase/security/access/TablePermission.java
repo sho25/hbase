@@ -960,6 +960,27 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH"
+argument_list|,
+name|justification
+operator|=
+literal|"Passed on construction except on constructor not to be used"
+argument_list|)
 specifier|public
 name|boolean
 name|equals
