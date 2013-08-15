@@ -6527,13 +6527,6 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Clear flush flag.
-comment|// Record latest flush time
-name|this
-operator|.
-name|lastFlushTime
-operator|=
-name|startTime
-expr_stmt|;
 comment|// If nothing to flush, return and avoid logging start/stop flush.
 if|if
 condition|(
@@ -7070,6 +7063,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Record latest flush time
+name|this
+operator|.
+name|lastFlushTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 comment|// Update the last flushed sequence id for region
 if|if
 condition|(
