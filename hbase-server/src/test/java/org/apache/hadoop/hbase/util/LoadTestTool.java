@@ -362,7 +362,7 @@ init|=
 literal|"cluster_test"
 decl_stmt|;
 comment|/** Column family used by the test */
-specifier|protected
+specifier|public
 specifier|static
 name|byte
 index|[]
