@@ -3461,6 +3461,70 @@ argument_list|(
 name|content
 argument_list|)
 condition|)
+block|{
+name|String
+name|cid
+init|=
+operator|new
+name|String
+argument_list|()
+decl_stmt|;
+name|in
+operator|=
+name|fs
+operator|.
+name|open
+argument_list|(
+name|idPath
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|cid
+operator|=
+name|in
+operator|.
+name|readUTF
+argument_list|()
+expr_stmt|;
+name|clusterId
+operator|=
+operator|new
+name|ClusterId
+argument_list|(
+name|cid
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|EOFException
+name|eof
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Cluster ID file "
+operator|+
+name|idPath
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" was empty"
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|in
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 name|rewriteAsPb
 argument_list|(
 name|fs
@@ -3472,6 +3536,7 @@ argument_list|,
 name|clusterId
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|clusterId
 return|;
@@ -6084,7 +6149,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Checks if the given path is the one with 'recovered.edits' dir.    * @param path    * @return    */
+comment|/**    * Checks if the given path is the one with 'recovered.edits' dir.    * @param path    * @return True if we recovered edits    */
 end_comment
 
 begin_function
