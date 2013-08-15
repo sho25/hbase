@@ -89,6 +89,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -156,6 +170,8 @@ argument_list|>
 argument_list|>
 name|clusterState
 parameter_list|)
+throws|throws
+name|HBaseIOException
 function_decl|;
 comment|/**    * Perform a Round Robin assignment of regions.    * @param regions    * @param servers    * @return Map of servername to regioninfos    */
 name|Map
@@ -181,6 +197,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 function_decl|;
 comment|/**    * Assign regions to the previously hosting region server    * @param regions    * @param servers    * @return List of plans    */
 name|Map
@@ -208,6 +226,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 function_decl|;
 comment|/**    * Sync assign a region    * @param regions    * @param servers     * @return Map regioninfos to servernames    */
 name|Map
@@ -230,6 +250,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 function_decl|;
 comment|/**    * Get a random region server from the list    * @param regionInfo Region for which this selection is being done.    * @param servers    * @return Servername    */
 name|ServerName
@@ -244,6 +266,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 function_decl|;
 block|}
 end_interface

@@ -335,6 +335,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -4561,6 +4575,8 @@ condition|)
 block|{
 comment|// When there are more than one region server a new RS is selected as the
 comment|// destination and the same is updated in the regionplan. (HBASE-5546)
+try|try
+block|{
 name|getRegionPlan
 argument_list|(
 name|regionState
@@ -4589,6 +4605,23 @@ operator|.
 name|process
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|HBaseIOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to get region plan"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 break|break;
@@ -8345,6 +8378,8 @@ literal|null
 condition|)
 block|{
 comment|// Get a server for the region at first
+try|try
+block|{
 name|plan
 operator|=
 name|getRegionPlan
@@ -8354,6 +8389,23 @@ argument_list|,
 name|forceNewPlan
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|HBaseIOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to get region plan"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -9140,13 +9192,36 @@ comment|// excluded since it could be the only server up now.
 name|RegionPlan
 name|newPlan
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|newPlan
+operator|=
 name|getRegionPlan
 argument_list|(
 name|region
 argument_list|,
 literal|true
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|HBaseIOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to get region plan"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|newPlan
@@ -9619,6 +9694,8 @@ specifier|final
 name|boolean
 name|forceNewPlan
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 return|return
 name|getRegionPlan
@@ -9648,6 +9725,8 @@ specifier|final
 name|boolean
 name|forceNewPlan
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 comment|// Pickup existing plan or make a new one
 specifier|final

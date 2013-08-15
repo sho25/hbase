@@ -8754,6 +8754,8 @@ specifier|public
 name|boolean
 name|balance
 parameter_list|()
+throws|throws
+name|HBaseIOException
 block|{
 comment|// if master not initialized, don't run balancer.
 if|if
@@ -9257,6 +9259,8 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+try|try
+block|{
 return|return
 name|BalanceResponse
 operator|.
@@ -9272,6 +9276,21 @@ operator|.
 name|build
 argument_list|()
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|HBaseIOException
+name|ex
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+name|ex
+argument_list|)
+throw|;
+block|}
 block|}
 enum|enum
 name|BalanceSwitchMode
