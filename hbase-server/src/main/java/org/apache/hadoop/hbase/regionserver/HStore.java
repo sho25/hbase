@@ -8419,8 +8419,6 @@ name|upsert
 parameter_list|(
 name|Iterable
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells

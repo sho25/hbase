@@ -406,8 +406,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -508,8 +506,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells

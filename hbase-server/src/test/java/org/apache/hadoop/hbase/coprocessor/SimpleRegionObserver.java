@@ -1996,8 +1996,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -2057,8 +2055,6 @@ condition|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -2269,8 +2265,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -2309,8 +2303,6 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -2545,8 +2537,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -2635,8 +2625,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>

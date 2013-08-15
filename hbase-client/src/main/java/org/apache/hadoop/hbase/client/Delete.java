@@ -459,8 +459,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -489,17 +487,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
-comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -564,8 +552,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -631,17 +617,7 @@ operator|.
 name|DeleteFamily
 argument_list|)
 decl_stmt|;
-comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
-comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -676,8 +652,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -706,15 +680,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -805,8 +771,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -835,17 +799,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
-comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -938,8 +892,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -968,8 +920,6 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Cast so explicit list type rather than ? extends Cell.  Help the compiler out.  See
-comment|// http://stackoverflow.com/questions/6474784/java-using-generics-with-lists-and-interfaces
 name|KeyValue
 name|kv
 init|=
@@ -993,15 +943,7 @@ operator|.
 name|Delete
 argument_list|)
 decl_stmt|;
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(

@@ -304,8 +304,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -354,8 +352,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -372,8 +368,6 @@ control|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -390,7 +384,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
@@ -403,7 +397,7 @@ condition|?
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|cells

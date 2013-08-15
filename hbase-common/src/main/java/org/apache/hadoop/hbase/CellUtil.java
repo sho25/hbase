@@ -1141,8 +1141,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -1165,8 +1163,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -1184,8 +1180,6 @@ decl_stmt|;
 specifier|private
 name|Iterator
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|currentIterator

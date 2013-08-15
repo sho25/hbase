@@ -369,8 +369,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -384,8 +382,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -415,8 +411,6 @@ block|}
 comment|/**    * Creates an empty list if one doesn't exist for the given column family    * or else it returns the associated list of Cell objects.    *    * @param family column family    * @return a list of Cell objects, returns an empty list if one doesn't exist.    */
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|getCellList
@@ -428,8 +422,6 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -573,8 +565,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -713,8 +703,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -928,8 +916,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -954,8 +940,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -1174,8 +1158,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -1274,8 +1256,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>

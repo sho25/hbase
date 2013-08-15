@@ -5948,8 +5948,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list

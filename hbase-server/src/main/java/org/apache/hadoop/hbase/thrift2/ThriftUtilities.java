@@ -1330,8 +1330,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|org
 operator|.
 name|apache

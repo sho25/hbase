@@ -332,8 +332,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -408,15 +406,7 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -490,8 +480,6 @@ throw|;
 block|}
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|list
@@ -520,15 +508,7 @@ name|amount
 argument_list|)
 argument_list|)
 decl_stmt|;
-operator|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|list
-operator|)
 operator|.
 name|add
 argument_list|(
@@ -647,8 +627,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -705,8 +683,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -885,8 +861,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>

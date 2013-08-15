@@ -7744,8 +7744,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -7807,8 +7805,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -7832,8 +7828,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -7856,8 +7850,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -8761,8 +8753,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -8860,8 +8850,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -10945,8 +10933,6 @@ name|Iterable
 argument_list|<
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -10962,8 +10948,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -11394,8 +11378,6 @@ name|family
 parameter_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|edits
@@ -11410,8 +11392,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11427,8 +11407,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11490,8 +11468,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11545,8 +11521,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11569,8 +11543,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -11666,8 +11638,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11729,8 +11699,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11752,8 +11720,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -11776,8 +11742,6 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
@@ -11885,8 +11849,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -12008,8 +11970,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -12043,8 +12003,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|kvs
@@ -12121,8 +12079,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -12136,8 +12092,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|edits
@@ -18101,14 +18055,14 @@ decl_stmt|;
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|cells
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 literal|2
@@ -20233,14 +20187,14 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|allKVs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|append
@@ -20255,7 +20209,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 name|tempMemstore
@@ -20267,7 +20221,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 argument_list|()
@@ -20371,8 +20325,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -20402,14 +20354,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|family
@@ -20425,12 +20377,6 @@ name|Collections
 operator|.
 name|sort
 argument_list|(
-operator|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-operator|)
 name|family
 operator|.
 name|getValue
@@ -20974,7 +20920,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 name|entry
@@ -21253,14 +21199,14 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|allKVs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|increment
@@ -21275,7 +21221,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 name|tempMemstore
@@ -21287,7 +21233,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 argument_list|()
@@ -21389,8 +21335,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -21420,14 +21364,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|(
 name|family
@@ -21803,7 +21747,7 @@ name|Store
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|>
 name|entry
@@ -23541,8 +23485,6 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 argument_list|>
@@ -23585,8 +23527,6 @@ for|for
 control|(
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Cell
 argument_list|>
 name|cells
