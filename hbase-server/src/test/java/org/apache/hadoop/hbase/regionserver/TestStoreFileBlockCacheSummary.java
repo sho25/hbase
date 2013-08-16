@@ -30,6 +30,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -625,16 +637,23 @@ operator|+
 name|bcs
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
-literal|"blockCache summary has entries"
-argument_list|,
-literal|2
+literal|"blockCache summary has "
+operator|+
+name|bcs
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" entries"
 argument_list|,
 name|bcs
 operator|.
 name|size
 argument_list|()
+operator|>=
+literal|2
 argument_list|)
 expr_stmt|;
 name|BlockCacheColumnFamilySummary
@@ -644,7 +663,12 @@ name|bcs
 operator|.
 name|get
 argument_list|(
-literal|0
+name|bcs
+operator|.
+name|size
+argument_list|()
+operator|-
+literal|2
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -677,6 +701,11 @@ name|bcs
 operator|.
 name|get
 argument_list|(
+name|bcs
+operator|.
+name|size
+argument_list|()
+operator|-
 literal|1
 argument_list|)
 expr_stmt|;
