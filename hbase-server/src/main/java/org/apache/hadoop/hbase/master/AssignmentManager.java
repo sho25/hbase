@@ -3184,6 +3184,18 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Splitting region should be online. We could have skipped it during
+comment|// user region rebuilding since we may consider the split is completed.
+comment|// Put it in SPLITTING state to avoid complications.
+name|regionStates
+operator|.
+name|regionOnline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
 name|regionStates
 operator|.
 name|updateRegionState
@@ -3226,16 +3238,54 @@ name|sn
 argument_list|)
 condition|)
 block|{
-name|forceOffline
+comment|// The region is already in SPLIT state, do nothing
+name|LOG
+operator|.
+name|warn
 argument_list|(
-name|regionInfo
-argument_list|,
-name|rt
+literal|"Processed "
+operator|+
+name|prettyPrintedRegionName
+operator|+
+literal|" in state : "
+operator|+
+name|et
+operator|+
+literal|" on a dead regionserver: "
+operator|+
+name|sn
+operator|+
+literal|" doing nothing"
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Splitting region should be online. We could have skipped it during
+comment|// user region rebuilding since we may consider the split is completed.
+comment|// Put it in SPLITTING state to avoid complications.
+name|regionStates
+operator|.
+name|regionOnline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|rt
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|SPLITTING
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3247,11 +3297,9 @@ operator|+
 literal|" in state : "
 operator|+
 name|et
-operator|+
-literal|" nothing to do."
 argument_list|)
 expr_stmt|;
-comment|// We don't do anything. The regionserver is supposed to update the znode
+comment|// Move the region to splitting state. The regionserver is supposed to update the znode
 comment|// multiple times so if it's still up we will receive an update soon.
 block|}
 break|break;
@@ -3332,7 +3380,9 @@ name|sn
 argument_list|)
 condition|)
 block|{
-comment|// ServerShutdownHandler would handle this region
+comment|// Do nothing, merging regions are already removed from meta,
+comment|// so they are not in region states map any more.
+comment|// The new region will be assigned by the ServerShutdownHandler
 name|LOG
 operator|.
 name|warn
@@ -3355,6 +3405,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Merging regions are already removed from meta. It doesn't hurt to
+comment|// do nothing here, no need to set them to merging state here. We are fine
+comment|// to put the new region to online state during user region rebuilding.
 name|LOG
 operator|.
 name|info
@@ -8186,8 +8239,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
 switch|switch
 condition|(
 name|state
@@ -8321,7 +8372,6 @@ expr_stmt|;
 return|return
 literal|null
 return|;
-block|}
 block|}
 return|return
 name|state
@@ -11904,6 +11954,38 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regionStates
+operator|.
+name|isRegionInState
+argument_list|(
+name|regionInfo
+argument_list|,
+name|State
+operator|.
+name|SPLIT
+argument_list|)
+condition|)
+block|{
+comment|// Split is considered to be completed. If the split znode still
+comment|// exists, the region will be put back to SPLITTING state later
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" split is completed. Hence need not add to regions list"
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|TableName
 name|tableName
 init|=
@@ -12054,86 +12136,6 @@ block|}
 block|}
 else|else
 block|{
-comment|// If region is in offline and split state check the ZKNode
-if|if
-condition|(
-name|regionInfo
-operator|.
-name|isOffline
-argument_list|()
-operator|&&
-name|regionInfo
-operator|.
-name|isSplit
-argument_list|()
-condition|)
-block|{
-name|String
-name|node
-init|=
-name|ZKAssign
-operator|.
-name|getNodeName
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|Stat
-name|stat
-init|=
-operator|new
-name|Stat
-argument_list|()
-decl_stmt|;
-name|byte
-index|[]
-name|data
-init|=
-name|ZKUtil
-operator|.
-name|getDataNoWatch
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|node
-argument_list|,
-name|stat
-argument_list|)
-decl_stmt|;
-comment|// If znode does not exist, don't consider this region
-if|if
-condition|(
-name|data
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" split is completed. Hence need not add to regions list"
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-block|}
 comment|// Region is being served and on an active server
 comment|// add only if region not in disabled or enabling table
 if|if

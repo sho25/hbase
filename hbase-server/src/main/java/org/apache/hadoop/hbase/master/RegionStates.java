@@ -149,20 +149,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -220,6 +206,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -769,7 +769,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a list of regions to RegionStates. The initial state is OFFLINE.    * If any region is already in RegionStates, that region will be skipped.    */
+comment|/**    * Add a list of regions to RegionStates. If a region is split    * and offline, its state will be SPLIT. Otherwise, its state will    * be OFFLINE. Region already in RegionStates will be skipped.    */
 specifier|public
 specifier|synchronized
 name|void
@@ -798,7 +798,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add a region to RegionStates. The initial state is OFFLINE.    * If it is already in RegionStates, this call has no effect,    * and the original state is returned.    */
+comment|/**    * Add a region to RegionStates. If the region is split    * and offline, its state will be SPLIT. Otherwise, its state will    * be OFFLINE. If it is already in RegionStates, this call has    * no effect, and the original state is returned.    */
 specifier|public
 specifier|synchronized
 name|RegionState
@@ -809,6 +809,29 @@ name|HRegionInfo
 name|hri
 parameter_list|)
 block|{
+name|State
+name|newState
+init|=
+operator|(
+name|hri
+operator|.
+name|isOffline
+argument_list|()
+operator|&&
+name|hri
+operator|.
+name|isSplit
+argument_list|()
+operator|)
+condition|?
+name|State
+operator|.
+name|SPLIT
+else|:
+name|State
+operator|.
+name|OFFLINE
+decl_stmt|;
 name|String
 name|regionName
 init|=
@@ -838,13 +861,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Tried to create a state of a region already in RegionStates, "
+literal|"Tried to create a state for a region already in RegionStates, "
 operator|+
-literal|"used existing state: "
+literal|"used existing: "
 operator|+
 name|regionState
 operator|+
-literal|", ignored new state: state=OFFLINE, server=null"
+literal|", ignored new: "
+operator|+
+name|newState
 argument_list|)
 expr_stmt|;
 block|}
@@ -857,9 +882,7 @@ name|RegionState
 argument_list|(
 name|hri
 argument_list|,
-name|State
-operator|.
-name|OFFLINE
+name|newState
 argument_list|)
 expr_stmt|;
 name|regionStates
