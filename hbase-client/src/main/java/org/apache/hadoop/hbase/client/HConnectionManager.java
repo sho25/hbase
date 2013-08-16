@@ -4984,6 +4984,12 @@ condition|(
 name|info
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|info
+operator|.
+name|isSplitParent
+argument_list|()
 condition|)
 block|{
 if|if
@@ -5189,6 +5195,12 @@ condition|(
 name|info
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|info
+operator|.
+name|isSplitParent
+argument_list|()
 condition|)
 block|{
 if|if
