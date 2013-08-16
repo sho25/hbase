@@ -210,13 +210,6 @@ literal|60
 operator|*
 literal|1000
 decl_stmt|;
-specifier|protected
-specifier|static
-name|String
-name|tableName
-init|=
-literal|null
-decl_stmt|;
 comment|/** A soft limit on how long we should run */
 specifier|private
 specifier|static
@@ -263,16 +256,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|tableName
-operator|=
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
-expr_stmt|;
 name|util
 operator|=
 name|getTestingUtil
@@ -346,7 +329,8 @@ index|[]
 block|{
 literal|"-tn"
 block|,
-name|tableName
+name|getTablename
+argument_list|()
 block|,
 literal|"-init_only"
 block|}
@@ -455,7 +439,13 @@ name|getTablename
 parameter_list|()
 block|{
 return|return
-name|tableName
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -500,7 +490,8 @@ argument_list|()
 operator|.
 name|tableExists
 argument_list|(
-name|tableName
+name|getTablename
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -512,7 +503,8 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|tableName
+name|getTablename
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -680,7 +672,8 @@ index|[]
 block|{
 literal|"-tn"
 block|,
-name|tableName
+name|getTablename
+argument_list|()
 block|,
 literal|"-write"
 block|,
@@ -760,7 +753,8 @@ index|[]
 block|{
 literal|"-tn"
 block|,
-name|tableName
+name|getTablename
+argument_list|()
 block|,
 literal|"-update"
 block|,
@@ -836,7 +830,8 @@ index|[]
 block|{
 literal|"-tn"
 block|,
-name|tableName
+name|getTablename
+argument_list|()
 block|,
 literal|"-read"
 block|,

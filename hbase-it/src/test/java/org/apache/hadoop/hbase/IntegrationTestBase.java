@@ -282,10 +282,10 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|setUpMonkey
+name|setUp
 argument_list|()
 expr_stmt|;
-name|setUp
+name|setUpMonkey
 argument_list|()
 expr_stmt|;
 name|int
@@ -296,6 +296,8 @@ literal|1
 decl_stmt|;
 try|try
 block|{
+name|result
+operator|=
 name|runTestFromCommandLine
 argument_list|()
 expr_stmt|;
@@ -362,6 +364,11 @@ argument_list|()
 argument_list|)
 operator|.
 name|build
+argument_list|()
+expr_stmt|;
+name|monkey
+operator|.
+name|start
 argument_list|()
 expr_stmt|;
 block|}
