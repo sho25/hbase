@@ -3755,9 +3755,7 @@ name|void
 name|testErrorsServers
 parameter_list|()
 throws|throws
-name|InterruptedIOException
-throws|,
-name|RetriesExhaustedWithDetailsException
+name|IOException
 block|{
 name|HTable
 name|ht
@@ -3795,6 +3793,21 @@ operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
 literal|20
+argument_list|)
+expr_stmt|;
+comment|// set default writeBufferSize
+name|ht
+operator|.
+name|setWriteBufferSize
+argument_list|(
+name|configuration
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.client.write.buffer"
+argument_list|,
+literal|2097152
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|MyConnectionImpl
