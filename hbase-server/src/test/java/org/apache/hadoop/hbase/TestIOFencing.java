@@ -1504,6 +1504,13 @@ name|getLastFlushTime
 argument_list|()
 operator|<=
 name|lastFlushTime
+operator|||
+name|compactingRegion
+operator|.
+name|countStoreFiles
+argument_list|()
+operator|<=
+literal|1
 condition|)
 block|{
 name|LOG
