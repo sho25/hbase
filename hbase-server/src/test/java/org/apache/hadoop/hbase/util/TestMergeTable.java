@@ -612,7 +612,7 @@ block|}
 decl_stmt|;
 comment|// Now create the root and meta regions and insert the data regions
 comment|// created above into .META.
-name|setupROOTAndMeta
+name|setupMeta
 argument_list|(
 name|rootdir
 argument_list|,
@@ -1012,7 +1012,7 @@ return|;
 block|}
 specifier|protected
 name|void
-name|setupROOTAndMeta
+name|setupMeta
 parameter_list|(
 name|Path
 name|rootdir
@@ -1025,29 +1025,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegion
-name|root
-init|=
-name|HRegion
-operator|.
-name|createHRegion
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|,
-name|rootdir
-argument_list|,
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-argument_list|)
-decl_stmt|;
 name|HRegion
 name|meta
 init|=
@@ -1071,15 +1048,6 @@ operator|.
 name|META_TABLEDESC
 argument_list|)
 decl_stmt|;
-name|HRegion
-operator|.
-name|addRegionToMETA
-argument_list|(
-name|root
-argument_list|,
-name|meta
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|HRegion
@@ -1103,13 +1071,6 @@ operator|.
 name|closeHRegion
 argument_list|(
 name|meta
-argument_list|)
-expr_stmt|;
-name|HRegion
-operator|.
-name|closeHRegion
-argument_list|(
-name|root
 argument_list|)
 expr_stmt|;
 block|}

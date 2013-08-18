@@ -615,26 +615,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Get the ServerName of region server serving ROOT region    */
-specifier|public
-name|ServerName
-name|getServerHoldingRoot
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-name|getServerHoldingRegion
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-return|;
-block|}
 comment|/**    * Get the ServerName of region server serving the first META region    */
 specifier|public
 name|ServerName

@@ -760,33 +760,6 @@ parameter_list|)
 block|{
 comment|// expected
 block|}
-try|try
-block|{
-name|admin
-operator|.
-name|snapshot
-argument_list|(
-name|snapshotName
-argument_list|,
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"taking a snapshot of -ROOT- should not be allowed"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-comment|// expected
-block|}
 block|}
 comment|/**    * Test HBaseAdmin#deleteSnapshots(String) which deletes snapshots whose names match the parameter    *    * @throws Exception    */
 annotation|@

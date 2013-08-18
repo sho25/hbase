@@ -672,30 +672,6 @@ if|if
 condition|(
 name|HTableDescriptor
 operator|.
-name|ROOT_TABLEDESC
-operator|.
-name|getTableName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|tablename
-argument_list|)
-condition|)
-block|{
-name|cachehits
-operator|++
-expr_stmt|;
-return|return
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
-return|;
-block|}
-if|if
-condition|(
-name|HTableDescriptor
-operator|.
 name|META_TABLEDESC
 operator|.
 name|getTableName
@@ -716,7 +692,7 @@ operator|.
 name|META_TABLEDESC
 return|;
 block|}
-comment|// .META. and -ROOT- is already handled. If some one tries to get the descriptor for
+comment|// .META. is already handled. If some one tries to get the descriptor for
 comment|// .logs, .oldlogs or .corrupt throw an exception.
 if|if
 condition|(
@@ -2120,15 +2096,6 @@ block|{
 comment|// ignore both -ROOT- and .META. tables
 if|if
 condition|(
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-operator|||
 name|tableName
 operator|.
 name|equals

@@ -314,11 +314,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-operator|+
-literal|",,0"
+literal|"hbase:root,,0"
 argument_list|)
 argument_list|,
 literal|1
@@ -669,11 +665,7 @@ argument_list|)
 operator|.
 name|equals
 argument_list|(
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-operator|+
-literal|",,0"
+literal|"hbase:root,,0"
 argument_list|)
 argument_list|)
 expr_stmt|;

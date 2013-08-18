@@ -2054,19 +2054,6 @@ comment|// containing anything to replicate and if we're currently not set to re
 if|if
 condition|(
 operator|!
-operator|(
-name|logKey
-operator|.
-name|getTablename
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-operator|||
 name|logKey
 operator|.
 name|getTablename
@@ -2078,7 +2065,6 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-operator|)
 operator|&&
 name|edit
 operator|.

@@ -137,22 +137,6 @@ name|VALID_TABLE_QUALIFIER_REGEX
 operator|+
 literal|"))"
 decl_stmt|;
-comment|/** The root table's name.*/
-specifier|public
-specifier|static
-specifier|final
-name|TableName
-name|ROOT_TABLE_NAME
-init|=
-name|valueOf
-argument_list|(
-name|NamespaceDescriptor
-operator|.
-name|SYSTEM_NAMESPACE_NAME_STR
-argument_list|,
-literal|"root"
-argument_list|)
-decl_stmt|;
 comment|/** The META table's name. */
 specifier|public
 specifier|static

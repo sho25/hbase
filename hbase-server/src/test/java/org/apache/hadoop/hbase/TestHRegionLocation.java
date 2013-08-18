@@ -178,7 +178,7 @@ name|HRegionLocation
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa1
 argument_list|)
@@ -224,7 +224,7 @@ name|HRegionLocation
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa2
 argument_list|)
@@ -351,7 +351,7 @@ name|HRegionLocation
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa1
 argument_list|)
@@ -378,7 +378,7 @@ name|HRegionLocation
 argument_list|(
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|,
 name|hsa2
 argument_list|)

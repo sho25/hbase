@@ -2284,13 +2284,6 @@ name|META_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()
-block|,
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-operator|.
-name|getNameAsString
-argument_list|()
 block|}
 argument_list|,
 name|HBASE_NON_TABLE_DIRS

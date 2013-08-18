@@ -1376,7 +1376,7 @@ argument_list|()
 argument_list|,
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
 return|return
@@ -2349,7 +2349,7 @@ argument_list|()
 argument_list|,
 name|HRegionInfo
 operator|.
-name|ROOT_REGIONINFO
+name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
 return|return

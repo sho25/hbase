@@ -739,23 +739,6 @@ name|tableName
 init|=
 literal|null
 decl_stmt|;
-comment|/** HRegionInfo for root region */
-specifier|public
-specifier|static
-specifier|final
-name|HRegionInfo
-name|ROOT_REGIONINFO
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-literal|0L
-argument_list|,
-name|TableName
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-decl_stmt|;
 comment|/** HRegionInfo for first meta region */
 specifier|public
 specifier|static
