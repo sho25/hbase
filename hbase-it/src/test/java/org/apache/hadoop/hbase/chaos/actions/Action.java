@@ -342,7 +342,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{ }
-empty_stmt|;
 comment|/** Returns current region servers */
 specifier|protected
 name|ServerName

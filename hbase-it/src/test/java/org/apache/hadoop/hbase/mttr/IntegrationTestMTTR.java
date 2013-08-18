@@ -2194,10 +2194,6 @@ name|next
 argument_list|()
 decl_stmt|;
 return|return
-name|rs
-operator|!=
-literal|null
-operator|&&
 name|result
 operator|!=
 literal|null
@@ -2399,11 +2395,6 @@ init|=
 literal|10
 decl_stmt|;
 name|int
-name|recordSize
-init|=
-literal|500
-decl_stmt|;
-name|int
 name|numServers
 init|=
 name|util
@@ -2461,7 +2452,7 @@ literal|"%d:%d:%d"
 argument_list|,
 name|colsPerKey
 argument_list|,
-name|recordSize
+literal|500
 argument_list|,
 name|writeThreads
 argument_list|)

@@ -91,20 +91,6 @@ name|common
 operator|.
 name|collect
 operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
 name|Sets
 import|;
 end_import
@@ -828,7 +814,7 @@ block|,
 name|REFERENCES_WRITTEN
 block|,
 name|REFERENCES_CHECKED
-block|;   }
+block|}
 annotation|@
 name|Before
 specifier|public
@@ -863,6 +849,15 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|util
+operator|.
+name|isDistributedCluster
+argument_list|()
+condition|)
+block|{
 name|getConf
 argument_list|()
 operator|.
@@ -899,6 +894,7 @@ operator|/
 literal|10
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Converts a "long" value between endian systems.    * Borrowed from Apache Commons IO    * @param value value to convert    * @return the converted value    */
 specifier|public
@@ -2435,11 +2431,6 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
-name|int
-name|numPreCreate
-init|=
-literal|40
-decl_stmt|;
 name|admin
 operator|.
 name|createTable
@@ -2461,7 +2452,7 @@ operator|-
 literal|1L
 argument_list|)
 argument_list|,
-name|numPreCreate
+literal|40
 argument_list|)
 expr_stmt|;
 name|doLoad

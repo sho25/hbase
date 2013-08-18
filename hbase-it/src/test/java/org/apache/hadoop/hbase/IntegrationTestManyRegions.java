@@ -491,6 +491,8 @@ operator|.
 name|format
 argument_list|(
 literal|"Existing table %s deleted."
+argument_list|,
+name|TABLE_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;

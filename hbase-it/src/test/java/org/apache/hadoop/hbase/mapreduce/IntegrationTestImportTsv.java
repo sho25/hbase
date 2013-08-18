@@ -1997,11 +1997,19 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|fout
+operator|!=
+literal|null
+condition|)
+block|{
 name|fout
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|// create a parent job that ships the HBase dependencies. This is
 comment|// accurate as the expected calling context.

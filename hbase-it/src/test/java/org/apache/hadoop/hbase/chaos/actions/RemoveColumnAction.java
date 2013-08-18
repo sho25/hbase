@@ -265,6 +265,10 @@ decl_stmt|;
 while|while
 condition|(
 name|protectedColumns
+operator|!=
+literal|null
+operator|&&
+name|protectedColumns
 operator|.
 name|contains
 argument_list|(

@@ -126,11 +126,6 @@ name|Action
 block|{
 specifier|private
 specifier|final
-name|Random
-name|random
-decl_stmt|;
-specifier|private
-specifier|final
 name|byte
 index|[]
 name|tableName
@@ -156,14 +151,6 @@ name|toBytes
 argument_list|(
 name|tableName
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|random
-operator|=
-operator|new
-name|Random
-argument_list|()
 expr_stmt|;
 block|}
 annotation|@

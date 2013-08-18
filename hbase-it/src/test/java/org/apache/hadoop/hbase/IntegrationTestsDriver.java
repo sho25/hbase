@@ -513,19 +513,13 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|aClass
+range|:
 name|classes
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|LOG
@@ -534,10 +528,7 @@ name|info
 argument_list|(
 literal|"  "
 operator|+
-name|classes
-index|[
-name|i
-index|]
+name|aClass
 argument_list|)
 expr_stmt|;
 block|}

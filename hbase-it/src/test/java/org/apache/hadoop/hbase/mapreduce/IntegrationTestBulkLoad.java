@@ -1695,10 +1695,6 @@ name|order
 decl_stmt|;
 specifier|public
 name|LinkKey
-parameter_list|()
-block|{      }
-specifier|public
-name|LinkKey
 parameter_list|(
 name|long
 name|chainId
@@ -1861,10 +1857,6 @@ return|return
 name|rk
 return|;
 block|}
-specifier|public
-name|LinkChain
-parameter_list|()
-block|{     }
 specifier|public
 name|LinkChain
 parameter_list|(
@@ -2048,15 +2040,10 @@ operator|.
 name|hashCode
 argument_list|()
 decl_stmt|;
-name|int
-name|partition
-init|=
+return|return
 name|hash
 operator|%
 name|numPartitions
-decl_stmt|;
-return|return
-name|partition
 return|;
 block|}
 block|}

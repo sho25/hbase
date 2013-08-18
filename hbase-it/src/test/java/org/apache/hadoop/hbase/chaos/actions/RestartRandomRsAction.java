@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** * Created by eclark on 8/12/13. */
+comment|/**  * Action that restarts a random HRegionServer  */
 end_comment
 
 begin_class

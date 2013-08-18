@@ -1168,7 +1168,6 @@ name|scf
 return|;
 block|}
 block|}
-empty_stmt|;
 annotation|@
 name|Before
 specifier|public
