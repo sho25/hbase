@@ -6967,12 +6967,10 @@ operator|.
 name|EMPTY_END_ROW
 argument_list|)
 operator|||
-name|KeyValue
+name|tableName
 operator|.
 name|getRowComparator
-argument_list|(
-name|tableName
-argument_list|)
+argument_list|()
 operator|.
 name|compareRows
 argument_list|(

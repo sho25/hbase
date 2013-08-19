@@ -190,6 +190,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 operator|.
 name|KeyComparator
 import|;
@@ -262,20 +276,6 @@ operator|.
 name|util
 operator|.
 name|FSUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
 import|;
 end_import
 
@@ -392,11 +392,7 @@ decl_stmt|;
 comment|/** Key comparator. Used to ensure we write in order. */
 specifier|protected
 specifier|final
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KeyComparator
 name|comparator
 decl_stmt|;
 comment|/** Meta block names. */
@@ -572,9 +568,9 @@ literal|null
 condition|?
 name|comparator
 else|:
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|KEY_COMPARATOR
 expr_stmt|;
 name|closeOutputStream
 operator|=

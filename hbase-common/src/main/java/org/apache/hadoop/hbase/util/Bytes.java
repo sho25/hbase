@@ -587,6 +587,30 @@ name|ESTIMATED_HEAP_TAX
 init|=
 literal|16
 decl_stmt|;
+comment|/**    * Returns length of the byte array, returning 0 if the array is null.    * Useful for calculating sizes.    * @param b byte array, which can be null    * @return 0 if b is null, otherwise returns length    */
+specifier|final
+specifier|public
+specifier|static
+name|int
+name|len
+parameter_list|(
+name|byte
+index|[]
+name|b
+parameter_list|)
+block|{
+return|return
+name|b
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|b
+operator|.
+name|length
+return|;
+block|}
 comment|/**    * Byte array comparator class.    */
 specifier|public
 specifier|static

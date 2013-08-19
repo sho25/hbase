@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+operator|.
+name|len
+import|;
+end_import
+
+begin_import
 import|import
 name|com
 operator|.
@@ -955,19 +973,12 @@ name|minColumn
 argument_list|,
 literal|0
 argument_list|,
+name|len
+argument_list|(
 name|this
 operator|.
 name|minColumn
-operator|==
-literal|null
-condition|?
-literal|0
-else|:
-name|this
-operator|.
-name|minColumn
-operator|.
-name|length
+argument_list|)
 argument_list|)
 return|;
 block|}

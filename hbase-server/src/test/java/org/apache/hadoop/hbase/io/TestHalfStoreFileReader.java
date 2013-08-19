@@ -135,7 +135,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -149,11 +149,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|hfile
+name|apache
 operator|.
-name|CacheConfig
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SmallTests
 import|;
 end_import
 
@@ -172,6 +182,24 @@ operator|.
 name|encoding
 operator|.
 name|DataBlockEncoding
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|CacheConfig
 import|;
 end_import
 
@@ -404,13 +432,6 @@ operator|.
 name|withBlockSize
 argument_list|(
 literal|1024
-argument_list|)
-operator|.
-name|withComparator
-argument_list|(
-name|KeyValue
-operator|.
-name|KEY_COMPARATOR
 argument_list|)
 operator|.
 name|create
@@ -784,13 +805,6 @@ operator|.
 name|withBlockSize
 argument_list|(
 literal|1024
-argument_list|)
-operator|.
-name|withComparator
-argument_list|(
-name|KeyValue
-operator|.
-name|KEY_COMPARATOR
 argument_list|)
 operator|.
 name|create

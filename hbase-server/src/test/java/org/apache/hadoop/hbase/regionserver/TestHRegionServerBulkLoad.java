@@ -770,13 +770,6 @@ argument_list|(
 name|COMPRESSION
 argument_list|)
 operator|.
-name|withComparator
-argument_list|(
-name|KeyValue
-operator|.
-name|KEY_COMPARATOR
-argument_list|)
-operator|.
 name|create
 argument_list|()
 decl_stmt|;

@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -36,16 +48,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -101,6 +103,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|SmallTests
 import|;
 end_import
@@ -142,18 +158,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
 import|;
 end_import
 
@@ -256,6 +260,16 @@ operator|.
 name|withBlockSize
 argument_list|(
 literal|4000
+argument_list|)
+comment|// NOTE: This test is dependent on this deprecated nonstandard comparator
+operator|.
+name|withComparator
+argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|RawKeyComparator
+argument_list|()
 argument_list|)
 operator|.
 name|create

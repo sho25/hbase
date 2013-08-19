@@ -1463,6 +1463,10 @@ decl_stmt|;
 specifier|protected
 name|KeyComparator
 name|comparator
+init|=
+name|KeyValue
+operator|.
+name|KEY_COMPARATOR
 decl_stmt|;
 specifier|protected
 name|InetSocketAddress

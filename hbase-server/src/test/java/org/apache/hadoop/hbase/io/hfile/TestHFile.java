@@ -216,6 +216,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 operator|.
 name|KeyComparator
 import|;
@@ -1322,6 +1336,16 @@ operator|.
 name|withCompression
 argument_list|(
 name|codec
+argument_list|)
+comment|// NOTE: This test is dependent on this deprecated nonstandard comparator
+operator|.
+name|withComparator
+argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|RawKeyComparator
+argument_list|()
 argument_list|)
 operator|.
 name|create
