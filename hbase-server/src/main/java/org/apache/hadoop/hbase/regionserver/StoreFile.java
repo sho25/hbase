@@ -1158,6 +1158,17 @@ name|getModificationTime
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @return the StoreFile object associated to this StoreFile.    *         null if the StoreFile is not a reference.    */
+name|StoreFileInfo
+name|getFileInfo
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|fileInfo
+return|;
+block|}
 comment|/**    * @return Path or null if this StoreFile was made with a Stream.    */
 specifier|public
 name|Path

@@ -10843,8 +10843,8 @@ name|rethrowException
 argument_list|()
 expr_stmt|;
 block|}
-name|Path
-name|file
+name|StoreFile
+name|storeFile
 init|=
 name|storeFiles
 operator|.
@@ -10852,14 +10852,15 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+decl_stmt|;
+name|Path
+name|file
+init|=
+name|storeFile
 operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
-comment|// create "reference" to this store file.  It is intentionally an empty file -- all
-comment|// necessary infomration is captured by its fs location and filename.  This allows us to
-comment|// only figure out what needs to be done via a single nn operation (instead of having to
-comment|// open and read the files as well).
 name|LOG
 operator|.
 name|debug
@@ -10898,6 +10899,44 @@ decl_stmt|;
 name|boolean
 name|success
 init|=
+literal|true
+decl_stmt|;
+if|if
+condition|(
+name|storeFile
+operator|.
+name|isReference
+argument_list|()
+condition|)
+block|{
+comment|// write the Reference object to the snapshot
+name|storeFile
+operator|.
+name|getFileInfo
+argument_list|()
+operator|.
+name|getReference
+argument_list|()
+operator|.
+name|write
+argument_list|(
+name|fs
+operator|.
+name|getFileSystem
+argument_list|()
+argument_list|,
+name|referenceFile
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// create "reference" to this store file.  It is intentionally an empty file -- all
+comment|// necessary information is captured by its fs location and filename.  This allows us to
+comment|// only figure out what needs to be done via a single nn operation (instead of having to
+comment|// open and read the files as well).
+name|success
+operator|=
 name|fs
 operator|.
 name|getFileSystem
@@ -10907,7 +10946,8 @@ name|createNewFile
 argument_list|(
 name|referenceFile
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!

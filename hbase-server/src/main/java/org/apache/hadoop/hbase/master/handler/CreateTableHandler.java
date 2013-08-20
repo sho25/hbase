@@ -1242,8 +1242,6 @@ literal|0
 condition|)
 block|{
 comment|// 4. Add regions to META
-name|MetaEditor
-operator|.
 name|addRegionsToMeta
 argument_list|(
 name|this
@@ -1429,6 +1427,37 @@ argument_list|,
 literal|null
 argument_list|)
 return|;
+block|}
+comment|/**    * Add the specified set of regions to the META table.    */
+specifier|protected
+name|void
+name|addRegionsToMeta
+parameter_list|(
+specifier|final
+name|CatalogTracker
+name|ct
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionInfos
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|MetaEditor
+operator|.
+name|addRegionsToMeta
+argument_list|(
+name|this
+operator|.
+name|catalogTracker
+argument_list|,
+name|regionInfos
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

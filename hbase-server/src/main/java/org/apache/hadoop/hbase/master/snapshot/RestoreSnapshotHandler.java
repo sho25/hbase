@@ -817,6 +817,15 @@ argument_list|,
 name|hris
 argument_list|)
 expr_stmt|;
+name|metaChanges
+operator|.
+name|updateMetaParentRegions
+argument_list|(
+name|catalogTracker
+argument_list|,
+name|hris
+argument_list|)
+expr_stmt|;
 comment|// At this point the restore is complete. Next step is enabling the table.
 name|LOG
 operator|.

@@ -625,6 +625,17 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/*    * @return the Reference object associated to this StoreFileInfo.    *         null if the StoreFile is not a reference.    */
+name|Reference
+name|getReference
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|reference
+return|;
+block|}
 comment|/** @return True if the store file is a Reference */
 specifier|public
 name|boolean
