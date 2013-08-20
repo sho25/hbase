@@ -11146,10 +11146,6 @@ block|{
 if|if
 condition|(
 operator|!
-name|HTableDescriptor
-operator|.
-name|isSystemTable
-argument_list|(
 name|MetaScanner
 operator|.
 name|getHRegionInfo
@@ -11159,7 +11155,9 @@ argument_list|)
 operator|.
 name|getTableName
 argument_list|()
-argument_list|)
+operator|.
+name|isSystemTable
+argument_list|()
 condition|)
 block|{
 name|Delete

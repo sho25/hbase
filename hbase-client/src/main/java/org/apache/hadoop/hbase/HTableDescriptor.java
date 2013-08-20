@@ -1691,31 +1691,6 @@ name|isRootRegion
 argument_list|()
 return|;
 block|}
-comment|/**    * Checks of the tableName being passed is a system table    *    *    * @return true if a tableName is a member of the system    * namesapce (aka hbase)    */
-specifier|public
-specifier|static
-name|boolean
-name|isSystemTable
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-block|{
-return|return
-name|tableName
-operator|.
-name|getNamespaceAsString
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|NamespaceDescriptor
-operator|.
-name|SYSTEM_NAMESPACE_NAME_STR
-argument_list|)
-return|;
-block|}
 comment|/**    * Getter for accessing the metadata associated with the key    *    * @param key The key.    * @return The value.    * @see #values    */
 specifier|public
 name|byte

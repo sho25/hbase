@@ -1360,12 +1360,10 @@ name|this
 operator|.
 name|operationTimeout
 operator|=
-name|HTableDescriptor
+name|tableName
 operator|.
 name|isSystemTable
-argument_list|(
-name|tableName
-argument_list|)
+argument_list|()
 condition|?
 name|this
 operator|.
