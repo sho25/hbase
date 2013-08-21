@@ -1623,6 +1623,9 @@ literal|"Transitioned "
 operator|+
 name|r
 operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
 name|getEncodedName
 argument_list|()
 operator|+

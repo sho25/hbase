@@ -2472,7 +2472,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|"ops, NOT resubmitting,         tableName="
+literal|"ops, NOT resubmitting, tableName="
 operator|+
 name|tableName
 operator|+
