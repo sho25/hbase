@@ -45,7 +45,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Comparator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Deque
 import|;
 end_import
 
@@ -372,7 +392,7 @@ name|HRegionInfo
 index|[]
 name|regions
 decl_stmt|;
-name|List
+name|Deque
 argument_list|<
 name|RegionLoad
 argument_list|>
@@ -476,7 +496,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|List
+name|Deque
 argument_list|<
 name|RegionLoad
 argument_list|>
@@ -665,7 +685,7 @@ expr_stmt|;
 name|regionLoads
 operator|=
 operator|new
-name|List
+name|Deque
 index|[
 name|numRegions
 index|]
@@ -944,7 +964,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|List
+name|Deque
 argument_list|<
 name|RegionLoad
 argument_list|>
