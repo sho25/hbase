@@ -121,6 +121,20 @@ name|ServerName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Stoppable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>Inline region placement with {@link #immediateAssignment} can be used when  * the Master needs to handle closed regions that it currently does not have  * a destination set for.  This can happen during master failover.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This classes produces plans for the {@link AssignmentManager} to execute.  */
 end_comment
@@ -135,6 +149,8 @@ interface|interface
 name|LoadBalancer
 extends|extends
 name|Configurable
+extends|,
+name|Stoppable
 block|{
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
 name|void
@@ -266,6 +282,13 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
+function_decl|;
+comment|/**    * Initialize the load balancer. Must be called after setters.    * @throws HBaseIOException    */
+name|void
+name|initialize
+parameter_list|()
 throws|throws
 name|HBaseIOException
 function_decl|;

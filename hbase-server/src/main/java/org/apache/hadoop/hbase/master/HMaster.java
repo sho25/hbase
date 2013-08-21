@@ -5843,6 +5843,33 @@ name|initializationBeforeMetaAssignment
 operator|=
 literal|true
 expr_stmt|;
+comment|//initialize load balancer
+name|this
+operator|.
+name|balancer
+operator|.
+name|setClusterStatus
+argument_list|(
+name|getClusterStatus
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|.
+name|setMasterServices
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|.
+name|initialize
+argument_list|()
+expr_stmt|;
 comment|// Make sure meta assigned before proceeding.
 name|status
 operator|.
@@ -5978,15 +6005,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|balancer
-operator|.
-name|setMasterServices
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 comment|// Fix up assignment manager status
 name|status
 operator|.
@@ -6002,6 +6020,7 @@ operator|.
 name|joinCluster
 argument_list|()
 expr_stmt|;
+comment|//set cluster status again after user regions are assigned
 name|this
 operator|.
 name|balancer
