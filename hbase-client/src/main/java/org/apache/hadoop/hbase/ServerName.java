@@ -1445,10 +1445,9 @@ name|rss
 init|=
 name|MetaRegionServer
 operator|.
-name|newBuilder
-argument_list|()
+name|PARSER
 operator|.
-name|mergeFrom
+name|parseFrom
 argument_list|(
 name|data
 argument_list|,
@@ -1460,9 +1459,6 @@ name|length
 operator|-
 name|prefixLen
 argument_list|)
-operator|.
-name|build
-argument_list|()
 decl_stmt|;
 name|org
 operator|.

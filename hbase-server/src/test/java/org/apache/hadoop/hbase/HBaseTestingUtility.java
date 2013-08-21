@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1230,7 +1230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@link DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
+comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only. Managed cluster can be an in-process  * {@link MiniHBaseCluster}, or a deployed cluster of type {@link DistributedHBaseCluster}.  * Not all methods work with the real cluster.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  *<p>To preserve test data directories, pass the system property "hbase.testing.preserve.testdir"  * setting it to true.  */
 end_comment
 
 begin_class
@@ -1705,6 +1705,11 @@ operator|.
 name|getAbsoluteFile
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|deleteOnExit
+argument_list|()
+condition|)
 name|newDir
 operator|.
 name|deleteOnExit
@@ -1958,6 +1963,16 @@ name|getAbsoluteFile
 argument_list|()
 expr_stmt|;
 comment|// Have it cleaned up on exit
+name|boolean
+name|b
+init|=
+name|deleteOnExit
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|b
+condition|)
 name|clusterTestDir
 operator|.
 name|deleteOnExit
@@ -1982,6 +1997,10 @@ argument_list|(
 literal|"Created new mini-cluster data directory: "
 operator|+
 name|clusterTestDir
+operator|+
+literal|", deleteOnExit="
+operator|+
+name|b
 argument_list|)
 expr_stmt|;
 block|}
@@ -2110,6 +2129,11 @@ name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|deleteOnExit
+argument_list|()
+condition|)
 name|dataTestDir
 operator|.
 name|deleteOnExit
@@ -2156,6 +2180,11 @@ argument_list|,
 name|randomStr
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|deleteOnExit
+argument_list|()
+condition|)
 name|fs
 operator|.
 name|deleteOnExit
