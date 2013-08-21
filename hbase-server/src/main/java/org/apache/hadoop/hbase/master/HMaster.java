@@ -14424,7 +14424,10 @@ if|if
 condition|(
 name|descriptor
 operator|.
-name|isMetaTable
+name|getTableName
+argument_list|()
+operator|.
+name|isSystemTable
 argument_list|()
 condition|)
 block|{
