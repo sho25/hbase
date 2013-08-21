@@ -5720,6 +5720,11 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -5789,11 +5794,6 @@ name|foundRegionInRecoveryException
 argument_list|)
 expr_stmt|;
 block|}
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|zkw
 operator|.
 name|close
