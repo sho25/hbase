@@ -756,11 +756,11 @@ name|name
 init|=
 name|prefix
 operator|+
-literal|"-pool-"
+literal|"-pool"
 operator|+
 name|poolNumber
 operator|+
-literal|"-thread-"
+literal|"-t"
 operator|+
 name|threadNumber
 operator|.

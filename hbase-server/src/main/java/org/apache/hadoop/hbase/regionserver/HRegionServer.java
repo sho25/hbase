@@ -9985,7 +9985,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Done with post open deploy task for region="
+literal|"Finished post open deploy task for "
 operator|+
 name|r
 operator|.
@@ -19061,11 +19061,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received close region: "
+literal|"Close "
 operator|+
 name|encodedRegionName
 operator|+
-literal|"Transitioning in ZK: "
+literal|", via zk="
 operator|+
 operator|(
 name|zk
@@ -19075,11 +19075,11 @@ else|:
 literal|"no"
 operator|)
 operator|+
-literal|". Version of ZK closing node:"
+literal|", znode version="
 operator|+
 name|versionOfClosingNode
 operator|+
-literal|". Destination server:"
+literal|", on "
 operator|+
 name|sn
 argument_list|)

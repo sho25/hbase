@@ -775,11 +775,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"set region closed state in zk successfully for region "
+literal|"Set closed state in zk for "
 operator|+
 name|name
 operator|+
-literal|" sn name: "
+literal|" on "
 operator|+
 name|this
 operator|.
@@ -796,11 +796,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"set region closed state in zk unsuccessfully for region "
+literal|"Set closed state in zk UNSUCCESSFUL for "
 operator|+
 name|name
 operator|+
-literal|" sn name: "
+literal|" on "
 operator|+
 name|this
 operator|.
@@ -817,7 +817,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Closed region "
+literal|"Closed "
 operator|+
 name|region
 operator|.

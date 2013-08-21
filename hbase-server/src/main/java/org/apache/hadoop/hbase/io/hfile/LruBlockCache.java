@@ -648,7 +648,7 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"LRU Statistics #%d"
+literal|"LruStats #%d"
 argument_list|)
 operator|.
 name|setDaemon
@@ -2849,9 +2849,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Stats: "
-operator|+
-literal|"total="
+literal|"Total="
 operator|+
 name|StringUtils
 operator|.

@@ -843,7 +843,7 @@ literal|"Opened "
 operator|+
 name|regionName
 operator|+
-literal|" on server:"
+literal|" on "
 operator|+
 name|this
 operator|.
@@ -1619,14 +1619,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"region transitioned to opened in zookeeper: "
+literal|"Transitioned "
 operator|+
 name|r
 operator|.
-name|getRegionInfo
+name|getEncodedName
 argument_list|()
 operator|+
-literal|", server: "
+literal|" to OPENED in zk on "
 operator|+
 name|this
 operator|.

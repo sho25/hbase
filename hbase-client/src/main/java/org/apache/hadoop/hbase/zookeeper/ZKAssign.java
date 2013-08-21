@@ -416,7 +416,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating unassigned node for "
+literal|"Creating unassigned node "
 operator|+
 name|region
 operator|.
@@ -508,7 +508,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Async create of unassigned node for "
+literal|"Async create of unassigned node "
 operator|+
 name|region
 operator|.
@@ -596,7 +596,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating (or updating) unassigned node for "
+literal|"Creating (or updating) unassigned node "
 operator|+
 name|region
 operator|.
@@ -1011,11 +1011,11 @@ name|prefix
 argument_list|(
 literal|"Deleting existing unassigned "
 operator|+
-literal|"node for "
+literal|"node "
 operator|+
 name|encodedRegionName
 operator|+
-literal|" that is in expected state "
+literal|" in expected state "
 operator|+
 name|expectedState
 argument_list|)
@@ -1218,7 +1218,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Successfully deleted unassigned node for region "
+literal|"Deleted unassigned node "
 operator|+
 name|encodedRegionName
 operator|+
@@ -1298,7 +1298,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating unassigned node for "
+literal|"Creating unassigned node "
 operator|+
 name|region
 operator|.
@@ -1526,7 +1526,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Attempting to retransition the opening state of node "
+literal|"Attempting to retransition opening state of node "
 operator|+
 name|HRegionInfo
 operator|.
@@ -1820,7 +1820,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Successfully retransition the opening state of node "
+literal|"Retransition opening state of node "
 operator|+
 name|encoded
 argument_list|)
@@ -2662,7 +2662,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Successfully transitioned node "
+literal|"Transitioned node "
 operator|+
 name|encoded
 operator|+

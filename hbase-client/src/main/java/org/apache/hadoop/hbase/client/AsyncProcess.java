@@ -2465,21 +2465,14 @@ literal|"/"
 operator|+
 name|numTries
 operator|+
-literal|" failed for all ("
+literal|" failed for all "
 operator|+
 name|initialActions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|") operations on server "
-operator|+
-name|location
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|" NOT resubmitting, tableName="
+literal|"ops, NOT resubmitting,         tableName="
 operator|+
 name|tableName
 operator|+
@@ -2560,16 +2553,7 @@ literal|"/"
 operator|+
 name|numTries
 operator|+
-literal|" failed for all operations"
-operator|+
-literal|" on server "
-operator|+
-name|location
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|" , trying to resubmit,"
+literal|" failed all ops, trying resubmit,"
 operator|+
 literal|" tableName="
 operator|+
@@ -2940,18 +2924,11 @@ literal|"/"
 operator|+
 name|numTries
 operator|+
-literal|" failed for "
+literal|" failed "
 operator|+
 name|failureCount
 operator|+
-literal|" operations on server "
-operator|+
-name|location
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|", resubmitting "
+literal|" ops , resubmitting "
 operator|+
 name|toReplay
 operator|.
@@ -2969,6 +2946,9 @@ operator|+
 literal|", last exception was: "
 operator|+
 name|throwable
+operator|.
+name|getMessage
+argument_list|()
 operator|+
 literal|" - sleeping "
 operator|+
@@ -3063,7 +3043,7 @@ literal|" failed for "
 operator|+
 name|failureCount
 operator|+
-literal|" operations on server "
+literal|" ops on "
 operator|+
 name|location
 operator|.
