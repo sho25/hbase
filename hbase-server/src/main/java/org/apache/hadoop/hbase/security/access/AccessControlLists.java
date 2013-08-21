@@ -2543,6 +2543,12 @@ argument_list|(
 name|conf
 argument_list|,
 name|tableName
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|tableName
 operator|.
 name|getName
 argument_list|()
