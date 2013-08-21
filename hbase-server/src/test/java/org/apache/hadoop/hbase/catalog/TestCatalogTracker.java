@@ -795,6 +795,47 @@ name|void
 name|after
 parameter_list|()
 block|{
+try|try
+block|{
+comment|// Clean out meta location or later tests will be confused... they presume
+comment|// start fresh in zk.
+name|MetaRegionTracker
+operator|.
+name|deleteMetaLocation
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to delete META location"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Clear out our doctored connection or could mess up subsequent tests.
+name|HConnectionManager
+operator|.
+name|deleteConnection
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|watcher
@@ -878,8 +919,6 @@ argument_list|(
 name|connection
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|MetaRegionTracker
 operator|.
 name|setMetaLocation
@@ -902,21 +941,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-comment|// Clean out meta location or later tests will be confused... they presume
-comment|// start fresh in zk.
-name|MetaRegionTracker
-operator|.
-name|deleteMetaLocation
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Test interruptable while blocking wait on meta.    * @throws IOException    * @throws ServiceException    * @throws InterruptedException    */
 annotation|@
@@ -963,8 +987,6 @@ argument_list|,
 name|client
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|Mockito
 operator|.
 name|when
@@ -1114,20 +1136,6 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|HConnectionManager
-operator|.
-name|deleteConnection
-argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 specifier|private
 name|void
 name|testVerifyMetaRegionLocationWithException
@@ -1176,8 +1184,6 @@ argument_list|,
 name|implementation
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 comment|// If a 'get' is called on mocked interface, throw connection refused.
 name|Mockito
 operator|.
@@ -1224,8 +1230,6 @@ argument_list|(
 name|connection
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|MetaRegionTracker
 operator|.
 name|setMetaLocation
@@ -1264,36 +1268,6 @@ name|timeout
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-comment|// Clean out meta location or later tests will be confused... they
-comment|// presume start fresh in zk.
-name|MetaRegionTracker
-operator|.
-name|deleteMetaLocation
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-comment|// Clear out our doctored connection or could mess up subsequent tests.
-name|HConnectionManager
-operator|.
-name|deleteConnection
-argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Test we survive a connection refused {@link ConnectException}    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    * @throws ServiceException    */
 annotation|@
@@ -1478,8 +1452,6 @@ argument_list|(
 name|connection
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|MetaRegionTracker
 operator|.
 name|setMetaLocation
@@ -1514,21 +1486,6 @@ literal|100
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-comment|// Clean out meta location or later tests will be confused... they presume
-comment|// start fresh in zk.
-name|MetaRegionTracker
-operator|.
-name|deleteMetaLocation
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Test
