@@ -3268,6 +3268,22 @@ name|getLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Linked List error: Key = "
+operator|+
+name|keyString
+operator|+
+literal|" References = "
+operator|+
+name|refsSb
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(
