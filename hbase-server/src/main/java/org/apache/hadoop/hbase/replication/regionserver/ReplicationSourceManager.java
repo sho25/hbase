@@ -287,6 +287,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationListener
 import|;
 end_import
@@ -892,12 +908,14 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Adds a normal source per registered peer cluster and tries to process all    * old region server hlog queues    */
-specifier|public
+specifier|protected
 name|void
 name|init
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|ReplicationException
 block|{
 for|for
 control|(
@@ -1000,7 +1018,7 @@ block|}
 block|}
 block|}
 comment|/**    * Add a new normal source to this region server    * @param id the id of the peer cluster    * @return the source that was created    * @throws IOException    */
-specifier|public
+specifier|protected
 name|ReplicationSourceInterface
 name|addSource
 parameter_list|(
@@ -1009,6 +1027,8 @@ name|id
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ReplicationException
 block|{
 name|ReplicationSourceInterface
 name|src
@@ -1127,16 +1147,23 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
-name|ke
+name|ReplicationException
+name|e
 parameter_list|)
 block|{
 name|String
 name|message
 init|=
-literal|"Cannot add log to zk for"
+literal|"Cannot add log to queue when creating a new source, queueId="
 operator|+
-literal|" replication when creating a new source"
+name|src
+operator|.
+name|getPeerClusterZnode
+argument_list|()
+operator|+
+literal|", filename="
+operator|+
+name|name
 decl_stmt|;
 name|stopper
 operator|.
@@ -1146,13 +1173,7 @@ name|message
 argument_list|)
 expr_stmt|;
 throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|message
-argument_list|,
-name|ke
-argument_list|)
+name|e
 throw|;
 block|}
 name|src
@@ -1355,17 +1376,26 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
-name|ke
+name|ReplicationException
+name|e
 parameter_list|)
 block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot add log to zk for replication"
+literal|"Cannot add log to replication queue with id="
+operator|+
+name|source
+operator|.
+name|getPeerClusterZnode
+argument_list|()
+operator|+
+literal|", filename="
+operator|+
+name|name
 argument_list|,
-name|ke
+name|e
 argument_list|)
 throw|;
 block|}
@@ -1450,7 +1480,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Factory method to create a replication source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param stopper the stopper object for this region server    * @param peerId the id of the peer cluster    * @return the created source    * @throws IOException    */
-specifier|public
+specifier|protected
 name|ReplicationSourceInterface
 name|getReplicationSource
 parameter_list|(
@@ -1969,24 +1999,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// TODO manage better than that ?
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error while adding a new peer"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
+name|Exception
 name|e
 parameter_list|)
 block|{

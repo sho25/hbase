@@ -139,7 +139,9 @@ name|void
 name|init
 parameter_list|()
 throws|throws
-name|KeeperException
+name|ReplicationException
+block|{
+try|try
 block|{
 name|ZKUtil
 operator|.
@@ -154,6 +156,23 @@ operator|.
 name|queuesZNode
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Internal error while initializing a queues client"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override

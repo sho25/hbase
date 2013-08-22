@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -109,18 +99,6 @@ name|ServerName
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This provides an interface for maintaining a set of peer clusters. These peers are remote slave  * clusters that data is replicated to. A peer cluster can be in three different states:  *  * 1. Not-Registered - There is no notion of the peer cluster.  * 2. Registered - The peer has an id and is being tracked but there is no connection.  * 3. Connected - There is an active connection to the remote peer.  *  * In the registered or connected state, a peer cluster can either be enabled or disabled.  */
 end_comment
@@ -134,14 +112,12 @@ specifier|public
 interface|interface
 name|ReplicationPeers
 block|{
-comment|/**    * Initialize the ReplicationPeers interface.    * @throws KeeperException    */
+comment|/**    * Initialize the ReplicationPeers interface.    */
 name|void
 name|init
 parameter_list|()
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param clusterKey the concatenation of the slave cluster's:    *          hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent    */
 name|void
@@ -154,7 +130,7 @@ name|String
 name|clusterKey
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 function_decl|;
 comment|/**    * Removes a remote slave cluster and stops the replication to it.    * @param peerId a short that identifies the cluster    */
 name|void
@@ -164,7 +140,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 function_decl|;
 comment|/**    * Restart the replication to the specified remote slave cluster.    * @param peerId a short that identifies the cluster    */
 name|void
@@ -174,7 +150,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 function_decl|;
 comment|/**    * Stop the replication to the specified remote slave cluster.    * @param peerId a short that identifies the cluster    */
 name|void
@@ -184,7 +160,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 function_decl|;
 comment|/**    * Get the replication status for the specified connected remote slave cluster.    * The value might be read from cache, so it is recommended to    * use {@link #getStatusOfPeerFromBackingStore(String)}    * if reading the state after enabling or disabling it.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    */
 name|boolean
@@ -202,7 +178,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 function_decl|;
 comment|/**    * Get a set of all connected remote slave clusters.    * @return set of peer ids    */
 name|Set
@@ -238,9 +214,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Disconnect from a remote slave cluster.    * @param peerId a short that identifies the cluster    */
 name|void
@@ -285,7 +259,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 function_decl|;
 block|}
 end_interface

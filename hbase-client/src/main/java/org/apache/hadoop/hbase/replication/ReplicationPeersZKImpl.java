@@ -442,9 +442,9 @@ name|void
 name|init
 parameter_list|()
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
+block|{
+try|try
 block|{
 name|ZKUtil
 operator|.
@@ -459,6 +459,23 @@ operator|.
 name|peersZNode
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Could not initialize replication peers"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 name|connectExistingPeers
 argument_list|()
 expr_stmt|;
@@ -476,7 +493,7 @@ name|String
 name|clusterKey
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 try|try
 block|{
@@ -492,7 +509,11 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Cannot add existing peer"
+literal|"Cannot add a peer with id="
+operator|+
+name|id
+operator|+
+literal|" because that id already exists."
 argument_list|)
 throw|;
 block|}
@@ -563,9 +584,15 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ReplicationException
 argument_list|(
-literal|"Unable to add peer"
+literal|"Could not add peer with id="
+operator|+
+name|id
+operator|+
+literal|", clusterKey="
+operator|+
+name|clusterKey
 argument_list|,
 name|e
 argument_list|)
@@ -582,7 +609,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 try|try
 block|{
@@ -599,7 +626,11 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Cannot remove inexisting peer"
+literal|"Cannot remove peer with id="
+operator|+
+name|id
+operator|+
+literal|" because that id does not exist."
 argument_list|)
 throw|;
 block|}
@@ -632,9 +663,11 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ReplicationException
 argument_list|(
-literal|"Unable to remove a peer"
+literal|"Could not remove peer with id="
+operator|+
+name|id
 argument_list|,
 name|e
 argument_list|)
@@ -651,7 +684,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|changePeerState
 argument_list|(
@@ -688,7 +721,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|changePeerState
 argument_list|(
@@ -742,7 +775,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"peer "
+literal|"Peer with id= "
 operator|+
 name|id
 operator|+
@@ -777,7 +810,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 if|if
 condition|(
@@ -841,7 +874,7 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ReplicationException
 argument_list|(
 name|e
 argument_list|)
@@ -855,7 +888,7 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ReplicationException
 argument_list|(
 name|e
 argument_list|)
@@ -872,9 +905,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
 block|{
 if|if
 condition|(
@@ -906,11 +937,36 @@ block|}
 name|ReplicationPeer
 name|peer
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|peer
+operator|=
 name|getPeer
 argument_list|(
 name|peerId
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Error connecting to peer with id="
+operator|+
+name|peerId
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|peer
@@ -1362,7 +1418,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 block|{
 name|String
 name|znode
@@ -1382,6 +1438,12 @@ name|byte
 index|[]
 name|data
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|data
+operator|=
 name|ZKUtil
 operator|.
 name|getData
@@ -1392,7 +1454,26 @@ name|zookeeper
 argument_list|,
 name|znode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Error getting configuration for peer with id="
+operator|+
+name|peerId
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|data
@@ -1603,15 +1684,13 @@ name|getLastRegionserverUpdate
 argument_list|()
 return|;
 block|}
-comment|/**    * A private method used during initialization. This method attempts to connect to all registered    * peer clusters. This method does not set a watch on the peer cluster znodes.    * @throws IOException    * @throws KeeperException    */
+comment|/**    * A private method used during initialization. This method attempts to connect to all registered    * peer clusters. This method does not set a watch on the peer cluster znodes.    */
 specifier|private
 name|void
 name|connectExistingPeers
 parameter_list|()
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
 block|{
 name|List
 argument_list|<
@@ -1619,6 +1698,12 @@ name|String
 argument_list|>
 name|znodes
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|znodes
+operator|=
 name|ZKUtil
 operator|.
 name|listChildrenNoWatch
@@ -1631,7 +1716,24 @@ name|this
 operator|.
 name|peersZNode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Error getting the list of peer clusters."
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|znodes
@@ -1856,7 +1958,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Update the state znode of a peer cluster.    * @param id    * @param state    * @throws IOException    */
+comment|/**    * Update the state znode of a peer cluster.    * @param id    * @param state    */
 specifier|private
 name|void
 name|changePeerState
@@ -1872,7 +1974,7 @@ name|State
 name|state
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 try|try
 block|{
@@ -1889,11 +1991,11 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"peer "
+literal|"Cannot enable/disable peer because id="
 operator|+
 name|id
 operator|+
-literal|" is not registered"
+literal|" does not exist."
 argument_list|)
 throw|;
 block|}
@@ -1976,11 +2078,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"state of the peer "
+literal|"Peer with id= "
 operator|+
 name|id
 operator|+
-literal|" changed to "
+literal|" is now "
 operator|+
 name|state
 operator|.
@@ -1997,9 +2099,9 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ReplicationException
 argument_list|(
-literal|"Unable to change state of the peer "
+literal|"Unable to change state of the peer with id="
 operator|+
 name|id
 argument_list|,
@@ -2008,7 +2110,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Helper method to connect to a peer    * @param peerId peer's identifier    * @return object representing the peer    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Helper method to connect to a peer    * @param peerId peer's identifier    * @return object representing the peer    * @throws ReplicationException    */
 specifier|private
 name|ReplicationPeer
 name|getPeer
@@ -2017,9 +2119,7 @@ name|String
 name|peerId
 parameter_list|)
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
+name|ReplicationException
 block|{
 name|Configuration
 name|peerConf
@@ -2090,6 +2190,8 @@ name|peerConf
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|peer
 operator|.
 name|startStateTracker
@@ -2106,6 +2208,25 @@ name|peerId
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Error starting the peer state tracker for peerId="
+operator|+
+name|peerId
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 name|peer
 operator|.
 name|getZkw

@@ -289,6 +289,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationFactory
 import|;
 end_import
@@ -322,22 +338,6 @@ operator|.
 name|replication
 operator|.
 name|ReplicationPeers
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationPeersZKImpl
 import|;
 end_import
 
@@ -402,18 +402,6 @@ operator|.
 name|output
 operator|.
 name|NullOutputFormat
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
 import|;
 end_import
 
@@ -832,7 +820,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -840,7 +828,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Got a ZK exception"
+literal|"An error occured while trying to connect to the remove peer cluster"
 argument_list|,
 name|e
 argument_list|)

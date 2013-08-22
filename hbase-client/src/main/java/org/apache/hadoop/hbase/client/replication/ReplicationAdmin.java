@@ -133,6 +133,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationFactory
 import|;
 end_import
@@ -377,7 +393,7 @@ specifier|final
 name|ReplicationPeers
 name|replicationPeers
 decl_stmt|;
-comment|/**    * Constructor that creates a connection to the local ZooKeeper ensemble.    * @param conf Configuration to use    * @throws IOException if the connection to ZK cannot be made    * @throws RuntimeException if replication isn't enabled.    */
+comment|/**    * Constructor that creates a connection to the local ZooKeeper ensemble.    * @param conf Configuration to use    * @throws IOException if an internal replication error occurs    * @throws RuntimeException if replication isn't enabled.    */
 specifier|public
 name|ReplicationAdmin
 parameter_list|(
@@ -482,7 +498,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -490,7 +506,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Unable setup the ZooKeeper connection"
+literal|"Error initializing the replication admin client."
 argument_list|,
 name|e
 argument_list|)
@@ -576,7 +592,7 @@ name|String
 name|clusterKey
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -599,7 +615,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -620,7 +636,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -641,7 +657,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -700,7 +716,7 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 return|return
 name|this

@@ -336,7 +336,7 @@ name|void
 name|testReplicationQueuesClient
 parameter_list|()
 throws|throws
-name|KeeperException
+name|ReplicationException
 block|{
 name|rqc
 operator|.
@@ -653,9 +653,7 @@ name|void
 name|testReplicationQueues
 parameter_list|()
 throws|throws
-name|KeeperException
-throws|,
-name|IOException
+name|ReplicationException
 block|{
 name|rq1
 operator|.
@@ -1600,9 +1598,7 @@ name|void
 name|populateQueues
 parameter_list|()
 throws|throws
-name|KeeperException
-throws|,
-name|IOException
+name|ReplicationException
 block|{
 name|rq1
 operator|.

@@ -61,18 +61,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This provides an interface for maintaining a region server's replication queues. These queues  * keep track of the HLogs that still need to be replicated to remote clusters.  */
 end_comment
@@ -94,7 +82,7 @@ name|String
 name|serverName
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Remove a replication queue.    * @param queueId a String that identifies the queue.    */
 name|void
@@ -104,7 +92,7 @@ name|String
 name|queueId
 parameter_list|)
 function_decl|;
-comment|/**    * Add a new HLog file to the given queue. If the queue does not exist it is created.    * @param queueId a String that identifies the queue.    * @param filename name of the HLog    * @throws KeeperException    */
+comment|/**    * Add a new HLog file to the given queue. If the queue does not exist it is created.    * @param queueId a String that identifies the queue.    * @param filename name of the HLog    */
 name|void
 name|addLog
 parameter_list|(
@@ -115,7 +103,7 @@ name|String
 name|filename
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Remove an HLog file from the given queue.    * @param queueId a String that identifies the queue.    * @param filename name of the HLog    */
 name|void
@@ -153,7 +141,7 @@ name|String
 name|filename
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Remove all replication queues for this region server.    */
 name|void

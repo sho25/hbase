@@ -276,7 +276,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class provides an implementation of the ReplicationQueues interface using Zookeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding HLog files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:   *   * /hbase/replication/rs/hostname.example.org,6020,1234   *   * Within this znode, the region server maintains a set of HLog replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *   * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every HLog that still needs to be replicated. The value of  * these HLog child znodes is the latest position that has been replicated. This position is updated  * every time a HLog entry is replicated. For example:  *   * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
+comment|/**  * This class provides an implementation of the ReplicationQueues interface using Zookeeper. The  * base znode that this class works at is the myQueuesZnode. The myQueuesZnode contains a list of  * all outstanding HLog files on this region server that need to be replicated. The myQueuesZnode is  * the regionserver name (a concatenation of the region server’s hostname, client port and start  * code). For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234  *  * Within this znode, the region server maintains a set of HLog replication queues. These queues are  * represented by child znodes named using there give queue id. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1  * /hbase/replication/rs/hostname.example.org,6020,1234/2  *  * Each queue has one child znode for every HLog that still needs to be replicated. The value of  * these HLog child znodes is the latest position that has been replicated. This position is updated  * every time a HLog entry is replicated. For example:  *  * /hbase/replication/rs/hostname.example.org,6020,1234/1/23522342.23422 [VALUE: 254]  */
 end_comment
 
 begin_class
@@ -351,7 +351,7 @@ name|String
 name|serverName
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -368,6 +368,8 @@ argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|ZKUtil
 operator|.
 name|createWithParents
@@ -381,6 +383,23 @@ operator|.
 name|myQueuesZnode
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Could not initialize replication queues."
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -451,7 +470,7 @@ name|String
 name|filename
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 block|{
 name|String
 name|znode
@@ -478,6 +497,8 @@ argument_list|,
 name|filename
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|ZKUtil
 operator|.
 name|createWithParents
@@ -489,6 +510,27 @@ argument_list|,
 name|znode
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Could not add log because znode could not be created. queueId="
+operator|+
+name|queueId
+operator|+
+literal|", filename="
+operator|+
+name|filename
+argument_list|)
+throw|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -672,7 +714,7 @@ name|String
 name|filename
 parameter_list|)
 throws|throws
-name|KeeperException
+name|ReplicationException
 block|{
 name|String
 name|clusterZnode
@@ -704,6 +746,12 @@ name|byte
 index|[]
 name|bytes
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|bytes
+operator|=
 name|ZKUtil
 operator|.
 name|getData
@@ -714,7 +762,30 @@ name|zookeeper
 argument_list|,
 name|znode
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Internal Error: could not get position in log for queueId="
+operator|+
+name|queueId
+operator|+
+literal|", filename="
+operator|+
+name|filename
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 return|return

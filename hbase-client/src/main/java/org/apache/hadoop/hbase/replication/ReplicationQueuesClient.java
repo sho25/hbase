@@ -27,18 +27,6 @@ name|List
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This provides an interface for clients of replication to view replication queues. These queues  * keep track of the HLogs that still need to be replicated to remote clusters.  */
 end_comment
@@ -54,7 +42,7 @@ name|void
 name|init
 parameter_list|()
 throws|throws
-name|KeeperException
+name|ReplicationException
 function_decl|;
 comment|/**    * Get a list of all region servers that have outstanding replication queues. These servers could    * be alive, dead or from a previous run of the cluster.    * @return a list of server names    */
 name|List
