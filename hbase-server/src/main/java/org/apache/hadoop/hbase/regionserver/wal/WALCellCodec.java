@@ -868,6 +868,19 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// To support tags. This will be replaced with kv.getTagsLength
+name|StreamUtils
+operator|.
+name|writeRawVInt32
+argument_list|(
+name|out
+argument_list|,
+operator|(
+name|short
+operator|)
+literal|0
+argument_list|)
+expr_stmt|;
 comment|// Write row, qualifier, and family; use dictionary
 comment|// compression as they're likely to have duplicates.
 name|write
@@ -1123,6 +1136,15 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+comment|// To support Tags..Tags length will be 0.
+comment|// For now ignore the read value. This will be the tagslength
+name|StreamUtils
+operator|.
+name|readRawVarint32
+argument_list|(
+name|in
+argument_list|)
+expr_stmt|;
 name|int
 name|length
 init|=
@@ -1309,6 +1331,10 @@ operator|new
 name|KeyValue
 argument_list|(
 name|backingArray
+argument_list|,
+literal|0
+argument_list|,
+name|length
 argument_list|)
 return|;
 block|}

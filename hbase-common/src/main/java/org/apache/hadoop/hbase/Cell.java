@@ -158,7 +158,7 @@ name|getTagsOffset
 parameter_list|()
 function_decl|;
 comment|/**    * @return the total length of the tags in the Cell.    */
-name|int
+name|short
 name|getTagsLength
 parameter_list|()
 function_decl|;

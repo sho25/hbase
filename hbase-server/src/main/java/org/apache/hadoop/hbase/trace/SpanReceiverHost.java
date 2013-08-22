@@ -127,20 +127,6 @@ name|Trace
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|cloudera
-operator|.
-name|htrace
-operator|.
-name|impl
-operator|.
-name|ZipkinSpanReceiver
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class provides functions for reading the names of SpanReceivers from  * hbase-site.xml, adding those SpanReceivers to the Tracer, and closing those  * SpanReceivers when appropriate.  */
 end_comment
