@@ -478,8 +478,9 @@ argument_list|()
 expr_stmt|;
 name|TEST_UTIL
 operator|=
-operator|new
 name|HBaseTestingUtility
+operator|.
+name|createLocalHTU
 argument_list|(
 name|conf
 argument_list|)

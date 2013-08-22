@@ -18,6 +18,114 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|START_KEY_BYTES
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam1
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam2
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -86,6 +194,38 @@ operator|.
 name|hbase
 operator|.
 name|HBaseTestCase
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestCase
+operator|.
+name|HRegionIncommon
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestCase
+operator|.
+name|ScannerIncommon
 import|;
 end_import
 
@@ -381,11 +521,43 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -404,9 +576,17 @@ argument_list|)
 specifier|public
 class|class
 name|TestScanner
-extends|extends
-name|HBaseTestCase
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|final
 name|Log
@@ -421,6 +601,17 @@ operator|.
 name|getClass
 argument_list|()
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|HBaseTestingUtility
+name|TEST_UTIL
+init|=
+name|HBaseTestingUtility
+operator|.
+name|createLocalHTU
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
@@ -656,6 +847,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test basic stop row filter works.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testStopRow
@@ -691,7 +884,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -700,6 +895,8 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|this
@@ -1162,6 +1359,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilters
@@ -1175,7 +1374,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -1184,6 +1385,8 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|this
@@ -1292,6 +1495,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Test that closing a scanner while a client is using it doesn't throw    * NPEs but instead a UnknownScannerException. HBASE-2503    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRaceBetweenClientAndTimeout
@@ -1305,7 +1510,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -1314,6 +1521,8 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|this
@@ -1406,6 +1615,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/** The test!    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner
@@ -1417,7 +1628,9 @@ try|try
 block|{
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -1494,9 +1707,13 @@ argument_list|()
 expr_stmt|;
 name|r
 operator|=
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|r
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|region
@@ -1617,9 +1834,13 @@ argument_list|()
 expr_stmt|;
 name|r
 operator|=
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|r
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|region
@@ -1731,9 +1952,13 @@ argument_list|()
 expr_stmt|;
 name|r
 operator|=
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|r
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|region
@@ -2337,6 +2562,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Tests to do a sync flush during the middle of a scan. This is testing the StoreScanner    * update readers code essentially.  This is not highly concurrent, since its all 1 thread.    * HBase-910.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanAndSyncFlush
@@ -2348,7 +2575,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -2374,6 +2603,8 @@ name|info
 argument_list|(
 literal|"Added: "
 operator|+
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri
@@ -2460,6 +2691,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Tests to do a concurrent flush (using a 2nd thread) while scanning.  This tests both    * the StoreScanner update readers and the transition from memstore -> snapshot -> store file.    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanAndRealConcurrentFlush
@@ -2471,7 +2704,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|TESTTABLEDESC
 argument_list|,
@@ -2497,6 +2732,8 @@ name|info
 argument_list|(
 literal|"Added: "
 operator|+
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri
@@ -2584,6 +2821,8 @@ block|}
 block|}
 comment|/**    * Make sure scanner returns correct result when we run a major compaction    * with deletes.    *    * @throws Exception    */
 annotation|@
+name|Test
+annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"deprecation"
@@ -2598,9 +2837,13 @@ block|{
 name|HTableDescriptor
 name|htd
 init|=
+name|TEST_UTIL
+operator|.
 name|createTableDescriptor
 argument_list|(
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -2608,7 +2851,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|TEST_UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|htd
 argument_list|,
@@ -2628,6 +2873,8 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri
@@ -2651,6 +2898,8 @@ argument_list|,
 name|secondRowBytes
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri
@@ -2705,6 +2954,8 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri
@@ -2728,6 +2979,8 @@ argument_list|,
 name|thirdRowBytes
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|hri

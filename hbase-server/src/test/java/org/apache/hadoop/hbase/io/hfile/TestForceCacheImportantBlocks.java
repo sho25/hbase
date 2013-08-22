@@ -20,30 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -90,16 +66,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -373,8 +339,9 @@ specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
-operator|new
 name|HBaseTestingUtility
+operator|.
+name|createLocalHTU
 argument_list|()
 decl_stmt|;
 specifier|private

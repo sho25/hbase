@@ -18,6 +18,74 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam1
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam2
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -188,20 +256,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseTestCase
 import|;
 end_import
 
@@ -595,15 +649,19 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|hbase
+name|junit
 operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManagerTestHelper
+name|Test
 import|;
 end_import
 
@@ -618,6 +676,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -637,8 +707,6 @@ comment|// Starts 100 threads
 specifier|public
 class|class
 name|TestAtomicOperation
-extends|extends
-name|HBaseTestCase
 block|{
 specifier|static
 specifier|final
@@ -653,6 +721,16 @@ name|TestAtomicOperation
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 name|HRegion
 name|region
@@ -788,47 +866,13 @@ argument_list|(
 literal|"rowB"
 argument_list|)
 decl_stmt|;
-comment|/**    * @see org.apache.hadoop.hbase.HBaseTestCase#setUp()    */
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
-name|EnvironmentEdgeManagerTestHelper
-operator|.
-name|reset
-argument_list|()
-expr_stmt|;
-block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// New tests that doesn't spin up a mini cluster but rather just test the
 comment|// individual code pieces in the HRegion.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Test basic append operation.    * More tests in    * @see org.apache.hadoop.hbase.client.TestFromClientSide#testAppend()    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testAppend
@@ -840,7 +884,9 @@ name|initHRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|,
 name|fam1
@@ -1024,6 +1070,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test multi-threaded increments.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testIncrementMultiThreads
@@ -1043,7 +1091,9 @@ name|initHRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|,
 operator|new
@@ -1472,6 +1522,14 @@ operator|+
 name|callingMethod
 argument_list|)
 decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+name|TEST_UTIL
+operator|.
+name|getTestFileSystem
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|fs
@@ -1767,6 +1825,8 @@ block|}
 block|}
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testAppendMultiThreads
@@ -1786,7 +1846,9 @@ name|initHRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|,
 operator|new
@@ -2183,6 +2245,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test multi-threaded row mutations.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRowMutationMultiThreads
@@ -2201,7 +2265,9 @@ name|initHRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|,
 name|fam1
@@ -2645,6 +2711,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test multi-threaded region mutations.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMultiRowMutationMultiThreads
@@ -2663,7 +2731,9 @@ name|initHRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|,
 name|fam1
@@ -3284,6 +3354,8 @@ init|=
 literal|"f1"
 decl_stmt|;
 comment|/**    * Test written as a verifier for HBASE-7051, CheckAndPut should properly read    * MVCC.     *     * Moved into TestAtomicOperation from its original location, TestHBase7051    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPutAndCheckAndPutInParallel

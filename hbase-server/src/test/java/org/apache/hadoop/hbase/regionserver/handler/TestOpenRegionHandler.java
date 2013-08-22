@@ -159,22 +159,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|MockRegionServerServices
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|MockServer
 import|;
 end_import
@@ -343,8 +327,9 @@ specifier|static
 name|HBaseTestingUtility
 name|HTU
 init|=
-operator|new
 name|HBaseTestingUtility
+operator|.
+name|createLocalHTU
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -478,14 +463,10 @@ specifier|final
 name|RegionServerServices
 name|rss
 init|=
-operator|new
-name|MockRegionServerServices
-argument_list|(
 name|HTU
 operator|.
-name|getZooKeeperWatcher
+name|createMockRegionServerService
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|HTableDescriptor
 name|htd
@@ -716,8 +697,9 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
+name|HTU
+operator|.
+name|createMockRegionServerService
 argument_list|()
 decl_stmt|;
 comment|// Create it OFFLINE, which is what it expects
@@ -847,8 +829,9 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
+name|HTU
+operator|.
+name|createMockRegionServerService
 argument_list|()
 decl_stmt|;
 comment|// Create it OFFLINE, which is what it expects
@@ -982,8 +965,9 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
+name|HTU
+operator|.
+name|createMockRegionServerService
 argument_list|()
 decl_stmt|;
 comment|// Create it OFFLINE, which is what it expects
@@ -1145,14 +1129,10 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
-argument_list|(
-name|server
+name|HTU
 operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
+name|createMockRegionServerService
+argument_list|(
 name|server
 operator|.
 name|getServerName
