@@ -1104,7 +1104,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Closed region "
+literal|"Closed "
 operator|+
 name|hri
 operator|.
@@ -1313,7 +1313,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Online a region not in RegionStates: "
+literal|"Online region not in RegionStates: "
 operator|+
 name|hri
 operator|.
@@ -1365,7 +1365,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Online a region "
+literal|"Online "
 operator|+
 name|hri
 operator|.
@@ -1625,7 +1625,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Offline a region not in RegionStates: "
+literal|"Offline region not in RegionStates: "
 operator|+
 name|hri
 operator|.
@@ -1684,7 +1684,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Offline a region "
+literal|"Offline "
 operator|+
 name|hri
 operator|.
@@ -1716,7 +1716,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Offline a region "
+literal|"Offline "
 operator|+
 name|hri
 operator|.

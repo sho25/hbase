@@ -299,16 +299,6 @@ argument_list|(
 literal|true
 argument_list|)
 decl_stmt|;
-specifier|private
-name|AtomicBoolean
-name|alreadyRunning
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|false
-argument_list|)
-decl_stmt|;
 specifier|public
 name|NamespaceJanitor
 parameter_list|(
@@ -338,7 +328,7 @@ name|getInt
 argument_list|(
 literal|"hbase.namespacejanitor.interval"
 argument_list|,
-literal|30000
+literal|300000
 argument_list|)
 argument_list|,
 name|services

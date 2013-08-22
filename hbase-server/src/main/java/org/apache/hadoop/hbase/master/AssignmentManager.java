@@ -5789,11 +5789,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The znode of "
+literal|"Znode "
 operator|+
 name|regionNameStr
 operator|+
-literal|" has been deleted, region state: "
+literal|" deleted, state: "
 operator|+
 name|rs
 argument_list|)
@@ -5818,19 +5818,6 @@ name|regionOnline
 argument_list|(
 name|regionInfo
 argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The master has opened "
-operator|+
-name|regionNameStr
-operator|+
-literal|" that was online on "
-operator|+
 name|serverName
 argument_list|)
 expr_stmt|;

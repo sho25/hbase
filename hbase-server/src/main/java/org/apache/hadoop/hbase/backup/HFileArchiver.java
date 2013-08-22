@@ -185,20 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -506,7 +492,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ARCHIVING region "
+literal|"ARCHIVING "
 operator|+
 name|regionDir
 operator|.
@@ -742,7 +728,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Archiving:"
+literal|"Archiving "
 operator|+
 name|toArchive
 argument_list|)
@@ -776,7 +762,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to archive: "
+literal|"Failed to archive "
 operator|+
 name|toArchive
 argument_list|,
@@ -1424,7 +1410,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Starting to archive files:"
+literal|"Starting to archive "
 operator|+
 name|toArchive
 argument_list|)
@@ -1766,7 +1752,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to archive file: "
+literal|"Failed to archive "
 operator|+
 name|file
 argument_list|,
@@ -1942,7 +1928,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Backed up archive file from: "
+literal|"Backed up archive file from "
 operator|+
 name|archiveFile
 argument_list|)
@@ -2048,7 +2034,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to create the archive directory: "
+literal|"Failed to create directory: "
 operator|+
 name|archiveDir
 argument_list|,
@@ -2079,7 +2065,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to archive file: "
+literal|"Failed to archive "
 operator|+
 name|currentFile
 operator|+
@@ -2106,7 +2092,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to archive file:"
+literal|"Failed to archive "
 operator|+
 name|currentFile
 argument_list|)
@@ -2127,11 +2113,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished archiving file from: "
+literal|"Finished archiving from "
 operator|+
 name|currentFile
 operator|+
-literal|", to: "
+literal|", to "
 operator|+
 name|archiveFile
 argument_list|)

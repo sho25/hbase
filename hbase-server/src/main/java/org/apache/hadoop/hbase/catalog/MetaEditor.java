@@ -893,14 +893,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Added region "
+literal|"Added "
 operator|+
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" to META"
 argument_list|)
 expr_stmt|;
 block|}
@@ -988,14 +986,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Added region "
+literal|"Added "
 operator|+
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" to META"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1105,8 +1101,6 @@ name|puts
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" regions in META"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1188,7 +1182,7 @@ literal|"Added daughter "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 operator|(
@@ -1831,14 +1825,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleted region "
+literal|"Deleted "
 operator|+
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" from META"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1912,7 +1904,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleted from META, regions: "
+literal|"Deleted "
 operator|+
 name|regionsInfo
 argument_list|)
@@ -2040,7 +2032,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleted from META, regions: "
+literal|"Deleted "
 operator|+
 name|regionsToRemove
 argument_list|)
@@ -2064,7 +2056,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Add to META, regions: "
+literal|"Added "
 operator|+
 name|regionsToAdd
 argument_list|)

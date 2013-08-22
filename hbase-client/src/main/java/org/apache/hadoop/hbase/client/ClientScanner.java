@@ -1015,7 +1015,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished region="
+literal|"Finished "
 operator|+
 name|this
 operator|.
@@ -1043,7 +1043,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished with region "
+literal|"Finished "
 operator|+
 name|this
 operator|.
