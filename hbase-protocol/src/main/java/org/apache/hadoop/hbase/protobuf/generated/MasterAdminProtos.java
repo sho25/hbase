@@ -197728,7 +197728,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetCompletedSnapshots(.ListSnapshotRequest) returns (.ListSnapshotResponse);</code>        *        *<pre>        **        * List completed snapshots.        * @return a list of snapshot descriptors for completed snapshots        *</pre>        */
+comment|/**        *<code>rpc GetCompletedSnapshots(.ListSnapshotRequest) returns (.ListSnapshotResponse);</code>        *        *<pre>        **        * List completed snapshots.        * Returns a list of snapshot descriptors for completed snapshots        *</pre>        */
 specifier|public
 specifier|abstract
 name|void
@@ -205388,7 +205388,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetCompletedSnapshots(.ListSnapshotRequest) returns (.ListSnapshotResponse);</code>      *      *<pre>      **      * List completed snapshots.      * @return a list of snapshot descriptors for completed snapshots      *</pre>      */
+comment|/**      *<code>rpc GetCompletedSnapshots(.ListSnapshotRequest) returns (.ListSnapshotResponse);</code>      *      *<pre>      **      * List completed snapshots.      * Returns a list of snapshot descriptors for completed snapshots      *</pre>      */
 specifier|public
 specifier|abstract
 name|void
