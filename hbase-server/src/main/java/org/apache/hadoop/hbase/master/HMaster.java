@@ -921,6 +921,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|RequestContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcServerInterface
 import|;
 end_import
@@ -9427,7 +9443,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"BalanceSwitch="
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" set balanceSwitch="
 operator|+
 name|newValue
 argument_list|)
@@ -9472,6 +9491,30 @@ expr_stmt|;
 block|}
 return|return
 name|oldValue
+return|;
+block|}
+comment|/**    * @return Client info for use as prefix on an audit log string; who did an action    */
+name|String
+name|getClientIdAuditPrefix
+parameter_list|()
+block|{
+return|return
+literal|"Client="
+operator|+
+name|RequestContext
+operator|.
+name|getRequestUserName
+argument_list|()
+operator|+
+literal|"/"
+operator|+
+name|RequestContext
+operator|.
+name|get
+argument_list|()
+operator|.
+name|getRemoteAddress
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -10368,7 +10411,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Added move plan "
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" move "
 operator|+
 name|rp
 operator|+
@@ -10542,6 +10588,18 @@ name|newRegions
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" create "
+operator|+
+name|hTableDescriptor
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
@@ -10936,6 +10994,18 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" delete "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
@@ -11320,6 +11390,18 @@ block|{
 return|return;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" modify "
+operator|+
+name|descriptor
+argument_list|)
+expr_stmt|;
 operator|new
 name|TableModifyFamilyHandler
 argument_list|(
@@ -11464,6 +11546,23 @@ block|{
 return|return;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" delete "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|columnName
+argument_list|)
+argument_list|)
+expr_stmt|;
 operator|new
 name|TableDeleteFamilyHandler
 argument_list|(
@@ -11594,6 +11693,18 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" enable "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
@@ -11722,6 +11833,18 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" disable "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
@@ -12027,6 +12150,18 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" modify "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 operator|new
 name|ModifyTableHandler
 argument_list|(
@@ -13304,6 +13439,16 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" shutdown"
+argument_list|)
+expr_stmt|;
 name|shutdown
 argument_list|()
 expr_stmt|;
@@ -13383,6 +13528,16 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" stop"
+argument_list|)
+expr_stmt|;
 name|stopMaster
 argument_list|()
 expr_stmt|;
@@ -13713,6 +13868,21 @@ name|arr
 return|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" assign "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assignmentManager
 operator|.
 name|assign
@@ -13941,14 +14111,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Close region "
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" unassign "
 operator|+
 name|hri
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" on current location if it is online and reassign.force="
+literal|" in current location if it is online and reassign.force="
 operator|+
 name|force
 argument_list|)
@@ -14667,6 +14840,21 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" offline "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|assignmentManager
@@ -15378,9 +15566,12 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Submitting snapshot request for:"
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" snapshot request for:"
 operator|+
 name|ClientSnapshotDescriptionUtils
 operator|.
@@ -15590,6 +15781,21 @@ throw|;
 block|}
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" delete "
+operator|+
+name|request
+operator|.
+name|getSnapshot
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|snapshotManager
 operator|.
 name|deleteSnapshot
@@ -16430,6 +16636,18 @@ block|{
 return|return;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" creating "
+operator|+
+name|descriptor
+argument_list|)
+expr_stmt|;
 name|tableNamespaceManager
 operator|.
 name|create
@@ -16498,6 +16716,18 @@ block|{
 return|return;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" modify "
+operator|+
+name|descriptor
+argument_list|)
+expr_stmt|;
 name|tableNamespaceManager
 operator|.
 name|update
@@ -16551,6 +16781,18 @@ block|{
 return|return;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" delete "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
 name|tableNamespaceManager
 operator|.
 name|remove
