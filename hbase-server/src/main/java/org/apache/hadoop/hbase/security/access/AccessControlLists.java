@@ -1931,7 +1931,11 @@ argument_list|,
 name|TablePermission
 argument_list|>
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_RAWCOMPARATOR
+argument_list|)
 decl_stmt|;
 comment|// do a full scan of _acl_ table
 name|Scan
