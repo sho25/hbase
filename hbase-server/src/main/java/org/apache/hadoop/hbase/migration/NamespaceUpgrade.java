@@ -681,6 +681,16 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|FSUtils
+operator|.
+name|setFsDefault
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|,
+name|rootDir
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|fs

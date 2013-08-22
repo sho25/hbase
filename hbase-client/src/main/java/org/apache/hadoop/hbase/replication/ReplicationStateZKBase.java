@@ -207,7 +207,7 @@ operator|.
 name|ENABLED
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|byte
