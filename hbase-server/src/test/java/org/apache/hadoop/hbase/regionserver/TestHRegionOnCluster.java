@@ -517,6 +517,16 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Move region to target server
 name|HRegionInfo
 name|regionInfo
@@ -583,6 +593,16 @@ name|equals
 argument_list|(
 name|targetServer
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Log
@@ -678,6 +698,16 @@ argument_list|,
 literal|"v2"
 argument_list|,
 literal|2
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Move region to origin server
