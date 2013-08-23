@@ -1365,6 +1365,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSnapshots
@@ -1542,6 +1547,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRenameUsingSnapshots
@@ -1780,7 +1790,7 @@ name|TEST_UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|2000
+literal|30000
 argument_list|,
 operator|new
 name|Waiter
@@ -2009,6 +2019,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testOldDirsAreGonePostMigration
@@ -2110,6 +2125,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testNewDirsArePresentPostMigration
