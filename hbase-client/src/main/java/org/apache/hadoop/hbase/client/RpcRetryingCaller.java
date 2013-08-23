@@ -281,12 +281,6 @@ name|globalStartTime
 decl_stmt|;
 comment|/**    * Start and end times for a single call.    */
 specifier|private
-name|long
-name|startTime
-decl_stmt|,
-name|endTime
-decl_stmt|;
-specifier|private
 specifier|final
 specifier|static
 name|int
@@ -368,15 +362,6 @@ name|void
 name|beforeCall
 parameter_list|()
 block|{
-name|this
-operator|.
-name|startTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
 name|int
 name|remaining
 init|=
@@ -387,9 +372,10 @@ argument_list|(
 name|callTimeout
 operator|-
 operator|(
-name|this
+name|EnvironmentEdgeManager
 operator|.
-name|startTime
+name|currentTimeMillis
+argument_list|()
 operator|-
 name|this
 operator|.
@@ -428,15 +414,6 @@ block|{
 name|RpcClient
 operator|.
 name|resetRpcTimeout
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|endTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 block|}
@@ -579,14 +556,14 @@ operator|+
 literal|", retryTime="
 operator|+
 operator|(
-name|this
-operator|.
-name|globalStartTime
-operator|-
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
+operator|-
+name|this
+operator|.
+name|globalStartTime
 operator|)
 operator|+
 literal|"ms"
