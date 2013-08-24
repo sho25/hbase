@@ -1280,6 +1280,20 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
+comment|// check error again in case an error raised during last wait
+if|if
+condition|(
+name|monitor
+operator|!=
+literal|null
+condition|)
+block|{
+name|monitor
+operator|.
+name|rethrowException
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
