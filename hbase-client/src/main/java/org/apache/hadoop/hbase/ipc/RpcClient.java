@@ -1231,7 +1231,10 @@ init|=
 literal|false
 decl_stmt|;
 comment|// thread-specific RPC timeout, which may override that of what was passed in.
-comment|// TODO: Verify still being used.
+comment|// This is used to change dynamically the timeout (for read only) when retrying: if
+comment|//  the time allowed for the operation is less than the usual socket timeout, then
+comment|//  we lower the timeout. This is subject to race conditions, and should be used with
+comment|//  extreme caution.
 specifier|private
 specifier|static
 name|ThreadLocal
@@ -4160,6 +4163,9 @@ argument_list|(
 name|socket
 argument_list|)
 decl_stmt|;
+comment|// This creates a socket with a write timeout. This timeout cannot be changed,
+comment|//  RpcClient allows to change the timeout dynamically, but we can only
+comment|//  change the read timeout today.
 name|OutputStream
 name|outStream
 init|=
@@ -4168,6 +4174,8 @@ operator|.
 name|getOutputStream
 argument_list|(
 name|socket
+argument_list|,
+name|pingInterval
 argument_list|)
 decl_stmt|;
 comment|// Write out the preamble -- MAGIC, version, and auth to use.
