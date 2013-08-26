@@ -467,13 +467,13 @@ specifier|private
 name|long
 name|maxRunningTime
 init|=
-literal|60
+literal|30
 operator|*
 literal|1000
 operator|*
 literal|1
 decl_stmt|;
-comment|// 1 min
+comment|// 30 seconds.
 specifier|private
 name|int
 name|numRegionLoadsToRemember
