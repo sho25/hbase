@@ -1135,7 +1135,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -1148,7 +1148,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -1165,8 +1165,17 @@ name|I_LENGTHS
 index|[
 name|i
 index|]
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -1194,6 +1203,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|I_LENGTHS
@@ -1205,6 +1229,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1216,6 +1242,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -1240,7 +1278,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1273,6 +1311,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -1280,7 +1320,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1316,6 +1356,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -1583,7 +1625,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -1596,7 +1638,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -1613,8 +1655,17 @@ name|D_LENGTHS
 index|[
 name|i
 index|]
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -1642,6 +1693,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|D_LENGTHS
@@ -1653,6 +1719,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1664,6 +1732,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -1688,7 +1768,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1721,6 +1801,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -1728,7 +1810,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1766,6 +1848,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -2035,7 +2119,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -2048,7 +2132,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -2065,8 +2149,17 @@ name|BD_LENGTHS
 index|[
 name|i
 index|]
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -2094,6 +2187,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|BD_LENGTHS
@@ -2105,6 +2213,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2116,6 +2226,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -2140,7 +2262,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2173,6 +2295,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -2180,7 +2304,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|BigDecimal
@@ -2247,6 +2371,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -2576,7 +2702,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -2586,7 +2712,7 @@ name|byte
 index|[
 literal|5
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -2600,8 +2726,17 @@ argument_list|,
 literal|1
 argument_list|,
 literal|5
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -2626,6 +2761,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 literal|5
@@ -2634,6 +2784,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2645,6 +2797,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -2669,7 +2833,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2696,6 +2860,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -2703,7 +2869,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2736,6 +2902,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -3017,7 +3185,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -3027,7 +3195,7 @@ name|byte
 index|[
 literal|9
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -3041,8 +3209,17 @@ argument_list|,
 literal|1
 argument_list|,
 literal|9
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -3067,6 +3244,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 literal|9
@@ -3075,6 +3267,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3086,6 +3280,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -3110,7 +3316,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3137,6 +3343,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -3144,7 +3352,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3177,6 +3385,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -3458,7 +3668,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -3468,7 +3678,7 @@ name|byte
 index|[
 literal|5
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -3482,8 +3692,17 @@ argument_list|,
 literal|1
 argument_list|,
 literal|5
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -3508,6 +3727,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 literal|5
@@ -3516,6 +3750,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3527,6 +3763,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -3551,7 +3799,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3578,6 +3826,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -3585,7 +3835,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3628,6 +3878,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -3919,7 +4171,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -3929,7 +4181,7 @@ name|byte
 index|[
 literal|9
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -3943,8 +4195,17 @@ argument_list|,
 literal|1
 argument_list|,
 literal|9
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -3969,6 +4230,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 literal|9
@@ -3977,6 +4253,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3988,6 +4266,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -4012,7 +4302,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4039,6 +4329,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -4046,7 +4338,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4089,6 +4381,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -4376,7 +4670,7 @@ name|i
 operator|++
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|byte
 index|[]
 name|a
@@ -4389,7 +4683,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -4406,8 +4700,17 @@ name|expectedLengths
 index|[
 name|i
 index|]
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -4435,6 +4738,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|expectedLengths
@@ -4446,6 +4764,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4457,6 +4777,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -4481,7 +4813,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4514,6 +4846,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -4521,7 +4855,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4554,6 +4888,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -5144,7 +5480,7 @@ range|:
 name|vals
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|int
 name|expectedLen
 init|=
@@ -5166,7 +5502,7 @@ name|byte
 index|[
 name|expectedLen
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -5180,8 +5516,17 @@ argument_list|,
 literal|1
 argument_list|,
 name|expectedLen
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -5203,6 +5548,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|expectedLen
@@ -5211,6 +5571,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -5222,6 +5584,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -5246,7 +5620,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -5273,6 +5647,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -5280,7 +5656,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertArrayEquals
@@ -5307,6 +5683,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -5726,7 +6104,7 @@ range|:
 name|vals
 control|)
 block|{
-comment|// allocate a buffer 2-bytes larger than necessary and place our range over the center.
+comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
 name|int
 name|expectedLen
 init|=
@@ -5755,7 +6133,7 @@ name|byte
 index|[
 name|expectedLen
 operator|+
-literal|2
+literal|3
 index|]
 decl_stmt|;
 name|PositionedByteRange
@@ -5769,8 +6147,17 @@ argument_list|,
 literal|1
 argument_list|,
 name|expectedLen
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
+name|buf1
+operator|.
+name|setPosition
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// verify encode
 name|assertEquals
 argument_list|(
@@ -5792,6 +6179,21 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"Broken test: serialization did not consume entire buffer."
+argument_list|,
+name|buf1
+operator|.
+name|getLength
+argument_list|()
+argument_list|,
+name|buf1
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|"Surprising serialized length."
 argument_list|,
 name|expectedLen
@@ -5800,6 +6202,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -5811,6 +6215,18 @@ argument_list|,
 name|a
 index|[
 literal|0
+index|]
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Buffer underflow."
+argument_list|,
+literal|0
+argument_list|,
+name|a
+index|[
+literal|1
 index|]
 argument_list|)
 expr_stmt|;
@@ -5835,7 +6251,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -5862,6 +6278,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// verify decode
@@ -5869,7 +6287,7 @@ name|buf1
 operator|.
 name|setPosition
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertArrayEquals
@@ -5896,6 +6314,8 @@ name|buf1
 operator|.
 name|getPosition
 argument_list|()
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}

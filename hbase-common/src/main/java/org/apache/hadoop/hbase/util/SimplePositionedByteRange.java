@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Extends the basic {@link SimpleByteRange} implementation with position  * support. {@code position} is considered transient, not fundamental to the  * definition of the range, and does not participate in comparison or copy  * operations.  */
+comment|/**  * Extends the basic {@link SimpleByteRange} implementation with position  * support. {@code position} is considered transient, not fundamental to the  * definition of the range, and does not participate in  * {@link #compareTo(ByteRange)}, {@link #hashCode()}, or  * {@link #equals(Object)}. {@code Position} is retained by copy operations.  */
 end_comment
 
 begin_class
@@ -82,6 +82,21 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+literal|"EQ_DOESNT_OVERRIDE_EQUALS"
+argument_list|)
 specifier|public
 class|class
 name|SimplePositionedByteRange
