@@ -318,7 +318,7 @@ name|move
 argument_list|(
 name|regionInfo
 operator|.
-name|getRegionName
+name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 name|Bytes
