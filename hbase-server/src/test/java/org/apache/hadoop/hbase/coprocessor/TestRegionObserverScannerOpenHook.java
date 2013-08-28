@@ -42,18 +42,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -266,20 +254,6 @@ operator|.
 name|hbase
 operator|.
 name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|SmallTests
 import|;
 end_import
 
@@ -615,7 +589,7 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)
@@ -1444,13 +1418,6 @@ block|}
 comment|/**    * Unfortunately, the easiest way to test this is to spin up a mini-cluster since we want to do    * the usual compaction mechanism on the region, rather than going through the backdoor to the    * region    */
 annotation|@
 name|Test
-annotation|@
-name|Category
-argument_list|(
-name|MediumTests
-operator|.
-name|class
-argument_list|)
 specifier|public
 name|void
 name|testRegionObserverCompactionTimeStacking

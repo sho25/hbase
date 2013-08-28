@@ -65,6 +65,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|CellScannable
@@ -237,6 +251,11 @@ name|R
 argument_list|>
 name|multi
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|cellBlock
+decl_stmt|;
 name|MultiServerCallable
 parameter_list|(
 specifier|final
@@ -278,6 +297,13 @@ name|setLocation
 argument_list|(
 name|location
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|cellBlock
+operator|=
+name|isCellBlock
+argument_list|()
 expr_stmt|;
 block|}
 name|MultiAction
@@ -395,8 +421,6 @@ operator|instanceof
 name|RowMutations
 condition|)
 block|{
-try|try
-block|{
 name|RowMutations
 name|rms
 init|=
@@ -405,14 +429,30 @@ name|RowMutations
 operator|)
 name|row
 decl_stmt|;
-comment|// Stick all Cells for all RowMutations in here into 'cells'.  Populated when we call
-comment|// buildNoDataMultiRequest in the below.
 name|List
 argument_list|<
 name|CellScannable
 argument_list|>
 name|cells
 init|=
+literal|null
+decl_stmt|;
+name|MultiRequest
+name|multiRequest
+decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|cellBlock
+condition|)
+block|{
+comment|// Stick all Cells for all RowMutations in here into 'cells'.  Populated when we call
+comment|// buildNoDataMultiRequest in the below.
+name|cells
+operator|=
 operator|new
 name|ArrayList
 argument_list|<
@@ -427,11 +467,10 @@ operator|.
 name|size
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Build a multi request absent its Cell payload (this is the 'nodata' in the below).
-name|MultiRequest
 name|multiRequest
-init|=
+operator|=
 name|RequestConverter
 operator|.
 name|buildNoDataMultiRequest
@@ -442,9 +481,24 @@ name|rms
 argument_list|,
 name|cells
 argument_list|)
-decl_stmt|;
-comment|// Carry the cells over the proxy/pb Service interface using the payload carrying
-comment|// rpc controller.
+expr_stmt|;
+block|}
+else|else
+block|{
+name|multiRequest
+operator|=
+name|RequestConverter
+operator|.
+name|buildMultiRequest
+argument_list|(
+name|regionName
+argument_list|,
+name|rms
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Carry the cells if any over the proxy/pb Service interface using the payload
+comment|// carrying rpc controller.
 name|getStub
 argument_list|()
 operator|.
@@ -532,14 +586,29 @@ name|results
 init|=
 literal|null
 decl_stmt|;
-comment|// Stick all Cells for the multiRequest in here into 'cells'.  Gets filled in when we
-comment|// call buildNoDataMultiRequest
 name|List
 argument_list|<
 name|CellScannable
 argument_list|>
 name|cells
 init|=
+literal|null
+decl_stmt|;
+name|MultiRequest
+name|multiRequest
+decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|isCellBlock
+argument_list|()
+condition|)
+block|{
+comment|// Send data in cellblocks. The call to buildNoDataMultiRequest will skip RowMutations.
+comment|// They have already been handled above.
+name|cells
+operator|=
 operator|new
 name|ArrayList
 argument_list|<
@@ -553,14 +622,9 @@ argument_list|()
 operator|-
 name|rowMutations
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-comment|// The call to buildNoDataMultiRequest will skip RowMutations.  They have
-comment|// already been handled above.
-name|MultiRequest
+expr_stmt|;
 name|multiRequest
-init|=
+operator|=
 name|RequestConverter
 operator|.
 name|buildNoDataMultiRequest
@@ -571,7 +635,22 @@ name|actions
 argument_list|,
 name|cells
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+else|else
+block|{
+name|multiRequest
+operator|=
+name|RequestConverter
+operator|.
+name|buildMultiRequest
+argument_list|(
+name|regionName
+argument_list|,
+name|actions
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Controller optionally carries cell data over the proxy/service boundary and also
 comment|// optionally ferries cell response data back out again.
 name|PayloadCarryingRpcController
@@ -691,6 +770,72 @@ block|}
 block|}
 return|return
 name|response
+return|;
+block|}
+comment|/**    * @return True if we should send data in cellblocks.  This is an expensive call.  Cache the    * result if you can rather than call each time.    */
+specifier|private
+name|boolean
+name|isCellBlock
+parameter_list|()
+block|{
+comment|// This is not exact -- the configuration could have changed on us after connection was set up
+comment|// but it will do for now.
+name|HConnection
+name|connection
+init|=
+name|getConnection
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|connection
+operator|==
+literal|null
+condition|)
+return|return
+literal|true
+return|;
+comment|// Default is to do cellblocks.
+name|Configuration
+name|configuration
+init|=
+name|connection
+operator|.
+name|getConfiguration
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|configuration
+operator|==
+literal|null
+condition|)
+return|return
+literal|true
+return|;
+name|String
+name|codec
+init|=
+name|configuration
+operator|.
+name|get
+argument_list|(
+literal|"hbase.client.rpc.codec"
+argument_list|,
+literal|""
+argument_list|)
+decl_stmt|;
+return|return
+name|codec
+operator|!=
+literal|null
+operator|&&
+name|codec
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
 return|;
 block|}
 annotation|@

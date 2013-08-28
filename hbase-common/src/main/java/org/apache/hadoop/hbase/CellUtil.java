@@ -953,6 +953,15 @@ argument_list|>
 name|cellIterable
 parameter_list|)
 block|{
+if|if
+condition|(
+name|cellIterable
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|createCellScanner
 argument_list|(
@@ -963,7 +972,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param cells    * @return CellScanner interface over<code>cellIterable</code>    */
+comment|/**    * @param cells    * @return CellScanner interface over<code>cellIterable</code> or null if<code>cells</code> is    * null    */
 specifier|public
 specifier|static
 name|CellScanner
@@ -977,6 +986,15 @@ argument_list|>
 name|cells
 parameter_list|)
 block|{
+if|if
+condition|(
+name|cells
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 return|return
 operator|new
 name|CellScanner

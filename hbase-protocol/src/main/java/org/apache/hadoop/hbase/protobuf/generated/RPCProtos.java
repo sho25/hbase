@@ -3858,13 +3858,13 @@ name|ByteString
 name|getServiceNameBytes
 parameter_list|()
 function_decl|;
-comment|// optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|// optional string cell_block_codec_class = 3;
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 name|boolean
 name|hasCellBlockCodecClass
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 name|java
 operator|.
 name|lang
@@ -3873,7 +3873,7 @@ name|String
 name|getCellBlockCodecClass
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 name|com
 operator|.
 name|google
@@ -3885,12 +3885,12 @@ name|getCellBlockCodecClassBytes
 parameter_list|()
 function_decl|;
 comment|// optional string cell_block_compressor_class = 4;
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 name|boolean
 name|hasCellBlockCompressorClass
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 name|java
 operator|.
 name|lang
@@ -3899,7 +3899,7 @@ name|String
 name|getCellBlockCompressorClass
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 name|com
 operator|.
 name|google
@@ -4896,7 +4896,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|// optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];
+comment|// optional string cell_block_codec_class = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -4913,7 +4913,7 @@ operator|.
 name|Object
 name|cellBlockCodecClass_
 decl_stmt|;
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 specifier|public
 name|boolean
 name|hasCellBlockCodecClass
@@ -4931,7 +4931,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -5024,7 +5024,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**      *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.      *</pre>      */
+comment|/**      *<code>optional string cell_block_codec_class = 3;</code>      *      *<pre>      * Cell block codec we will use sending over optional cell blocks.  Server throws exception      * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)      *</pre>      */
 specifier|public
 name|com
 operator|.
@@ -5126,7 +5126,7 @@ operator|.
 name|Object
 name|cellBlockCompressorClass_
 decl_stmt|;
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 specifier|public
 name|boolean
 name|hasCellBlockCompressorClass
@@ -5144,7 +5144,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -5237,7 +5237,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface      *</pre>      */
+comment|/**      *<code>optional string cell_block_compressor_class = 4;</code>      *      *<pre>      * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.      * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.      *</pre>      */
 specifier|public
 name|com
 operator|.
@@ -5354,7 +5354,7 @@ literal|""
 expr_stmt|;
 name|cellBlockCodecClass_
 operator|=
-literal|"org.apache.hadoop.hbase.codec.KeyValueCodec"
+literal|""
 expr_stmt|;
 name|cellBlockCompressorClass_
 operator|=
@@ -7089,7 +7089,7 @@ operator|)
 expr_stmt|;
 name|cellBlockCodecClass_
 operator|=
-literal|"org.apache.hadoop.hbase.codec.KeyValueCodec"
+literal|""
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -8838,7 +8838,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];
+comment|// optional string cell_block_codec_class = 3;
 specifier|private
 name|java
 operator|.
@@ -8847,9 +8847,9 @@ operator|.
 name|Object
 name|cellBlockCodecClass_
 init|=
-literal|"org.apache.hadoop.hbase.codec.KeyValueCodec"
+literal|""
 decl_stmt|;
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|boolean
 name|hasCellBlockCodecClass
@@ -8867,7 +8867,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -8945,7 +8945,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|com
 operator|.
@@ -9026,7 +9026,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockCodecClass
@@ -9067,7 +9067,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|Builder
 name|clearCellBlockCodecClass
@@ -9097,7 +9097,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_codec_class = 3 [default = "org.apache.hadoop.hbase.codec.KeyValueCodec"];</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.        *</pre>        */
+comment|/**        *<code>optional string cell_block_codec_class = 3;</code>        *        *<pre>        * Cell block codec we will use sending over optional cell blocks.  Server throws exception        * if cannot deal.  Null means no codec'ing going on so we are pb all the time (SLOW!!!)        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockCodecClassBytes
@@ -9151,7 +9151,7 @@ name|cellBlockCompressorClass_
 init|=
 literal|""
 decl_stmt|;
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|boolean
 name|hasCellBlockCompressorClass
@@ -9169,7 +9169,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -9247,7 +9247,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|com
 operator|.
@@ -9328,7 +9328,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockCompressorClass
@@ -9369,7 +9369,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|Builder
 name|clearCellBlockCompressorClass
@@ -9399,7 +9399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface        *</pre>        */
+comment|/**        *<code>optional string cell_block_compressor_class = 4;</code>        *        *<pre>        * Compressor we will use if cell block is compressed.  Server will throw exception if not supported.        * Class must implement hadoop's CompressionCodec Interface.  Can't compress if no codec.        *</pre>        */
 specifier|public
 name|Builder
 name|setCellBlockCompressorClassBytes
@@ -28982,43 +28982,41 @@ literal|"\n\tRPC.proto\032\rTracing.proto\032\013hbase.proto\""
 operator|+
 literal|"<\n\017UserInformation\022\026\n\016effective_user\030\001 \002"
 operator|+
-literal|"(\t\022\021\n\treal_user\030\002 \001(\t\"\277\001\n\020ConnectionHead"
+literal|"(\t\022\021\n\treal_user\030\002 \001(\t\"\222\001\n\020ConnectionHead"
 operator|+
 literal|"er\022#\n\tuser_info\030\001 \001(\0132\020.UserInformation\022"
 operator|+
-literal|"\024\n\014service_name\030\002 \001(\t\022K\n\026cell_block_code"
+literal|"\024\n\014service_name\030\002 \001(\t\022\036\n\026cell_block_code"
 operator|+
-literal|"c_class\030\003 \001(\t:+org.apache.hadoop.hbase.c"
+literal|"c_class\030\003 \001(\t\022#\n\033cell_block_compressor_c"
 operator|+
-literal|"odec.KeyValueCodec\022#\n\033cell_block_compres"
+literal|"lass\030\004 \001(\t\"\037\n\rCellBlockMeta\022\016\n\006length\030\001 "
 operator|+
-literal|"sor_class\030\004 \001(\t\"\037\n\rCellBlockMeta\022\016\n\006leng"
+literal|"\001(\r\"|\n\021ExceptionResponse\022\034\n\024exception_cl"
 operator|+
-literal|"th\030\001 \001(\r\"|\n\021ExceptionResponse\022\034\n\024excepti"
+literal|"ass_name\030\001 \001(\t\022\023\n\013stack_trace\030\002 \001(\t\022\020\n\010h"
 operator|+
-literal|"on_class_name\030\001 \001(\t\022\023\n\013stack_trace\030\002 \001(\t"
+literal|"ostname\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\024\n\014do_not_re"
 block|,
-literal|"\022\020\n\010hostname\030\003 \001(\t\022\014\n\004port\030\004 \001(\005\022\024\n\014do_n"
+literal|"try\030\005 \001(\010\"\254\001\n\rRequestHeader\022\017\n\007call_id\030\001"
 operator|+
-literal|"ot_retry\030\005 \001(\010\"\254\001\n\rRequestHeader\022\017\n\007call"
+literal|" \001(\r\022\035\n\ntrace_info\030\002 \001(\0132\t.RPCTInfo\022\023\n\013m"
 operator|+
-literal|"_id\030\001 \001(\r\022\035\n\ntrace_info\030\002 \001(\0132\t.RPCTInfo"
+literal|"ethod_name\030\003 \001(\t\022\025\n\rrequest_param\030\004 \001(\010\022"
 operator|+
-literal|"\022\023\n\013method_name\030\003 \001(\t\022\025\n\rrequest_param\030\004"
+literal|"\'\n\017cell_block_meta\030\005 \001(\0132\016.CellBlockMeta"
 operator|+
-literal|" \001(\010\022\'\n\017cell_block_meta\030\005 \001(\0132\016.CellBloc"
+literal|"\022\026\n\016effective_user\030\006 \001(\t\"q\n\016ResponseHead"
 operator|+
-literal|"kMeta\022\026\n\016effective_user\030\006 \001(\t\"q\n\016Respons"
+literal|"er\022\017\n\007call_id\030\001 \001(\r\022%\n\texception\030\002 \001(\0132\022"
 operator|+
-literal|"eHeader\022\017\n\007call_id\030\001 \001(\r\022%\n\texception\030\002 "
+literal|".ExceptionResponse\022\'\n\017cell_block_meta\030\003 "
 operator|+
-literal|"\001(\0132\022.ExceptionResponse\022\'\n\017cell_block_me"
+literal|"\001(\0132\016.CellBlockMetaB<\n*org.apache.hadoop"
 operator|+
-literal|"ta\030\003 \001(\0132\016.CellBlockMetaB<\n*org.apache.h"
+literal|".hbase.protobuf.generatedB\tRPCProtosH\001\240\001"
 operator|+
-literal|"adoop.hbase.protobuf.generatedB\tRPCProto"
-block|,
-literal|"sH\001\240\001\001"
+literal|"\001"
 block|}
 decl_stmt|;
 name|com

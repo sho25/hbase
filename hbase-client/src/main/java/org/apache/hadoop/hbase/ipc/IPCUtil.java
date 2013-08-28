@@ -181,6 +181,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|codec
 operator|.
 name|Codec
@@ -472,6 +486,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Thrown if a cellscanner but no codec to encode it with.    */
+specifier|public
+specifier|static
+class|class
+name|CellScannerButNoCodecException
+extends|extends
+name|HBaseIOException
+block|{}
+empty_stmt|;
 comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec    * @param compressor    * @Param cellScanner    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    * passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has been    * flipped and is ready for reading.  Use limit to find total size.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
@@ -505,6 +528,17 @@ condition|)
 return|return
 literal|null
 return|;
+if|if
+condition|(
+name|codec
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|CellScannerButNoCodecException
+argument_list|()
+throw|;
 name|int
 name|bufferSize
 init|=

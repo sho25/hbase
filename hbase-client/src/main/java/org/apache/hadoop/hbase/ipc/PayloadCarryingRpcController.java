@@ -173,6 +173,12 @@ name|this
 operator|.
 name|cellScanner
 operator|=
+name|cellIterables
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
 name|CellUtil
 operator|.
 name|createCellScanner

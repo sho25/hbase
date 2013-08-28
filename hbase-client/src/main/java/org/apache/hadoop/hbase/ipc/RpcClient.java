@@ -941,6 +941,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|BlockingRpcChannel
@@ -2438,6 +2452,15 @@ name|userInfoPB
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|codec
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setCellBlockCodecClass
@@ -2453,6 +2476,7 @@ name|getCanonicalName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -6171,9 +6195,7 @@ operator|.
 name|codec
 operator|=
 name|getCodec
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -6396,17 +6418,13 @@ name|localAddr
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @param conf    * @return Codec to use on this client.    */
-specifier|private
-specifier|static
+comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @return Codec to use on this client.    */
 name|Codec
 name|getCodec
-parameter_list|(
-specifier|final
-name|Configuration
-name|conf
-parameter_list|)
+parameter_list|()
 block|{
+comment|// For NO CODEC, "hbase.client.rpc.codec" must be the empty string AND
+comment|// "hbase.client.default.rpc.codec" -- because default is to do cell block encoding.
 name|String
 name|className
 init|=
@@ -6416,14 +6434,30 @@ name|get
 argument_list|(
 literal|"hbase.client.rpc.codec"
 argument_list|,
-name|KeyValueCodec
+name|getDefaultCodec
+argument_list|(
+name|this
 operator|.
-name|class
-operator|.
-name|getCanonicalName
-argument_list|()
+name|conf
+argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|className
+operator|==
+literal|null
+operator|||
+name|className
+operator|.
+name|length
+argument_list|()
+operator|==
+literal|0
+condition|)
+return|return
+literal|null
+return|;
 try|try
 block|{
 return|return
@@ -6459,6 +6493,37 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|String
+name|getDefaultCodec
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|)
+block|{
+comment|// If "hbase.client.default.rpc.codec" is empty string -- you can't set it to null because
+comment|// Configuration will complain -- then no default codec (and we'll pb everything).  Else
+comment|// default is KeyValueCodec
+return|return
+name|c
+operator|.
+name|get
+argument_list|(
+literal|"hbase.client.default.rpc.codec"
+argument_list|,
+name|KeyValueCodec
+operator|.
+name|class
+operator|.
+name|getCanonicalName
+argument_list|()
+argument_list|)
+return|;
 block|}
 comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @param conf    * @return The compressor to use on this client.    */
 specifier|private
