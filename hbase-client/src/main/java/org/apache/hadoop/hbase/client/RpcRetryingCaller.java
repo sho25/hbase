@@ -541,9 +541,17 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|warn
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Call exception, tries="
 operator|+
@@ -571,6 +579,7 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 comment|// translateException throws exception when should not retry: i.e. when request is bad.
 name|t
 operator|=
