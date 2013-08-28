@@ -1027,6 +1027,24 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
+comment|/** The META table's name. */
+annotation|@
+name|Deprecated
+comment|// for compat from 0.94 -> 0.96.
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|META_TABLE_NAME
+init|=
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
