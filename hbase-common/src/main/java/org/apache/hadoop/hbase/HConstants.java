@@ -786,6 +786,14 @@ name|COMPACTION_KV_MAX
 init|=
 literal|"hbase.hstore.compaction.kv.max"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|COMPACTION_KV_MAX_DEFAULT
+init|=
+literal|10
+decl_stmt|;
 comment|/** Parameter name for HBase instance root directory */
 specifier|public
 specifier|static

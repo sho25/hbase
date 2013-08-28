@@ -482,7 +482,9 @@ name|HConstants
 operator|.
 name|COMPACTION_KV_MAX
 argument_list|,
-literal|10
+name|HConstants
+operator|.
+name|COMPACTION_KV_MAX_DEFAULT
 argument_list|)
 expr_stmt|;
 name|this
