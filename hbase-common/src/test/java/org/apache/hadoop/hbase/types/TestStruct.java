@@ -950,16 +950,6 @@ modifier|...
 name|vals
 parameter_list|)
 block|{
-name|byte
-index|[]
-name|empty
-init|=
-operator|new
-name|byte
-index|[
-literal|0
-index|]
-decl_stmt|;
 name|byteField1Asc
 operator|=
 name|vals
@@ -977,7 +967,7 @@ index|[
 literal|0
 index|]
 else|:
-name|empty
+literal|null
 expr_stmt|;
 name|byteField2Dsc
 operator|=
@@ -996,7 +986,7 @@ index|[
 literal|1
 index|]
 else|:
-name|empty
+literal|null
 expr_stmt|;
 name|stringFieldDsc
 operator|=
@@ -1014,7 +1004,7 @@ index|[
 literal|2
 index|]
 else|:
-literal|""
+literal|null
 expr_stmt|;
 name|byteField3Dsc
 operator|=
@@ -1033,7 +1023,7 @@ index|[
 literal|3
 index|]
 else|:
-name|empty
+literal|null
 expr_stmt|;
 name|str
 operator|=
