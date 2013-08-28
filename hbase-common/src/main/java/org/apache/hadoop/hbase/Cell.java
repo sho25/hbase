@@ -112,7 +112,7 @@ name|getQualifierLength
 parameter_list|()
 function_decl|;
 comment|//4) Timestamp
-comment|/**    * @return Long value representing time at which this cell was "Put" into the row.  Typically    * represents the time of insertion, but can be any value from Long.MIN_VALUE to Long.MAX_VALUE.    */
+comment|/**    * @return Long value representing time at which this cell was "Put" into the row.  Typically    * represents the time of insertion, but can be any value from 0 to Long.MAX_VALUE.    */
 name|long
 name|getTimestamp
 parameter_list|()

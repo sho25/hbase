@@ -289,11 +289,10 @@ argument_list|,
 name|rowLength
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
+name|setTimestamp
+argument_list|(
 name|ts
-operator|=
-name|ts
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param d Delete to clone.    */
@@ -550,6 +549,23 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+if|if
+condition|(
+name|timestamp
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|timestamp
+argument_list|)
+throw|;
+block|}
 name|List
 argument_list|<
 name|Cell
@@ -769,6 +785,23 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+if|if
+condition|(
+name|timestamp
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|timestamp
+argument_list|)
+throw|;
+block|}
 name|List
 argument_list|<
 name|Cell
@@ -890,6 +923,23 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+if|if
+condition|(
+name|timestamp
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|timestamp
+argument_list|)
+throw|;
+block|}
 name|List
 argument_list|<
 name|Cell
@@ -963,7 +1013,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the timestamp of the delete.    *     * @param timestamp    */
+comment|/**    * Set the timestamp of the delete.    *    * @param timestamp    */
 specifier|public
 name|void
 name|setTimestamp
@@ -972,6 +1022,23 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+if|if
+condition|(
+name|timestamp
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|timestamp
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|ts

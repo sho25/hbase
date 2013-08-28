@@ -341,6 +341,23 @@ name|ts
 operator|=
 name|ts
 expr_stmt|;
+if|if
+condition|(
+name|ts
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|ts
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Copy constructor.  Creates a Put operation cloned from the specified Put.    * @param putToCopy put to copy    */
 specifier|public
@@ -494,6 +511,23 @@ index|[]
 name|value
 parameter_list|)
 block|{
+if|if
+condition|(
+name|ts
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|ts
+argument_list|)
+throw|;
+block|}
 name|List
 argument_list|<
 name|Cell

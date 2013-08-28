@@ -675,10 +675,15 @@ specifier|final
 name|long
 name|ts
 init|=
+name|Math
+operator|.
+name|abs
+argument_list|(
 name|rand
 operator|.
 name|nextInt
 argument_list|()
+argument_list|)
 decl_stmt|;
 specifier|final
 name|byte

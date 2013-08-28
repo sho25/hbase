@@ -169,6 +169,31 @@ name|IOException
 block|{
 if|if
 condition|(
+name|minStamp
+operator|<
+literal|0
+operator|||
+name|maxStamp
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. minStamp:"
+operator|+
+name|minStamp
+operator|+
+literal|", maxStamp"
+operator|+
+name|maxStamp
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|maxStamp
 operator|<
 name|minStamp
