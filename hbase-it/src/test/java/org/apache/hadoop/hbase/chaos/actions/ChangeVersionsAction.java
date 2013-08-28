@@ -117,6 +117,11 @@ index|[]
 name|tableName
 decl_stmt|;
 specifier|private
+specifier|final
+name|String
+name|tableNameString
+decl_stmt|;
+specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
@@ -131,6 +136,10 @@ name|String
 name|tableName
 parameter_list|)
 block|{
+name|tableNameString
+operator|=
+name|tableName
+expr_stmt|;
 name|this
 operator|.
 name|tableName
@@ -261,6 +270,15 @@ name|versions
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Performing action: Changing versions on "
+operator|+
+name|tableNameString
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|modifyTable

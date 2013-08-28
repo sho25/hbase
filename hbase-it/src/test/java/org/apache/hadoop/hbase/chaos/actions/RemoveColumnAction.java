@@ -135,6 +135,11 @@ argument_list|>
 name|protectedColumns
 decl_stmt|;
 specifier|private
+specifier|final
+name|String
+name|tableNameString
+decl_stmt|;
+specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
@@ -155,6 +160,10 @@ argument_list|>
 name|protectedColumns
 parameter_list|)
 block|{
+name|tableNameString
+operator|=
+name|tableName
+expr_stmt|;
 name|this
 operator|.
 name|tableName
@@ -294,6 +303,25 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Performing action: Removing "
+operator|+
+name|columnDescriptors
+index|[
+name|index
+index|]
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" from "
+operator|+
+name|tableNameString
+argument_list|)
+expr_stmt|;
 name|tableDescriptor
 operator|.
 name|removeFamily

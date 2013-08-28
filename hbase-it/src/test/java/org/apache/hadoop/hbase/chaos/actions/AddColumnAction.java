@@ -131,6 +131,11 @@ index|[]
 name|tableName
 decl_stmt|;
 specifier|private
+specifier|final
+name|String
+name|tableNameString
+decl_stmt|;
+specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
@@ -141,6 +146,10 @@ name|String
 name|tableName
 parameter_list|)
 block|{
+name|tableNameString
+operator|=
+name|tableName
+expr_stmt|;
 name|this
 operator|.
 name|tableName
@@ -242,6 +251,19 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Performing action: Adding "
+operator|+
+name|columnDescriptor
+operator|+
+literal|" to "
+operator|+
+name|tableNameString
+argument_list|)
+expr_stmt|;
 name|tableDescriptor
 operator|.
 name|addFamily
