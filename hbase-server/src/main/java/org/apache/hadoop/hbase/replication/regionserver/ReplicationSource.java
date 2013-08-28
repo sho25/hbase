@@ -251,20 +251,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -531,22 +517,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Threads
 import|;
 end_import
@@ -562,18 +532,6 @@ operator|.
 name|ipc
 operator|.
 name|RemoteException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
 import|;
 end_import
 
@@ -2045,16 +2003,16 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-comment|// don't replicate if the log entries originated in the peer
+comment|// don't replicate if the log entries have already been consumed by the cluster
 if|if
 condition|(
 operator|!
 name|logKey
 operator|.
-name|getClusterId
+name|getClusterIds
 argument_list|()
 operator|.
-name|equals
+name|contains
 argument_list|(
 name|peerClusterId
 argument_list|)
@@ -2090,32 +2048,14 @@ operator|!=
 literal|0
 condition|)
 block|{
-comment|// Only set the clusterId if is a local key.
-comment|// This ensures that the originator sets the cluster id
-comment|// and all replicas retain the initial cluster id.
-comment|// This is *only* place where a cluster id other than the default is set.
-if|if
-condition|(
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
-operator|==
+comment|//Mark that the current cluster has the change
 name|logKey
 operator|.
-name|getClusterId
-argument_list|()
-condition|)
-block|{
-name|logKey
-operator|.
-name|setClusterId
+name|addClusterId
 argument_list|(
-name|this
-operator|.
 name|clusterId
 argument_list|)
 expr_stmt|;
-block|}
 name|currentNbOperations
 operator|+=
 name|countDistinctRowKeys

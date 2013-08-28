@@ -9394,10 +9394,6 @@ name|delete
 argument_list|(
 name|deleteMap
 argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
-argument_list|,
 name|Durability
 operator|.
 name|SYNC_WAL
@@ -9481,10 +9477,6 @@ operator|.
 name|delete
 argument_list|(
 name|deleteMap
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|Durability
 operator|.
@@ -11678,10 +11670,6 @@ operator|.
 name|delete
 argument_list|(
 name|deleteMap
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|Durability
 operator|.
@@ -26682,7 +26670,10 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
+name|List
+argument_list|<
 name|UUID
+argument_list|>
 operator|)
 name|any
 argument_list|()

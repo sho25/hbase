@@ -119,6 +119,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|LinkedHashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|LinkedList
 import|;
 end_import
@@ -3826,7 +3836,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterId    * @return New log key.    */
+comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterIds that have consumed the change    * @return New log key.    */
 end_comment
 
 begin_function
@@ -3847,8 +3857,11 @@ parameter_list|,
 name|long
 name|now
 parameter_list|,
+name|List
+argument_list|<
 name|UUID
-name|clusterId
+argument_list|>
+name|clusterIds
 parameter_list|)
 block|{
 return|return
@@ -3863,7 +3876,7 @@ name|seqnum
 argument_list|,
 name|now
 argument_list|,
-name|clusterId
+name|clusterIds
 argument_list|)
 return|;
 block|}
@@ -3950,9 +3963,12 @@ name|tableName
 argument_list|,
 name|edits
 argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
+operator|new
+name|ArrayList
+argument_list|<
+name|UUID
+argument_list|>
+argument_list|()
 argument_list|,
 name|now
 argument_list|,
@@ -3967,7 +3983,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterId The originating clusterId for this edit (for replication)    * @param now    * @param doSync shall we sync?    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterIds that have consumed the change (for replication)    * @param now    * @param doSync shall we sync?    * @return txid of this transaction    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3989,8 +4005,11 @@ parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
+name|List
+argument_list|<
 name|UUID
-name|clusterId
+argument_list|>
+name|clusterIds
 parameter_list|,
 specifier|final
 name|long
@@ -4112,7 +4131,7 @@ name|seqNum
 argument_list|,
 name|now
 argument_list|,
-name|clusterId
+name|clusterIds
 argument_list|)
 decl_stmt|;
 name|doWrite
@@ -4216,8 +4235,11 @@ parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
+name|List
+argument_list|<
 name|UUID
-name|clusterId
+argument_list|>
+name|clusterIds
 parameter_list|,
 specifier|final
 name|long
@@ -4238,7 +4260,7 @@ name|tableName
 argument_list|,
 name|edits
 argument_list|,
-name|clusterId
+name|clusterIds
 argument_list|,
 name|now
 argument_list|,

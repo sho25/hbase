@@ -141,18 +141,6 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
 name|Message
 import|;
 end_import
@@ -247,9 +235,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return The replication cluster id.    */
+comment|/**    * @return The cluster ids that have the change.    */
+name|List
+argument_list|<
 name|UUID
-name|getClusterId
+argument_list|>
+name|getClusterIds
 parameter_list|()
 function_decl|;
 comment|/**    * Human readable name of the processor    * @return The name of the processor    */

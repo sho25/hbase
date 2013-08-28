@@ -970,7 +970,7 @@ argument_list|()
 argument_list|,
 name|key
 operator|.
-name|getClusterId
+name|getClusterIds
 argument_list|()
 argument_list|)
 expr_stmt|;

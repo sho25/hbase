@@ -7736,7 +7736,7 @@ argument_list|(
 literal|"ForUnitTestsOnly"
 argument_list|)
 decl_stmt|;
-comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param clusterId    * @param durability    * @throws IOException    */
+comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param durability    * @throws IOException    */
 name|void
 name|delete
 parameter_list|(
@@ -7751,9 +7751,6 @@ name|Cell
 argument_list|>
 argument_list|>
 name|familyMap
-parameter_list|,
-name|UUID
-name|clusterId
 parameter_list|,
 name|Durability
 name|durability
@@ -7775,13 +7772,6 @@ operator|.
 name|setFamilyMap
 argument_list|(
 name|familyMap
-argument_list|)
-expr_stmt|;
-name|delete
-operator|.
-name|setClusterId
-argument_list|(
-name|clusterId
 argument_list|)
 expr_stmt|;
 name|delete
@@ -9673,7 +9663,7 @@ name|walEdit
 argument_list|,
 name|mutation
 operator|.
-name|getClusterId
+name|getClusterIds
 argument_list|()
 argument_list|,
 name|now
@@ -11482,15 +11472,6 @@ operator|.
 name|setFamilyMap
 argument_list|(
 name|familyMap
-argument_list|)
-expr_stmt|;
-name|p
-operator|.
-name|setClusterId
-argument_list|(
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
 argument_list|)
 expr_stmt|;
 name|doBatchMutate
@@ -19649,7 +19630,7 @@ name|walEdit
 argument_list|,
 name|processor
 operator|.
-name|getClusterId
+name|getClusterIds
 argument_list|()
 argument_list|,
 name|now
@@ -20926,9 +20907,12 @@ argument_list|()
 argument_list|,
 name|walEdits
 argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
+operator|new
+name|ArrayList
+argument_list|<
+name|UUID
+argument_list|>
+argument_list|()
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
@@ -21753,9 +21737,12 @@ argument_list|()
 argument_list|,
 name|walEdits
 argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
+operator|new
+name|ArrayList
+argument_list|<
+name|UUID
+argument_list|>
+argument_list|()
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.

@@ -55,6 +55,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|UUID
 import|;
 end_import
@@ -696,7 +716,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, UUID, long, HTableDescriptor)},    * except it causes a sync on the log    */
+comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor)},    * except it causes a sync on the log    */
 specifier|public
 name|void
 name|append
@@ -747,7 +767,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is not flushed after    * this transaction is written to the log.    *    * @param info    * @param tableName    * @param edits    * @param clusterId    *          The originating clusterId for this edit (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
 name|appendNoSync
@@ -761,8 +781,11 @@ parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
+name|List
+argument_list|<
 name|UUID
-name|clusterId
+argument_list|>
+name|clusterIds
 parameter_list|,
 specifier|final
 name|long
