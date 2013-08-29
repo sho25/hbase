@@ -375,20 +375,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -446,6 +432,20 @@ operator|.
 name|hbase
 operator|.
 name|RemoteExceptionHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -1644,6 +1644,8 @@ return|return
 name|ttl
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getColumnFamilyName
@@ -1763,6 +1765,8 @@ operator|.
 name|compactionCheckMultiplier
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getBlockingFileCount
@@ -1856,6 +1860,8 @@ return|return
 name|closeCheckInterval
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HColumnDescriptor
 name|getFamily
@@ -2120,6 +2126,8 @@ name|StoreFile
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|StoreFile
 name|call
@@ -3326,6 +3334,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|call
@@ -3869,6 +3879,8 @@ name|sf
 return|;
 block|}
 comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @return Writer for a new StoreFile in the tmp dir.    */
+annotation|@
+name|Override
 specifier|public
 name|StoreFile
 operator|.
@@ -4369,6 +4381,8 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    *<p> Compaction event should be idempotent, since there is no IO Fencing for    * the region directory in hdfs. A region server might still try to complete the    * compaction after it lost the region. That is why the following events are carefully    * ordered for a compaction:    *  1. Compaction writes new files under region/.tmp directory (compaction output)    *  2. Compaction atomically moves the temporary file under region directory    *  3. Compaction appends a WAL edit containing the compaction input and output files.    *  Forces sync on WAL.    *  4. Compaction deletes the input files from the region directory.    *    * Failure conditions are handled like this:    *  - If RS fails before 2, compaction wont complete. Even if RS lives on and finishes    *  the compaction later, it will only write the new data file to the region directory.    *  Since we already have this data, this will be idempotent but we will have a redundant    *  copy of the data.    *  - If RS fails between 2 and 3, the region will have a redundant copy of the data. The    *  RS that failed won't be able to finish snyc() for WAL because of lease recovery in WAL.    *  - If RS fails after 3, the region region server who opens the region will pick up the    *  the compaction marker from the WAL and replay it by removing the compaction input files.    *  Failed RS can also attempt to delete those files, but the operation will be idempotent    *    * See HBASE-2231 for details.    *    * @param compaction compaction details obtained from requestCompaction()    * @throws IOException    * @return Storefile we compacted into or null if we failed or opted out early.    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -5212,6 +5226,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|completeCompactionMarker
@@ -6476,6 +6492,8 @@ return|return
 name|compaction
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|cancelRequestedCompaction
@@ -6571,6 +6589,8 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+name|storeFile
+operator|=
 name|createStoreFileAndReader
 argument_list|(
 name|path
@@ -7602,6 +7622,8 @@ return|return
 name|foundCandidate
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|canSplit
@@ -7777,6 +7799,8 @@ return|return
 name|storeSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|triggerMajorCompaction
@@ -8468,6 +8492,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|StoreFlushContext
 name|createFlushContext
@@ -8962,6 +8988,8 @@ name|heapSize
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|KeyValue
 operator|.
