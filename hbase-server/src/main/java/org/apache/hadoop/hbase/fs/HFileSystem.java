@@ -1419,9 +1419,17 @@ operator|.
 name|getHostname
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|src
 operator|+
@@ -1430,6 +1438,7 @@ operator|+
 name|hostName
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Just check for all blocks
 for|for
 control|(
