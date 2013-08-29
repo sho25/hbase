@@ -161,7 +161,9 @@ name|rs
 operator|.
 name|core
 operator|.
-name|UriInfo
+name|Response
+operator|.
+name|ResponseBuilder
 import|;
 end_import
 
@@ -175,9 +177,7 @@ name|rs
 operator|.
 name|core
 operator|.
-name|Response
-operator|.
-name|ResponseBuilder
+name|UriInfo
 import|;
 end_import
 
@@ -273,7 +273,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|TableExistsException
 import|;
 end_import
 
@@ -287,7 +287,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableExistsException
+name|TableName
 import|;
 end_import
 
@@ -334,22 +334,6 @@ operator|.
 name|client
 operator|.
 name|HTableInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HTablePool
 import|;
 end_import
 
@@ -490,18 +474,10 @@ name|IOException
 throws|,
 name|TableNotFoundException
 block|{
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(

@@ -12071,6 +12071,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+specifier|final
 name|HBaseAdmin
 name|admin
 init|=
@@ -12127,6 +12128,7 @@ name|getRegionServer
 argument_list|()
 decl_stmt|;
 comment|// Move region to the new RegionServer.
+specifier|final
 name|HTable
 name|table
 init|=
@@ -12192,18 +12194,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
-name|admin
-init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|admin
 operator|.
 name|move
@@ -12335,20 +12325,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
-name|table
-init|=
-operator|new
-name|HTable
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|TEST_TABLE2
-argument_list|)
-decl_stmt|;
 name|Put
 name|put
 init|=

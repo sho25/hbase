@@ -171,7 +171,9 @@ name|rs
 operator|.
 name|core
 operator|.
-name|UriInfo
+name|Response
+operator|.
+name|ResponseBuilder
 import|;
 end_import
 
@@ -185,9 +187,7 @@ name|rs
 operator|.
 name|core
 operator|.
-name|Response
-operator|.
-name|ResponseBuilder
+name|UriInfo
 import|;
 end_import
 
@@ -304,22 +304,6 @@ operator|.
 name|client
 operator|.
 name|HTableInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HTablePool
 import|;
 end_import
 
@@ -1325,14 +1309,6 @@ name|build
 argument_list|()
 return|;
 block|}
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
@@ -1644,7 +1620,7 @@ block|}
 block|}
 name|table
 operator|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(
@@ -1833,14 +1809,6 @@ name|build
 argument_list|()
 return|;
 block|}
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
@@ -2125,7 +2093,7 @@ expr_stmt|;
 block|}
 name|table
 operator|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(
@@ -2776,14 +2744,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
@@ -2793,7 +2753,7 @@ try|try
 block|{
 name|table
 operator|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(
@@ -2928,14 +2888,6 @@ name|CellSetModel
 name|model
 parameter_list|)
 block|{
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
@@ -3296,7 +3248,7 @@ return|;
 block|}
 name|table
 operator|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(
@@ -3463,14 +3415,6 @@ name|CellSetModel
 name|model
 parameter_list|)
 block|{
-name|HTablePool
-name|pool
-init|=
-name|servlet
-operator|.
-name|getTablePool
-argument_list|()
-decl_stmt|;
 name|HTableInterface
 name|table
 init|=
@@ -3760,7 +3704,7 @@ return|;
 block|}
 name|table
 operator|=
-name|pool
+name|servlet
 operator|.
 name|getTable
 argument_list|(

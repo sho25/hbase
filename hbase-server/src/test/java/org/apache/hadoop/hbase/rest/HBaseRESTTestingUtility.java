@@ -85,6 +85,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -217,6 +233,14 @@ operator|.
 name|getInstance
 argument_list|(
 name|conf
+argument_list|,
+name|User
+operator|.
+name|getCurrent
+argument_list|()
+operator|.
+name|getUGI
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// set up the Jersey servlet container for Jetty
