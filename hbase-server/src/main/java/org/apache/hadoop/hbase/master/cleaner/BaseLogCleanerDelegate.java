@@ -47,34 +47,6 @@ name|FileStatus
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|BaseConfigurable
-import|;
-end_import
-
 begin_comment
 comment|/**  * Base class for the log cleaning function inside the master. By default, two  * cleaners:<code>TimeToLiveLogCleaner</code> and  *<code>ReplicationLogCleaner</code> are called in order. So if other effects  * are needed, implement your own LogCleanerDelegate and add it to the  * configuration "hbase.master.logcleaner.plugins", which is a comma-separated  * list of fully qualified class names. LogsCleaner will add it to the chain.  *<p>  * HBase ships with LogsCleaner as the default implementation.  *<p>  * This interface extends Configurable, so setConf needs to be called once  * before using the cleaner. Since LogCleanerDelegates are created in  * LogsCleaner by reflection. Classes that implements this interface should  * provide a default constructor.  */
 end_comment
@@ -89,9 +61,7 @@ specifier|abstract
 class|class
 name|BaseLogCleanerDelegate
 extends|extends
-name|BaseConfigurable
-implements|implements
-name|FileCleanerDelegate
+name|BaseFileCleanerDelegate
 block|{
 annotation|@
 name|Override

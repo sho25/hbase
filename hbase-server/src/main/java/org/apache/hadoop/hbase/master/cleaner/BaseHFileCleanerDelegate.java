@@ -33,20 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|BaseConfigurable
-import|;
-end_import
-
 begin_comment
 comment|/**  * Base class for the hfile cleaning function inside the master. By default, only the  * {@link TimeToLiveHFileCleaner} is called.  *<p>  * If other effects are needed, implement your own LogCleanerDelegate and add it to the  * configuration "hbase.master.hfilecleaner.plugins", which is a comma-separated list of fully  * qualified class names. The<code>HFileCleaner<code> will build the cleaner chain in   * order the order specified by the configuration.  *<p>  * For subclasses, setConf will be called exactly<i>once</i> before using the cleaner.  *<p>  * Since {@link BaseHFileCleanerDelegate HFileCleanerDelegates} are created in  * HFileCleaner by reflection, classes that implements this interface<b>must</b>  * provide a default constructor.  */
 end_comment
@@ -61,9 +47,7 @@ specifier|abstract
 class|class
 name|BaseHFileCleanerDelegate
 extends|extends
-name|BaseConfigurable
-implements|implements
-name|FileCleanerDelegate
+name|BaseFileCleanerDelegate
 block|{
 specifier|private
 name|boolean
