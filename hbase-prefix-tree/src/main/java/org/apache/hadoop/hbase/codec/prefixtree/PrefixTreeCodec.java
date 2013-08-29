@@ -99,7 +99,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 import|;
 end_import
 
@@ -115,7 +115,23 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|MetaKeyComparator
+name|MetaComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+operator|.
+name|RawBytesComparator
 import|;
 end_import
 
@@ -1028,11 +1044,7 @@ specifier|public
 name|EncodedSeeker
 name|createSeeker
 parameter_list|(
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|comparator
 parameter_list|,
 name|boolean
@@ -1041,12 +1053,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-operator|!
-operator|(
 name|comparator
 operator|instanceof
-name|KeyComparator
-operator|)
+name|RawBytesComparator
 condition|)
 block|{
 throw|throw
@@ -1057,11 +1066,12 @@ literal|"comparator must be KeyValue.KeyComparator"
 argument_list|)
 throw|;
 block|}
+elseif|else
 if|if
 condition|(
 name|comparator
 operator|instanceof
-name|MetaKeyComparator
+name|MetaComparator
 condition|)
 block|{
 throw|throw

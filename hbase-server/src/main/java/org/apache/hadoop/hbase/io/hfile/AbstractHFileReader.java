@@ -105,6 +105,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+operator|.
+name|KVComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -271,11 +287,7 @@ literal|1
 decl_stmt|;
 comment|/** Key comparator */
 specifier|protected
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|comparator
 decl_stmt|;
 comment|/** Size of this file. */
@@ -674,11 +686,7 @@ comment|/** @return comparator */
 annotation|@
 name|Override
 specifier|public
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|getComparator
 parameter_list|()
 block|{

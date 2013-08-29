@@ -3257,9 +3257,6 @@ operator|.
 name|withComparator
 argument_list|(
 name|comparator
-operator|.
-name|getRawComparator
-argument_list|()
 argument_list|)
 operator|.
 name|withChecksumType
@@ -3600,7 +3597,7 @@ argument_list|()
 operator|==
 name|kv
 operator|.
-name|getType
+name|getTypeByte
 argument_list|()
 condition|)
 block|{
@@ -3862,7 +3859,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|bloomKey
 argument_list|,
@@ -4558,11 +4555,7 @@ literal|null
 expr_stmt|;
 block|}
 specifier|public
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|getComparator
 parameter_list|()
 block|{
@@ -5201,7 +5194,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -5255,7 +5248,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|rowBloomKey
 argument_list|,
@@ -5475,7 +5468,7 @@ operator|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|this
 operator|.
@@ -5509,7 +5502,7 @@ operator|||
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|this
 operator|.

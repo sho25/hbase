@@ -1045,7 +1045,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 name|includesMemstoreTS
 argument_list|)
@@ -1365,7 +1365,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 name|includesMemstoreTS
 argument_list|)

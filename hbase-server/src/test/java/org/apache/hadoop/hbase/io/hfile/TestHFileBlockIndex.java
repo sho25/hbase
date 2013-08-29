@@ -273,7 +273,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -327,7 +355,7 @@ name|hfile
 operator|.
 name|HFileBlockIndex
 operator|.
-name|BlockIndexReader
+name|BlockIndexChunk
 import|;
 end_import
 
@@ -347,7 +375,7 @@ name|hfile
 operator|.
 name|HFileBlockIndex
 operator|.
-name|BlockIndexChunk
+name|BlockIndexReader
 import|;
 end_import
 
@@ -1012,9 +1040,9 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexReader
 argument_list|(
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|,
 name|numLevels
 argument_list|,
@@ -2242,9 +2270,9 @@ name|length
 argument_list|,
 name|nonRootIndex
 argument_list|,
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|)
 decl_stmt|;
 name|String
@@ -2350,9 +2378,9 @@ name|searchKey
 operator|.
 name|length
 argument_list|,
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|)
 operator|!=
 operator|-
@@ -2710,9 +2738,9 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexReader
 argument_list|(
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|,
 literal|1
 argument_list|)
@@ -3075,9 +3103,9 @@ name|assertTrue
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|keys
 index|[

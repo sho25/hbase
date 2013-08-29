@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 import|;
 end_import
 
@@ -392,7 +392,7 @@ decl_stmt|;
 comment|/** Key comparator. Used to ensure we write in order. */
 specifier|protected
 specifier|final
-name|KeyComparator
+name|KVComparator
 name|comparator
 decl_stmt|;
 comment|/** Meta block names. */
@@ -490,7 +490,7 @@ parameter_list|,
 name|HFileDataBlockEncoder
 name|dataBlockEncoder
 parameter_list|,
-name|KeyComparator
+name|KVComparator
 name|comparator
 parameter_list|)
 block|{
@@ -570,7 +570,7 @@ name|comparator
 else|:
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 expr_stmt|;
 name|closeOutputStream
 operator|=
@@ -827,7 +827,7 @@ name|keyComp
 init|=
 name|comparator
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|lastKeyBuffer
 argument_list|,

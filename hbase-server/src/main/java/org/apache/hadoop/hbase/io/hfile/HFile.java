@@ -435,7 +435,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 import|;
 end_import
 
@@ -1461,12 +1461,12 @@ operator|.
 name|INSTANCE
 decl_stmt|;
 specifier|protected
-name|KeyComparator
+name|KVComparator
 name|comparator
 init|=
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 decl_stmt|;
 specifier|protected
 name|InetSocketAddress
@@ -1685,7 +1685,7 @@ specifier|public
 name|WriterFactory
 name|withComparator
 parameter_list|(
-name|KeyComparator
+name|KVComparator
 name|comparator
 parameter_list|)
 block|{
@@ -1903,7 +1903,7 @@ parameter_list|,
 name|HFileDataBlockEncoder
 name|dataBlockEncoder
 parameter_list|,
-name|KeyComparator
+name|KVComparator
 name|comparator
 parameter_list|,
 name|ChecksumType
@@ -2105,11 +2105,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|getComparator
 parameter_list|()
 function_decl|;

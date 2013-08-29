@@ -2440,7 +2440,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 operator|.
@@ -2822,7 +2822,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 operator|.

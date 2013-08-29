@@ -251,6 +251,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+operator|.
+name|KVComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|HeapSize
@@ -340,20 +356,6 @@ operator|.
 name|util
 operator|.
 name|CompoundBloomFilterWriter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
 import|;
 end_import
 
@@ -482,11 +484,7 @@ block|{
 comment|/** Needed doing lookup on blocks. */
 specifier|private
 specifier|final
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|comparator
 decl_stmt|;
 comment|// Root-level data.
@@ -571,11 +569,7 @@ specifier|public
 name|BlockIndexReader
 parameter_list|(
 specifier|final
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|c
 parameter_list|,
 specifier|final
@@ -605,11 +599,7 @@ specifier|public
 name|BlockIndexReader
 parameter_list|(
 specifier|final
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|c
 parameter_list|,
 specifier|final
@@ -1754,11 +1744,7 @@ parameter_list|,
 name|ByteBuffer
 name|nonRootIndex
 parameter_list|,
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|comparator
 parameter_list|)
 block|{
@@ -1888,7 +1874,7 @@ name|cmp
 init|=
 name|comparator
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -2040,11 +2026,7 @@ parameter_list|,
 name|int
 name|keyLength
 parameter_list|,
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|comparator
 parameter_list|)
 block|{

@@ -6460,8 +6460,7 @@ name|length
 parameter_list|,
 name|RawComparator
 argument_list|<
-name|byte
-index|[]
+name|?
 argument_list|>
 name|comparator
 parameter_list|)

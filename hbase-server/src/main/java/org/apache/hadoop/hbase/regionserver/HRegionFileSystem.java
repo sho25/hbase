@@ -2232,7 +2232,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|splitKey
 operator|.
@@ -2311,7 +2311,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|splitKey
 operator|.

@@ -39,9 +39,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|RawComparator
+name|KeyValue
+operator|.
+name|KVComparator
 import|;
 end_import
 
@@ -100,11 +102,7 @@ name|qualLen
 parameter_list|)
 function_decl|;
 comment|/**    * @return Bloom key comparator    */
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KVComparator
 name|getComparator
 parameter_list|()
 function_decl|;

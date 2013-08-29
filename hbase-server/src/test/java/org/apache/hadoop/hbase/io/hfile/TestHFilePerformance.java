@@ -789,7 +789,7 @@ argument_list|(
 operator|new
 name|KeyValue
 operator|.
-name|RawKeyComparator
+name|RawBytesComparator
 argument_list|()
 argument_list|)
 operator|.

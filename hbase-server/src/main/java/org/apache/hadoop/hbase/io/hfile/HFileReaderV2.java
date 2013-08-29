@@ -572,9 +572,9 @@ name|HFileBlockIndex
 operator|.
 name|BlockIndexReader
 argument_list|(
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|,
 literal|1
 argument_list|)
@@ -2067,7 +2067,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -2128,7 +2128,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -2262,7 +2262,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|firstKey
 operator|.
@@ -3567,7 +3567,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,

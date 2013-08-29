@@ -534,7 +534,7 @@ name|setComparatorClass
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 operator|.
 name|getClass
 argument_list|()
@@ -1207,7 +1207,7 @@ argument_list|()
 operator|instanceof
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 argument_list|)
 expr_stmt|;
 name|assertEquals

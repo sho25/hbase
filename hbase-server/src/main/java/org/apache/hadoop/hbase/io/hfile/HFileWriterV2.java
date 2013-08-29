@@ -193,7 +193,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 import|;
 end_import
 
@@ -549,7 +549,7 @@ name|HFileDataBlockEncoder
 name|blockEncoder
 parameter_list|,
 specifier|final
-name|KeyComparator
+name|KVComparator
 name|comparator
 parameter_list|,
 specifier|final
@@ -628,7 +628,7 @@ name|HFileDataBlockEncoder
 name|blockEncoder
 parameter_list|,
 specifier|final
-name|KeyComparator
+name|KVComparator
 name|comparator
 parameter_list|,
 specifier|final

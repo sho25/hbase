@@ -515,7 +515,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 literal|false
 argument_list|)
@@ -815,7 +815,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 literal|false
 argument_list|)
@@ -995,7 +995,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 literal|false
 argument_list|)
@@ -1114,7 +1114,7 @@ name|createSeeker
 argument_list|(
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 argument_list|,
 literal|false
 argument_list|)

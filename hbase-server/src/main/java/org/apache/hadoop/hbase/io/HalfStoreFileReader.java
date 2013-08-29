@@ -659,7 +659,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|bb
 operator|.
@@ -769,7 +769,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -802,7 +802,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -969,7 +969,7 @@ operator|.
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|k
 operator|.
@@ -1049,7 +1049,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -1082,7 +1082,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -1209,7 +1209,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,
@@ -1242,7 +1242,7 @@ condition|(
 name|getComparator
 argument_list|()
 operator|.
-name|compare
+name|compareFlatKey
 argument_list|(
 name|key
 argument_list|,

@@ -285,7 +285,7 @@ specifier|private
 specifier|final
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 name|rowComparator
 decl_stmt|;
 comment|/* row is not private for tests */
@@ -402,9 +402,6 @@ operator|=
 name|scanInfo
 operator|.
 name|getComparator
-argument_list|()
-operator|.
-name|getRawComparator
 argument_list|()
 expr_stmt|;
 name|this

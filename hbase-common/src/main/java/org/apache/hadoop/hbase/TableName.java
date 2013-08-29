@@ -55,7 +55,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|KeyComparator
+name|KVComparator
 import|;
 end_import
 
@@ -1331,7 +1331,7 @@ return|;
 block|}
 comment|/**    * Get the appropriate row comparator for this table.    *    * @return The comparator.    */
 specifier|public
-name|KeyComparator
+name|KVComparator
 name|getRowComparator
 parameter_list|()
 block|{
@@ -1351,18 +1351,12 @@ return|return
 name|KeyValue
 operator|.
 name|META_COMPARATOR
-operator|.
-name|getRawComparator
-argument_list|()
 return|;
 block|}
 return|return
 name|KeyValue
 operator|.
 name|COMPARATOR
-operator|.
-name|getRawComparator
-argument_list|()
 return|;
 block|}
 block|}

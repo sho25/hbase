@@ -652,11 +652,11 @@ name|ROWCOL
 condition|?
 name|KeyValue
 operator|.
-name|KEY_COMPARATOR
+name|COMPARATOR
 else|:
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|)
 decl_stmt|;
 name|writer
@@ -770,9 +770,9 @@ operator|.
 name|shouldCacheBloomsOnWrite
 argument_list|()
 argument_list|,
-name|Bytes
+name|KeyValue
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|RAW_COMPARATOR
 argument_list|)
 decl_stmt|;
 name|writer

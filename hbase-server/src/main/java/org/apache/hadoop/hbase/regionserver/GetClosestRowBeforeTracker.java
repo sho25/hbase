@@ -313,13 +313,13 @@ name|c
 expr_stmt|;
 name|KeyValue
 operator|.
-name|RowComparator
+name|RowOnlyComparator
 name|rc
 init|=
 operator|new
 name|KeyValue
 operator|.
-name|RowComparator
+name|RowOnlyComparator
 argument_list|(
 name|this
 operator|.
