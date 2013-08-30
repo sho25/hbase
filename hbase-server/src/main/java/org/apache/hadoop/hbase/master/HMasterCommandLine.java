@@ -1089,6 +1089,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|logJVMInfo
+argument_list|()
+expr_stmt|;
 name|HMaster
 name|master
 init|=
