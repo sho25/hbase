@@ -159,6 +159,20 @@ name|Path
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thread that walks over the filesystem, and computes the mappings  *<Region -> BestHost> and<Region -> Map<HostName, fractional-locality-of-region>>  *  */
 end_comment
@@ -376,6 +390,21 @@ operator|.
 name|startsWith
 argument_list|(
 literal|"."
+argument_list|)
+operator|||
+name|HConstants
+operator|.
+name|HBASE_NON_USER_TABLE_DIRS
+operator|.
+name|contains
+argument_list|(
+name|cfStatus
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 condition|)
 block|{

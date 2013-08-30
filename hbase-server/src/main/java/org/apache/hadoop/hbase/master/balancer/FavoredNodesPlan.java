@@ -321,6 +321,10 @@ control|)
 block|{
 if|if
 condition|(
+name|ServerName
+operator|.
+name|isSameHostnameAndPort
+argument_list|(
 name|favoredNodes
 operator|.
 name|get
@@ -330,9 +334,7 @@ operator|.
 name|ordinal
 argument_list|()
 argument_list|)
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|server
 argument_list|)
 condition|)

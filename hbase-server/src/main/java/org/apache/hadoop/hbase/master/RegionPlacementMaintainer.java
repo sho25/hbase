@@ -933,9 +933,12 @@ return|return
 name|currentAssignmentShapshot
 return|;
 block|}
-comment|/**    * Verify the region placement is consistent with the assignment plan;    * @throws IOException    */
+comment|/**    * Verify the region placement is consistent with the assignment plan    * @param isDetailMode    * @return reports    * @throws IOException    */
 specifier|public
-name|void
+name|List
+argument_list|<
+name|AssignmentVerificationReport
+argument_list|>
 name|verifyRegionPlacement
 parameter_list|(
 name|boolean
@@ -1011,6 +1014,19 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+name|List
+argument_list|<
+name|AssignmentVerificationReport
+argument_list|>
+name|reports
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|AssignmentVerificationReport
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|// Iterate all the tables to fill up the verification report
 for|for
 control|(
@@ -1068,7 +1084,17 @@ argument_list|(
 name|isDetailMode
 argument_list|)
 expr_stmt|;
+name|reports
+operator|.
+name|add
+argument_list|(
+name|report
+argument_list|)
+expr_stmt|;
 block|}
+return|return
+name|reports
+return|;
 block|}
 comment|/**    * Generate the assignment plan for the existing table    *    * @param tableName    * @param assignmentSnapshot    * @param regionLocalityMap    * @param plan    * @param munkresForSecondaryAndTertiary if set on true the assignment plan    * for the tertiary and secondary will be generated with Munkres algorithm,    * otherwise will be generated using placeSecondaryAndTertiaryRS    * @throws IOException    */
 specifier|private
