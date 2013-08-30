@@ -3705,6 +3705,14 @@ condition|(
 name|lastException
 operator|!=
 literal|null
+operator|&&
+name|i
+operator|<
+operator|(
+name|flushRetriesNumber
+operator|-
+literal|1
+operator|)
 condition|)
 block|{
 try|try
