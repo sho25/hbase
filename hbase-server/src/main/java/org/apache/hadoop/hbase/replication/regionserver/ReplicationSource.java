@@ -2073,7 +2073,7 @@ operator|.
 name|getEdit
 argument_list|()
 operator|.
-name|size
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -2800,9 +2800,17 @@ parameter_list|)
 block|{
 try|try
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|msg
 operator|+
@@ -2815,6 +2823,7 @@ operator|+
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
+block|}
 name|Thread
 operator|.
 name|sleep
@@ -3130,7 +3139,9 @@ name|this
 operator|.
 name|currentNbEntries
 operator|+
-literal|" entries"
+literal|" entries of total size "
+operator|+
+name|currentSize
 argument_list|)
 expr_stmt|;
 block|}
