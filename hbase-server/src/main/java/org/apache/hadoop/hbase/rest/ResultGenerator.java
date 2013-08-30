@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -111,7 +111,7 @@ name|ResultGenerator
 implements|implements
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 block|{
 specifier|public
@@ -195,7 +195,7 @@ specifier|abstract
 name|void
 name|putBack
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 function_decl|;

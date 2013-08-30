@@ -378,9 +378,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// returns an array of heterogeneous objects
 specifier|public
 specifier|static
 name|ArrayList
+argument_list|<
+name|Object
+argument_list|>
 name|extractArguments
 parameter_list|(
 name|ArrayList
@@ -483,10 +487,16 @@ throw|;
 block|}
 block|}
 name|ArrayList
+argument_list|<
+name|Object
+argument_list|>
 name|arguments
 init|=
 operator|new
 name|ArrayList
+argument_list|<
+name|Object
+argument_list|>
 argument_list|()
 decl_stmt|;
 name|arguments

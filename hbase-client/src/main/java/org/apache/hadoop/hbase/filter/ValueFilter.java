@@ -67,7 +67,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -187,7 +187,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 block|{
@@ -205,7 +205,7 @@ name|comparator
 argument_list|,
 name|v
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|v
@@ -245,6 +245,12 @@ argument_list|>
 name|filterArguments
 parameter_list|)
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
+comment|// for arguments
 name|ArrayList
 name|arguments
 init|=

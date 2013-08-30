@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -57,7 +67,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -133,16 +143,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * a concrete column interpreter implementation. The cell value is a Long value  * and its promoted data type is also a Long value. For computing aggregation  * function, this class is used to find the datatype of the cell value. Client  * is supposed to instantiate it and passed along as a parameter. See  * TestAggregateProtocol methods for its sample usage.  * Its methods handle null arguments gracefully.   */
 end_comment
@@ -185,7 +185,7 @@ name|byte
 index|[]
 name|colQualifier
 parameter_list|,
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws
@@ -216,7 +216,7 @@ name|toLong
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv

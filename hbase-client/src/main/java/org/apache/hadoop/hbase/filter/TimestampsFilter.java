@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -323,7 +323,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 block|{

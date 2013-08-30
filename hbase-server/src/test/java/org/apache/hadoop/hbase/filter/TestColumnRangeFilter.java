@@ -1222,14 +1222,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1272,7 +1272,7 @@ condition|)
 block|{
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|result

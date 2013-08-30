@@ -732,7 +732,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|result
@@ -747,10 +747,12 @@ name|byte
 index|[]
 name|r
 init|=
-name|kv
+name|CellUtil
 operator|.
-name|getValue
-argument_list|()
+name|getValueArray
+argument_list|(
+name|kv
+argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(

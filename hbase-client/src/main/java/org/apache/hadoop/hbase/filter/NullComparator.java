@@ -19,18 +19,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -87,25 +75,19 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|ComparatorProtos
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|google
 operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|ComparatorProtos
+name|InvalidProtocolBufferException
 import|;
 end_import
 

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance                                                                       with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -85,7 +85,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -157,14 +185,14 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that dont filter by key value can inherit this implementation that    * includes all KeyValues.    *    * @inheritDoc    */
+comment|/**    * Filters that dont filter by key value can inherit this implementation that    * includes all Cells.    *    * @inheritDoc    */
 annotation|@
 name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|ignored
 parameter_list|)
 throws|throws
@@ -180,22 +208,128 @@ comment|/**    * By default no transformation takes place    *    * @inheritDoc 
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
-name|transform
+name|Cell
+name|transformCell
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Old filters based off of this class will override KeyValue transform(KeyValue).
+comment|// Thus to maintain compatibility we need to call the old version.
 return|return
+name|transform
+argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|v
+argument_list|)
+argument_list|)
 return|;
 block|}
-comment|/**    * Filters that never filter by modifying the returned List of KeyValues can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * This is for transition from 0.94 -> 0.96    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
+specifier|public
+name|KeyValue
+name|transform
+parameter_list|(
+name|KeyValue
+name|currentKV
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|currentKV
+return|;
+block|}
+comment|/**    * Filters that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|filterRowCells
+parameter_list|(
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|ignored
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Old filters based off of this class will override KeyValue transform(KeyValue).
+comment|// Thus to maintain compatibility we need to call the old version.
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|kvs
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|(
+name|ignored
+operator|.
+name|size
+argument_list|()
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|Cell
+name|c
+range|:
+name|ignored
+control|)
+block|{
+name|kvs
+operator|.
+name|add
+argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|c
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|filterRow
+argument_list|(
+name|kvs
+argument_list|)
+expr_stmt|;
+name|ignored
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|ignored
+operator|.
+name|addAll
+argument_list|(
+name|kvs
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * This is for transition from 0.94 -> 0.96    */
+annotation|@
+name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|filterRow
@@ -204,12 +338,12 @@ name|List
 argument_list|<
 name|KeyValue
 argument_list|>
-name|ignored
+name|kvs
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Fitlers that never filter by modifying the returned List of KeyValues can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
+comment|/**    * Fitlers that never filter by modifying the returned List of Cells can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
 annotation|@
 name|Override
 specifier|public
@@ -221,7 +355,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(KeyValue)} can inherit this implementation that    * never filters a row.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(Cell)} can inherit this implementation that    * never filters a row.    *    * @inheritDoc    */
 annotation|@
 name|Override
 specifier|public
@@ -235,7 +369,11 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null KeyValue.    *    * @inheritDoc    */
+comment|/**    * This method is deprecated and you should override Cell getNextKeyHint(Cell) instead.    */
+annotation|@
+name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|KeyValue
 name|getNextKeyHint
@@ -248,6 +386,31 @@ name|IOException
 block|{
 return|return
 literal|null
+return|;
+block|}
+comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null Cell.    *    * @inheritDoc    */
+specifier|public
+name|Cell
+name|getNextCellHint
+parameter_list|(
+name|Cell
+name|currentKV
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Old filters based off of this class will override KeyValue getNextKeyHint(KeyValue).
+comment|// Thus to maintain compatibility we need to call the old version.
+return|return
+name|getNextKeyHint
+argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|currentKV
+argument_list|)
+argument_list|)
 return|;
 block|}
 comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * @inheritDoc    */

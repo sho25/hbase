@@ -19,13 +19,21 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|InvalidProtocolBufferException
+name|util
+operator|.
+name|ArrayList
 import|;
 end_import
 
@@ -67,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -139,21 +147,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|util
-operator|.
-name|ArrayList
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -203,7 +203,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 block|{
@@ -236,7 +236,7 @@ name|comparator
 argument_list|,
 name|v
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|v
@@ -275,6 +275,9 @@ name|filterArguments
 parameter_list|)
 block|{
 name|ArrayList
+argument_list|<
+name|?
+argument_list|>
 name|arguments
 init|=
 name|CompareFilter

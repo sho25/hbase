@@ -471,7 +471,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|Cell
 import|;
 end_import
 
@@ -485,7 +485,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|ClusterStatus
 import|;
 end_import
 
@@ -612,6 +612,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -12821,14 +12835,14 @@ comment|// comparator to sort KeyValues with latest modtime
 specifier|final
 name|Comparator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|comp
 init|=
 operator|new
 name|Comparator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 block|{
@@ -12836,10 +12850,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|KeyValue
+name|Cell
 name|k1
 parameter_list|,
-name|KeyValue
+name|Cell
 name|k2
 parameter_list|)
 block|{

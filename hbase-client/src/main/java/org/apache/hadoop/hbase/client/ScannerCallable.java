@@ -19,25 +19,21 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|ServiceException
+name|IOException
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|net
 operator|.
-name|protobuf
-operator|.
-name|TextFormat
+name|UnknownHostException
 import|;
 end_import
 
@@ -121,7 +117,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
+name|Cell
 import|;
 end_import
 
@@ -135,7 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|CellScanner
 import|;
 end_import
 
@@ -191,7 +187,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|KeyValueUtil
 import|;
 end_import
 
@@ -220,6 +216,20 @@ operator|.
 name|hbase
 operator|.
 name|RemoteExceptionHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -405,21 +415,25 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|protobuf
+operator|.
+name|ServiceException
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|net
+name|google
 operator|.
-name|UnknownHostException
+name|protobuf
+operator|.
+name|TextFormat
 import|;
 end_import
 
@@ -1297,7 +1311,7 @@ control|)
 block|{
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|rr
@@ -1306,9 +1320,15 @@ name|raw
 argument_list|()
 control|)
 block|{
+comment|// TODO add getLength to Cell/use CellUtil#estimatedSizeOf
 name|resultSize
 operator|+=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 operator|.
 name|getLength
 argument_list|()

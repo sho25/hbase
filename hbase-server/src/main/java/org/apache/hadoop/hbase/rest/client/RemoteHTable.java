@@ -1340,14 +1340,14 @@ control|)
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;

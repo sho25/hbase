@@ -195,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|Cell
 import|;
 end_import
 
@@ -209,7 +209,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 import|;
 end_import
 
@@ -1247,7 +1261,7 @@ operator|==
 literal|0
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|result
@@ -1265,10 +1279,12 @@ name|kv
 operator|!=
 literal|null
 condition|?
-name|kv
+name|CellUtil
 operator|.
-name|getValue
-argument_list|()
+name|getValueArray
+argument_list|(
+name|kv
+argument_list|)
 else|:
 literal|null
 expr_stmt|;

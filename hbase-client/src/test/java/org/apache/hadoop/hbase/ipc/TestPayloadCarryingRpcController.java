@@ -386,7 +386,7 @@ index|[]
 name|getRowArray
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|null
 return|;
@@ -398,7 +398,7 @@ name|int
 name|getRowOffset
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -410,7 +410,7 @@ name|short
 name|getRowLength
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -423,7 +423,7 @@ index|[]
 name|getFamilyArray
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|null
 return|;
@@ -435,7 +435,7 @@ name|int
 name|getFamilyOffset
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -447,7 +447,7 @@ name|byte
 name|getFamilyLength
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -460,7 +460,7 @@ index|[]
 name|getQualifierArray
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|null
 return|;
@@ -472,7 +472,7 @@ name|int
 name|getQualifierOffset
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -484,7 +484,7 @@ name|int
 name|getQualifierLength
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -496,7 +496,7 @@ name|long
 name|getTimestamp
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -508,7 +508,7 @@ name|byte
 name|getTypeByte
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -520,7 +520,7 @@ name|long
 name|getMvccVersion
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -575,7 +575,7 @@ name|int
 name|getTagsOffset
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -587,7 +587,7 @@ name|short
 name|getTagsLength
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
 return|return
 literal|0
 return|;
@@ -600,7 +600,59 @@ index|[]
 name|getTagsArray
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+comment|// unused
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getValue
+parameter_list|()
+block|{
+comment|// unused
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getFamily
+parameter_list|()
+block|{
+comment|// unused
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getQualifier
+parameter_list|()
+block|{
+comment|// unused
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|byte
+index|[]
+name|getRow
+parameter_list|()
+block|{
+comment|// unused
 return|return
 literal|null
 return|;

@@ -201,6 +201,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Coprocessor
 import|;
 end_import
@@ -271,20 +285,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Append
@@ -304,6 +304,22 @@ operator|.
 name|client
 operator|.
 name|Delete
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Durability
 import|;
 end_import
 
@@ -400,22 +416,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Durability
 import|;
 end_import
 
@@ -3882,7 +3882,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -3943,7 +3943,7 @@ name|getInstance
 argument_list|()
 operator|)
 operator|.
-name|preGet
+name|preGetOp
 argument_list|(
 name|ctx
 argument_list|,
@@ -3990,7 +3990,7 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * @param get the Get request    * @param results the result set    * @exception IOException Exception    */
+comment|/**    * @param get the Get request    * @param results the result sett    * @exception IOException Exception    */
 specifier|public
 name|void
 name|postGet
@@ -4002,7 +4002,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -4058,7 +4058,7 @@ name|getInstance
 argument_list|()
 operator|)
 operator|.
-name|postGet
+name|postGetOp
 argument_list|(
 name|ctx
 argument_list|,

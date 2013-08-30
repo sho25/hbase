@@ -19,27 +19,11 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|ArrayList
 import|;
 end_import
 
@@ -81,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -121,11 +105,27 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|ArrayList
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -168,11 +168,13 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 block|{

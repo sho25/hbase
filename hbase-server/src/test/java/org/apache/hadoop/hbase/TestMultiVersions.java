@@ -1612,7 +1612,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|result

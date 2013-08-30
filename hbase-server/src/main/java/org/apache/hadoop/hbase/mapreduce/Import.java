@@ -205,6 +205,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -220,6 +248,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -610,7 +652,7 @@ try|try
 block|{
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|value
@@ -634,17 +676,23 @@ operator|==
 literal|null
 condition|)
 continue|continue;
+comment|// TODO get rid of ensureKeyValue
 name|context
 operator|.
 name|write
 argument_list|(
 name|row
 argument_list|,
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|convertKv
 argument_list|(
 name|kv
 argument_list|,
 name|cfRenameMap
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -799,7 +847,7 @@ literal|null
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|result
@@ -835,10 +883,12 @@ expr_stmt|;
 comment|// Deletes and Puts are gathered and written when finished
 if|if
 condition|(
-name|kv
+name|CellUtil
 operator|.
 name|isDelete
-argument_list|()
+argument_list|(
+name|kv
+argument_list|)
 condition|)
 block|{
 if|if
@@ -1365,10 +1415,10 @@ block|}
 comment|/**    * Attempt to filter out the keyvalue    * @param kv {@link KeyValue} on which to apply the filter    * @return<tt>null</tt> if the key should not be written, otherwise returns the original    *         {@link KeyValue}    */
 specifier|private
 specifier|static
-name|KeyValue
+name|Cell
 name|filterKv
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws
@@ -1457,10 +1507,10 @@ block|}
 comment|// helper: create a new KeyValue based on CF rename map
 specifier|private
 specifier|static
-name|KeyValue
+name|Cell
 name|convertKv
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|Map
@@ -1490,10 +1540,12 @@ name|cfRenameMap
 operator|.
 name|get
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|getFamilyArray
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -1510,7 +1562,7 @@ name|KeyValue
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 comment|// row buffer
@@ -1539,7 +1591,7 @@ argument_list|,
 comment|// CF length
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 comment|// qualifier buffer
@@ -1569,14 +1621,14 @@ name|codeToType
 argument_list|(
 name|kv
 operator|.
-name|getType
+name|getTypeByte
 argument_list|()
 argument_list|)
 argument_list|,
 comment|// KV Type
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 comment|// value buffer

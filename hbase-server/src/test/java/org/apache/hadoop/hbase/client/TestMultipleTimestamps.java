@@ -480,7 +480,7 @@ argument_list|,
 name|scanMaxVersions
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 index|[]
 name|kvs
 decl_stmt|;
@@ -792,7 +792,7 @@ argument_list|,
 name|scanMaxVersions
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 index|[]
 name|kvs
 decl_stmt|;
@@ -1127,7 +1127,7 @@ argument_list|,
 name|scanMaxVersions
 argument_list|)
 expr_stmt|;
-name|KeyValue
+name|Cell
 index|[]
 name|kvs
 decl_stmt|;
@@ -1618,7 +1618,7 @@ argument_list|,
 name|scanMaxVersions
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 index|[]
 name|kvs
 decl_stmt|;
@@ -1935,7 +1935,7 @@ argument_list|)
 expr_stmt|;
 comment|// request a bunch of versions including the deleted version. We should
 comment|// only get back entries for the versions that exist.
-name|KeyValue
+name|Cell
 name|kvs
 index|[]
 init|=
@@ -2132,7 +2132,7 @@ argument_list|)
 expr_stmt|;
 comment|// request a bunch of versions including the deleted version. We should
 comment|// only get back entries for the versions that exist.
-name|KeyValue
+name|Cell
 name|kvs
 index|[]
 init|=
@@ -2268,7 +2268,7 @@ argument_list|)
 expr_stmt|;
 comment|// request a bunch of versions including the deleted version. We should
 comment|// only get back entries for the versions that exist.
-name|KeyValue
+name|Cell
 name|kvs
 index|[]
 init|=
@@ -2402,7 +2402,7 @@ argument_list|)
 expr_stmt|;
 comment|// request a bunch of versions including the deleted version. We should
 comment|// only get back entries for the versions that exist.
-name|KeyValue
+name|Cell
 name|kvs
 index|[]
 init|=
@@ -2446,7 +2446,7 @@ specifier|private
 name|void
 name|checkOneCell
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|byte
@@ -2492,10 +2492,12 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|getRowArray
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2516,10 +2518,12 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|getFamilyArray
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2537,10 +2541,12 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|getQualifierArray
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2572,17 +2578,19 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getValue
-argument_list|()
+name|getValueArray
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Uses the TimestampFilter on a Get to request a specified list of    * versions for the row/column specified by rowIdx& colIdx.    *    */
 specifier|private
-name|KeyValue
+name|Cell
 index|[]
 name|getNVersions
 parameter_list|(

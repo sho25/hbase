@@ -39,11 +39,29 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|Map
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellUtil
 import|;
 end_import
 
@@ -71,9 +89,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|client
 operator|.
-name|ImmutableBytesWritable
+name|Result
 import|;
 end_import
 
@@ -87,9 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|io
 operator|.
-name|Result
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -453,7 +471,7 @@ condition|)
 block|{
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|value
 range|:
 name|r
@@ -470,15 +488,19 @@ name|KeyValue
 operator|.
 name|makeColumn
 argument_list|(
-name|value
+name|CellUtil
 operator|.
-name|getFamily
-argument_list|()
+name|getFamilyArray
+argument_list|(
+name|value
+argument_list|)
 argument_list|,
-name|value
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|getQualifierArray
+argument_list|(
+name|value
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -515,10 +537,12 @@ name|foundList
 operator|.
 name|add
 argument_list|(
-name|value
+name|CellUtil
 operator|.
-name|getValue
-argument_list|()
+name|getValueArray
+argument_list|(
+name|value
+argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;

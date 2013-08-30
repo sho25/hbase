@@ -125,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|Cell
 import|;
 end_import
 
@@ -195,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|SmallTests
 import|;
 end_import
 
@@ -209,7 +209,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|TableName
 import|;
 end_import
 
@@ -895,14 +895,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;

@@ -161,6 +161,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -176,6 +190,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -542,14 +570,14 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -585,8 +613,8 @@ condition|)
 block|{
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|c
 range|:
 name|kvs
 control|)
@@ -594,6 +622,16 @@ block|{
 comment|// If we know that this KV is going to be included always, then let us
 comment|// set its memstoreTS to 0. This will help us save space when writing to
 comment|// disk.
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|c
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|kv

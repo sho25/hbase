@@ -99,6 +99,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -479,7 +493,7 @@ literal|true
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvListExp
 decl_stmt|;
@@ -641,7 +655,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -787,7 +801,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -859,7 +873,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1003,7 +1017,7 @@ literal|true
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvListExp
 decl_stmt|;
@@ -1012,7 +1026,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1142,7 +1156,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1260,7 +1274,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1550,7 +1564,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1739,7 +1753,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -1920,7 +1934,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2143,7 +2157,7 @@ literal|true
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvListExp
 decl_stmt|,
@@ -2154,7 +2168,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2306,7 +2320,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2326,7 +2340,7 @@ condition|)
 block|{
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|result
@@ -2441,7 +2455,7 @@ literal|true
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvListExp
 decl_stmt|;
@@ -2451,7 +2465,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2597,7 +2611,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2649,7 +2663,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2758,7 +2772,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2983,7 +2997,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -3109,7 +3123,7 @@ name|result
 parameter_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|expKvList
 parameter_list|,
@@ -3168,7 +3182,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|result
@@ -3190,7 +3204,7 @@ block|{
 break|break;
 comment|// we will check the size later
 block|}
-name|KeyValue
+name|Cell
 name|kvExp
 init|=
 name|expKvList

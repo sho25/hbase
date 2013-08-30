@@ -27,6 +27,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -265,14 +279,14 @@ decl_stmt|;
 comment|// A 'match' situation
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -344,7 +358,7 @@ argument_list|)
 expr_stmt|;
 name|filter
 operator|.
-name|filterRow
+name|filterRowCells
 argument_list|(
 name|kvs
 argument_list|)

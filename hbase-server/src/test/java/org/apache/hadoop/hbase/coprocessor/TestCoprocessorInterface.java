@@ -255,6 +255,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Coprocessor
 import|;
 end_import
@@ -354,20 +368,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -735,7 +735,7 @@ name|next
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -759,7 +759,7 @@ name|next
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|result
 parameter_list|,
@@ -788,7 +788,7 @@ name|nextRaw
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|result
 parameter_list|)
@@ -812,7 +812,7 @@ name|nextRaw
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|result
 parameter_list|,
@@ -1477,7 +1477,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preGet
+name|preGetOp
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1493,7 +1493,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -2459,7 +2459,7 @@ argument_list|(
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 argument_list|)

@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|Cell
 import|;
 end_import
 
@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HRegionInfo
 import|;
 end_import
 
@@ -149,7 +149,7 @@ name|nextRaw
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|result
 parameter_list|)
@@ -162,7 +162,7 @@ name|nextRaw
 parameter_list|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|result
 parameter_list|,

@@ -238,7 +238,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class allows a user to specify a filter via a string  * The string is parsed using the methods of this class and  * a filter object is constructed. This filter object is then wrapped  * in a scanner object which is then returned  *<p>  * This class addresses the HBASE-4168 JIRA. More documentaton on this  * Filter Language can be found at: https://issues.apache.org/jira/browse/HBASE-4176  */
+comment|/**  * This class allows a user to specify a filter via a string  * The string is parsed using the methods of this class and  * a filter object is constructed. This filter object is then wrapped  * in a scanner object which is then returned  *<p>  * This class addresses the HBASE-4168 JIRA. More documentation on this  * Filter Language can be found at: https://issues.apache.org/jira/browse/HBASE-4176  */
 end_comment
 
 begin_class
@@ -1326,6 +1326,9 @@ name|filterName
 argument_list|)
 expr_stmt|;
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|c
 init|=
 name|Class
@@ -1336,6 +1339,9 @@ name|filterName
 argument_list|)
 decl_stmt|;
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|argTypes
 init|=

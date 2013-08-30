@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -78,20 +102,6 @@ operator|.
 name|regex
 operator|.
 name|Pattern
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
 import|;
 end_import
 
@@ -176,6 +186,20 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -274,20 +298,6 @@ operator|.
 name|hbase
 operator|.
 name|IntegrationTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -656,26 +666,16 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
+import|import
+name|com
 operator|.
-name|junit
+name|google
 operator|.
-name|Assert
+name|common
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
+name|collect
 operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
+name|Sets
 import|;
 end_import
 
@@ -1630,7 +1630,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|value
@@ -1655,7 +1655,7 @@ name|length
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1690,7 +1690,7 @@ name|set
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv

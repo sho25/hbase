@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A wrapper filter that returns true from {@link #filterAllRemaining()} as soon  * as the wrapped filters {@link Filter#filterRowKey(byte[], int, int)},  * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.KeyValue)},  * {@link org.apache.hadoop.hbase.filter.Filter#filterRow()} or  * {@link org.apache.hadoop.hbase.filter.Filter#filterAllRemaining()} methods  * returns true.  */
+comment|/**  * A wrapper filter that returns true from {@link #filterAllRemaining()} as soon  * as the wrapped filters {@link Filter#filterRowKey(byte[], int, int)},  * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.Cell)},  * {@link org.apache.hadoop.hbase.filter.Filter#filterRow()} or  * {@link org.apache.hadoop.hbase.filter.Filter#filterAllRemaining()} methods  * returns true.  */
 end_comment
 
 begin_class
@@ -283,7 +283,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 throws|throws
@@ -315,10 +315,10 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
-name|transform
+name|Cell
+name|transformCell
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 throws|throws
@@ -327,7 +327,7 @@ block|{
 return|return
 name|filter
 operator|.
-name|transform
+name|transformCell
 argument_list|(
 name|v
 argument_list|)

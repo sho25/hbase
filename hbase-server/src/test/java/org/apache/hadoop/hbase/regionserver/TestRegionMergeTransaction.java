@@ -61,7 +61,19 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
-name|*
+name|doReturn
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|when
 import|;
 end_import
 
@@ -133,7 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|Cell
 import|;
 end_import
 
@@ -217,20 +229,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|Server
 import|;
 end_import
@@ -246,6 +244,20 @@ operator|.
 name|hbase
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -2813,14 +2825,14 @@ try|try
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;

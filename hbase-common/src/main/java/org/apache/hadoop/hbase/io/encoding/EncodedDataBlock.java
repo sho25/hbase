@@ -127,6 +127,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -346,7 +360,7 @@ comment|/**    * Provides access to compressed value.    * @param headerSize hea
 specifier|public
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|getIterator
 parameter_list|(
@@ -409,7 +423,7 @@ return|return
 operator|new
 name|Iterator
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 block|{
@@ -449,7 +463,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
+name|Cell
 name|next
 parameter_list|()
 block|{

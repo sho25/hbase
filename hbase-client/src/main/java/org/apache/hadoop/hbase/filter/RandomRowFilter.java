@@ -19,13 +19,11 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|Random
 import|;
 end_import
 
@@ -67,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -107,11 +105,13 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|Random
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -210,7 +210,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 block|{

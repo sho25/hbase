@@ -75,6 +75,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -96,7 +110,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(byte[],int,int)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(KeyValue)}: decides whether to include or exclude this KeyValue.  *        See {@link ReturnCode}.</li>  *<li> {@link #transform(KeyValue)}: if the KeyValue is included, let the filter transform the  *        KeyValue.</li>  *<li> {@link #filterRow(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(byte[],int,int)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this KeyValue.  *        See {@link ReturnCode}.</li>  *<li> {@link #transform(KeyValue)}: if the KeyValue is included, let the filter transform the  *        KeyValue.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
 end_comment
 
 begin_class
@@ -122,7 +136,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(KeyValue)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
@@ -150,20 +164,36 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param v the KeyValue in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
+comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param v the Cell in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
 specifier|abstract
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
 specifier|final
-name|KeyValue
+name|Cell
 name|v
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Give the filter a chance to transform the passed KeyValue. If the KeyValue is changed a new    * KeyValue object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Give the filter a chance to transform the passed KeyValue. If the Cell is changed a new    * Cell object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+specifier|abstract
+specifier|public
+name|Cell
+name|transformCell
+parameter_list|(
+specifier|final
+name|Cell
+name|v
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    * This is for transition from 0.94 -> 0.96    **/
+annotation|@
+name|Deprecated
+comment|// use Cell transformCell(final Cell)
 specifier|abstract
 specifier|public
 name|KeyValue
@@ -171,7 +201,7 @@ name|transform
 parameter_list|(
 specifier|final
 name|KeyValue
-name|v
+name|currentKV
 parameter_list|)
 throws|throws
 name|IOException
@@ -181,13 +211,13 @@ specifier|public
 enum|enum
 name|ReturnCode
 block|{
-comment|/**      * Include the KeyValue      */
+comment|/**      * Include the Cell      */
 name|INCLUDE
 block|,
-comment|/**      * Include the KeyValue and seek to the next column skipping older versions.      */
+comment|/**      * Include the Cell and seek to the next column skipping older versions.      */
 name|INCLUDE_AND_NEXT_COL
 block|,
-comment|/**      * Skip this KeyValue      */
+comment|/**      * Skip this Cell      */
 name|SKIP
 block|,
 comment|/**      * Skip this column. Go to the next column in this row.      */
@@ -199,7 +229,24 @@ block|,
 comment|/**      * Seek to next key which is given as hint by the filter.      */
 name|SEEK_NEXT_USING_HINT
 block|, }
-comment|/**    * Chance to alter the list of keyvalues to be submitted. Modifications to the list will carry on    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param kvs the list of keyvalues to be filtered    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Chance to alter the list of Cells to be submitted. Modifications to the list will carry on    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param kvs the list of Cells to be filtered    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+specifier|abstract
+specifier|public
+name|void
+name|filterRowCells
+parameter_list|(
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|kvs
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * WARNING: please to not override this method.  Instead override {@link #filterRowCells(List)}.    * This is for transition from 0.94 -> 0.96    **/
+annotation|@
+name|Deprecated
 specifier|abstract
 specifier|public
 name|void
@@ -221,7 +268,7 @@ name|boolean
 name|hasFilterRow
 parameter_list|()
 function_decl|;
-comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(KeyValue)} calls. The filter    * needs to retain state then return a particular value for this call if they wish to exclude a    * row if a certain column is missing (for example).    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to exclude row, false to include row.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(Cell)} calls. The filter    * needs to retain state then return a particular value for this call if they wish to exclude a    * row if a certain column is missing (for example).    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to exclude row, false to include row.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
@@ -230,7 +277,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * If the filter returns the match code SEEK_NEXT_USING_HINT, then it should also tell which is    * the next key it must seek to. After receiving the match code SEEK_NEXT_USING_HINT, the    * QueryMatcher would call this function to find out which key it must next seek to.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return KeyValue which must be next seeked. return null if the filter is not sure which key to    *         seek to next.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+annotation|@
+name|Deprecated
+comment|// use Cell GetNextKeyHint(final Cell)
 specifier|abstract
 specifier|public
 name|KeyValue
@@ -238,6 +287,19 @@ name|getNextKeyHint
 parameter_list|(
 specifier|final
 name|KeyValue
+name|currentKV
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * If the filter returns the match code SEEK_NEXT_USING_HINT, then it should also tell which is    * the next key it must seek to. After receiving the match code SEEK_NEXT_USING_HINT, the    * QueryMatcher would call this function to find out which key it must next seek to.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return KeyValue which must be next seeked. return null if the filter is not sure which key to    *         seek to next.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+specifier|abstract
+specifier|public
+name|Cell
+name|getNextCellHint
+parameter_list|(
+specifier|final
+name|Cell
 name|currentKV
 parameter_list|)
 throws|throws
