@@ -1390,9 +1390,9 @@ name|realEofEx
 operator|!=
 literal|null
 condition|?
-name|ex
-else|:
 name|realEofEx
+else|:
+name|ex
 argument_list|)
 throw|;
 block|}
