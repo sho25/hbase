@@ -8240,6 +8240,11 @@ block|}
 comment|/**    * Split crashed after write to META finished for the parent region, but    * failed to write daughters (pre HBASE-7721 codebase)    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|75000
+argument_list|)
 specifier|public
 name|void
 name|testSplitDaughtersNotInMeta
