@@ -179,6 +179,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Pattern
@@ -318,6 +328,25 @@ name|int
 name|length
 parameter_list|)
 block|{
+comment|// See HBASE-9428. Make a copy of the relevant part of the byte[],
+comment|// or the JDK will copy the entire byte[] during String decode
+name|byte
+index|[]
+name|tmp
+init|=
+name|Arrays
+operator|.
+name|copyOfRange
+argument_list|(
+name|value
+argument_list|,
+name|offset
+argument_list|,
+name|offset
+operator|+
+name|length
+argument_list|)
+decl_stmt|;
 comment|// Use find() for subsequence match instead of matches() (full sequence
 comment|// match) to adhere to the principle of least surprise.
 return|return
@@ -328,11 +357,7 @@ argument_list|(
 operator|new
 name|String
 argument_list|(
-name|value
-argument_list|,
-name|offset
-argument_list|,
-name|length
+name|tmp
 argument_list|,
 name|charset
 argument_list|)
