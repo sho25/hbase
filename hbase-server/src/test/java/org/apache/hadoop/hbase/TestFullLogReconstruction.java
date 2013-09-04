@@ -277,7 +277,7 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 block|}
