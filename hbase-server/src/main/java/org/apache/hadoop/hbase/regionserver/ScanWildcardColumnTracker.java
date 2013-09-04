@@ -197,12 +197,43 @@ operator|=
 name|oldestUnexpiredTS
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    * This receives puts *and* deletes.    * Deletes do not count as a version, but rather take the version    * of the previous put (so eventually all but the last can be reclaimed).    */
+comment|/**    * {@inheritDoc}    * This receives puts *and* deletes.    */
 annotation|@
 name|Override
 specifier|public
 name|MatchCode
 name|checkColumn
+parameter_list|(
+name|byte
+index|[]
+name|bytes
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|,
+name|byte
+name|type
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
+block|}
+comment|/**    * {@inheritDoc}    * This receives puts *and* deletes. Deletes do not count as a version, but rather    * take the version of the previous put (so eventually all but the last can be reclaimed).    */
+annotation|@
+name|Override
+specifier|public
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+name|checkVersions
 parameter_list|(
 name|byte
 index|[]
