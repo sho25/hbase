@@ -1047,7 +1047,7 @@ block|}
 if|if
 condition|(
 name|startTime
-operator|!=
+operator|>=
 literal|0
 operator|&&
 name|endTime

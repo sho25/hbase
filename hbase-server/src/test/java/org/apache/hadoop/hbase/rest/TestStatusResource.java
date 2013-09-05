@@ -327,6 +327,13 @@ name|model
 operator|.
 name|getRegions
 argument_list|()
+operator|+
+literal|">= 1"
+argument_list|,
+name|model
+operator|.
+name|getRegions
+argument_list|()
 operator|>=
 literal|1
 argument_list|)

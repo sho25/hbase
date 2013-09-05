@@ -319,6 +319,48 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonAnyGetter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonAnySetter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonIgnore
+import|;
+end_import
+
 begin_comment
 comment|/**  * A representation of HBase table descriptors.  *   *<pre>  *&lt;complexType name="TableSchema"&gt;  *&lt;sequence&gt;  *&lt;element name="column" type="tns:ColumnSchema"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;anyAttribute&gt;&lt;/anyAttribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
@@ -635,6 +677,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Add an attribute to the table descriptor    * @param name attribute name    * @param value attribute value    */
+annotation|@
+name|JsonAnySetter
 specifier|public
 name|void
 name|addAttribute
@@ -746,6 +790,8 @@ block|}
 comment|/**    * @return the map for holding unspecified (user) attributes    */
 annotation|@
 name|XmlAnyAttribute
+annotation|@
+name|JsonAnyGetter
 specifier|public
 name|Map
 argument_list|<
@@ -1744,6 +1790,8 @@ name|this
 return|;
 block|}
 comment|/**    * @return a table descriptor    */
+annotation|@
+name|JsonIgnore
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor

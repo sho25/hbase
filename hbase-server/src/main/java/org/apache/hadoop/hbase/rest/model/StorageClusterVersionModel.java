@@ -21,6 +21,20 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonValue
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -135,6 +149,8 @@ expr_stmt|;
 block|}
 comment|/* (non-Javadoc) 	 * @see java.lang.Object#toString() 	 */
 annotation|@
+name|JsonValue
+annotation|@
 name|Override
 specifier|public
 name|String
@@ -143,6 +159,34 @@ parameter_list|()
 block|{
 return|return
 name|version
+return|;
+block|}
+comment|//needed for jackson deserialization
+specifier|private
+specifier|static
+name|StorageClusterVersionModel
+name|valueOf
+parameter_list|(
+name|String
+name|value
+parameter_list|)
+block|{
+name|StorageClusterVersionModel
+name|versionModel
+init|=
+operator|new
+name|StorageClusterVersionModel
+argument_list|()
+decl_stmt|;
+name|versionModel
+operator|.
+name|setVersion
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
+return|return
+name|versionModel
 return|;
 block|}
 block|}

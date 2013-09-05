@@ -145,6 +145,34 @@ name|HConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonAnyGetter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonAnySetter
+import|;
+end_import
+
 begin_comment
 comment|/**  * Representation of a column family schema.  *   *<pre>  *&lt;complexType name="ColumnSchema"&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;anyAttribute&gt;&lt;/anyAttribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
@@ -294,6 +322,8 @@ name|ColumnSchemaModel
 parameter_list|()
 block|{}
 comment|/**    * Add an attribute to the column family schema    * @param name the attribute name    * @param value the attribute value    */
+annotation|@
+name|JsonAnySetter
 specifier|public
 name|void
 name|addAttribute
@@ -370,6 +400,8 @@ block|}
 comment|/**    * @return the map for holding unspecified (user) attributes    */
 annotation|@
 name|XmlAnyAttribute
+annotation|@
+name|JsonAnyGetter
 specifier|public
 name|Map
 argument_list|<
