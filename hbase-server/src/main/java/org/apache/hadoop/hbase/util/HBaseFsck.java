@@ -2562,6 +2562,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Orphaned regions are regions without a .regioninfo file in them.  We "adopt"    * these orphans by creating a new region, and moving the column families,    * recovered edits, HLogs, into the new region dir.  We determine the region    * startkey and endkeys by looking at all of the hfiles inside the column    * families to identify the min and max keys. The resulting region will    * likely violate table integrity but will be dealt with by merging    * overlapping regions.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|void
 name|adoptHdfsOrphan
@@ -3408,8 +3413,8 @@ name|toString
 argument_list|()
 decl_stmt|;
 comment|// A reference file path should be like
-comment|// ${hbase.rootdir}/table_name/region_id/family_name/referred_file.region_name
-comment|// Up 3 directories to get the table folder.
+comment|// ${hbase.rootdir}/data/namespace/table_name/region_id/family_name/referred_file.region_name
+comment|// Up 5 directories to get the root folder.
 comment|// So the file will be sidelined to a similar folder structure.
 name|int
 name|index
@@ -3436,7 +3441,7 @@ literal|0
 operator|&&
 name|i
 operator|<
-literal|3
+literal|5
 condition|;
 name|i
 operator|++
@@ -3453,6 +3458,8 @@ operator|.
 name|SEPARATOR_CHAR
 argument_list|,
 name|index
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -3482,6 +3489,8 @@ operator|.
 name|substring
 argument_list|(
 name|index
+operator|+
+literal|1
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -3499,7 +3508,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Trying to sildeline reference file"
+literal|"Trying to sildeline reference file "
 operator|+
 name|path
 operator|+
