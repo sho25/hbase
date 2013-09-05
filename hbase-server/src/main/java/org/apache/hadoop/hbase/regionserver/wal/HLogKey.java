@@ -782,24 +782,6 @@ operator|=
 name|tablename
 expr_stmt|;
 block|}
-comment|/**    * Create HLogKey wrapper around protobuf WAL key; takes care of compression.    * @throws IOException Never, as the compression is not enabled.    */
-specifier|public
-name|HLogKey
-parameter_list|(
-name|WALKey
-name|walKey
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|readFieldsFromPb
-argument_list|(
-name|walKey
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * @param compressionContext Compression context to use    */
 specifier|public
 name|void
