@@ -5941,11 +5941,12 @@ argument_list|>
 name|responseQueue
 decl_stmt|;
 specifier|private
-specifier|volatile
-name|int
+name|Counter
 name|rpcCount
 init|=
-literal|0
+operator|new
+name|Counter
+argument_list|()
 decl_stmt|;
 comment|// number of outstanding rpcs
 specifier|private
@@ -6342,6 +6343,9 @@ parameter_list|()
 block|{
 return|return
 name|rpcCount
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|0
 return|;
@@ -6353,7 +6357,9 @@ name|decRpcCount
 parameter_list|()
 block|{
 name|rpcCount
-operator|--
+operator|.
+name|decrement
+argument_list|()
 expr_stmt|;
 block|}
 comment|/* Increment the outstanding RPC count */
@@ -6363,7 +6369,9 @@ name|incRpcCount
 parameter_list|()
 block|{
 name|rpcCount
-operator|++
+operator|.
+name|increment
+argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
