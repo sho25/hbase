@@ -818,25 +818,9 @@ block|}
 if|if
 condition|(
 name|tdmt
-operator|==
+operator|!=
 literal|null
 condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"The following folder is in HBase's root directory and "
-operator|+
-literal|"doesn't contain a table descriptor, "
-operator|+
-literal|"do consider deleting it: "
-operator|+
-name|tablename
-argument_list|)
-expr_stmt|;
-block|}
-else|else
 block|{
 name|this
 operator|.
@@ -2083,6 +2067,7 @@ literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * @param tableName table name    * @return TableDescriptorAndModtime or null if no table descriptor was found    * @throws IOException    */
 specifier|private
 name|TableDescriptorAndModtime
 name|getTableDescriptorAndModtime
@@ -2120,6 +2105,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * @param tableDir path to table directory    * @return TableDescriptorAndModtime or null if no table descriptor was found    * at the specified path    * @throws IOException    */
 specifier|private
 name|TableDescriptorAndModtime
 name|getTableDescriptorAndModtime
@@ -2145,15 +2131,9 @@ operator|==
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|TableInfoMissingException
-argument_list|(
-literal|"No table descriptor file under "
-operator|+
-name|tableDir
-argument_list|)
-throw|;
+return|return
+literal|null
+return|;
 block|}
 name|HTableDescriptor
 name|htd
