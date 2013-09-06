@@ -7333,7 +7333,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|getRegionName
+name|regionName
 parameter_list|,
 specifier|final
 name|boolean
@@ -7353,7 +7353,7 @@ name|toBeUnassigned
 init|=
 name|getRegionName
 argument_list|(
-name|getRegionName
+name|regionName
 argument_list|)
 decl_stmt|;
 name|executeCallable
