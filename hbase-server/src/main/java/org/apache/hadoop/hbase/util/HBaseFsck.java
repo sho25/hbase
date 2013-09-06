@@ -1348,7 +1348,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HBaseFsck (hbck) is a tool for checking and repairing region consistency and  * table integrity problems in a corrupted HBase.  *<p>  * Region consistency checks verify that .META., region deployment on region  * servers and the state of data in HDFS (.regioninfo files) all are in  * accordance.  *<p>  * Table integrity checks verify that all possible row keys resolve to exactly  * one region of a table.  This means there are no individual degenerate  * or backwards regions; no holes between regions; and that there are no  * overlapping regions.  *<p>  * The general repair strategy works in two phases:  *<ol>  *<li> Repair Table Integrity on HDFS. (merge or fabricate regions)  *<li> Repair Region Consistency with .META. and assignments  *</ol>  *<p>  * For table integrity repairs, the tables' region directories are scanned  * for .regioninfo files.  Each table's integrity is then verified.  If there  * are any orphan regions (regions with no .regioninfo files) or holes, new  * regions are fabricated.  Backwards regions are sidelined as well as empty  * degenerate (endkey==startkey) regions.  If there are any overlapping regions,  * a new region is created and all data is merged into the new region.  *<p>  * Table integrity repairs deal solely with HDFS and could potentially be done  * offline -- the hbase region servers or master do not need to be running.  * This phase can eventually be used to completely reconstruct the META table in  * an offline fashion.  *<p>  * Region consistency requires three conditions -- 1) valid .regioninfo file  * present in an HDFS region dir,  2) valid row with .regioninfo data in META,  * and 3) a region is deployed only at the regionserver that was assigned to  * with proper state in the master.  *<p>  * Region consistency repairs require hbase to be online so that hbck can  * contact the HBase master and region servers.  The hbck#connect() method must  * first be called successfully.  Much of the region consistency information  * is transient and less risky to repair.  *<p>  * If hbck is run from the command line, there are a handful of arguments that  * can be used to limit the kinds of repairs hbck will do.  See the code in  * {@link #printUsageAndExit()} for more details.  */
+comment|/**  * HBaseFsck (hbck) is a tool for checking and repairing region consistency and  * table integrity problems in a corrupted HBase.  *<p>  * Region consistency checks verify that hbase:meta, region deployment on region  * servers and the state of data in HDFS (.regioninfo files) all are in  * accordance.  *<p>  * Table integrity checks verify that all possible row keys resolve to exactly  * one region of a table.  This means there are no individual degenerate  * or backwards regions; no holes between regions; and that there are no  * overlapping regions.  *<p>  * The general repair strategy works in two phases:  *<ol>  *<li> Repair Table Integrity on HDFS. (merge or fabricate regions)  *<li> Repair Region Consistency with hbase:meta and assignments  *</ol>  *<p>  * For table integrity repairs, the tables' region directories are scanned  * for .regioninfo files.  Each table's integrity is then verified.  If there  * are any orphan regions (regions with no .regioninfo files) or holes, new  * regions are fabricated.  Backwards regions are sidelined as well as empty  * degenerate (endkey==startkey) regions.  If there are any overlapping regions,  * a new region is created and all data is merged into the new region.  *<p>  * Table integrity repairs deal solely with HDFS and could potentially be done  * offline -- the hbase region servers or master do not need to be running.  * This phase can eventually be used to completely reconstruct the hbase:meta table in  * an offline fashion.  *<p>  * Region consistency requires three conditions -- 1) valid .regioninfo file  * present in an HDFS region dir,  2) valid row with .regioninfo data in META,  * and 3) a region is deployed only at the regionserver that was assigned to  * with proper state in the master.  *<p>  * Region consistency repairs require hbase to be online so that hbck can  * contact the HBase master and region servers.  The hbck#connect() method must  * first be called successfully.  Much of the region consistency information  * is transient and less risky to repair.  *<p>  * If hbck is run from the command line, there are a handful of arguments that  * can be used to limit the kinds of repairs hbck will do.  See the code in  * {@link #printUsageAndExit()} for more details.  */
 end_comment
 
 begin_class
@@ -1585,7 +1585,7 @@ literal|false
 decl_stmt|;
 comment|// fix table locks which are expired
 comment|// limit checking/fixes to listed tables, if empty attempt to check/fix all
-comment|// .META. are always checked
+comment|// hbase:meta are always checked
 specifier|private
 name|Set
 argument_list|<
@@ -1699,7 +1699,7 @@ name|TableName
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Empty regioninfo qualifiers in .META.
+comment|// Empty regioninfo qualifiers in hbase:meta
 specifier|private
 name|Set
 argument_list|<
@@ -2266,7 +2266,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * This repair method requires the cluster to be online since it contacts    * region servers and the masters.  It makes each region's state in HDFS, in    * .META., and deployments consistent.    *    * @return If> 0 , number of errors detected, if< 0 there was an unrecoverable    * error.  If 0, we have a clean hbase.    */
+comment|/**    * This repair method requires the cluster to be online since it contacts    * region servers and the masters.  It makes each region's state in HDFS, in    * hbase:meta, and deployments consistent.    *    * @return If> 0 , number of errors detected, if< 0 there was an unrecoverable    * error.  If 0, we have a clean hbase.    */
 specifier|public
 name|int
 name|onlineConsistencyRepair
@@ -2285,7 +2285,7 @@ comment|// get regions according to what is online on each RegionServer
 name|loadDeployedRegions
 argument_list|()
 expr_stmt|;
-comment|// check whether .META. is deployed and online
+comment|// check whether hbase:meta is deployed and online
 if|if
 condition|(
 operator|!
@@ -2298,7 +2298,7 @@ name|errors
 operator|.
 name|reportError
 argument_list|(
-literal|"Fatal error: unable to get .META. region location. Exiting..."
+literal|"Fatal error: unable to get hbase:meta region location. Exiting..."
 argument_list|)
 expr_stmt|;
 return|return
@@ -2306,7 +2306,7 @@ operator|-
 literal|2
 return|;
 block|}
-comment|// Check if .META. is found only once and in the right place
+comment|// Check if hbase:meta is found only once and in the right place
 if|if
 condition|(
 operator|!
@@ -2317,7 +2317,7 @@ block|{
 name|String
 name|errorMsg
 init|=
-literal|".META. table is not consistent. "
+literal|"hbase:meta table is not consistent. "
 decl_stmt|;
 if|if
 condition|(
@@ -2327,14 +2327,14 @@ condition|)
 block|{
 name|errorMsg
 operator|+=
-literal|"HBCK will try fixing it. Rerun once .META. is back to consistent state."
+literal|"HBCK will try fixing it. Rerun once hbase:meta is back to consistent state."
 expr_stmt|;
 block|}
 else|else
 block|{
 name|errorMsg
 operator|+=
-literal|"Run HBCK with proper fix options to fix .META. inconsistency."
+literal|"Run HBCK with proper fix options to fix hbase:meta inconsistency."
 expr_stmt|;
 block|}
 name|errors
@@ -2351,12 +2351,12 @@ operator|-
 literal|2
 return|;
 block|}
-comment|// Not going with further consistency check for tables when META itself is not consistent.
+comment|// Not going with further consistency check for tables when hbase:meta itself is not consistent.
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Loading regionsinfo from the .META. table"
+literal|"Loading regionsinfo from the hbase:meta table"
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -2374,11 +2374,11 @@ return|return
 operator|-
 literal|1
 return|;
-comment|// Empty cells in .META.?
+comment|// Empty cells in hbase:meta?
 name|reportEmptyMetaCells
 argument_list|()
 expr_stmt|;
-comment|// Check if we have to cleanup empty REGIONINFO_QUALIFIER rows from .META.
+comment|// Check if we have to cleanup empty REGIONINFO_QUALIFIER rows from hbase:meta
 if|if
 condition|(
 name|shouldFixEmptyMetaCells
@@ -3346,7 +3346,7 @@ name|t
 parameter_list|)
 block|{
 comment|// Ignore. Some files may not be store files at all.
-comment|// For example, files under .oldlogs folder in .META.
+comment|// For example, files under .oldlogs folder in hbase:meta
 comment|// Warning message is already logged by
 comment|// StoreFile#isReference.
 block|}
@@ -3560,7 +3560,7 @@ name|errors
 operator|.
 name|print
 argument_list|(
-literal|"Number of empty REGIONINFO_QUALIFIER rows in .META.: "
+literal|"Number of empty REGIONINFO_QUALIFIER rows in hbase:meta: "
 operator|+
 name|emptyRegionInfoQualifiers
 operator|.
@@ -4084,7 +4084,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// There was an entry in META not in the HDFS?
+comment|// There was an entry in hbase:meta not in the HDFS?
 name|LOG
 operator|.
 name|warn
@@ -4437,7 +4437,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * To fix the empty REGIONINFO_QUALIFIER rows from .META.<br>    * @throws IOException    */
+comment|/**    * To fix the empty REGIONINFO_QUALIFIER rows from hbase:meta<br>    * @throws IOException    */
 specifier|public
 name|void
 name|fixEmptyMetaCells
@@ -4461,7 +4461,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Trying to fix empty REGIONINFO_QUALIFIER .META. rows."
+literal|"Trying to fix empty REGIONINFO_QUALIFIER hbase:meta rows."
 argument_list|)
 expr_stmt|;
 for|for
@@ -4823,7 +4823,7 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * This borrows code from MasterFileSystem.bootstrap()    *    * @return an open .META. HRegion    */
+comment|/**    * This borrows code from MasterFileSystem.bootstrap()    *    * @return an open hbase:meta HRegion    */
 specifier|private
 name|HRegion
 name|createNewMeta
@@ -4956,7 +4956,7 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-comment|// skip ".META."
+comment|// skip "hbase:meta"
 if|if
 condition|(
 name|name
@@ -5303,7 +5303,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"HDFS regioninfo's seems good.  Sidelining old .META."
+literal|"HDFS regioninfo's seems good.  Sidelining old hbase:meta"
 argument_list|)
 expr_stmt|;
 name|Path
@@ -5316,7 +5316,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Creating new .META."
+literal|"Creating new hbase:meta"
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -5348,9 +5348,9 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Problem encountered when creating new .META. entries.  "
+literal|"Problem encountered when creating new hbase:meta entries.  "
 operator|+
-literal|"You may need to restore the previously sidelined .META."
+literal|"You may need to restore the previously sidelined hbase:meta"
 argument_list|)
 expr_stmt|;
 return|return
@@ -5384,14 +5384,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Success! .META. table rebuilt."
+literal|"Success! hbase:meta table rebuilt."
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Old .META. is moved into "
+literal|"Old hbase:meta is moved into "
 operator|+
 name|backupDir
 argument_list|)
@@ -6124,7 +6124,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// put current .META. aside.
+comment|// put current hbase:meta aside.
 name|Path
 name|hbaseDir
 init|=
@@ -6188,7 +6188,7 @@ name|fatal
 argument_list|(
 literal|"... failed to sideline meta. Currently in inconsistent state.  To restore "
 operator|+
-literal|"try to rename .META. in "
+literal|"try to rename hbase:meta in "
 operator|+
 name|backupDir
 operator|.
@@ -6661,7 +6661,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Record the location of the META region as found in ZooKeeper.    */
+comment|/**    * Record the location of the hbase:meta region as found in ZooKeeper.    */
 specifier|private
 name|boolean
 name|recordMetaRegion
@@ -7879,7 +7879,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" because META had invalid or missing "
+literal|" because hbase:meta had invalid or missing "
 operator|+
 name|HConstants
 operator|.
@@ -8242,7 +8242,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// ========== Cases where the region is not in META =============
+comment|// ========== Cases where the region is not in hbase:meta =============
 elseif|else
 if|if
 condition|(
@@ -8291,7 +8291,7 @@ literal|", key="
 operator|+
 name|key
 operator|+
-literal|", not on HDFS or in META but "
+literal|", not on HDFS or in hbase:meta but "
 operator|+
 literal|"deployed on "
 operator|+
@@ -8347,7 +8347,7 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" on HDFS, but not listed in META "
+literal|" on HDFS, but not listed in hbase:meta "
 operator|+
 literal|"or deployed on any region server"
 argument_list|)
@@ -8392,7 +8392,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Patching .META. with .regioninfo: "
+literal|"Patching hbase:meta with .regioninfo: "
 operator|+
 name|hbi
 operator|.
@@ -8498,7 +8498,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Patching .META. with with .regioninfo: "
+literal|"Patching hbase:meta with with .regioninfo: "
 operator|+
 name|hbi
 operator|.
@@ -8527,7 +8527,7 @@ literal|"Trying to fix unassigned region..."
 argument_list|)
 expr_stmt|;
 block|}
-comment|// ========== Cases where the region is in META =============
+comment|// ========== Cases where the region is in hbase:meta =============
 block|}
 elseif|else
 if|if
@@ -8915,7 +8915,7 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" is listed in META on region server "
+literal|" is listed in hbase:meta on region server "
 operator|+
 name|hbi
 operator|.
@@ -8999,7 +8999,7 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" listed in META on region server "
+literal|" listed in hbase:meta on region server "
 operator|+
 name|hbi
 operator|.
@@ -12605,7 +12605,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**     * Check values in regionInfo for .META.     * Check if zero or more than one regions with META are found.     * If there are inconsistencies (i.e. zero or more than one regions     * pretend to be holding the .META.) try to fix that and report an error.     * @throws IOException from HBaseFsckRepair functions    * @throws KeeperException    * @throws InterruptedException     */
+comment|/**     * Check values in regionInfo for hbase:meta     * Check if zero or more than one regions with hbase:meta are found.     * If there are inconsistencies (i.e. zero or more than one regions     * pretend to be holding the hbase:meta) try to fix that and report an error.     * @throws IOException from HBaseFsckRepair functions    * @throws KeeperException    * @throws InterruptedException     */
 name|boolean
 name|checkMetaRegion
 parameter_list|()
@@ -12663,7 +12663,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// There will be always one entry in regionInfoMap corresponding to .META.
+comment|// There will be always one entry in regionInfoMap corresponding to hbase:meta
 comment|// Check the deployed servers. It should be exactly one server.
 name|HbckInfo
 name|metaHbckInfo
@@ -12713,7 +12713,7 @@ name|ERROR_CODE
 operator|.
 name|NO_META_REGION
 argument_list|,
-literal|".META. is not found on any region."
+literal|"hbase:meta is not found on any region."
 argument_list|)
 expr_stmt|;
 if|if
@@ -12726,7 +12726,7 @@ name|errors
 operator|.
 name|print
 argument_list|(
-literal|"Trying to fix a problem with .META..."
+literal|"Trying to fix a problem with hbase:meta.."
 argument_list|)
 expr_stmt|;
 name|setShouldRerun
@@ -12776,7 +12776,7 @@ name|ERROR_CODE
 operator|.
 name|MULTI_META_REGION
 argument_list|,
-literal|".META. is found on more than one region."
+literal|"hbase:meta is found on more than one region."
 argument_list|)
 expr_stmt|;
 if|if
@@ -12789,7 +12789,7 @@ name|errors
 operator|.
 name|print
 argument_list|(
-literal|"Trying to fix a problem with .META..."
+literal|"Trying to fix a problem with hbase:meta.."
 argument_list|)
 expr_stmt|;
 name|setShouldRerun
@@ -12821,7 +12821,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Scan .META., adding all regions found to the regionInfo map.    * @throws IOException if an error is encountered    */
+comment|/**    * Scan hbase:meta, adding all regions found to the regionInfo map.    * @throws IOException if an error is encountered    */
 name|boolean
 name|loadMetaEntries
 parameter_list|()
@@ -12897,7 +12897,7 @@ name|IOException
 block|{
 try|try
 block|{
-comment|// record the latest modification of this META record
+comment|// record the latest modification of this hbase:meta record
 name|long
 name|ts
 init|=
@@ -12960,7 +12960,7 @@ name|ERROR_CODE
 operator|.
 name|EMPTY_META_CELL
 argument_list|,
-literal|"Empty REGIONINFO_QUALIFIER found in .META."
+literal|"Empty REGIONINFO_QUALIFIER found in hbase:meta"
 argument_list|)
 expr_stmt|;
 return|return
@@ -13117,7 +13117,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Two entries in META are same "
+literal|"Two entries in hbase:meta are same "
 operator|+
 name|previous
 argument_list|)
@@ -13174,7 +13174,7 @@ operator|!
 name|checkMetaOnly
 condition|)
 block|{
-comment|// Scan .META. to pick up user regions
+comment|// Scan hbase:meta to pick up user regions
 name|MetaScanner
 operator|.
 name|metaScan
@@ -16169,7 +16169,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Set META check mode.    * Print only info about META table deployment/state    */
+comment|/**    * Set hbase:meta check mode.    * Print only info about hbase:meta table deployment/state    */
 name|void
 name|setCheckMetaOnly
 parameter_list|()
@@ -16601,7 +16601,7 @@ name|tablesIncluded
 argument_list|)
 return|;
 block|}
-comment|/**    * We are interested in only those tables that have not changed their state in    * META during the last few seconds specified by hbase.admin.fsck.timelag    * @param seconds - the time in seconds    */
+comment|/**    * We are interested in only those tables that have not changed their state in    * hbase:meta during the last few seconds specified by hbase.admin.fsck.timelag    * @param seconds - the time in seconds    */
 specifier|public
 name|void
 name|setTimeLag
@@ -16791,7 +16791,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -metaonly Only check the state of the .META. table."
+literal|"   -metaonly Only check the state of the hbase:meta table."
 argument_list|)
 expr_stmt|;
 name|out
@@ -16842,7 +16842,7 @@ name|println
 argument_list|(
 literal|"   -noHdfsChecking   Don't load/check region info from HDFS."
 operator|+
-literal|" Assumes META region info is good. Won't check/fix any HDFS issue, e.g. hole, orphan, or overlap"
+literal|" Assumes hbase:meta region info is good. Won't check/fix any HDFS issue, e.g. hole, orphan, or overlap"
 argument_list|)
 expr_stmt|;
 name|out
@@ -16934,7 +16934,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -fixEmptyMetaCells  Try to fix .META. entries not referencing any region"
+literal|"   -fixEmptyMetaCells  Try to fix hbase:meta entries not referencing any region"
 operator|+
 literal|" (empty REGIONINFO_QUALIFIER rows)"
 argument_list|)

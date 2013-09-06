@@ -592,7 +592,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Does {@link MetaReader#getRegion(CatalogTracker, byte[])} and a write    * against .META. while its hosted server is restarted to prove our retrying    * works.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Does {@link MetaReader#getRegion(CatalogTracker, byte[])} and a write    * against hbase:meta while its hosted server is restarted to prove our retrying    * works.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public

@@ -1406,7 +1406,7 @@ name|tableDescritor
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// run CatalogJanitor to clean merge references in META and archive the
+comment|// run CatalogJanitor to clean merge references in hbase:meta and archive the
 comment|// files of merging regions
 name|int
 name|cleaned

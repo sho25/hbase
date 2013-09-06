@@ -484,7 +484,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> -ROOT-</code> or  *<code> .META.</code>, if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  */
+comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> -ROOT-</code> or  *<code> hbase:meta</code>, if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  */
 end_comment
 
 begin_class
@@ -738,7 +738,7 @@ name|IS_ROOT
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata    * attribute which denotes if it is a catalog table, either    *<code> .META.</code> or<code> -ROOT-</code>    *    * @see #isMetaRegion()    */
+comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata    * attribute which denotes if it is a catalog table, either    *<code> hbase:meta</code> or<code> -ROOT-</code>    *    * @see #isMetaRegion()    */
 specifier|public
 specifier|static
 specifier|final
@@ -1116,7 +1116,7 @@ operator|.
 name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/**    *<em> INTERNAL</em> Private constructor used internally creating table descriptors for    * catalog tables,<code>.META.</code> and<code>-ROOT-</code>.    */
+comment|/**    *<em> INTERNAL</em> Private constructor used internally creating table descriptors for    * catalog tables,<code>hbase:meta</code> and<code>-ROOT-</code>.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -1158,7 +1158,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    *<em> INTERNAL</em>Private constructor used internally creating table descriptors for    * catalog tables,<code>.META.</code> and<code>-ROOT-</code>.    */
+comment|/**    *<em> INTERNAL</em>Private constructor used internally creating table descriptors for    * catalog tables,<code>hbase:meta</code> and<code>-ROOT-</code>.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -1445,7 +1445,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Set meta flags on this table.    * IS_ROOT_KEY is set if its a -ROOT- table    * IS_META_KEY is set either if its a -ROOT- or a .META. table    * Called by constructors.    * @param name    */
+comment|/*    * Set meta flags on this table.    * IS_ROOT_KEY is set if its a -ROOT- table    * IS_META_KEY is set either if its a -ROOT- or a hbase:meta table    * Called by constructors.    * @param name    */
 specifier|private
 name|void
 name|setMetaFlags
@@ -1537,7 +1537,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if this table is<code> .META.</code>    * region.    *    * @return true if this table is<code> .META.</code>    * region    */
+comment|/**    * Checks if this table is<code> hbase:meta</code>    * region.    *    * @return true if this table is<code> hbase:meta</code>    * region    */
 specifier|public
 name|boolean
 name|isMetaRegion
@@ -1655,7 +1655,7 @@ return|return
 name|valueIfNull
 return|;
 block|}
-comment|/**    *<em> INTERNAL</em> Used to denote if the current table represents    *<code> -ROOT-</code> or<code> .META.</code> region. This is used    * internally by the HTableDescriptor constructors    *    * @param isMeta true if its either<code> -ROOT-</code> or    *<code> .META.</code> region    */
+comment|/**    *<em> INTERNAL</em> Used to denote if the current table represents    *<code> -ROOT-</code> or<code> hbase:meta</code> region. This is used    * internally by the HTableDescriptor constructors    *    * @param isMeta true if its either<code> -ROOT-</code> or    *<code> hbase:meta</code> region    */
 specifier|protected
 name|void
 name|setMetaRegion
@@ -1676,7 +1676,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if the table is a<code>.META.</code> table    *    * @return true if table is<code> .META.</code> region.    */
+comment|/**    * Checks if the table is a<code>hbase:meta</code> table    *    * @return true if table is<code> hbase:meta</code> region.    */
 specifier|public
 name|boolean
 name|isMetaTable
@@ -5287,7 +5287,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** Table descriptor for<code>.META.</code> catalog table */
+comment|/** Table descriptor for<code>hbase:meta</code> catalog table */
 specifier|public
 specifier|static
 specifier|final
@@ -5374,7 +5374,7 @@ name|IOException
 name|ex
 parameter_list|)
 block|{
-comment|//LOG.warn("exception in loading coprocessor for the META table");
+comment|//LOG.warn("exception in loading coprocessor for the hbase:meta table");
 throw|throw
 operator|new
 name|RuntimeException
@@ -5561,7 +5561,7 @@ argument_list|)
 return|;
 block|}
 comment|// Note that every table should have an owner (i.e. should have OWNER_KEY set).
-comment|// .META. and -ROOT- should return system user as owner, not null (see
+comment|// hbase:meta and -ROOT- should return system user as owner, not null (see
 comment|// MasterFileSystem.java:bootstrap()).
 return|return
 literal|null

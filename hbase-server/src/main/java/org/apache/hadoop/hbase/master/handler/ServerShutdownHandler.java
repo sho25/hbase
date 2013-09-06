@@ -671,7 +671,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * @return True if the server we are processing was carrying<code>.META.</code>    */
+comment|/**    * @return True if the server we are processing was carrying<code>hbase:meta</code>    */
 name|boolean
 name|isCarryingMeta
 parameter_list|()
@@ -759,16 +759,16 @@ decl_stmt|;
 try|try
 block|{
 comment|// We don't want worker thread in the MetaServerShutdownHandler
-comment|// executor pool to block by waiting availability of .META.
+comment|// executor pool to block by waiting availability of hbase:meta
 comment|// Otherwise, it could run into the following issue:
-comment|// 1. The current MetaServerShutdownHandler instance For RS1 waits for the .META.
+comment|// 1. The current MetaServerShutdownHandler instance For RS1 waits for the hbase:meta
 comment|//    to come online.
-comment|// 2. The newly assigned .META. region server RS2 was shutdown right after
-comment|//    it opens the .META. region. So the MetaServerShutdownHandler
+comment|// 2. The newly assigned hbase:meta region server RS2 was shutdown right after
+comment|//    it opens the hbase:meta region. So the MetaServerShutdownHandler
 comment|//    instance For RS1 will still be blocked.
 comment|// 3. The new instance of MetaServerShutdownHandler for RS2 is queued.
-comment|// 4. The newly assigned .META. region server RS3 was shutdown right after
-comment|//    it opens the .META. region. So the MetaServerShutdownHandler
+comment|// 4. The newly assigned hbase:meta region server RS3 was shutdown right after
+comment|//    it opens the hbase:meta region. So the MetaServerShutdownHandler
 comment|//    instance For RS1 and RS2 will still be blocked.
 comment|// 5. The new instance of MetaServerShutdownHandler for RS3 is queued.
 comment|// 6. Repeat until we run out of MetaServerShutdownHandler worker threads
@@ -783,7 +783,7 @@ if|if
 condition|(
 name|isCarryingMeta
 argument_list|()
-comment|// .META.
+comment|// hbase:meta
 operator|||
 operator|!
 name|services
@@ -816,18 +816,18 @@ block|}
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
 comment|// into the MetaReader operations themselves.
-comment|// TODO: Is the reading of .META. necessary when the Master has state of
-comment|// cluster in its head?  It should be possible to do without reading .META.
-comment|// in all but one case. On split, the RS updates the .META.
+comment|// TODO: Is the reading of hbase:meta necessary when the Master has state of
+comment|// cluster in its head?  It should be possible to do without reading hbase:meta
+comment|// in all but one case. On split, the RS updates the hbase:meta
 comment|// table and THEN informs the master of the split via zk nodes in
 comment|// 'unassigned' dir.  Currently the RS puts ephemeral nodes into zk so if
 comment|// the regionserver dies, these nodes do not stick around and this server
 comment|// shutdown processing does fixup (see the fixupDaughters method below).
-comment|// If we wanted to skip the .META. scan, we'd have to change at least the
+comment|// If we wanted to skip the hbase:meta scan, we'd have to change at least the
 comment|// final SPLIT message to be permanent in zk so in here we'd know a SPLIT
-comment|// completed (zk is updated after edits to .META. have gone in).  See
+comment|// completed (zk is updated after edits to hbase:meta have gone in).  See
 comment|// {@link SplitTransaction}.  We'd also have to be figure another way for
-comment|// doing the below .META. daughters fixup.
+comment|// doing the below hbase:meta daughters fixup.
 name|NavigableMap
 argument_list|<
 name|HRegionInfo
@@ -915,11 +915,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received exception accessing META during server shutdown of "
+literal|"Received exception accessing hbase:meta during server shutdown of "
 operator|+
 name|serverName
 operator|+
-literal|", retrying META read"
+literal|", retrying hbase:meta read"
 argument_list|,
 name|ioe
 argument_list|)
@@ -1790,7 +1790,7 @@ name|isSplit
 argument_list|()
 condition|)
 block|{
-comment|//HBASE-7721: Split parent and daughters are inserted into META as an atomic operation.
+comment|//HBASE-7721: Split parent and daughters are inserted into hbase:meta as an atomic operation.
 comment|//If the meta scanner saw the parent split, then it should see the daughters as assigned
 comment|//to the dead server. We don't have to do anything.
 return|return

@@ -1027,7 +1027,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/** The META table's name. */
+comment|/** The hbase:meta table's name. */
 annotation|@
 name|Deprecated
 comment|// for compat from 0.94 -> 0.96.

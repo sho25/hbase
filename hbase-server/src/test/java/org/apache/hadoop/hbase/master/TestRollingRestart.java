@@ -1151,7 +1151,7 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-comment|// Bring the RS hosting META down
+comment|// Bring the RS hosting hbase:meta down
 name|RegionServerThread
 name|metaServer
 init|=
@@ -1162,7 +1162,7 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Stopping server hosting META #1"
+literal|"Stopping server hosting hbase:meta #1"
 argument_list|)
 expr_stmt|;
 name|metaServer
@@ -1172,7 +1172,7 @@ argument_list|()
 operator|.
 name|stop
 argument_list|(
-literal|"Stopping META server"
+literal|"Stopping hbase:meta server"
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1281,7 +1281,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Kill off the server hosting META again
+comment|// Kill off the server hosting hbase:meta again
 name|metaServer
 operator|=
 name|getServerHostingMeta
@@ -1291,7 +1291,7 @@ argument_list|)
 expr_stmt|;
 name|log
 argument_list|(
-literal|"Stopping server hosting META #2"
+literal|"Stopping server hosting hbase:meta #2"
 argument_list|)
 expr_stmt|;
 name|metaServer
@@ -1301,7 +1301,7 @@ argument_list|()
 operator|.
 name|stop
 argument_list|(
-literal|"Stopping META server"
+literal|"Stopping hbase:meta server"
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1450,7 +1450,7 @@ argument_list|)
 expr_stmt|;
 name|log
 argument_list|(
-literal|"Stopping server hosting META (1 of 3)"
+literal|"Stopping server hosting hbase:meta (1 of 3)"
 argument_list|)
 expr_stmt|;
 name|metaServer
@@ -1460,7 +1460,7 @@ argument_list|()
 operator|.
 name|stop
 argument_list|(
-literal|"Stopping META server"
+literal|"Stopping hbase:meta server"
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1523,7 +1523,7 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-comment|// Shutdown server hosting META again
+comment|// Shutdown server hosting hbase:meta again
 name|metaServer
 operator|=
 name|getServerHostingMeta
@@ -1533,7 +1533,7 @@ argument_list|)
 expr_stmt|;
 name|log
 argument_list|(
-literal|"Stopping server hosting META (2 of 3)"
+literal|"Stopping server hosting hbase:meta (2 of 3)"
 argument_list|)
 expr_stmt|;
 name|metaServer
@@ -1543,7 +1543,7 @@ argument_list|()
 operator|.
 name|stop
 argument_list|(
-literal|"Stopping META server"
+literal|"Stopping hbase:meta server"
 argument_list|)
 expr_stmt|;
 name|cluster
@@ -1606,7 +1606,7 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-comment|// Shutdown server hosting META again
+comment|// Shutdown server hosting hbase:meta again
 name|metaServer
 operator|=
 name|getServerHostingMeta
@@ -1616,7 +1616,7 @@ argument_list|)
 expr_stmt|;
 name|log
 argument_list|(
-literal|"Stopping server hosting META (3 of 3)"
+literal|"Stopping server hosting hbase:meta (3 of 3)"
 argument_list|)
 expr_stmt|;
 name|metaServer
@@ -1626,7 +1626,7 @@ argument_list|()
 operator|.
 name|stop
 argument_list|(
-literal|"Stopping META server"
+literal|"Stopping hbase:meta server"
 argument_list|)
 expr_stmt|;
 name|cluster

@@ -689,7 +689,7 @@ name|snapshotDir
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check that all the regions in the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach .META. or read the files from the FS    */
+comment|/**    * Check that all the regions in the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach hbase:meta or read the files from the FS    */
 specifier|private
 name|void
 name|verifyRegions

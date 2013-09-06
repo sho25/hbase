@@ -1376,7 +1376,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// When the META table can be opened, the region servers are running
+comment|// When the hbase:meta table can be opened, the region servers are running
 operator|new
 name|HTable
 argument_list|(
@@ -2698,7 +2698,7 @@ name|getDefaultReplication
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// When the META table can be opened, the region servers are running
+comment|// When the hbase:meta table can be opened, the region servers are running
 operator|new
 name|HTable
 argument_list|(
@@ -3634,7 +3634,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// When the META table can be opened, the region servers are running
+comment|// When the hbase:meta table can be opened, the region servers are running
 operator|new
 name|HTable
 argument_list|(

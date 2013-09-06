@@ -6318,7 +6318,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\nRegion server holding .META.: "
+literal|"\nRegion server holding hbase:meta: "
 operator|+
 name|MetaRegionTracker
 operator|.

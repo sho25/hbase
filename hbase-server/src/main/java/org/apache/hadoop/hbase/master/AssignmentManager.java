@@ -1222,7 +1222,7 @@ specifier|final
 name|int
 name|maximumAttempts
 decl_stmt|;
-comment|/**    * The sleep time for which the assignment will wait before retrying in case of META assignment    * failure due to lack of availability of region plan    */
+comment|/**    * The sleep time for which the assignment will wait before retrying in case of hbase:meta assignment    * failure due to lack of availability of region plan    */
 specifier|private
 specifier|final
 name|long
@@ -2169,7 +2169,7 @@ comment|// synchronized.  The presumption is that in this case it is safe since 
 comment|// method is being played by a single thread on startup.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
-comment|// Scan META to build list of existing regions, servers, and assignment
+comment|// Scan hbase:meta to build list of existing regions, servers, and assignment
 comment|// Returns servers who have not checked in (assumed dead) and their regions
 name|Map
 argument_list|<
@@ -5418,7 +5418,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Exception reading META doing HBCK repair operation"
+literal|"Exception reading hbase:meta doing HBCK repair operation"
 argument_list|,
 name|e
 argument_list|)
@@ -8579,7 +8579,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Unable to determine a plan to assign META even after repeated attempts. Run HBCK to fix this"
+literal|"Unable to determine a plan to assign hbase:meta even after repeated attempts. Run HBCK to fix this"
 argument_list|)
 expr_stmt|;
 block|}
@@ -8593,7 +8593,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Got exception while waiting for META assignment"
+literal|"Got exception while waiting for hbase:meta assignment"
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -8667,7 +8667,7 @@ block|}
 comment|// In case of assignment from EnableTableHandler table state is ENABLING. Any how
 comment|// EnableTableHandler will set ENABLED after assigning all the table regions. If we
 comment|// try to set to ENABLED directly then client API may think table is enabled.
-comment|// When we have a case such as all the regions are added directly into .META. and we call
+comment|// When we have a case such as all the regions are added directly into hbase:meta and we call
 comment|// assignRegion then we need to make the table ENABLED. Hence in such case the table
 comment|// will not be in ENABLING or ENABLED state.
 name|TableName
@@ -11061,7 +11061,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Assigns the META region.    *<p>    * Assumes that META is currently closed and is not being actively served by    * any RegionServer.    *<p>    * Forcibly unsets the current meta region location in ZooKeeper and assigns    * META to a random RegionServer.    * @throws KeeperException    */
+comment|/**    * Assigns the hbase:meta region.    *<p>    * Assumes that hbase:meta is currently closed and is not being actively served by    * any RegionServer.    *<p>    * Forcibly unsets the current meta region location in ZooKeeper and assigns    * hbase:meta to a random RegionServer.    * @throws KeeperException    */
 specifier|public
 name|void
 name|assignMeta
@@ -11528,7 +11528,7 @@ name|watcher
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Scan META for all user regions, skipping any disabled tables
+comment|// Scan hbase:meta for all user regions, skipping any disabled tables
 name|Map
 argument_list|<
 name|HRegionInfo
@@ -12023,7 +12023,7 @@ condition|)
 block|{
 comment|// regionLocation could be null if createTable didn't finish properly.
 comment|// When createTable is in progress, HMaster restarts.
-comment|// Some regions have been added to .META., but have not been assigned.
+comment|// Some regions have been added to hbase:meta, but have not been assigned.
 comment|// When this happens, the region's table must be in ENABLING state.
 comment|// It can't be in ENABLED state as that is set when all regions are
 comment|// assigned.
@@ -12383,7 +12383,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions    * that were in RIT.    *<p>    *    *    * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Processes list of dead servers from result of hbase:meta scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions    * that were in RIT.    *<p>    *    *    * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
 name|processDeadServersAndRecoverLostRegions

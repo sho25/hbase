@@ -2318,7 +2318,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.  In other words, scan the hbase:meta table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the hbase:meta table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -3731,7 +3731,7 @@ name|se
 argument_list|)
 throw|;
 block|}
-comment|// let us wait until .META. table is updated and
+comment|// let us wait until hbase:meta table is updated and
 comment|// HMaster removes the table from its HTableDescriptors
 if|if
 condition|(
@@ -5813,7 +5813,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName If supplied, we'll use this location rather than    * the one currently in<code>hbase:meta</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -5842,7 +5842,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName The servername of the regionserver.  If passed null we    * will use servername found in the .META. table. A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName The servername of the regionserver.  If passed null we    * will use servername found in the hbase:meta table. A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion

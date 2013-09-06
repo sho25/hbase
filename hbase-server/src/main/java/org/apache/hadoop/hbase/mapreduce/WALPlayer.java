@@ -1616,7 +1616,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"(Careful, even -ROOT- and .META. entries will be imported in that case.)"
+literal|"(Careful, even -ROOT- and hbase:meta entries will be imported in that case.)"
 argument_list|)
 expr_stmt|;
 name|System

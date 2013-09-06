@@ -1727,7 +1727,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * The caller will block until all the META log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs List of log dirs to split    * @param filter the Path filter to select specific files for considering    * @throws IOException If there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+comment|/**    * The caller will block until all the hbase:meta log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs List of log dirs to split    * @param filter the Path filter to select specific files for considering    * @throws IOException If there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
 specifier|public
 name|long
 name|splitLogDistributed

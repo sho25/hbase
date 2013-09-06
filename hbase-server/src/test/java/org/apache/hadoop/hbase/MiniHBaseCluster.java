@@ -2550,7 +2550,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the location of the specified region    * @param regionName Name of the region in bytes    * @return Index into List of {@link MiniHBaseCluster#getRegionServerThreads()}    * of HRS carrying .META.. Returns -1 if none found.    */
+comment|/**    * Get the location of the specified region    * @param regionName Name of the region in bytes    * @return Index into List of {@link MiniHBaseCluster#getRegionServerThreads()}    * of HRS carrying hbase:meta. Returns -1 if none found.    */
 specifier|public
 name|int
 name|getServerWith
@@ -2663,7 +2663,7 @@ name|getServerName
 argument_list|()
 return|;
 block|}
-comment|/**    * Counts the total numbers of regions being served by the currently online    * region servers by asking each how many regions they have.  Does not look    * at META at all.  Count includes catalog tables.    * @return number of regions being served by all region servers    */
+comment|/**    * Counts the total numbers of regions being served by the currently online    * region servers by asking each how many regions they have.  Does not look    * at hbase:meta at all.  Count includes catalog tables.    * @return number of regions being served by all region servers    */
 specifier|public
 name|long
 name|countServedRegions

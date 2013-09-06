@@ -1933,7 +1933,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Got an old META edit, continuing with new format "
+literal|"Got an old .META. edit, continuing with new format "
 argument_list|)
 expr_stmt|;
 name|this

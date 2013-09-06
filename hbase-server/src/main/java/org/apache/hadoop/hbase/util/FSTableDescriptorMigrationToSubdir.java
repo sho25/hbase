@@ -217,7 +217,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Determines if migration is required by checking to see whether the META table has been    * migrated.    */
+comment|/**    * Determines if migration is required by checking to see whether the hbase:meta table has been    * migrated.    */
 specifier|private
 specifier|static
 name|boolean
@@ -264,7 +264,7 @@ operator|==
 literal|null
 return|;
 block|}
-comment|/**    * Migrates all snapshots, user tables and system tables that require migration.    * First migrates snapshots.    * Then migrates each user table in order,    * then attempts ROOT (should be gone)    * Migrates META last to indicate migration is complete.    */
+comment|/**    * Migrates all snapshots, user tables and system tables that require migration.    * First migrates snapshots.    * Then migrates each user table in order,    * then attempts ROOT (should be gone)    * Migrates hbase:meta last to indicate migration is complete.    */
 specifier|private
 specifier|static
 name|void

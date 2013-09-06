@@ -6006,7 +6006,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/*      * Search .META. for the HRegionLocation info that contains the table and      * row we're seeking. It will prefetch certain number of regions info and      * save them to the global region cache.      */
+comment|/*      * Search hbase:meta for the HRegionLocation info that contains the table and      * row we're seeking. It will prefetch certain number of regions info and      * save them to the global region cache.      */
 specifier|private
 name|void
 name|prefetchRegionCache
@@ -6022,7 +6022,7 @@ name|row
 parameter_list|)
 block|{
 comment|// Implement a new visitor for MetaScanner, and use it to walk through
-comment|// the .META.
+comment|// the hbase:meta
 name|MetaScannerVisitor
 name|visitor
 init|=
@@ -6210,14 +6210,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Encountered problems when prefetch META table: "
+literal|"Encountered problems when prefetch hbase:meta table: "
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*       * Search the .META. table for the HRegionLocation       * info that contains the table and row we're seeking.       */
+comment|/*       * Search the hbase:meta table for the HRegionLocation       * info that contains the table and row we're seeking.       */
 specifier|private
 name|HRegionLocation
 name|locateRegionInMeta
@@ -6703,7 +6703,7 @@ throw|throw
 operator|new
 name|RegionServerStoppedException
 argument_list|(
-literal|".META. says the region "
+literal|"hbase:meta says the region "
 operator|+
 name|regionInfo
 operator|.

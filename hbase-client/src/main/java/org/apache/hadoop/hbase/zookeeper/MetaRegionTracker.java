@@ -380,7 +380,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Sets the location of<code>.META.</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location The server hosting<code>.META.</code>    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Sets the location of<code>hbase:meta</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location The server hosting<code>hbase:meta</code>    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|void
@@ -400,7 +400,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting META region location in ZooKeeper as "
+literal|"Setting hbase:meta region location in ZooKeeper as "
 operator|+
 name|location
 argument_list|)
@@ -552,7 +552,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes the location of<code>.META.</code> in ZooKeeper.    * @param zookeeper zookeeper reference    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Deletes the location of<code>hbase:meta</code> in ZooKeeper.    * @param zookeeper zookeeper reference    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|void
@@ -568,7 +568,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unsetting META region location in ZooKeeper"
+literal|"Unsetting hbase:meta region location in ZooKeeper"
 argument_list|)
 expr_stmt|;
 try|try

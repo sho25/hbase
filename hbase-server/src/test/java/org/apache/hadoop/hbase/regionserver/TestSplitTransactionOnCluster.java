@@ -6460,7 +6460,7 @@ name|regionCount
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Ensure single table region is not on same server as the single .META. table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    * @throws InterruptedException    */
+comment|/**    * Ensure single table region is not on same server as the single hbase:meta table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    * @throws InterruptedException    */
 specifier|private
 name|int
 name|ensureTableRegionNotOnSameServerAsMeta
@@ -6483,7 +6483,7 @@ throws|,
 name|InterruptedException
 block|{
 comment|// Now make sure that the table region is not on same server as that hosting
-comment|// .META.  We don't want .META. replay polluting our test when we later crash
+comment|// hbase:meta  We don't want hbase:meta replay polluting our test when we later crash
 comment|// the table region serving server.
 name|int
 name|metaServerIndex
@@ -6632,7 +6632,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Wait till table region is up on the server that is NOT carrying .META..
+comment|// Wait till table region is up on the server that is NOT carrying hbase:meta.
 for|for
 control|(
 name|int
@@ -6676,7 +6676,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting on region move off the .META. server; current index "
+literal|"Waiting on region move off the hbase:meta server; current index "
 operator|+
 name|tableRegionIndex
 operator|+
@@ -6695,7 +6695,7 @@ expr_stmt|;
 block|}
 name|assertTrue
 argument_list|(
-literal|"Region not moved off .META. server"
+literal|"Region not moved off hbase:meta server"
 argument_list|,
 name|tableRegionIndex
 operator|!=
@@ -6707,7 +6707,7 @@ operator|!=
 name|metaServerIndex
 argument_list|)
 expr_stmt|;
-comment|// Verify for sure table region is not on same server as .META.
+comment|// Verify for sure table region is not on same server as hbase:meta
 name|tableRegionIndex
 operator|=
 name|cluster

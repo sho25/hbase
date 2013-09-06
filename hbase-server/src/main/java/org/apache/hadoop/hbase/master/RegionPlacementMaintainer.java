@@ -3797,7 +3797,7 @@ literal|"========== Finish to print the assignment plan ================"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Update the assignment plan into .META.    * @param plan the assignments plan to be updated into .META.    * @throws IOException if cannot update assignment plan in .META.    */
+comment|/**    * Update the assignment plan into hbase:meta    * @param plan the assignments plan to be updated into hbase:meta    * @throws IOException if cannot update assignment plan in hbase:meta    */
 specifier|public
 name|void
 name|updateAssignmentPlanToMeta
@@ -3814,7 +3814,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start to update the META with the new assignment plan"
+literal|"Start to update the hbase:meta with the new assignment plan"
 argument_list|)
 expr_stmt|;
 name|Map
@@ -3846,7 +3846,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Updated the META with the new assignment plan"
+literal|"Updated the hbase:meta with the new assignment plan"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3860,7 +3860,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to update META with the new assignment"
+literal|"Failed to update hbase:meta with the new assignment"
 operator|+
 literal|"plan because "
 operator|+
@@ -4296,7 +4296,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start to update the new assignment plan for the META table and"
+literal|"Start to update the new assignment plan for the hbase:meta table and"
 operator|+
 literal|" the region servers"
 argument_list|)
@@ -4317,7 +4317,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finish to update the new assignment plan for the META table and"
+literal|"Finish to update the new assignment plan for the hbase:meta table and"
 operator|+
 literal|" the region servers"
 argument_list|)
@@ -5793,7 +5793,7 @@ literal|"write"
 argument_list|,
 literal|false
 argument_list|,
-literal|"write the assignments to META only"
+literal|"write the assignments to hbase:meta only"
 argument_list|)
 expr_stmt|;
 name|opt
@@ -5806,7 +5806,7 @@ literal|"update"
 argument_list|,
 literal|false
 argument_list|,
-literal|"update the assignments to META and RegionServers together"
+literal|"update the assignments to hbase:meta and RegionServers together"
 argument_list|)
 expr_stmt|;
 name|opt
@@ -6467,7 +6467,7 @@ literal|"dry-run"
 argument_list|)
 condition|)
 block|{
-comment|// Generate the assignment plan only without updating the META and RS
+comment|// Generate the assignment plan only without updating the hbase:meta and RS
 name|FavoredNodesPlan
 name|plan
 init|=
@@ -6557,7 +6557,7 @@ argument_list|(
 name|plan
 argument_list|)
 expr_stmt|;
-comment|// Update the assignment to META and Region Servers
+comment|// Update the assignment to hbase:meta and Region Servers
 name|rp
 operator|.
 name|updateAssignmentPlan

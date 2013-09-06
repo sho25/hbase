@@ -413,7 +413,7 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 block|{
-comment|/*    * There are two versions associated with HRegionInfo: HRegionInfo.VERSION and    * HConstants.META_VERSION. HRegionInfo.VERSION indicates the data structure's versioning    * while HConstants.META_VERSION indicates the versioning of the serialized HRIs stored in    * the META table.    *    * Pre-0.92:    *   HRI.VERSION == 0 and HConstants.META_VERSION does not exist (is not stored at META table)    *   HRegionInfo had an HTableDescriptor reference inside it.    *   HRegionInfo is serialized as Writable to META table.    * For 0.92.x and 0.94.x:    *   HRI.VERSION == 1 and HConstants.META_VERSION == 0    *   HRI no longer has HTableDescriptor in it.    *   HRI is serialized as Writable to META table.    * For 0.96.x:    *   HRI.VERSION == 1 and HConstants.META_VERSION == 1    *   HRI data structure is the same as 0.92 and 0.94    *   HRI is serialized as PB to META table.    *    * Versioning of HRegionInfo is deprecated. HRegionInfo does protobuf    * serialization using RegionInfo class, which has it's own versioning.    */
+comment|/*    * There are two versions associated with HRegionInfo: HRegionInfo.VERSION and    * HConstants.META_VERSION. HRegionInfo.VERSION indicates the data structure's versioning    * while HConstants.META_VERSION indicates the versioning of the serialized HRIs stored in    * the hbase:meta table.    *    * Pre-0.92:    *   HRI.VERSION == 0 and HConstants.META_VERSION does not exist (is not stored at hbase:meta table)    *   HRegionInfo had an HTableDescriptor reference inside it.    *   HRegionInfo is serialized as Writable to hbase:meta table.    * For 0.92.x and 0.94.x:    *   HRI.VERSION == 1 and HConstants.META_VERSION == 0    *   HRI no longer has HTableDescriptor in it.    *   HRI is serialized as Writable to hbase:meta table.    * For 0.96.x:    *   HRI.VERSION == 1 and HConstants.META_VERSION == 1    *   HRI data structure is the same as 0.92 and 0.94    *   HRI is serialized as PB to hbase:meta table.    *    * Versioning of HRegionInfo is deprecated. HRegionInfo does protobuf    * serialization using RegionInfo class, which has it's own versioning.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -439,7 +439,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * The new format for a region name contains its encodedName at the end.    * The encoded name also serves as the directory name for the region    * in the filesystem.    *    * New region name format:    *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.    * where,    *&lt;encodedName> is a hex version of the MD5 hash of    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    *    * The old region name format:    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    * For region names in the old format, the encoded name is a 32-bit    * JenkinsHash integer value (in its decimal notation, string form).    *<p>    * **NOTE**    *    * The first META region, and regions created by an older    * version of HBase (0.20 or prior) will continue to use the    * old region name format.    */
+comment|/**    * The new format for a region name contains its encodedName at the end.    * The encoded name also serves as the directory name for the region    * in the filesystem.    *    * New region name format:    *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.    * where,    *&lt;encodedName> is a hex version of the MD5 hash of    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    *    * The old region name format:    *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>    * For region names in the old format, the encoded name is a 32-bit    * JenkinsHash integer value (in its decimal notation, string form).    *<p>    * **NOTE**    *    * The first hbase:meta region, and regions created by an older    * version of HBase (0.20 or prior) will continue to use the    * old region name format.    */
 comment|/** Separator used to demarcate the encodedName in a region name    * in the new format. See description on new format above.    */
 specifier|private
 specifier|static
@@ -559,7 +559,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// old format region name. First META region also
+comment|// old format region name. First hbase:meta region also
 comment|// use this format.EncodedName is the JenkinsHash value.
 name|int
 name|hashVal
@@ -615,7 +615,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>.META.</code> if passed<code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
+comment|/**    * Use logging.    * @param encodedRegionName The encoded regionname.    * @return<code>hbase:meta</code> if passed<code>1028785192</code> else returns    *<code>encodedRegionName</code>    */
 specifier|public
 specifier|static
 name|String
@@ -639,7 +639,7 @@ block|{
 return|return
 name|encodedRegionName
 operator|+
-literal|"/.META."
+literal|"/hbase:meta"
 return|;
 block|}
 return|return
@@ -2345,7 +2345,7 @@ argument_list|)
 operator|)
 return|;
 block|}
-comment|/**    * @return true if this region is from .META.    */
+comment|/**    * @return true if this region is from hbase:meta    */
 specifier|public
 name|boolean
 name|isMetaTable
@@ -3836,7 +3836,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in .META.).    * @throws IOException    */
+comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in hbase:meta).    * @throws IOException    */
 specifier|public
 specifier|static
 name|Pair

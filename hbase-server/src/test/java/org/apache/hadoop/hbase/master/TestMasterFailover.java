@@ -1113,7 +1113,7 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Regions in META and namespace have been created"
+literal|"Regions in hbase:meta and namespace have been created"
 argument_list|)
 expr_stmt|;
 comment|// at this point we only expect 3 regions to be assigned out (catalogs and namespace)
@@ -2372,7 +2372,7 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Regions in META and Namespace have been created"
+literal|"Regions in hbase:meta and Namespace have been created"
 argument_list|)
 expr_stmt|;
 comment|// at this point we only expect 2 regions to be assigned out (catalogs and namespace  )
@@ -4283,7 +4283,7 @@ name|r
 return|;
 block|}
 comment|// TODO: Next test to add is with testing permutations of the RIT or the RS
-comment|//       killed are hosting ROOT and META regions.
+comment|//       killed are hosting ROOT and hbase:meta regions.
 specifier|private
 name|void
 name|log

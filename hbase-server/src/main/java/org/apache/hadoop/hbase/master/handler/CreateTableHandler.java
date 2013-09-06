@@ -674,7 +674,7 @@ argument_list|,
 literal|10000
 argument_list|)
 decl_stmt|;
-comment|// Need META availability to create a table
+comment|// Need hbase:meta availability to create a table
 try|try
 block|{
 if|if
@@ -781,7 +781,7 @@ throw|;
 block|}
 comment|// If we have multiple client threads trying to create the table at the
 comment|// same time, given the async nature of the operation, the table
-comment|// could be in a state where .META. table hasn't been updated yet in
+comment|// could be in a state where hbase:meta table hasn't been updated yet in
 comment|// the process() function.
 comment|// Use enabling state to tell if there is already a request for the same
 comment|// table in progress. This will introduce a new zookeeper call. Given
@@ -1428,7 +1428,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Add the specified set of regions to the META table.    */
+comment|/**    * Add the specified set of regions to the hbase:meta table.    */
 specifier|protected
 name|void
 name|addRegionsToMeta

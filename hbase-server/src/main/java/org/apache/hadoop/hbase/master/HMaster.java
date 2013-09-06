@@ -5824,7 +5824,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// get a list for previously failed RS which need log splitting work
-comment|// we recover .META. region servers inside master initialization and
+comment|// we recover hbase:meta region servers inside master initialization and
 comment|// handle other failed servers in SSH in order to start up master node ASAP
 name|Set
 argument_list|<
@@ -5849,7 +5849,7 @@ argument_list|(
 name|previouslyFailedServers
 argument_list|)
 expr_stmt|;
-comment|// log splitting for .META. server
+comment|// log splitting for hbase:meta server
 name|ServerName
 name|oldMetaServerLocation
 init|=
@@ -5937,7 +5937,7 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
-comment|// check if master is shutting down because above assignMeta could return even META isn't
+comment|// check if master is shutting down because above assignMeta could return even hbase:meta isn't
 comment|// assigned when master is shutting down
 if|if
 condition|(
@@ -5961,7 +5961,7 @@ argument_list|()
 operator|)
 condition|)
 block|{
-comment|// replay WAL edits mode need new .META. RS is assigned firstly
+comment|// replay WAL edits mode need new hbase:meta RS is assigned firstly
 name|status
 operator|.
 name|setStatus
@@ -5972,10 +5972,10 @@ expr_stmt|;
 comment|// need to use union of previouslyFailedMetaRSs recorded in ZK and previouslyFailedServers
 comment|// instead of oldMetaServerLocation to address the following two situations:
 comment|// 1) the chained failure situation(recovery failed multiple times in a row).
-comment|// 2) master get killed right before it could delete the recovering META from ZK while the
+comment|// 2) master get killed right before it could delete the recovering hbase:meta from ZK while the
 comment|// same server still has non-meta wals to be replayed so that
-comment|// removeStaleRecoveringRegionsFromZK can't delete the stale META region
-comment|// Passing more servers into splitMetaLog is all right. If a server doesn't have .META. wal,
+comment|// removeStaleRecoveringRegionsFromZK can't delete the stale hbase:meta region
+comment|// Passing more servers into splitMetaLog is all right. If a server doesn't have hbase:meta wal,
 comment|// there is no op for the server.
 name|previouslyFailedMetaRSs
 operator|.
@@ -6017,7 +6017,7 @@ argument_list|(
 literal|"Submitting log splitting work for previously failed region servers"
 argument_list|)
 expr_stmt|;
-comment|// Master has recovered META region server and we put
+comment|// Master has recovered hbase:meta region server and we put
 comment|// other failed region servers in a queue to be handled later by SSH
 for|for
 control|(
@@ -6306,7 +6306,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check<code>.META.</code> is assigned. If not, assign it.    * @param status MonitoredTask    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Check<code>hbase:meta</code> is assigned. If not, assign it.    * @param status MonitoredTask    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 name|void
 name|assignMeta
 parameter_list|(
@@ -6349,7 +6349,7 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Assigning META region"
+literal|"Assigning hbase:meta region"
 argument_list|)
 expr_stmt|;
 name|assignmentManager
@@ -6440,7 +6440,7 @@ operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
-comment|// Make sure a .META. location is set.
+comment|// Make sure a hbase:meta location is set.
 name|enableSSHandWaitForMeta
 argument_list|()
 expr_stmt|;
@@ -6456,7 +6456,7 @@ operator|.
 name|distributedLogReplay
 condition|)
 block|{
-comment|// In Replay WAL Mode, we need the new .META. server online
+comment|// In Replay WAL Mode, we need the new hbase:meta server online
 name|this
 operator|.
 name|fileSystemManager
@@ -6477,7 +6477,7 @@ operator|!
 name|metaRegionLocation
 condition|)
 block|{
-comment|// Make sure a .META. location is set.
+comment|// Make sure a hbase:meta location is set.
 name|enableSSHandWaitForMeta
 argument_list|()
 expr_stmt|;
@@ -6518,7 +6518,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|".META. assigned="
+literal|"hbase:meta assigned="
 operator|+
 name|assigned
 operator|+
@@ -6559,7 +6559,7 @@ operator|.
 name|distributedLogReplay
 condition|)
 block|{
-comment|// In log replay mode, we mark META region as recovering in ZK
+comment|// In log replay mode, we mark hbase:meta region as recovering in ZK
 name|Set
 argument_list|<
 name|HRegionInfo
@@ -6596,7 +6596,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// In recovered.edits mode: create recovered edits file for .META. server
+comment|// In recovered.edits mode: create recovered edits file for hbase:meta server
 name|this
 operator|.
 name|fileSystemManager
@@ -6698,7 +6698,7 @@ name|zooKeeper
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Scan META for all system regions, skipping any disabled tables
+comment|// Scan hbase:meta for all system regions, skipping any disabled tables
 name|Map
 argument_list|<
 name|HRegionInfo
@@ -7300,7 +7300,7 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * This function returns a set of region server names under .META. recovering region ZK node    * @return Set of meta server names which were recorded in ZK    * @throws KeeperException    */
+comment|/**    * This function returns a set of region server names under hbase:meta recovering region ZK node    * @return Set of meta server names which were recorded in ZK    * @throws KeeperException    */
 specifier|private
 name|Set
 argument_list|<
@@ -13649,7 +13649,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// If no region server is online then master may stuck waiting on .META. to come on line.
+comment|// If no region server is online then master may stuck waiting on hbase:meta to come on line.
 comment|// See HBASE-8422.
 if|if
 condition|(
@@ -13758,7 +13758,7 @@ operator|.
 name|serverShutdownHandlerEnabled
 return|;
 block|}
-comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization& about to assign META regions    */
+comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization& about to assign hbase:meta regions    */
 specifier|public
 name|boolean
 name|isInitializationStartsMetaRegionAssignment

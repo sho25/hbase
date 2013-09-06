@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Cluster registry.  * Implemenations hold cluster information such as this cluster's id, location of .META., etc.  */
+comment|/**  * Cluster registry.  * Implemenations hold cluster information such as this cluster's id, location of hbase:meta, etc.  */
 end_comment
 
 begin_interface

@@ -332,7 +332,7 @@ operator|new
 name|KVComparator
 argument_list|()
 decl_stmt|;
-comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue}s.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
 specifier|final
@@ -5106,7 +5106,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|".META. key must have two '"
+literal|"hbase:meta key must have two '"
 operator|+
 operator|(
 name|char
@@ -5292,7 +5292,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * A {@link KVComparator} for<code>.META.</code> catalog table    * {@link KeyValue}s.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static
 class|class
@@ -5300,7 +5300,7 @@ name|MetaComparator
 extends|extends
 name|KVComparator
 block|{
-comment|/**      * Compare key portion of a {@link KeyValue} for keys in<code>.META.</code>      * table.      */
+comment|/**      * Compare key portion of a {@link KeyValue} for keys in<code>hbase:meta</code>      * table.      */
 annotation|@
 name|Override
 specifier|public
@@ -5371,7 +5371,7 @@ operator|>=
 literal|0
 condition|)
 block|{
-comment|// Nothing between .META. and regionid.  Its first key.
+comment|// Nothing between hbase:meta and regionid.  Its first key.
 return|return
 operator|-
 literal|1

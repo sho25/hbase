@@ -3117,7 +3117,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Write HRI to a file in case we need to recover .META.
+comment|// Write HRI to a file in case we need to recover hbase:meta
 name|writeRegionInfoOnFilesystem
 argument_list|(
 name|content
@@ -3233,7 +3233,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Write HRI to a file in case we need to recover .META.
+comment|// Write HRI to a file in case we need to recover hbase:meta
 name|writeRegionInfoFileContent
 argument_list|(
 name|conf
@@ -3281,7 +3281,7 @@ block|}
 block|}
 else|else
 block|{
-comment|// Write HRI to a file in case we need to recover .META.
+comment|// Write HRI to a file in case we need to recover hbase:meta
 name|writeRegionInfoFileContent
 argument_list|(
 name|conf
@@ -3405,7 +3405,7 @@ name|regionDir
 argument_list|)
 throw|;
 block|}
-comment|// Write HRI to a file in case we need to recover .META.
+comment|// Write HRI to a file in case we need to recover hbase:meta
 name|regionFs
 operator|.
 name|writeRegionInfoOnFilesystem
@@ -3520,7 +3520,7 @@ operator|.
 name|cleanupMergesDir
 argument_list|()
 expr_stmt|;
-comment|// if it doesn't exists, Write HRI to a file, in case we need to recover .META.
+comment|// if it doesn't exists, Write HRI to a file, in case we need to recover hbase:meta
 name|regionFs
 operator|.
 name|checkRegionInfoOnFilesystem

@@ -1531,7 +1531,7 @@ literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Now let's mess it up and change the assignment in .META. to
+comment|// Now let's mess it up and change the assignment in hbase:meta to
 comment|// point to a different region server
 name|HTable
 name|meta
@@ -6534,7 +6534,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This creates entries in META with no hdfs data.  This should cleanly    * remove the table.    */
+comment|/**    * This creates entries in hbase:meta with no hdfs data.  This should cleanly    * remove the table.    */
 annotation|@
 name|Test
 specifier|public
@@ -8142,7 +8142,7 @@ block|{}
 argument_list|)
 expr_stmt|;
 comment|//no LINGERING_SPLIT_PARENT reported
-comment|// assert that the split META entry is still there.
+comment|// assert that the split hbase:meta entry is still there.
 name|Get
 name|get
 init|=
@@ -8237,7 +8237,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Split crashed after write to META finished for the parent region, but    * failed to write daughters (pre HBASE-7721 codebase)    */
+comment|/**    * Split crashed after write to hbase:meta finished for the parent region, but    * failed to write daughters (pre HBASE-7721 codebase)    */
 annotation|@
 name|Test
 argument_list|(
@@ -8588,7 +8588,7 @@ name|HOLE_IN_REGION_CHAIN
 block|}
 argument_list|)
 expr_stmt|;
-comment|// assert that the split META entry is still there.
+comment|// assert that the split hbase:meta entry is still there.
 name|Get
 name|get
 init|=
@@ -11066,7 +11066,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test mission REGIONINFO_QUALIFIER in .META.    */
+comment|/**    * Test mission REGIONINFO_QUALIFIER in hbase:meta    */
 annotation|@
 name|Test
 specifier|public
@@ -11221,7 +11221,7 @@ argument_list|(
 name|deletes
 argument_list|)
 expr_stmt|;
-comment|// Mess it up by creating a fake META entry with no associated RegionInfo
+comment|// Mess it up by creating a fake hbase:meta entry with no associated RegionInfo
 name|meta
 operator|.
 name|put
@@ -12107,7 +12107,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// ERROR_CODE.UNKNOWN is coming because we reportError with a message for the .META.
+comment|// ERROR_CODE.UNKNOWN is coming because we reportError with a message for the hbase:meta
 comment|// inconsistency and whether we will be fixing it or not.
 name|assertErrors
 argument_list|(

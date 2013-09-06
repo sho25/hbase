@@ -728,7 +728,7 @@ literal|"file"
 argument_list|,
 literal|true
 argument_list|,
-literal|"File to scan. Pass full-path; e.g. hdfs://a:9000/hbase/.META./12/34"
+literal|"File to scan. Pass full-path; e.g. hdfs://a:9000/hbase/hbase:meta/12/34"
 argument_list|)
 expr_stmt|;
 name|options
@@ -754,7 +754,7 @@ literal|"region"
 argument_list|,
 literal|true
 argument_list|,
-literal|"Region to scan. Pass region name; e.g. '.META.,,1'"
+literal|"Region to scan. Pass region name; e.g. 'hbase:meta,,1'"
 argument_list|)
 expr_stmt|;
 name|options

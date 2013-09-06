@@ -3255,7 +3255,7 @@ name|preOpen
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Write HRI to a file in case we need to recover .META.
+comment|// Write HRI to a file in case we need to recover hbase:meta
 name|status
 operator|.
 name|setStatus
@@ -18082,7 +18082,7 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to META table.    *    * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to hbase:meta table.    *    * @param meta hbase:meta HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
 comment|// TODO remove since only test and merge use this
 specifier|public
 specifier|static

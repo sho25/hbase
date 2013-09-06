@@ -819,7 +819,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to delete META location"
+literal|"Unable to delete hbase:meta location"
 argument_list|,
 name|e
 argument_list|)
@@ -888,7 +888,7 @@ return|return
 name|ct
 return|;
 block|}
-comment|/**    * Test that we get notification if .META. moves.    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Test that we get notification if hbase:meta moves.    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 annotation|@
 name|Test
 specifier|public
@@ -1856,7 +1856,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * @return A mocked up Result that fakes a Get on a row in the    *<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * @return A mocked up Result that fakes a Get on a row in the    *<code>hbase:meta</code> table.    * @throws IOException    */
 specifier|private
 name|Result
 name|getMetaTableRowResult

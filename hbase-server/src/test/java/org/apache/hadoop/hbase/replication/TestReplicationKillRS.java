@@ -201,7 +201,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|// killing the RS with .META. can result into failed puts until we solve
+comment|// killing the RS with hbase:meta can result into failed puts until we solve
 comment|// IO fencing
 name|int
 name|rsToKill1

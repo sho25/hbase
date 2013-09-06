@@ -1937,7 +1937,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// check for old format, of having /table/.tableinfo; .META. doesn't has .tableinfo,
+comment|// check for old format, of having /table/.tableinfo; hbase:meta doesn't has .tableinfo,
 comment|// include it.
 return|return
 operator|(

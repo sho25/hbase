@@ -405,7 +405,7 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-comment|//create a rpc request that has references to META region and also
+comment|//create a rpc request that has references to hbase:meta region and also
 comment|//uses one of the known argument classes (known argument classes are
 comment|//listed in HRegionServer.QosFunction.knownArgumentClasses)
 name|headerBuilder

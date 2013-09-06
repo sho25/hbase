@@ -792,7 +792,7 @@ name|curTime
 expr_stmt|;
 comment|// We're reusing an existing protobuf message, but we don't send everything.
 comment|// This could be extended in the future, for example if we want to send stuff like the
-comment|//  META server name.
+comment|//  hbase:meta server name.
 name|ClusterStatus
 name|cs
 init|=

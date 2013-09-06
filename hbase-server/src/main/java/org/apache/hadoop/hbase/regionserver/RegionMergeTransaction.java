@@ -831,7 +831,7 @@ literal|false
 return|;
 block|}
 comment|// WARN: make sure there is no parent region of the two merging regions in
-comment|// .META. If exists, fixing up daughters would cause daughter regions(we
+comment|// hbase:meta If exists, fixing up daughters would cause daughter regions(we
 comment|// have merged one) online again when we restart master, so we should clear
 comment|// the parent region to prevent the above case
 comment|// Since HBASE-7721, we don't need fix up daughters any more. so here do
@@ -1371,7 +1371,7 @@ name|PONR
 argument_list|)
 expr_stmt|;
 comment|// Add merged region and delete region_a and region_b
-comment|// as an atomic update. See HBASE-7721. This update to META makes the region
+comment|// as an atomic update. See HBASE-7721. This update to hbase:meta makes the region
 comment|// will determine whether the region is merged or not in case of failures.
 comment|// If it is successful, master will roll-forward, if not, master will
 comment|// rollback
@@ -1655,7 +1655,7 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Regionid is timestamp. Merged region's id can't be less than that of
-comment|// merging regions else will insert at wrong location in .META.
+comment|// merging regions else will insert at wrong location in hbase:meta
 if|if
 condition|(
 name|rid
@@ -3193,7 +3193,7 @@ name|payload
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if the given region has merge qualifier in .META.    * @param services    * @param regionName name of specified region    * @return true if the given region has merge qualifier in META.(It will be    *         cleaned by CatalogJanitor)    * @throws IOException    */
+comment|/**    * Checks if the given region has merge qualifier in hbase:meta    * @param services    * @param regionName name of specified region    * @return true if the given region has merge qualifier in META.(It will be    *         cleaned by CatalogJanitor)    * @throws IOException    */
 name|boolean
 name|hasMergeQualifierInMeta
 parameter_list|(

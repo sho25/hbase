@@ -514,7 +514,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test migration that changes HRI serialization into PB. Tests by bringing up a cluster from actual  * data from a 0.92 cluster, as well as manually downgrading and then upgrading the META info.  * @deprecated Remove after 0.96  */
+comment|/**  * Test migration that changes HRI serialization into PB. Tests by bringing up a cluster from actual  * data from a 0.92 cluster, as well as manually downgrading and then upgrading the hbase:meta info.  * @deprecated Remove after 0.96  */
 end_comment
 
 begin_class
@@ -588,7 +588,7 @@ name|META_VERSION_092
 init|=
 literal|0
 decl_stmt|;
-comment|/*    * This test uses a tgz file named "TestMetaMigrationConvertingToPB.tgz" under    * hbase-server/src/test/data which contains file data from a 0.92 cluster.    * The cluster has a table named "TestTable", which has 100 rows. 0.94 has same    * META structure, so it should be the same.    *    * hbase(main):001:0> create 'TestTable', 'f1'    * hbase(main):002:0> for i in 1..100    * hbase(main):003:1> put 'TestTable', "row#{i}", "f1:c1", i    * hbase(main):004:1> end    *    * There are 9 regions in the table    */
+comment|/*    * This test uses a tgz file named "TestMetaMigrationConvertingToPB.tgz" under    * hbase-server/src/test/data which contains file data from a 0.92 cluster.    * The cluster has a table named "TestTable", which has 100 rows. 0.94 has same    * hbase:meta structure, so it should be the same.    *    * hbase(main):001:0> create 'TestTable', 'f1'    * hbase(main):002:0> for i in 1..100    * hbase(main):003:1> put 'TestTable', "row#{i}", "f1:c1", i    * hbase(main):004:1> end    *    * There are 9 regions in the table    */
 annotation|@
 name|BeforeClass
 specifier|public
@@ -728,7 +728,7 @@ argument_list|()
 block|}
 argument_list|)
 expr_stmt|;
-comment|//windows fix: tgz file has .META. directory renamed as -META- since the original is an illegal
+comment|//windows fix: tgz file has hbase:meta directory renamed as -META- since the original is an illegal
 comment|//name under windows. So we rename it back. See src/test/data//TestMetaMigrationConvertingToPB.README and
 comment|//https://issues.apache.org/jira/browse/HBASE-6821
 name|doFsCommand
@@ -1556,7 +1556,7 @@ literal|"END testMasterCrashDuringMetaMigration"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that every META row is updated    */
+comment|/**    * Verify that every hbase:meta row is updated    */
 name|void
 name|verifyMetaRowsAreUpdated
 parameter_list|(
@@ -1721,7 +1721,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Changes the version of META to 0 to simulate 0.92 and 0.94 clusters*/
+comment|/** Changes the version of hbase:meta to 0 to simulate 0.92 and 0.94 clusters*/
 specifier|private
 name|void
 name|undoVersionInRoot
@@ -1777,7 +1777,7 @@ name|META_VERSION_092
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Inserts multiple regions into META using Writable serialization instead of PB    */
+comment|/**    * Inserts multiple regions into hbase:meta using Writable serialization instead of PB    */
 specifier|public
 name|int
 name|createMultiRegionsWithWritableSerialization
@@ -1953,7 +1953,7 @@ name|startKeys
 argument_list|)
 return|;
 block|}
-comment|/**    * Inserts multiple regions into META using Writable serialization instead of PB    */
+comment|/**    * Inserts multiple regions into hbase:meta using Writable serialization instead of PB    */
 specifier|public
 name|int
 name|createMultiRegionsWithWritableSerialization
@@ -2240,7 +2240,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Inserts multiple regions into META using PB serialization    */
+comment|/**    * Inserts multiple regions into hbase:meta using PB serialization    */
 name|int
 name|createMultiRegionsWithPBSerialization
 parameter_list|(
@@ -2378,7 +2378,7 @@ name|regionStartKeys
 argument_list|)
 return|;
 block|}
-comment|/**    * Inserts multiple regions into META using PB serialization    */
+comment|/**    * Inserts multiple regions into hbase:meta using PB serialization    */
 name|int
 name|createMultiRegionsWithPBSerialization
 parameter_list|(

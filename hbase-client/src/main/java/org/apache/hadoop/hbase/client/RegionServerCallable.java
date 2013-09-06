@@ -519,7 +519,7 @@ condition|)
 block|{
 comment|// if thrown these exceptions, we clear all the cache entries that
 comment|// map to that slow/dead server; otherwise, let cache miss and ask
-comment|// .META. again to find the new location
+comment|// hbase:meta again to find the new location
 name|getConnection
 argument_list|()
 operator|.
@@ -566,7 +566,7 @@ operator|!
 name|retrying
 condition|)
 block|{
-comment|// Purge cache entries for this specific region from META cache
+comment|// Purge cache entries for this specific region from hbase:meta cache
 comment|// since we don't call connect(true) when number of retries is 1.
 name|getConnection
 argument_list|()

@@ -469,7 +469,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created UNASSIGNED zNode for ROOT and META regions in state "
+literal|"Created UNASSIGNED zNode for ROOT and hbase:meta regions in state "
 operator|+
 name|EventType
 operator|.

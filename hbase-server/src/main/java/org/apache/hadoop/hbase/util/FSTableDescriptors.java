@@ -692,7 +692,7 @@ operator|.
 name|META_TABLEDESC
 return|;
 block|}
-comment|// .META. is already handled. If some one tries to get the descriptor for
+comment|// hbase:meta is already handled. If some one tries to get the descriptor for
 comment|// .logs, .oldlogs or .corrupt throw an exception.
 if|if
 condition|(
@@ -2078,7 +2078,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// ignore both -ROOT- and .META. tables
+comment|// ignore both -ROOT- and hbase:meta tables
 if|if
 condition|(
 name|tableName

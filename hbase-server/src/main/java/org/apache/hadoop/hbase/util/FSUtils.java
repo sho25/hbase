@@ -4668,7 +4668,7 @@ comment|// TODO move this method OUT of FSUtils. No dependencies to HMaster
 end_comment
 
 begin_comment
-comment|/**    * Returns the total overall fragmentation percentage. Includes .META. and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Returns the total overall fragmentation percentage. Includes hbase:meta and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -4723,7 +4723,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -4781,7 +4781,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function

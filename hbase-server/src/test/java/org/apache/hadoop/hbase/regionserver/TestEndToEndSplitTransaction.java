@@ -2336,7 +2336,7 @@ control|)
 block|{
 name|assertArrayEquals
 argument_list|(
-literal|"Hole in .META. is detected. prevEndKey="
+literal|"Hole in hbase:meta is detected. prevEndKey="
 operator|+
 name|Bytes
 operator|.
@@ -2603,7 +2603,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** Blocks until the region split is complete in META and region server opens the daughters */
+comment|/** Blocks until the region split is complete in hbase:meta and region server opens the daughters */
 specifier|public
 specifier|static
 name|void

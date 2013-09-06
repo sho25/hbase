@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A command-line tool that spins up a local process-based cluster, loads  * some data, restarts the regionserver holding .META., and verifies that the  * cluster recovers.  */
+comment|/**  * A command-line tool that spins up a local process-based cluster, loads  * some data, restarts the regionserver holding hbase:meta, and verifies that the  * cluster recovers.  */
 end_comment
 
 begin_class
@@ -581,7 +581,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Killing META region server running on port "
+literal|"Killing hbase:meta region server running on port "
 operator|+
 name|metaRSPort
 argument_list|)

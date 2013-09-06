@@ -1058,7 +1058,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Update ZK or META.  This can take a while if for example the    * .META. is not available -- if server hosting .META. crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
+comment|/**    * Update ZK or META.  This can take a while if for example the    * hbase:meta is not available -- if server hosting hbase:meta crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
 name|boolean
 name|updateMeta
 parameter_list|(

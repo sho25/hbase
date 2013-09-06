@@ -1167,7 +1167,7 @@ return|return
 name|metaChanges
 return|;
 block|}
-comment|/**    * Describe the set of operations needed to update META after restore.    */
+comment|/**    * Describe the set of operations needed to update hbase:meta after restore.    */
 specifier|public
 specifier|static
 class|class
@@ -1300,7 +1300,7 @@ operator|>
 literal|0
 return|;
 block|}
-comment|/**      * Returns the list of 'restored regions' during the on-disk restore.      * The caller is responsible to add the regions to META if not present.      * @return the list of regions restored      */
+comment|/**      * Returns the list of 'restored regions' during the on-disk restore.      * The caller is responsible to add the regions to hbase:meta if not present.      * @return the list of regions restored      */
 specifier|public
 name|List
 argument_list|<

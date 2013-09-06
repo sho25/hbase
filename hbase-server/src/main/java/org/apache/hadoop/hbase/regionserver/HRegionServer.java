@@ -9732,7 +9732,7 @@ block|{
 comment|//TODO: at some point this should delegate to the HLogFactory
 comment|//currently, we don't care about the region as much as we care about the
 comment|//table.. (hence checking the tablename below)
-comment|//_ROOT_ and .META. regions have separate WAL.
+comment|//_ROOT_ and hbase:meta regions have separate WAL.
 if|if
 condition|(
 name|regionInfo
@@ -12416,7 +12416,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory onlineRegions.  It does not go to<code>.META.</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will not be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
+comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory onlineRegions.  It does not go to<code>hbase:meta</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will not be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
 annotation|@
 name|Override
 specifier|public
@@ -18416,7 +18416,7 @@ name|preOpen
 argument_list|()
 expr_stmt|;
 block|}
-comment|// See HBASE-5094. Cross check with META if still this RS is owning
+comment|// See HBASE-5094. Cross check with hbase:meta if still this RS is owning
 comment|// the region.
 name|Pair
 argument_list|<
@@ -18538,7 +18538,7 @@ argument_list|()
 operator|+
 literal|" is online on this server"
 operator|+
-literal|" but META does not have this server - continue opening."
+literal|" but hbase:meta does not have this server - continue opening."
 argument_list|)
 expr_stmt|;
 name|removeFromOnlineRegions

@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Mocking utility for common META functionality  */
+comment|/**  * Mocking utility for common hbase:meta functionality  */
 end_comment
 
 begin_class
@@ -168,7 +168,7 @@ specifier|public
 class|class
 name|MetaMockingUtil
 block|{
-comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @return A mocked up Result that fakes a Get on a row in the<code>hbase:meta</code> table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result
@@ -194,7 +194,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @param ServerName to use making startcode and server hostname:port in meta or null    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @param ServerName to use making startcode and server hostname:port in meta or null    * @return A mocked up Result that fakes a Get on a row in the<code>hbase:meta</code> table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result
@@ -224,7 +224,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @param ServerName to use making startcode and server hostname:port in meta or null    * @param splita daughter region or null    * @param splitb  daughter region or null    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * Returns a Result object constructed from the given region information simulating    * a catalog table result.    * @param region the HRegionInfo object or null    * @param ServerName to use making startcode and server hostname:port in meta or null    * @param splita daughter region or null    * @param splitb  daughter region or null    * @return A mocked up Result that fakes a Get on a row in the<code>hbase:meta</code> table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result
@@ -456,7 +456,7 @@ name|kvs
 argument_list|)
 return|;
 block|}
-comment|/**    * @param sn  ServerName to use making startcode and server in meta    * @param hri Region to serialize into HRegionInfo    * @return A mocked up Result that fakes a Get on a row in the<code>.META.</code> table.    * @throws IOException    */
+comment|/**    * @param sn  ServerName to use making startcode and server in meta    * @param hri Region to serialize into HRegionInfo    * @return A mocked up Result that fakes a Get on a row in the<code>hbase:meta</code> table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result

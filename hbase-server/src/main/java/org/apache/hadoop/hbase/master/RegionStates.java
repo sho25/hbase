@@ -2078,7 +2078,7 @@ return|return
 name|rits
 return|;
 block|}
-comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory state.  It does not go to<code>.META.</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
+comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory state.  It does not go to<code>hbase:meta</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
 specifier|public
 specifier|synchronized
 name|List
@@ -2868,7 +2868,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the HRegionInfo from cache, if not there, from the META table    * @param  regionName    * @return HRegionInfo for the region    */
+comment|/**    * Get the HRegionInfo from cache, if not there, from the hbase:meta table    * @param  regionName    * @return HRegionInfo for the region    */
 specifier|protected
 name|HRegionInfo
 name|getRegionInfo
@@ -2985,7 +2985,7 @@ argument_list|(
 name|regionName
 argument_list|)
 operator|+
-literal|" from .META."
+literal|" from hbase:meta"
 argument_list|,
 name|e
 argument_list|)

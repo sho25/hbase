@@ -1281,7 +1281,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test merging regions which are merged regions and has reference in META all    * the same    */
+comment|/**    * Test merging regions which are merged regions and has reference in hbase:meta all    * the same    */
 annotation|@
 name|Test
 specifier|public

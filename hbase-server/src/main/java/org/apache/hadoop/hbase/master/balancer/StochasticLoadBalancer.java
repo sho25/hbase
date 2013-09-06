@@ -3121,7 +3121,7 @@ literal|1000000
 return|;
 comment|// return a number much greater than any of the other cost
 block|}
-comment|// META region is special
+comment|// hbase:meta region is special
 if|if
 condition|(
 name|cluster
@@ -3131,7 +3131,7 @@ operator|>
 literal|0
 condition|)
 block|{
-comment|// assume each META region move costs 10 times
+comment|// assume each hbase:meta region move costs 10 times
 name|moveCost
 operator|+=
 name|META_MOVE_COST_MULT

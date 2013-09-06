@@ -395,7 +395,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately precedes it.    *    * @param row A row key.    * @param family Column family to include in the {@link Result}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    *     * @deprecated As of version 0.92 this method is deprecated without    * replacement.       * getRowOrBefore is used internally to find entries in .META. and makes    * various assumptions about the table (which are true for .META. but not    * in general) to be efficient.    */
+comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately precedes it.    *    * @param row A row key.    * @param family Column family to include in the {@link Result}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    *     * @deprecated As of version 0.92 this method is deprecated without    * replacement.       * getRowOrBefore is used internally to find entries in hbase:meta and makes    * various assumptions about the table (which are true for hbase:meta but not    * in general) to be efficient.    */
 name|Result
 name|getRowOrBefore
 parameter_list|(

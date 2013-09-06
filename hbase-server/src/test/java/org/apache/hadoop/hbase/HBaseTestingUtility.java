@@ -3878,7 +3878,7 @@ argument_list|,
 name|regionserverClass
 argument_list|)
 expr_stmt|;
-comment|// Don't leave here till we've done a successful scan of the .META.
+comment|// Don't leave here till we've done a successful scan of the hbase:meta
 name|HTable
 name|t
 init|=
@@ -3973,7 +3973,7 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
-comment|// Don't leave here till we've done a successful scan of the .META.
+comment|// Don't leave here till we've done a successful scan of the hbase:meta
 name|HTable
 name|t
 init|=
@@ -4846,7 +4846,7 @@ argument_list|,
 name|numRegions
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -4938,7 +4938,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5116,7 +5116,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5393,7 +5393,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5530,7 +5530,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5667,7 +5667,7 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5780,7 +5780,7 @@ argument_list|,
 name|splitRows
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
@@ -5869,7 +5869,7 @@ argument_list|,
 name|splitRows
 argument_list|)
 expr_stmt|;
-comment|// HBaseAdmin only waits for regions to appear in META we should wait until they are assigned
+comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|TableName
@@ -8150,7 +8150,7 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * Create rows in META for regions of the specified table with the specified    * start keys.  The first startKey should be a 0 length byte array if you    * want to form a proper range of regions.    * @param conf    * @param htd    * @param startKeys    * @return list of region info for regions added to meta    * @throws IOException    */
+comment|/**    * Create rows in hbase:meta for regions of the specified table with the specified    * start keys.  The first startKey should be a 0 length byte array if you    * want to form a proper range of regions.    * @param conf    * @param htd    * @param startKeys    * @return list of region info for regions added to meta    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -8294,7 +8294,7 @@ return|return
 name|newRegions
 return|;
 block|}
-comment|/**    * Returns all rows from the .META. table.    *    * @throws IOException When reading the rows fails.    */
+comment|/**    * Returns all rows from the hbase:meta table.    *    * @throws IOException When reading the rows fails.    */
 specifier|public
 name|List
 argument_list|<
@@ -8403,7 +8403,7 @@ return|return
 name|rows
 return|;
 block|}
-comment|/**    * Returns all rows from the .META. table for a given user table    *    * @throws IOException When reading the rows fails.    */
+comment|/**    * Returns all rows from the hbase:meta table for a given user table    *    * @throws IOException When reading the rows fails.    */
 specifier|public
 name|List
 argument_list|<
@@ -8568,7 +8568,7 @@ return|return
 name|rows
 return|;
 block|}
-comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in .META.    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|HRegionServer
 name|getRSForFirstRegionInTable
@@ -8594,7 +8594,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in .META.    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    */
+comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    */
 specifier|public
 name|HRegionServer
 name|getRSForFirstRegionInTable
@@ -10694,7 +10694,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Finally make sure all regions are fully open and online out on the cluster. Regions may be
-comment|// in the .META. table and almost open on all regionservers but there setting the region
+comment|// in the hbase:meta table and almost open on all regionservers but there setting the region
 comment|// online in the regionserver is the very last thing done and can take a little while to happen.
 comment|// Below we do a get.  The get will retry if a NotServeringRegionException or a
 comment|// RegionOpeningException.  It is crass but when done all will be online.
@@ -11112,7 +11112,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wait until all regions for a table in .META. have a non-empty    * info:server, up to 60 seconds. This means all regions have been deployed,    * master has been informed and updated .META. with the regions deployed    * server.    * @param tableName the table name    * @throws IOException    */
+comment|/**    * Wait until all regions for a table in hbase:meta have a non-empty    * info:server, up to 60 seconds. This means all regions have been deployed,    * master has been informed and updated hbase:meta with the regions deployed    * server.    * @param tableName the table name    * @throws IOException    */
 specifier|public
 name|void
 name|waitUntilAllRegionsAssigned
@@ -11132,7 +11132,7 @@ literal|60000
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait until all regions for a table in .META. have a non-empty    * info:server, or until timeout.  This means all regions have been deployed,    * master has been informed and updated .META. with the regions deployed    * server.    * @param tableName the table name    * @param timeout timeout, in milliseconds    * @throws IOException    */
+comment|/**    * Wait until all regions for a table in hbase:meta have a non-empty    * info:server, or until timeout.  This means all regions have been deployed,    * master has been informed and updated hbase:meta with the regions deployed    * server.    * @param tableName the table name    * @param timeout timeout, in milliseconds    * @throws IOException    */
 specifier|public
 name|void
 name|waitUntilAllRegionsAssigned

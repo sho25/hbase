@@ -1078,7 +1078,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"DataBlockEncoding.PREFIX_TREE not compatible with META "
+literal|"DataBlockEncoding.PREFIX_TREE not compatible with hbase:meta "
 operator|+
 literal|"table"
 argument_list|)

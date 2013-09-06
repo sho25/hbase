@@ -297,7 +297,7 @@ name|SPLIT_SKIP_ERRORS_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-comment|/** The META region's HLog filename extension */
+comment|/** The hbase:meta region's HLog filename extension */
 name|String
 name|META_HLOG_FILE_EXTN
 init|=

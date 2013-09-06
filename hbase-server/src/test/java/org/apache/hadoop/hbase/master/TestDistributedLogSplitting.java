@@ -8784,7 +8784,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Find a RS that has regions of a table.    * @param hasMetaRegion when true, the returned RS has META region as well    * @param tableName    * @return    * @throws Exception    */
+comment|/**    * Find a RS that has regions of a table.    * @param hasMetaRegion when true, the returned RS has hbase:meta region as well    * @param tableName    * @return    * @throws Exception    */
 specifier|private
 name|HRegionServer
 name|findRSToKill

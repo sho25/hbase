@@ -3234,7 +3234,7 @@ name|NoServerForRegionException
 name|nsfre
 parameter_list|)
 block|{
-comment|// NSFRE will occur if the old META entry has no server assigned
+comment|// NSFRE will occur if the old hbase:meta entry has no server assigned
 name|LOG
 operator|.
 name|info

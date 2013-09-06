@@ -153,7 +153,7 @@ name|VALID_TABLE_QUALIFIER_REGEX
 operator|+
 literal|"))"
 decl_stmt|;
-comment|/** The META table's name. */
+comment|/** The hbase:meta table's name. */
 specifier|public
 specifier|static
 specifier|final

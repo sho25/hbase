@@ -408,7 +408,7 @@ argument_list|>
 argument_list|>
 name|regionServerToRegionMap
 decl_stmt|;
-comment|/** the existing assignment plan in the META region */
+comment|/** the existing assignment plan in the hbase:meta region */
 specifier|private
 specifier|final
 name|FavoredNodesPlan
@@ -540,7 +540,7 @@ operator|=
 name|excludeOfflinedSplitParents
 expr_stmt|;
 block|}
-comment|/**    * Initialize the region assignment snapshot by scanning the META table    * @throws IOException    */
+comment|/**    * Initialize the region assignment snapshot by scanning the hbase:meta table    * @throws IOException    */
 specifier|public
 name|void
 name|initialize
@@ -552,7 +552,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start to scan the META for the current region assignment "
+literal|"Start to scan the hbase:meta for the current region assignment "
 operator|+
 literal|"snappshot"
 argument_list|)
@@ -770,7 +770,7 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|// Scan .META. to pick up user regions
+comment|// Scan hbase:meta to pick up user regions
 name|MetaReader
 operator|.
 name|fullScan
@@ -785,7 +785,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to scan the META for the current region assignment"
+literal|"Finished to scan the hbase:meta for the current region assignment"
 operator|+
 literal|"snapshot"
 argument_list|)

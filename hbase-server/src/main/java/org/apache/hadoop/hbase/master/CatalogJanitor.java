@@ -468,7 +468,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A janitor for the catalog tables.  Scans the<code>.META.</code> catalog  * table on a period looking for unused regions to garbage collect.  */
+comment|/**  * A janitor for the catalog tables.  Scans the<code>hbase:meta</code> catalog  * table on a period looking for unused regions to garbage collect.  */
 end_comment
 
 begin_class
@@ -711,7 +711,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Scans META and returns a number of scanned rows, and a map of merged    * regions, and an ordered map of split parents.    * @return triple of scanned rows, map of merged regions and map of split    *         parent regioninfos    * @throws IOException    */
+comment|/**    * Scans hbase:meta and returns a number of scanned rows, and a map of merged    * regions, and an ordered map of split parents.    * @return triple of scanned rows, map of merged regions and map of split    *         parent regioninfos    * @throws IOException    */
 name|Triple
 argument_list|<
 name|Integer
@@ -742,7 +742,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Scans META and returns a number of scanned rows, and a map of merged    * regions, and an ordered map of split parents. if the given table name is    * null, return merged regions and split parents of all tables, else only the    * specified table    * @param tableName null represents all tables    * @return triple of scanned rows, and map of merged regions, and map of split    *         parent regioninfos    * @throws IOException    */
+comment|/**    * Scans hbase:meta and returns a number of scanned rows, and a map of merged    * regions, and an ordered map of split parents. if the given table name is    * null, return merged regions and split parents of all tables, else only the    * specified table    * @param tableName null represents all tables    * @return triple of scanned rows, and map of merged regions, and map of split    *         parent regioninfos    * @throws IOException    */
 name|Triple
 argument_list|<
 name|Integer
@@ -780,7 +780,7 @@ operator|!=
 literal|null
 operator|)
 decl_stmt|;
-comment|// TODO: Only works with single .META. region currently.  Fix.
+comment|// TODO: Only works with single hbase:meta region currently.  Fix.
 specifier|final
 name|AtomicInteger
 name|count
@@ -833,7 +833,7 @@ name|Result
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// This visitor collects split parents and counts rows in the .META. table
+comment|// This visitor collects split parents and counts rows in the hbase:meta table
 name|MetaScannerVisitor
 name|visitor
 init|=
@@ -967,7 +967,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|// Run full scan of .META. catalog table passing in our custom visitor with
+comment|// Run full scan of hbase:meta catalog table passing in our custom visitor with
 comment|// the start row
 name|MetaScanner
 operator|.
@@ -1017,7 +1017,7 @@ name|splitParents
 argument_list|)
 return|;
 block|}
-comment|/**    * If merged region no longer holds reference to the merge regions, archive    * merge region on hdfs and perform deleting references in .META.    * @param mergedRegion    * @param regionA    * @param regionB    * @return true if we delete references in merged region on .META. and archive    *         the files on the file system    * @throws IOException    */
+comment|/**    * If merged region no longer holds reference to the merge regions, archive    * merge region on hdfs and perform deleting references in hbase:meta    * @param mergedRegion    * @param regionA    * @param regionB    * @return true if we delete references in merged region on hbase:meta and archive    *         the files on the file system    * @throws IOException    */
 name|boolean
 name|cleanMergeRegion
 parameter_list|(
@@ -1225,7 +1225,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Run janitorial scan of catalog<code>.META.</code> table looking for    * garbage to collect.    * @return number of cleaned regions    * @throws IOException    */
+comment|/**    * Run janitorial scan of catalog<code>hbase:meta</code> table looking for    * garbage to collect.    * @return number of cleaned regions    * @throws IOException    */
 name|int
 name|scan
 parameter_list|()

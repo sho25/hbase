@@ -1496,7 +1496,7 @@ operator|.
 name|getTableName
 argument_list|()
 decl_stmt|;
-comment|// 1. All users need read access to .META. table.
+comment|// 1. All users need read access to hbase:meta table.
 comment|// this is a very common operation, so deal with it quickly.
 if|if
 condition|(
@@ -1563,10 +1563,10 @@ name|families
 argument_list|)
 return|;
 block|}
-comment|// Users with CREATE/ADMIN rights need to modify .META. and _acl_ table
-comment|// e.g. When a new table is created a new entry in .META. is added,
+comment|// Users with CREATE/ADMIN rights need to modify hbase:meta and _acl_ table
+comment|// e.g. When a new table is created a new entry in hbase:meta is added,
 comment|// so the user need to be allowed to write on it.
-comment|// e.g. When a table is removed an entry is removed from .META. and _acl_
+comment|// e.g. When a table is removed an entry is removed from hbase:meta and _acl_
 comment|// and the user need to be allowed to write on both tables.
 if|if
 condition|(

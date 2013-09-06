@@ -608,7 +608,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A handler for taking snapshots from the master.  *  * This is not a subclass of TableEventHandler because using that would incur an extra META scan.  *  * The {@link #snapshotRegions(List)} call should get implemented for each snapshot flavor.  */
+comment|/**  * A handler for taking snapshots from the master.  *  * This is not a subclass of TableEventHandler because using that would incur an extra hbase:meta scan.  *  * The {@link #snapshotRegions(List)} call should get implemented for each snapshot flavor.  */
 end_comment
 
 begin_class

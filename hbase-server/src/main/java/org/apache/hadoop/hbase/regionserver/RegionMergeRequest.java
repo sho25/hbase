@@ -601,7 +601,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Regions merged, META updated, and report to master. region_a="
+literal|"Regions merged, hbase:meta updated, and report to master. region_a="
 operator|+
 name|region_a
 operator|+

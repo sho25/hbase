@@ -649,7 +649,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Scanning the table with a specified empty start row should also
-comment|// give us three META rows
+comment|// give us three hbase:meta rows
 name|reset
 argument_list|(
 name|visitor

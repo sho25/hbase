@@ -7998,7 +7998,7 @@ condition|)
 return|return
 name|loc
 return|;
-comment|// fetch location from .META. directly without using cache to avoid hit old dead server
+comment|// fetch location from hbase:meta directly without using cache to avoid hit old dead server
 name|loc
 operator|=
 name|hconn

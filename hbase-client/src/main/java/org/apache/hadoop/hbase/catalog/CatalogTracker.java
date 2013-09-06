@@ -378,7 +378,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the availability of the catalog tables  *<code>.META.</code>.  *  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  Call {@link #stop()}} to  * interrupt waits and close up shop.  */
+comment|/**  * Tracks the availability of the catalog tables  *<code>hbase:meta</code>.  *  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>hbase:meta</code>.  *  *<p>Call {@link #start()} to start up operation.  Call {@link #stop()}} to  * interrupt waits and close up shop.  */
 end_comment
 
 begin_class
@@ -399,7 +399,7 @@ comment|// client-side (inside in HTable) so rather than figure meta
 comment|// locations on fault, the client would instead get notifications out of zk.
 comment|//
 comment|// But this original intent is frustrated by the fact that this class has to
-comment|// read an hbase table, the -ROOT- table, to figure out the .META. region
+comment|// read an hbase table, the -ROOT- table, to figure out the hbase:meta region
 comment|// location which means we depend on an HConnection.  HConnection will do
 comment|// retrying but also, it has its own mechanism for finding root and meta
 comment|// locations (and for 'verifying'; it tries the location and if it fails, does
@@ -848,7 +848,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> or null if location is    * not currently available.    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException    */
+comment|/**    * Gets the current location for<code>hbase:meta</code> or null if location is    * not currently available.    * @return {@link ServerName} for server hosting<code>hbase:meta</code> or null    * if none available    * @throws InterruptedException    */
 specifier|public
 name|ServerName
 name|getMetaLocation
@@ -880,7 +880,7 @@ name|isLocationAvailable
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
+comment|/**    * Gets the current location for<code>hbase:meta</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return {@link ServerName} for server hosting<code>hbase:meta</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
 specifier|public
 name|ServerName
 name|waitForMeta
@@ -977,7 +977,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Waits indefinitely for availability of<code>.META.</code>.  Used during    * cluster startup.  Does not verify meta, just that something has been    * set up in zk.    * @see #waitForMeta(long)    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Waits indefinitely for availability of<code>hbase:meta</code>.  Used during    * cluster startup.  Does not verify meta, just that something has been    * set up in zk.    * @see #waitForMeta(long)    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|void
 name|waitForMeta
@@ -1024,7 +1024,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|".META. still not available, sleeping and retrying."
+literal|"hbase:meta still not available, sleeping and retrying."
 operator|+
 literal|" Reason: "
 operator|+
@@ -1457,7 +1457,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Verify<code>.META.</code> is deployed and accessible.    * @param timeout How long to wait on zk for meta address (passed through to    * the internal call to {@link #waitForMetaServerConnection(long)}.    * @return True if the<code>.META.</code> location is healthy.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    * @param timeout How long to wait on zk for meta address (passed through to    * the internal call to {@link #waitForMetaServerConnection(long)}.    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|boolean
 name|verifyMetaRegionLocation

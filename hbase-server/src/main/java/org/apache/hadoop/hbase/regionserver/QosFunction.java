@@ -432,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A guava function that will return a priority for use by QoS facility in regionserver; e.g.  * rpcs to .META. and -ROOT-, etc., get priority.  */
+comment|/**  * A guava function that will return a priority for use by QoS facility in regionserver; e.g.  * rpcs to hbase:meta and -ROOT-, etc., get priority.  */
 end_comment
 
 begin_comment

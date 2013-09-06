@@ -1806,7 +1806,7 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * Dumps .META. table info    *    * @return # of entries in meta.    */
+comment|/**    * Dumps hbase:meta table info    *    * @return # of entries in meta.    */
 specifier|protected
 name|int
 name|scanMeta

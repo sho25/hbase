@@ -476,7 +476,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *    * When merging the META region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.    *    * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @throws IOException    */
+comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *    * When merging the hbase:meta region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.    *    * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -507,7 +507,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *    * When merging the META region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.    *    * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @param testMasterRunning True if we are to verify master is down before    * running merge    * @throws IOException    */
+comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *    * When merging the hbase:meta region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.    *    * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @param testMasterRunning True if we are to verify master is down before    * running merge    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -599,7 +599,7 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Can not compact META table if instance is on-line"
+literal|"Can not compact hbase:meta table if instance is on-line"
 argument_list|)
 throw|;
 block|}

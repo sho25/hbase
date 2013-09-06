@@ -431,7 +431,7 @@ operator|+
 literal|"/master-status"
 argument_list|)
 argument_list|,
-literal|"META"
+literal|"meta"
 argument_list|)
 expr_stmt|;
 name|port
@@ -470,7 +470,7 @@ operator|+
 literal|"/rs-status"
 argument_list|)
 argument_list|,
-literal|"META"
+literal|"meta"
 argument_list|)
 expr_stmt|;
 block|}

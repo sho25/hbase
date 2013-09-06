@@ -699,7 +699,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test snapshotting not allowed .META. and -ROOT-    * @throws Exception    */
+comment|/**    * Test snapshotting not allowed hbase:meta and -ROOT-    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -748,7 +748,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"taking a snapshot of .META. should not be allowed"
+literal|"taking a snapshot of hbase:meta should not be allowed"
 argument_list|)
 expr_stmt|;
 block|}

@@ -444,7 +444,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{   }
-comment|/**    * Inserts three waledits in the wal file, and reads them back. The first edit is of a regular    * table, second waledit is for the ROOT table (it will be ignored while reading),    * and last waledit is for the META table, which will be linked to the new system:meta table.    * @throws IOException    */
+comment|/**    * Inserts three waledits in the wal file, and reads them back. The first edit is of a regular    * table, second waledit is for the ROOT table (it will be ignored while reading),    * and last waledit is for the hbase:meta table, which will be linked to the new system:meta table.    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -672,7 +672,7 @@ argument_list|,
 name|kvs
 argument_list|)
 decl_stmt|;
-comment|// create a old meta edit (.META.).
+comment|// create a old meta edit (hbase:meta).
 name|HLog
 operator|.
 name|Entry
@@ -826,7 +826,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// read the ROOT waledit, but that will be ignored, and META waledit will be read instead.
+comment|// read the ROOT waledit, but that will be ignored, and hbase:meta waledit will be read instead.
 name|entry
 operator|=
 name|reader

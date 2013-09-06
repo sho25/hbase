@@ -1345,7 +1345,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test export .META. table    *     * @throws Exception    */
+comment|/**    * Test export hbase:meta table    *     * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

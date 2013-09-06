@@ -220,7 +220,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic.  * Provided visitors will be called for each row.  *  * Although public visibility, this is not a public-facing API and may evolve in  * minor releases.  *  *<p> Note that during concurrent region splits, the scanner might not see  * META changes across rows (for parent and daughter entries) consistently.  * see HBASE-5986, and {@link DefaultMetaScannerVisitor} for details.</p>  */
+comment|/**  * Scanner class that contains the<code>hbase:meta</code> table scanning logic.  * Provided visitors will be called for each row.  *  * Although public visibility, this is not a public-facing API and may evolve in  * minor releases.  *  *<p> Note that during concurrent region splits, the scanner might not see  * hbase:meta changes across rows (for parent and daughter entries) consistently.  * see HBASE-5986, and {@link DefaultMetaScannerVisitor} for details.</p>  */
 end_comment
 
 begin_class
@@ -623,7 +623,7 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|// Full META scan
+comment|// Full hbase:meta scan
 name|startRow
 operator|=
 name|HConstants
@@ -633,7 +633,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Scan META for an entire table
+comment|// Scan hbase:meta for an entire table
 name|startRow
 operator|=
 name|HRegionInfo
@@ -1225,7 +1225,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * Visitor class called to process each row of the .META. table    */
+comment|/**    * Visitor class called to process each row of the hbase:meta table    */
 specifier|public
 interface|interface
 name|MetaScannerVisitor
@@ -1349,7 +1349,7 @@ literal|true
 return|;
 block|}
 block|}
-comment|/**    * A MetaScannerVisitor for a table. Provides a consistent view of the table's    * META entries during concurrent splits (see HBASE-5986 for details). This class    * does not guarantee ordered traversal of meta entries, and can block until the    * META entries for daughters are available during splits.    */
+comment|/**    * A MetaScannerVisitor for a table. Provides a consistent view of the table's    * hbase:meta entries during concurrent splits (see HBASE-5986 for details). This class    * does not guarantee ordered traversal of meta entries, and can block until the    * hbase:meta entries for daughters are available during splits.    */
 specifier|public
 specifier|static
 specifier|abstract

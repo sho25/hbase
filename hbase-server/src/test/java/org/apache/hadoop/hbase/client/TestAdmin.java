@@ -11199,7 +11199,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// When the META table can be opened, the region servers are running
+comment|// When the hbase:meta table can be opened, the region servers are running
 operator|new
 name|HTable
 argument_list|(
@@ -11619,7 +11619,7 @@ name|ConstraintException
 name|e
 parameter_list|)
 block|{     }
-comment|// Before the fix for HBASE-6146, the below table creation was failing as the META table
+comment|// Before the fix for HBASE-6146, the below table creation was failing as the hbase:meta table
 comment|// actually getting disabled by the disableTable() call.
 name|HTableDescriptor
 name|htd

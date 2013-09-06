@@ -3041,7 +3041,7 @@ name|DISABLED
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * To test if the split region is removed from RIT if the region was in SPLITTING state but the RS    * has actually completed the splitting in META but went down. See HBASE-6070 and also HBASE-5806    *    * @throws KeeperException    * @throws IOException    */
+comment|/**    * To test if the split region is removed from RIT if the region was in SPLITTING state but the RS    * has actually completed the splitting in hbase:meta but went down. See HBASE-6070 and also HBASE-5806    *    * @throws KeeperException    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -6208,7 +6208,7 @@ comment|// Make an RS Interface implementation. Make it so a scanner can go agai
 comment|// it and a get to return the single region, REGIONINFO, this test is
 comment|// messing with. Needed when "new master" joins cluster. AM will try and
 comment|// rebuild its list of user regions and it will also get the HRI that goes
-comment|// with an encoded name by doing a Get on .META.
+comment|// with an encoded name by doing a Get on hbase:meta
 name|ClientProtos
 operator|.
 name|ClientService

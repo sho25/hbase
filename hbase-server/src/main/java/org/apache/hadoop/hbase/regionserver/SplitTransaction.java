@@ -771,7 +771,7 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Regionid is timestamp.  Can't be less than that of parent else will insert
-comment|// at wrong location in .META. (See HBASE-710).
+comment|// at wrong location in hbase:meta (See HBASE-710).
 if|if
 condition|(
 name|rid
@@ -1375,8 +1375,8 @@ operator|.
 name|hri_b
 argument_list|)
 decl_stmt|;
-comment|// This is the point of no return.  Adding subsequent edits to .META. as we
-comment|// do below when we do the daughter opens adding each to .META. can fail in
+comment|// This is the point of no return.  Adding subsequent edits to hbase:meta as we
+comment|// do below when we do the daughter opens adding each to hbase:meta can fail in
 comment|// various interesting ways the most interesting of which is a timeout
 comment|// BUT the edits all go through (See HBASE-3872).  IF we reach the PONR
 comment|// then subsequent failures need to crash out this regionserver; the
@@ -1384,7 +1384,7 @@ comment|// server shutdown processing should be able to fix-up the incomplete sp
 comment|// The offlined parent will have the daughters as extra columns.  If
 comment|// we leave the daughter regions in place and do not remove them when we
 comment|// crash out, then they will have their references to the parent in place
-comment|// still and the server shutdown fixup of .META. will point to these
+comment|// still and the server shutdown fixup of hbase:meta will point to these
 comment|// regions.
 comment|// We should add PONR JournalEntry before offlineParentInMeta,so even if
 comment|// OfflineParentInMeta timeout,this will cause regionserver exit,and then
@@ -1402,7 +1402,7 @@ name|PONR
 argument_list|)
 expr_stmt|;
 comment|// Edit parent in meta.  Offlines parent region and adds splita and splitb
-comment|// as an atomic update. See HBASE-7721. This update to META makes the region
+comment|// as an atomic update. See HBASE-7721. This update to hbase:meta makes the region
 comment|// will determine whether the region is split or not in case of failures.
 comment|// If it is successful, master will roll-forward, if not, master will rollback
 comment|// and assign the parent region.

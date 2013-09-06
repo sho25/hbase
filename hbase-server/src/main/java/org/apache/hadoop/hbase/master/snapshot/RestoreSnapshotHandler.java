@@ -656,7 +656,7 @@ name|prepare
 argument_list|()
 return|;
 block|}
-comment|/**    * The restore table is executed in place.    *  - The on-disk data will be restored - reference files are put in place without moving data    *  -  [if something fail here: you need to delete the table and re-run the restore]    *  - META will be updated    *  -  [if something fail here: you need to run hbck to fix META entries]    * The passed in list gets changed in this method    */
+comment|/**    * The restore table is executed in place.    *  - The on-disk data will be restored - reference files are put in place without moving data    *  -  [if something fail here: you need to delete the table and re-run the restore]    *  - hbase:meta will be updated    *  -  [if something fail here: you need to run hbck to fix hbase:meta entries]    * The passed in list gets changed in this method    */
 annotation|@
 name|Override
 specifier|protected
@@ -802,7 +802,7 @@ argument_list|(
 name|metaChanges
 argument_list|)
 expr_stmt|;
-comment|// 4. Applies changes to .META.
+comment|// 4. Applies changes to hbase:meta
 name|status
 operator|.
 name|setStatus
@@ -877,7 +877,7 @@ comment|// 4.2 Add the new set of regions to META
 comment|//
 comment|// At this point the old regions are no longer present in META.
 comment|// and the set of regions present in the snapshot will be written to META.
-comment|// All the information in META are coming from the .regioninfo of each region present
+comment|// All the information in hbase:meta are coming from the .regioninfo of each region present
 comment|// in the snapshot folder.
 name|hris
 operator|.

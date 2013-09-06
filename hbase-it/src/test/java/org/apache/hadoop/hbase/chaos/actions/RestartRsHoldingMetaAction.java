@@ -92,7 +92,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No server is holding .META. right now."
+literal|"No server is holding hbase:meta right now."
 argument_list|)
 expr_stmt|;
 return|return;

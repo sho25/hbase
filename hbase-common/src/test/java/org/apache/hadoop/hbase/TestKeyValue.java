@@ -1310,7 +1310,7 @@ parameter_list|)
 block|{
 name|assertEquals
 argument_list|(
-literal|".META. key must have two ',' delimiters and have the following"
+literal|"hbase:meta key must have two ',' delimiters and have the following"
 operator|+
 literal|" format: '<table>,<key>,<etc>'"
 argument_list|,

@@ -903,7 +903,7 @@ name|masterRecovery
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the meta region exists and is readable, if not create it.    * Create hbase.version and the .META. directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
+comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the meta region exists and is readable, if not create it.    * Create hbase.version and the hbase:meta directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
 specifier|private
 name|Path
 name|createInitialFileSystemLayout
@@ -2470,7 +2470,7 @@ name|rd
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Create tableinfo-s for META if not already there.
+comment|// Create tableinfo-s for hbase:meta if not already there.
 operator|new
 name|FSTableDescriptors
 argument_list|(
@@ -2639,7 +2639,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"BOOTSTRAP: creating META region"
+literal|"BOOTSTRAP: creating hbase:meta region"
 argument_list|)
 expr_stmt|;
 try|try
@@ -2724,7 +2724,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * Enable in memory caching for .META.    */
+comment|/**    * Enable in memory caching for hbase:meta    */
 specifier|public
 specifier|static
 name|void

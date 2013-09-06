@@ -544,7 +544,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"CLOSING META "
+literal|"CLOSING hbase:meta "
 operator|+
 name|r
 operator|.

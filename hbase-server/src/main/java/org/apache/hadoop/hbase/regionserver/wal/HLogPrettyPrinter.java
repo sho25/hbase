@@ -1328,7 +1328,7 @@ literal|"region"
 argument_list|,
 literal|true
 argument_list|,
-literal|"Region to filter by. Pass region name; e.g. '.META.,,1'"
+literal|"Region to filter by. Pass region name; e.g. 'hbase:meta,,1'"
 argument_list|)
 expr_stmt|;
 name|options

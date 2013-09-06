@@ -1202,7 +1202,7 @@ return|return
 name|merged
 return|;
 block|}
-comment|/*    * Removes a region's meta information from the passed<code>meta</code>    * region.    *    * @param meta META HRegion to be updated    * @param regioninfo HRegionInfo of region to remove from<code>meta</code>    *    * @throws IOException    */
+comment|/*    * Removes a region's meta information from the passed<code>meta</code>    * region.    *    * @param meta hbase:meta HRegion to be updated    * @param regioninfo HRegionInfo of region to remove from<code>meta</code>    *    * @throws IOException    */
 specifier|private
 name|void
 name|removeRegionFromMeta
@@ -1263,7 +1263,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Adds a region's meta information from the passed<code>meta</code>    * region.    *    * @param metainfo META HRegionInfo to be updated    * @param region HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|/*    * Adds a region's meta information from the passed<code>meta</code>    * region.    *    * @param metainfo hbase:meta HRegionInfo to be updated    * @param region HRegion to add to<code>meta</code>    *    * @throws IOException    */
 specifier|private
 name|int
 name|parseArgs

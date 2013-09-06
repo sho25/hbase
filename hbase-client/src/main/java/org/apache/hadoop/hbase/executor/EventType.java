@@ -313,7 +313,7 @@ operator|.
 name|MASTER_SERVER_OPERATIONS
 argument_list|)
 block|,
-comment|/**    * Master controlled events to be executed on the master.<br>    * M_META_SERVER_SHUTDOWN<br>    * Master is processing shutdown of RS hosting a meta region (-ROOT- or .META.).    */
+comment|/**    * Master controlled events to be executed on the master.<br>    * M_META_SERVER_SHUTDOWN<br>    * Master is processing shutdown of RS hosting a meta region (-ROOT- or hbase:meta).    */
 name|M_META_SERVER_SHUTDOWN
 argument_list|(
 literal|72

@@ -564,7 +564,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region split, META updated, and report to master. Parent="
+literal|"Region split, hbase:meta updated, and report to master. Parent="
 operator|+
 name|parent
 operator|.

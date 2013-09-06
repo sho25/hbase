@@ -1084,7 +1084,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Add META in transition as well
+comment|// Add hbase:meta in transition as well
 name|regionsInTransition
 operator|.
 name|put

@@ -615,7 +615,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Get the ServerName of region server serving the first META region    */
+comment|/**    * Get the ServerName of region server serving the first hbase:meta region    */
 specifier|public
 name|ServerName
 name|getServerHoldingMeta

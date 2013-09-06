@@ -615,7 +615,7 @@ name|prepare
 argument_list|()
 return|;
 block|}
-comment|/**    * Create the on-disk regions, using the tableRootDir provided by the CreateTableHandler.    * The cloned table will be created in a temp directory, and then the CreateTableHandler    * will be responsible to add the regions returned by this method to META and do the assignment.    */
+comment|/**    * Create the on-disk regions, using the tableRootDir provided by the CreateTableHandler.    * The cloned table will be created in a temp directory, and then the CreateTableHandler    * will be responsible to add the regions returned by this method to hbase:meta and do the assignment.    */
 annotation|@
 name|Override
 specifier|protected

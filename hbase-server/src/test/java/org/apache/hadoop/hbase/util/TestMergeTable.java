@@ -611,7 +611,7 @@ argument_list|)
 block|}
 decl_stmt|;
 comment|// Now create the root and meta regions and insert the data regions
-comment|// created above into .META.
+comment|// created above into hbase:meta
 name|setupMeta
 argument_list|(
 name|rootdir

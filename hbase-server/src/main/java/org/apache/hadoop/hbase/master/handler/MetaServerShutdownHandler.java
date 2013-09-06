@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Shutdown handler for the server hosting<code>.META.</code>  */
+comment|/**  * Shutdown handler for the server hosting<code>hbase:meta</code>  */
 end_comment
 
 begin_class
@@ -336,7 +336,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Splitting META logs for "
+literal|"Splitting hbase:meta logs for "
 operator|+
 name|serverName
 argument_list|)
@@ -672,7 +672,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Before assign the META region, ensure it haven't    *  been assigned by other place    *<p>    * Under some scenarios, the META region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the META region has been assigned, so the operation can be canceled.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Before assign the hbase:meta region, ensure it haven't    *  been assigned by other place    *<p>    * Under some scenarios, the hbase:meta region can be opened twice, so it seemed online    * in two regionserver at the same time.    * If the hbase:meta region has been assigned, so the operation can be canceled.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
 name|verifyAndAssignMeta
@@ -749,7 +749,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|".META. is onlined on the dead server "
+literal|"hbase:meta is onlined on the dead server "
 operator|+
 name|serverName
 argument_list|)
@@ -761,7 +761,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip assigning .META., because it is online on the "
+literal|"Skip assigning hbase:meta, because it is online on the "
 operator|+
 name|server
 operator|.

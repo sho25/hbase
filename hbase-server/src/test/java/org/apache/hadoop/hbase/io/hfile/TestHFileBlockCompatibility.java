@@ -1933,7 +1933,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * This is the version of the HFileBlock.Writer that is used to     * create V2 blocks with minor version 0. These blocks do not     * have hbase-level checksums. The code is here to test     * backward compatibility. The reason we do not inherit from     * HFileBlock.Writer is because we never ever want to change the code    * in this class but the code in HFileBlock.Writer will continually     * evolve.    */
+comment|/**    * This is the version of the HFileBlock.Writer that is used to    * create V2 blocks with minor version 0. These blocks do not    * have hbase-level checksums. The code is here to test    * backward compatibility. The reason we do not inherit from    * HFileBlock.Writer is because we never ever want to change the code    * in this class but the code in HFileBlock.Writer will continually    * evolve.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2912,7 +2912,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Creates a new HFileBlock.       */
+comment|/**      * Creates a new HFileBlock.      */
 specifier|public
 name|HFileBlock
 name|getBlockForCaching

@@ -737,7 +737,7 @@ argument_list|(
 literal|"Starting testRSAbortWithUnflushedEdits()"
 argument_list|)
 expr_stmt|;
-comment|// When the META table can be opened, the region servers are running
+comment|// When the hbase:meta table can be opened, the region servers are running
 operator|new
 name|HTable
 argument_list|(

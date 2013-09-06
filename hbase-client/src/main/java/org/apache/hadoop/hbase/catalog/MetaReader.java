@@ -326,7 +326,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reads region and assignment information from<code>.META.</code>.  */
+comment|/**  * Reads region and assignment information from<code>hbase:meta</code>.  */
 end_comment
 
 begin_class
@@ -365,7 +365,7 @@ decl_stmt|;
 static|static
 block|{
 comment|// Copy the prefix from FIRST_META_REGIONINFO into META_REGION_PREFIX.
-comment|// FIRST_META_REGIONINFO == '.META.,,1'.  META_REGION_PREFIX == '.META.,'
+comment|// FIRST_META_REGIONINFO == 'hbase:meta,,1'.  META_REGION_PREFIX == 'hbase:meta,'
 name|int
 name|len
 init|=
@@ -409,7 +409,7 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs a full scan of<code>.META.</code>, skipping regions from any    * tables in the specified set of disabled tables.    * @param catalogTracker    * @param disabledTables set of disabled tables that will not be returned    * @return Returns a map of every region to it's currently assigned server,    * according to META.  If the region does not have an assignment it will have    * a null value in the map.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>, skipping regions from any    * tables in the specified set of disabled tables.    * @param catalogTracker    * @param disabledTables set of disabled tables that will not be returned    * @return Returns a map of every region to it's currently assigned server,    * according to META.  If the region does not have an assignment it will have    * a null value in the map.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Map
@@ -444,7 +444,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Performs a full scan of<code>.META.</code>, skipping regions from any    * tables in the specified set of disabled tables.    * @param catalogTracker    * @param disabledTables set of disabled tables that will not be returned    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Returns a map of every region to it's currently assigned server,    * according to META.  If the region does not have an assignment it will have    * a null value in the map.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>, skipping regions from any    * tables in the specified set of disabled tables.    * @param catalogTracker    * @param disabledTables set of disabled tables that will not be returned    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Returns a map of every region to it's currently assigned server,    * according to META.  If the region does not have an assignment it will have    * a null value in the map.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Map
@@ -624,7 +624,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * Performs a full scan of<code>.META.</code>.    * @return List of {@link Result}    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @return List of {@link Result}    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -662,7 +662,7 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * Performs a full scan of a<code>.META.</code> table.    * @return List of {@link Result}    * @throws IOException    */
+comment|/**    * Performs a full scan of a<code>hbase:meta</code> table.    * @return List of {@link Result}    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -700,7 +700,7 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * Performs a full scan of<code>.META.</code>.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -811,7 +811,7 @@ name|catalogTracker
 argument_list|)
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param ct    * @return An {@link HTable} for<code>.META.</code>    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param ct    * @return An {@link HTable} for<code>hbase:meta</code>    * @throws IOException    */
 specifier|static
 name|HTable
 name|getMetaHTable
@@ -997,7 +997,7 @@ name|r
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the result in META for the specified region.    * @param catalogTracker    * @param regionName    * @return result of the specified region    * @throws IOException    */
+comment|/**    * Gets the result in hbase:meta for the specified region.    * @param catalogTracker    * @param regionName    * @return result of the specified region    * @throws IOException    */
 specifier|public
 specifier|static
 name|Result
@@ -1132,7 +1132,7 @@ name|mergeB
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if the specified table exists.  Looks at the META table hosted on    * the specified server.    * @param catalogTracker    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
+comment|/**    * Checks if the specified table exists.  Looks at the hbase:meta table hosted on    * the specified server.    * @param catalogTracker    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -1519,7 +1519,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @return Place to start Scan in<code>.META.</code> when passed a    *<code>tableName</code>; returns&lt;tableName&rt;&lt;,&rt;&lt;,&rt;    */
+comment|/**    * @param tableName    * @return Place to start Scan in<code>hbase:meta</code> when passed a    *<code>tableName</code>; returns&lt;tableName&rt;&lt;,&rt;&lt;,&rt;    */
 specifier|static
 name|byte
 index|[]
@@ -2025,7 +2025,7 @@ name|Result
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Fill the above hris map with entries from .META. that have the passed
+comment|// Fill the above hris map with entries from hbase:meta that have the passed
 comment|// servername.
 name|CollectingVisitor
 argument_list|<
@@ -2269,7 +2269,7 @@ name|v
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs a full scan of a catalog table.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    *<code>.META.</code>, the default (pass false to scan .META.)    * @throws IOException    */
+comment|/**    * Performs a full scan of a catalog table.    * @param catalogTracker    * @param visitor Visitor invoked against each row.    * @param startrow Where to start the scan. Pass null if want to begin scan    * at first row.    *<code>hbase:meta</code>, the default (pass false to scan hbase:meta)    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -2558,7 +2558,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Count regions in<code>.META.</code> for passed table.    * @param c    * @param tableName    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
+comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c    * @param tableName    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
 specifier|public
 specifier|static
 name|int

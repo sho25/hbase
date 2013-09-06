@@ -208,7 +208,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A tool to migrate the data stored in META table to pbuf serialization.  * Supports migrating from 0.92.x and 0.94.x to 0.96.x for the catalog table.  * @deprecated will be removed for the major release after 0.96.  */
+comment|/**  * A tool to migrate the data stored in hbase:meta table to pbuf serialization.  * Supports migrating from 0.92.x and 0.94.x to 0.96.x for the catalog table.  * @deprecated will be removed for the major release after 0.96.  */
 end_comment
 
 begin_class
@@ -642,7 +642,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"META has Writable serializations, migrating META to PB serialization"
+literal|"META has Writable serializations, migrating hbase:meta to PB serialization"
 argument_list|)
 expr_stmt|;
 try|try
@@ -678,7 +678,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Update META with PB serialization failed."
+literal|"Update hbase:meta with PB serialization failed."
 operator|+
 literal|"Master startup aborted."
 argument_list|)
@@ -688,7 +688,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * Update META rows, converting writable serialization to PB    * @return num migrated rows    */
+comment|/**    * Update hbase:meta rows, converting writable serialization to PB    * @return num migrated rows    */
 specifier|static
 name|long
 name|updateMeta
@@ -786,7 +786,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|".META. doesn't have any entries to update."
+literal|"hbase:meta doesn't have any entries to update."
 argument_list|)
 expr_stmt|;
 return|return
