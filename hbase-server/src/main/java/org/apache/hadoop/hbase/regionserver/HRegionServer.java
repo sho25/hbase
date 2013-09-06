@@ -3979,7 +3979,7 @@ name|HConstants
 operator|.
 name|HBASE_CHECKSUM_VERIFICATION
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// check that the user has not set the "dfs.client.read.shortcircuit.skip.checksum" property.
