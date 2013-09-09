@@ -1987,7 +1987,7 @@ specifier|final
 name|int
 name|DEFAULT_REGION_SERVER_HANDLER_COUNT
 init|=
-literal|10
+literal|30
 decl_stmt|;
 specifier|public
 specifier|static
