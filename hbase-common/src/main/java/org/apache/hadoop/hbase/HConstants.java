@@ -903,6 +903,15 @@ name|MIGRATION_NAME
 init|=
 literal|".migration"
 decl_stmt|;
+comment|/**    * The directory from which co-processor/custom filter jars can be loaded    * dynamically by the region servers. This value can be overridden by the    * hbase.dynamic.jars.dir config.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LIB_DIR
+init|=
+literal|"lib"
+decl_stmt|;
 comment|/** Used to construct the name of the compaction directory during compaction */
 specifier|public
 specifier|static
@@ -2270,6 +2279,8 @@ block|,
 name|BASE_NAMESPACE_DIR
 block|,
 name|MIGRATION_NAME
+block|,
+name|LIB_DIR
 block|}
 argument_list|)
 argument_list|)
