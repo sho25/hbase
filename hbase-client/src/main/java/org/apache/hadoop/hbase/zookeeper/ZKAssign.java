@@ -1001,9 +1001,17 @@ name|KeeperException
 operator|.
 name|NoNodeException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 name|zkw
 operator|.
@@ -1021,6 +1029,7 @@ name|expectedState
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|String
 name|node
 init|=

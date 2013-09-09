@@ -2420,7 +2420,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Found regions out on cluster or in RIT; failover"
+literal|"Found regions out on cluster or in RIT; presuming failover"
 argument_list|)
 expr_stmt|;
 comment|// Process list of dead servers and regions in RIT.
@@ -3785,7 +3785,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Handling transition="
+literal|"Handling "
 operator|+
 name|rt
 operator|.
@@ -3816,7 +3816,7 @@ else|:
 literal|""
 operator|)
 operator|+
-literal|", current state from region state map ="
+literal|", current_state="
 operator|+
 name|regionState
 argument_list|)
@@ -10127,7 +10127,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No previous transition plan was found (or we are ignoring "
+literal|"No previous transition plan found (or ignoring "
 operator|+
 literal|"an existing plan) for "
 operator|+
@@ -10136,7 +10136,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" so generated a random one; "
+literal|"; generated random plan="
 operator|+
 name|randomPlan
 operator|+
@@ -13773,20 +13773,24 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"based on ZK, current region="
+literal|"Checking region="
 operator|+
 name|hri
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" is on server="
+literal|", zk server="
 operator|+
 name|addressFromZK
 operator|+
-literal|" server being checked=: "
+literal|" current="
 operator|+
 name|serverName
+operator|+
+literal|", matches="
+operator|+
+name|matchZK
 argument_list|)
 expr_stmt|;
 return|return

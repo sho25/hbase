@@ -141,34 +141,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -225,7 +197,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|KeyValueUtil
 import|;
 end_import
 
@@ -240,6 +212,20 @@ operator|.
 name|hbase
 operator|.
 name|NotServingRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -1035,13 +1021,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Finished "
 operator|+
@@ -1063,13 +1049,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Finished "
 operator|+

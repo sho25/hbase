@@ -6805,11 +6805,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|int
-name|assigned
-init|=
-literal|0
-decl_stmt|;
 name|boolean
 name|beingExpired
 init|=
@@ -6953,9 +6948,6 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-name|assigned
-operator|++
-expr_stmt|;
 if|if
 condition|(
 name|beingExpired
@@ -6995,9 +6987,6 @@ name|regionInfo
 argument_list|)
 condition|)
 return|return;
-name|assigned
-operator|++
-expr_stmt|;
 block|}
 else|else
 block|{
@@ -7050,11 +7039,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"System Regions assigned="
+literal|"System region "
 operator|+
-name|assigned
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
-literal|", rit="
+literal|" assigned, rit="
 operator|+
 name|rit
 operator|+
@@ -7223,10 +7215,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Failed to contact server: "
+literal|"Failed verifying location="
 operator|+
 name|currServer
-argument_list|,
+operator|+
+literal|", exception="
+operator|+
 name|e
 argument_list|)
 expr_stmt|;

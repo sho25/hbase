@@ -650,7 +650,7 @@ name|debugLog
 argument_list|(
 name|regionInfo
 argument_list|,
-literal|"Handling OPENED event for "
+literal|"Handling OPENED of "
 operator|+
 name|this
 operator|.

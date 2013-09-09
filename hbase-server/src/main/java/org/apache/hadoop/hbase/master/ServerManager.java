@@ -2012,11 +2012,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received expiration of "
+literal|"Expiration of "
 operator|+
 name|serverName
 operator|+
-literal|" but server is not currently online"
+literal|" but server not online"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2037,11 +2037,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received expiration of "
+literal|"Expiration of "
 operator|+
 name|serverName
 operator|+
-literal|" but server shutdown is already in progress"
+literal|" but server shutdown already in progress"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2416,7 +2416,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"AssignmentManager hasn't finished failover cleanup"
+literal|"AssignmentManager hasn't finished failover cleanup; waiting"
 argument_list|)
 expr_stmt|;
 block|}

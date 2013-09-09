@@ -1218,7 +1218,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Transitioned from "
+literal|"Transitioned "
 operator|+
 name|oldState
 operator|+
