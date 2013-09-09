@@ -2370,6 +2370,23 @@ name|DEFAULT_HEALTH_FAILURE_THRESHOLD
 init|=
 literal|3
 decl_stmt|;
+comment|/**    * Setting to activate, or not, the publication of the status by the master. Default    *  notification is by a multicast message.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STATUS_PUBLISHED
+init|=
+literal|"hbase.status.published"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|STATUS_PUBLISHED_DEFAULT
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * IP to use for the multicast status messages between the master and the clients.    * The default address is chosen as one among others within the ones suitable for multicast    * messages.    */
 specifier|public
 specifier|static

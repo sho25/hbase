@@ -3916,6 +3916,22 @@ name|clusterId
 argument_list|)
 expr_stmt|;
 comment|// Do we publish the status?
+name|boolean
+name|shouldListen
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED
+argument_list|,
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED_DEFAULT
+argument_list|)
+decl_stmt|;
 name|Class
 argument_list|<
 name|?
@@ -3947,10 +3963,35 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|shouldListen
+condition|)
+block|{
+if|if
+condition|(
 name|listenerClass
-operator|!=
+operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED
+operator|+
+literal|" is true, but "
+operator|+
+name|ClusterStatusListener
+operator|.
+name|STATUS_LISTENER_CLASS
+operator|+
+literal|" is not set - not listening status"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|clusterStatusListener
 operator|=
@@ -4012,6 +4053,7 @@ argument_list|,
 name|listenerClass
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**      * For tests.      */

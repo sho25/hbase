@@ -473,7 +473,7 @@ specifier|final
 name|Listener
 name|listener
 decl_stmt|;
-comment|/**    * The implementation class to use to read the status. Default is null.    */
+comment|/**    * The implementation class to use to read the status.    */
 specifier|public
 specifier|static
 specifier|final
@@ -493,7 +493,9 @@ name|Listener
 argument_list|>
 name|DEFAULT_STATUS_LISTENER_CLASS
 init|=
-literal|null
+name|MulticastListener
+operator|.
+name|class
 decl_stmt|;
 comment|/**    * Class to be extended to manage a new dead server.    */
 specifier|public
@@ -509,7 +511,7 @@ name|sn
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * The interface to be implented by a listener of a cluster status event.    */
+comment|/**    * The interface to be implemented by a listener of a cluster status event.    */
 interface|interface
 name|Listener
 extends|extends
@@ -831,7 +833,7 @@ return|;
 block|}
 comment|/**    * An implementation using a multicast message between the master& the client.    */
 class|class
-name|MultiCastListener
+name|MulticastListener
 implements|implements
 name|Listener
 block|{
@@ -857,7 +859,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|public
-name|MultiCastListener
+name|MulticastListener
 parameter_list|()
 block|{     }
 specifier|public

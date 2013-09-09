@@ -4389,6 +4389,22 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Do we publish the status?
+name|boolean
+name|shouldPublish
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED
+argument_list|,
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED_DEFAULT
+argument_list|)
+decl_stmt|;
 name|Class
 argument_list|<
 name|?
@@ -4420,10 +4436,35 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|shouldPublish
+condition|)
+block|{
+if|if
+condition|(
 name|publisherClass
-operator|!=
+operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|HConstants
+operator|.
+name|STATUS_PUBLISHED
+operator|+
+literal|" is true, but "
+operator|+
+name|ClusterStatusPublisher
+operator|.
+name|DEFAULT_STATUS_PUBLISHER_CLASS
+operator|+
+literal|" is not set - not publishing status"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|clusterStatusPublisherChore
 operator|=
@@ -4447,6 +4488,7 @@ name|getThread
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|distributedLogReplay
 operator|=

@@ -506,7 +506,21 @@ name|Publisher
 argument_list|>
 name|DEFAULT_STATUS_PUBLISHER_CLASS
 init|=
-literal|null
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|ClusterStatusPublisher
+operator|.
+name|MulticastPublisher
+operator|.
+name|class
 decl_stmt|;
 comment|/**    * The minimum time between two status messages, in milliseconds.    */
 specifier|public
