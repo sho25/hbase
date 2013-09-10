@@ -1916,7 +1916,7 @@ name|kvs
 init|=
 name|res
 operator|.
-name|list
+name|listCells
 argument_list|()
 decl_stmt|;
 name|assertTrue

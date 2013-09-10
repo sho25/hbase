@@ -12897,7 +12897,7 @@ name|IOException
 block|{
 try|try
 block|{
-comment|// record the latest modification of this hbase:meta record
+comment|// record the latest modification of this META record
 name|long
 name|ts
 init|=
@@ -12907,7 +12907,7 @@ name|max
 argument_list|(
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|,
 name|comp

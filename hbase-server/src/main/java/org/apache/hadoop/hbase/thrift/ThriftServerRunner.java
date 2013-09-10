@@ -4079,7 +4079,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 return|;
@@ -4316,7 +4316,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 return|;
@@ -4572,7 +4572,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 return|;
@@ -8774,7 +8774,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 return|;

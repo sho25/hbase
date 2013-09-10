@@ -2342,7 +2342,7 @@ name|addAll
 argument_list|(
 name|results
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -389,7 +389,7 @@ name|when
 argument_list|(
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 operator|.

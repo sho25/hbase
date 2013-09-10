@@ -1063,7 +1063,7 @@ name|kv
 range|:
 name|res
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{
@@ -1405,7 +1405,7 @@ name|kv
 range|:
 name|res
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{

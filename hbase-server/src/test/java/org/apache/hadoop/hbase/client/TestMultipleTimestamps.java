@@ -491,7 +491,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -542,7 +542,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -803,7 +803,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -838,7 +838,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1140,7 +1140,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1223,7 +1223,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1629,7 +1629,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1680,7 +1680,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1715,7 +1715,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -1750,7 +1750,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -2699,7 +2699,7 @@ decl_stmt|;
 return|return
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 return|;
 block|}

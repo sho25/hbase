@@ -711,7 +711,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for

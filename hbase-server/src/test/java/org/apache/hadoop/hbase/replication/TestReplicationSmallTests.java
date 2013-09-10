@@ -1010,7 +1010,7 @@ name|getValueArray
 argument_list|(
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -1028,7 +1028,7 @@ name|getValueArray
 argument_list|(
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -1046,7 +1046,7 @@ name|getValueArray
 argument_list|(
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|2
@@ -1175,7 +1175,7 @@ name|getValueArray
 argument_list|(
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -1193,7 +1193,7 @@ name|getValueArray
 argument_list|(
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -2790,7 +2790,7 @@ name|firstVal
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0

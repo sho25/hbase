@@ -1222,7 +1222,7 @@ name|r
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1410,7 +1410,7 @@ name|r
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1800,7 +1800,7 @@ name|r
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1834,7 +1834,7 @@ name|r
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 expr_stmt|;

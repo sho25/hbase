@@ -2798,7 +2798,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{

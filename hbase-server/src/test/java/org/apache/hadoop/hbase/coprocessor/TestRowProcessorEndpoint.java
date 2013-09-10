@@ -1515,7 +1515,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1585,7 +1585,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1910,7 +1910,7 @@ name|ROW
 argument_list|)
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1934,7 +1934,7 @@ name|ROW2
 argument_list|)
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1954,7 +1954,7 @@ name|ROW
 argument_list|)
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size
@@ -1976,7 +1976,7 @@ name|ROW2
 argument_list|)
 argument_list|)
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size

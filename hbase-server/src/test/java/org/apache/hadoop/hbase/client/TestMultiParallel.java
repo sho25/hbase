@@ -1361,7 +1361,7 @@ argument_list|(
 name|i
 argument_list|)
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|Cell
@@ -1373,7 +1373,7 @@ index|[
 name|i
 index|]
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -3918,7 +3918,7 @@ literal|0
 argument_list|,
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 operator|.
 name|length

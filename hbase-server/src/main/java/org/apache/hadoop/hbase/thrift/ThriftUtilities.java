@@ -832,7 +832,7 @@ name|kv
 range|:
 name|result_
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -916,7 +916,7 @@ name|kv
 range|:
 name|result_
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{

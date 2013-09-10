@@ -236,7 +236,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is<b>NOT THREAD SAFE</b>.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link KeyValue} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link KeyValue} objects can be accessed through the method {@link #list()}.  * Each KeyValue can then be accessed through  * {@link KeyValue#getRow()}, {@link KeyValue#getFamily()}, {@link KeyValue#getQualifier()},  * {@link KeyValue#getTimestamp()}, and {@link KeyValue#getValue()}.<p>  *  * If you need to overwrite a Result with another Result instance -- as in the old 'mapred' RecordReader next  * invocations -- then create an empty Result with the null constructor and in then use {@link #copyFrom(Result)}  */
+comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *  * This class is<b>NOT THREAD SAFE</b>.<p>  *  * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *  * To get a complete mapping of all cells in the Result, which can include  * multiple families and multiple versions, use {@link #getMap()}.<p>  *  * To get a mapping of each family to its columns (qualifiers and values),  * including only the latest version of each, use {@link #getNoVersionMap()}.  *  * To get a mapping of qualifiers to latest values for an individual family use  * {@link #getFamilyMap(byte[])}.<p>  *  * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link KeyValue} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *  * The underlying {@link KeyValue} objects can be accessed through the method {@link #listCells()}.  * Each KeyValue can then be accessed through  * {@link KeyValue#getRow()}, {@link KeyValue#getFamily()}, {@link KeyValue#getQualifier()},  * {@link KeyValue#getTimestamp()}, and {@link KeyValue#getValue()}.<p>  *  * If you need to overwrite a Result with another Result instance -- as in the old 'mapred' RecordReader next  * invocations -- then create an empty Result with the null constructor and in then use {@link #copyFrom(Result)}  */
 end_comment
 
 begin_class
@@ -322,7 +322,7 @@ operator|new
 name|Result
 argument_list|()
 decl_stmt|;
-comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #raw()}.    * Use this to represent no results if<code>null</code> won't do or in old 'mapred' as oppposed to 'mapreduce' package    * MapReduce where you need to overwrite a Result    * instance with a {@link #copyFrom(Result)} call.    */
+comment|/**    * Creates an empty Result w/ no KeyValue payload; returns null if you call {@link #rawCells()}.    * Use this to represent no results if<code>null</code> won't do or in old 'mapred' as oppposed to 'mapreduce' package    * MapReduce where you need to overwrite a Result    * instance with a {@link #copyFrom(Result)} call.    */
 specifier|public
 name|Result
 parameter_list|()
@@ -436,18 +436,102 @@ comment|/**    * Return the array of Cells backing this Result instance.    *   
 specifier|public
 name|Cell
 index|[]
-name|raw
+name|rawCells
 parameter_list|()
 block|{
 return|return
 name|cells
 return|;
 block|}
-comment|/**    * Create a sorted list of the Cell's in this result.    *    * Since HBase 0.20.5 this is equivalent to raw().    *    * @return The sorted list of Cell's.    */
+comment|/**    * Return an cells of a Result as an array of KeyValues     *     * WARNING do not use, expensive.  This does an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link #rawCells()}      * @return array of KeyValues, empty array if nothing in result.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|KeyValue
+index|[]
+name|raw
+parameter_list|()
+block|{
+name|KeyValue
+index|[]
+name|kvs
+init|=
+operator|new
+name|KeyValue
+index|[
+name|cells
+operator|.
+name|length
+index|]
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|kvs
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|kvs
+index|[
+name|i
+index|]
+operator|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|cells
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|kvs
+return|;
+block|}
+comment|/**    * Create a sorted list of the Cell's in this result.    *    * Since HBase 0.20.5 this is equivalent to raw().    *    * @return sorted List of Cells; can be null if no cells in the result    */
 specifier|public
 name|List
 argument_list|<
 name|Cell
+argument_list|>
+name|listCells
+parameter_list|()
+block|{
+return|return
+name|isEmpty
+argument_list|()
+condition|?
+literal|null
+else|:
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+name|rawCells
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Return an cells of a Result as an array of KeyValues     *     * WARNING do not use, expensive.  This does  an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link #listCells()}      * @return all sorted List of KeyValues; can be null if no cells in the result    */
+annotation|@
+name|Deprecated
+specifier|public
+name|List
+argument_list|<
+name|KeyValue
 argument_list|>
 name|list
 parameter_list|()
@@ -501,7 +585,7 @@ name|Cell
 index|[]
 name|kvs
 init|=
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 if|if
@@ -924,7 +1008,7 @@ name|Cell
 index|[]
 name|kvs
 init|=
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 comment|// side effect possibly.
@@ -1032,7 +1116,7 @@ name|Cell
 index|[]
 name|kvs
 init|=
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 comment|// side effect possibly.
@@ -2625,7 +2709,7 @@ name|ourKVs
 init|=
 name|res1
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|Cell
@@ -2634,7 +2718,7 @@ name|replicatedKVs
 init|=
 name|res2
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for

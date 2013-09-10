@@ -541,7 +541,7 @@ name|assertTrue
 argument_list|(
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size

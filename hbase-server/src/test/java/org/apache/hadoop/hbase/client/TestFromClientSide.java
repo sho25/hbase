@@ -1804,7 +1804,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertArrayEquals
@@ -1878,7 +1878,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertTrue
@@ -3449,7 +3449,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -5226,7 +5226,7 @@ name|getRowArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -5252,7 +5252,7 @@ name|getQualifierArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -5534,7 +5534,7 @@ name|assertEquals
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -5560,7 +5560,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17380,7 +17380,7 @@ name|getRowArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17406,7 +17406,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17456,7 +17456,7 @@ name|getRowArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17482,7 +17482,7 @@ name|getRowArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -17508,7 +17508,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17534,7 +17534,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|1
@@ -18080,7 +18080,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -18179,7 +18179,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -18289,7 +18289,7 @@ name|keys
 operator|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 for|for
@@ -18385,7 +18385,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -25514,7 +25514,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -25830,7 +25830,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
@@ -26135,7 +26135,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|Cell
@@ -26493,7 +26493,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -26715,7 +26715,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -31931,7 +31931,7 @@ name|key
 range|:
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -33265,7 +33265,7 @@ name|key
 range|:
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -33456,7 +33456,7 @@ name|key
 range|:
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -34273,7 +34273,7 @@ name|kv
 range|:
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -36735,7 +36735,7 @@ name|kvs
 init|=
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -36916,7 +36916,7 @@ name|kvs
 operator|=
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -37046,7 +37046,7 @@ name|kvs
 operator|=
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -41465,7 +41465,7 @@ name|versions
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size
@@ -41532,7 +41532,7 @@ name|versions
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size
@@ -41599,7 +41599,7 @@ name|versions
 argument_list|,
 name|r
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size

@@ -1173,7 +1173,7 @@ name|actual
 range|:
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{

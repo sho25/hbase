@@ -585,7 +585,7 @@ name|value
 range|:
 name|values
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{

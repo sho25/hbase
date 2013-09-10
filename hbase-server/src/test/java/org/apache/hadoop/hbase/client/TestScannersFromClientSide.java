@@ -2345,7 +2345,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{
@@ -3187,7 +3187,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{

@@ -903,7 +903,7 @@ name|raw
 init|=
 name|in
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|TResult

@@ -767,7 +767,7 @@ index|[
 name|rowIdx
 index|]
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 comment|// each row should have 5 columns.
@@ -1264,7 +1264,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{
@@ -1322,7 +1322,7 @@ name|assertEquals
 argument_list|(
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|size
@@ -1339,7 +1339,7 @@ name|matchingValue
 argument_list|(
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|get
@@ -1364,7 +1364,7 @@ name|matchingValue
 argument_list|(
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|get
@@ -2140,7 +2140,7 @@ decl_stmt|;
 return|return
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 return|;
 block|}

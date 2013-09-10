@@ -1548,7 +1548,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -1686,7 +1686,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0

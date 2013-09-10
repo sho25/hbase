@@ -2989,7 +2989,7 @@ name|length
 argument_list|,
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 operator|.
 name|length
@@ -3000,7 +3000,7 @@ name|first
 init|=
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -3013,7 +3013,7 @@ name|kv
 range|:
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{

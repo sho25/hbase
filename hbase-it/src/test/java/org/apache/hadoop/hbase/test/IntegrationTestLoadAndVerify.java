@@ -1635,7 +1635,7 @@ name|kv
 range|:
 name|value
 operator|.
-name|list
+name|listCells
 argument_list|()
 control|)
 block|{

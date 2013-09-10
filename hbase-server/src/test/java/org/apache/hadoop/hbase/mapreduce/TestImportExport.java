@@ -1987,7 +1987,7 @@ name|res
 init|=
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -3235,7 +3235,7 @@ name|when
 argument_list|(
 name|value
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 argument_list|)
 operator|.

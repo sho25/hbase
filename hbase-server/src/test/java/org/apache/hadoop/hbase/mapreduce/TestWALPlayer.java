@@ -954,7 +954,7 @@ name|matchingQualifier
 argument_list|(
 name|r
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0

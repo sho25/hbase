@@ -441,7 +441,7 @@ name|valuesI
 operator|=
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|iterator

@@ -846,7 +846,7 @@ name|rowI
 operator|=
 name|cached
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|iterator
@@ -928,7 +928,7 @@ name|rowI
 operator|=
 name|result
 operator|.
-name|list
+name|listCells
 argument_list|()
 operator|.
 name|iterator

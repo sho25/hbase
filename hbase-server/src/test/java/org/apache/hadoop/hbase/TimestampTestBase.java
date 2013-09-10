@@ -537,7 +537,7 @@ name|getValueArray
 argument_list|(
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -681,7 +681,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -803,7 +803,7 @@ name|kvs
 operator|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 expr_stmt|;
 name|assertEquals

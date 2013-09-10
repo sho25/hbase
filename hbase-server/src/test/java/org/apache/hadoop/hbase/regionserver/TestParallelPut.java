@@ -737,7 +737,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0

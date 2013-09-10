@@ -8214,7 +8214,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|Cell
@@ -10477,7 +10477,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -10591,7 +10591,7 @@ name|kv
 operator|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -12288,7 +12288,7 @@ index|]
 argument_list|,
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 name|i
@@ -12309,7 +12309,7 @@ index|]
 argument_list|,
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 name|i
@@ -12330,7 +12330,7 @@ index|]
 argument_list|,
 name|res
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 name|i
@@ -17395,7 +17395,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -17490,7 +17490,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 index|[
 literal|0
@@ -21601,7 +21601,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -21664,7 +21664,7 @@ name|kv
 range|:
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 control|)
 block|{
@@ -22969,7 +22969,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 comment|//Check if rows are correct
@@ -23302,7 +23302,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -27033,7 +27033,7 @@ name|raw
 init|=
 name|result
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -27166,7 +27166,7 @@ argument_list|(
 name|get
 argument_list|)
 operator|.
-name|raw
+name|rawCells
 argument_list|()
 decl_stmt|;
 for|for
