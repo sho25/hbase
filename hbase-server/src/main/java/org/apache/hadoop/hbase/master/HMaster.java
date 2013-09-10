@@ -6548,6 +6548,9 @@ name|getMetaLocation
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|enableSSHandWaitForMeta
+argument_list|()
+expr_stmt|;
 block|}
 name|enableMeta
 argument_list|(
