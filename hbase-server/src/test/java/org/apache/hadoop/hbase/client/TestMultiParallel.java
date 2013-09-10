@@ -1420,7 +1420,7 @@ name|compareTo
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|singleKvs
 index|[
@@ -1430,7 +1430,7 @@ argument_list|)
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|multiKvs
 index|[

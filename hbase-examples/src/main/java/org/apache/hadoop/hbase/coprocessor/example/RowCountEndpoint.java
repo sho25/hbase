@@ -446,7 +446,7 @@ name|currentRow
 init|=
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)

@@ -3037,14 +3037,14 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|first
 argument_list|)
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

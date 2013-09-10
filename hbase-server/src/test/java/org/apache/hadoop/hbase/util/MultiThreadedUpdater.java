@@ -1281,7 +1281,7 @@ literal|null
 condition|?
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

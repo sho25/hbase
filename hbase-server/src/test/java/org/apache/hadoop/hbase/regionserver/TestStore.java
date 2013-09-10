@@ -3623,7 +3623,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.
@@ -3645,7 +3645,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.
@@ -4379,7 +4379,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.
@@ -4401,7 +4401,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.
@@ -4502,7 +4502,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.
@@ -4524,7 +4524,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|results
 operator|.

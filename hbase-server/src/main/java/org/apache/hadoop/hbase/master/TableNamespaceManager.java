@@ -686,7 +686,7 @@ name|val
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -785,7 +785,7 @@ name|val
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|res
 operator|.
@@ -1326,7 +1326,7 @@ name|val
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|r
 operator|.

@@ -161,7 +161,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 annotation|@
 name|InterfaceStability
 operator|.
@@ -279,7 +279,7 @@ specifier|public
 specifier|static
 name|byte
 index|[]
-name|getRowArray
+name|cloneRow
 parameter_list|(
 name|Cell
 name|cell
@@ -315,7 +315,7 @@ specifier|public
 specifier|static
 name|byte
 index|[]
-name|getFamilyArray
+name|cloneFamily
 parameter_list|(
 name|Cell
 name|cell
@@ -351,7 +351,7 @@ specifier|public
 specifier|static
 name|byte
 index|[]
-name|getQualifierArray
+name|cloneQualifier
 parameter_list|(
 name|Cell
 name|cell
@@ -387,7 +387,7 @@ specifier|public
 specifier|static
 name|byte
 index|[]
-name|getValueArray
+name|cloneValue
 parameter_list|(
 name|Cell
 name|cell

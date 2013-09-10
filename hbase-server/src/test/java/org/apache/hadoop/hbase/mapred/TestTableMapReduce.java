@@ -1285,7 +1285,7 @@ name|firstValue
 operator|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -1302,7 +1302,7 @@ name|secondValue
 operator|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

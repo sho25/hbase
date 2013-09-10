@@ -464,14 +464,14 @@ name|CellModel
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|value
 argument_list|)
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|value
 argument_list|)
@@ -483,7 +483,7 @@ argument_list|()
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|value
 argument_list|)

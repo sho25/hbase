@@ -2062,7 +2062,7 @@ name|entry
 operator|=
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -2881,7 +2881,7 @@ name|family
 init|=
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -2909,7 +2909,7 @@ name|key
 init|=
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -2920,7 +2920,7 @@ name|value
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

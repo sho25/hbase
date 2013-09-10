@@ -673,7 +673,7 @@ name|String
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)

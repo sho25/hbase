@@ -1222,7 +1222,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)

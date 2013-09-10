@@ -247,7 +247,7 @@ literal|null
 operator|||
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -266,7 +266,7 @@ name|toBigDecimal
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

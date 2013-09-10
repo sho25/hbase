@@ -415,7 +415,7 @@ literal|null
 else|:
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|this
 operator|.
@@ -718,7 +718,7 @@ name|createFirstOnRow
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kvs
 index|[
@@ -1249,7 +1249,7 @@ block|}
 return|return
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -1889,7 +1889,7 @@ name|family
 init|=
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -1961,7 +1961,7 @@ name|qualifier
 init|=
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -2054,7 +2054,7 @@ name|value
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -2468,7 +2468,7 @@ block|}
 return|return
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|cells
 index|[
@@ -2762,7 +2762,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|ourKVs
 index|[
@@ -2772,7 +2772,7 @@ argument_list|)
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|replicatedKVs
 index|[

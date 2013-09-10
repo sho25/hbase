@@ -1131,7 +1131,7 @@ name|stoprow
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -1244,7 +1244,7 @@ literal|'a'
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -1262,7 +1262,7 @@ literal|'b'
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -1364,7 +1364,7 @@ name|compareTo
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -2256,7 +2256,7 @@ name|val
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|getColumn
 argument_list|(
@@ -2345,7 +2345,7 @@ name|val
 operator|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|getColumn
 argument_list|(

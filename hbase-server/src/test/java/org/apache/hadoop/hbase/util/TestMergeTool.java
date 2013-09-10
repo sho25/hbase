@@ -1544,7 +1544,7 @@ name|bytes
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -1682,7 +1682,7 @@ name|bytes
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.

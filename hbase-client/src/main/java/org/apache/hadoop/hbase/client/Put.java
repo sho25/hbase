@@ -551,7 +551,7 @@ name|put
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -580,7 +580,7 @@ name|family
 init|=
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)

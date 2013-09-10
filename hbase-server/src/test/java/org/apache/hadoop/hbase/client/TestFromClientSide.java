@@ -1813,7 +1813,7 @@ name|T2
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -1828,7 +1828,7 @@ name|T1
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -1900,7 +1900,7 @@ name|T3
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -1928,7 +1928,7 @@ name|T2
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -1943,7 +1943,7 @@ name|T1
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -3474,7 +3474,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -5222,7 +5222,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|result
 operator|.
@@ -5248,7 +5248,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|result
 operator|.
@@ -5556,7 +5556,7 @@ name|toInt
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -17376,7 +17376,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|result
 operator|.
@@ -17402,7 +17402,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -17452,7 +17452,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|result
 operator|.
@@ -17478,7 +17478,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|result
 operator|.
@@ -17504,7 +17504,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -17530,7 +17530,7 @@ name|equals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -25037,7 +25037,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|key
 argument_list|)
@@ -25051,7 +25051,7 @@ name|row
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|key
 argument_list|)
@@ -25079,7 +25079,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25093,7 +25093,7 @@ name|family
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25121,7 +25121,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -25135,7 +25135,7 @@ name|qualifier
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -25163,7 +25163,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -25177,7 +25177,7 @@ name|value
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -25231,7 +25231,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|key
 argument_list|)
@@ -25245,7 +25245,7 @@ name|row
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|key
 argument_list|)
@@ -25273,7 +25273,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25287,7 +25287,7 @@ name|family
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25315,7 +25315,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -25329,7 +25329,7 @@ name|qualifier
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -25352,7 +25352,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -25366,7 +25366,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -25593,7 +25593,7 @@ name|famb
 init|=
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25604,7 +25604,7 @@ name|qualb
 init|=
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -25615,7 +25615,7 @@ name|valb
 init|=
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -25904,7 +25904,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|key
 argument_list|)
@@ -25947,7 +25947,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|key
 argument_list|)
@@ -26015,7 +26015,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|key
 argument_list|)
@@ -26167,7 +26167,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kvA
 argument_list|)
@@ -26181,7 +26181,7 @@ name|familyA
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kvA
 argument_list|)
@@ -26209,7 +26209,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kvA
 argument_list|)
@@ -26223,7 +26223,7 @@ name|qualifierA
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kvA
 argument_list|)
@@ -26251,7 +26251,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvA
 argument_list|)
@@ -26265,7 +26265,7 @@ name|valueA
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvA
 argument_list|)
@@ -26301,7 +26301,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kvB
 argument_list|)
@@ -26315,7 +26315,7 @@ name|familyB
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kvB
 argument_list|)
@@ -26343,7 +26343,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kvB
 argument_list|)
@@ -26357,7 +26357,7 @@ name|qualifierB
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kvB
 argument_list|)
@@ -26385,7 +26385,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvB
 argument_list|)
@@ -26399,7 +26399,7 @@ name|valueB
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvB
 argument_list|)
@@ -26520,7 +26520,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -26534,7 +26534,7 @@ name|family
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -26562,7 +26562,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -26576,7 +26576,7 @@ name|qualifier
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -26604,7 +26604,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -26618,7 +26618,7 @@ name|value
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -26742,7 +26742,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -26756,7 +26756,7 @@ name|family
 argument_list|,
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|kv
 argument_list|)
@@ -26784,7 +26784,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -26798,7 +26798,7 @@ name|qualifier
 argument_list|,
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
@@ -26851,7 +26851,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -26865,7 +26865,7 @@ name|value
 argument_list|,
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)

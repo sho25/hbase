@@ -4051,7 +4051,7 @@ block|{
 return|return
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|this
 argument_list|)
@@ -4070,7 +4070,7 @@ block|{
 return|return
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|this
 argument_list|)
@@ -4280,7 +4280,7 @@ block|{
 return|return
 name|CellUtil
 operator|.
-name|getFamilyArray
+name|cloneFamily
 argument_list|(
 name|this
 argument_list|)
@@ -4299,7 +4299,7 @@ block|{
 return|return
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|this
 argument_list|)

@@ -2071,7 +2071,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.
@@ -2119,7 +2119,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.
@@ -2136,7 +2136,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.
@@ -2326,7 +2326,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.
@@ -2441,7 +2441,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.
@@ -5363,7 +5363,7 @@ name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 operator|.

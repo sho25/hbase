@@ -162,7 +162,7 @@ name|short
 name|getTagsLength
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#getValueArray(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneValue(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte
@@ -170,7 +170,7 @@ index|[]
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's family.     *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#getFamilyArray(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's family.     *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneFamily(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte
@@ -178,7 +178,7 @@ index|[]
 name|getFamily
 parameter_list|()
 function_decl|;
-comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's qualifier.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#getQualifierArray(Cell)}    */
+comment|/**    * WARNING do not use, expensive.  This gets an arraycopy of the cell's qualifier.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link CellUtil#cloneQualifier(Cell)}    */
 annotation|@
 name|Deprecated
 name|byte

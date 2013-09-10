@@ -533,7 +533,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|result
 operator|.
@@ -720,7 +720,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[
@@ -844,7 +844,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kvs
 index|[

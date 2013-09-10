@@ -771,7 +771,7 @@ name|row
 init|=
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|results
 operator|.
@@ -799,7 +799,7 @@ name|row
 argument_list|,
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)

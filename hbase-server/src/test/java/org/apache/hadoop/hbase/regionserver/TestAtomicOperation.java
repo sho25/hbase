@@ -1379,7 +1379,7 @@ name|toLong
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|kv
 argument_list|)
@@ -3627,7 +3627,7 @@ name|toString
 argument_list|(
 name|CellUtil
 operator|.
-name|getValueArray
+name|cloneValue
 argument_list|(
 name|keyValue
 argument_list|)

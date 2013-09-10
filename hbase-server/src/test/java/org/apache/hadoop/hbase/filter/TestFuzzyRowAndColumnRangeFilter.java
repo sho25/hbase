@@ -1074,7 +1074,7 @@ name|toStringBinary
 argument_list|(
 name|CellUtil
 operator|.
-name|getRowArray
+name|cloneRow
 argument_list|(
 name|kv
 argument_list|)
@@ -1088,7 +1088,7 @@ name|toStringBinary
 argument_list|(
 name|CellUtil
 operator|.
-name|getQualifierArray
+name|cloneQualifier
 argument_list|(
 name|kv
 argument_list|)
