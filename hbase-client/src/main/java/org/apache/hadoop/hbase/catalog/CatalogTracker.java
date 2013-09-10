@@ -255,6 +255,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|RegionServerStoppedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -1511,6 +1527,14 @@ name|e
 parameter_list|)
 block|{
 comment|// Pass -- server name doesn't resolve so it can't be assigned anything.
+block|}
+catch|catch
+parameter_list|(
+name|RegionServerStoppedException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- server name sends us to a server that is dying or already dead.
 block|}
 return|return
 operator|(
