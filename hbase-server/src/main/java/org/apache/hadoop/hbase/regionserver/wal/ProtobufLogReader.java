@@ -988,6 +988,7 @@ condition|(
 literal|true
 condition|)
 block|{
+comment|// OriginalPosition might be< 0 on local fs; if so, it is useless to us.
 name|long
 name|originalPosition
 init|=
@@ -1003,14 +1004,20 @@ condition|(
 name|trailerPresent
 operator|&&
 name|originalPosition
+operator|>
+literal|0
+operator|&&
+name|originalPosition
 operator|==
 name|this
 operator|.
 name|walEditsStopOffset
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|WALKey
 operator|.
 name|Builder
@@ -1021,22 +1028,18 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|int
+name|long
 name|size
 init|=
 literal|0
 decl_stmt|;
 try|try
 block|{
-name|int
-name|originalAvailable
-init|=
-name|this
-operator|.
-name|inputStream
-operator|.
+name|long
 name|available
-argument_list|()
+init|=
+operator|-
+literal|1
 decl_stmt|;
 try|try
 block|{
@@ -1079,14 +1082,23 @@ operator|.
 name|inputStream
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
+comment|// available may be< 0 on local fs for instance.  If so, can't depend on it.
+name|available
+operator|=
 name|this
 operator|.
 name|inputStream
 operator|.
 name|available
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|available
+operator|>
+literal|0
+operator|&&
+name|available
 operator|<
 name|size
 condition|)
@@ -1166,18 +1178,9 @@ literal|", messageSize="
 operator|+
 name|size
 operator|+
-literal|", originalAvailable="
-operator|+
-name|originalAvailable
-operator|+
 literal|", currentAvailable="
 operator|+
-name|this
-operator|.
-name|inputStream
-operator|.
 name|available
-argument_list|()
 argument_list|)
 operator|.
 name|initCause
@@ -1462,6 +1465,18 @@ argument_list|,
 name|eof
 argument_list|)
 expr_stmt|;
+comment|// If originalPosition is< 0, it is rubbish and we cannot use it (probably local fs)
+if|if
+condition|(
+name|originalPosition
+operator|<
+literal|0
+condition|)
+throw|throw
+name|eof
+throw|;
+comment|// Else restore our position to original location in hope that next time through we will
+comment|// read successfully.
 name|seekOnFs
 argument_list|(
 name|originalPosition

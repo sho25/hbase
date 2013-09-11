@@ -482,7 +482,7 @@ name|keySize
 init|=
 literal|16
 decl_stmt|;
-comment|/**    * Perform HLog.append() of Put object, for the number of iterations requested.    * Keys and Vaues are generated randomly, the number of column familes,    * qualifiers and key/value size is tunable by the user.    */
+comment|/**    * Perform HLog.append() of Put object, for the number of iterations requested.    * Keys and Vaues are generated randomly, the number of column families,    * qualifiers and key/value size is tunable by the user.    */
 class|class
 name|HLogPutBenchmark
 implements|implements
@@ -843,6 +843,11 @@ name|verbose
 init|=
 literal|false
 decl_stmt|;
+name|boolean
+name|cleanup
+init|=
+literal|true
+decl_stmt|;
 name|long
 name|roll
 init|=
@@ -1097,6 +1102,22 @@ block|{
 name|verbose
 operator|=
 literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-nocleanup"
+argument_list|)
+condition|)
+block|{
+name|cleanup
+operator|=
+literal|false
 expr_stmt|;
 block|}
 elseif|else
@@ -1444,27 +1465,73 @@ name|editCount
 init|=
 literal|0
 decl_stmt|;
-for|for
-control|(
 name|FileStatus
-name|fss
-range|:
+index|[]
+name|fsss
+init|=
 name|fs
 operator|.
 name|listStatus
 argument_list|(
 name|dir
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|fsss
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"No WAL found"
+argument_list|)
+throw|;
+for|for
+control|(
+name|FileStatus
+name|fss
+range|:
+name|fsss
 control|)
 block|{
-name|editCount
-operator|+=
-name|verify
-argument_list|(
+name|Path
+name|p
+init|=
 name|fss
 operator|.
 name|getPath
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|p
+argument_list|)
+condition|)
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
+name|editCount
+operator|+=
+name|verify
+argument_list|(
+name|p
 argument_list|,
 name|verbose
 argument_list|)
@@ -1514,6 +1581,10 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// Remove the root dir for this test region
+if|if
+condition|(
+name|cleanup
+condition|)
 name|cleanRegionRootDir
 argument_list|(
 name|fs
@@ -1670,7 +1741,22 @@ name|e
 operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Read count="
+operator|+
+name|count
+operator|+
+literal|" from "
+operator|+
+name|wal
+argument_list|)
+expr_stmt|;
 break|break;
+block|}
 name|count
 operator|++
 expr_stmt|;
@@ -1886,6 +1972,15 @@ operator|.
 name|println
 argument_list|(
 literal|"  -valueSize<N>   Row/Col value size in byte."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  -nocleanup       Do NOT remove test data when done."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2342,6 +2437,10 @@ operator|new
 name|Thread
 argument_list|(
 name|runnable
+argument_list|,
+literal|"t"
+operator|+
+name|i
 argument_list|)
 expr_stmt|;
 name|threads
@@ -2381,7 +2480,7 @@ name|startTime
 operator|)
 return|;
 block|}
-comment|/**    * The guts of the {@link #main} method.    * Call this method to avoid the {@link #main(String[])} System.exit.    * @param args    * @return errCode    * @throws Exception     */
+comment|/**    * The guts of the {@link #main} method.    * Call this method to avoid the {@link #main(String[])} System.exit.    * @param args    * @return errCode    * @throws Exception    */
 specifier|static
 name|int
 name|innerMain

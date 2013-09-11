@@ -65,16 +65,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|UUID
 import|;
 end_import
@@ -270,6 +260,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+comment|// TODO: Rename interface to WAL
 specifier|public
 interface|interface
 name|HLog
@@ -287,6 +278,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** File Extension used while splitting an HLog into regions (HBASE-2312) */
+comment|// TODO: this seems like an implementation detail that does not belong here.
 name|String
 name|SPLITTING_EXT
 init|=
@@ -304,6 +296,7 @@ init|=
 literal|".meta"
 decl_stmt|;
 comment|/**    * Configuration name of HLog Trailer's warning size. If a waltrailer's size is greater than the    * configured size, a warning is logged. This is used with Protobuf reader/writer.    */
+comment|// TODO: Implementation detail.  Why in here?
 name|String
 name|WAL_TRAILER_WARN_SIZE
 init|=
@@ -317,6 +310,7 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|// 1MB
+comment|// TODO: Implemenation detail.  Why in here?
 name|Pattern
 name|EDITFILES_NAME_PATTERN
 init|=
@@ -335,7 +329,7 @@ decl_stmt|;
 interface|interface
 name|Reader
 block|{
-comment|/**      * @param fs File system.      * @param path Path.      * @param c Config.      * @param s Input stream that may have been pre-opened by the caller; may be null.      */
+comment|/**      * @param fs File system.      * @param path Path.      * @param c Configuration.      * @param s Input stream that may have been pre-opened by the caller; may be null.      */
 name|void
 name|init
 parameter_list|(
@@ -397,6 +391,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**      * @return the WALTrailer of the current HLog. It may be null in case of legacy or corrupt WAL      *         files.      */
+comment|// TODO: What we need a trailer on WAL for?
 name|WALTrailer
 name|getWALTrailer
 parameter_list|()
@@ -456,7 +451,8 @@ name|walTrailer
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Utility class that lets us keep track of the edit with it's key Only used    * when splitting logs    */
+comment|/**    * Utility class that lets us keep track of the edit with it's key.    * Only used when splitting logs.    */
+comment|// TODO: Remove this Writable.
 class|class
 name|Entry
 implements|implements
@@ -487,7 +483,7 @@ name|HLogKey
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Constructor for both params      *      * @param edit      *          log's edit      * @param key      *          log's key      */
+comment|/**      * Constructor for both params      *      * @param edit log's edit      * @param key log's key      */
 specifier|public
 name|Entry
 parameter_list|(
@@ -659,11 +655,12 @@ name|listener
 parameter_list|)
 function_decl|;
 comment|/**    * @return Current state of the monotonically increasing file id.    */
+comment|// TODO: Remove.  Implementation detail.
 name|long
 name|getFilenum
 parameter_list|()
 function_decl|;
-comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue    *          We'll set log edit/sequence number to this value if it is greater    *          than the current value.    */
+comment|/**    * Called to ensure that log sequence numbers are always greater    *    * @param newvalue We'll set log edit/sequence number to this value if it is greater    * than the current value.    */
 name|void
 name|setSequenceNumber
 parameter_list|(
@@ -677,6 +674,7 @@ name|long
 name|getSequenceNumber
 parameter_list|()
 function_decl|;
+comment|// TODO: Log rolling should not be in this interface.
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 name|byte
 index|[]
@@ -740,7 +738,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, row name, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
 specifier|public
 name|void
 name|append
@@ -797,6 +795,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|// TODO: Do we need all these versions of sync?
 name|void
 name|hsync
 parameter_list|()
@@ -825,6 +824,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Obtain a log sequence number.    */
+comment|// TODO: Name better to differentiate from getSequenceNumber.
 name|long
 name|obtainSeqNum
 parameter_list|()
@@ -864,6 +864,7 @@ name|getCoprocessorHost
 parameter_list|()
 function_decl|;
 comment|/**    * Get LowReplication-Roller status    *    * @return lowReplicationRollEnabled    */
+comment|// TODO: This is implementation detail?
 name|boolean
 name|isLowReplicationRollEnabled
 parameter_list|()
