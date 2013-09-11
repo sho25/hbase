@@ -1939,6 +1939,18 @@ name|IOException
 block|{
 comment|// check for old format, of having /table/.tableinfo; hbase:meta doesn't has .tableinfo,
 comment|// include it.
+if|if
+condition|(
+name|fs
+operator|.
+name|isFile
+argument_list|(
+name|path
+argument_list|)
+condition|)
+return|return
+literal|false
+return|;
 return|return
 operator|(
 name|FSTableDescriptors
@@ -1993,6 +2005,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|fs
+operator|.
+name|isFile
+argument_list|(
+name|path
+argument_list|)
+condition|)
+return|return
+literal|false
+return|;
 name|Path
 name|regionInfo
 init|=
