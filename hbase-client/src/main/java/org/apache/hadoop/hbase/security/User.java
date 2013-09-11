@@ -581,7 +581,7 @@ name|isSecurityEnabled
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns whether or not secure authentication is enabled for HBase.  Note that    * HBase security requires HDFS security to provide any guarantees, so this requires that    * both<code>hbase.security.authentication</code> and<code>hadoop.security.authentication</code>    * are set to<code>kerberos</code>.    */
+comment|/**    * Returns whether or not secure authentication is enabled for HBase. Note that    * HBase security requires HDFS security to provide any guarantees, so it is    * recommended that secure HBase should run on secure HDFS.    */
 specifier|public
 specifier|static
 name|boolean
@@ -601,20 +601,6 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_SECURITY_CONF_KEY
-argument_list|)
-argument_list|)
-operator|&&
-literal|"kerberos"
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-name|CommonConfigurationKeys
-operator|.
-name|HADOOP_SECURITY_AUTHENTICATION
 argument_list|)
 argument_list|)
 return|;
