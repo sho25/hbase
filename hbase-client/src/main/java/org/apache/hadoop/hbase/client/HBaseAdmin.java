@@ -12600,6 +12600,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// The above prepare could fail but this would still be called though masterAdmin is null
+if|if
+condition|(
+name|this
+operator|.
+name|masterAdmin
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|masterAdmin
@@ -12674,6 +12683,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// The above prepare could fail but this would still be called though masterMonitor is null
+if|if
+condition|(
+name|this
+operator|.
+name|masterMonitor
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|masterMonitor
