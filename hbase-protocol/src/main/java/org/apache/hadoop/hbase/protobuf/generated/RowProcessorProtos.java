@@ -50,7 +50,7 @@ parameter_list|)
 block|{   }
 specifier|public
 interface|interface
-name|RowProcessorRequestOrBuilder
+name|ProcessRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -130,12 +130,12 @@ name|getRowProcessorInitializerMessage
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RowProcessorRequest}    */
+comment|/**    * Protobuf type {@code ProcessRequest}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|RowProcessorRequest
+name|ProcessRequest
 extends|extends
 name|com
 operator|.
@@ -145,11 +145,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|RowProcessorRequestOrBuilder
+name|ProcessRequestOrBuilder
 block|{
-comment|// Use RowProcessorRequest.newBuilder() to construct.
+comment|// Use ProcessRequest.newBuilder() to construct.
 specifier|private
-name|RowProcessorRequest
+name|ProcessRequest
 parameter_list|(
 name|com
 operator|.
@@ -182,7 +182,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RowProcessorRequest
+name|ProcessRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -207,12 +207,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|RowProcessorRequest
+name|ProcessRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|RowProcessorRequest
+name|ProcessRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -221,7 +221,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|RowProcessorRequest
+name|ProcessRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -265,7 +265,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|RowProcessorRequest
+name|ProcessRequest
 parameter_list|(
 name|com
 operator|.
@@ -535,7 +535,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -566,7 +566,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorRequest_fieldAccessorTable
+name|internal_static_ProcessRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -584,7 +584,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|class
 argument_list|,
@@ -602,7 +602,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|Builder
 operator|.
@@ -620,7 +620,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|>
 name|PARSER
 init|=
@@ -633,12 +633,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|RowProcessorRequest
+name|ProcessRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -670,7 +670,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|(
 name|input
 argument_list|,
@@ -695,7 +695,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -1597,7 +1597,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 condition|)
 block|{
@@ -1624,7 +1624,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|other
 init|=
 operator|(
@@ -1642,7 +1642,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -1956,7 +1956,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2002,7 +2002,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2059,7 +2059,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -2100,7 +2100,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -2152,7 +2152,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -2194,7 +2194,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -2247,7 +2247,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -2289,7 +2289,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -2342,7 +2342,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2386,7 +2386,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2467,7 +2467,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|prototype
 parameter_list|)
 block|{
@@ -2528,7 +2528,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RowProcessorRequest}      */
+comment|/**      * Protobuf type {@code ProcessRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2562,7 +2562,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequestOrBuilder
+name|ProcessRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -2594,7 +2594,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2625,7 +2625,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorRequest_fieldAccessorTable
+name|internal_static_ProcessRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2643,7 +2643,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|class
 argument_list|,
@@ -2661,7 +2661,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|Builder
 operator|.
@@ -2669,7 +2669,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RowProcessorProtos.RowProcessorRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RowProcessorProtos.ProcessRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -2838,7 +2838,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2856,7 +2856,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -2875,7 +2875,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2896,7 +2896,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|build
 parameter_list|()
 block|{
@@ -2914,7 +2914,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|result
 init|=
 name|buildPartial
@@ -2955,7 +2955,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -2973,7 +2973,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|result
 init|=
 operator|new
@@ -2991,7 +2991,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|(
 name|this
 argument_list|)
@@ -3123,7 +3123,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 condition|)
 block|{
 return|return
@@ -3144,7 +3144,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 name|other
 argument_list|)
@@ -3182,7 +3182,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|other
 parameter_list|)
 block|{
@@ -3204,7 +3204,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3351,7 +3351,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|parsedMessage
 init|=
 literal|null
@@ -3399,7 +3399,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 name|e
 operator|.
@@ -4166,14 +4166,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RowProcessorRequest)
+comment|// @@protoc_insertion_point(builder_scope:ProcessRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|RowProcessorRequest
+name|ProcessRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -4184,11 +4184,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RowProcessorRequest)
+comment|// @@protoc_insertion_point(class_scope:ProcessRequest)
 block|}
 specifier|public
 interface|interface
-name|RowProcessorResultOrBuilder
+name|ProcessResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -4216,12 +4216,12 @@ name|getRowProcessorResult
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RowProcessorResult}    */
+comment|/**    * Protobuf type {@code ProcessResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|RowProcessorResult
+name|ProcessResponse
 extends|extends
 name|com
 operator|.
@@ -4231,11 +4231,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|RowProcessorResultOrBuilder
+name|ProcessResponseOrBuilder
 block|{
-comment|// Use RowProcessorResult.newBuilder() to construct.
+comment|// Use ProcessResponse.newBuilder() to construct.
 specifier|private
-name|RowProcessorResult
+name|ProcessResponse
 parameter_list|(
 name|com
 operator|.
@@ -4268,7 +4268,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RowProcessorResult
+name|ProcessResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -4293,12 +4293,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|RowProcessorResult
+name|ProcessResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|RowProcessorResult
+name|ProcessResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -4307,7 +4307,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|RowProcessorResult
+name|ProcessResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -4351,7 +4351,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|RowProcessorResult
+name|ProcessResponse
 parameter_list|(
 name|com
 operator|.
@@ -4587,7 +4587,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -4618,7 +4618,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorResult_fieldAccessorTable
+name|internal_static_ProcessResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4636,7 +4636,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|class
 argument_list|,
@@ -4654,7 +4654,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|Builder
 operator|.
@@ -4672,7 +4672,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|PARSER
 init|=
@@ -4685,12 +4685,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|RowProcessorResult
+name|ProcessResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -4722,7 +4722,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|(
 name|input
 argument_list|,
@@ -4747,7 +4747,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -5103,7 +5103,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|)
 condition|)
 block|{
@@ -5130,7 +5130,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|other
 init|=
 operator|(
@@ -5148,7 +5148,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -5328,7 +5328,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5374,7 +5374,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5431,7 +5431,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -5472,7 +5472,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -5524,7 +5524,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -5566,7 +5566,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -5619,7 +5619,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -5661,7 +5661,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -5714,7 +5714,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5758,7 +5758,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5839,7 +5839,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|prototype
 parameter_list|)
 block|{
@@ -5900,7 +5900,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RowProcessorResult}      */
+comment|/**      * Protobuf type {@code ProcessResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -5934,7 +5934,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResultOrBuilder
+name|ProcessResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -5966,7 +5966,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -5997,7 +5997,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorResult_fieldAccessorTable
+name|internal_static_ProcessResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -6015,7 +6015,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|class
 argument_list|,
@@ -6033,7 +6033,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|Builder
 operator|.
@@ -6041,7 +6041,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RowProcessorProtos.RowProcessorResult.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RowProcessorProtos.ProcessResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -6184,7 +6184,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -6202,7 +6202,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -6221,7 +6221,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6242,7 +6242,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|build
 parameter_list|()
 block|{
@@ -6260,7 +6260,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|result
 init|=
 name|buildPartial
@@ -6301,7 +6301,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -6319,7 +6319,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|result
 init|=
 operator|new
@@ -6337,7 +6337,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|(
 name|this
 argument_list|)
@@ -6421,7 +6421,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 condition|)
 block|{
 return|return
@@ -6442,7 +6442,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|)
 name|other
 argument_list|)
@@ -6480,7 +6480,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|other
 parameter_list|)
 block|{
@@ -6502,7 +6502,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6605,7 +6605,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|parsedMessage
 init|=
 literal|null
@@ -6653,7 +6653,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|)
 name|e
 operator|.
@@ -6816,14 +6816,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RowProcessorResult)
+comment|// @@protoc_insertion_point(builder_scope:ProcessResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -6834,7 +6834,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RowProcessorResult)
+comment|// @@protoc_insertion_point(class_scope:ProcessResponse)
 block|}
 comment|/**    * Protobuf service {@code RowProcessorService}    */
 specifier|public
@@ -6859,7 +6859,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc Process(.RowProcessorRequest) returns (.RowProcessorResult);</code>        */
+comment|/**        *<code>rpc Process(.ProcessRequest) returns (.ProcessResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -6888,7 +6888,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|,
 name|com
@@ -6913,7 +6913,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -6973,7 +6973,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|,
 name|com
@@ -6998,7 +6998,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -7171,7 +7171,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 name|request
 argument_list|)
@@ -7264,7 +7264,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7357,7 +7357,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7379,7 +7379,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc Process(.RowProcessorRequest) returns (.RowProcessorResult);</code>      */
+comment|/**      *<code>rpc Process(.ProcessRequest) returns (.ProcessResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -7408,7 +7408,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|,
 name|com
@@ -7433,7 +7433,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -7609,7 +7609,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|)
 name|request
 argument_list|,
@@ -7636,7 +7636,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -7733,7 +7733,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7826,7 +7826,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7965,7 +7965,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|,
 name|com
@@ -7990,7 +7990,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -8028,7 +8028,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8059,7 +8059,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|class
 argument_list|,
@@ -8077,7 +8077,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8128,7 +8128,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|process
 parameter_list|(
 name|com
@@ -8154,7 +8154,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|)
 throws|throws
@@ -8221,7 +8221,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 name|process
 parameter_list|(
 name|com
@@ -8247,7 +8247,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|)
 throws|throws
@@ -8275,7 +8275,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|)
 name|channel
 operator|.
@@ -8310,7 +8310,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8331,7 +8331,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8344,7 +8344,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RowProcessorRequest_fieldAccessorTable
+name|internal_static_ProcessRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8357,7 +8357,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8370,7 +8370,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RowProcessorResult_fieldAccessorTable
+name|internal_static_ProcessResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -8414,25 +8414,23 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\022RowProcessor.proto\"\222\001\n\023RowProcessorReq"
+literal|"\n\022RowProcessor.proto\"\215\001\n\016ProcessRequest\022"
 operator|+
-literal|"uest\022 \n\030row_processor_class_name\030\001 \002(\t\022."
+literal|" \n\030row_processor_class_name\030\001 \002(\t\022.\n&row"
 operator|+
-literal|"\n&row_processor_initializer_message_name"
+literal|"_processor_initializer_message_name\030\002 \001("
 operator|+
-literal|"\030\002 \001(\t\022)\n!row_processor_initializer_mess"
+literal|"\t\022)\n!row_processor_initializer_message\030\003"
 operator|+
-literal|"age\030\003 \001(\014\"2\n\022RowProcessorResult\022\034\n\024row_p"
+literal|" \001(\014\"/\n\017ProcessResponse\022\034\n\024row_processor"
 operator|+
-literal|"rocessor_result\030\001 \002(\0142K\n\023RowProcessorSer"
+literal|"_result\030\001 \002(\0142C\n\023RowProcessorService\022,\n\007"
 operator|+
-literal|"vice\0224\n\007Process\022\024.RowProcessorRequest\032\023."
+literal|"Process\022\017.ProcessRequest\032\020.ProcessRespon"
 operator|+
-literal|"RowProcessorResultBH\n*org.apache.hadoop."
+literal|"seBH\n*org.apache.hadoop.hbase.protobuf.g"
 operator|+
-literal|"hbase.protobuf.generatedB\022RowProcessorPr"
-operator|+
-literal|"otosH\001\210\001\001\240\001\001"
+literal|"eneratedB\022RowProcessorProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -8488,7 +8486,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -8501,7 +8499,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_RowProcessorRequest_fieldAccessorTable
+name|internal_static_ProcessRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -8514,7 +8512,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RowProcessorRequest_descriptor
+name|internal_static_ProcessRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -8532,7 +8530,7 @@ literal|"RowProcessorInitializerMessage"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -8545,7 +8543,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_RowProcessorResult_fieldAccessorTable
+name|internal_static_ProcessResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -8558,7 +8556,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RowProcessorResult_descriptor
+name|internal_static_ProcessResponse_descriptor
 argument_list|,
 operator|new
 name|java

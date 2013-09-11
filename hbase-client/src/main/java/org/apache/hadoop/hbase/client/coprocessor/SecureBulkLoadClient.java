@@ -693,12 +693,12 @@ name|IOException
 block|{
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|protoDT
 init|=
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|newBuilder
 argument_list|()
@@ -717,7 +717,7 @@ name|protoDT
 operator|=
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|newBuilder
 argument_list|()

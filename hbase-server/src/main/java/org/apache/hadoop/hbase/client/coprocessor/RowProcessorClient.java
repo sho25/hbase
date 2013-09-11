@@ -73,7 +73,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 import|;
 end_import
 
@@ -133,7 +133,7 @@ name|T
 extends|extends
 name|Message
 parameter_list|>
-name|RowProcessorRequest
+name|ProcessRequest
 name|getRowProcessorPB
 parameter_list|(
 name|RowProcessor
@@ -148,12 +148,12 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|Builder
 name|requestBuilder
 init|=
-name|RowProcessorRequest
+name|ProcessRequest
 operator|.
 name|newBuilder
 argument_list|()

@@ -1399,7 +1399,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 import|;
 end_import
 
@@ -1579,7 +1579,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotRequest
+name|SnapshotRequest
 import|;
 end_import
 
@@ -1599,7 +1599,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotResponse
+name|SnapshotResponse
 import|;
 end_import
 
@@ -11103,7 +11103,7 @@ throws|,
 name|IllegalArgumentException
 block|{
 comment|// actually take the snapshot
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|response
 init|=
 name|takeSnapshotAsync
@@ -11363,7 +11363,7 @@ block|}
 block|}
 comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous)    *<p>    * Only a single snapshot should be taken at a time, or results may be undefined.    * @param snapshot snapshot to take    * @return response from the server indicating the max time to wait for the snapshot    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 specifier|public
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|takeSnapshotAsync
 parameter_list|(
 name|SnapshotDescription
@@ -11382,10 +11382,10 @@ name|snapshot
 argument_list|)
 expr_stmt|;
 specifier|final
-name|TakeSnapshotRequest
+name|SnapshotRequest
 name|request
 init|=
-name|TakeSnapshotRequest
+name|SnapshotRequest
 operator|.
 name|newBuilder
 argument_list|()
@@ -11405,7 +11405,7 @@ argument_list|(
 operator|new
 name|MasterAdminCallable
 argument_list|<
-name|TakeSnapshotResponse
+name|SnapshotResponse
 argument_list|>
 argument_list|(
 name|getConnection
@@ -11415,7 +11415,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|call
 parameter_list|()
 throws|throws
@@ -12240,7 +12240,7 @@ name|getCompletedSnapshots
 argument_list|(
 literal|null
 argument_list|,
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 operator|.
 name|newBuilder
 argument_list|()

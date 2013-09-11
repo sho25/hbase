@@ -1638,7 +1638,7 @@ name|Override
 specifier|public
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getAuthenticationToken
 parameter_list|(
 name|RpcController
@@ -1646,7 +1646,7 @@ name|controller
 parameter_list|,
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|)
 throws|throws
@@ -1676,7 +1676,7 @@ name|BlockingRpcCallback
 argument_list|<
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|callback
 init|=
@@ -1685,7 +1685,7 @@ name|BlockingRpcCallback
 argument_list|<
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 argument_list|()
 decl_stmt|;

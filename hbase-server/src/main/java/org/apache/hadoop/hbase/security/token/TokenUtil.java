@@ -358,7 +358,7 @@ argument_list|)
 decl_stmt|;
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|response
 init|=
 name|service
@@ -369,7 +369,7 @@ literal|null
 argument_list|,
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|getDefaultInstance
 argument_list|()

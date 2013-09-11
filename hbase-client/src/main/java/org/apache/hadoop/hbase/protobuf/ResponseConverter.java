@@ -207,7 +207,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 import|;
 end_import
 
@@ -425,7 +425,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 import|;
 end_import
 
@@ -806,11 +806,11 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Converts the permissions list into a protocol buffer UserPermissionsResponse    */
+comment|/**    * Converts the permissions list into a protocol buffer GetUserPermissionsResponse    */
 specifier|public
 specifier|static
-name|UserPermissionsResponse
-name|buildUserPermissionsResponse
+name|GetUserPermissionsResponse
+name|buildGetUserPermissionsResponse
 parameter_list|(
 specifier|final
 name|List
@@ -820,12 +820,12 @@ argument_list|>
 name|permissions
 parameter_list|)
 block|{
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|Builder
 name|builder
 init|=
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|newBuilder
 argument_list|()
@@ -1264,18 +1264,18 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a response for the catalog scan request    * @return A CatalogScanResponse    */
+comment|/**    * Creates a response for the catalog scan request    * @return A RunCatalogScanResponse    */
 specifier|public
 specifier|static
-name|CatalogScanResponse
-name|buildCatalogScanResponse
+name|RunCatalogScanResponse
+name|buildRunCatalogScanResponse
 parameter_list|(
 name|int
 name|numCleaned
 parameter_list|)
 block|{
 return|return
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 operator|.
 name|newBuilder
 argument_list|()

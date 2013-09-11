@@ -183,13 +183,13 @@ name|boolean
 name|getAssignSeqNum
 parameter_list|()
 function_decl|;
-comment|// required .DelegationTokenProto fs_token = 3;
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|// required .DelegationToken fs_token = 3;
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 name|boolean
 name|hasFsToken
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -204,11 +204,11 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|getFsToken
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 name|org
 operator|.
 name|apache
@@ -223,7 +223,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 name|getFsTokenOrBuilder
 parameter_list|()
 function_decl|;
@@ -627,7 +627,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 name|subBuilder
@@ -675,7 +675,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|PARSER
 argument_list|,
@@ -1255,7 +1255,7 @@ return|return
 name|assignSeqNum_
 return|;
 block|}
-comment|// required .DelegationTokenProto fs_token = 3;
+comment|// required .DelegationToken fs_token = 3;
 specifier|public
 specifier|static
 specifier|final
@@ -1279,10 +1279,10 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|fsToken_
 decl_stmt|;
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 specifier|public
 name|boolean
 name|hasFsToken
@@ -1300,7 +1300,7 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1316,7 +1316,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|getFsToken
 parameter_list|()
 block|{
@@ -1324,7 +1324,7 @@ return|return
 name|fsToken_
 return|;
 block|}
-comment|/**      *<code>required .DelegationTokenProto fs_token = 3;</code>      */
+comment|/**      *<code>required .DelegationToken fs_token = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -1340,7 +1340,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 name|getFsTokenOrBuilder
 parameter_list|()
 block|{
@@ -1597,7 +1597,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3387,7 +3387,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -5799,7 +5799,7 @@ return|return
 name|this
 return|;
 block|}
-comment|// required .DelegationTokenProto fs_token = 3;
+comment|// required .DelegationToken fs_token = 3;
 specifier|private
 name|org
 operator|.
@@ -5815,7 +5815,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|fsToken_
 init|=
 name|org
@@ -5832,7 +5832,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -5860,7 +5860,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|,
 name|org
 operator|.
@@ -5876,7 +5876,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 argument_list|,
@@ -5894,11 +5894,11 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 argument_list|>
 name|fsTokenBuilder_
 decl_stmt|;
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|boolean
 name|hasFsToken
@@ -5916,7 +5916,7 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -5932,7 +5932,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|getFsToken
 parameter_list|()
 block|{
@@ -5957,7 +5957,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|Builder
 name|setFsToken
@@ -5976,7 +5976,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|value
 parameter_list|)
 block|{
@@ -6026,7 +6026,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|Builder
 name|setFsToken
@@ -6045,7 +6045,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 name|builderForValue
@@ -6090,7 +6090,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|Builder
 name|mergeFsToken
@@ -6109,7 +6109,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|value
 parameter_list|)
 block|{
@@ -6148,7 +6148,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6170,7 +6170,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|newBuilder
 argument_list|(
@@ -6215,7 +6215,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|Builder
 name|clearFsToken
@@ -6244,7 +6244,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6274,7 +6274,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6290,7 +6290,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 name|getFsTokenBuilder
@@ -6311,7 +6311,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|public
 name|org
 operator|.
@@ -6327,7 +6327,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 name|getFsTokenOrBuilder
 parameter_list|()
 block|{
@@ -6352,7 +6352,7 @@ name|fsToken_
 return|;
 block|}
 block|}
-comment|/**        *<code>required .DelegationTokenProto fs_token = 3;</code>        */
+comment|/**        *<code>required .DelegationToken fs_token = 3;</code>        */
 specifier|private
 name|com
 operator|.
@@ -6376,7 +6376,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|,
 name|org
 operator|.
@@ -6392,7 +6392,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 argument_list|,
@@ -6410,7 +6410,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 argument_list|>
 name|getFsTokenFieldBuilder
 parameter_list|()
@@ -6447,7 +6447,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|,
 name|org
 operator|.
@@ -6463,7 +6463,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 argument_list|,
@@ -6481,7 +6481,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 argument_list|>
 argument_list|(
 name|fsToken_
@@ -9396,7 +9396,7 @@ comment|// @@protoc_insertion_point(class_scope:SecureBulkLoadHFilesResponse)
 block|}
 specifier|public
 interface|interface
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 extends|extends
 name|com
 operator|.
@@ -9493,12 +9493,12 @@ name|getServiceBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code DelegationTokenProto}    */
+comment|/**    * Protobuf type {@code DelegationToken}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|DelegationTokenProto
+name|DelegationToken
 extends|extends
 name|com
 operator|.
@@ -9508,11 +9508,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 block|{
-comment|// Use DelegationTokenProto.newBuilder() to construct.
+comment|// Use DelegationToken.newBuilder() to construct.
 specifier|private
-name|DelegationTokenProto
+name|DelegationToken
 parameter_list|(
 name|com
 operator|.
@@ -9545,7 +9545,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|DelegationTokenProto
+name|DelegationToken
 parameter_list|(
 name|boolean
 name|noInit
@@ -9570,12 +9570,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|DelegationTokenProto
+name|DelegationToken
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|DelegationTokenProto
+name|DelegationToken
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -9584,7 +9584,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|DelegationTokenProto
+name|DelegationToken
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -9628,7 +9628,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|DelegationTokenProto
+name|DelegationToken
 parameter_list|(
 name|com
 operator|.
@@ -9915,7 +9915,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 return|;
 block|}
 specifier|protected
@@ -9946,7 +9946,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|internal_static_DelegationTokenProto_fieldAccessorTable
+name|internal_static_DelegationToken_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -9964,7 +9964,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|class
 argument_list|,
@@ -9982,7 +9982,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 operator|.
@@ -10000,7 +10000,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|>
 name|PARSER
 init|=
@@ -10013,12 +10013,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|DelegationTokenProto
+name|DelegationToken
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -10050,7 +10050,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|(
 name|input
 argument_list|,
@@ -10075,7 +10075,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -11081,7 +11081,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|)
 condition|)
 block|{
@@ -11108,7 +11108,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|other
 init|=
 operator|(
@@ -11126,7 +11126,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|)
 name|obj
 decl_stmt|;
@@ -11507,7 +11507,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|com
@@ -11553,7 +11553,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|com
@@ -11610,7 +11610,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|byte
@@ -11651,7 +11651,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|byte
@@ -11703,7 +11703,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|java
@@ -11745,7 +11745,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|java
@@ -11798,7 +11798,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -11840,7 +11840,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -11893,7 +11893,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|com
@@ -11937,7 +11937,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parseFrom
 parameter_list|(
 name|com
@@ -12018,7 +12018,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|prototype
 parameter_list|)
 block|{
@@ -12079,7 +12079,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code DelegationTokenProto}      */
+comment|/**      * Protobuf type {@code DelegationToken}      */
 specifier|public
 specifier|static
 specifier|final
@@ -12113,7 +12113,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProtoOrBuilder
+name|DelegationTokenOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -12145,7 +12145,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 return|;
 block|}
 specifier|protected
@@ -12176,7 +12176,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|internal_static_DelegationTokenProto_fieldAccessorTable
+name|internal_static_DelegationToken_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -12194,7 +12194,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|class
 argument_list|,
@@ -12212,7 +12212,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|Builder
 operator|.
@@ -12220,7 +12220,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.SecureBulkLoadProtos.DelegationTokenProto.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.SecureBulkLoadProtos.DelegationToken.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -12410,7 +12410,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 return|;
 block|}
 specifier|public
@@ -12428,7 +12428,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -12447,7 +12447,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -12468,7 +12468,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|build
 parameter_list|()
 block|{
@@ -12486,7 +12486,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|result
 init|=
 name|buildPartial
@@ -12527,7 +12527,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|buildPartial
 parameter_list|()
 block|{
@@ -12545,7 +12545,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|result
 init|=
 operator|new
@@ -12563,7 +12563,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|(
 name|this
 argument_list|)
@@ -12719,7 +12719,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 condition|)
 block|{
 return|return
@@ -12740,7 +12740,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|)
 name|other
 argument_list|)
@@ -12778,7 +12778,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|other
 parameter_list|)
 block|{
@@ -12800,7 +12800,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -12953,7 +12953,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 name|parsedMessage
 init|=
 literal|null
@@ -13001,7 +13001,7 @@ name|generated
 operator|.
 name|SecureBulkLoadProtos
 operator|.
-name|DelegationTokenProto
+name|DelegationToken
 operator|)
 name|e
 operator|.
@@ -13896,14 +13896,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:DelegationTokenProto)
+comment|// @@protoc_insertion_point(builder_scope:DelegationToken)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|DelegationTokenProto
+name|DelegationToken
 argument_list|(
 literal|true
 argument_list|)
@@ -13914,7 +13914,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:DelegationTokenProto)
+comment|// @@protoc_insertion_point(class_scope:DelegationToken)
 block|}
 specifier|public
 interface|interface
@@ -28452,7 +28452,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -28465,7 +28465,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_DelegationTokenProto_fieldAccessorTable
+name|internal_static_DelegationToken_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -28613,49 +28613,49 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\024SecureBulkLoad.proto\032\013hbase.proto\032\014Cli"
+literal|"\n\024SecureBulkLoad.proto\032\013HBase.proto\032\014Cli"
 operator|+
-literal|"ent.proto\"\251\001\n\033SecureBulkLoadHFilesReques"
+literal|"ent.proto\"\244\001\n\033SecureBulkLoadHFilesReques"
 operator|+
 literal|"t\0225\n\013family_path\030\001 \003(\0132 .BulkLoadHFileRe"
 operator|+
 literal|"quest.FamilyPath\022\026\n\016assign_seq_num\030\002 \001(\010"
 operator|+
-literal|"\022\'\n\010fs_token\030\003 \002(\0132\025.DelegationTokenProt"
+literal|"\022\"\n\010fs_token\030\003 \002(\0132\020.DelegationToken\022\022\n\n"
 operator|+
-literal|"o\022\022\n\nbulk_token\030\004 \002(\t\".\n\034SecureBulkLoadH"
+literal|"bulk_token\030\004 \002(\t\".\n\034SecureBulkLoadHFiles"
 operator|+
-literal|"FilesResponse\022\016\n\006loaded\030\001 \002(\010\"[\n\024Delegat"
+literal|"Response\022\016\n\006loaded\030\001 \002(\010\"V\n\017DelegationTo"
 operator|+
-literal|"ionTokenProto\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010pas"
+literal|"ken\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password\030\002 \001("
 operator|+
-literal|"sword\030\002 \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001"
+literal|"\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"8\n\026Prep"
 operator|+
-literal|"(\t\"8\n\026PrepareBulkLoadRequest\022\036\n\ntable_na"
+literal|"areBulkLoadRequest\022\036\n\ntable_name\030\001 \002(\0132\n"
 block|,
-literal|"me\030\001 \002(\0132\n.TableName\"-\n\027PrepareBulkLoadR"
+literal|".TableName\"-\n\027PrepareBulkLoadResponse\022\022\n"
 operator|+
-literal|"esponse\022\022\n\nbulk_token\030\001 \002(\t\",\n\026CleanupBu"
+literal|"\nbulk_token\030\001 \002(\t\",\n\026CleanupBulkLoadRequ"
 operator|+
-literal|"lkLoadRequest\022\022\n\nbulk_token\030\001 \002(\t\"\031\n\027Cle"
+literal|"est\022\022\n\nbulk_token\030\001 \002(\t\"\031\n\027CleanupBulkLo"
 operator|+
-literal|"anupBulkLoadResponse2\370\001\n\025SecureBulkLoadS"
+literal|"adResponse2\370\001\n\025SecureBulkLoadService\022D\n\017"
 operator|+
-literal|"ervice\022D\n\017PrepareBulkLoad\022\027.PrepareBulkL"
+literal|"PrepareBulkLoad\022\027.PrepareBulkLoadRequest"
 operator|+
-literal|"oadRequest\032\030.PrepareBulkLoadResponse\022S\n\024"
+literal|"\032\030.PrepareBulkLoadResponse\022S\n\024SecureBulk"
 operator|+
-literal|"SecureBulkLoadHFiles\022\034.SecureBulkLoadHFi"
+literal|"LoadHFiles\022\034.SecureBulkLoadHFilesRequest"
 operator|+
-literal|"lesRequest\032\035.SecureBulkLoadHFilesRespons"
+literal|"\032\035.SecureBulkLoadHFilesResponse\022D\n\017Clean"
 operator|+
-literal|"e\022D\n\017CleanupBulkLoad\022\027.CleanupBulkLoadRe"
+literal|"upBulkLoad\022\027.CleanupBulkLoadRequest\032\030.Cl"
 operator|+
-literal|"quest\032\030.CleanupBulkLoadResponseBJ\n*org.a"
+literal|"eanupBulkLoadResponseBJ\n*org.apache.hado"
 block|,
-literal|"pache.hadoop.hbase.protobuf.generatedB\024S"
+literal|"op.hbase.protobuf.generatedB\024SecureBulkL"
 operator|+
-literal|"ecureBulkLoadProtosH\001\210\001\001\240\001\001"
+literal|"oadProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -28797,7 +28797,7 @@ literal|"Loaded"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -28810,7 +28810,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|internal_static_DelegationTokenProto_fieldAccessorTable
+name|internal_static_DelegationToken_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -28823,7 +28823,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_DelegationTokenProto_descriptor
+name|internal_static_DelegationToken_descriptor
 argument_list|,
 operator|new
 name|java

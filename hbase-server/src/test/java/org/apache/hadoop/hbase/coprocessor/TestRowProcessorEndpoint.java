@@ -585,7 +585,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 import|;
 end_import
 
@@ -605,7 +605,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 import|;
 end_import
 
@@ -834,7 +834,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Verifies ProcessRowEndpoint works.  * The tested RowProcessor performs two scans and a read-modify-write.  */
+comment|/**  * Verifies ProcessEndpoint works.  * The tested RowProcessor performs two scans and a read-modify-write.  */
 end_comment
 
 begin_class
@@ -1402,7 +1402,7 @@ argument_list|(
 name|channel
 argument_list|)
 decl_stmt|;
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 init|=
 name|RowProcessorClient
@@ -1412,7 +1412,7 @@ argument_list|(
 name|processor
 argument_list|)
 decl_stmt|;
-name|RowProcessorResult
+name|ProcessResponse
 name|protoResult
 init|=
 name|service
@@ -1697,7 +1697,7 @@ argument_list|(
 name|channel
 argument_list|)
 decl_stmt|;
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 init|=
 name|RowProcessorClient
@@ -1707,7 +1707,7 @@ argument_list|(
 name|processor
 argument_list|)
 decl_stmt|;
-name|RowProcessorResult
+name|ProcessResponse
 name|protoResult
 init|=
 name|service
@@ -2075,7 +2075,7 @@ argument_list|(
 name|channel
 argument_list|)
 decl_stmt|;
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 init|=
 name|RowProcessorClient
@@ -2142,7 +2142,7 @@ argument_list|(
 name|channel
 argument_list|)
 decl_stmt|;
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 init|=
 name|RowProcessorClient

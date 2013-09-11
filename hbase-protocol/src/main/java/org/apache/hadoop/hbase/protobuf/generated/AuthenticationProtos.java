@@ -11780,7 +11780,7 @@ comment|// @@protoc_insertion_point(class_scope:Token)
 block|}
 specifier|public
 interface|interface
-name|TokenRequestOrBuilder
+name|GetAuthenticationTokenRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -11790,12 +11790,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code TokenRequest}    *    *<pre>    * RPC request&amp; response messages    *</pre>    */
+comment|/**    * Protobuf type {@code GetAuthenticationTokenRequest}    *    *<pre>    * RPC request&amp; response messages    *</pre>    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 extends|extends
 name|com
 operator|.
@@ -11805,11 +11805,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|TokenRequestOrBuilder
+name|GetAuthenticationTokenRequestOrBuilder
 block|{
-comment|// Use TokenRequest.newBuilder() to construct.
+comment|// Use GetAuthenticationTokenRequest.newBuilder() to construct.
 specifier|private
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 parameter_list|(
 name|com
 operator|.
@@ -11842,7 +11842,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -11867,12 +11867,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -11881,7 +11881,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -11925,7 +11925,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 parameter_list|(
 name|com
 operator|.
@@ -12139,7 +12139,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -12170,7 +12170,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenRequest_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -12188,7 +12188,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|class
 argument_list|,
@@ -12206,7 +12206,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|Builder
 operator|.
@@ -12224,7 +12224,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|>
 name|PARSER
 init|=
@@ -12237,12 +12237,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -12274,7 +12274,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|(
 name|input
 argument_list|,
@@ -12299,7 +12299,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -12516,7 +12516,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 condition|)
 block|{
@@ -12543,7 +12543,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|other
 init|=
 operator|(
@@ -12561,7 +12561,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -12674,7 +12674,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -12720,7 +12720,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -12777,7 +12777,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -12818,7 +12818,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -12870,7 +12870,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -12912,7 +12912,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -12965,7 +12965,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -13007,7 +13007,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -13060,7 +13060,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -13104,7 +13104,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -13185,7 +13185,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|prototype
 parameter_list|)
 block|{
@@ -13246,7 +13246,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TokenRequest}      *      *<pre>      * RPC request&amp; response messages      *</pre>      */
+comment|/**      * Protobuf type {@code GetAuthenticationTokenRequest}      *      *<pre>      * RPC request&amp; response messages      *</pre>      */
 specifier|public
 specifier|static
 specifier|final
@@ -13280,7 +13280,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequestOrBuilder
+name|GetAuthenticationTokenRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -13312,7 +13312,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -13343,7 +13343,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenRequest_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -13361,7 +13361,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|class
 argument_list|,
@@ -13379,7 +13379,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|Builder
 operator|.
@@ -13387,7 +13387,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AuthenticationProtos.TokenRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AuthenticationProtos.GetAuthenticationTokenRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -13509,7 +13509,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -13527,7 +13527,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -13546,7 +13546,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -13567,7 +13567,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|build
 parameter_list|()
 block|{
@@ -13585,7 +13585,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|result
 init|=
 name|buildPartial
@@ -13626,7 +13626,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -13644,7 +13644,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|result
 init|=
 operator|new
@@ -13662,7 +13662,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|(
 name|this
 argument_list|)
@@ -13706,7 +13706,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 condition|)
 block|{
 return|return
@@ -13727,7 +13727,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 name|other
 argument_list|)
@@ -13765,7 +13765,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|other
 parameter_list|)
 block|{
@@ -13787,7 +13787,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -13862,7 +13862,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|parsedMessage
 init|=
 literal|null
@@ -13910,7 +13910,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 name|e
 operator|.
@@ -13941,14 +13941,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TokenRequest)
+comment|// @@protoc_insertion_point(builder_scope:GetAuthenticationTokenRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -13959,11 +13959,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TokenRequest)
+comment|// @@protoc_insertion_point(class_scope:GetAuthenticationTokenRequest)
 block|}
 specifier|public
 interface|interface
-name|TokenResponseOrBuilder
+name|GetAuthenticationTokenResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -14018,12 +14018,12 @@ name|getTokenOrBuilder
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code TokenResponse}    */
+comment|/**    * Protobuf type {@code GetAuthenticationTokenResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 extends|extends
 name|com
 operator|.
@@ -14033,11 +14033,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|TokenResponseOrBuilder
+name|GetAuthenticationTokenResponseOrBuilder
 block|{
-comment|// Use TokenResponse.newBuilder() to construct.
+comment|// Use GetAuthenticationTokenResponse.newBuilder() to construct.
 specifier|private
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 parameter_list|(
 name|com
 operator|.
@@ -14070,7 +14070,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -14095,12 +14095,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -14109,7 +14109,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -14153,7 +14153,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 parameter_list|(
 name|com
 operator|.
@@ -14473,7 +14473,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -14504,7 +14504,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenResponse_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -14522,7 +14522,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|class
 argument_list|,
@@ -14540,7 +14540,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|Builder
 operator|.
@@ -14558,7 +14558,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|PARSER
 init|=
@@ -14571,12 +14571,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -14608,7 +14608,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|(
 name|input
 argument_list|,
@@ -14633,7 +14633,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -15023,7 +15023,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|)
 condition|)
 block|{
@@ -15050,7 +15050,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|other
 init|=
 operator|(
@@ -15068,7 +15068,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -15248,7 +15248,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -15294,7 +15294,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -15351,7 +15351,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -15392,7 +15392,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -15444,7 +15444,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -15486,7 +15486,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -15539,7 +15539,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -15581,7 +15581,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -15634,7 +15634,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -15678,7 +15678,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -15759,7 +15759,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|prototype
 parameter_list|)
 block|{
@@ -15820,7 +15820,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code TokenResponse}      */
+comment|/**      * Protobuf type {@code GetAuthenticationTokenResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -15854,7 +15854,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponseOrBuilder
+name|GetAuthenticationTokenResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -15886,7 +15886,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -15917,7 +15917,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenResponse_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -15935,7 +15935,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|class
 argument_list|,
@@ -15953,7 +15953,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|Builder
 operator|.
@@ -15961,7 +15961,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AuthenticationProtos.TokenResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AuthenticationProtos.GetAuthenticationTokenResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -16133,7 +16133,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -16151,7 +16151,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -16170,7 +16170,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -16191,7 +16191,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|build
 parameter_list|()
 block|{
@@ -16209,7 +16209,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|result
 init|=
 name|buildPartial
@@ -16250,7 +16250,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -16268,7 +16268,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|result
 init|=
 operator|new
@@ -16286,7 +16286,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|(
 name|this
 argument_list|)
@@ -16390,7 +16390,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 condition|)
 block|{
 return|return
@@ -16411,7 +16411,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|)
 name|other
 argument_list|)
@@ -16449,7 +16449,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|other
 parameter_list|)
 block|{
@@ -16471,7 +16471,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -16563,7 +16563,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|parsedMessage
 init|=
 literal|null
@@ -16611,7 +16611,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|)
 name|e
 operator|.
@@ -17349,14 +17349,14 @@ return|return
 name|tokenBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:TokenResponse)
+comment|// @@protoc_insertion_point(builder_scope:GetAuthenticationTokenResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -17367,7 +17367,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:TokenResponse)
+comment|// @@protoc_insertion_point(class_scope:GetAuthenticationTokenResponse)
 block|}
 specifier|public
 interface|interface
@@ -23277,7 +23277,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc GetAuthenticationToken(.TokenRequest) returns (.TokenResponse);</code>        */
+comment|/**        *<code>rpc GetAuthenticationToken(.GetAuthenticationTokenRequest) returns (.GetAuthenticationTokenResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -23306,7 +23306,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|,
 name|com
@@ -23331,7 +23331,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -23450,7 +23450,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|,
 name|com
@@ -23475,7 +23475,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -23723,7 +23723,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 name|request
 argument_list|)
@@ -23846,7 +23846,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -23962,7 +23962,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -24007,7 +24007,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc GetAuthenticationToken(.TokenRequest) returns (.TokenResponse);</code>      */
+comment|/**      *<code>rpc GetAuthenticationToken(.GetAuthenticationTokenRequest) returns (.GetAuthenticationTokenResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -24036,7 +24036,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|,
 name|com
@@ -24061,7 +24061,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -24296,7 +24296,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|)
 name|request
 argument_list|,
@@ -24323,7 +24323,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -24480,7 +24480,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -24596,7 +24596,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -24758,7 +24758,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|,
 name|com
@@ -24783,7 +24783,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -24821,7 +24821,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -24852,7 +24852,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|class
 argument_list|,
@@ -24870,7 +24870,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -25068,7 +25068,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getAuthenticationToken
 parameter_list|(
 name|com
@@ -25094,7 +25094,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|)
 throws|throws
@@ -25214,7 +25214,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 name|getAuthenticationToken
 parameter_list|(
 name|com
@@ -25240,7 +25240,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenRequest
+name|GetAuthenticationTokenRequest
 name|request
 parameter_list|)
 throws|throws
@@ -25268,7 +25268,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|)
 name|channel
 operator|.
@@ -25303,7 +25303,7 @@ name|generated
 operator|.
 name|AuthenticationProtos
 operator|.
-name|TokenResponse
+name|GetAuthenticationTokenResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -25513,7 +25513,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25526,7 +25526,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TokenRequest_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25539,7 +25539,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25552,7 +25552,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_TokenResponse_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -25664,23 +25664,27 @@ literal|"e_number\030\006 \001(\003\"\034\n\004Kind\022\024\n\020HBASE_AUTH_TOK"
 operator|+
 literal|"EN\020\000\">\n\005Token\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010pas"
 operator|+
-literal|"sword\030\002 \001(\014\022\017\n\007service\030\003 \001(\014\"\016\n\014TokenReq"
+literal|"sword\030\002 \001(\014\022\017\n\007service\030\003 \001(\014\"\037\n\035GetAuthe"
 operator|+
-literal|"uest\"&\n\rTokenResponse\022\025\n\005token\030\001 \001(\0132\006.T"
+literal|"nticationTokenRequest\"7\n\036GetAuthenticati"
 block|,
-literal|"oken\"\017\n\rWhoAmIRequest\"7\n\016WhoAmIResponse\022"
+literal|"onTokenResponse\022\025\n\005token\030\001 \001(\0132\006.Token\"\017"
 operator|+
-literal|"\020\n\010username\030\001 \001(\t\022\023\n\013auth_method\030\002 \001(\t2{"
+literal|"\n\rWhoAmIRequest\"7\n\016WhoAmIResponse\022\020\n\010use"
 operator|+
-literal|"\n\025AuthenticationService\0227\n\026GetAuthentica"
+literal|"rname\030\001 \001(\t\022\023\n\013auth_method\030\002 \001(\t2\235\001\n\025Aut"
 operator|+
-literal|"tionToken\022\r.TokenRequest\032\016.TokenResponse"
+literal|"henticationService\022Y\n\026GetAuthenticationT"
 operator|+
-literal|"\022)\n\006WhoAmI\022\016.WhoAmIRequest\032\017.WhoAmIRespo"
+literal|"oken\022\036.GetAuthenticationTokenRequest\032\037.G"
 operator|+
-literal|"nseBJ\n*org.apache.hadoop.hbase.protobuf."
+literal|"etAuthenticationTokenResponse\022)\n\006WhoAmI\022"
 operator|+
-literal|"generatedB\024AuthenticationProtosH\001\210\001\001\240\001\001"
+literal|"\016.WhoAmIRequest\032\017.WhoAmIResponseBJ\n*org."
+operator|+
+literal|"apache.hadoop.hbase.protobuf.generatedB\024"
+operator|+
+literal|"AuthenticationProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -25874,7 +25878,7 @@ literal|"Service"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25887,7 +25891,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenRequest_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25900,7 +25904,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TokenRequest_descriptor
+name|internal_static_GetAuthenticationTokenRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -25912,7 +25916,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -25925,7 +25929,7 @@ argument_list|(
 literal|4
 argument_list|)
 expr_stmt|;
-name|internal_static_TokenResponse_fieldAccessorTable
+name|internal_static_GetAuthenticationTokenResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -25938,7 +25942,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_TokenResponse_descriptor
+name|internal_static_GetAuthenticationTokenResponse_descriptor
 argument_list|,
 operator|new
 name|java

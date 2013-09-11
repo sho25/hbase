@@ -609,7 +609,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 import|;

@@ -947,9 +947,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 import|;
 end_import
 
@@ -967,7 +967,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
 name|MultiRowMutationService
 import|;
@@ -35155,12 +35155,12 @@ argument_list|,
 name|p
 argument_list|)
 decl_stmt|;
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|Builder
 name|mrmBuilder
 init|=
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|newBuilder
 argument_list|()
@@ -35179,7 +35179,7 @@ argument_list|(
 name|m2
 argument_list|)
 expr_stmt|;
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|mrm
 init|=
 name|mrmBuilder

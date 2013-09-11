@@ -27,10 +27,10 @@ begin_class
 specifier|public
 specifier|final
 class|class
-name|MultiRowMutation
+name|MultiRowMutationProtos
 block|{
 specifier|private
-name|MultiRowMutation
+name|MultiRowMutationProtos
 parameter_list|()
 block|{}
 specifier|public
@@ -50,7 +50,7 @@ parameter_list|)
 block|{   }
 specifier|public
 interface|interface
-name|MultiMutateRequestOrBuilder
+name|MutateRowsRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -165,12 +165,12 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code MultiMutateRequest}    */
+comment|/**    * Protobuf type {@code MutateRowsRequest}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|MultiMutateRequest
+name|MutateRowsRequest
 extends|extends
 name|com
 operator|.
@@ -180,11 +180,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|MultiMutateRequestOrBuilder
+name|MutateRowsRequestOrBuilder
 block|{
-comment|// Use MultiMutateRequest.newBuilder() to construct.
+comment|// Use MutateRowsRequest.newBuilder() to construct.
 specifier|private
-name|MultiMutateRequest
+name|MutateRowsRequest
 parameter_list|(
 name|com
 operator|.
@@ -217,7 +217,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|MultiMutateRequest
+name|MutateRowsRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -242,12 +242,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -256,7 +256,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -300,7 +300,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|MultiMutateRequest
+name|MutateRowsRequest
 parameter_list|(
 name|com
 operator|.
@@ -626,9 +626,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -657,9 +657,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateRequest_fieldAccessorTable
+name|internal_static_MutateRowsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -675,9 +675,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|class
 argument_list|,
@@ -693,9 +693,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|Builder
 operator|.
@@ -713,7 +713,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|>
 name|PARSER
 init|=
@@ -726,12 +726,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -763,7 +763,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|(
 name|input
 argument_list|,
@@ -788,7 +788,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -1301,9 +1301,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 condition|)
 block|{
@@ -1328,9 +1328,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|other
 init|=
 operator|(
@@ -1346,9 +1346,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -1507,9 +1507,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1553,9 +1553,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1610,9 +1610,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -1651,9 +1651,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -1703,9 +1703,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -1745,9 +1745,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -1798,9 +1798,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1840,9 +1840,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -1893,9 +1893,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -1937,9 +1937,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2018,9 +2018,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|prototype
 parameter_list|)
 block|{
@@ -2081,7 +2081,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiMutateRequest}      */
+comment|/**      * Protobuf type {@code MutateRowsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2113,9 +2113,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequestOrBuilder
+name|MutateRowsRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -2145,9 +2145,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2176,9 +2176,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateRequest_fieldAccessorTable
+name|internal_static_MutateRowsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2194,9 +2194,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|class
 argument_list|,
@@ -2212,9 +2212,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|Builder
 operator|.
@@ -2222,7 +2222,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.MultiRowMutation.MultiMutateRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.MultiRowMutationProtos.MutateRowsRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -2382,9 +2382,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2400,9 +2400,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -2419,9 +2419,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2440,9 +2440,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|build
 parameter_list|()
 block|{
@@ -2458,9 +2458,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|result
 init|=
 name|buildPartial
@@ -2499,9 +2499,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -2517,9 +2517,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|result
 init|=
 operator|new
@@ -2535,9 +2535,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|(
 name|this
 argument_list|)
@@ -2646,9 +2646,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 condition|)
 block|{
 return|return
@@ -2667,9 +2667,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 name|other
 argument_list|)
@@ -2705,9 +2705,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|other
 parameter_list|)
 block|{
@@ -2727,9 +2727,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2974,9 +2974,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|parsedMessage
 init|=
 literal|null
@@ -3022,9 +3022,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 name|e
 operator|.
@@ -4392,14 +4392,14 @@ return|return
 name|mutationRequestBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiMutateRequest)
+comment|// @@protoc_insertion_point(builder_scope:MutateRowsRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|MultiMutateRequest
+name|MutateRowsRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -4410,11 +4410,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiMutateRequest)
+comment|// @@protoc_insertion_point(class_scope:MutateRowsRequest)
 block|}
 specifier|public
 interface|interface
-name|MultiMutateResponseOrBuilder
+name|MutateRowsResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -4424,12 +4424,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{   }
-comment|/**    * Protobuf type {@code MultiMutateResponse}    */
+comment|/**    * Protobuf type {@code MutateRowsResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|MultiMutateResponse
+name|MutateRowsResponse
 extends|extends
 name|com
 operator|.
@@ -4439,11 +4439,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|MultiMutateResponseOrBuilder
+name|MutateRowsResponseOrBuilder
 block|{
-comment|// Use MultiMutateResponse.newBuilder() to construct.
+comment|// Use MutateRowsResponse.newBuilder() to construct.
 specifier|private
-name|MultiMutateResponse
+name|MutateRowsResponse
 parameter_list|(
 name|com
 operator|.
@@ -4476,7 +4476,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|MultiMutateResponse
+name|MutateRowsResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -4501,12 +4501,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -4515,7 +4515,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -4559,7 +4559,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|MultiMutateResponse
+name|MutateRowsResponse
 parameter_list|(
 name|com
 operator|.
@@ -4771,9 +4771,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -4802,9 +4802,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateResponse_fieldAccessorTable
+name|internal_static_MutateRowsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -4820,9 +4820,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|class
 argument_list|,
@@ -4838,9 +4838,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|Builder
 operator|.
@@ -4858,7 +4858,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|PARSER
 init|=
@@ -4871,12 +4871,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -4908,7 +4908,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|(
 name|input
 argument_list|,
@@ -4933,7 +4933,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -5148,9 +5148,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|)
 condition|)
 block|{
@@ -5175,9 +5175,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|other
 init|=
 operator|(
@@ -5193,9 +5193,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -5306,9 +5306,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5352,9 +5352,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5409,9 +5409,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -5450,9 +5450,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -5502,9 +5502,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -5544,9 +5544,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -5597,9 +5597,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -5639,9 +5639,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -5692,9 +5692,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5736,9 +5736,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -5817,9 +5817,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|prototype
 parameter_list|)
 block|{
@@ -5880,7 +5880,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code MultiMutateResponse}      */
+comment|/**      * Protobuf type {@code MutateRowsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -5912,9 +5912,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponseOrBuilder
+name|MutateRowsResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -5944,9 +5944,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -5975,9 +5975,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateResponse_fieldAccessorTable
+name|internal_static_MutateRowsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -5993,9 +5993,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|class
 argument_list|,
@@ -6011,9 +6011,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|Builder
 operator|.
@@ -6021,7 +6021,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.MultiRowMutation.MultiMutateResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.MultiRowMutationProtos.MutateRowsResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -6141,9 +6141,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -6159,9 +6159,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -6178,9 +6178,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6199,9 +6199,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|build
 parameter_list|()
 block|{
@@ -6217,9 +6217,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|result
 init|=
 name|buildPartial
@@ -6258,9 +6258,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -6276,9 +6276,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|result
 init|=
 operator|new
@@ -6294,9 +6294,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|(
 name|this
 argument_list|)
@@ -6338,9 +6338,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 condition|)
 block|{
 return|return
@@ -6359,9 +6359,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|)
 name|other
 argument_list|)
@@ -6397,9 +6397,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|other
 parameter_list|)
 block|{
@@ -6419,9 +6419,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -6494,9 +6494,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|parsedMessage
 init|=
 literal|null
@@ -6542,9 +6542,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|)
 name|e
 operator|.
@@ -6575,14 +6575,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:MultiMutateResponse)
+comment|// @@protoc_insertion_point(builder_scope:MutateRowsResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -6593,7 +6593,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:MultiMutateResponse)
+comment|// @@protoc_insertion_point(class_scope:MutateRowsResponse)
 block|}
 comment|/**    * Protobuf service {@code MultiRowMutationService}    */
 specifier|public
@@ -6618,7 +6618,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc MutateRows(.MultiMutateRequest) returns (.MultiMutateResponse);</code>        */
+comment|/**        *<code>rpc MutateRows(.MutateRowsRequest) returns (.MutateRowsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -6645,9 +6645,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|,
 name|com
@@ -6670,9 +6670,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -6730,9 +6730,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|,
 name|com
@@ -6755,9 +6755,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -6928,9 +6928,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 name|request
 argument_list|)
@@ -7021,9 +7021,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7114,9 +7114,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7138,7 +7138,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc MutateRows(.MultiMutateRequest) returns (.MultiMutateResponse);</code>      */
+comment|/**      *<code>rpc MutateRows(.MutateRowsRequest) returns (.MutateRowsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -7165,9 +7165,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|,
 name|com
@@ -7190,9 +7190,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -7225,7 +7225,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
 name|getDescriptor
 argument_list|()
@@ -7366,9 +7366,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|)
 name|request
 argument_list|,
@@ -7393,9 +7393,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -7490,9 +7490,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7583,9 +7583,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7645,7 +7645,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
 name|MultiRowMutationService
 implements|implements
@@ -7722,9 +7722,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|,
 name|com
@@ -7747,9 +7747,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -7785,9 +7785,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7816,9 +7816,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|class
 argument_list|,
@@ -7834,9 +7834,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -7885,9 +7885,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|mutateRows
 parameter_list|(
 name|com
@@ -7911,9 +7911,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|)
 throws|throws
@@ -7978,9 +7978,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|mutateRows
 parameter_list|(
 name|com
@@ -8004,9 +8004,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|)
 throws|throws
@@ -8032,9 +8032,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|)
 name|channel
 operator|.
@@ -8067,9 +8067,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -8090,7 +8090,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8103,7 +8103,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiMutateRequest_fieldAccessorTable
+name|internal_static_MutateRowsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8116,7 +8116,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -8129,7 +8129,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_MultiMutateResponse_fieldAccessorTable
+name|internal_static_MutateRowsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -8173,21 +8173,21 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\026MultiRowMutation.proto\032\014Client.proto\">"
+literal|"\n\026MultiRowMutation.proto\032\014Client.proto\"="
 operator|+
-literal|"\n\022MultiMutateRequest\022(\n\020mutation_request"
+literal|"\n\021MutateRowsRequest\022(\n\020mutation_request\030"
 operator|+
-literal|"\030\001 \003(\0132\016.MutationProto\"\025\n\023MultiMutateRes"
+literal|"\001 \003(\0132\016.MutationProto\"\024\n\022MutateRowsRespo"
 operator|+
-literal|"ponse2R\n\027MultiRowMutationService\0227\n\nMuta"
+literal|"nse2P\n\027MultiRowMutationService\0225\n\nMutate"
 operator|+
-literal|"teRows\022\023.MultiMutateRequest\032\024.MultiMutat"
+literal|"Rows\022\022.MutateRowsRequest\032\023.MutateRowsRes"
 operator|+
-literal|"eResponseBF\n*org.apache.hadoop.hbase.pro"
+literal|"ponseBL\n*org.apache.hadoop.hbase.protobu"
 operator|+
-literal|"tobuf.generatedB\020MultiRowMutationH\001\210\001\001\240\001"
+literal|"f.generatedB\026MultiRowMutationProtosH\001\210\001\001"
 operator|+
-literal|"\001"
+literal|"\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -8243,7 +8243,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -8256,7 +8256,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiMutateRequest_fieldAccessorTable
+name|internal_static_MutateRowsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -8269,7 +8269,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiMutateRequest_descriptor
+name|internal_static_MutateRowsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -8283,7 +8283,7 @@ literal|"MutationRequest"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -8296,7 +8296,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|internal_static_MultiMutateResponse_fieldAccessorTable
+name|internal_static_MutateRowsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -8309,7 +8309,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_MultiMutateResponse_descriptor
+name|internal_static_MutateRowsResponse_descriptor
 argument_list|,
 operator|new
 name|java

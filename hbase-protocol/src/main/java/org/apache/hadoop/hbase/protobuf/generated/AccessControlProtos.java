@@ -44367,7 +44367,7 @@ comment|// @@protoc_insertion_point(class_scope:RevokeResponse)
 block|}
 specifier|public
 interface|interface
-name|UserPermissionsRequestOrBuilder
+name|GetUserPermissionsRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -44466,12 +44466,12 @@ name|getNamespaceName
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UserPermissionsRequest}    */
+comment|/**    * Protobuf type {@code GetUserPermissionsRequest}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 extends|extends
 name|com
 operator|.
@@ -44481,11 +44481,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|UserPermissionsRequestOrBuilder
+name|GetUserPermissionsRequestOrBuilder
 block|{
-comment|// Use UserPermissionsRequest.newBuilder() to construct.
+comment|// Use GetUserPermissionsRequest.newBuilder() to construct.
 specifier|private
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 parameter_list|(
 name|com
 operator|.
@@ -44518,7 +44518,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -44543,12 +44543,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -44557,7 +44557,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -44601,7 +44601,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 parameter_list|(
 name|com
 operator|.
@@ -45022,7 +45022,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -45053,7 +45053,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsRequest_fieldAccessorTable
+name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -45071,7 +45071,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|class
 argument_list|,
@@ -45089,7 +45089,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|Builder
 operator|.
@@ -45107,7 +45107,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|>
 name|PARSER
 init|=
@@ -45120,12 +45120,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -45157,7 +45157,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|(
 name|input
 argument_list|,
@@ -45182,7 +45182,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -45871,7 +45871,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 condition|)
 block|{
@@ -45898,7 +45898,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|other
 init|=
 operator|(
@@ -45916,7 +45916,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -46229,7 +46229,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -46275,7 +46275,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -46332,7 +46332,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -46373,7 +46373,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -46425,7 +46425,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -46467,7 +46467,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -46520,7 +46520,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -46562,7 +46562,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -46615,7 +46615,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -46659,7 +46659,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -46740,7 +46740,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|prototype
 parameter_list|)
 block|{
@@ -46801,7 +46801,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UserPermissionsRequest}      */
+comment|/**      * Protobuf type {@code GetUserPermissionsRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -46835,7 +46835,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequestOrBuilder
+name|GetUserPermissionsRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -46867,7 +46867,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -46898,7 +46898,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsRequest_fieldAccessorTable
+name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -46916,7 +46916,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|class
 argument_list|,
@@ -46934,7 +46934,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|Builder
 operator|.
@@ -46942,7 +46942,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AccessControlProtos.UserPermissionsRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AccessControlProtos.GetUserPermissionsRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -47166,7 +47166,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -47184,7 +47184,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -47203,7 +47203,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -47224,7 +47224,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|build
 parameter_list|()
 block|{
@@ -47242,7 +47242,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|result
 init|=
 name|buildPartial
@@ -47283,7 +47283,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -47301,7 +47301,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|result
 init|=
 operator|new
@@ -47319,7 +47319,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|(
 name|this
 argument_list|)
@@ -47471,7 +47471,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 condition|)
 block|{
 return|return
@@ -47492,7 +47492,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 name|other
 argument_list|)
@@ -47530,7 +47530,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|other
 parameter_list|)
 block|{
@@ -47552,7 +47552,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -47699,7 +47699,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|parsedMessage
 init|=
 literal|null
@@ -47747,7 +47747,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 name|e
 operator|.
@@ -48795,14 +48795,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UserPermissionsRequest)
+comment|// @@protoc_insertion_point(builder_scope:GetUserPermissionsRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -48813,11 +48813,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UserPermissionsRequest)
+comment|// @@protoc_insertion_point(class_scope:GetUserPermissionsRequest)
 block|}
 specifier|public
 interface|interface
-name|UserPermissionsResponseOrBuilder
+name|GetUserPermissionsResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -48932,12 +48932,12 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code UserPermissionsResponse}    */
+comment|/**    * Protobuf type {@code GetUserPermissionsResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 extends|extends
 name|com
 operator|.
@@ -48947,11 +48947,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|UserPermissionsResponseOrBuilder
+name|GetUserPermissionsResponseOrBuilder
 block|{
-comment|// Use UserPermissionsResponse.newBuilder() to construct.
+comment|// Use GetUserPermissionsResponse.newBuilder() to construct.
 specifier|private
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 parameter_list|(
 name|com
 operator|.
@@ -48984,7 +48984,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -49009,12 +49009,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -49023,7 +49023,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -49067,7 +49067,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 parameter_list|(
 name|com
 operator|.
@@ -49395,7 +49395,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -49426,7 +49426,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsResponse_fieldAccessorTable
+name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -49444,7 +49444,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|class
 argument_list|,
@@ -49462,7 +49462,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|Builder
 operator|.
@@ -49480,7 +49480,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|PARSER
 init|=
@@ -49493,12 +49493,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -49530,7 +49530,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|(
 name|input
 argument_list|,
@@ -49555,7 +49555,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -50070,7 +50070,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|)
 condition|)
 block|{
@@ -50097,7 +50097,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|other
 init|=
 operator|(
@@ -50115,7 +50115,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -50276,7 +50276,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -50322,7 +50322,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -50379,7 +50379,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -50420,7 +50420,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -50472,7 +50472,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -50514,7 +50514,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -50567,7 +50567,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -50609,7 +50609,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -50662,7 +50662,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -50706,7 +50706,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -50787,7 +50787,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|prototype
 parameter_list|)
 block|{
@@ -50848,7 +50848,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code UserPermissionsResponse}      */
+comment|/**      * Protobuf type {@code GetUserPermissionsResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -50882,7 +50882,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponseOrBuilder
+name|GetUserPermissionsResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -50914,7 +50914,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -50945,7 +50945,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsResponse_fieldAccessorTable
+name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -50963,7 +50963,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|class
 argument_list|,
@@ -50981,7 +50981,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|Builder
 operator|.
@@ -50989,7 +50989,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AccessControlProtos.UserPermissionsResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AccessControlProtos.GetUserPermissionsResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -51151,7 +51151,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -51169,7 +51169,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -51188,7 +51188,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -51209,7 +51209,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|build
 parameter_list|()
 block|{
@@ -51227,7 +51227,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|result
 init|=
 name|buildPartial
@@ -51268,7 +51268,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -51286,7 +51286,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|result
 init|=
 operator|new
@@ -51304,7 +51304,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|(
 name|this
 argument_list|)
@@ -51415,7 +51415,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 condition|)
 block|{
 return|return
@@ -51436,7 +51436,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|)
 name|other
 argument_list|)
@@ -51474,7 +51474,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|other
 parameter_list|)
 block|{
@@ -51496,7 +51496,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -51743,7 +51743,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|parsedMessage
 init|=
 literal|null
@@ -51791,7 +51791,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|)
 name|e
 operator|.
@@ -53159,14 +53159,14 @@ return|return
 name|userPermissionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:UserPermissionsResponse)
+comment|// @@protoc_insertion_point(builder_scope:GetUserPermissionsResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -53177,7 +53177,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:UserPermissionsResponse)
+comment|// @@protoc_insertion_point(class_scope:GetUserPermissionsResponse)
 block|}
 specifier|public
 interface|interface
@@ -59867,7 +59867,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetUserPermissions(.UserPermissionsRequest) returns (.UserPermissionsResponse);</code>        */
+comment|/**        *<code>rpc GetUserPermissions(.GetUserPermissionsRequest) returns (.GetUserPermissionsResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -59896,7 +59896,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|,
 name|com
@@ -59921,7 +59921,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -60190,7 +60190,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|,
 name|com
@@ -60215,7 +60215,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -60523,7 +60523,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 name|request
 argument_list|)
@@ -60692,7 +60692,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -60854,7 +60854,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -61017,7 +61017,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetUserPermissions(.UserPermissionsRequest) returns (.UserPermissionsResponse);</code>      */
+comment|/**      *<code>rpc GetUserPermissions(.GetUserPermissionsRequest) returns (.GetUserPermissionsResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -61046,7 +61046,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|,
 name|com
@@ -61071,7 +61071,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -61426,7 +61426,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|)
 name|request
 argument_list|,
@@ -61453,7 +61453,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -61656,7 +61656,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -61818,7 +61818,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -62274,7 +62274,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|,
 name|com
@@ -62299,7 +62299,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -62337,7 +62337,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -62368,7 +62368,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|class
 argument_list|,
@@ -62386,7 +62386,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -62690,7 +62690,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|getUserPermissions
 parameter_list|(
 name|com
@@ -62716,7 +62716,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|)
 throws|throws
@@ -63058,7 +63058,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 name|getUserPermissions
 parameter_list|(
 name|com
@@ -63084,7 +63084,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsRequest
+name|GetUserPermissionsRequest
 name|request
 parameter_list|)
 throws|throws
@@ -63112,7 +63112,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|)
 name|channel
 operator|.
@@ -63147,7 +63147,7 @@ name|generated
 operator|.
 name|AccessControlProtos
 operator|.
-name|UserPermissionsResponse
+name|GetUserPermissionsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -63565,7 +63565,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63578,7 +63578,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UserPermissionsRequest_fieldAccessorTable
+name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63591,7 +63591,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63604,7 +63604,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_UserPermissionsResponse_fieldAccessorTable
+name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -63700,7 +63700,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023AccessControl.proto\032\013hbase.proto\"\250\002\n\nP"
+literal|"\n\023AccessControl.proto\032\013HBase.proto\"\250\002\n\nP"
 operator|+
 literal|"ermission\022\036\n\004type\030\001 \002(\0162\020.Permission.Typ"
 operator|+
@@ -63748,37 +63748,37 @@ literal|"tResponse\"9\n\rRevokeRequest\022(\n\017user_permi"
 operator|+
 literal|"ssion\030\001 \002(\0132\017.UserPermission\"\020\n\016RevokeRe"
 operator|+
-literal|"sponse\"p\n\026UserPermissionsRequest\022\036\n\004type"
+literal|"sponse\"s\n\031GetUserPermissionsRequest\022\036\n\004t"
 operator|+
-literal|"\030\001 \001(\0162\020.Permission.Type\022\036\n\ntable_name\030\002"
+literal|"ype\030\001 \001(\0162\020.Permission.Type\022\036\n\ntable_nam"
 operator|+
-literal|" \001(\0132\n.TableName\022\026\n\016namespace_name\030\003 \001(\014"
+literal|"e\030\002 \001(\0132\n.TableName\022\026\n\016namespace_name\030\003 "
 operator|+
-literal|"\"C\n\027UserPermissionsResponse\022(\n\017user_perm"
+literal|"\001(\014\"F\n\032GetUserPermissionsResponse\022(\n\017use"
 operator|+
-literal|"ission\030\001 \003(\0132\017.UserPermission\":\n\027CheckPe"
+literal|"r_permission\030\001 \003(\0132\017.UserPermission\":\n\027C"
 operator|+
-literal|"rmissionsRequest\022\037\n\npermission\030\001 \003(\0132\013.P"
+literal|"heckPermissionsRequest\022\037\n\npermission\030\001 \003"
 block|,
-literal|"ermission\"\032\n\030CheckPermissionsResponse2\373\001"
+literal|"(\0132\013.Permission\"\032\n\030CheckPermissionsRespo"
 operator|+
-literal|"\n\024AccessControlService\022&\n\005Grant\022\r.GrantR"
+literal|"nse2\201\002\n\024AccessControlService\022&\n\005Grant\022\r."
 operator|+
-literal|"equest\032\016.GrantResponse\022)\n\006Revoke\022\016.Revok"
+literal|"GrantRequest\032\016.GrantResponse\022)\n\006Revoke\022\016"
 operator|+
-literal|"eRequest\032\017.RevokeResponse\022G\n\022GetUserPerm"
+literal|".RevokeRequest\032\017.RevokeResponse\022M\n\022GetUs"
 operator|+
-literal|"issions\022\027.UserPermissionsRequest\032\030.UserP"
+literal|"erPermissions\022\032.GetUserPermissionsReques"
 operator|+
-literal|"ermissionsResponse\022G\n\020CheckPermissions\022\030"
+literal|"t\032\033.GetUserPermissionsResponse\022G\n\020CheckP"
 operator|+
-literal|".CheckPermissionsRequest\032\031.CheckPermissi"
+literal|"ermissions\022\030.CheckPermissionsRequest\032\031.C"
 operator|+
-literal|"onsResponseBI\n*org.apache.hadoop.hbase.p"
+literal|"heckPermissionsResponseBI\n*org.apache.ha"
 operator|+
-literal|"rotobuf.generatedB\023AccessControlProtosH\001"
+literal|"doop.hbase.protobuf.generatedB\023AccessCon"
 operator|+
-literal|"\210\001\001\240\001\001"
+literal|"trolProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -64287,7 +64287,7 @@ index|[]
 block|{ }
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64300,7 +64300,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermissionsRequest_fieldAccessorTable
+name|internal_static_GetUserPermissionsRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64313,7 +64313,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UserPermissionsRequest_descriptor
+name|internal_static_GetUserPermissionsRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -64331,7 +64331,7 @@ literal|"NamespaceName"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -64344,7 +64344,7 @@ argument_list|(
 literal|11
 argument_list|)
 expr_stmt|;
-name|internal_static_UserPermissionsResponse_fieldAccessorTable
+name|internal_static_GetUserPermissionsResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -64357,7 +64357,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_UserPermissionsResponse_descriptor
+name|internal_static_GetUserPermissionsResponse_descriptor
 argument_list|,
 operator|new
 name|java

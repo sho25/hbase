@@ -1609,7 +1609,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 import|;
 end_import
 
@@ -1629,7 +1629,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 import|;
 end_import
 
@@ -2089,7 +2089,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 import|;
 end_import
 
@@ -2109,7 +2109,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 import|;
 end_import
 
@@ -2449,7 +2449,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotRequest
+name|SnapshotRequest
 import|;
 end_import
 
@@ -2469,7 +2469,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotResponse
+name|SnapshotResponse
 import|;
 end_import
 
@@ -8673,13 +8673,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 name|runCatalogScan
 parameter_list|(
 name|RpcController
 name|c
 parameter_list|,
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 name|req
 parameter_list|)
 throws|throws
@@ -8690,7 +8690,7 @@ block|{
 return|return
 name|ResponseConverter
 operator|.
-name|buildCatalogScanResponse
+name|buildRunCatalogScanResponse
 argument_list|(
 name|catalogJanitorChore
 operator|.
@@ -15620,13 +15620,13 @@ comment|/**    * Triggers an asynchronous attempt to take a snapshot.    * {@inh
 annotation|@
 name|Override
 specifier|public
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|snapshot
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|TakeSnapshotRequest
+name|SnapshotRequest
 name|request
 parameter_list|)
 throws|throws
@@ -15739,7 +15739,7 @@ name|DEFAULT_MAX_WAIT_TIME
 argument_list|)
 decl_stmt|;
 return|return
-name|TakeSnapshotResponse
+name|SnapshotResponse
 operator|.
 name|newBuilder
 argument_list|()
@@ -15757,13 +15757,13 @@ comment|/**    * List the currently available/stored snapshots. Any in-progress 
 annotation|@
 name|Override
 specifier|public
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 name|getCompletedSnapshots
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 name|request
 parameter_list|)
 throws|throws
@@ -15771,12 +15771,12 @@ name|ServiceException
 block|{
 try|try
 block|{
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 operator|.
 name|Builder
 name|builder
 init|=
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 operator|.
 name|newBuilder
 argument_list|()

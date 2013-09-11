@@ -49605,7 +49605,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017ZooKeeper.proto\032\013hbase.proto\"D\n\020MetaRe"
+literal|"\n\017ZooKeeper.proto\032\013HBase.proto\"D\n\020MetaRe"
 operator|+
 literal|"gionServer\022\033\n\006server\030\001 \002(\0132\013.ServerName\022"
 operator|+

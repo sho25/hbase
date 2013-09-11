@@ -271,7 +271,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotRequest
+name|SnapshotRequest
 import|;
 end_import
 
@@ -291,7 +291,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotResponse
+name|SnapshotResponse
 import|;
 end_import
 
@@ -582,10 +582,10 @@ name|mockMaster
 argument_list|)
 expr_stmt|;
 comment|// set the max wait time for the snapshot to complete
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|response
 init|=
-name|TakeSnapshotResponse
+name|SnapshotResponse
 operator|.
 name|newBuilder
 argument_list|()
@@ -618,7 +618,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|TakeSnapshotRequest
+name|SnapshotRequest
 operator|.
 name|class
 argument_list|)
@@ -1050,10 +1050,10 @@ argument_list|(
 name|master
 argument_list|)
 expr_stmt|;
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|response
 init|=
-name|TakeSnapshotResponse
+name|SnapshotResponse
 operator|.
 name|newBuilder
 argument_list|()
@@ -1086,7 +1086,7 @@ name|Mockito
 operator|.
 name|any
 argument_list|(
-name|TakeSnapshotRequest
+name|SnapshotRequest
 operator|.
 name|class
 argument_list|)

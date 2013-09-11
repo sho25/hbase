@@ -92207,7 +92207,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\014Filter.proto\032\013hbase.proto\032\020Comparator."
+literal|"\n\014Filter.proto\032\013HBase.proto\032\020Comparator."
 operator|+
 literal|"proto\"1\n\006Filter\022\014\n\004name\030\001 \002(\t\022\031\n\021seriali"
 operator|+

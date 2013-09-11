@@ -11082,7 +11082,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013HFile.proto\032\013hbase.proto\"3\n\rFileInfoPr"
+literal|"\n\013HFile.proto\032\013HBase.proto\"3\n\rFileInfoPr"
 operator|+
 literal|"oto\022\"\n\tmap_entry\030\001 \003(\0132\017.BytesBytesPair\""
 operator|+

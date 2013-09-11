@@ -30010,7 +30010,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\030RegionServerStatus.proto\032\013hbase.proto\032"
+literal|"\n\030RegionServerStatus.proto\032\013HBase.proto\032"
 operator|+
 literal|"\023ClusterStatus.proto\"b\n\032RegionServerStar"
 operator|+

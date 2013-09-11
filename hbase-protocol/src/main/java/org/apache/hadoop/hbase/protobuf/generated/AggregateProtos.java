@@ -50,7 +50,7 @@ parameter_list|)
 block|{   }
 specifier|public
 interface|interface
-name|AggregateArgumentOrBuilder
+name|AggregateRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -61,12 +61,12 @@ operator|.
 name|MessageOrBuilder
 block|{
 comment|// required string interpreter_class_name = 1;
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 name|boolean
 name|hasInterpreterClassName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 name|java
 operator|.
 name|lang
@@ -75,7 +75,7 @@ name|String
 name|getInterpreterClassName
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 name|com
 operator|.
 name|google
@@ -148,12 +148,12 @@ name|getInterpreterSpecificBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code AggregateArgument}    */
+comment|/**    * Protobuf type {@code AggregateRequest}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|AggregateArgument
+name|AggregateRequest
 extends|extends
 name|com
 operator|.
@@ -163,11 +163,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|AggregateArgumentOrBuilder
+name|AggregateRequestOrBuilder
 block|{
-comment|// Use AggregateArgument.newBuilder() to construct.
+comment|// Use AggregateRequest.newBuilder() to construct.
 specifier|private
-name|AggregateArgument
+name|AggregateRequest
 parameter_list|(
 name|com
 operator|.
@@ -200,7 +200,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|AggregateArgument
+name|AggregateRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -225,12 +225,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|AggregateArgument
+name|AggregateRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -239,7 +239,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|AggregateArgument
+name|AggregateRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -283,7 +283,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|AggregateArgument
+name|AggregateRequest
 parameter_list|(
 name|com
 operator|.
@@ -637,7 +637,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -668,7 +668,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateArgument_fieldAccessorTable
+name|internal_static_AggregateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -686,7 +686,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|class
 argument_list|,
@@ -704,7 +704,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|Builder
 operator|.
@@ -722,7 +722,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|AggregateArgument
+name|AggregateRequest
 argument_list|>
 name|PARSER
 init|=
@@ -735,12 +735,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|AggregateArgument
+name|AggregateRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|AggregateArgument
+name|AggregateRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -772,7 +772,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|AggregateArgument
+name|AggregateRequest
 argument_list|(
 name|input
 argument_list|,
@@ -797,7 +797,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|AggregateArgument
+name|AggregateRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -827,7 +827,7 @@ operator|.
 name|Object
 name|interpreterClassName_
 decl_stmt|;
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 specifier|public
 name|boolean
 name|hasInterpreterClassName
@@ -845,7 +845,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 specifier|public
 name|java
 operator|.
@@ -938,7 +938,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The argument passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
+comment|/**      *<code>required string interpreter_class_name = 1;</code>      *      *<pre>      ** The request passed to the AggregateService consists of three parts      *  (1) the (canonical) classname of the ColumnInterpreter implementation      *  (2) the Scan query      *  (3) any bytes required to construct the ColumnInterpreter object      *      properly      *</pre>      */
 specifier|public
 name|com
 operator|.
@@ -1627,7 +1627,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 condition|)
 block|{
@@ -1654,7 +1654,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|other
 init|=
 operator|(
@@ -1672,7 +1672,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -1986,7 +1986,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2032,7 +2032,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2089,7 +2089,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -2130,7 +2130,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -2182,7 +2182,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -2224,7 +2224,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -2277,7 +2277,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -2319,7 +2319,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -2372,7 +2372,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2416,7 +2416,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -2497,7 +2497,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|prototype
 parameter_list|)
 block|{
@@ -2558,7 +2558,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code AggregateArgument}      */
+comment|/**      * Protobuf type {@code AggregateRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -2592,7 +2592,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgumentOrBuilder
+name|AggregateRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -2624,7 +2624,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -2655,7 +2655,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateArgument_fieldAccessorTable
+name|internal_static_AggregateRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -2673,7 +2673,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|class
 argument_list|,
@@ -2691,7 +2691,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|Builder
 operator|.
@@ -2699,7 +2699,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AggregateProtos.AggregateArgument.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.AggregateProtos.AggregateRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -2905,7 +2905,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -2923,7 +2923,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -2942,7 +2942,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -2963,7 +2963,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|build
 parameter_list|()
 block|{
@@ -2981,7 +2981,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|result
 init|=
 name|buildPartial
@@ -3022,7 +3022,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -3040,7 +3040,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|result
 init|=
 operator|new
@@ -3058,7 +3058,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 argument_list|(
 name|this
 argument_list|)
@@ -3210,7 +3210,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 condition|)
 block|{
 return|return
@@ -3231,7 +3231,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|other
 argument_list|)
@@ -3269,7 +3269,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|other
 parameter_list|)
 block|{
@@ -3291,7 +3291,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -3458,7 +3458,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|parsedMessage
 init|=
 literal|null
@@ -3506,7 +3506,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|e
 operator|.
@@ -3552,7 +3552,7 @@ name|interpreterClassName_
 init|=
 literal|""
 decl_stmt|;
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|boolean
 name|hasInterpreterClassName
@@ -3570,7 +3570,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|java
 operator|.
@@ -3648,7 +3648,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|com
 operator|.
@@ -3729,7 +3729,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|Builder
 name|setInterpreterClassName
@@ -3770,7 +3770,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|Builder
 name|clearInterpreterClassName
@@ -3800,7 +3800,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The argument passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
+comment|/**        *<code>required string interpreter_class_name = 1;</code>        *        *<pre>        ** The request passed to the AggregateService consists of three parts        *  (1) the (canonical) classname of the ColumnInterpreter implementation        *  (2) the Scan query        *  (3) any bytes required to construct the ColumnInterpreter object        *      properly        *</pre>        */
 specifier|public
 name|Builder
 name|setInterpreterClassNameBytes
@@ -4674,14 +4674,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:AggregateArgument)
+comment|// @@protoc_insertion_point(builder_scope:AggregateRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|AggregateArgument
+name|AggregateRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -4692,7 +4692,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:AggregateArgument)
+comment|// @@protoc_insertion_point(class_scope:AggregateRequest)
 block|}
 specifier|public
 interface|interface
@@ -8127,7 +8127,7 @@ specifier|public
 interface|interface
 name|Interface
 block|{
-comment|/**        *<code>rpc GetMax(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMax(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8156,7 +8156,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8186,7 +8186,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetMin(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMin(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8215,7 +8215,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8245,7 +8245,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetSum(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetSum(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8274,7 +8274,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8304,7 +8304,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetRowNum(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetRowNum(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8333,7 +8333,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8363,7 +8363,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetAvg(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetAvg(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8392,7 +8392,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8422,7 +8422,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetStd(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetStd(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8451,7 +8451,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8481,7 +8481,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc GetMedian(.AggregateArgument) returns (.AggregateResponse);</code>        */
+comment|/**        *<code>rpc GetMedian(.AggregateRequest) returns (.AggregateResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -8510,7 +8510,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8595,7 +8595,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8670,7 +8670,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8745,7 +8745,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8820,7 +8820,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8895,7 +8895,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -8970,7 +8970,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -9045,7 +9045,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -9243,7 +9243,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9273,7 +9273,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9303,7 +9303,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9333,7 +9333,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9363,7 +9363,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9393,7 +9393,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9423,7 +9423,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|)
@@ -9516,7 +9516,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9539,7 +9539,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9562,7 +9562,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9585,7 +9585,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9608,7 +9608,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9631,7 +9631,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9654,7 +9654,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -9907,7 +9907,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**      *<code>rpc GetMax(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMax(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -9936,7 +9936,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -9966,7 +9966,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetMin(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMin(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -9995,7 +9995,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10025,7 +10025,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetSum(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetSum(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10054,7 +10054,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10084,7 +10084,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetRowNum(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetRowNum(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10113,7 +10113,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10143,7 +10143,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetAvg(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetAvg(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10172,7 +10172,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10202,7 +10202,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetStd(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetStd(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10231,7 +10231,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10261,7 +10261,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc GetMedian(.AggregateArgument) returns (.AggregateResponse);</code>      */
+comment|/**      *<code>rpc GetMedian(.AggregateRequest) returns (.AggregateResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -10290,7 +10290,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -10491,7 +10491,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10551,7 +10551,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10611,7 +10611,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10671,7 +10671,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10731,7 +10731,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10791,7 +10791,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10851,7 +10851,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|)
 name|request
 argument_list|,
@@ -10975,7 +10975,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -10998,7 +10998,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11021,7 +11021,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11044,7 +11044,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11067,7 +11067,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11090,7 +11090,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11113,7 +11113,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -11483,7 +11483,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -11630,7 +11630,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -11777,7 +11777,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -11924,7 +11924,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -12071,7 +12071,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -12218,7 +12218,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -12365,7 +12365,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|com
@@ -12554,7 +12554,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12607,7 +12607,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12660,7 +12660,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12713,7 +12713,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12766,7 +12766,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12819,7 +12819,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12872,7 +12872,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -12965,7 +12965,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13076,7 +13076,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13187,7 +13187,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13298,7 +13298,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13409,7 +13409,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13520,7 +13520,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13631,7 +13631,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws
@@ -13715,7 +13715,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13728,7 +13728,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_AggregateArgument_fieldAccessorTable
+name|internal_static_AggregateRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -13798,39 +13798,39 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017Aggregate.proto\032\014Client.proto\"l\n\021Aggre"
+literal|"\n\017Aggregate.proto\032\014Client.proto\"k\n\020Aggre"
 operator|+
-literal|"gateArgument\022\036\n\026interpreter_class_name\030\001"
+literal|"gateRequest\022\036\n\026interpreter_class_name\030\001 "
 operator|+
-literal|" \002(\t\022\023\n\004scan\030\002 \002(\0132\005.Scan\022\"\n\032interpreter"
+literal|"\002(\t\022\023\n\004scan\030\002 \002(\0132\005.Scan\022\"\n\032interpreter_"
 operator|+
-literal|"_specific_bytes\030\003 \001(\014\"<\n\021AggregateRespon"
+literal|"specific_bytes\030\003 \001(\014\"<\n\021AggregateRespons"
 operator|+
-literal|"se\022\022\n\nfirst_part\030\001 \003(\014\022\023\n\013second_part\030\002 "
+literal|"e\022\022\n\nfirst_part\030\001 \003(\014\022\023\n\013second_part\030\002 \001"
 operator|+
-literal|"\001(\0142\366\002\n\020AggregateService\0220\n\006GetMax\022\022.Agg"
+literal|"(\0142\357\002\n\020AggregateService\022/\n\006GetMax\022\021.Aggr"
 operator|+
-literal|"regateArgument\032\022.AggregateResponse\0220\n\006Ge"
+literal|"egateRequest\032\022.AggregateResponse\022/\n\006GetM"
 operator|+
-literal|"tMin\022\022.AggregateArgument\032\022.AggregateResp"
+literal|"in\022\021.AggregateRequest\032\022.AggregateRespons"
 operator|+
-literal|"onse\0220\n\006GetSum\022\022.AggregateArgument\032\022.Agg"
+literal|"e\022/\n\006GetSum\022\021.AggregateRequest\032\022.Aggrega"
 operator|+
-literal|"regateResponse\0223\n\tGetRowNum\022\022.AggregateA"
+literal|"teResponse\0222\n\tGetRowNum\022\021.AggregateReque"
 block|,
-literal|"rgument\032\022.AggregateResponse\0220\n\006GetAvg\022\022."
+literal|"st\032\022.AggregateResponse\022/\n\006GetAvg\022\021.Aggre"
 operator|+
-literal|"AggregateArgument\032\022.AggregateResponse\0220\n"
+literal|"gateRequest\032\022.AggregateResponse\022/\n\006GetSt"
 operator|+
-literal|"\006GetStd\022\022.AggregateArgument\032\022.AggregateR"
+literal|"d\022\021.AggregateRequest\032\022.AggregateResponse"
 operator|+
-literal|"esponse\0223\n\tGetMedian\022\022.AggregateArgument"
+literal|"\0222\n\tGetMedian\022\021.AggregateRequest\032\022.Aggre"
 operator|+
-literal|"\032\022.AggregateResponseBE\n*org.apache.hadoo"
+literal|"gateResponseBE\n*org.apache.hadoop.hbase."
 operator|+
-literal|"p.hbase.protobuf.generatedB\017AggregatePro"
+literal|"protobuf.generatedB\017AggregateProtosH\001\210\001\001"
 operator|+
-literal|"tosH\001\210\001\001\240\001\001"
+literal|"\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -13886,7 +13886,7 @@ name|descriptor
 operator|=
 name|root
 expr_stmt|;
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -13899,7 +13899,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|internal_static_AggregateArgument_fieldAccessorTable
+name|internal_static_AggregateRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -13912,7 +13912,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_AggregateArgument_descriptor
+name|internal_static_AggregateRequest_descriptor
 argument_list|,
 operator|new
 name|java

@@ -27,10 +27,10 @@ begin_class
 specifier|public
 specifier|final
 class|class
-name|Tracing
+name|TracingProtos
 block|{
 specifier|private
-name|Tracing
+name|TracingProtos
 parameter_list|()
 block|{}
 specifier|public
@@ -469,7 +469,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|internal_static_RPCTInfo_descriptor
 return|;
@@ -500,7 +500,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|internal_static_RPCTInfo_fieldAccessorTable
 operator|.
@@ -518,7 +518,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -536,7 +536,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -1049,7 +1049,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|)
@@ -1076,7 +1076,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|other
@@ -1094,7 +1094,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|)
@@ -1339,7 +1339,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1385,7 +1385,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1442,7 +1442,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1483,7 +1483,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1535,7 +1535,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1577,7 +1577,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1630,7 +1630,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseDelimitedFrom
@@ -1672,7 +1672,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseDelimitedFrom
@@ -1725,7 +1725,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1769,7 +1769,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parseFrom
@@ -1850,7 +1850,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|prototype
@@ -1945,7 +1945,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfoOrBuilder
 block|{
@@ -1977,7 +1977,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|internal_static_RPCTInfo_descriptor
 return|;
@@ -2008,7 +2008,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|internal_static_RPCTInfo_fieldAccessorTable
 operator|.
@@ -2026,7 +2026,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -2044,7 +2044,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -2054,7 +2054,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.Tracing.RPCTInfo.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.TracingProtos.RPCTInfo.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -2200,7 +2200,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|internal_static_RPCTInfo_descriptor
 return|;
@@ -2218,7 +2218,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|getDefaultInstanceForType
@@ -2237,7 +2237,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -2258,7 +2258,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|build
@@ -2276,7 +2276,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|result
@@ -2317,7 +2317,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|buildPartial
@@ -2335,7 +2335,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|result
@@ -2353,7 +2353,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 argument_list|(
@@ -2461,7 +2461,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 condition|)
@@ -2482,7 +2482,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|)
@@ -2520,7 +2520,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|other
@@ -2542,7 +2542,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|.
@@ -2651,7 +2651,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 name|parsedMessage
@@ -2699,7 +2699,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|Tracing
+name|TracingProtos
 operator|.
 name|RPCTInfo
 operator|)
@@ -2992,11 +2992,11 @@ init|=
 block|{
 literal|"\n\rTracing.proto\"/\n\010RPCTInfo\022\020\n\010trace_id\030"
 operator|+
-literal|"\001 \001(\003\022\021\n\tparent_id\030\002 \001(\003B:\n*org.apache.h"
+literal|"\001 \001(\003\022\021\n\tparent_id\030\002 \001(\003B@\n*org.apache.h"
 operator|+
-literal|"adoop.hbase.protobuf.generatedB\007TracingH"
+literal|"adoop.hbase.protobuf.generatedB\rTracingP"
 operator|+
-literal|"\001\240\001\001"
+literal|"rotosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

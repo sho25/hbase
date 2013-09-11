@@ -24299,7 +24299,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tWAL.proto\032\013hbase.proto\"$\n\tWALHeader\022\027\n"
+literal|"\n\tWAL.proto\032\013HBase.proto\"$\n\tWALHeader\022\027\n"
 operator|+
 literal|"\017has_compression\030\001 \001(\010\"\337\001\n\006WALKey\022\033\n\023enc"
 operator|+

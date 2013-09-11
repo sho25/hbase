@@ -4410,7 +4410,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\017MapReduce.proto\032\013hbase.proto\".\n\013ScanMe"
+literal|"\n\017MapReduce.proto\032\013HBase.proto\".\n\013ScanMe"
 operator|+
 literal|"trics\022\037\n\007metrics\030\001 \003(\0132\016.NameInt64PairBB"
 operator|+

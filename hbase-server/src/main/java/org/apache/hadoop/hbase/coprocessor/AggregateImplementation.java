@@ -245,7 +245,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 import|;
 end_import
 
@@ -434,7 +434,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -775,7 +775,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -1106,7 +1106,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -1435,7 +1435,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -1738,7 +1738,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -2084,7 +2084,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -2491,7 +2491,7 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|,
 name|RpcCallback
@@ -2924,7 +2924,7 @@ name|R
 argument_list|>
 name|constructColumnInterpreterFromRequest
 parameter_list|(
-name|AggregateArgument
+name|AggregateRequest
 name|request
 parameter_list|)
 throws|throws

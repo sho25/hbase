@@ -313,7 +313,7 @@ name|generated
 operator|.
 name|AggregateProtos
 operator|.
-name|AggregateArgument
+name|AggregateRequest
 import|;
 end_import
 
@@ -675,7 +675,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -1180,7 +1180,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -1583,7 +1583,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -1953,7 +1953,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -2340,7 +2340,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -2909,7 +2909,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -3711,7 +3711,7 @@ throws|throws
 name|Throwable
 block|{
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 name|requestArg
 init|=
 name|validateArgAndGetPB
@@ -4820,7 +4820,7 @@ name|T
 extends|extends
 name|Message
 parameter_list|>
-name|AggregateArgument
+name|AggregateRequest
 name|validateArgAndGetPB
 parameter_list|(
 name|Scan
@@ -4849,12 +4849,12 @@ name|scan
 argument_list|)
 expr_stmt|;
 specifier|final
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|Builder
 name|requestBuilder
 init|=
-name|AggregateArgument
+name|AggregateRequest
 operator|.
 name|newBuilder
 argument_list|()

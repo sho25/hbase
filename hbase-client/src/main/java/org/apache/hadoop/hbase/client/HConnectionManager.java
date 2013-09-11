@@ -877,7 +877,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 import|;
 end_import
 
@@ -897,7 +897,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 import|;
 end_import
 
@@ -1517,7 +1517,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 import|;
 end_import
 
@@ -1537,7 +1537,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 import|;
 end_import
 
@@ -2017,7 +2017,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotRequest
+name|SnapshotRequest
 import|;
 end_import
 
@@ -2037,7 +2037,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|TakeSnapshotResponse
+name|SnapshotResponse
 import|;
 end_import
 
@@ -2526,7 +2526,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages creation of {@link HConnection}s.  *<p>The simplest way to use this class is by using {@link #createConnection(Configuration)}.  * This creates a new {@link HConnection} that is managed by the caller.  * From this {@link HConnection} {@link HTableInterface} implementations are retrieved   * with {@link HConnection#getTable(byte[])}. Example:  *<pre>  * {@code  * HConnection connection = HConnectionManager.createConnection(config);  * HTableInterface table = connection.getTable("table1");  * // use the table as needed, for a single operation and a single thread  * table.close();  * connection.close();  * }  *</pre>  *<p>The following logic and API will be removed in the future:  *<p>This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity; for more on how this is done see  * {@link HConnectionKey}).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections makes clean up of {@link HConnection} instances a little awkward.  * Currently, clients cleanup by calling {@link #deleteConnection(Configuration)}. This will  * shutdown the zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
+comment|/**  * A non-instantiable class that manages creation of {@link HConnection}s.  *<p>The simplest way to use this class is by using {@link #createConnection(Configuration)}.  * This creates a new {@link HConnection} that is managed by the caller.  * From this {@link HConnection} {@link HTableInterface} implementations are retrieved  * with {@link HConnection#getTable(byte[])}. Example:  *<pre>  * {@code  * HConnection connection = HConnectionManager.createConnection(config);  * HTableInterface table = connection.getTable("table1");  * // use the table as needed, for a single operation and a single thread  * table.close();  * connection.close();  * }  *</pre>  *<p>The following logic and API will be removed in the future:  *<p>This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity; for more on how this is done see  * {@link HConnectionKey}).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections makes clean up of {@link HConnection} instances a little awkward.  * Currently, clients cleanup by calling {@link #deleteConnection(Configuration)}. This will  * shutdown the zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections()}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
 end_comment
 
 begin_class
@@ -10260,13 +10260,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CatalogScanResponse
+name|RunCatalogScanResponse
 name|runCatalogScan
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 name|request
 parameter_list|)
 throws|throws
@@ -10364,13 +10364,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|TakeSnapshotResponse
+name|SnapshotResponse
 name|snapshot
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|TakeSnapshotRequest
+name|SnapshotRequest
 name|request
 parameter_list|)
 throws|throws
@@ -10390,13 +10390,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 name|getCompletedSnapshots
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 name|request
 parameter_list|)
 throws|throws

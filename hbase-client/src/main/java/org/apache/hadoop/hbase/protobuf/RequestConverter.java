@@ -1125,7 +1125,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 import|;
 end_import
 
@@ -6033,10 +6033,10 @@ comment|/**    * @see {@link #buildCatalogScanRequest}    */
 specifier|private
 specifier|static
 specifier|final
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 name|CATALOG_SCAN_REQUEST
 init|=
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 operator|.
 name|newBuilder
 argument_list|()
@@ -6044,10 +6044,10 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-comment|/**    * Creates a request for running a catalog scan    * @return A {@link CatalogScanRequest}    */
+comment|/**    * Creates a request for running a catalog scan    * @return A {@link RunCatalogScanRequest}    */
 specifier|public
 specifier|static
-name|CatalogScanRequest
+name|RunCatalogScanRequest
 name|buildCatalogScanRequest
 parameter_list|()
 block|{

@@ -151019,7 +151019,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\014Client.proto\032\013hbase.proto\032\014Filter.prot"
+literal|"\n\014Client.proto\032\013HBase.proto\032\014Filter.prot"
 operator|+
 literal|"o\032\nCell.proto\032\020Comparator.proto\"+\n\006Colum"
 operator|+

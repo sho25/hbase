@@ -31784,7 +31784,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023MasterMonitor.proto\032\014Master.proto\032\013hba"
+literal|"\n\023MasterMonitor.proto\032\014Master.proto\032\013HBa"
 operator|+
 literal|"se.proto\032\023ClusterStatus.proto\"=\n\033GetSche"
 operator|+

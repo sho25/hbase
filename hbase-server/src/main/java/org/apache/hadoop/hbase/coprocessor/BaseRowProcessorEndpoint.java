@@ -139,7 +139,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorRequest
+name|ProcessRequest
 import|;
 end_import
 
@@ -159,7 +159,7 @@ name|generated
 operator|.
 name|RowProcessorProtos
 operator|.
-name|RowProcessorResult
+name|ProcessResponse
 import|;
 end_import
 
@@ -322,17 +322,17 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|,
 name|RpcCallback
 argument_list|<
-name|RowProcessorResult
+name|ProcessResponse
 argument_list|>
 name|done
 parameter_list|)
 block|{
-name|RowProcessorResult
+name|ProcessResponse
 name|resultProto
 init|=
 literal|null
@@ -375,12 +375,12 @@ operator|.
 name|getResult
 argument_list|()
 decl_stmt|;
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|Builder
 name|b
 init|=
-name|RowProcessorResult
+name|ProcessResponse
 operator|.
 name|newBuilder
 argument_list|()
@@ -510,7 +510,7 @@ name|T
 argument_list|>
 name|constructRowProcessorFromRequest
 parameter_list|(
-name|RowProcessorRequest
+name|ProcessRequest
 name|request
 parameter_list|)
 throws|throws

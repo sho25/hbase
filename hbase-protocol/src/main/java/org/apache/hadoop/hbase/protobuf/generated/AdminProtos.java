@@ -126501,7 +126501,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013Admin.proto\032\014Client.proto\032\013hbase.proto"
+literal|"\n\013Admin.proto\032\014Client.proto\032\013HBase.proto"
 operator|+
 literal|"\032\tWAL.proto\"R\n\024GetRegionInfoRequest\022 \n\006r"
 operator|+

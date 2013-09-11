@@ -267,9 +267,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateRequest
+name|MutateRowsRequest
 import|;
 end_import
 
@@ -287,9 +287,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
-name|MultiMutateResponse
+name|MutateRowsResponse
 import|;
 end_import
 
@@ -307,7 +307,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutation
+name|MultiRowMutationProtos
 operator|.
 name|MultiRowMutationService
 import|;
@@ -350,7 +350,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class demonstrates how to implement atomic multi row transactions using  * {@link HRegion#mutateRowsWithLocks(java.util.Collection, java.util.Collection)}  * and Coprocessor endpoints.  *  * Defines a protocol to perform multi row transactions.  * See {@link MultiRowMutationEndpoint} for the implementation.  *</br>  * See  * {@link HRegion#mutateRowsWithLocks(java.util.Collection, java.util.Collection)}  * for details and limitations.  *</br>  * Example:  *<code><pre>  * List<Mutation> mutations = ...;  * Put p1 = new Put(row1);  * Put p2 = new Put(row2);  * ...  * Mutate m1 = ProtobufUtil.toMutate(MutateType.PUT, p1);  * Mutate m2 = ProtobufUtil.toMutate(MutateType.PUT, p2);  * MultiMutateRequest.Builder mrmBuilder = MultiMutateRequest.newBuilder();  * mrmBuilder.addMutationRequest(m1);  * mrmBuilder.addMutationRequest(m2);  * CoprocessorRpcChannel channel = t.coprocessorService(ROW);  * MultiRowMutationService.BlockingInterface service =   *    MultiRowMutationService.newBlockingStub(channel);  * MultiMutateRequest mrm = mrmBuilder.build();  * service.mutateRows(null, mrm);  *</pre></code>  */
+comment|/**  * This class demonstrates how to implement atomic multi row transactions using  * {@link HRegion#mutateRowsWithLocks(java.util.Collection, java.util.Collection)}  * and Coprocessor endpoints.  *  * Defines a protocol to perform multi row transactions.  * See {@link MultiRowMutationEndpoint} for the implementation.  *</br>  * See  * {@link HRegion#mutateRowsWithLocks(java.util.Collection, java.util.Collection)}  * for details and limitations.  *</br>  * Example:  *<code><pre>  * List<Mutation> mutations = ...;  * Put p1 = new Put(row1);  * Put p2 = new Put(row2);  * ...  * Mutate m1 = ProtobufUtil.toMutate(MutateType.PUT, p1);  * Mutate m2 = ProtobufUtil.toMutate(MutateType.PUT, p2);  * MutateRowsRequest.Builder mrmBuilder = MutateRowsRequest.newBuilder();  * mrmBuilder.addMutationRequest(m1);  * mrmBuilder.addMutationRequest(m2);  * CoprocessorRpcChannel channel = t.coprocessorService(ROW);  * MultiRowMutationService.BlockingInterface service =   *    MultiRowMutationService.newBlockingStub(channel);  * MutateRowsRequest mrm = mrmBuilder.build();  * service.mutateRows(null, mrm);  *</pre></code>  */
 end_comment
 
 begin_class
@@ -385,20 +385,20 @@ parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|MultiMutateRequest
+name|MutateRowsRequest
 name|request
 parameter_list|,
 name|RpcCallback
 argument_list|<
-name|MultiMutateResponse
+name|MutateRowsResponse
 argument_list|>
 name|done
 parameter_list|)
 block|{
-name|MultiMutateResponse
+name|MutateRowsResponse
 name|response
 init|=
-name|MultiMutateResponse
+name|MutateRowsResponse
 operator|.
 name|getDefaultInstance
 argument_list|()

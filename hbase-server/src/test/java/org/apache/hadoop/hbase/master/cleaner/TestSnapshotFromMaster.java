@@ -459,7 +459,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 import|;
 end_import
 
@@ -479,7 +479,7 @@ name|generated
 operator|.
 name|MasterAdminProtos
 operator|.
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 import|;
 end_import
 
@@ -1484,10 +1484,10 @@ throws|throws
 name|Exception
 block|{
 comment|// first check when there are no snapshots
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 name|request
 init|=
-name|ListSnapshotRequest
+name|GetCompletedSnapshotsRequest
 operator|.
 name|newBuilder
 argument_list|()
@@ -1495,7 +1495,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|ListSnapshotResponse
+name|GetCompletedSnapshotsResponse
 name|response
 init|=
 name|master

@@ -48665,7 +48665,7 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\023ClusterStatus.proto\032\013hbase.proto\032\017Clus"
+literal|"\n\023ClusterStatus.proto\032\013HBase.proto\032\017Clus"
 operator|+
 literal|"terId.proto\032\010FS.proto\"\243\002\n\013RegionState\022 \n"
 operator|+
