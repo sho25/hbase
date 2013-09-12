@@ -192,6 +192,14 @@ name|REST_DNS_INTERFACE
 init|=
 literal|"hbase.rest.dns.interface"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FILTER_CLASSES
+init|=
+literal|"hbase.rest.filter.classes"
+decl_stmt|;
 block|}
 end_interface
 
