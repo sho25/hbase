@@ -198,9 +198,7 @@ specifier|private
 name|int
 name|maxVersions
 init|=
-name|HColumnDescriptor
-operator|.
-name|DEFAULT_VERSIONS
+literal|1
 decl_stmt|;
 specifier|private
 name|int
