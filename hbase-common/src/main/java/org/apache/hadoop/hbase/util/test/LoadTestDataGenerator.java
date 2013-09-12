@@ -29,11 +29,29 @@ name|Set
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A generator of random data (keys/cfs/columns/values) for load testing.  * Contains LoadTestKVGenerator as a matter of convenience...  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|abstract
 class|class

@@ -29,7 +29,25 @@ name|InvocationTargetException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ReflectionUtils

@@ -47,6 +47,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|io
@@ -62,6 +76,10 @@ comment|/**  * A decoding context that is created by a reader's encoder, and is 
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|HFileBlockDecodingContext

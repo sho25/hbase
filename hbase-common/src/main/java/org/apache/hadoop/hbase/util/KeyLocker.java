@@ -137,11 +137,29 @@ name|LogFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A utility class to manage a set of locks. Each lock is identified by a String which serves  * as a key. Typical usage is:<p>  * class Example{  * private final static KeyLocker<String> locker = new Locker<String>();  *<p/>  * public void foo(String s){  * Lock lock = locker.acquireLock(s);  * try {  * // whatever  * }finally{  * lock.unlock();  * }  * }  * }  *</p>  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|KeyLocker

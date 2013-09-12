@@ -15,11 +15,29 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implementer can return a CellScanner over its Cell content.  * Class name is ugly but mimicing java.util.Iterable only we are about the dumber  * CellScanner rather than say Iterator<Cell>.  See CellScanner class comment for why we go  * dumber than java.util.Iterator.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|CellScannable

@@ -37,7 +37,29 @@ name|Arrays
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_comment
+comment|/**  * A set of array utility functions that return reasonable values in cases where an array is  * allocated or if it is null  */
+end_comment
+
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ArrayUtils

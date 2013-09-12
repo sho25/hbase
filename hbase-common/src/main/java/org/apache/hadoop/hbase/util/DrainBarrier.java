@@ -31,11 +31,29 @@ name|AtomicLong
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A simple barrier that can be used by classes that need to wait for some operations to  * finish before stopping/closing/etc. forever.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|DrainBarrier
