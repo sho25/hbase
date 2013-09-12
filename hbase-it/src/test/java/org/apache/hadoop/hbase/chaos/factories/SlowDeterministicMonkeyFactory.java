@@ -503,12 +503,6 @@ name|FlushRandomRegionOfTableAction
 argument_list|(
 name|tableName
 argument_list|)
-block|,
-operator|new
-name|MoveRandomRegionOfTableAction
-argument_list|(
-name|tableName
-argument_list|)
 block|}
 decl_stmt|;
 comment|// Actions such as split/merge/snapshot.
@@ -579,6 +573,16 @@ block|{
 operator|new
 name|MoveRegionsOfTableAction
 argument_list|(
+literal|20000
+argument_list|,
+name|tableName
+argument_list|)
+block|,
+operator|new
+name|MoveRandomRegionOfTableAction
+argument_list|(
+literal|20000
+argument_list|,
 name|tableName
 argument_list|)
 block|,
@@ -591,7 +595,7 @@ block|,
 operator|new
 name|BatchRestartRsAction
 argument_list|(
-literal|5000
+literal|60000
 argument_list|,
 literal|0.5f
 argument_list|)
@@ -615,7 +619,7 @@ name|RestartRsHoldingMetaAction
 argument_list|(
 literal|35000
 argument_list|)
-block|}
+block|,     }
 decl_stmt|;
 return|return
 operator|new

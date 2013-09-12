@@ -201,6 +201,21 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+name|sleepTime
+operator|>
+literal|0
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|sleepTime
+argument_list|)
+expr_stmt|;
+block|}
 name|HBaseAdmin
 name|admin
 init|=
@@ -346,7 +361,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 if|if
 condition|(
 name|sleepTime
@@ -361,6 +375,7 @@ argument_list|(
 name|sleepTime
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
