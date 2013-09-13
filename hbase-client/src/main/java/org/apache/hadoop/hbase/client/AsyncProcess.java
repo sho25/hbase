@@ -548,6 +548,7 @@ class|class
 name|BatchErrors
 block|{
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Throwable
@@ -562,6 +563,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Row
@@ -576,6 +578,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|String
@@ -590,6 +593,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|public
+specifier|synchronized
 name|void
 name|add
 parameter_list|(
@@ -603,6 +607,23 @@ name|HRegionLocation
 name|location
 parameter_list|)
 block|{
+if|if
+condition|(
+name|row
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"row cannot be null. location="
+operator|+
+name|location
+argument_list|)
+throw|;
+block|}
 name|throwables
 operator|.
 name|add
@@ -635,6 +656,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
+specifier|synchronized
 name|RetriesExhaustedWithDetailsException
 name|makeException
 parameter_list|()
@@ -673,6 +695,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|clear
 parameter_list|()
@@ -719,6 +742,21 @@ name|RpcRetryingCallerFactory
 name|rpcCaller
 parameter_list|)
 block|{
+if|if
+condition|(
+name|hc
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"HConnection cannot be null."
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|hConnection
@@ -1252,6 +1290,21 @@ argument_list|>
 name|regionStatus
 parameter_list|)
 block|{
+if|if
+condition|(
+name|row
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"row cannot be null"
+argument_list|)
+throw|;
+block|}
 name|HRegionLocation
 name|loc
 init|=
@@ -2825,7 +2878,7 @@ argument_list|()
 condition|)
 block|{
 comment|// We use this value to have some logs when we have multiple failures, but not too many
-comment|//  logs as errors are to be expected wehn region moves, split and so on
+comment|//  logs, as errors are to be expected when a region moves, splits and so on
 name|LOG
 operator|.
 name|debug
@@ -2855,10 +2908,18 @@ name|location
 operator|+
 literal|", last exception was: "
 operator|+
+operator|(
+name|throwable
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
 name|throwable
 operator|.
 name|getMessage
 argument_list|()
+operator|)
 operator|+
 literal|", sleeping "
 operator|+
