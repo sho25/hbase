@@ -9884,7 +9884,7 @@ name|toProtoTableName
 argument_list|(
 name|tablePerm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 argument_list|)
@@ -12664,9 +12664,6 @@ argument_list|(
 name|info
 operator|.
 name|getTableName
-argument_list|()
-operator|.
-name|getName
 argument_list|()
 argument_list|)
 argument_list|)

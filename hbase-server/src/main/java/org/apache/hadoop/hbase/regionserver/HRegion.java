@@ -17131,7 +17131,7 @@ literal|"creating HRegion "
 operator|+
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -17149,7 +17149,7 @@ literal|" Table name == "
 operator|+
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -17167,7 +17167,7 @@ name|rootDir
 argument_list|,
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -17693,7 +17693,7 @@ name|rootDir
 argument_list|,
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -18270,7 +18270,7 @@ name|rootdir
 argument_list|,
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
@@ -18521,7 +18521,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -18531,7 +18531,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -22965,7 +22965,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)

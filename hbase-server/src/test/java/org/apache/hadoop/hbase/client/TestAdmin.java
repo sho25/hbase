@@ -9521,7 +9521,7 @@ condition|(
 operator|!
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable

@@ -1720,7 +1720,7 @@ name|row
 operator|=
 name|userPerm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 operator|.
 name|getName
@@ -2706,7 +2706,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|,
 name|entry

@@ -2174,7 +2174,7 @@ condition|(
 operator|!
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -2668,7 +2668,7 @@ name|tablename
 init|=
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|Map

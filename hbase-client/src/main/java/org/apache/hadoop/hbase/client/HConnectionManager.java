@@ -5127,7 +5127,7 @@ name|equals
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -5175,7 +5175,7 @@ name|compareTo
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 operator|<
@@ -5338,7 +5338,7 @@ name|equals
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -5442,7 +5442,7 @@ name|compareTo
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 operator|<
@@ -5548,7 +5548,7 @@ name|locateRegion
 argument_list|(
 name|HRegionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|(
 name|regionName
 argument_list|)
@@ -6111,7 +6111,7 @@ condition|(
 operator|!
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -6612,7 +6612,7 @@ condition|(
 operator|!
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -6633,7 +6633,7 @@ literal|"' was not found, got: "
 operator|+
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|+
 literal|"."
@@ -11235,7 +11235,7 @@ name|cacheLocation
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|source
@@ -11284,7 +11284,7 @@ name|getTableLocations
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -11379,7 +11379,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|Map

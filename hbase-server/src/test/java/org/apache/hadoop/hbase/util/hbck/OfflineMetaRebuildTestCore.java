@@ -1663,7 +1663,7 @@ operator|&&
 operator|!
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNamespaceAsString

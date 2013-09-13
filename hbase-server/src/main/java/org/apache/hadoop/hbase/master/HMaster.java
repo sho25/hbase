@@ -6846,7 +6846,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -7072,7 +7072,7 @@ name|isEnabledTable
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -7085,7 +7085,7 @@ name|setEnabledTable
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -12189,7 +12189,7 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals

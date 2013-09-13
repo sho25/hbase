@@ -900,7 +900,7 @@ name|isTableSpecified
 operator|&&
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|compareTo
@@ -1073,7 +1073,7 @@ name|rootdir
 argument_list|,
 name|mergedRegion
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1084,7 +1084,7 @@ name|getTableDescriptor
 argument_list|(
 name|mergedRegion
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1706,14 +1706,14 @@ name|result
 init|=
 name|left
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|compareTo
 argument_list|(
 name|right
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -2109,7 +2109,7 @@ name|rootdir
 argument_list|,
 name|daughter
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -2192,7 +2192,7 @@ name|getTableDescriptor
 argument_list|(
 name|parent
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;

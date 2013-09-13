@@ -1493,7 +1493,7 @@ name|tableName
 init|=
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 comment|// 1. All users need read access to hbase:meta table.
@@ -2880,7 +2880,7 @@ name|tableName
 init|=
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 if|if
@@ -4304,7 +4304,7 @@ literal|"move"
 argument_list|,
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -4365,7 +4365,7 @@ literal|"assign"
 argument_list|,
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -4423,7 +4423,7 @@ literal|"unassign"
 argument_list|,
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -4481,7 +4481,7 @@ literal|"regionOffline"
 argument_list|,
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -7477,7 +7477,7 @@ literal|"grant"
 argument_list|,
 name|perm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|,
 name|perm
@@ -7704,7 +7704,7 @@ literal|"revoke"
 argument_list|,
 name|perm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|,
 name|perm
@@ -8200,7 +8200,7 @@ condition|(
 operator|!
 name|tperm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 operator|.
 name|equals
@@ -8231,7 +8231,7 @@ name|tableName
 argument_list|,
 name|tperm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 argument_list|)
@@ -8480,7 +8480,7 @@ name|tableName
 operator|=
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 expr_stmt|;
 block|}
@@ -8647,7 +8647,7 @@ name|tableName
 init|=
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 return|return

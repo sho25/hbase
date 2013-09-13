@@ -458,7 +458,7 @@ return|;
 block|}
 specifier|public
 name|TableName
-name|getTable
+name|getTableName
 parameter_list|()
 block|{
 return|return
@@ -1021,7 +1021,7 @@ name|equals
 argument_list|(
 name|other
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 operator|&&

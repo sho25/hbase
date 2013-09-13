@@ -1424,7 +1424,7 @@ literal|" during enable table "
 operator|+
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|+
 literal|" because its already in tranition or assigned."

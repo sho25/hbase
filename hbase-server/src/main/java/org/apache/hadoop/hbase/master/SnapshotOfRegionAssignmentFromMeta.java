@@ -629,7 +629,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|==
 literal|null
@@ -645,7 +645,7 @@ name|contains
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -818,7 +818,7 @@ name|tableName
 init|=
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|List

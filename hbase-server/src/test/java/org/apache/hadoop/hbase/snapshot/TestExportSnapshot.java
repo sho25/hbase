@@ -233,20 +233,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -331,11 +317,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|snapshot
-operator|.
-name|SnapshotManager
+name|TableName
 import|;
 end_import
 
@@ -381,9 +363,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|master
 operator|.
-name|ProtobufUtil
+name|snapshot
+operator|.
+name|SnapshotManager
 import|;
 end_import
 
@@ -1380,7 +1364,7 @@ name|archiveDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1462,7 +1446,7 @@ name|archiveDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString

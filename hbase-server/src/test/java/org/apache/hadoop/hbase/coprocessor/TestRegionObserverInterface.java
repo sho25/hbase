@@ -3234,7 +3234,7 @@ condition|(
 operator|!
 name|r
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals

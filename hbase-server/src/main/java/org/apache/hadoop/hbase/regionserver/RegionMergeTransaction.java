@@ -1838,7 +1838,7 @@ name|HRegionInfo
 argument_list|(
 name|a
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|startKey

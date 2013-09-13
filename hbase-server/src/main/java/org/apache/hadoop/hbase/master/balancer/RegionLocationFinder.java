@@ -620,7 +620,7 @@ name|getTableDescriptor
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;

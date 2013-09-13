@@ -386,7 +386,7 @@ if|if
 condition|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNamespaceAsString
@@ -607,7 +607,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)

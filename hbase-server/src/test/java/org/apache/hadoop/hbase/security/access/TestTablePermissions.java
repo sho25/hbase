@@ -1178,7 +1178,7 @@ name|TEST_TABLE
 argument_list|,
 name|permission
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1306,7 +1306,7 @@ name|TEST_TABLE
 argument_list|,
 name|permission
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1428,7 +1428,7 @@ name|TEST_TABLE
 argument_list|,
 name|permission
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1653,7 +1653,7 @@ name|TEST_TABLE
 argument_list|,
 name|permission
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1733,7 +1733,7 @@ name|TEST_TABLE2
 argument_list|,
 name|permission
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;

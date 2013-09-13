@@ -872,7 +872,7 @@ name|tableName
 init|=
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString

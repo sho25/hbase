@@ -1173,7 +1173,7 @@ name|equals
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getName
@@ -1239,7 +1239,7 @@ name|equals
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getName

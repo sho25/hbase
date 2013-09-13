@@ -1696,7 +1696,7 @@ name|containsKey
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 operator|&&
@@ -1730,7 +1730,7 @@ name|containsKey
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|)
@@ -6002,7 +6002,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -6062,7 +6062,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -6104,7 +6104,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString

@@ -12539,7 +12539,7 @@ if|if
 condition|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -18634,7 +18634,7 @@ name|get
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -18655,7 +18655,7 @@ name|get
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -18665,7 +18665,7 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|htd

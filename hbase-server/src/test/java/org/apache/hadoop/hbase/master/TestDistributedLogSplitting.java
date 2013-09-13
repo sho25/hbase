@@ -1740,7 +1740,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -1831,7 +1831,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNamespaceAsString
@@ -4586,7 +4586,7 @@ name|equalsIgnoreCase
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -4613,7 +4613,7 @@ name|tableName
 operator|=
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -7431,7 +7431,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -7632,7 +7632,7 @@ if|if
 condition|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -7691,7 +7691,7 @@ condition|(
 operator|!
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -8819,7 +8819,7 @@ literal|null
 operator|||
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString

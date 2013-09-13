@@ -749,7 +749,7 @@ name|testDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -1057,7 +1057,7 @@ name|testDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString
@@ -1212,7 +1212,7 @@ name|HRegionInfo
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -1432,7 +1432,7 @@ name|testDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1731,7 +1731,7 @@ name|testDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1829,7 +1829,7 @@ name|testDir
 argument_list|,
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1898,7 +1898,7 @@ name|HRegionInfo
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -1914,7 +1914,7 @@ name|HRegionInfo
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|SPLITKEY
@@ -2215,7 +2215,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 literal|null
@@ -2253,7 +2253,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|midRow

@@ -1097,7 +1097,7 @@ name|createHFileLinkName
 argument_list|(
 name|hfileRegionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|hfileRegionInfo
@@ -1194,7 +1194,7 @@ name|linkedTable
 init|=
 name|hfileRegionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|String

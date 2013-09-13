@@ -409,7 +409,7 @@ argument_list|()
 argument_list|,
 name|perm
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 argument_list|,
 name|perm

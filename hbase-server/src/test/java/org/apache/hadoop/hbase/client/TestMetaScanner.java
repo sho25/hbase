@@ -1033,7 +1033,7 @@ name|equals
 argument_list|(
 name|parent
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)

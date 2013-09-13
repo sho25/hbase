@@ -1607,7 +1607,7 @@ name|get
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1853,7 +1853,7 @@ name|get
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;

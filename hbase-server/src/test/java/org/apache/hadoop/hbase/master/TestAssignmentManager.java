@@ -3169,7 +3169,7 @@ name|setEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3462,7 +3462,7 @@ name|setDisablingTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3478,7 +3478,7 @@ name|setDisabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3608,7 +3608,7 @@ name|setEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5389,7 +5389,7 @@ name|setDisablingTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5423,7 +5423,7 @@ name|isDisabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|)
@@ -5462,7 +5462,7 @@ name|setEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5612,7 +5612,7 @@ name|setEnablingTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5623,7 +5623,7 @@ name|server
 argument_list|,
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|,
 name|am
@@ -5668,7 +5668,7 @@ name|isEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|)
@@ -5693,7 +5693,7 @@ name|setEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5837,7 +5837,7 @@ name|setEnabledTable
 argument_list|(
 name|REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;

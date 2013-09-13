@@ -8514,7 +8514,7 @@ if|if
 condition|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals
@@ -11274,7 +11274,7 @@ literal|null
 operator|&&
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|equals

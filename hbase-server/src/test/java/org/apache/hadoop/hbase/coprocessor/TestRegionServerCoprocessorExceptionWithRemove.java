@@ -293,7 +293,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|getNameAsString

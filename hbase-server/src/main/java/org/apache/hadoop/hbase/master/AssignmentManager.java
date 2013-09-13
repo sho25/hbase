@@ -2337,7 +2337,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -5873,7 +5873,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -8675,7 +8675,7 @@ name|tableName
 init|=
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 if|if
@@ -9592,7 +9592,7 @@ name|tableName
 init|=
 name|region
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -11600,7 +11600,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -11691,7 +11691,7 @@ name|tableName
 init|=
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 if|if
@@ -11964,7 +11964,7 @@ name|tableName
 init|=
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 if|if
@@ -14107,7 +14107,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -14214,7 +14214,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|parent
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)
@@ -14292,7 +14292,7 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|merged
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)

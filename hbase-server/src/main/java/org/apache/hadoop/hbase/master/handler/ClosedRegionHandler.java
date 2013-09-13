@@ -418,7 +418,7 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 condition|)

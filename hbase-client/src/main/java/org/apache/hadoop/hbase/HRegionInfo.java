@@ -1614,10 +1614,13 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    */
+comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    * @deprecated Since 0.96.0; use #getTable(byte[])    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
-name|TableName
+name|byte
+index|[]
 name|getTableName
 parameter_list|(
 name|byte
@@ -1693,11 +1696,30 @@ name|offset
 argument_list|)
 expr_stmt|;
 return|return
+name|buff
+return|;
+block|}
+comment|/**    * Gets the table name from the specified region name.    * Like {@link #getTableName(byte[])} only returns a {@link TableName} rather than a byte array.    * @param regionName    * @return Table name    * @see #getTableName(byte[])    */
+specifier|public
+specifier|static
+name|TableName
+name|getTable
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+block|{
+return|return
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|buff
+name|getTableName
+argument_list|(
+name|regionName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -2166,12 +2188,32 @@ return|return
 name|endKey
 return|;
 block|}
-comment|/**    * Get current table name of the region    * @return byte array of table name    */
+comment|/**    * Get current table name of the region    * @return byte array of table name    * @deprecated Since 0.96.0; use #getTable()    */
+annotation|@
+name|Deprecated
 specifier|public
-name|TableName
+name|byte
+index|[]
 name|getTableName
 parameter_list|()
 block|{
+return|return
+name|getTable
+argument_list|()
+operator|.
+name|toBytes
+argument_list|()
+return|;
+block|}
+comment|/**    * Get current table name of the region    * @return TableName    * @see #getTableName()    */
+specifier|public
+name|TableName
+name|getTable
+parameter_list|()
+block|{
+comment|// This method name should be getTableName but there was already a method getTableName
+comment|// that returned a byte array.  It is unfortunate given everwhere else, getTableName returns
+comment|// a TableName instance.
 if|if
 condition|(
 name|tableName
@@ -2190,7 +2232,7 @@ condition|)
 block|{
 name|tableName
 operator|=
-name|getTableName
+name|getTable
 argument_list|(
 name|getRegionName
 argument_list|()
@@ -2198,6 +2240,8 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
+name|this
+operator|.
 name|tableName
 return|;
 block|}
@@ -2371,7 +2415,7 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 return|;
@@ -3360,7 +3404,7 @@ name|toProtoTableName
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 argument_list|)

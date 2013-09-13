@@ -11158,7 +11158,7 @@ argument_list|(
 name|rowResult
 argument_list|)
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable

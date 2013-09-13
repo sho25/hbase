@@ -2044,6 +2044,27 @@ name|key
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Remove metadata represented by the key from the {@link #values} map    *    * @param key Key whose key and value we're to remove from HTableDescriptor    * parameters.    */
+specifier|public
+name|void
+name|remove
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|key
+parameter_list|)
+block|{
+name|remove
+argument_list|(
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Check if the readOnly flag of the table is set. If the readOnly flag is    * set then the contents of the table can only be read from but not modified.    *    * @return true if all columns in the table should be read only    */
 specifier|public
 name|boolean

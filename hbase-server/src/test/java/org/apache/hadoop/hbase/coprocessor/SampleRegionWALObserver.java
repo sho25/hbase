@@ -404,9 +404,6 @@ name|info
 operator|.
 name|getTableName
 argument_list|()
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|this
 operator|.

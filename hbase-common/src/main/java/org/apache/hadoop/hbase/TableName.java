@@ -366,7 +366,8 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|void
+name|byte
+index|[]
 name|isLegalTableQualifierName
 parameter_list|(
 specifier|final
@@ -386,6 +387,9 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+return|return
+name|qualifierName
+return|;
 block|}
 comment|/**    * Qualifier names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * @param qualifierName byte array containing the qualifier name    * @param start start index    * @param end end index (exclusive)    */
 specifier|public

@@ -6328,7 +6328,7 @@ name|contains
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 return|;
@@ -9302,7 +9302,7 @@ name|hbi
 operator|.
 name|metaEntry
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 decl_stmt|;
 name|TableInfo
@@ -12428,7 +12428,7 @@ name|add
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -13006,7 +13006,7 @@ name|isTableIncluded
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 operator|||
@@ -13415,7 +13415,7 @@ argument_list|()
 expr_stmt|;
 name|hash
 operator|^=
-name|getTableName
+name|getTable
 argument_list|()
 operator|.
 name|hashCode
@@ -13853,7 +13853,7 @@ name|this
 operator|.
 name|metaEntry
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 return|;
 block|}
@@ -15580,7 +15580,7 @@ name|isTableIncluded
 argument_list|(
 name|hri
 operator|.
-name|getTableName
+name|getTable
 argument_list|()
 argument_list|)
 operator|)
