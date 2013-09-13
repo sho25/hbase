@@ -1134,6 +1134,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Call before the master initialization is set to true.    * {@link org.apache.hadoop.hbase.master.HMaster} process.    */
+name|void
+name|preMasterInitialization
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Called before a new snapshot is taken.    * Called as part of snapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param hTableDescriptor the hTableDescriptor of the table to snapshot    * @throws IOException    */
 name|void
 name|preSnapshot

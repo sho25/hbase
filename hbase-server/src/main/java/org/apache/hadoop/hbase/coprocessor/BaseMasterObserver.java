@@ -1212,6 +1212,21 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preMasterInitialization
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
 name|start
 parameter_list|(
 name|CoprocessorEnvironment
