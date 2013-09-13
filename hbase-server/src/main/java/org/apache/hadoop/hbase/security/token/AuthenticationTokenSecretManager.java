@@ -928,7 +928,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|synchronized
-name|void
+name|boolean
 name|removeKey
 parameter_list|(
 name|Integer
@@ -962,7 +962,9 @@ name|keyId
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -989,6 +991,9 @@ argument_list|(
 name|keyId
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 name|AuthenticationKey
 name|getCurrentKey
