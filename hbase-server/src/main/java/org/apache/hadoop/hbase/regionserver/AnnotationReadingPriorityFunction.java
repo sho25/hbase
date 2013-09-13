@@ -115,6 +115,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|PriorityFunction
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -365,22 +381,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -390,20 +390,6 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Function
 import|;
 end_import
 
@@ -432,7 +418,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A guava function that will return a priority for use by QoS facility in regionserver; e.g.  * rpcs to hbase:meta and -ROOT-, etc., get priority.  */
+comment|/**  * Reads special method annotations and table names to figure a priority for use by QoS facility in  * ipc; e.g: rpcs to hbase:meta get priority.  */
 end_comment
 
 begin_comment
@@ -501,19 +487,9 @@ end_comment
 
 begin_class
 class|class
-name|QosFunction
+name|AnnotationReadingPriorityFunction
 implements|implements
-name|Function
-argument_list|<
-name|Pair
-argument_list|<
-name|RequestHeader
-argument_list|,
-name|Message
-argument_list|>
-argument_list|,
-name|Integer
-argument_list|>
+name|PriorityFunction
 block|{
 specifier|public
 specifier|static
@@ -525,7 +501,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|QosFunction
+name|AnnotationReadingPriorityFunction
 operator|.
 name|class
 operator|.
@@ -679,7 +655,7 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|QosFunction
+name|AnnotationReadingPriorityFunction
 parameter_list|(
 specifier|final
 name|HRegionServer
@@ -1005,26 +981,16 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Integer
-name|apply
+name|int
+name|getPriority
 parameter_list|(
-name|Pair
-argument_list|<
-name|RequestHeader
-argument_list|,
-name|Message
-argument_list|>
-name|headerAndParam
-parameter_list|)
-block|{
 name|RequestHeader
 name|header
-init|=
-name|headerAndParam
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
+parameter_list|,
+name|Message
+name|param
+parameter_list|)
+block|{
 name|String
 name|methodName
 init|=
@@ -1054,14 +1020,6 @@ return|return
 name|priorityByAnnotation
 return|;
 block|}
-name|Message
-name|param
-init|=
-name|headerAndParam
-operator|.
-name|getSecond
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|param

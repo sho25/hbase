@@ -78,6 +78,7 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+specifier|public
 interface|interface
 name|RpcScheduler
 block|{

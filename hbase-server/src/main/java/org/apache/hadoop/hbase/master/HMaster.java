@@ -887,6 +887,38 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|FifoRpcScheduler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RpcScheduler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcServer
 import|;
 end_import
@@ -4047,28 +4079,6 @@ name|DEFAULT_MASTER_HANLDER_COUNT
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|SimpleRpcScheduler
-name|scheduler
-init|=
-operator|new
-name|SimpleRpcScheduler
-argument_list|(
-name|conf
-argument_list|,
-name|numHandlers
-argument_list|,
-literal|0
-argument_list|,
-comment|// we don't use high priority handlers in master
-literal|0
-argument_list|,
-comment|// we don't use replication handlers in master
-literal|null
-argument_list|,
-comment|// this is a DNC w/o high priority handlers
-literal|0
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|rpcServer
@@ -4088,7 +4098,13 @@ argument_list|,
 comment|// BindAddress is IP we got for this server.
 name|conf
 argument_list|,
-name|scheduler
+operator|new
+name|FifoRpcScheduler
+argument_list|(
+name|conf
+argument_list|,
+name|numHandlers
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Set our address.

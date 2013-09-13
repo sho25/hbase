@@ -11644,6 +11644,11 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+name|scheduler
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
 name|notifyAll
 argument_list|()
 expr_stmt|;

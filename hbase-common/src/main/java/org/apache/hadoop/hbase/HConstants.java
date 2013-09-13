@@ -185,6 +185,7 @@ specifier|final
 class|class
 name|HConstants
 block|{
+comment|// NOTICE!!!! Please do not add a constants here, unless they are referenced by a lot of classes.
 comment|//Bytes.UTF8_ENCODING should be updated if this changed
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|public
