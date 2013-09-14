@@ -9706,6 +9706,11 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -19691,6 +19696,11 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -20969,6 +20979,11 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -21790,6 +21805,11 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

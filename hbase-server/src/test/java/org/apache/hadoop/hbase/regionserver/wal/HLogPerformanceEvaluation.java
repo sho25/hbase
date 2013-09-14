@@ -718,6 +718,8 @@ argument_list|,
 name|now
 argument_list|,
 name|htd
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1357,6 +1359,8 @@ argument_list|,
 name|logEdit
 argument_list|,
 name|htd
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
