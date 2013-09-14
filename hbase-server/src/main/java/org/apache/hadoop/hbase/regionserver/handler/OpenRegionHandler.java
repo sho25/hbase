@@ -989,7 +989,12 @@ name|regionName
 operator|+
 literal|". It can be a critical error, as a region that"
 operator|+
-literal|" should be closed is now opened."
+literal|" should be closed is now opened. Closing it now"
+argument_list|)
+expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 block|}
@@ -2237,11 +2242,24 @@ name|region
 operator|!=
 literal|null
 condition|)
+block|{
+name|this
+operator|.
+name|rsServices
+operator|.
+name|removeFromOnlineRegions
+argument_list|(
+name|region
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 name|region
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|boolean

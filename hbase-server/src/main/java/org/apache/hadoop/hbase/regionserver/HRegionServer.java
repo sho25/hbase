@@ -12945,7 +12945,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|NotServingRegionException
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -12967,7 +12967,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @param versionOfClosingNode the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online or if a close    * request in in progress.    */
+comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @param versionOfClosingNode the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online    * @throws RegionAlreadyInTransitionException if the region is already closing    */
 specifier|protected
 name|boolean
 name|closeRegion
@@ -12993,9 +12993,10 @@ name|sn
 parameter_list|)
 throws|throws
 name|NotServingRegionException
+throws|,
+name|RegionAlreadyInTransitionException
 block|{
 comment|//Check for permissions to close.
-specifier|final
 name|HRegion
 name|actualRegion
 init|=
@@ -13152,8 +13153,24 @@ name|sn
 argument_list|)
 return|;
 block|}
-else|else
+comment|// Let's get the region from the online region list again
+name|actualRegion
+operator|=
+name|this
+operator|.
+name|getFromOnlineRegions
+argument_list|(
+name|encodedName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|actualRegion
+operator|==
+literal|null
+condition|)
 block|{
+comment|// If already online, we still need to close it.
 name|LOG
 operator|.
 name|info
@@ -13196,13 +13213,18 @@ literal|"Received CLOSE for the region: "
 operator|+
 name|encodedName
 operator|+
-literal|" ,which we are already trying to CLOSE"
+literal|" ,which we are already trying to CLOSE, but not completed yet"
 argument_list|)
 expr_stmt|;
-comment|// The master deletes the znode when it receives this exception.
+comment|// The master will retry till the region is closed. We need to do this since
+comment|// the region could fail to close somehow. If we mark the region closed in master
+comment|// while it is not, there could be data loss.
+comment|// If the region stuck in closing for a while, and master runs out of retries,
+comment|// master will move the region to failed_to_close. Later on, if the region
+comment|// is indeed closed, master can properly re-assign it.
 throw|throw
 operator|new
-name|NotServingRegionException
+name|RegionAlreadyInTransitionException
 argument_list|(
 literal|"The region "
 operator|+

@@ -662,6 +662,34 @@ name|hri
 argument_list|)
 return|;
 block|}
+comment|/**    * @return True if specified region offline.    */
+specifier|public
+specifier|synchronized
+name|boolean
+name|isRegionOffline
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+return|return
+operator|!
+name|isRegionInTransition
+argument_list|(
+name|hri
+argument_list|)
+operator|&&
+name|isRegionInState
+argument_list|(
+name|hri
+argument_list|,
+name|State
+operator|.
+name|OFFLINE
+argument_list|)
+return|;
+block|}
 comment|/**    * @return True if specified region is in specified state    */
 specifier|public
 specifier|synchronized
