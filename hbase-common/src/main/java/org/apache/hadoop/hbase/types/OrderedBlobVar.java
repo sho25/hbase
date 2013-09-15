@@ -101,7 +101,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 annotation|@
 name|InterfaceStability
 operator|.

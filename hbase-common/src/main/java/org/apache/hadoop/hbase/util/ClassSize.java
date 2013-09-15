@@ -95,20 +95,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class for determining the "size" of a class, an attempt to calculate the  * actual bytes that an object of this class will occupy in memory  *  * The core of this class is taken from the Derby project  */
 end_comment
@@ -117,11 +103,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
+name|Private
 specifier|public
 class|class
 name|ClassSize

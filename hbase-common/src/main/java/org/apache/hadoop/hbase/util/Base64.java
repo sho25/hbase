@@ -5798,6 +5798,14 @@ block|}
 comment|// end decodeFileToFile
 comment|/* ******** I N N E R   C L A S S   I N P U T S T R E A M ******** */
 comment|/**    * A {@link Base64.Base64InputStream} will read data from another    *<tt>InputStream</tt>, given in the constructor, and    * encode/decode to/from Base64 notation on the fly.    *    * @see Base64    * @since 1.3    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 class|class
@@ -6494,6 +6502,14 @@ expr_stmt|;
 block|}
 comment|// end constructor
 comment|/**      * Constructs a {@link Base64OutputStream} in either ENCODE or DECODE mode.      *<p>      * Valid options:      *      *<ul>      *<li>ENCODE or DECODE: Encode or Decode as data is read.</li>      *<li>DONT_BREAK_LINES: don't break lines at 76 characters (only      *     meaningful when encoding)<i>Note: Technically, this makes your      *     encoding non-compliant.</i></li>      *</ul>      *      *<p>      * Example:<code>new Base64.Base64OutputStream( out, Base64.ENCODE )</code>      *      * @param out the<tt>OutputStream</tt> to which data will be written.      * @param options Specified options.      * @see Base64#ENCODE      * @see Base64#DECODE      * @see Base64#DONT_BREAK_LINES      * @since 1.3      */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 name|Base64OutputStream
 parameter_list|(

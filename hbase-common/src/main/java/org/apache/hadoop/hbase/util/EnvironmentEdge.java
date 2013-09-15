@@ -31,20 +31,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Has some basic interaction with the environment. Alternate implementations  * can be used where required (eg in tests).  *  * @see EnvironmentEdgeManager  */
 end_comment
@@ -53,11 +39,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 interface|interface
 name|EnvironmentEdge

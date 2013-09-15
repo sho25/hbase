@@ -612,6 +612,14 @@ name|length
 return|;
 block|}
 comment|/**    * Byte array comparator class.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 class|class
@@ -710,6 +718,14 @@ comment|// TODO: unfortunately, HBase uses byte[0] as both start and end keys fo
 comment|// boundaries. Thus semantically, we should treat empty byte array as the smallest value
 comment|// while comparing row keys, start keys etc; but as the largest value for comparing
 comment|// region boundaries for endKeys.
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 class|class
