@@ -730,7 +730,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor)},    * except it causes a sync on the log    */
+comment|/**    * Same as appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor),    * except it causes a sync on the log    */
 specifier|public
 name|void
 name|append
