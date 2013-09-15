@@ -18803,6 +18803,10 @@ block|{
 comment|// check if the region to be opened is marked in recovering state in ZK
 if|if
 condition|(
+name|this
+operator|.
+name|distributedLogReplay
+operator|&&
 name|SplitLogManager
 operator|.
 name|isRegionMarkedRecoveringInZK

@@ -3074,6 +3074,19 @@ operator|.
 name|distributedLogReplay
 condition|)
 block|{
+comment|// remove any regions in recovery from ZK which could happen when we turn the feature on
+comment|// and later turn it off
+name|ZKUtil
+operator|.
+name|deleteChildrenRecursively
+argument_list|(
+name|watcher
+argument_list|,
+name|watcher
+operator|.
+name|recoveringRegionsZNode
+argument_list|)
+expr_stmt|;
 comment|// the function is only used in distributedLogReplay mode when master is in initialization
 return|return;
 block|}
