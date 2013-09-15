@@ -177,6 +177,10 @@ name|ServiceException
 import|;
 end_import
 
+begin_comment
+comment|/**  * RpcServer Interface.  * Start calls {@link #openServer()} and then {@link #startThreads()}.  Prefer {@link #start()}  * and {@link #stop()}.  Only use {@link #openServer()} and {@link #startThreads()} if in a  * situation where you could start getting requests though the server not up and fully  * initiaalized.  */
+end_comment
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -186,16 +190,20 @@ specifier|public
 interface|interface
 name|RpcServerInterface
 block|{
-comment|// TODO: Needs cleanup.  Why a 'start', and then a 'startThreads' and an 'openServer'?
-name|void
-name|setSocketSendBufSize
-parameter_list|(
-name|int
-name|size
-parameter_list|)
-function_decl|;
 name|void
 name|start
+parameter_list|()
+function_decl|;
+name|void
+name|openServer
+parameter_list|()
+function_decl|;
+name|void
+name|startThreads
+parameter_list|()
+function_decl|;
+name|boolean
+name|isStarted
 parameter_list|()
 function_decl|;
 name|void
@@ -207,6 +215,13 @@ name|join
 parameter_list|()
 throws|throws
 name|InterruptedException
+function_decl|;
+name|void
+name|setSocketSendBufSize
+parameter_list|(
+name|int
+name|size
+parameter_list|)
 function_decl|;
 name|InetSocketAddress
 name|getListenerAddress
@@ -250,12 +265,8 @@ name|HBaseRPCErrorHandler
 name|handler
 parameter_list|)
 function_decl|;
-name|void
-name|openServer
-parameter_list|()
-function_decl|;
-name|void
-name|startThreads
+name|HBaseRPCErrorHandler
+name|getErrorHandler
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
@@ -263,7 +274,15 @@ name|MetricsHBaseServer
 name|getMetrics
 parameter_list|()
 function_decl|;
-comment|/**    * Refresh autentication manager policy.    * @param pp    */
+comment|/**    * Add/subtract from the current size of all outstanding calls.  Called on setup of a call to add    * call total size and then again at end of a call to remove the call size.    * @param diff Change (plus or minus)    */
+name|void
+name|addCallSize
+parameter_list|(
+name|long
+name|diff
+parameter_list|)
+function_decl|;
+comment|/**    * Refresh authentication manager policy.    * @param pp    */
 annotation|@
 name|VisibleForTesting
 name|void

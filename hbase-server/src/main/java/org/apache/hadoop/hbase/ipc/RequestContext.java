@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents client information (authenticated username, remote address, protocol)  * for the currently executing request within a RPC server handler thread.  If  * called outside the context of a RPC request, all values will be  *<code>null</code>.  */
+comment|/**  * Represents client information (authenticated username, remote address, protocol)  * for the currently executing request.  If called outside the context of a RPC request, all values  * will be<code>null</code>. The {@link CallRunner} class before it a call and then on  * its way out, it will clear the thread local.  */
 end_comment
 
 begin_class
@@ -496,7 +496,6 @@ operator|.
 name|service
 return|;
 block|}
-specifier|public
 name|boolean
 name|isInRequest
 parameter_list|()

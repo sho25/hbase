@@ -2108,8 +2108,6 @@ operator|.
 name|dispatch
 argument_list|(
 operator|(
-name|RpcServer
-operator|.
 name|CallRunner
 operator|)
 name|anyObject

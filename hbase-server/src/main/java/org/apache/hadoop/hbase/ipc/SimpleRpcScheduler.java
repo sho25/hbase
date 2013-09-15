@@ -181,8 +181,6 @@ decl_stmt|;
 specifier|final
 name|BlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 name|callQueue
@@ -190,8 +188,6 @@ decl_stmt|;
 specifier|final
 name|BlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 name|priorityCallQueue
@@ -199,8 +195,6 @@ decl_stmt|;
 specifier|final
 name|BlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 name|replicationQueue
@@ -307,8 +301,6 @@ operator|=
 operator|new
 name|LinkedBlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 argument_list|(
@@ -326,8 +318,6 @@ condition|?
 operator|new
 name|LinkedBlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 argument_list|(
@@ -347,8 +337,6 @@ condition|?
 operator|new
 name|LinkedBlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 argument_list|(
@@ -446,8 +434,6 @@ parameter_list|,
 specifier|final
 name|BlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 name|callQueue
@@ -570,8 +556,6 @@ specifier|public
 name|void
 name|dispatch
 parameter_list|(
-name|RpcServer
-operator|.
 name|CallRunner
 name|callTask
 parameter_list|)
@@ -717,8 +701,6 @@ name|consumerLoop
 parameter_list|(
 name|BlockingQueue
 argument_list|<
-name|RpcServer
-operator|.
 name|CallRunner
 argument_list|>
 name|myQueue
@@ -731,8 +713,6 @@ condition|)
 block|{
 try|try
 block|{
-name|RpcServer
-operator|.
 name|CallRunner
 name|task
 init|=

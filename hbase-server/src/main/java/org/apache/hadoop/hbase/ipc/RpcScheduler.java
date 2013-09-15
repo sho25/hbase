@@ -113,8 +113,6 @@ comment|/**    * Dispatches an RPC request asynchronously. An implementation is 
 name|void
 name|dispatch
 parameter_list|(
-name|RpcServer
-operator|.
 name|CallRunner
 name|task
 parameter_list|)
