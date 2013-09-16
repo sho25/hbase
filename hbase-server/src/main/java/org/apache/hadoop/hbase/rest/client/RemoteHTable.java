@@ -1436,8 +1436,9 @@ name|results
 operator|.
 name|add
 argument_list|(
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)

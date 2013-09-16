@@ -2309,7 +2309,7 @@ name|c
 init|=
 name|value
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|SORT_FAM
 argument_list|,

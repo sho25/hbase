@@ -1077,7 +1077,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|CF_BYTES
 argument_list|,

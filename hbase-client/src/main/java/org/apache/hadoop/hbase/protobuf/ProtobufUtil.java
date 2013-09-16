@@ -7248,8 +7248,9 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|cells
 argument_list|)
@@ -7413,8 +7414,9 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|cells
 argument_list|)

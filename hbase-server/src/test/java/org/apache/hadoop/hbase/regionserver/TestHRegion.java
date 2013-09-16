@@ -2554,7 +2554,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -3004,7 +3004,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -24635,7 +24635,7 @@ name|kvs
 init|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|Incrementer
 operator|.
@@ -25183,7 +25183,7 @@ name|kvs
 init|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|Appender
 operator|.
@@ -25442,7 +25442,7 @@ name|kvs
 operator|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -25523,7 +25523,7 @@ name|kvs
 operator|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -25636,7 +25636,7 @@ name|kvs
 operator|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -25717,7 +25717,7 @@ name|kvs
 operator|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,

@@ -1094,7 +1094,7 @@ name|cloneValue
 argument_list|(
 name|res
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|HTableDescriptor
 operator|.
@@ -1601,7 +1601,7 @@ name|cloneValue
 argument_list|(
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|HTableDescriptor
 operator|.

@@ -1266,7 +1266,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|cf
 argument_list|,

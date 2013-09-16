@@ -449,8 +449,9 @@ name|META_COMPARATOR
 argument_list|)
 expr_stmt|;
 return|return
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)

@@ -747,8 +747,9 @@ decl_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -795,8 +796,9 @@ argument_list|)
 expr_stmt|;
 name|r
 operator|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -840,8 +842,9 @@ name|HRegionInfo
 operator|.
 name|getHRegionInfo
 argument_list|(
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -892,8 +895,9 @@ name|HRegionInfo
 operator|.
 name|getHRegionInfo
 argument_list|(
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -1142,8 +1146,9 @@ name|cellScannables
 operator|.
 name|add
 argument_list|(
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)

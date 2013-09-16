@@ -2360,8 +2360,9 @@ block|}
 block|}
 name|result
 operator|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvListScan
 argument_list|)

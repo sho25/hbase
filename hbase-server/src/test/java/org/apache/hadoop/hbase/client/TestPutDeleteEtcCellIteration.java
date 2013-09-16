@@ -1002,8 +1002,9 @@ block|}
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|Arrays
 operator|.

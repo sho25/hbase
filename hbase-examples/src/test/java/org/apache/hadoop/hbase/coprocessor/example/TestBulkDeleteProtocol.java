@@ -1634,7 +1634,7 @@ name|assertTrue
 argument_list|(
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -1651,7 +1651,7 @@ literal|1
 argument_list|,
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -1668,7 +1668,7 @@ literal|1
 argument_list|,
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -1957,7 +1957,7 @@ literal|1
 argument_list|,
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY2
 argument_list|,
@@ -2265,7 +2265,7 @@ name|column
 init|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -2306,7 +2306,7 @@ name|column
 operator|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -2347,7 +2347,7 @@ name|column
 operator|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -2716,7 +2716,7 @@ literal|3
 argument_list|,
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -2733,7 +2733,7 @@ literal|3
 argument_list|,
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -2752,7 +2752,7 @@ name|column
 init|=
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -3381,7 +3381,7 @@ name|column
 init|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -3442,7 +3442,7 @@ name|column
 operator|=
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,
@@ -3505,7 +3505,7 @@ literal|4
 argument_list|,
 name|res
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|FAMILY1
 argument_list|,

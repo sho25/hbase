@@ -7799,7 +7799,7 @@ argument_list|)
 decl_stmt|;
 name|delete
 operator|.
-name|setFamilyMap
+name|setFamilyCellMap
 argument_list|(
 name|familyMap
 argument_list|)
@@ -11507,7 +11507,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|setFamilyMap
+name|setFamilyCellMap
 argument_list|(
 name|familyMap
 argument_list|)
@@ -19022,8 +19022,9 @@ literal|true
 argument_list|)
 decl_stmt|;
 return|return
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|results
 argument_list|)
@@ -21212,8 +21213,9 @@ operator|.
 name|isReturnResults
 argument_list|()
 condition|?
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|allKVs
 argument_list|)
@@ -22033,8 +22035,9 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|allKVs
 argument_list|)

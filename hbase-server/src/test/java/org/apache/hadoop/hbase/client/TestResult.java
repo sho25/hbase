@@ -391,8 +391,9 @@ expr_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -432,7 +433,7 @@ name|ks
 init|=
 name|r
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -477,7 +478,7 @@ argument_list|)
 argument_list|,
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|family
 argument_list|,
@@ -594,8 +595,9 @@ expr_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -635,7 +637,7 @@ name|ks
 init|=
 name|r
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|family
 argument_list|,
@@ -695,7 +697,7 @@ argument_list|)
 argument_list|,
 name|r
 operator|.
-name|getColumnLatest
+name|getColumnLatestCell
 argument_list|(
 name|family
 argument_list|,
@@ -743,8 +745,9 @@ expr_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -923,8 +926,9 @@ expr_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -1034,8 +1038,9 @@ expr_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -1272,8 +1277,9 @@ decl_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)
@@ -1446,8 +1452,9 @@ decl_stmt|;
 name|Result
 name|r1
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 operator|new
 name|KeyValue
@@ -1460,8 +1467,9 @@ decl_stmt|;
 name|Result
 name|r2
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 operator|new
 name|KeyValue
@@ -1675,8 +1683,9 @@ decl_stmt|;
 name|Result
 name|r
 init|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|kvs
 argument_list|)

@@ -1605,8 +1605,9 @@ index|[
 name|i
 index|]
 operator|=
-operator|new
 name|Result
+operator|.
+name|create
 argument_list|(
 name|cells
 argument_list|)

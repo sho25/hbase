@@ -5323,7 +5323,7 @@ name|kvs
 init|=
 name|r
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|fam
 argument_list|,

@@ -7857,7 +7857,7 @@ name|assertTrue
 argument_list|(
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|HConstants
 operator|.
@@ -7876,7 +7876,7 @@ name|assertTrue
 argument_list|(
 name|result
 operator|.
-name|getColumn
+name|getColumnCells
 argument_list|(
 name|HConstants
 operator|.
