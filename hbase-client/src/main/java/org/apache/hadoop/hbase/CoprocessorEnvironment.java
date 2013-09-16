@@ -17,15 +17,11 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|IOException
 import|;
 end_import
 
@@ -39,7 +35,7 @@ name|hadoop
 operator|.
 name|classification
 operator|.
-name|InterfaceStability
+name|InterfaceAudience
 import|;
 end_import
 
@@ -73,16 +69,6 @@ name|HTableInterface
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Coprocessor environment state.  */
 end_comment
@@ -91,11 +77,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 interface|interface
 name|CoprocessorEnvironment

@@ -19,15 +19,11 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|Random
 import|;
 end_import
 
@@ -41,7 +37,7 @@ name|hadoop
 operator|.
 name|classification
 operator|.
-name|InterfaceStability
+name|InterfaceAudience
 import|;
 end_import
 
@@ -59,16 +55,6 @@ name|HConstants
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Random
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility used by client connections.  */
 end_comment
@@ -77,11 +63,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|ConnectionUtils

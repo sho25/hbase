@@ -37,9 +37,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|classification
 operator|.
-name|HBaseIOException
+name|InterfaceStability
 import|;
 end_import
 
@@ -51,7 +51,11 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 annotation|@
 name|SuppressWarnings
 argument_list|(

@@ -111,6 +111,14 @@ extends|extends
 name|ByteArrayComparable
 block|{
 comment|/** Bit operators. */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 enum|enum
 name|BitwiseOp

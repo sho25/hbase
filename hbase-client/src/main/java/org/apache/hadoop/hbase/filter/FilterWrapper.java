@@ -202,10 +202,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|final
 specifier|public
 class|class

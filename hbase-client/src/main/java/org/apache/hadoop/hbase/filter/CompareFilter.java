@@ -178,6 +178,14 @@ extends|extends
 name|FilterBase
 block|{
 comment|/** Comparison operators. */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 enum|enum
 name|CompareOp

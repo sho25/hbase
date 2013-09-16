@@ -33,6 +33,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -50,7 +64,11 @@ argument_list|)
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 class|class
 name|ServerNotRunningYetException

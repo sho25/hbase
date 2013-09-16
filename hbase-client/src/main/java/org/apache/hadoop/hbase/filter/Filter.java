@@ -207,6 +207,14 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Return codes for filterValue().    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 enum|enum
 name|ReturnCode

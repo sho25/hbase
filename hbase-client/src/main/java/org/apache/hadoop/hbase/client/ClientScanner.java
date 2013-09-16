@@ -1281,6 +1281,10 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|protected
 name|ScannerCallable
 name|getScannerCallable

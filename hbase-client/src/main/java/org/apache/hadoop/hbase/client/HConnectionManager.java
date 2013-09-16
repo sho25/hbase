@@ -3479,6 +3479,10 @@ argument_list|)
 return|;
 block|}
 comment|/**    * This convenience method invokes the given {@link HConnectable#connect}    * implementation using a {@link HConnection} instance that lasts just for the    * duration of the invocation.    *    * @param<T> the return type of the connect method    * @param connectable the {@link HConnectable} instance    * @return the value returned by the connect method    * @throws IOException    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 parameter_list|<

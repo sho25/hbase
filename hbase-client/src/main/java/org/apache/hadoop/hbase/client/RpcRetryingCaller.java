@@ -129,20 +129,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -159,7 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -173,7 +159,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
+name|HConstants
 import|;
 end_import
 
@@ -243,11 +229,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
+name|Private
 specifier|public
 class|class
 name|RpcRetryingCaller

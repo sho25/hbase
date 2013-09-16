@@ -210,6 +210,14 @@ extends|extends
 name|Filter
 block|{
 comment|/** set operator */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|static
 enum|enum

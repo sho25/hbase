@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -56,20 +66,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -241,16 +237,6 @@ name|Stat
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
 begin_comment
 comment|// We should not be importing this Type here, nor a RegionTransition, etc.  This class should be
 end_comment
@@ -267,11 +253,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|ZKAssign

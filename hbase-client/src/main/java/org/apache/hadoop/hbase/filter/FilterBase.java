@@ -125,11 +125,8 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
+name|Private
+comment|// TODO add filter limited private level
 specifier|public
 specifier|abstract
 class|class

@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -67,20 +81,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Stoppable
@@ -115,20 +115,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles coordination of a single "leader" instance among many possible  * candidates.  The first {@link ZKLeaderManager} to successfully create  * the given znode becomes the leader, allowing the instance to continue  * with whatever processing must be protected.  Other {@link ZKLeaderManager}  * instances will wait to be notified of changes to the leader znode.  * If the current master instance fails, the ephemeral leader znode will  * be removed, and all waiting instances will be notified, with the race  * to claim the leader znode beginning all over again.  * @deprecated Not used  */
 end_comment
@@ -139,11 +125,7 @@ name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|ZKLeaderManager
