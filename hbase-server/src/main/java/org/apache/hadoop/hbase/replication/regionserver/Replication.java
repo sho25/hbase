@@ -229,6 +229,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -1037,7 +1051,9 @@ name|getBoolean
 argument_list|(
 name|REPLICATION_ENABLE_KEY
 argument_list|,
-literal|false
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_DEFAULT
 argument_list|)
 return|;
 block|}
@@ -1343,6 +1359,7 @@ operator|.
 name|getFamily
 argument_list|()
 expr_stmt|;
+comment|// This is expected and the KV should not be replicated
 if|if
 condition|(
 name|kv
@@ -1355,6 +1372,17 @@ name|METAFAMILY
 argument_list|)
 condition|)
 continue|continue;
+comment|// Unexpected, has a tendency to happen in unit tests
+assert|assert
+name|htd
+operator|.
+name|getFamily
+argument_list|(
+name|family
+argument_list|)
+operator|!=
+literal|null
+assert|;
 name|int
 name|scope
 init|=

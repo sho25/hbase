@@ -449,6 +449,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -7659,6 +7673,28 @@ argument_list|)
 decl_stmt|;
 name|byte
 index|[]
+name|family
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|fname
+argument_list|)
+decl_stmt|;
+name|htd
+operator|.
+name|addFamily
+argument_list|(
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|family
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|byte
+index|[]
 name|value
 init|=
 operator|new
@@ -7897,17 +7933,6 @@ expr_stmt|;
 comment|// use last 5 bytes because
 comment|// HBaseTestingUtility.createMultiRegions use 5 bytes
 comment|// key
-name|byte
-index|[]
-name|family
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|fname
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|qualifier

@@ -12000,7 +12000,9 @@ name|HConstants
 operator|.
 name|REPLICATION_ENABLE_KEY
 argument_list|,
-literal|false
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_DEFAULT
 argument_list|)
 condition|)
 block|{

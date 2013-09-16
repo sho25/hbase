@@ -591,7 +591,9 @@ name|HConstants
 operator|.
 name|REPLICATION_ENABLE_KEY
 argument_list|,
-literal|true
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_DEFAULT
 argument_list|)
 expr_stmt|;
 name|conf1
@@ -731,7 +733,9 @@ name|HConstants
 operator|.
 name|REPLICATION_ENABLE_KEY
 argument_list|,
-literal|true
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_DEFAULT
 argument_list|)
 expr_stmt|;
 name|conf2

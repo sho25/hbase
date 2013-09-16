@@ -1768,6 +1768,14 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
+name|boolean
+name|REPLICATION_ENABLE_DEFAULT
+init|=
+literal|true
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|REPLICATION_SOURCE_SERVICE_CLASSNAME
 init|=
