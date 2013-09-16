@@ -4694,6 +4694,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

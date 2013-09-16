@@ -32373,6 +32373,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|ArrayList
@@ -32655,6 +32657,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|table
@@ -37194,13 +37198,6 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 specifier|final
 name|long
 name|ts
@@ -37472,13 +37469,6 @@ argument_list|,
 literal|3
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 specifier|final
 name|long
 name|ts

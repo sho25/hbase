@@ -501,13 +501,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// test that we don't fail on a valid put
 name|Put
 name|put
@@ -663,13 +656,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// test that we do fail on violation
 name|Put
 name|put
@@ -898,13 +884,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// test that we don't fail because its disabled
 name|Put
 name|put
@@ -1052,13 +1031,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// test that we do fail on violation
 name|Put
 name|put
@@ -1218,13 +1190,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// test that we do fail on violation
 name|Put
 name|put

@@ -4626,6 +4626,24 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|void
+name|setAutoFlushTo
+parameter_list|(
+name|boolean
+name|autoFlush
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"setAutoFlushTo not implemented"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getWriteBufferSize
 parameter_list|()

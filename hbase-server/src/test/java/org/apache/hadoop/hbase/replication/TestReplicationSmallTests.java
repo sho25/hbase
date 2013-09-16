@@ -587,6 +587,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|true
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Starting and stopping replication can make us miss new logs,
@@ -1590,6 +1592,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 for|for
@@ -2324,6 +2328,8 @@ operator|.
 name|setAutoFlush
 argument_list|(
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 for|for

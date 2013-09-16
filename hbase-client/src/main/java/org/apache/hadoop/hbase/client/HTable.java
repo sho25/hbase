@@ -6070,7 +6070,11 @@ return|return
 name|autoFlush
 return|;
 block|}
-comment|/**    * See {@link #setAutoFlush(boolean, boolean)}    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Deprecated
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setAutoFlush
@@ -6087,7 +6091,28 @@ name|autoFlush
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed. Failed operations are not retried. This is    * slower but safer.    *<p>    * Turning off {@link #autoFlush} means that multiple {@link Put}s will be    * accepted before any RPC is actually sent to do the write operations. If the    * application dies before pending writes get flushed to HBase, data will be    * lost.    *<p>    * When you turn {@link #autoFlush} off, you should also consider the    * {@link #clearBufferOnFail} option. By default, asynchronous {@link Put}    * requests will be retried on failure until successful. However, this can    * pollute the writeBuffer and slow down batching performance. Additionally,    * you may want to issue a number of Put requests and call    * {@link #flushCommits()} as a barrier. In both use cases, consider setting    * clearBufferOnFail to true to erase the buffer after {@link #flushCommits()}    * has been called, regardless of success.    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    * @param clearBufferOnFail    *          Whether to keep Put failures in the writeBuffer    * @see #flushCommits    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setAutoFlushTo
+parameter_list|(
+name|boolean
+name|autoFlush
+parameter_list|)
+block|{
+name|setAutoFlush
+argument_list|(
+name|autoFlush
+argument_list|,
+name|clearBufferOnFail
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setAutoFlush
@@ -6115,6 +6140,8 @@ name|clearBufferOnFail
 expr_stmt|;
 block|}
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getWriteBufferSize
