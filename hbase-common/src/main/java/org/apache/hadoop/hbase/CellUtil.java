@@ -865,6 +865,8 @@ parameter_list|(
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|CellScannable
 argument_list|>
 name|cellScannerables
@@ -879,6 +881,8 @@ specifier|private
 specifier|final
 name|Iterator
 argument_list|<
+name|?
+extends|extends
 name|CellScannable
 argument_list|>
 name|iterator
