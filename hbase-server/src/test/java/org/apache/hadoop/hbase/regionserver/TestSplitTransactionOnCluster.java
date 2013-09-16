@@ -5547,7 +5547,7 @@ argument_list|)
 expr_stmt|;
 name|assertFalse
 argument_list|(
-literal|"Split region should not be in transition again"
+literal|"Split region can't be assigned"
 argument_list|,
 name|regionStates
 operator|.
@@ -5555,7 +5555,48 @@ name|isRegionInTransition
 argument_list|(
 name|hri
 argument_list|)
-operator|&&
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|regionStates
+operator|.
+name|isRegionInState
+argument_list|(
+name|hri
+argument_list|,
+name|State
+operator|.
+name|SPLIT
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// We should not be able to unassign it either
+name|am
+operator|.
+name|unassign
+argument_list|(
+name|hri
+argument_list|,
+literal|true
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+literal|"Split region can't be unassigned"
+argument_list|,
+name|regionStates
+operator|.
+name|isRegionInTransition
+argument_list|(
+name|hri
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
 name|regionStates
 operator|.
 name|isRegionInState

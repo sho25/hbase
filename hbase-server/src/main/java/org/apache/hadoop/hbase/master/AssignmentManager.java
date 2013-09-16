@@ -10432,6 +10432,43 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// Region is not in transition.
+comment|// We can unassign it only if it's not SPLIT/MERGED.
+name|state
+operator|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|encodedName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|state
+operator|.
+name|isMerged
+argument_list|()
+operator|||
+name|state
+operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Attempting to unassign "
+operator|+
+name|state
+operator|+
+literal|", ignored"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Create the znode in CLOSING state
 try|try
 block|{
@@ -10493,7 +10530,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Attempting to unassign "
 operator|+
