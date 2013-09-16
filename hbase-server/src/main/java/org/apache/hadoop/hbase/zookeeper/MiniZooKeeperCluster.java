@@ -595,7 +595,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * @param baseDir    * @param numZooKeeperServers    * @return ClientPort server bound to.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * @param baseDir    * @param numZooKeeperServers    * @return ClientPort server bound to, -1 if there was a    *         binding problem and we couldn't pick another port.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|int
 name|startup
@@ -761,8 +761,21 @@ argument_list|(
 literal|"Failed binding ZK Server to client port: "
 operator|+
 name|tentativePort
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
+comment|// We're told to use some port but it's occupied, fail
+if|if
+condition|(
+name|defaultClientPort
+operator|>
+literal|0
+condition|)
+return|return
+operator|-
+literal|1
+return|;
 comment|// This port is already in use, try to use another.
 name|tentativePort
 operator|=
