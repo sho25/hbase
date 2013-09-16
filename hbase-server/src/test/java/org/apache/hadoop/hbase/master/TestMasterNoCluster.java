@@ -1396,17 +1396,8 @@ block|}
 annotation|@
 name|Override
 name|void
-name|assignSystemTables
-parameter_list|(
-name|MonitoredTask
-name|status
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-throws|,
-name|KeeperException
+name|initNamespace
+parameter_list|()
 block|{       }
 block|}
 decl_stmt|;
@@ -1870,17 +1861,8 @@ block|}
 annotation|@
 name|Override
 name|void
-name|assignSystemTables
-parameter_list|(
-name|MonitoredTask
-name|status
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-throws|,
-name|KeeperException
+name|initNamespace
+parameter_list|()
 block|{       }
 block|}
 decl_stmt|;
@@ -2220,9 +2202,7 @@ parameter_list|(
 name|MonitoredTask
 name|status
 parameter_list|)
-block|{
-return|return;
-block|}
+block|{       }
 annotation|@
 name|Override
 name|void
@@ -2369,17 +2349,8 @@ block|}
 annotation|@
 name|Override
 name|void
-name|assignSystemTables
-parameter_list|(
-name|MonitoredTask
-name|status
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-throws|,
-name|KeeperException
+name|initNamespace
+parameter_list|()
 block|{       }
 block|}
 decl_stmt|;
