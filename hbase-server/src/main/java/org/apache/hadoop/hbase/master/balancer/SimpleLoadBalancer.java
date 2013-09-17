@@ -236,7 +236,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 extends|extends
 name|BaseLoadBalancer
 block|{
@@ -250,7 +250,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 operator|.
 name|class
 argument_list|)

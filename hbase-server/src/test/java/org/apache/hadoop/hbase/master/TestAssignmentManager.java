@@ -547,7 +547,7 @@ name|master
 operator|.
 name|balancer
 operator|.
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 import|;
 end_import
 
@@ -4851,7 +4851,7 @@ name|HConstants
 operator|.
 name|HBASE_MASTER_LOADBALANCER_CLASS
 argument_list|,
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 operator|.
 name|class
 argument_list|,
@@ -4881,7 +4881,7 @@ specifier|static
 class|class
 name|MockedLoadBalancer
 extends|extends
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 block|{
 specifier|private
 name|AtomicBoolean
@@ -5444,7 +5444,7 @@ name|HConstants
 operator|.
 name|HBASE_MASTER_LOADBALANCER_CLASS
 argument_list|,
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 operator|.
 name|class
 argument_list|,

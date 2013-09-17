@@ -373,7 +373,7 @@ name|master
 operator|.
 name|balancer
 operator|.
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 import|;
 end_import
 
@@ -3250,7 +3250,7 @@ specifier|static
 class|class
 name|MockLoadBalancer
 extends|extends
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 block|{
 specifier|static
 name|boolean

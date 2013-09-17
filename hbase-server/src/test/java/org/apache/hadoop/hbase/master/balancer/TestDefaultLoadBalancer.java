@@ -271,7 +271,7 @@ expr_stmt|;
 name|loadBalancer
 operator|=
 operator|new
-name|DefaultLoadBalancer
+name|SimpleLoadBalancer
 argument_list|()
 expr_stmt|;
 name|loadBalancer
