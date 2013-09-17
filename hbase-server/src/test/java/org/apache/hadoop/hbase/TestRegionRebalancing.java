@@ -375,7 +375,7 @@ index|[]
 index|[]
 block|{
 block|{
-literal|"org.apache.hadoop.hbase.master.balancer.DefaultLoadBalancer"
+literal|"org.apache.hadoop.hbase.master.balancer.SimpleLoadBalancer"
 block|}
 block|,
 block|{
