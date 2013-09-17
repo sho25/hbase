@@ -211,6 +211,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NamespaceExistException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|NamespaceNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1019,16 +1047,12 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ConstraintException
+name|NamespaceNotFoundException
 argument_list|(
-literal|"Namespace "
-operator|+
 name|ns
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" does not exist"
 argument_list|)
 throw|;
 block|}
@@ -1152,16 +1176,12 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ConstraintException
+name|NamespaceExistException
 argument_list|(
-literal|"Namespace "
-operator|+
 name|ns
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" already exists"
 argument_list|)
 throw|;
 block|}
@@ -1321,6 +1341,24 @@ name|IOException
 block|{
 if|if
 condition|(
+name|get
+argument_list|(
+name|name
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NamespaceNotFoundException
+argument_list|(
+name|name
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|NamespaceDescriptor
 operator|.
 name|RESERVED_NAMESPACES
@@ -1369,13 +1407,9 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|ConstraintException
+name|NamespaceNotFoundException
 argument_list|(
-literal|"namespace "
-operator|+
 name|name
-operator|+
-literal|" does not exist"
 argument_list|)
 throw|;
 block|}
