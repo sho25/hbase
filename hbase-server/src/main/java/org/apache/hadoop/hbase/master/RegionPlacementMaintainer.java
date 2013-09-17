@@ -4068,7 +4068,6 @@ argument_list|,
 name|favoredServerList
 argument_list|)
 expr_stmt|;
-block|}
 name|regionUpdateInfos
 operator|.
 name|add
@@ -4090,6 +4089,7 @@ name|favoredServerList
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
