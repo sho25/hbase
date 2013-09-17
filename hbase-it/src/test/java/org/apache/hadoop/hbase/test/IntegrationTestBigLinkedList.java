@@ -1660,12 +1660,18 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|UUID
+literal|"Job: "
+operator|+
+name|context
 operator|.
-name|randomUUID
+name|getJobID
 argument_list|()
+operator|+
+literal|" Task: "
+operator|+
+name|context
 operator|.
-name|toString
+name|getTaskAttemptID
 argument_list|()
 argument_list|)
 expr_stmt|;
