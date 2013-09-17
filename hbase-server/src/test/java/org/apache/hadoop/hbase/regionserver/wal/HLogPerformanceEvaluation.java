@@ -399,6 +399,20 @@ name|ToolRunner
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class runs performance benchmarks for {@link HLog}.  * See usage for this tool by running:  *<code>$ hbase org.apache.hadoop.hbase.regionserver.wal.HLogPerformanceEvaluation -h</code>  */
 end_comment
@@ -1207,6 +1221,44 @@ expr_stmt|;
 block|}
 block|}
 comment|// Run HLog Performance Evaluation
+comment|// First set the fs from configs.  Do it for both configs in case we
+comment|// are on hadoop1
+name|getConf
+argument_list|()
+operator|.
+name|set
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|getConf
+argument_list|()
+operator|.
+name|set
+argument_list|(
+literal|"fs.defaultFS"
+argument_list|,
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -1222,7 +1274,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|""
+literal|"FileSystem: "
 operator|+
 name|fs
 argument_list|)
