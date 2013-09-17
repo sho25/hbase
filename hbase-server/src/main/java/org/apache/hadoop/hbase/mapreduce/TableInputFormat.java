@@ -267,7 +267,7 @@ name|SCAN_COLUMN_FAMILY
 init|=
 literal|"hbase.mapreduce.scan.column.family"
 decl_stmt|;
-comment|/** Space delimited list of columns to scan. */
+comment|/** Space delimited list of columns and column families to scan. */
 specifier|public
 specifier|static
 specifier|final
@@ -774,7 +774,7 @@ name|scan
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is not qualifier. This assumes the older colon    * divided notation, e.g. "data:contents" or "meta:".    *<p>    * Note: It will through an error when the colon is missing.    *    * @param familyAndQualifier family and qualifier    * @return A reference to this instance.    * @throws IllegalArgumentException When the colon is missing.    */
+comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is no qualifier. This assumes the older colon    * divided notation, e.g. "family:qualifier".    *    * @param scan The Scan to update.    * @param familyAndQualifier family and qualifier    * @return A reference to this instance.    * @throws IllegalArgumentException When familyAndQualifier is invalid.    */
 specifier|private
 specifier|static
 name|void
@@ -805,24 +805,29 @@ condition|(
 name|fq
 operator|.
 name|length
-operator|>
+operator|==
 literal|1
-operator|&&
+condition|)
+block|{
+name|scan
+operator|.
+name|addFamily
+argument_list|(
 name|fq
 index|[
-literal|1
+literal|0
 index|]
-operator|!=
-literal|null
-operator|&&
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
 name|fq
-index|[
-literal|1
-index|]
 operator|.
 name|length
-operator|>
-literal|0
+operator|==
+literal|2
 condition|)
 block|{
 name|scan
@@ -843,19 +848,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|scan
-operator|.
-name|addFamily
+throw|throw
+operator|new
+name|IllegalArgumentException
 argument_list|(
-name|fq
-index|[
-literal|0
-index|]
+literal|"Invalid familyAndQualifier provided."
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 block|}
-comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to addFamily for any families in the input.    *    * @param columns array of columns, formatted as<pre>family:qualifier</pre>    */
+comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to {@link Scan#addColumn(byte[], byte[])}for any families in the    * input.    *    * @param scan The Scan to update.    * @param columns array of columns, formatted as<code>family:qualifier</code>    * @see Scan#addColumn(byte[], byte[])    */
 specifier|public
 specifier|static
 name|void
@@ -888,7 +890,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Convenience method to help parse old style (or rather user entry on the    * command line) column definitions, e.g. "data:contents mime:". The columns    * must be space delimited and always have a colon (":") to denote family    * and qualifier.    *    * @param columns  The columns to parse.    * @return A reference to this instance.    */
+comment|/**    * Convenience method to parse a string representation of an array of column specifiers.    *    * @param scan The Scan to update.    * @param columns  The columns to parse.    */
 specifier|private
 specifier|static
 name|void

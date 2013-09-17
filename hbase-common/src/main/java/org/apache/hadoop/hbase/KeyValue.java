@@ -266,7 +266,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.    *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}  */
+comment|/**  * An HBase Key/Value. This is the fundamental HBase Type.    *<p>  * HBase applications and users should use the Cell interface and avoid directly using KeyValue  * and member functions not defined in Cell.  *<p>  * If being used client-side, the primary methods to access individual fields are {@link #getRow()},  * {@link #getFamily()}, {@link #getQualifier()}, {@link #getTimestamp()}, and {@link #getValue()}.  * These methods allocate new byte arrays and return copies. Avoid their use server-side.  *<p>  * Instances of this class are immutable. They do not implement Comparable but Comparators are  * provided. Comparators change with context, whether user table or a catalog table comparison. Its  * critical you use the appropriate comparator. There are Comparators for normal HFiles, Meta's  * Hfiles, and bloom filter keys.  *<p>  * KeyValue wraps a byte array and takes offsets and lengths into passed array at where to start  * interpreting the content as KeyValue. The KeyValue format inside a byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code> Key is further decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>  *&lt;timestamp>&lt;keytype></code>  * The<code>rowlength</code> maximum is<code>Short.MAX_SIZE</code>, column family length maximum  * is<code>Byte.MAX_SIZE</code>, and column qualifier + key length must be<  *<code>Integer.MAX_SIZE</code>. The column does not contain the family/qualifier delimiter,  * {@link #COLUMN_FAMILY_DELIMITER}  */
 end_comment
 
 begin_class
@@ -4833,7 +4833,7 @@ name|newBuffer
 argument_list|)
 return|;
 block|}
-comment|/**    * Splits a column in family:qualifier form into separate byte arrays.    *<p>    * Not recommend to be used as this is old-style API.    * @param c  The column.    * @return The parsed column.    */
+comment|/**    * Splits a column in {@code family:qualifier} form into separate byte arrays. An empty qualifier    * (ie, {@code fam:}) is parsed as<code>{ fam, EMPTY_BYTE_ARRAY }</code> while no delimiter (ie,    * {@code fam}) is parsed as an array of one element,<code>{ fam }</code>.    *<p>    * Don't forget, HBase DOES support empty qualifiers. (see HBASE-9549)    *</p>    *<p>    * Not recommend to be used as this is old-style API.    *</p>    * @param c The column.    * @return The parsed column.    */
 specifier|public
 specifier|static
 name|byte
@@ -4894,7 +4894,7 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// Only a family, return array size 1
+comment|// family with empty qualifier, return array size 2
 name|byte
 index|[]
 name|family
@@ -4933,6 +4933,10 @@ index|[]
 index|[]
 block|{
 name|family
+block|,
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
 block|}
 return|;
 block|}
@@ -5013,7 +5017,7 @@ argument_list|,
 name|index
 operator|+
 literal|1
-comment|/*Skip delimiter*/
+comment|/* Skip delimiter */
 argument_list|,
 name|result
 index|[
