@@ -808,14 +808,14 @@ argument_list|(
 literal|"There are some HFileV1, or corrupt files (files with incorrect major version)."
 argument_list|)
 expr_stmt|;
-return|return
-operator|-
-literal|1
-return|;
 block|}
+return|return
+name|res
+return|;
 block|}
 comment|// if the user wants to upgrade, check for any HBase live process.
 comment|// If yes, prompt the user to stop them
+elseif|else
 if|if
 condition|(
 name|upgrade
