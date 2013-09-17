@@ -799,6 +799,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Execute the passed<code>mutations</code> against<code>hbase:meta</code> table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param mutations Puts and Deletes to execute on hbase:meta    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|mutateMetaTable

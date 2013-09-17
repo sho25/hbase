@@ -1026,6 +1026,44 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    * @throws IOException    */
+name|void
+name|preSplitBeforePONR
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|byte
+index|[]
+name|splitKey
+parameter_list|,
+name|List
+argument_list|<
+name|Mutation
+argument_list|>
+name|metaEntries
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    * @throws IOException    */
+name|void
+name|preSplitAfterPONR
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * This will be called before the roll back of the split region is completed     * @param ctx    * @throws IOException    */
 name|void
 name|preRollBackSplit
