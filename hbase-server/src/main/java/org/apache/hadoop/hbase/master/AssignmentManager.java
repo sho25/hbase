@@ -10446,6 +10446,11 @@ expr_stmt|;
 if|if
 condition|(
 name|state
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|state
 operator|.
 name|isMerged
 argument_list|()
@@ -10454,6 +10459,7 @@ name|state
 operator|.
 name|isSplit
 argument_list|()
+operator|)
 condition|)
 block|{
 name|LOG
