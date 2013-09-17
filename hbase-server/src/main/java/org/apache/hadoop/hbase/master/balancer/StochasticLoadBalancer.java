@@ -605,7 +605,7 @@ operator|new
 name|LoadPicker
 argument_list|()
 block|,
-comment|//localityPicker
+name|localityPicker
 block|}
 expr_stmt|;
 name|regionLoadFunctions
