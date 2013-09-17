@@ -109,20 +109,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -959,6 +945,20 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Sets
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is an integration test borrowed from goraci, written by Keith Turner,  * which is in turn inspired by the Accumulo test called continous ingest (ci).  * The original source code can be found here:  * https://github.com/keith-turner/goraci  * https://github.com/enis/goraci/  *  * Apache Accumulo [0] has a simple test suite that verifies that data is not  * lost at scale. This test suite is called continuous ingest. This test runs  * many ingest clients that continually create linked lists containing 25  * million nodes. At some point the clients are stopped and a map reduce job is  * run to ensure no linked list has a hole. A hole indicates data was lost.··  *  * The nodes in the linked list are random. This causes each linked list to  * spread across the table. Therefore if one part of a table loses data, then it  * will be detected by references in another part of the table.  *  * THE ANATOMY OF THE TEST  *  * Below is rough sketch of how data is written. For specific details look at  * the Generator code.  *  * 1 Write out 1 million nodes· 2 Flush the client· 3 Write out 1 million that  * reference previous million· 4 If this is the 25th set of 1 million nodes,  * then update 1st set of million to point to last· 5 goto 1  *  * The key is that nodes only reference flushed nodes. Therefore a node should  * never reference a missing node, even if the ingest client is killed at any  * point in time.  *  * When running this test suite w/ Accumulo there is a script running in  * parallel called the Aggitator that randomly and continuously kills server  * processes.·· The outcome was that many data loss bugs were found in Accumulo  * by doing this.· This test suite can also help find bugs that impact uptime  * and stability when· run for days or weeks.··  *  * This test suite consists the following· - a few Java programs· - a little  * helper script to run the java programs - a maven script to build it.··  *  * When generating data, its best to have each map task generate a multiple of  * 25 million. The reason for this is that circular linked list are generated  * every 25M. Not generating a multiple in 25M will result in some nodes in the  * linked list not having references. The loss of an unreferenced node can not  * be detected.  *  *  * Below is a description of the Java programs  *  * Generator - A map only job that generates data. As stated previously,·  * its best to generate data in multiples of 25M.  *  * Verify - A map reduce job that looks for holes. Look at the counts after running. REFERENCED and  * UNREFERENCED are· ok, any UNDEFINED counts are bad. Do not run at the· same  * time as the Generator.  *  * Walker - A standalong program that start following a linked list· and emits timing info.··  *  * Print - A standalone program that prints nodes in the linked list  *  * Delete - A standalone program that deletes a single node  *  * This class can be run as a unit test, as an integration test, or from the command line  */
 end_comment
@@ -1640,6 +1640,8 @@ decl_stmt|;
 name|int
 name|width
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setup
@@ -1803,6 +1805,8 @@ name|numNodes
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|cleanup
@@ -3081,6 +3085,8 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|reduce
@@ -4457,6 +4463,8 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run
@@ -4850,6 +4858,8 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run
@@ -4992,6 +5002,8 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run
@@ -5909,6 +5921,13 @@ name|util
 operator|.
 name|initializeCluster
 argument_list|(
+name|util
+operator|.
+name|isDistributedCluster
+argument_list|()
+condition|?
+literal|1
+else|:
 name|this
 operator|.
 name|NUM_SLAVES_BASE
