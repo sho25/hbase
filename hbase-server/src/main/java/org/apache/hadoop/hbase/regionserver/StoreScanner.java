@@ -471,6 +471,13 @@ name|lastTop
 init|=
 literal|null
 decl_stmt|;
+comment|// A flag whether use pread for scan
+specifier|private
+name|boolean
+name|scanUsePread
+init|=
+literal|false
+decl_stmt|;
 comment|/** An internal constructor. */
 specifier|protected
 name|StoreScanner
@@ -583,6 +590,15 @@ name|numCol
 operator|==
 literal|1
 operator|)
+expr_stmt|;
+name|this
+operator|.
+name|scanUsePread
+operator|=
+name|scan
+operator|.
+name|isSmall
+argument_list|()
 expr_stmt|;
 comment|// The parallel-seeking is on :
 comment|// 1) the config value is *true*
@@ -1383,6 +1399,13 @@ name|isCompaction
 init|=
 literal|false
 decl_stmt|;
+name|boolean
+name|usePread
+init|=
+name|isGet
+operator|||
+name|scanUsePread
+decl_stmt|;
 return|return
 name|selectScannersFrom
 argument_list|(
@@ -1393,6 +1416,8 @@ argument_list|(
 name|cacheBlocks
 argument_list|,
 name|isGet
+argument_list|,
+name|usePread
 argument_list|,
 name|isCompaction
 argument_list|,

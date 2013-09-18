@@ -377,11 +377,11 @@ name|getClass
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Scan
 name|scan
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|closed
 init|=
@@ -389,7 +389,7 @@ literal|false
 decl_stmt|;
 comment|// Current region scanner is against.  Gets cleared if current region goes
 comment|// wonky: e.g. if it splits on us.
-specifier|private
+specifier|protected
 name|HRegionInfo
 name|currentRegion
 init|=
@@ -401,7 +401,7 @@ name|callable
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|LinkedList
 argument_list|<
@@ -416,29 +416,29 @@ name|Result
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|int
 name|caching
 decl_stmt|;
-specifier|private
+specifier|protected
 name|long
 name|lastNext
 decl_stmt|;
 comment|// Keep lastResult returned successfully in case we have to reset scanner.
-specifier|private
+specifier|protected
 name|Result
 name|lastResult
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|ScanMetrics
 name|scanMetrics
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|long
 name|maxScannerResultSize
@@ -458,13 +458,13 @@ specifier|final
 name|int
 name|scannerTimeout
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|scanMetricsPublished
 init|=
 literal|false
 decl_stmt|;
-specifier|private
+specifier|protected
 name|RpcRetryingCaller
 argument_list|<
 name|Result
@@ -871,6 +871,17 @@ operator|>
 name|newCaller
 argument_list|()
 expr_stmt|;
+name|initializeScannerInConstruction
+argument_list|()
+expr_stmt|;
+block|}
+specifier|protected
+name|void
+name|initializeScannerInConstruction
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 comment|// initialize the scanner
 name|nextScanner
 argument_list|(
@@ -941,7 +952,7 @@ name|lastNext
 return|;
 block|}
 comment|// returns true if the passed region endKey
-specifier|private
+specifier|protected
 name|boolean
 name|checkScanStopRow
 parameter_list|(
@@ -1335,7 +1346,7 @@ name|s
 return|;
 block|}
 comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics      * framework because it doesn't support multi-instances of the same metrics on the same machine;      * for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this behavior      * can be turned on by calling calling:      *      * scan.setAttribute(SCAN_ATTRIBUTES_METRICS_ENABLE, Bytes.toBytes(Boolean.TRUE))      */
-specifier|private
+specifier|protected
 name|void
 name|writeScanMetrics
 parameter_list|()

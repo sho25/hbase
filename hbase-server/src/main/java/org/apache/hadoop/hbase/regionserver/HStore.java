@@ -4199,6 +4199,9 @@ name|boolean
 name|isGet
 parameter_list|,
 name|boolean
+name|usePread
+parameter_list|,
+name|boolean
 name|isCompaction
 parameter_list|,
 name|ScanQueryMatcher
@@ -4298,7 +4301,7 @@ name|storeFilesToScan
 argument_list|,
 name|cacheBlocks
 argument_list|,
-name|isGet
+name|usePread
 argument_list|,
 name|isCompaction
 argument_list|,

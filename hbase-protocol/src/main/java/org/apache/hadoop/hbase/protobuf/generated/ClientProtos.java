@@ -75092,6 +75092,17 @@ name|boolean
 name|getLoadColumnFamiliesOnDemand
 parameter_list|()
 function_decl|;
+comment|// optional bool small = 14;
+comment|/**      *<code>optional bool small = 14;</code>      */
+name|boolean
+name|hasSmall
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool small = 14;</code>      */
+name|boolean
+name|getSmall
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
@@ -75856,6 +75867,23 @@ operator||=
 literal|0x00000400
 expr_stmt|;
 name|loadColumnFamiliesOnDemand_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|112
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000800
+expr_stmt|;
+name|small_
 operator|=
 name|input
 operator|.
@@ -77122,6 +77150,47 @@ return|return
 name|loadColumnFamiliesOnDemand_
 return|;
 block|}
+comment|// optional bool small = 14;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SMALL_FIELD_NUMBER
+init|=
+literal|14
+decl_stmt|;
+specifier|private
+name|boolean
+name|small_
+decl_stmt|;
+comment|/**      *<code>optional bool small = 14;</code>      */
+specifier|public
+name|boolean
+name|hasSmall
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000800
+operator|)
+operator|==
+literal|0x00000800
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool small = 14;</code>      */
+specifier|public
+name|boolean
+name|getSmall
+parameter_list|()
+block|{
+return|return
+name|small_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -77240,6 +77309,10 @@ operator|=
 literal|0
 expr_stmt|;
 name|loadColumnFamiliesOnDemand_
+operator|=
+literal|false
+expr_stmt|;
+name|small_
 operator|=
 literal|false
 expr_stmt|;
@@ -77723,6 +77796,29 @@ name|loadColumnFamiliesOnDemand_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000800
+operator|)
+operator|==
+literal|0x00000800
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|14
+argument_list|,
+name|small_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -78183,6 +78279,37 @@ argument_list|(
 literal|13
 argument_list|,
 name|loadColumnFamiliesOnDemand_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000800
+operator|)
+operator|==
+literal|0x00000800
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|14
+argument_list|,
+name|small_
 argument_list|)
 expr_stmt|;
 block|}
@@ -78765,6 +78892,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasSmall
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasSmall
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasSmall
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getSmall
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getSmall
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -79218,6 +79380,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getLoadColumnFamiliesOnDemand
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasSmall
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|SMALL_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getSmall
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -80357,6 +80550,19 @@ operator|~
 literal|0x00001000
 operator|)
 expr_stmt|;
+name|small_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00002000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -81001,6 +81207,30 @@ name|loadColumnFamiliesOnDemand_
 operator|=
 name|loadColumnFamiliesOnDemand_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00002000
+operator|)
+operator|==
+literal|0x00002000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000800
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|small_
+operator|=
+name|small_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -81596,6 +81826,23 @@ argument_list|(
 name|other
 operator|.
 name|getLoadColumnFamiliesOnDemand
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasSmall
+argument_list|()
+condition|)
+block|{
+name|setSmall
+argument_list|(
+name|other
+operator|.
+name|getSmall
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -86740,6 +86987,89 @@ literal|0x00001000
 operator|)
 expr_stmt|;
 name|loadColumnFamiliesOnDemand_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool small = 14;
+specifier|private
+name|boolean
+name|small_
+decl_stmt|;
+comment|/**        *<code>optional bool small = 14;</code>        */
+specifier|public
+name|boolean
+name|hasSmall
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00002000
+operator|)
+operator|==
+literal|0x00002000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool small = 14;</code>        */
+specifier|public
+name|boolean
+name|getSmall
+parameter_list|()
+block|{
+return|return
+name|small_
+return|;
+block|}
+comment|/**        *<code>optional bool small = 14;</code>        */
+specifier|public
+name|Builder
+name|setSmall
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00002000
+expr_stmt|;
+name|small_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool small = 14;</code>        */
+specifier|public
+name|Builder
+name|clearSmall
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00002000
+operator|)
+expr_stmt|;
+name|small_
 operator|=
 literal|false
 expr_stmt|;
@@ -151111,7 +151441,7 @@ literal|"\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001
 operator|+
 literal|"\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006resul"
 operator|+
-literal|"t\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\325\002\n\004"
+literal|"t\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\344\002\n\004"
 operator|+
 literal|"Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattribu"
 operator|+
@@ -151129,83 +151459,83 @@ literal|"esult_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022
 operator|+
 literal|"\014store_offset\030\014 \001(\r\022&\n\036load_column_famil"
 operator|+
-literal|"ies_on_demand\030\r \001(\010\"\236\001\n\013ScanRequest\022 \n\006r"
+literal|"ies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\"\236\001\n\013S"
 operator|+
-literal|"egion\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 "
+literal|"canRequest\022 \n\006region\030\001 \001(\0132\020.RegionSpeci"
 operator|+
-literal|"\001(\0132\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number"
+literal|"fier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanner_id\030"
 operator|+
-literal|"_of_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n"
+literal|"\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclose_s"
 operator|+
-literal|"\rnext_call_seq\030\006 \001(\004\"y\n\014ScanResponse\022\030\n\020"
+literal|"canner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\"y\n\014S"
 block|,
-literal|"cells_per_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001"
+literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
 operator|+
-literal|"(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n"
+literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
 operator|+
-literal|"\007results\030\005 \003(\0132\007.Result\"\263\001\n\024BulkLoadHFil"
+literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\"\263"
 operator|+
-literal|"eRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132"
 operator|+
-literal|"er\0225\n\013family_path\030\002 \003(\0132 .BulkLoadHFileR"
+literal|"\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 "
 operator|+
-literal|"equest.FamilyPath\022\026\n\016assign_seq_num\030\003 \001("
+literal|".BulkLoadHFileRequest.FamilyPath\022\026\n\016assi"
 operator|+
-literal|"\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030"
+literal|"gn_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
 operator|+
-literal|"\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded"
+literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
 operator|+
-literal|"\030\001 \002(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030"
+literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServ"
 operator|+
-literal|"\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_na"
+literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002"
 block|,
-literal|"me\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031Coprocessor"
+literal|"(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
 operator|+
-literal|"ServiceRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
+literal|"\"d\n\031CoprocessorServiceRequest\022 \n\006region\030"
 operator|+
-literal|"pecifier\022%\n\004call\030\002 \002(\0132\027.CoprocessorServ"
+literal|"\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027."
 operator|+
-literal|"iceCall\"]\n\032CoprocessorServiceResponse\022 \n"
+literal|"CoprocessorServiceCall\"]\n\032CoprocessorSer"
 operator|+
-literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value"
+literal|"viceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
 operator|+
-literal|"\030\002 \002(\0132\016.NameBytesPair\"B\n\013MultiAction\022 \n"
+literal|"cifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B\n"
 operator|+
-literal|"\010mutation\030\001 \001(\0132\016.MutationProto\022\021\n\003get\030\002"
+literal|"\013MultiAction\022 \n\010mutation\030\001 \001(\0132\016.Mutatio"
 operator|+
-literal|" \001(\0132\004.Get\"I\n\014ActionResult\022\026\n\005value\030\001 \001("
+literal|"nProto\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResul"
 operator|+
-literal|"\0132\007.Result\022!\n\texception\030\002 \001(\0132\016.NameByte"
+literal|"t\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030\002"
 operator|+
-literal|"sPair\"^\n\014MultiRequest\022 \n\006region\030\001 \002(\0132\020."
+literal|" \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006"
 block|,
-literal|"RegionSpecifier\022\034\n\006action\030\002 \003(\0132\014.MultiA"
+literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action"
 operator|+
-literal|"ction\022\016\n\006atomic\030\003 \001(\010\".\n\rMultiResponse\022\035"
+literal|"\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\r"
 operator|+
-literal|"\n\006result\030\001 \003(\0132\r.ActionResult2\342\002\n\rClient"
+literal|"MultiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionRe"
 operator|+
-literal|"Service\022 \n\003Get\022\013.GetRequest\032\014.GetRespons"
+literal|"sult2\342\002\n\rClientService\022 \n\003Get\022\013.GetReque"
 operator|+
-literal|"e\022/\n\010MultiGet\022\020.MultiGetRequest\032\021.MultiG"
+literal|"st\032\014.GetResponse\022/\n\010MultiGet\022\020.MultiGetR"
 operator|+
-literal|"etResponse\022)\n\006Mutate\022\016.MutateRequest\032\017.M"
+literal|"equest\032\021.MultiGetResponse\022)\n\006Mutate\022\016.Mu"
 operator|+
-literal|"utateResponse\022#\n\004Scan\022\014.ScanRequest\032\r.Sc"
+literal|"tateRequest\032\017.MutateResponse\022#\n\004Scan\022\014.S"
 operator|+
-literal|"anResponse\022>\n\rBulkLoadHFile\022\025.BulkLoadHF"
+literal|"canRequest\032\r.ScanResponse\022>\n\rBulkLoadHFi"
 operator|+
-literal|"ileRequest\032\026.BulkLoadHFileResponse\022F\n\013Ex"
+literal|"le\022\025.BulkLoadHFileRequest\032\026.BulkLoadHFil"
 operator|+
-literal|"ecService\022\032.CoprocessorServiceRequest\032\033."
+literal|"eResponse\022F\n\013ExecService\022\032.CoprocessorSe"
 block|,
-literal|"CoprocessorServiceResponse\022&\n\005Multi\022\r.Mu"
+literal|"rviceRequest\032\033.CoprocessorServiceRespons"
 operator|+
-literal|"ltiRequest\032\016.MultiResponseBB\n*org.apache"
+literal|"e\022&\n\005Multi\022\r.MultiRequest\032\016.MultiRespons"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\014Client"
+literal|"eBB\n*org.apache.hadoop.hbase.protobuf.ge"
 operator|+
-literal|"ProtosH\001\210\001\001\240\001\001"
+literal|"neratedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -151912,6 +152242,8 @@ block|,
 literal|"StoreOffset"
 block|,
 literal|"LoadColumnFamiliesOnDemand"
+block|,
+literal|"Small"
 block|, }
 argument_list|)
 expr_stmt|;
