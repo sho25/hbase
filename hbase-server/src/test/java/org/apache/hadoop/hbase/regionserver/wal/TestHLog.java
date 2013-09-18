@@ -1010,6 +1010,15 @@ operator|.
 name|innerMain
 argument_list|(
 operator|new
+name|Configuration
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
 name|String
 index|[]
 block|{
@@ -1018,6 +1027,8 @@ block|,
 literal|"3"
 block|,
 literal|"-verify"
+block|,
+literal|"-noclosefs"
 block|,
 literal|"-iterations"
 block|,
