@@ -13205,11 +13205,6 @@ argument_list|,
 name|splits
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

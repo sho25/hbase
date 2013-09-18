@@ -2341,11 +2341,6 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2521,14 +2516,6 @@ name|ServiceException
 name|e
 parameter_list|)
 block|{     }
-finally|finally
-block|{
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 specifier|private
 specifier|static

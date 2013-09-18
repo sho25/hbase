@@ -856,11 +856,6 @@ argument_list|(
 name|TEST_UTIL
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Verfy the result of getBalanceSplits() method.    * The result are groups of files, used as input list for the "export" mappers.    * All the groups should have similar amount of data.    *    * The input list is a pair of file path and length.    * The getBalanceSplits() function sort it by length,    * and assign to each group a file, going back and forth through the groups.    */
 annotation|@

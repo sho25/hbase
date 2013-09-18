@@ -10123,6 +10123,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|close
 parameter_list|()
@@ -10146,6 +10147,12 @@ name|connection
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|connection
+operator|=
+literal|null
 expr_stmt|;
 block|}
 block|}
