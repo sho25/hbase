@@ -276,6 +276,18 @@ import|;
 end_import
 
 begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CountDownLatch
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -608,6 +620,19 @@ operator|.
 name|newHashMap
 argument_list|()
 decl_stmt|;
+specifier|final
+name|CountDownLatch
+name|countDownLatch
+init|=
+operator|new
+name|CountDownLatch
+argument_list|(
+name|tasks
+operator|.
+name|size
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|Answer
 argument_list|<
 name|Void
@@ -633,6 +658,11 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
+synchronized|synchronized
+init|(
+name|handlerThreads
+init|)
+block|{
 name|handlerThreads
 operator|.
 name|put
@@ -650,6 +680,12 @@ operator|.
 name|currentThread
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+name|countDownLatch
+operator|.
+name|countDown
+argument_list|()
 expr_stmt|;
 return|return
 literal|null
@@ -788,6 +824,11 @@ name|stop
 argument_list|()
 expr_stmt|;
 comment|// Tests that these requests are handled by three distinct threads.
+name|countDownLatch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|3
