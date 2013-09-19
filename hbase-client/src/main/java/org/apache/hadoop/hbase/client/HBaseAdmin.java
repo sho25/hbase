@@ -1944,6 +1944,12 @@ literal|false
 decl_stmt|;
 comment|// close the connection in close()
 specifier|private
+name|boolean
+name|closed
+init|=
+literal|false
+decl_stmt|;
+specifier|private
 name|RpcRetryingCallerFactory
 name|rpcCallerFactory
 decl_stmt|;
@@ -10139,6 +10145,11 @@ operator|.
 name|connection
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|this
+operator|.
+name|closed
 condition|)
 block|{
 name|this
@@ -10150,9 +10161,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|connection
+name|closed
 operator|=
-literal|null
+literal|true
 expr_stmt|;
 block|}
 block|}
