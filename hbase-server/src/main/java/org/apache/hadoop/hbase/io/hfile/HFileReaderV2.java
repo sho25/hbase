@@ -2285,7 +2285,7 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-operator|==
+operator|>=
 literal|0
 condition|)
 block|{

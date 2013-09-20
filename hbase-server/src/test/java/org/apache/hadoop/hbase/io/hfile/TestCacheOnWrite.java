@@ -1662,7 +1662,7 @@ literal|"{"
 operator|+
 name|cachedDataBlockType
 operator|+
-literal|"=1379, LEAF_INDEX=173, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=24}"
+literal|"=1379, LEAF_INDEX=154, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=18}"
 argument_list|,
 name|countByType
 argument_list|)

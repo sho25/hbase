@@ -299,6 +299,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|mortbay
+operator|.
+name|log
+operator|.
+name|Log
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -934,12 +946,18 @@ control|)
 block|{
 if|if
 condition|(
-name|item
+name|KeyValue
 operator|.
-name|equals
+name|COMPARATOR
+operator|.
+name|compare
 argument_list|(
+name|item
+argument_list|,
 name|midKV
 argument_list|)
+operator|>=
+literal|0
 condition|)
 block|{
 break|break;
@@ -949,6 +967,37 @@ operator|=
 name|item
 expr_stmt|;
 block|}
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"midkey: "
+operator|+
+name|midKV
+operator|+
+literal|" or: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|midkey
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"beforeMidKey: "
+operator|+
+name|beforeMidKey
+argument_list|)
+expr_stmt|;
 comment|// Seek on the splitKey, should be in top, not in bottom
 name|KeyValue
 name|foundKeyValue
