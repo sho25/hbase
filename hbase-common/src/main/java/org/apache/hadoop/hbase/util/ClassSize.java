@@ -276,6 +276,20 @@ specifier|final
 name|int
 name|TIMERANGE
 decl_stmt|;
+comment|/** Overhead for TimeRangeTracker */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TIMERANGE_TRACKER
+decl_stmt|;
+comment|/** Overhead for KeyValueSkipListSet */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|KEYVALUE_SKIPLIST_SET
+decl_stmt|;
 comment|/* Are we running on jdk7? */
 specifier|private
 specifier|static
@@ -728,6 +742,30 @@ operator|+
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
+argument_list|)
+expr_stmt|;
+name|TIMERANGE_TRACKER
+operator|=
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+operator|*
+literal|2
+argument_list|)
+expr_stmt|;
+name|KEYVALUE_SKIPLIST_SET
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+name|REFERENCE
 argument_list|)
 expr_stmt|;
 block|}
