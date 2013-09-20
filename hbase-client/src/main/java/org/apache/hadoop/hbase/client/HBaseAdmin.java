@@ -12089,6 +12089,11 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
+name|setDone
+argument_list|(
+literal|false
+argument_list|)
+operator|.
 name|buildPartial
 argument_list|()
 decl_stmt|;

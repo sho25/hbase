@@ -193873,13 +193873,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// optional bool done = 1 [default = true];
-comment|/**      *<code>optional bool done = 1 [default = true];</code>      */
+comment|// optional bool done = 1 [default = false];
+comment|/**      *<code>optional bool done = 1 [default = false];</code>      */
 name|boolean
 name|hasDone
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional bool done = 1 [default = true];</code>      */
+comment|/**      *<code>optional bool done = 1 [default = false];</code>      */
 name|boolean
 name|getDone
 parameter_list|()
@@ -194429,7 +194429,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool done = 1 [default = true];
+comment|// optional bool done = 1 [default = false];
 specifier|public
 specifier|static
 specifier|final
@@ -194442,7 +194442,7 @@ specifier|private
 name|boolean
 name|done_
 decl_stmt|;
-comment|/**      *<code>optional bool done = 1 [default = true];</code>      */
+comment|/**      *<code>optional bool done = 1 [default = false];</code>      */
 specifier|public
 name|boolean
 name|hasDone
@@ -194460,7 +194460,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional bool done = 1 [default = true];</code>      */
+comment|/**      *<code>optional bool done = 1 [default = false];</code>      */
 specifier|public
 name|boolean
 name|getDone
@@ -194477,7 +194477,7 @@ parameter_list|()
 block|{
 name|done_
 operator|=
-literal|true
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -195750,7 +195750,7 @@ argument_list|()
 expr_stmt|;
 name|done_
 operator|=
-literal|true
+literal|false
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -196302,14 +196302,12 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// optional bool done = 1 [default = true];
+comment|// optional bool done = 1 [default = false];
 specifier|private
 name|boolean
 name|done_
-init|=
-literal|true
 decl_stmt|;
-comment|/**        *<code>optional bool done = 1 [default = true];</code>        */
+comment|/**        *<code>optional bool done = 1 [default = false];</code>        */
 specifier|public
 name|boolean
 name|hasDone
@@ -196327,7 +196325,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional bool done = 1 [default = true];</code>        */
+comment|/**        *<code>optional bool done = 1 [default = false];</code>        */
 specifier|public
 name|boolean
 name|getDone
@@ -196337,7 +196335,7 @@ return|return
 name|done_
 return|;
 block|}
-comment|/**        *<code>optional bool done = 1 [default = true];</code>        */
+comment|/**        *<code>optional bool done = 1 [default = false];</code>        */
 specifier|public
 name|Builder
 name|setDone
@@ -196361,7 +196359,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional bool done = 1 [default = true];</code>        */
+comment|/**        *<code>optional bool done = 1 [default = false];</code>        */
 specifier|public
 name|Builder
 name|clearDone
@@ -196378,7 +196376,7 @@ operator|)
 expr_stmt|;
 name|done_
 operator|=
-literal|true
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -223139,139 +223137,139 @@ literal|"lse\022&\n\010snapshot\030\002 \001(\0132\024.SnapshotDescript"
 operator|+
 literal|"ion\"F\n\034IsRestoreSnapshotDoneRequest\022&\n\010s"
 operator|+
-literal|"napshot\030\001 \001(\0132\024.SnapshotDescription\"3\n\035I"
+literal|"napshot\030\001 \001(\0132\024.SnapshotDescription\"4\n\035I"
 operator|+
-literal|"sRestoreSnapshotDoneResponse\022\022\n\004done\030\001 \001"
+literal|"sRestoreSnapshotDoneResponse\022\023\n\004done\030\001 \001"
 operator|+
-literal|"(\010:\004true2\275\023\n\022MasterAdminService\0222\n\tAddCo"
+literal|"(\010:\005false2\275\023\n\022MasterAdminService\0222\n\tAddC"
 operator|+
-literal|"lumn\022\021.AddColumnRequest\032\022.AddColumnRespo"
+literal|"olumn\022\021.AddColumnRequest\032\022.AddColumnResp"
 operator|+
-literal|"nse\022;\n\014DeleteColumn\022\024.DeleteColumnReques"
+literal|"onse\022;\n\014DeleteColumn\022\024.DeleteColumnReque"
 operator|+
-literal|"t\032\025.DeleteColumnResponse\022;\n\014ModifyColumn"
+literal|"st\032\025.DeleteColumnResponse\022;\n\014ModifyColum"
 operator|+
-literal|"\022\024.ModifyColumnRequest\032\025.ModifyColumnRes"
+literal|"n\022\024.ModifyColumnRequest\032\025.ModifyColumnRe"
 block|,
-literal|"ponse\0225\n\nMoveRegion\022\022.MoveRegionRequest\032"
+literal|"sponse\0225\n\nMoveRegion\022\022.MoveRegionRequest"
 operator|+
-literal|"\023.MoveRegionResponse\022Y\n\026DispatchMergingR"
+literal|"\032\023.MoveRegionResponse\022Y\n\026DispatchMerging"
 operator|+
-literal|"egions\022\036.DispatchMergingRegionsRequest\032\037"
+literal|"Regions\022\036.DispatchMergingRegionsRequest\032"
 operator|+
-literal|".DispatchMergingRegionsResponse\022;\n\014Assig"
+literal|"\037.DispatchMergingRegionsResponse\022;\n\014Assi"
 operator|+
-literal|"nRegion\022\024.AssignRegionRequest\032\025.AssignRe"
+literal|"gnRegion\022\024.AssignRegionRequest\032\025.AssignR"
 operator|+
-literal|"gionResponse\022A\n\016UnassignRegion\022\026.Unassig"
+literal|"egionResponse\022A\n\016UnassignRegion\022\026.Unassi"
 operator|+
-literal|"nRegionRequest\032\027.UnassignRegionResponse\022"
+literal|"gnRegionRequest\032\027.UnassignRegionResponse"
 operator|+
-literal|">\n\rOfflineRegion\022\025.OfflineRegionRequest\032"
+literal|"\022>\n\rOfflineRegion\022\025.OfflineRegionRequest"
 operator|+
-literal|"\026.OfflineRegionResponse\0228\n\013DeleteTable\022\023"
+literal|"\032\026.OfflineRegionResponse\0228\n\013DeleteTable\022"
 operator|+
-literal|".DeleteTableRequest\032\024.DeleteTableRespons"
+literal|"\023.DeleteTableRequest\032\024.DeleteTableRespon"
 block|,
-literal|"e\0228\n\013EnableTable\022\023.EnableTableRequest\032\024."
+literal|"se\0228\n\013EnableTable\022\023.EnableTableRequest\032\024"
 operator|+
-literal|"EnableTableResponse\022;\n\014DisableTable\022\024.Di"
+literal|".EnableTableResponse\022;\n\014DisableTable\022\024.D"
 operator|+
-literal|"sableTableRequest\032\025.DisableTableResponse"
+literal|"isableTableRequest\032\025.DisableTableRespons"
 operator|+
-literal|"\0228\n\013ModifyTable\022\023.ModifyTableRequest\032\024.M"
+literal|"e\0228\n\013ModifyTable\022\023.ModifyTableRequest\032\024."
 operator|+
-literal|"odifyTableResponse\0228\n\013CreateTable\022\023.Crea"
+literal|"ModifyTableResponse\0228\n\013CreateTable\022\023.Cre"
 operator|+
-literal|"teTableRequest\032\024.CreateTableResponse\022/\n\010"
+literal|"ateTableRequest\032\024.CreateTableResponse\022/\n"
 operator|+
-literal|"Shutdown\022\020.ShutdownRequest\032\021.ShutdownRes"
+literal|"\010Shutdown\022\020.ShutdownRequest\032\021.ShutdownRe"
 operator|+
-literal|"ponse\0225\n\nStopMaster\022\022.StopMasterRequest\032"
+literal|"sponse\0225\n\nStopMaster\022\022.StopMasterRequest"
 operator|+
-literal|"\023.StopMasterResponse\022,\n\007Balance\022\017.Balanc"
+literal|"\032\023.StopMasterResponse\022,\n\007Balance\022\017.Balan"
 operator|+
-literal|"eRequest\032\020.BalanceResponse\022M\n\022SetBalance"
+literal|"ceRequest\032\020.BalanceResponse\022M\n\022SetBalanc"
 block|,
-literal|"rRunning\022\032.SetBalancerRunningRequest\032\033.S"
+literal|"erRunning\022\032.SetBalancerRunningRequest\032\033."
 operator|+
-literal|"etBalancerRunningResponse\022A\n\016RunCatalogS"
+literal|"SetBalancerRunningResponse\022A\n\016RunCatalog"
 operator|+
-literal|"can\022\026.RunCatalogScanRequest\032\027.RunCatalog"
+literal|"Scan\022\026.RunCatalogScanRequest\032\027.RunCatalo"
 operator|+
-literal|"ScanResponse\022S\n\024EnableCatalogJanitor\022\034.E"
+literal|"gScanResponse\022S\n\024EnableCatalogJanitor\022\034."
 operator|+
-literal|"nableCatalogJanitorRequest\032\035.EnableCatal"
+literal|"EnableCatalogJanitorRequest\032\035.EnableCata"
 operator|+
-literal|"ogJanitorResponse\022\\\n\027IsCatalogJanitorEna"
+literal|"logJanitorResponse\022\\\n\027IsCatalogJanitorEn"
 operator|+
-literal|"bled\022\037.IsCatalogJanitorEnabledRequest\032 ."
+literal|"abled\022\037.IsCatalogJanitorEnabledRequest\032 "
 operator|+
-literal|"IsCatalogJanitorEnabledResponse\022L\n\021ExecM"
+literal|".IsCatalogJanitorEnabledResponse\022L\n\021Exec"
 operator|+
-literal|"asterService\022\032.CoprocessorServiceRequest"
+literal|"MasterService\022\032.CoprocessorServiceReques"
 operator|+
-literal|"\032\033.CoprocessorServiceResponse\022/\n\010Snapsho"
+literal|"t\032\033.CoprocessorServiceResponse\022/\n\010Snapsh"
 block|,
-literal|"t\022\020.SnapshotRequest\032\021.SnapshotResponse\022V"
+literal|"ot\022\020.SnapshotRequest\032\021.SnapshotResponse\022"
 operator|+
-literal|"\n\025GetCompletedSnapshots\022\035.GetCompletedSn"
+literal|"V\n\025GetCompletedSnapshots\022\035.GetCompletedS"
 operator|+
-literal|"apshotsRequest\032\036.GetCompletedSnapshotsRe"
+literal|"napshotsRequest\032\036.GetCompletedSnapshotsR"
 operator|+
-literal|"sponse\022A\n\016DeleteSnapshot\022\026.DeleteSnapsho"
+literal|"esponse\022A\n\016DeleteSnapshot\022\026.DeleteSnapsh"
 operator|+
-literal|"tRequest\032\027.DeleteSnapshotResponse\022A\n\016IsS"
+literal|"otRequest\032\027.DeleteSnapshotResponse\022A\n\016Is"
 operator|+
-literal|"napshotDone\022\026.IsSnapshotDoneRequest\032\027.Is"
+literal|"SnapshotDone\022\026.IsSnapshotDoneRequest\032\027.I"
 operator|+
-literal|"SnapshotDoneResponse\022D\n\017RestoreSnapshot\022"
+literal|"sSnapshotDoneResponse\022D\n\017RestoreSnapshot"
 operator|+
-literal|"\027.RestoreSnapshotRequest\032\030.RestoreSnapsh"
+literal|"\022\027.RestoreSnapshotRequest\032\030.RestoreSnaps"
 operator|+
-literal|"otResponse\022V\n\025IsRestoreSnapshotDone\022\035.Is"
+literal|"hotResponse\022V\n\025IsRestoreSnapshotDone\022\035.I"
 operator|+
-literal|"RestoreSnapshotDoneRequest\032\036.IsRestoreSn"
+literal|"sRestoreSnapshotDoneRequest\032\036.IsRestoreS"
 block|,
-literal|"apshotDoneResponse\022D\n\017IsMasterRunning\022\027."
+literal|"napshotDoneResponse\022D\n\017IsMasterRunning\022\027"
 operator|+
-literal|"IsMasterRunningRequest\032\030.IsMasterRunning"
+literal|".IsMasterRunningRequest\032\030.IsMasterRunnin"
 operator|+
-literal|"Response\022D\n\017ModifyNamespace\022\027.ModifyName"
+literal|"gResponse\022D\n\017ModifyNamespace\022\027.ModifyNam"
 operator|+
-literal|"spaceRequest\032\030.ModifyNamespaceResponse\022D"
+literal|"espaceRequest\032\030.ModifyNamespaceResponse\022"
 operator|+
-literal|"\n\017CreateNamespace\022\027.CreateNamespaceReque"
+literal|"D\n\017CreateNamespace\022\027.CreateNamespaceRequ"
 operator|+
-literal|"st\032\030.CreateNamespaceResponse\022D\n\017DeleteNa"
+literal|"est\032\030.CreateNamespaceResponse\022D\n\017DeleteN"
 operator|+
-literal|"mespace\022\027.DeleteNamespaceRequest\032\030.Delet"
+literal|"amespace\022\027.DeleteNamespaceRequest\032\030.Dele"
 operator|+
-literal|"eNamespaceResponse\022Y\n\026GetNamespaceDescri"
+literal|"teNamespaceResponse\022Y\n\026GetNamespaceDescr"
 operator|+
-literal|"ptor\022\036.GetNamespaceDescriptorRequest\032\037.G"
+literal|"iptor\022\036.GetNamespaceDescriptorRequest\032\037."
 operator|+
-literal|"etNamespaceDescriptorResponse\022_\n\030ListNam"
+literal|"GetNamespaceDescriptorResponse\022_\n\030ListNa"
 block|,
-literal|"espaceDescriptors\022 .ListNamespaceDescrip"
+literal|"mespaceDescriptors\022 .ListNamespaceDescri"
 operator|+
-literal|"torsRequest\032!.ListNamespaceDescriptorsRe"
+literal|"ptorsRequest\032!.ListNamespaceDescriptorsR"
 operator|+
-literal|"sponse\022t\n\037ListTableDescriptorsByNamespac"
+literal|"esponse\022t\n\037ListTableDescriptorsByNamespa"
 operator|+
-literal|"e\022\'.ListTableDescriptorsByNamespaceReque"
+literal|"ce\022\'.ListTableDescriptorsByNamespaceRequ"
 operator|+
-literal|"st\032(.ListTableDescriptorsByNamespaceResp"
+literal|"est\032(.ListTableDescriptorsByNamespaceRes"
 operator|+
-literal|"onse\022b\n\031ListTableNamesByNamespace\022!.List"
+literal|"ponse\022b\n\031ListTableNamesByNamespace\022!.Lis"
 operator|+
-literal|"TableNamesByNamespaceRequest\032\".ListTable"
+literal|"tTableNamesByNamespaceRequest\032\".ListTabl"
 operator|+
-literal|"NamesByNamespaceResponseBG\n*org.apache.h"
+literal|"eNamesByNamespaceResponseBG\n*org.apache."
 operator|+
-literal|"adoop.hbase.protobuf.generatedB\021MasterAd"
+literal|"hadoop.hbase.protobuf.generatedB\021MasterA"
 operator|+
-literal|"minProtosH\001\210\001\001\240\001\001"
+literal|"dminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
