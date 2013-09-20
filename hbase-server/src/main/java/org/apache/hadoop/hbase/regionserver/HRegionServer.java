@@ -3887,12 +3887,6 @@ specifier|final
 name|CacheConfig
 name|cacheConfig
 decl_stmt|;
-comment|// reference to the Thrift Server.
-specifier|volatile
-specifier|private
-name|HRegionThriftServer
-name|thriftServer
-decl_stmt|;
 comment|/** The health check chore. */
 specifier|private
 name|HealthCheckChore
@@ -5311,42 +5305,6 @@ operator|.
 name|threadWakeFrequency
 argument_list|)
 expr_stmt|;
-comment|// Create the thread for the ThriftServer.
-if|if
-condition|(
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.regionserver.export.thrift"
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-name|thriftServer
-operator|=
-operator|new
-name|HRegionThriftServer
-argument_list|(
-name|this
-argument_list|,
-name|conf
-argument_list|)
-expr_stmt|;
-name|thriftServer
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Started Thrift API from Region Server."
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Create the thread to clean the moved regions list
 name|movedRegionsCleaner
 operator|=
@@ -5738,21 +5696,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|thriftServer
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|thriftServer
-operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
