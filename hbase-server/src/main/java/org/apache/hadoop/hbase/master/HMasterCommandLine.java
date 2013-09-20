@@ -1089,8 +1089,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|logJVMInfo
+name|logProcessInfo
+argument_list|(
+name|getConf
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|HMaster
 name|master
