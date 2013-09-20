@@ -35,20 +35,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * An indicator of the state of the scanner after an operation such as nextCell() or  * positionAt(..). For example:  *<ul>  *<li>In a DataBlockScanner, the AFTER_LAST position indicates to the parent StoreFileScanner that  * it should load the next block.</li>  *<li>In a StoreFileScanner, the AFTER_LAST position indicates that the file has been exhausted.  *</li>  *<li>In a RegionScanner, the AFTER_LAST position indicates that the scanner should move to the  * next region.</li>  *</ul>  */
 end_comment
@@ -57,11 +43,7 @@ begin_enum
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 enum|enum
 name|CellScannerPosition

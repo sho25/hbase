@@ -19,6 +19,30 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ScheduledFuture
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -42,6 +66,20 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -91,30 +129,6 @@ name|MetricsExecutorImpl
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ScheduledFuture
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|TimeUnit
-import|;
-end_import
-
 begin_comment
 comment|/**  * JMX caches the beans that have been exported; even after the values are removed from hadoop's  * metrics system the keys and old values will still remain.  This class stops and restarts the  * Hadoop metrics system, forcing JMX to clear the cache of exported metrics.  *  * This class need to be in the o.a.h.metrics2.impl namespace as many of the variables/calls used  * are package private.  */
 end_comment
@@ -141,6 +155,10 @@ name|justification
 operator|=
 literal|"Yeah, its weird but its what we want"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|JmxCacheBuster

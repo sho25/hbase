@@ -79,7 +79,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
 specifier|final
 class|class

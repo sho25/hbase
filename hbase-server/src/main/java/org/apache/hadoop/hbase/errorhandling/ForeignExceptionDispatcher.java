@@ -79,20 +79,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * The dispatcher acts as the state holding entity for foreign error handling.  The first  * exception received by the dispatcher get passed directly to the listeners.  Subsequent  * exceptions are dropped.  *<p>  * If there are multiple dispatchers that are all in the same foreign exception monitoring group,  * ideally all these monitors are "peers" -- any error on one dispatcher should get propagated to  * all others (via rpc, or some other mechanism).  Due to racing error conditions the exact reason  * for failure may be different on different peers, but the fact that they are in error state  * should eventually hold on all.  *<p>  * This is thread-safe and must be because this is expected to be used to propagate exceptions  * from foreign threads.  */
 end_comment
@@ -101,11 +87,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|ForeignExceptionDispatcher

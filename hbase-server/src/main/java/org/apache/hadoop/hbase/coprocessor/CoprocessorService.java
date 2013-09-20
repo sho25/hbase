@@ -57,6 +57,20 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Coprocessor endpoints providing protobuf services should implement this  * interface and return the {@link Service} instance via {@link #getService()}.  */
 end_comment
@@ -65,7 +79,12 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.

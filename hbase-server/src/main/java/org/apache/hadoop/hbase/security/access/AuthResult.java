@@ -61,9 +61,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceStability
+name|KeyValue
 import|;
 end_import
 
@@ -78,20 +78,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -135,11 +121,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|AuthResult

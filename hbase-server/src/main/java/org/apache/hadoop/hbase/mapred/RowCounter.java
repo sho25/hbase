@@ -29,11 +29,29 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|Map
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -89,7 +107,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|client
+operator|.
+name|Result
 import|;
 end_import
 
@@ -106,22 +126,6 @@ operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Result
 import|;
 end_import
 
@@ -246,6 +250,14 @@ end_comment
 begin_class
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 class|class
 name|RowCounter

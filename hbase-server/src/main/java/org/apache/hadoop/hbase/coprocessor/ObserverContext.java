@@ -59,6 +59,20 @@ name|CoprocessorEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Carries the execution state for a given invocation of an Observer coprocessor  * ({@link RegionObserver}, {@link MasterObserver}, or {@link WALObserver})  * method.  The same ObserverContext instance is passed sequentially to all loaded  * coprocessors for a given Observer method trigger, with the  *<code>CoprocessorEnvironment</code> reference swapped out for each  * coprocessor.  * @param<E> The {@link CoprocessorEnvironment} subclass applicable to the  *     revelant Observer interface.  */
 end_comment
@@ -67,7 +81,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 annotation|@
 name|InterfaceStability
 operator|.

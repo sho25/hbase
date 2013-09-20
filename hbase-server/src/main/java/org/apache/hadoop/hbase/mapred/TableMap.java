@@ -25,11 +25,23 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|classification
 operator|.
-name|io
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|ImmutableBytesWritable
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -57,9 +69,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|Writable
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -98,6 +112,14 @@ end_comment
 begin_interface
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 interface|interface
 name|TableMap

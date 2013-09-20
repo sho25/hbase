@@ -39,9 +39,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
+name|hbase
 operator|.
-name|InterfaceStability
+name|coprocessor
+operator|.
+name|ObserverContext
 import|;
 end_import
 
@@ -87,11 +89,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|MiniBatchOperationInProgress

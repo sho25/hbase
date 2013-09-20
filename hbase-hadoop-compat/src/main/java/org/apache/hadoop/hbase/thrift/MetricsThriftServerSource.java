@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Inteface of a class that will export metrics about Thrift to hadoop's metrics2.  */
+comment|/**  * Interface of a class that will export metrics about Thrift to hadoop's metrics2.  */
 end_comment
 
 begin_interface

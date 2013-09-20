@@ -53,11 +53,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 interface|interface
 name|ForeignExceptionSnare

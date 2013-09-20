@@ -103,11 +103,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
+name|Private
 specifier|public
 class|class
 name|SortedCopyOnWriteSet
