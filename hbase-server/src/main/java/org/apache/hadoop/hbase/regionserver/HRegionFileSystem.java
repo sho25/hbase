@@ -387,7 +387,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|Bytes
 import|;
 end_import
 
@@ -403,7 +403,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|FSUtils
 import|;
 end_import
 

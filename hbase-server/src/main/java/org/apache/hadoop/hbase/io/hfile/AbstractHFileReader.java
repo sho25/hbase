@@ -1088,6 +1088,12 @@ name|getEncodingOnDisk
 argument_list|()
 return|;
 block|}
+specifier|public
+specifier|abstract
+name|int
+name|getMajorVersion
+parameter_list|()
+function_decl|;
 block|}
 end_class
 

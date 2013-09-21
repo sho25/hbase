@@ -796,6 +796,12 @@ argument_list|,
 name|numKeys
 argument_list|,
 name|NUM_THREADS
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|writerThreads
@@ -822,6 +828,12 @@ argument_list|,
 name|numKeys
 argument_list|,
 name|NUM_THREADS
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|readerThreads

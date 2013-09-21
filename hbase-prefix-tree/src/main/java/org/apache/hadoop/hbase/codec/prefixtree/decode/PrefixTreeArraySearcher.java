@@ -167,6 +167,9 @@ name|rowBufferLength
 parameter_list|,
 name|int
 name|qualifierBufferLength
+parameter_list|,
+name|int
+name|tagsBufferLength
 parameter_list|)
 block|{
 name|super
@@ -178,6 +181,8 @@ argument_list|,
 name|rowBufferLength
 argument_list|,
 name|qualifierBufferLength
+argument_list|,
+name|tagsBufferLength
 argument_list|)
 expr_stmt|;
 block|}

@@ -258,6 +258,19 @@ specifier|protected
 name|int
 name|valueLength
 decl_stmt|;
+specifier|protected
+name|byte
+index|[]
+name|tagsBuffer
+decl_stmt|;
+specifier|protected
+name|int
+name|tagsOffset
+decl_stmt|;
+specifier|protected
+name|short
+name|tagsLength
+decl_stmt|;
 comment|/********************** Cell methods ******************/
 comment|/**    * For debugging.  Currently creates new KeyValue to utilize its toString() method.    */
 annotation|@
@@ -643,13 +656,9 @@ name|int
 name|getTagsOffset
 parameter_list|()
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"Not implemented"
-argument_list|)
-throw|;
+return|return
+name|tagsOffset
+return|;
 block|}
 annotation|@
 name|Override
@@ -658,13 +667,9 @@ name|short
 name|getTagsLength
 parameter_list|()
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"Not implemented"
-argument_list|)
-throw|;
+return|return
+name|tagsLength
+return|;
 block|}
 annotation|@
 name|Override
@@ -674,13 +679,11 @@ index|[]
 name|getTagsArray
 parameter_list|()
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"Not implemented"
-argument_list|)
-throw|;
+return|return
+name|this
+operator|.
+name|tagsBuffer
+return|;
 block|}
 block|}
 end_class

@@ -398,6 +398,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|includesMemstoreTS
+parameter_list|,
+specifier|final
+name|boolean
+name|useTags
 parameter_list|)
 block|{
 name|bb
@@ -435,6 +439,8 @@ argument_list|(
 name|bb
 argument_list|,
 name|includesMemstoreTS
+argument_list|,
+name|useTags
 argument_list|)
 expr_stmt|;
 if|if

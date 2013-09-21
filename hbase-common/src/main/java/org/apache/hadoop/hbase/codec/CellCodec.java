@@ -275,6 +275,25 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Write tags
+name|write
+argument_list|(
+name|cell
+operator|.
+name|getTagsArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getTagsOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// MvccVersion
 name|this
 operator|.
@@ -455,6 +474,15 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+name|byte
+index|[]
+name|tags
+init|=
+name|readByteArray
+argument_list|(
+name|in
+argument_list|)
+decl_stmt|;
 comment|// Read memstore version
 name|byte
 index|[]
@@ -505,6 +533,8 @@ argument_list|,
 name|type
 argument_list|,
 name|value
+argument_list|,
+name|tags
 argument_list|,
 name|memstoreTS
 argument_list|)

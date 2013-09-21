@@ -1576,6 +1576,7 @@ operator|+
 name|keysToWrite
 argument_list|)
 expr_stmt|;
+comment|// TODO : Need to see if tag support has to be given here in the integration test suite
 name|writer
 operator|.
 name|start
@@ -1585,6 +1586,12 @@ argument_list|,
 name|keysToWrite
 argument_list|,
 name|WRITER_THREADS
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// Now, do scans.

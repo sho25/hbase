@@ -2502,9 +2502,13 @@ index|]
 operator|=
 name|PerformanceEvaluation
 operator|.
-name|generateValue
+name|generateData
 argument_list|(
 name|random
+argument_list|,
+name|PerformanceEvaluation
+operator|.
+name|VALUE_LENGTH
 argument_list|)
 expr_stmt|;
 block|}

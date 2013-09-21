@@ -434,6 +434,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// Always run with tags. But should also ensure that KVs without tags work fine
 name|os
 operator|=
 operator|new
@@ -541,6 +542,11 @@ argument_list|,
 name|blockMetaReader
 operator|.
 name|getMaxQualifierLength
+argument_list|()
+argument_list|,
+name|blockMetaReader
+operator|.
+name|getMaxTagsLength
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -48209,6 +48209,23 @@ name|DeleteType
 name|getDeleteType
 parameter_list|()
 function_decl|;
+comment|// optional bytes tags = 5;
+comment|/**          *<code>optional bytes tags = 5;</code>          */
+name|boolean
+name|hasTags
+parameter_list|()
+function_decl|;
+comment|/**          *<code>optional bytes tags = 5;</code>          */
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getTags
+parameter_list|()
+function_decl|;
 block|}
 comment|/**        * Protobuf type {@code MutationProto.ColumnValue.QualifierValue}        */
 specifier|public
@@ -48595,6 +48612,23 @@ operator|=
 name|value
 expr_stmt|;
 block|}
+break|break;
+block|}
+case|case
+literal|42
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|tags_
+operator|=
+name|input
+operator|.
+name|readBytes
+argument_list|()
+expr_stmt|;
 break|break;
 block|}
 block|}
@@ -49100,6 +49134,59 @@ return|return
 name|deleteType_
 return|;
 block|}
+comment|// optional bytes tags = 5;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TAGS_FIELD_NUMBER
+init|=
+literal|5
+decl_stmt|;
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|tags_
+decl_stmt|;
+comment|/**          *<code>optional bytes tags = 5;</code>          */
+specifier|public
+name|boolean
+name|hasTags
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**          *<code>optional bytes tags = 5;</code>          */
+specifier|public
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getTags
+parameter_list|()
+block|{
+return|return
+name|tags_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -49154,6 +49241,18 @@ operator|.
 name|DeleteType
 operator|.
 name|DELETE_ONE_VERSION
+expr_stmt|;
+name|tags_
+operator|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
 expr_stmt|;
 block|}
 specifier|private
@@ -49309,6 +49408,29 @@ name|deleteType_
 operator|.
 name|getNumber
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBytes
+argument_list|(
+literal|5
+argument_list|,
+name|tags_
 argument_list|)
 expr_stmt|;
 block|}
@@ -49476,6 +49598,37 @@ name|deleteType_
 operator|.
 name|getNumber
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBytesSize
+argument_list|(
+literal|5
+argument_list|,
+name|tags_
 argument_list|)
 expr_stmt|;
 block|}
@@ -49793,6 +49946,42 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasTags
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasTags
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasTags
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+name|getTags
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getTags
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -49977,6 +50166,37 @@ argument_list|(
 name|getDeleteType
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasTags
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|TAGS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getTags
+argument_list|()
+operator|.
+name|hashCode
+argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -50946,6 +51166,27 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
+name|tags_
+operator|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -51286,6 +51527,30 @@ name|deleteType_
 operator|=
 name|deleteType_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|tags_
+operator|=
+name|tags_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -51500,6 +51765,23 @@ argument_list|(
 name|other
 operator|.
 name|getDeleteType
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasTags
+argument_list|()
+condition|)
+block|{
+name|setTags
+argument_list|(
+name|other
+operator|.
+name|getTags
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -52175,6 +52457,134 @@ operator|.
 name|DeleteType
 operator|.
 name|DELETE_ONE_VERSION
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bytes tags = 5;
+specifier|private
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|tags_
+init|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
+decl_stmt|;
+comment|/**            *<code>optional bytes tags = 5;</code>            */
+specifier|public
+name|boolean
+name|hasTags
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**            *<code>optional bytes tags = 5;</code>            */
+specifier|public
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getTags
+parameter_list|()
+block|{
+return|return
+name|tags_
+return|;
+block|}
+comment|/**            *<code>optional bytes tags = 5;</code>            */
+specifier|public
+name|Builder
+name|setTags
+parameter_list|(
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|tags_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**            *<code>optional bytes tags = 5;</code>            */
+specifier|public
+name|Builder
+name|clearTags
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
+name|tags_
+operator|=
+name|getDefaultInstance
+argument_list|()
+operator|.
+name|getTags
+argument_list|()
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -151393,7 +151803,7 @@ literal|"\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\0
 operator|+
 literal|"mpare_type\030\004 \002(\0162\014.CompareType\022\037\n\ncompar"
 operator|+
-literal|"ator\030\005 \002(\0132\013.Comparator\"\227\006\n\rMutationProt"
+literal|"ator\030\005 \002(\0132\013.Comparator\"\246\006\n\rMutationProt"
 operator|+
 literal|"o\022\013\n\003row\030\001 \001(\014\0220\n\013mutate_type\030\002 \001(\0162\033.Mu"
 operator|+
@@ -151409,133 +151819,135 @@ literal|"roto.Durability:\013USE_DEFAULT\022\036\n\ntime_ran"
 operator|+
 literal|"ge\030\007 \001(\0132\n.TimeRange\022\035\n\025associated_cell_"
 block|,
-literal|"count\030\010 \001(\005\032\330\001\n\013ColumnValue\022\016\n\006family\030\001 "
+literal|"count\030\010 \001(\005\032\347\001\n\013ColumnValue\022\016\n\006family\030\001 "
 operator|+
 literal|"\002(\014\022B\n\017qualifier_value\030\002 \003(\0132).MutationP"
 operator|+
-literal|"roto.ColumnValue.QualifierValue\032u\n\016Quali"
+literal|"roto.ColumnValue.QualifierValue\032\203\001\n\016Qual"
 operator|+
-literal|"fierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 "
+literal|"ifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002"
 operator|+
-literal|"\001(\014\022\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_type\030\004 "
+literal|" \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_type\030\004"
 operator|+
-literal|"\001(\0162\031.MutationProto.DeleteType\"W\n\nDurabi"
+literal|" \001(\0162\031.MutationProto.DeleteType\022\014\n\004tags\030"
 operator|+
-literal|"lity\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tA"
+literal|"\005 \001(\014\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010"
 operator|+
-literal|"SYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\""
+literal|"SKIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022"
 operator|+
-literal|">\n\014MutationType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT"
+literal|"\r\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006APPEND"
 operator|+
-literal|"\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteType\022\026\n"
+literal|"\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p"
 block|,
-literal|"\022DELETE_ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE"
+literal|"\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030"
 operator|+
-literal|"_VERSIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE"
+literal|"DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_FAM"
 operator|+
-literal|"_FAMILY_VERSION\020\003\"r\n\rMutateRequest\022 \n\006re"
+literal|"ILY\020\002\022\031\n\025DELETE_FAMILY_VERSION\020\003\"r\n\rMuta"
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutation"
+literal|"teRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpecif"
 operator|+
-literal|"\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001("
+literal|"ier\022 \n\010mutation\030\002 \002(\0132\016.MutationProto\022\035\n"
 operator|+
-literal|"\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006resul"
+literal|"\tcondition\030\003 \001(\0132\n.Condition\"<\n\016MutateRe"
 operator|+
-literal|"t\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\344\002\n\004"
+literal|"sponse\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tproce"
 operator|+
-literal|"Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattribu"
+literal|"ssed\030\002 \001(\010\"\344\002\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Co"
 operator|+
-literal|"te\030\002 \003(\0132\016.NameBytesPair\022\021\n\tstart_row\030\003 "
+literal|"lumn\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPair\022"
 operator|+
-literal|"\001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007."
+literal|"\021\n\tstart_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006"
 block|,
-literal|"Filter\022\036\n\ntime_range\030\006 \001(\0132\n.TimeRange\022\027"
+literal|"filter\030\005 \001(\0132\007.Filter\022\036\n\ntime_range\030\006 \001("
 operator|+
-literal|"\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blocks\030"
+literal|"\0132\n.TimeRange\022\027\n\014max_versions\030\007 \001(\r:\0011\022\032"
 operator|+
-literal|"\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_r"
+literal|"\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nbatch_size"
 operator|+
-literal|"esult_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024\n"
+literal|"\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022\023\n\013store"
 operator|+
-literal|"\014store_offset\030\014 \001(\r\022&\n\036load_column_famil"
+literal|"_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001(\r\022&\n\036lo"
 operator|+
-literal|"ies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\"\236\001\n\013S"
+literal|"ad_column_families_on_demand\030\r \001(\010\022\r\n\005sm"
 operator|+
-literal|"canRequest\022 \n\006region\030\001 \001(\0132\020.RegionSpeci"
+literal|"all\030\016 \001(\010\"\236\001\n\013ScanRequest\022 \n\006region\030\001 \001("
 operator|+
-literal|"fier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanner_id\030"
+literal|"\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan"
 operator|+
-literal|"\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclose_s"
+literal|"\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004"
 operator|+
-literal|"canner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\"y\n\014S"
+literal|" \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_call"
 block|,
-literal|"canResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n"
+literal|"_seq\030\006 \001(\004\"y\n\014ScanResponse\022\030\n\020cells_per_"
 operator|+
-literal|"\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022"
+literal|"result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more"
 operator|+
-literal|"\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\"\263"
+literal|"_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005"
 operator|+
-literal|"\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132"
+literal|" \003(\0132\007.Result\"\263\001\n\024BulkLoadHFileRequest\022 "
 operator|+
-literal|"\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 "
+literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\0225\n\013fami"
 operator|+
-literal|".BulkLoadHFileRequest.FamilyPath\022\026\n\016assi"
+literal|"ly_path\030\002 \003(\0132 .BulkLoadHFileRequest.Fam"
 operator|+
-literal|"gn_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family"
+literal|"ilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFamil"
 operator|+
-literal|"\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRes"
+literal|"yPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025B"
 operator|+
-literal|"ponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServ"
+literal|"ulkLoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026"
 operator|+
-literal|"iceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002"
+literal|"CoprocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014s"
 block|,
-literal|"(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014"
+literal|"ervice_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017"
 operator|+
-literal|"\"d\n\031CoprocessorServiceRequest\022 \n\006region\030"
+literal|"\n\007request\030\004 \002(\014\"d\n\031CoprocessorServiceReq"
 operator|+
-literal|"\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027."
+literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022%"
 operator|+
-literal|"CoprocessorServiceCall\"]\n\032CoprocessorSer"
+literal|"\n\004call\030\002 \002(\0132\027.CoprocessorServiceCall\"]\n"
 operator|+
-literal|"viceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
+literal|"\032CoprocessorServiceResponse\022 \n\006region\030\001 "
 operator|+
-literal|"cifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"B\n"
+literal|"\002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016.N"
 operator|+
-literal|"\013MultiAction\022 \n\010mutation\030\001 \001(\0132\016.Mutatio"
+literal|"ameBytesPair\"B\n\013MultiAction\022 \n\010mutation\030"
 operator|+
-literal|"nProto\022\021\n\003get\030\002 \001(\0132\004.Get\"I\n\014ActionResul"
+literal|"\001 \001(\0132\016.MutationProto\022\021\n\003get\030\002 \001(\0132\004.Get"
 operator|+
-literal|"t\022\026\n\005value\030\001 \001(\0132\007.Result\022!\n\texception\030\002"
+literal|"\"I\n\014ActionResult\022\026\n\005value\030\001 \001(\0132\007.Result"
 operator|+
-literal|" \001(\0132\016.NameBytesPair\"^\n\014MultiRequest\022 \n\006"
+literal|"\022!\n\texception\030\002 \001(\0132\016.NameBytesPair\"^\n\014M"
 block|,
-literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\034\n\006action"
+literal|"ultiRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpec"
 operator|+
-literal|"\030\002 \003(\0132\014.MultiAction\022\016\n\006atomic\030\003 \001(\010\".\n\r"
+literal|"ifier\022\034\n\006action\030\002 \003(\0132\014.MultiAction\022\016\n\006a"
 operator|+
-literal|"MultiResponse\022\035\n\006result\030\001 \003(\0132\r.ActionRe"
+literal|"tomic\030\003 \001(\010\".\n\rMultiResponse\022\035\n\006result\030\001"
 operator|+
-literal|"sult2\342\002\n\rClientService\022 \n\003Get\022\013.GetReque"
+literal|" \003(\0132\r.ActionResult2\342\002\n\rClientService\022 \n"
 operator|+
-literal|"st\032\014.GetResponse\022/\n\010MultiGet\022\020.MultiGetR"
+literal|"\003Get\022\013.GetRequest\032\014.GetResponse\022/\n\010Multi"
 operator|+
-literal|"equest\032\021.MultiGetResponse\022)\n\006Mutate\022\016.Mu"
+literal|"Get\022\020.MultiGetRequest\032\021.MultiGetResponse"
 operator|+
-literal|"tateRequest\032\017.MutateResponse\022#\n\004Scan\022\014.S"
+literal|"\022)\n\006Mutate\022\016.MutateRequest\032\017.MutateRespo"
 operator|+
-literal|"canRequest\032\r.ScanResponse\022>\n\rBulkLoadHFi"
+literal|"nse\022#\n\004Scan\022\014.ScanRequest\032\r.ScanResponse"
 operator|+
-literal|"le\022\025.BulkLoadHFileRequest\032\026.BulkLoadHFil"
+literal|"\022>\n\rBulkLoadHFile\022\025.BulkLoadHFileRequest"
 operator|+
-literal|"eResponse\022F\n\013ExecService\022\032.CoprocessorSe"
+literal|"\032\026.BulkLoadHFileResponse\022F\n\013ExecService\022"
 block|,
-literal|"rviceRequest\032\033.CoprocessorServiceRespons"
+literal|"\032.CoprocessorServiceRequest\032\033.Coprocesso"
 operator|+
-literal|"e\022&\n\005Multi\022\r.MultiRequest\032\016.MultiRespons"
+literal|"rServiceResponse\022&\n\005Multi\022\r.MultiRequest"
 operator|+
-literal|"eBB\n*org.apache.hadoop.hbase.protobuf.ge"
+literal|"\032\016.MultiResponseBB\n*org.apache.hadoop.hb"
 operator|+
-literal|"neratedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"ase.protobuf.generatedB\014ClientProtosH\001\210\001"
+operator|+
+literal|"\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -152092,6 +152504,8 @@ block|,
 literal|"Timestamp"
 block|,
 literal|"DeleteType"
+block|,
+literal|"Tags"
 block|, }
 argument_list|)
 expr_stmt|;

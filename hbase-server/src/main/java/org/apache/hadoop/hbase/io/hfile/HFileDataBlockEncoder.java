@@ -65,26 +65,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|compress
-operator|.
-name|Compression
-operator|.
-name|Algorithm
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|encoding
 operator|.
 name|DataBlockEncoding
@@ -105,7 +85,7 @@ name|io
 operator|.
 name|encoding
 operator|.
-name|HFileBlockEncodingContext
+name|HFileBlockDecodingContext
 import|;
 end_import
 
@@ -123,7 +103,7 @@ name|io
 operator|.
 name|encoding
 operator|.
-name|HFileBlockDecodingContext
+name|HFileBlockEncodingContext
 import|;
 end_import
 
@@ -168,7 +148,7 @@ argument_list|(
 literal|"DATA_BLOCK_ENCODING"
 argument_list|)
 decl_stmt|;
-comment|/**    * Converts a block from the on-disk format to the in-cache format. Called in    * the following cases:    *<ul>    *<li>After an encoded or unencoded data block is read from disk, but before    * it is put into the cache.</li>    *<li>To convert brand-new blocks to the in-cache format when doing    * cache-on-write.</li>    *</ul>    * @param block a block in an on-disk format (read from HFile or freshly    *          generated).    * @return non null block which is coded according to the settings.    */
+comment|/**    * Converts a block from the on-disk format to the in-cache format. Called in    * the following cases:    *<ul>    *<li>After an encoded or unencoded data block is read from disk, but before    * it is put into the cache.</li>    *<li>To convert brand-new blocks to the in-cache format when doing    * cache-on-write.</li>    *</ul>    * @param block a block in an on-disk format (read from HFile or freshly    *          generated).    * @param isCompaction    * @return non null block which is coded according to the settings.    */
 name|HFileBlock
 name|diskToCacheFormat
 parameter_list|(
@@ -185,9 +165,6 @@ name|beforeWriteToDisk
 parameter_list|(
 name|ByteBuffer
 name|in
-parameter_list|,
-name|boolean
-name|includesMemstoreTS
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingResult
@@ -236,24 +213,24 @@ name|boolean
 name|isCompaction
 parameter_list|)
 function_decl|;
-comment|/**    * Create an encoder specific encoding context object for writing. And the    * encoding context should also perform compression if compressionAlgorithm is    * valid.    *    * @param compressionAlgorithm compression algorithm    * @param headerBytes header bytes    * @return a new {@link HFileBlockEncodingContext} object    */
+comment|/**    * Create an encoder specific encoding context object for writing. And the    * encoding context should also perform compression if compressionAlgorithm is    * valid.    *    * @param headerBytes header bytes    * @param fileContext HFile meta data    * @return a new {@link HFileBlockEncodingContext} object    */
 name|HFileBlockEncodingContext
 name|newOnDiskDataBlockEncodingContext
 parameter_list|(
-name|Algorithm
-name|compressionAlgorithm
-parameter_list|,
 name|byte
 index|[]
 name|headerBytes
+parameter_list|,
+name|HFileContext
+name|fileContext
 parameter_list|)
 function_decl|;
-comment|/**    * create a encoder specific decoding context for reading. And the    * decoding context should also do decompression if compressionAlgorithm    * is valid.    *    * @param compressionAlgorithm    * @return a new {@link HFileBlockDecodingContext} object    */
+comment|/**    * create a encoder specific decoding context for reading. And the    * decoding context should also do decompression if compressionAlgorithm    * is valid.    *    * @param fileContext - HFile meta data    * @return a new {@link HFileBlockDecodingContext} object    */
 name|HFileBlockDecodingContext
 name|newOnDiskDataBlockDecodingContext
 parameter_list|(
-name|Algorithm
-name|compressionAlgorithm
+name|HFileContext
+name|fileContext
 parameter_list|)
 function_decl|;
 block|}

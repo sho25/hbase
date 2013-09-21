@@ -868,17 +868,17 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// To support tags. This will be replaced with kv.getTagsLength
+comment|// To support tags
 name|StreamUtils
 operator|.
 name|writeRawVInt32
 argument_list|(
 name|out
 argument_list|,
-operator|(
-name|short
-operator|)
-literal|0
+name|kv
+operator|.
+name|getTagsLength
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Write row, qualifier, and family; use dictionary
@@ -1136,18 +1136,30 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
-comment|// To support Tags..Tags length will be 0.
-comment|// For now ignore the read value. This will be the tagslength
+name|int
+name|tagsLength
+init|=
 name|StreamUtils
 operator|.
 name|readRawVarint32
 argument_list|(
 name|in
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|int
 name|length
 init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|tagsLength
+operator|==
+literal|0
+condition|)
+block|{
+name|length
+operator|=
 name|KeyValue
 operator|.
 name|KEYVALUE_INFRASTRUCTURE_SIZE
@@ -1155,7 +1167,23 @@ operator|+
 name|keylength
 operator|+
 name|vlength
-decl_stmt|;
+expr_stmt|;
+block|}
+else|else
+block|{
+name|length
+operator|=
+name|KeyValue
+operator|.
+name|KEYVALUE_WITH_TAGS_INFRASTRUCTURE_SIZE
+operator|+
+name|keylength
+operator|+
+name|vlength
+operator|+
+name|tagsLength
+expr_stmt|;
+block|}
 name|byte
 index|[]
 name|backingArray

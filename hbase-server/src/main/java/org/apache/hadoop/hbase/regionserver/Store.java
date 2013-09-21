@@ -529,6 +529,9 @@ name|isCompaction
 parameter_list|,
 name|boolean
 name|includeMVCCReadpoint
+parameter_list|,
+name|boolean
+name|includesTags
 parameter_list|)
 throws|throws
 name|IOException

@@ -65,9 +65,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|compress
+name|hfile
 operator|.
-name|Compression
+name|HFileContext
 import|;
 end_import
 
@@ -84,14 +84,7 @@ specifier|public
 interface|interface
 name|HFileBlockDecodingContext
 block|{
-comment|/**    * @return the compression algorithm used by this decoding context    */
-name|Compression
-operator|.
-name|Algorithm
-name|getCompression
-parameter_list|()
-function_decl|;
-comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link #getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk bytes to be decoded    * @param offset data start offset in onDiskBlock    * @throws IOException    */
+comment|/**    * Perform all actions that need to be done before the encoder's real decoding process.    * Decompression needs to be done if {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader ByteBuffer pointed after the header but before the data    * @param onDiskBlock on disk bytes to be decoded    * @param offset data start offset in onDiskBlock    * @throws IOException    */
 name|void
 name|prepareDecoding
 parameter_list|(
@@ -113,6 +106,11 @@ name|offset
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return HFile meta information    */
+name|HFileContext
+name|getHFileContext
+parameter_list|()
 function_decl|;
 block|}
 end_interface

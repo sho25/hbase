@@ -412,6 +412,12 @@ operator|.
 name|maxMVCCReadpoint
 operator|>=
 name|smallestReadPoint
+argument_list|,
+name|fd
+operator|.
+name|maxTagsLength
+operator|>
+literal|0
 argument_list|)
 expr_stmt|;
 name|boolean

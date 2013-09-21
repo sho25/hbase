@@ -65,9 +65,9 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|compress
+name|hfile
 operator|.
-name|Compression
+name|BlockType
 import|;
 end_import
 
@@ -85,7 +85,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|BlockType
+name|HFileContext
 import|;
 end_import
 
@@ -124,13 +124,6 @@ name|BlockType
 name|getBlockType
 parameter_list|()
 function_decl|;
-comment|/**    * @return the compression algorithm used by this encoding context    */
-name|Compression
-operator|.
-name|Algorithm
-name|getCompression
-parameter_list|()
-function_decl|;
 comment|/**    * sets the dummy header bytes    */
 name|void
 name|setDummyHeader
@@ -145,7 +138,7 @@ name|DataBlockEncoding
 name|getDataBlockEncoding
 parameter_list|()
 function_decl|;
-comment|/**    * Do any action that needs to be performed after the encoding.    * Compression is also included if {@link #getCompression()} returns non-null    * compression algorithm    *    * @param blockType    * @throws IOException    */
+comment|/**    * Do any action that needs to be performed after the encoding.    * Compression is also included if a non-null compression algorithm is used    *    * @param blockType    * @throws IOException    */
 name|void
 name|postEncoding
 parameter_list|(
@@ -158,6 +151,11 @@ function_decl|;
 comment|/**    * Releases the resources used.    */
 name|void
 name|close
+parameter_list|()
+function_decl|;
+comment|/**    * @return HFile context information    */
+name|HFileContext
+name|getHFileContext
 parameter_list|()
 function_decl|;
 block|}
