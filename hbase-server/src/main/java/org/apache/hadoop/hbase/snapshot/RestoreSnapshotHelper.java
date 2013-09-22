@@ -1952,45 +1952,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Restore Missing files
-for|for
-control|(
-name|String
-name|hfileName
-range|:
-name|hfilesToAdd
-control|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Adding HFileLink "
-operator|+
-name|hfileName
-operator|+
-literal|" to region="
-operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|" table="
-operator|+
-name|tableName
-argument_list|)
-expr_stmt|;
-name|restoreStoreFile
-argument_list|(
-name|familyDir
-argument_list|,
-name|regionInfo
-argument_list|,
-name|hfileName
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Remove hfiles not present in the snapshot
 for|for
 control|(
@@ -2046,6 +2007,45 @@ argument_list|,
 name|family
 argument_list|,
 name|hfile
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Restore Missing files
+for|for
+control|(
+name|String
+name|hfileName
+range|:
+name|hfilesToAdd
+control|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Adding HFileLink "
+operator|+
+name|hfileName
+operator|+
+literal|" to region="
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" table="
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+name|restoreStoreFile
+argument_list|(
+name|familyDir
+argument_list|,
+name|regionInfo
+argument_list|,
+name|hfileName
 argument_list|)
 expr_stmt|;
 block|}
