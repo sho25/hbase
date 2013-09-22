@@ -969,6 +969,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"START doTestThriftMetrics"
+argument_list|)
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -997,6 +1004,38 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
+name|metricsHelper
+operator|.
+name|assertCounter
+argument_list|(
+literal|"createTable_num_ops"
+argument_list|,
+literal|2
+argument_list|,
+name|metrics
+operator|.
+name|getSource
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|AssertionError
+name|e
+parameter_list|)
+block|{
+comment|// DEBUGGING
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Got expected assertion error"
+argument_list|)
+expr_stmt|;
+block|}
 name|createTestTables
 argument_list|(
 name|handler
