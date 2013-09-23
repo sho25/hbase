@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -254,6 +264,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
 import|;
 end_import
 
@@ -1836,21 +1860,12 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-specifier|final
-name|String
-name|regionName
-init|=
-name|loc
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedName
-argument_list|()
-decl_stmt|;
 name|incTaskCounters
 argument_list|(
-name|regionName
+name|multi
+operator|.
+name|getRegions
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Runnable
@@ -1916,9 +1931,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The call to the RS failed, we don't know where we stand, "
+literal|"The call to the region server failed, we don't know where we stand, "
 operator|+
 name|loc
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -1962,7 +1980,10 @@ finally|finally
 block|{
 name|decTaskCounters
 argument_list|(
-name|regionName
+name|multi
+operator|.
+name|getRegions
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1992,16 +2013,24 @@ comment|// This should never happen. But as the pool is provided by the end user
 comment|//  this a little.
 name|decTaskCounters
 argument_list|(
-name|regionName
+name|multi
+operator|.
+name|getRegions
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The task was rejected by the pool. This is unexpected. "
+literal|"The task was rejected by the pool. This is unexpected."
+operator|+
+literal|" Server is "
 operator|+
 name|loc
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|ree
 argument_list|)
@@ -2452,6 +2481,9 @@ operator|+
 literal|"ops, NOT resubmitting, "
 operator|+
 name|location
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3289,13 +3321,17 @@ name|makeException
 argument_list|()
 return|;
 block|}
-comment|/**    * incrementer the tasks counters for a given region. MT safe.    */
+comment|/**    * increment the tasks counters for a given set of regions. MT safe.    */
 specifier|protected
 name|void
 name|incTaskCounters
 parameter_list|(
-name|String
-name|encodedRegionName
+name|Collection
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|regions
 parameter_list|)
 block|{
 name|tasksSent
@@ -3303,6 +3339,25 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+for|for
+control|(
+name|byte
+index|[]
+name|regBytes
+range|:
+name|regions
+control|)
+block|{
+name|String
+name|encodedRegionName
+init|=
+name|HRegionInfo
+operator|.
+name|encodeRegionName
+argument_list|(
+name|regBytes
+argument_list|)
+decl_stmt|;
 name|AtomicInteger
 name|counterPerServer
 init|=
@@ -3347,15 +3402,39 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 comment|/**    * Decrements the counters for a given region    */
 specifier|protected
 name|void
 name|decTaskCounters
 parameter_list|(
-name|String
-name|encodedRegionName
+name|Collection
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|regions
 parameter_list|)
 block|{
+for|for
+control|(
+name|byte
+index|[]
+name|regBytes
+range|:
+name|regions
+control|)
+block|{
+name|String
+name|encodedRegionName
+init|=
+name|HRegionInfo
+operator|.
+name|encodeRegionName
+argument_list|(
+name|regBytes
+argument_list|)
+decl_stmt|;
 name|AtomicInteger
 name|counterPerServer
 init|=
@@ -3371,6 +3450,7 @@ operator|.
 name|decrementAndGet
 argument_list|()
 expr_stmt|;
+block|}
 name|tasksDone
 operator|.
 name|incrementAndGet
