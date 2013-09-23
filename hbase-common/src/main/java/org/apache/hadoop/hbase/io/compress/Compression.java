@@ -1061,11 +1061,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|buildCodec
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 return|return
 name|lz4Codec
