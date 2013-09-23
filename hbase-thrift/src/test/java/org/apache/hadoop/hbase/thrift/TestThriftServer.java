@@ -1020,6 +1020,13 @@ name|getSource
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SHOULD NOT BE HERE"
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
