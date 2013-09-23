@@ -2228,9 +2228,9 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read    *     * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *     * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *     * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *     * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    *     * @param small    */
+comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read    *     * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *     * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *     * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *     * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    *     * @param small    * @return this instance    */
 specifier|public
-name|void
+name|Scan
 name|setSmall
 parameter_list|(
 name|boolean
@@ -2243,6 +2243,9 @@ name|small
 operator|=
 name|small
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Get whether this scan is a small scan    * @return true if small scan    */
 specifier|public
