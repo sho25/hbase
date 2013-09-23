@@ -1054,8 +1054,6 @@ name|ZooKeeper
 operator|.
 name|class
 argument_list|,
-comment|// This is ugly.  Our zk3.4.5 depends on the org.jboss.netty, not hadoops io.netty
-comment|// so need to load it up explicitly while on 3.4.5 zk
 name|org
 operator|.
 name|jboss
