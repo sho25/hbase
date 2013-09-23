@@ -945,6 +945,11 @@ operator|.
 name|getRegionLocations
 argument_list|()
 decl_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
