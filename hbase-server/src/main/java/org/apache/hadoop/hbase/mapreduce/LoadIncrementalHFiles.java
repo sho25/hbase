@@ -3480,6 +3480,10 @@ argument_list|(
 name|getRow
 argument_list|()
 argument_list|)
+operator|+
+literal|" with hfile group "
+operator|+
+name|famPaths
 argument_list|)
 expr_stmt|;
 name|byte
