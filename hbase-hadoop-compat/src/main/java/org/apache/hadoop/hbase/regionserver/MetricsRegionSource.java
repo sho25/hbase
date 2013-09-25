@@ -41,6 +41,36 @@ name|SIZE_VALUE_NAME
 init|=
 literal|"size"
 decl_stmt|;
+name|String
+name|COMPACTIONS_COMPLETED_COUNT
+init|=
+literal|"compactionsCompletedCount"
+decl_stmt|;
+name|String
+name|NUM_BYTES_COMPACTED_COUNT
+init|=
+literal|"numBytesCompactedCount"
+decl_stmt|;
+name|String
+name|NUM_FILES_COMPACTED_COUNT
+init|=
+literal|"numFilesCompactedCount"
+decl_stmt|;
+name|String
+name|COMPACTIONS_COMPLETED_DESC
+init|=
+literal|"Number of compactions that have completed."
+decl_stmt|;
+name|String
+name|NUM_BYTES_COMPACTED_DESC
+init|=
+literal|"Sum of filesize on all files entering a finished, successful or aborted, compaction"
+decl_stmt|;
+name|String
+name|NUM_FILES_COMPACTED_DESC
+init|=
+literal|"Number of files that were input for finished, successful or aborted, compactions"
+decl_stmt|;
 comment|/**    * Close the region's metrics as this region is closing.    */
 name|void
 name|close

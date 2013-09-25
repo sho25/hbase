@@ -71,6 +71,18 @@ name|long
 name|getWriteRequestCount
 parameter_list|()
 function_decl|;
+name|long
+name|getNumFilesCompacted
+parameter_list|()
+function_decl|;
+name|long
+name|getNumBytesCompacted
+parameter_list|()
+function_decl|;
+name|long
+name|getNumCompactionsCompleted
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

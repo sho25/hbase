@@ -141,6 +141,14 @@ name|int
 name|getCompactionQueueSize
 parameter_list|()
 function_decl|;
+name|int
+name|getSmallCompactionQueueSize
+parameter_list|()
+function_decl|;
+name|int
+name|getLargeCompactionQueueSize
+parameter_list|()
+function_decl|;
 comment|/**    * Get the size of the flush queue.    */
 name|int
 name|getFlushQueueSize

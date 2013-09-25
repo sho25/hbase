@@ -310,6 +310,16 @@ init|=
 literal|"compactionQueueLength"
 decl_stmt|;
 name|String
+name|LARGE_COMPACTION_QUEUE_LENGTH
+init|=
+literal|"largeCompactionQueueLength"
+decl_stmt|;
+name|String
+name|SMALL_COMPACTION_QUEUE_LENGTH
+init|=
+literal|"smallCompactionQueueLength"
+decl_stmt|;
+name|String
 name|COMPACTION_QUEUE_LENGTH_DESC
 init|=
 literal|"Length of the queue for compactions."
