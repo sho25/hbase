@@ -199,6 +199,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1864,6 +1878,51 @@ argument_list|(
 name|admin
 argument_list|)
 expr_stmt|;
+comment|// recreate test table with disabled compactions; otherwise compaction may happen before
+comment|// snapshot, the call after snapshot will be a no-op and checks will fail
+name|UTIL
+operator|.
+name|deleteTable
+argument_list|(
+name|TABLE_NAME
+argument_list|)
+expr_stmt|;
+name|HTableDescriptor
+name|htd
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|TABLE_NAME
+argument_list|)
+decl_stmt|;
+name|htd
+operator|.
+name|setCompactionEnabled
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|UTIL
+operator|.
+name|createTable
+argument_list|(
+name|htd
+argument_list|,
+operator|new
+name|byte
+index|[]
+index|[]
+block|{
+name|TEST_FAM
+block|}
+argument_list|,
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// load the table (creates 4 hfiles)
 name|UTIL
 operator|.
@@ -1889,6 +1948,13 @@ operator|.
 name|disableTable
 argument_list|(
 name|TABLE_NAME
+argument_list|)
+expr_stmt|;
+name|htd
+operator|.
+name|setCompactionEnabled
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// take a snapshot of the table
@@ -1953,6 +2019,16 @@ argument_list|,
 name|snapshotNameBytes
 argument_list|,
 name|TABLE_NAME
+argument_list|)
+expr_stmt|;
+comment|// enable compactions now
+name|admin
+operator|.
+name|modifyTable
+argument_list|(
+name|TABLE_NAME
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 comment|// renable the table so we can compact the regions

@@ -1947,7 +1947,7 @@ argument_list|()
 decl_stmt|;
 return|return
 name|numCandidates
-operator|>
+operator|>=
 name|comConf
 operator|.
 name|getMinFilesToCompact
