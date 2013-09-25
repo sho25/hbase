@@ -143,7 +143,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"table.MetricsRegionWrapperStub.region.DEADBEEF001.storeCount"
+literal|"namespace_TestNS_table_MetricsRegionWrapperStub_region_DEADBEEF001_metric_storeCount"
 argument_list|,
 literal|101
 argument_list|,
@@ -154,7 +154,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"table.MetricsRegionWrapperStub.region.DEADBEEF001.storeFileCount"
+literal|"namespace_TestNS_table_MetricsRegionWrapperStub_region_DEADBEEF001_metric_storeFileCount"
 argument_list|,
 literal|102
 argument_list|,
@@ -165,7 +165,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"table.MetricsRegionWrapperStub.region.DEADBEEF001.memstoreSize"
+literal|"namespace_TestNS_table_MetricsRegionWrapperStub_region_DEADBEEF001_metric_memstoreSize"
 argument_list|,
 literal|103
 argument_list|,

@@ -39,6 +39,17 @@ annotation|@
 name|Override
 specifier|public
 name|String
+name|getNamespace
+parameter_list|()
+block|{
+return|return
+literal|"TestNS"
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
 name|getRegionName
 parameter_list|()
 block|{

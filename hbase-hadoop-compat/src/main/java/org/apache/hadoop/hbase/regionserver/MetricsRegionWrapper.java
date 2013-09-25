@@ -31,6 +31,11 @@ name|String
 name|getTableName
 parameter_list|()
 function_decl|;
+comment|/**    * Get the name of the namespace this table is in.    * @return String version of the namespace.  Can't be empty.    */
+name|String
+name|getNamespace
+parameter_list|()
+function_decl|;
 comment|/**    * Get the name of the region.    *    * @return The encoded name of the region.    */
 name|String
 name|getRegionName
