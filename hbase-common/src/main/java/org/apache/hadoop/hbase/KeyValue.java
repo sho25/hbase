@@ -4916,7 +4916,7 @@ operator|+
 name|mvcc
 return|;
 block|}
-comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String.    */
+comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.     */
 specifier|public
 specifier|static
 name|String
@@ -4928,6 +4928,17 @@ index|[]
 name|k
 parameter_list|)
 block|{
+if|if
+condition|(
+name|k
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|""
+return|;
+block|}
 return|return
 name|keyToString
 argument_list|(

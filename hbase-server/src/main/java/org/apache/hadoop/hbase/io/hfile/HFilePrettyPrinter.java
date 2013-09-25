@@ -2356,6 +2356,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+try|try
+block|{
 name|System
 operator|.
 name|out
@@ -2375,6 +2377,23 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Unable to retrieve the midkey"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Printing general bloom information
 name|DataInput
 name|bloomMeta
