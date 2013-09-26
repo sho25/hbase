@@ -129,6 +129,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -797,9 +811,12 @@ name|String
 name|pathPrefix
 decl_stmt|;
 specifier|protected
-specifier|volatile
-name|int
+name|AtomicInteger
 name|loadSequence
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
 decl_stmt|;
 specifier|public
 name|CoprocessorHost
@@ -1476,8 +1493,10 @@ name|impl
 argument_list|,
 name|priority
 argument_list|,
-operator|++
 name|loadSequence
+operator|.
+name|incrementAndGet
+argument_list|()
 argument_list|,
 name|conf
 argument_list|)
