@@ -26611,12 +26611,6 @@ name|HTableDescriptor
 operator|)
 name|any
 argument_list|()
-argument_list|,
-operator|(
-name|RegionCoprocessorHost
-operator|)
-name|any
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|//verify sync called or not

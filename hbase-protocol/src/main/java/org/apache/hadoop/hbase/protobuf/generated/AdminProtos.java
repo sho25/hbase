@@ -115152,7 +115152,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc Replay(.MultiRequest) returns (.MultiResponse);</code>        */
+comment|/**        *<code>rpc Replay(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>        */
 specifier|public
 specifier|abstract
 name|void
@@ -115179,9 +115179,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|,
 name|com
@@ -115204,9 +115204,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -116250,9 +116250,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|,
 name|com
@@ -116275,9 +116275,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -117048,9 +117048,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 operator|)
 name|request
 argument_list|)
@@ -117491,9 +117491,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -117906,9 +117906,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -118612,7 +118612,7 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc Replay(.MultiRequest) returns (.MultiResponse);</code>      */
+comment|/**      *<code>rpc Replay(.ReplicateWALEntryRequest) returns (.ReplicateWALEntryResponse);</code>      */
 specifier|public
 specifier|abstract
 name|void
@@ -118639,9 +118639,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|,
 name|com
@@ -118664,9 +118664,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -119676,9 +119676,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 operator|)
 name|request
 argument_list|,
@@ -119703,9 +119703,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -120270,9 +120270,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -120685,9 +120685,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122386,9 +122386,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|,
 name|com
@@ -122411,9 +122411,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -122449,9 +122449,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -122480,9 +122480,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|class
 argument_list|,
@@ -122498,9 +122498,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -123667,9 +123667,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 name|replay
 parameter_list|(
 name|com
@@ -123693,9 +123693,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|)
 throws|throws
@@ -125082,9 +125082,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 name|replay
 parameter_list|(
 name|com
@@ -125108,9 +125108,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|)
 throws|throws
@@ -125136,9 +125136,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|)
 name|channel
 operator|.
@@ -125171,9 +125171,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
+name|AdminProtos
 operator|.
-name|MultiResponse
+name|ReplicateWALEntryResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -126615,7 +126615,7 @@ literal|"r_name\030\001 \002(\0132\013.ServerName\022\022\n\nwebui_port\030"
 operator|+
 literal|"\002 \001(\r\"9\n\025GetServerInfoResponse\022 \n\013server"
 operator|+
-literal|"_info\030\001 \002(\0132\013.ServerInfo2\256\007\n\014AdminServic"
+literal|"_info\030\001 \002(\0132\013.ServerInfo2\306\007\n\014AdminServic"
 operator|+
 literal|"e\022>\n\rGetRegionInfo\022\025.GetRegionInfoReques"
 operator|+
@@ -126647,25 +126647,27 @@ literal|"Request\032\025.MergeRegionsResponse\022J\n\021Replic"
 operator|+
 literal|"ateWALEntry\022\031.ReplicateWALEntryRequest\032\032"
 operator|+
-literal|".ReplicateWALEntryResponse\022\'\n\006Replay\022\r.M"
+literal|".ReplicateWALEntryResponse\022?\n\006Replay\022\031.R"
 operator|+
-literal|"ultiRequest\032\016.MultiResponse\022>\n\rRollWALWr"
+literal|"eplicateWALEntryRequest\032\032.ReplicateWALEn"
 operator|+
-literal|"iter\022\025.RollWALWriterRequest\032\026.RollWALWri"
+literal|"tryResponse\022>\n\rRollWALWriter\022\025.RollWALWr"
 operator|+
-literal|"terResponse\022>\n\rGetServerInfo\022\025.GetServer"
+literal|"iterRequest\032\026.RollWALWriterResponse\022>\n\rG"
 operator|+
-literal|"InfoRequest\032\026.GetServerInfoResponse\0225\n\nS"
+literal|"etServerInfo\022\025.GetServerInfoRequest\032\026.Ge"
 operator|+
-literal|"topServer\022\022.StopServerRequest\032\023.StopServ"
+literal|"tServerInfoResponse\0225\n\nStopServer\022\022.Stop"
 operator|+
-literal|"erResponse\022M\n\022UpdateFavoredNodes\022\032.Updat"
+literal|"ServerRequest\032\023.StopServerResponse\022M\n\022Up"
 block|,
-literal|"eFavoredNodesRequest\032\033.UpdateFavoredNode"
+literal|"dateFavoredNodes\022\032.UpdateFavoredNodesReq"
 operator|+
-literal|"sResponseBA\n*org.apache.hadoop.hbase.pro"
+literal|"uest\032\033.UpdateFavoredNodesResponseBA\n*org"
 operator|+
-literal|"tobuf.generatedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|".apache.hadoop.hbase.protobuf.generatedB"
+operator|+
+literal|"\013AdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

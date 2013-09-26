@@ -807,9 +807,6 @@ name|now
 parameter_list|,
 name|HTableDescriptor
 name|htd
-parameter_list|,
-name|RegionCoprocessorHost
-name|regionCoproHost
 parameter_list|)
 throws|throws
 name|IOException

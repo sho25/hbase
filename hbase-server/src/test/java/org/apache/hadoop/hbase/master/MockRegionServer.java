@@ -3128,13 +3128,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MultiResponse
+name|ReplicateWALEntryResponse
 name|replay
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|MultiRequest
+name|ReplicateWALEntryRequest
 name|request
 parameter_list|)
 throws|throws
