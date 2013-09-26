@@ -1169,7 +1169,11 @@ literal|"clients=(\\d+),\\s+"
 operator|+
 literal|"flushCommits=(\\w+),\\s+"
 operator|+
-literal|"writeToWAL=(\\w+)"
+literal|"writeToWAL=(\\w+),\\s+"
+operator|+
+literal|"useTags=(\\w+),\\s+"
+operator|+
+literal|"noOfTags=(\\d+)"
 argument_list|)
 decl_stmt|;
 comment|/**    * Enum for map metrics.  Keep it out here rather than inside in the Map    * inner-class so we can find associated properties.    */
@@ -4189,6 +4193,18 @@ operator|+
 name|this
 operator|.
 name|writeToWAL
+operator|+
+literal|", useTags="
+operator|+
+name|this
+operator|.
+name|useTags
+operator|+
+literal|", noOfTags="
+operator|+
+name|this
+operator|.
+name|noOfTags
 decl_stmt|;
 name|int
 name|hash
