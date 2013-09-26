@@ -871,7 +871,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|identifier
 operator|+

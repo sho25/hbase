@@ -1038,7 +1038,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"hbase:meta still not available, sleeping and retrying."
 operator|+
