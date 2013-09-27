@@ -2139,7 +2139,7 @@ argument_list|,
 name|rootDir
 argument_list|)
 decl_stmt|;
-name|FileStatus
+name|Path
 index|[]
 name|snapshotHFiles
 init|=
@@ -2162,7 +2162,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|FileStatus
+name|Path
 name|file
 range|:
 name|snapshotHFiles
@@ -2173,9 +2173,6 @@ operator|.
 name|debug
 argument_list|(
 name|file
-operator|.
-name|getPath
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2200,7 +2197,7 @@ decl_stmt|;
 comment|// and make sure that there is a proper subset
 for|for
 control|(
-name|FileStatus
+name|Path
 name|file
 range|:
 name|snapshotHFiles
@@ -2215,18 +2212,12 @@ operator|+
 literal|" is missing snapshot file:"
 operator|+
 name|file
-operator|.
-name|getPath
-argument_list|()
 argument_list|,
 name|files
 operator|.
 name|contains
 argument_list|(
 name|file
-operator|.
-name|getPath
-argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -2391,7 +2382,7 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-name|FileStatus
+name|Path
 index|[]
 name|archivedHFiles
 init|=
@@ -2432,7 +2423,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|FileStatus
+name|Path
 name|file
 range|:
 name|archivedHFiles
@@ -2443,9 +2434,6 @@ operator|.
 name|debug
 argument_list|(
 name|file
-operator|.
-name|getPath
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|files
@@ -2453,9 +2441,6 @@ operator|.
 name|add
 argument_list|(
 name|file
-operator|.
-name|getPath
-argument_list|()
 operator|.
 name|getName
 argument_list|()
