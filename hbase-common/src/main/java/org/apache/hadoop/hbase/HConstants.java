@@ -2245,6 +2245,23 @@ name|HBASE_TEMP_DIRECTORY
 init|=
 literal|".tmp"
 decl_stmt|;
+comment|/**    * The period (in milliseconds) between computing region server point in time metrics    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_METRICS_PERIOD
+init|=
+literal|"hbase.regionserver.metrics.period"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_REGIONSERVER_METRICS_PERIOD
+init|=
+literal|5000
+decl_stmt|;
 comment|/** Directories that are not HBase table directories */
 specifier|public
 specifier|static
