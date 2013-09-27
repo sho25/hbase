@@ -651,6 +651,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 class|class
@@ -890,12 +892,16 @@ name|getMax
 argument_list|()
 return|;
 block|}
+comment|/*    * @param scan    * @param canFamilyBeAbsent whether column family can be absent in familyMap of scan    */
 specifier|private
 name|void
 name|validateParameters
 parameter_list|(
 name|Scan
 name|scan
+parameter_list|,
+name|boolean
+name|canFamilyBeAbsent
 parameter_list|)
 throws|throws
 name|IOException
@@ -986,6 +992,12 @@ block|}
 elseif|else
 if|if
 condition|(
+operator|!
+name|canFamilyBeAbsent
+condition|)
+block|{
+if|if
+condition|(
 name|scan
 operator|.
 name|getFamilyMap
@@ -1004,6 +1016,7 @@ argument_list|(
 literal|"There must be only one family."
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return min val<R>    * @throws Throwable    */
@@ -1156,6 +1169,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 class|class
@@ -1559,6 +1574,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 class|class
@@ -1929,6 +1946,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 class|class
@@ -2316,6 +2335,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 class|class
@@ -2885,6 +2906,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 class|class
@@ -3687,6 +3710,8 @@ argument_list|(
 name|scan
 argument_list|,
 name|ci
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -4807,6 +4832,9 @@ argument_list|,
 name|T
 argument_list|>
 name|ci
+parameter_list|,
+name|boolean
+name|canFamilyBeAbsent
 parameter_list|)
 throws|throws
 name|IOException
@@ -4814,6 +4842,8 @@ block|{
 name|validateParameters
 argument_list|(
 name|scan
+argument_list|,
+name|canFamilyBeAbsent
 argument_list|)
 expr_stmt|;
 specifier|final
