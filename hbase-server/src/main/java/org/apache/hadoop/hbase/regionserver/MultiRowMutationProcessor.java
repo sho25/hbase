@@ -191,7 +191,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutationProcessorProtos
+name|MultiRowMutationProtos
 operator|.
 name|MultiRowMutationProcessorRequest
 import|;
@@ -211,7 +211,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MultiRowMutationProcessorProtos
+name|MultiRowMutationProtos
 operator|.
 name|MultiRowMutationProcessorResponse
 import|;
