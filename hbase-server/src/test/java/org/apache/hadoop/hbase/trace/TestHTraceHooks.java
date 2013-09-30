@@ -560,7 +560,7 @@ argument_list|()
 operator|.
 name|startsWith
 argument_list|(
-literal|"MasterAdminService.CreateTable"
+literal|"MasterService.CreateTable"
 argument_list|)
 condition|)
 block|{

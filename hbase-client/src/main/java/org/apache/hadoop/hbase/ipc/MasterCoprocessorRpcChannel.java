@@ -349,7 +349,7 @@ name|execService
 argument_list|(
 name|connection
 operator|.
-name|getMasterAdmin
+name|getMaster
 argument_list|()
 argument_list|,
 name|call

@@ -53,18 +53,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -102,20 +90,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
 import|;
 end_import
 
@@ -171,27 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
+name|TableName
 import|;
 end_import
 
@@ -229,7 +183,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
 name|IsSnapshotDoneRequest
 import|;
@@ -249,7 +203,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
 name|IsSnapshotDoneResponse
 import|;
@@ -269,7 +223,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
 name|SnapshotRequest
 import|;
@@ -289,7 +243,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
 name|SnapshotResponse
 import|;
@@ -539,14 +493,14 @@ name|pauseTime
 argument_list|)
 expr_stmt|;
 comment|// mock the master admin to our mock
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 name|mockMaster
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 operator|.
 name|class
 argument_list|)
@@ -572,7 +526,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterAdminService
+name|getKeepAliveMasterService
 argument_list|()
 argument_list|)
 operator|.
@@ -1023,14 +977,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// mock the master connection
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 name|master
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 operator|.
 name|class
 argument_list|)
@@ -1041,7 +995,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterAdminService
+name|getKeepAliveMasterService
 argument_list|()
 argument_list|)
 operator|.

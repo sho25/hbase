@@ -159,29 +159,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|MasterAdminService
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterMonitorProtos
-operator|.
-name|MasterMonitorService
+name|MasterService
 import|;
 end_import
 
@@ -311,21 +291,10 @@ block|}
 comment|/**    * Returns an {@link MasterAdminService.BlockingInterface} to the active master    */
 specifier|public
 specifier|abstract
-name|MasterAdminService
+name|MasterService
 operator|.
 name|BlockingInterface
-name|getMasterAdmin
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Returns an {@link MasterMonitorService.BlockingInterface} to the active master    */
-specifier|public
-specifier|abstract
-name|MasterMonitorService
-operator|.
-name|BlockingInterface
-name|getMasterMonitor
+name|getMaster
 parameter_list|()
 throws|throws
 name|IOException

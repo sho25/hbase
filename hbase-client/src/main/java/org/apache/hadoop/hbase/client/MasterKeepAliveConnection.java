@@ -31,27 +31,25 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 import|;
 end_import
 
 begin_comment
-comment|/**  * A KeepAlive connection is not physically closed immediately after the close,  *  but rather kept alive for a few minutes. It makes sense only if it is shared.  *  *<p>This interface is implemented on a stub. It allows to have a #close function in a master  * client.  *  *<p>This class is intended to be used internally by HBase classes that need to make invocations  * against the master on the MasterAdminProtos.MasterAdminService.BlockingInterface; but not by  * final user code. Hence it's package protected.  */
+comment|/**  * A KeepAlive connection is not physically closed immediately after the close,  *  but rather kept alive for a few minutes. It makes sense only if it is shared.  *  *<p>This interface is implemented on a stub. It allows to have a #close function in a master  * client.  *  *<p>This class is intended to be used internally by HBase classes that need to make invocations  * against the master on the MasterProtos.MasterService.BlockingInterface; but not by  * final user code. Hence it's package protected.  */
 end_comment
 
 begin_interface
 interface|interface
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 extends|extends
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|MasterAdminService
+name|MasterService
 operator|.
 name|BlockingInterface
 block|{
-comment|/**    * Close down all resources.    */
-comment|// The Closeable Interface wants to throw an IOE out of a close.
-comment|//  Thats a PITA.  Do this below instead of Closeable.
+comment|// Do this instead of implement Closeable because closeable returning IOE is PITA.
 name|void
 name|close
 parameter_list|()

@@ -287,34 +287,14 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|MasterAdminService
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterMonitorProtos
-operator|.
-name|MasterMonitorService
+name|MasterService
 import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to recalibrate after they move.  * {@link HConnectionManager} manages instances of this class.   This is NOT a connection to a  * particular server but to all servers in the cluster.  An implementation takes care of individual  * connections at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  * {@link HConnectionManager} manages instances of this class.   This is NOT a connection to a  * particular server but to all servers in the cluster.  Individual connections are managed at a  * lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
 end_comment
 
 begin_interface
@@ -813,20 +793,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns a {@link MasterAdminKeepAliveConnection} to the active master    */
-name|MasterAdminService
+comment|/**    * Returns a {@link MasterKeepAliveConnection} to the active master    */
+name|MasterService
 operator|.
 name|BlockingInterface
-name|getMasterAdmin
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Returns an {@link MasterMonitorKeepAliveConnection} to the active master    */
-name|MasterMonitorService
-operator|.
-name|BlockingInterface
-name|getMasterMonitor
+name|getMaster
 parameter_list|()
 throws|throws
 name|IOException
@@ -1149,18 +1120,12 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterMonitor    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
+comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    * @deprecated Since 0.96.0    */
 comment|// TODO: Why is this in the public interface when the returned type is shutdown package access?
-name|MasterMonitorKeepAliveConnection
-name|getKeepAliveMasterMonitorService
-parameter_list|()
-throws|throws
-name|MasterNotRunningException
-function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterAdminProtocol    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
-comment|// TODO: Why is this in the public interface when the returned type is shutdown package access?
-name|MasterAdminKeepAliveConnection
-name|getKeepAliveMasterAdminService
+annotation|@
+name|Deprecated
+name|MasterKeepAliveConnection
+name|getKeepAliveMasterService
 parameter_list|()
 throws|throws
 name|MasterNotRunningException

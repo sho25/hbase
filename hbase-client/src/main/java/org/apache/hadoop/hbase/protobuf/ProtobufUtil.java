@@ -1533,7 +1533,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
 name|CreateTableRequest
 import|;
@@ -1553,9 +1553,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|MasterAdminService
+name|GetTableDescriptorsResponse
 import|;
 end_import
 
@@ -1573,9 +1573,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterMonitorProtos
+name|MasterProtos
 operator|.
-name|GetTableDescriptorsResponse
+name|MasterService
 import|;
 end_import
 
@@ -8586,7 +8586,7 @@ name|CoprocessorServiceResponse
 name|execService
 parameter_list|(
 specifier|final
-name|MasterAdminService
+name|MasterService
 operator|.
 name|BlockingInterface
 name|client

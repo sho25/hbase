@@ -123,7 +123,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterMonitorProtos
+name|MasterProtos
 import|;
 end_import
 
@@ -328,16 +328,16 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
-name|MasterMonitorProtos
+name|MasterProtos
 operator|.
-name|MasterMonitorService
+name|MasterService
 operator|.
 name|BlockingInterface
 name|stub
 init|=
-name|MasterMonitorProtos
+name|MasterProtos
 operator|.
-name|MasterMonitorService
+name|MasterService
 operator|.
 name|newBlockingStub
 argument_list|(

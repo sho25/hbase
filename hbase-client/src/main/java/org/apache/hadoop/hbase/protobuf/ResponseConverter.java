@@ -445,9 +445,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|RunCatalogScanResponse
+name|EnableCatalogJanitorResponse
 import|;
 end_import
 
@@ -465,9 +465,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
 operator|.
-name|EnableCatalogJanitorResponse
+name|RunCatalogScanResponse
 import|;
 end_import
 

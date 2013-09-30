@@ -193,7 +193,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterAdminProtos
+name|MasterProtos
+operator|.
+name|CreateTableRequest
 import|;
 end_import
 
@@ -240,6 +242,22 @@ operator|.
 name|log
 operator|.
 name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionTestingUtility
 import|;
 end_import
 
@@ -346,14 +364,14 @@ argument_list|)
 decl_stmt|;
 comment|// Mock so we get back the master interface.  Make it so when createTable is called, we throw
 comment|// the PleaseHoldException.
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 name|masterAdmin
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|MasterAdminKeepAliveConnection
+name|MasterKeepAliveConnection
 operator|.
 name|class
 argument_list|)
@@ -375,8 +393,6 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|MasterAdminProtos
-operator|.
 name|CreateTableRequest
 operator|)
 name|Mockito
@@ -410,7 +426,7 @@ name|when
 argument_list|(
 name|connection
 operator|.
-name|getKeepAliveMasterAdminService
+name|getKeepAliveMasterService
 argument_list|()
 argument_list|)
 operator|.
@@ -505,8 +521,6 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|MasterAdminProtos
-operator|.
 name|CreateTableRequest
 operator|)
 name|Mockito

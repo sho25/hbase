@@ -329,7 +329,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MasterMonitorProtos
+name|MasterProtos
 operator|.
 name|GetTableDescriptorsRequest
 import|;
