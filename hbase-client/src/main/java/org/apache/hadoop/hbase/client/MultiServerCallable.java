@@ -95,7 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
+name|TableName
 import|;
 end_import
 
@@ -109,7 +109,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HRegionLocation
 import|;
 end_import
 
@@ -498,31 +498,17 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Carry the cells if any over the proxy/pb Service interface using the payload
-comment|// carrying rpc controller.  Also set priority on this controller so available down
-comment|// in RpcClient when we go to craft the request header.
-name|PayloadCarryingRpcController
-name|pcrc
-init|=
-operator|new
-name|PayloadCarryingRpcController
-argument_list|(
-name|cells
-argument_list|)
-decl_stmt|;
-name|pcrc
-operator|.
-name|setPriority
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// carrying rpc controller.
 name|getStub
 argument_list|()
 operator|.
 name|multi
 argument_list|(
-name|pcrc
+operator|new
+name|PayloadCarryingRpcController
+argument_list|(
+name|cells
+argument_list|)
 argument_list|,
 name|multiRequest
 argument_list|)
@@ -676,14 +662,6 @@ argument_list|(
 name|cells
 argument_list|)
 decl_stmt|;
-name|controller
-operator|.
-name|setPriority
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|ClientProtos
 operator|.
 name|MultiResponse

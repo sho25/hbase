@@ -880,14 +880,6 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|controller
-operator|.
-name|setPriority
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|response
 operator|=
 name|getStub

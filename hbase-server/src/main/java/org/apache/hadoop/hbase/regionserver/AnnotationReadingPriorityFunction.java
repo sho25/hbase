@@ -580,6 +580,10 @@ block|,
 name|ScanRequest
 operator|.
 name|class
+block|,
+name|MultiRequest
+operator|.
+name|class
 block|}
 decl_stmt|;
 comment|// Some caches for helping performance
@@ -715,7 +719,7 @@ condition|)
 block|{
 comment|// Since we protobuf'd, and then subsequently, when we went with pb style, method names
 comment|// are capitalized.  This meant that this brittle compare of method names gotten by
-comment|// reflection no longer matched the method names coming in over pb.  TODO: Get rid of this
+comment|// reflection no longer matched the method names comeing in over pb.  TODO: Get rid of this
 comment|// check.  For now, workaround is to capitalize the names we got from reflection so they
 comment|// have chance of matching the pb ones.
 name|String
@@ -1024,38 +1028,6 @@ literal|null
 condition|)
 block|{
 return|return
-name|HConstants
-operator|.
-name|NORMAL_QOS
-return|;
-block|}
-if|if
-condition|(
-name|methodName
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"multi"
-argument_list|)
-operator|&&
-name|param
-operator|instanceof
-name|MultiRequest
-condition|)
-block|{
-comment|// The multi call has its priority set in the header.  All calls should work this way but
-comment|// only this one has been converted so far.  No priority == NORMAL_QOS.
-return|return
-name|header
-operator|.
-name|hasPriority
-argument_list|()
-condition|?
-name|header
-operator|.
-name|getPriority
-argument_list|()
-else|:
 name|HConstants
 operator|.
 name|NORMAL_QOS
