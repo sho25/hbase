@@ -3699,6 +3699,13 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+name|controller
+operator|.
+name|setPriority
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|ScanResponse
 name|response
 init|=

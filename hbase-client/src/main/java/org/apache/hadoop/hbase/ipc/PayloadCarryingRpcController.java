@@ -85,6 +85,34 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -124,6 +152,15 @@ name|RpcController
 implements|,
 name|CellScannable
 block|{
+comment|/**    * Priority to set on this request.  Set it here in controller so available composing the    * request.  This is the ordained way of setting priorities going forward.  We will be    * undoing the old annotation-based mechanism.    */
+comment|// Currently only multi call makes use of this.  Eventually this should be only way to set
+comment|// priority.
+specifier|private
+name|int
+name|priority
+init|=
+literal|0
+decl_stmt|;
 comment|// TODO: Fill out the rest of this class methods rather than return UnsupportedOperationException
 comment|/**    * They are optionally set on construction, cleared after we make the call, and then optionally    * set on response with the result. We use this lowest common denominator access to Cells because    * sometimes the scanner is backed by a List of Cells and other times, it is backed by an    * encoded block that implements CellScanner.    */
 specifier|private
@@ -312,6 +349,64 @@ operator|new
 name|UnsupportedOperationException
 argument_list|()
 throw|;
+block|}
+comment|/**    * @param priority Priority for this request; should fall roughly in the range    * {@link HConstants#NORMAL_QOS} to {@link HConstants#HIGH_QOS}    */
+specifier|public
+name|void
+name|setPriority
+parameter_list|(
+name|int
+name|priority
+parameter_list|)
+block|{
+name|this
+operator|.
+name|priority
+operator|=
+name|priority
+expr_stmt|;
+block|}
+comment|/**    * @param tn Set priority based off the table we are going against.    */
+specifier|public
+name|void
+name|setPriority
+parameter_list|(
+specifier|final
+name|TableName
+name|tn
+parameter_list|)
+block|{
+name|this
+operator|.
+name|priority
+operator|=
+name|tn
+operator|!=
+literal|null
+operator|&&
+name|tn
+operator|.
+name|isSystemTable
+argument_list|()
+condition|?
+name|HConstants
+operator|.
+name|HIGH_QOS
+else|:
+name|HConstants
+operator|.
+name|NORMAL_QOS
+expr_stmt|;
+block|}
+comment|/**    * @return The priority of this request    */
+specifier|public
+name|int
+name|getPriority
+parameter_list|()
+block|{
+return|return
+name|priority
+return|;
 block|}
 block|}
 end_class
