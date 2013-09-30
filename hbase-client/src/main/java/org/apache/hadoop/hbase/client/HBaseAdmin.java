@@ -2027,9 +2027,13 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.client.pause"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_PAUSE
 argument_list|,
-literal|1000
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_PAUSE
 argument_list|)
 expr_stmt|;
 name|this

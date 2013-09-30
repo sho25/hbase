@@ -1598,7 +1598,7 @@ specifier|static
 name|long
 name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
-literal|1000
+literal|100
 decl_stmt|;
 comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
 specifier|public
