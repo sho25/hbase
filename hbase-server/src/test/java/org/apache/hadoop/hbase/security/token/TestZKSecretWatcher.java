@@ -640,9 +640,11 @@ name|KEY_SLAVE
 operator|=
 name|tmp
 index|[
+operator|(
 name|i
 operator|+
 literal|1
+operator|)
 operator|%
 literal|2
 index|]
