@@ -1408,6 +1408,11 @@ name|hri
 return|;
 block|}
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -1675,6 +1680,12 @@ block|{
 name|secondSplit
 operator|=
 literal|true
+expr_stmt|;
+comment|// make region splittable
+name|region
+operator|.
+name|initialize
+argument_list|()
 expr_stmt|;
 name|st
 operator|.

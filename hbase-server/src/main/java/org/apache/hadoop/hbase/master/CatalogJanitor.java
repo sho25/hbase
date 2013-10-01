@@ -1900,35 +1900,6 @@ operator|+
 literal|" because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
-comment|// This latter regionOffline should not be necessary but is done for now
-comment|// until we let go of regionserver to master heartbeats.  See HBASE-3368.
-if|if
-condition|(
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// The mock used in testing catalogjanitor returns null for getAssignmnetManager.
-comment|// Allow for null result out of getAssignmentManager.
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|regionOffline
-argument_list|(
-name|parent
-argument_list|)
-expr_stmt|;
-block|}
 name|FileSystem
 name|fs
 init|=
@@ -2156,6 +2127,13 @@ argument_list|(
 literal|"Daughter region does not exist: "
 operator|+
 name|daughter
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|", parent is: "
+operator|+
+name|parent
 operator|.
 name|getEncodedName
 argument_list|()

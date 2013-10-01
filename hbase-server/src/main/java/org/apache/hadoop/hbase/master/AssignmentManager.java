@@ -1653,10 +1653,17 @@ operator|.
 name|watcher
 argument_list|)
 expr_stmt|;
+comment|// This is the max attempts, not retries, so it should be at least 1.
 name|this
 operator|.
 name|maximumAttempts
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+literal|1
+argument_list|,
 name|this
 operator|.
 name|server
@@ -1669,6 +1676,7 @@ argument_list|(
 literal|"hbase.assignment.maximum.attempts"
 argument_list|,
 literal|10
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -2114,6 +2122,25 @@ name|failoverCleanupDone
 operator|.
 name|get
 argument_list|()
+return|;
+block|}
+comment|/**    * To avoid racing with AM, external entities may need to lock a region,    * for example, when SSH checks what regions to skip re-assigning.    */
+specifier|public
+name|Lock
+name|acquireRegionLock
+parameter_list|(
+specifier|final
+name|String
+name|encodedName
+parameter_list|)
+block|{
+return|return
+name|locker
+operator|.
+name|acquireLock
+argument_list|(
+name|encodedName
+argument_list|)
 return|;
 block|}
 comment|/**    * Now, failover cleanup is completed. Notify server manager to    * process queued up dead servers processing, if any.    */
@@ -2803,42 +2830,19 @@ else|else
 block|{
 comment|// Insert into RIT& resend the query to the region server: may be the previous master
 comment|// died before sending the query the first time.
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|rt
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|CLOSING
-argument_list|)
-expr_stmt|;
 specifier|final
 name|RegionState
 name|rs
 init|=
 name|regionStates
 operator|.
-name|getRegionState
+name|updateRegionState
 argument_list|(
-name|regionInfo
-argument_list|)
-decl_stmt|;
-specifier|final
-name|ClosedRegionHandler
-name|closedRegionHandler
-init|=
-operator|new
-name|ClosedRegionHandler
-argument_list|(
-name|server
+name|rt
 argument_list|,
-name|this
-argument_list|,
-name|regionInfo
+name|State
+operator|.
+name|CLOSING
 argument_list|)
 decl_stmt|;
 name|this
@@ -2906,10 +2910,12 @@ name|regionInfo
 argument_list|)
 condition|)
 block|{
-name|closedRegionHandler
-operator|.
-name|process
-argument_list|()
+name|assign
+argument_list|(
+name|regionInfo
+argument_list|,
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -2934,12 +2940,10 @@ case|case
 name|RS_ZK_REGION_FAILED_OPEN
 case|:
 comment|// Region is closed, insert into RIT and handle it
-name|addToRITandCallClose
+name|addToRITandInvokeAssign
 argument_list|(
 name|regionInfo
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|CLOSED
@@ -2964,13 +2968,11 @@ name|sn
 argument_list|)
 condition|)
 block|{
-comment|// Region is offline, insert into RIT and handle it like a closed
-name|addToRITandCallClose
+comment|// Region is offline, insert into RIT and invoke assign
+name|addToRITandInvokeAssign
 argument_list|(
 name|regionInfo
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OFFLINE
@@ -2988,8 +2990,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|PENDING_OPEN
@@ -3120,8 +3120,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OPENING
@@ -3162,8 +3160,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OPEN
@@ -3245,8 +3241,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|SPLITTING
@@ -3322,8 +3316,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|SPLITTING
@@ -3501,7 +3493,7 @@ throws|throws
 name|KeeperException
 block|{
 comment|// If was on dead server, its closed now.  Force to OFFLINE and then
-comment|// handle it like a close; this will get it reassigned if appropriate
+comment|// invoke assign; this will get it reassigned if appropriate
 name|LOG
 operator|.
 name|debug
@@ -3539,12 +3531,10 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|addToRITandCallClose
+name|addToRITandInvokeAssign
 argument_list|(
 name|hri
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OFFLINE
@@ -3553,18 +3543,16 @@ name|oldRt
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add to the in-memory copy of regions in transition and then call close    * handler on passed region<code>hri</code>    * @param hri    * @param state    * @param oldData    */
+comment|/**    * Add to the in-memory copy of regions in transition and then invoke    * assign on passed region<code>hri</code>    * @param hri    * @param state    * @param oldData    */
 specifier|private
 name|void
-name|addToRITandCallClose
+name|addToRITandInvokeAssign
 parameter_list|(
 specifier|final
 name|HRegionInfo
 name|hri
 parameter_list|,
 specifier|final
-name|RegionState
-operator|.
 name|State
 name|state
 parameter_list|,
@@ -3582,20 +3570,10 @@ argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-operator|new
-name|ClosedRegionHandler
+name|invokeAssign
 argument_list|(
-name|this
-operator|.
-name|server
-argument_list|,
-name|this
-argument_list|,
 name|hri
 argument_list|)
-operator|.
-name|process
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * When a region is closed, it should be removed from the regionsToReopen    * @param hri HRegionInfo of the region which was closed    */
@@ -3754,9 +3732,13 @@ name|warn
 argument_list|(
 literal|"Attempted to handle region transition for server but "
 operator|+
-literal|"server is not online: "
+literal|"it is not online: "
 operator|+
 name|prettyPrintedRegionName
+operator|+
+literal|", "
+operator|+
+name|rt
 argument_list|)
 expr_stmt|;
 return|return;
@@ -3996,8 +3978,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|SPLITTING
@@ -4033,8 +4013,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|SPLITTING
@@ -4413,8 +4391,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|CLOSING
@@ -4467,36 +4443,6 @@ block|}
 comment|// Handle CLOSED by assigning elsewhere or stopping if a disable
 comment|// If we got here all is good.  Need to update RegionState -- else
 comment|// what follows will fail because not in expected state.
-name|regionState
-operator|=
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|rt
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|CLOSED
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|regionState
-operator|!=
-literal|null
-condition|)
-block|{
-name|removeClosedRegion
-argument_list|(
-name|regionState
-operator|.
-name|getRegion
-argument_list|()
-argument_list|)
-expr_stmt|;
 operator|new
 name|ClosedRegionHandler
 argument_list|(
@@ -4521,7 +4467,6 @@ name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|RS_ZK_REGION_FAILED_OPEN
@@ -4617,8 +4562,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_OPEN
@@ -4645,8 +4588,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|CLOSED
@@ -4762,8 +4703,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OPENING
@@ -4844,8 +4783,6 @@ name|updateRegionState
 argument_list|(
 name|rt
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OPEN
@@ -5374,8 +5311,6 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|SPLITTING
@@ -6307,34 +6242,6 @@ name|ServerName
 name|sn
 parameter_list|)
 block|{
-if|if
-condition|(
-operator|!
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"A region was opened on a dead server, ServerName="
-operator|+
-name|sn
-operator|+
-literal|", region="
-operator|+
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|numRegionsOpened
 operator|.
 name|incrementAndGet
@@ -6841,9 +6748,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-operator|!
-name|setOfflineInZK
-operator|&&
 name|isDisabledorDisablingRegionInRIT
 argument_list|(
 name|region
@@ -6913,6 +6817,41 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|regionStates
+operator|.
+name|wasRegionOnDeadServer
+argument_list|(
+name|encodedName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skip assigning "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", it's host "
+operator|+
+name|regionStates
+operator|.
+name|getLastRegionServerOfRegion
+argument_list|(
+name|encodedName
+argument_list|)
+operator|+
+literal|" is dead but not processed yet"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|assign
 argument_list|(
 name|state
@@ -7148,13 +7087,22 @@ name|regions
 control|)
 block|{
 name|String
-name|encodedRegionName
+name|encodedName
 init|=
 name|region
 operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isDisabledorDisablingRegionInRIT
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
 name|RegionState
 name|state
 init|=
@@ -7162,15 +7110,62 @@ name|forceRegionStateToOffline
 argument_list|(
 name|region
 argument_list|,
-literal|true
+literal|false
 argument_list|)
+decl_stmt|;
+name|boolean
+name|onDeadServer
+init|=
+literal|false
 decl_stmt|;
 if|if
 condition|(
 name|state
 operator|!=
 literal|null
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
+name|regionStates
+operator|.
+name|wasRegionOnDeadServer
+argument_list|(
+name|encodedName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skip assigning "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", it's host "
+operator|+
+name|regionStates
+operator|.
+name|getLastRegionServerOfRegion
+argument_list|(
+name|encodedName
+argument_list|)
+operator|+
+literal|" is dead but not processed yet"
+argument_list|)
+expr_stmt|;
+name|onDeadServer
+operator|=
+literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
 name|asyncSetOfflineInZooKeeper
 argument_list|(
 name|state
@@ -7201,7 +7196,7 @@ name|plans
 operator|.
 name|put
 argument_list|(
-name|encodedRegionName
+name|encodedName
 argument_list|,
 name|plan
 argument_list|)
@@ -7213,12 +7208,19 @@ argument_list|(
 name|state
 argument_list|)
 expr_stmt|;
+continue|continue;
 block|}
-else|else
+block|}
+comment|// Reassign if the region wasn't on a dead server
+if|if
+condition|(
+operator|!
+name|onDeadServer
+condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"failed to force region state to offline or "
 operator|+
@@ -7235,6 +7237,10 @@ name|region
 argument_list|)
 expr_stmt|;
 comment|// assign individually later
+block|}
+block|}
+comment|// Release the lock, this region is excluded from bulk assign because
+comment|// we can't update its state, or set its znode to offline.
 name|Lock
 name|lock
 init|=
@@ -7242,7 +7248,7 @@ name|locks
 operator|.
 name|remove
 argument_list|(
-name|encodedRegionName
+name|encodedName
 argument_list|)
 decl_stmt|;
 name|lock
@@ -7250,7 +7256,6 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|// Wait until all unassigned nodes have been put up and watchers set.
 name|int
@@ -7475,8 +7480,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|PENDING_OPEN
@@ -7548,8 +7551,8 @@ block|}
 comment|// Move on to open regions.
 try|try
 block|{
-comment|// Send OPEN RPC. If it fails on a IOE or RemoteException, the
-comment|// TimeoutMonitor will pick up the pieces.
+comment|// Send OPEN RPC. If it fails on a IOE or RemoteException,
+comment|// regions will be assigned individually.
 name|long
 name|maxWaitTime
 init|=
@@ -7901,9 +7904,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unable to communicate with the region server in order"
+literal|"Unable to communicate with "
 operator|+
-literal|" to assign regions"
+name|destination
+operator|+
+literal|" in order to assign regions, "
 argument_list|,
 name|e
 argument_list|)
@@ -7964,11 +7969,23 @@ range|:
 name|failedToOpenRegions
 control|)
 block|{
+if|if
+condition|(
+operator|!
+name|regionStates
+operator|.
+name|isRegionOnline
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
 name|invokeAssign
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|LOG
@@ -7978,9 +7995,6 @@ argument_list|(
 literal|"Bulk assigning done for "
 operator|+
 name|destination
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -8312,8 +8326,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_CLOSE
@@ -8371,6 +8383,26 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|forceNewPlan
+operator|&&
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Force region state offline "
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
+block|}
 switch|switch
 condition|(
 name|state
@@ -8388,6 +8420,12 @@ case|:
 case|case
 name|PENDING_OPEN
 case|:
+case|case
+name|CLOSING
+case|:
+case|case
+name|PENDING_CLOSE
+case|:
 if|if
 condition|(
 operator|!
@@ -8398,11 +8436,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempting to assign region "
+literal|"Skip assigning "
 operator|+
 name|region
 operator|+
-literal|" but it is already in transition: "
+literal|", it is already "
 operator|+
 name|state
 argument_list|)
@@ -8411,12 +8449,6 @@ return|return
 literal|null
 return|;
 block|}
-case|case
-name|CLOSING
-case|:
-case|case
-name|PENDING_CLOSE
-case|:
 case|case
 name|FAILED_CLOSE
 case|:
@@ -8439,6 +8471,11 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|RegionState
+name|oldState
+init|=
+name|state
+decl_stmt|;
 name|state
 operator|=
 name|regionStates
@@ -8452,37 +8489,75 @@ if|if
 condition|(
 name|state
 operator|.
-name|isOffline
+name|isFailedClose
 argument_list|()
 condition|)
-break|break;
-case|case
-name|CLOSED
-case|:
+block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Forcing OFFLINE; was="
+literal|"Skip assigning "
+operator|+
+name|region
+operator|+
+literal|", we couldn't close it: "
 operator|+
 name|state
 argument_list|)
 expr_stmt|;
-name|state
-operator|=
-name|regionStates
+return|return
+literal|null
+return|;
+block|}
+comment|// In these cases, we need to confirm with meta
+comment|// the region was not on a dead server if it's open/pending.
+if|if
+condition|(
+operator|(
+name|oldState
 operator|.
-name|updateRegionState
+name|isOpened
+argument_list|()
+operator|||
+name|oldState
+operator|.
+name|isPendingOpenOrOpening
+argument_list|()
+operator|)
+operator|&&
+name|wasRegionOnDeadServerByMeta
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
+name|oldState
 operator|.
-name|State
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
 operator|.
-name|OFFLINE
+name|info
+argument_list|(
+literal|"Skip assigning "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", it is on a dead but not processed yet server"
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
+case|case
+name|CLOSED
+case|:
 case|case
 name|OFFLINE
 case|:
@@ -8496,7 +8571,7 @@ literal|"Trying to assign region "
 operator|+
 name|region
 operator|+
-literal|", which is in state "
+literal|", which is "
 operator|+
 name|state
 argument_list|)
@@ -8507,6 +8582,164 @@ return|;
 block|}
 return|return
 name|state
+return|;
+block|}
+specifier|private
+name|boolean
+name|wasRegionOnDeadServerByMeta
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|region
+parameter_list|,
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+try|try
+block|{
+if|if
+condition|(
+name|region
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+name|ServerName
+name|server
+init|=
+name|catalogTracker
+operator|.
+name|getMetaLocation
+argument_list|()
+decl_stmt|;
+return|return
+name|regionStates
+operator|.
+name|isServerDeadAndNotProcessed
+argument_list|(
+name|server
+argument_list|)
+return|;
+block|}
+while|while
+condition|(
+operator|!
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+name|catalogTracker
+operator|.
+name|waitForMeta
+argument_list|()
+expr_stmt|;
+name|Pair
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|r
+init|=
+name|MetaReader
+operator|.
+name|getRegion
+argument_list|(
+name|catalogTracker
+argument_list|,
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|ServerName
+name|server
+init|=
+name|r
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|r
+operator|.
+name|getSecond
+argument_list|()
+decl_stmt|;
+return|return
+name|regionStates
+operator|.
+name|isServerDeadAndNotProcessed
+argument_list|(
+name|server
+argument_list|)
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Received exception accessing hbase:meta during force assign "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", retrying"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Interrupted accessing hbase:meta"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Call is interrupted or server is stopped.
+return|return
+name|regionStates
+operator|.
+name|isServerDeadAndNotProcessed
+argument_list|(
+name|sn
+argument_list|)
 return|;
 block|}
 comment|/**    * Caller must hold lock on the passed<code>state</code> object.    * @param state    * @param setOfflineInZK    * @param forceNewPlan    */
@@ -8726,8 +8959,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_OPEN
@@ -8924,8 +9155,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|PENDING_OPEN
@@ -9312,8 +9541,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_OPEN
@@ -9472,8 +9699,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_OPEN
@@ -9526,8 +9751,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OFFLINE
@@ -9558,8 +9781,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|FAILED_OPEN
@@ -9839,8 +10060,6 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OFFLINE
@@ -10502,6 +10721,11 @@ argument_list|(
 name|encodedName
 argument_list|)
 decl_stmt|;
+name|boolean
+name|reassign
+init|=
+literal|true
+decl_stmt|;
 try|try
 block|{
 if|if
@@ -10538,6 +10762,11 @@ name|state
 operator|.
 name|isSplit
 argument_list|()
+operator|||
+name|state
+operator|.
+name|isOffline
+argument_list|()
 operator|)
 condition|)
 block|{
@@ -10552,20 +10781,12 @@ operator|+
 literal|", ignored"
 argument_list|)
 expr_stmt|;
+comment|// Offline region will be reassigned below
 return|return;
 block|}
 comment|// Create the znode in CLOSING state
 try|try
 block|{
-name|state
-operator|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|state
@@ -10582,6 +10803,20 @@ condition|)
 block|{
 comment|// We don't know where the region is, offline it.
 comment|// No need to send CLOSE RPC
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Attempting to unassign a region not in RegionStates"
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", offlined"
+argument_list|)
+expr_stmt|;
 name|regionOffline
 argument_list|(
 name|region
@@ -10629,6 +10864,11 @@ operator|+
 literal|"can't be created."
 argument_list|)
 expr_stmt|;
+name|reassign
+operator|=
+literal|false
+expr_stmt|;
+comment|// not unassigned at all
 return|return;
 block|}
 block|}
@@ -10686,6 +10926,11 @@ operator|+
 literal|"skipping unassign because region no longer exists -- its split or merge"
 argument_list|)
 expr_stmt|;
+name|reassign
+operator|=
+literal|false
+expr_stmt|;
+comment|// no need to reassign for split/merged region
 return|return;
 block|}
 block|}
@@ -10759,6 +11004,11 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|reassign
+operator|=
+literal|false
+expr_stmt|;
+comment|// heading out already
 return|return;
 block|}
 name|state
@@ -10769,8 +11019,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|PENDING_CLOSE
@@ -10842,8 +11090,6 @@ name|updateRegionState
 argument_list|(
 name|region
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|PENDING_CLOSE
@@ -10902,30 +11148,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|regionStates
-operator|.
-name|isRegionOffline
-argument_list|(
-name|region
-argument_list|)
-condition|)
-block|{
-operator|new
-name|ClosedRegionHandler
-argument_list|(
-name|server
-argument_list|,
-name|this
-argument_list|,
-name|region
-argument_list|)
-operator|.
-name|process
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -10934,6 +11156,27 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+comment|// Region is expected to be reassigned afterwards
+if|if
+condition|(
+name|reassign
+operator|&&
+name|regionStates
+operator|.
+name|isRegionOffline
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
+name|assign
+argument_list|(
+name|region
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 specifier|public
@@ -11184,7 +11427,7 @@ condition|(
 operator|!
 name|regionStates
 operator|.
-name|isRegionAssigned
+name|isRegionOnline
 argument_list|(
 name|regionInfo
 argument_list|)
@@ -11565,6 +11808,9 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+operator|!
 name|assign
 argument_list|(
 name|plan
@@ -11577,7 +11823,38 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|)
+condition|)
+block|{
+for|for
+control|(
+name|HRegionInfo
+name|region
+range|:
+name|plan
+operator|.
+name|getValue
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|regionStates
+operator|.
+name|isRegionOnline
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
+name|invokeAssign
+argument_list|(
+name|region
+argument_list|)
 expr_stmt|;
+block|}
+block|}
+block|}
 block|}
 block|}
 else|else
@@ -12553,6 +12830,19 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
+comment|// We need to keep such info even if the server is known dead
+name|regionStates
+operator|.
+name|setLastRegionServerOfRegions
+argument_list|(
+name|serverName
+argument_list|,
+name|server
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -14151,13 +14441,35 @@ name|regionState
 operator|==
 literal|null
 operator|||
+operator|(
+name|regionState
+operator|.
+name|getServerName
+argument_list|()
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|regionState
 operator|.
-name|isPendingOpenOrOpeningOnServer
+name|isOnServer
 argument_list|(
 name|sn
 argument_list|)
+operator|)
+operator|||
+operator|!
+operator|(
+name|regionState
+operator|.
+name|isFailedClose
+argument_list|()
+operator|||
+name|regionState
+operator|.
+name|isPendingOpenOrOpening
+argument_list|()
+operator|)
 condition|)
 block|{
 name|LOG
@@ -14166,9 +14478,11 @@ name|info
 argument_list|(
 literal|"Skip "
 operator|+
-name|hri
+name|regionState
 operator|+
-literal|" since it is not opening on the dead server any more: "
+literal|" since it is not opening/failed_close"
+operator|+
+literal|" on the dead server any more: "
 operator|+
 name|sn
 argument_list|)
@@ -14239,18 +14553,16 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Mark the region closed and assign it again by SSH
+comment|// Mark the region offline and assign it again by SSH
 name|regionStates
 operator|.
 name|updateRegionState
 argument_list|(
 name|hri
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
-name|CLOSED
+name|OFFLINE
 argument_list|)
 expr_stmt|;
 block|}
@@ -14290,6 +14602,11 @@ name|HRegionInfo
 name|b
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|regionStates
+init|)
+block|{
 name|regionOffline
 argument_list|(
 name|parent
@@ -14299,47 +14616,18 @@ operator|.
 name|SPLIT
 argument_list|)
 expr_stmt|;
-name|regionOnline
+name|onlineNewRegion
 argument_list|(
 name|a
 argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
-name|regionOnline
+name|onlineNewRegion
 argument_list|(
 name|b
 argument_list|,
 name|sn
-argument_list|)
-expr_stmt|;
-comment|// There's a possibility that the region was splitting while a user asked
-comment|// the master to disable, we need to make sure we close those regions in
-comment|// that case. This is not racing with the region server itself since RS
-comment|// report is done after the split transaction completed.
-if|if
-condition|(
-name|this
-operator|.
-name|zkTable
-operator|.
-name|isDisablingOrDisabledTable
-argument_list|(
-name|parent
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|unassign
-argument_list|(
-name|a
-argument_list|)
-expr_stmt|;
-name|unassign
-argument_list|(
-name|b
 argument_list|)
 expr_stmt|;
 block|}
@@ -14366,6 +14654,11 @@ name|HRegionInfo
 name|b
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|regionStates
+init|)
+block|{
 name|regionOffline
 argument_list|(
 name|a
@@ -14384,35 +14677,11 @@ operator|.
 name|MERGED
 argument_list|)
 expr_stmt|;
-name|regionOnline
+name|onlineNewRegion
 argument_list|(
 name|merged
 argument_list|,
 name|sn
-argument_list|)
-expr_stmt|;
-comment|// There's a possibility that the region was merging while a user asked
-comment|// the master to disable, we need to make sure we close those regions in
-comment|// that case. This is not racing with the region server itself since RS
-comment|// report is done after the regions merge transaction completed.
-if|if
-condition|(
-name|this
-operator|.
-name|zkTable
-operator|.
-name|isDisablingOrDisabledTable
-argument_list|(
-name|merged
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|unassign
-argument_list|(
-name|merged
 argument_list|)
 expr_stmt|;
 block|}
@@ -14449,12 +14718,46 @@ name|plan
 argument_list|)
 expr_stmt|;
 block|}
-name|unassign
-argument_list|(
+name|HRegionInfo
+name|hri
+init|=
 name|plan
 operator|.
 name|getRegionInfo
 argument_list|()
+decl_stmt|;
+name|TableName
+name|tableName
+init|=
+name|hri
+operator|.
+name|getTable
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|zkTable
+operator|.
+name|isDisablingOrDisabledTable
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Ignored moving region of disabling/disabled table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|unassign
+argument_list|(
+name|hri
 argument_list|,
 literal|false
 argument_list|,
@@ -14641,8 +14944,6 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|OFFLINE
@@ -14851,8 +15152,6 @@ name|updateRegionState
 argument_list|(
 name|merging_a
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|MERGING
@@ -14864,8 +15163,6 @@ name|updateRegionState
 argument_list|(
 name|merging_b
 argument_list|,
-name|RegionState
-operator|.
 name|State
 operator|.
 name|MERGING
@@ -14909,6 +15206,75 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Online a newly created region, which is usually from split/merge.    */
+specifier|private
+name|void
+name|onlineNewRegion
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|region
+parameter_list|,
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|regionStates
+init|)
+block|{
+comment|// Someone could find the region from meta and reassign it.
+if|if
+condition|(
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|region
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+name|regionStates
+operator|.
+name|createRegionState
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+name|regionOnline
+argument_list|(
+name|region
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// User could disable the table before master knows the new region.
+if|if
+condition|(
+name|zkTable
+operator|.
+name|isDisablingOrDisabledTable
+argument_list|(
+name|region
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|unassign
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class

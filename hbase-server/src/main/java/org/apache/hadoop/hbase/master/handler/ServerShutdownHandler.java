@@ -101,6 +101,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|Lock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -779,6 +793,14 @@ comment|//
 comment|// If AssignmentManager hasn't finished rebuilding user regions,
 comment|// we are not ready to assign dead regions either. So we re-queue up
 comment|// the dead server for further processing too.
+name|AssignmentManager
+name|am
+init|=
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|isCarryingMeta
@@ -786,10 +808,7 @@ argument_list|()
 comment|// hbase:meta
 operator|||
 operator|!
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
+name|am
 operator|.
 name|isFailoverCleanupDone
 argument_list|()
@@ -1026,6 +1045,16 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|logSplit
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -1058,14 +1087,6 @@ comment|// Clean out anything in regions in transition.  Being conservative and
 comment|// doing after log splitting.  Could do some states before -- OPENING?
 comment|// OFFLINE? -- and then others after like CLOSING that depend on log
 comment|// splitting.
-name|AssignmentManager
-name|am
-init|=
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-decl_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -1196,6 +1217,26 @@ condition|)
 block|{
 continue|continue;
 block|}
+name|String
+name|encodedName
+init|=
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+decl_stmt|;
+name|Lock
+name|lock
+init|=
+name|am
+operator|.
+name|acquireRegionLock
+argument_list|(
+name|encodedName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
 name|RegionState
 name|rit
 init|=
@@ -1285,6 +1326,13 @@ condition|)
 block|{
 if|if
 condition|(
+name|rit
+operator|.
+name|getServerName
+argument_list|()
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|rit
 operator|.
@@ -1292,25 +1340,14 @@ name|isOnServer
 argument_list|(
 name|serverName
 argument_list|)
-operator|||
-name|rit
-operator|.
-name|isClosed
-argument_list|()
-operator|||
-name|rit
-operator|.
-name|isOpened
-argument_list|()
 condition|)
 block|{
-comment|// Skip regions that are in transition on other server,
-comment|// or in state closed/opened
+comment|// Skip regions that are in transition on other server
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip assigning region "
+literal|"Skip assigning region in transition on other server"
 operator|+
 name|rit
 argument_list|)
@@ -1384,17 +1421,10 @@ condition|)
 block|{
 if|if
 condition|(
-operator|(
 name|rit
 operator|.
-name|isClosing
+name|isPendingCloseOrClosing
 argument_list|()
-operator|||
-name|rit
-operator|.
-name|isPendingClose
-argument_list|()
-operator|)
 operator|&&
 name|am
 operator|.
@@ -1446,6 +1476,15 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}

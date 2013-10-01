@@ -246,6 +246,31 @@ argument_list|(
 name|tableNameBytes
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|regions
+operator|==
+literal|null
+operator|||
+name|regions
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|tableName
+operator|+
+literal|" doesn't have regions to move"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|HRegionInfo
 name|region
 init|=

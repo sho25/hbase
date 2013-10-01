@@ -232,6 +232,10 @@ decl_stmt|;
 if|if
 condition|(
 name|regions
+operator|==
+literal|null
+operator|||
+name|regions
 operator|.
 name|size
 argument_list|()
@@ -247,7 +251,7 @@ literal|"Table "
 operator|+
 name|tableName
 operator|+
-literal|" doesn't have enough region to merge"
+literal|" doesn't have enough regions to merge"
 argument_list|)
 expr_stmt|;
 return|return;

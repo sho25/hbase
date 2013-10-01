@@ -447,8 +447,6 @@ operator|.
 name|State
 operator|.
 name|CLOSED
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// This below has to do w/ online enable/disable of a table

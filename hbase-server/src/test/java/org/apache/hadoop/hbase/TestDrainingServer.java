@@ -1193,7 +1193,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|isRegionAssigned
+name|isRegionOnline
 argument_list|(
 name|REGIONINFO
 argument_list|)
