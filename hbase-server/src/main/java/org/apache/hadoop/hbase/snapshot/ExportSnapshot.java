@@ -375,9 +375,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|protobuf
 operator|.
-name|TableMapReduceUtil
+name|ProtobufUtil
 import|;
 end_import
 
@@ -3427,13 +3427,6 @@ argument_list|(
 name|ExportSnapshot
 operator|.
 name|class
-argument_list|)
-expr_stmt|;
-name|TableMapReduceUtil
-operator|.
-name|addDependencyJars
-argument_list|(
-name|job
 argument_list|)
 expr_stmt|;
 name|job
