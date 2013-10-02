@@ -942,6 +942,7 @@ argument_list|(
 literal|"No table present to migrate table state to PB. returning.."
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 for|for
 control|(
@@ -1147,6 +1148,7 @@ argument_list|(
 literal|"No replication related znodes present to migrate. returning.."
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 for|for
 control|(
