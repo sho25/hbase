@@ -227,20 +227,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|io
-operator|.
-name|NullOutputStream
-import|;
-end_import
-
 begin_comment
 comment|/**  * The {@link HFile} has a fixed trailer which contains offsets to other  * variable parts of the file. Also includes basic metadata on this file. The  * trailer size is fixed within a given {@link HFile} format version only, but  * we always store the version number as the last four-byte integer of the file.  * The version number itself is split into two portions, a major   * version and a minor version.   * The last three bytes of a file is the major  * version and a single preceding byte is the minor number. The major version  * determines which readers/writers to use to read/write a hfile while a minor  * version determines smaller changes in hfile format that do not need a new  * reader/writer type.  */
 end_comment
