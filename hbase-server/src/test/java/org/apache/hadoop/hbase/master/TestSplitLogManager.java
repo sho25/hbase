@@ -1921,6 +1921,9 @@ argument_list|,
 name|task
 operator|.
 name|unforcedResubmits
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue

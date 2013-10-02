@@ -239,6 +239,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|ReentrantLock
@@ -4619,6 +4633,9 @@ condition|(
 name|task
 operator|.
 name|unforcedResubmits
+operator|.
+name|get
+argument_list|()
 operator|>=
 name|resubmit_threshold
 condition|)
@@ -4906,7 +4923,9 @@ block|{
 name|task
 operator|.
 name|unforcedResubmits
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 block|}
 name|task
@@ -6504,8 +6523,12 @@ name|int
 name|incarnation
 decl_stmt|;
 specifier|volatile
-name|int
+name|AtomicInteger
 name|unforcedResubmits
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
 decl_stmt|;
 specifier|volatile
 name|boolean
@@ -6543,6 +6566,9 @@ operator|+
 literal|" resubmits = "
 operator|+
 name|unforcedResubmits
+operator|.
+name|get
+argument_list|()
 operator|+
 literal|" batch = "
 operator|+
