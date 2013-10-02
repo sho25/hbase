@@ -366,6 +366,14 @@ implements|implements
 name|LoadBalancer
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|int
+name|MIN_SERVER_BALANCE
+init|=
+literal|2
+decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|stopped
@@ -2251,17 +2259,33 @@ name|cs
 operator|.
 name|getNumServers
 argument_list|()
-operator|==
-literal|0
+operator|<
+name|MIN_SERVER_BALANCE
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"numServers=0 so skipping load balancing"
+literal|"Not running balancer because only "
+operator|+
+name|cs
+operator|.
+name|getNumServers
+argument_list|()
+operator|+
+literal|" active regionserver(s)"
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
