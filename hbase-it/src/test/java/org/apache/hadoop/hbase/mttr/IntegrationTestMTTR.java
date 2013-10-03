@@ -793,9 +793,22 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
+name|long
+name|sleepTime
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|SLEEP_TIME_KEY
+init|=
+literal|"hbase.IntegrationTestMTTR.sleeptime"
+decl_stmt|;
+specifier|private
+specifier|static
 specifier|final
 name|long
-name|SLEEP_TIME
+name|SLEEP_TIME_DEFAULT
 init|=
 literal|60
 operator|*
@@ -917,6 +930,20 @@ name|setupTables
 argument_list|()
 expr_stmt|;
 comment|// Set up the actions.
+name|sleepTime
+operator|=
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+name|SLEEP_TIME_KEY
+argument_list|,
+name|SLEEP_TIME_DEFAULT
+argument_list|)
+expr_stmt|;
 name|setupActions
 argument_list|()
 expr_stmt|;
@@ -936,7 +963,7 @@ operator|=
 operator|new
 name|RestartRsHoldingTableAction
 argument_list|(
-name|SLEEP_TIME
+name|sleepTime
 argument_list|,
 name|tableName
 operator|.
@@ -950,7 +977,7 @@ operator|=
 operator|new
 name|RestartRsHoldingMetaAction
 argument_list|(
-name|SLEEP_TIME
+name|sleepTime
 argument_list|)
 expr_stmt|;
 comment|// Set up the action that will move the regions of our table.
@@ -959,7 +986,7 @@ operator|=
 operator|new
 name|MoveRegionsOfTableAction
 argument_list|(
-name|SLEEP_TIME
+name|sleepTime
 argument_list|,
 name|tableName
 operator|.
