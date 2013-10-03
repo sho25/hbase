@@ -84,18 +84,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -555,6 +543,10 @@ block|,
 name|ERROR_CODE
 operator|.
 name|NOT_IN_META_OR_DEPLOYED
+block|,
+name|ERROR_CODE
+operator|.
+name|HOLE_IN_REGION_CHAIN
 block|}
 argument_list|)
 expr_stmt|;
