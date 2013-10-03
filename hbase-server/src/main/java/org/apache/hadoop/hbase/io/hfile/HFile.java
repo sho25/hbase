@@ -3026,7 +3026,7 @@ name|values
 argument_list|()
 return|;
 block|}
-comment|/**      * Write out this instance on the passed in<code>out</code> stream.      * We write it as a protobuf.      * @param out      * @throws IOException      * @see {@link #read(DataInputStream)}      */
+comment|/**      * Write out this instance on the passed in<code>out</code> stream.      * We write it as a protobuf.      * @param out      * @throws IOException      * @see #read(DataInputStream)      */
 name|void
 name|write
 parameter_list|(
@@ -3148,7 +3148,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Populate this instance with what we find on the passed in<code>in</code> stream.      * Can deserialize protobuf of old Writables format.      * @param in      * @throws IOException      * @see {@link #write(DataOutputStream)}      */
+comment|/**      * Populate this instance with what we find on the passed in<code>in</code> stream.      * Can deserialize protobuf of old Writables format.      * @param in      * @throws IOException      * @see #write(DataOutputStream)      */
 name|void
 name|read
 parameter_list|(

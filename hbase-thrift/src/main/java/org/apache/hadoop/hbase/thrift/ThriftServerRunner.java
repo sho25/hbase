@@ -2819,7 +2819,7 @@ name|coalescer
 init|=
 literal|null
 decl_stmt|;
-comment|/**      * Returns a list of all the column families for a given htable.      *      * @param table      * @return      * @throws IOException      */
+comment|/**      * Returns a list of all the column families for a given htable.      *      * @param table      * @throws IOException      */
 name|byte
 index|[]
 index|[]

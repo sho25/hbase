@@ -456,7 +456,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns the classloader to load the Codec class from.    * @return    */
+comment|/**    * Returns the classloader to load the Codec class from.    */
 specifier|private
 specifier|static
 name|ClassLoader

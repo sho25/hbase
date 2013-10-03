@@ -651,7 +651,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a snapshot of the current memstore.    * Snapshot must be cleared by call to {@link #clearSnapshot(SortedSet<KeyValue>)}    * To get the snapshot made by this method, use {@link #getSnapshot()}    */
+comment|/**    * Creates a snapshot of the current memstore.    * Snapshot must be cleared by call to {@link #clearSnapshot(SortedSet)}    * To get the snapshot made by this method, use {@link #getSnapshot()}    */
 name|void
 name|snapshot
 parameter_list|()
@@ -802,7 +802,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return the current snapshot.    * Called by flusher to get current snapshot made by a previous    * call to {@link #snapshot()}    * @return Return snapshot.    * @see {@link #snapshot()}    * @see {@link #clearSnapshot(SortedSet<KeyValue>)}    */
+comment|/**    * Return the current snapshot.    * Called by flusher to get current snapshot made by a previous    * call to {@link #snapshot()}    * @return Return snapshot.    * @see #snapshot()    * @see #clearSnapshot(SortedSet)    */
 name|KeyValueSkipListSet
 name|getSnapshot
 parameter_list|()
@@ -813,7 +813,7 @@ operator|.
 name|snapshot
 return|;
 block|}
-comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param ss The snapshot to clean out.    * @throws UnexpectedException    * @see {@link #snapshot()}    */
+comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param ss The snapshot to clean out.    * @throws UnexpectedException    * @see #snapshot()    */
 name|void
 name|clearSnapshot
 parameter_list|(

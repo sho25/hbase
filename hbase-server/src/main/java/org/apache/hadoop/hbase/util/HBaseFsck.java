@@ -4379,7 +4379,7 @@ return|return
 name|tablesInfo
 return|;
 block|}
-comment|/**    * To get the column family list according to the column family dirs    * @param columns    * @param hbi    * @return    * @throws IOException    */
+comment|/**    * To get the column family list according to the column family dirs    * @param columns    * @param hbi    * @return a set of column families    * @throws IOException    */
 specifier|private
 name|Set
 argument_list|<

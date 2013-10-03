@@ -3268,7 +3268,7 @@ return|return
 name|len
 return|;
 block|}
-comment|/**    * Decode a {@link BigDecimal} from {@code src}. Assumes {@code src} encodes    * a value in Numeric encoding and is within the valid range of    * {@link BigDecimal} values. {@link BigDecimal} does not support {@code NaN}    * or {@code Infinte} values.    * @see #decodeNumericAsDouble(byte[], int)    */
+comment|/**    * Decode a {@link BigDecimal} from {@code src}. Assumes {@code src} encodes    * a value in Numeric encoding and is within the valid range of    * {@link BigDecimal} values. {@link BigDecimal} does not support {@code NaN}    * or {@code Infinte} values.    * @see #decodeNumericAsDouble(PositionedByteRange)    */
 specifier|private
 specifier|static
 name|BigDecimal

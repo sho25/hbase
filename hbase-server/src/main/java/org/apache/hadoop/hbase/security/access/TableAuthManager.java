@@ -1502,7 +1502,7 @@ name|namespace
 argument_list|)
 return|;
 block|}
-comment|/**    * Authorizes a global permission    * @param perms    * @param action    * @return    */
+comment|/**    * Authorizes a global permission    * @param perms    * @param action    * @return true if authorized, false otherwise    */
 specifier|private
 name|boolean
 name|authorize

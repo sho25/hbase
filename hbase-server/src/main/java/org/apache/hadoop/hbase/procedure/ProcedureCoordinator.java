@@ -829,7 +829,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Exposed for hooking with unit tests.    * @param procName    * @param procArgs    * @param expectedMembers    * @return    */
+comment|/**    * Exposed for hooking with unit tests.    * @param procName    * @param procArgs    * @param expectedMembers    * @return the newly created procedure    */
 name|Procedure
 name|createProcedure
 parameter_list|(

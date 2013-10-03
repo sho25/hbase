@@ -1357,7 +1357,7 @@ literal|"Started bucket cache"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the IOEngine from the IO engine name    * @param ioEngineName    * @param capacity    * @return    * @throws IOException    */
+comment|/**    * Get the IOEngine from the IO engine name    * @param ioEngineName    * @param capacity    * @return the IOEngine    * @throws IOException    */
 specifier|private
 name|IOEngine
 name|getIOEngineFromName

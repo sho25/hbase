@@ -1444,7 +1444,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Check the current user for authorization to perform a specific action    * against the given set of row data.    *    *<p>Note: Ordering of the authorization checks    * has been carefully optimized to short-circuit the most common requests    * and minimize the amount of processing required.</p>    *    * @param permRequest the action being requested    * @param e the coprocessor environment    * @param families the map of column families to qualifiers present in    * the request    * @return    */
+comment|/**    * Check the current user for authorization to perform a specific action    * against the given set of row data.    *    *<p>Note: Ordering of the authorization checks    * has been carefully optimized to short-circuit the most common requests    * and minimize the amount of processing required.</p>    *    * @param permRequest the action being requested    * @param e the coprocessor environment    * @param families the map of column families to qualifiers present in    * the request    * @return an authorization result    */
 name|AuthResult
 name|permissionGranted
 parameter_list|(

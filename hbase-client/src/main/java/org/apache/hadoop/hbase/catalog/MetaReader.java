@@ -792,7 +792,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @return    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @return An {@link HTable} for<code>hbase:meta</code>    * @throws IOException    */
 specifier|static
 name|HTable
 name|getCatalogHTable

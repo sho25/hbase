@@ -1470,7 +1470,7 @@ return|return
 name|regionsWithHFileV1
 return|;
 block|}
-comment|/**    * Ignore ROOT table as it doesn't exist in 0.96.    * @param path    * @return    */
+comment|/**    * Ignore ROOT table as it doesn't exist in 0.96.    * @param path    */
 specifier|private
 name|boolean
 name|isRootTable
@@ -2176,7 +2176,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Removes the prefix of defaultNamespace from the path.    * @param originPath    * @return    */
+comment|/**    * Removes the prefix of defaultNamespace from the path.    * @param originPath    */
 specifier|private
 name|String
 name|removeDefaultNSPath

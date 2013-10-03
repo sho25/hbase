@@ -565,7 +565,7 @@ return|return
 name|tags
 return|;
 block|}
-comment|/**    * Returns the total length of the entire tag entity    * @return    */
+comment|/**    * Returns the total length of the entire tag entity    */
 name|short
 name|getLength
 parameter_list|()
@@ -576,7 +576,7 @@ operator|.
 name|length
 return|;
 block|}
-comment|/**    * Returns the offset of the entire tag entity    * @return    */
+comment|/**    * Returns the offset of the entire tag entity    */
 name|int
 name|getOffset
 parameter_list|()

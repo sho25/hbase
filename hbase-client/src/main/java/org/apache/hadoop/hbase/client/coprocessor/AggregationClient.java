@@ -2841,7 +2841,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * It computes a global standard deviation for a given column and its value.    * Standard deviation is square root of (average of squares -    * average*average). From individual regions, it obtains sum, square sum and    * number of rows. With these, the above values are computed to get the global    * std.    * @param table    * @param scan    * @return    * @throws Throwable    */
+comment|/**    * It computes a global standard deviation for a given column and its value.    * Standard deviation is square root of (average of squares -    * average*average). From individual regions, it obtains sum, square sum and    * number of rows. With these, the above values are computed to get the global    * std.    * @param table    * @param scan    * @return standard deviations    * @throws Throwable    */
 specifier|private
 parameter_list|<
 name|R

@@ -469,34 +469,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -553,6 +525,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -568,6 +554,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -678,22 +678,6 @@ operator|.
 name|client
 operator|.
 name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Row
 import|;
 end_import
 
@@ -823,7 +807,11 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|AdminProtos
+operator|.
+name|AdminService
+operator|.
+name|BlockingInterface
 import|;
 end_import
 
@@ -901,11 +889,11 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|AdminProtos
+name|ClientProtos
 operator|.
-name|AdminService
+name|MutationProto
 operator|.
-name|BlockingInterface
+name|MutationType
 import|;
 end_import
 
@@ -923,11 +911,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ClientProtos
-operator|.
-name|MutationProto
-operator|.
-name|MutationType
+name|HBaseProtos
 import|;
 end_import
 
@@ -3964,7 +3948,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Get current open writers    * @return    */
+comment|/**    * Get current open writers    */
 specifier|private
 name|int
 name|getNumOpenWriters

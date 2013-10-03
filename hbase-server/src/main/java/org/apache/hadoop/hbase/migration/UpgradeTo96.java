@@ -1248,7 +1248,7 @@ name|args
 argument_list|)
 return|;
 block|}
-comment|/**    * Executes the upgrade process. It involves:    *<ul>    *<li> Upgrading Namespace    *<li> Upgrading Znodes    *<li> Log splitting    *</ul>    * @return    * @throws Exception    */
+comment|/**    * Executes the upgrade process. It involves:    *<ul>    *<li> Upgrading Namespace    *<li> Upgrading Znodes    *<li> Log splitting    *</ul>    * @throws Exception    */
 specifier|private
 name|int
 name|executeUpgrade
@@ -1385,7 +1385,7 @@ name|toolMessage
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Performs log splitting for all regionserver directories.    * @return    * @throws Exception    */
+comment|/**    * Performs log splitting for all regionserver directories.    * @throws Exception    */
 specifier|private
 name|void
 name|doOfflineLogSplitting
