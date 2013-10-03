@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -107,6 +119,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -137,11 +159,6 @@ name|MediumTests
 operator|.
 name|class
 argument_list|)
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 class|class
 name|TestHRegionBusyWait
@@ -150,10 +167,20 @@ name|TestHRegion
 block|{
 comment|// TODO: This subclass runs all the tests in TestHRegion as well as the test below which means
 comment|// all TestHRegion tests are run twice.
+annotation|@
+name|Before
 specifier|public
-name|TestHRegionBusyWait
+name|void
+name|setup
 parameter_list|()
+throws|throws
+name|IOException
 block|{
+name|super
+operator|.
+name|setup
+argument_list|()
+expr_stmt|;
 name|conf
 operator|.
 name|set

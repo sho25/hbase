@@ -472,6 +472,9 @@ init|=
 operator|new
 name|HBaseTestingUtility
 argument_list|()
+operator|.
+name|createLocalHTU
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static

@@ -21,11 +21,123 @@ begin_import
 import|import static
 name|org
 operator|.
-name|mockito
+name|apache
 operator|.
-name|AdditionalMatchers
+name|hadoop
 operator|.
-name|aryEq
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|START_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|START_KEY_BYTES
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam1
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam2
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -37,7 +149,7 @@ name|mockito
 operator|.
 name|Matchers
 operator|.
-name|*
+name|any
 import|;
 end_import
 
@@ -49,7 +161,43 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
-name|*
+name|doAnswer
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|mock
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|spy
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|when
 import|;
 end_import
 
@@ -311,6 +459,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseTestCase
+operator|.
+name|HRegionIncommon
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -353,20 +517,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MediumTests
 import|;
 end_import
@@ -384,6 +534,22 @@ operator|.
 name|client
 operator|.
 name|Delete
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Durability
 import|;
 end_import
 
@@ -448,22 +614,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Durability
 import|;
 end_import
 
@@ -701,7 +851,47 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Assume
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
 import|;
 end_import
 
@@ -716,6 +906,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -768,9 +970,17 @@ argument_list|)
 specifier|public
 class|class
 name|TestCompaction
-extends|extends
-name|HBaseTestCase
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 specifier|static
 specifier|final
 name|Log
@@ -796,6 +1006,18 @@ name|UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+operator|.
+name|createLocalHTU
+argument_list|()
+decl_stmt|;
+specifier|protected
+name|Configuration
+name|conf
+init|=
+name|UTIL
+operator|.
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -984,7 +1206,7 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Override
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -992,18 +1214,17 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|htd
 operator|=
+name|UTIL
+operator|.
 name|createTableDescriptor
 argument_list|(
-name|getName
+name|name
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1011,7 +1232,9 @@ name|this
 operator|.
 name|r
 operator|=
-name|createNewHRegion
+name|UTIL
+operator|.
+name|createLocalHRegion
 argument_list|(
 name|htd
 argument_list|,
@@ -1022,7 +1245,7 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Override
+name|After
 specifier|public
 name|void
 name|tearDown
@@ -1050,13 +1273,10 @@ operator|.
 name|closeAndDelete
 argument_list|()
 expr_stmt|;
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Test that on a major compaction, if all cells are expired or deleted, then    * we'll end up with no product.  Make sure scanner over region returns    * right answer in this case - and that it just basically works.    * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMajorCompactingToNoOutput
@@ -1245,6 +1465,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Run compaction and flushing memstore    * Assert deletes get cleaned up.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMajorCompaction
@@ -1256,6 +1478,8 @@ name|majorCompaction
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDataBlockEncodingInCacheOnly
@@ -1269,6 +1493,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDataBlockEncodingEverywhere
@@ -1460,6 +1686,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Add more content.
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 operator|new
@@ -2060,6 +2288,8 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testTimeBasedMajorCompaction
@@ -2343,6 +2573,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteRow
@@ -2365,6 +2597,8 @@ name|deleteRow
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteColumn1
@@ -2397,6 +2631,8 @@ name|dc
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteColumn2
@@ -2432,6 +2668,8 @@ literal|3
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteColumnFamily
@@ -2461,6 +2699,8 @@ name|deleteCF
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteVersion1
@@ -2497,6 +2737,8 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMinorCompactionWithDeleteVersion2
@@ -2591,6 +2833,8 @@ name|i
 operator|++
 control|)
 block|{
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -2616,6 +2860,8 @@ argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -2641,6 +2887,8 @@ argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -2666,6 +2914,8 @@ argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -3219,6 +3469,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Verify that you can stop a long-running compaction    * (used during RS shutdown)    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testInterruptCompaction
@@ -3366,6 +3618,8 @@ name|pad
 argument_list|)
 expr_stmt|;
 block|}
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -3832,6 +4086,8 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -3865,6 +4121,8 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|loader
@@ -3894,6 +4152,8 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCompactionWithCorruptResult
@@ -4121,6 +4381,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test for HBASE-5920 - Test user requested major compactions always occurring    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testNonUserMajorCompactionRequest
@@ -4209,6 +4471,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test for HBASE-5920    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testUserMajorCompactionRequest
@@ -4297,6 +4561,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create a custom compaction request and be sure that we can track it through the queue, knowing    * when the compaction is completed.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testTrackingCompactionRequest
@@ -4446,6 +4712,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * HBASE-7947: Regression test to ensure adding to the correct list in the    * {@link CompactSplitThread}    * @throws Exception on failure    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMultipleCustomCompactionRequests
@@ -5368,6 +5636,8 @@ return|;
 block|}
 block|}
 comment|/** Test compaction priority management and multiple compactions per store (HBASE-8665). */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCompactionQueuePriorities

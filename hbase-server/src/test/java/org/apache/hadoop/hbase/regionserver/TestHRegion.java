@@ -21,6 +21,202 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|COLUMNS
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|FIRST_CHAR
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|LAST_CHAR
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|START_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam1
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam2
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+operator|.
+name|fam3
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|mockito
 operator|.
 name|Matchers
@@ -394,20 +590,6 @@ operator|.
 name|hbase
 operator|.
 name|CompatibilitySingletonFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -1323,7 +1505,37 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Assert
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Rule
 import|;
 end_import
 
@@ -1355,6 +1567,18 @@ begin_import
 import|import
 name|org
 operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|mockito
 operator|.
 name|Mockito
@@ -1376,7 +1600,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic stand-alone testing of HRegion.  *  * A lot of the meta information for an HRegion now lives inside other  * HRegions or in the HBaseMaster, so only basic testing is possible.  */
+comment|/**  * Basic stand-alone testing of HRegion.  *   * A lot of the meta information for an HRegion now lives inside other HRegions  * or in the HBaseMaster, so only basic testing is possible.  */
 end_comment
 
 begin_class
@@ -1395,10 +1619,8 @@ argument_list|)
 specifier|public
 class|class
 name|TestHRegion
-extends|extends
-name|HBaseTestCase
 block|{
-comment|// Do not spin up clusters in here.  If you need to spin up a cluster, do it
+comment|// Do not spin up clusters in here. If you need to spin up a cluster, do it
 comment|// over in TestHRegionOnCluster.
 specifier|static
 specifier|final
@@ -1413,6 +1635,16 @@ name|TestHRegion
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1429,29 +1661,23 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|static
-specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
-init|=
-operator|new
-name|HBaseTestingUtility
-argument_list|()
+decl_stmt|;
+comment|// do not run unit tests in parallel
+specifier|public
+specifier|static
+name|Configuration
+name|conf
+decl_stmt|;
+specifier|private
+name|String
+name|DIR
 decl_stmt|;
 specifier|private
 specifier|static
-specifier|final
-name|String
-name|DIR
-init|=
-name|TEST_UTIL
-operator|.
-name|getDataTestDir
-argument_list|(
-literal|"TestHRegion"
-argument_list|)
-operator|.
-name|toString
-argument_list|()
+name|FileSystem
+name|fs
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1462,19 +1688,14 @@ literal|2
 decl_stmt|;
 comment|// Test names
 specifier|protected
-specifier|final
 name|byte
 index|[]
 name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
 decl_stmt|;
-empty_stmt|;
+specifier|protected
+name|String
+name|method
+decl_stmt|;
 specifier|protected
 specifier|final
 name|byte
@@ -1580,47 +1801,109 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * @see org.apache.hadoop.hbase.HBaseTestCase#setUp()    */
 annotation|@
-name|Override
-specifier|protected
+name|Before
+specifier|public
 name|void
-name|setUp
+name|setup
 parameter_list|()
 throws|throws
-name|Exception
+name|IOException
 block|{
-name|super
+name|this
 operator|.
-name|setUp
+name|TEST_UTIL
+operator|=
+name|HBaseTestingUtility
+operator|.
+name|createLocalHTU
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|fs
+operator|=
+name|TEST_UTIL
+operator|.
+name|getTestFileSystem
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|=
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|DIR
+operator|=
+name|TEST_UTIL
+operator|.
+name|getDataTestDir
+argument_list|(
+literal|"TestHRegion"
+argument_list|)
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
+name|method
+operator|=
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+expr_stmt|;
+name|tableName
+operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Override
-specifier|protected
+name|After
+specifier|public
 name|void
 name|tearDown
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
 name|EnvironmentEdgeManagerTestHelper
 operator|.
 name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+name|String
+name|getName
+parameter_list|()
+block|{
+return|return
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+return|;
+block|}
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// New tests that doesn't spin up a mini cluster but rather just test the
 comment|// individual code pieces in the HRegion. Putting files locally in
 comment|// /tmp/testtable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCompactionAffectedByScanners
@@ -1628,22 +1911,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testCompactionAffectedByScanners"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -1924,22 +2191,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testToShowNPEOnRegionScannerReseek"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -2174,6 +2425,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSkipRecoveredEditsReplay
@@ -2576,7 +2829,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -2619,6 +2872,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSkipRecoveredEditsReplaySomeIgnored
@@ -3046,7 +3301,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -3090,6 +3345,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSkipRecoveredEditsReplayAllIgnored
@@ -3097,22 +3354,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testSkipRecoveredEditsReplayAllIgnored"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -3378,7 +3619,10 @@ block|{
 name|String
 name|method
 init|=
-literal|"testRecoveredEditsReplayCompaction"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 name|TableName
 name|tableName
@@ -3525,7 +3769,7 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
-comment|//this will create a region with 3 files
+comment|// this will create a region with 3 files
 name|assertEquals
 argument_list|(
 literal|3
@@ -3583,7 +3827,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|//disable compaction completion
+comment|// disable compaction completion
 name|conf
 operator|.
 name|setBoolean
@@ -3598,7 +3842,7 @@ operator|.
 name|compactStores
 argument_list|()
 expr_stmt|;
-comment|//ensure that nothing changed
+comment|// ensure that nothing changed
 name|assertEquals
 argument_list|(
 literal|3
@@ -3614,7 +3858,7 @@ name|getStorefilesCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//now find the compacted file, and manually add it to the recovered edits
+comment|// now find the compacted file, and manually add it to the recovered edits
 name|Path
 name|tmpDir
 init|=
@@ -3664,7 +3908,7 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|//move the file inside region dir
+comment|// move the file inside region dir
 name|Path
 name|newFile
 init|=
@@ -3856,7 +4100,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|//close the region now, and reopen again
+comment|// close the region now, and reopen again
 name|HTableDescriptor
 name|htd
 init|=
@@ -3884,26 +4128,12 @@ name|HRegion
 operator|.
 name|openHRegion
 argument_list|(
-name|conf
-argument_list|,
-name|fs
-argument_list|,
-operator|new
-name|Path
-argument_list|(
-name|DIR
-operator|+
-name|method
-argument_list|)
-argument_list|,
-name|info
-argument_list|,
-name|htd
+name|region
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-comment|//now check whether we have only one store file, the compacted one
+comment|// now check whether we have only one store file, the compacted one
 name|Collection
 argument_list|<
 name|StoreFile
@@ -4039,7 +4269,7 @@ name|i
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -4072,6 +4302,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetWhileRegionClose
@@ -4079,6 +4311,19 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|Configuration
 name|hc
 init|=
@@ -4103,13 +4348,13 @@ block|,
 name|fam3
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
-name|this
+name|name
 operator|.
-name|getName
+name|getMethodName
 argument_list|()
 decl_stmt|;
 name|this
@@ -4169,7 +4414,6 @@ argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
-comment|// this.region.flushcache();
 specifier|final
 name|AtomicBoolean
 name|done
@@ -4458,7 +4702,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Thread that does get on single row until 'done' flag is flipped.  If an    * exception causes us to fail, it records it.    */
+comment|/*    * Thread that does get on single row until 'done' flag is flipped. If an    * exception causes us to fail, it records it.    */
 class|class
 name|GetTillDoneOrException
 extends|extends
@@ -4593,7 +4837,9 @@ block|}
 block|}
 block|}
 block|}
-comment|/*    * An involved filter test.  Has multiple column families and deletes in mix.    */
+comment|/*    * An involved filter test. Has multiple column families and deletes in mix.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWeirdCacheBehaviour
@@ -4691,19 +4937,16 @@ name|keyPrefix1
 init|=
 literal|"prefix1"
 decl_stmt|;
-comment|// UUID.randomUUID().toString();
 name|String
 name|keyPrefix2
 init|=
 literal|"prefix2"
 decl_stmt|;
-comment|// UUID.randomUUID().toString();
 name|String
 name|keyPrefix3
 init|=
 literal|"prefix3"
 decl_stmt|;
-comment|// UUID.randomUUID().toString();
 name|putRows
 argument_list|(
 name|this
@@ -4743,7 +4986,6 @@ argument_list|,
 name|keyPrefix3
 argument_list|)
 expr_stmt|;
-comment|// this.region.flushCommits();
 name|putRows
 argument_list|(
 name|this
@@ -4992,6 +5234,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testAppendWithReadOnlyTable
@@ -5134,6 +5378,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testIncrWithReadOnlyTable
@@ -5921,6 +6167,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFamilyWithAndWithoutColon
@@ -6055,6 +6303,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBatchPut
@@ -6664,6 +6914,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBatchPutWithTsSlop
@@ -6714,18 +6966,6 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"val"
-argument_list|)
-decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|this
-operator|.
-name|conf
 argument_list|)
 decl_stmt|;
 comment|// add data with a timestamp that is too recent for range. Ensure assert
@@ -6940,9 +7180,11 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// checkAndMutate tests
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndMutate_WithEmptyRowValue
@@ -6950,17 +7192,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -7025,7 +7256,7 @@ argument_list|(
 literal|"value2"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -7051,7 +7282,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting empty data in key
+comment|// Putting empty data in key
 name|Put
 name|put
 init|=
@@ -7072,7 +7303,7 @@ argument_list|,
 name|emptyVal
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with empty value
+comment|// checkAndPut with empty value
 name|boolean
 name|res
 init|=
@@ -7106,7 +7337,7 @@ argument_list|(
 name|res
 argument_list|)
 expr_stmt|;
-comment|//Putting data in key
+comment|// Putting data in key
 name|put
 operator|=
 operator|new
@@ -7126,7 +7357,7 @@ argument_list|,
 name|val1
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with correct value
+comment|// checkAndPut with correct value
 name|res
 operator|=
 name|region
@@ -7261,7 +7492,7 @@ argument_list|,
 name|val2
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with correct value
+comment|// checkAndPut with correct value
 name|res
 operator|=
 name|region
@@ -7294,7 +7525,7 @@ argument_list|(
 name|res
 argument_list|)
 expr_stmt|;
-comment|//checkAndDelete with correct value
+comment|// checkAndDelete with correct value
 name|delete
 operator|=
 operator|new
@@ -7393,7 +7624,7 @@ argument_list|(
 name|res
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut looking for a null value
+comment|// checkAndPut looking for a null value
 name|put
 operator|=
 operator|new
@@ -7463,6 +7694,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndMutate_WithWrongValue
@@ -7470,17 +7703,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -7536,7 +7758,7 @@ argument_list|(
 literal|"value2"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -7562,7 +7784,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in key
+comment|// Putting data in key
 name|Put
 name|put
 init|=
@@ -7590,7 +7812,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with wrong value
+comment|// checkAndPut with wrong value
 name|boolean
 name|res
 init|=
@@ -7626,7 +7848,7 @@ argument_list|,
 name|res
 argument_list|)
 expr_stmt|;
-comment|//checkAndDelete with wrong value
+comment|// checkAndDelete with wrong value
 name|Delete
 name|delete
 init|=
@@ -7697,6 +7919,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndMutate_WithCorrectValue
@@ -7704,17 +7928,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -7759,7 +7972,7 @@ argument_list|(
 literal|"value1"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -7785,7 +7998,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in key
+comment|// Putting data in key
 name|Put
 name|put
 init|=
@@ -7813,7 +8026,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with correct value
+comment|// checkAndPut with correct value
 name|boolean
 name|res
 init|=
@@ -7849,7 +8062,7 @@ argument_list|,
 name|res
 argument_list|)
 expr_stmt|;
-comment|//checkAndDelete with correct value
+comment|// checkAndDelete with correct value
 name|Delete
 name|delete
 init|=
@@ -7922,6 +8135,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndPut_ThatPutWasWritten
@@ -7929,17 +8144,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -8017,7 +8221,7 @@ block|,
 name|fam2
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -8043,7 +8247,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in the key to check
+comment|// Putting data in the key to check
 name|Put
 name|put
 init|=
@@ -8071,7 +8275,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Creating put to add
+comment|// Creating put to add
 name|long
 name|ts
 init|=
@@ -8118,7 +8322,7 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-comment|//checkAndPut with wrong value
+comment|// checkAndPut with wrong value
 name|HStore
 name|store
 init|=
@@ -8287,6 +8491,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndPut_wrongRowInPut
@@ -8294,6 +8500,19 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|region
@@ -8404,6 +8623,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testCheckAndDelete_ThatDeleteWasWritten
@@ -8411,17 +8632,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -8528,7 +8738,7 @@ init|=
 operator|new
 name|byte
 index|[]
-block|{ }
+block|{}
 decl_stmt|;
 name|byte
 index|[]
@@ -8541,7 +8751,7 @@ block|,
 name|fam2
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -8567,7 +8777,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Put content
+comment|// Put content
 name|Put
 name|put
 init|=
@@ -8672,7 +8882,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Multi-column delete
+comment|// Multi-column delete
 name|Delete
 name|delete
 init|=
@@ -8800,7 +9010,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|val1
 argument_list|,
@@ -8814,7 +9024,7 @@ name|qf1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|val2
 argument_list|,
@@ -8828,7 +9038,7 @@ name|qf2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Family delete
+comment|// Family delete
 name|delete
 operator|=
 operator|new
@@ -8905,7 +9115,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|val1
 argument_list|,
@@ -8919,7 +9129,7 @@ name|qf1
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Row delete
+comment|// Row delete
 name|delete
 operator|=
 operator|new
@@ -9009,9 +9219,11 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Delete tests
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_multiDeleteColumn
@@ -9019,17 +9231,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -9232,6 +9433,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_CheckFamily
@@ -9239,17 +9442,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -9305,7 +9497,7 @@ argument_list|(
 literal|"fam4"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -9365,7 +9557,7 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//testing existing family
+comment|// testing existing family
 name|byte
 index|[]
 name|family
@@ -9446,7 +9638,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|//testing non existing family
+comment|// testing non existing family
 name|boolean
 name|ok
 init|=
@@ -9556,6 +9748,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_mixed
@@ -9565,17 +9759,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam
@@ -10055,6 +10238,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteRowWithFutureTs
@@ -10062,17 +10247,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam
@@ -10311,7 +10485,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests that the special LATEST_TIMESTAMP option for puts gets    * replaced by the actual timestamp    */
+comment|/**    * Tests that the special LATEST_TIMESTAMP option for puts gets replaced by    * the actual timestamp    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPutWithLatestTS
@@ -10319,17 +10495,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam
@@ -10641,6 +10806,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Tests that there is server-side filtering for invalid timestamp upper    * bound. Note that the timestamp lower bound is automatically handled for us    * by the TTL field.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPutWithTsSlop
@@ -10648,17 +10815,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam
@@ -10686,18 +10842,6 @@ name|this
 operator|.
 name|getName
 argument_list|()
-decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
 decl_stmt|;
 comment|// add data with a timestamp that is too recent for range. Ensure assert
 name|conf
@@ -10855,6 +10999,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_DeleteOneFamilyNotAnother
@@ -10862,17 +11008,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"test_table"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam1
@@ -11151,6 +11286,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteColumns_PostInsert
@@ -11184,6 +11321,8 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteFamily_PostInsert
@@ -11227,6 +11366,19 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|region
@@ -11355,7 +11507,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertByteEquals
+name|assertArrayEquals
 argument_list|(
 name|value2
 argument_list|,
@@ -11443,7 +11595,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|assertByteEquals
+name|assertArrayEquals
 argument_list|(
 name|value2
 argument_list|,
@@ -11455,7 +11607,7 @@ name|kv
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertByteEquals
+name|assertArrayEquals
 argument_list|(
 name|fam1
 argument_list|,
@@ -11467,7 +11619,7 @@ name|kv
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertByteEquals
+name|assertArrayEquals
 argument_list|(
 name|qual1
 argument_list|,
@@ -11479,7 +11631,7 @@ name|kv
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertByteEquals
+name|assertArrayEquals
 argument_list|(
 name|row
 argument_list|,
@@ -11511,6 +11663,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDelete_CheckTimestampUpdated
@@ -11518,6 +11672,19 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -11562,7 +11729,7 @@ argument_list|(
 literal|"col3"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -11588,7 +11755,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Building checkerList
+comment|// Building checkerList
 name|List
 argument_list|<
 name|Cell
@@ -11811,9 +11978,11 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Get tests
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_FamilyChecker
@@ -11821,17 +11990,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -11876,7 +12034,7 @@ argument_list|(
 literal|"col1"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -11920,7 +12078,7 @@ argument_list|,
 name|col1
 argument_list|)
 expr_stmt|;
-comment|//Test
+comment|// Test
 try|try
 block|{
 name|region
@@ -11977,6 +12135,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_Basic
@@ -11984,17 +12144,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -12072,7 +12221,7 @@ argument_list|(
 literal|"col5"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -12098,7 +12247,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Add to memstore
+comment|// Add to memstore
 name|Put
 name|put
 init|=
@@ -12197,7 +12346,7 @@ argument_list|,
 name|col4
 argument_list|)
 expr_stmt|;
-comment|//Expected result
+comment|// Expected result
 name|KeyValue
 name|kv1
 init|=
@@ -12234,7 +12383,7 @@ block|,
 name|kv2
 block|}
 decl_stmt|;
-comment|//Test
+comment|// Test
 name|Result
 name|res
 init|=
@@ -12405,6 +12554,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_Empty
@@ -12412,17 +12563,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"emptytable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row
@@ -12524,9 +12664,11 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Merge test
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testMerge
@@ -12534,17 +12676,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 index|[]
@@ -12564,7 +12695,7 @@ init|=
 name|initSplit
 argument_list|()
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -12596,6 +12727,8 @@ name|info
 argument_list|(
 literal|""
 operator|+
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|region
@@ -12673,12 +12806,16 @@ name|i
 operator|++
 control|)
 block|{
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|subregions
 index|[
 name|i
 index|]
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|subregions
@@ -12871,7 +13008,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param parent Region to split.    * @param midkey Key to split around.    * @return The Regions we created.    * @throws IOException    */
+comment|/**    * @param parent    *          Region to split.    * @param midkey    *          Key to split around.    * @return The Regions we created.    * @throws IOException    */
 name|HRegion
 index|[]
 name|splitRegion
@@ -12908,7 +13045,7 @@ name|midkey
 argument_list|)
 decl_stmt|;
 comment|// If prepare does not return true, for some reason -- logged inside in
-comment|// the prepare call -- we are not ready to split just now.  Just return.
+comment|// the prepare call -- we are not ready to split just now. Just return.
 if|if
 condition|(
 operator|!
@@ -13028,9 +13165,11 @@ argument_list|()
 block|}
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Scanner tests
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetScanner_WithOkFamilies
@@ -13038,17 +13177,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam1
@@ -13082,7 +13210,7 @@ block|,
 name|fam2
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -13173,6 +13301,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetScanner_WithNotOkFamilies
@@ -13180,17 +13310,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam1
@@ -13222,7 +13341,7 @@ block|{
 name|fam1
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -13315,6 +13434,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetScanner_WithNoFamilies
@@ -13322,17 +13443,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -13403,7 +13513,7 @@ block|,
 name|fam4
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -13429,7 +13539,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -13502,8 +13612,9 @@ name|is
 init|=
 literal|null
 decl_stmt|;
-comment|//Testing to see how many scanners that is produced by getScanner, starting
-comment|//with known number, 2 - current = 1
+comment|// Testing to see how many scanners that is produced by getScanner,
+comment|// starting
+comment|// with known number, 2 - current = 1
 name|scan
 operator|=
 operator|new
@@ -13638,7 +13749,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This method tests https://issues.apache.org/jira/browse/HBASE-2516.    * @throws IOException    */
+comment|/**    * This method tests https://issues.apache.org/jira/browse/HBASE-2516.    *     * @throws IOException    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetScanner_WithRegionClosed
@@ -13646,17 +13759,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|fam1
@@ -13690,7 +13792,7 @@ block|,
 name|fam2
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -13771,7 +13873,7 @@ name|NotServingRegionException
 name|e
 parameter_list|)
 block|{
-comment|//this is the correct exception that is expected
+comment|// this is the correct exception that is expected
 block|}
 catch|catch
 parameter_list|(
@@ -13810,6 +13912,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRegionScanner_Next
@@ -13817,17 +13921,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -13917,7 +14010,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -13943,7 +14036,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -14122,7 +14215,7 @@ name|res
 init|=
 literal|null
 decl_stmt|;
-comment|//Result 1
+comment|// Result 1
 name|List
 argument_list|<
 name|Cell
@@ -14243,7 +14336,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Result 2
+comment|// Result 2
 name|List
 argument_list|<
 name|Cell
@@ -14384,6 +14477,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_ExplicitColumns_FromMemStore_EnforceVersions
@@ -14393,17 +14488,6 @@ name|IOException
 block|{
 name|byte
 index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
 name|row1
 init|=
 name|Bytes
@@ -14477,7 +14561,7 @@ name|ts1
 operator|+
 literal|2
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -14503,7 +14587,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -14704,7 +14788,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|Cell
@@ -14797,7 +14881,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -14854,6 +14938,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_ExplicitColumns_FromFilesOnly_EnforceVersions
@@ -14863,17 +14949,6 @@ name|IOException
 block|{
 name|byte
 index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
 name|row1
 init|=
 name|Bytes
@@ -14930,7 +15005,7 @@ name|ts1
 init|=
 literal|1
 decl_stmt|;
-comment|//System.currentTimeMillis();
+comment|// System.currentTimeMillis();
 name|long
 name|ts2
 init|=
@@ -14945,7 +15020,7 @@ name|ts1
 operator|+
 literal|2
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -14971,7 +15046,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -15177,7 +15252,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|Cell
@@ -15293,7 +15368,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -15355,6 +15430,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_ExplicitColumns_FromMemStoreAndFiles_EnforceVersions
@@ -15362,17 +15439,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -15452,7 +15518,7 @@ name|ts1
 operator|+
 literal|3
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -15478,7 +15544,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|KeyValue
 name|kv14
 init|=
@@ -15799,7 +15865,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|Cell
@@ -15934,7 +16000,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -15996,6 +16062,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_Wildcard_FromMemStore_EnforceVersions
@@ -16003,17 +16071,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -16089,7 +16146,7 @@ name|ts1
 operator|+
 literal|2
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -16115,7 +16172,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -16316,7 +16373,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|Cell
@@ -16421,7 +16478,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -16478,6 +16535,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_Wildcard_FromFilesOnly_EnforceVersions
@@ -16485,17 +16544,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -16545,7 +16593,7 @@ name|ts1
 init|=
 literal|1
 decl_stmt|;
-comment|//System.currentTimeMillis();
+comment|// System.currentTimeMillis();
 name|long
 name|ts2
 init|=
@@ -16560,7 +16608,7 @@ name|ts1
 operator|+
 literal|2
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -16586,7 +16634,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|Put
 name|put
 init|=
@@ -16792,7 +16840,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|Cell
@@ -16897,7 +16945,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -16959,6 +17007,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_StopRow1542
@@ -16966,17 +17016,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"test_table"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -17424,6 +17463,8 @@ name|r
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_Wildcard_FromMemStoreAndFiles_EnforceVersions
@@ -17431,17 +17472,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -17512,7 +17542,7 @@ name|ts1
 operator|+
 literal|3
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -17538,7 +17568,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|//Putting data in Region
+comment|// Putting data in Region
 name|KeyValue
 name|kv14
 init|=
@@ -17859,7 +17889,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Expected
+comment|// Expected
 name|List
 argument_list|<
 name|KeyValue
@@ -17976,7 +18006,7 @@ argument_list|,
 name|hasNext
 argument_list|)
 expr_stmt|;
-comment|//Verify result
+comment|// Verify result
 for|for
 control|(
 name|int
@@ -18038,7 +18068,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Added for HBASE-5416    *    * Here we test scan optimization when only subset of CFs are used in filter    * conditions.    */
+comment|/**    * Added for HBASE-5416    *     * Here we test scan optimization when only subset of CFs are used in filter    * conditions.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_JoinedScanners
@@ -18046,17 +18078,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testTable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|cf_essential
@@ -18537,7 +18558,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * HBASE-5416    *    * Test case when scan limits amount of KVs returned on each next() call.    */
+comment|/**    * HBASE-5416    *     * Test case when scan limits amount of KVs returned on each next() call.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanner_JoinedScannersWithLimits
@@ -18545,18 +18568,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-specifier|final
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testTable"
-argument_list|)
-decl_stmt|;
 specifier|final
 name|byte
 index|[]
@@ -18954,10 +18965,12 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Split test
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Splits twice and verifies getting from each of the split regions.    * @throws Exception    */
+comment|// ////////////////////////////////////////////////////////////////////////////
+comment|/**    * Splits twice and verifies getting from each of the split regions.    *     * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBasicSplit
@@ -18965,17 +18978,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 index|[]
@@ -18995,7 +18997,7 @@ init|=
 name|initSplit
 argument_list|()
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -19027,6 +19029,8 @@ name|info
 argument_list|(
 literal|""
 operator|+
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|region
@@ -19111,12 +19115,16 @@ index|[
 name|i
 index|]
 operator|=
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|regions
 index|[
 name|i
 index|]
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -19216,6 +19224,8 @@ name|j
 operator|++
 control|)
 block|{
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|regions
@@ -19227,6 +19237,8 @@ name|fam3
 argument_list|)
 expr_stmt|;
 block|}
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|regions
@@ -19237,6 +19249,8 @@ argument_list|,
 name|fam2
 argument_list|)
 expr_stmt|;
+name|HBaseTestCase
+operator|.
 name|addContent
 argument_list|(
 name|regions
@@ -19411,12 +19425,16 @@ name|getRegionName
 argument_list|()
 argument_list|)
 argument_list|,
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|rs
 index|[
 name|j
 index|]
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -19543,6 +19561,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSplitRegion
@@ -19550,17 +19570,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testtable"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|qualifier
@@ -19594,7 +19603,7 @@ block|,
 name|fam3
 block|}
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -19618,7 +19627,7 @@ argument_list|,
 name|families
 argument_list|)
 expr_stmt|;
-comment|//Put data in region
+comment|// Put data in region
 name|int
 name|startRow
 init|=
@@ -19682,7 +19691,7 @@ name|splitRow
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Opening the regions returned.
+comment|// Opening the regions returned.
 for|for
 control|(
 name|int
@@ -19705,16 +19714,20 @@ index|[
 name|i
 index|]
 operator|=
-name|openClosedRegion
+name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
 name|regions
 index|[
 name|i
 index|]
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Verifying that the region has been split
+comment|// Verifying that the region has been split
 name|assertEquals
 argument_list|(
 literal|2
@@ -19724,8 +19737,8 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|//Verifying that all data is still there and that data is in the right
-comment|//place
+comment|// Verifying that all data is still there and that data is in the right
+comment|// place
 name|verifyData
 argument_list|(
 name|regions
@@ -19778,7 +19791,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flushes the cache in a thread while scanning. The tests verify that the    * scan is coherent - e.g. the returned results are always of the same or    * later update as the previous results.    * @throws IOException scan / compact    * @throws InterruptedException thread join    */
+comment|/**    * Flushes the cache in a thread while scanning. The tests verify that the    * scan is coherent - e.g. the returned results are always of the same or    * later update as the previous results.    *     * @throws IOException    *           scan / compact    * @throws InterruptedException    *           thread join    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFlushCacheWhileScanning
@@ -19788,17 +19803,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testFlushCacheWhileScanning"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -20002,7 +20006,7 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|//System.out.println("iteration = " + i);
+comment|// System.out.println("iteration = " + i);
 name|region
 operator|.
 name|compactStores
@@ -20293,7 +20297,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Writes very wide records and scans for the latest every time..    * Flushes and compacts the region every now and then to keep things    * realistic.    *    * @throws IOException          by flush / scan / compaction    * @throws InterruptedException when joining threads    */
+comment|/**    * Writes very wide records and scans for the latest every time.. Flushes and    * compacts the region every now and then to keep things realistic.    *     * @throws IOException    *           by flush / scan / compaction    * @throws InterruptedException    *           when joining threads    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWritesWhileScanning
@@ -20303,17 +20309,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testWritesWhileScanning"
-argument_list|)
-decl_stmt|;
 name|int
 name|testCount
 init|=
@@ -20508,8 +20503,6 @@ literal|"row1"
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|//    scan.setFilter(new RowFilter(CompareFilter.CompareOp.EQUAL,
-comment|//      new BinaryComparator(Bytes.toBytes("row0"))));
 name|int
 name|expectedCount
 init|=
@@ -20584,7 +20577,6 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|//System.out.println("flush scan iteration = " + i);
 name|flushThread
 operator|.
 name|flush
@@ -21002,7 +20994,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//            System.out.println("Putting of kvsetsize=" + put.size());
 name|region
 operator|.
 name|put
@@ -21098,7 +21089,9 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Writes very wide records and gets the latest row every time..    * Flushes and compacts the region aggressivly to catch issues.    *    * @throws IOException          by flush / scan / compaction    * @throws InterruptedException when joining threads    */
+comment|/**    * Writes very wide records and gets the latest row every time.. Flushes and    * compacts the region aggressivly to catch issues.    *     * @throws IOException    *           by flush / scan / compaction    * @throws InterruptedException    *           when joining threads    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWritesWhileGetting
@@ -21106,17 +21099,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testWritesWhileGetting"
-argument_list|)
-decl_stmt|;
 name|int
 name|testCount
 init|=
@@ -21226,25 +21208,15 @@ name|i
 argument_list|)
 expr_stmt|;
 block|}
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-decl_stmt|;
 name|String
 name|method
 init|=
 literal|"testWritesWhileGetting"
 decl_stmt|;
-comment|// This test flushes constantly and can cause many files to be created, possibly
-comment|// extending over the ulimit.  Make sure compactions are aggressive in reducing
+comment|// This test flushes constantly and can cause many files to be created,
+comment|// possibly
+comment|// extending over the ulimit. Make sure compactions are aggressive in
+comment|// reducing
 comment|// the number of HFiles created.
 name|conf
 operator|.
@@ -21366,7 +21338,8 @@ operator|++
 name|flushesSinceCompact
 expr_stmt|;
 block|}
-comment|// Compact regularly to avoid creating too many files and exceeding the ulimit.
+comment|// Compact regularly to avoid creating too many files and exceeding
+comment|// the ulimit.
 if|if
 condition|(
 name|flushesSinceCompact
@@ -21730,6 +21703,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testHolesInMeta
@@ -21737,22 +21712,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testHolesInMeta"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -21884,6 +21843,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testIndexesScanWithOneDeletedRow
@@ -21891,17 +21852,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testIndexesScanWithOneDeletedRow"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -21913,7 +21863,7 @@ argument_list|(
 literal|"family"
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|String
 name|method
 init|=
@@ -21996,7 +21946,6 @@ argument_list|,
 literal|1L
 argument_list|)
 decl_stmt|;
-comment|//delete.deleteColumn(family, qual1);
 name|region
 operator|.
 name|delete
@@ -22148,7 +22097,6 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|//long start = System.nanoTime();
 while|while
 condition|(
 name|scanner
@@ -22159,8 +22107,6 @@ name|res
 argument_list|)
 condition|)
 empty_stmt|;
-comment|//long end = System.nanoTime();
-comment|//System.out.println("memStoreEmpty=" + memStoreEmpty + ", time=" + (end - start)/1000000D);
 name|assertEquals
 argument_list|(
 literal|1L
@@ -22191,9 +22137,11 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Bloom filter test
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|// ////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testBloomFilterSize
@@ -22201,17 +22149,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testBloomFilterSize"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|row1
@@ -22319,30 +22256,15 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Path
-name|path
-init|=
-operator|new
-name|Path
-argument_list|(
-name|DIR
-operator|+
-literal|"testBloomFilterSize"
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|region
 operator|=
-name|HRegion
+name|TEST_UTIL
 operator|.
-name|createHRegion
+name|createLocalHRegion
 argument_list|(
 name|info
-argument_list|,
-name|path
-argument_list|,
-name|conf
 argument_list|,
 name|htd
 argument_list|)
@@ -22468,7 +22390,7 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
-comment|//before compaction
+comment|// before compaction
 name|HStore
 name|store
 init|=
@@ -22551,7 +22473,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|//after compaction
+comment|// after compaction
 name|storeFiles
 operator|=
 name|store
@@ -22632,6 +22554,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testAllColumnsWithBloomFilter
@@ -22661,7 +22585,7 @@ argument_list|(
 literal|"family"
 argument_list|)
 decl_stmt|;
-comment|//Create table
+comment|// Create table
 name|HColumnDescriptor
 name|hcd
 init|=
@@ -22724,30 +22648,15 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Path
-name|path
-init|=
-operator|new
-name|Path
-argument_list|(
-name|DIR
-operator|+
-literal|"testAllColumnsWithBloomFilter"
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|region
 operator|=
-name|HRegion
+name|TEST_UTIL
 operator|.
-name|createHRegion
+name|createLocalHRegion
 argument_list|(
 name|info
-argument_list|,
-name|path
-argument_list|,
-name|conf
 argument_list|,
 name|htd
 argument_list|)
@@ -22842,13 +22751,13 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//Flush
+comment|// Flush
 name|region
 operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|//Get rows
+comment|// Get rows
 name|Get
 name|get
 init|=
@@ -22877,7 +22786,7 @@ operator|.
 name|rawCells
 argument_list|()
 decl_stmt|;
-comment|//Check if rows are correct
+comment|// Check if rows are correct
 name|assertEquals
 argument_list|(
 literal|4
@@ -22971,7 +22880,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**     * Testcase to cover bug-fix for HBASE-2823     * Ensures correct delete when issuing delete row     * on columns with bloom filter set to row+col (BloomType.ROWCOL)    */
+comment|/**    * Testcase to cover bug-fix for HBASE-2823 Ensures correct delete when    * issuing delete row on columns with bloom filter set to row+col    * (BloomType.ROWCOL)    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteRowWithBloomFilter
@@ -22979,17 +22890,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testDeleteRowWithBloomFilter"
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|familyName
@@ -23064,30 +22964,15 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Path
-name|path
-init|=
-operator|new
-name|Path
-argument_list|(
-name|DIR
-operator|+
-literal|"TestDeleteRowWithBloomFilter"
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|region
 operator|=
-name|HRegion
+name|TEST_UTIL
 operator|.
-name|createHRegion
+name|createLocalHRegion
 argument_list|(
 name|info
-argument_list|,
-name|path
-argument_list|,
-name|conf
 argument_list|,
 name|htd
 argument_list|)
@@ -23357,7 +23242,7 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
-comment|//Setting up region
+comment|// Setting up region
 name|byte
 name|row
 index|[]
@@ -23576,7 +23461,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Testcase to check state of region initialization task set to ABORTED or not if any exceptions    * during initialization    *    * @throws Exception    */
+comment|/**    * Testcase to check state of region initialization task set to ABORTED or not    * if any exceptions during initialization    *     * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -23586,6 +23471,19 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -23636,12 +23534,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|htd
@@ -23805,7 +23698,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Verifies that the .regioninfo file is written on region creation    * and that is recreated if missing during region opening.    */
+comment|/**    * Verifies that the .regioninfo file is written on region creation and that    * is recreated if missing during region opening.    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRegionInfoFileCreation
@@ -23822,18 +23717,6 @@ argument_list|(
 name|DIR
 operator|+
 literal|"testRegionInfoFileCreation"
-argument_list|)
-decl_stmt|;
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|this
-operator|.
-name|conf
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -23896,6 +23779,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+comment|//    HRegion region = TEST_UTIL.createLocalHRegion(hri, htd);
 name|Path
 name|regionDir
 init|=
@@ -24051,6 +23935,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+comment|//    region = TEST_UTIL.openHRegion(hri, htd);
 name|assertEquals
 argument_list|(
 name|regionDir
@@ -24097,7 +23982,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * TestCase for increment    *    */
+comment|/**    * TestCase for increment    */
 specifier|private
 specifier|static
 class|class
@@ -24264,22 +24149,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testParallelIncrementWithMemStoreFlush"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -24368,7 +24237,7 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|//after all increment finished, the row will increment to 20*100 = 2000
+comment|// after all increment finished, the row will increment to 20*100 = 2000
 name|int
 name|threadNum
 init|=
@@ -24551,7 +24420,7 @@ operator|.
 name|qualifier
 argument_list|)
 decl_stmt|;
-comment|//we just got the latest version
+comment|// we just got the latest version
 name|assertEquals
 argument_list|(
 name|kvs
@@ -24599,7 +24468,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * TestCase for append    *    */
+comment|/**    * TestCase for append    */
 specifier|private
 specifier|static
 class|class
@@ -24772,22 +24641,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testParallelAppendWithMemStoreFlush"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -24876,7 +24729,8 @@ block|}
 block|}
 block|}
 decl_stmt|;
-comment|//after all append finished, the value will append to threadNum * appendCounter Appender.CHAR
+comment|// after all append finished, the value will append to threadNum *
+comment|// appendCounter Appender.CHAR
 name|int
 name|threadNum
 init|=
@@ -25099,7 +24953,7 @@ operator|.
 name|qualifier
 argument_list|)
 decl_stmt|;
-comment|//we just got the latest version
+comment|// we just got the latest version
 name|assertEquals
 argument_list|(
 name|kvs
@@ -25157,7 +25011,7 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|expected
 argument_list|,
@@ -25172,6 +25026,8 @@ literal|null
 expr_stmt|;
 block|}
 comment|/**    * Test case to check put function with memstore flushing for same row, same ts    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPutWithMemStoreFlush
@@ -25179,22 +25035,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|String
-name|method
-init|=
-literal|"testPutWithMemStoreFlush"
-decl_stmt|;
-name|byte
-index|[]
-name|tableName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|method
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|family
@@ -25364,7 +25204,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -25445,7 +25285,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -25558,7 +25398,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -25639,7 +25479,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|Bytes
 operator|.
@@ -25677,7 +25517,8 @@ init|=
 literal|"testDurability"
 decl_stmt|;
 comment|// there are 5 x 5 cases:
-comment|// table durability(SYNC,FSYNC,ASYC,SKIP,USE_DEFAULT) x mutation durability(SYNC,FSYNC,ASYC,SKIP,USE_DEFAULT)
+comment|// table durability(SYNC,FSYNC,ASYC,SKIP,USE_DEFAULT) x mutation
+comment|// durability(SYNC,FSYNC,ASYC,SKIP,USE_DEFAULT)
 comment|// expected cases for append and sync wal
 name|durabilityTest
 argument_list|(
@@ -26559,7 +26400,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|//verify append called or not
+comment|// verify append called or not
 name|verify
 argument_list|(
 name|log
@@ -26613,7 +26454,7 @@ name|any
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify sync called or not
+comment|// verify sync called or not
 if|if
 condition|(
 name|expectSync
@@ -26668,7 +26509,7 @@ name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Hregion calls this one
+comment|// Hregion calls this one
 block|}
 elseif|else
 if|if
@@ -26689,7 +26530,7 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
-comment|//log syncer calls this one
+comment|// log syncer calls this one
 block|}
 block|}
 catch|catch
@@ -26697,7 +26538,7 @@ parameter_list|(
 name|Throwable
 name|ignore
 parameter_list|)
-block|{}
+block|{           }
 return|return
 literal|true
 return|;
@@ -27120,7 +26961,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Assert first value in the passed region is<code>firstValue</code>.    * @param r    * @param fs    * @param firstValue    * @throws IOException    */
+comment|/*    * Assert first value in the passed region is<code>firstValue</code>.    *     * @param r    *     * @param fs    *     * @param firstValue    *     * @throws IOException    */
 specifier|private
 name|void
 name|assertScan
@@ -27277,7 +27118,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Not asserting anything.  Might as well break.
+comment|// Not asserting anything. Might as well break.
 break|break
 name|OUTER_LOOP
 break|;
@@ -27299,18 +27140,6 @@ name|Configuration
 name|initSplit
 parameter_list|()
 block|{
-name|Configuration
-name|conf
-init|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-decl_stmt|;
 comment|// Always compact if there is more than one store file.
 name|conf
 operator|.
@@ -27359,7 +27188,7 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// This size should make it so we always split using the addContent
-comment|// below.  After adding all data, the first region is 1.3M
+comment|// below. After adding all data, the first region is 1.3M
 name|conf
 operator|.
 name|setLong
@@ -27377,7 +27206,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call    *         {@link HRegion#closeHRegion(HRegion)} when done.    */
 specifier|public
 specifier|static
 name|HRegion
@@ -27422,7 +27251,7 @@ name|families
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param families    * @throws IOException    * @return A region on which you must call    *         {@link HRegion#closeHRegion(HRegion)} when done.    */
 specifier|public
 specifier|static
 name|HRegion
@@ -27465,7 +27294,7 @@ name|families
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call    *         {@link HRegion#closeHRegion(HRegion)} when done.    */
 specifier|public
 specifier|static
 name|HRegion
@@ -27570,7 +27399,7 @@ name|families
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call {@link HRegion#closeHRegion(HRegion)} when done.    */
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call    *         {@link HRegion#closeHRegion(HRegion)} when done.    */
 specifier|private
 specifier|static
 name|HRegion
@@ -27611,161 +27440,32 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTableDescriptor
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
-argument_list|(
-name|TableName
+return|return
+name|TEST_UTIL
 operator|.
-name|valueOf
+name|createLocalHRegion
 argument_list|(
 name|tableName
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|htd
-operator|.
-name|setReadOnly
-argument_list|(
-name|isReadOnly
-argument_list|)
-expr_stmt|;
-for|for
-control|(
-name|byte
-index|[]
-name|family
-range|:
-name|families
-control|)
-block|{
-name|HColumnDescriptor
-name|hcd
-init|=
-operator|new
-name|HColumnDescriptor
-argument_list|(
-name|family
-argument_list|)
-decl_stmt|;
-comment|// Set default to be three versions.
-name|hcd
-operator|.
-name|setMaxVersions
-argument_list|(
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|)
-expr_stmt|;
-name|htd
-operator|.
-name|addFamily
-argument_list|(
-name|hcd
-argument_list|)
-expr_stmt|;
-block|}
-name|htd
-operator|.
-name|setDurability
-argument_list|(
-name|durability
-argument_list|)
-expr_stmt|;
-name|HRegionInfo
-name|info
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|htd
-operator|.
-name|getTableName
-argument_list|()
 argument_list|,
 name|startKey
 argument_list|,
 name|stopKey
 argument_list|,
-literal|false
-argument_list|)
-decl_stmt|;
-name|Path
-name|path
-init|=
-operator|new
-name|Path
-argument_list|(
-name|DIR
-operator|+
 name|callingMethod
-argument_list|)
-decl_stmt|;
-name|FileSystem
-name|fs
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|path
-argument_list|)
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|path
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed delete of "
-operator|+
-name|path
-argument_list|)
-throw|;
-block|}
-block|}
-return|return
-name|HRegion
-operator|.
-name|createHRegion
-argument_list|(
-name|info
-argument_list|,
-name|path
 argument_list|,
 name|conf
 argument_list|,
-name|htd
+name|isReadOnly
+argument_list|,
+name|durability
 argument_list|,
 name|hlog
+argument_list|,
+name|families
 argument_list|)
 return|;
 block|}
-comment|/**    * Assert that the passed in Cell has expected contents for the    * specified row, column& timestamp.    */
+comment|/**    * Assert that the passed in Cell has expected contents for the specified row,    * column& timestamp.    */
 specifier|private
 name|void
 name|checkOneCell

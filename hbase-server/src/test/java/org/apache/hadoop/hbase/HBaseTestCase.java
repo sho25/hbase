@@ -1151,7 +1151,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param columnFamily    * @throws IOException    * @return count of what we added.    */
-specifier|protected
+specifier|public
 specifier|static
 name|long
 name|addContent
@@ -1216,7 +1216,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param columnFamily    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @return count of what we added.    * @throws IOException    */
-specifier|protected
+specifier|public
 specifier|static
 name|long
 name|addContent
@@ -1309,7 +1309,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @param ts Timestamp to write the content with.    * @return count of what we added.    * @throws IOException    */
-specifier|protected
+specifier|public
 specifier|static
 name|long
 name|addContent
@@ -2464,25 +2464,6 @@ argument_list|()
 throw|;
 block|}
 block|}
-comment|//  protected void assertCellEquals(final HRegion region, final byte [] row,
-comment|//    final byte [] column, final long timestamp, final String value)
-comment|//  throws IOException {
-comment|//    Map<byte [], Cell> result = region.getFull(row, null, timestamp, 1, null);
-comment|//    Cell cell_value = result.get(column);
-comment|//    if (value == null) {
-comment|//      assertEquals(Bytes.toString(column) + " at timestamp " + timestamp, null,
-comment|//        cell_value);
-comment|//    } else {
-comment|//      if (cell_value == null) {
-comment|//        fail(Bytes.toString(column) + " at timestamp " + timestamp +
-comment|//          "\" was expected to be \"" + value + " but was null");
-comment|//      }
-comment|//      if (cell_value != null) {
-comment|//        assertEquals(Bytes.toString(column) + " at timestamp "
-comment|//            + timestamp, value, new String(cell_value.getValue()));
-comment|//      }
-comment|//    }
-comment|//  }
 specifier|protected
 name|void
 name|assertResultEquals
