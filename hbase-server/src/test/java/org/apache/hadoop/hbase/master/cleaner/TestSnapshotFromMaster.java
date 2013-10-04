@@ -1926,6 +1926,32 @@ argument_list|,
 name|TEST_FAM
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|flush
+argument_list|(
+name|TABLE_NAME
+argument_list|)
+expr_stmt|;
+comment|// Put some more data into the table so for sure we get more storefiles.
+name|UTIL
+operator|.
+name|loadTable
+argument_list|(
+operator|new
+name|HTable
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|TABLE_NAME
+argument_list|)
+argument_list|,
+name|TEST_FAM
+argument_list|)
+expr_stmt|;
 comment|// disable the table so we can take a snapshot
 name|admin
 operator|.
@@ -1967,14 +1993,6 @@ argument_list|,
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|Configuration
-name|conf
-init|=
-name|master
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|info

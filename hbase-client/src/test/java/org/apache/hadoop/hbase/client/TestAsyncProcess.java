@@ -1102,6 +1102,7 @@ name|HRegionLocation
 argument_list|>
 name|hrl
 decl_stmt|;
+specifier|final
 name|boolean
 name|usedRegions
 index|[]
@@ -3111,6 +3112,7 @@ name|Object
 argument_list|>
 block|{
 specifier|private
+specifier|final
 name|AtomicInteger
 name|successCalled
 init|=
@@ -3121,6 +3123,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicInteger
 name|failureCalled
 init|=
@@ -3131,6 +3134,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicInteger
 name|retriableFailure
 init|=
@@ -4581,7 +4585,7 @@ specifier|final
 name|int
 name|NB_REGS
 init|=
-literal|10000
+literal|100
 decl_stmt|;
 name|List
 argument_list|<
@@ -4756,6 +4760,10 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|"1 multi response per server"
+argument_list|,
+literal|2
+argument_list|,
 name|con
 operator|.
 name|ap
@@ -4764,26 +4772,24 @@ name|nbMultiResponse
 operator|.
 name|get
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
-comment|// 1 multi response per server
 name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|"1 thread per server"
+argument_list|,
+literal|2
+argument_list|,
 name|con
 operator|.
 name|nbThreads
 operator|.
 name|get
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
-comment|// 1 thread per server
 name|int
 name|nbReg
 init|=

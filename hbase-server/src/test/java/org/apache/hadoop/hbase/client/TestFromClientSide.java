@@ -35521,20 +35521,11 @@ name|d
 argument_list|)
 expr_stmt|;
 comment|// TODO: Trying mutateRow again.  The batch was failing with a one try only.
-comment|// t.mutateRow(arm);
 name|t
 operator|.
-name|batch
+name|mutateRow
 argument_list|(
-name|Arrays
-operator|.
-name|asList
-argument_list|(
-operator|(
-name|Row
-operator|)
 name|arm
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|r

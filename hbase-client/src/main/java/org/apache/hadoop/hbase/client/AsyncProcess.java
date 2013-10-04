@@ -1087,6 +1087,8 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// This looks like we are keying by region but HRegionLocation has a comparator that compares
+comment|// on the server portion only (hostname + port) so this Map collects regions by server.
 name|Map
 argument_list|<
 name|HRegionLocation
@@ -1429,7 +1431,6 @@ name|row
 operator|==
 literal|null
 condition|)
-block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -1437,7 +1438,6 @@ argument_list|(
 literal|"row cannot be null"
 argument_list|)
 throw|;
-block|}
 name|HRegionLocation
 name|loc
 init|=
@@ -2118,6 +2118,7 @@ name|errorsByServer
 parameter_list|)
 block|{
 comment|// Send the queries and add them to the inProgress list
+comment|// This iteration is by server (the HRegionLocation comparator is by server portion only).
 for|for
 control|(
 name|Map
@@ -2153,7 +2154,7 @@ name|MultiAction
 argument_list|<
 name|Row
 argument_list|>
-name|multi
+name|multiAction
 init|=
 name|e
 operator|.
@@ -2162,7 +2163,7 @@ argument_list|()
 decl_stmt|;
 name|incTaskCounters
 argument_list|(
-name|multi
+name|multiAction
 operator|.
 name|getRegions
 argument_list|()
@@ -2208,7 +2209,7 @@ name|createCallable
 argument_list|(
 name|loc
 argument_list|,
-name|multi
+name|multiAction
 argument_list|)
 decl_stmt|;
 try|try
@@ -2236,12 +2237,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The call to the region server failed, we don't know where we stand, "
+literal|"Call to "
 operator|+
 name|loc
 operator|.
 name|getServerName
 argument_list|()
+operator|+
+literal|" failed numAttempt="
+operator|+
+name|numAttempt
+operator|+
+literal|", resubmitting all since not sure where we are at"
 argument_list|,
 name|e
 argument_list|)
@@ -2250,7 +2257,7 @@ name|resubmitAll
 argument_list|(
 name|initialActions
 argument_list|,
-name|multi
+name|multiAction
 argument_list|,
 name|loc
 argument_list|,
@@ -2269,7 +2276,7 @@ name|receiveMultiAction
 argument_list|(
 name|initialActions
 argument_list|,
-name|multi
+name|multiAction
 argument_list|,
 name|loc
 argument_list|,
@@ -2285,7 +2292,7 @@ finally|finally
 block|{
 name|decTaskCounters
 argument_list|(
-name|multi
+name|multiAction
 operator|.
 name|getRegions
 argument_list|()
@@ -2323,7 +2330,7 @@ comment|// This should never happen. But as the pool is provided by the end user
 comment|//  this a little.
 name|decTaskCounters
 argument_list|(
-name|multi
+name|multiAction
 operator|.
 name|getRegions
 argument_list|()
@@ -2356,7 +2363,7 @@ name|resubmitAll
 argument_list|(
 name|initialActions
 argument_list|,
-name|multi
+name|multiAction
 argument_list|,
 name|loc
 argument_list|,
@@ -2699,10 +2706,22 @@ argument_list|<
 name|Row
 argument_list|>
 argument_list|>
+argument_list|(
+name|initialActions
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|byte
+index|[]
+argument_list|,
 name|List
 argument_list|<
 name|Action
@@ -2710,13 +2729,14 @@ argument_list|<
 name|Row
 argument_list|>
 argument_list|>
-name|actions
+argument_list|>
+name|e
 range|:
 name|rsActions
 operator|.
 name|actions
 operator|.
-name|values
+name|entrySet
 argument_list|()
 control|)
 block|{
@@ -2728,7 +2748,10 @@ name|Row
 argument_list|>
 name|action
 range|:
-name|actions
+name|e
+operator|.
+name|getValue
+argument_list|()
 control|)
 block|{
 if|if
@@ -2792,7 +2815,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|"ops, NOT resubmitting, "
+literal|" ops, NOT resubmitting, "
 operator|+
 name|location
 operator|.
@@ -3120,6 +3143,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|int
+name|index
+init|=
+name|regionResult
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
 name|Action
 argument_list|<
 name|Row
@@ -3130,10 +3161,7 @@ name|initialActions
 operator|.
 name|get
 argument_list|(
-name|regionResult
-operator|.
-name|getFirst
-argument_list|()
+name|index
 argument_list|)
 decl_stmt|;
 name|Row
@@ -3151,10 +3179,7 @@ name|callback
 operator|.
 name|success
 argument_list|(
-name|correspondingAction
-operator|.
-name|getOriginalIndex
-argument_list|()
+name|index
 argument_list|,
 name|resultsForRS
 operator|.
@@ -3361,7 +3386,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" NOT resubmitting."
+literal|" NOT resubmitting. "
 operator|+
 name|location
 argument_list|)
@@ -3395,7 +3420,12 @@ literal|"/"
 operator|+
 name|numTries
 operator|+
-literal|" is finally successful."
+literal|" finally suceeded, size="
+operator|+
+name|toReplay
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
