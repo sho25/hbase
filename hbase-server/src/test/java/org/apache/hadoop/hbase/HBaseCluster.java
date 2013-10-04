@@ -558,24 +558,25 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Restores the cluster to it's initial state if this is a real cluster,    * otherwise does nothing.    */
+comment|/**    * Restores the cluster to it's initial state if this is a real cluster,    * otherwise does nothing.    * This is a best effort restore. If the servers are not reachable, or insufficient    * permissions, etc. restoration might be partial.    * @return whether restoration is complete    */
 specifier|public
-name|void
+name|boolean
 name|restoreInitialStatus
 parameter_list|()
 throws|throws
 name|IOException
 block|{
+return|return
 name|restoreClusterStatus
 argument_list|(
 name|getInitialClusterStatus
 argument_list|()
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Restores the cluster to given state if this is a real cluster,    * otherwise does nothing.    */
+comment|/**    * Restores the cluster to given state if this is a real cluster,    * otherwise does nothing.    * This is a best effort restore. If the servers are not reachable, or insufficient    * permissions, etc. restoration might be partial.    * @return whether restoration is complete    */
 specifier|public
-name|void
+name|boolean
 name|restoreClusterStatus
 parameter_list|(
 name|ClusterStatus
@@ -583,7 +584,11 @@ name|desiredStatus
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+literal|true
+return|;
+block|}
 comment|/**    * Get the ServerName of region server serving the first hbase:meta region    */
 specifier|public
 name|ServerName
