@@ -689,6 +689,11 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
+name|shutdownMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
