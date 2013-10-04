@@ -7773,6 +7773,10 @@ block|}
 comment|// skip the edit
 if|if
 condition|(
+name|loc
+operator|==
+literal|null
+operator|||
 name|needSkip
 condition|)
 continue|continue;
