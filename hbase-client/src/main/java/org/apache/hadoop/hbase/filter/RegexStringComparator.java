@@ -328,12 +328,29 @@ name|int
 name|length
 parameter_list|)
 block|{
+comment|// Use find() for subsequence match instead of matches() (full sequence
+comment|// match) to adhere to the principle of least surprise.
+name|String
+name|tmp
+decl_stmt|;
+if|if
+condition|(
+name|length
+operator|<
+name|value
+operator|.
+name|length
+operator|/
+literal|2
+condition|)
+block|{
 comment|// See HBASE-9428. Make a copy of the relevant part of the byte[],
 comment|// or the JDK will copy the entire byte[] during String decode
-name|byte
-index|[]
 name|tmp
-init|=
+operator|=
+operator|new
+name|String
+argument_list|(
 name|Arrays
 operator|.
 name|copyOfRange
@@ -346,21 +363,34 @@ name|offset
 operator|+
 name|length
 argument_list|)
-decl_stmt|;
-comment|// Use find() for subsequence match instead of matches() (full sequence
-comment|// match) to adhere to the principle of least surprise.
+argument_list|,
+name|charset
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|tmp
+operator|=
+operator|new
+name|String
+argument_list|(
+name|value
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|charset
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|pattern
 operator|.
 name|matcher
 argument_list|(
-operator|new
-name|String
-argument_list|(
 name|tmp
-argument_list|,
-name|charset
-argument_list|)
 argument_list|)
 operator|.
 name|find
