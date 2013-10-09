@@ -824,6 +824,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// enable seek counting
+name|StoreFileScanner
+operator|.
+name|instrument
+argument_list|()
+expr_stmt|;
 name|region
 operator|=
 name|TEST_UTIL
