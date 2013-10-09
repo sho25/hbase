@@ -795,6 +795,26 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
+try|try
+block|{
+comment|// sleep one second in order for threadpool to start another thread instead of reusing
+comment|// existing one.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore error
+block|}
 return|return
 name|mr
 return|;
@@ -2518,6 +2538,11 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+name|ap
+operator|.
+name|waitUntilDone
+argument_list|()
+expr_stmt|;
 name|Assert
 operator|.
 name|assertEquals
