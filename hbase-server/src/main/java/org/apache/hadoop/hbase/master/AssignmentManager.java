@@ -5984,6 +5984,49 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+elseif|else
+if|if
+condition|(
+name|rs
+operator|.
+name|isSplitting
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Ephemeral node deleted.  Found in SPLITTING state. "
+operator|+
+literal|"Removing from RIT "
+operator|+
+name|rs
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// it can be either SPLIT fail, or RS dead.
+name|regionStates
+operator|.
+name|regionOnline
+argument_list|(
+name|rs
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+name|rs
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|// RS does not delete the znode in case SPLIT, it only means RS died which
+comment|// will be handled by SSH
+comment|// in region merge  we do not put merging regions to MERGING state
 block|}
 finally|finally
 block|{
