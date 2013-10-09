@@ -1005,16 +1005,17 @@ name|HFileBlockEncodingContext
 name|createInCacheEncodingContext
 parameter_list|(
 name|HFileContext
-name|meta
+name|fileContext
 parameter_list|)
 block|{
 name|HFileContext
-name|newMeta
+name|newContext
 init|=
-name|meta
-operator|.
-name|clone
-argument_list|()
+operator|new
+name|HFileContext
+argument_list|(
+name|fileContext
+argument_list|)
 decl_stmt|;
 return|return
 operator|(
@@ -1040,7 +1041,7 @@ name|inCache
 argument_list|,
 name|dummyHeader
 argument_list|,
-name|newMeta
+name|newContext
 argument_list|)
 else|:
 comment|// create a default encoding context
@@ -1053,7 +1054,7 @@ name|inCache
 argument_list|,
 name|dummyHeader
 argument_list|,
-name|newMeta
+name|newContext
 argument_list|)
 return|;
 block|}

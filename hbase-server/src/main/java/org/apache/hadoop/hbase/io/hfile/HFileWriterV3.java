@@ -867,13 +867,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|hFileContext
-operator|.
-name|setUsesHBaseChecksum
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 return|return
 operator|new
 name|HFileBlock
