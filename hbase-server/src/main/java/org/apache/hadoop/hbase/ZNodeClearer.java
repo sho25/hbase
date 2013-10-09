@@ -125,6 +125,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|FileReader
 import|;
 end_import
@@ -332,9 +342,9 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|FileNotFoundException
 argument_list|(
-literal|"No filename"
+literal|"No filename; set environment variable HBASE_ZNODE_FILE"
 argument_list|)
 throw|;
 block|}
@@ -531,6 +541,26 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// If no file, just keep going -- return success.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Can't find the znode file; presume non-fatal"
+argument_list|,
+name|fnfe
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -547,6 +577,14 @@ expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
+finally|finally
+block|{
+name|zkw
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 return|return
 name|MasterAddressTracker
