@@ -3829,23 +3829,62 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-comment|// hbase shell need to use:
-comment|//    -Djava.security.auth.login.config=user-jaas.conf
-comment|// since each user has a different jaas.conf
+comment|// Detection for embedded HBase client with jaas configuration
+comment|// defined for third party programs.
+try|try
+block|{
+name|javax
+operator|.
+name|security
+operator|.
+name|auth
+operator|.
+name|login
+operator|.
+name|Configuration
+name|testConfig
+init|=
+name|javax
+operator|.
+name|security
+operator|.
+name|auth
+operator|.
+name|login
+operator|.
+name|Configuration
+operator|.
+name|getConfiguration
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|System
+name|testConfig
 operator|.
-name|getProperty
+name|getAppConfigurationEntry
 argument_list|(
-literal|"java.security.auth.login.config"
+literal|"Client"
 argument_list|)
-operator|!=
+operator|==
 literal|null
 condition|)
+block|{
 return|return
-literal|true
+literal|false
 return|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// No Jaas configuration defined.
+return|return
+literal|false
+return|;
+block|}
 comment|// Master& RSs uses hbase.zookeeper.client.*
 return|return
 operator|(
