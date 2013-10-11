@@ -984,6 +984,22 @@ literal|12
 argument_list|,
 literal|12
 argument_list|)
+block|,
+comment|/**        *<code>SPLITTING_NEW = 13;</code>        *        *<pre>        * new region to be created when RS splits a parent        *</pre>        */
+name|SPLITTING_NEW
+argument_list|(
+literal|13
+argument_list|,
+literal|13
+argument_list|)
+block|,
+comment|/**        *<code>MERGING_NEW = 14;</code>        *        *<pre>        * region but hasn't be created yet, or master doesn't        * know it's already created        *</pre>        */
+name|MERGING_NEW
+argument_list|(
+literal|14
+argument_list|,
+literal|14
+argument_list|)
 block|,       ;
 comment|/**        *<code>OFFLINE = 0;</code>        *        *<pre>        * region is in an offline state        *</pre>        */
 specifier|public
@@ -1102,6 +1118,24 @@ name|MERGED_VALUE
 init|=
 literal|12
 decl_stmt|;
+comment|/**        *<code>SPLITTING_NEW = 13;</code>        *        *<pre>        * new region to be created when RS splits a parent        *</pre>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SPLITTING_NEW_VALUE
+init|=
+literal|13
+decl_stmt|;
+comment|/**        *<code>MERGING_NEW = 14;</code>        *        *<pre>        * region but hasn't be created yet, or master doesn't        * know it's already created        *</pre>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MERGING_NEW_VALUE
+init|=
+literal|14
+decl_stmt|;
 specifier|public
 specifier|final
 name|int
@@ -1203,6 +1237,18 @@ literal|12
 case|:
 return|return
 name|MERGED
+return|;
+case|case
+literal|13
+case|:
+return|return
+name|SPLITTING_NEW
+return|;
+case|case
+literal|14
+case|:
+return|return
+name|MERGING_NEW
 return|;
 default|default:
 return|return
@@ -48667,13 +48713,13 @@ init|=
 block|{
 literal|"\n\023ClusterStatus.proto\032\013HBase.proto\032\017Clus"
 operator|+
-literal|"terId.proto\032\010FS.proto\"\243\002\n\013RegionState\022 \n"
+literal|"terId.proto\032\010FS.proto\"\307\002\n\013RegionState\022 \n"
 operator|+
 literal|"\013region_info\030\001 \002(\0132\013.RegionInfo\022!\n\005state"
 operator|+
 literal|"\030\002 \002(\0162\022.RegionState.State\022\r\n\005stamp\030\003 \001("
 operator|+
-literal|"\004\"\277\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN"
+literal|"\004\"\343\001\n\005State\022\013\n\007OFFLINE\020\000\022\020\n\014PENDING_OPEN"
 operator|+
 literal|"\020\001\022\013\n\007OPENING\020\002\022\010\n\004OPEN\020\003\022\021\n\rPENDING_CLO"
 operator|+
@@ -48681,75 +48727,77 @@ literal|"SE\020\004\022\013\n\007CLOSING\020\005\022\n\n\006CLOSED\020\006\022\r
 operator|+
 literal|"NG\020\007\022\t\n\005SPLIT\020\010\022\017\n\013FAILED_OPEN\020\t\022\020\n\014FAIL"
 operator|+
-literal|"ED_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\"X\n\022R"
+literal|"ED_CLOSE\020\n\022\013\n\007MERGING\020\013\022\n\n\006MERGED\020\014\022\021\n\rS"
 operator|+
-literal|"egionInTransition\022\036\n\004spec\030\001 \002(\0132\020.Region"
+literal|"PLITTING_NEW\020\r\022\017\n\013MERGING_NEW\020\016\"X\n\022Regio"
 block|,
-literal|"Specifier\022\"\n\014region_state\030\002 \002(\0132\014.Region"
+literal|"nInTransition\022\036\n\004spec\030\001 \002(\0132\020.RegionSpec"
 operator|+
-literal|"State\"\320\003\n\nRegionLoad\022*\n\020region_specifier"
+literal|"ifier\022\"\n\014region_state\030\002 \002(\0132\014.RegionStat"
 operator|+
-literal|"\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r"
+literal|"e\"\320\003\n\nRegionLoad\022*\n\020region_specifier\030\001 \002"
 operator|+
-literal|"\022\022\n\nstorefiles\030\003 \001(\r\022\"\n\032store_uncompress"
+literal|"(\0132\020.RegionSpecifier\022\016\n\006stores\030\002 \001(\r\022\022\n\n"
 operator|+
-literal|"ed_size_MB\030\004 \001(\r\022\031\n\021storefile_size_MB\030\005 "
+literal|"storefiles\030\003 \001(\r\022\"\n\032store_uncompressed_s"
 operator|+
-literal|"\001(\r\022\030\n\020memstore_size_MB\030\006 \001(\r\022\037\n\027storefi"
+literal|"ize_MB\030\004 \001(\r\022\031\n\021storefile_size_MB\030\005 \001(\r\022"
 operator|+
-literal|"le_index_size_MB\030\007 \001(\r\022\033\n\023read_requests_"
+literal|"\030\n\020memstore_size_MB\030\006 \001(\r\022\037\n\027storefile_i"
 operator|+
-literal|"count\030\010 \001(\004\022\034\n\024write_requests_count\030\t \001("
+literal|"ndex_size_MB\030\007 \001(\r\022\033\n\023read_requests_coun"
 operator|+
-literal|"\004\022\034\n\024total_compacting_KVs\030\n \001(\004\022\035\n\025curre"
+literal|"t\030\010 \001(\004\022\034\n\024write_requests_count\030\t \001(\004\022\034\n"
 operator|+
-literal|"nt_compacted_KVs\030\013 \001(\004\022\032\n\022root_index_siz"
+literal|"\024total_compacting_KVs\030\n \001(\004\022\035\n\025current_c"
 block|,
-literal|"e_KB\030\014 \001(\r\022\"\n\032total_static_index_size_KB"
+literal|"ompacted_KVs\030\013 \001(\004\022\032\n\022root_index_size_KB"
 operator|+
-literal|"\030\r \001(\r\022\"\n\032total_static_bloom_size_KB\030\016 \001"
+literal|"\030\014 \001(\r\022\"\n\032total_static_index_size_KB\030\r \001"
 operator|+
-literal|"(\r\022\034\n\024complete_sequence_id\030\017 \001(\004\"\212\002\n\nSer"
+literal|"(\r\022\"\n\032total_static_bloom_size_KB\030\016 \001(\r\022\034"
 operator|+
-literal|"verLoad\022\032\n\022number_of_requests\030\001 \001(\r\022 \n\030t"
+literal|"\n\024complete_sequence_id\030\017 \001(\004\"\212\002\n\nServerL"
 operator|+
-literal|"otal_number_of_requests\030\002 \001(\r\022\024\n\014used_he"
+literal|"oad\022\032\n\022number_of_requests\030\001 \001(\r\022 \n\030total"
 operator|+
-literal|"ap_MB\030\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014regi"
+literal|"_number_of_requests\030\002 \001(\r\022\024\n\014used_heap_M"
 operator|+
-literal|"on_loads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocess"
+literal|"B\030\003 \001(\r\022\023\n\013max_heap_MB\030\004 \001(\r\022!\n\014region_l"
 operator|+
-literal|"ors\030\006 \003(\0132\014.Coprocessor\022\031\n\021report_start_"
+literal|"oads\030\005 \003(\0132\013.RegionLoad\022\"\n\014coprocessors\030"
 operator|+
-literal|"time\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030\n\020i"
+literal|"\006 \003(\0132\014.Coprocessor\022\031\n\021report_start_time"
 operator|+
-literal|"nfo_server_port\030\t \001(\r\"O\n\016LiveServerInfo\022"
+literal|"\030\007 \001(\004\022\027\n\017report_end_time\030\010 \001(\004\022\030\n\020info_"
 block|,
-literal|"\033\n\006server\030\001 \002(\0132\013.ServerName\022 \n\013server_l"
+literal|"server_port\030\t \001(\r\"O\n\016LiveServerInfo\022\033\n\006s"
 operator|+
-literal|"oad\030\002 \002(\0132\013.ServerLoad\"\340\002\n\rClusterStatus"
+literal|"erver\030\001 \002(\0132\013.ServerName\022 \n\013server_load\030"
 operator|+
-literal|"\022/\n\rhbase_version\030\001 \001(\0132\030.HBaseVersionFi"
+literal|"\002 \002(\0132\013.ServerLoad\"\340\002\n\rClusterStatus\022/\n\r"
 operator|+
-literal|"leContent\022%\n\014live_servers\030\002 \003(\0132\017.LiveSe"
+literal|"hbase_version\030\001 \001(\0132\030.HBaseVersionFileCo"
 operator|+
-literal|"rverInfo\022!\n\014dead_servers\030\003 \003(\0132\013.ServerN"
+literal|"ntent\022%\n\014live_servers\030\002 \003(\0132\017.LiveServer"
 operator|+
-literal|"ame\0222\n\025regions_in_transition\030\004 \003(\0132\023.Reg"
+literal|"Info\022!\n\014dead_servers\030\003 \003(\0132\013.ServerName\022"
 operator|+
-literal|"ionInTransition\022\036\n\ncluster_id\030\005 \001(\0132\n.Cl"
+literal|"2\n\025regions_in_transition\030\004 \003(\0132\023.RegionI"
 operator|+
-literal|"usterId\022)\n\023master_coprocessors\030\006 \003(\0132\014.C"
+literal|"nTransition\022\036\n\ncluster_id\030\005 \001(\0132\n.Cluste"
 operator|+
-literal|"oprocessor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022"
+literal|"rId\022)\n\023master_coprocessors\030\006 \003(\0132\014.Copro"
 operator|+
-literal|"#\n\016backup_masters\030\010 \003(\0132\013.ServerName\022\023\n\013"
+literal|"cessor\022\033\n\006master\030\007 \001(\0132\013.ServerName\022#\n\016b"
 block|,
-literal|"balancer_on\030\t \001(\010BF\n*org.apache.hadoop.h"
+literal|"ackup_masters\030\010 \003(\0132\013.ServerName\022\023\n\013bala"
 operator|+
-literal|"base.protobuf.generatedB\023ClusterStatusPr"
+literal|"ncer_on\030\t \001(\010BF\n*org.apache.hadoop.hbase"
 operator|+
-literal|"otosH\001\240\001\001"
+literal|".protobuf.generatedB\023ClusterStatusProtos"
+operator|+
+literal|"H\001\240\001\001"
 block|}
 decl_stmt|;
 name|com

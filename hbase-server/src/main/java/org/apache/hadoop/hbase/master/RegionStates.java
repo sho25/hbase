@@ -835,12 +835,40 @@ modifier|...
 name|states
 parameter_list|)
 block|{
+return|return
+name|isRegionInState
+argument_list|(
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|states
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if specified region is in one of the specified states.    */
+specifier|public
+specifier|synchronized
+name|boolean
+name|isRegionInState
+parameter_list|(
+specifier|final
+name|String
+name|regionName
+parameter_list|,
+specifier|final
+name|State
+modifier|...
+name|states
+parameter_list|)
+block|{
 name|RegionState
 name|regionState
 init|=
 name|getRegionState
 argument_list|(
-name|hri
+name|regionName
 argument_list|)
 decl_stmt|;
 name|State
@@ -1630,14 +1658,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|State
-name|state
-init|=
-name|oldState
-operator|.
-name|getState
-argument_list|()
-decl_stmt|;
 name|ServerName
 name|sn
 init|=
@@ -1648,11 +1668,11 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|state
-operator|!=
-name|State
+operator|!
+name|oldState
 operator|.
-name|OPEN
+name|isReadyToOnline
+argument_list|()
 operator|||
 name|sn
 operator|==
@@ -1680,9 +1700,12 @@ argument_list|()
 operator|+
 literal|" with current state="
 operator|+
-name|state
+name|oldState
+operator|.
+name|getState
+argument_list|()
 operator|+
-literal|", expected state=OPEN"
+literal|", expected state=OPEN/MERGING_NEW/SPLITTING_NEW"
 operator|+
 literal|", assigned to server: "
 operator|+
@@ -2115,7 +2138,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A region is offline, won't be in transition any more.    * Its state should be the specified expected state, which    * can be Split/Merged/Offline/null(=Offline) only.    */
+comment|/**    * A region is offline, won't be in transition any more. Its state    * should be the specified expected state, which can only be    * Split/Merged/Offline/null(=Offline)/SplittingNew/MergingNew.    */
 specifier|public
 specifier|synchronized
 name|void
@@ -2138,27 +2161,16 @@ name|expectedState
 operator|==
 literal|null
 operator|||
-name|expectedState
-operator|==
-name|State
+name|RegionState
 operator|.
-name|OFFLINE
-operator|||
+name|isNotUnassignableNotInTransition
+argument_list|(
 name|expectedState
-operator|==
-name|State
-operator|.
-name|SPLIT
-operator|||
-name|expectedState
-operator|==
-name|State
-operator|.
-name|MERGED
+argument_list|)
 argument_list|,
-literal|"Offlined region should be in state"
+literal|"Offlined region should be in state OFFLINE/SPLIT/MERGED/"
 operator|+
-literal|" OFFLINE/SPLIT/MERGED instead of "
+literal|"SPLITTING_NEW/MERGING_NEW instead of "
 operator|+
 name|expectedState
 argument_list|)
@@ -2210,14 +2222,6 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-name|State
-name|state
-init|=
-name|oldState
-operator|.
-name|getState
-argument_list|()
-decl_stmt|;
 name|ServerName
 name|sn
 init|=
@@ -2228,23 +2232,11 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|state
-operator|!=
-name|State
+operator|!
+name|oldState
 operator|.
-name|OFFLINE
-operator|&&
-name|state
-operator|!=
-name|State
-operator|.
-name|SPLITTING
-operator|&&
-name|state
-operator|!=
-name|State
-operator|.
-name|MERGING
+name|isReadyToOffline
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2260,9 +2252,14 @@ argument_list|()
 operator|+
 literal|" with current state="
 operator|+
-name|state
+name|oldState
+operator|.
+name|getState
+argument_list|()
 operator|+
-literal|", expected state=OFFLINE/SPLITTING/MERGING"
+literal|", expected state=OFFLINE/SPLIT/"
+operator|+
+literal|"MERGED/SPLITTING_NEW/MERGING_NEW"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2272,11 +2269,10 @@ name|sn
 operator|!=
 literal|null
 operator|&&
-name|state
-operator|==
-name|State
+name|oldState
 operator|.
-name|OFFLINE
+name|isOffline
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2504,25 +2500,20 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|RegionState
-name|state
-init|=
-name|getRegionState
-argument_list|(
-name|region
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
-name|state
+name|isRegionInState
+argument_list|(
+name|region
+argument_list|,
+name|State
 operator|.
-name|isSplitting
-argument_list|()
-operator|||
-name|state
+name|SPLITTING
+argument_list|,
+name|State
 operator|.
-name|isMerging
-argument_list|()
+name|MERGING
+argument_list|)
 condition|)
 block|{
 name|LOG
@@ -2531,7 +2522,10 @@ name|debug
 argument_list|(
 literal|"Offline splitting/merging region "
 operator|+
-name|state
+name|getRegionState
+argument_list|(
+name|region
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -2583,6 +2577,15 @@ range|:
 name|regionsToOffline
 control|)
 block|{
+name|updateRegionState
+argument_list|(
+name|hri
+argument_list|,
+name|State
+operator|.
+name|OFFLINE
+argument_list|)
+expr_stmt|;
 name|regionOffline
 argument_list|(
 name|hri

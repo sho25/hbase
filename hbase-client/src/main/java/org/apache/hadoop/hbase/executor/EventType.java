@@ -75,7 +75,7 @@ operator|.
 name|MASTER_OPEN_REGION
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_SPLITTING<br>    *     * RS has started a region split.    */
+comment|/**    * RS_ZK_REGION_SPLITTING<br>    *    * RS has started a region split after master says it's ok to move on.    */
 name|RS_ZK_REGION_SPLITTING
 argument_list|(
 literal|5
@@ -83,7 +83,7 @@ argument_list|,
 literal|null
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_SPLIT<br>    *     * RS split has completed.    */
+comment|/**    * RS_ZK_REGION_SPLIT<br>    *    * RS split has completed and is notifying the master.    */
 name|RS_ZK_REGION_SPLIT
 argument_list|(
 literal|6
@@ -103,7 +103,7 @@ operator|.
 name|MASTER_CLOSE_REGION
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_MERGING<br>    *     * RS has started merging regions.    */
+comment|/**    * RS_ZK_REGION_MERGING<br>    *    * RS has started merging regions after master says it's ok to move on.    */
 name|RS_ZK_REGION_MERGING
 argument_list|(
 literal|8
@@ -111,7 +111,7 @@ argument_list|,
 literal|null
 argument_list|)
 block|,
-comment|/**    * RS_ZK_REGION_MERGE<br>    *     * RS region merge has completed.    */
+comment|/**    * RS_ZK_REGION_MERGE<br>    *    * RS region merge has completed and is notifying the master.    */
 name|RS_ZK_REGION_MERGED
 argument_list|(
 literal|9
@@ -119,6 +119,22 @@ argument_list|,
 name|ExecutorType
 operator|.
 name|MASTER_SERVER_OPERATIONS
+argument_list|)
+block|,
+comment|/**    * RS_ZK_REQUEST_REGION_SPLIT<br>    *    * RS has requested to split a region. This is to notify master    * and check with master if the region is in a state good to split.    */
+name|RS_ZK_REQUEST_REGION_SPLIT
+argument_list|(
+literal|10
+argument_list|,
+literal|null
+argument_list|)
+block|,
+comment|/**    * RS_ZK_REQUEST_REGION_MERGE<br>    *    * RS has requested to merge two regions. This is to notify master    * and check with master if two regions is in states good to merge.    */
+name|RS_ZK_REQUEST_REGION_MERGE
+argument_list|(
+literal|11
+argument_list|,
+literal|null
 argument_list|)
 block|,
 comment|/**    * Messages originating from Master to RS.<br>    * M_RS_OPEN_REGION<br>    * Master asking RS to open a region.    */
