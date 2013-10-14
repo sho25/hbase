@@ -6866,12 +6866,22 @@ name|format
 argument_list|(
 literal|"Encoded representations do not preserve natural order:<%s>,<%s>, %s"
 argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|sortedVals
 index|[
 name|i
 index|]
+argument_list|)
 argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|decoded
+argument_list|)
 argument_list|,
 name|ord
 argument_list|)
@@ -7504,12 +7514,22 @@ name|format
 argument_list|(
 literal|"Encoded representations do not preserve natural order:<%s>,<%s>, %s"
 argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|sortedVals
 index|[
 name|i
 index|]
+argument_list|)
 argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|decoded
+argument_list|)
 argument_list|,
 name|ord
 argument_list|)
