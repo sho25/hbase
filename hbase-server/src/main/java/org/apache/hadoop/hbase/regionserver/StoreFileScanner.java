@@ -273,6 +273,12 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
+name|boolean
+name|hasMVCCInfo
+init|=
+literal|false
+decl_stmt|;
+specifier|private
 specifier|static
 name|AtomicLong
 name|seekCount
@@ -295,6 +301,9 @@ name|hfs
 parameter_list|,
 name|boolean
 name|useMVCC
+parameter_list|,
+name|boolean
+name|hasMVCC
 parameter_list|)
 block|{
 name|this
@@ -314,6 +323,12 @@ operator|.
 name|enforceMVCC
 operator|=
 name|useMVCC
+expr_stmt|;
+name|this
+operator|.
+name|hasMVCCInfo
+operator|=
+name|hasMVCC
 expr_stmt|;
 block|}
 comment|/**    * Return an array of scanners corresponding to the given    * set of store files.    */
@@ -557,6 +572,10 @@ operator|.
 name|getKeyValue
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|hasMVCCInfo
+condition|)
 name|skipKVsNewerThanReadpoint
 argument_list|()
 expr_stmt|;
@@ -635,6 +654,11 @@ name|getKeyValue
 argument_list|()
 expr_stmt|;
 return|return
+operator|!
+name|hasMVCCInfo
+condition|?
+literal|true
+else|:
 name|skipKVsNewerThanReadpoint
 argument_list|()
 return|;
@@ -721,6 +745,11 @@ name|getKeyValue
 argument_list|()
 expr_stmt|;
 return|return
+operator|!
+name|hasMVCCInfo
+condition|?
+literal|true
+else|:
 name|skipKVsNewerThanReadpoint
 argument_list|()
 return|;

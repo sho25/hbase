@@ -4365,6 +4365,11 @@ argument_list|)
 argument_list|,
 operator|!
 name|isCompaction
+argument_list|,
+name|reader
+operator|.
+name|hasMVCCInfo
+argument_list|()
 argument_list|)
 return|;
 block|}

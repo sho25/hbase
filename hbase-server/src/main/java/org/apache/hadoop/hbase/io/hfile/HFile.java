@@ -2037,6 +2037,10 @@ name|DataBlockEncoding
 name|getEncodingOnDisk
 parameter_list|()
 function_decl|;
+name|boolean
+name|hasMVCCInfo
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param preferredEncodingInCache    * @param hfs    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|private

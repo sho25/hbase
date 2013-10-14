@@ -1718,6 +1718,19 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|hasMVCCInfo
+parameter_list|()
+block|{
+return|return
+name|includesMemstoreTS
+operator|&&
+name|decodeMemstoreTS
+return|;
+block|}
 comment|/**    * Compares the actual type of a block retrieved from cache or disk with its    * expected type and throws an exception in case of a mismatch. Expected    * block type of {@link BlockType#DATA} is considered to match the actual    * block type [@link {@link BlockType#ENCODED_DATA} as well.    * @param block a block retrieved from cache or disk    * @param expectedBlockType the expected block type, or null to skip the    *          check    */
 specifier|private
 name|void
