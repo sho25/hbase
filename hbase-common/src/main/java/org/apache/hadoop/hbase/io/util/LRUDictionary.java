@@ -13,9 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
 operator|.
-name|wal
+name|util
 package|;
 end_package
 
@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WALDictionary using an LRU eviction algorithm. Uses a linked list running  * through a hashtable.  Currently has max of 2^15 entries.  Will start  * evicting if exceeds this number  The maximum memory we expect this dictionary  * to take in the worst case is about:  *<code>(2 ^ 15) * 5 (Regionname, Row key, CF, Column qual, table) * 100 bytes (these are some big names) = ~16MB</code>.  * If you want to get silly, even at 1kb entries, it maxes out at 160 megabytes.  */
+comment|/**  * WALDictionary using an LRU eviction algorithm. Uses a linked list running  * through a hashtable.  Currently has max of 2^15 entries.  Will start  * evicting if exceeds this number  The maximum memory we expect this dictionary  * to take in the worst case is about:  *<code>(2 ^ 15) * 5 (Regionname, Row key, CF, Column qual, table) * 100 bytes   * (these are some big names) = ~16MB</code>.  * If you want to get silly, even at 1kb entries, it maxes out at 160 megabytes.  */
 end_comment
 
 begin_class

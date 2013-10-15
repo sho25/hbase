@@ -13,9 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
 operator|.
-name|wal
+name|util
 package|;
 end_package
 
