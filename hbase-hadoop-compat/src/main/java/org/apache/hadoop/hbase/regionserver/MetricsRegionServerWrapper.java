@@ -106,17 +106,17 @@ name|long
 name|getCheckAndMutateChecksPassed
 parameter_list|()
 function_decl|;
-comment|/**    * Get the Size of indexes in storefiles on disk.    */
+comment|/**    * Get the Size (in bytes) of indexes in storefiles on disk.    */
 name|long
 name|getStoreFileIndexSize
 parameter_list|()
 function_decl|;
-comment|/**    * Get the size of of the static indexes including the roots.    */
+comment|/**    * Get the size (in bytes) of of the static indexes including the roots.    */
 name|long
 name|getTotalStaticIndexSize
 parameter_list|()
 function_decl|;
-comment|/**    * Get the size of the static bloom filters.    */
+comment|/**    * Get the size (in bytes) of the static bloom filters.    */
 name|long
 name|getTotalStaticBloomSize
 parameter_list|()
@@ -154,7 +154,7 @@ name|int
 name|getFlushQueueSize
 parameter_list|()
 function_decl|;
-comment|/**    * Get the size of the block cache that is free.    */
+comment|/**    * Get the size (in bytes) of the block cache that is free.    */
 name|long
 name|getBlockCacheFreeSize
 parameter_list|()
@@ -164,7 +164,7 @@ name|long
 name|getBlockCacheCount
 parameter_list|()
 function_decl|;
-comment|/**    * Get the total size of the block cache.    */
+comment|/**    * Get the total size (in bytes) of the block cache.    */
 name|long
 name|getBlockCacheSize
 parameter_list|()
