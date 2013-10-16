@@ -490,6 +490,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|context
+operator|.
+name|setIncludesTags
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// HFile V2 does not deal with tags at all!
 return|return
 operator|new
 name|HFileWriterV2
@@ -600,8 +608,15 @@ argument_list|)
 throw|;
 name|fsBlockWriter
 operator|=
-name|createBlockWriter
-argument_list|()
+operator|new
+name|HFileBlock
+operator|.
+name|Writer
+argument_list|(
+name|blockEncoder
+argument_list|,
+name|hFileContext
+argument_list|)
 expr_stmt|;
 comment|// Data block index writer
 name|boolean
@@ -681,33 +696,6 @@ operator|+
 name|cacheConf
 argument_list|)
 expr_stmt|;
-block|}
-specifier|protected
-name|HFileBlock
-operator|.
-name|Writer
-name|createBlockWriter
-parameter_list|()
-block|{
-comment|// HFile filesystem-level (non-caching) block writer
-name|hFileContext
-operator|.
-name|setIncludesTags
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-return|return
-operator|new
-name|HFileBlock
-operator|.
-name|Writer
-argument_list|(
-name|blockEncoder
-argument_list|,
-name|hFileContext
-argument_list|)
-return|;
 block|}
 comment|/**    * At a block boundary, write all the inline blocks and opens new block.    *    * @throws IOException    */
 specifier|protected

@@ -238,7 +238,6 @@ name|HFileWriterV3
 extends|extends
 name|HFileWriterV2
 block|{
-comment|// TODO : Use this to track maxtaglength
 specifier|private
 name|int
 name|maxTagsLength
@@ -849,35 +848,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-annotation|@
-name|Override
-specifier|protected
-name|HFileBlock
-operator|.
-name|Writer
-name|createBlockWriter
-parameter_list|()
-block|{
-comment|// HFile filesystem-level (non-caching) block writer
-name|hFileContext
-operator|.
-name|setIncludesTags
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-return|return
-operator|new
-name|HFileBlock
-operator|.
-name|Writer
-argument_list|(
-name|blockEncoder
-argument_list|,
-name|hFileContext
-argument_list|)
-return|;
 block|}
 annotation|@
 name|Override

@@ -787,6 +787,11 @@ argument_list|(
 literal|4096
 argument_list|)
 operator|.
+name|withIncludesTags
+argument_list|(
+name|useTags
+argument_list|)
+operator|.
 name|withCompressionAlgo
 argument_list|(
 name|compressAlgo
@@ -1518,6 +1523,11 @@ name|tagValue
 init|=
 literal|null
 decl_stmt|;
+if|if
+condition|(
+name|useTags
+condition|)
+block|{
 name|int
 name|tagLen
 init|=
@@ -1541,6 +1551,7 @@ argument_list|(
 name|tagValue
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|includeMemstoreTS

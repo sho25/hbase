@@ -1979,6 +1979,11 @@ name|getEncodingOnDisk
 argument_list|()
 argument_list|)
 operator|.
+name|withIncludesTags
+argument_list|(
+name|useTags
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;

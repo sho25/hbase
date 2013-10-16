@@ -553,6 +553,11 @@ argument_list|(
 name|blocksize
 argument_list|)
 operator|.
+name|withIncludesTags
+argument_list|(
+literal|true
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;
