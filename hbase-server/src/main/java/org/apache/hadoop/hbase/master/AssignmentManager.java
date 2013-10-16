@@ -7615,6 +7615,22 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|transitionInZK
+operator|&&
+name|state
+operator|!=
+literal|null
+condition|)
+block|{
+name|regionOffline
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 comment|// This never happens. Currently regionserver close always return true.
