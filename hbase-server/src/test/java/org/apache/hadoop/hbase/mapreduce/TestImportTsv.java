@@ -1356,7 +1356,7 @@ name|ImportTsv
 operator|.
 name|SEPARATOR_CONF_KEY
 operator|+
-literal|"=,"
+literal|"=\u001b"
 block|,
 literal|"-D"
 operator|+
