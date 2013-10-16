@@ -1028,6 +1028,15 @@ argument_list|(
 name|hFileContext
 argument_list|)
 operator|.
+name|withComparator
+argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|RawBytesComparator
+argument_list|()
+argument_list|)
+operator|.
 name|create
 argument_list|()
 expr_stmt|;
