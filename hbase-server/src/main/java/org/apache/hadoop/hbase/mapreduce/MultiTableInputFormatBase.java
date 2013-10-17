@@ -456,15 +456,6 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
-name|trr
-operator|.
-name|initialize
-argument_list|(
-name|split
-argument_list|,
-name|context
-argument_list|)
-expr_stmt|;
 return|return
 name|trr
 return|;
