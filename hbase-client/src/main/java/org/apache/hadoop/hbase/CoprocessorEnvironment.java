@@ -27,6 +27,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -118,6 +130,20 @@ name|getTable
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @return an interface for accessing the given table using the passed executor to run batch    *         operations    * @throws IOException    */
+specifier|public
+name|HTableInterface
+name|getTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|ExecutorService
+name|service
 parameter_list|)
 throws|throws
 name|IOException
