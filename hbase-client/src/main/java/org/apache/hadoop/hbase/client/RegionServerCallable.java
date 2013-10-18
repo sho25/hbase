@@ -516,6 +516,14 @@ block|{
 comment|// if thrown these exceptions, we clear all the cache entries that
 comment|// map to that slow/dead server; otherwise, let cache miss and ask
 comment|// hbase:meta again to find the new location
+if|if
+condition|(
+name|this
+operator|.
+name|location
+operator|!=
+literal|null
+condition|)
 name|getConnection
 argument_list|()
 operator|.
