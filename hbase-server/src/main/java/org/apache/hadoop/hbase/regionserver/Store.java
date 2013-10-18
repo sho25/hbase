@@ -415,11 +415,14 @@ name|byte
 index|[]
 argument_list|>
 name|targetCols
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all scanners with no filtering based on TTL (that happens further down    * the line).    * @param cacheBlocks    * @param isGet    * @param usePread    * @param isCompaction    * @param matcher    * @param startRow    * @param stopRow    * @return all scanners for this store    */
+comment|/**    * Get all scanners with no filtering based on TTL (that happens further down    * the line).    * @param cacheBlocks    * @param isGet    * @param usePread    * @param isCompaction    * @param matcher    * @param startRow    * @param stopRow    * @param readPt    * @return all scanners for this store    */
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -448,6 +451,9 @@ parameter_list|,
 name|byte
 index|[]
 name|stopRow
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException

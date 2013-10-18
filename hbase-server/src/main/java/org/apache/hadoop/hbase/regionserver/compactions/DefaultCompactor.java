@@ -259,6 +259,13 @@ operator|.
 name|maxKeyCount
 argument_list|)
 expr_stmt|;
+comment|// Find the smallest read point across all the Scanners.
+name|long
+name|smallestReadPoint
+init|=
+name|getSmallestReadPoint
+argument_list|()
+decl_stmt|;
 name|List
 argument_list|<
 name|StoreFileScanner
@@ -271,6 +278,8 @@ name|request
 operator|.
 name|getFiles
 argument_list|()
+argument_list|,
+name|smallestReadPoint
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -291,13 +300,6 @@ name|ArrayList
 argument_list|<
 name|Path
 argument_list|>
-argument_list|()
-decl_stmt|;
-comment|// Find the smallest read point across all the Scanners.
-name|long
-name|smallestReadPoint
-init|=
-name|setSmallestReadPoint
 argument_list|()
 decl_stmt|;
 try|try

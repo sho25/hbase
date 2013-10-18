@@ -2767,7 +2767,10 @@ argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|getScanners
-parameter_list|()
+parameter_list|(
+name|long
+name|readPt
+parameter_list|)
 block|{
 name|this
 operator|.
@@ -2792,10 +2795,7 @@ argument_list|(
 operator|new
 name|MemStoreScanner
 argument_list|(
-name|MultiVersionConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
+name|readPt
 argument_list|)
 argument_list|)
 return|;

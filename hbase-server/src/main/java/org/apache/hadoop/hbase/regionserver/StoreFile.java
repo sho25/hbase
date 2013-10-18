@@ -4330,6 +4330,10 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+comment|// 0 is passed as readpoint because this method is only used by test
+comment|// where StoreFile is directly operated upon
+literal|0
 argument_list|)
 return|;
 block|}
@@ -4346,6 +4350,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 block|{
 return|return
@@ -4370,6 +4377,8 @@ name|reader
 operator|.
 name|hasMVCCInfo
 argument_list|()
+argument_list|,
+name|readPt
 argument_list|)
 return|;
 block|}

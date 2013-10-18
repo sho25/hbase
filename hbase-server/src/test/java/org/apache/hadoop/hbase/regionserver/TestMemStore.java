@@ -705,7 +705,9 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 name|Scan
 name|scan
@@ -727,13 +729,6 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|ScanInfo
 name|scanInfo
 init|=
@@ -859,13 +854,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|memstorescanners
 operator|=
 name|this
@@ -873,7 +861,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Now assert can count same number even if a snapshot mid-scan.
 name|s
@@ -1017,7 +1010,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Assert that new values are seen in kvset as we scan.
 name|long
@@ -1398,13 +1396,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -1416,7 +1407,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -1713,13 +1709,6 @@ argument_list|(
 name|kv1
 argument_list|)
 expr_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|KeyValueScanner
 name|s
 init|=
@@ -1728,7 +1717,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -1752,13 +1746,6 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -1766,7 +1753,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -1824,13 +1816,6 @@ argument_list|(
 name|kv2
 argument_list|)
 expr_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -1838,7 +1823,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -1864,13 +1854,6 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -1878,7 +1861,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2063,13 +2051,6 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// BEFORE STARTING INSERT 2, SEE FIRST KVS
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|KeyValueScanner
 name|s
 init|=
@@ -2078,7 +2059,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2172,13 +2158,6 @@ name|kv22
 argument_list|)
 expr_stmt|;
 comment|// BEFORE COMPLETING INSERT 2, SEE FIRST KVS
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -2186,7 +2165,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2218,13 +2202,6 @@ expr_stmt|;
 comment|// NOW SHOULD SEE NEW KVS IN ADDITION TO OLD KVS.
 comment|// See HBASE-1485 for discussion about what we should do with
 comment|// the duplicate-TS inserts
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -2232,7 +2209,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2409,13 +2391,6 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// BEFORE STARTING INSERT 2, SEE FIRST KVS
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|KeyValueScanner
 name|s
 init|=
@@ -2424,7 +2399,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2495,13 +2475,6 @@ name|kvDel
 argument_list|)
 expr_stmt|;
 comment|// BEFORE COMPLETING DELETE, SEE FIRST KVS
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -2509,7 +2482,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2539,13 +2517,6 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// NOW WE SHOULD SEE DELETE
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|s
 operator|=
 name|this
@@ -2553,7 +2524,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -2802,13 +2778,6 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// Assert that we can read back
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
-argument_list|)
-expr_stmt|;
 name|KeyValueScanner
 name|s
 init|=
@@ -2817,7 +2786,12 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
+argument_list|(
+name|mvcc
+operator|.
+name|memstoreReadPoint
 argument_list|()
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -3268,11 +3242,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|()
-expr_stmt|;
 name|addRows
 argument_list|(
 name|this
@@ -3509,7 +3478,9 @@ argument_list|,
 name|memstore
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|List
@@ -6798,7 +6769,9 @@ init|=
 name|ms
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 operator|.
 name|get
 argument_list|(
@@ -6954,13 +6927,6 @@ operator|.
 name|println
 argument_list|(
 literal|"foo"
-argument_list|)
-expr_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|mvcc
 argument_list|)
 expr_stmt|;
 for|for

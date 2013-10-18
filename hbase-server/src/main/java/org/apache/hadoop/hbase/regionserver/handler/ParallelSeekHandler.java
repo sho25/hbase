@@ -272,13 +272,6 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|MultiVersionConsistencyControl
-operator|.
-name|setThreadReadPoint
-argument_list|(
-name|readPoint
-argument_list|)
-expr_stmt|;
 name|scanner
 operator|.
 name|seek

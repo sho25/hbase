@@ -4366,6 +4366,9 @@ parameter_list|,
 name|byte
 index|[]
 name|stopRow
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -4419,7 +4422,9 @@ operator|.
 name|memstore
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+name|readPt
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
@@ -4458,6 +4463,8 @@ argument_list|,
 name|isCompaction
 argument_list|,
 name|matcher
+argument_list|,
+name|readPt
 argument_list|)
 decl_stmt|;
 name|List
@@ -8045,6 +8052,9 @@ name|byte
 index|[]
 argument_list|>
 name|targetCols
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -8111,6 +8121,8 @@ argument_list|,
 name|scan
 argument_list|,
 name|targetCols
+argument_list|,
+name|readPt
 argument_list|)
 expr_stmt|;
 block|}

@@ -1052,7 +1052,9 @@ init|=
 name|memstore
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 comment|// Shouldn't putting back the chunks to pool,since some scanners are opening
 comment|// based on their data
@@ -1158,7 +1160,9 @@ operator|=
 name|memstore
 operator|.
 name|getScanners
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 expr_stmt|;
 comment|// close scanners before clear the snapshot
 for|for

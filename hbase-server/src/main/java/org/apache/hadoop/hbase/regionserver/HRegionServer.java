@@ -16087,16 +16087,6 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|MultiVersionConsistencyControl
-operator|.
-name|setThreadReadPoint
-argument_list|(
-name|scanner
-operator|.
-name|getMvccReadPoint
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|region
 operator|.
 name|startRegionOperation

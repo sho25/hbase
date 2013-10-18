@@ -287,6 +287,10 @@ specifier|private
 name|ScanQueryMatcher
 name|matcher
 decl_stmt|;
+specifier|private
+name|long
+name|readPt
+decl_stmt|;
 comment|/**    * Implements a {@link KeyValueScanner} on top of the specified {@link HFileScanner}    * @param hfs HFile scanner    */
 specifier|public
 name|StoreFileScanner
@@ -304,8 +308,17 @@ name|useMVCC
 parameter_list|,
 name|boolean
 name|hasMVCC
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 block|{
+name|this
+operator|.
+name|readPt
+operator|=
+name|readPt
+expr_stmt|;
 name|this
 operator|.
 name|reader
@@ -351,6 +364,9 @@ name|cacheBlocks
 parameter_list|,
 name|boolean
 name|usePread
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -365,6 +381,8 @@ argument_list|,
 name|usePread
 argument_list|,
 literal|false
+argument_list|,
+name|readPt
 argument_list|)
 return|;
 block|}
@@ -391,6 +409,9 @@ name|usePread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -407,6 +428,8 @@ argument_list|,
 name|isCompaction
 argument_list|,
 literal|null
+argument_list|,
+name|readPt
 argument_list|)
 return|;
 block|}
@@ -436,6 +459,9 @@ name|isCompaction
 parameter_list|,
 name|ScanQueryMatcher
 name|matcher
+parameter_list|,
+name|long
+name|readPt
 parameter_list|)
 throws|throws
 name|IOException
@@ -488,6 +514,8 @@ argument_list|,
 name|usePread
 argument_list|,
 name|isCompaction
+argument_list|,
+name|readPt
 argument_list|)
 decl_stmt|;
 name|scanner
@@ -792,14 +820,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|long
-name|readPoint
-init|=
-name|MultiVersionConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
-decl_stmt|;
 comment|// We want to ignore all key-values that are newer than our current
 comment|// readPoint
 while|while
@@ -816,7 +836,7 @@ operator|.
 name|getMvccVersion
 argument_list|()
 operator|>
-name|readPoint
+name|readPt
 operator|)
 condition|)
 block|{
@@ -860,7 +880,7 @@ operator|.
 name|getMvccVersion
 argument_list|()
 operator|<=
-name|readPoint
+name|readPt
 condition|)
 block|{
 name|cur

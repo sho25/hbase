@@ -535,6 +535,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|IsolationLevel
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Put
 import|;
 end_import
@@ -11823,11 +11839,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MultiVersionConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|()
-expr_stmt|;
 name|Scan
 name|scan
 init|=
@@ -11864,6 +11875,10 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+argument_list|,
+comment|// originally MultiVersionConsistencyControl.resetThreadReadPoint() was called to set
+comment|// readpoint 0.
+literal|0
 argument_list|)
 decl_stmt|;
 name|List

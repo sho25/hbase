@@ -1049,6 +1049,9 @@ argument_list|,
 literal|true
 argument_list|,
 literal|false
+argument_list|,
+comment|// 0 is passed as readpoint because this test operates on StoreFile directly
+literal|0
 argument_list|)
 decl_stmt|;
 name|KeyValueScanner
