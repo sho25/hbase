@@ -3577,6 +3577,22 @@ comment|// in transition exception. This test is to make sure this scenario
 comment|// is handled properly.
 name|am
 operator|.
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+name|AssignmentManager
+operator|.
+name|ALREADY_IN_TRANSITION_WAITTIME
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
 name|unassign
 argument_list|(
 name|hri
