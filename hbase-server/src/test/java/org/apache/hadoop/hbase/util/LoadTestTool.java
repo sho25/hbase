@@ -398,6 +398,15 @@ block|{
 name|COLUMN_FAMILY
 block|}
 decl_stmt|;
+comment|/** The default data size if not specified */
+specifier|protected
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_DATA_SIZE
+init|=
+literal|64
+decl_stmt|;
 comment|/** The number of reader/writer threads if not specified */
 specifier|protected
 specifier|static
@@ -825,8 +834,12 @@ decl_stmt|;
 specifier|protected
 name|int
 name|minColDataSize
+init|=
+name|DEFAULT_DATA_SIZE
 decl_stmt|,
 name|maxColDataSize
+init|=
+name|DEFAULT_DATA_SIZE
 decl_stmt|;
 specifier|protected
 name|boolean
