@@ -536,7 +536,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|FS
 argument_list|,

@@ -2739,7 +2739,7 @@ argument_list|)
 expr_stmt|;
 name|HLogFactory
 operator|.
-name|createWriter
+name|createRecoveredEditsWriter
 argument_list|(
 name|fs
 argument_list|,
@@ -7638,7 +7638,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|fs
 argument_list|,
@@ -8471,7 +8471,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createRecoveredEditsWriter
 argument_list|(
 name|fs
 argument_list|,
@@ -8856,7 +8856,7 @@ index|]
 operator|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|dfs
 argument_list|,
@@ -9945,7 +9945,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|fs
 argument_list|,

@@ -2579,7 +2579,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createRecoveredEditsWriter
 argument_list|(
 name|fs
 argument_list|,
@@ -3026,7 +3026,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createRecoveredEditsWriter
 argument_list|(
 name|fs
 argument_list|,
@@ -4044,7 +4044,7 @@ name|writer
 init|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createRecoveredEditsWriter
 argument_list|(
 name|fs
 argument_list|,

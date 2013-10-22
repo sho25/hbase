@@ -189,20 +189,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -231,13 +217,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|WALProtos
-operator|.
-name|WALTrailer
+name|TableName
 import|;
 end_import
 
@@ -251,9 +231,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|protobuf
 operator|.
-name|RegionCoprocessorHost
+name|generated
+operator|.
+name|WALProtos
+operator|.
+name|WALTrailer
 import|;
 end_import
 
@@ -427,6 +411,9 @@ name|path
 parameter_list|,
 name|Configuration
 name|c
+parameter_list|,
+name|boolean
+name|overwritable
 parameter_list|)
 throws|throws
 name|IOException
@@ -591,6 +578,11 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|write

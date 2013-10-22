@@ -714,7 +714,7 @@ name|writer
 operator|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|fs
 argument_list|,

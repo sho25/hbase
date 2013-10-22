@@ -5583,6 +5583,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 for|for
@@ -6027,6 +6029,16 @@ argument_list|,
 literal|"temphlog"
 argument_list|)
 decl_stmt|;
+comment|// delete the log if already exists, for test only
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|path
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|HLog
 operator|.
 name|Writer
@@ -6081,7 +6093,7 @@ name|writer
 operator|=
 name|HLogFactory
 operator|.
-name|createWriter
+name|createWALWriter
 argument_list|(
 name|fs
 argument_list|,
