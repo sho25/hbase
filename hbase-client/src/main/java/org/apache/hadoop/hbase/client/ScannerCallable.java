@@ -789,6 +789,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @see java.util.concurrent.Callable#call()    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|Result
 index|[]
@@ -1070,6 +1075,11 @@ name|shortDebugString
 argument_list|(
 name|request
 argument_list|)
+operator|+
+literal|" to "
+operator|+
+name|getLocation
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
