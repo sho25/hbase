@@ -25,6 +25,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -338,8 +350,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// test with specifying flags
-name|regexStringComparator
-operator|=
+try|try
+block|{
 operator|new
 name|RegexStringComparator
 argument_list|(
@@ -354,6 +366,21 @@ operator|.
 name|DOTALL
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|assertNull
+argument_list|(
+literal|"Exception occured while created the RegexStringComparator object"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
