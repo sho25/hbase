@@ -1600,6 +1600,60 @@ name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
 literal|100
 decl_stmt|;
+comment|/**    * The maximum number of concurrent connections the client will maintain.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_MAX_TOTAL_TASKS
+init|=
+literal|"hbase.client.max.total.tasks"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_MAX_TOTAL_TASKS}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_MAX_TOTAL_TASKS
+init|=
+literal|100
+decl_stmt|;
+comment|/**    * The maximum number of concurrent connections the client will maintain to a single    * RegionServer.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_MAX_PERSERVER_TASKS
+init|=
+literal|"hbase.client.max.perserver.tasks"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_MAX_PERSERVER_TASKS}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_MAX_PERSERVER_TASKS
+init|=
+literal|5
+decl_stmt|;
+comment|/**    * The maximum number of concurrent connections the client will maintain to a single    * Region.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_MAX_PERREGION_TASKS
+init|=
+literal|"hbase.client.max.perregion.tasks"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_MAX_PERREGION_TASKS}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_MAX_PERREGION_TASKS
+init|=
+literal|1
+decl_stmt|;
 comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
 specifier|public
 specifier|static
