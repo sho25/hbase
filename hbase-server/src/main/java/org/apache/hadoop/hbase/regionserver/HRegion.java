@@ -24384,6 +24384,42 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Lock the updates' readLock first, so that we could safely append logs in coprocessors.    * @throws RegionTooBusyException    * @throws InterruptedIOException    */
+specifier|public
+name|void
+name|updatesLock
+parameter_list|()
+throws|throws
+name|RegionTooBusyException
+throws|,
+name|InterruptedIOException
+block|{
+name|lock
+argument_list|(
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Unlock the updates' readLock after appending logs in coprocessors.    * @throws InterruptedIOException    */
+specifier|public
+name|void
+name|updatesUnlock
+parameter_list|()
+throws|throws
+name|InterruptedIOException
+block|{
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 
