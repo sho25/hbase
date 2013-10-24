@@ -5478,6 +5478,10 @@ expr_stmt|;
 block|}
 try|try
 block|{
+comment|// Set our ephemeral znode up in zookeeper now we have a name.
+name|createMyEphemeralNode
+argument_list|()
+expr_stmt|;
 comment|// Try and register with the Master; tell it we are here.  Break if
 comment|// server is stopped or the clusterup flag is down or hdfs went wacky.
 while|while
@@ -7477,10 +7481,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Set our ephemeral znode up in zookeeper now we have a name.
-name|createMyEphemeralNode
-argument_list|()
-expr_stmt|;
 comment|// Save it in a file, this will allow to see if we crash
 name|ZNodeClearer
 operator|.
