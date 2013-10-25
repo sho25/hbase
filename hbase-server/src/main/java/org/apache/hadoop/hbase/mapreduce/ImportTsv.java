@@ -742,27 +742,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**      * @param columnsSpecification the list of columns to parser out, comma separated.      * The row key should be the special token TsvParser.ROWKEY_COLUMN_SPEC      * @param tagSeperatorStr       */
-specifier|public
-name|TsvParser
-parameter_list|(
-name|String
-name|columnsSpecification
-parameter_list|,
-name|String
-name|seperatorStr
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|columnsSpecification
-argument_list|,
-name|seperatorStr
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
+comment|/**      * @param columnsSpecification the list of columns to parser out, comma separated.      * The row key should be the special token TsvParser.ROWKEY_COLUMN_SPEC      * @param separatorStr       */
 specifier|public
 name|TsvParser
 parameter_list|(
@@ -771,9 +751,6 @@ name|columnsSpecification
 parameter_list|,
 name|String
 name|separatorStr
-parameter_list|,
-name|String
-name|tagSeperatorStr
 parameter_list|)
 block|{
 comment|// Configure separator
