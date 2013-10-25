@@ -252,6 +252,25 @@ name|boolean
 name|seekBefore
 parameter_list|)
 function_decl|;
+comment|/**      * Compare the given key against the current key      * @param comparator      * @param key      * @param offset      * @param length      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
+specifier|public
+name|int
+name|compareKey
+parameter_list|(
+name|KVComparator
+name|comparator
+parameter_list|,
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+function_decl|;
 block|}
 block|}
 end_interface
