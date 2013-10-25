@@ -1517,6 +1517,11 @@ operator|.
 name|deleteClosingOrClosedNode
 argument_list|(
 name|hri
+argument_list|,
+name|rit
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|am

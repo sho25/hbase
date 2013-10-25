@@ -4221,6 +4221,8 @@ operator|.
 name|watcher
 argument_list|,
 name|hri
+argument_list|,
+name|SERVERNAME_A
 argument_list|)
 expr_stmt|;
 comment|// Now put a SPLITTING region in the way.  I don't have to assert it

@@ -775,7 +775,7 @@ name|sn
 argument_list|)
 return|;
 block|}
-comment|// Is a region in a state ready to go offline
+comment|/**    * Check if a region state can transition to offline    */
 specifier|public
 name|boolean
 name|isReadyToOffline
@@ -798,7 +798,7 @@ name|isMergingNew
 argument_list|()
 return|;
 block|}
-comment|// Is a region in a state ready to go online
+comment|/**    * Check if a region state can transition to online    */
 specifier|public
 name|boolean
 name|isReadyToOnline
@@ -815,24 +815,24 @@ name|isMergingNew
 argument_list|()
 return|;
 block|}
-comment|// Is a region in a state not in transition but not unassignable
+comment|/**    * Check if a region state is one of offline states that    * can't transition to pending_close/closing (unassign/offline)    */
 specifier|public
 name|boolean
-name|isNotUnassignableNotInTransition
+name|isUnassignable
 parameter_list|()
 block|{
 return|return
-name|isNotUnassignableNotInTransition
+name|isUnassignable
 argument_list|(
 name|state
 argument_list|)
 return|;
 block|}
-comment|// Check if a state is not in transition, but not unassignable
+comment|/**    * Check if a region state is one of offline states that    * can't transition to pending_close/closing (unassign/offline)    */
 specifier|public
 specifier|static
 name|boolean
-name|isNotUnassignableNotInTransition
+name|isUnassignable
 parameter_list|(
 name|State
 name|state
@@ -900,7 +900,7 @@ operator|+
 literal|"}"
 return|;
 block|}
-comment|/**    * A slower (but more easy-to-read) stringification     */
+comment|/**    * A slower (but more easy-to-read) stringification    */
 specifier|public
 name|String
 name|toDescriptiveString

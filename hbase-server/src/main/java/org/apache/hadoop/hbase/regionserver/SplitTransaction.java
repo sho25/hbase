@@ -2284,7 +2284,7 @@ comment|// Leaving here, the splitdir with its dross will be in place but since 
 comment|// split was successful, just leave it; it'll be cleaned when parent is
 comment|// deleted and cleaned up.
 block|}
-comment|/**    * Wait for the splitting node to be transitioned from pending_split    * to splitting by master.  That's how we are sure master has processed    * the event and is good with us to move on. If we don't get any update,    * we periodically transition the node so that master gets the callback.    * If the node is removed or is not in pending_split state any more,    * we abort the split.    */
+comment|/**    * Wait for the splitting node to be transitioned from pending_split    * to splitting by master. That's how we are sure master has processed    * the event and is good with us to move on. If we don't get any update,    * we periodically transition the node so that master gets the callback.    * If the node is removed or is not in pending_split state any more,    * we abort the split.    */
 specifier|private
 name|int
 name|getZKNode
@@ -4164,6 +4164,11 @@ name|getEncodedName
 argument_list|()
 argument_list|,
 name|RS_ZK_REQUEST_REGION_SPLIT
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -4182,6 +4187,11 @@ name|getEncodedName
 argument_list|()
 argument_list|,
 name|RS_ZK_REGION_SPLITTING
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4196,7 +4206,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Failed cleanup zk node of "
 operator|+

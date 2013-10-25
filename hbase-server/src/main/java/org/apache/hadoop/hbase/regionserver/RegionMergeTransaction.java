@@ -2274,7 +2274,7 @@ comment|// Leaving here, the mergedir with its dross will be in place but since 
 comment|// merge was successful, just leave it; it'll be cleaned when region_a is
 comment|// cleaned up by CatalogJanitor on master
 block|}
-comment|/**    * Wait for the merging node to be transitioned from pending_merge    * to merging by master.  That's how we are sure master has processed    * the event and is good with us to move on. If we don't get any update,    * we periodically transition the node so that master gets the callback.    * If the node is removed or is not in pending_merge state any more,    * we abort the merge.    */
+comment|/**    * Wait for the merging node to be transitioned from pending_merge    * to merging by master. That's how we are sure master has processed    * the event and is good with us to move on. If we don't get any update,    * we periodically transition the node so that master gets the callback.    * If the node is removed or is not in pending_merge state any more,    * we abort the merge.    */
 specifier|private
 name|int
 name|getZKNode
@@ -3255,6 +3255,11 @@ name|getEncodedName
 argument_list|()
 argument_list|,
 name|RS_ZK_REQUEST_REGION_MERGE
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -3273,6 +3278,11 @@ name|getEncodedName
 argument_list|()
 argument_list|,
 name|RS_ZK_REGION_MERGING
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3287,7 +3297,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Failed cleanup zk node of "
 operator|+

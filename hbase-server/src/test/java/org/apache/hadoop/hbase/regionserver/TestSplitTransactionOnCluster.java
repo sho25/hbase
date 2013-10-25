@@ -2923,6 +2923,20 @@ argument_list|()
 decl_stmt|;
 comment|// Insert into zk a blocking znode, a znode of same name as region
 comment|// so it gets in way of our splitting.
+name|ServerName
+name|fakedServer
+init|=
+operator|new
+name|ServerName
+argument_list|(
+literal|"any.old.server"
+argument_list|,
+literal|1234
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
 name|ZKAssign
 operator|.
 name|createNodeClosing
@@ -2934,16 +2948,7 @@ argument_list|()
 argument_list|,
 name|hri
 argument_list|,
-operator|new
-name|ServerName
-argument_list|(
-literal|"any.old.server"
-argument_list|,
-literal|1234
-argument_list|,
-operator|-
-literal|1
-argument_list|)
+name|fakedServer
 argument_list|)
 expr_stmt|;
 comment|// Now try splitting.... should fail.  And each should successfully
@@ -3034,6 +3039,8 @@ name|getZooKeeperWatcher
 argument_list|()
 argument_list|,
 name|hri
+argument_list|,
+name|fakedServer
 argument_list|)
 expr_stmt|;
 comment|// Now try splitting and it should work.

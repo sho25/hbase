@@ -1169,6 +1169,11 @@ argument_list|,
 name|EventType
 operator|.
 name|RS_ZK_REGION_OPENED
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
