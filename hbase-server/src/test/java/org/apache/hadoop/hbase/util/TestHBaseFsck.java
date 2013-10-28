@@ -2801,6 +2801,16 @@ operator|.
 name|clearRegionCache
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|tablename
+argument_list|)
+condition|)
+block|{
 name|admin
 operator|.
 name|disableTableAsync
@@ -2808,6 +2818,7 @@ argument_list|(
 name|tablename
 argument_list|)
 expr_stmt|;
+block|}
 name|long
 name|totalWait
 init|=
@@ -10034,7 +10045,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120000
+literal|180000
 argument_list|)
 specifier|public
 name|void
@@ -10533,7 +10544,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120000
+literal|180000
 argument_list|)
 specifier|public
 name|void
@@ -10693,7 +10704,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120000
+literal|180000
 argument_list|)
 specifier|public
 name|void
@@ -10848,7 +10859,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|120000
+literal|180000
 argument_list|)
 specifier|public
 name|void
