@@ -2247,6 +2247,8 @@ parameter_list|(
 name|StripeCompactor
 name|compactor
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 specifier|public
 name|StripeCompactionRequest
@@ -2416,6 +2418,8 @@ parameter_list|(
 name|StripeCompactor
 name|compactor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|compactor
@@ -2644,6 +2648,8 @@ parameter_list|(
 name|StripeCompactor
 name|compactor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|compactor

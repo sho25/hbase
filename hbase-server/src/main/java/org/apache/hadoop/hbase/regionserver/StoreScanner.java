@@ -456,6 +456,12 @@ name|kvsScanned
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+name|KeyValue
+name|prevKV
+init|=
+literal|null
+decl_stmt|;
 comment|/** We don't ever expect to change this, the constant is just for clarity. */
 specifier|static
 specifier|final
@@ -2015,11 +2021,6 @@ block|}
 name|KeyValue
 name|kv
 decl_stmt|;
-name|KeyValue
-name|prevKV
-init|=
-literal|null
-decl_stmt|;
 comment|// Only do a sanity-check if store and comparator are available.
 name|KeyValue
 operator|.
@@ -2060,9 +2061,16 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|prevKV
+operator|!=
+name|kv
+condition|)
 operator|++
 name|kvsScanned
 expr_stmt|;
+comment|// Do object compare - we set prevKV from the same heap.
 comment|// Check that the heap gives us KVs in an increasing order.
 assert|assert
 name|prevKV
