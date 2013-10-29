@@ -163,6 +163,8 @@ name|StoreFile
 argument_list|>
 name|results
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Clears all the files currently in use and returns them.    * @return The files previously in use.    */
 name|ImmutableCollection

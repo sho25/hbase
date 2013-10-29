@@ -1250,6 +1250,24 @@ return|return
 name|modificationTimeStamp
 return|;
 block|}
+name|byte
+index|[]
+name|getMetadataValue
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|)
+block|{
+return|return
+name|metadataMap
+operator|.
+name|get
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
 comment|/**    * Return the largest memstoreTS found across all storefiles in    * the given list. Store files that were created by a mapreduce    * bulk load are ignored, as they do not correspond to any specific    * put operation, and thus do not have a memstoreTS associated with them.    * @return 0 if no non-bulk-load files are provided or, this is Store that    * does not yet have any store files.    */
 specifier|public
 specifier|static
