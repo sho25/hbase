@@ -567,6 +567,8 @@ operator|new
 name|RetryCounterFactory
 argument_list|(
 name|maxRetries
+operator|+
+literal|1
 argument_list|,
 name|retryIntervalMillis
 argument_list|)
@@ -872,11 +874,6 @@ operator|.
 name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
 name|isRetry
 operator|=
 literal|true
@@ -1000,11 +997,6 @@ operator|.
 name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 finally|finally
@@ -1124,11 +1116,6 @@ operator|.
 name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 finally|finally
@@ -1196,10 +1183,10 @@ literal|" failed after "
 operator|+
 name|retryCounter
 operator|.
-name|getMaxRetries
+name|getMaxAttempts
 argument_list|()
 operator|+
-literal|" retries"
+literal|" attempts"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -1310,11 +1297,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 block|}
@@ -1437,11 +1419,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 block|}
@@ -1580,11 +1557,6 @@ operator|.
 name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 finally|finally
@@ -1719,11 +1691,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 block|}
@@ -1929,11 +1896,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 name|isRetry
@@ -2277,11 +2239,6 @@ operator|.
 name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
-argument_list|()
-expr_stmt|;
 name|isRetry
 operator|=
 literal|true
@@ -2430,11 +2387,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 block|}
@@ -2759,11 +2711,6 @@ block|}
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
-argument_list|()
-expr_stmt|;
-name|retryCounter
-operator|.
-name|useRetry
 argument_list|()
 expr_stmt|;
 block|}

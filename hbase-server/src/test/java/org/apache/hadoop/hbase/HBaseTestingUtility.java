@@ -535,22 +535,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|IsolationLevel
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -868,22 +852,6 @@ operator|.
 name|regionserver
 operator|.
 name|InternalScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MultiVersionConsistencyControl
 import|;
 end_import
 
@@ -9121,6 +9089,8 @@ operator|new
 name|RetryCounter
 argument_list|(
 name|numRetries
+operator|+
+literal|1
 argument_list|,
 operator|(
 name|int
@@ -9664,7 +9634,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a stubbed out RegionServerService, mainly for getting FS.     * This version is used by TestTokenAuthentication    */
+comment|/**    * Create a stubbed out RegionServerService, mainly for getting FS.    * This version is used by TestTokenAuthentication    */
 specifier|public
 name|RegionServerServices
 name|createMockRegionServerService
@@ -9705,7 +9675,7 @@ return|return
 name|rss
 return|;
 block|}
-comment|/**    * Create a stubbed out RegionServerService, mainly for getting FS.     * This version is used by TestOpenRegionHandler    */
+comment|/**    * Create a stubbed out RegionServerService, mainly for getting FS.    * This version is used by TestOpenRegionHandler    */
 specifier|public
 name|RegionServerServices
 name|createMockRegionServerService

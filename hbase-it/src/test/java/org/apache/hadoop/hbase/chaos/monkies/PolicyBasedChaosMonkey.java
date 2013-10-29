@@ -714,6 +714,7 @@ range|:
 name|monkeyThreads
 control|)
 block|{
+comment|// TODO: bound the wait time per policy
 name|monkeyThread
 operator|.
 name|join
