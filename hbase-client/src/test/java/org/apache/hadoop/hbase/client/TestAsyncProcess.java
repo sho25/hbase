@@ -4431,7 +4431,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|20
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// set default writeBufferSize
@@ -4483,17 +4483,6 @@ argument_list|)
 expr_stmt|;
 name|Assert
 operator|.
-name|assertTrue
-argument_list|(
-name|ht
-operator|.
-name|ap
-operator|.
-name|useServerTrackerForRetries
-argument_list|)
-expr_stmt|;
-name|Assert
-operator|.
 name|assertNotNull
 argument_list|(
 name|ht
@@ -4514,7 +4503,7 @@ name|ap
 operator|.
 name|serverTrackerTimeout
 operator|>
-literal|10000
+literal|200
 argument_list|)
 expr_stmt|;
 name|ht
@@ -4551,14 +4540,6 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
-name|long
-name|start
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 try|try
 block|{
 name|ht
@@ -4578,21 +4559,21 @@ name|RetriesExhaustedWithDetailsException
 name|expected
 parameter_list|)
 block|{     }
-comment|// Checking that the ErrorsServers came into play and made us stop immediately
+comment|// Checking that the ErrorsServers came into play and didn't make us stop immediately
 name|Assert
 operator|.
-name|assertTrue
+name|assertEquals
 argument_list|(
-operator|(
-name|System
+name|ht
 operator|.
-name|currentTimeMillis
+name|ap
+operator|.
+name|tasksSent
+operator|.
+name|get
 argument_list|()
-operator|-
-name|start
-operator|)
-operator|<
-literal|10000
+argument_list|,
+literal|3
 argument_list|)
 expr_stmt|;
 block|}

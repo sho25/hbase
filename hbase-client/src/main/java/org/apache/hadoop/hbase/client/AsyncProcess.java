@@ -393,13 +393,25 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|AtomicLong
+name|COUNTER
+init|=
+operator|new
+name|AtomicLong
+argument_list|()
+decl_stmt|;
+specifier|protected
+specifier|final
+name|long
+name|id
+decl_stmt|;
 specifier|private
 specifier|final
-specifier|static
 name|int
-name|START_LOG_ERRORS_CNT
-init|=
-literal|4
+name|startLogErrorsCnt
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -477,6 +489,17 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
+name|AtomicLong
+name|retriesCnt
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+specifier|protected
+specifier|final
 name|ConcurrentMap
 argument_list|<
 name|String
@@ -539,11 +562,6 @@ decl_stmt|;
 specifier|protected
 name|int
 name|numTries
-decl_stmt|;
-specifier|protected
-specifier|final
-name|boolean
-name|useServerTrackerForRetries
 decl_stmt|;
 specifier|protected
 name|int
@@ -856,6 +874,15 @@ name|callback
 expr_stmt|;
 name|this
 operator|.
+name|id
+operator|=
+name|COUNTER
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|pause
 operator|=
 name|conf
@@ -939,6 +966,22 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_MAX_PERREGION_TASKS
 argument_list|)
 expr_stmt|;
+comment|// A few failure is fine: region moved, then is not opened, then is overloaded. We try
+comment|//  to have an acceptable heuristic for the number of errors we don't log.
+comment|//  9 was chosen because we wait for 1s at this stage.
+name|this
+operator|.
+name|startLogErrorsCnt
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.client.start.log.errors.counter"
+argument_list|,
+literal|9
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -996,28 +1039,6 @@ name|maxConcurrentTasksPerRegion
 argument_list|)
 throw|;
 block|}
-name|this
-operator|.
-name|useServerTrackerForRetries
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConnectionManager
-operator|.
-name|RETRIES_BY_SERVER_KEY
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|useServerTrackerForRetries
-condition|)
-block|{
 comment|// Server tracker allows us to do faster, and yet useful (hopefully), retries.
 comment|// However, if we are too useful, we might fail very quickly due to retry count limit.
 comment|// To avoid this, we are going to cheat for now (see HBASE-7659), and calculate maximum
@@ -1061,7 +1082,6 @@ argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|this
 operator|.
@@ -1275,8 +1295,6 @@ name|findDestLocation
 argument_list|(
 name|r
 argument_list|,
-literal|1
-argument_list|,
 name|posInList
 argument_list|)
 decl_stmt|;
@@ -1471,16 +1489,13 @@ name|action
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Find the destination.    *    * @param row          the row    * @param numAttempt   the num attempt    * @param posInList    the position in the list    * @return the destination. Null if we couldn't find it.    */
+comment|/**    * Find the destination.    *    * @param row          the row    * @param posInList    the position in the list    * @return the destination. Null if we couldn't find it.    */
 specifier|private
 name|HRegionLocation
 name|findDestLocation
 parameter_list|(
 name|Row
 name|row
-parameter_list|,
-name|int
-name|numAttempt
 parameter_list|,
 name|int
 name|posInList
@@ -1496,7 +1511,11 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"row cannot be null"
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", row cannot be null"
 argument_list|)
 throw|;
 name|HRegionLocation
@@ -1539,7 +1558,11 @@ operator|=
 operator|new
 name|IOException
 argument_list|(
-literal|"No location found, aborting submit for"
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", no location found, aborting submit for"
 operator|+
 literal|" tableName="
 operator|+
@@ -1582,8 +1605,6 @@ comment|// There are multiple retries in locateRegion already. No need to add ne
 comment|// We can't continue with this row, hence it's the last retry.
 name|manageError
 argument_list|(
-name|numAttempt
-argument_list|,
 name|posInList
 argument_list|,
 name|row
@@ -2047,6 +2068,19 @@ name|ServerErrorTracker
 name|errorsByServer
 parameter_list|)
 block|{
+if|if
+condition|(
+name|numAttempt
+operator|>
+literal|1
+condition|)
+block|{
+name|retriesCnt
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+block|}
 comment|// group per location => regions server
 specifier|final
 name|Map
@@ -2092,8 +2126,6 @@ name|action
 operator|.
 name|getAction
 argument_list|()
-argument_list|,
-literal|1
 argument_list|,
 name|action
 operator|.
@@ -2298,7 +2330,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Call to "
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", call to "
 operator|+
 name|loc
 operator|.
@@ -2406,7 +2442,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The task was rejected by the pool. This is unexpected."
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", the task was rejected by the pool. This is unexpected."
 operator|+
 literal|" Server is "
 operator|+
@@ -2502,14 +2542,11 @@ name|newCaller
 argument_list|()
 return|;
 block|}
-comment|/**    * Check that we can retry acts accordingly: logs, set the error status, call the callbacks.    *    * @param numAttempt    the number of this attempt    * @param originalIndex the position in the list sent    * @param row           the row    * @param canRetry      if false, we won't retry whatever the settings.    * @param throwable     the throwable, if any (can be null)    * @param location      the location, if any (can be null)    * @return true if the action can be retried, false otherwise.    */
+comment|/**    * Check that we can retry acts accordingly: logs, set the error status, call the callbacks.    *    * @param originalIndex the position in the list sent    * @param row           the row    * @param canRetry      if false, we won't retry whatever the settings.    * @param throwable     the throwable, if any (can be null)    * @param location      the location, if any (can be null)    * @return true if the action can be retried, false otherwise.    */
 specifier|private
 name|boolean
 name|manageError
 parameter_list|(
-name|int
-name|numAttempt
-parameter_list|,
 name|int
 name|originalIndex
 parameter_list|,
@@ -2529,15 +2566,7 @@ block|{
 if|if
 condition|(
 name|canRetry
-condition|)
-block|{
-if|if
-condition|(
-name|numAttempt
-operator|>=
-name|numTries
-operator|||
-operator|(
+operator|&&
 name|throwable
 operator|!=
 literal|null
@@ -2545,14 +2574,12 @@ operator|&&
 name|throwable
 operator|instanceof
 name|DoNotRetryIOException
-operator|)
 condition|)
 block|{
 name|canRetry
 operator|=
 literal|false
 expr_stmt|;
-block|}
 block|}
 name|byte
 index|[]
@@ -2819,8 +2846,6 @@ if|if
 condition|(
 name|manageError
 argument_list|(
-name|numAttempt
-argument_list|,
 name|action
 operator|.
 name|getOriginalIndex
@@ -2861,7 +2886,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt #"
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", attempt #"
 operator|+
 name|numAttempt
 operator|+
@@ -2900,7 +2929,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Called when we receive the result of a server query.    *    * @param initialActions - the whole action list    * @param rsActions      - the actions for this location    * @param location       - the location    * @param responses      - the response, if any    * @param numAttempt     - the attempt    */
+comment|/**    * Called when we receive the result of a server query.    *    * @param initialActions - the whole action list    * @param rsActions      - the actions for this location    * @param location       - the location. It's used as a server name.    * @param responses      - the response, if any    * @param numAttempt     - the attempt    */
 specifier|private
 name|void
 name|receiveMultiAction
@@ -2946,7 +2975,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attempt #"
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", attempt #"
 operator|+
 name|numAttempt
 operator|+
@@ -3133,6 +3166,7 @@ name|regionFailureRegistered
 operator|=
 literal|true
 expr_stmt|;
+comment|// The location here is used as a server name.
 name|hConnection
 operator|.
 name|updateCachedLocations
@@ -3153,9 +3187,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|errorsByServer
-operator|!=
-literal|null
+name|failureCount
+operator|==
+literal|1
 condition|)
 block|{
 name|errorsByServer
@@ -3170,7 +3204,9 @@ operator|=
 name|errorsByServer
 operator|.
 name|canRetryMore
-argument_list|()
+argument_list|(
+name|numAttempt
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3178,8 +3214,6 @@ if|if
 condition|(
 name|manageError
 argument_list|(
-name|numAttempt
-argument_list|,
 name|correspondingAction
 operator|.
 name|getOriginalIndex
@@ -3278,14 +3312,14 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+comment|// We have two contradicting needs here:
+comment|//  1) We want to get the new location after having slept, as it may change.
+comment|//  2) We want to take into account the location when calculating the sleep time.
+comment|// It should be possible to have some heuristics to take the right decision. Short term,
+comment|//  we go for one.
 name|long
 name|backOffTime
 init|=
-operator|(
-name|errorsByServer
-operator|!=
-literal|null
-condition|?
 name|errorsByServer
 operator|.
 name|calculateBackoffTime
@@ -3294,78 +3328,47 @@ name|location
 argument_list|,
 name|pause
 argument_list|)
-else|:
-name|ConnectionUtils
-operator|.
-name|getPauseTime
-argument_list|(
-name|pause
-argument_list|,
-name|numAttempt
-argument_list|)
-operator|)
 decl_stmt|;
 if|if
 condition|(
 name|numAttempt
 operator|>
-name|START_LOG_ERRORS_CNT
-operator|&&
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
+name|startLogErrorsCnt
 condition|)
 block|{
 comment|// We use this value to have some logs when we have multiple failures, but not too many
 comment|//  logs, as errors are to be expected when a region moves, splits and so on
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Attempt #"
-operator|+
+name|createLog
+argument_list|(
 name|numAttempt
-operator|+
-literal|"/"
-operator|+
-name|numTries
-operator|+
-literal|" failed "
-operator|+
+argument_list|,
 name|failureCount
-operator|+
-literal|" ops , resubmitting "
-operator|+
+argument_list|,
 name|toReplay
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|", "
-operator|+
+argument_list|,
 name|location
-operator|+
-literal|", last exception was: "
-operator|+
-operator|(
-name|throwable
-operator|==
-literal|null
-condition|?
-literal|"null"
-else|:
-name|throwable
 operator|.
-name|getMessage
+name|getServerName
 argument_list|()
-operator|)
-operator|+
-literal|", sleeping "
-operator|+
+argument_list|,
+name|throwable
+argument_list|,
 name|backOffTime
-operator|+
-literal|"ms"
+argument_list|,
+literal|true
+argument_list|,
+name|errorsByServer
+operator|.
+name|getStartTrackingTime
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3389,7 +3392,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Not sent: "
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", not sent: "
 operator|+
 name|toReplay
 operator|.
@@ -3438,28 +3445,34 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt #"
-operator|+
+name|createLog
+argument_list|(
 name|numAttempt
-operator|+
-literal|"/"
-operator|+
-name|numTries
-operator|+
-literal|" failed for "
-operator|+
+argument_list|,
 name|failureCount
-operator|+
-literal|" ops on "
-operator|+
+argument_list|,
+name|toReplay
+operator|.
+name|size
+argument_list|()
+argument_list|,
 name|location
 operator|.
 name|getServerName
 argument_list|()
-operator|+
-literal|" NOT resubmitting. "
-operator|+
-name|location
+argument_list|,
+name|throwable
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+literal|false
+argument_list|,
+name|errorsByServer
+operator|.
+name|getStartTrackingTime
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3468,39 +3481,274 @@ if|if
 condition|(
 name|numAttempt
 operator|>
-name|START_LOG_ERRORS_CNT
+name|startLogErrorsCnt
 operator|+
 literal|1
-operator|&&
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
 condition|)
 block|{
 comment|// The operation was successful, but needed several attempts. Let's log this.
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Attempt #"
-operator|+
+name|createLog
+argument_list|(
 name|numAttempt
-operator|+
-literal|"/"
-operator|+
-name|numTries
-operator|+
-literal|" finally suceeded, size="
-operator|+
+argument_list|,
+name|failureCount
+argument_list|,
 name|toReplay
 operator|.
 name|size
 argument_list|()
+argument_list|,
+name|location
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|throwable
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+literal|false
+argument_list|,
+name|errorsByServer
+operator|.
+name|getStartTrackingTime
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+specifier|private
+name|String
+name|createLog
+parameter_list|(
+name|int
+name|numAttempt
+parameter_list|,
+name|int
+name|failureCount
+parameter_list|,
+name|int
+name|replaySize
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|,
+name|Throwable
+name|error
+parameter_list|,
+name|long
+name|backOffTime
+parameter_list|,
+name|boolean
+name|willRetry
+parameter_list|,
+name|String
+name|startTime
+parameter_list|)
+block|{
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"#"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|id
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", table="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", Attempt #"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|numAttempt
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"/"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|numTries
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" "
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|failureCount
+operator|>
+literal|0
+operator|||
+name|error
+operator|!=
+literal|null
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"failed "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|failureCount
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" ops"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", last exception was: "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|error
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|error
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"SUCCEEDED"
+argument_list|)
+expr_stmt|;
+block|}
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|" on server "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", tracking started at "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|startTime
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|willRetry
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|" - retrying after sleeping for "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|backOffTime
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" ms"
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", will replay "
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|replaySize
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" ops."
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|failureCount
+operator|>
+literal|0
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|" - FAILED, NOT RETRYING ANYMORE"
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|sb
+operator|.
+name|toString
+argument_list|()
+return|;
 block|}
 comment|/**    * Waits for another task to finish.    * @param currentNumberOfTask - the number of task finished when calling the method.    */
 specifier|protected
@@ -3553,7 +3801,11 @@ throw|throw
 operator|new
 name|InterruptedIOException
 argument_list|(
-literal|"Interrupted."
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", interrupted."
 operator|+
 literal|" currentNumberOfTask="
 operator|+
@@ -3642,7 +3894,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|": Waiting for the global number of running tasks to be equals or less than "
+literal|"#"
+operator|+
+name|id
+operator|+
+literal|", waiting for some tasks to finish. Expected max="
 operator|+
 name|max
 operator|+
@@ -3663,6 +3919,18 @@ operator|+
 literal|", currentTasksDone="
 operator|+
 name|currentTasksDone
+operator|+
+literal|", retries="
+operator|+
+name|retriesCnt
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" hasError="
+operator|+
+name|hasError
+argument_list|()
 operator|+
 literal|", tableName="
 operator|+
@@ -3995,11 +4263,6 @@ name|ServerErrorTracker
 name|createServerErrorTracker
 parameter_list|()
 block|{
-if|if
-condition|(
-name|useServerTrackerForRetries
-condition|)
-block|{
 return|return
 operator|new
 name|HConnectionManager
@@ -4009,15 +4272,12 @@ argument_list|(
 name|this
 operator|.
 name|serverTrackerTimeout
+argument_list|,
+name|this
+operator|.
+name|numTries
 argument_list|)
 return|;
-block|}
-else|else
-block|{
-return|return
-literal|null
-return|;
-block|}
 block|}
 block|}
 end_class

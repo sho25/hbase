@@ -587,6 +587,7 @@ literal|false
 decl_stmt|;
 comment|/**    * We want to limit the size of the protobuf message sent, do fit into a single packet.    * a reasonable size for ip / ethernet is less than 1Kb.    */
 specifier|public
+specifier|final
 specifier|static
 name|int
 name|MAX_SERVER_PER_MESSAGE
@@ -595,6 +596,7 @@ literal|10
 decl_stmt|;
 comment|/**    * If a server dies, we're sending the information multiple times in case a receiver misses the    * message.    */
 specifier|public
+specifier|final
 specifier|static
 name|int
 name|NB_SEND

@@ -5688,6 +5688,8 @@ operator|.
 name|ServerErrorTracker
 argument_list|(
 name|largeAmountOfTime
+argument_list|,
+literal|100
 argument_list|)
 decl_stmt|;
 comment|// The default backoff is 0.
@@ -5961,7 +5963,9 @@ argument_list|(
 name|tracker
 operator|.
 name|canRetryMore
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|tracker
@@ -5999,7 +6003,9 @@ argument_list|(
 name|tracker
 operator|.
 name|canRetryMore
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -1486,7 +1486,7 @@ name|CONFIGURATION
 init|=
 literal|"CONFIGURATION"
 decl_stmt|;
-comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 10, 100, 100, 100, 100, 100, 100.    */
+comment|/**    * Retrying we multiply hbase.client.pause setting by what we have in this array until we    * run out of array items.  Retries beyond this use the last number in the array.  So, for    * example, if hbase.client.pause is 1 second, and maximum retries count    * hbase.client.retries.number is 10, we will retry at the following intervals:    * 1, 2, 3, 5, 10, 20, 40, 100, 100, 100.    * With 100ms, a back-off of 200 means 20s    */
 specifier|public
 specifier|static
 name|int
@@ -1504,7 +1504,21 @@ literal|5
 block|,
 literal|10
 block|,
+literal|20
+block|,
+literal|40
+block|,
 literal|100
+block|,
+literal|100
+block|,
+literal|100
+block|,
+literal|100
+block|,
+literal|200
+block|,
+literal|200
 block|}
 decl_stmt|;
 specifier|public
@@ -1634,7 +1648,7 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_MAX_PERSERVER_TASKS
 init|=
-literal|5
+literal|2
 decl_stmt|;
 comment|/**    * The maximum number of concurrent connections the client will maintain to a single    * Region.    */
 specifier|public
