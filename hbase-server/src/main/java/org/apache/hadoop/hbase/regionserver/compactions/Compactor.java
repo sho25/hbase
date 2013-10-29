@@ -551,7 +551,7 @@ name|getCompactionCompression
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * TODO: Replace this with {@link CellOutputStream} when StoreFile.Writer uses cells.    */
+comment|/**    * TODO: Replace this with CellOutputStream when StoreFile.Writer uses cells.    */
 specifier|public
 interface|interface
 name|CellSink
@@ -1389,7 +1389,7 @@ name|earliestPutTs
 argument_list|)
 return|;
 block|}
-comment|/**    * @param scanners Store file scanners.    * @param scanType Scan type.    * @param smallestReadPoint Smallest MVCC read point.    * @param earliestPutTs Earliest put across all files.    * @return A compaction scanner.    */
+comment|/**    * @param store The store.    * @param scanners Store file scanners.    * @param smallestReadPoint Smallest MVCC read point.    * @param earliestPutTs Earliest put across all files.    * @param dropDeletesFromRow Drop deletes starting with this row, inclusive. Can be null.    * @param dropDeletesToRow Drop deletes ending with this row, exclusive. Can be null.    * @return A compaction scanner.    */
 specifier|protected
 name|InternalScanner
 name|createScanner
