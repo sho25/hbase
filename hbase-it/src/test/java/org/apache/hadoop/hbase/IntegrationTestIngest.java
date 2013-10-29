@@ -327,6 +327,17 @@ argument_list|)
 expr_stmt|;
 comment|// Initialize load test tool before we start breaking things;
 comment|// LoadTestTool init, even when it is a no-op, is very fragile.
+name|initTable
+argument_list|()
+expr_stmt|;
+block|}
+specifier|protected
+name|void
+name|initTable
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 name|int
 name|ret
 init|=
