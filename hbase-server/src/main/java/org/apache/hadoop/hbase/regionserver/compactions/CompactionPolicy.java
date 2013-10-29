@@ -188,27 +188,6 @@ name|long
 name|compactionSize
 parameter_list|)
 function_decl|;
-comment|/**    * @param storeFiles Current store files.    * @param filesCompacting files currently compacting.    * @return whether a compactionSelection is possible    */
-specifier|public
-specifier|abstract
-name|boolean
-name|needsCompaction
-parameter_list|(
-specifier|final
-name|Collection
-argument_list|<
-name|StoreFile
-argument_list|>
-name|storeFiles
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|filesCompacting
-parameter_list|)
-function_decl|;
 comment|/**    * Inform the policy that some configuration has been change,    * so cached value should be updated it any.    */
 specifier|public
 name|void

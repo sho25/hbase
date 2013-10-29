@@ -144,6 +144,16 @@ name|CONFIG_PREFIX
 init|=
 literal|"hbase.hstore.compaction."
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RATIO_KEY
+init|=
+name|CONFIG_PREFIX
+operator|+
+literal|"ratio"
+decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;
@@ -279,9 +289,7 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
-name|CONFIG_PREFIX
-operator|+
-literal|"ratio"
+name|RATIO_KEY
 argument_list|,
 literal|1.2F
 argument_list|)

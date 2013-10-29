@@ -1250,6 +1250,7 @@ return|return
 name|modificationTimeStamp
 return|;
 block|}
+specifier|public
 name|byte
 index|[]
 name|getMetadataValue

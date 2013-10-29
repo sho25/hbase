@@ -62,7 +62,7 @@ specifier|public
 interface|interface
 name|StoreConfigInformation
 block|{
-comment|/**    * TODO: remove after HBASE-7252 is fixed.    * @return Gets the Memstore flush size for the region that this store works with.    */
+comment|/**    * @return Gets the Memstore flush size for the region that this store works with.    */
 name|long
 name|getMemstoreFlushSize
 parameter_list|()

@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -269,6 +279,19 @@ operator|.
 name|storeFlusher
 return|;
 block|}
+comment|/**    * @param filesCompacting Files currently compacting    * @return whether a compaction selection is possible    */
+specifier|public
+specifier|abstract
+name|boolean
+name|needsCompaction
+parameter_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|filesCompacting
+parameter_list|)
+function_decl|;
 comment|/**    * Creates an instance of a compaction context specific to this engine.    * Doesn't actually select or start a compaction. See CompactionContext class comment.    * @return New CompactionContext object.    */
 specifier|public
 specifier|abstract

@@ -305,6 +305,16 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -1869,7 +1879,7 @@ name|setFloat
 argument_list|(
 name|StripeStoreConfig
 operator|.
-name|MAX_SPLIT_IMBALANCE
+name|MAX_REGION_SPLIT_IMBALANCE_KEY
 argument_list|,
 name|splitRatioToVerify
 argument_list|)
@@ -4517,6 +4527,7 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: replace with Mockito?
 specifier|private
 specifier|static
 name|MockStoreFile
@@ -4763,6 +4774,24 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|StripeStoreConfig
+name|config
+init|=
+operator|new
+name|StripeStoreConfig
+argument_list|(
+name|conf
+argument_list|,
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|StoreConfigInformation
+operator|.
+name|class
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|StripeStoreFileManager
 name|result
 init|=
@@ -4774,6 +4803,8 @@ name|KVComparator
 argument_list|()
 argument_list|,
 name|conf
+argument_list|,
+name|config
 argument_list|)
 decl_stmt|;
 name|result
