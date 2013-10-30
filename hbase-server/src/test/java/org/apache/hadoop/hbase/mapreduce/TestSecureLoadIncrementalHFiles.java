@@ -43,6 +43,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|UserProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|access
 operator|.
 name|AccessControlLists
@@ -119,9 +135,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|useSecure
-operator|=
-literal|true
+comment|// set the always on security provider
+name|UserProvider
+operator|.
+name|setUserProviderForTesting
+argument_list|(
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|HadoopSecurityEnabledUserProviderForTesting
+operator|.
+name|class
+argument_list|)
 expr_stmt|;
 comment|// setup configuration
 name|SecureTestUtil

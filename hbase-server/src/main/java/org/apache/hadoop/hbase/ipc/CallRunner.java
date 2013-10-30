@@ -119,7 +119,7 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|User
+name|UserProvider
 import|;
 end_import
 
@@ -231,6 +231,10 @@ specifier|final
 name|MonitoredRPCHandler
 name|status
 decl_stmt|;
+specifier|private
+name|UserProvider
+name|userProvider
+decl_stmt|;
 comment|/**    * On construction, adds the size of this call to the running count of outstanding call sizes.    * Presumption is that we are put on a queue while we wait on an executor to run us.  During this    * time we occupy heap.    * @param call The call to run.    * @param rpcServer    */
 comment|// The constructor is shutdown so only RpcServer in this class can make one of these.
 name|CallRunner
@@ -242,6 +246,9 @@ parameter_list|,
 specifier|final
 name|Call
 name|call
+parameter_list|,
+name|UserProvider
+name|userProvider
 parameter_list|)
 block|{
 name|this
@@ -275,6 +282,12 @@ name|status
 operator|=
 name|getStatus
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|userProvider
+operator|=
+name|userProvider
 expr_stmt|;
 block|}
 specifier|public
@@ -457,7 +470,7 @@ name|RequestContext
 operator|.
 name|set
 argument_list|(
-name|User
+name|userProvider
 operator|.
 name|create
 argument_list|(

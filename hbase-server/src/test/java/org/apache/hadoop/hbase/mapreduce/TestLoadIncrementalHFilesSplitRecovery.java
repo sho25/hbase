@@ -1082,8 +1082,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 decl_stmt|;
 name|Path
@@ -1582,8 +1580,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 block|{
 specifier|protected
@@ -2043,8 +2039,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 block|{
 specifier|protected
@@ -2244,8 +2238,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 block|{
 specifier|protected
@@ -2428,8 +2420,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 block|{
 name|int

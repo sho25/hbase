@@ -2967,6 +2967,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|UserProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|trace
 operator|.
 name|SpanReceiverHost
@@ -4043,6 +4059,10 @@ specifier|private
 name|TableLockManager
 name|tableLockManager
 decl_stmt|;
+specifier|private
+name|UserProvider
+name|userProvider
+decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    *    * @param conf    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|HRegionServer
@@ -4077,6 +4097,17 @@ name|checkCodecs
 argument_list|(
 name|this
 operator|.
+name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|userProvider
+operator|=
+name|UserProvider
+operator|.
+name|instantiate
+argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
@@ -4569,14 +4600,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// login the server principal (if using secure Hadoop)
-name|User
+name|userProvider
 operator|.
 name|login
 argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|,
 literal|"hbase.regionserver.keytab.file"
 argument_list|,
 literal|"hbase.regionserver.kerberos.principal"
@@ -10792,7 +10819,7 @@ name|createBlockingRpcChannel
 argument_list|(
 name|sn
 argument_list|,
-name|User
+name|userProvider
 operator|.
 name|getCurrent
 argument_list|()

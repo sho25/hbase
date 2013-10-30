@@ -101,6 +101,22 @@ name|User
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|UserProvider
+import|;
+end_import
+
 begin_comment
 comment|/**  * Denotes a unique key to an {@link HConnection} instance.  *  * In essence, this class captures the properties in {@link Configuration}  * that may be used in the process of establishing a connection. In light of  * that, if any new such properties are introduced into the mix, they must be  * added to the {@link HConnectionKey#properties} list.  *  */
 end_comment
@@ -253,10 +269,20 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|UserProvider
+name|provider
+init|=
+name|UserProvider
+operator|.
+name|instantiate
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 name|User
 name|currentUser
 init|=
-name|User
+name|provider
 operator|.
 name|getCurrent
 argument_list|()

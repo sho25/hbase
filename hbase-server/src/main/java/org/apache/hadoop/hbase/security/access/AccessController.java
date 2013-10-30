@@ -837,6 +837,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|UserProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|access
 operator|.
 name|Permission
@@ -1089,6 +1105,10 @@ argument_list|()
 operator|.
 name|makeMap
 argument_list|()
+decl_stmt|;
+specifier|private
+name|UserProvider
+name|userProvider
 decl_stmt|;
 name|void
 name|initialize
@@ -2177,7 +2197,7 @@ block|{
 comment|// for non-rpc handling, fallback to system user
 name|user
 operator|=
-name|User
+name|userProvider
 operator|.
 name|getCurrent
 argument_list|()
@@ -3138,6 +3158,21 @@ name|getZooKeeper
 argument_list|()
 expr_stmt|;
 block|}
+comment|// set the user-provider.
+name|this
+operator|.
+name|userProvider
+operator|=
+name|UserProvider
+operator|.
+name|instantiate
+argument_list|(
+name|env
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// If zk is null or IOException while obtaining auth manager,
 comment|// throw RuntimeException so that the coprocessor is unloaded.
 if|if
@@ -8530,7 +8565,7 @@ block|{
 name|User
 name|user
 init|=
-name|User
+name|userProvider
 operator|.
 name|getCurrent
 argument_list|()

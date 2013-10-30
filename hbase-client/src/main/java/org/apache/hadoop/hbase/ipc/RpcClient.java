@@ -719,6 +719,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|UserProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|token
 operator|.
 name|AuthenticationTokenSelector
@@ -1199,6 +1215,10 @@ specifier|private
 specifier|final
 name|boolean
 name|fallbackAllowed
+decl_stmt|;
+specifier|private
+name|UserProvider
+name|userProvider
 decl_stmt|;
 specifier|final
 specifier|private
@@ -2192,12 +2212,10 @@ name|this
 operator|.
 name|useSasl
 operator|=
-name|User
+name|userProvider
 operator|.
 name|isHBaseSecurityEnabled
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
@@ -6253,6 +6271,18 @@ name|localAddr
 operator|=
 name|localAddr
 expr_stmt|;
+name|this
+operator|.
+name|userProvider
+operator|=
+name|UserProvider
+operator|.
+name|instantiate
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+comment|// login the server principal (if using secure Hadoop)
 if|if
 condition|(
 name|LOG
@@ -6781,7 +6811,7 @@ name|NORMAL_QOS
 argument_list|)
 return|;
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param md    * @param param    * @param cells    * @param addr    * @param returnType    * @param ticket Be careful which ticket you pass.  A new user will mean a new Connection.    * {@link User#getCurrent()} makes a new instance of User each time so will be a new Connection    * each time.    * @param rpcTimeout    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param md    * @param param    * @param cells    * @param addr    * @param returnType    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @param rpcTimeout    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
 name|Pair
 argument_list|<
 name|Message
@@ -7659,7 +7689,7 @@ name|remove
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Make a blocking call.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param md    * @param controller    * @param param    * @param returnType    * @param isa    * @param ticket Be careful which ticket you pass.  A new user will mean a new Connection.    * {@link User#getCurrent()} makes a new instance of User each time so will be a new Connection    * each time.    * @param rpcTimeout    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Make a blocking call. Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param md    * @param controller    * @param param    * @param returnType    * @param isa    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @param rpcTimeout    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
 name|Message
 name|callBlockingMethod
 parameter_list|(

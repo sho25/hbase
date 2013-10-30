@@ -559,13 +559,6 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-comment|//used by secure subclass
-specifier|static
-name|boolean
-name|useSecure
-init|=
-literal|false
-decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -1061,8 +1054,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|useSecure
 argument_list|)
 decl_stmt|;
 name|String
@@ -1400,8 +1391,6 @@ name|util
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 try|try
