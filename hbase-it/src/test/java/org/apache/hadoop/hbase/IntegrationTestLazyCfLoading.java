@@ -1205,6 +1205,16 @@ expr_stmt|;
 name|createTable
 argument_list|()
 expr_stmt|;
+comment|// after table creation, ACLs need time to be propagated to RSs in a secure deployment
+comment|// so we sleep a little bit because we don't have a good way to know when permissions
+comment|// are received by RSs
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|3000
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|void
