@@ -268,7 +268,7 @@ name|ugi
 argument_list|)
 return|;
 block|}
-comment|/**    * Log in the current process using the given configuration keys for the credential file and login    * principal.    *<p>    *<strong>This is only applicable when running on secure Hadoop</strong> -- see    * org.apache.hadoop.security.SecurityUtil#login(Configuration,String,String,String). On regular    * Hadoop (without security features), this will safely be ignored.    *</p>    * @param conf The configuration data to use    * @param fileConfKey Property key used to configure path to the credential file    * @param principalConfKey Property key used to configure login principal    * @param localhost Current hostname to use in any credentials    * @throws IOException underlying exception from SecurityUtil.login() call    */
+comment|/**    * Log in the current process using the given configuration keys for the credential file and login    * principal.    *<p>    *<strong>This is only applicable when running on secure Hadoop</strong> -- see    * org.apache.hadoop.security.SecurityUtil#login(Configuration,String,String,String). On regular    * Hadoop (without security features), this will safely be ignored.    *</p>    * @param fileConfKey Property key used to configure path to the credential file    * @param principalConfKey Property key used to configure login principal    * @param localhost Current hostname to use in any credentials    * @throws IOException underlying exception from SecurityUtil.login() call    */
 specifier|public
 name|void
 name|login
