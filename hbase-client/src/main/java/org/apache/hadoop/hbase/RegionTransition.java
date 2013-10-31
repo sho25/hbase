@@ -23,7 +23,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -35,7 +35,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|InvalidProtocolBufferException
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -474,9 +474,9 @@ argument_list|)
 operator|.
 name|setRegionName
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|regionName
 argument_list|)
@@ -507,9 +507,9 @@ name|builder
 operator|.
 name|setPayload
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|payload
 argument_list|)

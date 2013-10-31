@@ -37,7 +37,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -49,7 +49,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|InvalidProtocolBufferException
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -5050,9 +5050,9 @@ name|builder
 operator|.
 name|setName
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|getName
 argument_list|()
@@ -5093,9 +5093,9 @@ name|aBuilder
 operator|.
 name|setFirst
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|e
 operator|.
@@ -5111,9 +5111,9 @@ name|aBuilder
 operator|.
 name|setSecond
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|e
 operator|.

@@ -171,7 +171,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -607,9 +607,9 @@ name|builder
 operator|.
 name|setBigdecimalMsg
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.

@@ -161,7 +161,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -456,9 +456,9 @@ name|regionBuilder
 operator|.
 name|setStartKey
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|aRegion
 operator|.
@@ -471,9 +471,9 @@ name|regionBuilder
 operator|.
 name|setEndKey
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|aRegion
 operator|.

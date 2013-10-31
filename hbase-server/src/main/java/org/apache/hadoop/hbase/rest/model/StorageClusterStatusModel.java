@@ -191,7 +191,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -2115,9 +2115,9 @@ name|regionBuilder
 operator|.
 name|setName
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|region
 operator|.

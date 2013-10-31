@@ -65,6 +65,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ZeroCopyLiteralByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -756,9 +768,9 @@ argument_list|()
 operator|.
 name|setIdentifier
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|userToken
 operator|.
@@ -769,9 +781,9 @@ argument_list|)
 operator|.
 name|setPassword
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|userToken
 operator|.
@@ -856,9 +868,9 @@ argument_list|()
 operator|.
 name|setFamily
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|el
 operator|.

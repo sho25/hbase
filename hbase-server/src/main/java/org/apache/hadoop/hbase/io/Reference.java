@@ -199,6 +199,18 @@ name|ByteString
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ZeroCopyLiteralByteString
+import|;
+end_import
+
 begin_comment
 comment|/**  * A reference to the top or bottom half of a store file where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  The file referenced  * lives under a different region.  References are made at region split time.  *  *<p>References work with a special half store file type.  References know how  * to write out the reference format in the file system and are what is juggled  * when references are mixed in with direct store files.  The half store file  * type is used reading the referred to file.  *  *<p>References to store files located over in some other region look like  * this in the file system  *<code>1278437856009925445.3323223323</code>:  * i.e. an id followed by hash of the referenced region.  * Note, a region is itself not splittable if it has instances of store file  * references.  References are cleaned up by compactions.  */
 end_comment
@@ -718,9 +730,9 @@ name|builder
 operator|.
 name|setSplitkey
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|getSplitKey
 argument_list|()

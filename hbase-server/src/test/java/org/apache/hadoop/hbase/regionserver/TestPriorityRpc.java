@@ -315,6 +315,18 @@ name|ByteString
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ZeroCopyLiteralByteString
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests that verify certain RPCs get a higher QoS.  */
 end_comment
@@ -447,9 +459,9 @@ expr_stmt|;
 name|ByteString
 name|name
 init|=
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -495,9 +507,9 @@ name|getBuilder
 operator|.
 name|setRow
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 literal|"somerow"
 operator|.

@@ -649,6 +649,18 @@ name|com
 operator|.
 name|google
 operator|.
+name|protobuf
+operator|.
+name|ZeroCopyLiteralByteString
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|common
 operator|.
 name|base
@@ -3134,9 +3146,9 @@ name|bbpBuilder
 operator|.
 name|setFirst
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|e
 operator|.
@@ -3149,9 +3161,9 @@ name|bbpBuilder
 operator|.
 name|setSecond
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|e
 operator|.
@@ -3347,7 +3359,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Now parse the old Writable format.  It was a list of Map entries.  Each map entry was a key and a value of      * a byte [].  The old map format had a byte before each entry that held a code which was short for the key or      * value type.  We know it was a byte [] so in below we just read and dump it.      * @throws IOException       */
+comment|/** Now parse the old Writable format.  It was a list of Map entries.  Each map entry was a key and a value of      * a byte [].  The old map format had a byte before each entry that held a code which was short for the key or      * value type.  We know it was a byte [] so in below we just read and dump it.      * @throws IOException      */
 name|void
 name|parseWritable
 parameter_list|(

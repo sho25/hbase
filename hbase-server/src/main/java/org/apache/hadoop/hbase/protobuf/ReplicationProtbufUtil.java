@@ -327,7 +327,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ServiceException
 import|;
 end_import
 
@@ -339,7 +339,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ServiceException
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -581,9 +581,9 @@ name|keyBuilder
 operator|.
 name|setEncodedRegionName
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|key
 operator|.
@@ -596,9 +596,9 @@ name|keyBuilder
 operator|.
 name|setTableName
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|key
 operator|.
@@ -730,9 +730,9 @@ name|scopeBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|scope
 operator|.

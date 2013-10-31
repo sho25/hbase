@@ -97,7 +97,7 @@ name|bind
 operator|.
 name|annotation
 operator|.
-name|XmlRootElement
+name|XmlElement
 import|;
 end_import
 
@@ -111,7 +111,7 @@ name|bind
 operator|.
 name|annotation
 operator|.
-name|XmlElement
+name|XmlRootElement
 import|;
 end_import
 
@@ -211,7 +211,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -381,9 +381,9 @@ name|rowBuilder
 operator|.
 name|setKey
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|row
 operator|.
@@ -417,9 +417,9 @@ name|cellBuilder
 operator|.
 name|setColumn
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
@@ -432,9 +432,9 @@ name|cellBuilder
 operator|.
 name|setData
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
