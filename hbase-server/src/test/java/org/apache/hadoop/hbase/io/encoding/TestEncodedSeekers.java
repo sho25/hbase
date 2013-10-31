@@ -555,6 +555,11 @@ specifier|final
 name|boolean
 name|includeTags
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|compressTags
+decl_stmt|;
 comment|/** Enable when debugging */
 specifier|private
 specifier|static
@@ -632,6 +637,21 @@ literal|true
 block|}
 control|)
 block|{
+for|for
+control|(
+name|boolean
+name|compressTags
+range|:
+operator|new
+name|boolean
+index|[]
+block|{
+literal|false
+block|,
+literal|true
+block|}
+control|)
+block|{
 name|paramList
 operator|.
 name|add
@@ -645,9 +665,12 @@ block|,
 name|encodeOnDisk
 block|,
 name|includeTags
+block|,
+name|compressTags
 block|}
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -666,6 +689,9 @@ name|encodeOnDisk
 parameter_list|,
 name|boolean
 name|includeTags
+parameter_list|,
+name|boolean
+name|compressTags
 parameter_list|)
 block|{
 name|this
@@ -686,6 +712,12 @@ name|includeTags
 operator|=
 name|includeTags
 expr_stmt|;
+name|this
+operator|.
+name|compressTags
+operator|=
+name|compressTags
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -702,9 +734,21 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Testing encoded seekers for encoding "
+literal|"Testing encoded seekers for encoding : "
 operator|+
 name|encoding
+operator|+
+literal|", encodeOnDisk : "
+operator|+
+name|encodeOnDisk
+operator|+
+literal|", includeTags : "
+operator|+
+name|includeTags
+operator|+
+literal|", compressTags : "
+operator|+
+name|compressTags
 argument_list|)
 expr_stmt|;
 if|if
@@ -787,6 +831,11 @@ argument_list|(
 name|BloomType
 operator|.
 name|NONE
+argument_list|)
+operator|.
+name|setCompressTags
+argument_list|(
+name|compressTags
 argument_list|)
 decl_stmt|;
 name|HRegion

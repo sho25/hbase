@@ -4254,6 +4254,14 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
+name|withCompressTags
+argument_list|(
+name|family
+operator|.
+name|shouldCompressTags
+argument_list|()
+argument_list|)
+operator|.
 name|withCompressionAlgo
 argument_list|(
 name|compression

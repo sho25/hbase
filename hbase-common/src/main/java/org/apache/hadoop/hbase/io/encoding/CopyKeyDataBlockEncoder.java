@@ -351,7 +351,7 @@ condition|)
 block|{
 name|current
 operator|.
-name|tagLength
+name|tagsLength
 operator|=
 name|currentBuffer
 operator|.
@@ -366,7 +366,7 @@ name|currentBuffer
 argument_list|,
 name|current
 operator|.
-name|tagLength
+name|tagsLength
 argument_list|)
 expr_stmt|;
 block|}
