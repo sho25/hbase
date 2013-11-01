@@ -107,20 +107,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -368,6 +354,20 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
 import|;
 end_import
 
@@ -861,6 +861,7 @@ extends|extends
 name|AppenderSkeleton
 block|{
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|String
@@ -1306,6 +1307,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+specifier|public
 specifier|static
 class|class
 name|TestDelayedImplementation
@@ -1318,6 +1320,7 @@ name|BlockingInterface
 block|{
 comment|/**      * Should the return value of delayed call be set at the end of the delay      * or at call return.      */
 specifier|private
+specifier|final
 name|boolean
 name|delayReturnValue
 decl_stmt|;
@@ -1411,6 +1414,8 @@ operator|new
 name|Thread
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1490,7 +1495,7 @@ argument_list|()
 return|;
 block|}
 block|}
-specifier|private
+specifier|public
 specifier|static
 class|class
 name|TestThread
@@ -1498,6 +1503,7 @@ extends|extends
 name|Thread
 block|{
 specifier|private
+specifier|final
 name|TestDelayedRpcProtos
 operator|.
 name|TestDelayedService
@@ -1506,10 +1512,12 @@ name|BlockingInterface
 name|stub
 decl_stmt|;
 specifier|private
+specifier|final
 name|boolean
 name|delay
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Integer
