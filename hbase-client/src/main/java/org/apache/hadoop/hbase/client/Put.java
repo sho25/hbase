@@ -639,12 +639,7 @@ name|familyMap
 operator|.
 name|put
 argument_list|(
-name|CellUtil
-operator|.
-name|cloneFamily
-argument_list|(
-name|kv
-argument_list|)
+name|family
 argument_list|,
 name|list
 argument_list|)

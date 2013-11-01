@@ -68,6 +68,36 @@ name|array
 argument_list|)
 return|;
 block|}
+comment|/**    * Wraps a subset of a byte array in a {@link ByteString} without copying it.    */
+specifier|public
+specifier|static
+name|ByteString
+name|wrap
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|array
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+block|{
+return|return
+operator|new
+name|BoundedByteString
+argument_list|(
+name|array
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|)
+return|;
+block|}
 comment|// TODO:
 comment|// ZeroCopyLiteralByteString.wrap(this.buf, 0, this.count);
 comment|/**    * Extracts the byte array from the given {@link ByteString} without copy.    * @param buf A buffer from which to extract the array.  This buffer must be    * actually an instance of a {@code LiteralByteString}.    */

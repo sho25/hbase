@@ -896,7 +896,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup the configuration for a constraint as to whether it is enabled and    * its priority    *     * @param conf    *          on which to base the new configuration    * @param enabled    *<tt>true</tt> if it should be run    * @param priority    *          relative to other constraints    * @returns a new configuration, storable in the {@link HTableDescriptor}    */
+comment|/**    * Setup the configuration for a constraint as to whether it is enabled and    * its priority    *     * @param conf    *          on which to base the new configuration    * @param enabled    *<tt>true</tt> if it should be run    * @param priority    *          relative to other constraints    * @return a new configuration, storable in the {@link HTableDescriptor}    */
 specifier|private
 specifier|static
 name|Configuration

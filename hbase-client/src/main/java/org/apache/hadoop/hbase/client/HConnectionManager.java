@@ -12381,7 +12381,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *     * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException    * @returns null if we didn't find the exception, the exception otherwise.    */
+comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *     * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException    * @return null if we didn't find the exception, the exception otherwise.    */
 specifier|public
 specifier|static
 name|Throwable
