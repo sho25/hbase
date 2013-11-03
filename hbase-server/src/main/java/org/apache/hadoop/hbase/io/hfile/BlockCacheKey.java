@@ -395,6 +395,15 @@ return|return
 name|encoding
 return|;
 block|}
+specifier|public
+name|long
+name|getOffset
+parameter_list|()
+block|{
+return|return
+name|offset
+return|;
+block|}
 block|}
 end_class
 
