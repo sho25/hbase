@@ -12688,11 +12688,6 @@ condition|)
 return|return
 literal|true
 return|;
-name|RegionState
-name|rs
-init|=
-literal|null
-decl_stmt|;
 name|long
 name|end
 init|=
@@ -12719,11 +12714,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting on "
+literal|"Waiting for "
 operator|+
-name|rs
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
 operator|+
-literal|" to clear regions-in-transition"
+literal|" to leave regions-in-transition, timeOut="
+operator|+
+name|timeOut
+operator|+
+literal|" ms."
 argument_list|)
 expr_stmt|;
 while|while

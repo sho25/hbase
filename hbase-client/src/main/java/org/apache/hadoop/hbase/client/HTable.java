@@ -6372,6 +6372,21 @@ return|return
 name|operationTimeout
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|tableName
+operator|+
+literal|", "
+operator|+
+name|connection
+return|;
+block|}
 comment|/**    * Run basic test.    * @param args Pass table name and row and will get the content.    * @throws IOException    */
 specifier|public
 specifier|static
