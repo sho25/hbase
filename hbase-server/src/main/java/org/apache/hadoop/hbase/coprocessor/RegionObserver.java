@@ -671,6 +671,15 @@ name|RegionObserver
 extends|extends
 name|Coprocessor
 block|{
+comment|/** Mutation type for postMutationBeforeWAL hook */
+specifier|public
+enum|enum
+name|MutationType
+block|{
+name|APPEND
+block|,
+name|INCREMENT
+block|}
 comment|/**    * Called before the region is reported as open to the master.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preOpen
@@ -2345,6 +2354,31 @@ name|StoreFile
 operator|.
 name|Reader
 name|reader
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after a new cell has been created during an increment operation, but before    * it is committed to the WAL or memstore.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param opType the operation type    * @param mutation the current mutation    * @param oldCell old cell containing previous value    * @param newCell the new cell containing the computed value    * @return the new cell, possibly changed    * @throws IOException    */
+name|Cell
+name|postMutationBeforeWAL
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|MutationType
+name|opType
+parameter_list|,
+name|Mutation
+name|mutation
+parameter_list|,
+name|Cell
+name|oldCell
+parameter_list|,
+name|Cell
+name|newCell
 parameter_list|)
 throws|throws
 name|IOException

@@ -3051,8 +3051,6 @@ argument_list|)
 expr_stmt|;
 name|pos
 operator|+=
-name|keylength
-operator|+
 name|vlength
 expr_stmt|;
 if|if
