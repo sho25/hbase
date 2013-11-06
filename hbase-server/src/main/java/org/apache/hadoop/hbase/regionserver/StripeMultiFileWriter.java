@@ -233,6 +233,13 @@ specifier|protected
 name|StoreScanner
 name|sourceScanner
 decl_stmt|;
+comment|/** Whether to write stripe metadata */
+specifier|private
+name|boolean
+name|doWriteStripeMetadata
+init|=
+literal|true
+decl_stmt|;
 specifier|public
 interface|interface
 name|WriterFactory
@@ -284,6 +291,18 @@ name|comparator
 expr_stmt|;
 block|}
 specifier|public
+name|void
+name|setNoStripeMetadata
+parameter_list|()
+block|{
+name|this
+operator|.
+name|doWriteStripeMetadata
+operator|=
+literal|false
+expr_stmt|;
+block|}
+specifier|public
 name|List
 argument_list|<
 name|Path
@@ -332,7 +351,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Writing out metadata for "
+operator|(
+name|this
+operator|.
+name|doWriteStripeMetadata
+condition|?
+literal|"W"
+else|:
+literal|"Not w"
+operator|)
+operator|+
+literal|"riting out metadata for "
 operator|+
 name|this
 operator|.
@@ -399,6 +428,11 @@ literal|null
 condition|)
 continue|continue;
 comment|// writer was skipped due to 0 KVs
+if|if
+condition|(
+name|doWriteStripeMetadata
+condition|)
+block|{
 name|writer
 operator|.
 name|appendFileInfo
@@ -437,6 +471,7 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|writer
 operator|.
 name|appendMetadata

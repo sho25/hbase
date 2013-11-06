@@ -257,6 +257,22 @@ name|Compactor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|CollectionBackedScanner
+import|;
+end_import
+
 begin_comment
 comment|/**  * Store flusher interface. Turns a snapshot of memstore into a set of store files (usually one).  * Custom implementation can be provided.  */
 end_comment
@@ -389,17 +405,42 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Calls coprocessor to create a flush scanner based on memstore scanner */
+comment|/**    * Creates the scanner for flushing snapshot. Also calls coprocessors.    * @return The scanner; null if coprocessor is canceling the flush.    */
 specifier|protected
 name|InternalScanner
-name|preCreateCoprocScanner
+name|createScanner
 parameter_list|(
-name|KeyValueScanner
-name|memstoreScanner
+name|SortedSet
+argument_list|<
+name|KeyValue
+argument_list|>
+name|snapshot
+parameter_list|,
+name|long
+name|smallestReadPoint
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|KeyValueScanner
+name|memstoreScanner
+init|=
+operator|new
+name|CollectionBackedScanner
+argument_list|(
+name|snapshot
+argument_list|,
+name|store
+operator|.
+name|getComparator
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|InternalScanner
+name|scanner
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|store
@@ -410,7 +451,8 @@ operator|!=
 literal|null
 condition|)
 block|{
-return|return
+name|scanner
+operator|=
 name|store
 operator|.
 name|getCoprocessorHost
@@ -422,25 +464,14 @@ name|store
 argument_list|,
 name|memstoreScanner
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-return|return
+if|if
+condition|(
+name|scanner
+operator|==
 literal|null
-return|;
-block|}
-comment|/** Creates the default flush scanner based on memstore scanner */
-specifier|protected
-name|InternalScanner
-name|createStoreScanner
-parameter_list|(
-name|long
-name|smallestReadPoint
-parameter_list|,
-name|KeyValueScanner
-name|memstoreScanner
-parameter_list|)
-throws|throws
-name|IOException
+condition|)
 block|{
 name|Scan
 name|scan
@@ -462,7 +493,8 @@ name|getMaxVersions
 argument_list|()
 argument_list|)
 expr_stmt|;
-return|return
+name|scanner
+operator|=
 operator|new
 name|StoreScanner
 argument_list|(
@@ -492,19 +524,13 @@ name|HConstants
 operator|.
 name|OLDEST_TIMESTAMP
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-comment|/**    * Calls coprocessor to create a scanner based on default flush scanner    * @return new or default scanner; if null, flush should not proceed.    */
-specifier|protected
-name|InternalScanner
-name|postCreateCoprocScanner
-parameter_list|(
-name|InternalScanner
+assert|assert
 name|scanner
-parameter_list|)
-throws|throws
-name|IOException
-block|{
+operator|!=
+literal|null
+assert|;
 if|if
 condition|(
 name|store
@@ -533,7 +559,7 @@ return|return
 name|scanner
 return|;
 block|}
-comment|/**    * Performs memstore flush, writing data from scanner into sink.    * @param scanner Scanner to get data from.    * @param sink Sink to write data to. Could be StoreFile.Writer.    * @param smallestReadPoint Smallest read point used for the flush.    * @return Bytes flushed. s   */
+comment|/**    * Performs memstore flush, writing data from scanner into sink.    * @param scanner Scanner to get data from.    * @param sink Sink to write data to. Could be StoreFile.Writer.    * @param smallestReadPoint Smallest read point used for the flush.    * @return Bytes flushed.    */
 specifier|protected
 name|long
 name|performFlush

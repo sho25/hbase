@@ -154,6 +154,15 @@ name|INITIAL_STRIPE_COUNT_KEY
 init|=
 literal|"hbase.store.stripe.initialStripeCount"
 decl_stmt|;
+comment|/** Whether to flush memstore to L0 files, or directly to stripes. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FLUSH_TO_L0_KEY
+init|=
+literal|"hbase.store.stripe.compaction.flushToL0"
+decl_stmt|;
 comment|/** When splitting region, the maximum size imbalance to allow in an attempt to split at a    stripe boundary, so that no files go to both regions. Most users won't need to change that. */
 specifier|public
 specifier|static
@@ -200,11 +209,17 @@ name|splitPartCount
 decl_stmt|;
 specifier|private
 specifier|final
+name|boolean
+name|flushIntoL0
+decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|splitPartSize
 decl_stmt|;
 comment|// derived from sizeToSplitAt and splitPartCount
 specifier|private
+specifier|static
 specifier|final
 name|double
 name|EPSILON
@@ -278,19 +293,31 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|splitPartCount
+name|flushIntoL0
 operator|=
+name|config
+operator|.
+name|getBoolean
+argument_list|(
+name|FLUSH_TO_L0_KEY
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|float
+name|splitPartCount
+init|=
 name|getFloat
 argument_list|(
 name|config
 argument_list|,
 name|SPLIT_PARTS_KEY
 argument_list|,
-literal|2.0f
+literal|2f
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|Math
@@ -305,20 +332,32 @@ operator|<
 name|EPSILON
 condition|)
 block|{
-throw|throw
-operator|new
-name|RuntimeException
+name|LOG
+operator|.
+name|error
 argument_list|(
-literal|"Split part count cannot be 1: "
+literal|"Split part count cannot be 1 ("
 operator|+
 name|this
 operator|.
 name|splitPartCount
+operator|+
+literal|"), using the default"
 argument_list|)
-throw|;
+expr_stmt|;
+name|splitPartCount
+operator|=
+literal|2f
+expr_stmt|;
 block|}
-comment|// TODO: change when no L0.
+name|this
+operator|.
+name|splitPartCount
+operator|=
+name|splitPartCount
+expr_stmt|;
 comment|// Arbitrary default split size - 4 times the size of one L0 compaction.
+comment|// If we flush into L0 there's no split compaction, but for default value it is ok.
 name|double
 name|flushSize
 init|=
@@ -373,10 +412,9 @@ argument_list|,
 name|defaultSplitSize
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
+name|int
 name|initialCount
-operator|=
+init|=
 name|config
 operator|.
 name|getInt
@@ -385,6 +423,31 @@ name|INITIAL_STRIPE_COUNT_KEY
 argument_list|,
 literal|1
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|initialCount
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Initial stripe count is 0, using the default"
+argument_list|)
+expr_stmt|;
+name|initialCount
+operator|=
+literal|1
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|initialCount
+operator|=
+name|initialCount
 expr_stmt|;
 name|this
 operator|.
@@ -437,8 +500,8 @@ decl_stmt|;
 if|if
 condition|(
 name|value
-operator|==
-literal|0
+operator|<
+name|EPSILON
 condition|)
 block|{
 name|LOG
@@ -449,7 +512,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%s is set to 0; using default value of %f"
+literal|"%s is set to 0 or negative; using default value of %f"
 argument_list|,
 name|key
 argument_list|,
@@ -521,6 +584,15 @@ parameter_list|()
 block|{
 return|return
 name|stripeCompactMaxFiles
+return|;
+block|}
+specifier|public
+name|boolean
+name|isUsingL0Flush
+parameter_list|()
+block|{
+return|return
+name|flushIntoL0
 return|;
 block|}
 specifier|public

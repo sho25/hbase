@@ -139,13 +139,18 @@ argument_list|>
 name|storeFiles
 parameter_list|)
 function_decl|;
-comment|/**    * Adds new file, either for from MemStore flush or bulk insert, into the structure.    * @param sf New store file.    */
+comment|/**    * Adds new files, either for from MemStore flush or bulk insert, into the structure.    * @param sf New store file.    */
 name|void
-name|insertNewFile
+name|insertNewFiles
 parameter_list|(
+name|Collection
+argument_list|<
 name|StoreFile
-name|sf
+argument_list|>
+name|sfs
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Adds compaction results into the structure.    * @param compactedFiles The input files for the compaction.    * @param results The resulting files for the compaction.    */
 name|void
