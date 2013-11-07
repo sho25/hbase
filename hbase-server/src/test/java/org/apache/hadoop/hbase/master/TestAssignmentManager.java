@@ -5140,6 +5140,17 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
+name|logSplit
+argument_list|(
+name|SERVERNAME_A
+argument_list|)
+expr_stmt|;
+comment|// Assume log splitting is done
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
 name|createRegionState
 argument_list|(
 name|REGIONINFO

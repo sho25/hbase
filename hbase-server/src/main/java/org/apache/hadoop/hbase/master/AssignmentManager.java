@@ -2793,6 +2793,7 @@ literal|false
 return|;
 block|}
 block|}
+return|return
 name|processRegionsInTransition
 argument_list|(
 name|rt
@@ -2804,9 +2805,6 @@ operator|.
 name|getVersion
 argument_list|()
 argument_list|)
-expr_stmt|;
-return|return
-literal|true
 return|;
 block|}
 finally|finally
@@ -2818,8 +2816,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This call is invoked only (1) master assign meta;    * (2) during failover mode startup, zk assignment node processing.    * The locker is set in the caller.    *    * It should be private but it is used by some test too.    */
-name|void
+comment|/**    * This call is invoked only (1) master assign meta;    * (2) during failover mode startup, zk assignment node processing.    * The locker is set in the caller. It returns true if the region    * is in transition for sure, false otherwise.    *    * It should be private but it is used by some test too.    */
+name|boolean
 name|processRegionsInTransition
 parameter_list|(
 specifier|final
@@ -2933,18 +2931,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Just return
-return|return;
+return|return
+literal|true
+return|;
 block|}
-switch|switch
-condition|(
-name|et
-condition|)
-block|{
-case|case
-name|M_ZK_REGION_CLOSING
-case|:
-comment|// If zk node of the region was updated by a live server skip this
-comment|// region and just add it into RIT.
 if|if
 condition|(
 operator|!
@@ -2956,23 +2946,75 @@ name|sn
 argument_list|)
 condition|)
 block|{
-comment|// If was not online, its closed now. Force to OFFLINE and this
-comment|// will get it reassigned if appropriate
-name|forceOffline
+comment|// It was on a dead server, it's closed now. Force to OFFLINE and put
+comment|// it in transition. Try to re-assign it, but it will fail most likely,
+comment|// since we have not done log splitting for the dead server yet.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"RIT "
+operator|+
+name|encodedName
+operator|+
+literal|" in state="
+operator|+
+name|rt
+operator|.
+name|getEventType
+argument_list|()
+operator|+
+literal|" was on deadserver; forcing offline"
+argument_list|)
+expr_stmt|;
+name|ZKAssign
+operator|.
+name|createOrForceNodeOffline
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|regionInfo
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
+name|regionStates
+operator|.
+name|updateRegionState
 argument_list|(
 name|regionInfo
 argument_list|,
-name|rt
+name|State
+operator|.
+name|OFFLINE
+argument_list|,
+name|sn
 argument_list|)
 expr_stmt|;
+name|invokeAssign
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
-else|else
+switch|switch
+condition|(
+name|et
+condition|)
 block|{
+case|case
+name|M_ZK_REGION_CLOSING
+case|:
 comment|// Insert into RIT& resend the query to the region server: may be the previous master
 comment|// died before sending the query the first time.
 specifier|final
 name|RegionState
-name|rs
+name|rsClosing
 init|=
 name|regionStates
 operator|.
@@ -3029,7 +3071,7 @@ name|unassign
 argument_list|(
 name|regionInfo
 argument_list|,
-name|rs
+name|rsClosing
 argument_list|,
 name|expectedVersion
 argument_list|,
@@ -3071,7 +3113,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|RS_ZK_REGION_CLOSED
@@ -3080,7 +3121,9 @@ case|case
 name|RS_ZK_REGION_FAILED_OPEN
 case|:
 comment|// Region is closed, insert into RIT and handle it
-name|addToRITandInvokeAssign
+name|regionStates
+operator|.
+name|updateRegionState
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -3088,41 +3131,18 @@ name|State
 operator|.
 name|CLOSED
 argument_list|,
-name|rt
+name|sn
+argument_list|)
+expr_stmt|;
+name|invokeAssign
+argument_list|(
+name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
 name|M_ZK_REGION_OFFLINE
 case|:
-comment|// If zk node of the region was updated by a live server skip this
-comment|// region and just add it into RIT.
-if|if
-condition|(
-operator|!
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
-comment|// Region is offline, insert into RIT and invoke assign
-name|addToRITandInvokeAssign
-argument_list|(
-name|regionInfo
-argument_list|,
-name|State
-operator|.
-name|OFFLINE
-argument_list|,
-name|rt
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 comment|// Insert in RIT and resend to the regionserver
 name|regionStates
 operator|.
@@ -3137,7 +3157,7 @@ argument_list|)
 expr_stmt|;
 specifier|final
 name|RegionState
-name|rs
+name|rsOffline
 init|=
 name|regionStates
 operator|.
@@ -3208,7 +3228,7 @@ argument_list|)
 expr_stmt|;
 name|assign
 argument_list|(
-name|rs
+name|rsOffline
 argument_list|,
 literal|false
 argument_list|,
@@ -3228,32 +3248,10 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|RS_ZK_REGION_OPENING
 case|:
-if|if
-condition|(
-operator|!
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
-name|forceOffline
-argument_list|(
-name|regionInfo
-argument_list|,
-name|rt
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|regionStates
 operator|.
 name|updateRegionState
@@ -3265,32 +3263,10 @@ operator|.
 name|OPENING
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|RS_ZK_REGION_OPENED
 case|:
-if|if
-condition|(
-operator|!
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
-name|forceOffline
-argument_list|(
-name|regionInfo
-argument_list|,
-name|rt
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 comment|// Region is opened, insert into RIT and handle it
 comment|// This could be done asynchronously, we would need then to acquire the lock in the
 comment|//  handler.
@@ -3322,7 +3298,6 @@ operator|.
 name|process
 argument_list|()
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|RS_ZK_REQUEST_REGION_SPLIT
@@ -3333,32 +3308,9 @@ case|:
 case|case
 name|RS_ZK_REGION_SPLIT
 case|:
-if|if
-condition|(
-name|serverManager
-operator|.
-name|isServerOnline
-argument_list|(
-name|sn
-argument_list|)
-condition|)
-block|{
 comment|// Splitting region should be online. We could have skipped it during
 comment|// user region rebuilding since we may consider the split is completed.
 comment|// Put it in SPLITTING state to avoid complications.
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|regionInfo
-argument_list|,
-name|State
-operator|.
-name|OPEN
-argument_list|,
-name|sn
-argument_list|)
-expr_stmt|;
 name|regionStates
 operator|.
 name|regionOnline
@@ -3379,7 +3331,6 @@ operator|.
 name|SPLITTING
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 operator|!
@@ -3482,106 +3433,9 @@ operator|+
 name|sn
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * Put the region<code>hri</code> into an offline state up in zk.    *    * You need to have lock on the region before calling this method.    *    * @param hri    * @param oldRt    * @throws KeeperException    */
-specifier|private
-name|void
-name|forceOffline
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|hri
-parameter_list|,
-specifier|final
-name|RegionTransition
-name|oldRt
-parameter_list|)
-throws|throws
-name|KeeperException
-block|{
-comment|// If was on dead server, its closed now.  Force to OFFLINE and then
-comment|// invoke assign; this will get it reassigned if appropriate
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"RIT "
-operator|+
-name|hri
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|" in state="
-operator|+
-name|oldRt
-operator|.
-name|getEventType
-argument_list|()
-operator|+
-literal|" was on deadserver; forcing offline"
-argument_list|)
-expr_stmt|;
-name|ZKAssign
-operator|.
-name|createOrForceNodeOffline
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|hri
-argument_list|,
-name|oldRt
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|addToRITandInvokeAssign
-argument_list|(
-name|hri
-argument_list|,
-name|State
-operator|.
-name|OFFLINE
-argument_list|,
-name|oldRt
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Add to the in-memory copy of regions in transition and then invoke    * assign on passed region<code>hri</code>    * @param hri    * @param state    * @param oldData    */
-specifier|private
-name|void
-name|addToRITandInvokeAssign
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|hri
-parameter_list|,
-specifier|final
-name|State
-name|state
-parameter_list|,
-specifier|final
-name|RegionTransition
-name|oldData
-parameter_list|)
-block|{
-name|regionStates
-operator|.
-name|updateRegionState
-argument_list|(
-name|oldData
-argument_list|,
-name|state
-argument_list|)
-expr_stmt|;
-name|invokeAssign
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * When a region is closed, it should be removed from the regionsToReopen    * @param hri HRegionInfo of the region which was closed    */
 specifier|public
@@ -8088,6 +7942,14 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+name|ServerName
+name|sn
+init|=
+name|state
+operator|.
+name|getServerName
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|forceNewPlan
@@ -8176,11 +8038,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|RegionState
-name|oldState
-init|=
-name|state
-decl_stmt|;
 name|state
 operator|=
 name|regionStates
@@ -8198,6 +8055,8 @@ name|isFailedClose
 argument_list|()
 condition|)
 block|{
+comment|// If we can't close the region, we can't re-assign
+comment|// it so as to avoid possible double assignment/data loss.
 name|LOG
 operator|.
 name|info
@@ -8215,30 +8074,28 @@ return|return
 literal|null
 return|;
 block|}
-comment|// In these cases, we need to confirm with meta
-comment|// the region was not on a dead server if it's open/pending.
+case|case
+name|OFFLINE
+case|:
+comment|// This region could have been open on this server
+comment|// for a while. If the server is dead and not processed
+comment|// yet, we can move on only if the meta shows the
+comment|// region is not on this server actually, or on a server
+comment|// not dead, or dead and processed already.
 if|if
 condition|(
-operator|(
-name|oldState
+name|regionStates
 operator|.
-name|isOpened
-argument_list|()
-operator|||
-name|oldState
-operator|.
-name|isPendingOpenOrOpening
-argument_list|()
-operator|)
+name|isServerDeadAndNotProcessed
+argument_list|(
+name|sn
+argument_list|)
 operator|&&
 name|wasRegionOnDeadServerByMeta
 argument_list|(
 name|region
 argument_list|,
-name|oldState
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 argument_list|)
 condition|)
 block|{
@@ -8262,9 +8119,6 @@ return|;
 block|}
 case|case
 name|CLOSED
-case|:
-case|case
-name|OFFLINE
 case|:
 break|break;
 default|default:
