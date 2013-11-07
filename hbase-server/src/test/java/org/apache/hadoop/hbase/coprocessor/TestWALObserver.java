@@ -418,6 +418,20 @@ import|;
 end_import
 
 begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -990,6 +1004,16 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 name|HLog
 name|log
 init|=
@@ -1287,6 +1311,8 @@ argument_list|,
 name|now
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 comment|// the edit shall have been change now by the coprocessor.
@@ -1463,6 +1489,16 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// final HRegionInfo hri =
 comment|// createBasic3FamilyHRegionInfo(Bytes.toString(tableName));
 comment|// final HRegionInfo hri1 =
@@ -1601,6 +1637,8 @@ argument_list|,
 name|wal
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -1617,6 +1655,8 @@ argument_list|,
 name|now
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 comment|// sync to fs.
@@ -2278,6 +2318,10 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
+parameter_list|,
+specifier|final
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
@@ -2388,6 +2432,8 @@ name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}

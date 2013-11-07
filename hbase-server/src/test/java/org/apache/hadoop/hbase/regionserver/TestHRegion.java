@@ -435,6 +435,20 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
 name|AtomicReference
 import|;
 end_import
@@ -4000,6 +4014,12 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|compactionDescriptor
+argument_list|,
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Path
@@ -26380,7 +26400,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|// verify append called or not
+comment|//verify append called or not
 name|verify
 argument_list|(
 name|log
@@ -26429,6 +26449,12 @@ argument_list|()
 argument_list|,
 operator|(
 name|HTableDescriptor
+operator|)
+name|any
+argument_list|()
+argument_list|,
+operator|(
+name|AtomicLong
 operator|)
 name|any
 argument_list|()

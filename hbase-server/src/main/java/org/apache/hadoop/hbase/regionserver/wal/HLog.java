@@ -75,6 +75,20 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Pattern
@@ -668,20 +682,6 @@ name|long
 name|getFilenum
 parameter_list|()
 function_decl|;
-comment|/**    * Called to ensure that log sequence numbers are always greater    *    * @param newvalue We'll set log edit/sequence number to this value if it is greater    * than the current value.    */
-name|void
-name|setSequenceNumber
-parameter_list|(
-specifier|final
-name|long
-name|newvalue
-parameter_list|)
-function_decl|;
-comment|/**    * @return log sequence number    */
-name|long
-name|getSequenceNumber
-parameter_list|()
-function_decl|;
 comment|// TODO: Log rolling should not be in this interface.
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 name|byte
@@ -722,7 +722,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor),    * except it causes a sync on the log    */
+comment|/**    * Same as appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor),    * except it causes a sync on the log    * @param sequenceId of the region.    */
 specifier|public
 name|void
 name|append
@@ -742,11 +742,14 @@ name|now
 parameter_list|,
 name|HTableDescriptor
 name|htd
+parameter_list|,
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, row name, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, row name, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    * @param sequenceId of the region.    */
 specifier|public
 name|void
 name|append
@@ -769,11 +772,14 @@ name|htd
 parameter_list|,
 name|boolean
 name|isInMemstore
+parameter_list|,
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @param sequenceId of the region    * @return txid of this transaction    * @throws IOException    */
 specifier|public
 name|long
 name|appendNoSync
@@ -799,6 +805,9 @@ name|now
 parameter_list|,
 name|HTableDescriptor
 name|htd
+parameter_list|,
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
@@ -831,14 +840,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Obtain a log sequence number.    */
-comment|// TODO: Name better to differentiate from getSequenceNumber.
-name|long
-name|obtainSeqNum
-parameter_list|()
-function_decl|;
-comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, TableName, WALEdit, long, HTableDescriptor)}    * as new oldest seqnum. In case of flush being aborted, we put the stashed value back;    * in case of flush succeeding, the seqNum of that first edit after start becomes the    * valid oldest seqNum for this region.    *    * @return current seqNum, to pass on to flushers (who will put it into the metadata of    *         the resulting file as an upper-bound seqNum for that file), or NULL if flush    *         should not be started.    */
-name|Long
+comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, TableName, WALEdit, long, HTableDescriptor,    * AtomicLong)} as new oldest seqnum.    * In case of flush being aborted, we put the stashed value back; in case of flush succeeding,    * the seqNum of that first edit after start becomes the valid oldest seqNum for this region.    *    * @return true if the flush can proceed, false in case wal is closing (ususally, when server is    * closing) and flush couldn't be started.    */
+name|boolean
 name|startCacheFlush
 parameter_list|(
 specifier|final

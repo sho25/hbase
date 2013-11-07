@@ -2041,17 +2041,6 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|setLong
-argument_list|(
-literal|"hbase.regionserver.hlog.blocksize"
-argument_list|,
-literal|100
-operator|*
-literal|1024
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
 name|setBoolean
 argument_list|(
 name|HConstants
@@ -7594,6 +7583,17 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
+comment|// using one sequenceId for edits across all regions is ok.
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|10
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|Iterator
@@ -7967,6 +7967,8 @@ name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 name|counts

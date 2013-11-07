@@ -43,6 +43,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -570,6 +584,16 @@ operator|+
 literal|" started"
 argument_list|)
 expr_stmt|;
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -690,6 +714,8 @@ argument_list|,
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}

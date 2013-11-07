@@ -1915,6 +1915,19 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+comment|/**    * Region level sequence Id. It is used for appending WALEdits in HLog. Its default value is -1,    * as a marker that the region hasn't opened yet. Once it is opened, it is set to    * {@link #openSeqNum}.    */
+specifier|private
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+operator|-
+literal|1L
+argument_list|)
+decl_stmt|;
 comment|/**    * Operation enum is used in {@link HRegion#startRegionOperation} to provide operation context for    * startRegionOperation to possibly invoke different checks before any region operations. Not all    * operations have to be defined here. It's only needed when a special check is need in    * startRegionOperation    */
 specifier|protected
 enum|enum
@@ -6783,6 +6796,7 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
+comment|// check if it is not closing.
 if|if
 condition|(
 name|wal
@@ -6790,9 +6804,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|Long
-name|startSeqId
-init|=
+if|if
+condition|(
+operator|!
 name|wal
 operator|.
 name|startCacheFlush
@@ -6805,12 +6819,6 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|startSeqId
-operator|==
-literal|null
 condition|)
 block|{
 name|status
@@ -6827,7 +6835,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|"] - WAL is going away"
+literal|"] - because the WAL is closing."
 argument_list|)
 expr_stmt|;
 return|return
@@ -6836,11 +6844,17 @@ return|;
 block|}
 name|flushSeqId
 operator|=
-name|startSeqId
+name|this
+operator|.
+name|sequenceId
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 block|}
 else|else
 block|{
+comment|// use the provided sequence Id as WAL is not being used for this flush.
 name|flushSeqId
 operator|=
 name|myseqid
@@ -9776,6 +9790,10 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -14573,9 +14591,9 @@ name|assignSeqId
 condition|?
 name|this
 operator|.
-name|log
+name|sequenceId
 operator|.
-name|obtainSeqNum
+name|incrementAndGet
 argument_list|()
 else|:
 operator|-
@@ -17077,10 +17095,17 @@ condition|(
 name|initialize
 condition|)
 block|{
+comment|// If initializing, set the sequenceId. It is also required by HLogPerformanceEvaluation when
+comment|// verifying the WALEdits.
+name|region
+operator|.
+name|setSequenceId
+argument_list|(
 name|region
 operator|.
 name|initialize
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -17640,27 +17665,13 @@ argument_list|(
 name|reporter
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|this
 operator|.
-name|log
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|log
-operator|.
-name|setSequenceNumber
+name|setSequenceId
 argument_list|(
-name|this
-operator|.
 name|openSeqNum
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|this
 return|;
@@ -19522,6 +19533,10 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -20955,6 +20970,10 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -22046,6 +22065,10 @@ argument_list|,
 name|this
 operator|.
 name|htableDescriptor
+argument_list|,
+name|this
+operator|.
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -22349,7 +22372,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|40
+literal|41
 operator|*
 name|ClassSize
 operator|.
@@ -24652,6 +24675,37 @@ name|newValue
 operator|>=
 literal|0
 assert|;
+block|}
+comment|/**    * @return sequenceId.    */
+specifier|public
+name|AtomicLong
+name|getSequenceId
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|sequenceId
+return|;
+block|}
+comment|/**    * sets this region's sequenceId.    * @param value new value    */
+specifier|private
+name|void
+name|setSequenceId
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|sequenceId
+operator|.
+name|set
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Listener class to enable callers of    * bulkLoadHFile() to perform any necessary    * pre/post processing of a given bulkload call    */
 specifier|public

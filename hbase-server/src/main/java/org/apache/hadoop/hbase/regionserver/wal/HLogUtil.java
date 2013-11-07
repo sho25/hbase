@@ -55,6 +55,20 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Matcher
@@ -1182,7 +1196,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Write the marker that a compaction has succeeded and is about to be committed.    * This provides info to the HMaster to allow it to recover the compaction if    * this regionserver dies in the middle (This part is not yet implemented). It also prevents    * the compaction from finishing if this regionserver has already lost its lease on the log.    */
+comment|/**    * Write the marker that a compaction has succeeded and is about to be committed.    * This provides info to the HMaster to allow it to recover the compaction if    * this regionserver dies in the middle (This part is not yet implemented). It also prevents    * the compaction from finishing if this regionserver has already lost its lease on the log.    * @param sequenceId Used by HLog to get sequence Id for the waledit.    */
 specifier|public
 specifier|static
 name|void
@@ -1200,6 +1214,9 @@ parameter_list|,
 specifier|final
 name|CompactionDescriptor
 name|c
+parameter_list|,
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
@@ -1243,6 +1260,8 @@ argument_list|,
 name|htd
 argument_list|,
 literal|false
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 if|if

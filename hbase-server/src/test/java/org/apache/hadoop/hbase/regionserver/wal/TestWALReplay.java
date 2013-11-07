@@ -2026,6 +2026,16 @@ name|countPerFamily
 init|=
 literal|1000
 decl_stmt|;
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -2057,6 +2067,8 @@ argument_list|,
 name|wal1
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -2082,17 +2094,6 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// Up the sequenceid so that these edits are after the ones added above.
-name|wal2
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|wal1
-operator|.
-name|getSequenceNumber
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Add 1k to each family.
 for|for
 control|(
@@ -2125,6 +2126,8 @@ argument_list|,
 name|wal2
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -2150,26 +2153,8 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-name|wal3
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|wal2
-operator|.
-name|getSequenceNumber
-argument_list|()
-argument_list|)
-expr_stmt|;
 try|try
 block|{
-name|long
-name|wal3SeqId
-init|=
-name|wal3
-operator|.
-name|getSequenceNumber
-argument_list|()
-decl_stmt|;
 name|HRegion
 name|region
 init|=
@@ -2202,11 +2187,47 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
+comment|// The regions opens with sequenceId as 1. With 6k edits, its sequence number reaches 6k + 1.
+comment|// When opened, this region would apply 6k edits, and increment the sequenceId by 1
 name|assertTrue
 argument_list|(
 name|seqid
 operator|>
-name|wal3SeqId
+name|sequenceId
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|seqid
+operator|-
+literal|1
+argument_list|,
+name|sequenceId
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"region.getOpenSeqNum(): "
+operator|+
+name|region
+operator|.
+name|getOpenSeqNum
+argument_list|()
+operator|+
+literal|", wal3.id: "
+operator|+
+name|sequenceId
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// TODO: Scan all.
@@ -2799,14 +2820,6 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all regions.
-name|wal
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid
-argument_list|)
-expr_stmt|;
 name|boolean
 name|first
 init|=
@@ -2961,14 +2974,6 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all regions.
-name|wal2
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid2
-argument_list|)
-expr_stmt|;
 name|assertTrue
 argument_list|(
 name|seqid
@@ -3233,14 +3238,6 @@ operator|.
 name|initialize
 argument_list|()
 decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all regions.
-name|wal3
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid3
-argument_list|)
-expr_stmt|;
 name|Result
 name|result3
 init|=
@@ -3457,14 +3454,6 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all regions.
-name|wal
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -3649,14 +3638,6 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all regions.
-name|wal2
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid2
-argument_list|)
-expr_stmt|;
 name|assertTrue
 argument_list|(
 name|seqid
@@ -3958,43 +3939,27 @@ expr_stmt|;
 name|HRegion
 name|region
 init|=
-operator|new
 name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
-name|basedir
-argument_list|,
-name|wal
-argument_list|,
 name|this
 operator|.
-name|fs
-argument_list|,
-name|customConf
+name|hbaseRootDir
 argument_list|,
 name|hri
 argument_list|,
 name|htd
 argument_list|,
-name|rsServices
-argument_list|)
-decl_stmt|;
-name|long
-name|seqid
-init|=
-name|region
-operator|.
-name|initialize
-argument_list|()
-decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all
-comment|// regions.
 name|wal
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid
+argument_list|,
+name|customConf
+argument_list|,
+name|rsServices
+argument_list|,
+literal|null
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|int
 name|writtenRowCount
 init|=
@@ -4352,45 +4317,29 @@ expr_stmt|;
 name|HRegion
 name|region2
 init|=
-operator|new
 name|HRegion
+operator|.
+name|openHRegion
 argument_list|(
-name|basedir
-argument_list|,
-name|wal2
-argument_list|,
 name|this
 operator|.
-name|fs
-argument_list|,
-name|this
-operator|.
-name|conf
+name|hbaseRootDir
 argument_list|,
 name|hri
 argument_list|,
 name|htd
 argument_list|,
-name|rsServices
-argument_list|)
-decl_stmt|;
-name|long
-name|seqid2
-init|=
-name|region2
-operator|.
-name|initialize
-argument_list|()
-decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all
-comment|// regions.
 name|wal2
+argument_list|,
+name|this
 operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid2
+name|conf
+argument_list|,
+name|rsServices
+argument_list|,
+literal|null
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|scanner
 operator|=
 name|region2
@@ -4596,6 +4545,16 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
 comment|// Add 1k to each family.
 specifier|final
 name|int
@@ -4634,6 +4593,8 @@ argument_list|,
 name|wal
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -4705,6 +4666,8 @@ argument_list|,
 name|now
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 comment|// Delete the c family to verify deletes make it over.
@@ -4762,6 +4725,8 @@ argument_list|,
 name|now
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 comment|// Sync.
@@ -4990,10 +4955,12 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|seqid
-operator|>
-name|wal
+operator|-
+literal|1
+operator|==
+name|sequenceId
 operator|.
-name|getSequenceNumber
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5171,23 +5138,6 @@ argument_list|,
 name|wal
 argument_list|)
 decl_stmt|;
-name|long
-name|seqid
-init|=
-name|region
-operator|.
-name|getOpenSeqNum
-argument_list|()
-decl_stmt|;
-comment|// HRegionServer usually does this. It knows the largest seqid across all
-comment|// regions.
-name|wal
-operator|.
-name|setSequenceNumber
-argument_list|(
-name|seqid
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -5220,15 +5170,6 @@ literal|"x"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// get the seq no after first set of entries.
-name|long
-name|sequenceNumber
-init|=
-name|wal
-operator|.
-name|getSequenceNumber
-argument_list|()
-decl_stmt|;
 comment|// Let us flush the region
 comment|// But this time completeflushcache is not yet done
 name|region
@@ -5271,9 +5212,12 @@ block|}
 name|long
 name|lastestSeqNumber
 init|=
-name|wal
+name|region
 operator|.
-name|getSequenceNumber
+name|getSequenceId
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// get the current seq no
@@ -5680,6 +5624,10 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
+parameter_list|,
+specifier|final
+name|AtomicLong
+name|sequenceId
 parameter_list|)
 throws|throws
 name|IOException
@@ -5790,6 +5738,8 @@ name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}

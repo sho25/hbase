@@ -5273,6 +5273,13 @@ name|getRegionInfo
 argument_list|()
 argument_list|,
 name|compactionDescriptor
+argument_list|,
+name|this
+operator|.
+name|region
+operator|.
+name|getSequenceId
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

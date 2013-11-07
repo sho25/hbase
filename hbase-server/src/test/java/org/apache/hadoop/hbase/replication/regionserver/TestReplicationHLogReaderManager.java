@@ -443,6 +443,20 @@ name|List
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -581,6 +595,17 @@ decl_stmt|;
 specifier|private
 name|int
 name|walEditKVs
+decl_stmt|;
+specifier|private
+specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 annotation|@
 name|Parameters
@@ -1287,6 +1312,8 @@ name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}

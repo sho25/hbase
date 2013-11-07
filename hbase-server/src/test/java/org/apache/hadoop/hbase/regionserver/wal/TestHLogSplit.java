@@ -7189,6 +7189,16 @@ name|conf
 argument_list|)
 expr_stmt|;
 specifier|final
+name|AtomicLong
+name|sequenceId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+specifier|final
 name|int
 name|total
 init|=
@@ -7278,6 +7288,8 @@ name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|htd
+argument_list|,
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
