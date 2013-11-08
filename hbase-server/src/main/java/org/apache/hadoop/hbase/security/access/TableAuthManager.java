@@ -2980,7 +2980,12 @@ name|nsCache
 operator|.
 name|remove
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|ns
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
