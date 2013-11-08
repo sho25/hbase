@@ -4282,6 +4282,21 @@ name|decodingCtx
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isSeeked
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|block
+operator|!=
+literal|null
+return|;
+block|}
 comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to      * the the first key/value pair.      *      * @param newBlock the block to make current      */
 specifier|protected
 name|void
@@ -4333,6 +4348,13 @@ argument_list|)
 expr_stmt|;
 name|blockFetches
 operator|++
+expr_stmt|;
+comment|// Reset the next indexed key
+name|this
+operator|.
+name|nextIndexedKey
+operator|=
+literal|null
 expr_stmt|;
 block|}
 specifier|private
