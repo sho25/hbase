@@ -571,9 +571,9 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|parentDir
+name|FileSystem
 operator|.
-name|getFileSystem
+name|getLocal
 argument_list|(
 name|conf
 argument_list|)

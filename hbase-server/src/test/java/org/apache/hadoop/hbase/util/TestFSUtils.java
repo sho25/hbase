@@ -49,6 +49,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNotEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertNotNull
 import|;
 end_import
@@ -74,18 +86,6 @@ operator|.
 name|Assert
 operator|.
 name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotEquals
 import|;
 end_import
 
@@ -345,7 +345,7 @@ specifier|public
 class|class
 name|TestFSUtils
 block|{
-comment|/**    * Test path compare and prefix checking.    * @throws IOException     */
+comment|/**    * Test path compare and prefix checking.    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -1980,7 +1980,7 @@ name|testDir
 init|=
 name|htu
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 literal|"testArchiveFile"
 argument_list|)

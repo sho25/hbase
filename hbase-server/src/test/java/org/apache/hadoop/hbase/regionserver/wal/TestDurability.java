@@ -27,7 +27,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
 import|;
 end_import
 
@@ -80,20 +80,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -346,16 +332,8 @@ name|CONF
 decl_stmt|;
 specifier|private
 specifier|static
-specifier|final
 name|Path
 name|DIR
-init|=
-name|TEST_UTIL
-operator|.
-name|getDataTestDir
-argument_list|(
-literal|"TestDurability"
-argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -444,6 +422,15 @@ name|CLUSTER
 operator|.
 name|getFileSystem
 argument_list|()
+expr_stmt|;
+name|DIR
+operator|=
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
+argument_list|(
+literal|"TestDurability"
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -1065,10 +1052,7 @@ name|info
 argument_list|,
 name|path
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|CONF
 argument_list|,
 name|htd
 argument_list|,

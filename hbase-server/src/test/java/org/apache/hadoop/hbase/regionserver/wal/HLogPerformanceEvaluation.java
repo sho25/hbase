@@ -453,20 +453,6 @@ name|ToolRunner
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class runs performance benchmarks for {@link HLog}.  * See usage for this tool by running:  *<code>$ hbase org.apache.hadoop.hbase.regionserver.wal.HLogPerformanceEvaluation -h</code>  */
 end_comment
@@ -503,13 +489,8 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
-init|=
-operator|new
-name|HBaseTestingUtility
-argument_list|()
 decl_stmt|;
 specifier|static
 specifier|final
@@ -550,6 +531,32 @@ name|keySize
 init|=
 literal|16
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setConf
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+name|super
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|=
+operator|new
+name|HBaseTestingUtility
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Perform HLog.append() of Put object, for the number of iterations requested.    * Keys and Vaues are generated randomly, the number of column families,    * qualifiers and key/value size is tunable by the user.    */
 class|class
 name|HLogPutBenchmark
@@ -636,6 +643,8 @@ operator|=
 name|htd
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1354,7 +1363,7 @@ name|rootRegionDir
 operator|=
 name|TEST_UTIL
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 literal|"HLogPerformanceEvaluation"
 argument_list|)
@@ -1412,6 +1421,8 @@ name|appends
 init|=
 literal|0
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|doWrite
