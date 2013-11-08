@@ -3015,6 +3015,8 @@ block|,
 literal|2L
 block|,
 literal|2L
+block|,
+literal|2L
 block|}
 block|,
 operator|new

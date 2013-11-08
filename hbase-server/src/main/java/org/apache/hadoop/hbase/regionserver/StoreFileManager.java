@@ -139,7 +139,7 @@ argument_list|>
 name|storeFiles
 parameter_list|)
 function_decl|;
-comment|/**    * Adds new files, either for from MemStore flush or bulk insert, into the structure.    * @param sf New store file.    */
+comment|/**    * Adds new files, either for from MemStore flush or bulk insert, into the structure.    * @param sfs New store files.    */
 name|void
 name|insertNewFiles
 parameter_list|(
