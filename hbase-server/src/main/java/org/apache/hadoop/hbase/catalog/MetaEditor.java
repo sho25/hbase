@@ -207,22 +207,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTable
 import|;
 end_import
@@ -329,7 +313,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|MutateRowsRequest
+name|MultiRowMutationService
 import|;
 end_import
 
@@ -349,7 +333,7 @@ name|generated
 operator|.
 name|MultiRowMutationProtos
 operator|.
-name|MultiRowMutationService
+name|MutateRowsRequest
 import|;
 end_import
 
@@ -366,6 +350,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -2112,6 +2112,59 @@ name|regionsToAdd
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Overwrites the specified regions from hbase:meta    * @param catalogTracker    * @param regionInfos list of regions to be added to META    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|overwriteRegions
+parameter_list|(
+name|CatalogTracker
+name|catalogTracker
+parameter_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionInfos
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteRegions
+argument_list|(
+name|catalogTracker
+argument_list|,
+name|regionInfos
+argument_list|)
+expr_stmt|;
+comment|// Why sleep? This is the easiest way to ensure that the previous deletes does not
+comment|// eclipse the following puts, that might happen in the same ts from the server.
+comment|// See HBASE-9906, and HBASE-9879. Once either HBASE-9879, HBASE-8770 is fixed,
+comment|// or HBASE-9905 is fixed and meta uses seqIds, we do not need the sleep.
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|20
+argument_list|)
+expr_stmt|;
+name|addRegionsToMeta
+argument_list|(
+name|catalogTracker
+argument_list|,
+name|regionInfos
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Overwritten "
+operator|+
+name|regionInfos
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Deletes merge qualifiers for the specified merged region.    * @param catalogTracker    * @param mergedRegion    * @throws IOException    */
 specifier|public
