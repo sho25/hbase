@@ -580,7 +580,7 @@ if|if
 condition|(
 name|meta
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -633,7 +633,7 @@ if|if
 condition|(
 name|meta
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{

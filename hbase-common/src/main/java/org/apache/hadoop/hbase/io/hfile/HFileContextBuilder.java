@@ -156,7 +156,7 @@ decl_stmt|;
 comment|/** Compression algorithm used **/
 specifier|private
 name|Algorithm
-name|compressAlgo
+name|compression
 init|=
 name|Algorithm
 operator|.
@@ -262,17 +262,17 @@ return|;
 block|}
 specifier|public
 name|HFileContextBuilder
-name|withCompressionAlgo
+name|withCompression
 parameter_list|(
 name|Algorithm
-name|compressionAlgo
+name|compression
 parameter_list|)
 block|{
 name|this
 operator|.
-name|compressAlgo
+name|compression
 operator|=
-name|compressionAlgo
+name|compression
 expr_stmt|;
 return|return
 name|this
@@ -401,7 +401,7 @@ name|includesMvcc
 argument_list|,
 name|includesTags
 argument_list|,
-name|compressAlgo
+name|compression
 argument_list|,
 name|compressTags
 argument_list|,

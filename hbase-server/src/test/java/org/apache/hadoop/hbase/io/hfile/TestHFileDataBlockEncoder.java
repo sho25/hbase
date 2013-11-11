@@ -734,7 +734,7 @@ name|keyValues
 argument_list|)
 expr_stmt|;
 name|HFileContext
-name|meta
+name|hfileContext
 init|=
 operator|new
 name|HFileContextBuilder
@@ -797,7 +797,7 @@ literal|0
 argument_list|,
 literal|0
 argument_list|,
-name|meta
+name|hfileContext
 argument_list|)
 decl_stmt|;
 name|HFileBlock
@@ -1201,7 +1201,7 @@ argument_list|(
 literal|true
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.

@@ -1669,7 +1669,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -2083,7 +2083,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -2234,7 +2234,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -2622,7 +2622,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -2793,7 +2793,7 @@ argument_list|(
 literal|true
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -3139,7 +3139,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -3726,7 +3726,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -4870,7 +4870,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compressAlgo
 argument_list|)
@@ -5113,7 +5113,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compressAlgo
 argument_list|)
@@ -5571,7 +5571,7 @@ argument_list|(
 literal|false
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.

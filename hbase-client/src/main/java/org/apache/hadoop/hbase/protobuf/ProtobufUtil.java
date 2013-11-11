@@ -3815,7 +3815,7 @@ name|array
 init|=
 name|Tag
 operator|.
-name|createTags
+name|asList
 argument_list|(
 name|tags
 argument_list|,

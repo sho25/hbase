@@ -516,7 +516,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 argument_list|,
 name|encodingCtx
@@ -524,7 +524,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -778,7 +778,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 decl_stmt|;
 name|searcher
@@ -1115,7 +1115,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 argument_list|)
 return|;

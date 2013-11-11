@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This carries the information on some of the meta data about the HFile. This  * meta data would be used across the HFileWriter/Readers and the HFileBlocks.  * This would help to add new information to the HFile.  * This class is not meant to be immutable.  */
+comment|/**  * This carries the information on some of the meta data about the HFile. This  * meta data is used across the HFileWriter/Readers and the HFileBlocks.  * This helps to add new information to the HFile.  */
 end_comment
 
 begin_class
@@ -458,7 +458,7 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 parameter_list|()
 block|{
 return|return
@@ -467,14 +467,13 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 parameter_list|()
 block|{
 return|return
 name|includesMvcc
 return|;
 block|}
-comment|// TODO : This setter should be removed
 specifier|public
 name|void
 name|setIncludesMvcc
@@ -492,14 +491,13 @@ expr_stmt|;
 block|}
 specifier|public
 name|boolean
-name|shouldIncludeTags
+name|isIncludesTags
 parameter_list|()
 block|{
 return|return
 name|includesTags
 return|;
 block|}
-comment|// TODO : This setter should be removed?
 specifier|public
 name|void
 name|setIncludesTags
@@ -517,7 +515,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|boolean
-name|shouldCompressTags
+name|isCompressTags
 parameter_list|()
 block|{
 return|return

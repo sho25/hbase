@@ -80,7 +80,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<code>&lt;taglength>&lt;tagtype>&lt;tagbytes></code>.<code>tagtype</code> is  * one byte and<code>taglength</code> maximum is<code>Short.MAX_SIZE</code>.  * It includes 1 byte type length and actual tag bytes length.  */
+comment|/**  * Tags are part of cells and helps to add metadata about the KVs.  * Metadata could be ACLs per cells, visibility labels, etc.  */
 end_comment
 
 begin_class
@@ -127,10 +127,12 @@ operator|+
 name|TAG_LENGTH_SIZE
 decl_stmt|;
 specifier|private
+specifier|final
 name|byte
 name|type
 decl_stmt|;
 specifier|private
+specifier|final
 name|byte
 index|[]
 name|bytes
@@ -186,7 +188,7 @@ index|[]
 name|tag
 parameter_list|)
 block|{
-comment|//<length of tag - 2 bytes><type code - 1 byte><tag>
+comment|/**<length of tag - 2 bytes><type code - 1 byte><tag>      * taglength maximum is Short.MAX_SIZE.  It includes 1 byte type length and actual tag bytes length.      */
 name|short
 name|tagLength
 init|=
@@ -404,7 +406,6 @@ name|type
 return|;
 block|}
 comment|/**    * @return Length of actual tag bytes within the backed buffer    */
-specifier|public
 name|int
 name|getTagLength
 parameter_list|()
@@ -418,7 +419,6 @@ name|INFRASTRUCTURE_SIZE
 return|;
 block|}
 comment|/**    * @return Offset of actual tag bytes within the backed buffer    */
-specifier|public
 name|int
 name|getTagOffset
 parameter_list|()
@@ -480,7 +480,7 @@ name|List
 argument_list|<
 name|Tag
 argument_list|>
-name|createTags
+name|asList
 parameter_list|(
 name|byte
 index|[]

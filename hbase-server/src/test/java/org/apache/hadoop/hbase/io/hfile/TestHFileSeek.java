@@ -827,7 +827,7 @@ operator|.
 name|minBlockSize
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|AbstractHFileWriter
 operator|.

@@ -1486,7 +1486,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 condition|)
 block|{
@@ -3410,7 +3410,7 @@ name|NULL
 argument_list|)
 comment|// no checksums in cached data
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|fileContext
 operator|.
@@ -3438,7 +3438,7 @@ name|withHBaseCheckSum
 argument_list|(
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 operator|.
@@ -3446,7 +3446,7 @@ name|withCompressTags
 argument_list|(
 name|fileContext
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 argument_list|)
 operator|.
@@ -3454,7 +3454,7 @@ name|withIncludesMvcc
 argument_list|(
 name|fileContext
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 argument_list|)
 operator|.
@@ -3462,7 +3462,7 @@ name|withIncludesTags
 argument_list|(
 name|fileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 argument_list|)
 operator|.
@@ -3696,7 +3696,7 @@ name|headerSize
 argument_list|(
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4257,7 +4257,7 @@ argument_list|(
 operator|!
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4878,7 +4878,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5019,7 +5019,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5300,7 +5300,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5366,7 +5366,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5380,7 +5380,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5564,7 +5564,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 condition|?
 operator|(
@@ -5914,7 +5914,7 @@ condition|(
 operator|!
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 operator|||
 name|this
@@ -5963,7 +5963,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 return|;
@@ -6009,7 +6009,7 @@ name|this
 operator|.
 name|fileContext
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 argument_list|)
 return|;

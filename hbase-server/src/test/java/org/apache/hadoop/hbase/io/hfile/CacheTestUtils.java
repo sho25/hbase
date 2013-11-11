@@ -1877,7 +1877,7 @@ argument_list|(
 literal|false
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Compression
 operator|.

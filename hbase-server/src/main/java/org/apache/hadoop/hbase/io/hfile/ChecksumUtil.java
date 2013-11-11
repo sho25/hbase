@@ -313,7 +313,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldUseHBaseChecksum
+name|isUseHBaseChecksum
 argument_list|()
 condition|)
 block|{

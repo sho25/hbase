@@ -707,7 +707,7 @@ if|if
 condition|(
 name|hFileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -759,7 +759,7 @@ name|this
 operator|.
 name|hFileContext
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{
@@ -839,7 +839,7 @@ if|if
 condition|(
 name|hFileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -881,7 +881,7 @@ operator|)
 operator|&&
 name|hFileContext
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 decl_stmt|;
 name|fileInfo

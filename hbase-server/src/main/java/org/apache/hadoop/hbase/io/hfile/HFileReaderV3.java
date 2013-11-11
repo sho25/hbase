@@ -351,7 +351,7 @@ argument_list|(
 literal|true
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|this
 operator|.
@@ -483,7 +483,7 @@ annotation|@
 name|Override
 specifier|protected
 name|int
-name|getKvBufSize
+name|getCellBufSize
 parameter_list|()
 block|{
 name|int
@@ -491,7 +491,7 @@ name|kvBufSize
 init|=
 name|super
 operator|.
-name|getKvBufSize
+name|getCellBufSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -500,7 +500,7 @@ name|reader
 operator|.
 name|hfileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -536,7 +536,7 @@ annotation|@
 name|Override
 specifier|protected
 name|int
-name|getNextKVStartPosition
+name|getNextCellStartPosition
 parameter_list|()
 block|{
 name|int
@@ -544,7 +544,7 @@ name|nextKvPos
 init|=
 name|super
 operator|.
-name|getNextKVStartPosition
+name|getNextCellStartPosition
 argument_list|()
 decl_stmt|;
 if|if
@@ -553,7 +553,7 @@ name|reader
 operator|.
 name|hfileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -611,7 +611,7 @@ name|reader
 operator|.
 name|hfileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -802,7 +802,7 @@ name|reader
 operator|.
 name|hfileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -1135,7 +1135,7 @@ name|reader
 operator|.
 name|hfileContext
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{

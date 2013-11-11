@@ -1118,7 +1118,7 @@ argument_list|(
 name|useTags
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compr
 argument_list|)
@@ -1458,7 +1458,7 @@ argument_list|(
 name|useTags
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compr
 argument_list|)
@@ -3121,7 +3121,7 @@ argument_list|(
 name|SMALL_BLOCK_SIZE
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compr
 argument_list|)

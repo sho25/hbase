@@ -440,7 +440,7 @@ return|;
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|ByteBuffer
 name|internalDecodeKeyValues
 parameter_list|(

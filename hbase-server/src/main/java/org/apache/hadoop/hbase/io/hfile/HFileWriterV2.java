@@ -1441,7 +1441,7 @@ name|this
 operator|.
 name|hFileContext
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{
@@ -1713,7 +1713,7 @@ name|this
 operator|.
 name|hFileContext
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{

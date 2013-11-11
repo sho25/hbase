@@ -913,7 +913,7 @@ operator|.
 name|includesMemstoreTS
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|this
 operator|.
@@ -2748,7 +2748,7 @@ operator|.
 name|position
 argument_list|()
 argument_list|,
-name|getKvBufSize
+name|getCellBufSize
 argument_list|()
 argument_list|,
 name|currKeyLen
@@ -2778,7 +2778,7 @@ return|;
 block|}
 specifier|protected
 name|int
-name|getKvBufSize
+name|getCellBufSize
 parameter_list|()
 block|{
 return|return
@@ -2970,7 +2970,7 @@ name|blockBuffer
 operator|.
 name|position
 argument_list|(
-name|getNextKVStartPosition
+name|getNextCellStartPosition
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3104,7 +3104,7 @@ return|;
 block|}
 specifier|protected
 name|int
-name|getNextKVStartPosition
+name|getNextCellStartPosition
 parameter_list|()
 block|{
 return|return

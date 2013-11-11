@@ -703,7 +703,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.
@@ -1038,7 +1038,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.
@@ -1294,7 +1294,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.
@@ -1448,7 +1448,7 @@ argument_list|(
 name|includesTag
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|Algorithm
 operator|.

@@ -792,7 +792,7 @@ argument_list|(
 name|useTags
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compressAlgo
 argument_list|)
@@ -1151,7 +1151,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compressAlgo
 argument_list|)

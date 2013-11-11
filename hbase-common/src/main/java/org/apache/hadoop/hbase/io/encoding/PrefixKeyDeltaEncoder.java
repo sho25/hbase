@@ -135,20 +135,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
-import|;
-end_import
-
 begin_comment
 comment|/**  * Compress key by storing size of common prefix with previous KeyValue  * and storing raw size of rest.  *  * Format:  * 1-5 bytes: compressed key length minus prefix (7-bit encoding)  * 1-5 bytes: compressed value length (7-bit encoding)  * 1-3 bytes: compressed length of common key prefix  * ... bytes: rest of key (including timestamp)  * ... bytes: value  *  * In a worst case compressed KeyValue will be three bytes longer than original.  *  */
 end_comment
@@ -436,7 +422,7 @@ block|}
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|ByteBuffer
 name|internalDecodeKeyValues
 parameter_list|(

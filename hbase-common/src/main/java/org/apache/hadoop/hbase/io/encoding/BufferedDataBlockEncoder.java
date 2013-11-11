@@ -338,7 +338,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 condition|)
 block|{
@@ -883,7 +883,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 condition|)
 block|{
@@ -931,7 +931,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 return|;
 block|}
@@ -948,7 +948,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 return|;
 block|}
@@ -1389,7 +1389,7 @@ return|return
 literal|true
 return|;
 block|}
-specifier|public
+specifier|protected
 name|void
 name|decodeTags
 parameter_list|()
@@ -1858,7 +1858,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -1939,7 +1939,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{
@@ -2015,7 +2015,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeTags
+name|isIncludesTags
 argument_list|()
 condition|)
 block|{
@@ -2098,7 +2098,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldIncludeMvcc
+name|isIncludesMvcc
 argument_list|()
 condition|)
 block|{
@@ -2216,7 +2216,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
+specifier|protected
 specifier|abstract
 name|ByteBuffer
 name|internalDecodeKeyValues
@@ -2323,7 +2323,7 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
-name|shouldCompressTags
+name|isCompressTags
 argument_list|()
 condition|)
 block|{

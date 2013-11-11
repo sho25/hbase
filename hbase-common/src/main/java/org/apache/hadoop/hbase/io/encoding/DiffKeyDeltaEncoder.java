@@ -135,20 +135,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
-import|;
-end_import
-
 begin_comment
 comment|/**  * Compress using:  * - store size of common prefix  * - save column family once, it is same within HFile  * - use integer compression for key, value and prefix (7-bit encoding)  * - use bits to avoid duplication key length, value length  *   and type if it same as previous  * - store in 3 bits length of timestamp field  * - allow diff in timestamp instead of actual value  *  * Format:  * - 1 byte:    flag  * - 1-5 bytes: key length (only if FLAG_SAME_KEY_LENGTH is not set in flag)  * - 1-5 bytes: value length (only if FLAG_SAME_VALUE_LENGTH is not set in flag)  * - 1-5 bytes: prefix length  * - ... bytes: rest of the row (if prefix length is small enough)  * - ... bytes: qualifier (or suffix depending on prefix length)  * - 1-8 bytes: timestamp or diff  * - 1 byte:    type (only if FLAG_SAME_TYPE is not set in the flag)  * - ... bytes: value  */
 end_comment
@@ -2701,7 +2687,7 @@ return|;
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|ByteBuffer
 name|internalDecodeKeyValues
 parameter_list|(

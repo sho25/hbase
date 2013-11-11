@@ -1765,7 +1765,7 @@ argument_list|(
 name|BLOCKSIZE
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|COMPRESSION
 argument_list|)

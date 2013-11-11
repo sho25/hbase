@@ -596,7 +596,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -745,7 +745,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -1268,7 +1268,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)
@@ -1478,7 +1478,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|algo
 argument_list|)

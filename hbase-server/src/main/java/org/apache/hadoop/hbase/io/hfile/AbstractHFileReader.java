@@ -183,20 +183,6 @@ name|FileInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
-import|;
-end_import
-
 begin_comment
 comment|/**  * Common functionality needed by all versions of {@link HFile} readers.  */
 end_comment

@@ -1435,7 +1435,7 @@ argument_list|(
 name|minBlockSize
 argument_list|)
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|AbstractHFileWriter
 operator|.
@@ -2033,7 +2033,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|AbstractHFileWriter
 operator|.
@@ -2260,7 +2260,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|compressAlgo
 argument_list|)

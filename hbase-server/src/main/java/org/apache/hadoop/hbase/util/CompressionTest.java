@@ -654,7 +654,7 @@ operator|new
 name|HFileContextBuilder
 argument_list|()
 operator|.
-name|withCompressionAlgo
+name|withCompression
 argument_list|(
 name|AbstractHFileWriter
 operator|.
