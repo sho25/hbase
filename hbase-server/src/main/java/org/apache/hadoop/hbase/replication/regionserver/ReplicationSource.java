@@ -1164,6 +1164,32 @@ name|sleepMultiplier
 operator|=
 literal|1
 expr_stmt|;
+comment|// In rare case, zookeeper setting may be messed up. That leads to the incorrect
+comment|// peerClusterId value, which is the same as the source clusterId
+if|if
+condition|(
+name|clusterId
+operator|.
+name|equals
+argument_list|(
+name|peerClusterId
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|terminate
+argument_list|(
+literal|"ClusterId "
+operator|+
+name|clusterId
+operator|+
+literal|" is replicating to itself: peerClusterId "
+operator|+
+name|peerClusterId
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
