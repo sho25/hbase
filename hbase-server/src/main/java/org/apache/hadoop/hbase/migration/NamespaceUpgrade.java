@@ -1392,6 +1392,8 @@ argument_list|(
 literal|"-ROOT-"
 argument_list|,
 literal|".META."
+argument_list|,
+literal|".META"
 argument_list|)
 decl_stmt|;
 comment|// Migrate tables including archive and tmp
@@ -1854,6 +1856,77 @@ operator|+
 name|newMetaDir
 argument_list|)
 throw|;
+block|}
+block|}
+else|else
+block|{
+comment|// on windows NTFS, meta's name is .META (note the missing dot at the end)
+name|oldMetaDir
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|rootDir
+argument_list|,
+literal|".META"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|oldMetaDir
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Migrating meta table "
+operator|+
+name|oldMetaDir
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|newMetaDir
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|oldMetaDir
+argument_list|,
+name|newMetaDir
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to migrate meta table "
+operator|+
+name|oldMetaDir
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|newMetaDir
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 comment|// Since meta table name has changed rename meta region dir from it's old encoding to new one
