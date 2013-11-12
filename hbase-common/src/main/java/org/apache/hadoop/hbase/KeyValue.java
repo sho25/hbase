@@ -1027,53 +1027,6 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * Creates a KeyValue from the specified byte array, starting at offset,    * for length<code>length</code>, and a known<code>keyLength</code>.    * @param bytes byte array    * @param offset offset to start of the KeyValue    * @param length length of the KeyValue    * @param keyLength length of the key portion of the KeyValue    */
-specifier|public
-name|KeyValue
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|bytes
-parameter_list|,
-specifier|final
-name|int
-name|offset
-parameter_list|,
-specifier|final
-name|int
-name|length
-parameter_list|,
-specifier|final
-name|int
-name|keyLength
-parameter_list|)
-block|{
-name|this
-operator|.
-name|bytes
-operator|=
-name|bytes
-expr_stmt|;
-name|this
-operator|.
-name|offset
-operator|=
-name|offset
-expr_stmt|;
-name|this
-operator|.
-name|length
-operator|=
-name|length
-expr_stmt|;
-name|this
-operator|.
-name|keyLength
-operator|=
-name|keyLength
-expr_stmt|;
-block|}
 comment|/** Constructors that build a new backing byte array from fields */
 comment|/**    * Constructs KeyValue structure filled with null value.    * Sets type to {@link KeyValue.Type#Maximum}    * @param row - row key (arbitrary byte array)    * @param timestamp    */
 specifier|public
@@ -5383,26 +5336,12 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Length of key portion.    */
-specifier|private
-name|int
-name|keyLength
-init|=
-literal|0
-decl_stmt|;
 specifier|public
 name|int
 name|getKeyLength
 parameter_list|()
 block|{
-if|if
-condition|(
-name|keyLength
-operator|==
-literal|0
-condition|)
-block|{
-name|keyLength
-operator|=
+return|return
 name|Bytes
 operator|.
 name|toInt
@@ -5415,10 +5354,6 @@ name|this
 operator|.
 name|offset
 argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|keyLength
 return|;
 block|}
 comment|/**    * @return the backing array of the entire KeyValue (all KeyValue fields are in a single array)    */
@@ -11776,13 +11711,13 @@ expr_stmt|;
 comment|// number of bytes of data in the "bytes" array
 name|sum
 operator|+=
-literal|3
+literal|2
 operator|*
 name|Bytes
 operator|.
 name|SIZEOF_INT
 expr_stmt|;
-comment|// offset, length, keyLength
+comment|// offset, length
 name|sum
 operator|+=
 name|Bytes
