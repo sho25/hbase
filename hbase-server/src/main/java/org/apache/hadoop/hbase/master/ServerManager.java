@@ -1377,12 +1377,17 @@ block|{
 name|long
 name|skew
 init|=
+name|Math
+operator|.
+name|abs
+argument_list|(
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 name|serverCurrentTime
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

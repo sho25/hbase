@@ -369,6 +369,14 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|//Master Time> Region Server Time
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Test: Master Time> Region Server Time"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -407,7 +415,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"HMaster should have thrown an ClockOutOfSyncException but didn't."
+literal|"HMaster should have thrown a ClockOutOfSyncException but didn't."
 argument_list|)
 expr_stmt|;
 block|}
@@ -428,7 +436,16 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// make sure values above warning threshold but below max threshold don't kill
+try|try
+block|{
+comment|// Master Time< Region Server Time
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Test: Master Time< Region Server Time"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -459,7 +476,104 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+operator|+
+name|maxSkew
+operator|*
+literal|2
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"HMaster should have thrown a ClockOutOfSyncException but didn't."
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ClockOutOfSyncException
+name|e
+parameter_list|)
+block|{
+comment|// we want an exception
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Recieved expected exception: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// make sure values above warning threshold but below max threshold don't kill
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"regionServerStartup 4"
+argument_list|)
+expr_stmt|;
+name|InetAddress
+name|ia4
+init|=
+name|InetAddress
+operator|.
+name|getLocalHost
+argument_list|()
+decl_stmt|;
+name|sm
+operator|.
+name|regionServerStartup
+argument_list|(
+name|ia4
+argument_list|,
+literal|1237
+argument_list|,
 operator|-
+literal|1
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|warningSkew
+operator|*
+literal|2
+argument_list|)
+expr_stmt|;
+comment|// make sure values above warning threshold but below max threshold don't kill
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"regionServerStartup 5"
+argument_list|)
+expr_stmt|;
+name|InetAddress
+name|ia5
+init|=
+name|InetAddress
+operator|.
+name|getLocalHost
+argument_list|()
+decl_stmt|;
+name|sm
+operator|.
+name|regionServerStartup
+argument_list|(
+name|ia5
+argument_list|,
+literal|1238
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
 name|warningSkew
 operator|*
 literal|2
