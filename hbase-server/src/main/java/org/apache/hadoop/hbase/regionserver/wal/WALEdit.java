@@ -369,7 +369,9 @@ name|ArrayList
 argument_list|<
 name|KeyValue
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 comment|// Only here for legacy writable deserialization
 annotation|@
@@ -509,7 +511,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
-name|List
+name|ArrayList
 argument_list|<
 name|KeyValue
 argument_list|>
@@ -920,6 +922,13 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|kvs
+operator|.
+name|ensureCapacity
+argument_list|(
+name|expectedCount
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 name|kvs
@@ -987,7 +996,9 @@ block|{
 name|long
 name|ret
 init|=
-literal|0
+name|ClassSize
+operator|.
+name|ARRAYLIST
 decl_stmt|;
 for|for
 control|(

@@ -327,22 +327,13 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * Get the next entry, returned and also added in the array    * @param entriesArray    * @param currentNbEntries    * @return a new entry or null    * @throws IOException    */
+comment|/**    * Get the next entry, returned and also added in the array    * @return a new entry or null    * @throws IOException    */
 specifier|public
 name|HLog
 operator|.
 name|Entry
 name|readNextAndSetPosition
-parameter_list|(
-name|HLog
-operator|.
-name|Entry
-index|[]
-name|entriesArray
-parameter_list|,
-name|int
-name|currentNbEntries
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 block|{
@@ -356,12 +347,7 @@ operator|.
 name|reader
 operator|.
 name|next
-argument_list|(
-name|entriesArray
-index|[
-name|currentNbEntries
-index|]
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// Store the position so that in the future the reader can start
 comment|// reading from here. If the above call to next() throws an

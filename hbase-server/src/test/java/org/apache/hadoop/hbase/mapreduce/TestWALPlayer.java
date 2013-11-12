@@ -1077,7 +1077,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|List
+name|ArrayList
 argument_list|<
 name|KeyValue
 argument_list|>
