@@ -3597,6 +3597,18 @@ argument_list|,
 literal|256
 argument_list|)
 decl_stmt|;
+name|int
+name|coreThreads
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hconnection.threads.core"
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|maxThreads
@@ -3626,7 +3638,7 @@ name|getLong
 argument_list|(
 literal|"hbase.hconnection.threads.keepalivetime"
 argument_list|,
-literal|60
+literal|10
 argument_list|)
 decl_stmt|;
 name|LinkedBlockingQueue
@@ -3641,7 +3653,7 @@ argument_list|<
 name|Runnable
 argument_list|>
 argument_list|(
-literal|256
+name|maxThreads
 operator|*
 name|conf
 operator|.
@@ -3664,7 +3676,7 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-name|maxThreads
+name|coreThreads
 argument_list|,
 name|maxThreads
 argument_list|,
@@ -3680,7 +3692,10 @@ name|Threads
 operator|.
 name|newDaemonThreadFactory
 argument_list|(
-literal|"hbase-connection-shared-executor"
+name|toString
+argument_list|()
+operator|+
+literal|"-shared-"
 argument_list|)
 argument_list|)
 expr_stmt|;
