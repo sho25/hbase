@@ -895,6 +895,14 @@ argument_list|,
 name|hris
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|metaChanges
+operator|.
+name|hasRegionsToRestore
+argument_list|()
+condition|)
+block|{
 name|MetaEditor
 operator|.
 name|overwriteRegions
@@ -907,6 +915,7 @@ name|getRegionsToRestore
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|metaChanges
 operator|.
 name|updateMetaParentRegions
