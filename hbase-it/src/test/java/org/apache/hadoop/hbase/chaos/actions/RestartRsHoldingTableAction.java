@@ -158,7 +158,7 @@ name|conf
 init|=
 name|context
 operator|.
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 argument_list|()
 operator|.
 name|getConfiguration

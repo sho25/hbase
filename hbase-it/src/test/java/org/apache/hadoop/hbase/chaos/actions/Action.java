@@ -829,7 +829,7 @@ name|this
 operator|.
 name|context
 operator|.
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 argument_list|()
 operator|.
 name|getHBaseAdmin
@@ -895,7 +895,7 @@ name|this
 operator|.
 name|context
 operator|.
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 argument_list|()
 operator|.
 name|getHBaseAdmin
@@ -950,7 +950,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|IntegrationTestingUtility
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 parameter_list|()
 block|{
 return|return

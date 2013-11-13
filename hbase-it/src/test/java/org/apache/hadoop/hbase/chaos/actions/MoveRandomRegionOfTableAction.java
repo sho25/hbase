@@ -213,7 +213,7 @@ name|util
 init|=
 name|context
 operator|.
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 argument_list|()
 decl_stmt|;
 name|HBaseAdmin

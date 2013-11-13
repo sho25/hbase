@@ -185,7 +185,7 @@ name|admin
 operator|=
 name|context
 operator|.
-name|getHaseIntegrationTestingUtility
+name|getHBaseIntegrationTestingUtility
 argument_list|()
 operator|.
 name|getHBaseAdmin
