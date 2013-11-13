@@ -1517,6 +1517,11 @@ operator|.
 name|toMutation
 argument_list|(
 name|increment
+argument_list|,
+name|MutationProto
+operator|.
+name|newBuilder
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

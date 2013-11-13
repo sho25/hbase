@@ -3776,7 +3776,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", Attempt #"
+literal|", attempt="
 argument_list|)
 operator|.
 name|append
@@ -3829,7 +3829,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", last exception was: "
+literal|", last exception: "
 argument_list|)
 operator|.
 name|append
@@ -3841,9 +3841,6 @@ condition|?
 literal|"null"
 else|:
 name|error
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3861,7 +3858,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" on server "
+literal|" on "
 argument_list|)
 operator|.
 name|append
@@ -3873,7 +3870,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", tracking started at "
+literal|", tracking started "
 argument_list|)
 operator|.
 name|append
@@ -3890,7 +3887,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" - retrying after sleeping for "
+literal|", retrying after "
 argument_list|)
 operator|.
 name|append
@@ -3905,7 +3902,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", will replay "
+literal|", replay "
 argument_list|)
 operator|.
 name|append

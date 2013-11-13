@@ -200,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  *  * @since 0.21.0  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from an {@ink HConnection}.  *  * @since 0.21.0  */
 end_comment
 
 begin_interface
