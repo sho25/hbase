@@ -379,20 +379,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -5684,6 +5670,28 @@ decl_stmt|;
 comment|// This block guards against two threads trying to load the meta
 comment|// region at the same time. The first will load the meta region and
 comment|// the second will use the value that the first one found.
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
+if|if
+condition|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|equals
+argument_list|(
+name|parentTable
+argument_list|)
+operator|&&
+name|getRegionCachePrefetch
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
 synchronized|synchronized
 init|(
 name|regionLockObject
@@ -5691,11 +5699,6 @@ init|)
 block|{
 comment|// Check the cache again for a hit in case some other thread made the
 comment|// same query while we were waiting on the lock.
-if|if
-condition|(
-name|useCache
-condition|)
-block|{
 name|location
 operator|=
 name|getCachedLocation
@@ -5718,25 +5721,6 @@ return|;
 block|}
 comment|// If the parent table is META, we may want to pre-fetch some
 comment|// region info into the global region cache for this table.
-if|if
-condition|(
-name|parentTable
-operator|.
-name|equals
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-operator|&&
-operator|(
-name|getRegionCachePrefetch
-argument_list|(
-name|tableName
-argument_list|)
-operator|)
-condition|)
-block|{
 name|prefetchRegionCache
 argument_list|(
 name|tableName
@@ -5744,6 +5728,7 @@ argument_list|,
 name|row
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|location
 operator|=
@@ -5802,7 +5787,6 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|regionInfoRow

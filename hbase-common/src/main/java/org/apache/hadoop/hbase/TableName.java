@@ -1319,6 +1319,15 @@ name|TableName
 name|tableName
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|tableName
+condition|)
+return|return
+literal|0
+return|;
 return|return
 name|this
 operator|.
