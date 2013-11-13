@@ -89,20 +89,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FSDataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|FileSystem
 import|;
 end_import
@@ -162,24 +148,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|encoding
-operator|.
-name|DataBlockEncoding
 import|;
 end_import
 
@@ -306,7 +274,7 @@ name|firstKeySeeked
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Creates a half file reader for a normal hfile.    * @param fs fileystem to read from    * @param p path to hfile    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
+comment|/**    * Creates a half file reader for a normal hfile.    * @param fs fileystem to read from    * @param p path to hfile    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -325,9 +293,6 @@ parameter_list|,
 specifier|final
 name|Reference
 name|r
-parameter_list|,
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|)
 throws|throws
 name|IOException
@@ -339,8 +304,6 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border
@@ -373,7 +336,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param preferredEncodingInCache    * @throws IOException    */
+comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -399,10 +362,6 @@ parameter_list|,
 specifier|final
 name|Reference
 name|r
-parameter_list|,
-specifier|final
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|)
 throws|throws
 name|IOException
@@ -418,8 +377,6 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border

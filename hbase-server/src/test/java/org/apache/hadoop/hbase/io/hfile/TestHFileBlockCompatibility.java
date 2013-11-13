@@ -1659,14 +1659,6 @@ operator|new
 name|HFileDataBlockEncoderImpl
 argument_list|(
 name|encoding
-argument_list|,
-name|encoding
-argument_list|,
-name|TestHFileBlockCompatibility
-operator|.
-name|Writer
-operator|.
-name|DUMMY_HEADER
 argument_list|)
 decl_stmt|;
 name|TestHFileBlockCompatibility
@@ -2269,7 +2261,7 @@ name|this
 operator|.
 name|dataBlockEncoder
 operator|.
-name|newOnDiskDataBlockEncodingContext
+name|newDataBlockEncodingContext
 argument_list|(
 name|DUMMY_HEADER
 argument_list|,

@@ -1252,6 +1252,11 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|void
 name|init
@@ -1641,7 +1646,7 @@ argument_list|()
 argument_list|,
 name|reader
 operator|.
-name|getEncodingOnDisk
+name|getDataBlockEncoding
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4122,11 +4127,7 @@ block|{
 name|long
 name|kvsize
 init|=
-name|this
-operator|.
-name|store
-operator|.
-name|memstore
+name|MemStore
 operator|.
 name|heapSizeChange
 argument_list|(

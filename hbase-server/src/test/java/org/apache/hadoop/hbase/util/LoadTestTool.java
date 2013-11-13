@@ -554,24 +554,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|OPT_ENCODE_IN_CACHE_ONLY
-init|=
-literal|"encode_in_cache_only"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|OPT_ENCODE_IN_CACHE_ONLY_USAGE
-init|=
-literal|"If this is specified, data blocks will only be encoded in block "
-operator|+
-literal|"cache but not on disk"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|OPT_INMEMORY
 init|=
 literal|"in_memory"
@@ -783,10 +765,6 @@ comment|// Column family options
 specifier|protected
 name|DataBlockEncoding
 name|dataBlockEncodingAlgo
-decl_stmt|;
-specifier|protected
-name|boolean
-name|encodeInCacheOnly
 decl_stmt|;
 specifier|protected
 name|Compression
@@ -1144,14 +1122,6 @@ argument_list|(
 name|dataBlockEncodingAlgo
 argument_list|)
 expr_stmt|;
-name|columnDesc
-operator|.
-name|setEncodeOnDisk
-argument_list|(
-operator|!
-name|encodeInCacheOnly
-argument_list|)
-expr_stmt|;
 block|}
 if|if
 condition|(
@@ -1331,13 +1301,6 @@ argument_list|,
 literal|"Whether to use batch as opposed to "
 operator|+
 literal|"separate updates for every column in a row"
-argument_list|)
-expr_stmt|;
-name|addOptNoArg
-argument_list|(
-name|OPT_ENCODE_IN_CACHE_ONLY
-argument_list|,
-name|OPT_ENCODE_IN_CACHE_ONLY_USAGE
 argument_list|)
 expr_stmt|;
 name|addOptNoArg
@@ -1656,15 +1619,6 @@ literal|"]"
 argument_list|)
 expr_stmt|;
 block|}
-name|encodeInCacheOnly
-operator|=
-name|cmd
-operator|.
-name|hasOption
-argument_list|(
-name|OPT_ENCODE_IN_CACHE_ONLY
-argument_list|)
-expr_stmt|;
 name|parseColumnFamilyOptions
 argument_list|(
 name|cmd
@@ -2125,31 +2079,6 @@ argument_list|(
 name|dataBlockEncodingStr
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|dataBlockEncodingAlgo
-operator|==
-name|DataBlockEncoding
-operator|.
-name|NONE
-operator|&&
-name|encodeInCacheOnly
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"-"
-operator|+
-name|OPT_ENCODE_IN_CACHE_ONLY
-operator|+
-literal|" "
-operator|+
-literal|"does not make sense when data block encoding is not used"
-argument_list|)
-throw|;
-block|}
 name|String
 name|compressStr
 init|=

@@ -503,13 +503,6 @@ argument_list|(
 name|TABLE
 argument_list|)
 expr_stmt|;
-name|hcd
-operator|.
-name|setEncodeOnDisk
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|admin
 operator|.
 name|modifyColumn

@@ -658,10 +658,6 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|bottom
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 name|halfreader
@@ -1319,10 +1315,6 @@ argument_list|,
 name|cacheConfig
 argument_list|,
 name|bottom
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 name|halfreader

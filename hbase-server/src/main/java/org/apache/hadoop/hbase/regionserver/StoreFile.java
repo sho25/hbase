@@ -419,24 +419,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileDataBlockEncoder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|HFileScanner
 import|;
 end_import
@@ -456,24 +438,6 @@ operator|.
 name|hfile
 operator|.
 name|HFileWriterV2
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|NoOpDataBlockEncoder
 import|;
 end_import
 
@@ -843,12 +807,6 @@ specifier|final
 name|CacheConfig
 name|cacheConf
 decl_stmt|;
-comment|// What kind of data block encoding will be used
-specifier|private
-specifier|final
-name|HFileDataBlockEncoder
-name|dataBlockEncoder
-decl_stmt|;
 comment|// Keys for metadata stored in backing HFile.
 comment|// Set when we obtain a Reader.
 specifier|private
@@ -967,7 +925,7 @@ name|modificationTimeStamp
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
 specifier|public
 name|StoreFile
 parameter_list|(
@@ -990,10 +948,6 @@ parameter_list|,
 specifier|final
 name|BloomType
 name|cfBloomType
-parameter_list|,
-specifier|final
-name|HFileDataBlockEncoder
-name|dataBlockEncoder
 parameter_list|)
 throws|throws
 name|IOException
@@ -1017,12 +971,10 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|cfBloomType
-argument_list|,
-name|dataBlockEncoder
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param fileInfo  The store file information.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param fileInfo  The store file information.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
 specifier|public
 name|StoreFile
 parameter_list|(
@@ -1045,10 +997,6 @@ parameter_list|,
 specifier|final
 name|BloomType
 name|cfBloomType
-parameter_list|,
-specifier|final
-name|HFileDataBlockEncoder
-name|dataBlockEncoder
 parameter_list|)
 throws|throws
 name|IOException
@@ -1070,20 +1018,6 @@ operator|.
 name|cacheConf
 operator|=
 name|cacheConf
-expr_stmt|;
-name|this
-operator|.
-name|dataBlockEncoder
-operator|=
-name|dataBlockEncoder
-operator|==
-literal|null
-condition|?
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
-else|:
-name|dataBlockEncoder
 expr_stmt|;
 if|if
 condition|(
@@ -1474,11 +1408,6 @@ argument_list|,
 name|this
 operator|.
 name|cacheConf
-argument_list|,
-name|dataBlockEncoder
-operator|.
-name|getEncodingInCache
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Load up indices and fileinfo. This also loads Bloom filter type.
@@ -2707,6 +2636,11 @@ name|minimumTimestamp
 return|;
 block|}
 comment|/**    * Gets the approximate mid-point of this file that is optimal for use in splitting it.    * @param comparator Comparator used to compare KVs.    * @return The split point row, or null if splitting is not possible, or reader is null.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 name|byte
 index|[]
 name|getFileSplitPoint
@@ -4227,9 +4161,6 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|)
 throws|throws
 name|IOException
@@ -4238,15 +4169,13 @@ name|reader
 operator|=
 name|HFile
 operator|.
-name|createReaderWithEncoding
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
 name|path
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|)
 expr_stmt|;
 name|bloomFilterType
@@ -4273,9 +4202,6 @@ name|size
 parameter_list|,
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|)
 throws|throws
 name|IOException
@@ -4284,7 +4210,7 @@ name|reader
 operator|=
 name|HFile
 operator|.
-name|createReaderWithEncoding
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
@@ -4295,8 +4221,6 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|)
 expr_stmt|;
 name|bloomFilterType

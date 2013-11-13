@@ -1395,6 +1395,11 @@ block|}
 block|}
 block|}
 comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param hfofDir the directory that was provided as the output path    * of a job using HFileOutputFormat    * @param table the table to load into    * @throws TableNotFoundException if table does not yet exist    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|doBulkLoad
@@ -4037,10 +4042,6 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|reference
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 expr_stmt|;
 name|Map
@@ -4119,19 +4120,11 @@ argument_list|(
 name|blocksize
 argument_list|)
 operator|.
-name|withDataBlockEncodingInCache
+name|withDataBlockEncoding
 argument_list|(
 name|familyDescriptor
 operator|.
 name|getDataBlockEncoding
-argument_list|()
-argument_list|)
-operator|.
-name|withDataBlockEncodingOnDisk
-argument_list|(
-name|familyDescriptor
-operator|.
-name|getDataBlockEncodingOnDisk
 argument_list|()
 argument_list|)
 operator|.

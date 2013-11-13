@@ -1462,8 +1462,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|ROWCOL
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|HFileReaderV2

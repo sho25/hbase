@@ -217,6 +217,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Durability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Get
 import|;
 end_import
@@ -311,9 +327,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|filter
 operator|.
-name|Durability
+name|ByteArrayComparable
 import|;
 end_import
 
@@ -332,22 +348,6 @@ operator|.
 name|CompareFilter
 operator|.
 name|CompareOp
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
-name|ByteArrayComparable
 import|;
 end_import
 
@@ -380,24 +380,6 @@ operator|.
 name|io
 operator|.
 name|Reference
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|encoding
-operator|.
-name|DataBlockEncoding
 import|;
 end_import
 
@@ -480,6 +462,22 @@ operator|.
 name|regionserver
 operator|.
 name|MiniBatchOperationInProgress
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|OperationStatus
 import|;
 end_import
 
@@ -619,20 +617,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableList
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -644,6 +628,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableList
 import|;
 end_import
 
@@ -2262,7 +2260,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param preferredEncodingInCache    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
+comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
 name|StoreFile
 operator|.
 name|Reader
@@ -2295,10 +2293,6 @@ name|CacheConfig
 name|cacheConf
 parameter_list|,
 specifier|final
-name|DataBlockEncoding
-name|preferredEncodingInCache
-parameter_list|,
-specifier|final
 name|Reference
 name|r
 parameter_list|,
@@ -2310,7 +2304,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the creation of Reader for a store file.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param preferredEncodingInCache    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
+comment|/**    * Called after the creation of Reader for a store file.    *     * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
 name|StoreFile
 operator|.
 name|Reader
@@ -2341,10 +2335,6 @@ parameter_list|,
 specifier|final
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-specifier|final
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|,
 specifier|final
 name|Reference

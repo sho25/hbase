@@ -625,24 +625,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|encoding
-operator|.
-name|DataBlockEncoding
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|hfile
 operator|.
 name|CacheConfig
@@ -7729,7 +7711,7 @@ return|return
 name|hasLoaded
 return|;
 block|}
-comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param preferredEncodingInCache    * @param r original reference file. This will be not null only when reading a split file.    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
+comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
 specifier|public
 name|StoreFile
 operator|.
@@ -7754,10 +7736,6 @@ parameter_list|,
 specifier|final
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-specifier|final
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|,
 specifier|final
 name|Reference
@@ -7837,8 +7815,6 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|,
 name|r
 argument_list|,
@@ -7876,7 +7852,7 @@ return|return
 name|reader
 return|;
 block|}
-comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param preferredEncodingInCache    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
+comment|/**    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
 specifier|public
 name|StoreFile
 operator|.
@@ -7901,10 +7877,6 @@ parameter_list|,
 specifier|final
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-specifier|final
-name|DataBlockEncoding
-name|preferredEncodingInCache
 parameter_list|,
 specifier|final
 name|Reference
@@ -7982,8 +7954,6 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
-argument_list|,
-name|preferredEncodingInCache
 argument_list|,
 name|r
 argument_list|,

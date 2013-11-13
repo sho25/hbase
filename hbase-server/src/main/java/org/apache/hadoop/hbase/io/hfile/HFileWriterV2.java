@@ -974,28 +974,13 @@ name|long
 name|offset
 parameter_list|)
 block|{
-comment|// We don't cache-on-write data blocks on compaction, so assume this is not
-comment|// a compaction.
-specifier|final
-name|boolean
-name|isCompaction
-init|=
-literal|false
-decl_stmt|;
 name|HFileBlock
 name|cacheFormatBlock
 init|=
-name|blockEncoder
-operator|.
-name|diskToCacheFormat
-argument_list|(
 name|fsBlockWriter
 operator|.
 name|getBlockForCaching
 argument_list|()
-argument_list|,
-name|isCompaction
-argument_list|)
 decl_stmt|;
 name|cacheConf
 operator|.
@@ -1013,7 +998,7 @@ name|offset
 argument_list|,
 name|blockEncoder
 operator|.
-name|getEncodingInCache
+name|getDataBlockEncoding
 argument_list|()
 argument_list|,
 name|cacheFormatBlock

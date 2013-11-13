@@ -816,11 +816,6 @@ argument_list|(
 name|encoding
 argument_list|)
 operator|.
-name|setEncodeOnDisk
-argument_list|(
-name|encodeOnDisk
-argument_list|)
-operator|.
 name|setBlocksize
 argument_list|(
 name|BLOCK_SIZE

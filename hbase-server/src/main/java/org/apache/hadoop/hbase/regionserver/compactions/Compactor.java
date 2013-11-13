@@ -133,20 +133,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -296,22 +282,6 @@ operator|.
 name|regionserver
 operator|.
 name|InternalScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MultiVersionConsistencyControl
 import|;
 end_import
 
@@ -959,7 +929,7 @@ operator|.
 name|getHFileReader
 argument_list|()
 operator|.
-name|getEncodingOnDisk
+name|getDataBlockEncoding
 argument_list|()
 operator|+
 literal|", seqNum="
@@ -1137,11 +1107,6 @@ name|request
 argument_list|)
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 comment|/**    * Performs the compaction.    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @return Whether compaction ended; false if it was interrupted for some reason.    */
 specifier|protected
 name|boolean

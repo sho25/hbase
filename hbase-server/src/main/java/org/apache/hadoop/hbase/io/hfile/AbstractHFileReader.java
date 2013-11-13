@@ -1064,13 +1064,13 @@ annotation|@
 name|Override
 specifier|public
 name|DataBlockEncoding
-name|getEncodingOnDisk
+name|getDataBlockEncoding
 parameter_list|()
 block|{
 return|return
 name|dataBlockEncoder
 operator|.
-name|getEncodingOnDisk
+name|getDataBlockEncoding
 argument_list|()
 return|;
 block|}

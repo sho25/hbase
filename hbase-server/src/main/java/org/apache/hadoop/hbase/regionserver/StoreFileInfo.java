@@ -728,7 +728,7 @@ operator|.
 name|hdfsBlocksDistribution
 return|;
 block|}
-comment|/**    * Open a Reader for the StoreFile    * @param fs The current file system to use.    * @param cacheConf The cache configuration and block cache reference.    * @param dataBlockEncoding data block encoding algorithm.    * @return The StoreFile.Reader for the file    */
+comment|/**    * Open a Reader for the StoreFile    * @param fs The current file system to use.    * @param cacheConf The cache configuration and block cache reference.    * @return The StoreFile.Reader for the file    */
 specifier|public
 name|StoreFile
 operator|.
@@ -742,10 +742,6 @@ parameter_list|,
 specifier|final
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-specifier|final
-name|DataBlockEncoding
-name|dataBlockEncoding
 parameter_list|)
 throws|throws
 name|IOException
@@ -936,8 +932,6 @@ name|length
 argument_list|,
 name|cacheConf
 argument_list|,
-name|dataBlockEncoding
-argument_list|,
 name|reference
 argument_list|)
 expr_stmt|;
@@ -977,8 +971,6 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|reference
-argument_list|,
-name|dataBlockEncoding
 argument_list|)
 expr_stmt|;
 block|}
@@ -1003,8 +995,6 @@ argument_list|,
 name|length
 argument_list|,
 name|cacheConf
-argument_list|,
-name|dataBlockEncoding
 argument_list|)
 expr_stmt|;
 block|}
@@ -1038,8 +1028,6 @@ argument_list|,
 name|length
 argument_list|,
 name|cacheConf
-argument_list|,
-name|dataBlockEncoding
 argument_list|,
 name|reference
 argument_list|,

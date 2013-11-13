@@ -479,24 +479,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|NoOpDataBlockEncoder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|BloomFilterFactory
@@ -886,10 +868,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|checkHalfHFile
@@ -1213,10 +1191,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -1329,10 +1303,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 comment|// Now confirm that I can read from the reference and that it only gets
@@ -1680,10 +1650,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -2047,10 +2013,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|Path
@@ -2127,10 +2089,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 comment|// Now confirm that I can read from the ref to link
@@ -2199,10 +2157,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 comment|// Now confirm that I can read from the ref to link
@@ -2409,10 +2363,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 operator|.
 name|createReader
@@ -2439,10 +2389,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 operator|.
 name|createReader
@@ -2867,10 +2813,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 operator|.
 name|createReader
@@ -3178,10 +3120,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 operator|.
 name|createReader
@@ -3546,10 +3484,6 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 name|reader
@@ -4151,10 +4085,6 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 name|reader
@@ -4429,10 +4359,6 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 comment|// Now do reseek with empty KV to position to the beginning of the file
@@ -4858,10 +4784,6 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
 argument_list|)
 decl_stmt|;
 name|reader
@@ -5928,10 +5850,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -6264,10 +6182,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -6446,10 +6360,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 expr_stmt|;
 comment|// Read this file, we should see 3 hits
@@ -6560,10 +6470,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 expr_stmt|;
 name|StoreFile
@@ -6620,10 +6526,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 expr_stmt|;
 name|StoreFile
@@ -6894,10 +6796,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 expr_stmt|;
 name|reader
@@ -6990,10 +6888,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|NoOpDataBlockEncoder
-operator|.
-name|INSTANCE
 argument_list|)
 expr_stmt|;
 name|reader
@@ -7422,8 +7316,6 @@ operator|new
 name|HFileDataBlockEncoderImpl
 argument_list|(
 name|dataBlockEncoderAlgo
-argument_list|,
-name|dataBlockEncoderAlgo
 argument_list|)
 decl_stmt|;
 name|cacheConf
@@ -7458,12 +7350,7 @@ argument_list|(
 name|CKBYTES
 argument_list|)
 operator|.
-name|withDataBlockEncodingInCache
-argument_list|(
-name|dataBlockEncoderAlgo
-argument_list|)
-operator|.
-name|withDataBlockEncodingOnDisk
+name|withDataBlockEncoding
 argument_list|(
 name|dataBlockEncoderAlgo
 argument_list|)
@@ -7534,8 +7421,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-name|dataBlockEncoder
 argument_list|)
 decl_stmt|;
 name|StoreFile

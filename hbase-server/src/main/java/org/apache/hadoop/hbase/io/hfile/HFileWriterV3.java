@@ -871,7 +871,7 @@ init|=
 operator|(
 name|hFileContext
 operator|.
-name|getEncodingOnDisk
+name|getDataBlockEncoding
 argument_list|()
 operator|!=
 name|DataBlockEncoding
