@@ -791,7 +791,9 @@ argument_list|,
 name|TABLE1
 argument_list|)
 expr_stmt|;
-comment|// delete the table
+comment|// test delete schema operation is forbidden in read-only mode
+name|response
+operator|=
 name|client
 operator|.
 name|delete
@@ -799,15 +801,14 @@ argument_list|(
 name|schemaPath
 argument_list|)
 expr_stmt|;
-comment|// make sure HBase concurs
-name|assertFalse
+name|assertEquals
 argument_list|(
-name|admin
+name|response
 operator|.
-name|tableExists
-argument_list|(
-name|TABLE1
-argument_list|)
+name|getCode
+argument_list|()
+argument_list|,
+literal|403
 argument_list|)
 expr_stmt|;
 comment|// return read-only setting back to default
@@ -818,6 +819,36 @@ argument_list|(
 literal|"hbase.rest.readonly"
 argument_list|,
 literal|"false"
+argument_list|)
+expr_stmt|;
+comment|// delete the table and make sure HBase concurs
+name|response
+operator|=
+name|client
+operator|.
+name|delete
+argument_list|(
+name|schemaPath
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|response
+operator|.
+name|getCode
+argument_list|()
+argument_list|,
+literal|200
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+name|admin
+operator|.
+name|tableExists
+argument_list|(
+name|TABLE1
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1076,7 +1107,9 @@ argument_list|,
 name|TABLE2
 argument_list|)
 expr_stmt|;
-comment|// delete the table
+comment|// test delete schema operation is forbidden in read-only mode
+name|response
+operator|=
 name|client
 operator|.
 name|delete
@@ -1084,15 +1117,14 @@ argument_list|(
 name|schemaPath
 argument_list|)
 expr_stmt|;
-comment|// make sure HBase concurs
-name|assertFalse
+name|assertEquals
 argument_list|(
-name|admin
+name|response
 operator|.
-name|tableExists
-argument_list|(
-name|TABLE2
-argument_list|)
+name|getCode
+argument_list|()
+argument_list|,
+literal|403
 argument_list|)
 expr_stmt|;
 comment|// return read-only setting back to default
@@ -1103,6 +1135,36 @@ argument_list|(
 literal|"hbase.rest.readonly"
 argument_list|,
 literal|"false"
+argument_list|)
+expr_stmt|;
+comment|// delete the table and make sure HBase concurs
+name|response
+operator|=
+name|client
+operator|.
+name|delete
+argument_list|(
+name|schemaPath
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|response
+operator|.
+name|getCode
+argument_list|()
+argument_list|,
+literal|200
+argument_list|)
+expr_stmt|;
+name|assertFalse
+argument_list|(
+name|admin
+operator|.
+name|tableExists
+argument_list|(
+name|TABLE2
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
