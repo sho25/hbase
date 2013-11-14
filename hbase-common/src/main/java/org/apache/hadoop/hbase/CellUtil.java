@@ -2149,7 +2149,7 @@ name|SIZEOF_INT
 return|;
 block|}
 comment|/********************* tags *************************************/
-comment|/**    * Util method to iterate through the tags. Used in testcase    *     * @param tags    * @param offset    * @param length    * @return iterator for the tags    */
+comment|/**    * Util method to iterate through the tags    *     * @param tags    * @param offset    * @param length    * @return iterator for the tags    */
 specifier|public
 specifier|static
 name|Iterator
@@ -2168,7 +2168,7 @@ name|int
 name|offset
 parameter_list|,
 specifier|final
-name|short
+name|int
 name|length
 parameter_list|)
 block|{

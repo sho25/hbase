@@ -406,6 +406,7 @@ name|type
 return|;
 block|}
 comment|/**    * @return Length of actual tag bytes within the backed buffer    */
+specifier|public
 name|int
 name|getTagLength
 parameter_list|()
@@ -419,6 +420,7 @@ name|INFRASTRUCTURE_SIZE
 return|;
 block|}
 comment|/**    * @return Offset of actual tag bytes within the backed buffer    */
+specifier|public
 name|int
 name|getTagOffset
 parameter_list|()
@@ -489,7 +491,7 @@ parameter_list|,
 name|int
 name|offset
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|)
 block|{
