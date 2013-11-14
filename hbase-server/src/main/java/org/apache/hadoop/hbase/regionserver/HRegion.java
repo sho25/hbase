@@ -12479,6 +12479,7 @@ name|e
 throw|;
 block|}
 block|}
+block|}
 comment|// The edits size added into rsAccounting during this replaying will not
 comment|// be required any more. So just clear it.
 if|if
@@ -12502,7 +12503,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
