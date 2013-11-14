@@ -13679,6 +13679,8 @@ decl_stmt|;
 return|return
 name|getRegionByEncodedName
 argument_list|(
+name|regionName
+argument_list|,
 name|encodedRegionName
 argument_list|)
 return|;
@@ -13687,6 +13689,29 @@ specifier|protected
 name|HRegion
 name|getRegionByEncodedName
 parameter_list|(
+name|String
+name|encodedRegionName
+parameter_list|)
+throws|throws
+name|NotServingRegionException
+block|{
+return|return
+name|getRegionByEncodedName
+argument_list|(
+literal|null
+argument_list|,
+name|encodedRegionName
+argument_list|)
+return|;
+block|}
+specifier|protected
+name|HRegion
+name|getRegionByEncodedName
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
 name|String
 name|encodedRegionName
 parameter_list|)
@@ -13760,6 +13785,22 @@ name|encodedRegionName
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|String
+name|regionNameStr
+init|=
+name|regionName
+operator|==
+literal|null
+condition|?
+name|encodedRegionName
+else|:
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|isOpening
@@ -13776,9 +13817,11 @@ throw|throw
 operator|new
 name|RegionOpeningException
 argument_list|(
-literal|"Region is being opened: "
+literal|"Region "
 operator|+
-name|encodedRegionName
+name|regionNameStr
+operator|+
+literal|" is opening"
 argument_list|)
 throw|;
 block|}
@@ -13786,9 +13829,11 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
-literal|"Region is not online: "
+literal|"Region "
 operator|+
-name|encodedRegionName
+name|regionNameStr
+operator|+
+literal|" is not online"
 argument_list|)
 throw|;
 block|}
@@ -20693,6 +20738,14 @@ block|{
 return|return
 name|getRegionByEncodedName
 argument_list|(
+name|regionSpecifier
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|toByteArray
+argument_list|()
+argument_list|,
 name|ProtobufUtil
 operator|.
 name|getRegionEncodedName
