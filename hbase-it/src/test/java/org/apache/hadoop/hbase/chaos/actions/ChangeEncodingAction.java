@@ -275,8 +275,7 @@ block|,
 literal|3
 block|,
 literal|4
-block|,
-literal|6
+comment|/*, 6*/
 block|}
 decl_stmt|;
 for|for
