@@ -2517,6 +2517,23 @@ name|DEFAULT_STATUS_MULTICAST_ADDRESS
 init|=
 literal|"226.1.1.3"
 decl_stmt|;
+comment|/**    * The address to use for binding the local socket for receiving multicast. Defaults to    * 0.0.0.0.    * @see https://issues.apache.org/jira/browse/HBASE-9961    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STATUS_MULTICAST_BIND_ADDRESS
+init|=
+literal|"hbase.status.multicast.bind.address.ip"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_STATUS_MULTICAST_BIND_ADDRESS
+init|=
+literal|"0.0.0.0"
+decl_stmt|;
 comment|/**    * The port to use for the multicast messages.    */
 specifier|public
 specifier|static
