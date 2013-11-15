@@ -673,7 +673,11 @@ begin_class
 annotation|@
 name|SuppressWarnings
 argument_list|(
+block|{
+literal|"rawtypes"
+block|,
 literal|"unchecked"
+block|}
 argument_list|)
 annotation|@
 name|InterfaceAudience
@@ -2416,26 +2420,21 @@ name|batchSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add the HBase dependency jars as well as jars for any of the configured    * job classes to the job configuration, so that JobClient will ship them    * to the cluster and add them to the DistributedCache.    */
+comment|/**    * Add HBase and its dependencies (only) to the job configuration.    *<p>    * This is intended as a low-level API, facilitating code reuse between this    * class and its mapred counterpart. It also of use to extenral tools that    * need to build a MapReduce job that interacts with HBase but want    * fine-grained control over the jars shipped to the cluster.    *</p>    * @param conf The Configuration object to extend with dependencies.    * @see org.apache.hadoop.hbase.mapred.TableMapReduceUtil    * @see<a href="https://issues.apache.org/jira/browse/PIG-3285">PIG-3285</a>    */
 specifier|public
 specifier|static
 name|void
-name|addDependencyJars
+name|addHBaseDependencyJars
 parameter_list|(
-name|Job
-name|job
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
 name|addDependencyJars
 argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|,
 comment|// explicitly pull a class from each module
 name|org
@@ -2496,6 +2495,21 @@ operator|.
 name|class
 argument_list|,
 comment|// hbase-hadoop-compat
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mapreduce
+operator|.
+name|TableMapper
+operator|.
+name|class
+argument_list|,
+comment|// hbase-server
 comment|// pull necessary dependencies
 name|org
 operator|.
@@ -2550,7 +2564,39 @@ operator|.
 name|Trace
 operator|.
 name|class
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add the HBase dependency jars as well as jars for any of the configured    * job classes to the job configuration, so that JobClient will ship them    * to the cluster and add them to the DistributedCache.    */
+specifier|public
+specifier|static
+name|void
+name|addDependencyJars
+parameter_list|(
+name|Job
+name|job
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|addHBaseDependencyJars
+argument_list|(
+name|job
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|addDependencyJars
+argument_list|(
+name|job
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|,
+comment|// when making changes here, consider also mapred.TableMapReduceUtil
 comment|// pull job classes
 name|job
 operator|.

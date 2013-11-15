@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -41,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|LargeTests
+name|SmallTests
 import|;
 end_import
 
@@ -143,27 +167,15 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
-import|;
-end_import
-
 begin_comment
-comment|/**  * Test class TableMapReduceUtil  */
+comment|/**  * Test different variants of initTableMapperJob method  */
 end_comment
 
 begin_class
 annotation|@
 name|Category
 argument_list|(
-name|LargeTests
+name|SmallTests
 operator|.
 name|class
 argument_list|)
@@ -171,17 +183,11 @@ specifier|public
 class|class
 name|TestTableMapReduceUtil
 block|{
-comment|/**    * Test different variants ofinitTableMapperJob method    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
-name|testInitTableMapperJob
+name|testInitTableMapperJob1
 parameter_list|()
 throws|throws
 name|Exception
@@ -313,14 +319,26 @@ name|INPUT_TABLE
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testInitTableMapperJob2
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|Configuration
 name|configuration
-operator|=
+init|=
 operator|new
 name|Configuration
 argument_list|()
-expr_stmt|;
+decl_stmt|;
+name|Job
 name|job
-operator|=
+init|=
 operator|new
 name|Job
 argument_list|(
@@ -328,7 +346,7 @@ name|configuration
 argument_list|,
 literal|"tableName"
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|TableMapReduceUtil
 operator|.
 name|initTableMapperJob
@@ -442,14 +460,26 @@ name|INPUT_TABLE
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testInitTableMapperJob3
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|Configuration
 name|configuration
-operator|=
+init|=
 operator|new
 name|Configuration
 argument_list|()
-expr_stmt|;
+decl_stmt|;
+name|Job
 name|job
-operator|=
+init|=
 operator|new
 name|Job
 argument_list|(
@@ -457,7 +487,7 @@ name|configuration
 argument_list|,
 literal|"tableName"
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|TableMapReduceUtil
 operator|.
 name|initTableMapperJob
@@ -565,14 +595,26 @@ name|INPUT_TABLE
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testInitTableMapperJob4
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|Configuration
 name|configuration
-operator|=
+init|=
 operator|new
 name|Configuration
 argument_list|()
-expr_stmt|;
+decl_stmt|;
+name|Job
 name|job
-operator|=
+init|=
 operator|new
 name|Job
 argument_list|(
@@ -580,7 +622,7 @@ name|configuration
 argument_list|,
 literal|"tableName"
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|TableMapReduceUtil
 operator|.
 name|initTableMapperJob

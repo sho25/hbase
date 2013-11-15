@@ -145,7 +145,7 @@ comment|/**    * Use this before submitting a TableMap job. It will appropriatel
 annotation|@
 name|SuppressWarnings
 argument_list|(
-literal|"unchecked"
+literal|"rawtypes"
 argument_list|)
 specifier|public
 specifier|static
