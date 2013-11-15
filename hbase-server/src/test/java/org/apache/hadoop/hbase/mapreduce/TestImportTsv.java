@@ -1139,7 +1139,7 @@ name|Path
 argument_list|(
 name|util
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 name|table
 argument_list|)
@@ -1317,7 +1317,7 @@ name|Path
 argument_list|(
 name|util
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 name|table
 argument_list|)
