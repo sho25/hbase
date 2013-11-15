@@ -1138,6 +1138,12 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
+comment|/**    * @return Nonce generator for this HConnection; may be null if disabled in configuration.    */
+specifier|public
+name|NonceGenerator
+name|getNonceGenerator
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -33688,6 +33688,17 @@ name|int
 name|getAssociatedCellCount
 parameter_list|()
 function_decl|;
+comment|// optional uint64 nonce = 9;
+comment|/**      *<code>optional uint64 nonce = 9;</code>      */
+name|boolean
+name|hasNonce
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 nonce = 9;</code>      */
+name|long
+name|getNonce
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code MutationProto}    *    *<pre>    **    * A specific mutation inside a mutate request.    * It can be an append, increment, put or delete based    * on the mutation type.  It can be fully filled in or    * only metadata present because data is being carried    * elsewhere outside of pb.    *</pre>    */
 specifier|public
@@ -34425,6 +34436,23 @@ operator|=
 name|input
 operator|.
 name|readInt32
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|72
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|nonce_
+operator|=
+name|input
+operator|.
+name|readUInt64
 argument_list|()
 expr_stmt|;
 break|break;
@@ -46141,6 +46169,47 @@ return|return
 name|associatedCellCount_
 return|;
 block|}
+comment|// optional uint64 nonce = 9;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NONCE_FIELD_NUMBER
+init|=
+literal|9
+decl_stmt|;
+specifier|private
+name|long
+name|nonce_
+decl_stmt|;
+comment|/**      *<code>optional uint64 nonce = 9;</code>      */
+specifier|public
+name|boolean
+name|hasNonce
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 nonce = 9;</code>      */
+specifier|public
+name|long
+name|getNonce
+parameter_list|()
+block|{
+return|return
+name|nonce_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -46252,6 +46321,10 @@ expr_stmt|;
 name|associatedCellCount_
 operator|=
 literal|0
+expr_stmt|;
+name|nonce_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -46599,6 +46672,29 @@ name|associatedCellCount_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|9
+argument_list|,
+name|nonce_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -46910,6 +47006,37 @@ argument_list|(
 literal|8
 argument_list|,
 name|associatedCellCount_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|9
+argument_list|,
+name|nonce_
 argument_list|)
 expr_stmt|;
 block|}
@@ -47315,6 +47442,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasNonce
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasNonce
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasNonce
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getNonce
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getNonce
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -47624,6 +47786,37 @@ operator|)
 operator|+
 name|getAssociatedCellCount
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasNonce
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|NONCE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getNonce
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -48688,6 +48881,19 @@ operator|~
 literal|0x00000080
 operator|)
 expr_stmt|;
+name|nonce_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -49191,6 +49397,30 @@ operator|.
 name|associatedCellCount_
 operator|=
 name|associatedCellCount_
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|nonce_
+operator|=
+name|nonce_
 expr_stmt|;
 name|result
 operator|.
@@ -49702,6 +49932,23 @@ argument_list|(
 name|other
 operator|.
 name|getAssociatedCellCount
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasNonce
+argument_list|()
+condition|)
+block|{
+name|setNonce
+argument_list|(
+name|other
+operator|.
+name|getNonce
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -54005,6 +54252,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional uint64 nonce = 9;
+specifier|private
+name|long
+name|nonce_
+decl_stmt|;
+comment|/**        *<code>optional uint64 nonce = 9;</code>        */
+specifier|public
+name|boolean
+name|hasNonce
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce = 9;</code>        */
+specifier|public
+name|long
+name|getNonce
+parameter_list|()
+block|{
+return|return
+name|nonce_
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce = 9;</code>        */
+specifier|public
+name|Builder
+name|setNonce
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+name|nonce_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce = 9;</code>        */
+specifier|public
+name|Builder
+name|clearNonce
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000100
+operator|)
+expr_stmt|;
+name|nonce_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:MutationProto)
 block|}
 static|static
@@ -54167,6 +54497,17 @@ name|ClientProtos
 operator|.
 name|ConditionOrBuilder
 name|getConditionOrBuilder
+parameter_list|()
+function_decl|;
+comment|// optional uint64 nonce_group = 4;
+comment|/**      *<code>optional uint64 nonce_group = 4;</code>      */
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 nonce_group = 4;</code>      */
+name|long
+name|getNonceGroup
 parameter_list|()
 function_decl|;
 block|}
@@ -54725,6 +55066,23 @@ literal|0x00000004
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|32
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|nonceGroup_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -55279,6 +55637,47 @@ return|return
 name|condition_
 return|;
 block|}
+comment|// optional uint64 nonce_group = 4;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NONCE_GROUP_FIELD_NUMBER
+init|=
+literal|4
+decl_stmt|;
+specifier|private
+name|long
+name|nonceGroup_
+decl_stmt|;
+comment|/**      *<code>optional uint64 nonce_group = 4;</code>      */
+specifier|public
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 nonce_group = 4;</code>      */
+specifier|public
+name|long
+name|getNonceGroup
+parameter_list|()
+block|{
+return|return
+name|nonceGroup_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -55346,6 +55745,10 @@ name|Condition
 operator|.
 name|getDefaultInstance
 argument_list|()
+expr_stmt|;
+name|nonceGroup_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -55569,6 +55972,29 @@ name|condition_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|4
+argument_list|,
+name|nonceGroup_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -55699,6 +56125,37 @@ argument_list|(
 literal|3
 argument_list|,
 name|condition_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|4
+argument_list|,
+name|nonceGroup_
 argument_list|)
 expr_stmt|;
 block|}
@@ -55970,6 +56427,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasNonceGroup
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasNonceGroup
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getNonceGroup
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getNonceGroup
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -56123,6 +56615,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|NONCE_GROUP_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getNonceGroup
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -57098,6 +57621,19 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
+name|nonceGroup_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -57446,6 +57982,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|nonceGroup_
+operator|=
+name|nonceGroup_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -57627,6 +58187,23 @@ argument_list|(
 name|other
 operator|.
 name|getCondition
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|setNonceGroup
+argument_list|(
+name|other
+operator|.
+name|getNonceGroup
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -59959,6 +60536,89 @@ expr_stmt|;
 block|}
 return|return
 name|conditionBuilder_
+return|;
+block|}
+comment|// optional uint64 nonce_group = 4;
+specifier|private
+name|long
+name|nonceGroup_
+decl_stmt|;
+comment|/**        *<code>optional uint64 nonce_group = 4;</code>        */
+specifier|public
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce_group = 4;</code>        */
+specifier|public
+name|long
+name|getNonceGroup
+parameter_list|()
+block|{
+return|return
+name|nonceGroup_
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce_group = 4;</code>        */
+specifier|public
+name|Builder
+name|setNonceGroup
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|nonceGroup_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonce_group = 4;</code>        */
+specifier|public
+name|Builder
+name|clearNonceGroup
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
+name|nonceGroup_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:MutateRequest)
@@ -136101,6 +136761,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional uint64 nonceGroup = 2;
+comment|/**      *<code>optional uint64 nonceGroup = 2;</code>      */
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 nonceGroup = 2;</code>      */
+name|long
+name|getNonceGroup
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code MultiRequest}    *    *<pre>    **    * Execute a list of actions on a given region in order.    * Nothing prevents a request to contains a set of RegionAction on the same region.    * For this reason, the matching between the MultiRequest and the MultiResponse is not    *  done by the region specifier but by keeping the order of the RegionActionResult vs.    *  the order of the RegionAction.    *</pre>    */
 specifier|public
@@ -136436,6 +137107,23 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|16
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000001
+expr_stmt|;
+name|nonceGroup_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -136734,6 +137422,10 @@ return|return
 name|PARSER
 return|;
 block|}
+specifier|private
+name|int
+name|bitField0_
+decl_stmt|;
 comment|// repeated .RegionAction regionAction = 1;
 specifier|public
 specifier|static
@@ -136909,6 +137601,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional uint64 nonceGroup = 2;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NONCEGROUP_FIELD_NUMBER
+init|=
+literal|2
+decl_stmt|;
+specifier|private
+name|long
+name|nonceGroup_
+decl_stmt|;
+comment|/**      *<code>optional uint64 nonceGroup = 2;</code>      */
+specifier|public
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 nonceGroup = 2;</code>      */
+specifier|public
+name|long
+name|getNonceGroup
+parameter_list|()
+block|{
+return|return
+name|nonceGroup_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -136924,6 +137657,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|nonceGroup_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -137057,6 +137794,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|2
+argument_list|,
+name|nonceGroup_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -137135,6 +137895,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|2
+argument_list|,
+name|nonceGroup_
 argument_list|)
 expr_stmt|;
 block|}
@@ -137313,6 +138104,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasNonceGroup
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasNonceGroup
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getNonceGroup
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getNonceGroup
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -137406,6 +138232,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|NONCEGROUP_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getNonceGroup
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -138273,6 +139130,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|nonceGroup_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -138484,6 +139354,11 @@ name|from_bitField0_
 init|=
 name|bitField0_
 decl_stmt|;
+name|int
+name|to_bitField0_
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
 name|regionActionBuilder_
@@ -138546,6 +139421,36 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000001
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|nonceGroup_
+operator|=
+name|nonceGroup_
+expr_stmt|;
+name|result
+operator|.
+name|bitField0_
+operator|=
+name|to_bitField0_
+expr_stmt|;
 name|onBuilt
 argument_list|()
 expr_stmt|;
@@ -138812,6 +139717,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasNonceGroup
+argument_list|()
+condition|)
+block|{
+name|setNonceGroup
+argument_list|(
+name|other
+operator|.
+name|getNonceGroup
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -140327,6 +141249,89 @@ expr_stmt|;
 block|}
 return|return
 name|regionActionBuilder_
+return|;
+block|}
+comment|// optional uint64 nonceGroup = 2;
+specifier|private
+name|long
+name|nonceGroup_
+decl_stmt|;
+comment|/**        *<code>optional uint64 nonceGroup = 2;</code>        */
+specifier|public
+name|boolean
+name|hasNonceGroup
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonceGroup = 2;</code>        */
+specifier|public
+name|long
+name|getNonceGroup
+parameter_list|()
+block|{
+return|return
+name|nonceGroup_
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonceGroup = 2;</code>        */
+specifier|public
+name|Builder
+name|setNonceGroup
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|nonceGroup_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 nonceGroup = 2;</code>        */
+specifier|public
+name|Builder
+name|clearNonceGroup
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
+name|nonceGroup_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:MultiRequest)
@@ -150381,7 +151386,7 @@ literal|" \002(\014\022\021\n\tqualifier\030\003 \002(\014\022\"\n\014compare_ty
 operator|+
 literal|"\004 \002(\0162\014.CompareType\022\037\n\ncomparator\030\005 \002(\0132"
 operator|+
-literal|"\013.Comparator\"\246\006\n\rMutationProto\022\013\n\003row\030\001 "
+literal|"\013.Comparator\"\265\006\n\rMutationProto\022\013\n\003row\030\001 "
 operator|+
 literal|"\001(\014\0220\n\013mutate_type\030\002 \001(\0162\033.MutationProto"
 block|,
@@ -150397,141 +151402,145 @@ literal|"lity:\013USE_DEFAULT\022\036\n\ntime_range\030\007 \001(\0132\n."
 operator|+
 literal|"TimeRange\022\035\n\025associated_cell_count\030\010 \001(\005"
 operator|+
-literal|"\032\347\001\n\013ColumnValue\022\016\n\006family\030\001 \002(\014\022B\n\017qual"
+literal|"\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013ColumnValue\022\016\n\006famil"
 operator|+
-literal|"ifier_value\030\002 \003(\0132).MutationProto.Column"
+literal|"y\030\001 \002(\014\022B\n\017qualifier_value\030\002 \003(\0132).Mutat"
 operator|+
-literal|"Value.QualifierValue\032\203\001\n\016QualifierValue\022"
+literal|"ionProto.ColumnValue.QualifierValue\032\203\001\n\016"
 operator|+
-literal|"\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttim"
+literal|"QualifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005val"
 block|,
-literal|"estamp\030\003 \001(\004\022.\n\013delete_type\030\004 \001(\0162\031.Muta"
+literal|"ue\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_ty"
 operator|+
-literal|"tionProto.DeleteType\022\014\n\004tags\030\005 \001(\014\"W\n\nDu"
+literal|"pe\030\004 \001(\0162\031.MutationProto.DeleteType\022\014\n\004t"
 operator|+
-literal|"rability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022"
+literal|"ags\030\005 \001(\014\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000"
 operator|+
-literal|"\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WA"
+literal|"\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WA"
 operator|+
-literal|"L\020\004\">\n\014MutationType\022\n\n\006APPEND\020\000\022\r\n\tINCRE"
+literal|"L\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014MutationType\022\n\n\006AP"
 operator|+
-literal|"MENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteTyp"
+literal|"PEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE"
 operator|+
-literal|"e\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030DELETE_MULT"
+literal|"\020\003\"p\n\nDeleteType\022\026\n\022DELETE_ONE_VERSION\020\000"
 operator|+
-literal|"IPLE_VERSIONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DE"
+literal|"\022\034\n\030DELETE_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE"
 operator|+
-literal|"LETE_FAMILY_VERSION\020\003\"r\n\rMutateRequest\022 "
+literal|"_FAMILY\020\002\022\031\n\025DELETE_FAMILY_VERSION\020\003\"\207\001\n"
 operator|+
-literal|"\n\006region\030\001 \002(\0132\020.RegionSpecifier\022 \n\010muta"
+literal|"\rMutateRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
 block|,
-literal|"tion\030\002 \002(\0132\016.MutationProto\022\035\n\tcondition\030"
+literal|"pecifier\022 \n\010mutation\030\002 \002(\0132\016.MutationPro"
 operator|+
-literal|"\003 \001(\0132\n.Condition\"<\n\016MutateResponse\022\027\n\006r"
+literal|"to\022\035\n\tcondition\030\003 \001(\0132\n.Condition\022\023\n\013non"
 operator|+
-literal|"esult\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\""
+literal|"ce_group\030\004 \001(\004\"<\n\016MutateResponse\022\027\n\006resu"
 operator|+
-literal|"\344\002\n\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tatt"
+literal|"lt\030\001 \001(\0132\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\344\002\n"
 operator|+
-literal|"ribute\030\002 \003(\0132\016.NameBytesPair\022\021\n\tstart_ro"
+literal|"\004Scan\022\027\n\006column\030\001 \003(\0132\007.Column\022!\n\tattrib"
 operator|+
-literal|"w\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006filter\030\005 \001("
+literal|"ute\030\002 \003(\0132\016.NameBytesPair\022\021\n\tstart_row\030\003"
 operator|+
-literal|"\0132\007.Filter\022\036\n\ntime_range\030\006 \001(\0132\n.TimeRan"
+literal|" \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007"
 operator|+
-literal|"ge\022\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blo"
+literal|".Filter\022\036\n\ntime_range\030\006 \001(\0132\n.TimeRange\022"
 operator|+
-literal|"cks\030\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017m"
+literal|"\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blocks"
 operator|+
-literal|"ax_result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001("
+literal|"\030\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_"
 block|,
-literal|"\r\022\024\n\014store_offset\030\014 \001(\r\022&\n\036load_column_f"
+literal|"result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024"
 operator|+
-literal|"amilies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\"\236"
+literal|"\n\014store_offset\030\014 \001(\r\022&\n\036load_column_fami"
 operator|+
-literal|"\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.RegionS"
+literal|"lies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\"\236\001\n\013"
 operator|+
-literal|"pecifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanner"
+literal|"ScanRequest\022 \n\006region\030\001 \001(\0132\020.RegionSpec"
 operator|+
-literal|"_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclo"
+literal|"ifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanner_id"
 operator|+
-literal|"se_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\""
+literal|"\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclose_"
 operator|+
-literal|"y\n\014ScanResponse\022\030\n\020cells_per_result\030\001 \003("
+literal|"scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\"y\n\014"
 operator|+
-literal|"\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 "
+literal|"ScanResponse\022\030\n\020cells_per_result\030\001 \003(\r\022\022"
 operator|+
-literal|"\001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Resu"
+literal|"\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010"
 operator|+
-literal|"lt\"\263\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 "
+literal|"\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\""
 block|,
-literal|"\002(\0132\020.RegionSpecifier\0225\n\013family_path\030\002 \003"
+literal|"\263\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\013"
 operator|+
-literal|"(\0132 .BulkLoadHFileRequest.FamilyPath\022\026\n\016"
+literal|"2\020.RegionSpecifier\0225\n\013family_path\030\002 \003(\0132"
 operator|+
-literal|"assign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006fa"
+literal|" .BulkLoadHFileRequest.FamilyPath\022\026\n\016ass"
 operator|+
-literal|"mily\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFil"
+literal|"ign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006famil"
 operator|+
-literal|"eResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Coprocessor"
+literal|"y\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRe"
 operator|+
-literal|"ServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name"
+literal|"sponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorSer"
 operator|+
-literal|"\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004"
+literal|"viceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 "
 operator|+
-literal|" \002(\014\"d\n\031CoprocessorServiceRequest\022 \n\006reg"
+literal|"\002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002("
 operator|+
-literal|"ion\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002("
+literal|"\014\"d\n\031CoprocessorServiceRequest\022 \n\006region"
 operator|+
-literal|"\0132\027.CoprocessorServiceCall\"]\n\032Coprocesso"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027"
 block|,
-literal|"rServiceResponse\022 \n\006region\030\001 \002(\0132\020.Regio"
+literal|".CoprocessorServiceCall\"]\n\032CoprocessorSe"
 operator|+
-literal|"nSpecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPai"
+literal|"rviceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSp"
 operator|+
-literal|"r\"L\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002"
+literal|"ecifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"L"
 operator|+
-literal|" \001(\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\""
+literal|"\n\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001("
 operator|+
-literal|"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.Region"
+literal|"\0132\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\"Y\n\014"
 operator|+
-literal|"Specifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003 \003("
+literal|"RegionAction\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
 operator|+
-literal|"\0132\007.Action\"^\n\021ResultOrException\022\r\n\005index"
+literal|"cifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007"
 operator|+
-literal|"\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texcep"
+literal|".Action\"^\n\021ResultOrException\022\r\n\005index\030\001 "
 operator|+
-literal|"tion\030\003 \001(\0132\016.NameBytesPair\"f\n\022RegionActi"
+literal|"\001(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texceptio"
 operator|+
-literal|"onResult\022-\n\021resultOrException\030\001 \003(\0132\022.Re"
+literal|"n\030\003 \001(\0132\016.NameBytesPair\"f\n\022RegionActionR"
 block|,
-literal|"sultOrException\022!\n\texception\030\002 \001(\0132\016.Nam"
+literal|"esult\022-\n\021resultOrException\030\001 \003(\0132\022.Resul"
 operator|+
-literal|"eBytesPair\"3\n\014MultiRequest\022#\n\014regionActi"
+literal|"tOrException\022!\n\texception\030\002 \001(\0132\016.NameBy"
 operator|+
-literal|"on\030\001 \003(\0132\r.RegionAction\"@\n\rMultiResponse"
+literal|"tesPair\"G\n\014MultiRequest\022#\n\014regionAction\030"
 operator|+
-literal|"\022/\n\022regionActionResult\030\001 \003(\0132\023.RegionAct"
+literal|"\001 \003(\0132\r.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004"
 operator|+
-literal|"ionResult2\261\002\n\rClientService\022 \n\003Get\022\013.Get"
+literal|"\"@\n\rMultiResponse\022/\n\022regionActionResult\030"
 operator|+
-literal|"Request\032\014.GetResponse\022)\n\006Mutate\022\016.Mutate"
+literal|"\001 \003(\0132\023.RegionActionResult2\261\002\n\rClientSer"
 operator|+
-literal|"Request\032\017.MutateResponse\022#\n\004Scan\022\014.ScanR"
+literal|"vice\022 \n\003Get\022\013.GetRequest\032\014.GetResponse\022)"
 operator|+
-literal|"equest\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025"
+literal|"\n\006Mutate\022\016.MutateRequest\032\017.MutateRespons"
 operator|+
-literal|".BulkLoadHFileRequest\032\026.BulkLoadHFileRes"
+literal|"e\022#\n\004Scan\022\014.ScanRequest\032\r.ScanResponse\022>"
 operator|+
-literal|"ponse\022F\n\013ExecService\022\032.CoprocessorServic"
+literal|"\n\rBulkLoadHFile\022\025.BulkLoadHFileRequest\032\026"
 block|,
-literal|"eRequest\032\033.CoprocessorServiceResponse\022&\n"
+literal|".BulkLoadHFileResponse\022F\n\013ExecService\022\032."
 operator|+
-literal|"\005Multi\022\r.MultiRequest\032\016.MultiResponseBB\n"
+literal|"CoprocessorServiceRequest\032\033.CoprocessorS"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"erviceResponse\022&\n\005Multi\022\r.MultiRequest\032\016"
 operator|+
-literal|"tedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|".MultiResponseBB\n*org.apache.hadoop.hbas"
+operator|+
+literal|"e.protobuf.generatedB\014ClientProtosH\001\210\001\001\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -150914,6 +151923,8 @@ block|,
 literal|"TimeRange"
 block|,
 literal|"AssociatedCellCount"
+block|,
+literal|"Nonce"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -151046,6 +152057,8 @@ block|,
 literal|"Mutation"
 block|,
 literal|"Condition"
+block|,
+literal|"NonceGroup"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -151721,6 +152734,8 @@ name|String
 index|[]
 block|{
 literal|"RegionAction"
+block|,
+literal|"NonceGroup"
 block|, }
 argument_list|)
 expr_stmt|;

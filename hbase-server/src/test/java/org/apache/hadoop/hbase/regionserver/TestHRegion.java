@@ -221,31 +221,7 @@ name|mockito
 operator|.
 name|Matchers
 operator|.
-name|any
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Matchers
-operator|.
-name|anyLong
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Matchers
-operator|.
-name|eq
+name|*
 import|;
 end_import
 
@@ -26457,6 +26433,15 @@ operator|(
 name|AtomicLong
 operator|)
 name|any
+argument_list|()
+argument_list|,
+name|anyBoolean
+argument_list|()
+argument_list|,
+name|anyLong
+argument_list|()
+argument_list|,
+name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;

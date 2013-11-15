@@ -1898,6 +1898,14 @@ name|HBASE_REGION_SPLIT_POLICY_KEY
 init|=
 literal|"hbase.regionserver.region.split.policy"
 decl_stmt|;
+comment|/** Whether nonces are enabled; default is true. */
+specifier|public
+specifier|static
+name|String
+name|HBASE_RS_NONCES_ENABLED
+init|=
+literal|"hbase.regionserver.nonces.enabled"
+decl_stmt|;
 comment|/**    * Configuration key for the size of the block cache    */
 specifier|public
 specifier|static
@@ -2525,6 +2533,14 @@ name|int
 name|DEFAULT_STATUS_MULTICAST_PORT
 init|=
 literal|60100
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|NO_NONCE
+init|=
+literal|0
 decl_stmt|;
 specifier|private
 name|HConstants

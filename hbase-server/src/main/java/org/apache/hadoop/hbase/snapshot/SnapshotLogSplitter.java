@@ -972,6 +972,16 @@ name|key
 operator|.
 name|getClusterIds
 argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getNonceGroup
+argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getNonce
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|writer

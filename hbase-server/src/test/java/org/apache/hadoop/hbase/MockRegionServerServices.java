@@ -341,6 +341,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|ServerNonceManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLog
@@ -906,7 +922,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -1001,6 +1016,18 @@ parameter_list|)
 block|{
 return|return
 literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ServerNonceManager
+name|getNonceManager
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|null
 return|;
 block|}
 block|}

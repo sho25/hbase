@@ -318,6 +318,12 @@ argument_list|>
 name|getRecoveringRegions
 parameter_list|()
 function_decl|;
+comment|/**    * Only required for "old" log replay; if it's removed, remove this.    * @return The RegionServer's NonceManager    */
+specifier|public
+name|ServerNonceManager
+name|getNonceManager
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

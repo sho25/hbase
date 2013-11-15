@@ -269,6 +269,20 @@ name|Writable
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -723,6 +737,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Same as appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor),    * except it causes a sync on the log    * @param sequenceId of the region.    */
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|void
 name|append
@@ -742,36 +758,6 @@ name|now
 parameter_list|,
 name|HTableDescriptor
 name|htd
-parameter_list|,
-name|AtomicLong
-name|sequenceId
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, row name, and log-sequence-id. The HLog is flushed after this    * transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param isInMemstore Whether the record is in memstore. False for system records.    * @param sequenceId of the region.    */
-specifier|public
-name|void
-name|append
-parameter_list|(
-name|HRegionInfo
-name|info
-parameter_list|,
-name|TableName
-name|tableName
-parameter_list|,
-name|WALEdit
-name|edits
-parameter_list|,
-specifier|final
-name|long
-name|now
-parameter_list|,
-name|HTableDescriptor
-name|htd
-parameter_list|,
-name|boolean
-name|isInMemstore
 parameter_list|,
 name|AtomicLong
 name|sequenceId
@@ -780,7 +766,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @param sequenceId of the region    * @return txid of this transaction    * @throws IOException    */
-specifier|public
 name|long
 name|appendNoSync
 parameter_list|(
@@ -808,6 +793,15 @@ name|htd
 parameter_list|,
 name|AtomicLong
 name|sequenceId
+parameter_list|,
+name|boolean
+name|isInMemstore
+parameter_list|,
+name|long
+name|nonceGroup
+parameter_list|,
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException

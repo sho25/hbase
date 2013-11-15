@@ -2173,6 +2173,18 @@ name|serverName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|NonceGenerator
+name|getNonceGenerator
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+comment|// don't use nonces for coprocessor connection
+block|}
 block|}
 end_class
 
