@@ -2259,6 +2259,15 @@ name|equals
 argument_list|(
 name|aColumn
 argument_list|)
+operator|||
+name|TsvParser
+operator|.
+name|TIMESTAMPKEY_COLUMN_SPEC
+operator|.
+name|equals
+argument_list|(
+name|aColumn
+argument_list|)
 condition|)
 continue|continue;
 comment|// we are only concerned with the first one (in case this is a cf:cq)
