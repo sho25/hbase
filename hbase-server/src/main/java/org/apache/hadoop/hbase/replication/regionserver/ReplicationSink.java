@@ -1313,7 +1313,7 @@ comment|// ignoring as we are closing.
 block|}
 block|}
 comment|/**    * Do the changes and handle the pool    * @param tableName table to insert into    * @param rows list of actions    * @throws IOException    */
-specifier|private
+specifier|protected
 name|void
 name|batch
 parameter_list|(

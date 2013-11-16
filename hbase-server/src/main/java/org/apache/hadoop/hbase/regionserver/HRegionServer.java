@@ -9563,7 +9563,8 @@ name|startReplicationService
 argument_list|()
 expr_stmt|;
 block|}
-elseif|else
+else|else
+block|{
 if|if
 condition|(
 name|this
@@ -9581,7 +9582,6 @@ name|startReplicationService
 argument_list|()
 expr_stmt|;
 block|}
-elseif|else
 if|if
 condition|(
 name|this
@@ -9598,6 +9598,7 @@ operator|.
 name|startReplicationService
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|// Start Server.  This service is like leases in that it internally runs
 comment|// a thread.
