@@ -392,7 +392,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HRegion information.  * Contains HRegion id, start and end keys, a reference to this HRegions' table descriptor, etc.  */
+comment|/**  * HRegion information.  * Contains HRegion id, start and end keys, a reference to this HRegions' table descriptor, etc.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  */
 end_comment
 
 begin_class
@@ -682,12 +682,6 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 decl_stmt|;
 specifier|private
-name|String
-name|regionNameStr
-init|=
-literal|""
-decl_stmt|;
-specifier|private
 name|boolean
 name|split
 init|=
@@ -719,11 +713,10 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-specifier|volatile
 name|String
 name|encodedName
 init|=
-name|NO_HASH
+literal|null
 decl_stmt|;
 specifier|private
 name|byte
@@ -876,19 +869,6 @@ argument_list|,
 name|regionId
 argument_list|,
 literal|false
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|regionNameStr
-operator|=
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|regionName
 argument_list|)
 expr_stmt|;
 name|setHashCode
@@ -1083,19 +1063,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|regionNameStr
-operator|=
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|regionName
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|split
 operator|=
 name|split
@@ -1190,19 +1157,6 @@ name|other
 operator|.
 name|getRegionName
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|regionNameStr
-operator|=
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|regionName
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -2076,18 +2030,28 @@ condition|)
 block|{
 comment|// new format region names already have their encoded name.
 return|return
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|this
 operator|.
-name|regionNameStr
+name|regionName
+argument_list|)
 return|;
 block|}
 comment|// old format. regionNameStr doesn't have the region name.
 comment|//
 comment|//
 return|return
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|this
 operator|.
-name|regionNameStr
+name|regionName
+argument_list|)
 operator|+
 literal|"."
 operator|+
@@ -2110,7 +2074,7 @@ name|this
 operator|.
 name|encodedName
 operator|==
-name|NO_HASH
+literal|null
 condition|)
 block|{
 name|this
@@ -2535,9 +2499,14 @@ name|NAME
 operator|+
 literal|" => '"
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|this
 operator|.
-name|regionNameStr
+name|regionName
+argument_list|)
 operator|+
 literal|"', STARTKEY => '"
 operator|+
@@ -2835,19 +2804,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|regionNameStr
-operator|=
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|regionName
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|split
 operator|=
 name|in
@@ -2965,19 +2921,6 @@ operator|.
 name|readByteArray
 argument_list|(
 name|in
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|regionNameStr
-operator|=
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|regionName
 argument_list|)
 expr_stmt|;
 name|this

@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  */
+comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  */
 end_comment
 
 begin_class
@@ -95,18 +95,6 @@ specifier|private
 specifier|final
 name|long
 name|seqNum
-decl_stmt|;
-comment|// Cache of the 'toString' result.
-specifier|private
-name|String
-name|cachedString
-init|=
-literal|null
-decl_stmt|;
-comment|// Cache of the hostname + port
-specifier|private
-name|String
-name|cachedHostnamePort
 decl_stmt|;
 specifier|public
 name|HRegionLocation
@@ -166,24 +154,11 @@ comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|String
 name|toString
 parameter_list|()
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|cachedString
-operator|==
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|cachedString
-operator|=
+return|return
 literal|"region="
 operator|+
 name|this
@@ -202,12 +177,6 @@ operator|+
 literal|", seqNum="
 operator|+
 name|seqNum
-expr_stmt|;
-block|}
-return|return
-name|this
-operator|.
-name|cachedString
 return|;
 block|}
 comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
@@ -337,24 +306,11 @@ return|;
 block|}
 comment|/**    * @return String made of hostname and port formatted as per {@link Addressing#createHostAndPortStr(String, int)}    */
 specifier|public
-specifier|synchronized
 name|String
 name|getHostnamePort
 parameter_list|()
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|cachedHostnamePort
-operator|==
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|cachedHostnamePort
-operator|=
+return|return
 name|Addressing
 operator|.
 name|createHostAndPortStr
@@ -369,12 +325,6 @@ operator|.
 name|getPort
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|this
-operator|.
-name|cachedHostnamePort
 return|;
 block|}
 specifier|public
