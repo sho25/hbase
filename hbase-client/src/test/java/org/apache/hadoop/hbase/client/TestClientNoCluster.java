@@ -97,6 +97,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedMap
 import|;
 end_import
@@ -4124,7 +4134,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Create up a map that is keyed by meta row name and whose value is the HRegionInfo and    * ServerName to return for this row.    * @param hris    * @param serverNames    * @return Map with faked hbase:meta content in it.    */
+comment|/**    * Create up a map that is keyed by meta row name and whose value is the HRegionInfo and    * ServerName to return for this row.    * @return Map with faked hbase:meta content in it.    */
 specifier|static
 name|SortedMap
 argument_list|<
@@ -4278,11 +4288,14 @@ return|return
 name|meta
 return|;
 block|}
-comment|/**    * Code for each 'client' to run.    * @param c    * @param sharedConnection    * @throws IOException    */
+comment|/**    * Code for each 'client' to run.    *    * @param id    * @param c    * @param sharedConnection    * @throws IOException    */
 specifier|static
 name|void
 name|cycle
 parameter_list|(
+name|int
+name|id
+parameter_list|,
 specifier|final
 name|Configuration
 name|c
@@ -4337,6 +4350,15 @@ name|printInterval
 init|=
 literal|100000
 decl_stmt|;
+name|Random
+name|rd
+init|=
+operator|new
+name|Random
+argument_list|(
+name|id
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|Stopwatch
@@ -4372,7 +4394,10 @@ name|b
 init|=
 name|format
 argument_list|(
-name|i
+name|rd
+operator|.
+name|nextLong
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Put
@@ -4511,7 +4536,7 @@ specifier|final
 name|long
 name|namespaceSpan
 init|=
-literal|1000000
+literal|50000000
 decl_stmt|;
 comment|// How long to take to pause after doing a put; make this long if you want to fake a struggling
 comment|// server.
@@ -4671,7 +4696,7 @@ specifier|final
 name|int
 name|clients
 init|=
-literal|20
+literal|2
 decl_stmt|;
 comment|// Have them all share the same connection so they all share the same instance of
 comment|// ManyServersManyRegionsConnection so I can keep an eye on how many requests by server.
@@ -4735,6 +4760,12 @@ name|j
 operator|++
 control|)
 block|{
+specifier|final
+name|int
+name|id
+init|=
+name|j
+decl_stmt|;
 name|ts
 index|[
 name|j
@@ -4766,6 +4797,8 @@ try|try
 block|{
 name|cycle
 argument_list|(
+name|id
+argument_list|,
 name|c
 argument_list|,
 name|sharedConnection
