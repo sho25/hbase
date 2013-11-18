@@ -4382,7 +4382,7 @@ name|intValue
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a table with specified table name and region number.    * @param table    * @param regionNum    * @return    * @throws IOException    */
+comment|/**    * Create a table with specified table name and region number.    * @param tablename    * @param regionNum    * @return    * @throws IOException    */
 specifier|private
 specifier|static
 name|void
