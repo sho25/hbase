@@ -10774,7 +10774,8 @@ name|stopReplicationService
 argument_list|()
 expr_stmt|;
 block|}
-elseif|else
+else|else
+block|{
 if|if
 condition|(
 name|this
@@ -10792,7 +10793,6 @@ name|stopReplicationService
 argument_list|()
 expr_stmt|;
 block|}
-elseif|else
 if|if
 condition|(
 name|this
@@ -10809,6 +10809,7 @@ operator|.
 name|stopReplicationService
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * @return Return the object that implements the replication    * source service.    */
