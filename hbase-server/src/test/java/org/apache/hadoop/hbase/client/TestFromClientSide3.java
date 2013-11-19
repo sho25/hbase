@@ -2223,6 +2223,13 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Calling exists"
+argument_list|)
+expr_stmt|;
 name|Boolean
 index|[]
 name|results

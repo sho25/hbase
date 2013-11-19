@@ -1020,7 +1020,17 @@ block|{
 name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_TABLE
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|".testRegionObserver"
+argument_list|)
 decl_stmt|;
 comment|// recreate table every time in order to reset the status of the
 comment|// coprocessor.
@@ -1046,6 +1056,8 @@ name|C
 block|}
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -1067,7 +1079,7 @@ block|,
 literal|"hadDelete"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1159,7 +1171,7 @@ block|,
 literal|"hadDelete"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1200,7 +1212,7 @@ block|,
 literal|"getCtPostClose"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Integer
@@ -1280,7 +1292,7 @@ block|,
 literal|"hadDelete"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1366,7 +1378,7 @@ block|,
 literal|"hadDelete"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1388,6 +1400,9 @@ literal|true
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|util
 operator|.
 name|deleteTable
@@ -1400,6 +1415,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -1419,7 +1435,7 @@ block|,
 literal|"getCtPostClose"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Integer
@@ -1448,7 +1464,17 @@ block|{
 name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_TABLE
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|".testRowMutation"
+argument_list|)
 decl_stmt|;
 name|HTable
 name|table
@@ -1472,6 +1498,8 @@ name|C
 block|}
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -1493,7 +1521,7 @@ block|,
 literal|"hadDeleted"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1640,7 +1668,7 @@ block|,
 literal|"hadDeleted"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -1658,6 +1686,9 @@ literal|true
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|util
 operator|.
 name|deleteTable
@@ -1671,6 +1702,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -1683,7 +1715,17 @@ block|{
 name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_TABLE
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|".testIncrementHook"
+argument_list|)
 decl_stmt|;
 name|HTable
 name|table
@@ -1707,6 +1749,8 @@ name|C
 block|}
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Increment
 name|inc
 init|=
@@ -1793,6 +1837,9 @@ literal|true
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|util
 operator|.
 name|deleteTable
@@ -1805,6 +1852,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3065,7 +3113,17 @@ decl_stmt|;
 name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_TABLE
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|".bulkLoadHFileTest"
+argument_list|)
 decl_stmt|;
 name|Configuration
 name|conf
@@ -3097,6 +3155,8 @@ name|C
 block|}
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
@@ -3238,6 +3298,9 @@ literal|true
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|util
 operator|.
 name|deleteTable
@@ -3250,6 +3313,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -3277,7 +3341,17 @@ expr_stmt|;
 name|TableName
 name|tableName
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|TEST_TABLE
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|".testRecovery"
+argument_list|)
 decl_stmt|;
 name|HTable
 name|table
@@ -3301,6 +3375,8 @@ name|C
 block|}
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -3462,7 +3538,7 @@ block|,
 literal|"hadDelete"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Boolean
@@ -3503,7 +3579,7 @@ block|,
 literal|"getCtPostPut"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Integer
@@ -3536,10 +3612,10 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|20000
+literal|1000
 argument_list|)
 expr_stmt|;
-comment|// just to be sure that the kill has fully started.
+comment|// Let the kill soak in.
 name|util
 operator|.
 name|waitUntilAllRegionsAssigned
@@ -3547,31 +3623,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|verifyMethodResult
-argument_list|(
-name|SimpleRegionObserver
+name|LOG
 operator|.
-name|class
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"getCtPreWALRestore"
-block|,
-literal|"getCtPostWALRestore"
-block|}
-argument_list|,
-name|TEST_TABLE
-argument_list|,
-operator|new
-name|Integer
-index|[]
-block|{
-literal|1
-block|,
-literal|1
-block|}
+name|info
+argument_list|(
+literal|"All regions assigned"
 argument_list|)
 expr_stmt|;
 name|verifyMethodResult
@@ -3589,7 +3645,7 @@ block|,
 literal|"getCtPostPut"
 block|}
 argument_list|,
-name|TEST_TABLE
+name|tableName
 argument_list|,
 operator|new
 name|Integer
@@ -3601,6 +3657,9 @@ literal|0
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|util
 operator|.
 name|deleteTable
@@ -3613,6 +3672,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
