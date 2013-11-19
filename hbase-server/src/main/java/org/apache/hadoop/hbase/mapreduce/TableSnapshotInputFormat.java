@@ -735,7 +735,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -975,9 +975,9 @@ argument_list|)
 operator|.
 name|setValue
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.

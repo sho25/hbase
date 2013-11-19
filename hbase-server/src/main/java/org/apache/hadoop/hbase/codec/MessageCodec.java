@@ -119,6 +119,18 @@ name|ByteString
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ZeroCopyLiteralByteString
+import|;
+end_import
+
 begin_comment
 comment|/**  * Codec that just writes out Cell as a protobuf Cell Message.  Does not write the mvcc stamp.  * Use a different codec if you want that in the stream.  */
 end_comment
@@ -188,9 +200,9 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
@@ -213,9 +225,9 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
@@ -238,9 +250,9 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
@@ -290,9 +302,9 @@ name|builder
 operator|.
 name|setValue
 argument_list|(
-name|ByteString
+name|ZeroCopyLiteralByteString
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|cell
 operator|.
