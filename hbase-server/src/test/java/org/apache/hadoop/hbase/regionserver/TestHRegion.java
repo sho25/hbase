@@ -14032,6 +14032,10 @@ name|add
 argument_list|(
 name|fam1
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14045,6 +14049,10 @@ name|add
 argument_list|(
 name|fam2
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14058,6 +14066,10 @@ name|add
 argument_list|(
 name|fam3
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14071,6 +14083,10 @@ name|add
 argument_list|(
 name|fam4
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14099,6 +14115,10 @@ name|add
 argument_list|(
 name|fam1
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14112,6 +14132,10 @@ name|add
 argument_list|(
 name|fam2
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14125,6 +14149,10 @@ name|add
 argument_list|(
 name|fam3
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
@@ -14138,6 +14166,10 @@ name|add
 argument_list|(
 name|fam4
 argument_list|,
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|,
 name|ts
