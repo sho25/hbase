@@ -214,7 +214,7 @@ specifier|public
 class|class
 name|Get
 extends|extends
-name|OperationWithAttributes
+name|Query
 implements|implements
 name|Row
 implements|,

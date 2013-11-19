@@ -220,7 +220,7 @@ specifier|public
 class|class
 name|Scan
 extends|extends
-name|OperationWithAttributes
+name|Query
 block|{
 specifier|private
 specifier|static
