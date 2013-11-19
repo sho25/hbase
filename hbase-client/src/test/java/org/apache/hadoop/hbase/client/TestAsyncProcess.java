@@ -457,6 +457,10 @@ argument_list|,
 name|DUMMY_BYTES_1
 argument_list|,
 name|DUMMY_BYTES_2
+argument_list|,
+literal|false
+argument_list|,
+literal|1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -474,6 +478,10 @@ argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_END_ROW
+argument_list|,
+literal|false
+argument_list|,
+literal|2
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -491,6 +499,10 @@ argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_END_ROW
+argument_list|,
+literal|false
+argument_list|,
+literal|3
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -1690,6 +1702,10 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|" puts="
+operator|+
+name|puts
+argument_list|,
 literal|1
 argument_list|,
 name|puts
@@ -2238,7 +2254,7 @@ name|put
 argument_list|(
 name|hri1
 operator|.
-name|getEncodedName
+name|getRegionName
 argument_list|()
 argument_list|,
 name|ai
@@ -4665,6 +4681,10 @@ literal|10L
 operator|+
 literal|9L
 argument_list|)
+argument_list|,
+literal|false
+argument_list|,
+name|i
 argument_list|)
 decl_stmt|;
 name|HRegionLocation
