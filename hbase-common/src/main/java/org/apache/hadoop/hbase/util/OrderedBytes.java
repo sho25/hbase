@@ -4855,6 +4855,13 @@ expr_stmt|;
 name|i
 operator|++
 expr_stmt|;
+comment|// explicitly reset t -- clean up overflow buffer after decoding
+comment|// a full cycle and retain assertion condition below. This happens
+name|t
+operator|=
+literal|0
+expr_stmt|;
+comment|// when the LSB in the last encoded byte is 1. (HBASE-9893)
 block|}
 else|else
 block|{
