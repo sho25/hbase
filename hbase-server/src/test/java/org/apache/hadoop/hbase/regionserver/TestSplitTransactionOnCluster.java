@@ -2926,8 +2926,9 @@ comment|// so it gets in way of our splitting.
 name|ServerName
 name|fakedServer
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"any.old.server"
 argument_list|,

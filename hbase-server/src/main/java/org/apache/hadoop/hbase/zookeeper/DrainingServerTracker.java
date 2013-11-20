@@ -319,8 +319,9 @@ specifier|final
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|ZKUtil
 operator|.
@@ -425,8 +426,9 @@ specifier|final
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|ZKUtil
 operator|.

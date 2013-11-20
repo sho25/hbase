@@ -5271,8 +5271,9 @@ name|conf
 argument_list|,
 name|zooKeeper
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|isa
 operator|.
@@ -7479,8 +7480,9 @@ name|this
 operator|.
 name|serverNameFromMasterPOV
 operator|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostnameFromMasterPOV
 argument_list|,
@@ -12117,8 +12119,9 @@ name|serverNameFromMasterPOV
 operator|==
 literal|null
 condition|?
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|this
 operator|.

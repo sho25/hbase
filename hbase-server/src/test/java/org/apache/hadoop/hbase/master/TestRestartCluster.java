@@ -436,8 +436,9 @@ expr_stmt|;
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|HMaster
 operator|.

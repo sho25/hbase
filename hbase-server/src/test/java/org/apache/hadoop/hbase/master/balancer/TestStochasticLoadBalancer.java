@@ -1195,8 +1195,9 @@ block|{
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"test:8080"
 argument_list|,
@@ -2255,8 +2256,9 @@ decl_stmt|;
 name|ServerName
 name|deadSn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|sn
 operator|.

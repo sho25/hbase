@@ -513,8 +513,9 @@ block|{
 name|ServerName
 name|s
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|sn
 operator|.
@@ -583,8 +584,9 @@ comment|//get a server without the startcode for the currentServer
 name|ServerName
 name|currentServerWithoutStartCode
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|currentServer
 operator|.
@@ -2078,8 +2080,9 @@ name|favoredNodesForRegion
 operator|.
 name|add
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|sn
 operator|.
@@ -2119,8 +2122,9 @@ name|favoredNodesForRegion
 operator|.
 name|add
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|secondaryAndTertiaryNodes
 index|[
@@ -2148,8 +2152,9 @@ name|favoredNodesForRegion
 operator|.
 name|add
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|secondaryAndTertiaryNodes
 index|[

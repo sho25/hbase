@@ -525,8 +525,9 @@ name|serverNames
 operator|.
 name|add
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|i
 operator|+

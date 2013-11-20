@@ -343,8 +343,9 @@ argument_list|,
 name|Long
 argument_list|>
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"hn"
 argument_list|,
@@ -516,8 +517,9 @@ argument_list|,
 name|Long
 argument_list|>
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"hn"
 operator|+

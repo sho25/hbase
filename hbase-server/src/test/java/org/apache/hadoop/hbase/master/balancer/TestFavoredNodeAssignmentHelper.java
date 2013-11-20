@@ -333,8 +333,9 @@ block|{
 name|ServerName
 name|server
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"foo"
 operator|+

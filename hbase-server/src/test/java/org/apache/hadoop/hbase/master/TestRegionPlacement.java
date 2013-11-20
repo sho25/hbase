@@ -4163,8 +4163,9 @@ block|{
 name|ServerName
 name|serverName
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|Bytes
 operator|.

@@ -4344,8 +4344,9 @@ name|this
 operator|.
 name|serverName
 operator|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostname
 argument_list|,
@@ -10130,8 +10131,9 @@ else|else
 block|{
 name|dest
 operator|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|Bytes
 operator|.

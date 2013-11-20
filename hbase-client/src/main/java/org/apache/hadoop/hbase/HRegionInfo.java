@@ -4197,8 +4197,9 @@ return|return
 literal|null
 return|;
 return|return
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostAndPort
 argument_list|,

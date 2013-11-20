@@ -491,8 +491,9 @@ comment|// Create the master node with a dummy address
 name|ServerName
 name|master
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -705,8 +706,9 @@ comment|// Create the master node with a dummy address
 name|ServerName
 name|firstMasterAddress
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -721,8 +723,9 @@ decl_stmt|;
 name|ServerName
 name|secondMasterAddress
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,

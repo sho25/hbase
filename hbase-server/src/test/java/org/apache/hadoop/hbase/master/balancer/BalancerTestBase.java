@@ -1484,8 +1484,9 @@ decl_stmt|;
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|host
 argument_list|,

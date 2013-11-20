@@ -1221,8 +1221,9 @@ name|splita
 argument_list|,
 name|splitb
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"fooserver"
 argument_list|,

@@ -427,8 +427,9 @@ specifier|static
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost:10,1254"
 argument_list|)
@@ -438,8 +439,9 @@ specifier|static
 name|ServerName
 name|sn2
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost:140,12540"
 argument_list|)

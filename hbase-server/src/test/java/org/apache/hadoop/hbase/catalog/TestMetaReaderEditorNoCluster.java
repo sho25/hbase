@@ -964,8 +964,9 @@ comment|// This is a servername we use in a few places below.
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.com"
 argument_list|,

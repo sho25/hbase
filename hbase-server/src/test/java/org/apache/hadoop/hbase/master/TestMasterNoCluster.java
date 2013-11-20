@@ -941,8 +941,9 @@ specifier|final
 name|ServerName
 name|sn0
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"0.example.org"
 argument_list|,
@@ -955,8 +956,9 @@ specifier|final
 name|ServerName
 name|sn1
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"1.example.org"
 argument_list|,
@@ -969,8 +971,9 @@ specifier|final
 name|ServerName
 name|sn2
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"2.example.org"
 argument_list|,
@@ -1628,8 +1631,9 @@ specifier|final
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"0.example.org"
 argument_list|,
@@ -2149,8 +2153,9 @@ specifier|final
 name|ServerName
 name|newServer
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"test.sample"
 argument_list|,
@@ -2163,8 +2168,9 @@ specifier|final
 name|ServerName
 name|deadServer
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"test.sample"
 argument_list|,

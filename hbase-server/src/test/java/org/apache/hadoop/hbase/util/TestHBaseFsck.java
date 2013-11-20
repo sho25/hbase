@@ -11858,8 +11858,9 @@ expr_stmt|;
 name|ServerName
 name|mockName
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -12364,8 +12365,9 @@ decl_stmt|;
 name|ServerName
 name|hsa
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|metaLocation
 operator|.

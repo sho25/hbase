@@ -1004,8 +1004,9 @@ argument_list|)
 argument_list|,
 name|ri
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.org,12345,6789"
 argument_list|)
@@ -1158,8 +1159,9 @@ name|getServerName
 parameter_list|()
 block|{
 return|return
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"mockserver.example.org"
 argument_list|,

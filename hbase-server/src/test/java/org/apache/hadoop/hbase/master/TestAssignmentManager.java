@@ -1075,8 +1075,9 @@ specifier|final
 name|ServerName
 name|SERVERNAME_A
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.org"
 argument_list|,
@@ -1091,8 +1092,9 @@ specifier|final
 name|ServerName
 name|SERVERNAME_B
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.org"
 argument_list|,
@@ -1232,8 +1234,9 @@ argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"master,1,1"
 argument_list|)

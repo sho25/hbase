@@ -1040,8 +1040,9 @@ specifier|final
 name|ServerName
 name|META_SERVERNAME
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"meta.example.org"
 argument_list|,
@@ -4124,8 +4125,9 @@ index|[
 name|i
 index|]
 operator|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|""
 operator|+

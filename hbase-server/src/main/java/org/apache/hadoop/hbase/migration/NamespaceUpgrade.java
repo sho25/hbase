@@ -2354,8 +2354,9 @@ block|}
 name|ServerName
 name|fakeServer
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"nsupgrade"
 argument_list|,

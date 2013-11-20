@@ -1206,8 +1206,9 @@ decl_stmt|;
 comment|// Created faked dead server
 name|deadServer
 operator|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|destServer
 operator|.

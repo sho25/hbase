@@ -646,8 +646,9 @@ name|rpcClient
 operator|.
 name|createBlockingRpcChannel
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|rpcServer
 operator|.
@@ -1101,8 +1102,9 @@ name|rpcClient
 operator|.
 name|createBlockingRpcChannel
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|rpcServer
 operator|.
@@ -1756,8 +1758,9 @@ name|rpcClient
 operator|.
 name|createBlockingRpcChannel
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|rpcServer
 operator|.

@@ -2451,8 +2451,9 @@ argument_list|()
 argument_list|,
 name|loc
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -3797,8 +3798,9 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|location
 operator|.
@@ -3838,8 +3840,9 @@ argument_list|()
 argument_list|,
 name|location
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -3900,8 +3903,9 @@ argument_list|()
 argument_list|,
 name|location
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -3962,8 +3966,9 @@ argument_list|()
 argument_list|,
 name|anySource
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -4024,8 +4029,9 @@ argument_list|()
 argument_list|,
 name|anySource
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -5679,8 +5685,9 @@ name|HRegionLocation
 argument_list|(
 name|ri
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -5698,8 +5705,9 @@ name|HRegionLocation
 argument_list|(
 name|ri
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,

@@ -110,8 +110,9 @@ block|{
 name|ServerName
 name|hsa1
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -205,8 +206,9 @@ expr_stmt|;
 name|ServerName
 name|hsa2
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -285,8 +287,9 @@ block|{
 name|ServerName
 name|hsa1
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -332,8 +335,9 @@ block|{
 name|ServerName
 name|hsa1
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -359,8 +363,9 @@ decl_stmt|;
 name|ServerName
 name|hsa2
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,

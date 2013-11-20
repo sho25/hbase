@@ -187,8 +187,9 @@ specifier|static
 name|ServerName
 name|NAME
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"MockServer"
 argument_list|,

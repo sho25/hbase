@@ -981,8 +981,9 @@ comment|// start code!
 name|ServerName
 name|snWithOldStartCode
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|sn
 operator|.

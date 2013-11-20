@@ -977,8 +977,9 @@ comment|// for processing by ProcessServerShutdown.
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|ia
 operator|.

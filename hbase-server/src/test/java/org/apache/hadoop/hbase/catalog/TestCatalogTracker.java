@@ -636,8 +636,9 @@ specifier|final
 name|ServerName
 name|SN
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.org"
 argument_list|,
@@ -927,8 +928,9 @@ name|this
 operator|.
 name|watcher
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.com"
 argument_list|,
@@ -1460,8 +1462,9 @@ name|this
 operator|.
 name|watcher
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.com"
 argument_list|,

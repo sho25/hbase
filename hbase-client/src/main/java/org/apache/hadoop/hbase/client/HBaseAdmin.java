@@ -6119,8 +6119,9 @@ else|else
 block|{
 name|closeRegion
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|serverName
 argument_list|)
@@ -6269,8 +6270,9 @@ block|}
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|serverName
 argument_list|)
@@ -9179,8 +9181,9 @@ name|connection
 operator|.
 name|getAdmin
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostname
 argument_list|,
@@ -10392,8 +10395,9 @@ block|{
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|serverName
 argument_list|)

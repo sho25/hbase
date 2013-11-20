@@ -187,8 +187,9 @@ specifier|final
 name|ServerName
 name|hostname123
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -201,8 +202,9 @@ specifier|final
 name|ServerName
 name|hostname123_2
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -215,8 +217,9 @@ specifier|final
 name|ServerName
 name|hostname1234
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.2"
 argument_list|,
@@ -229,8 +232,9 @@ specifier|final
 name|ServerName
 name|hostname12345
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.2"
 argument_list|,
@@ -349,8 +353,9 @@ specifier|final
 name|ServerName
 name|deadServer
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,
@@ -422,8 +427,9 @@ specifier|final
 name|ServerName
 name|deadServerHostComingAlive
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"127.0.0.1"
 argument_list|,

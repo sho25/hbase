@@ -2831,8 +2831,9 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostName
 argument_list|,

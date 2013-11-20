@@ -394,8 +394,9 @@ specifier|final
 name|ServerName
 name|fakeServerName
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,
@@ -423,8 +424,9 @@ specifier|final
 name|ServerName
 name|fakeMasterAddress
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost"
 argument_list|,

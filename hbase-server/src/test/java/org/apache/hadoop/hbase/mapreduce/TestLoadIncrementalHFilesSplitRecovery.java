@@ -1813,8 +1813,9 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"example.org"
 argument_list|,

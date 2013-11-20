@@ -1645,8 +1645,9 @@ expr_stmt|;
 name|ServerName
 name|serverName
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"localhost:10000"
 argument_list|,

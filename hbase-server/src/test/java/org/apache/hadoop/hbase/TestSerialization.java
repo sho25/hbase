@@ -605,8 +605,9 @@ name|SplitLogTask
 operator|.
 name|Unassigned
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 literal|"mgr,1,1"
 argument_list|)

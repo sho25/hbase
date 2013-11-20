@@ -115,20 +115,6 @@ name|ServerName
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|RemoteException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Subclass if the server knows the region is now on another server.  * This allows the client to call the new region server without calling the master.  */
 end_comment
@@ -292,8 +278,9 @@ name|getServerName
 parameter_list|()
 block|{
 return|return
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|hostname
 argument_list|,

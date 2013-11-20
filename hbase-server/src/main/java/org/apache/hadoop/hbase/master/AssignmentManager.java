@@ -1105,8 +1105,9 @@ specifier|final
 name|ServerName
 name|HBCK_CODE_SERVERNAME
 init|=
-operator|new
 name|ServerName
+operator|.
+name|valueOf
 argument_list|(
 name|HConstants
 operator|.
