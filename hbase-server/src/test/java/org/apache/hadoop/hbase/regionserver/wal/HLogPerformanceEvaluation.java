@@ -2035,8 +2035,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-else|else
-block|{
+comment|// update the sequence Id.
 name|sequenceIds
 operator|.
 name|put
@@ -2057,7 +2056,6 @@ argument_list|,
 name|seqid
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|verbose

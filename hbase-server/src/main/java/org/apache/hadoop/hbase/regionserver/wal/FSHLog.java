@@ -3658,7 +3658,15 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"The log doesn't belong to this regionserver"
+literal|"The log file "
+operator|+
+name|fileName
+operator|+
+literal|" doesn't belong to"
+operator|+
+literal|" this regionserver "
+operator|+
+name|prefixPathStr
 argument_list|)
 throw|;
 block|}
