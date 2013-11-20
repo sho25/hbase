@@ -8817,7 +8817,7 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-comment|/**    * Replay a batch of mutations.    * @param mutations mutations to replay.    * @return    * @throws IOException    */
+comment|/**    * Replay a batch of mutations.    * @param mutations mutations to replay.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
 specifier|public
 name|OperationStatus
 index|[]
