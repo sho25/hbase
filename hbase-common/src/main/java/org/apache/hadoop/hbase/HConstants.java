@@ -2517,7 +2517,7 @@ name|DEFAULT_STATUS_MULTICAST_ADDRESS
 init|=
 literal|"226.1.1.3"
 decl_stmt|;
-comment|/**    * The address to use for binding the local socket for receiving multicast. Defaults to    * 0.0.0.0.    * @see https://issues.apache.org/jira/browse/HBASE-9961    */
+comment|/**    * The address to use for binding the local socket for receiving multicast. Defaults to    * 0.0.0.0.    * see https://issues.apache.org/jira/browse/HBASE-9961    */
 specifier|public
 specifier|static
 specifier|final
