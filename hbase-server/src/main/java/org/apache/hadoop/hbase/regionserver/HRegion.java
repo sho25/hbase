@@ -9280,7 +9280,7 @@ init|=
 literal|0
 decl_stmt|;
 name|boolean
-name|walSyncSuccessful
+name|doRollBackMemstore
 init|=
 literal|false
 decl_stmt|;
@@ -10010,6 +10010,11 @@ condition|)
 block|{
 continue|continue;
 block|}
+name|doRollBackMemstore
+operator|=
+literal|true
+expr_stmt|;
+comment|// If we have a failure, we need to clean what we wrote
 name|addedSize
 operator|+=
 name|applyFamilyMapToMemstore
@@ -10407,9 +10412,9 @@ name|durability
 argument_list|)
 expr_stmt|;
 block|}
-name|walSyncSuccessful
+name|doRollBackMemstore
 operator|=
-literal|true
+literal|false
 expr_stmt|;
 comment|// calling the post CP hook for batch mutation
 if|if
@@ -10601,8 +10606,7 @@ block|{
 comment|// if the wal sync was unsuccessful, remove keys from memstore
 if|if
 condition|(
-operator|!
-name|walSyncSuccessful
+name|doRollBackMemstore
 condition|)
 block|{
 name|rollbackMemstore
