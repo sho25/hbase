@@ -757,6 +757,14 @@ return|return
 name|this
 operator|.
 name|identifier
+operator|+
+literal|", quorum="
+operator|+
+name|quorum
+operator|+
+literal|", baseZNode="
+operator|+
+name|baseZNode
 return|;
 block|}
 comment|/**    * Adds this instance's identifier as a prefix to the passed<code>str</code>    * @param str String to amend.    * @return A new string with this instance's identifier as prefix: e.g.    * if passed 'hello world', the returned string could be    */
