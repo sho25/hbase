@@ -677,7 +677,9 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-literal|8000
+literal|30
+operator|*
+literal|1000
 argument_list|)
 expr_stmt|;
 name|HTable
