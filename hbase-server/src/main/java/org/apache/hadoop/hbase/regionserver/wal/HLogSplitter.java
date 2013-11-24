@@ -4562,7 +4562,15 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"WriterThread-"
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"-Writer-"
 operator|+
 name|i
 argument_list|)

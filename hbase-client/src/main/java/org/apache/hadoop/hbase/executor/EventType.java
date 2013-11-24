@@ -368,6 +368,16 @@ name|ExecutorType
 operator|.
 name|RS_PARALLEL_SEEK
 argument_list|)
+block|,
+comment|/**    * RS wal recovery work items(either creating recover.edits or directly replay wals)    * to be executed on the RS.<br>    *     * RS_LOG_REPLAY    */
+name|RS_LOG_REPLAY
+argument_list|(
+literal|81
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_LOG_REPLAY_OPS
+argument_list|)
 block|;
 specifier|private
 specifier|final

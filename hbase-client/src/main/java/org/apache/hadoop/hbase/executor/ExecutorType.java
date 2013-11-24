@@ -115,6 +115,11 @@ name|RS_PARALLEL_SEEK
 argument_list|(
 literal|26
 argument_list|)
+block|,
+name|RS_LOG_REPLAY_OPS
+argument_list|(
+literal|27
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(
