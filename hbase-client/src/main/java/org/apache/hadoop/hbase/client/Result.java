@@ -473,7 +473,7 @@ argument_list|()
 index|]
 argument_list|)
 argument_list|,
-name|exists
+literal|null
 argument_list|)
 return|;
 block|}
