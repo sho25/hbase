@@ -8443,17 +8443,16 @@ block|}
 comment|// compare Mvcc Version
 comment|// Negate this comparison so later edits show up first
 return|return
-operator|-
 name|Longs
 operator|.
 name|compare
 argument_list|(
-name|left
+name|right
 operator|.
 name|getMvccVersion
 argument_list|()
 argument_list|,
-name|right
+name|left
 operator|.
 name|getMvccVersion
 argument_list|()

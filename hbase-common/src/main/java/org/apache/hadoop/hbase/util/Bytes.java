@@ -861,6 +861,7 @@ block|}
 block|}
 comment|/**    * Pass this to TreeMaps where byte [] are keys.    */
 specifier|public
+specifier|final
 specifier|static
 name|Comparator
 argument_list|<
@@ -875,6 +876,7 @@ argument_list|()
 decl_stmt|;
 comment|/**    * Use comparing byte arrays, byte-by-byte    */
 specifier|public
+specifier|final
 specifier|static
 name|RawComparator
 argument_list|<

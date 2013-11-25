@@ -696,6 +696,27 @@ operator|)
 return|;
 block|}
 comment|/**    * Workaround to get the current number of process running. Approach is the one described here:    * http://stackoverflow.com/questions/54686/how-to-get-a-list-of-current-open-windows-process-with-java    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RV_DONT_JUST_NULL_CHECK_READLINE"
+argument_list|,
+name|justification
+operator|=
+literal|"used by testing"
+argument_list|)
 specifier|public
 name|int
 name|getNumberOfRunningProcess

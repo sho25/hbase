@@ -559,6 +559,27 @@ name|Iterator
 argument_list|()
 return|;
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"
+argument_list|,
+name|justification
+operator|=
+literal|"nextWasCalled is using by StripeStoreFileManager"
+argument_list|)
 specifier|public
 class|class
 name|Iterator

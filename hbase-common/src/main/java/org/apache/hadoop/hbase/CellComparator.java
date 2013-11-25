@@ -401,17 +401,16 @@ return|;
 comment|//timestamp: later sorts first
 name|c
 operator|=
-operator|-
 name|Longs
 operator|.
 name|compare
 argument_list|(
-name|a
+name|b
 operator|.
 name|getTimestamp
 argument_list|()
 argument_list|,
-name|b
+name|a
 operator|.
 name|getTimestamp
 argument_list|()
@@ -458,17 +457,16 @@ name|c
 return|;
 comment|//mvccVersion: later sorts first
 return|return
-operator|-
 name|Longs
 operator|.
 name|compare
 argument_list|(
-name|a
+name|b
 operator|.
 name|getMvccVersion
 argument_list|()
 argument_list|,
-name|b
+name|a
 operator|.
 name|getMvccVersion
 argument_list|()
@@ -1102,17 +1100,16 @@ return|;
 comment|//timestamp: later sorts first
 name|c
 operator|=
-operator|-
 name|Longs
 operator|.
 name|compare
 argument_list|(
-name|a
+name|b
 operator|.
 name|getTimestamp
 argument_list|()
 argument_list|,
-name|b
+name|a
 operator|.
 name|getTimestamp
 argument_list|()

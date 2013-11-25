@@ -557,6 +557,7 @@ literal|12432857283423584L
 decl_stmt|;
 specifier|private
 specifier|final
+specifier|transient
 name|KeyLocker
 argument_list|<
 name|K

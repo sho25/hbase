@@ -141,7 +141,7 @@ literal|1
 argument_list|)
 block|{
 specifier|private
-specifier|volatile
+specifier|transient
 name|Constructor
 argument_list|<
 name|?
