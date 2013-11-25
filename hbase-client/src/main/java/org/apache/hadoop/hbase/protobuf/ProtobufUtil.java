@@ -14347,7 +14347,7 @@ operator|.
 name|getNamespace
 argument_list|()
 operator|.
-name|toByteArray
+name|asReadOnlyByteBuffer
 argument_list|()
 argument_list|,
 name|tableNamePB
@@ -14355,7 +14355,7 @@ operator|.
 name|getQualifier
 argument_list|()
 operator|.
-name|toByteArray
+name|asReadOnlyByteBuffer
 argument_list|()
 argument_list|)
 return|;
