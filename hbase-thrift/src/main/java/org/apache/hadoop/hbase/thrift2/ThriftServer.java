@@ -1539,8 +1539,6 @@ init|=
 name|getOptions
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 name|Configuration
 name|conf
 init|=
@@ -1561,7 +1559,7 @@ argument_list|,
 name|args
 argument_list|)
 decl_stmt|;
-comment|/**        * This is to please both bin/hbase and bin/hbase-daemon. hbase-daemon provides "start" and "stop" arguments hbase        * should print the help if no argument is provided        */
+comment|/**      * This is to please both bin/hbase and bin/hbase-daemon. hbase-daemon provides "start" and "stop" arguments hbase      * should print the help if no argument is provided      */
 name|List
 argument_list|<
 name|?
@@ -2057,36 +2055,6 @@ argument_list|,
 name|transportFactory
 argument_list|,
 name|inetSocketAddress
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|log
-operator|.
-name|error
-argument_list|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|printUsage
-argument_list|()
-expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
-literal|1
 argument_list|)
 expr_stmt|;
 block|}
