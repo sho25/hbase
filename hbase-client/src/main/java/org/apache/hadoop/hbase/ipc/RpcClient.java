@@ -4745,7 +4745,7 @@ init|)
 block|{
 name|connections
 operator|.
-name|remove
+name|removeValue
 argument_list|(
 name|remoteId
 argument_list|,

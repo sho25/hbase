@@ -725,7 +725,7 @@ name|this
 operator|.
 name|tables
 operator|.
-name|remove
+name|removeValue
 argument_list|(
 name|tableName
 argument_list|,
