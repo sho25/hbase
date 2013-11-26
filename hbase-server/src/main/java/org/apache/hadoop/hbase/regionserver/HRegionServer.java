@@ -3845,11 +3845,6 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|boolean
-name|useHBaseChecksum
-decl_stmt|;
-comment|// verify hbase checksums?
-specifier|private
 name|Path
 name|rootDir
 decl_stmt|;
@@ -4144,68 +4139,15 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// do we use checksum verification in the hbase? If hbase checksum verification
-comment|// is enabled, then we automatically switch off hdfs checksum verification.
+name|FSUtils
+operator|.
+name|setupShortCircuitRead
+argument_list|(
 name|this
 operator|.
-name|useHBaseChecksum
-operator|=
 name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CHECKSUM_VERIFICATION
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
-comment|// check that the user has not set the "dfs.client.read.shortcircuit.skip.checksum" property.
-name|boolean
-name|shortCircuitSkipChecksum
-init|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"dfs.client.read.shortcircuit.skip.checksum"
-argument_list|,
-literal|false
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|shortCircuitSkipChecksum
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Configuration \"dfs.client.read.shortcircuit.skip.checksum\" should not "
-operator|+
-literal|"be set to true."
-operator|+
-operator|(
-name|this
-operator|.
-name|useHBaseChecksum
-condition|?
-literal|" HBase checksum doesn't require "
-operator|+
-literal|"it, see https://issues.apache.org/jira/browse/HBASE-6868."
-else|:
-literal|""
-operator|)
-argument_list|)
-expr_stmt|;
-assert|assert
-operator|!
-name|shortCircuitSkipChecksum
-assert|;
-comment|//this will fail if assertions are on
-block|}
 comment|// Config'ed params
 name|this
 operator|.
@@ -7644,7 +7586,22 @@ name|conf
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Get fs instance used by this RS
+comment|// Get fs instance used by this RS.  Do we use checksum verification in the hbase? If hbase
+comment|// checksum verification enabled, then automatically switch off hdfs checksum verification.
+name|boolean
+name|useHBaseChecksum
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CHECKSUM_VERIFICATION
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|fs
@@ -7656,8 +7613,6 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|this
-operator|.
 name|useHBaseChecksum
 argument_list|)
 expr_stmt|;

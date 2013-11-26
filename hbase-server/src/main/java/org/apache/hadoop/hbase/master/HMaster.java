@@ -4121,6 +4121,13 @@ argument_list|,
 literal|0.0f
 argument_list|)
 expr_stmt|;
+name|FSUtils
+operator|.
+name|setupShortCircuitRead
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 comment|// Server to handle client requests.
 name|String
 name|hostname
