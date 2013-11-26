@@ -910,13 +910,17 @@ argument_list|,
 name|poolDecompressor
 argument_list|)
 decl_stmt|;
+name|ByteBufferOutputStream
+name|bbos
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 comment|// TODO: This is ugly.  The buffer will be resized on us if we guess wrong.
 comment|// TODO: Reuse buffers.
-name|ByteBufferOutputStream
 name|bbos
-init|=
+operator|=
 operator|new
 name|ByteBufferOutputStream
 argument_list|(
@@ -930,7 +934,7 @@ name|this
 operator|.
 name|cellBlockDecompressionMultiplier
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|IOUtils
 operator|.
 name|copy
@@ -981,6 +985,17 @@ operator|!=
 literal|null
 condition|)
 name|is
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|bbos
+operator|!=
+literal|null
+condition|)
+name|bbos
 operator|.
 name|close
 argument_list|()
