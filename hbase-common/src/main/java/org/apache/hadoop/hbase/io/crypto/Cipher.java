@@ -229,7 +229,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Create a decrypting output stream given an initialized decryptor    * @param in the input stream to wrap    * @param encryptor the decryptor    * @return the decrypting wrapper    * @throws IOException    */
+comment|/**    * Create a decrypting output stream given an initialized decryptor    * @param in the input stream to wrap    * @param decryptor the decryptor    * @return the decrypting wrapper    * @throws IOException    */
 specifier|public
 specifier|abstract
 name|InputStream
