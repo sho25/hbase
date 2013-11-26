@@ -359,6 +359,11 @@ name|LINK_NAME_REGEX
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// Configuration
+specifier|private
+name|Configuration
+name|conf
+decl_stmt|;
 comment|// HDFS blocks distribution information
 specifier|private
 name|HDFSBlocksDistribution
@@ -441,6 +446,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
+expr_stmt|;
 name|this
 operator|.
 name|fileStatus
@@ -971,6 +982,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|reference
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -995,6 +1008,8 @@ argument_list|,
 name|length
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}

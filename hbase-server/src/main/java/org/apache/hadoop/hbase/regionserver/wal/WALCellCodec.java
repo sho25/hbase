@@ -279,12 +279,12 @@ name|WAL_CELL_CODEC_CLASS_KEY
 init|=
 literal|"hbase.regionserver.wal.codec"
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|CompressionContext
 name|compression
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|ByteStringUncompressor
 name|statelessUncompressor

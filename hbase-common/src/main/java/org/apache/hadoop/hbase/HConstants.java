@@ -2559,6 +2559,78 @@ name|NO_NONCE
 init|=
 literal|0
 decl_stmt|;
+comment|/** Configuration key for the crypto algorithm provider, a class name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_CIPHERPROVIDER_CONF_KEY
+init|=
+literal|"hbase.crypto.cipherprovider"
+decl_stmt|;
+comment|/** Configuration key for the crypto key provider, a class name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_KEYPROVIDER_CONF_KEY
+init|=
+literal|"hbase.crypto.keyprovider"
+decl_stmt|;
+comment|/** Configuration key for the crypto key provider parameters */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_KEYPROVIDER_PARAMETERS_KEY
+init|=
+literal|"hbase.crypto.keyprovider.parameters"
+decl_stmt|;
+comment|/** Configuration key for the name of the master key for the cluster, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_MASTERKEY_NAME_CONF_KEY
+init|=
+literal|"hbase.crypto.master.key.name"
+decl_stmt|;
+comment|/** Configuration key for the name of the alternate master key for the cluster, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_MASTERKEY_ALTERNATE_NAME_CONF_KEY
+init|=
+literal|"hbase.crypto.master.alternate.key.name"
+decl_stmt|;
+comment|/** Configuration key for the algorithm to use when encrypting the WAL, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_WAL_ALGORITHM_CONF_KEY
+init|=
+literal|"hbase.crypto.wal.algorithm"
+decl_stmt|;
+comment|/** Configuration key for the name of the master WAL encryption key for the cluster, a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CRYPTO_WAL_KEY_NAME_CONF_KEY
+init|=
+literal|"hbase.crypto.wal.key.name"
+decl_stmt|;
+comment|/** Configuration key for enabling HLog encryption, a boolean */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ENABLE_WAL_ENCRYPTION
+init|=
+literal|"hbase.regionserver.wal.encryption"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

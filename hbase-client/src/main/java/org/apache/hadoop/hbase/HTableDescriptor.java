@@ -3043,7 +3043,7 @@ name|value
 init|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|values
 operator|.
@@ -3180,7 +3180,7 @@ name|value
 init|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|values
 operator|.

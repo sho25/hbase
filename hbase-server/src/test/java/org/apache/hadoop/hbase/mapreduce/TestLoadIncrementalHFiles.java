@@ -1628,7 +1628,7 @@ throws|throws
 name|IOException
 block|{
 name|Configuration
-name|configuration
+name|conf
 init|=
 name|util
 operator|.
@@ -1648,7 +1648,7 @@ name|p
 operator|.
 name|getFileSystem
 argument_list|(
-name|configuration
+name|conf
 argument_list|)
 argument_list|,
 name|p
@@ -1656,8 +1656,10 @@ argument_list|,
 operator|new
 name|CacheConfig
 argument_list|(
-name|configuration
+name|conf
 argument_list|)
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader

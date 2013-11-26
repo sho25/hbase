@@ -1394,6 +1394,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * Return the file context for the HFile this writer belongs to      */
+name|HFileContext
+name|getFileContext
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * This variety of ways to construct writers is used throughout the code, and    * we want to be able to swap writer implementations.    */
 specifier|public
@@ -2041,6 +2046,11 @@ name|boolean
 name|hasMVCCInfo
 parameter_list|()
 function_decl|;
+comment|/**      * Return the file context of the HFile this reader belongs to      */
+name|HFileContext
+name|getFileContext
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param hfs    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|private
@@ -2062,6 +2072,9 @@ name|cacheConf
 parameter_list|,
 name|HFileSystem
 name|hfs
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -2128,6 +2141,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|hfs
+argument_list|,
+name|conf
 argument_list|)
 return|;
 case|case
@@ -2148,6 +2163,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|hfs
+argument_list|,
+name|conf
 argument_list|)
 return|;
 default|default:
@@ -2208,7 +2225,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
+comment|/**    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @param conf Configuration    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|public
 specifier|static
 name|Reader
@@ -2228,6 +2245,9 @@ name|size
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -2282,6 +2302,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|hfs
+argument_list|,
+name|conf
 argument_list|)
 return|;
 block|}
@@ -2299,6 +2321,9 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -2346,6 +2371,8 @@ name|stream
 operator|.
 name|getHfs
 argument_list|()
+argument_list|,
+name|conf
 argument_list|)
 return|;
 block|}
@@ -2365,6 +2392,9 @@ name|size
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -2390,6 +2420,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 literal|null
+argument_list|,
+name|conf
 argument_list|)
 return|;
 block|}

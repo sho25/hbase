@@ -1433,6 +1433,8 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|Map

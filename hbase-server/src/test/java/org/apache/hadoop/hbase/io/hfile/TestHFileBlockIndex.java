@@ -3332,6 +3332,8 @@ argument_list|,
 name|hfilePath
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|assertEquals

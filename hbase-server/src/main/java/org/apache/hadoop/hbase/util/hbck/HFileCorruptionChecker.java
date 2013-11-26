@@ -615,6 +615,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}

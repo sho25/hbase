@@ -559,6 +559,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|r
@@ -646,6 +648,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 block|}
@@ -893,6 +897,8 @@ argument_list|,
 name|trunc
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 block|}
@@ -1539,6 +1545,8 @@ name|getLen
 argument_list|()
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|System
@@ -2130,6 +2138,8 @@ name|getLen
 argument_list|()
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader
@@ -2335,6 +2345,8 @@ argument_list|,
 name|mFile
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader

@@ -4161,6 +4161,9 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -4176,6 +4179,8 @@ argument_list|,
 name|path
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 name|bloomFilterType
@@ -4202,6 +4207,9 @@ name|size
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -4221,6 +4229,8 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 name|bloomFilterType

@@ -1975,6 +1975,8 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|Map
@@ -4110,6 +4112,8 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|Map
@@ -4204,7 +4208,10 @@ argument_list|()
 argument_list|,
 name|reader
 operator|.
-name|getCompressionAlgorithm
+name|getFileContext
+argument_list|()
+operator|.
+name|getCompression
 argument_list|()
 argument_list|)
 expr_stmt|;

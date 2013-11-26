@@ -533,6 +533,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|r
@@ -658,6 +660,11 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|bottom
+argument_list|,
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|halfreader
@@ -917,6 +924,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|r
@@ -1315,6 +1324,11 @@ argument_list|,
 name|cacheConfig
 argument_list|,
 name|bottom
+argument_list|,
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|halfreader

@@ -2081,6 +2081,17 @@ operator|.
 name|MAX_MINOR_VERSION
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|HFileContext
+name|getFileContext
+parameter_list|()
+block|{
+return|return
+name|hFileContext
+return|;
+block|}
 block|}
 end_class
 

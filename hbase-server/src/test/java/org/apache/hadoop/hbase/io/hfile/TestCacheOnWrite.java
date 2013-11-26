@@ -1381,6 +1381,8 @@ argument_list|,
 name|storeFilePath
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -1400,6 +1402,8 @@ argument_list|,
 name|storeFilePath
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}

@@ -87,6 +87,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -274,7 +288,7 @@ name|firstKeySeeked
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Creates a half file reader for a normal hfile.    * @param fs fileystem to read from    * @param p path to hfile    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @throws IOException    */
+comment|/**    * Creates a half file reader for a normal hfile.    * @param fs fileystem to read from    * @param p path to hfile    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param conf Configuration    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -293,6 +307,10 @@ parameter_list|,
 specifier|final
 name|Reference
 name|r
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -304,6 +322,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border
@@ -336,7 +356,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @throws IOException    */
+comment|/**    * Creates a half file reader for a hfile referred to by an hfilelink.    * @param fs fileystem to read from    * @param p path to hfile    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the hfile file    * @param cacheConf    * @param r original reference file (contains top or bottom)    * @param conf Configuration    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -362,6 +382,10 @@ parameter_list|,
 specifier|final
 name|Reference
 name|r
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -377,6 +401,8 @@ argument_list|,
 name|size
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border

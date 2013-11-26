@@ -3046,6 +3046,9 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
+argument_list|,
+name|getConf
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -4042,6 +4045,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 name|reference
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 name|Map
@@ -4719,6 +4724,9 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
+argument_list|,
+name|getConf
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -4739,7 +4747,10 @@ argument_list|()
 operator|!=
 name|reader
 operator|.
-name|getCompressionAlgorithm
+name|getFileContext
+argument_list|()
+operator|.
+name|getCompression
 argument_list|()
 condition|)
 block|{
@@ -4749,7 +4760,10 @@ name|setCompressionType
 argument_list|(
 name|reader
 operator|.
-name|getCompressionAlgorithm
+name|getFileContext
+argument_list|()
+operator|.
+name|getCompression
 argument_list|()
 argument_list|)
 expr_stmt|;

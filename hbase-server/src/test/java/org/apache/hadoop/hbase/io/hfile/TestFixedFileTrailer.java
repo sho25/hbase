@@ -353,7 +353,7 @@ index|[]
 block|{
 literal|14
 block|,
-literal|14
+literal|15
 block|}
 decl_stmt|;
 specifier|private

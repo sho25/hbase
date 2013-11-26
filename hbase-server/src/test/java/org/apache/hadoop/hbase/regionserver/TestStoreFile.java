@@ -3484,6 +3484,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader
@@ -4085,6 +4087,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader
@@ -4359,6 +4363,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 comment|// Now do reseek with empty KV to position to the beginning of the file
@@ -4784,6 +4790,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|reader

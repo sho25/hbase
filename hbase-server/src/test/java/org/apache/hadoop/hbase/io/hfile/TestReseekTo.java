@@ -637,6 +637,11 @@ argument_list|,
 name|ncTFile
 argument_list|,
 name|cacheConf
+argument_list|,
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|reader

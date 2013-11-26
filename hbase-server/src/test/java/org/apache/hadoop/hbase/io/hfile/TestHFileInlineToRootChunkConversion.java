@@ -472,6 +472,8 @@ argument_list|,
 name|hfPath
 argument_list|,
 name|cacheConf
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|HFileScanner
