@@ -337,12 +337,6 @@ init|=
 literal|true
 decl_stmt|;
 specifier|private
-name|Filter
-name|filter
-init|=
-literal|null
-decl_stmt|;
-specifier|private
 name|TimeRange
 name|tr
 init|=
@@ -1282,7 +1276,8 @@ operator|=
 name|maxResultSize
 expr_stmt|;
 block|}
-comment|/**    * Apply the specified server-side filter when performing the Scan.    * @param filter filter to run on the server    * @return this    */
+annotation|@
+name|Override
 specifier|public
 name|Scan
 name|setFilter
@@ -1291,11 +1286,12 @@ name|Filter
 name|filter
 parameter_list|)
 block|{
-name|this
+name|super
 operator|.
+name|setFilter
+argument_list|(
 name|filter
-operator|=
-name|filter
+argument_list|)
 expr_stmt|;
 return|return
 name|this

@@ -256,12 +256,6 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
-name|Filter
-name|filter
-init|=
-literal|null
-decl_stmt|;
-specifier|private
 name|TimeRange
 name|tr
 init|=
@@ -654,7 +648,8 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Apply the specified server-side filter when performing the Get.    * Only {@link Filter#filterKeyValue(Cell)} is called AFTER all tests    * for ttl, column match, deletes and max versions have been run.    * @param filter filter to run on the server    * @return this for invocation chaining    */
+annotation|@
+name|Override
 specifier|public
 name|Get
 name|setFilter
@@ -663,29 +658,18 @@ name|Filter
 name|filter
 parameter_list|)
 block|{
-name|this
+name|super
 operator|.
+name|setFilter
+argument_list|(
 name|filter
-operator|=
-name|filter
+argument_list|)
 expr_stmt|;
 return|return
 name|this
 return|;
 block|}
 comment|/* Accessors */
-comment|/**    * @return Filter    */
-specifier|public
-name|Filter
-name|getFilter
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|filter
-return|;
-block|}
 comment|/**    * Set whether blocks should be cached for this Get.    *<p>    * This is true by default.  When true, default settings of the table and    * family are used (this will never override caching blocks if the block    * cache is disabled for that family or entirely).    *    * @param cacheBlocks if false, default settings are overridden and blocks    * will not be cached    */
 specifier|public
 name|void

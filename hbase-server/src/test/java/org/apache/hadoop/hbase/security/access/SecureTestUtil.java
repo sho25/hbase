@@ -331,6 +331,16 @@ operator|+
 name|currentUser
 argument_list|)
 expr_stmt|;
+comment|// Need HFile V3 for tags for security features
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hfile.format.version"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|void

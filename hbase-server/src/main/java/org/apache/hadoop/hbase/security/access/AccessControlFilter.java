@@ -43,20 +43,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -74,20 +60,6 @@ operator|.
 name|exceptions
 operator|.
 name|DeserializationException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -145,6 +117,14 @@ specifier|private
 name|User
 name|user
 decl_stmt|;
+specifier|private
+name|boolean
+name|isSystemTable
+decl_stmt|;
+specifier|private
+name|boolean
+name|cellFirstStrategy
+decl_stmt|;
 comment|/**    * For Writable    */
 name|AccessControlFilter
 parameter_list|()
@@ -159,6 +139,9 @@ name|ugi
 parameter_list|,
 name|TableName
 name|tableName
+parameter_list|,
+name|boolean
+name|cellFirstStrategy
 parameter_list|)
 block|{
 name|authManager
@@ -173,6 +156,19 @@ name|user
 operator|=
 name|ugi
 expr_stmt|;
+name|isSystemTable
+operator|=
+name|tableName
+operator|.
+name|isSystemTable
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|cellFirstStrategy
+operator|=
+name|cellFirstStrategy
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -181,20 +177,20 @@ name|ReturnCode
 name|filterKeyValue
 parameter_list|(
 name|Cell
-name|c
+name|cell
 parameter_list|)
 block|{
-comment|// TODO go and redo auth manager to use Cell instead of KV.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
+if|if
+condition|(
+name|isSystemTable
+condition|)
+block|{
+return|return
+name|ReturnCode
 operator|.
-name|ensureKeyValue
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
+name|INCLUDE
+return|;
+block|}
 if|if
 condition|(
 name|authManager
@@ -205,9 +201,11 @@ name|user
 argument_list|,
 name|table
 argument_list|,
-name|kv
+name|cell
 argument_list|,
-name|TablePermission
+name|cellFirstStrategy
+argument_list|,
+name|Permission
 operator|.
 name|Action
 operator|.
@@ -221,10 +219,13 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+comment|// Before per cell ACLs we used to return the NEXT_COL hint, but we can
+comment|// no longer do that since, given the possibility of per cell ACLs
+comment|// anywhere, we now need to examine all KVs with this filter.
 return|return
 name|ReturnCode
 operator|.
-name|NEXT_COL
+name|SKIP
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
