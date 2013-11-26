@@ -3238,7 +3238,7 @@ name|actualRegCount
 operator|.
 name|get
 argument_list|()
-operator|!=
+operator|<
 name|numRegs
 condition|)
 block|{
