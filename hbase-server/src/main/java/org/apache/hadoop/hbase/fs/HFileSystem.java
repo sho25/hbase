@@ -1198,11 +1198,17 @@ try|try
 block|{
 if|if
 condition|(
+operator|(
+name|args
+operator|==
+literal|null
+operator|||
 name|args
 operator|.
 name|length
 operator|==
 literal|0
+operator|)
 operator|&&
 literal|"close"
 operator|.
