@@ -3739,12 +3739,7 @@ name|put
 operator|.
 name|add
 argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
 name|cell
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3985,7 +3980,7 @@ expr_stmt|;
 block|}
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|family
 argument_list|,
@@ -4003,7 +3998,7 @@ else|else
 block|{
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|family
 argument_list|,

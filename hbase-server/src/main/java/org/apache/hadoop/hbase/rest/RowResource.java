@@ -1620,7 +1620,7 @@ return|;
 block|}
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|parts
 index|[
@@ -2128,7 +2128,7 @@ return|;
 block|}
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|parts
 index|[
@@ -3320,7 +3320,7 @@ return|;
 block|}
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|valueToPutParts
 index|[

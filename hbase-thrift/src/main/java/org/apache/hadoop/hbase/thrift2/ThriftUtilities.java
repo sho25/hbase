@@ -1182,7 +1182,7 @@ condition|)
 block|{
 name|out
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|columnValue
 operator|.
@@ -1210,7 +1210,7 @@ else|else
 block|{
 name|out
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|columnValue
 operator|.

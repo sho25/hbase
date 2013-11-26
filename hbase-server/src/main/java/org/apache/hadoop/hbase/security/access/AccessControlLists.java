@@ -1036,7 +1036,7 @@ expr_stmt|;
 block|}
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|ACL_LIST_FAMILY
 argument_list|,

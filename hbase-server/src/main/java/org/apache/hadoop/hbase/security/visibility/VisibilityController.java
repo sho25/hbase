@@ -3510,7 +3510,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,
@@ -3544,7 +3544,7 @@ control|)
 block|{
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,
@@ -6639,7 +6639,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,
@@ -7262,7 +7262,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,

@@ -904,7 +904,7 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|HConstants
 operator|.

@@ -466,7 +466,7 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|HConstants
 operator|.

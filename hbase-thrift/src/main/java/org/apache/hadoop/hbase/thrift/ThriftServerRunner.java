@@ -6309,7 +6309,7 @@ else|else
 block|{
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|famAndQf
 index|[
@@ -6740,7 +6740,7 @@ condition|)
 block|{
 name|put
 operator|.
-name|add
+name|addImmutable
 argument_list|(
 name|famAndQf
 index|[
