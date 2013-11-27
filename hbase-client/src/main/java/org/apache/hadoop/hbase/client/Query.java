@@ -354,7 +354,7 @@ name|OP_ATTRIBUTE_ACL
 argument_list|)
 return|;
 block|}
-comment|/**    * @param user User short name    * @param perm Permissions for the user    */
+comment|/**    * @param user User short name    * @param perms Permissions for the user    */
 specifier|public
 name|void
 name|setACL
