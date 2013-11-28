@@ -3908,7 +3908,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testLablesWithCheckAndPut
+name|testLabelsWithCheckAndPut
 parameter_list|()
 throws|throws
 name|Throwable
@@ -4163,7 +4163,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testLablesWithIncrement
+name|testLabelsWithIncrement
 parameter_list|()
 throws|throws
 name|Throwable
@@ -4413,7 +4413,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testLablesWithAppend
+name|testLabelsWithAppend
 parameter_list|()
 throws|throws
 name|Throwable

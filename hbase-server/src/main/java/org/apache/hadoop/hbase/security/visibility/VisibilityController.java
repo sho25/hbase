@@ -7544,7 +7544,7 @@ name|String
 argument_list|>
 name|labels
 init|=
-name|getUserAuthsFromLablesTable
+name|getUserAuthsFromLabelsTable
 argument_list|(
 name|user
 argument_list|)
@@ -7608,7 +7608,7 @@ name|List
 argument_list|<
 name|String
 argument_list|>
-name|getUserAuthsFromLablesTable
+name|getUserAuthsFromLabelsTable
 parameter_list|(
 name|byte
 index|[]
@@ -7863,7 +7863,7 @@ name|currentAuths
 init|=
 name|this
 operator|.
-name|getUserAuthsFromLablesTable
+name|getUserAuthsFromLabelsTable
 argument_list|(
 name|user
 argument_list|)
