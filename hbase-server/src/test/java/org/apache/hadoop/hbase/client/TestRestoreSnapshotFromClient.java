@@ -693,8 +693,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 comment|// enable table and insert data
 name|admin
 operator|.
@@ -797,15 +795,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
 name|table
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 annotation|@
 name|After
