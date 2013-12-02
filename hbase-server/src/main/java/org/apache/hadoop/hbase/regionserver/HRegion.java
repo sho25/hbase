@@ -25892,6 +25892,7 @@ block|}
 block|}
 comment|/**    * Row lock held by a given thread.    * One thread may acquire multiple locks on the same row simultaneously.    * The locks must be released by calling release() from the same thread.    */
 specifier|public
+specifier|static
 class|class
 name|RowLock
 block|{
