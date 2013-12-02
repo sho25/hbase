@@ -107,7 +107,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|NonLazyKeyValueScanner
+name|NonReversedNonLazyKeyValueScanner
 import|;
 end_import
 
@@ -124,7 +124,7 @@ specifier|public
 class|class
 name|CollectionBackedScanner
 extends|extends
-name|NonLazyKeyValueScanner
+name|NonReversedNonLazyKeyValueScanner
 block|{
 specifier|final
 specifier|private

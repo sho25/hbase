@@ -188,6 +188,37 @@ name|boolean
 name|isFileScanner
 parameter_list|()
 function_decl|;
+comment|// Support for "Reversed Scanner"
+comment|/**    * Seek the scanner at or before the row of specified KeyValue, it firstly    * tries to seek the scanner at or after the specified KeyValue, return if    * peek KeyValue of scanner has the same row with specified KeyValue,    * otherwise seek the scanner at the first KeyValue of the row which is the    * previous row of specified KeyValue    *     * @param key seek KeyValue    * @return true if the scanner is at the valid KeyValue, false if such    *         KeyValue does not exist    *     */
+specifier|public
+name|boolean
+name|backwardSeek
+parameter_list|(
+name|KeyValue
+name|key
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Seek the scanner at the first KeyValue of the row which is the previous row    * of specified key    * @param key seek value    * @return true if the scanner at the first valid KeyValue of previous row,    *         false if not existing such KeyValue    */
+specifier|public
+name|boolean
+name|seekToPreviousRow
+parameter_list|(
+name|KeyValue
+name|key
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Seek the scanner at the first KeyValue of last row    *     * @return true if scanner has values left, false if the underlying data is    *         empty    * @throws IOException    */
+specifier|public
+name|boolean
+name|seekToLastRow
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

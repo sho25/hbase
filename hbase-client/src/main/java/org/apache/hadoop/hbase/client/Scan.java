@@ -337,6 +337,12 @@ init|=
 literal|true
 decl_stmt|;
 specifier|private
+name|boolean
+name|reversed
+init|=
+literal|false
+decl_stmt|;
+specifier|private
 name|TimeRange
 name|tr
 init|=
@@ -1572,6 +1578,35 @@ parameter_list|()
 block|{
 return|return
 name|cacheBlocks
+return|;
+block|}
+comment|/**    * Set whether this scan is a reversed one    *<p>    * This is false by default which means forward(normal) scan.    *     * @param reversed if true, scan will be backward order    * @return this    */
+specifier|public
+name|Scan
+name|setReversed
+parameter_list|(
+name|boolean
+name|reversed
+parameter_list|)
+block|{
+name|this
+operator|.
+name|reversed
+operator|=
+name|reversed
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Get whether this scan is a reversed one.    * @return true if backward scan, false if forward(default) scan    */
+specifier|public
+name|boolean
+name|isReversed
+parameter_list|()
+block|{
+return|return
+name|reversed
 return|;
 block|}
 comment|/**    * Set the value indicating whether loading CFs on demand should be allowed (cluster    * default is false). On-demand CF loading doesn't load column families until necessary, e.g.    * if you filter on one column, the other column family data will be loaded only for the rows    * that are included in result, not all rows like in normal case.    * With column-specific filters, like SingleColumnValueFilter w/filterIfMissing == true,    * this can deliver huge perf gains when there's a cf with lots of data; however, it can    * also lead to some inconsistent results, as follows:    * - if someone does a concurrent update to both column families in question you may get a row    *   that never existed, e.g. for { rowKey = 5, { cat_videos => 1 }, { video => "my cat" } }    *   someone puts rowKey 5 with { cat_videos => 0 }, { video => "my dog" }, concurrent scan    *   filtering on "cat_videos == 1" can get { rowKey = 5, { cat_videos => 1 },    *   { video => "my dog" } }.    * - if there's a concurrent split and you have more than 2 column families, some rows may be    *   missing some column families.    */

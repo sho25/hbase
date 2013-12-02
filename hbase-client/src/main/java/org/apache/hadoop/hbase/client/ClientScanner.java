@@ -367,7 +367,7 @@ name|currentRegion
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|ScannerCallable
 name|callable
 init|=
@@ -967,7 +967,7 @@ return|;
 comment|//unlikely.
 block|}
 comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().  We will go no further, just tidy      * up outstanding scanners, if<code>currentRegion != null</code> and      *<code>done</code> is true.      * @param nbRows      * @param done Server-side says we're done scanning.      */
-specifier|private
+specifier|protected
 name|boolean
 name|nextScanner
 parameter_list|(

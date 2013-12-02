@@ -480,7 +480,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-specifier|private
+specifier|protected
 name|boolean
 name|instantiated
 init|=
@@ -502,7 +502,7 @@ name|caching
 init|=
 literal|1
 decl_stmt|;
-specifier|private
+specifier|protected
 name|ScanMetrics
 name|scanMetrics
 decl_stmt|;
@@ -557,7 +557,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// indicate if it is a remote server call
-specifier|private
+specifier|protected
 name|boolean
 name|isRegionServerRemote
 init|=
@@ -756,7 +756,7 @@ block|}
 block|}
 block|}
 comment|/**    * compare the local machine hostname with region server's hostname    * to decide if hbase client connects to a remote region server    */
-specifier|private
+specifier|protected
 name|void
 name|checkIfRegionServerIsRemote
 parameter_list|()

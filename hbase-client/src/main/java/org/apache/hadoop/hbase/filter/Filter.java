@@ -127,6 +127,10 @@ specifier|abstract
 class|class
 name|Filter
 block|{
+specifier|protected
+name|boolean
+name|reversed
+decl_stmt|;
 comment|/**    * Reset the state of the filter between rows.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
@@ -367,6 +371,33 @@ name|Filter
 name|other
 parameter_list|)
 function_decl|;
+comment|/**    * alter the reversed scan flag    * @param reversed flag    */
+specifier|public
+name|void
+name|setReversed
+parameter_list|(
+name|boolean
+name|reversed
+parameter_list|)
+block|{
+name|this
+operator|.
+name|reversed
+operator|=
+name|reversed
+expr_stmt|;
+block|}
+specifier|public
+name|boolean
+name|isReversed
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|reversed
+return|;
+block|}
 block|}
 end_class
 
