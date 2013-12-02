@@ -105,7 +105,16 @@ name|MURMUR_HASH
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * This utility method converts String representation of hash function name    * to a symbolic constant. Currently two function types are supported,    * "jenkins" and "murmur".    * @param name hash function name    * @return one of the predefined constants    */
+comment|/** Constant to denote {@link MurmurHash3}. */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MURMUR_HASH3
+init|=
+literal|2
+decl_stmt|;
+comment|/**    * This utility method converts String representation of hash function name    * to a symbolic constant. Currently three function types are supported,    * "jenkins", "murmur" and "murmur3".    * @param name hash function name    * @return one of the predefined constants    */
 specifier|public
 specifier|static
 name|int
@@ -142,6 +151,21 @@ condition|)
 block|{
 return|return
 name|MURMUR_HASH
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+literal|"murmur3"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|name
+argument_list|)
+condition|)
+block|{
+return|return
+name|MURMUR_HASH3
 return|;
 block|}
 else|else
@@ -209,6 +233,15 @@ name|MURMUR_HASH
 case|:
 return|return
 name|MurmurHash
+operator|.
+name|getInstance
+argument_list|()
+return|;
+case|case
+name|MURMUR_HASH3
+case|:
+return|return
+name|MurmurHash3
 operator|.
 name|getInstance
 argument_list|()
