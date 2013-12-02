@@ -8368,8 +8368,9 @@ argument_list|)
 decl_stmt|;
 return|return
 name|result
-operator|>=
-literal|0
+operator|!=
+operator|-
+literal|1
 return|;
 block|}
 comment|/*    * When we come in here, we are probably at the kv just before we break into    * the row that firstOnRow is on.  Usually need to increment one time to get    * on to the row we are interested in.    * @param scanner    * @param firstOnRow    * @param state    * @return True we found a candidate.    * @throws IOException    */
