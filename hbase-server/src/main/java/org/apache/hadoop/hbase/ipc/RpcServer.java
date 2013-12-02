@@ -8993,6 +8993,23 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+comment|// If the method is not present on the server, do not retry.
+if|if
+condition|(
+name|t
+operator|instanceof
+name|UnsupportedOperationException
+condition|)
+block|{
+name|t
+operator|=
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 specifier|final
 name|Call
 name|readParamsFailedCall
