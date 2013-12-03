@@ -10530,6 +10530,13 @@ argument_list|(
 literal|4096
 argument_list|)
 decl_stmt|;
+name|baos
+operator|.
+name|write
+argument_list|(
+name|PB_MAGIC
+argument_list|)
+expr_stmt|;
 name|m
 operator|.
 name|writeDelimitedTo
@@ -10537,21 +10544,11 @@ argument_list|(
 name|baos
 argument_list|)
 expr_stmt|;
-name|baos
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 return|return
-name|ProtobufUtil
-operator|.
-name|prependPBMagic
-argument_list|(
 name|baos
 operator|.
 name|toByteArray
 argument_list|()
-argument_list|)
 return|;
 block|}
 comment|/**    * Converts a Permission proto to a client Permission object.    *    * @param proto the protobuf Permission    * @return the converted Permission    */

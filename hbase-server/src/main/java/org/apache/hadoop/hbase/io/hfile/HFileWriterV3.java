@@ -25,16 +25,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|ByteArrayOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|DataOutputStream
 import|;
 end_import
@@ -1113,16 +1103,9 @@ condition|)
 block|{
 comment|// Wrap the context's key and write it as the encryption metadata, the wrapper includes
 comment|// all information needed for decryption
-name|ByteArrayOutputStream
-name|os
-init|=
-operator|new
-name|ByteArrayOutputStream
-argument_list|()
-decl_stmt|;
-name|os
+name|trailer
 operator|.
-name|write
+name|setEncryptionKey
 argument_list|(
 name|EncryptionUtil
 operator|.
@@ -1158,21 +1141,6 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|os
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|trailer
-operator|.
-name|setEncryptionKey
-argument_list|(
-name|os
-operator|.
-name|toByteArray
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

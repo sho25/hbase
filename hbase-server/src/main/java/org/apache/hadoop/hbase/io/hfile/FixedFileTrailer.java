@@ -585,14 +585,11 @@ name|minorVersion
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|outputStream
-operator|.
-name|write
-argument_list|(
 name|baos
 operator|.
-name|toByteArray
-argument_list|()
+name|writeTo
+argument_list|(
+name|outputStream
 argument_list|)
 expr_stmt|;
 block|}
@@ -712,6 +709,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// We need this extra copy unfortunately to determine the final size of the
+comment|// delimited output, see use of baos.size() below.
 name|builder
 operator|.
 name|build
@@ -722,14 +721,11 @@ argument_list|(
 name|baos
 argument_list|)
 expr_stmt|;
-name|output
-operator|.
-name|write
-argument_list|(
 name|baos
 operator|.
-name|toByteArray
-argument_list|()
+name|writeTo
+argument_list|(
+name|output
 argument_list|)
 expr_stmt|;
 comment|// Pad to make up the difference between variable PB encoding length and the
