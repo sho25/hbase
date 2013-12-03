@@ -5214,6 +5214,15 @@ operator|.
 name|getIdentifier
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"The identifier is "
+operator|+
+name|identifier
+argument_list|)
+expr_stmt|;
 name|labelOrdinal
 operator|=
 name|this
@@ -6035,6 +6044,18 @@ name|getCurrent
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current active user name is "
+operator|+
+name|user
+operator|.
+name|getShortName
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|user
 return|;
@@ -6057,6 +6078,18 @@ operator|.
 name|getCurrent
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current user name is "
+operator|+
+name|user
+operator|.
+name|getShortName
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|user
@@ -6648,6 +6681,15 @@ argument_list|,
 name|label
 argument_list|,
 name|LABELS_TABLE_TAGS
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Adding the label "
+operator|+
+name|labelStr
 argument_list|)
 expr_stmt|;
 name|puts
@@ -8290,6 +8332,15 @@ name|getShortName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"The list of auths are "
+operator|+
+name|auths
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
