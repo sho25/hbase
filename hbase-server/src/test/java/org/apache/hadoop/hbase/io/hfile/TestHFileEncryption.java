@@ -1132,16 +1132,17 @@ name|HFileContext
 name|fileContext
 init|=
 operator|new
-name|HFileContext
+name|HFileContextBuilder
 argument_list|()
-decl_stmt|;
-name|fileContext
 operator|.
-name|setEncryptionContext
+name|withEncryptionContext
 argument_list|(
 name|cryptoContext
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 comment|// write a simple encrypted hfile
 name|Path
 name|path

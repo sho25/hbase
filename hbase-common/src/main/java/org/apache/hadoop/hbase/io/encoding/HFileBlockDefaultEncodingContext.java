@@ -247,24 +247,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|util
-operator|.
-name|StreamUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|compress
@@ -723,9 +705,7 @@ condition|)
 block|{
 comment|// Encrypted block format:
 comment|// +--------------------------+
-comment|// | vint plaintext length    |
-comment|// +--------------------------+
-comment|// | vint iv length           |
+comment|// | byte iv length           |
 comment|// +--------------------------+
 comment|// | iv data ...              |
 comment|// +--------------------------+
@@ -862,6 +842,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// Set up the cipher
 name|Cipher
 name|cipher
 init|=
@@ -888,7 +869,7 @@ name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Write the encryption header and IV (plaintext)
+comment|// Set up the IV
 name|int
 name|ivLength
 init|=
@@ -896,21 +877,23 @@ name|iv
 operator|.
 name|length
 decl_stmt|;
-name|StreamUtils
+name|Preconditions
 operator|.
-name|writeRawVInt32
+name|checkState
 argument_list|(
-name|cryptoByteStream
+name|ivLength
+operator|<=
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|,
-name|plaintextLength
+literal|"IV length out of range"
 argument_list|)
 expr_stmt|;
-name|StreamUtils
-operator|.
-name|writeRawVInt32
-argument_list|(
 name|cryptoByteStream
-argument_list|,
+operator|.
+name|write
+argument_list|(
 name|ivLength
 argument_list|)
 expr_stmt|;
@@ -943,7 +926,7 @@ name|iv
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Write the block contents (ciphertext)
+comment|// Encrypt the data
 name|Encryption
 operator|.
 name|encrypt
@@ -965,21 +948,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|StreamUtils
-operator|.
-name|writeRawVInt32
-argument_list|(
 name|cryptoByteStream
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
-name|StreamUtils
 operator|.
-name|writeRawVInt32
+name|write
 argument_list|(
-name|cryptoByteStream
-argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;

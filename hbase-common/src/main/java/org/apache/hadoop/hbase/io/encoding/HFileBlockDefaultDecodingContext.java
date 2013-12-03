@@ -221,6 +221,22 @@ name|StreamUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * A default implementation of {@link HFileBlockDecodingContext}. It assumes the  * block data section is compressed as a whole.  *  * @see HFileBlockDefaultEncodingContext for the default compression context  *  */
 end_comment
@@ -350,33 +366,19 @@ argument_list|)
 expr_stmt|;
 comment|// Encrypted block format:
 comment|// +--------------------------+
-comment|// | vint plaintext length    |
-comment|// +--------------------------+
-comment|// | vint iv length           |
+comment|// | byte iv length           |
 comment|// +--------------------------+
 comment|// | iv data ...              |
 comment|// +--------------------------+
 comment|// | encrypted block data ... |
 comment|// +--------------------------+
 name|int
-name|plaintextLength
-init|=
-name|StreamUtils
-operator|.
-name|readRawVarint32
-argument_list|(
-name|in
-argument_list|)
-decl_stmt|;
-name|int
 name|ivLength
 init|=
-name|StreamUtils
-operator|.
-name|readRawVarint32
-argument_list|(
 name|in
-argument_list|)
+operator|.
+name|read
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -411,16 +413,9 @@ argument_list|(
 name|iv
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|plaintextLength
-operator|==
-literal|0
-condition|)
-block|{
-return|return;
-block|}
+comment|// All encrypted blocks will have a nonzero IV length. If we see an IV
+comment|// length of zero, this means the encoding context had 0 bytes of
+comment|// plaintext to encode.
 name|decryptor
 operator|.
 name|reset
@@ -435,9 +430,14 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
+block|}
 name|onDiskSizeWithoutHeader
-operator|=
-name|plaintextLength
+operator|-=
+name|Bytes
+operator|.
+name|SIZEOF_BYTE
+operator|+
+name|ivLength
 expr_stmt|;
 block|}
 name|Compression
