@@ -131,15 +131,21 @@ name|ByteString
 name|getIv
 parameter_list|()
 function_decl|;
-comment|// optional fixed32 crc = 5;
-comment|/**      *<code>optional fixed32 crc = 5;</code>      */
+comment|// optional bytes hash = 5;
+comment|/**      *<code>optional bytes hash = 5;</code>      */
 name|boolean
-name|hasCrc
+name|hasHash
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional fixed32 crc = 5;</code>      */
-name|int
-name|getCrc
+comment|/**      *<code>optional bytes hash = 5;</code>      */
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getHash
 parameter_list|()
 function_decl|;
 block|}
@@ -464,18 +470,18 @@ expr_stmt|;
 break|break;
 block|}
 case|case
-literal|45
+literal|42
 case|:
 block|{
 name|bitField0_
 operator||=
 literal|0x00000010
 expr_stmt|;
-name|crc_
+name|hash_
 operator|=
 name|input
 operator|.
-name|readFixed32
+name|readBytes
 argument_list|()
 expr_stmt|;
 break|break;
@@ -1115,23 +1121,29 @@ return|return
 name|iv_
 return|;
 block|}
-comment|// optional fixed32 crc = 5;
+comment|// optional bytes hash = 5;
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|CRC_FIELD_NUMBER
+name|HASH_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
 specifier|private
-name|int
-name|crc_
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|hash_
 decl_stmt|;
-comment|/**      *<code>optional fixed32 crc = 5;</code>      */
+comment|/**      *<code>optional bytes hash = 5;</code>      */
 specifier|public
 name|boolean
-name|hasCrc
+name|hasHash
 parameter_list|()
 block|{
 return|return
@@ -1146,14 +1158,20 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional fixed32 crc = 5;</code>      */
+comment|/**      *<code>optional bytes hash = 5;</code>      */
 specifier|public
-name|int
-name|getCrc
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getHash
 parameter_list|()
 block|{
 return|return
-name|crc_
+name|hash_
 return|;
 block|}
 specifier|private
@@ -1193,9 +1211,17 @@ name|ByteString
 operator|.
 name|EMPTY
 expr_stmt|;
-name|crc_
+name|hash_
 operator|=
-literal|0
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
 expr_stmt|;
 block|}
 specifier|private
@@ -1412,11 +1438,11 @@ condition|)
 block|{
 name|output
 operator|.
-name|writeFixed32
+name|writeBytes
 argument_list|(
 literal|5
 argument_list|,
-name|crc_
+name|hash_
 argument_list|)
 expr_stmt|;
 block|}
@@ -1608,11 +1634,11 @@ name|protobuf
 operator|.
 name|CodedOutputStream
 operator|.
-name|computeFixed32Size
+name|computeBytesSize
 argument_list|(
 literal|5
 argument_list|,
-name|crc_
+name|hash_
 argument_list|)
 expr_stmt|;
 block|}
@@ -1920,18 +1946,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasCrc
+name|hasHash
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasCrc
+name|hasHash
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasCrc
+name|hasHash
 argument_list|()
 condition|)
 block|{
@@ -1939,15 +1965,16 @@ name|result
 operator|=
 name|result
 operator|&&
-operator|(
-name|getCrc
+name|getHash
 argument_list|()
-operator|==
+operator|.
+name|equals
+argument_list|(
 name|other
 operator|.
-name|getCrc
+name|getHash
 argument_list|()
-operator|)
+argument_list|)
 expr_stmt|;
 block|}
 name|result
@@ -2139,7 +2166,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasCrc
+name|hasHash
 argument_list|()
 condition|)
 block|{
@@ -2151,7 +2178,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|CRC_FIELD_NUMBER
+name|HASH_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -2161,7 +2188,10 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getCrc
+name|getHash
+argument_list|()
+operator|.
+name|hashCode
 argument_list|()
 expr_stmt|;
 block|}
@@ -3058,9 +3088,17 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
-name|crc_
+name|hash_
 operator|=
-literal|0
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
 expr_stmt|;
 name|bitField0_
 operator|=
@@ -3403,9 +3441,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|crc_
+name|hash_
 operator|=
-name|crc_
+name|hash_
 expr_stmt|;
 name|result
 operator|.
@@ -3618,15 +3656,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasCrc
+name|hasHash
 argument_list|()
 condition|)
 block|{
-name|setCrc
+name|setHash
 argument_list|(
 name|other
 operator|.
-name|getCrc
+name|getHash
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4455,15 +4493,31 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional fixed32 crc = 5;
+comment|// optional bytes hash = 5;
 specifier|private
-name|int
-name|crc_
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|hash_
+init|=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+operator|.
+name|EMPTY
 decl_stmt|;
-comment|/**        *<code>optional fixed32 crc = 5;</code>        */
+comment|/**        *<code>optional bytes hash = 5;</code>        */
 specifier|public
 name|boolean
-name|hasCrc
+name|hasHash
 parameter_list|()
 block|{
 return|return
@@ -4478,30 +4532,55 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional fixed32 crc = 5;</code>        */
+comment|/**        *<code>optional bytes hash = 5;</code>        */
 specifier|public
-name|int
-name|getCrc
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+name|getHash
 parameter_list|()
 block|{
 return|return
-name|crc_
+name|hash_
 return|;
 block|}
-comment|/**        *<code>optional fixed32 crc = 5;</code>        */
+comment|/**        *<code>optional bytes hash = 5;</code>        */
 specifier|public
 name|Builder
-name|setCrc
+name|setHash
 parameter_list|(
-name|int
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
 name|value
 parameter_list|)
 block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
 name|bitField0_
 operator||=
 literal|0x00000010
 expr_stmt|;
-name|crc_
+name|hash_
 operator|=
 name|value
 expr_stmt|;
@@ -4512,10 +4591,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional fixed32 crc = 5;</code>        */
+comment|/**        *<code>optional bytes hash = 5;</code>        */
 specifier|public
 name|Builder
-name|clearCrc
+name|clearHash
 parameter_list|()
 block|{
 name|bitField0_
@@ -4527,9 +4606,13 @@ operator|~
 literal|0x00000010
 operator|)
 expr_stmt|;
-name|crc_
+name|hash_
 operator|=
-literal|0
+name|getDefaultInstance
+argument_list|()
+operator|.
+name|getHash
+argument_list|()
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -4626,15 +4709,15 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\020Encryption.proto\"V\n\nWrappedKey\022\021\n\talgo"
+literal|"\n\020Encryption.proto\"W\n\nWrappedKey\022\021\n\talgo"
 operator|+
 literal|"rithm\030\001 \002(\t\022\016\n\006length\030\002 \002(\r\022\014\n\004data\030\003 \002("
 operator|+
-literal|"\014\022\n\n\002iv\030\004 \001(\014\022\013\n\003crc\030\005 \001(\007BC\n*org.apache"
+literal|"\014\022\n\n\002iv\030\004 \001(\014\022\014\n\004hash\030\005 \001(\014BC\n*org.apach"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\020Encryp"
+literal|"e.hadoop.hbase.protobuf.generatedB\020Encry"
 operator|+
-literal|"tionProtosH\001\240\001\001"
+literal|"ptionProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -4734,7 +4817,7 @@ literal|"Data"
 block|,
 literal|"Iv"
 block|,
-literal|"Crc"
+literal|"Hash"
 block|, }
 argument_list|)
 expr_stmt|;
