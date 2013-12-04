@@ -192,6 +192,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+specifier|public
+name|boolean
+name|isRecoverySupported
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
+specifier|public
+name|void
+name|recoverTask
+parameter_list|(
+name|TaskAttemptContext
+name|taskContext
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_class
 
