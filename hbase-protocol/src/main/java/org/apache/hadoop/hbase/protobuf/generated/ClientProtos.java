@@ -157856,7 +157856,7 @@ literal|"dition\030\003 \001(\0132\n.Condition\022\023\n\013nonce_group\030"
 operator|+
 literal|"\004 \001(\004\"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132"
 operator|+
-literal|"\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\344\002\n\004Scan\022\027\n\006"
+literal|"\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\375\002\n\004Scan\022\027\n\006"
 operator|+
 literal|"column\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\013"
 operator|+
@@ -157874,91 +157874,93 @@ literal|"ze\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024\n\0
 operator|+
 literal|"ffset\030\014 \001(\r\022&\n\036load_column_families_on_d"
 operator|+
-literal|"emand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\"\236\001\n\013ScanReque"
+literal|"emand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010reversed\030\017"
 operator|+
-literal|"st\022 \n\006region\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004"
+literal|" \001(\010:\005false\"\236\001\n\013ScanRequest\022 \n\006region\030\001 "
 operator|+
-literal|"scan\030\002 \001(\0132\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n"
+literal|"\001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Sc"
 operator|+
-literal|"\016number_of_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005"
+literal|"an\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows"
 operator|+
-literal|" \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\"y\n\014ScanRespo"
+literal|"\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_ca"
 operator|+
-literal|"nse\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner"
+literal|"ll_seq\030\006 \001(\004\"y\n\014ScanResponse\022\030\n\020cells_pe"
 block|,
-literal|"_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004"
+literal|"r_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014mo"
 operator|+
-literal|" \001(\r\022\030\n\007results\030\005 \003(\0132\007.Result\"\263\001\n\024BulkL"
+literal|"re_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results"
 operator|+
-literal|"oadHFileRequest\022 \n\006region\030\001 \002(\0132\020.Region"
+literal|"\030\005 \003(\0132\007.Result\"\263\001\n\024BulkLoadHFileRequest"
 operator|+
-literal|"Specifier\0225\n\013family_path\030\002 \003(\0132 .BulkLoa"
+literal|"\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\0225\n\013fa"
 operator|+
-literal|"dHFileRequest.FamilyPath\022\026\n\016assign_seq_n"
+literal|"mily_path\030\002 \003(\0132 .BulkLoadHFileRequest.F"
 operator|+
-literal|"um\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014"
+literal|"amilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFam"
 operator|+
-literal|"\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n"
+literal|"ilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n"
 operator|+
-literal|"\006loaded\030\001 \002(\010\"a\n\026CoprocessorServiceCall\022"
+literal|"\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a"
 operator|+
-literal|"\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013me"
+literal|"\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n"
 operator|+
-literal|"thod_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"d\n\031Copr"
+literal|"\014service_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t"
 block|,
-literal|"ocessorServiceRequest\022 \n\006region\030\001 \002(\0132\020."
+literal|"\022\017\n\007request\030\004 \002(\014\"d\n\031CoprocessorServiceR"
 operator|+
-literal|"RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Coproces"
+literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
 operator|+
-literal|"sorServiceCall\"]\n\032CoprocessorServiceResp"
+literal|"\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCall\""
 operator|+
-literal|"onse\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\035"
+literal|"]\n\032CoprocessorServiceResponse\022 \n\006region\030"
 operator|+
-literal|"\n\005value\030\002 \002(\0132\016.NameBytesPair\"L\n\006Action\022"
+literal|"\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016"
 operator|+
-literal|"\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001(\0132\016.Mutat"
+literal|".NameBytesPair\"L\n\006Action\022\r\n\005index\030\001 \001(\r\022"
 operator|+
-literal|"ionProto\022\021\n\003get\030\003 \001(\0132\004.Get\"Y\n\014RegionAct"
+literal|" \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003get"
 operator|+
-literal|"ion\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n"
+literal|"\030\003 \001(\0132\004.Get\"Y\n\014RegionAction\022 \n\006region\030\001"
 operator|+
-literal|"\006atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"^"
+literal|" \002(\0132\020.RegionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027"
 operator|+
-literal|"\n\021ResultOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006re"
+literal|"\n\006action\030\003 \003(\0132\007.Action\"^\n\021ResultOrExcep"
 block|,
-literal|"sult\030\002 \001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016"
+literal|"tion\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Re"
 operator|+
-literal|".NameBytesPair\"f\n\022RegionActionResult\022-\n\021"
+literal|"sult\022!\n\texception\030\003 \001(\0132\016.NameBytesPair\""
 operator|+
-literal|"resultOrException\030\001 \003(\0132\022.ResultOrExcept"
+literal|"f\n\022RegionActionResult\022-\n\021resultOrExcepti"
 operator|+
-literal|"ion\022!\n\texception\030\002 \001(\0132\016.NameBytesPair\"G"
+literal|"on\030\001 \003(\0132\022.ResultOrException\022!\n\texceptio"
 operator|+
-literal|"\n\014MultiRequest\022#\n\014regionAction\030\001 \003(\0132\r.R"
+literal|"n\030\002 \001(\0132\016.NameBytesPair\"G\n\014MultiRequest\022"
 operator|+
-literal|"egionAction\022\022\n\nnonceGroup\030\002 \001(\004\"@\n\rMulti"
+literal|"#\n\014regionAction\030\001 \003(\0132\r.RegionAction\022\022\n\n"
 operator|+
-literal|"Response\022/\n\022regionActionResult\030\001 \003(\0132\023.R"
+literal|"nonceGroup\030\002 \001(\004\"@\n\rMultiResponse\022/\n\022reg"
 operator|+
-literal|"egionActionResult2\261\002\n\rClientService\022 \n\003G"
+literal|"ionActionResult\030\001 \003(\0132\023.RegionActionResu"
 operator|+
-literal|"et\022\013.GetRequest\032\014.GetResponse\022)\n\006Mutate\022"
+literal|"lt2\261\002\n\rClientService\022 \n\003Get\022\013.GetRequest"
 operator|+
-literal|"\016.MutateRequest\032\017.MutateResponse\022#\n\004Scan"
+literal|"\032\014.GetResponse\022)\n\006Mutate\022\016.MutateRequest"
 block|,
-literal|"\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBulkLoa"
+literal|"\032\017.MutateResponse\022#\n\004Scan\022\014.ScanRequest\032"
 operator|+
-literal|"dHFile\022\025.BulkLoadHFileRequest\032\026.BulkLoad"
+literal|"\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.BulkLo"
 operator|+
-literal|"HFileResponse\022F\n\013ExecService\022\032.Coprocess"
+literal|"adHFileRequest\032\026.BulkLoadHFileResponse\022F"
 operator|+
-literal|"orServiceRequest\032\033.CoprocessorServiceRes"
+literal|"\n\013ExecService\022\032.CoprocessorServiceReques"
 operator|+
-literal|"ponse\022&\n\005Multi\022\r.MultiRequest\032\016.MultiRes"
+literal|"t\032\033.CoprocessorServiceResponse\022&\n\005Multi\022"
 operator|+
-literal|"ponseBB\n*org.apache.hadoop.hbase.protobu"
+literal|"\r.MultiRequest\032\016.MultiResponseBB\n*org.ap"
 operator|+
-literal|"f.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"ache.hadoop.hbase.protobuf.generatedB\014Cl"
+operator|+
+literal|"ientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -158665,6 +158667,8 @@ block|,
 literal|"LoadColumnFamiliesOnDemand"
 block|,
 literal|"Small"
+block|,
+literal|"Reversed"
 block|, }
 argument_list|)
 expr_stmt|;
