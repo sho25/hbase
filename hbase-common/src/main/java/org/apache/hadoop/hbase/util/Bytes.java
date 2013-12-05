@@ -5163,7 +5163,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param a left operand    * @param b right operand    * @return True if equal    */
+comment|/**    * @param a left operand    * @param buf right operand    * @return True if equal    */
 specifier|public
 specifier|static
 name|boolean
