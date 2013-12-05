@@ -852,6 +852,9 @@ index|]
 expr_stmt|;
 name|qualifier
 operator|.
+name|duplicate
+argument_list|()
+operator|.
 name|get
 argument_list|(
 name|this
@@ -1024,6 +1027,9 @@ argument_list|()
 index|]
 expr_stmt|;
 name|namespace
+operator|.
+name|duplicate
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -1254,8 +1260,6 @@ return|return
 name|newTable
 return|;
 block|}
-else|else
-block|{
 comment|// Someone else added it. Let's find it.
 for|for
 control|(
@@ -1297,7 +1301,7 @@ name|tn
 return|;
 block|}
 block|}
-block|}
+comment|// this should never happen.
 throw|throw
 operator|new
 name|IllegalStateException
