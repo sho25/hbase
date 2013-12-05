@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed under the Apache License, Version 2.0 (the "License");  * you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -45,9 +45,23 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|classification
 operator|.
-name|Coprocessor
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -61,7 +75,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaMutationAnnotation
+name|CoprocessorEnvironment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -97,18 +125,36 @@ name|HRegion
 import|;
 end_import
 
-begin_interface
+begin_comment
+comment|/**  * An abstract class that implements RegionServerObserver.  * By extending it, you can create your own region server observer without  * overriding all abstract methods of RegionServerObserver.  */
+end_comment
+
+begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
-interface|interface
+class|class
+name|BaseRegionServerObserver
+implements|implements
 name|RegionServerObserver
-extends|extends
-name|Coprocessor
 block|{
-comment|/**    * Called before stopping region server.    * @param env An instance of RegionServerCoprocessorEnvironment    * @throws IOException Signals that an I/O exception has occurred.    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|preStopRegionServer
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
@@ -117,76 +163,94 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the regions merge.     * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @throws IOException if an error occurred on the coprocessor    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|start
+parameter_list|(
+name|CoprocessorEnvironment
+name|env
+parameter_list|)
+throws|throws
+name|IOException
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|CoprocessorEnvironment
+name|env
+parameter_list|)
+throws|throws
+name|IOException
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|preMerge
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * called after the regions merge.    * @param c    * @param regionA    * @param regionB    * @param mergedRegion    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|postMerge
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|,
-specifier|final
 name|HRegion
 name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx    * @param regionA    * @param regionB    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.     *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|preMergeCommit
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|,
-annotation|@
-name|MetaMutationAnnotation
 name|List
 argument_list|<
 name|Mutation
@@ -195,79 +259,75 @@ name|metaEntries
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after PONR step as part of regions merge transaction.    * @param ctx    * @param regionA    * @param regionB    * @param mergedRegion    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|postMergeCommit
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|,
-specifier|final
 name|HRegion
 name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before the roll back of the regions merge.    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|preRollBackMerge
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after the roll back of the regions merge.    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|postRollBackMerge
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionA
 parameter_list|,
-specifier|final
 name|HRegion
 name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{ }
 block|}
-end_interface
+end_class
 
 end_unit
 
