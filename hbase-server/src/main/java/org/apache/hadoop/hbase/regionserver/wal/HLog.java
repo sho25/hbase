@@ -765,6 +765,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * For notification post append to the writer.    * @param entries    */
+name|void
+name|postAppend
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|Entry
+argument_list|>
+name|entries
+parameter_list|)
+function_decl|;
+comment|/**    * For notification post writer sync.    */
+name|void
+name|postSync
+parameter_list|()
+function_decl|;
 comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @param sequenceId of the region    * @return txid of this transaction    * @throws IOException    */
 name|long
 name|appendNoSync
