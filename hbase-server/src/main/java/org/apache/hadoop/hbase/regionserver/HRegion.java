@@ -1245,6 +1245,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|CallerDisconnectedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcCallContext
 import|;
 end_import
@@ -16514,14 +16530,44 @@ comment|// If a user specifies a too-restrictive or too-slow scanner, the
 comment|// client might time out and disconnect while the server side
 comment|// is still processing the request. We should abort aggressively
 comment|// in that case.
+name|long
+name|afterTime
+init|=
 name|rpcCall
 operator|.
-name|throwExceptionIfCallerDisconnected
+name|disconnectSince
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|afterTime
+operator|>=
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|CallerDisconnectedException
 argument_list|(
+literal|"Aborting on region "
+operator|+
 name|getRegionNameAsString
 argument_list|()
+operator|+
+literal|", call "
+operator|+
+name|this
+operator|+
+literal|" after "
+operator|+
+name|afterTime
+operator|+
+literal|" ms, since "
+operator|+
+literal|"caller disconnected"
 argument_list|)
-expr_stmt|;
+throw|;
+block|}
 block|}
 comment|// Let's see what we have in the storeHeap.
 name|KeyValue

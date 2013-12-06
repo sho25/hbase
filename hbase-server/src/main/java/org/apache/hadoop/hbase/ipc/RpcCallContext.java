@@ -24,15 +24,10 @@ name|RpcCallContext
 extends|extends
 name|Delayable
 block|{
-comment|/**    * Throw an exception if the caller who made this IPC call has disconnected.    * If called from outside the context of IPC, this does nothing.    * @throws CallerDisconnectedException    */
-name|void
-name|throwExceptionIfCallerDisconnected
-parameter_list|(
-name|String
-name|regionName
-parameter_list|)
-throws|throws
-name|CallerDisconnectedException
+comment|/**    * Check if the caller who made this IPC call has disconnected.    * If called from outside the context of IPC, this does nothing.    * @return< 0 if the caller is still connected. The time in ms    *  since the disconnection otherwise    */
+name|long
+name|disconnectSince
+parameter_list|()
 function_decl|;
 comment|/**    * If the client connected and specified a codec to use, then we will use this codec making    * cellblocks to return.  If the client did not specify a codec, we assume it does not support    * cellblocks and will return all content protobuf'd (though it makes our serving slower).    * We need to ask this question per call because a server could be hosting both clients that    * support cellblocks while fielding requests from clients that do not.    * @return True if the client supports cellblocks, else return all content in pb    */
 name|boolean

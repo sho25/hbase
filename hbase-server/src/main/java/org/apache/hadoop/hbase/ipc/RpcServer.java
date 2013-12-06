@@ -2986,14 +2986,9 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
-name|throwExceptionIfCallerDisconnected
-parameter_list|(
-name|String
-name|regionName
-parameter_list|)
-throws|throws
-name|CallerDisconnectedException
+name|long
+name|disconnectSince
+parameter_list|()
 block|{
 if|if
 condition|(
@@ -3006,37 +3001,21 @@ name|isOpen
 argument_list|()
 condition|)
 block|{
-name|long
-name|afterTime
-init|=
+return|return
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 name|timestamp
-decl_stmt|;
-throw|throw
-operator|new
-name|CallerDisconnectedException
-argument_list|(
-literal|"Aborting on region "
-operator|+
-name|regionName
-operator|+
-literal|", call "
-operator|+
-name|this
-operator|+
-literal|" after "
-operator|+
-name|afterTime
-operator|+
-literal|" ms, since "
-operator|+
-literal|"caller disconnected"
-argument_list|)
-throw|;
+return|;
+block|}
+else|else
+block|{
+return|return
+operator|-
+literal|1L
+return|;
 block|}
 block|}
 specifier|public
