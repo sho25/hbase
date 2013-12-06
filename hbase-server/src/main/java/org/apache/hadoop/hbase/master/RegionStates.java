@@ -2479,13 +2479,18 @@ name|state
 operator|.
 name|isFailedClose
 argument_list|()
+operator|||
+name|state
+operator|.
+name|isOffline
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Found opening region "
+literal|"Found region in "
 operator|+
 name|state
 operator|+

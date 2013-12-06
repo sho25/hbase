@@ -13875,6 +13875,11 @@ name|regionState
 operator|.
 name|isPendingOpenOrOpening
 argument_list|()
+operator|||
+name|regionState
+operator|.
+name|isOffline
+argument_list|()
 operator|)
 condition|)
 block|{
