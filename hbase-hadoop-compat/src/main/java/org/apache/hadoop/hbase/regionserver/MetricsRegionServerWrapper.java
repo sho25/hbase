@@ -61,6 +61,18 @@ name|long
 name|getNumStores
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of HLog files of this region server.    */
+specifier|public
+name|long
+name|getNumHLogFiles
+parameter_list|()
+function_decl|;
+comment|/**    * Get the size of HLog files of this region server.    */
+specifier|public
+name|long
+name|getHLogFileSize
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of store files hosted on this region server.    */
 name|long
 name|getNumStoreFiles

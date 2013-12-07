@@ -1536,7 +1536,7 @@ operator|)
 name|log
 operator|)
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 operator|+
 literal|" log files"
@@ -1591,7 +1591,7 @@ operator|)
 name|log
 operator|)
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 decl_stmt|;
 name|LOG
@@ -1607,7 +1607,7 @@ operator|)
 name|log
 operator|)
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 operator|+
 literal|" log files"
@@ -3803,7 +3803,7 @@ literal|0
 argument_list|,
 name|fshLog
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3831,7 +3831,7 @@ literal|1
 argument_list|,
 name|fshLog
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3924,7 +3924,7 @@ literal|1
 argument_list|,
 name|fshLog
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3960,7 +3960,7 @@ literal|1
 argument_list|,
 name|fshLog
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 argument_list|)
 expr_stmt|;

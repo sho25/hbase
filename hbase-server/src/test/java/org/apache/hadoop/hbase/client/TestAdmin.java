@@ -10479,7 +10479,7 @@ literal|"after writing there are "
 operator|+
 name|HLogUtilsForTests
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|(
 name|regionServer
 operator|.
@@ -10541,7 +10541,7 @@ name|count
 init|=
 name|HLogUtilsForTests
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|(
 name|regionServer
 operator|.

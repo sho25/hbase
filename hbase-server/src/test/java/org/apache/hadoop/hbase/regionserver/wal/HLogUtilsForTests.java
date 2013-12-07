@@ -32,7 +32,7 @@ comment|/**    *     * @param log    * @return    */
 specifier|public
 specifier|static
 name|int
-name|getNumLogFiles
+name|getNumRolledLogFiles
 parameter_list|(
 name|HLog
 name|log
@@ -46,7 +46,7 @@ operator|)
 name|log
 operator|)
 operator|.
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 return|;
 block|}

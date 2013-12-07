@@ -921,6 +921,24 @@ specifier|final
 name|long
 name|logrollsize
 decl_stmt|;
+comment|/** size of current log */
+specifier|private
+name|long
+name|curLogSize
+init|=
+literal|0
+decl_stmt|;
+comment|/**    * The total size of hlog    */
+specifier|private
+name|AtomicLong
+name|totalLogSize
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// We synchronize on updateLock to prevent updates and to prevent a log roll
 comment|// during an update
 comment|// locked during appends
@@ -2381,6 +2399,30 @@ argument_list|)
 expr_stmt|;
 else|else
 block|{
+name|long
+name|oldFileLen
+init|=
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|oldFile
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|totalLogSize
+operator|.
+name|addAndGet
+argument_list|(
+name|oldFileLen
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2404,17 +2446,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|this
-operator|.
-name|fs
-operator|.
-name|getFileStatus
-argument_list|(
-name|oldFile
-argument_list|)
-operator|.
-name|getLen
-argument_list|()
+name|oldFileLen
 argument_list|)
 operator|+
 literal|"; new WAL "
@@ -2464,7 +2496,7 @@ block|}
 comment|// Can we delete any of the old log files?
 if|if
 condition|(
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 operator|>
 literal|0
@@ -2719,6 +2751,26 @@ range|:
 name|logsToArchive
 control|)
 block|{
+name|this
+operator|.
+name|totalLogSize
+operator|.
+name|addAndGet
+argument_list|(
+operator|-
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|p
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|archiveLogFile
 argument_list|(
 name|p
@@ -3043,7 +3095,7 @@ decl_stmt|;
 name|int
 name|logCount
 init|=
-name|getNumLogFiles
+name|getNumRolledLogFiles
 argument_list|()
 decl_stmt|;
 if|if
@@ -5256,12 +5308,16 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-if|if
-condition|(
+name|curLogSize
+operator|=
 name|tempWriter
 operator|.
 name|getLength
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|curLogSize
 operator|>
 name|this
 operator|.
@@ -5949,12 +6005,13 @@ block|}
 end_function
 
 begin_comment
-comment|/** @return the number of log files in use */
+comment|/** @return the number of rolled log files */
 end_comment
 
 begin_function
+specifier|public
 name|int
-name|getNumLogFiles
+name|getNumRolledLogFiles
 parameter_list|()
 block|{
 return|return
@@ -5962,6 +6019,51 @@ name|hlogSequenceNums
 operator|.
 name|size
 argument_list|()
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/** @return the number of log files in use */
+end_comment
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getNumLogFiles
+parameter_list|()
+block|{
+comment|// +1 for current use log
+return|return
+name|getNumRolledLogFiles
+argument_list|()
+operator|+
+literal|1
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/** @return the size of log files in use */
+end_comment
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getLogFileSize
+parameter_list|()
+block|{
+return|return
+name|totalLogSize
+operator|.
+name|get
+argument_list|()
+operator|+
+name|curLogSize
 return|;
 block|}
 end_function

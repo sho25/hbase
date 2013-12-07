@@ -696,6 +696,16 @@ name|long
 name|getFilenum
 parameter_list|()
 function_decl|;
+comment|/**    * @return the number of HLog files    */
+name|int
+name|getNumLogFiles
+parameter_list|()
+function_decl|;
+comment|/**    * @return the size of HLog files    */
+name|long
+name|getLogFileSize
+parameter_list|()
+function_decl|;
 comment|// TODO: Log rolling should not be in this interface.
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 name|byte
