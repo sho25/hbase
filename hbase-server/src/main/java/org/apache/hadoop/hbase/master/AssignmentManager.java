@@ -2947,9 +2947,9 @@ name|sn
 argument_list|)
 condition|)
 block|{
-comment|// It was on a dead server, it's closed now. Force to OFFLINE and put
-comment|// it in transition. Try to re-assign it, but it will fail most likely,
-comment|// since we have not done log splitting for the dead server yet.
+comment|// It was transitioning on a dead server, so it's closed now.
+comment|// Force to OFFLINE and put it in transition, but not assign it
+comment|// since log splitting for the dead server is not done yet.
 name|LOG
 operator|.
 name|debug
@@ -2968,19 +2968,28 @@ operator|+
 literal|" was on deadserver; forcing offline"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
+if|if
+condition|(
+name|regionStates
 operator|.
-name|createOrForceNodeOffline
+name|isRegionOnline
 argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
 name|regionInfo
-argument_list|,
-name|sn
+argument_list|)
+condition|)
+block|{
+comment|// Meta could still show the region is assigned to the previous
+comment|// server. If that server is online, when we reload the meta, the
+comment|// region is put back to online, we need to offline it.
+name|regionStates
+operator|.
+name|regionOffline
+argument_list|(
+name|regionInfo
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Put it back in transition so that SSH can re-assign it
 name|regionStates
 operator|.
 name|updateRegionState
@@ -2994,11 +3003,57 @@ argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
-name|invokeAssign
+comment|// No mater the previous server is online or offline,
+comment|// we need to reset the last region server of the region.
+name|regionStates
+operator|.
+name|setLastRegionServerOfRegion
 argument_list|(
-name|regionInfo
+name|sn
+argument_list|,
+name|encodedName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+comment|// If it's meta region, reset the meta location.
+comment|// So that master knows the right meta region server.
+name|MetaRegionTracker
+operator|.
+name|setMetaLocation
+argument_list|(
+name|watcher
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Make sure we know the server is dead.
+if|if
+condition|(
+operator|!
+name|serverManager
+operator|.
+name|isServerDead
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+name|serverManager
+operator|.
+name|expireServer
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;

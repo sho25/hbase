@@ -4998,7 +4998,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Test the scenario when the master is in failover and trying to process a    * region which is in Opening state on a dead RS. Master should immediately    * assign the region and not wait for Timeout Monitor.(Hbase-5882).    */
+comment|/**    * Test the scenario when the master is in failover and trying to process a    * region which is in Opening state on a dead RS. Master will force offline the    * region and put it in transition. AM relies on SSH to reassign it.    */
 annotation|@
 name|Test
 argument_list|(
@@ -5168,6 +5168,20 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|CatalogTracker
+name|ct
+init|=
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|CatalogTracker
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+name|assertFalse
+argument_list|(
 name|am
 operator|.
 name|processRegionsInTransition
@@ -5177,6 +5191,29 @@ argument_list|,
 name|REGIONINFO
 argument_list|,
 name|version
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|setEnabledTable
+argument_list|(
+name|REGIONINFO
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|processServerShutdownHandler
+argument_list|(
+name|ct
+argument_list|,
+name|am
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Waiting for the assignment to get completed.
@@ -6850,6 +6887,22 @@ argument_list|()
 operator|>
 literal|0
 operator|)
+expr_stmt|;
+name|super
+operator|.
+name|assign
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|gate
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/** reset the watcher */

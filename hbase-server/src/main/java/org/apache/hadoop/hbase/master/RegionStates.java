@@ -2466,8 +2466,9 @@ comment|// Region is in transition on this region server, and this
 comment|// region is not open on this server. So the region must be
 comment|// moving to this server from another one (i.e. opening or
 comment|// pending open on this server, was open on another one.
-comment|// It could be in failed_close state too if tried several times
-comment|// to open it while the server is not reachable.
+comment|// Offline state is also kind of pending open if the region is in
+comment|// transition. The region could be in failed_close state too if we have
+comment|// tried several times to open it while this region server is not reachable)
 if|if
 condition|(
 name|state
@@ -2892,19 +2893,40 @@ range|:
 name|regionInfos
 control|)
 block|{
-name|lastAssignments
-operator|.
-name|put
+name|setLastRegionServerOfRegion
 argument_list|(
+name|serverName
+argument_list|,
 name|hri
 operator|.
 name|getEncodedName
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|synchronized
+name|void
+name|setLastRegionServerOfRegion
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|,
+specifier|final
+name|String
+name|encodedName
+parameter_list|)
+block|{
+name|lastAssignments
+operator|.
+name|put
+argument_list|(
+name|encodedName
 argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
 specifier|protected
