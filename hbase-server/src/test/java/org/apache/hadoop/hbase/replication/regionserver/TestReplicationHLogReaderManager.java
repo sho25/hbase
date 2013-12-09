@@ -940,28 +940,6 @@ name|pathWatcher
 operator|.
 name|currentPath
 decl_stmt|;
-comment|// open it, it's empty so it fails
-try|try
-block|{
-name|logManager
-operator|.
-name|openReader
-argument_list|(
-name|path
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Shouldn't be able to open an empty file"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|EOFException
-name|ex
-parameter_list|)
-block|{}
 name|assertEquals
 argument_list|(
 literal|0
@@ -1138,26 +1116,6 @@ name|pathWatcher
 operator|.
 name|currentPath
 expr_stmt|;
-comment|// Finally we have a new empty log, which should still give us EOFs
-try|try
-block|{
-name|logManager
-operator|.
-name|openReader
-argument_list|(
-name|path
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|EOFException
-name|ex
-parameter_list|)
-block|{}
 for|for
 control|(
 name|int

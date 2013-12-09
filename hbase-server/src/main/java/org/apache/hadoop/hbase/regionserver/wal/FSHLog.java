@@ -2287,6 +2287,32 @@ operator|.
 name|getStream
 argument_list|()
 expr_stmt|;
+comment|// perform the costly sync before we get the lock to roll writers.
+try|try
+block|{
+name|nextWriter
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// optimization failed, no need to abort here.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"pre-sync failed"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|Path
 name|oldFile
