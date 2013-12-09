@@ -2549,27 +2549,30 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
-name|boolean
-name|intransistion
+name|String
+name|encodedRegionName
 init|=
-name|processRegionInTransition
-argument_list|(
 name|hri
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|,
-name|hri
-argument_list|)
 decl_stmt|;
 if|if
 condition|(
 operator|!
-name|intransistion
+name|processRegionInTransition
+argument_list|(
+name|encodedRegionName
+argument_list|,
+name|hri
+argument_list|)
 condition|)
+block|{
 return|return
-name|intransistion
+literal|false
 return|;
+comment|// The region is not in transition
+block|}
 name|LOG
 operator|.
 name|debug
@@ -2580,10 +2583,7 @@ name|HRegionInfo
 operator|.
 name|prettyPrint
 argument_list|(
-name|hri
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedRegionName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2603,15 +2603,45 @@ name|regionStates
 operator|.
 name|isRegionInTransition
 argument_list|(
-name|hri
+name|encodedRegionName
+argument_list|)
+condition|)
+block|{
+name|RegionState
+name|state
+init|=
+name|this
 operator|.
-name|getEncodedName
+name|regionStates
+operator|.
+name|getRegionTransitionState
+argument_list|(
+name|encodedRegionName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|state
+operator|==
+literal|null
+operator|||
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|state
+operator|.
+name|getServerName
 argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// We put a timeout because we may have the region getting in just between the test
-comment|//  and the waitForUpdate
+comment|// The region is not in transition, or not in transition on an online
+comment|// server. Doesn't help to block here any more. Caller need to
+comment|// verify the region is actually assigned.
+break|break;
+block|}
 name|this
 operator|.
 name|regionStates
@@ -2623,7 +2653,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|intransistion
+literal|true
 return|;
 block|}
 comment|/**    * Process failover of new master for region<code>encodedRegionName</code>    * up in zookeeper.    * @param encodedRegionName Region to process failover for.    * @param regionInfo If null we'll go get it from meta table.    * @return True if we processed<code>regionInfo</code> as a RIT.    * @throws KeeperException    * @throws IOException    */
@@ -13928,12 +13958,12 @@ argument_list|()
 operator|||
 name|regionState
 operator|.
-name|isPendingOpenOrOpening
+name|isOffline
 argument_list|()
 operator|||
 name|regionState
 operator|.
-name|isOffline
+name|isPendingOpenOrOpening
 argument_list|()
 operator|)
 condition|)

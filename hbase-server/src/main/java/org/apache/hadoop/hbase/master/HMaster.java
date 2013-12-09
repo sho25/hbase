@@ -6702,13 +6702,6 @@ block|{
 comment|// Assign meta since not already in transition
 if|if
 condition|(
-name|currentMetaServer
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
 operator|!
 name|serverManager
 operator|.
@@ -6752,7 +6745,8 @@ name|currentMetaServer
 expr_stmt|;
 block|}
 block|}
-block|}
+comment|// Make sure assignment manager knows where the meta is,
+comment|// so that meta sever shutdown handler kicks in.
 name|assignmentManager
 operator|.
 name|assignMeta
