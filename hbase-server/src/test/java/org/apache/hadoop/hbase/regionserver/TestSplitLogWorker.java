@@ -1651,7 +1651,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 block|}
@@ -1765,7 +1765,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 name|SplitLogTask
@@ -1812,7 +1812,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 comment|// now the worker is busy doing the above task
@@ -1900,7 +1900,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 name|waitForCounter
@@ -1913,7 +1913,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1500
+literal|5000
 argument_list|)
 expr_stmt|;
 name|assertEquals
