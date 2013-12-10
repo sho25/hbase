@@ -1379,7 +1379,7 @@ name|query
 operator|.
 name|charAt
 argument_list|(
-name|i
+name|j
 argument_list|)
 expr_stmt|;
 if|if
@@ -1447,7 +1447,7 @@ name|query
 operator|.
 name|charAt
 argument_list|(
-name|i
+name|j
 argument_list|)
 expr_stmt|;
 if|if
