@@ -273,6 +273,14 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|int
+name|SCRIPT_TIMEOUT
+init|=
+literal|5000
+decl_stmt|;
+specifier|private
 name|File
 name|healthScriptFile
 decl_stmt|;
@@ -406,7 +414,13 @@ block|{
 name|String
 name|timeOutScript
 init|=
-literal|"sleep 4"
+literal|"sleep "
+operator|+
+operator|(
+name|SCRIPT_TIMEOUT
+operator|*
+literal|2
+operator|)
 operator|+
 name|eol
 operator|+
@@ -470,7 +484,7 @@ name|HConstants
 operator|.
 name|HEALTH_SCRIPT_TIMEOUT
 argument_list|,
-literal|2000
+name|SCRIPT_TIMEOUT
 argument_list|)
 decl_stmt|;
 name|HealthChecker
@@ -868,7 +882,7 @@ name|HConstants
 operator|.
 name|HEALTH_SCRIPT_TIMEOUT
 argument_list|,
-literal|2000
+name|SCRIPT_TIMEOUT
 argument_list|)
 expr_stmt|;
 return|return
