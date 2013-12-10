@@ -15514,6 +15514,7 @@ index|[]
 name|stopRow
 decl_stmt|;
 specifier|private
+specifier|final
 name|Filter
 name|filter
 decl_stmt|;
@@ -16203,7 +16204,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|isFilterDone
+name|isFilterDoneInternal
 argument_list|()
 condition|)
 block|{
@@ -16449,6 +16450,18 @@ specifier|public
 specifier|synchronized
 name|boolean
 name|isFilterDone
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|isFilterDoneInternal
+argument_list|()
+return|;
+block|}
+specifier|private
+name|boolean
+name|isFilterDoneInternal
 parameter_list|()
 throws|throws
 name|IOException
