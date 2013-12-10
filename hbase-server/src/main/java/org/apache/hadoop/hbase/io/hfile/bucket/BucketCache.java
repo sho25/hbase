@@ -4861,6 +4861,8 @@ operator|.
 name|bucketAllocator
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|heapSize
@@ -4875,7 +4877,6 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the total size of the block cache, in bytes.    * @return size of cache, in bytes    */
 annotation|@
 name|Override
 specifier|public
@@ -4924,7 +4925,6 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the occupied size of the block cache, in bytes.    * @return occupied space in cache, in bytes    */
 annotation|@
 name|Override
 specifier|public
@@ -4955,7 +4955,7 @@ name|getEvictedCount
 argument_list|()
 return|;
 block|}
-comment|/**    * Evicts all blocks for a specific HFile.     *<p>    * This is used for evict-on-close to remove all blocks of a specific HFile.    *     * @return the number of blocks evicted    */
+comment|/**    * Evicts all blocks for a specific HFile.    *<p>    * This is used for evict-on-close to remove all blocks of a specific HFile.    *    * @return the number of blocks evicted    */
 annotation|@
 name|Override
 specifier|public

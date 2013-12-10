@@ -517,8 +517,7 @@ name|AtomicLong
 argument_list|()
 expr_stmt|;
 comment|// This evictionListener is called whenever the cache automatically
-comment|// evicts
-comment|// something.
+comment|// evicts something.
 name|RemovalListener
 argument_list|<
 name|BlockCacheKey

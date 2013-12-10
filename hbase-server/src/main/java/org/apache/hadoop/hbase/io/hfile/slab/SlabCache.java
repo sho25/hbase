@@ -971,7 +971,18 @@ literal|" with "
 operator|+
 name|numBlocks
 operator|+
-literal|" blocks."
+literal|" blocks, "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|blockSize
+operator|*
+name|numBlocks
+argument_list|)
+operator|+
+literal|"bytes."
 argument_list|)
 expr_stmt|;
 name|sizer
@@ -1107,7 +1118,7 @@ operator|.
 name|stats
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    * @param caching    * @param key    *    * @return buffer of specified block name, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified name.    *    * @return buffer of specified block name, or null if not in cache    */
 specifier|public
 name|Cacheable
 name|getBlock
@@ -1380,10 +1391,33 @@ name|long
 name|getFreeSize
 parameter_list|()
 block|{
-return|return
+name|long
+name|childFreeSize
+init|=
 literal|0
+decl_stmt|;
+for|for
+control|(
+name|SingleSizeCache
+name|s
+range|:
+name|sizer
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+name|childFreeSize
+operator|+=
+name|s
+operator|.
+name|getFreeSize
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|childFreeSize
 return|;
-comment|// this cache, by default, allocates all its space.
 block|}
 annotation|@
 name|Override
@@ -1402,7 +1436,7 @@ control|(
 name|SingleSizeCache
 name|cache
 range|:
-name|backingStore
+name|sizer
 operator|.
 name|values
 argument_list|()

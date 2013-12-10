@@ -2492,7 +2492,8 @@ operator|.
 name|maxSize
 return|;
 block|}
-comment|/**    * Get the current size of this cache.    * @return current size in bytes    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getCurrentSize
@@ -2507,7 +2508,8 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the current size of this cache.    * @return current size in bytes    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getFreeSize
@@ -2521,7 +2523,8 @@ name|getCurrentSize
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the size of this cache (number of cached blocks)    * @return number of cached blocks    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|size
@@ -2567,7 +2570,8 @@ name|getEvictionCount
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the number of blocks that have been evicted during the lifetime    * of this cache.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getEvictedCount

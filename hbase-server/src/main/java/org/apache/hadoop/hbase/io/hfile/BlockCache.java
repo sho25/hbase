@@ -160,7 +160,7 @@ name|long
 name|getCurrentSize
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the number of evictions that have occurred.    * @return number of evictions    */
+comment|/**    * Returns the number of blocks that have been evicted.    * @return number of evicted blocks    */
 name|long
 name|getEvictedCount
 parameter_list|()

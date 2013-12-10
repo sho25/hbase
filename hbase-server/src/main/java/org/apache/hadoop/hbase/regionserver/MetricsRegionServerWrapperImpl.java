@@ -958,7 +958,7 @@ name|this
 operator|.
 name|blockCache
 operator|.
-name|size
+name|getBlockCount
 argument_list|()
 return|;
 block|}
