@@ -739,6 +739,22 @@ name|hbase
 operator|.
 name|snapshot
 operator|.
+name|SnapshotReferenceUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
 name|TablePartiallyOpenException
 import|;
 end_import
@@ -3317,6 +3333,23 @@ decl_stmt|;
 comment|// stop tracking "abandoned" handlers
 name|cleanupSentinels
 argument_list|()
+expr_stmt|;
+comment|// Verify snapshot validity
+name|SnapshotReferenceUtil
+operator|.
+name|verifySnapshot
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|fs
+argument_list|,
+name|snapshotDir
+argument_list|,
+name|fsSnapshot
+argument_list|)
 expr_stmt|;
 comment|// Execute the restore/clone operation
 if|if

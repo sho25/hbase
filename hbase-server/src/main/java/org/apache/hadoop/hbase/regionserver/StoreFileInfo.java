@@ -1617,7 +1617,7 @@ literal|"Skipping "
 operator|+
 name|p
 operator|+
-literal|" beccreateStoreDirause its empty. HBASE-646 DATA LOSS?"
+literal|" because it is empty. HBASE-646 DATA LOSS?"
 argument_list|)
 expr_stmt|;
 return|return
