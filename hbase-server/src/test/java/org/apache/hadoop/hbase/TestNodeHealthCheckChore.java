@@ -352,6 +352,11 @@ throw|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testHealthCheckerSuccess
@@ -376,6 +381,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testHealthCheckerFail
@@ -404,6 +414,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testHealthCheckerTimeout
@@ -414,13 +429,7 @@ block|{
 name|String
 name|timeOutScript
 init|=
-literal|"sleep "
-operator|+
-operator|(
-name|SCRIPT_TIMEOUT
-operator|*
-literal|2
-operator|)
+literal|"sleep 10"
 operator|+
 name|eol
 operator|+
@@ -550,6 +559,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testRSHealthChore
