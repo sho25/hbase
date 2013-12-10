@@ -399,6 +399,8 @@ name|this
 operator|.
 name|tableRecordReader
 decl_stmt|;
+try|try
+block|{
 comment|// if no table record reader was provided use default
 if|if
 condition|(
@@ -456,6 +458,29 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+comment|// If there is an exception make sure that all
+comment|// resources are closed and released.
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|trr
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+throw|throw
+name|ioe
+throw|;
+block|}
 return|return
 name|trr
 return|;
