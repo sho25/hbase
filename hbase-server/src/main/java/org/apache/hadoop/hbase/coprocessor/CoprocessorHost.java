@@ -3808,6 +3808,37 @@ argument_list|(
 name|env
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|shutdown
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|x
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Uncaught exception when shutting down coprocessor '"
+operator|+
+name|env
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"'"
+argument_list|,
+name|x
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|DoNotRetryIOException
@@ -3823,9 +3854,7 @@ literal|"' threw: '"
 operator|+
 name|e
 operator|+
-literal|"' and has been removed"
-operator|+
-literal|"from the active "
+literal|"' and has been removed from the active "
 operator|+
 literal|"coprocessor set."
 argument_list|,
