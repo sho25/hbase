@@ -10239,7 +10239,7 @@ argument_list|)
 decl_stmt|;
 comment|// In replay, the batch may contain multiple nonces. If so, write WALEdit for each.
 comment|// Given how nonces are originally written, these should be contiguous.
-comment|// txid should always increase, so having the last one is ok.
+comment|// They don't have to be, it will still work, just write more WALEdits than needed.
 if|if
 condition|(
 name|nonceGroup
@@ -10264,6 +10264,21 @@ block|{
 assert|assert
 name|isInReplay
 assert|;
+if|if
+condition|(
+operator|!
+name|isInReplay
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Multiple nonces per batch and not in replay"
+argument_list|)
+throw|;
+block|}
+comment|// txid should always increase, so having the one from the last call is ok.
 name|txid
 operator|=
 name|this
@@ -10307,6 +10322,14 @@ expr_stmt|;
 name|hasWalAppends
 operator|=
 literal|true
+expr_stmt|;
+name|walEdit
+operator|=
+operator|new
+name|WALEdit
+argument_list|(
+name|isInReplay
+argument_list|)
 expr_stmt|;
 block|}
 name|currentNonceGroup
