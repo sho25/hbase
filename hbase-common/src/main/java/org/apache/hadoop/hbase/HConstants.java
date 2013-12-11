@@ -1921,7 +1921,7 @@ specifier|final
 name|float
 name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
 init|=
-literal|0.25f
+literal|0.4f
 decl_stmt|;
 comment|/*     * Minimum percentage of free heap necessary for a successful cluster startup.     */
 specifier|public

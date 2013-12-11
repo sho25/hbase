@@ -13,7 +13,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
+operator|.
+name|hfile
 package|;
 end_package
 
@@ -32,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Request a flush.  */
+comment|/**  * BlockCache which is resizable.  */
 end_comment
 
 begin_interface
@@ -42,53 +44,16 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|FlushRequester
+name|ResizableBlockCache
+extends|extends
+name|BlockCache
 block|{
-comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the HRegion requesting the cache flush    */
+comment|/**    * Sets the max heap size that can be used by the BlockCache.    * @param size The max heap size.    */
 name|void
-name|requestFlush
-parameter_list|(
-name|HRegion
-name|region
-parameter_list|)
-function_decl|;
-comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the HRegion requesting the cache flush    * @param delay after how much time should the flush happen    */
-name|void
-name|requestDelayedFlush
-parameter_list|(
-name|HRegion
-name|region
-parameter_list|,
-name|long
-name|delay
-parameter_list|)
-function_decl|;
-comment|/**    * Register a FlushRequestListener    *     * @param listener    */
-name|void
-name|registerFlushRequestListener
-parameter_list|(
-specifier|final
-name|FlushRequestListener
-name|listener
-parameter_list|)
-function_decl|;
-comment|/**    * Unregister the given FlushRequestListener    *     * @param listener    * @return true when passed listener is unregistered successfully.    */
-specifier|public
-name|boolean
-name|unregisterFlushRequestListener
-parameter_list|(
-specifier|final
-name|FlushRequestListener
-name|listener
-parameter_list|)
-function_decl|;
-comment|/**    * Sets the global memstore limit to a new size.    *     * @param globalMemStoreSize    */
-specifier|public
-name|void
-name|setGlobalMemstoreLimit
+name|setMaxSize
 parameter_list|(
 name|long
-name|globalMemStoreSize
+name|size
 parameter_list|)
 function_decl|;
 block|}

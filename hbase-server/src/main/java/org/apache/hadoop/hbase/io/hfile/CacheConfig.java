@@ -1065,7 +1065,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|/**    * Returns the block cache or<code>null</code> in case none should be used.    *    * @param conf  The current configuration.    * @return The block cache or<code>null</code>.    */
-specifier|private
+specifier|public
 specifier|static
 specifier|synchronized
 name|BlockCache

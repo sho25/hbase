@@ -498,7 +498,7 @@ specifier|public
 class|class
 name|LruBlockCache
 implements|implements
-name|BlockCache
+name|ResizableBlockCache
 implements|,
 name|HeapSize
 block|{
@@ -1157,6 +1157,8 @@ name|SECONDS
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setMaxSize
