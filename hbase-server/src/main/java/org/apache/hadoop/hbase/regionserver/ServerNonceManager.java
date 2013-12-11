@@ -560,6 +560,7 @@ block|}
 comment|/**    * This implementation is not smart and just treats nonce group and nonce as random bits.    */
 comment|// TODO: we could use pure byte arrays, but then we wouldn't be able to use hash map.
 specifier|private
+specifier|static
 class|class
 name|NonceKey
 block|{

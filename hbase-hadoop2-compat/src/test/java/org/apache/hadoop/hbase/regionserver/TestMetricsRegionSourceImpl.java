@@ -198,6 +198,7 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+specifier|static
 class|class
 name|RegionWrapperStub
 implements|implements

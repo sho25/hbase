@@ -1689,6 +1689,7 @@ expr_stmt|;
 block|}
 comment|/**    * Class to store results of TimingCallable.    *    * Stores times and trace id.    */
 specifier|private
+specifier|static
 class|class
 name|TimingResult
 block|{
@@ -1943,7 +1944,7 @@ return|;
 block|}
 block|}
 comment|/**    * Base class for actions that need to record the time needed to recover from a failure.    */
-specifier|public
+specifier|static
 specifier|abstract
 class|class
 name|TimingCallable
@@ -2305,7 +2306,7 @@ return|;
 block|}
 block|}
 comment|/**    * Callable that will keep putting small amounts of data into a table    * until  the future supplied returns.  It keeps track of the max time.    */
-specifier|public
+specifier|static
 class|class
 name|PutCallable
 extends|extends
@@ -2432,7 +2433,7 @@ return|;
 block|}
 block|}
 comment|/**    * Callable that will keep scanning for small amounts of data until the    * supplied future returns.  Returns the max time taken to scan.    */
-specifier|public
+specifier|static
 class|class
 name|ScanCallable
 extends|extends
@@ -2589,7 +2590,7 @@ return|;
 block|}
 block|}
 comment|/**    * Callable that will keep going to the master for cluster status.  Returns the max time taken.    */
-specifier|public
+specifier|static
 class|class
 name|AdminCallable
 extends|extends
@@ -2683,7 +2684,7 @@ literal|"MTTR Admin Test"
 return|;
 block|}
 block|}
-specifier|public
+specifier|static
 class|class
 name|ActionCallable
 implements|implements
@@ -2734,6 +2735,7 @@ block|}
 block|}
 comment|/**    * Callable used to make sure the cluster has some load on it.    * This callable uses LoadTest tool to    */
 specifier|public
+specifier|static
 class|class
 name|LoadCallable
 implements|implements

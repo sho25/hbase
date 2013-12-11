@@ -1169,6 +1169,7 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
+specifier|static
 class|class
 name|TableSnapshotRegionRecordReader
 extends|extends
