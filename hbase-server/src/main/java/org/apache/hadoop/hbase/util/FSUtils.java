@@ -3527,9 +3527,7 @@ block|{
 name|String
 name|cid
 init|=
-operator|new
-name|String
-argument_list|()
+literal|null
 decl_stmt|;
 name|in
 operator|=
