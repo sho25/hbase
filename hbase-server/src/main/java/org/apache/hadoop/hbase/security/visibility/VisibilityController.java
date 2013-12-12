@@ -6078,18 +6078,6 @@ operator|.
 name|getCurrent
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Current user name is "
-operator|+
-name|user
-operator|.
-name|getShortName
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|user
@@ -6107,6 +6095,18 @@ literal|"authorization checks for internal operations will not work correctly!"
 argument_list|)
 throw|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current user name is "
+operator|+
+name|user
+operator|.
+name|getShortName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|String
 name|currentUser
 init|=
