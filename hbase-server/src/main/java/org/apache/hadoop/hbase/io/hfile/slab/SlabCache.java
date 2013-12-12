@@ -979,6 +979,9 @@ name|humanReadableInt
 argument_list|(
 name|blockSize
 operator|*
+operator|(
+name|long
+operator|)
 name|numBlocks
 argument_list|)
 operator|+
