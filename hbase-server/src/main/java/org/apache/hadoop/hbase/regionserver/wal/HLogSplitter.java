@@ -5502,8 +5502,6 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|?
-extends|extends
 name|SinkWriter
 argument_list|>
 name|writersEntry
@@ -6752,8 +6750,6 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|?
-extends|extends
 name|SinkWriter
 argument_list|>
 name|entry
