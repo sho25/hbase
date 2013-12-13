@@ -631,6 +631,11 @@ name|ZKPermissionWatcher
 name|zkperms
 decl_stmt|;
 specifier|private
+specifier|volatile
+name|long
+name|mtime
+decl_stmt|;
+specifier|private
 name|TableAuthManager
 parameter_list|(
 name|ZooKeeperWatcher
@@ -1209,6 +1214,9 @@ name|globalCache
 operator|=
 name|newCache
 expr_stmt|;
+name|mtime
+operator|++
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1338,6 +1346,9 @@ argument_list|,
 name|newTablePerms
 argument_list|)
 expr_stmt|;
+name|mtime
+operator|++
+expr_stmt|;
 block|}
 comment|/**    * Updates the internal permissions cache for a single table, splitting    * the permissions listed into separate caches for users and groups to optimize    * group lookups.    *    * @param namespace    * @param tablePerms    */
 specifier|private
@@ -1448,6 +1459,9 @@ name|namespace
 argument_list|,
 name|newTablePerms
 argument_list|)
+expr_stmt|;
+name|mtime
+operator|++
 expr_stmt|;
 block|}
 specifier|private
@@ -3426,6 +3440,15 @@ argument_list|,
 name|serialized
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|long
+name|getMTime
+parameter_list|()
+block|{
+return|return
+name|mtime
+return|;
 block|}
 specifier|static
 name|Map
