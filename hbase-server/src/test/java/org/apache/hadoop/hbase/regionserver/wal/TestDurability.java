@@ -532,7 +532,9 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// a put through the deferred table does not write to the wal immdiately
+comment|// a put through the deferred table does not write to the wal immdiately,
+comment|// but maybe has been successfully sync-ed by the underlying AsyncWriter +
+comment|// AsyncFlusher thread
 name|deferredRegion
 operator|.
 name|put
@@ -541,13 +543,6 @@ name|newPut
 argument_list|(
 literal|null
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|verifyHLogCount
-argument_list|(
-name|wal
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// but will after we sync the wal
@@ -574,11 +569,16 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|wal
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
 name|verifyHLogCount
 argument_list|(
 name|wal
 argument_list|,
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 name|region
@@ -611,11 +611,16 @@ name|USE_DEFAULT
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|wal
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
 name|verifyHLogCount
 argument_list|(
 name|wal
 argument_list|,
-literal|4
+literal|5
 argument_list|)
 expr_stmt|;
 name|region
@@ -704,13 +709,6 @@ name|Durability
 operator|.
 name|ASYNC_WAL
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|verifyHLogCount
-argument_list|(
-name|wal
-argument_list|,
-literal|6
 argument_list|)
 expr_stmt|;
 name|wal

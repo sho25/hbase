@@ -974,21 +974,6 @@ argument_list|(
 literal|"Restarted datanodes"
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-literal|"Should have an outstanding WAL edit"
-argument_list|,
-operator|(
-operator|(
-name|FSHLog
-operator|)
-name|log
-operator|)
-operator|.
-name|hasDeferredEntries
-argument_list|()
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|log
@@ -996,11 +981,6 @@ operator|.
 name|rollWriter
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Log roll should have triggered FailedLogCloseException"
 argument_list|)
 expr_stmt|;
 block|}
