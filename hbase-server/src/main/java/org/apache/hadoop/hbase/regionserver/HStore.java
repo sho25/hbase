@@ -5771,12 +5771,12 @@ operator|.
 name|isMajor
 argument_list|()
 condition|?
-literal|" major "
+literal|" major"
 else|:
-literal|" "
+literal|""
 operator|)
 operator|+
-literal|"compaction of "
+literal|" compaction of "
 operator|+
 name|cr
 operator|.
@@ -5785,6 +5785,17 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|+
+operator|(
+name|cr
+operator|.
+name|isAllFiles
+argument_list|()
+condition|?
+literal|" (all)"
+else|:
+literal|""
+operator|)
 operator|+
 literal|" file(s) in "
 operator|+
@@ -6841,6 +6852,11 @@ operator|.
 name|createCompaction
 argument_list|()
 decl_stmt|;
+name|CompactionRequest
+name|request
+init|=
+literal|null
+decl_stmt|;
 name|this
 operator|.
 name|lock
@@ -7095,6 +7111,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Finally, we have the resulting files list. Check if we have any files at all.
+name|request
+operator|=
+name|compaction
+operator|.
+name|getRequest
+argument_list|()
+expr_stmt|;
 specifier|final
 name|Collection
 argument_list|<
@@ -7102,10 +7125,7 @@ name|StoreFile
 argument_list|>
 name|selectedFiles
 init|=
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
+name|request
 operator|.
 name|getFiles
 argument_list|()
@@ -7171,19 +7191,6 @@ name|SEQ_ID
 argument_list|)
 expr_stmt|;
 comment|// If we're enqueuing a major, clear the force flag.
-name|boolean
-name|isMajor
-init|=
-name|selectedFiles
-operator|.
-name|size
-argument_list|()
-operator|==
-name|this
-operator|.
-name|getStorefilesCount
-argument_list|()
-decl_stmt|;
 name|this
 operator|.
 name|forceMajor
@@ -7193,14 +7200,14 @@ operator|.
 name|forceMajor
 operator|&&
 operator|!
+name|request
+operator|.
 name|isMajor
+argument_list|()
 expr_stmt|;
 comment|// Set common request properties.
 comment|// Set priority, either override value supplied by caller or from store.
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
+name|request
 operator|.
 name|setPriority
 argument_list|(
@@ -7218,20 +7225,7 @@ name|getCompactPriority
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
-operator|.
-name|setIsMajor
-argument_list|(
-name|isMajor
-argument_list|)
-expr_stmt|;
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
+name|request
 operator|.
 name|setDescription
 argument_list|(
@@ -7278,10 +7272,7 @@ operator|+
 literal|": Initiating "
 operator|+
 operator|(
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
+name|request
 operator|.
 name|isMajor
 argument_list|()
@@ -7292,6 +7283,17 @@ literal|"minor"
 operator|)
 operator|+
 literal|" compaction"
+operator|+
+operator|(
+name|request
+operator|.
+name|isAllFiles
+argument_list|()
+condition|?
+literal|" (all files)"
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -7300,10 +7302,7 @@ name|region
 operator|.
 name|reportCompactionRequestStart
 argument_list|(
-name|compaction
-operator|.
-name|getRequest
-argument_list|()
+name|request
 operator|.
 name|isMajor
 argument_list|()
@@ -8670,16 +8669,6 @@ name|forceMajor
 operator|=
 literal|true
 expr_stmt|;
-block|}
-name|boolean
-name|getForceMajorCompaction
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|forceMajor
-return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration

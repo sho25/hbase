@@ -418,7 +418,7 @@ name|filesCompacting
 argument_list|)
 return|;
 block|}
-comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest    * @return subset copy of candidate list that meets compaction criteria    * @throws java.io.IOException    */
+comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest. All files in store.    * @return subset copy of candidate list that meets compaction criteria    * @throws java.io.IOException    */
 specifier|public
 name|CompactionRequest
 name|selectCompaction
@@ -548,6 +548,31 @@ operator|+
 literal|" blocking"
 argument_list|)
 expr_stmt|;
+comment|// If we can't have all files, we cannot do major anyway
+name|boolean
+name|isAllFiles
+init|=
+name|candidateFiles
+operator|.
+name|size
+argument_list|()
+operator|==
+name|candidateSelection
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|forceMajor
+operator|&&
+name|isAllFiles
+operator|)
+condition|)
+block|{
+comment|// If there are expired files, only select them so that compaction deletes them
 name|long
 name|cfTtl
 init|=
@@ -558,13 +583,6 @@ operator|.
 name|getStoreFileTtl
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
-name|forceMajor
-condition|)
-block|{
-comment|// If there are expired files, only select them so that compaction deletes them
 if|if
 condition|(
 name|comConf
@@ -622,24 +640,39 @@ argument_list|(
 name|candidateSelection
 argument_list|)
 expr_stmt|;
+name|isAllFiles
+operator|=
+name|candidateFiles
+operator|.
+name|size
+argument_list|()
+operator|==
+name|candidateSelection
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
 block|}
-comment|// Force a major compaction if this is a user-requested major compaction,
-comment|// or if we do not have too many files to compact and this was requested
-comment|// as a major compaction.
-comment|// Or, if there are any references among the candidates.
+comment|// Try a major compaction if this is a user-requested major compaction,
+comment|// or if we do not have too many files to compact and this was requested as a major compaction
 name|boolean
-name|majorCompaction
+name|isTryingMajor
 init|=
 operator|(
-operator|(
 name|forceMajor
+operator|&&
+name|isAllFiles
 operator|&&
 name|isUserCompaction
 operator|)
 operator|||
 operator|(
 operator|(
+operator|(
 name|forceMajor
+operator|&&
+name|isAllFiles
+operator|)
 operator|||
 name|isMajorCompaction
 argument_list|(
@@ -659,22 +692,28 @@ name|getMaxFilesToCompact
 argument_list|()
 operator|)
 operator|)
-operator|||
+decl_stmt|;
+comment|// Or, if there are any references among the candidates.
+name|boolean
+name|isAfterSplit
+init|=
 name|StoreUtils
 operator|.
 name|hasReferences
 argument_list|(
 name|candidateSelection
 argument_list|)
-operator|)
 decl_stmt|;
 if|if
 condition|(
 operator|!
-name|majorCompaction
+name|isTryingMajor
+operator|&&
+operator|!
+name|isAfterSplit
 condition|)
 block|{
-comment|// we're doing a minor compaction, let's see what files are applicable
+comment|// We're are not compacting all files, let's see what files are applicable
 name|candidateSelection
 operator|=
 name|filterBulk
@@ -709,8 +748,23 @@ name|candidateSelection
 argument_list|,
 name|isUserCompaction
 argument_list|,
-name|majorCompaction
+name|isTryingMajor
 argument_list|)
+expr_stmt|;
+comment|// Now we have the final file list, so we can determine if we can do major/all files.
+name|isAllFiles
+operator|=
+operator|(
+name|candidateFiles
+operator|.
+name|size
+argument_list|()
+operator|==
+name|candidateSelection
+operator|.
+name|size
+argument_list|()
+operator|)
 expr_stmt|;
 name|CompactionRequest
 name|result
@@ -732,9 +786,20 @@ name|isEmpty
 argument_list|()
 operator|&&
 operator|!
-name|majorCompaction
+name|isAllFiles
 operator|&&
 name|mayUseOffPeak
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|setIsMajor
+argument_list|(
+name|isTryingMajor
+operator|&&
+name|isAllFiles
+argument_list|,
+name|isAllFiles
 argument_list|)
 expr_stmt|;
 return|return

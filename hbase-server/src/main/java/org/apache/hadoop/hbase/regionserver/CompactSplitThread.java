@@ -381,12 +381,12 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|ThreadPoolExecutor
-name|largeCompactions
+name|longCompactions
 decl_stmt|;
 specifier|private
 specifier|final
 name|ThreadPoolExecutor
-name|smallCompactions
+name|shortCompactions
 decl_stmt|;
 specifier|private
 specifier|final
@@ -514,7 +514,7 @@ argument_list|()
 decl_stmt|;
 name|this
 operator|.
-name|largeCompactions
+name|longCompactions
 operator|=
 operator|new
 name|ThreadPoolExecutor
@@ -565,7 +565,7 @@ name|setName
 argument_list|(
 name|n
 operator|+
-literal|"-largeCompactions-"
+literal|"-longCompactions-"
 operator|+
 name|System
 operator|.
@@ -582,7 +582,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|largeCompactions
+name|longCompactions
 operator|.
 name|setRejectedExecutionHandler
 argument_list|(
@@ -593,7 +593,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|smallCompactions
+name|shortCompactions
 operator|=
 operator|new
 name|ThreadPoolExecutor
@@ -644,7 +644,7 @@ name|setName
 argument_list|(
 name|n
 operator|+
-literal|"-smallCompactions-"
+literal|"-shortCompactions-"
 operator|+
 name|System
 operator|.
@@ -661,7 +661,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|setRejectedExecutionHandler
 argument_list|(
@@ -807,7 +807,7 @@ block|{
 return|return
 literal|"compaction_queue=("
 operator|+
-name|largeCompactions
+name|longCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -817,7 +817,7 @@ argument_list|()
 operator|+
 literal|":"
 operator|+
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -880,7 +880,7 @@ name|Runnable
 argument_list|>
 name|lq
 init|=
-name|largeCompactions
+name|longCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -926,7 +926,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|smallCompactions
+name|shortCompactions
 operator|!=
 literal|null
 condition|)
@@ -947,7 +947,7 @@ argument_list|)
 expr_stmt|;
 name|lq
 operator|=
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -1965,9 +1965,9 @@ name|size
 argument_list|)
 operator|)
 condition|?
-name|largeCompactions
+name|longCompactions
 else|:
-name|smallCompactions
+name|shortCompactions
 decl_stmt|;
 name|pool
 operator|.
@@ -2000,7 +2000,7 @@ init|=
 operator|(
 name|pool
 operator|==
-name|smallCompactions
+name|shortCompactions
 operator|)
 condition|?
 literal|"Small "
@@ -2173,12 +2173,12 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|largeCompactions
+name|longCompactions
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|shutdown
 argument_list|()
@@ -2285,14 +2285,14 @@ argument_list|)
 expr_stmt|;
 name|waitFor
 argument_list|(
-name|largeCompactions
+name|longCompactions
 argument_list|,
 literal|"Large Compaction Thread"
 argument_list|)
 expr_stmt|;
 name|waitFor
 argument_list|(
-name|smallCompactions
+name|shortCompactions
 argument_list|,
 literal|"Small Compaction Thread"
 argument_list|)
@@ -2305,7 +2305,7 @@ name|getCompactionQueueSize
 parameter_list|()
 block|{
 return|return
-name|largeCompactions
+name|longCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -2313,7 +2313,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -2328,7 +2328,7 @@ name|getLargeCompactionQueueSize
 parameter_list|()
 block|{
 return|return
-name|largeCompactions
+name|longCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -2343,7 +2343,7 @@ name|getSmallCompactionQueueSize
 parameter_list|()
 block|{
 return|return
-name|smallCompactions
+name|shortCompactions
 operator|.
 name|getQueue
 argument_list|()
@@ -2695,9 +2695,9 @@ name|getSize
 argument_list|()
 argument_list|)
 condition|?
-name|largeCompactions
+name|longCompactions
 else|:
-name|smallCompactions
+name|shortCompactions
 decl_stmt|;
 if|if
 condition|(

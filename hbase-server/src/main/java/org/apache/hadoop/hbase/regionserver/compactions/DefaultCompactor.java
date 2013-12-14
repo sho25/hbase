@@ -253,7 +253,7 @@ argument_list|()
 argument_list|,
 name|request
 operator|.
-name|isMajor
+name|isAllFiles
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -321,13 +321,13 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|/* Include deletes, unless we are doing a major compaction */
+comment|/* Include deletes, unless we are doing a compaction of all files */
 name|ScanType
 name|scanType
 init|=
 name|request
 operator|.
-name|isMajor
+name|isAllFiles
 argument_list|()
 condition|?
 name|ScanType
@@ -533,7 +533,7 @@ name|maxSeqId
 argument_list|,
 name|request
 operator|.
-name|isMajor
+name|isAllFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -592,6 +592,8 @@ name|cr
 operator|.
 name|setIsMajor
 argument_list|(
+name|isMajor
+argument_list|,
 name|isMajor
 argument_list|)
 expr_stmt|;
