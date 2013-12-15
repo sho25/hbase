@@ -533,6 +533,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|region
@@ -540,8 +542,6 @@ operator|.
 name|closeRegionOperation
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 name|this
 operator|.
 name|region
