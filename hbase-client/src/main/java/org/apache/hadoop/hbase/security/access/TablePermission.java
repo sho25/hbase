@@ -1093,6 +1093,11 @@ operator|==
 literal|null
 operator|)
 operator|||
+operator|(
+name|namespace
+operator|!=
+literal|null
+operator|&&
 name|namespace
 operator|.
 name|equals
@@ -1102,6 +1107,7 @@ operator|.
 name|getNamespace
 argument_list|()
 argument_list|)
+operator|)
 operator|)
 operator|)
 condition|)
