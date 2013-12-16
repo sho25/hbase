@@ -1889,6 +1889,23 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Cleaning test directory: "
+operator|+
+name|TEST_UTIL
+operator|.
+name|getDataTestDir
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|cleanupTestDir
+argument_list|()
+expr_stmt|;
 block|}
 name|String
 name|getName
