@@ -1561,6 +1561,25 @@ argument_list|,
 name|dummyAttributes
 argument_list|)
 expr_stmt|;
+comment|// sleep to force later timestamp
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|50
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// no-op
+block|}
 name|mutations
 operator|=
 operator|new
