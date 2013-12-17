@@ -4385,6 +4385,13 @@ name|encodedName
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regionState
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// Close it without updating the internal region states,
 comment|// so as not to create double assignments in unlucky scenarios
 comment|// mentioned in OpenRegionHandler#process
@@ -4407,6 +4414,7 @@ argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 comment|// Handle OPENED by removing from transition and deleted zk node
