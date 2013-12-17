@@ -2531,6 +2531,26 @@ name|generated
 operator|.
 name|HBaseProtos
 operator|.
+name|RegionServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|HBaseProtos
+operator|.
 name|RegionSpecifier
 import|;
 end_import
@@ -3803,13 +3823,12 @@ specifier|volatile
 name|boolean
 name|abortRequested
 decl_stmt|;
-comment|// Port we put up the webui on.
-specifier|protected
-name|int
-name|webuiport
-init|=
-operator|-
-literal|1
+comment|// region server static info like info port
+specifier|private
+name|RegionServerInfo
+operator|.
+name|Builder
+name|rsInfo
 decl_stmt|;
 name|ConcurrentMap
 argument_list|<
@@ -4704,6 +4723,27 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|rsInfo
+operator|=
+name|RegionServerInfo
+operator|.
+name|newBuilder
+argument_list|()
+expr_stmt|;
+comment|// Put up the webui. Webui may come up on port other than configured if
+comment|// that port is occupied. Adjust serverInfo if this is the case.
+name|this
+operator|.
+name|rsInfo
+operator|.
+name|setInfoPort
+argument_list|(
+name|putUpWebUI
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7831,7 +7871,26 @@ name|createMyEphemeralNode
 parameter_list|()
 throws|throws
 name|KeeperException
+throws|,
+name|IOException
 block|{
+name|byte
+index|[]
+name|data
+init|=
+name|ProtobufUtil
+operator|.
+name|prependPBMagic
+argument_list|(
+name|rsInfo
+operator|.
+name|build
+argument_list|()
+operator|.
+name|toByteArray
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|ZKUtil
 operator|.
 name|createEphemeralNodeAndWatch
@@ -7843,9 +7902,7 @@ argument_list|,
 name|getMyEphemeralNodePath
 argument_list|()
 argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
+name|data
 argument_list|)
 expr_stmt|;
 block|}
@@ -9572,15 +9629,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// Put up the webui.  Webui may come up on port other than configured if
-comment|// that port is occupied. Adjust serverInfo if this is the case.
-name|this
-operator|.
-name|webuiport
-operator|=
-name|putUpWebUI
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -9932,7 +9980,12 @@ expr_stmt|;
 block|}
 block|}
 return|return
-name|port
+name|this
+operator|.
+name|infoServer
+operator|.
+name|getPort
+argument_list|()
 return|;
 block|}
 comment|/*    * Verify that server is healthy    */
@@ -21034,7 +21087,10 @@ name|buildGetServerInfoResponse
 argument_list|(
 name|serverName
 argument_list|,
-name|webuiport
+name|rsInfo
+operator|.
+name|getInfoPort
+argument_list|()
 argument_list|)
 return|;
 block|}

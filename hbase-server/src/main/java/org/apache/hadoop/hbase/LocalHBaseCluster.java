@@ -650,6 +650,17 @@ argument_list|,
 literal|"0"
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT
+argument_list|,
+literal|"0"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|masterClass
