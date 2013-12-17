@@ -1323,6 +1323,21 @@ operator|.
 name|sources
 return|;
 block|}
+comment|/**    * Get a list of all the old sources of this rs    * @return list of all old sources    */
+specifier|public
+name|List
+argument_list|<
+name|ReplicationSourceInterface
+argument_list|>
+name|getOldSources
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|oldsources
+return|;
+block|}
 name|void
 name|preLogRoll
 parameter_list|(
