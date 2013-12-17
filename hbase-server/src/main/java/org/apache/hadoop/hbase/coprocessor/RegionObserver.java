@@ -722,6 +722,18 @@ argument_list|>
 name|c
 parameter_list|)
 function_decl|;
+comment|/**    * Called after the log replay on the region is over.    * @param c the environment provided by the region server    */
+name|void
+name|postLogReplay
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|)
+function_decl|;
 comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    */
 name|InternalScanner
 name|preFlushScannerOpen

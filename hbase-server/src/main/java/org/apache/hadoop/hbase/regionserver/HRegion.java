@@ -4379,12 +4379,34 @@ name|boolean
 name|newState
 parameter_list|)
 block|{
+name|boolean
+name|wasRecovering
+init|=
+name|this
+operator|.
+name|isRecovering
+decl_stmt|;
 name|this
 operator|.
 name|isRecovering
 operator|=
 name|newState
 expr_stmt|;
+if|if
+condition|(
+name|wasRecovering
+operator|&&
+operator|!
+name|isRecovering
+condition|)
+block|{
+comment|// Call only when log replay is over.
+name|coprocessorHost
+operator|.
+name|postLogReplay
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return True if current region is in recovering    */
 specifier|public

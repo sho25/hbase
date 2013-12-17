@@ -754,6 +754,19 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|postLogReplay
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|e
+parameter_list|)
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
 name|preClose
 parameter_list|(
 name|ObserverContext
