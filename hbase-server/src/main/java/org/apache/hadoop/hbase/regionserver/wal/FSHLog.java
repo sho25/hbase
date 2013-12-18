@@ -251,6 +251,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -713,11 +727,6 @@ specifier|final
 name|Path
 name|oldLogDir
 decl_stmt|;
-specifier|private
-specifier|volatile
-name|boolean
-name|logRollRunning
-decl_stmt|;
 comment|// all writes pending on AsyncWriter/AsyncSyncer thread with
 comment|// txid<= failedTxid will fail by throwing asyncIOE
 specifier|private
@@ -795,12 +804,14 @@ decl_stmt|;
 comment|/**    * This lock makes sure only one log roll runs at the same time. Should not be taken while    * any other lock is held. We don't just use synchronized because that results in bogus and    * tedious findbugs warning when it thinks synchronized controls writer thread safety */
 specifier|private
 specifier|final
-name|Object
+name|ReentrantLock
 name|rollWriterLock
 init|=
 operator|new
-name|Object
-argument_list|()
+name|ReentrantLock
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 comment|/**    * Map of encoded region names to their most recent sequence/edit id in their memstore.    */
 specifier|private
@@ -2120,10 +2131,12 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 block|{
-synchronized|synchronized
-init|(
 name|rollWriterLock
-init|)
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 comment|// Return if nothing to flush.
 if|if
@@ -2176,12 +2189,6 @@ return|;
 block|}
 try|try
 block|{
-name|this
-operator|.
-name|logRollRunning
-operator|=
-literal|true
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -2598,12 +2605,6 @@ block|}
 block|}
 finally|finally
 block|{
-name|this
-operator|.
-name|logRollRunning
-operator|=
-literal|false
-expr_stmt|;
 name|closeBarrier
 operator|.
 name|endOp
@@ -2613,6 +2614,14 @@ block|}
 return|return
 name|regionsToFlush
 return|;
+block|}
+finally|finally
+block|{
+name|rollWriterLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_function
@@ -5502,19 +5511,41 @@ name|lastSyncedTxid
 argument_list|)
 expr_stmt|;
 comment|// 4. check and do logRoll if needed
+name|boolean
+name|logRollNeeded
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
-operator|!
-name|logRollRunning
+name|rollWriterLock
+operator|.
+name|tryLock
+argument_list|()
 condition|)
 block|{
+try|try
+block|{
+name|logRollNeeded
+operator|=
 name|checkLowReplication
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|rollWriterLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 try|try
 block|{
 if|if
 condition|(
+name|logRollNeeded
+operator|||
 name|writer
 operator|!=
 literal|null
@@ -5971,12 +6002,21 @@ parameter_list|)
 block|{}
 end_function
 
+begin_comment
+comment|/*    * @return whether log roll should be requested    */
+end_comment
+
 begin_function
 specifier|private
-name|void
+name|boolean
 name|checkLowReplication
 parameter_list|()
 block|{
+name|boolean
+name|logRollNeeded
+init|=
+literal|false
+decl_stmt|;
 comment|// if the number of replicas in HDFS has fallen below the configured
 comment|// value, then roll logs.
 try|try
@@ -6042,8 +6082,9 @@ operator|+
 literal|" Requesting close of hlog."
 argument_list|)
 expr_stmt|;
-name|requestLogRoll
-argument_list|()
+name|logRollNeeded
+operator|=
+literal|true
 expr_stmt|;
 comment|// If rollWriter is requested, increase consecutiveLogRolls. Once it
 comment|// is larger than lowReplicationRollLimit, disable the
@@ -6118,7 +6159,9 @@ operator|<=
 literal|1
 condition|)
 block|{
-return|return;
+return|return
+name|logRollNeeded
+return|;
 block|}
 comment|// Once the live datanode number and the replicas return to normal,
 comment|// enable the LowReplication-Roller.
@@ -6156,6 +6199,9 @@ literal|" still proceeding ahead..."
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|logRollNeeded
+return|;
 block|}
 end_function
 
