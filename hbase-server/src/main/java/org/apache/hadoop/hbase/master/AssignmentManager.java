@@ -16066,6 +16066,18 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return Instance of load balancer    */
+specifier|public
+name|LoadBalancer
+name|getBalancer
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|balancer
+return|;
+block|}
 block|}
 end_class
 

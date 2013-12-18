@@ -319,6 +319,7 @@ specifier|final
 name|boolean
 name|waitTillAllAssigned
 decl_stmt|;
+specifier|public
 name|GeneralBulkAssigner
 parameter_list|(
 specifier|final

@@ -3120,6 +3120,15 @@ name|target
 init|=
 name|localServers
 operator|.
+name|contains
+argument_list|(
+name|oldServerName
+argument_list|)
+condition|?
+name|oldServerName
+else|:
+name|localServers
+operator|.
 name|get
 argument_list|(
 name|RANDOM
