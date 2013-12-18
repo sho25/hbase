@@ -608,15 +608,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|scan
-operator|.
-name|setFilter
-argument_list|(
-operator|new
-name|FirstKeyOnlyFilter
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|sb
