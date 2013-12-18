@@ -2978,6 +2978,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3013,6 +3014,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.    */
 annotation|@
 name|Override
 specifier|public
@@ -3043,6 +3045,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3096,6 +3099,7 @@ name|callback
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
 annotation|@
 name|Override
 specifier|public

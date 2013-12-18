@@ -288,7 +288,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Same as {@link #batch(List, Object[])}, but returns an array of    * results instead of using a results parameter reference.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Same as {@link #batch(List, Object[])}, but returns an array of    * results instead of using a results parameter reference.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.    */
 name|Object
 index|[]
 name|batch
@@ -342,7 +342,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Same as {@link #batch(List)}, but with a callback.    * @since 0.96.0    */
+comment|/**    * Same as {@link #batch(List)}, but with a callback.    * @since 0.96.0    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
 parameter_list|<
 name|R
 parameter_list|>
