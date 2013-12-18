@@ -16484,8 +16484,6 @@ name|currentScanResultSize
 operator|<
 name|maxResultSize
 condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// Collect values to be returned here
@@ -16550,6 +16548,9 @@ argument_list|(
 name|values
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|i
+operator|++
 expr_stmt|;
 block|}
 if|if
