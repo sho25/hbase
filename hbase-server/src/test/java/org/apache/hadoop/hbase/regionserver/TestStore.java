@@ -2415,6 +2415,14 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Get tests
 comment|//////////////////////////////////////////////////////////////////////////////
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|BLOCKSIZE_SMALL
+init|=
+literal|8192
+decl_stmt|;
 comment|/**    * Test for hbase-1686.    * @throws IOException    */
 specifier|public
 name|void
@@ -2551,9 +2559,7 @@ argument_list|()
 operator|.
 name|withBlockSize
 argument_list|(
-name|StoreFile
-operator|.
-name|DEFAULT_BLOCKSIZE_SMALL
+name|BLOCKSIZE_SMALL
 argument_list|)
 operator|.
 name|build

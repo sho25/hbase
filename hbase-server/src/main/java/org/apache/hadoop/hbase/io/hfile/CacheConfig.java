@@ -1395,6 +1395,8 @@ name|bucketCacheIOEngineName
 argument_list|,
 name|bucketCacheSize
 argument_list|,
+name|blockSize
+argument_list|,
 name|writerThreads
 argument_list|,
 name|writerQueueLen
@@ -1451,9 +1453,7 @@ name|LruBlockCache
 argument_list|(
 name|lruCacheSize
 argument_list|,
-name|StoreFile
-operator|.
-name|DEFAULT_BLOCKSIZE_SMALL
+name|blockSize
 argument_list|)
 decl_stmt|;
 name|lruCache
@@ -1502,9 +1502,7 @@ name|lruCacheSize
 argument_list|,
 name|offHeapCacheSize
 argument_list|,
-name|StoreFile
-operator|.
-name|DEFAULT_BLOCKSIZE_SMALL
+name|blockSize
 argument_list|,
 name|blockSize
 argument_list|,

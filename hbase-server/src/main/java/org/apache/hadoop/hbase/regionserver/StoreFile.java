@@ -779,18 +779,6 @@ argument_list|(
 literal|"EARLIEST_PUT_TS"
 argument_list|)
 decl_stmt|;
-comment|// Make default block size for StoreFiles 8k while testing.  TODO: FIX!
-comment|// Need to make it 8k for testing.
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_BLOCKSIZE_SMALL
-init|=
-literal|8
-operator|*
-literal|1024
-decl_stmt|;
 specifier|private
 specifier|final
 name|StoreFileInfo

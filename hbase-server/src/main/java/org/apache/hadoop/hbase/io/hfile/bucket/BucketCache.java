@@ -1095,6 +1095,9 @@ name|long
 name|capacity
 parameter_list|,
 name|int
+name|blockSize
+parameter_list|,
+name|int
 name|writerThreadNum
 parameter_list|,
 name|int
@@ -1114,6 +1117,8 @@ name|ioEngineName
 argument_list|,
 name|capacity
 argument_list|,
+name|blockSize
+argument_list|,
 name|writerThreadNum
 argument_list|,
 name|writerQLen
@@ -1132,6 +1137,9 @@ name|ioEngineName
 parameter_list|,
 name|long
 name|capacity
+parameter_list|,
+name|int
+name|blockSize
 parameter_list|,
 name|int
 name|writerThreadNum
@@ -1186,7 +1194,7 @@ name|blockNumCapacity
 init|=
 name|capacity
 operator|/
-literal|16384
+name|blockSize
 decl_stmt|;
 if|if
 condition|(
@@ -1222,9 +1230,7 @@ name|this
 operator|.
 name|blockSize
 operator|=
-name|StoreFile
-operator|.
-name|DEFAULT_BLOCKSIZE_SMALL
+name|blockSize
 expr_stmt|;
 name|this
 operator|.

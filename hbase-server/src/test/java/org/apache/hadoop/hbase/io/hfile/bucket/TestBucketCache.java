@@ -383,6 +383,8 @@ name|ioEngineName
 argument_list|,
 name|capacity
 argument_list|,
+literal|8192
+argument_list|,
 name|writerThreads
 argument_list|,
 name|writerQLen
