@@ -8503,7 +8503,7 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" got merge recently, its file will be cleaned by CatalogJanitor later"
+literal|" got merge recently, its file(s) will be cleaned by CatalogJanitor later"
 argument_list|)
 expr_stmt|;
 return|return;
