@@ -105,6 +105,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2207,6 +2217,12 @@ name|assignMeta
 parameter_list|(
 name|MonitoredTask
 name|status
+parameter_list|,
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|previouslyFailedMeatRSs
 parameter_list|)
 block|{       }
 annotation|@

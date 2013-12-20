@@ -1977,6 +1977,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 specifier|protected
+specifier|volatile
 name|long
 name|completeSequenceId
 init|=
@@ -2587,6 +2588,11 @@ specifier|private
 name|long
 name|flushCheckInterval
 decl_stmt|;
+comment|// flushPerChanges is to prevent too many changes in memstore
+specifier|private
+name|long
+name|flushPerChanges
+decl_stmt|;
 specifier|private
 name|long
 name|blockingMemStoreSize
@@ -2856,6 +2862,40 @@ argument_list|,
 name|DEFAULT_CACHE_FLUSH_INTERVAL
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|flushPerChanges
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|MEMSTORE_FLUSH_PER_CHANGES
+argument_list|,
+name|DEFAULT_FLUSH_PER_CHANGES
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|flushPerChanges
+operator|>
+name|MAX_FLUSH_PER_CHANGES
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|MEMSTORE_FLUSH_PER_CHANGES
+operator|+
+literal|" can not exceed "
+operator|+
+name|MAX_FLUSH_PER_CHANGES
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|rowLockWaitDuration
@@ -3552,6 +3592,26 @@ name|maxSeqId
 operator|+
 literal|1
 decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|isRecovering
+condition|)
+block|{
+comment|// In distributedLogReplay mode, we don't know the last change sequence number because region
+comment|// is opened before recovery completes. So we add a safety bumper to avoid new sequence number
+comment|// overlaps used sequence numbers
+name|nextSeqid
+operator|+=
+name|this
+operator|.
+name|flushPerChanges
+operator|+
+literal|10000000
+expr_stmt|;
+comment|// add another extra 10million
+block|}
 name|LOG
 operator|.
 name|info
@@ -3589,6 +3649,12 @@ name|set
 argument_list|(
 literal|false
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|completeSequenceId
+operator|=
+name|nextSeqid
 expr_stmt|;
 if|if
 condition|(
@@ -4699,6 +4765,34 @@ name|DEFAULT_CACHE_FLUSH_INTERVAL
 init|=
 literal|3600000
 decl_stmt|;
+comment|/** Conf key to force a flush if there are already enough changes for one region in memstore */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MEMSTORE_FLUSH_PER_CHANGES
+init|=
+literal|"hbase.regionserver.flush.per.changes"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_FLUSH_PER_CHANGES
+init|=
+literal|30000000
+decl_stmt|;
+comment|// 30 millions
+comment|/**    * The following MAX_FLUSH_PER_CHANGES is large enough because each KeyValue has 20+ bytes    * overhead. Therefore, even 1G empty KVs occupy at least 20GB memstore size for a single region    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|MAX_FLUSH_PER_CHANGES
+init|=
+literal|1000000000
+decl_stmt|;
+comment|// 1G
 comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    */
 specifier|public
 name|Map
@@ -6746,6 +6840,28 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|this
+operator|.
+name|completeSequenceId
+operator|+
+name|this
+operator|.
+name|flushPerChanges
+operator|<
+name|this
+operator|.
+name|sequenceId
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
 name|flushCheckInterval
 operator|<=
 literal|0
@@ -7446,20 +7562,10 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 comment|// Update the last flushed sequence id for region
-if|if
-condition|(
-name|this
-operator|.
-name|rsServices
-operator|!=
-literal|null
-condition|)
-block|{
 name|completeSequenceId
 operator|=
 name|flushSeqId
 expr_stmt|;
-block|}
 comment|// C. Finally notify anyone waiting on memstore to clear:
 comment|// e.g. checkResources().
 synchronized|synchronized
@@ -23632,7 +23738,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|11
+literal|12
 operator|*
 name|Bytes
 operator|.

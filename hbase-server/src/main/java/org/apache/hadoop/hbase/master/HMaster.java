@@ -6196,6 +6196,21 @@ init|=
 name|getPreviouselyFailedMetaServersFromZK
 argument_list|()
 decl_stmt|;
+comment|// need to use union of previouslyFailedMetaRSs recorded in ZK and previouslyFailedServers
+comment|// instead of previouslyFailedMetaRSs alone to address the following two situations:
+comment|// 1) the chained failure situation(recovery failed multiple times in a row).
+comment|// 2) master get killed right before it could delete the recovering hbase:meta from ZK while the
+comment|// same server still has non-meta wals to be replayed so that
+comment|// removeStaleRecoveringRegionsFromZK can't delete the stale hbase:meta region
+comment|// Passing more servers into splitMetaLog is all right. If a server doesn't have hbase:meta wal,
+comment|// there is no op for the server.
+name|previouslyFailedMetaRSs
+operator|.
+name|addAll
+argument_list|(
+name|previouslyFailedServers
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|initializationBeforeMetaAssignment
@@ -6240,6 +6255,8 @@ expr_stmt|;
 name|assignMeta
 argument_list|(
 name|status
+argument_list|,
+name|previouslyFailedMetaRSs
 argument_list|)
 expr_stmt|;
 comment|// check if master is shutting down because above assignMeta could return even hbase:meta isn't
@@ -6251,54 +6268,6 @@ operator|.
 name|stopped
 condition|)
 return|return;
-if|if
-condition|(
-name|this
-operator|.
-name|distributedLogReplay
-operator|&&
-operator|(
-operator|!
-name|previouslyFailedMetaRSs
-operator|.
-name|isEmpty
-argument_list|()
-operator|)
-condition|)
-block|{
-comment|// replay WAL edits mode need new hbase:meta RS is assigned firstly
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"replaying log for Meta Region"
-argument_list|)
-expr_stmt|;
-comment|// need to use union of previouslyFailedMetaRSs recorded in ZK and previouslyFailedServers
-comment|// instead of oldMetaServerLocation to address the following two situations:
-comment|// 1) the chained failure situation(recovery failed multiple times in a row).
-comment|// 2) master get killed right before it could delete the recovering hbase:meta from ZK while the
-comment|// same server still has non-meta wals to be replayed so that
-comment|// removeStaleRecoveringRegionsFromZK can't delete the stale hbase:meta region
-comment|// Passing more servers into splitMetaLog is all right. If a server doesn't have hbase:meta wal,
-comment|// there is no op for the server.
-name|previouslyFailedMetaRSs
-operator|.
-name|addAll
-argument_list|(
-name|previouslyFailedServers
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|fileSystemManager
-operator|.
-name|splitMetaLog
-argument_list|(
-name|previouslyFailedMetaRSs
-argument_list|)
-expr_stmt|;
-block|}
 name|status
 operator|.
 name|setStatus
@@ -6603,12 +6572,18 @@ name|services
 argument_list|)
 return|;
 block|}
-comment|/**    * Check<code>hbase:meta</code> is assigned. If not, assign it.    * @param status MonitoredTask    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Check<code>hbase:meta</code> is assigned. If not, assign it.    * @param status MonitoredTask    * @param previouslyFailedMetaRSs    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
 name|void
 name|assignMeta
 parameter_list|(
 name|MonitoredTask
 name|status
+parameter_list|,
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|previouslyFailedMetaRSs
 parameter_list|)
 throws|throws
 name|InterruptedException
@@ -6644,11 +6619,6 @@ argument_list|(
 literal|"Assigning hbase:meta region"
 argument_list|)
 expr_stmt|;
-name|ServerName
-name|logReplayFailedMetaServer
-init|=
-literal|null
-decl_stmt|;
 name|RegionStates
 name|regionStates
 init|=
@@ -6752,21 +6722,27 @@ argument_list|(
 name|currentMetaServer
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
+name|previouslyFailedMetaRSs
 operator|.
-name|distributedLogReplay
-condition|)
-block|{
-name|logReplayFailedMetaServer
-operator|=
+name|add
+argument_list|(
 name|currentMetaServer
+argument_list|)
 expr_stmt|;
 block|}
-block|}
-comment|// Make sure assignment manager knows where the meta is,
-comment|// so that meta sever shutdown handler kicks in.
+comment|// Make sure following meta assignment happens
+name|assignmentManager
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|clearLastAssignment
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
 name|assignmentManager
 operator|.
 name|assignMeta
@@ -6813,6 +6789,39 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|distributedLogReplay
+operator|&&
+operator|(
+operator|!
+name|previouslyFailedMetaRSs
+operator|.
+name|isEmpty
+argument_list|()
+operator|)
+condition|)
+block|{
+comment|// replay WAL edits mode need new hbase:meta RS is assigned firstly
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"replaying log for Meta Region"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fileSystemManager
+operator|.
+name|splitMetaLog
+argument_list|(
+name|previouslyFailedMetaRSs
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Make sure a hbase:meta location is set. We need to enable SSH here since
 comment|// if the meta region server is died at this time, we need it to be re-assigned
 comment|// by SSH so that system tables can be assigned.
@@ -6824,26 +6833,6 @@ operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// logReplayFailedMetaServer is set only if log replay is
-comment|// enabled and the current meta server is expired
-if|if
-condition|(
-name|logReplayFailedMetaServer
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// In Replay WAL Mode, we need the new hbase:meta server online
-name|this
-operator|.
-name|fileSystemManager
-operator|.
-name|splitMetaLog
-argument_list|(
-name|logReplayFailedMetaServer
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
