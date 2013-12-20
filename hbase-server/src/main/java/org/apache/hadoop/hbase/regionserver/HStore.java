@@ -2781,8 +2781,6 @@ literal|null
 condition|)
 block|{
 comment|// close StoreFile readers
-try|try
-block|{
 for|for
 control|(
 name|StoreFile
@@ -2790,6 +2788,8 @@ name|file
 range|:
 name|results
 control|)
+block|{
+try|try
 block|{
 if|if
 condition|(
@@ -2805,13 +2805,24 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 catch|catch
 parameter_list|(
 name|IOException
 name|e
 parameter_list|)
-block|{ }
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 throw|throw
 name|ioe
 throw|;
