@@ -754,6 +754,15 @@ name|MAX_FORMAT_VERSION
 init|=
 literal|3
 decl_stmt|;
+comment|/**    * Minimum HFile format version with support for persisting cell tags    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MIN_FORMAT_VERSION_WITH_TAGS
+init|=
+literal|3
+decl_stmt|;
 comment|/** Default compression name: none. */
 specifier|public
 specifier|final

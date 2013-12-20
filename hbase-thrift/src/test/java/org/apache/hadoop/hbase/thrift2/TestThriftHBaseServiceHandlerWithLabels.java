@@ -1211,6 +1211,15 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hfile.format.version"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 name|UTIL
 operator|.
 name|startMiniCluster

@@ -671,6 +671,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RequestContext
@@ -1210,6 +1228,10 @@ specifier|private
 name|UserProvider
 name|userProvider
 decl_stmt|;
+comment|// flags if we are able to support cell ACLs
+name|boolean
+name|canPersistCellACLs
+decl_stmt|;
 name|void
 name|initialize
 parameter_list|(
@@ -1228,6 +1250,48 @@ operator|.
 name|getRegion
 argument_list|()
 decl_stmt|;
+name|canPersistCellACLs
+operator|=
+name|HFile
+operator|.
+name|getFormatVersion
+argument_list|(
+name|e
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|>=
+name|HFile
+operator|.
+name|MIN_FORMAT_VERSION_WITH_TAGS
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|canPersistCellACLs
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"A minimum HFile version of "
+operator|+
+name|HFile
+operator|.
+name|MIN_FORMAT_VERSION_WITH_TAGS
+operator|+
+literal|" is required to persist cell ACLs. Consider setting "
+operator|+
+name|HFile
+operator|.
+name|FORMAT_VERSION_KEY
+operator|+
+literal|" accordingly."
+argument_list|)
+expr_stmt|;
+block|}
 name|Map
 argument_list|<
 name|byte
@@ -3045,6 +3109,16 @@ return|return;
 block|}
 comment|// Table or CF permissions do not allow, enumerate the covered KVs. We
 comment|// can stop at the first which does not grant access.
+name|int
+name|cellsChecked
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|canPersistCellACLs
+condition|)
+block|{
 name|Get
 name|get
 init|=
@@ -3348,11 +3422,6 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
-name|int
-name|numCells
-init|=
-literal|0
-decl_stmt|;
 try|try
 block|{
 name|boolean
@@ -3487,7 +3556,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|numCells
+name|cellsChecked
 operator|++
 expr_stmt|;
 block|}
@@ -3532,10 +3601,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 comment|// If there were no cells to check, throw the ADE
 if|if
 condition|(
-name|numCells
+name|cellsChecked
 operator|<
 literal|1
 condition|)
@@ -3610,10 +3680,7 @@ name|byte
 index|[]
 name|family
 range|:
-name|get
-operator|.
-name|getFamilyMap
-argument_list|()
+name|familyMap
 operator|.
 name|keySet
 argument_list|()
@@ -6744,6 +6811,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|canPersistCellACLs
+condition|)
+block|{
 name|addCellPermissions
 argument_list|(
 name|bytes
@@ -6754,6 +6826,17 @@ name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Cell ACLs cannot be persisted"
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 annotation|@
@@ -7046,6 +7129,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|canPersistCellACLs
+condition|)
+block|{
 name|addCellPermissions
 argument_list|(
 name|bytes
@@ -7056,6 +7144,17 @@ name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Cell ACLs cannot be persisted"
+argument_list|)
+throw|;
+block|}
 block|}
 return|return
 name|result
@@ -7322,6 +7421,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|canPersistCellACLs
+condition|)
+block|{
 name|addCellPermissions
 argument_list|(
 name|bytes
@@ -7332,6 +7436,17 @@ name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Cell ACLs cannot be persisted"
+argument_list|)
+throw|;
+block|}
 block|}
 return|return
 literal|null
@@ -7413,6 +7528,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|canPersistCellACLs
+condition|)
+block|{
 name|addCellPermissions
 argument_list|(
 name|bytes
@@ -7423,6 +7543,17 @@ name|getFamilyCellMap
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Cell ACLs cannot be persisted"
+argument_list|)
+throw|;
+block|}
 block|}
 return|return
 literal|null
@@ -7455,6 +7586,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// If the HFile version is insufficient to persist tags, we won't have any
+comment|// work to do here
+if|if
+condition|(
+operator|!
+name|canPersistCellACLs
+condition|)
+block|{
+return|return
+name|newCell
+return|;
+block|}
+comment|// Collect any ACLs from the old cell
 name|List
 argument_list|<
 name|Tag
