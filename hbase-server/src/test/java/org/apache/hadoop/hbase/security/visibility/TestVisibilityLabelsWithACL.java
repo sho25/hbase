@@ -631,15 +631,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hfile.format.version"
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
 name|SecureTestUtil
 operator|.
 name|enableSecurity

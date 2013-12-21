@@ -308,7 +308,10 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// add the process running user to superusers
+comment|// The secure minicluster creates separate service principals based on the
+comment|// current user's name, one for each slave. We need to add all of these to
+comment|// the superuser list or security won't function properly. We expect the
+comment|// HBase service account(s) to have superuser privilege.
 name|String
 name|currentUser
 init|=
@@ -320,15 +323,82 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
+name|StringBuffer
+name|sb
+init|=
+operator|new
+name|StringBuffer
+argument_list|()
+decl_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"admin,"
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|currentUser
+argument_list|)
+expr_stmt|;
+comment|// Assumes we won't ever have a minicluster with more than 5 slaves
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|5
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|','
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|currentUser
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|".hfs."
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
+block|}
 name|conf
 operator|.
 name|set
 argument_list|(
 literal|"hbase.superuser"
 argument_list|,
-literal|"admin,"
-operator|+
-name|currentUser
+name|sb
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Need HFile V3 for tags for security features
