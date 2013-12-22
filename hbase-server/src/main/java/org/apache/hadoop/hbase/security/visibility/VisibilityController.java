@@ -4336,7 +4336,13 @@ block|}
 block|}
 block|}
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|cellVisibility
+operator|!=
+literal|null
+condition|)
 block|{
 comment|// CellVisibility in a Delete is not legal! Fail the operation
 name|miniBatchOp
