@@ -6066,6 +6066,13 @@ name|R
 name|value
 parameter_list|)
 block|{
+if|if
+condition|(
+name|region
+operator|!=
+literal|null
+condition|)
+block|{
 name|results
 operator|.
 name|put
@@ -6075,6 +6082,7 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 argument_list|)
