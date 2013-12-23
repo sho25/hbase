@@ -2546,6 +2546,14 @@ index|[]
 name|currentRow
 parameter_list|,
 specifier|final
+name|int
+name|offset
+parameter_list|,
+specifier|final
+name|short
+name|length
+parameter_list|,
+specifier|final
 name|boolean
 name|hasMore
 parameter_list|)

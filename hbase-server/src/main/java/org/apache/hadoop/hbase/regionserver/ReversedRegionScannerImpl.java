@@ -361,6 +361,10 @@ argument_list|(
 name|this
 argument_list|,
 name|currentRow
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|)
 return|;
 block|}

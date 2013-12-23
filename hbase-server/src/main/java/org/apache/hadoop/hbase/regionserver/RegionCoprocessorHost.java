@@ -7140,7 +7140,7 @@ return|return
 name|hasMore
 return|;
 block|}
-comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter.    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter.    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param offset offset to rowkey    * @param length length of rowkey    * @return whether more rows are available for the scanner or not    * @throws IOException    */
 specifier|public
 name|boolean
 name|postScannerFilterRow
@@ -7153,6 +7153,12 @@ specifier|final
 name|byte
 index|[]
 name|currentRow
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|short
+name|length
 parameter_list|)
 throws|throws
 name|IOException
@@ -7221,6 +7227,10 @@ argument_list|,
 name|s
 argument_list|,
 name|currentRow
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|,
 name|hasMore
 argument_list|)
