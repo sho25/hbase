@@ -8579,13 +8579,6 @@ condition|)
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|i
-operator|!=
-name|maximumAttempts
-condition|)
-block|{
 name|Thread
 operator|.
 name|sleep
@@ -8595,16 +8588,17 @@ operator|.
 name|sleepTimeBeforeRetryingMetaAssignment
 argument_list|)
 expr_stmt|;
-continue|continue;
-block|}
-comment|// TODO : Ensure HBCK fixes this
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Unable to determine a plan to assign hbase:meta even after repeated attempts. Run HBCK to fix this"
-argument_list|)
+if|if
+condition|(
+name|i
+operator|==
+name|maximumAttempts
+condition|)
+name|i
+operator|=
+literal|1
 expr_stmt|;
+continue|continue;
 block|}
 catch|catch
 parameter_list|(
