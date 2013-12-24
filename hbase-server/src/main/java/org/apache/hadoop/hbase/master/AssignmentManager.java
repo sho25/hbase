@@ -12237,6 +12237,9 @@ argument_list|)
 expr_stmt|;
 comment|// enableTable in sync way during master startup,
 comment|// no need to invoke coprocessor
+name|EnableTableHandler
+name|eth
+init|=
 operator|new
 name|EnableTableHandler
 argument_list|(
@@ -12254,9 +12257,35 @@ name|tableLockManager
 argument_list|,
 literal|true
 argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|eth
 operator|.
 name|prepare
 argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Table "
+operator|+
+name|tableName
+operator|+
+literal|" not found in hbase:meta to recover."
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+name|eth
 operator|.
 name|process
 argument_list|()

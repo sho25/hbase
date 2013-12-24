@@ -662,6 +662,13 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+name|tableName
+argument_list|)
+throw|;
 block|}
 catch|catch
 parameter_list|(
