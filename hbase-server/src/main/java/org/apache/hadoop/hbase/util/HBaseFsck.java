@@ -13817,6 +13817,24 @@ name|shouldFixAssignments
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|metaHbckInfo
+operator|==
+literal|null
+condition|)
+block|{
+name|errors
+operator|.
+name|print
+argument_list|(
+literal|"Unable to fix problem with hbase:meta due to hbase:meta region info missing"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 name|errors
 operator|.
 name|print
