@@ -2003,9 +2003,6 @@ condition|(
 name|authorizeUser
 argument_list|(
 name|user
-operator|.
-name|getShortName
-argument_list|()
 argument_list|,
 name|table
 argument_list|,
@@ -2176,14 +2173,12 @@ name|Action
 name|action
 parameter_list|)
 block|{
+comment|// Global authorizations supercede namespace level
 if|if
 condition|(
 name|authorizeUser
 argument_list|(
 name|user
-operator|.
-name|getShortName
-argument_list|()
 argument_list|,
 name|action
 argument_list|)
@@ -2193,6 +2188,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|// Check namespace permissions
 name|PermissionCache
 argument_list|<
 name|TablePermission
@@ -2385,8 +2381,8 @@ specifier|public
 name|boolean
 name|authorizeUser
 parameter_list|(
-name|String
-name|username
+name|User
+name|user
 parameter_list|,
 name|Permission
 operator|.
@@ -2401,20 +2397,23 @@ name|globalCache
 operator|.
 name|getUser
 argument_list|(
-name|username
+name|user
+operator|.
+name|getShortName
+argument_list|()
 argument_list|)
 argument_list|,
 name|action
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks authorization to a given table and column family for a user, based on the    * stored user permissions.    *    * @param username    * @param table    * @param family    * @param action    * @return true if known and authorized, false otherwise    */
+comment|/**    * Checks authorization to a given table and column family for a user, based on the    * stored user permissions.    *    * @param user    * @param table    * @param family    * @param action    * @return true if known and authorized, false otherwise    */
 specifier|public
 name|boolean
 name|authorizeUser
 parameter_list|(
-name|String
-name|username
+name|User
+name|user
 parameter_list|,
 name|TableName
 name|table
@@ -2432,7 +2431,7 @@ block|{
 return|return
 name|authorizeUser
 argument_list|(
-name|username
+name|user
 argument_list|,
 name|table
 argument_list|,
@@ -2448,8 +2447,8 @@ specifier|public
 name|boolean
 name|authorizeUser
 parameter_list|(
-name|String
-name|username
+name|User
+name|user
 parameter_list|,
 name|TableName
 name|table
@@ -2468,21 +2467,6 @@ name|Action
 name|action
 parameter_list|)
 block|{
-comment|// global authorization supercedes table level
-if|if
-condition|(
-name|authorizeUser
-argument_list|(
-name|username
-argument_list|,
-name|action
-argument_list|)
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
 if|if
 condition|(
 name|table
@@ -2495,6 +2479,27 @@ name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
 expr_stmt|;
+comment|// Global and namespace authorizations supercede table level
+if|if
+condition|(
+name|authorize
+argument_list|(
+name|user
+argument_list|,
+name|table
+operator|.
+name|getNamespaceAsString
+argument_list|()
+argument_list|,
+name|action
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+comment|// Check table permissions
 return|return
 name|authorize
 argument_list|(
@@ -2505,7 +2510,10 @@ argument_list|)
 operator|.
 name|getUser
 argument_list|(
-name|username
+name|user
+operator|.
+name|getShortName
+argument_list|()
 argument_list|)
 argument_list|,
 name|table
@@ -2518,7 +2526,7 @@ name|action
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks authorization for a given action for a group, based on the stored    * permissions.    */
+comment|/**    * Checks global authorization for a given action for a group, based on the stored    * permissions.    */
 specifier|public
 name|boolean
 name|authorizeGroup
@@ -2567,7 +2575,7 @@ name|Action
 name|action
 parameter_list|)
 block|{
-comment|// global authorization supercedes table level
+comment|// Global authorization supercedes table level
 if|if
 condition|(
 name|authorizeGroup
@@ -2594,6 +2602,37 @@ name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
 expr_stmt|;
+comment|// Namespace authorization supercedes table level
+if|if
+condition|(
+name|authorize
+argument_list|(
+name|getNamespacePermissions
+argument_list|(
+name|table
+operator|.
+name|getNamespaceAsString
+argument_list|()
+argument_list|)
+operator|.
+name|getGroup
+argument_list|(
+name|groupName
+argument_list|)
+argument_list|,
+name|table
+argument_list|,
+name|family
+argument_list|,
+name|action
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+comment|// Check table level
 return|return
 name|authorize
 argument_list|(
@@ -2644,9 +2683,6 @@ condition|(
 name|authorizeUser
 argument_list|(
 name|user
-operator|.
-name|getShortName
-argument_list|()
 argument_list|,
 name|table
 argument_list|,
