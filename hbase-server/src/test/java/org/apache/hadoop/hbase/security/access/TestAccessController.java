@@ -2740,11 +2740,26 @@ block|}
 block|}
 else|else
 block|{
-comment|// For doBulkLoad calls AccessDeniedException
-comment|// is buried in the stack trace
+comment|// AccessDeniedException can be buried in the stack trace
 name|Throwable
 name|ex
 init|=
+operator|(
+name|e
+operator|instanceof
+name|UndeclaredThrowableException
+operator|)
+condition|?
+operator|(
+operator|(
+name|UndeclaredThrowableException
+operator|)
+name|e
+operator|)
+operator|.
+name|getUndeclaredThrowable
+argument_list|()
+else|:
 name|e
 decl_stmt|;
 do|do
