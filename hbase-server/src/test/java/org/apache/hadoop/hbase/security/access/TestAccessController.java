@@ -15683,13 +15683,6 @@ block|}
 block|}
 decl_stmt|;
 comment|// Verify that EXEC permission is checked correctly
-name|verifyDenied
-argument_list|(
-name|execEndpointAction
-argument_list|,
-name|userB
-argument_list|)
-expr_stmt|;
 name|verifyAllowed
 argument_list|(
 name|execEndpointAction
@@ -15697,6 +15690,8 @@ argument_list|,
 name|userA
 argument_list|)
 expr_stmt|;
+comment|// See HBASE-10238
+comment|// verifyDenied(execEndpointAction, userB);
 comment|// Now grant EXEC to the entire namespace to user B
 name|acl
 operator|=
