@@ -11517,7 +11517,7 @@ case|:
 name|matches
 operator|=
 name|compareResult
-operator|<=
+operator|<
 literal|0
 expr_stmt|;
 break|break;
@@ -11527,7 +11527,7 @@ case|:
 name|matches
 operator|=
 name|compareResult
-operator|<
+operator|<=
 literal|0
 expr_stmt|;
 break|break;
@@ -11557,7 +11557,7 @@ case|:
 name|matches
 operator|=
 name|compareResult
-operator|>
+operator|>=
 literal|0
 expr_stmt|;
 break|break;
@@ -11567,7 +11567,7 @@ case|:
 name|matches
 operator|=
 name|compareResult
-operator|>=
+operator|>
 literal|0
 expr_stmt|;
 break|break;
