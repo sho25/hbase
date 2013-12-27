@@ -311,6 +311,8 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|mergeRegions
@@ -328,6 +330,26 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Merge failed, might be caused by other chaos: "
+operator|+
+name|ex
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|sleepTime
