@@ -1398,7 +1398,9 @@ name|class
 argument_list|,
 literal|"filterScan"
 argument_list|,
-literal|"Run scan test using a filter to find a specific row based on it's value (make sure to use --rows=20)"
+literal|"Run scan test using a filter to find a specific row based on it's value "
+operator|+
+literal|"(make sure to use --rows=20)"
 argument_list|)
 expr_stmt|;
 block|}

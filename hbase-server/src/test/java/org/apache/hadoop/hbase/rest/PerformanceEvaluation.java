@@ -1425,7 +1425,9 @@ name|class
 argument_list|,
 literal|"filterScan"
 argument_list|,
-literal|"Run scan test using a filter to find a specific row based on it's value (make sure to use --rows=20)"
+literal|"Run scan test using a filter to find a specific row based "
+operator|+
+literal|"on it's value (make sure to use --rows=20)"
 argument_list|)
 expr_stmt|;
 block|}
@@ -7537,7 +7539,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  [--compress=TYPE] [--blockEncoding=TYPE] [-D<property=value>]*<command><nclients>"
+literal|"  [--compress=TYPE] [--blockEncoding=TYPE] "
+operator|+
+literal|"[-D<property=value>]*<command><nclients>"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7600,7 +7604,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" flushCommits    Used to determine if the test should flush the table.  Default: false"
+literal|" flushCommits    Used to determine if the test should flush the table. "
+operator|+
+literal|"Default: false"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7618,18 +7624,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" presplit        Create presplit table. Recommended for accurate perf analysis (see guide).  Default: disabled"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" inmemory        Tries to keep the HFiles of the CF inmemory as far as possible.  Not "
+literal|" presplit        Create presplit table. Recommended for accurate perf "
 operator|+
-literal|"guaranteed that reads are always served from inmemory.  Default: false"
+literal|"analysis (see guide).  Default: disabled"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7638,7 +7635,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" usetags         Writes tags along with KVs.  Use with HFile V3.  Default : false"
+literal|" inmemory        Tries to keep the HFiles of the CF inmemory as far as "
+operator|+
+literal|"possible.  Not guaranteed that reads are always served from inmemory.  Default: false"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7647,7 +7646,20 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" numoftags        Specify the no of tags that would be needed.  This works only if usetags is true."
+literal|" usetags         Writes tags along with KVs.  Use with HFile V3. "
+operator|+
+literal|"Default : false"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" numoftags        Specify the no of tags that would be needed. "
+operator|+
+literal|"This works only if usetags is true."
 argument_list|)
 expr_stmt|;
 name|System

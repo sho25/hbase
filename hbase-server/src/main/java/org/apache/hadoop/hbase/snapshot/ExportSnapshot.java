@@ -4301,7 +4301,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  -chuser USERNAME        Change the owner of the files to the specified one."
+literal|"  -chuser USERNAME        Change the owner of the files "
+operator|+
+literal|"to the specified one."
 argument_list|)
 expr_stmt|;
 name|System
@@ -4310,7 +4312,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  -chgroup GROUP          Change the group of the files to the specified one."
+literal|"  -chgroup GROUP          Change the group of the files to "
+operator|+
+literal|"the specified one."
 argument_list|)
 expr_stmt|;
 name|System
@@ -4319,7 +4323,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  -chmod MODE             Change the permission of the files to the specified one."
+literal|"  -chmod MODE             Change the permission of the files "
+operator|+
+literal|"to the specified one."
 argument_list|)
 expr_stmt|;
 name|System
@@ -4328,7 +4334,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  -mappers                Number of mappers to use during the copy (mapreduce.job.maps)."
+literal|"  -mappers                Number of mappers to use during the "
+operator|+
+literal|"copy (mapreduce.job.maps)."
 argument_list|)
 expr_stmt|;
 name|System

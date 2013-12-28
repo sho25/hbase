@@ -740,7 +740,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * TableSnapshotInputFormat allows a MapReduce job to run over a table snapshot. The job  * bypasses HBase servers, and directly accesses the underlying files (hfile, recovered edits,  * hlogs, etc) directly to provide maximum performance. The snapshot is not required to be  * restored to the live cluster or cloned. This also allows to run the mapreduce job from an  * online or offline hbase cluster. The snapshot files can be exported by using the  * {@link ExportSnapshot} tool, to a pure-hdfs cluster, and this InputFormat can be used to  * run the mapreduce job directly over the snapshot files. The snapshot should not be deleted  * while there are jobs reading from snapshot files.  *<p>  * Usage is similar to TableInputFormat, and  * {@link TableMapReduceUtil#initTableSnapshotMapperJob(String, Scan, Class, Class, Class, Job, boolean, Path)}  * can be used to configure the job.  *<pre>{@code  * Job job = new Job(conf);  * Scan scan = new Scan();  * TableMapReduceUtil.initTableSnapshotMapperJob(snapshotName,  *      scan, MyTableMapper.class, MyMapKeyOutput.class,  *      MyMapOutputValueWritable.class, job, true);  * }  *</pre>  *<p>  * Internally, this input format restores the snapshot into the given tmp directory. Similar to  * {@link TableInputFormat} an InputSplit is created per region. The region is opened for reading  * from each RecordReader. An internal RegionScanner is used to execute the {@link Scan} obtained  * from the user.  *<p>  * HBase owns all the data and snapshot files on the filesystem. Only the HBase user can read from  * snapshot files and data files. HBase also enforces security because all the requests are handled  * by the server layer, and the user cannot read from the data files directly. To read from snapshot  * files directly from the file system, the user who is running the MR job must have sufficient  * permissions to access snapshot and reference files. This means that to run mapreduce over  * snapshot files, the MR job has to be run as the HBase user or the user must have group or other  * priviledges in the filesystem (See HBASE-8369). Note that, given other users access to read from  * snapshot/data files will completely circumvent the access control enforced by HBase.  * @see TableSnapshotScanner  */
+comment|/**  * TableSnapshotInputFormat allows a MapReduce job to run over a table snapshot. The job  * bypasses HBase servers, and directly accesses the underlying files (hfile, recovered edits,  * hlogs, etc) directly to provide maximum performance. The snapshot is not required to be  * restored to the live cluster or cloned. This also allows to run the mapreduce job from an  * online or offline hbase cluster. The snapshot files can be exported by using the  * {@link ExportSnapshot} tool, to a pure-hdfs cluster, and this InputFormat can be used to  * run the mapreduce job directly over the snapshot files. The snapshot should not be deleted  * while there are jobs reading from snapshot files.  *<p>  * Usage is similar to TableInputFormat, and  * {@link TableMapReduceUtil#initTableSnapshotMapperJob(String, Scan, Class, Class, Class, Job,   *   boolean, Path)}  * can be used to configure the job.  *<pre>{@code  * Job job = new Job(conf);  * Scan scan = new Scan();  * TableMapReduceUtil.initTableSnapshotMapperJob(snapshotName,  *      scan, MyTableMapper.class, MyMapKeyOutput.class,  *      MyMapOutputValueWritable.class, job, true);  * }  *</pre>  *<p>  * Internally, this input format restores the snapshot into the given tmp directory. Similar to  * {@link TableInputFormat} an InputSplit is created per region. The region is opened for reading  * from each RecordReader. An internal RegionScanner is used to execute the {@link Scan} obtained  * from the user.  *<p>  * HBase owns all the data and snapshot files on the filesystem. Only the HBase user can read from  * snapshot files and data files. HBase also enforces security because all the requests are handled  * by the server layer, and the user cannot read from the data files directly.   * To read from snapshot files directly from the file system, the user who is running the MR job   * must have sufficient permissions to access snapshot and reference files.   * This means that to run mapreduce over snapshot files, the MR job has to be run as the HBase   * user or the user must have group or other priviledges in the filesystem (See HBASE-8369).   * Note that, given other users access to read from snapshot/data files will completely circumvent   * the access control enforced by HBase.  * @see TableSnapshotScanner  */
 end_comment
 
 begin_class
@@ -1391,6 +1391,8 @@ argument_list|(
 name|scanStr
 argument_list|)
 expr_stmt|;
+comment|// region is immutable, this should be fine,
+comment|// otherwise we have to set the thread read point
 name|scan
 operator|.
 name|setIsolationLevel
@@ -1400,8 +1402,6 @@ operator|.
 name|READ_UNCOMMITTED
 argument_list|)
 expr_stmt|;
-comment|// region is immutable, this should be fine,
-comment|// otherwise we have to set the thread read point
 name|scanner
 operator|=
 operator|new
@@ -1944,7 +1944,7 @@ return|return
 name|splits
 return|;
 block|}
-comment|/**    * This computes the locations to be passed from the InputSplit. MR/Yarn schedulers does not take    * weights into account, thus will treat every location passed from the input split as equal. We    * do not want to blindly pass all the locations, since we are creating one split per region, and    * the region's blocks are all distributed throughout the cluster unless favorite node assignment    * is used. On the expected stable case, only one location will contain most of the blocks as local.    * On the other hand, in favored node assignment, 3 nodes will contain highly local blocks. Here    * we are doing a simple heuristic, where we will pass all hosts which have at least 80%    * (hbase.tablesnapshotinputformat.locality.cutoff.multiplier) as much block locality as the top    * host with the best locality.    */
+comment|/**    * This computes the locations to be passed from the InputSplit. MR/Yarn schedulers does not take    * weights into account, thus will treat every location passed from the input split as equal. We    * do not want to blindly pass all the locations, since we are creating one split per region, and    * the region's blocks are all distributed throughout the cluster unless favorite node assignment    * is used. On the expected stable case, only one location will contain most of the blocks as     * local.    * On the other hand, in favored node assignment, 3 nodes will contain highly local blocks. Here    * we are doing a simple heuristic, where we will pass all hosts which have at least 80%    * (hbase.tablesnapshotinputformat.locality.cutoff.multiplier) as much block locality as the top    * host with the best locality.    */
 annotation|@
 name|VisibleForTesting
 name|List
