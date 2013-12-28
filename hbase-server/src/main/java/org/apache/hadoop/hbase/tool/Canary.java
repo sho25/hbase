@@ -2393,6 +2393,8 @@ parameter_list|)
 block|{
 return|return;
 block|}
+try|try
+block|{
 for|for
 control|(
 name|HRegionInfo
@@ -2448,6 +2450,15 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|/*    * For each column family of the region tries to get one row and outputs the latency, or the    * failure.    */
