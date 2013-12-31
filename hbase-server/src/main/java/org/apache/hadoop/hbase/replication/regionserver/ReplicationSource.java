@@ -2112,7 +2112,7 @@ block|}
 block|}
 name|metrics
 operator|.
-name|incrLogReadInByes
+name|incrLogReadInBytes
 argument_list|(
 name|this
 operator|.

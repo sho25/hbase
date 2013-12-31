@@ -545,7 +545,7 @@ block|}
 comment|/** increase the byte number read by source from log file */
 specifier|public
 name|void
-name|incrLogReadInByes
+name|incrLogReadInBytes
 parameter_list|(
 name|long
 name|readInBytes
