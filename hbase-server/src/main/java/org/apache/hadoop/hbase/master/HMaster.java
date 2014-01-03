@@ -6077,6 +6077,7 @@ name|getOnlineServers
 argument_list|()
 control|)
 block|{
+comment|// The isServerOnline check is opportunistic, correctness is handled inside
 if|if
 condition|(
 operator|!
@@ -6091,7 +6092,7 @@ argument_list|)
 operator|&&
 name|serverManager
 operator|.
-name|checkAlreadySameHostPortAndRecordNewServer
+name|checkAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
@@ -6105,9 +6106,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Registered server found up in zk but who has not yet "
-operator|+
-literal|"reported in: "
+literal|"Registered server found up in zk but who has not yet reported in: "
 operator|+
 name|sn
 argument_list|)

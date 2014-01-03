@@ -613,6 +613,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|ServiceException
@@ -715,7 +729,7 @@ decl_stmt|;
 comment|/** Map of registered servers to their current load */
 specifier|private
 specifier|final
-name|Map
+name|ConcurrentHashMap
 argument_list|<
 name|ServerName
 argument_list|,
@@ -1008,7 +1022,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|checkAlreadySameHostPortAndRecordNewServer
+name|checkAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
@@ -1203,14 +1217,17 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-operator|!
+literal|null
+operator|==
 name|this
 operator|.
 name|onlineServers
 operator|.
-name|containsKey
+name|replace
 argument_list|(
 name|sn
+argument_list|,
+name|sl
 argument_list|)
 condition|)
 block|{
@@ -1223,7 +1240,7 @@ comment|// that so we'll press on with whatever it gave us for ServerName.
 if|if
 condition|(
 operator|!
-name|checkAlreadySameHostPortAndRecordNewServer
+name|checkAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
@@ -1235,7 +1252,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"RegionServerReport ignored, could not record the sever: "
+literal|"RegionServerReport ignored, could not record the server: "
 operator|+
 name|sn
 argument_list|)
@@ -1243,20 +1260,6 @@ expr_stmt|;
 return|return;
 comment|// Not recorded, so no need to move on
 block|}
-block|}
-else|else
-block|{
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|put
-argument_list|(
-name|sn
-argument_list|,
-name|sl
-argument_list|)
-expr_stmt|;
 block|}
 name|updateLastFlushedSequenceIds
 argument_list|(
@@ -1268,7 +1271,7 @@ expr_stmt|;
 block|}
 comment|/**    * Check is a server of same host and port already exists,    * if not, or the existed one got a smaller start code, record it.    *    * @param sn the server to check and record    * @param sl the server load on the server    * @return true if the server is recorded, otherwise, false    */
 name|boolean
-name|checkAlreadySameHostPortAndRecordNewServer
+name|checkAndRecordNewServer
 parameter_list|(
 specifier|final
 name|ServerName
@@ -1282,20 +1285,29 @@ block|{
 name|ServerName
 name|existingServer
 init|=
-name|findServerWithSameHostnamePort
+literal|null
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|onlineServers
+init|)
+block|{
+name|existingServer
+operator|=
+name|findServerWithSameHostnamePortWithLock
 argument_list|(
 name|serverName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|existingServer
 operator|!=
 literal|null
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
+operator|(
 name|existingServer
 operator|.
 name|getStartcode
@@ -1305,6 +1317,7 @@ name|serverName
 operator|.
 name|getStartcode
 argument_list|()
+operator|)
 condition|)
 block|{
 name|LOG
@@ -1329,6 +1342,35 @@ return|return
 literal|false
 return|;
 block|}
+name|recordNewServerWithLock
+argument_list|(
+name|serverName
+argument_list|,
+name|sl
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Note that we assume that same ts means same server, and don't expire in that case.
+comment|//  TODO: ts can theoretically collide due to clock shifts, so this is a bit hacky.
+if|if
+condition|(
+name|existingServer
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|existingServer
+operator|.
+name|getStartcode
+argument_list|()
+operator|<
+name|serverName
+operator|.
+name|getStartcode
+argument_list|()
+operator|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1348,13 +1390,6 @@ name|existingServer
 argument_list|)
 expr_stmt|;
 block|}
-name|recordNewServer
-argument_list|(
-name|serverName
-argument_list|,
-name|sl
-argument_list|)
-expr_stmt|;
 return|return
 literal|true
 return|;
@@ -1588,10 +1623,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return ServerName with matching hostname and port.    */
+comment|/**    * Assumes onlineServers is locked.    * @return ServerName with matching hostname and port.    */
 specifier|private
 name|ServerName
-name|findServerWithSameHostnamePort
+name|findServerWithSameHostnamePortWithLock
 parameter_list|(
 specifier|final
 name|ServerName
@@ -1603,7 +1638,11 @@ control|(
 name|ServerName
 name|sn
 range|:
-name|getOnlineServersList
+name|this
+operator|.
+name|onlineServers
+operator|.
+name|keySet
 argument_list|()
 control|)
 block|{
@@ -1626,9 +1665,11 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Adds the onlineServers list.    * @param serverName The remote servers name.    * @param sl    */
+comment|/**    * Adds the onlineServers list. onlineServers should be locked.    * @param serverName The remote servers name.    * @param sl    * @return Server load from the removed server, if any.    */
+annotation|@
+name|VisibleForTesting
 name|void
-name|recordNewServer
+name|recordNewServerWithLock
 parameter_list|(
 specifier|final
 name|ServerName
@@ -1899,6 +1940,7 @@ operator|new
 name|StringBuilder
 argument_list|()
 decl_stmt|;
+comment|// It's ok here to not sync on onlineServers - merely logging
 for|for
 control|(
 name|ServerName
@@ -2028,31 +2070,6 @@ return|return;
 block|}
 if|if
 condition|(
-operator|!
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|containsKey
-argument_list|(
-name|serverName
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Expiration of "
-operator|+
-name|serverName
-operator|+
-literal|" but server not online"
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
 name|this
 operator|.
 name|deadservers
@@ -2077,6 +2094,36 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+synchronized|synchronized
+init|(
+name|onlineServers
+init|)
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|onlineServers
+operator|.
+name|containsKey
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Expiration of "
+operator|+
+name|serverName
+operator|+
+literal|" but server not online"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Remove the server from the known servers lists and update load info BUT
 comment|// add to deadservers first; do this so it'll show in dead servers list if
 comment|// not in online servers list.
@@ -2098,11 +2145,6 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|onlineServers
-init|)
-block|{
 name|onlineServers
 operator|.
 name|notifyAll

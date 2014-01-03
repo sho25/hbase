@@ -1232,7 +1232,7 @@ name|master
 operator|.
 name|serverManager
 operator|.
-name|recordNewServer
+name|recordNewServerWithLock
 argument_list|(
 name|deadServer
 argument_list|,

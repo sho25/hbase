@@ -2245,7 +2245,7 @@ expr_stmt|;
 comment|// Record a newer server in server manager at first
 name|serverManager
 operator|.
-name|recordNewServer
+name|recordNewServerWithLock
 argument_list|(
 name|newServer
 argument_list|,
