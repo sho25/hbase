@@ -1568,12 +1568,6 @@ argument_list|,
 name|keysToWrite
 argument_list|,
 name|WRITER_THREADS
-argument_list|,
-literal|false
-argument_list|,
-literal|0
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Now, do scans.
