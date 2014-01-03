@@ -497,7 +497,7 @@ return|;
 block|}
 specifier|public
 name|void
-name|setCompresssion
+name|setCompression
 parameter_list|(
 name|Compression
 operator|.
