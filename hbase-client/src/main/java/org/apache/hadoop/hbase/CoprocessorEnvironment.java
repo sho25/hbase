@@ -135,7 +135,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return an interface for accessing the given table using the passed executor to run batch    *         operations    * @throws IOException    */
-specifier|public
 name|HTableInterface
 name|getTable
 parameter_list|(
@@ -147,6 +146,11 @@ name|service
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return the classloader for the loaded coprocessor instance    */
+name|ClassLoader
+name|getClassLoader
+parameter_list|()
 function_decl|;
 block|}
 end_interface
