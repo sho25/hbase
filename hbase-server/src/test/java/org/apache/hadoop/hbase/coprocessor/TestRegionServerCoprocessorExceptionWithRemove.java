@@ -99,22 +99,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RetriesExhaustedWithDetailsException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Durability
 import|;
 end_import
@@ -309,6 +293,7 @@ literal|"observed_table"
 argument_list|)
 condition|)
 block|{
+comment|// Trigger a NPE to fail the coprocessor
 name|Integer
 name|i
 init|=
@@ -475,15 +460,8 @@ argument_list|(
 name|TEST_TABLE
 argument_list|)
 decl_stmt|;
-comment|// same logic as {@link TestMasterCoprocessorExceptionWithRemove},
-comment|// but exception will be RetriesExhaustedWithDetailException rather
-comment|// than DoNotRetryIOException. The latter exception is what the RegionServer
-comment|// will have actually thrown, but the client will wrap this in a
-comment|// RetriesExhaustedWithDetailException.
-comment|// We will verify that "DoNotRetryIOException" appears in the text of the
-comment|// the exception's detailMessage.
 name|boolean
-name|threwDNRE
+name|threwIOE
 init|=
 literal|false
 decl_stmt|;
@@ -528,31 +506,19 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// below, could call instead :
-comment|// startsWith("Failed 1 action: DoNotRetryIOException.")
-comment|// But that might be too brittle if client-side
-comment|// DoNotRetryIOException-handler changes its message.
-name|assertTrue
-argument_list|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"DoNotRetryIOException"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|threwDNRE
+name|threwIOE
 operator|=
 literal|true
 expr_stmt|;
@@ -561,11 +527,13 @@ finally|finally
 block|{
 name|assertTrue
 argument_list|(
-name|threwDNRE
+literal|"The regionserver should have thrown an exception"
+argument_list|,
+name|threwIOE
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Wait 3 seconds for the regionserver to abort: expected result is that
+comment|// Wait 10 seconds for the regionserver to abort: expected result is that
 comment|// it will survive and not abort.
 for|for
 control|(
@@ -576,7 +544,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|3
+literal|10
 condition|;
 name|i
 operator|++
