@@ -270,6 +270,13 @@ index|[]
 name|args
 parameter_list|)
 block|{
+name|super
+operator|.
+name|initialize
+argument_list|(
+name|args
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|args

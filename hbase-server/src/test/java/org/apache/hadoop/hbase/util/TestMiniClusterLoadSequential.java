@@ -105,9 +105,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|TableName
 import|;
 end_import
 
@@ -119,9 +119,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|TableName
+name|Configuration
 import|;
 end_import
 

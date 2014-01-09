@@ -131,6 +131,11 @@ operator|.
 name|getBytes
 argument_list|()
 decl_stmt|;
+specifier|protected
+name|String
+index|[]
+name|args
+decl_stmt|;
 specifier|public
 name|LoadTestDataGenerator
 parameter_list|()
@@ -159,7 +164,7 @@ name|maxValueSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * initialize the LoadTestDataGenerator    * @param args init args    */
+comment|/**    * initialize the LoadTestDataGenerator    *    * @param args    *          init args    */
 specifier|public
 name|void
 name|initialize
@@ -168,7 +173,14 @@ name|String
 index|[]
 name|args
 parameter_list|)
-block|{    }
+block|{
+name|this
+operator|.
+name|args
+operator|=
+name|args
+expr_stmt|;
+block|}
 comment|/**    * Generates a deterministic, unique hashed row key from a number. That way, the user can    * keep track of numbers, without messing with byte array and ensuring key distribution.    * @param keyBase Base number for a key, such as a loop counter.    */
 specifier|public
 specifier|abstract
@@ -305,6 +317,19 @@ name|IOException
 block|{
 return|return
 name|get
+return|;
+block|}
+comment|/**    * Return the arguments passed to the generator as list of object    * @return    */
+specifier|public
+name|String
+index|[]
+name|getArgs
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|args
 return|;
 block|}
 block|}
