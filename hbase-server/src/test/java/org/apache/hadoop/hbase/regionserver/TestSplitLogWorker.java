@@ -447,6 +447,14 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|int
+name|WAIT_TIME
+init|=
+literal|15000
+decl_stmt|;
+specifier|private
 specifier|final
 name|ServerName
 name|MANAGER
@@ -946,6 +954,11 @@ block|}
 decl_stmt|;
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testAcquireTaskAtStartup
@@ -1066,7 +1079,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|byte
@@ -1148,7 +1161,7 @@ name|worker
 operator|.
 name|join
 argument_list|(
-literal|3000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 if|if
@@ -1177,6 +1190,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testRaceForTask
@@ -1334,7 +1352,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// Assert that either the tot_wkr_failed_to_grab_task_owned count was set of if
@@ -1351,7 +1369,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|,
 literal|false
 argument_list|)
@@ -1430,6 +1448,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testPreemptTask
@@ -1529,7 +1552,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// this time create a task node after starting the splitLogWorker
@@ -1572,7 +1595,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|8000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1651,7 +1674,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 block|}
@@ -1666,6 +1689,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testMultipleTasks
@@ -1765,7 +1793,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|SplitLogTask
@@ -1812,7 +1840,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// now the worker is busy doing the above task
@@ -1900,7 +1928,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|waitForCounter
@@ -1913,7 +1941,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|5000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1969,6 +1997,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testRescan
@@ -2098,7 +2131,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// now the worker is busy doing the above task
@@ -2127,7 +2160,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// create a RESCAN node
@@ -2178,7 +2211,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 comment|// RESCAN node might not have been processed if the worker became busy
@@ -2208,7 +2241,7 @@ literal|1
 argument_list|,
 literal|2
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|waitForCounter
@@ -2221,7 +2254,7 @@ literal|0
 argument_list|,
 literal|1
 argument_list|,
-literal|1500
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 name|List
@@ -2354,6 +2387,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testAcquireMultiTasks
@@ -2517,7 +2555,7 @@ literal|0
 argument_list|,
 name|maxTasks
 argument_list|,
-literal|6000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 for|for
@@ -2591,6 +2629,11 @@ block|}
 comment|/**    * The test checks SplitLogWorker should not spawn more splitters than expected num of tasks per    * RS    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testAcquireMultiTasksByAvgTasksPerRS
@@ -2844,7 +2887,7 @@ literal|0
 argument_list|,
 literal|2
 argument_list|,
-literal|6000
+name|WAIT_TIME
 argument_list|)
 expr_stmt|;
 for|for
