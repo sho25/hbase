@@ -511,6 +511,19 @@ operator|.
 name|flushCommits
 argument_list|()
 expr_stmt|;
+comment|// We may need two puts to reliably get an exception
+name|table
+operator|.
+name|put
+argument_list|(
+name|put
+argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
