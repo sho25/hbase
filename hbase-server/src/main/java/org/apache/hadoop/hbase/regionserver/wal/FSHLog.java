@@ -5418,31 +5418,90 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|writer
+operator|==
+literal|null
+condition|)
+block|{
+comment|// the only possible case where writer == null is as below:
+comment|// 1. t1: AsyncWriter append writes to hdfs,
+comment|//        envokes AsyncSyncer 1 with writtenTxid==100
+comment|// 2. t2: AsyncWriter append writes to hdfs,
+comment|//        envokes AsyncSyncer 2 with writtenTxid==200
+comment|// 3. t3: rollWriter starts, it grabs the updateLock which
+comment|//        prevents further writes entering pendingWrites and
+comment|//        wait for all items(200) in pendingWrites to append/sync
+comment|//        to hdfs
+comment|// 4. t4: AsyncSyncer 2 finishes, now syncedTillHere==200
+comment|// 5. t5: rollWriter close writer, set writer=null...
+comment|// 6. t6: AsyncSyncer 1 starts to use writer to do sync... before
+comment|//        rollWriter set writer to the newly created Writer
+comment|//
+comment|// So when writer == null here:
+comment|// 1. if txidToSync<= syncedTillHere, can safely ignore sync here;
+comment|// 2. if txidToSync> syncedTillHere, we need fail all the writes with
+comment|//    txid<= txidToSync to avoid 'data loss' where user get successful
+comment|//    write response but can't read the writes!
+if|if
+condition|(
+name|this
+operator|.
+name|txidToSync
+operator|>
+name|syncedTillHere
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"should never happen: has unsynced writes but writer is null!"
+argument_list|)
+expr_stmt|;
+name|asyncIOE
+operator|=
+operator|new
+name|IOException
+argument_list|(
+literal|"has unsynced writes but writer is null!"
+argument_list|)
+expr_stmt|;
+name|failedTxid
+operator|.
+name|set
+argument_list|(
+name|this
+operator|.
+name|txidToSync
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
 name|this
 operator|.
 name|isSyncing
 operator|=
 literal|true
 expr_stmt|;
-if|if
-condition|(
-name|writer
-operator|!=
-literal|null
-condition|)
-block|{
 name|writer
 operator|.
 name|sync
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|isSyncing
 operator|=
 literal|false
 expr_stmt|;
+block|}
 name|postSync
 argument_list|()
 expr_stmt|;
@@ -5477,6 +5536,12 @@ name|this
 operator|.
 name|txidToSync
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|isSyncing
+operator|=
+literal|false
 expr_stmt|;
 block|}
 name|metrics
