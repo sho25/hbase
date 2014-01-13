@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell.  Uses ints  * delimiting all lengths. Profligate. Needs tune up.  * Note: This will not write tags of a Cell.  */
+comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell including the tags.  * Uses ints delimiting all lengths. Profligate. Needs tune up.  */
 end_comment
 
 begin_class
@@ -130,7 +130,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|CellCodec
+name|CellCodecV2
 implements|implements
 name|Codec
 block|{
@@ -275,6 +275,25 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Tags
+name|write
+argument_list|(
+name|cell
+operator|.
+name|getTagsArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getTagsOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// MvccVersion
 name|this
 operator|.
@@ -294,7 +313,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Write int length followed by array bytes.      * @param bytes      * @param offset      * @param length      * @throws IOException      */
+comment|/**      * Write int length followed by array bytes.      *       * @param bytes      * @param offset      * @param length      * @throws IOException      */
 specifier|private
 name|void
 name|write
@@ -455,6 +474,15 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+name|byte
+index|[]
+name|tags
+init|=
+name|readByteArray
+argument_list|(
+name|in
+argument_list|)
+decl_stmt|;
 comment|// Read memstore version
 name|byte
 index|[]
@@ -505,6 +533,8 @@ argument_list|,
 name|type
 argument_list|,
 name|value
+argument_list|,
+name|tags
 argument_list|,
 name|memstoreTS
 argument_list|)
