@@ -720,7 +720,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 name|long
-name|lastDeferredTxid
+name|lastUnSyncedTxid
 decl_stmt|;
 specifier|private
 specifier|final
@@ -3466,7 +3466,7 @@ operator|<=
 name|closeErrorsTolerated
 operator|&&
 operator|!
-name|hasDeferredEntries
+name|hasUnSyncedEntries
 argument_list|()
 condition|)
 block|{
@@ -3484,7 +3484,7 @@ else|else
 block|{
 if|if
 condition|(
-name|hasDeferredEntries
+name|hasUnSyncedEntries
 argument_list|()
 condition|)
 block|{
@@ -4713,11 +4713,11 @@ if|if
 condition|(
 name|htd
 operator|.
-name|isDeferredLogFlush
+name|isAsyncLogFlush
 argument_list|()
 condition|)
 block|{
-name|lastDeferredTxid
+name|lastUnSyncedTxid
 operator|=
 name|txid
 expr_stmt|;
@@ -4751,7 +4751,7 @@ operator|||
 operator|!
 name|htd
 operator|.
-name|isDeferredLogFlush
+name|isAsyncLogFlush
 argument_list|()
 operator|)
 condition|)
@@ -7380,13 +7380,13 @@ end_comment
 
 begin_function
 name|boolean
-name|hasDeferredEntries
+name|hasUnSyncedEntries
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|lastDeferredTxid
+name|lastUnSyncedTxid
 operator|>
 name|this
 operator|.

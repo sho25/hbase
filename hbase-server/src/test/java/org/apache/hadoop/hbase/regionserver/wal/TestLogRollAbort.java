@@ -640,21 +640,6 @@ argument_list|,
 literal|10
 argument_list|)
 expr_stmt|;
-comment|// set periodic sync to 2 min so it doesn't run during test
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.optionallogflushinterval"
-argument_list|,
-literal|120
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Before
@@ -790,7 +775,7 @@ argument_list|)
 expr_stmt|;
 name|desc
 operator|.
-name|setDeferredLogFlush
+name|setAsyncLogFlush
 argument_list|(
 literal|true
 argument_list|)
@@ -1001,7 +986,7 @@ operator|)
 name|log
 operator|)
 operator|.
-name|hasDeferredEntries
+name|hasUnSyncedEntries
 argument_list|()
 argument_list|)
 expr_stmt|;

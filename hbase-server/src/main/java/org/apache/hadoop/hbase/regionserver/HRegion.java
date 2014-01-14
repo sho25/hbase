@@ -2667,11 +2667,6 @@ name|metricsRegionWrapper
 decl_stmt|;
 specifier|private
 specifier|final
-name|boolean
-name|deferredLogSyncDisabled
-decl_stmt|;
-specifier|private
-specifier|final
 name|Durability
 name|durability
 decl_stmt|;
@@ -3064,24 +3059,6 @@ literal|"hbase.hregion.row.processor.timeout"
 argument_list|,
 name|DEFAULT_ROW_PROCESSOR_TIMEOUT
 argument_list|)
-expr_stmt|;
-comment|// When hbase.regionserver.optionallogflushinterval<= 0 , deferred log sync is disabled.
-name|this
-operator|.
-name|deferredLogSyncDisabled
-operator|=
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.regionserver.optionallogflushinterval"
-argument_list|,
-literal|1
-operator|*
-literal|1000
-argument_list|)
-operator|<=
-literal|0
 expr_stmt|;
 name|this
 operator|.
@@ -23808,7 +23785,7 @@ operator|.
 name|SIZEOF_LONG
 operator|)
 operator|+
-literal|5
+literal|4
 operator|*
 name|Bytes
 operator|.
@@ -25687,24 +25664,7 @@ break|break;
 case|case
 name|ASYNC_WAL
 case|:
-comment|// defer the sync, unless we globally can't
-if|if
-condition|(
-name|this
-operator|.
-name|deferredLogSyncDisabled
-condition|)
-block|{
-name|this
-operator|.
-name|log
-operator|.
-name|sync
-argument_list|(
-name|txid
-argument_list|)
-expr_stmt|;
-block|}
+comment|// nothing do to
 break|break;
 case|case
 name|SYNC_WAL
@@ -25733,10 +25693,6 @@ name|shouldSyncLog
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|deferredLogSyncDisabled
-operator|||
 name|durability
 operator|.
 name|ordinal

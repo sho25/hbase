@@ -26476,18 +26476,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// expected cases for async wal
-comment|// do not sync for deferred flush with large optionallogflushinterval
-name|conf
-operator|.
-name|setLong
-argument_list|(
-literal|"hbase.regionserver.optionallogflushinterval"
-argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|)
-expr_stmt|;
 name|durabilityTest
 argument_list|(
 name|method
@@ -26612,16 +26600,6 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
-argument_list|)
-expr_stmt|;
-comment|// now small deferred log flush optionallogflushinterval, expect sync
-name|conf
-operator|.
-name|setLong
-argument_list|(
-literal|"hbase.regionserver.optionallogflushinterval"
-argument_list|,
-literal|5
 argument_list|)
 expr_stmt|;
 name|durabilityTest
