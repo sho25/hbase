@@ -18948,6 +18948,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Move the files from the temporary .splits to the final /table/region directory
+name|fs
+operator|.
+name|commitDaughterRegion
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+comment|// Create the daughter HRegion instance
 name|HRegion
 name|r
 init|=
@@ -19013,13 +19022,6 @@ name|getWriteRequestsCount
 argument_list|()
 operator|/
 literal|2
-argument_list|)
-expr_stmt|;
-name|fs
-operator|.
-name|commitDaughterRegion
-argument_list|(
-name|hri
 argument_list|)
 expr_stmt|;
 return|return
