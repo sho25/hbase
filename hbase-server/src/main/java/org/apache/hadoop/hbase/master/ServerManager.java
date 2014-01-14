@@ -1856,6 +1856,13 @@ name|getOnlineServers
 parameter_list|()
 block|{
 comment|// Presumption is that iterating the returned Map is OK.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|onlineServers
+init|)
+block|{
 return|return
 name|Collections
 operator|.
@@ -1866,6 +1873,7 @@ operator|.
 name|onlineServers
 argument_list|)
 return|;
+block|}
 block|}
 specifier|public
 name|DeadServer
