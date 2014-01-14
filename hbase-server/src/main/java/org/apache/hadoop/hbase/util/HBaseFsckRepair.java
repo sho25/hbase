@@ -707,6 +707,8 @@ name|closeRegion
 argument_list|(
 name|rs
 argument_list|,
+name|server
+argument_list|,
 name|region
 operator|.
 name|getRegionName

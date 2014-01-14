@@ -26,8 +26,6 @@ specifier|public
 specifier|final
 class|class
 name|ZeroCopyLiteralByteString
-extends|extends
-name|LiteralByteString
 block|{
 comment|// Gotten from AsyncHBase code base with permission.
 comment|/** Private constructor so this class cannot be instantiated. */
@@ -35,11 +33,6 @@ specifier|private
 name|ZeroCopyLiteralByteString
 parameter_list|()
 block|{
-name|super
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
 throw|throw
 operator|new
 name|UnsupportedOperationException

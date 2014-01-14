@@ -22590,6 +22590,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional uint64 serverStartCode = 2;
+comment|/**      *<code>optional uint64 serverStartCode = 2;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 serverStartCode = 2;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+name|long
+name|getServerStartCode
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code OpenRegionRequest}    */
 specifier|public
@@ -22926,6 +22937,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|16
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000001
+expr_stmt|;
+name|serverStartCode_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -29248,6 +29276,10 @@ expr_stmt|;
 block|}
 comment|// @@protoc_insertion_point(class_scope:OpenRegionRequest.RegionOpenInfo)
 block|}
+specifier|private
+name|int
+name|bitField0_
+decl_stmt|;
 comment|// repeated .OpenRegionRequest.RegionOpenInfo open_info = 1;
 specifier|public
 specifier|static
@@ -29433,6 +29465,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional uint64 serverStartCode = 2;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SERVERSTARTCODE_FIELD_NUMBER
+init|=
+literal|2
+decl_stmt|;
+specifier|private
+name|long
+name|serverStartCode_
+decl_stmt|;
+comment|/**      *<code>optional uint64 serverStartCode = 2;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+specifier|public
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 serverStartCode = 2;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+specifier|public
+name|long
+name|getServerStartCode
+parameter_list|()
+block|{
+return|return
+name|serverStartCode_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -29448,6 +29521,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|serverStartCode_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -29581,6 +29658,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|2
+argument_list|,
+name|serverStartCode_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -29659,6 +29759,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000001
+operator|)
+operator|==
+literal|0x00000001
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|2
+argument_list|,
+name|serverStartCode_
 argument_list|)
 expr_stmt|;
 block|}
@@ -29837,6 +29968,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasServerStartCode
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasServerStartCode
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getServerStartCode
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getServerStartCode
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -29930,6 +30096,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|SERVERSTARTCODE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getServerStartCode
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -30797,6 +30994,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -31008,6 +31218,11 @@ name|from_bitField0_
 init|=
 name|bitField0_
 decl_stmt|;
+name|int
+name|to_bitField0_
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
 name|openInfoBuilder_
@@ -31070,6 +31285,36 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000001
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|serverStartCode_
+operator|=
+name|serverStartCode_
+expr_stmt|;
+name|result
+operator|.
+name|bitField0_
+operator|=
+name|to_bitField0_
+expr_stmt|;
 name|onBuilt
 argument_list|()
 expr_stmt|;
@@ -31336,6 +31581,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|setServerStartCode
+argument_list|(
+name|other
+operator|.
+name|getServerStartCode
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -32907,6 +33169,89 @@ expr_stmt|;
 block|}
 return|return
 name|openInfoBuilder_
+return|;
+block|}
+comment|// optional uint64 serverStartCode = 2;
+specifier|private
+name|long
+name|serverStartCode_
+decl_stmt|;
+comment|/**        *<code>optional uint64 serverStartCode = 2;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000002
+operator|)
+operator|==
+literal|0x00000002
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 2;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|long
+name|getServerStartCode
+parameter_list|()
+block|{
+return|return
+name|serverStartCode_
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 2;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|Builder
+name|setServerStartCode
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000002
+expr_stmt|;
+name|serverStartCode_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 2;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|Builder
+name|clearServerStartCode
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000002
+operator|)
+expr_stmt|;
+name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:OpenRegionRequest)
@@ -36773,6 +37118,17 @@ name|ServerNameOrBuilder
 name|getDestinationServerOrBuilder
 parameter_list|()
 function_decl|;
+comment|// optional uint64 serverStartCode = 5;
+comment|/**      *<code>optional uint64 serverStartCode = 5;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 serverStartCode = 5;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+name|long
+name|getServerStartCode
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code CloseRegionRequest}    *    *<pre>    **    * Closes the specified region and will use or not use ZK during the close    * according to the specified flag.    *</pre>    */
 specifier|public
@@ -37259,6 +37615,23 @@ block|}
 name|bitField0_
 operator||=
 literal|0x00000008
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|40
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|serverStartCode_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -37805,6 +38178,47 @@ return|return
 name|destinationServer_
 return|;
 block|}
+comment|// optional uint64 serverStartCode = 5;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SERVERSTARTCODE_FIELD_NUMBER
+init|=
+literal|5
+decl_stmt|;
+specifier|private
+name|long
+name|serverStartCode_
+decl_stmt|;
+comment|/**      *<code>optional uint64 serverStartCode = 5;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+specifier|public
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 serverStartCode = 5;</code>      *      *<pre>      * the intended server for this RPC.      *</pre>      */
+specifier|public
+name|long
+name|getServerStartCode
+parameter_list|()
+block|{
+return|return
+name|serverStartCode_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -37859,6 +38273,10 @@ name|ServerName
 operator|.
 name|getDefaultInstance
 argument_list|()
+expr_stmt|;
+name|serverStartCode_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -38072,6 +38490,29 @@ name|destinationServer_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|5
+argument_list|,
+name|serverStartCode_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -38233,6 +38674,37 @@ argument_list|(
 literal|4
 argument_list|,
 name|destinationServer_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|5
+argument_list|,
+name|serverStartCode_
 argument_list|)
 expr_stmt|;
 block|}
@@ -38538,6 +39010,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasServerStartCode
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasServerStartCode
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getServerStartCode
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getServerStartCode
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -38719,6 +39226,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|SERVERSTARTCODE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getServerStartCode
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -39671,6 +40209,19 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
+name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -40023,6 +40574,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|serverStartCode_
+operator|=
+name|serverStartCode_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -40221,6 +40796,23 @@ argument_list|(
 name|other
 operator|.
 name|getDestinationServer
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasServerStartCode
+argument_list|()
+condition|)
+block|{
+name|setServerStartCode
+argument_list|(
+name|other
+operator|.
+name|getServerStartCode
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -41993,6 +42585,89 @@ expr_stmt|;
 block|}
 return|return
 name|destinationServerBuilder_
+return|;
+block|}
+comment|// optional uint64 serverStartCode = 5;
+specifier|private
+name|long
+name|serverStartCode_
+decl_stmt|;
+comment|/**        *<code>optional uint64 serverStartCode = 5;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|boolean
+name|hasServerStartCode
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 5;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|long
+name|getServerStartCode
+parameter_list|()
+block|{
+return|return
+name|serverStartCode_
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 5;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|Builder
+name|setServerStartCode
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|serverStartCode_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 serverStartCode = 5;</code>        *        *<pre>        * the intended server for this RPC.        *</pre>        */
+specifier|public
+name|Builder
+name|clearServerStartCode
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000010
+operator|)
+expr_stmt|;
+name|serverStartCode_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:CloseRegionRequest)
@@ -126529,145 +127204,147 @@ literal|"nlineRegionRequest\";\n\027GetOnlineRegionRes"
 operator|+
 literal|"ponse\022 \n\013region_info\030\001 \003(\0132\013.RegionInfo\""
 operator|+
-literal|"\275\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
+literal|"\326\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
 operator|+
-literal|"2!.OpenRegionRequest.RegionOpenInfo\032r\n\016R"
+literal|"2!.OpenRegionRequest.RegionOpenInfo\022\027\n\017s"
 operator|+
-literal|"egionOpenInfo\022\033\n\006region\030\001 \002(\0132\013.RegionIn"
+literal|"erverStartCode\030\002 \001(\004\032r\n\016RegionOpenInfo\022\033"
 operator|+
-literal|"fo\022\037\n\027version_of_offline_node\030\002 \001(\r\022\"\n\rf"
+literal|"\n\006region\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_o"
 operator|+
-literal|"avored_nodes\030\003 \003(\0132\013.ServerName\"\235\001\n\022Open"
+literal|"f_offline_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 "
 operator|+
-literal|"RegionResponse\022=\n\ropening_state\030\001 \003(\0162&."
+literal|"\003(\0132\013.ServerName\"\235\001\n\022OpenRegionResponse\022"
 block|,
-literal|"OpenRegionResponse.RegionOpeningState\"H\n"
+literal|"=\n\ropening_state\030\001 \003(\0162&.OpenRegionRespo"
 operator|+
-literal|"\022RegionOpeningState\022\n\n\006OPENED\020\000\022\022\n\016ALREA"
+literal|"nse.RegionOpeningState\"H\n\022RegionOpeningS"
 operator|+
-literal|"DY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002\"\240\001\n\022Clos"
+literal|"tate\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016"
 operator|+
-literal|"eRegionRequest\022 \n\006region\030\001 \002(\0132\020.RegionS"
+literal|"FAILED_OPENING\020\002\"\271\001\n\022CloseRegionRequest\022"
 operator|+
-literal|"pecifier\022\037\n\027version_of_closing_node\030\002 \001("
+literal|" \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027ver"
 operator|+
-literal|"\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004true\022\'\n\022des"
+literal|"sion_of_closing_node\030\002 \001(\r\022\036\n\020transition"
 operator|+
-literal|"tination_server\030\004 \001(\0132\013.ServerName\"%\n\023Cl"
+literal|"_in_ZK\030\003 \001(\010:\004true\022\'\n\022destination_server"
 operator|+
-literal|"oseRegionResponse\022\016\n\006closed\030\001 \002(\010\"P\n\022Flu"
+literal|"\030\004 \001(\0132\013.ServerName\022\027\n\017serverStartCode\030\005"
 operator|+
-literal|"shRegionRequest\022 \n\006region\030\001 \002(\0132\020.Region"
+literal|" \001(\004\"%\n\023CloseRegionResponse\022\016\n\006closed\030\001 "
 operator|+
-literal|"Specifier\022\030\n\020if_older_than_ts\030\002 \001(\004\"?\n\023F"
+literal|"\002(\010\"P\n\022FlushRegionRequest\022 \n\006region\030\001 \002("
 block|,
-literal|"lushRegionResponse\022\027\n\017last_flush_time\030\001 "
+literal|"\0132\020.RegionSpecifier\022\030\n\020if_older_than_ts\030"
 operator|+
-literal|"\002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitRegionReque"
+literal|"\002 \001(\004\"?\n\023FlushRegionResponse\022\027\n\017last_flu"
 operator|+
-literal|"st\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\023\n\013"
+literal|"sh_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitR"
 operator|+
-literal|"split_point\030\002 \001(\014\"\025\n\023SplitRegionResponse"
+literal|"egionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
 operator|+
-literal|"\"W\n\024CompactRegionRequest\022 \n\006region\030\001 \002(\013"
+literal|"cifier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023SplitRegi"
 operator|+
-literal|"2\020.RegionSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006fam"
+literal|"onResponse\"W\n\024CompactRegionRequest\022 \n\006re"
 operator|+
-literal|"ily\030\003 \001(\014\"\027\n\025CompactRegionResponse\"\262\001\n\031U"
+literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005major\030\002 "
 operator|+
-literal|"pdateFavoredNodesRequest\022@\n\013update_info\030"
+literal|"\001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRegionResp"
 operator|+
-literal|"\001 \003(\0132+.UpdateFavoredNodesRequest.Region"
+literal|"onse\"\262\001\n\031UpdateFavoredNodesRequest\022@\n\013up"
 operator|+
-literal|"UpdateInfo\032S\n\020RegionUpdateInfo\022\033\n\006region"
+literal|"date_info\030\001 \003(\0132+.UpdateFavoredNodesRequ"
 block|,
-literal|"\030\001 \002(\0132\013.RegionInfo\022\"\n\rfavored_nodes\030\002 \003"
+literal|"est.RegionUpdateInfo\032S\n\020RegionUpdateInfo"
 operator|+
-literal|"(\0132\013.ServerName\".\n\032UpdateFavoredNodesRes"
+literal|"\022\033\n\006region\030\001 \002(\0132\013.RegionInfo\022\"\n\rfavored"
 operator|+
-literal|"ponse\022\020\n\010response\030\001 \001(\r\"v\n\023MergeRegionsR"
+literal|"_nodes\030\002 \003(\0132\013.ServerName\".\n\032UpdateFavor"
 operator|+
-literal|"equest\022\"\n\010region_a\030\001 \002(\0132\020.RegionSpecifi"
+literal|"edNodesResponse\022\020\n\010response\030\001 \001(\r\"v\n\023Mer"
 operator|+
-literal|"er\022\"\n\010region_b\030\002 \002(\0132\020.RegionSpecifier\022\027"
+literal|"geRegionsRequest\022\"\n\010region_a\030\001 \002(\0132\020.Reg"
 operator|+
-literal|"\n\010forcible\030\003 \001(\010:\005false\"\026\n\024MergeRegionsR"
+literal|"ionSpecifier\022\"\n\010region_b\030\002 \002(\0132\020.RegionS"
 operator|+
-literal|"esponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002(\0132\007.WALKe"
+literal|"pecifier\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024Mer"
 operator|+
-literal|"y\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025associated"
+literal|"geRegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002"
 operator|+
-literal|"_cell_count\030\003 \001(\005\"4\n\030ReplicateWALEntryRe"
+literal|"(\0132\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025"
 operator|+
-literal|"quest\022\030\n\005entry\030\001 \003(\0132\t.WALEntry\"\033\n\031Repli"
+literal|"associated_cell_count\030\003 \001(\005\"4\n\030Replicate"
 block|,
-literal|"cateWALEntryResponse\"\026\n\024RollWALWriterReq"
+literal|"WALEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEntr"
 operator|+
-literal|"uest\"0\n\025RollWALWriterResponse\022\027\n\017region_"
+literal|"y\"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollWA"
 operator|+
-literal|"to_flush\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006r"
+literal|"LWriterRequest\"0\n\025RollWALWriterResponse\022"
 operator|+
-literal|"eason\030\001 \002(\t\"\024\n\022StopServerResponse\"\026\n\024Get"
+literal|"\027\n\017region_to_flush\030\001 \003(\014\"#\n\021StopServerRe"
 operator|+
-literal|"ServerInfoRequest\"B\n\nServerInfo\022 \n\013serve"
+literal|"quest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRespo"
 operator|+
-literal|"r_name\030\001 \002(\0132\013.ServerName\022\022\n\nwebui_port\030"
+literal|"nse\"\026\n\024GetServerInfoRequest\"B\n\nServerInf"
 operator|+
-literal|"\002 \001(\r\"9\n\025GetServerInfoResponse\022 \n\013server"
+literal|"o\022 \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\nw"
 operator|+
-literal|"_info\030\001 \002(\0132\013.ServerInfo2\306\007\n\014AdminServic"
+literal|"ebui_port\030\002 \001(\r\"9\n\025GetServerInfoResponse"
 operator|+
-literal|"e\022>\n\rGetRegionInfo\022\025.GetRegionInfoReques"
+literal|"\022 \n\013server_info\030\001 \002(\0132\013.ServerInfo2\306\007\n\014A"
 operator|+
-literal|"t\032\026.GetRegionInfoResponse\022;\n\014GetStoreFil"
+literal|"dminService\022>\n\rGetRegionInfo\022\025.GetRegion"
 block|,
-literal|"e\022\024.GetStoreFileRequest\032\025.GetStoreFileRe"
+literal|"InfoRequest\032\026.GetRegionInfoResponse\022;\n\014G"
 operator|+
-literal|"sponse\022D\n\017GetOnlineRegion\022\027.GetOnlineReg"
+literal|"etStoreFile\022\024.GetStoreFileRequest\032\025.GetS"
 operator|+
-literal|"ionRequest\032\030.GetOnlineRegionResponse\0225\n\n"
+literal|"toreFileResponse\022D\n\017GetOnlineRegion\022\027.Ge"
 operator|+
-literal|"OpenRegion\022\022.OpenRegionRequest\032\023.OpenReg"
+literal|"tOnlineRegionRequest\032\030.GetOnlineRegionRe"
 operator|+
-literal|"ionResponse\0228\n\013CloseRegion\022\023.CloseRegion"
+literal|"sponse\0225\n\nOpenRegion\022\022.OpenRegionRequest"
 operator|+
-literal|"Request\032\024.CloseRegionResponse\0228\n\013FlushRe"
+literal|"\032\023.OpenRegionResponse\0228\n\013CloseRegion\022\023.C"
 operator|+
-literal|"gion\022\023.FlushRegionRequest\032\024.FlushRegionR"
+literal|"loseRegionRequest\032\024.CloseRegionResponse\022"
 operator|+
-literal|"esponse\0228\n\013SplitRegion\022\023.SplitRegionRequ"
+literal|"8\n\013FlushRegion\022\023.FlushRegionRequest\032\024.Fl"
 operator|+
-literal|"est\032\024.SplitRegionResponse\022>\n\rCompactRegi"
+literal|"ushRegionResponse\0228\n\013SplitRegion\022\023.Split"
 operator|+
-literal|"on\022\025.CompactRegionRequest\032\026.CompactRegio"
+literal|"RegionRequest\032\024.SplitRegionResponse\022>\n\rC"
 block|,
-literal|"nResponse\022;\n\014MergeRegions\022\024.MergeRegions"
+literal|"ompactRegion\022\025.CompactRegionRequest\032\026.Co"
 operator|+
-literal|"Request\032\025.MergeRegionsResponse\022J\n\021Replic"
+literal|"mpactRegionResponse\022;\n\014MergeRegions\022\024.Me"
 operator|+
-literal|"ateWALEntry\022\031.ReplicateWALEntryRequest\032\032"
+literal|"rgeRegionsRequest\032\025.MergeRegionsResponse"
 operator|+
-literal|".ReplicateWALEntryResponse\022?\n\006Replay\022\031.R"
+literal|"\022J\n\021ReplicateWALEntry\022\031.ReplicateWALEntr"
 operator|+
-literal|"eplicateWALEntryRequest\032\032.ReplicateWALEn"
+literal|"yRequest\032\032.ReplicateWALEntryResponse\022?\n\006"
 operator|+
-literal|"tryResponse\022>\n\rRollWALWriter\022\025.RollWALWr"
+literal|"Replay\022\031.ReplicateWALEntryRequest\032\032.Repl"
 operator|+
-literal|"iterRequest\032\026.RollWALWriterResponse\022>\n\rG"
+literal|"icateWALEntryResponse\022>\n\rRollWALWriter\022\025"
 operator|+
-literal|"etServerInfo\022\025.GetServerInfoRequest\032\026.Ge"
+literal|".RollWALWriterRequest\032\026.RollWALWriterRes"
 operator|+
-literal|"tServerInfoResponse\0225\n\nStopServer\022\022.Stop"
+literal|"ponse\022>\n\rGetServerInfo\022\025.GetServerInfoRe"
 operator|+
-literal|"ServerRequest\032\023.StopServerResponse\022M\n\022Up"
+literal|"quest\032\026.GetServerInfoResponse\0225\n\nStopSer"
 block|,
-literal|"dateFavoredNodes\022\032.UpdateFavoredNodesReq"
+literal|"ver\022\022.StopServerRequest\032\023.StopServerResp"
 operator|+
-literal|"uest\032\033.UpdateFavoredNodesResponseBA\n*org"
+literal|"onse\022M\n\022UpdateFavoredNodes\022\032.UpdateFavor"
 operator|+
-literal|".apache.hadoop.hbase.protobuf.generatedB"
+literal|"edNodesRequest\032\033.UpdateFavoredNodesRespo"
 operator|+
-literal|"\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"nseBA\n*org.apache.hadoop.hbase.protobuf."
+operator|+
+literal|"generatedB\013AdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -127006,6 +127683,8 @@ name|String
 index|[]
 block|{
 literal|"OpenInfo"
+block|,
+literal|"ServerStartCode"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -127135,6 +127814,8 @@ block|,
 literal|"TransitionInZK"
 block|,
 literal|"DestinationServer"
+block|,
+literal|"ServerStartCode"
 block|, }
 argument_list|)
 expr_stmt|;

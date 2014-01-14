@@ -3496,6 +3496,11 @@ name|closeRegion
 argument_list|(
 name|rs
 argument_list|,
+name|rs
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
 name|regionName
 argument_list|,
 literal|false
@@ -3622,6 +3627,11 @@ operator|.
 name|openRegion
 argument_list|(
 name|rs
+argument_list|,
+name|rs
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|hri
 argument_list|)
