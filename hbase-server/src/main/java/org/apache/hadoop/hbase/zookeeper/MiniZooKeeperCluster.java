@@ -1140,6 +1140,19 @@ literal|"Waiting for shutdown of standalone server"
 argument_list|)
 throw|;
 block|}
+name|zooKeeperServers
+operator|.
+name|get
+argument_list|(
+name|activeZKServerIndex
+argument_list|)
+operator|.
+name|getZKDatabase
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// remove the current active zk server
 name|standaloneServerFactoryList
 operator|.
@@ -1295,6 +1308,19 @@ literal|"Waiting for shutdown of standalone server"
 argument_list|)
 throw|;
 block|}
+name|zooKeeperServers
+operator|.
+name|get
+argument_list|(
+name|backupZKServerIndex
+argument_list|)
+operator|.
+name|getZKDatabase
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// remove this backup zk server
 name|standaloneServerFactoryList
 operator|.
