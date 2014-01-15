@@ -5407,6 +5407,32 @@ operator|.
 name|writtenTxid
 expr_stmt|;
 block|}
+comment|// if this syncer's writes have been synced by other syncer:
+comment|// 1. just set lastSyncedTxid
+comment|// 2. don't do real sync, don't notify AsyncNotifier, don't logroll check
+comment|// regardless of whether the writer is null or not
+if|if
+condition|(
+name|this
+operator|.
+name|txidToSync
+operator|<=
+name|syncedTillHere
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|lastSyncedTxid
+operator|=
+name|this
+operator|.
+name|txidToSync
+expr_stmt|;
+continue|continue;
+block|}
 comment|// 2. do 'sync' to HDFS to provide durability
 name|long
 name|now
@@ -5439,23 +5465,10 @@ comment|// 5. t5: rollWriter close writer, set writer=null...
 comment|// 6. t6: AsyncSyncer 1 starts to use writer to do sync... before
 comment|//        rollWriter set writer to the newly created Writer
 comment|//
-comment|// So when writer == null here:
-comment|// 1. if txidToSync<= syncedTillHere, can safely ignore sync here;
-comment|// 2. if txidToSync> syncedTillHere, we need fail all the writes with
-comment|//    txid<= txidToSync to avoid 'data loss' where user get successful
-comment|//    write response but can't read the writes!
-if|if
-condition|(
-name|this
-operator|.
-name|txidToSync
-operator|>
-name|syncedTillHere
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
+comment|// Now writer == null and txidToSync> syncedTillHere here:
+comment|// we need fail all the writes with txid<= txidToSync to avoid
+comment|// 'data loss' where user get successful write response but can't
+comment|// read the writes!
 name|LOG
 operator|.
 name|fatal
@@ -5480,7 +5493,6 @@ operator|.
 name|txidToSync
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
