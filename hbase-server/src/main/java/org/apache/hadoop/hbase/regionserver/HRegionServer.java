@@ -4712,20 +4712,6 @@ block|}
 expr_stmt|;
 name|this
 operator|.
-name|rsHost
-operator|=
-operator|new
-name|RegionServerCoprocessorHost
-argument_list|(
-name|this
-argument_list|,
-name|this
-operator|.
-name|conf
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|rsInfo
 operator|=
 name|RegionServerInfo
@@ -5592,6 +5578,22 @@ block|{
 comment|// Set our ephemeral znode up in zookeeper now we have a name.
 name|createMyEphemeralNode
 argument_list|()
+expr_stmt|;
+comment|// Initialize the RegionServerCoprocessorHost now that our ephemeral
+comment|// node was created, in case any coprocessors want to use ZooKeeper
+name|this
+operator|.
+name|rsHost
+operator|=
+operator|new
+name|RegionServerCoprocessorHost
+argument_list|(
+name|this
+argument_list|,
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 comment|// Try and register with the Master; tell it we are here.  Break if
 comment|// server is stopped or the clusterup flag is down or hdfs went wacky.
