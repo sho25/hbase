@@ -842,6 +842,14 @@ specifier|protected
 specifier|static
 specifier|final
 name|String
+name|OPT_ZK_PARENT_NODE
+init|=
+literal|"zk_root"
+decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|String
 name|OPT_SKIP_INIT
 init|=
 literal|"skip_init"
@@ -1448,6 +1456,13 @@ argument_list|,
 literal|"ZK quorum as comma-separated host names "
 operator|+
 literal|"without port numbers"
+argument_list|)
+expr_stmt|;
+name|addOptWithArg
+argument_list|(
+name|OPT_ZK_PARENT_NODE
+argument_list|,
+literal|"name of parent znode in zookeeper"
 argument_list|)
 expr_stmt|;
 name|addOptWithArg
@@ -2512,6 +2527,33 @@ operator|.
 name|getOptionValue
 argument_list|(
 name|OPT_ZK_QUORUM
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+name|OPT_ZK_PARENT_NODE
+argument_list|)
+condition|)
+block|{
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|ZOOKEEPER_ZNODE_PARENT
+argument_list|,
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+name|OPT_ZK_PARENT_NODE
 argument_list|)
 argument_list|)
 expr_stmt|;
