@@ -410,13 +410,6 @@ name|cpName6
 init|=
 literal|"TestCP6"
 decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|cpNameInvalid
-init|=
-literal|"TestCPInvalid"
-decl_stmt|;
 specifier|private
 specifier|static
 name|Class
@@ -904,29 +897,6 @@ operator|+
 literal|"|k1=v1,k2=v2,k3=v3"
 argument_list|)
 expr_stmt|;
-comment|// same jar but invalid class name (should fail to load this class)
-name|htd
-operator|.
-name|setValue
-argument_list|(
-literal|"COPROCESSOR$3"
-argument_list|,
-name|jarFileOnHDFS2
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"|"
-operator|+
-name|cpNameInvalid
-operator|+
-literal|"|"
-operator|+
-name|Coprocessor
-operator|.
-name|PRIORITY_USER
-argument_list|)
-expr_stmt|;
 name|HBaseAdmin
 name|admin
 init|=
@@ -1024,10 +994,6 @@ init|=
 literal|false
 decl_stmt|;
 name|boolean
-name|found_invalid
-init|=
-literal|true
-decl_stmt|,
 name|found1
 init|=
 literal|true
@@ -1231,28 +1197,6 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-name|env
-operator|=
-name|region
-operator|.
-name|getCoprocessorHost
-argument_list|()
-operator|.
-name|findCoprocessorEnvironment
-argument_list|(
-name|cpNameInvalid
-argument_list|)
-expr_stmt|;
-name|found_invalid
-operator|=
-name|found_invalid
-operator|&&
-operator|(
-name|env
-operator|!=
-literal|null
-operator|)
-expr_stmt|;
 name|regionsActiveClassLoaders
 operator|.
 name|put
@@ -1304,18 +1248,6 @@ operator|+
 literal|" was missing on a region"
 argument_list|,
 name|found2
-argument_list|)
-expr_stmt|;
-comment|//an invalid CP class name is defined for this table, validate that it is not loaded
-name|assertFalse
-argument_list|(
-literal|"Class "
-operator|+
-name|cpNameInvalid
-operator|+
-literal|" was found on a region"
-argument_list|,
-name|found_invalid
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2946,14 +2878,6 @@ block|{
 comment|// This was a test for HBASE-4070.
 comment|// We are removing coprocessors from region load in HBASE-5258.
 comment|// Therefore, this test now only checks system coprocessors.
-name|HBaseAdmin
-name|admin
-init|=
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 name|assertAllRegionServers
 argument_list|(
 name|regionServerSystemCoprocessors

@@ -209,6 +209,11 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|super
+argument_list|(
+name|rsServices
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|rsServices

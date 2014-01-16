@@ -213,6 +213,17 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+comment|// We don't want to require an Abortable passed down through (FS)HLog, so
+comment|// this means that a failure to load of a WAL coprocessor won't abort the
+comment|// server. This isn't ideal, and means that security components that
+comment|// utilize a WALObserver will have to check the observer initialization
+comment|// state manually. However, WALObservers will eventually go away so it
+comment|// should be an acceptable state of affairs.
+name|super
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|wal

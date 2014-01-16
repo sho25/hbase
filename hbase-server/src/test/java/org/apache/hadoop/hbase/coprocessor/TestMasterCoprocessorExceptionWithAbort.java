@@ -738,11 +738,13 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|set
+name|setBoolean
 argument_list|(
-literal|"hbase.coprocessor.abortonerror"
+name|CoprocessorHost
+operator|.
+name|ABORT_ON_ERROR_KEY
 argument_list|,
-literal|"true"
+literal|true
 argument_list|)
 expr_stmt|;
 name|UTIL

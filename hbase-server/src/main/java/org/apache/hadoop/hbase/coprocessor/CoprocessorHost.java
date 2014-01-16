@@ -247,6 +247,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Coprocessor
 import|;
 end_import
@@ -304,20 +318,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
 import|;
 end_import
 
@@ -797,6 +797,22 @@ name|WAL_COPROCESSOR_CONF_KEY
 init|=
 literal|"hbase.coprocessor.wal.classes"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ABORT_ON_ERROR_KEY
+init|=
+literal|"hbase.coprocessor.abortonerror"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_ABORT_ON_ERROR
+init|=
+literal|true
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -811,6 +827,10 @@ name|CoprocessorHost
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+specifier|protected
+name|Abortable
+name|abortable
 decl_stmt|;
 comment|/** Ordered set of loaded coprocessors with lock */
 specifier|protected
@@ -850,8 +870,19 @@ argument_list|()
 decl_stmt|;
 specifier|public
 name|CoprocessorHost
-parameter_list|()
+parameter_list|(
+name|Abortable
+name|abortable
+parameter_list|)
 block|{
+name|this
+operator|.
+name|abortable
+operator|=
+name|abortable
+expr_stmt|;
+name|this
+operator|.
 name|pathPrefix
 operator|=
 name|UUID
@@ -1109,47 +1140,16 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ClassNotFoundException
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
+comment|// We always abort if system coprocessors cannot be loaded
+name|abortServer
 argument_list|(
-literal|"Class "
-operator|+
 name|className
-operator|+
-literal|" cannot be found. "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Load coprocessor "
-operator|+
-name|className
-operator|+
-literal|" failed. "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
+argument_list|,
+name|t
 argument_list|)
 expr_stmt|;
 block|}
@@ -3346,6 +3346,8 @@ specifier|public
 name|void
 name|startup
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -3416,30 +3418,6 @@ operator|.
 name|State
 operator|.
 name|ACTIVE
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error starting coprocessor "
-operator|+
-name|impl
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|ioe
-argument_list|)
 expr_stmt|;
 block|}
 finally|finally
@@ -3822,14 +3800,6 @@ name|void
 name|abortServer
 parameter_list|(
 specifier|final
-name|String
-name|service
-parameter_list|,
-specifier|final
-name|Server
-name|server
-parameter_list|,
-specifier|final
 name|CoprocessorEnvironment
 name|environment
 parameter_list|,
@@ -3838,39 +3808,18 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|String
-name|coprocessorName
-init|=
-operator|(
+name|abortServer
+argument_list|(
 name|environment
 operator|.
 name|getInstance
 argument_list|()
-operator|)
 operator|.
-name|toString
+name|getClass
 argument_list|()
-decl_stmt|;
-name|server
 operator|.
-name|abort
-argument_list|(
-literal|"Aborting service: "
-operator|+
-name|service
-operator|+
-literal|" running on : "
-operator|+
-name|server
-operator|.
-name|getServerName
+name|getName
 argument_list|()
-operator|+
-literal|" because coprocessor: "
-operator|+
-name|coprocessorName
-operator|+
-literal|" threw an exception."
 argument_list|,
 name|e
 argument_list|)
@@ -3881,8 +3830,8 @@ name|void
 name|abortServer
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
-name|environment
+name|String
+name|coprocessorName
 parameter_list|,
 specifier|final
 name|Throwable
@@ -3890,37 +3839,50 @@ name|e
 parameter_list|)
 block|{
 name|String
-name|coprocessorName
+name|message
 init|=
-operator|(
-name|environment
-operator|.
-name|getInstance
-argument_list|()
-operator|)
-operator|.
-name|toString
-argument_list|()
+literal|"The coprocessor "
+operator|+
+name|coprocessorName
+operator|+
+literal|" threw an unexpected exception"
 decl_stmt|;
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The coprocessor: "
-operator|+
-name|coprocessorName
-operator|+
-literal|" threw an unexpected "
-operator|+
-literal|"exception: "
-operator|+
+name|message
+argument_list|,
 name|e
-operator|+
-literal|", but there's no specific implementation of "
-operator|+
-literal|" abortServer() for this coprocessor's environment."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|abortable
+operator|!=
+literal|null
+condition|)
+block|{
+name|abortable
+operator|.
+name|abort
+argument_list|(
+name|message
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"No available Abortable, process was not aborted"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * This is used by coprocessor hooks which are declared to throw IOException    * (or its subtypes). For such hooks, we should handle throwable objects    * depending on the Throwable's type. Those which are instances of    * IOException should be passed on to the client. This is in conformance with    * the HBase idiom regarding IOException: that it represents a circumstance    * that should be passed along to the client for its own handling. For    * example, a coprocessor that implements access controls would throw a    * subclass of IOException, such as AccessDeniedException, in its preGet()    * method to prevent an unauthorized client's performing a Get on a particular    * table.    * @param env Coprocessor Environment    * @param e Throwable object thrown by coprocessor.    * @exception IOException Exception    */
 specifier|protected
@@ -3967,9 +3929,9 @@ argument_list|()
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.coprocessor.abortonerror"
+name|ABORT_ON_ERROR_KEY
 argument_list|,
-literal|false
+name|DEFAULT_ABORT_ON_ERROR
 argument_list|)
 condition|)
 block|{
