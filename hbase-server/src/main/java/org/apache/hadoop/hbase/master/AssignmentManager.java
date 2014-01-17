@@ -3033,17 +3033,6 @@ argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
-comment|// No mater the previous server is online or offline,
-comment|// we need to reset the last region server of the region.
-name|regionStates
-operator|.
-name|setLastRegionServerOfRegion
-argument_list|(
-name|sn
-argument_list|,
-name|encodedName
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|regionInfo
@@ -3064,6 +3053,19 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+comment|// No matter the previous server is online or offline,
+comment|// we need to reset the last region server of the region.
+name|regionStates
+operator|.
+name|setLastRegionServerOfRegion
+argument_list|(
+name|sn
+argument_list|,
+name|encodedName
+argument_list|)
+expr_stmt|;
 comment|// Make sure we know the server is dead.
 if|if
 condition|(
@@ -3083,6 +3085,7 @@ argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|false

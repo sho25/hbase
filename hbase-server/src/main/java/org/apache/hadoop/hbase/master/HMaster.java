@@ -6691,10 +6691,23 @@ block|{
 comment|// Assign meta since not already in transition
 if|if
 condition|(
-operator|!
+name|currentMetaServer
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// If the meta server is not known to be dead or online,
+comment|// just split the meta log, and don't expire it since this
+comment|// could be a full cluster restart. Otherwise, we will think
+comment|// this is a failover and lose previous region locations.
+comment|// If it is really a failover case, AM will find out in rebuilding
+comment|// user regions. Otherwise, we are good since all logs are split
+comment|// or known to be replayed before user regions are assigned.
+if|if
+condition|(
 name|serverManager
 operator|.
-name|isServerDead
+name|isServerOnline
 argument_list|(
 name|currentMetaServer
 argument_list|)
@@ -6716,6 +6729,7 @@ argument_list|(
 name|currentMetaServer
 argument_list|)
 expr_stmt|;
+block|}
 name|splitMetaLogBeforeAssignment
 argument_list|(
 name|currentMetaServer
@@ -6729,19 +6743,6 @@ name|currentMetaServer
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Make sure following meta assignment happens
-name|assignmentManager
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|clearLastAssignment
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
-expr_stmt|;
 name|assignmentManager
 operator|.
 name|assignMeta
