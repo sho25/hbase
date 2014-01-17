@@ -99,6 +99,16 @@ name|FAILED_DELETE_KEY
 init|=
 literal|"failedDelete"
 decl_stmt|;
+name|String
+name|SUCCESSFUL_SCAN_KEY
+init|=
+literal|"successfulScanCount"
+decl_stmt|;
+name|String
+name|FAILED_SCAN_KEY
+init|=
+literal|"failedScanCount"
+decl_stmt|;
 comment|/**    * Increment the number of requests    *    * @param inc Ammount to increment by    */
 name|void
 name|incrementRequests
@@ -151,6 +161,24 @@ comment|/**    * Increment the number of failed Delete requests.    *    * @para
 name|void
 name|incrementFailedDeleteRequests
 parameter_list|(
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number of successful scan requests.    *    * @param inc Number of successful scan requests.    */
+name|void
+name|incrementSucessfulScanRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number failed scan requests.    *    * @param inc the inc    */
+name|void
+name|incrementFailedScanRequests
+parameter_list|(
+specifier|final
 name|int
 name|inc
 parameter_list|)

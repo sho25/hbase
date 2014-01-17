@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InputStream
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -91,6 +101,10 @@ specifier|private
 name|byte
 index|[]
 name|body
+decl_stmt|;
+specifier|private
+name|InputStream
+name|stream
 decl_stmt|;
 comment|/**    * Constructor    * @param code the HTTP response code    */
 specifier|public
@@ -167,6 +181,50 @@ operator|=
 name|body
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param code the HTTP response code    * @param headers headers the HTTP response headers    * @param body the response body, can be null    * @param in Inputstream if the response had one.    */
+specifier|public
+name|Response
+parameter_list|(
+name|int
+name|code
+parameter_list|,
+name|Header
+index|[]
+name|headers
+parameter_list|,
+name|byte
+index|[]
+name|body
+parameter_list|,
+name|InputStream
+name|in
+parameter_list|)
+block|{
+name|this
+operator|.
+name|code
+operator|=
+name|code
+expr_stmt|;
+name|this
+operator|.
+name|headers
+operator|=
+name|headers
+expr_stmt|;
+name|this
+operator|.
+name|body
+operator|=
+name|body
+expr_stmt|;
+name|this
+operator|.
+name|stream
+operator|=
+name|in
+expr_stmt|;
+block|}
 comment|/**    * @return the HTTP response code    */
 specifier|public
 name|int
@@ -175,6 +233,18 @@ parameter_list|()
 block|{
 return|return
 name|code
+return|;
+block|}
+comment|/**    * Gets the input stream instance.    *    * @return an instance of InputStream class.    */
+specifier|public
+name|InputStream
+name|getStream
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|stream
 return|;
 block|}
 comment|/**    * @return the HTTP response headers    */

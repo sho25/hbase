@@ -225,6 +225,43 @@ name|inc
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param inc How much to add to sucessfulScanCount.    */
+specifier|public
+specifier|synchronized
+name|void
+name|incrementSucessfulScanRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+block|{
+name|source
+operator|.
+name|incrementSucessfulScanRequests
+argument_list|(
+name|inc
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param inc How much to add to failedScanCount.    */
+specifier|public
+name|void
+name|incrementFailedScanRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+block|{
+name|source
+operator|.
+name|incrementFailedScanRequests
+argument_list|(
+name|inc
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
