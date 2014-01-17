@@ -6213,56 +6213,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|byte
-index|[]
-name|cf
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|store
-operator|.
-name|getColumnFamilyName
-argument_list|()
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|stores
-operator|.
-name|get
-argument_list|(
-name|cf
-argument_list|)
-operator|!=
-name|store
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Store "
-operator|+
-name|store
-operator|.
-name|getColumnFamilyName
-argument_list|()
-operator|+
-literal|" on region "
-operator|+
-name|this
-operator|+
-literal|" has been re-instantiated, cancel this compaction request. "
-operator|+
-literal|" It may be caused by the roll back of split transaction"
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 name|status
 operator|=
 name|TaskMonitor
