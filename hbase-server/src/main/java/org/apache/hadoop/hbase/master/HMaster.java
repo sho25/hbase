@@ -5040,7 +5040,9 @@ name|getInt
 argument_list|(
 literal|"hbase.master.info.port"
 argument_list|,
-literal|60010
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_INFOPORT
 argument_list|)
 decl_stmt|;
 if|if

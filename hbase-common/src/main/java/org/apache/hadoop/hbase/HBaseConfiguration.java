@@ -626,7 +626,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** For debugging.  Dump configurations to system output as xml format.    * Master and RS configurations can also be dumped using    * http services. e.g. "curl http://master:60010/dump"    */
+comment|/** For debugging.  Dump configurations to system output as xml format.    * Master and RS configurations can also be dumped using    * http services. e.g. "curl http://master:16010/dump"    */
 specifier|public
 specifier|static
 name|void

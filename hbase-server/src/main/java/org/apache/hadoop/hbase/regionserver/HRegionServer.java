@@ -9820,7 +9820,9 @@ name|HConstants
 operator|.
 name|REGIONSERVER_INFO_PORT
 argument_list|,
-literal|60030
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_INFOPORT
 argument_list|)
 decl_stmt|;
 comment|// -1 is for disabling info server

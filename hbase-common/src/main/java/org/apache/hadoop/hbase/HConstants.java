@@ -457,7 +457,7 @@ specifier|final
 name|int
 name|DEFAULT_MASTER_PORT
 init|=
-literal|60000
+literal|16000
 decl_stmt|;
 comment|/** default port for master web api */
 specifier|public
@@ -466,7 +466,7 @@ specifier|final
 name|int
 name|DEFAULT_MASTER_INFOPORT
 init|=
-literal|60010
+literal|16010
 decl_stmt|;
 comment|/** Configuration key for master web API port */
 specifier|public
@@ -673,7 +673,7 @@ specifier|final
 name|int
 name|DEFAULT_REGIONSERVER_PORT
 init|=
-literal|60020
+literal|16020
 decl_stmt|;
 comment|/** default port for region server web api */
 specifier|public
@@ -682,7 +682,7 @@ specifier|final
 name|int
 name|DEFAULT_REGIONSERVER_INFOPORT
 init|=
-literal|60030
+literal|16030
 decl_stmt|;
 comment|/** A configuration key for regionserver info port */
 specifier|public
@@ -2549,7 +2549,7 @@ specifier|final
 name|int
 name|DEFAULT_STATUS_MULTICAST_PORT
 init|=
-literal|60100
+literal|16100
 decl_stmt|;
 specifier|public
 specifier|static
