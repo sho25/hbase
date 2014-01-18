@@ -776,7 +776,26 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 7. If entry for this table in zk, and up in AssignmentManager, remove it.
+comment|// 7. Clean up regions of the table in RegionStates.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing '"
+operator|+
+name|tableName
+operator|+
+literal|"' from region states."
+argument_list|)
+expr_stmt|;
+name|states
+operator|.
+name|tableDeleted
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// 8. If entry for this table in zk, and up in AssignmentManager, remove it.
 name|LOG
 operator|.
 name|debug
