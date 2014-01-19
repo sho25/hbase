@@ -17215,8 +17215,16 @@ block|}
 if|if
 condition|(
 name|isEmptyRow
+operator|||
+name|filterRow
+argument_list|()
 condition|)
 block|{
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 name|boolean
 name|moreRows
 init|=
@@ -17237,11 +17245,6 @@ condition|)
 return|return
 literal|false
 return|;
-name|results
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 comment|// This row was totally filtered out, if this is NOT the last row,
 comment|// we should continue on. Otherwise, nothing else to do.
 if|if
@@ -17428,6 +17431,35 @@ operator|!
 name|stopRow
 return|;
 block|}
+block|}
+comment|/**      * This function is to maintain backward compatibility for 0.94 filters. HBASE-6429 combines      * both filterRow& filterRow(List<KeyValue> kvs) functions. While 0.94 code or older, it may      * not implement hasFilterRow as HBase-6429 expects because 0.94 hasFilterRow() only returns      * true when filterRow(List<KeyValue> kvs) is overridden not the filterRow(). Therefore, the      * filterRow() will be skipped.      */
+specifier|private
+name|boolean
+name|filterRow
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// when hasFilterRow returns true, filter.filterRow() will be called automatically inside
+comment|// filterRowCells(List<Cell> kvs) so we skip that scenario here.
+return|return
+name|filter
+operator|!=
+literal|null
+operator|&&
+operator|(
+operator|!
+name|filter
+operator|.
+name|hasFilterRow
+argument_list|()
+operator|)
+operator|&&
+name|filter
+operator|.
+name|filterRow
+argument_list|()
+return|;
 block|}
 specifier|private
 name|boolean
