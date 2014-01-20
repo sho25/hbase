@@ -21666,6 +21666,10 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Sort the cells so that they match the order that they
+comment|// appear in the Get results. Otherwise, we won't be able to
+comment|// find the existing values if the cells are not specified
+comment|// in order by the client since cells are in an array list.
 name|Collections
 operator|.
 name|sort
@@ -22874,6 +22878,25 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Sort the cells so that they match the order that they
+comment|// appear in the Get results. Otherwise, we won't be able to
+comment|// find the existing values if the cells are not specified
+comment|// in order by the client since cells are in an array list.
+name|Collections
+operator|.
+name|sort
+argument_list|(
+name|family
+operator|.
+name|getValue
+argument_list|()
+argument_list|,
+name|store
+operator|.
+name|getComparator
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Get previous values for all columns in this family
 name|Get
 name|get
