@@ -9444,6 +9444,7 @@ operator|=
 name|cacheFlushSeqNum
 expr_stmt|;
 block|}
+comment|/**      * This is not thread safe. The caller should have a lock on the region or the store.      * If necessary, the lock can be added with the patch provided in HBASE-10087      */
 annotation|@
 name|Override
 specifier|public
