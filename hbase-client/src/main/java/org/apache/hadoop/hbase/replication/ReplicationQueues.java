@@ -191,6 +191,14 @@ argument_list|>
 name|getListOfReplicators
 parameter_list|()
 function_decl|;
+comment|/**    * Checks if the provided znode is the same as this region server's    * @param znode to check    * @return if this is this rs's znode    */
+name|boolean
+name|isThisOurZnode
+parameter_list|(
+name|String
+name|znode
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

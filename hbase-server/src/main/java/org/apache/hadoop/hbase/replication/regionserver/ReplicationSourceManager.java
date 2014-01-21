@@ -2114,6 +2114,20 @@ name|void
 name|run
 parameter_list|()
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|rq
+operator|.
+name|isThisOurZnode
+argument_list|(
+name|rsZnode
+argument_list|)
+condition|)
+block|{
+return|return;
+block|}
 comment|// Wait a bit before transferring the queues, we may be shutting down.
 comment|// This sleep may not be enough in some cases.
 try|try
