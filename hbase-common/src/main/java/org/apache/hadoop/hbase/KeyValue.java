@@ -5413,7 +5413,9 @@ comment|//
 comment|//  Public Member Accessors
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * @return The byte array backing this KeyValue.    */
+comment|/**    * @return The byte array backing this KeyValue.    * @deprecated Since 0.98.0.  Use Cell Interface instead.  Do not presume single backing buffer.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|byte
 index|[]
