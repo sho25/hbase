@@ -447,7 +447,9 @@ specifier|static
 name|long
 name|endTime
 init|=
-literal|0
+name|Long
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 specifier|static
 name|String
@@ -577,7 +579,9 @@ name|NAME
 operator|+
 literal|".endTime"
 argument_list|,
-literal|0
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 name|String
@@ -634,13 +638,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|startTime
-operator|!=
-literal|0
-condition|)
-block|{
 name|scan
 operator|.
 name|setTimeRange
@@ -648,17 +645,8 @@ argument_list|(
 name|startTime
 argument_list|,
 name|endTime
-operator|==
-literal|0
-condition|?
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-else|:
-name|endTime
 argument_list|)
 expr_stmt|;
-block|}
 name|HConnectionManager
 operator|.
 name|execute
@@ -1111,13 +1099,6 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|startTime
-operator|!=
-literal|0
-condition|)
-block|{
 name|scan
 operator|.
 name|setTimeRange
@@ -1125,17 +1106,8 @@ argument_list|(
 name|startTime
 argument_list|,
 name|endTime
-operator|==
-literal|0
-condition|?
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-else|:
-name|endTime
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|families
@@ -1548,7 +1520,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" stoptime     end of the time range"
+literal|" endtime      end of the time range"
 argument_list|)
 expr_stmt|;
 name|System
@@ -1629,7 +1601,7 @@ literal|" $ bin/hbase "
 operator|+
 literal|"org.apache.hadoop.hbase.mapreduce.replication.VerifyReplication"
 operator|+
-literal|" --starttime=1265875194289 --stoptime=1265878794289 5 TestTable "
+literal|" --starttime=1265875194289 --endtime=1265878794289 5 TestTable "
 argument_list|)
 expr_stmt|;
 block|}
