@@ -6428,8 +6428,8 @@ name|Codec
 name|getCodec
 parameter_list|()
 block|{
-comment|// For NO CODEC, "hbase.client.rpc.codec" must be the empty string AND
-comment|// "hbase.client.default.rpc.codec" -- because default is to do cell block encoding.
+comment|// For NO CODEC, "hbase.client.rpc.codec" must be configured with empty string AND
+comment|// "hbase.client.default.rpc.codec" also -- because default is to do cell block encoding.
 name|String
 name|className
 init|=
@@ -6437,7 +6437,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.client.rpc.codec"
+name|HConstants
+operator|.
+name|RPC_CODEC_CONF_KEY
 argument_list|,
 name|getDefaultCodec
 argument_list|(

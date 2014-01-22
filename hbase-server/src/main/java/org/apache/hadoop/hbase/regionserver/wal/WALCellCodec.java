@@ -1757,9 +1757,7 @@ specifier|public
 class|class
 name|EnsureKvEncoder
 extends|extends
-name|KeyValueCodec
-operator|.
-name|KeyValueEncoder
+name|BaseEncoder
 block|{
 specifier|public
 name|EnsureKvEncoder
@@ -1802,11 +1800,24 @@ argument_list|(
 literal|"Cannot write non-KV cells to WAL"
 argument_list|)
 throw|;
-name|super
+name|checkFlushed
+argument_list|()
+expr_stmt|;
+comment|// Make sure to write tags into WAL
+name|KeyValue
 operator|.
-name|write
+name|oswrite
 argument_list|(
+operator|(
+name|KeyValue
+operator|)
 name|cell
+argument_list|,
+name|this
+operator|.
+name|out
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

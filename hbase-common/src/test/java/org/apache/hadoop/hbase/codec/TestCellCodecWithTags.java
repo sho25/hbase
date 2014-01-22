@@ -275,7 +275,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestCellCodecV2
+name|TestCellCodecWithTags
 block|{
 annotation|@
 name|Test
@@ -315,7 +315,7 @@ name|Codec
 name|codec
 init|=
 operator|new
-name|CellCodecV2
+name|CellCodecWithTags
 argument_list|()
 decl_stmt|;
 name|Codec

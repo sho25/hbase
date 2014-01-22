@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell including the tags.  * Uses ints delimiting all lengths. Profligate. Needs tune up.  */
+comment|/**  * Basic Cell codec that just writes out all the individual elements of a Cell including the tags.  * Uses ints delimiting all lengths. Profligate. Needs tune up.  *<b>Use this Codec only at server side.</b>  */
 end_comment
 
 begin_class
@@ -130,7 +130,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|CellCodecV2
+name|CellCodecWithTags
 implements|implements
 name|Codec
 block|{
@@ -313,7 +313,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Write int length followed by array bytes.      *       * @param bytes      * @param offset      * @param length      * @throws IOException      */
+comment|/**      * Write int length followed by array bytes.      *      * @param bytes      * @param offset      * @param length      * @throws IOException      */
 specifier|private
 name|void
 name|write

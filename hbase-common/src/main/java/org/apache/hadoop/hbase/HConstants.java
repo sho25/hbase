@@ -2631,6 +2631,24 @@ name|ENABLE_WAL_ENCRYPTION
 init|=
 literal|"hbase.regionserver.wal.encryption"
 decl_stmt|;
+comment|/** Configuration key for setting RPC codec class name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RPC_CODEC_CONF_KEY
+init|=
+literal|"hbase.client.rpc.codec"
+decl_stmt|;
+comment|/** Configuration key for setting replication codec class name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_CODEC_CONF_KEY
+init|=
+literal|"hbase.replication.rpc.codec"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

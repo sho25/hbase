@@ -174,6 +174,10 @@ block|,
 name|HConstants
 operator|.
 name|HBASE_CLIENT_INSTANCE_ID
+block|,
+name|HConstants
+operator|.
+name|RPC_CODEC_CONF_KEY
 block|}
 decl_stmt|;
 specifier|private

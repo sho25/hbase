@@ -810,7 +810,9 @@ name|configuration
 operator|.
 name|get
 argument_list|(
-literal|"hbase.client.rpc.codec"
+name|HConstants
+operator|.
+name|RPC_CODEC_CONF_KEY
 argument_list|,
 literal|""
 argument_list|)
