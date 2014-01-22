@@ -1373,6 +1373,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure
+operator|.
+name|RegionServerProcedureManagerHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -4107,9 +4123,9 @@ specifier|private
 name|RegionServerCoprocessorHost
 name|rsHost
 decl_stmt|;
-comment|/** Handle all the snapshot requests to this server */
-name|RegionServerSnapshotManager
-name|snapshotManager
+specifier|private
+name|RegionServerProcedureManagerHost
+name|rspmHost
 decl_stmt|;
 comment|// configuration setting on if replay WAL edits directly to another RS
 specifier|private
@@ -5215,15 +5231,25 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// watch for snapshots
+comment|// watch for snapshots and other procedures
 try|try
 block|{
-name|this
-operator|.
-name|snapshotManager
+name|rspmHost
 operator|=
 operator|new
-name|RegionServerSnapshotManager
+name|RegionServerProcedureManagerHost
+argument_list|()
+expr_stmt|;
+name|rspmHost
+operator|.
+name|loadProcedures
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|rspmHost
+operator|.
+name|initialize
 argument_list|(
 name|this
 argument_list|)
@@ -5239,7 +5265,9 @@ name|this
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to reach zk cluster when creating snapshot handler."
+literal|"Failed to reach zk cluster when creating procedure handler."
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -5652,10 +5680,9 @@ name|isHealthy
 argument_list|()
 condition|)
 block|{
-comment|// start the snapshot handler, since the server is ready to run
-name|this
-operator|.
-name|snapshotManager
+comment|// start the snapshot handler and other procedure handlers,
+comment|// since the server is ready to run
+name|rspmHost
 operator|.
 name|start
 argument_list|()
@@ -6147,16 +6174,8 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Stop the snapshot handler, forcefully killing all running tasks
-try|try
-block|{
-if|if
-condition|(
-name|snapshotManager
-operator|!=
-literal|null
-condition|)
-name|snapshotManager
+comment|// Stop the snapshot and other procedure handlers, forcefully killing all running tasks
+name|rspmHost
 operator|.
 name|stop
 argument_list|(
@@ -6169,23 +6188,6 @@ operator|.
 name|killed
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to close snapshot handler cleanly"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|this

@@ -1301,6 +1301,24 @@ operator|+
 literal|" completed"
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" of table "
+operator|+
+name|snapshotTable
+operator|+
+literal|" completed"
+argument_list|)
+expr_stmt|;
 name|metricsSnapshot
 operator|.
 name|addSnapshot
