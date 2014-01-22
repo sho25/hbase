@@ -2541,7 +2541,7 @@ specifier|final
 name|String
 name|STATUS_MULTICAST_PORT
 init|=
-literal|"hbase.status.multicast.port"
+literal|"hbase.status.multicast.address.port"
 decl_stmt|;
 specifier|public
 specifier|static
