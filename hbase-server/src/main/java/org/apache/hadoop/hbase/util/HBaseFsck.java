@@ -1516,11 +1516,11 @@ specifier|private
 name|HTable
 name|meta
 decl_stmt|;
+comment|// threads to do ||izable tasks: retrieve data from regionservers, handle overlapping regions
 specifier|protected
 name|ExecutorService
 name|executor
 decl_stmt|;
-comment|// threads to retrieve data from regionservers
 specifier|private
 name|long
 name|startMillis
@@ -10450,11 +10450,26 @@ name|fileMoves
 init|=
 literal|0
 decl_stmt|;
+name|String
+name|thread
+init|=
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Contained region dir after close and pause"
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Contained region dir after close and pause"
 argument_list|)
 expr_stmt|;
 name|debugLsr
@@ -10524,16 +10539,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"HDFS region dir "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] HDFS region dir "
 operator|+
 name|contained
 operator|.
 name|getHdfsRegionDir
 argument_list|()
 operator|+
-literal|" is missing. "
-operator|+
-literal|"Assuming already sidelined or moved."
+literal|" is missing. Assuming already sidelined or moved."
 argument_list|)
 expr_stmt|;
 block|}
@@ -10576,7 +10593,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"HDFS region dir "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] HDFS region dir "
 operator|+
 name|contained
 operator|.
@@ -10671,7 +10692,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving files from "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Moving files from "
 operator|+
 name|src
 operator|+
@@ -10726,7 +10751,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Sideline directory contents:"
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Sideline directory contents:"
 argument_list|)
 expr_stmt|;
 name|debugLsr
@@ -10747,7 +10776,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Sidelined region dir "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Sidelined region dir "
 operator|+
 name|contained
 operator|.
@@ -10772,6 +10805,72 @@ return|return
 name|fileMoves
 return|;
 block|}
+specifier|static
+class|class
+name|WorkItemOverlapMerge
+implements|implements
+name|Callable
+argument_list|<
+name|Void
+argument_list|>
+block|{
+specifier|private
+name|TableIntegrityErrorHandler
+name|handler
+decl_stmt|;
+name|Collection
+argument_list|<
+name|HbckInfo
+argument_list|>
+name|overlapgroup
+decl_stmt|;
+name|WorkItemOverlapMerge
+parameter_list|(
+name|Collection
+argument_list|<
+name|HbckInfo
+argument_list|>
+name|overlapgroup
+parameter_list|,
+name|TableIntegrityErrorHandler
+name|handler
+parameter_list|)
+block|{
+name|this
+operator|.
+name|handler
+operator|=
+name|handler
+expr_stmt|;
+name|this
+operator|.
+name|overlapgroup
+operator|=
+name|overlapgroup
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Void
+name|call
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|handler
+operator|.
+name|handleOverlapGroup
+argument_list|(
+name|overlapgroup
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
+block|}
+empty_stmt|;
 comment|/**    * Maintain information about a particular table.    */
 specifier|public
 class|class
@@ -11726,7 +11825,7 @@ name|fixes
 operator|++
 expr_stmt|;
 block|}
-comment|/**        * This takes set of overlapping regions and merges them into a single        * region.  This covers cases like degenerate regions, shared start key,        * general overlaps, duplicate ranges, and partial overlapping regions.        *        * Cases:        * - Clean regions that overlap        * - Only .oldlogs regions (can't find start/stop range, or figure out)        */
+comment|/**        * This takes set of overlapping regions and merges them into a single        * region.  This covers cases like degenerate regions, shared start key,        * general overlaps, duplicate ranges, and partial overlapping regions.        *        * Cases:        * - Clean regions that overlap        * - Only .oldlogs regions (can't find start/stop range, or figure out)        *         * This is basically threadsafe, except for the fixer increment in mergeOverlaps.        */
 annotation|@
 name|Override
 specifier|public
@@ -11840,11 +11939,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|String
+name|thread
+init|=
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"== Merging regions into one region: "
+literal|"== ["
+operator|+
+name|thread
+operator|+
+literal|"] Merging regions into one region: "
 operator|+
 name|Joiner
 operator|.
@@ -11985,7 +12099,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Closing region before moving data around: "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Closing region before moving data around: "
 operator|+
 name|hi
 argument_list|)
@@ -11994,7 +12112,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Contained region dir before close"
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Contained region dir before close"
 argument_list|)
 expr_stmt|;
 name|debugLsr
@@ -12011,7 +12133,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closing region: "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Closing region: "
 operator|+
 name|hi
 argument_list|)
@@ -12032,7 +12158,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Was unable to close region "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Was unable to close region "
 operator|+
 name|hi
 operator|+
@@ -12052,7 +12182,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Was unable to close region "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Was unable to close region "
 operator|+
 name|hi
 operator|+
@@ -12068,7 +12202,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Offlining region: "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Offlining region: "
 operator|+
 name|hi
 argument_list|)
@@ -12092,7 +12230,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to offline region from master: "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Unable to offline region from master: "
 operator|+
 name|hi
 operator|+
@@ -12154,7 +12296,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Created new empty container region: "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Created new empty container region: "
 operator|+
 name|newRegion
 operator|+
@@ -12213,7 +12359,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Merging "
+literal|"["
+operator|+
+name|thread
+operator|+
+literal|"] Merging "
 operator|+
 name|contained
 operator|+
@@ -12972,6 +13122,61 @@ name|prevKey
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO fold this into the TableIntegrityHandler
+if|if
+condition|(
+name|getConf
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbasefsck.overlap.merge.parallel"
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Handling overlap merges in parallel. set hbasefsck.overlap.merge.parallel to"
+operator|+
+literal|" false to run serially."
+argument_list|)
+expr_stmt|;
+name|boolean
+name|ok
+init|=
+name|handleOverlapsParallel
+argument_list|(
+name|handler
+argument_list|,
+name|prevKey
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|ok
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Handling overlap merges serially.  set hbasefsck.overlap.merge.parallel to"
+operator|+
+literal|" true to run in parallel."
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Collection
@@ -12996,6 +13201,7 @@ argument_list|(
 name|overlap
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -13111,6 +13317,211 @@ name|size
 argument_list|()
 operator|==
 name|originalErrorsCount
+return|;
+block|}
+specifier|private
+name|boolean
+name|handleOverlapsParallel
+parameter_list|(
+name|TableIntegrityErrorHandler
+name|handler
+parameter_list|,
+name|byte
+index|[]
+name|prevKey
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// we parallelize overlap handler for the case we have lots of groups to fix.  We can
+comment|// safely assume each group is independent.
+name|List
+argument_list|<
+name|WorkItemOverlapMerge
+argument_list|>
+name|merges
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|WorkItemOverlapMerge
+argument_list|>
+argument_list|(
+name|overlapGroups
+operator|.
+name|size
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|List
+argument_list|<
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+argument_list|>
+name|rets
+decl_stmt|;
+for|for
+control|(
+name|Collection
+argument_list|<
+name|HbckInfo
+argument_list|>
+name|overlap
+range|:
+name|overlapGroups
+operator|.
+name|asMap
+argument_list|()
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+comment|//
+name|merges
+operator|.
+name|add
+argument_list|(
+operator|new
+name|WorkItemOverlapMerge
+argument_list|(
+name|overlap
+argument_list|,
+name|handler
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+try|try
+block|{
+name|rets
+operator|=
+name|executor
+operator|.
+name|invokeAll
+argument_list|(
+name|merges
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Overlap merges were interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|merges
+operator|.
+name|size
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|WorkItemOverlapMerge
+name|work
+init|=
+name|merges
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+decl_stmt|;
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|f
+init|=
+name|rets
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|f
+operator|.
+name|get
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ExecutionException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to merge overlap group"
+operator|+
+name|work
+argument_list|,
+name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Waiting for overlap merges was interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+block|}
+return|return
+literal|true
 return|;
 block|}
 comment|/**      * This dumps data in a visually reasonable way for visual debugging      *      * @param splits      * @param regions      */
