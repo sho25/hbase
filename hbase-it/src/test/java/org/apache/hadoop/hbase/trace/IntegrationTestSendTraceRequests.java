@@ -563,7 +563,7 @@ argument_list|)
 expr_stmt|;
 name|addOptWithArg
 argument_list|(
-name|TABLE_ARG
+name|CF_ARG
 argument_list|,
 literal|"The family to target"
 argument_list|)
