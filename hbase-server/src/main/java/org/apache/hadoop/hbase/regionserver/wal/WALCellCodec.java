@@ -67,6 +67,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -260,10 +274,14 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compression in this class is lifted off Compressor/KeyValueCompression.  * This is a pure coincidence... they are independent and don't have to be compatible.  */
+comment|/**  * Compression in this class is lifted off Compressor/KeyValueCompression.  * This is a pure coincidence... they are independent and don't have to be compatible.  *  * This codec is used at server side for writing cells to WAL as well as for sending edits  * as part of the distributed splitting process.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|WALCellCodec
@@ -322,6 +340,18 @@ return|;
 block|}
 block|}
 decl_stmt|;
+comment|/**    *<b>All subclasses must implement a no argument constructor</b>    */
+specifier|public
+name|WALCellCodec
+parameter_list|()
+block|{
+name|this
+operator|.
+name|compression
+operator|=
+literal|null
+expr_stmt|;
+block|}
 comment|/**    * Default constructor -<b>all subclasses must implement a constructor with this signature</b>    * if they are to be dynamically loaded from the {@link Configuration}.    * @param conf configuration to configure<tt>this</tt>    * @param compression compression the codec should support, can be<tt>null</tt> to indicate no    *          compression    */
 specifier|public
 name|WALCellCodec
