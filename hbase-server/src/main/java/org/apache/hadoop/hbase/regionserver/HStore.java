@@ -3347,7 +3347,7 @@ name|compareTo
 argument_list|(
 name|prevKV
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|prevKV
@@ -3362,7 +3362,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -3423,7 +3423,7 @@ name|compareTo
 argument_list|(
 name|prevKV
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|prevKV
@@ -3438,7 +3438,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|kv

@@ -527,7 +527,7 @@ argument_list|)
 expr_stmt|;
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 index|[
 name|kv

@@ -261,7 +261,7 @@ name|getDelimiter
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|rowoffset
@@ -662,7 +662,7 @@ name|compareTo
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -677,7 +677,7 @@ argument_list|()
 argument_list|,
 name|d
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|d
@@ -939,7 +939,7 @@ name|this
 operator|.
 name|targetkey
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|this
@@ -952,7 +952,7 @@ name|tablenamePlusDelimiterLength
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv

@@ -1381,7 +1381,7 @@ name|createLastOnRow
 argument_list|(
 name|curr
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|curr
@@ -1396,7 +1396,7 @@ argument_list|()
 argument_list|,
 name|curr
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|curr
@@ -1411,7 +1411,7 @@ argument_list|()
 argument_list|,
 name|curr
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|curr

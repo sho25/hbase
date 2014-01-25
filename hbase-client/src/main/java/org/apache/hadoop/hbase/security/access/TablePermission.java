@@ -728,7 +728,7 @@ name|length
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|kv
@@ -771,7 +771,7 @@ name|length
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv

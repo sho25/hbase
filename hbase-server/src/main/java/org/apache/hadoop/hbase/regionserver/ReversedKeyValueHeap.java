@@ -276,7 +276,7 @@ name|compareRows
 argument_list|(
 name|topKey
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|topKey
@@ -291,7 +291,7 @@ argument_list|()
 argument_list|,
 name|seekKey
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|seekKey

@@ -1210,7 +1210,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv

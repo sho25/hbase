@@ -1730,7 +1730,7 @@ name|compareRows
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1786,7 +1786,7 @@ name|compareRows
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1981,7 +1981,7 @@ name|createLastOnRow
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1996,7 +1996,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|kv
@@ -2011,7 +2011,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -2035,7 +2035,7 @@ name|createFirstOnRow
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -2050,7 +2050,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|kv
@@ -2096,7 +2096,7 @@ name|createLastOnRow
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv

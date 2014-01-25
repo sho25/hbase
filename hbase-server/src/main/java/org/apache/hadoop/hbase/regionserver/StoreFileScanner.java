@@ -893,7 +893,7 @@ name|compareTo
 argument_list|(
 name|cur
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|cur
@@ -908,7 +908,7 @@ argument_list|()
 argument_list|,
 name|startKV
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|startKV
@@ -1241,7 +1241,7 @@ name|passesGeneralBloomFilter
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1256,7 +1256,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1309,7 +1309,7 @@ name|passesDeleteFamilyBloomFilter
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -1898,7 +1898,7 @@ name|compareTo
 argument_list|(
 name|cur
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|cur
@@ -1913,7 +1913,7 @@ argument_list|()
 argument_list|,
 name|key
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|key

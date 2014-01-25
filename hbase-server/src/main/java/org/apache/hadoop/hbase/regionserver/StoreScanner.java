@@ -2062,7 +2062,7 @@ name|row
 init|=
 name|peeked
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 decl_stmt|;
 name|int
@@ -2854,7 +2854,7 @@ name|row
 init|=
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 decl_stmt|;
 name|int

@@ -6663,7 +6663,7 @@ name|compareTo
 argument_list|(
 name|kv1
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv1
@@ -6678,7 +6678,7 @@ argument_list|()
 argument_list|,
 name|kv2
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv2

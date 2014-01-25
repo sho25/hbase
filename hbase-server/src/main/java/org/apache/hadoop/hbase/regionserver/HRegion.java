@@ -16678,7 +16678,7 @@ name|limit
 argument_list|,
 name|joinedContinuationRow
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|joinedContinuationRow
@@ -16991,7 +16991,7 @@ name|currentRow
 operator|=
 name|current
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 expr_stmt|;
 name|offset
@@ -17166,7 +17166,7 @@ name|isStopRow
 argument_list|(
 name|nextKv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|nextKv
@@ -21878,7 +21878,7 @@ name|arraycopy
 argument_list|(
 name|oldKv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|oldKv
@@ -21888,7 +21888,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -21908,7 +21908,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv
@@ -21918,7 +21918,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -21944,7 +21944,7 @@ name|arraycopy
 argument_list|(
 name|oldKv
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|oldKv
@@ -21954,7 +21954,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -21974,7 +21974,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|kv
@@ -21984,7 +21984,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -22055,7 +22055,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|kv
@@ -22065,7 +22065,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -22086,7 +22086,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|kv
@@ -22096,7 +22096,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -22118,7 +22118,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -22128,7 +22128,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -22148,7 +22148,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|kv
@@ -22158,7 +22158,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -22178,7 +22178,7 @@ name|arraycopy
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -22188,7 +22188,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23204,7 +23204,7 @@ literal|0
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23230,7 +23230,7 @@ literal|0
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getFamilyArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23256,7 +23256,7 @@ literal|0
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23280,7 +23280,7 @@ literal|0
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23317,7 +23317,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|newKV
@@ -23352,7 +23352,7 @@ argument_list|()
 argument_list|,
 name|newKV
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|newKV

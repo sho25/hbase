@@ -3437,7 +3437,7 @@ name|bloomKey
 operator|=
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 expr_stmt|;
 name|bloomKeyOffset
@@ -3469,7 +3469,7 @@ name|createBloomKey
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv
@@ -3484,7 +3484,7 @@ argument_list|()
 argument_list|,
 name|kv
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|kv
@@ -3694,7 +3694,7 @@ name|add
 argument_list|(
 name|kv
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|kv

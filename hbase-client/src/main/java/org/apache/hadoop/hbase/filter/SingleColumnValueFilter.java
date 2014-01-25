@@ -658,7 +658,7 @@ name|filterColumnValue
 argument_list|(
 name|keyValue
 operator|.
-name|getBuffer
+name|getValueArray
 argument_list|()
 argument_list|,
 name|keyValue

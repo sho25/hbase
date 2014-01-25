@@ -6457,7 +6457,7 @@ name|Tag
 operator|.
 name|asList
 argument_list|(
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|getTagsOffset
@@ -6619,7 +6619,7 @@ name|matchingQualifier
 argument_list|(
 name|other
 operator|.
-name|getBuffer
+name|getQualifierArray
 argument_list|()
 argument_list|,
 name|other
@@ -6709,7 +6709,7 @@ name|matchingRow
 argument_list|(
 name|other
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|other
@@ -8664,7 +8664,7 @@ name|compareRows
 argument_list|(
 name|left
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|left
@@ -8679,7 +8679,7 @@ argument_list|()
 argument_list|,
 name|right
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|right
@@ -9840,7 +9840,7 @@ name|matchingRows
 argument_list|(
 name|left
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|left
@@ -9852,7 +9852,7 @@ name|lrowlength
 argument_list|,
 name|right
 operator|.
-name|getBuffer
+name|getRowArray
 argument_list|()
 argument_list|,
 name|right

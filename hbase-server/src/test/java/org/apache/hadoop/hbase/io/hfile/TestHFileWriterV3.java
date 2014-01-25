@@ -1713,7 +1713,7 @@ name|length
 argument_list|,
 name|tkv
 operator|.
-name|getBuffer
+name|getTagsArray
 argument_list|()
 argument_list|,
 name|tkv
