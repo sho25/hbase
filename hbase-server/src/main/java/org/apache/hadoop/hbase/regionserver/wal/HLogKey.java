@@ -909,6 +909,22 @@ operator|.
 name|logSeqNum
 return|;
 block|}
+comment|/**    * Allow that the log sequence id to be set post-construction.    * @param sequence    */
+name|void
+name|setLogSeqNum
+parameter_list|(
+specifier|final
+name|long
+name|sequence
+parameter_list|)
+block|{
+name|this
+operator|.
+name|logSeqNum
+operator|=
+name|sequence
+expr_stmt|;
+block|}
 comment|/**    * @return the write time    */
 specifier|public
 name|long

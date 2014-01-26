@@ -172,6 +172,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 operator|.
 name|OperationStatusCode
 import|;
@@ -339,6 +353,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|BeforeClass
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -420,7 +444,6 @@ name|TestName
 argument_list|()
 decl_stmt|;
 specifier|private
-specifier|static
 name|HRegion
 name|region
 init|=
@@ -429,11 +452,19 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|HBaseTestingUtility
-name|hbtu
+name|HBTU
 init|=
 operator|new
 name|HBaseTestingUtility
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|THREADS100
+init|=
+literal|100
 decl_stmt|;
 comment|// Test names
 specifier|static
@@ -532,6 +563,30 @@ argument_list|(
 literal|"rowB"
 argument_list|)
 decl_stmt|;
+annotation|@
+name|BeforeClass
+specifier|public
+specifier|static
+name|void
+name|beforeClass
+parameter_list|()
+block|{
+comment|// Make sure enough handlers.
+name|HBTU
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGION_SERVER_HANDLER_COUNT
+argument_list|,
+name|THREADS100
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @see org.apache.hadoop.hbase.HBaseTestCase#setUp()    */
 annotation|@
 name|Before
@@ -569,6 +624,19 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|region
+operator|!=
+literal|null
+condition|)
+name|region
+operator|.
+name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|String
@@ -603,6 +671,10 @@ argument_list|(
 literal|"Starting testPut"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|region
+operator|=
 name|initHRegion
 argument_list|(
 name|tableName
@@ -652,6 +724,10 @@ argument_list|)
 expr_stmt|;
 name|assertGet
 argument_list|(
+name|this
+operator|.
+name|region
+argument_list|,
 name|row
 argument_list|,
 name|fam1
@@ -684,6 +760,10 @@ argument_list|(
 literal|"Starting testParallelPuts"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|region
+operator|=
 name|initHRegion
 argument_list|(
 name|tableName
@@ -701,11 +781,6 @@ literal|1000
 decl_stmt|;
 comment|// these many operations per thread
 comment|// create 100 threads, each will do its own puts
-name|int
-name|numThreads
-init|=
-literal|100
-decl_stmt|;
 name|Putter
 index|[]
 name|all
@@ -713,7 +788,7 @@ init|=
 operator|new
 name|Putter
 index|[
-name|numThreads
+name|THREADS100
 index|]
 decl_stmt|;
 comment|// create all threads
@@ -726,7 +801,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|numThreads
+name|THREADS100
 condition|;
 name|i
 operator|++
@@ -758,7 +833,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|numThreads
+name|THREADS100
 condition|;
 name|i
 operator|++
@@ -783,7 +858,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|numThreads
+name|THREADS100
 condition|;
 name|i
 operator|++
@@ -828,18 +903,22 @@ operator|+
 operator|(
 name|numOps
 operator|*
-name|numThreads
+name|THREADS100
 operator|)
 operator|+
 literal|" put operations."
 argument_list|)
 expr_stmt|;
 block|}
-specifier|static
 specifier|private
+specifier|static
 name|void
 name|assertGet
 parameter_list|(
+specifier|final
+name|HRegion
+name|region
+parameter_list|,
 name|byte
 index|[]
 name|row
@@ -936,7 +1015,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|void
+name|HRegion
 name|initHRegion
 parameter_list|(
 name|byte
@@ -1007,9 +1086,8 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|region
-operator|=
-name|hbtu
+return|return
+name|HBTU
 operator|.
 name|createLocalHRegion
 argument_list|(
@@ -1017,7 +1095,7 @@ name|info
 argument_list|,
 name|htd
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * A thread that makes a few put calls    */
 specifier|public
@@ -1228,6 +1306,10 @@ argument_list|)
 expr_stmt|;
 name|assertGet
 argument_list|(
+name|this
+operator|.
+name|region
+argument_list|,
 name|rowkey
 argument_list|,
 name|fam1

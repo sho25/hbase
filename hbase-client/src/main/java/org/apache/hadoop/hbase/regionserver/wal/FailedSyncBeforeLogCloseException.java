@@ -47,16 +47,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when we fail close of the write-ahead-log file.  * Package private.  Only used inside this package.  */
 end_comment
@@ -72,9 +62,9 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|FailedLogCloseException
+name|FailedSyncBeforeLogCloseException
 extends|extends
-name|IOException
+name|FailedLogCloseException
 block|{
 specifier|private
 specifier|static
@@ -85,7 +75,7 @@ init|=
 literal|1759152841462990925L
 decl_stmt|;
 specifier|public
-name|FailedLogCloseException
+name|FailedSyncBeforeLogCloseException
 parameter_list|()
 block|{
 name|super
@@ -94,7 +84,7 @@ expr_stmt|;
 block|}
 comment|/**    * @param msg    */
 specifier|public
-name|FailedLogCloseException
+name|FailedSyncBeforeLogCloseException
 parameter_list|(
 name|String
 name|msg
@@ -107,7 +97,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|FailedLogCloseException
+name|FailedSyncBeforeLogCloseException
 parameter_list|(
 specifier|final
 name|String
@@ -127,7 +117,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|FailedLogCloseException
+name|FailedSyncBeforeLogCloseException
 parameter_list|(
 specifier|final
 name|Throwable

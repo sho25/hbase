@@ -2139,7 +2139,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check if async log edits are enabled on the table.    *    * @return true if that async log flush is enabled on the table    *    * @see #setAsyncLogFlush(boolean)    */
+comment|/**    * Check if async log edits are enabled on the table.    *    * @return true if that async log flush is enabled on the table    * @deprecated Since 0.96 we no longer have an explicity deferred log flush/sync functionality.    * Use {@link #getDurability()}.    */
 specifier|public
 specifier|synchronized
 name|boolean

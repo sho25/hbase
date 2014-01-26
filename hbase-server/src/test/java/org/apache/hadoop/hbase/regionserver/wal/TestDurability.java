@@ -553,7 +553,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// a put through the deferred table does not write to the wal immdiately,
+comment|// a put through the deferred table does not write to the wal immediately,
 comment|// but maybe has been successfully sync-ed by the underlying AsyncWriter +
 comment|// AsyncFlusher thread
 name|deferredRegion
@@ -707,7 +707,7 @@ argument_list|,
 literal|6
 argument_list|)
 expr_stmt|;
-comment|// async overrides sync table default
+comment|// Async overrides sync table default
 name|region
 operator|.
 name|put

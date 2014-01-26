@@ -925,11 +925,16 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Invalid log file path="
+literal|"Cannot parse a server name from path="
 operator|+
 name|logFile
-argument_list|,
+operator|+
+literal|"; "
+operator|+
 name|ex
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1275,9 +1280,6 @@ name|toByteArray
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|long
-name|txid
-init|=
 name|log
 operator|.
 name|appendNoSync
@@ -1311,13 +1313,11 @@ name|HConstants
 operator|.
 name|NO_NONCE
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|log
 operator|.
 name|sync
-argument_list|(
-name|txid
-argument_list|)
+argument_list|()
 expr_stmt|;
 if|if
 condition|(

@@ -283,6 +283,10 @@ name|VisibleForTesting
 import|;
 end_import
 
+begin_comment
+comment|/**  * HLog records all the edits to HStore.  It is the hbase write-ahead-log (WAL).  */
+end_comment
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -317,7 +321,8 @@ name|SPLIT_SKIP_ERRORS_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-comment|/** The hbase:meta region's HLog filename extension */
+comment|/** The hbase:meta region's HLog filename extension.*/
+comment|// TODO: Implementation detail.  Does not belong in here.
 name|String
 name|META_HLOG_FILE_EXTN
 init|=
@@ -338,7 +343,7 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|// 1MB
-comment|// TODO: Implemenation detail.  Why in here?
+comment|// TODO: Implementation detail.  Why in here?
 name|Pattern
 name|EDITFILES_NAME_PATTERN
 init|=
@@ -354,6 +359,7 @@ name|RECOVERED_LOG_TMPFILE_SUFFIX
 init|=
 literal|".temp"
 decl_stmt|;
+comment|/**    * WAL Reader Interface    */
 interface|interface
 name|Reader
 block|{
@@ -418,13 +424,15 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * @return the WALTrailer of the current HLog. It may be null in case of legacy or corrupt WAL      *         files.      */
-comment|// TODO: What we need a trailer on WAL for?
+comment|/**      * @return the WALTrailer of the current HLog. It may be null in case of legacy or corrupt WAL      * files.      */
+comment|// TODO: What we need a trailer on WAL for?  It won't be present on last WAL most of the time.
+comment|// What then?
 name|WALTrailer
 name|getWALTrailer
 parameter_list|()
 function_decl|;
 block|}
+comment|/**    * WAL Writer Intrface.    */
 interface|interface
 name|Writer
 block|{
@@ -473,7 +481,8 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Sets HLog's WALTrailer. This trailer is appended at the end of WAL on closing.      * @param walTrailer trailer to append to WAL.      */
+comment|/**      * Sets HLog/WAL's WALTrailer. This trailer is appended at the end of WAL on closing.      * @param walTrailer trailer to append to WAL.      */
+comment|// TODO: Why a trailer on the log?
 name|void
 name|setWALTrailer
 parameter_list|(
@@ -482,8 +491,9 @@ name|walTrailer
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Utility class that lets us keep track of the edit with it's key.    * Only used when splitting logs.    */
+comment|/**    * Utility class that lets us keep track of the edit and it's associated key. Only used when    * splitting logs.    */
 comment|// TODO: Remove this Writable.
+comment|// TODO: Why is this in here?  Implementation detail?
 class|class
 name|Entry
 implements|implements
@@ -525,9 +535,6 @@ name|WALEdit
 name|edit
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|key
@@ -561,7 +568,7 @@ return|return
 name|key
 return|;
 block|}
-comment|/**      * Set compression context for this entry.      *      * @param compressionContext      *          Compression context      */
+comment|/**      * Set compression context for this entry.      *      * @param compressionContext Compression context      */
 specifier|public
 name|void
 name|setCompressionContext
@@ -672,7 +679,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * registers WALActionsListener    *    * @param listener    */
+comment|/**    * Registers WALActionsListener    *    * @param listener    */
 name|void
 name|registerWALActionsListener
 parameter_list|(
@@ -681,7 +688,7 @@ name|WALActionsListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * unregisters WALActionsListener    *    * @param listener    */
+comment|/**    * Unregisters WALActionsListener    *    * @param listener    */
 name|boolean
 name|unregisterWALActionsListener
 parameter_list|(
@@ -739,14 +746,14 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Shut down the log and delete the log directory    *    * @throws IOException    */
+comment|/**    * Shut down the log and delete the log directory.    * Used by tests only and in rare cases where we need a log just temporarily while bootstrapping    * a region or running migrations.    *    * @throws IOException    */
 name|void
 name|closeAndDelete
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor),    * except it causes a sync on the log    * @param sequenceId of the region.    */
+comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor,    *   AtomicLong, boolean, long, long)}    * except it causes a sync on the log    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param sequenceId    * @throws IOException    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -775,24 +782,33 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * For notification post append to the writer.    * @param entries    */
-name|void
+comment|/**    * For notification post append to the writer.  Used by metrics system at least.    * @param entry    * @param elapsedTime    * @return Size of this append.    */
+name|long
 name|postAppend
 parameter_list|(
 specifier|final
-name|List
-argument_list|<
 name|Entry
-argument_list|>
-name|entries
+name|entry
+parameter_list|,
+specifier|final
+name|long
+name|elapsedTime
 parameter_list|)
 function_decl|;
-comment|/**    * For notification post writer sync.    */
+comment|/**    * For notification post writer sync.  Used by metrics system at least.    * @param timeInMillis How long the filesystem sync took in milliseconds.    * @param handlerSyncs How many sync handler calls were released by this call to filesystem    * sync.    */
 name|void
 name|postSync
-parameter_list|()
+parameter_list|(
+specifier|final
+name|long
+name|timeInMillis
+parameter_list|,
+specifier|final
+name|int
+name|handlerSyncs
+parameter_list|)
 function_decl|;
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The HLog is not flushed after this transaction is written to the log.    * @param info    * @param tableName    * @param edits    * @param clusterIds The clusters that have consumed the change (for replication)    * @param now    * @param htd    * @param sequenceId of the region    * @return txid of this transaction    * @throws IOException    */
+comment|/**    * Append a set of edits to the WAL. WAL edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The WAL is not flushed/sync'd after this transaction completes.    * Call {@link #sync()} to flush/sync all outstanding edits/appends.    * @param info    * @param tableName    * @param edits    * @param clusterIds    * @param now    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param isInMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param nonceGroup    * @param nonce    * @return Returns a 'transaction id'.  Do not use. This is an internal implementation detail and    * cannot be respected in all implementations; i.e. the append/sync machine may or may not be    * able to sync an explicit edit only (the current default implementation syncs up to the time    * of the sync call syncing whatever is behind the sync).    * @throws IOException    */
 name|long
 name|appendNoSync
 parameter_list|(
@@ -852,6 +868,10 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param txid Transaction id to sync to.    * @throws IOException    * @deprecated Since 0.96.2.  Just call {@link #sync()}.<code>txid</code> should not be allowed    * outside the implementation.    */
+comment|// TODO: Why is this exposed?  txid is an internal detail.
+annotation|@
+name|Deprecated
 name|void
 name|sync
 parameter_list|(
@@ -861,7 +881,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    * We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, TableName, WALEdit, long, HTableDescriptor,    * AtomicLong)} as new oldest seqnum.    * In case of flush being aborted, we put the stashed value back; in case of flush succeeding,    * the seqNum of that first edit after start becomes the valid oldest seqNum for this region.    *    * @return true if the flush can proceed, false in case wal is closing (ususally, when server is    * closing) and flush couldn't be started.    */
+comment|/**    * WAL keeps track of the sequence numbers that were not yet flushed from memstores    * in order to be able to do cleanup. This method tells WAL that some region is about    * to flush memstore.    *    *<p>We stash the oldest seqNum for the region, and let the the next edit inserted in this    * region be recorded in {@link #append(HRegionInfo, TableName, WALEdit, long, HTableDescriptor,    * AtomicLong)} as new oldest seqnum.    * In case of flush being aborted, we put the stashed value back; in case of flush succeeding,    * the seqNum of that first edit after start becomes the valid oldest seqNum for this region.    *    * @return true if the flush can proceed, false in case wal is closing (ususally, when server is    * closing) and flush couldn't be started.    */
 name|boolean
 name|startCacheFlush
 parameter_list|(

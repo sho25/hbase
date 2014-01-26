@@ -7274,12 +7274,23 @@ operator|)
 name|log
 operator|)
 operator|.
-name|cleanupCurrentWriter
+name|replaceWriter
 argument_list|(
+operator|(
+operator|(
+name|FSHLog
+operator|)
 name|log
+operator|)
 operator|.
-name|getFilenum
+name|getOldPath
 argument_list|()
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|/* code taken from ProcessServerShutdown.process()        * handles RS shutdowns (as observed by the Master)        */
