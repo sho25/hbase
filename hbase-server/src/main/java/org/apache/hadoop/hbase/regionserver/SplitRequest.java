@@ -555,6 +555,13 @@ operator|.
 name|abort
 argument_list|(
 name|msg
+operator|+
+literal|" -- Cause: "
+operator|+
+name|ee
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
