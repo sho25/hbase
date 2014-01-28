@@ -773,6 +773,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|coprocessor
+operator|.
+name|RegionServerCoprocessorEnvironment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -1834,6 +1850,24 @@ operator|.
 name|getZooKeeper
 argument_list|()
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|env
+operator|instanceof
+name|RegionServerCoprocessorEnvironment
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Visibility controller should not be configured as "
+operator|+
+literal|"'hbase.coprocessor.regionserver.classes'."
+argument_list|)
+throw|;
 block|}
 comment|// If zk is null or IOException while obtaining auth manager,
 comment|// throw RuntimeException so that the coprocessor is unloaded.
