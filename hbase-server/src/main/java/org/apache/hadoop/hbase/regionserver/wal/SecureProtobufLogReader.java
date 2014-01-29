@@ -591,6 +591,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|decryptor
+operator|!=
+literal|null
+condition|)
+block|{
 name|WALCellCodec
 name|codec
 init|=
@@ -618,7 +625,7 @@ operator|.
 name|inputStream
 argument_list|)
 expr_stmt|;
-comment|// We do not support compression
+comment|// We do not support compression with WAL encryption
 name|this
 operator|.
 name|compressionContext
@@ -631,6 +638,15 @@ name|hasCompression
 operator|=
 literal|false
 expr_stmt|;
+block|}
+else|else
+block|{
+name|super
+operator|.
+name|initAfterCompression
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
