@@ -431,6 +431,17 @@ name|ByteString
 name|getEncryptionKey
 parameter_list|()
 function_decl|;
+comment|// optional bool has_tag_compression = 3;
+comment|/**      *<code>optional bool has_tag_compression = 3;</code>      */
+name|boolean
+name|hasHasTagCompression
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool has_tag_compression = 3;</code>      */
+name|boolean
+name|getHasTagCompression
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code WALHeader}    */
 specifier|public
@@ -714,6 +725,23 @@ operator|=
 name|input
 operator|.
 name|readBytes
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|24
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|hasTagCompression_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -1087,6 +1115,47 @@ return|return
 name|encryptionKey_
 return|;
 block|}
+comment|// optional bool has_tag_compression = 3;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HAS_TAG_COMPRESSION_FIELD_NUMBER
+init|=
+literal|3
+decl_stmt|;
+specifier|private
+name|boolean
+name|hasTagCompression_
+decl_stmt|;
+comment|/**      *<code>optional bool has_tag_compression = 3;</code>      */
+specifier|public
+name|boolean
+name|hasHasTagCompression
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool has_tag_compression = 3;</code>      */
+specifier|public
+name|boolean
+name|getHasTagCompression
+parameter_list|()
+block|{
+return|return
+name|hasTagCompression_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -1107,6 +1176,10 @@ operator|.
 name|ByteString
 operator|.
 name|EMPTY
+expr_stmt|;
+name|hasTagCompression_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -1216,6 +1289,29 @@ name|encryptionKey_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|3
+argument_list|,
+name|hasTagCompression_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -1315,6 +1411,37 @@ argument_list|(
 literal|2
 argument_list|,
 name|encryptionKey_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|3
+argument_list|,
+name|hasTagCompression_
 argument_list|)
 expr_stmt|;
 block|}
@@ -1549,6 +1676,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasHasTagCompression
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasHasTagCompression
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasHasTagCompression
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getHasTagCompression
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getHasTagCompression
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -1671,6 +1833,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasHasTagCompression
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|HAS_TAG_COMPRESSION_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getHasTagCompression
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -2532,6 +2725,19 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
+name|hasTagCompression_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -2796,6 +3002,30 @@ name|encryptionKey_
 operator|=
 name|encryptionKey_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|hasTagCompression_
+operator|=
+name|hasTagCompression_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -2960,6 +3190,23 @@ argument_list|(
 name|other
 operator|.
 name|getEncryptionKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasHasTagCompression
+argument_list|()
+condition|)
+block|{
+name|setHasTagCompression
+argument_list|(
+name|other
+operator|.
+name|getHasTagCompression
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3317,6 +3564,89 @@ argument_list|()
 operator|.
 name|getEncryptionKey
 argument_list|()
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool has_tag_compression = 3;
+specifier|private
+name|boolean
+name|hasTagCompression_
+decl_stmt|;
+comment|/**        *<code>optional bool has_tag_compression = 3;</code>        */
+specifier|public
+name|boolean
+name|hasHasTagCompression
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool has_tag_compression = 3;</code>        */
+specifier|public
+name|boolean
+name|getHasTagCompression
+parameter_list|()
+block|{
+return|return
+name|hasTagCompression_
+return|;
+block|}
+comment|/**        *<code>optional bool has_tag_compression = 3;</code>        */
+specifier|public
+name|Builder
+name|setHasTagCompression
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|hasTagCompression_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool has_tag_compression = 3;</code>        */
+specifier|public
+name|Builder
+name|clearHasTagCompression
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000004
+operator|)
+expr_stmt|;
+name|hasTagCompression_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -25369,43 +25699,45 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tWAL.proto\032\013HBase.proto\"<\n\tWALHeader\022\027\n"
+literal|"\n\tWAL.proto\032\013HBase.proto\"Y\n\tWALHeader\022\027\n"
 operator|+
 literal|"\017has_compression\030\001 \001(\010\022\026\n\016encryption_key"
 operator|+
-literal|"\030\002 \001(\014\"\202\002\n\006WALKey\022\033\n\023encoded_region_name"
+literal|"\030\002 \001(\014\022\033\n\023has_tag_compression\030\003 \001(\010\"\202\002\n\006"
 operator|+
-literal|"\030\001 \002(\014\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023log_sequen"
+literal|"WALKey\022\033\n\023encoded_region_name\030\001 \002(\014\022\022\n\nt"
 operator|+
-literal|"ce_number\030\003 \002(\004\022\022\n\nwrite_time\030\004 \002(\004\022\035\n\nc"
+literal|"able_name\030\002 \002(\014\022\033\n\023log_sequence_number\030\003"
 operator|+
-literal|"luster_id\030\005 \001(\0132\005.UUIDB\002\030\001\022\034\n\006scopes\030\006 \003"
+literal|" \002(\004\022\022\n\nwrite_time\030\004 \002(\004\022\035\n\ncluster_id\030\005"
 operator|+
-literal|"(\0132\014.FamilyScope\022\032\n\022following_kv_count\030\007"
+literal|" \001(\0132\005.UUIDB\002\030\001\022\034\n\006scopes\030\006 \003(\0132\014.Family"
 operator|+
-literal|" \001(\r\022\032\n\013cluster_ids\030\010 \003(\0132\005.UUID\022\022\n\nnonc"
+literal|"Scope\022\032\n\022following_kv_count\030\007 \001(\r\022\032\n\013clu"
 operator|+
-literal|"eGroup\030\t \001(\004\022\r\n\005nonce\030\n \001(\004\"=\n\013FamilySco"
+literal|"ster_ids\030\010 \003(\0132\005.UUID\022\022\n\nnonceGroup\030\t \001("
 operator|+
-literal|"pe\022\016\n\006family\030\001 \002(\014\022\036\n\nscope_type\030\002 \002(\0162\n"
+literal|"\004\022\r\n\005nonce\030\n \001(\004\"=\n\013FamilyScope\022\016\n\006famil"
 block|,
-literal|".ScopeType\"\251\001\n\024CompactionDescriptor\022\022\n\nt"
+literal|"y\030\001 \002(\014\022\036\n\nscope_type\030\002 \002(\0162\n.ScopeType\""
 operator|+
-literal|"able_name\030\001 \002(\014\022\033\n\023encoded_region_name\030\002"
+literal|"\251\001\n\024CompactionDescriptor\022\022\n\ntable_name\030\001"
 operator|+
-literal|" \002(\014\022\023\n\013family_name\030\003 \002(\014\022\030\n\020compaction_"
+literal|" \002(\014\022\033\n\023encoded_region_name\030\002 \002(\014\022\023\n\013fam"
 operator|+
-literal|"input\030\004 \003(\t\022\031\n\021compaction_output\030\005 \003(\t\022\026"
+literal|"ily_name\030\003 \002(\014\022\030\n\020compaction_input\030\004 \003(\t"
 operator|+
-literal|"\n\016store_home_dir\030\006 \002(\t\"\014\n\nWALTrailer*F\n\t"
+literal|"\022\031\n\021compaction_output\030\005 \003(\t\022\026\n\016store_hom"
 operator|+
-literal|"ScopeType\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034"
+literal|"e_dir\030\006 \002(\t\"\014\n\nWALTrailer*F\n\tScopeType\022\033"
 operator|+
-literal|"\n\030REPLICATION_SCOPE_GLOBAL\020\001B?\n*org.apac"
+literal|"\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030REPLICATI"
 operator|+
-literal|"he.hadoop.hbase.protobuf.generatedB\tWALP"
+literal|"ON_SCOPE_GLOBAL\020\001B?\n*org.apache.hadoop.h"
 operator|+
-literal|"rotosH\001\210\001\000\240\001\001"
+literal|"base.protobuf.generatedB\tWALProtosH\001\210\001\000\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -25500,6 +25832,8 @@ block|{
 literal|"HasCompression"
 block|,
 literal|"EncryptionKey"
+block|,
+literal|"HasTagCompression"
 block|, }
 argument_list|)
 expr_stmt|;

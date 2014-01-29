@@ -369,6 +369,12 @@ name|hasCompression
 init|=
 literal|false
 decl_stmt|;
+specifier|protected
+name|boolean
+name|hasTagCompression
+init|=
+literal|false
+decl_stmt|;
 comment|// walEditsStopOffset is the position of the last byte to read. After reading the last WALEdit entry
 comment|// in the hlog, the inputstream's position is equal to walEditsStopOffset.
 specifier|private
@@ -635,6 +641,20 @@ operator|&&
 name|header
 operator|.
 name|getHasCompression
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|hasTagCompression
+operator|=
+name|header
+operator|.
+name|hasHasTagCompression
+argument_list|()
+operator|&&
+name|header
+operator|.
+name|getHasTagCompression
 argument_list|()
 expr_stmt|;
 block|}
@@ -1049,6 +1069,19 @@ return|return
 name|this
 operator|.
 name|hasCompression
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|hasTagCompression
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|hasTagCompression
 return|;
 block|}
 annotation|@

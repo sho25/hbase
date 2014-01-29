@@ -486,7 +486,7 @@ name|class
 argument_list|,
 literal|false
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 decl_stmt|;
 name|DataOutputBuffer
@@ -596,7 +596,7 @@ name|class
 argument_list|,
 literal|false
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 decl_stmt|;
 name|DataOutputBuffer

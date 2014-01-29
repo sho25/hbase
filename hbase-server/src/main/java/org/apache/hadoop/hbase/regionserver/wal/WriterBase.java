@@ -240,6 +240,15 @@ name|path
 argument_list|)
 argument_list|,
 name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CompressionContext
+operator|.
+name|ENABLE_WAL_TAGS_COMPRESSION
+argument_list|,
+literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

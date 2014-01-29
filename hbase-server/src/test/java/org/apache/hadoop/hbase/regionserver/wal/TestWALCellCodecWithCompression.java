@@ -334,7 +334,7 @@ name|class
 argument_list|,
 literal|false
 argument_list|,
-name|conf
+name|compressTags
 argument_list|)
 argument_list|)
 decl_stmt|;

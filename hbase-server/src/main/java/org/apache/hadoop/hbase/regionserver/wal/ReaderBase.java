@@ -388,7 +388,8 @@ argument_list|(
 name|path
 argument_list|)
 argument_list|,
-name|conf
+name|hasTagCompression
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -672,6 +673,13 @@ specifier|protected
 specifier|abstract
 name|boolean
 name|hasCompression
+parameter_list|()
+function_decl|;
+comment|/**    * @return Whether tag compression is enabled for this log.    */
+specifier|protected
+specifier|abstract
+name|boolean
+name|hasTagCompression
 parameter_list|()
 function_decl|;
 comment|/**    * Read next entry.    * @param e The entry to read into.    * @return Whether there was anything to read.    */

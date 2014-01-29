@@ -858,6 +858,21 @@ return|;
 block|}
 end_function
 
+begin_function
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|hasTagCompression
+parameter_list|()
+block|{
+comment|// Tag compression not supported with old SequenceFileLog Reader/Writer
+return|return
+literal|false
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/**    * Call this method after init() has been executed    * @return whether WAL compression is enabled    */
 end_comment
