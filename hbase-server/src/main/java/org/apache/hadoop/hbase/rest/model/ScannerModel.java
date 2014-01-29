@@ -143,6 +143,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -796,18 +808,6 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -3918,7 +3918,7 @@ name|builder
 operator|.
 name|setStartRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3946,7 +3946,7 @@ name|builder
 operator|.
 name|setEndRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3968,7 +3968,7 @@ name|builder
 operator|.
 name|addColumns
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

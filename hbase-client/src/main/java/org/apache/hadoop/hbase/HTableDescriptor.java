@@ -169,6 +169,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -468,18 +480,6 @@ operator|.
 name|protobuf
 operator|.
 name|InvalidProtocolBufferException
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -5775,7 +5775,7 @@ name|aBuilder
 operator|.
 name|setFirst
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -5793,7 +5793,7 @@ name|aBuilder
 operator|.
 name|setSecond
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

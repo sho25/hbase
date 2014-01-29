@@ -205,6 +205,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2000,18 +2012,6 @@ operator|.
 name|protobuf
 operator|.
 name|TextFormat
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -5759,7 +5759,7 @@ name|attributeBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -5808,7 +5808,7 @@ name|scanBuilder
 operator|.
 name|setStartRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -5843,7 +5843,7 @@ name|scanBuilder
 operator|.
 name|setStopRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -5924,7 +5924,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -5979,7 +5979,7 @@ name|columnBuilder
 operator|.
 name|addQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -6570,7 +6570,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -6755,7 +6755,7 @@ name|attributeBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -6853,7 +6853,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -6896,7 +6896,7 @@ name|columnBuilder
 operator|.
 name|addQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7023,7 +7023,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7184,7 +7184,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7247,7 +7247,7 @@ name|valueBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7272,7 +7272,7 @@ name|valueBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7307,7 +7307,7 @@ name|valueBuilder
 operator|.
 name|setTags
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7418,7 +7418,7 @@ name|attributeBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7656,7 +7656,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7692,7 +7692,7 @@ name|valueBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -7717,7 +7717,7 @@ name|valueBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -8012,7 +8012,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -8119,7 +8119,7 @@ name|attributeBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -8746,7 +8746,7 @@ name|builder
 operator|.
 name|setSerializedComparator
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -9086,7 +9086,7 @@ name|builder
 operator|.
 name|setSerializedFilter
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -11203,7 +11203,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -11227,7 +11227,7 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -11648,7 +11648,7 @@ argument_list|()
 operator|.
 name|setUser
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -12895,7 +12895,7 @@ name|builder
 operator|.
 name|setIdentifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -12910,7 +12910,7 @@ name|builder
 operator|.
 name|setPassword
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -13413,7 +13413,7 @@ name|kvbuilder
 operator|.
 name|setRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -13438,7 +13438,7 @@ name|kvbuilder
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -13463,7 +13463,7 @@ name|kvbuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -13515,7 +13515,7 @@ name|kvbuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -13994,7 +13994,7 @@ argument_list|()
 operator|.
 name|setTableName
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -14007,7 +14007,7 @@ argument_list|)
 operator|.
 name|setEncodedRegionName
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -14020,7 +14020,7 @@ argument_list|)
 operator|.
 name|setFamilyName
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -14532,7 +14532,7 @@ argument_list|()
 operator|.
 name|setNamespace
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -14545,7 +14545,7 @@ argument_list|)
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

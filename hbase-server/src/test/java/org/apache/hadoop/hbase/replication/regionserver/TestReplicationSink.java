@@ -79,6 +79,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -424,18 +436,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -1932,7 +1932,7 @@ name|keyBuilder
 operator|.
 name|setTableName
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -1951,7 +1951,7 @@ name|keyBuilder
 operator|.
 name|setEncodedRegionName
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

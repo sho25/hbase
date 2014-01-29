@@ -177,6 +177,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -980,18 +992,6 @@ operator|.
 name|protobuf
 operator|.
 name|ServiceException
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
 import|;
 end_import
 
@@ -3174,7 +3174,7 @@ decl_stmt|;
 name|ByteString
 name|row
 init|=
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3581,7 +3581,7 @@ specifier|static
 name|ByteString
 name|CATALOG_FAMILY_BYTESTRING
 init|=
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3596,7 +3596,7 @@ specifier|static
 name|ByteString
 name|REGIONINFO_QUALIFIER_BYTESTRING
 init|=
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3611,7 +3611,7 @@ specifier|static
 name|ByteString
 name|SERVER_QUALIFIER_BYTESTRING
 init|=
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3713,7 +3713,7 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3814,7 +3814,7 @@ name|cellBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -3829,7 +3829,7 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

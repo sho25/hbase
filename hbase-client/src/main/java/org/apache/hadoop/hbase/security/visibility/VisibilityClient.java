@@ -61,6 +61,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -349,18 +361,6 @@ name|ServiceException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility client for doing visibility labels admin operations.  */
 end_comment
@@ -538,7 +538,7 @@ name|newBuilder
 operator|.
 name|setLabel
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -781,7 +781,7 @@ name|getAuthReqBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -1024,7 +1024,7 @@ name|setAuthReqBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -1059,7 +1059,7 @@ name|setAuthReqBuilder
 operator|.
 name|addAuth
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

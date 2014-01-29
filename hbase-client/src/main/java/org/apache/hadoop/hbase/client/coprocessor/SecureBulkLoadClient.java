@@ -59,19 +59,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -768,7 +756,7 @@ argument_list|()
 operator|.
 name|setIdentifier
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -781,7 +769,7 @@ argument_list|)
 operator|.
 name|setPassword
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -868,7 +856,7 @@ argument_list|()
 operator|.
 name|setFamily
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

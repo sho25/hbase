@@ -29,6 +29,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -225,18 +237,6 @@ name|Message
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ZeroCopyLiteralByteString
-import|;
-end_import
-
 begin_comment
 comment|/**  * Provides clients with an RPC connection to call coprocessor endpoint {@link com.google.protobuf.Service}s  * against a given table region.  An instance of this class may be obtained  * by calling {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])},  * but should normally only be used in creating a new {@link com.google.protobuf.Service} stub to call the endpoint  * methods.  * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])  */
 end_comment
@@ -416,7 +416,7 @@ argument_list|()
 operator|.
 name|setRow
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(

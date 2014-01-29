@@ -25,7 +25,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|InvalidProtocolBufferException
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -37,7 +37,7 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ZeroCopyLiteralByteString
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -627,7 +627,7 @@ name|bbpBuilder
 operator|.
 name|setFirst
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
@@ -642,7 +642,7 @@ name|bbpBuilder
 operator|.
 name|setSecond
 argument_list|(
-name|ZeroCopyLiteralByteString
+name|HBaseZeroCopyByteString
 operator|.
 name|wrap
 argument_list|(
