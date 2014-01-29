@@ -423,30 +423,12 @@ expr_stmt|;
 name|String
 name|nameTemplate
 init|=
-name|ucName
-operator|+
-literal|"%dthPercentile"
-operator|+
-name|interval
-operator|+
-literal|"sInterval"
-operator|+
-name|uvName
+literal|"%s%dthPercentile%dsInterval%s"
 decl_stmt|;
 name|String
 name|descTemplate
 init|=
-literal|"%d percentile "
-operator|+
-name|lvName
-operator|+
-literal|" with "
-operator|+
-name|interval
-operator|+
-literal|" second interval for "
-operator|+
-name|desc
+literal|"%d percentile %s with %d second interval for %s"
 decl_stmt|;
 for|for
 control|(
@@ -495,7 +477,13 @@ name|format
 argument_list|(
 name|nameTemplate
 argument_list|,
+name|ucName
+argument_list|,
 name|percentile
+argument_list|,
+name|interval
+argument_list|,
+name|uvName
 argument_list|)
 argument_list|,
 name|String
@@ -505,6 +493,12 @@ argument_list|(
 name|descTemplate
 argument_list|,
 name|percentile
+argument_list|,
+name|lvName
+argument_list|,
+name|interval
+argument_list|,
+name|desc
 argument_list|)
 argument_list|)
 expr_stmt|;
