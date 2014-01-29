@@ -161,12 +161,22 @@ block|{
 return|return
 literal|"region="
 operator|+
+operator|(
+name|this
+operator|.
+name|regionInfo
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
 name|this
 operator|.
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+operator|)
 operator|+
 literal|", hostname="
 operator|+

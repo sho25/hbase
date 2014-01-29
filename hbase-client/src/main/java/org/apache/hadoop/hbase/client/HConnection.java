@@ -665,7 +665,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
+annotation|@
+name|Deprecated
 name|void
 name|updateCachedLocations
 parameter_list|(
@@ -680,6 +681,24 @@ name|Object
 name|exception
 parameter_list|,
 name|HRegionLocation
+name|source
+parameter_list|)
+function_decl|;
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
+name|void
+name|updateCachedLocations
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|rowkey
+parameter_list|,
+name|Object
+name|exception
+parameter_list|,
+name|ServerName
 name|source
 parameter_list|)
 function_decl|;

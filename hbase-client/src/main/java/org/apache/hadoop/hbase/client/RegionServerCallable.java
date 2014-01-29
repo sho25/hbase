@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementations call a RegionServer and implement {@link #call()}.  * Passed to a {@link RpcRetryingCaller} so we retry on fail.  * @param<T> the class that the ServerCallable handles  */
+comment|/**  * Implementations call a RegionServer and implement {@link #call()}.  * Passed to a {@link RpcRetryingCaller} so we retry on fail.  * TODO: this class is actually tied to one region, because most of the paths make use of  *       the regioninfo part of location when building requests. The only reason it works for  *       multi-region requests (e.g. batch) is that they happen to not use the region parts.  *       This could be done cleaner (e.g. having a generic parameter and 2 derived classes,  *       RegionCallable and actual RegionServerCallable with ServerName.  * @param<T> the class that the ServerCallable handles  */
 end_comment
 
 begin_class
@@ -368,8 +368,9 @@ argument_list|()
 operator|.
 name|getClient
 argument_list|(
-name|getLocation
-argument_list|()
+name|this
+operator|.
+name|location
 operator|.
 name|getServerName
 argument_list|()
@@ -556,6 +557,9 @@ argument_list|,
 name|t
 argument_list|,
 name|location
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

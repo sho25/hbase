@@ -133,7 +133,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionLocation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -363,7 +391,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HRegionLocation
+name|ServerName
 name|location
 parameter_list|,
 specifier|final
@@ -389,8 +417,18 @@ name|multiAction
 operator|=
 name|multi
 expr_stmt|;
-name|setLocation
+comment|// RegionServerCallable has HRegionLocation field, but this is a multi-region request.
+comment|// Using region info from parent HRegionLocation would be a mistake for this class; so
+comment|// we will store the server here, and throw if someone tries to obtain location/regioninfo.
+name|this
+operator|.
+name|location
+operator|=
+operator|new
+name|HRegionLocation
 argument_list|(
+literal|null
+argument_list|,
 name|location
 argument_list|)
 expr_stmt|;
@@ -402,6 +440,37 @@ name|isCellBlock
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|HRegionLocation
+name|getLocation
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Cannot get region location for multi-region request"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|HRegionInfo
+name|getHRegionInfo
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Cannot get region info for multi-region request"
+argument_list|)
+throw|;
+block|}
+empty_stmt|;
 name|MultiAction
 argument_list|<
 name|R
@@ -850,8 +919,9 @@ argument_list|()
 operator|.
 name|getClient
 argument_list|(
-name|getLocation
-argument_list|()
+name|this
+operator|.
+name|location
 operator|.
 name|getServerName
 argument_list|()

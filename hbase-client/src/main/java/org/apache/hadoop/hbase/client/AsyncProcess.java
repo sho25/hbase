@@ -628,10 +628,6 @@ parameter_list|(
 name|int
 name|originalIndex
 parameter_list|,
-name|byte
-index|[]
-name|region
-parameter_list|,
 name|Row
 name|row
 parameter_list|,
@@ -648,10 +644,6 @@ name|originalIndex
 parameter_list|,
 name|Row
 name|row
-parameter_list|,
-name|byte
-index|[]
-name|region
 parameter_list|,
 name|Throwable
 name|exception
@@ -719,8 +711,8 @@ parameter_list|,
 name|Row
 name|row
 parameter_list|,
-name|HRegionLocation
-name|location
+name|ServerName
+name|serverName
 parameter_list|)
 block|{
 if|if
@@ -736,7 +728,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"row cannot be null. location="
 operator|+
-name|location
+name|serverName
 argument_list|)
 throw|;
 block|}
@@ -758,19 +750,16 @@ name|addresses
 operator|.
 name|add
 argument_list|(
-name|location
+name|serverName
 operator|!=
 literal|null
 condition|?
-name|location
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|.
 name|toString
 argument_list|()
 else|:
-literal|"null location"
+literal|"null"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1147,11 +1136,9 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// This looks like we are keying by region but HRegionLocation has a comparator that compares
-comment|// on the server portion only (hostname + port) so this Map collects regions by server.
 name|Map
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -1163,7 +1150,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -1466,7 +1453,7 @@ name|action
 parameter_list|,
 name|Map
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -1503,6 +1490,9 @@ operator|.
 name|get
 argument_list|(
 name|loc
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -1526,6 +1516,9 @@ operator|.
 name|put
 argument_list|(
 name|loc
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|multiAction
 argument_list|)
@@ -2235,7 +2228,7 @@ comment|// group per location => regions server
 specifier|final
 name|Map
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -2247,7 +2240,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -2352,7 +2345,7 @@ name|initialActions
 parameter_list|,
 name|Map
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -2380,7 +2373,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionLocation
+name|ServerName
 argument_list|,
 name|MultiAction
 argument_list|<
@@ -2396,8 +2389,8 @@ argument_list|()
 control|)
 block|{
 specifier|final
-name|HRegionLocation
-name|loc
+name|ServerName
+name|server
 init|=
 name|e
 operator|.
@@ -2423,10 +2416,7 @@ operator|.
 name|getRegions
 argument_list|()
 argument_list|,
-name|loc
-operator|.
-name|getServerName
-argument_list|()
+name|server
 argument_list|)
 expr_stmt|;
 name|Runnable
@@ -2462,7 +2452,7 @@ name|callable
 init|=
 name|createCallable
 argument_list|(
-name|loc
+name|server
 argument_list|,
 name|multiAction
 argument_list|)
@@ -2496,7 +2486,7 @@ name|initialActions
 argument_list|,
 name|multiAction
 argument_list|,
-name|loc
+name|server
 argument_list|,
 name|numAttempt
 argument_list|,
@@ -2526,7 +2516,7 @@ literal|", Caught throwable while calling. This is unexpected."
 operator|+
 literal|" Retrying. Server is "
 operator|+
-name|loc
+name|server
 operator|.
 name|getServerName
 argument_list|()
@@ -2544,7 +2534,7 @@ name|initialActions
 argument_list|,
 name|multiAction
 argument_list|,
-name|loc
+name|server
 argument_list|,
 name|numAttempt
 argument_list|,
@@ -2562,7 +2552,7 @@ name|initialActions
 argument_list|,
 name|multiAction
 argument_list|,
-name|loc
+name|server
 argument_list|,
 name|res
 argument_list|,
@@ -2581,10 +2571,7 @@ operator|.
 name|getRegions
 argument_list|()
 argument_list|,
-name|loc
-operator|.
-name|getServerName
-argument_list|()
+name|server
 argument_list|)
 expr_stmt|;
 block|}
@@ -2619,10 +2606,7 @@ operator|.
 name|getRegions
 argument_list|()
 argument_list|,
-name|loc
-operator|.
-name|getServerName
-argument_list|()
+name|server
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2637,7 +2621,7 @@ literal|", the task was rejected by the pool. This is unexpected."
 operator|+
 literal|" Server is "
 operator|+
-name|loc
+name|server
 operator|.
 name|getServerName
 argument_list|()
@@ -2653,7 +2637,7 @@ name|initialActions
 argument_list|,
 name|multiAction
 argument_list|,
-name|loc
+name|server
 argument_list|,
 name|numAttempt
 argument_list|,
@@ -2674,8 +2658,8 @@ argument_list|>
 name|createCallable
 parameter_list|(
 specifier|final
-name|HRegionLocation
-name|location
+name|ServerName
+name|server
 parameter_list|,
 specifier|final
 name|MultiAction
@@ -2696,7 +2680,7 @@ name|hConnection
 argument_list|,
 name|tableName
 argument_list|,
-name|location
+name|server
 argument_list|,
 name|multi
 argument_list|)
@@ -2727,7 +2711,7 @@ name|newCaller
 argument_list|()
 return|;
 block|}
-comment|/**    * Check that we can retry acts accordingly: logs, set the error status, call the callbacks.    *    * @param originalIndex the position in the list sent    * @param row           the row    * @param canRetry      if false, we won't retry whatever the settings.    * @param throwable     the throwable, if any (can be null)    * @param location      the location, if any (can be null)    * @return true if the action can be retried, false otherwise.    */
+comment|/**    * Check that we can retry acts accordingly: logs, set the error status, call the callbacks.    *    * @param originalIndex the position in the list sent    * @param row           the row    * @param canRetry      if false, we won't retry whatever the settings.    * @param throwable     the throwable, if any (can be null)    * @param server      the location, if any (can be null)    * @return true if the action can be retried, false otherwise.    */
 specifier|private
 name|boolean
 name|manageError
@@ -2744,8 +2728,8 @@ parameter_list|,
 name|Throwable
 name|throwable
 parameter_list|,
-name|HRegionLocation
-name|location
+name|ServerName
+name|server
 parameter_list|)
 block|{
 if|if
@@ -2766,12 +2750,6 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-name|byte
-index|[]
-name|region
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|canRetry
@@ -2781,22 +2759,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|region
-operator|=
-name|location
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|location
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-expr_stmt|;
 name|canRetry
 operator|=
 name|callback
@@ -2806,8 +2768,6 @@ argument_list|(
 name|originalIndex
 argument_list|,
 name|row
-argument_list|,
-name|region
 argument_list|,
 name|throwable
 argument_list|)
@@ -2826,35 +2786,11 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|region
-operator|==
-literal|null
-operator|&&
-name|location
-operator|!=
-literal|null
-condition|)
-block|{
-name|region
-operator|=
-name|location
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-expr_stmt|;
-block|}
 name|callback
 operator|.
 name|failure
 argument_list|(
 name|originalIndex
-argument_list|,
-name|region
 argument_list|,
 name|row
 argument_list|,
@@ -2870,7 +2806,7 @@ name|throwable
 argument_list|,
 name|row
 argument_list|,
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|this
@@ -2887,7 +2823,7 @@ return|return
 name|canRetry
 return|;
 block|}
-comment|/**    * Resubmit all the actions from this multiaction after a failure.    *    * @param initialActions the full initial action list    * @param rsActions  the actions still to do from the initial list    * @param location   the destination    * @param numAttempt the number of attempts so far    * @param t the throwable (if any) that caused the resubmit    */
+comment|/**    * Resubmit all the actions from this multiaction after a failure.    *    * @param initialActions the full initial action list    * @param rsActions  the actions still to do from the initial list    * @param server   the destination    * @param numAttempt the number of attempts so far    * @param t the throwable (if any) that caused the resubmit    */
 specifier|private
 name|void
 name|receiveGlobalFailure
@@ -2907,8 +2843,8 @@ name|Row
 argument_list|>
 name|rsActions
 parameter_list|,
-name|HRegionLocation
-name|location
+name|ServerName
+name|server
 parameter_list|,
 name|int
 name|numAttempt
@@ -2956,14 +2892,14 @@ argument_list|()
 argument_list|,
 literal|null
 argument_list|,
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|errorsByServer
 operator|.
 name|reportServerError
 argument_list|(
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|List
@@ -3049,7 +2985,7 @@ literal|true
 argument_list|,
 name|t
 argument_list|,
-name|location
+name|server
 argument_list|)
 condition|)
 block|{
@@ -3067,7 +3003,7 @@ name|logAndResubmit
 argument_list|(
 name|initialActions
 argument_list|,
-name|location
+name|server
 argument_list|,
 name|toReplay
 argument_list|,
@@ -3098,7 +3034,7 @@ argument_list|>
 argument_list|>
 name|initialActions
 parameter_list|,
-name|HRegionLocation
+name|ServerName
 name|oldLocation
 parameter_list|,
 name|List
@@ -3158,9 +3094,6 @@ name|size
 argument_list|()
 argument_list|,
 name|oldLocation
-operator|.
-name|getServerName
-argument_list|()
 argument_list|,
 name|throwable
 argument_list|,
@@ -3201,9 +3134,6 @@ argument_list|,
 literal|0
 argument_list|,
 name|oldLocation
-operator|.
-name|getServerName
-argument_list|()
 argument_list|,
 name|throwable
 argument_list|,
@@ -3265,9 +3195,6 @@ name|size
 argument_list|()
 argument_list|,
 name|oldLocation
-operator|.
-name|getServerName
-argument_list|()
 argument_list|,
 name|throwable
 argument_list|,
@@ -3342,7 +3269,7 @@ name|errorsByServer
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called when we receive the result of a server query.    *    * @param initialActions - the whole action list    * @param multiAction    - the multiAction we sent    * @param location       - the location. It's used as a server name.    * @param responses      - the response, if any    * @param numAttempt     - the attempt    */
+comment|/**    * Called when we receive the result of a server query.    *    * @param initialActions - the whole action list    * @param multiAction    - the multiAction we sent    * @param server       - the location.    * @param responses      - the response, if any    * @param numAttempt     - the attempt    */
 specifier|private
 name|void
 name|receiveMultiAction
@@ -3362,8 +3289,8 @@ name|Row
 argument_list|>
 name|multiAction
 parameter_list|,
-name|HRegionLocation
-name|location
+name|ServerName
+name|server
 parameter_list|,
 name|MultiResponse
 name|responses
@@ -3553,7 +3480,7 @@ argument_list|()
 argument_list|,
 name|result
 argument_list|,
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 if|if
@@ -3567,7 +3494,7 @@ name|errorsByServer
 operator|.
 name|reportServerError
 argument_list|(
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|canRetry
@@ -3596,7 +3523,7 @@ name|canRetry
 argument_list|,
 name|throwable
 argument_list|,
-name|location
+name|server
 argument_list|)
 condition|)
 block|{
@@ -3770,7 +3697,7 @@ name|errorsByServer
 operator|.
 name|reportServerError
 argument_list|(
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|canRetry
@@ -3806,7 +3733,7 @@ argument_list|()
 argument_list|,
 name|throwable
 argument_list|,
-name|location
+name|server
 argument_list|)
 expr_stmt|;
 name|failureCount
@@ -3850,7 +3777,7 @@ name|canRetry
 argument_list|,
 name|throwable
 argument_list|,
-name|location
+name|server
 argument_list|)
 condition|)
 block|{
@@ -3868,7 +3795,7 @@ name|logAndResubmit
 argument_list|(
 name|initialActions
 argument_list|,
-name|location
+name|server
 argument_list|,
 name|toReplay
 argument_list|,
