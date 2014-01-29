@@ -2232,7 +2232,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"No any HTable found, tablePattern:"
+literal|"No HTable found, tablePattern:"
 operator|+
 name|Arrays
 operator|.
@@ -3911,9 +3911,9 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
-literal|"No any RegionServerInfo found, regionServerPattern:"
+literal|"No RegionServerInfo found, regionServerPattern:"
 operator|+
 name|rsName
 argument_list|)
@@ -3957,9 +3957,9 @@ else|else
 block|{
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
-literal|"No any RegionServerInfo found, regionServerName:"
+literal|"No RegionServerInfo found, regionServerName:"
 operator|+
 name|rsName
 argument_list|)
