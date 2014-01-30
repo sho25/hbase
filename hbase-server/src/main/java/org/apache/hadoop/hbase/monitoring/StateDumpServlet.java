@@ -319,6 +319,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|service
+operator|==
+literal|null
+condition|)
+block|{
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"ExecutorService is not initialized"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|Map
 argument_list|<
 name|String
