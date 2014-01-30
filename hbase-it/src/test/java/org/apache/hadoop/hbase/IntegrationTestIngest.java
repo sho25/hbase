@@ -769,7 +769,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"60:%d"
+literal|"60:%d:1"
 argument_list|,
 name|writeThreads
 argument_list|)

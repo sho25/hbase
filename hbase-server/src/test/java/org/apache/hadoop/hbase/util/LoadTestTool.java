@@ -635,7 +635,7 @@ literal|"<update_percent>[:<#threads="
 operator|+
 name|DEFAULT_NUM_THREADS
 operator|+
-literal|">]"
+literal|">][:<#whether to ignore nonce collisions=0>]"
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -1017,6 +1017,12 @@ decl_stmt|;
 specifier|protected
 name|int
 name|updatePercent
+decl_stmt|;
+specifier|protected
+name|boolean
+name|ignoreConflicts
+init|=
+literal|false
 decl_stmt|;
 specifier|protected
 name|boolean
@@ -2051,7 +2057,7 @@ name|OPT_UPDATE
 argument_list|,
 literal|1
 argument_list|,
-literal|2
+literal|3
 argument_list|)
 decl_stmt|;
 name|int
@@ -2095,6 +2101,33 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|colIndex
+operator|<
+name|mutateOpts
+operator|.
+name|length
+condition|)
+block|{
+name|ignoreConflicts
+operator|=
+name|parseInt
+argument_list|(
+name|mutateOpts
+index|[
+name|colIndex
+operator|++
+index|]
+argument_list|,
+literal|0
+argument_list|,
+literal|1
+argument_list|)
+operator|==
+literal|1
+expr_stmt|;
+block|}
 name|isBatchUpdate
 operator|=
 name|cmd
@@ -2135,6 +2168,17 @@ argument_list|(
 literal|"Updater threads: "
 operator|+
 name|numUpdaterThreads
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Ignore nonce conflicts: "
+operator|+
+name|ignoreConflicts
 argument_list|)
 expr_stmt|;
 block|}
@@ -2961,6 +3005,13 @@ operator|.
 name|setBatchUpdate
 argument_list|(
 name|isBatchUpdate
+argument_list|)
+expr_stmt|;
+name|updaterThreads
+operator|.
+name|setIgnoreNonceConflicts
+argument_list|(
+name|ignoreConflicts
 argument_list|)
 expr_stmt|;
 block|}
