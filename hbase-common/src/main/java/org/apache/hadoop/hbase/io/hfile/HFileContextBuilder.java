@@ -184,6 +184,8 @@ comment|/** Whether tags to be compressed or not **/
 specifier|private
 name|boolean
 name|compressTags
+init|=
+literal|false
 decl_stmt|;
 comment|/** the checksum type **/
 specifier|private
