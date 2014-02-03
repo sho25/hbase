@@ -8785,20 +8785,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|// If balance not true, don't run balancer.
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|loadBalancerTracker
-operator|.
-name|isBalancerOn
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
 comment|// Do this call outside of synchronized block.
 name|int
 name|maximumBalanceTime
@@ -8816,6 +8802,20 @@ operator|.
 name|balancer
 init|)
 block|{
+comment|// If balance not true, don't run balancer.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|loadBalancerTracker
+operator|.
+name|isBalancerOn
+argument_list|()
+condition|)
+return|return
+literal|false
+return|;
 comment|// Only allow one balance run at at time.
 if|if
 condition|(
