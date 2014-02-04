@@ -1164,15 +1164,6 @@ name|dropDeletesToRow
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|store
-operator|.
-name|addChangedReaderObserver
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 comment|// Filter the list of scanners using Bloom filters, time range, TTL, etc.
 name|scanners
 operator|=
