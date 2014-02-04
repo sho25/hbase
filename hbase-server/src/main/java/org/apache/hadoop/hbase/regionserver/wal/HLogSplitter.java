@@ -8763,19 +8763,11 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Interrupted when waiting regon "
+literal|"Interrupted when waiting region "
 operator|+
 name|loc
 operator|.

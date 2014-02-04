@@ -41,6 +41,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|NavigableSet
@@ -693,11 +703,15 @@ name|e
 parameter_list|)
 block|{
 throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
 operator|new
-name|IOException
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
 argument_list|(
-literal|"Wait for namespace table assignment interrupted"
-argument_list|,
 name|e
 argument_list|)
 throw|;

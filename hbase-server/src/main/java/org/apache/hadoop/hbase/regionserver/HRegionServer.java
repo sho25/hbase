@@ -21611,7 +21611,6 @@ name|InterruptedException
 name|ex
 parameter_list|)
 block|{
-comment|// Probably should not happen.
 throw|throw
 operator|new
 name|InterruptedIOException

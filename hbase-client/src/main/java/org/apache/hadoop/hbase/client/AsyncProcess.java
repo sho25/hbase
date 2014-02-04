@@ -3250,7 +3250,10 @@ argument_list|)
 expr_stmt|;
 name|Thread
 operator|.
-name|interrupted
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
 argument_list|()
 expr_stmt|;
 return|return;
