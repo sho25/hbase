@@ -538,7 +538,8 @@ name|lastrolltime
 operator|=
 name|now
 expr_stmt|;
-comment|// This is array of actual region names.
+comment|// Force the roll if the logroll.period is elapsed or if a roll was requested.
+comment|// The returned value is an array of actual region names.
 name|byte
 index|[]
 index|[]
@@ -549,6 +550,8 @@ argument_list|()
 operator|.
 name|rollWriter
 argument_list|(
+name|periodic
+operator|||
 name|rollLog
 operator|.
 name|get
