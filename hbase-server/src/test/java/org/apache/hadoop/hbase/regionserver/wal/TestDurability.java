@@ -1460,7 +1460,7 @@ argument_list|)
 decl_stmt|;
 name|htd
 operator|.
-name|setAsyncLogFlush
+name|setDeferredLogFlush
 argument_list|(
 name|isAsyncLogFlush
 argument_list|)

@@ -2139,11 +2139,13 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check if async log edits are enabled on the table.    *    * @return true if that async log flush is enabled on the table    * @deprecated Since 0.96 we no longer have an explicity deferred log flush/sync functionality.    * Use {@link #getDurability()}.    */
+comment|/**    * Check if async log edits are enabled on the table.    *    * @return true if that async log flush is enabled on the table    * @deprecated Since 0.96 we no longer have an explicitly deferred log flush/sync functionality.    * Use {@link #getDurability()}.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|synchronized
 name|boolean
-name|isAsyncLogFlush
+name|isDeferredLogFlush
 parameter_list|()
 block|{
 return|return
@@ -2155,11 +2157,13 @@ operator|.
 name|ASYNC_WAL
 return|;
 block|}
-comment|/**    * This is used to allowing the log edits syncing to the file system. Everytime    * an edit is sent to the server it is first sync'd to the file system by the    * log writer. This sync is an expensive operation and thus can be deferred so    * that the edits are kept in memory until the background async writer-sync-notifier    * threads do the sync and not explicitly flushed for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these pending edits in memory are flushed onto the filesystem.    *</p>    *    * @param isAsyncLogFlush    */
+comment|/**    * This is used to allow the log edits syncing to the file system. Everytime    * an edit is sent to the server it is first sync'd to the file system by the    * log writer. This sync is an expensive operation and thus can be deferred so    * that the edits are kept in memory until the background async writer-sync-notifier    * threads do the sync and not explicitly flushed for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these pending edits in memory are flushed onto the filesystem.    *</p>    *    * @param isAsyncLogFlush    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|synchronized
 name|void
-name|setAsyncLogFlush
+name|setDeferredLogFlush
 parameter_list|(
 specifier|final
 name|boolean
