@@ -83,11 +83,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|rest
+name|security
 operator|.
-name|filter
-operator|.
-name|GzipFilter
+name|User
 import|;
 end_import
 
@@ -101,9 +99,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
+name|util
 operator|.
-name|User
+name|HttpServerUtil
 import|;
 end_import
 
@@ -404,6 +402,13 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+name|HttpServerUtil
+operator|.
+name|constrainHttpMethods
+argument_list|(
+name|context
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info

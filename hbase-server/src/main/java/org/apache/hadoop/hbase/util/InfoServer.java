@@ -348,6 +348,13 @@ argument_list|,
 literal|"/"
 argument_list|)
 expr_stmt|;
+name|HttpServerUtil
+operator|.
+name|constrainHttpMethods
+argument_list|(
+name|logContext
+argument_list|)
+expr_stmt|;
 name|defaultContexts
 operator|.
 name|put
