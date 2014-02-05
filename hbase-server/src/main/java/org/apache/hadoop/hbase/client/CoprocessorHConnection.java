@@ -498,6 +498,18 @@ name|CoprocessorHConnection
 implements|implements
 name|HConnection
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|NonceGenerator
+name|ng
+init|=
+operator|new
+name|HConnectionManager
+operator|.
+name|NoNonceGenerator
+argument_list|()
+decl_stmt|;
 comment|/**    * Create an unmanaged {@link HConnection} based on the environment in which we are running the    * coprocessor. The {@link HConnection} must be externally cleaned up (we bypass the usual HTable    * cleanup mechanisms since we own everything).    * @param env environment hosting the {@link HConnection}    * @return an unmanaged {@link HConnection}.    * @throws IOException if we cannot create the basic connection    */
 specifier|public
 specifier|static
@@ -2213,9 +2225,23 @@ name|getNonceGenerator
 parameter_list|()
 block|{
 return|return
-literal|null
+name|ng
 return|;
 comment|// don't use nonces for coprocessor connection
+block|}
+annotation|@
+name|Override
+specifier|public
+name|AsyncProcess
+name|getAsyncProcess
+parameter_list|()
+block|{
+return|return
+name|delegate
+operator|.
+name|getAsyncProcess
+argument_list|()
+return|;
 block|}
 block|}
 end_class

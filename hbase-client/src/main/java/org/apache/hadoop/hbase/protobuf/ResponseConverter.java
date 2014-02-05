@@ -969,14 +969,6 @@ name|add
 argument_list|(
 name|regionName
 argument_list|,
-operator|new
-name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Object
-argument_list|>
-argument_list|(
 name|roe
 operator|.
 name|getIndex
@@ -990,7 +982,6 @@ name|roe
 operator|.
 name|getException
 argument_list|()
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1010,14 +1001,6 @@ name|add
 argument_list|(
 name|regionName
 argument_list|,
-operator|new
-name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Object
-argument_list|>
-argument_list|(
 name|roe
 operator|.
 name|getIndex
@@ -1033,7 +1016,6 @@ name|getResult
 argument_list|()
 argument_list|,
 name|cells
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

@@ -187,8 +187,6 @@ name|exceptions
 decl_stmt|;
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Row
 argument_list|>
 name|actions
@@ -210,8 +208,6 @@ name|exceptions
 parameter_list|,
 name|List
 argument_list|<
-name|?
-extends|extends
 name|Row
 argument_list|>
 name|actions
