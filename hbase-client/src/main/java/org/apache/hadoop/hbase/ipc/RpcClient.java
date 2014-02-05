@@ -93,6 +93,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|OutputStream
 import|;
 end_import
@@ -754,6 +764,22 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ExceptionUtil
 import|;
 end_import
 
@@ -3338,6 +3364,13 @@ condition|(
 name|curRetries
 operator|>=
 name|maxRetries
+operator|||
+name|ExceptionUtil
+operator|.
+name|isInterrupt
+argument_list|(
+name|ioe
+argument_list|)
 condition|)
 block|{
 throw|throw
@@ -3358,9 +3391,17 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|ignored
+name|ie
 parameter_list|)
-block|{}
+block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|ie
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -3445,9 +3486,18 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|ignored
+name|ie
 parameter_list|)
-block|{}
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 if|if
@@ -5538,6 +5588,16 @@ operator|=
 name|e
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|ExceptionUtil
+operator|.
+name|isInterrupt
+argument_list|(
+name|e
+argument_list|)
+condition|)
+block|{          }
 else|else
 block|{
 comment|// Treat this as a fatal condition and close this connection
@@ -6898,11 +6958,6 @@ name|priority
 argument_list|)
 expr_stmt|;
 comment|// send the parameter
-name|boolean
-name|interrupted
-init|=
-literal|false
-decl_stmt|;
 comment|//noinspection SynchronizationOnLocalVariableOrMethodParameter
 synchronized|synchronized
 init|(
@@ -6935,8 +6990,6 @@ literal|"Unexpected closed connection"
 argument_list|)
 throw|;
 block|}
-try|try
-block|{
 name|call
 operator|.
 name|wait
@@ -6945,34 +6998,6 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// wait for the result
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|ignored
-parameter_list|)
-block|{
-comment|// save the fact that we were interrupted
-name|interrupted
-operator|=
-literal|true
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|interrupted
-condition|)
-block|{
-comment|// set the interrupt flag now that we are done waiting
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
 block|}
 if|if
 condition|(
