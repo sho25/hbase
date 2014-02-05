@@ -519,7 +519,9 @@ literal|"region"
 argument_list|,
 name|wal
 argument_list|,
-literal|false
+name|Durability
+operator|.
+name|USE_DEFAULT
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -533,7 +535,9 @@ literal|"deferredRegion"
 argument_list|,
 name|wal
 argument_list|,
-literal|true
+name|Durability
+operator|.
+name|ASYNC_WAL
 argument_list|)
 decl_stmt|;
 name|region
@@ -903,7 +907,9 @@ literal|"increment"
 argument_list|,
 name|wal
 argument_list|,
-literal|false
+name|Durability
+operator|.
+name|USE_DEFAULT
 argument_list|)
 decl_stmt|;
 comment|// col1: amount = 1, 1 write back to WAL
@@ -1438,8 +1444,8 @@ parameter_list|,
 name|HLog
 name|log
 parameter_list|,
-name|boolean
-name|isAsyncLogFlush
+name|Durability
+name|durability
 parameter_list|)
 throws|throws
 name|IOException
@@ -1460,9 +1466,9 @@ argument_list|)
 decl_stmt|;
 name|htd
 operator|.
-name|setAsyncLogFlush
+name|setDurability
 argument_list|(
-name|isAsyncLogFlush
+name|durability
 argument_list|)
 expr_stmt|;
 name|HColumnDescriptor
