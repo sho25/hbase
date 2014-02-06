@@ -444,7 +444,7 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
-comment|/**     * The context used to wait for results from one submit call.    * 1) If AsyncProcess is set to track errors globally, and not per call (for HTable puts),    *    then errors and failed operations in this object will reflect global errors.    * 2) If submit call is made with needResults false, results will not be saved.    *  */
+comment|/**    * The context used to wait for results from one submit call.    * 1) If AsyncProcess is set to track errors globally, and not per call (for HTable puts),    *    then errors and failed operations in this object will reflect global errors.    * 2) If submit call is made with needResults false, results will not be saved.    *  */
 specifier|public
 specifier|static
 interface|interface
@@ -508,6 +508,8 @@ index|[
 literal|0
 index|]
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|hasError
@@ -517,6 +519,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|RetriesExhaustedWithDetailsException
 name|getErrors
@@ -526,6 +530,8 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -540,6 +546,8 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Object
 index|[]
@@ -550,6 +558,8 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|waitUntilDone
@@ -3465,6 +3475,8 @@ name|updateCachedLocations
 argument_list|(
 name|tableName
 argument_list|,
+literal|null
+argument_list|,
 name|row
 argument_list|,
 literal|null
@@ -4076,6 +4088,8 @@ name|updateCachedLocations
 argument_list|(
 name|tableName
 argument_list|,
+name|regionName
+argument_list|,
 name|row
 operator|.
 name|getRow
@@ -4349,6 +4363,8 @@ operator|.
 name|updateCachedLocations
 argument_list|(
 name|tableName
+argument_list|,
+name|region
 argument_list|,
 name|actions
 operator|.
@@ -5219,7 +5235,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**     * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * @return Whether there were any errors in any request since the last time    *          {@link #waitForAllPreviousOpsAndReset(List)} was called, or AP was created.    */
+comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * @return Whether there were any errors in any request since the last time    *          {@link #waitForAllPreviousOpsAndReset(List)} was called, or AP was created.    */
 specifier|public
 name|boolean
 name|hasError

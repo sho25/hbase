@@ -41,16 +41,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|ConnectException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -382,7 +372,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Writes region and assignment information to<code>hbase:meta</code>.  * TODO: Put MetaReader and MetaEditor together; doesn't make sense having  * them distinct. see HBASE-3475.  */
+comment|/**  * Writes region and assignment information to<code>hbase:meta</code>.  */
 end_comment
 
 begin_class
@@ -393,6 +383,8 @@ name|Private
 specifier|public
 class|class
 name|MetaEditor
+extends|extends
+name|MetaReader
 block|{
 comment|// TODO: Strip CatalogTracker from this class.  Its all over and in the end
 comment|// its only used to get its Configuration so we can get associated
@@ -1192,6 +1184,11 @@ argument_list|,
 name|sn
 argument_list|,
 name|openSeqNum
+argument_list|,
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1346,6 +1343,11 @@ argument_list|,
 name|sn
 argument_list|,
 literal|1
+argument_list|,
+name|mergedRegion
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|byte
@@ -1491,9 +1493,14 @@ argument_list|,
 name|sn
 argument_list|,
 literal|1
+argument_list|,
+name|splitA
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//these are new regions, openSeqNum = 1 is fine.
+comment|//new regions, openSeqNum = 1 is fine.
 name|addLocation
 argument_list|(
 name|putB
@@ -1501,6 +1508,11 @@ argument_list|,
 name|sn
 argument_list|,
 literal|1
+argument_list|,
+name|splitB
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|byte
@@ -1702,41 +1714,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Updates the location of the specified hbase:meta region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying hbase:meta    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
-specifier|public
-specifier|static
-name|void
-name|updateMetaLocation
-parameter_list|(
-name|CatalogTracker
-name|catalogTracker
-parameter_list|,
-name|HRegionInfo
-name|regionInfo
-parameter_list|,
-name|ServerName
-name|sn
-parameter_list|,
-name|long
-name|openSeqNum
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|ConnectException
-block|{
-name|updateLocation
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|regionInfo
-argument_list|,
-name|sn
-argument_list|,
-name|openSeqNum
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    */
 specifier|public
 specifier|static
@@ -1792,16 +1769,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// region replicas are kept in the primary region's row
 name|Put
 name|put
 init|=
 operator|new
 name|Put
 argument_list|(
+name|getMetaKeyForRegion
+argument_list|(
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|addLocation
@@ -1811,6 +1789,11 @@ argument_list|,
 name|sn
 argument_list|,
 name|openSeqNum
+argument_list|,
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|putToCatalogTable
@@ -2315,6 +2298,9 @@ name|sn
 parameter_list|,
 name|long
 name|openSeqNum
+parameter_list|,
+name|int
+name|replicaId
 parameter_list|)
 block|{
 name|p
@@ -2325,9 +2311,12 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|,
-name|HConstants
+name|MetaReader
 operator|.
-name|SERVER_QUALIFIER
+name|getServerColumn
+argument_list|(
+name|replicaId
+argument_list|)
 argument_list|,
 name|Bytes
 operator|.
@@ -2348,9 +2337,12 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|,
-name|HConstants
+name|MetaReader
 operator|.
-name|STARTCODE_QUALIFIER
+name|getStartCodeColumn
+argument_list|(
+name|replicaId
+argument_list|)
 argument_list|,
 name|Bytes
 operator|.
@@ -2371,9 +2363,12 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|,
-name|HConstants
+name|MetaReader
 operator|.
-name|SEQNUM_QUALIFIER
+name|getSeqNumColumn
+argument_list|(
+name|replicaId
+argument_list|)
 argument_list|,
 name|Bytes
 operator|.

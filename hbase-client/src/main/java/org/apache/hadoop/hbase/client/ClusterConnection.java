@@ -197,6 +197,8 @@ extends|extends
 name|HConnection
 block|{
 comment|/** @return - true if the master server is running */
+annotation|@
+name|Override
 name|boolean
 name|isMasterRunning
 parameter_list|()
@@ -206,6 +208,8 @@ throws|,
 name|ZooKeeperConnectionException
 function_decl|;
 comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
+annotation|@
+name|Override
 name|boolean
 name|isTableAvailable
 parameter_list|(
@@ -221,6 +225,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -238,11 +244,15 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Allows flushing the region cache.    */
+annotation|@
+name|Override
 name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
 comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    */
+annotation|@
+name|Override
 name|void
 name|clearRegionCache
 parameter_list|(
@@ -252,6 +262,8 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Deletes cached locations for the specific region.    * @param location The location object for the region, to be purged from cache.    */
+annotation|@
+name|Override
 name|void
 name|deleteCachedRegionLocation
 parameter_list|(
@@ -261,6 +273,8 @@ name|location
 parameter_list|)
 function_decl|;
 comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 name|HRegionLocation
 name|relocateRegion
 parameter_list|(
@@ -276,12 +290,18 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the region name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
+annotation|@
+name|Override
 name|void
 name|updateCachedLocations
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|regionName
 parameter_list|,
 name|byte
 index|[]
@@ -295,6 +315,8 @@ name|source
 parameter_list|)
 function_decl|;
 comment|/**    * Gets the location of the region of<i>regionName</i>.    * @param regionName name of the region to locate    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 name|HRegionLocation
 name|locateRegion
 parameter_list|(
@@ -307,6 +329,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @return list of region locations for all regions of table    * @throws IOException    */
+annotation|@
+name|Override
 name|List
 argument_list|<
 name|HRegionLocation
@@ -321,6 +345,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException    */
+annotation|@
+name|Override
 name|List
 argument_list|<
 name|HRegionLocation
@@ -343,6 +369,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Returns a {@link MasterKeepAliveConnection} to the active master    */
+annotation|@
+name|Override
 name|MasterService
 operator|.
 name|BlockingInterface
@@ -352,6 +380,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 name|AdminService
 operator|.
 name|BlockingInterface
@@ -365,6 +395,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address, and returns    * a region client protocol.    *    * @param serverName    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
+annotation|@
+name|Override
 name|ClientService
 operator|.
 name|BlockingInterface
@@ -378,6 +410,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Find region location hosting passed row    * @param tableName table name    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
@@ -395,6 +429,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Clear any caches that pertain to server name<code>sn</code>.    * @param sn A server name    */
+annotation|@
+name|Override
 name|void
 name|clearCaches
 parameter_list|(
@@ -405,6 +441,8 @@ parameter_list|)
 function_decl|;
 comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException    */
 annotation|@
+name|Override
+annotation|@
 name|Deprecated
 name|MasterKeepAliveConnection
 name|getKeepAliveMasterService
@@ -413,6 +451,8 @@ throws|throws
 name|MasterNotRunningException
 function_decl|;
 comment|/**    * @param serverName    * @return true if the server is known as dead, false otherwise.    * @deprecated internal method, do not use thru HConnection */
+annotation|@
+name|Override
 annotation|@
 name|Deprecated
 name|boolean
@@ -423,6 +463,8 @@ name|serverName
 parameter_list|)
 function_decl|;
 comment|/**    * @return Nonce generator for this HConnection; may be null if disabled in configuration.    */
+annotation|@
+name|Override
 specifier|public
 name|NonceGenerator
 name|getNonceGenerator

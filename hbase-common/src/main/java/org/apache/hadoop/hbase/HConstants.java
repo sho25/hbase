@@ -1146,6 +1146,15 @@ comment|/** The server column qualifier */
 specifier|public
 specifier|static
 specifier|final
+name|String
+name|SERVER_QUALIFIER_STR
+init|=
+literal|"server"
+decl_stmt|;
+comment|/** The server column qualifier */
+specifier|public
+specifier|static
+specifier|final
 name|byte
 index|[]
 name|SERVER_QUALIFIER
@@ -1154,8 +1163,17 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"server"
+name|SERVER_QUALIFIER_STR
 argument_list|)
+decl_stmt|;
+comment|/** The startcode column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STARTCODE_QUALIFIER_STR
+init|=
+literal|"serverstartcode"
 decl_stmt|;
 comment|/** The startcode column qualifier */
 specifier|public
@@ -1169,8 +1187,17 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"serverstartcode"
+name|STARTCODE_QUALIFIER_STR
 argument_list|)
+decl_stmt|;
+comment|/** The open seqnum column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SEQNUM_QUALIFIER_STR
+init|=
+literal|"seqnumDuringOpen"
 decl_stmt|;
 comment|/** The open seqnum column qualifier */
 specifier|public
@@ -1184,7 +1211,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"seqnumDuringOpen"
+name|SEQNUM_QUALIFIER_STR
 argument_list|)
 decl_stmt|;
 comment|/** The state column qualifier */

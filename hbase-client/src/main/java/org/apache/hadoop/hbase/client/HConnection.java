@@ -125,20 +125,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -182,6 +168,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -294,7 +294,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *   *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
 end_comment
 
 begin_interface
@@ -572,7 +572,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    * @deprecated internal method, do not use thru HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -705,7 +705,7 @@ name|HRegionLocation
 name|source
 parameter_list|)
 function_decl|;
-comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the regionName    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    * @deprecated internal method, do not use thru HConnection    */
 annotation|@
 name|Deprecated
 name|void
@@ -713,6 +713,10 @@ name|updateCachedLocations
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|regionName
 parameter_list|,
 name|byte
 index|[]
@@ -791,7 +795,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException    * @deprecated internal method, do not use thru HConnection */
+comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException    * @deprecated internal method, do not use thru HConnection    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -883,6 +887,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @param getMaster do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated You can pass master flag but nothing special is done.    */
+annotation|@
+name|Deprecated
 name|AdminService
 operator|.
 name|BlockingInterface
@@ -1137,6 +1143,8 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    * @deprecated This method will be changed from public to package protected.    */
+annotation|@
+name|Deprecated
 name|int
 name|getCurrentNrHRS
 parameter_list|()

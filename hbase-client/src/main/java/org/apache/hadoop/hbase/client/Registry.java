@@ -37,7 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|RegionLocations
 import|;
 end_import
 
@@ -51,7 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
+name|TableName
 import|;
 end_import
 
@@ -72,7 +72,7 @@ name|connection
 parameter_list|)
 function_decl|;
 comment|/**    * @return Meta region location    * @throws IOException    */
-name|HRegionLocation
+name|RegionLocations
 name|getMetaRegionLocation
 parameter_list|()
 throws|throws

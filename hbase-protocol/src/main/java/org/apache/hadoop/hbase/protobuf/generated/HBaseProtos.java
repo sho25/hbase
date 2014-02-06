@@ -20640,6 +20640,17 @@ name|boolean
 name|getSplit
 parameter_list|()
 function_decl|;
+comment|// optional int32 replica_id = 7 [default = 0];
+comment|/**      *<code>optional int32 replica_id = 7 [default = 0];</code>      */
+name|boolean
+name|hasReplicaId
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional int32 replica_id = 7 [default = 0];</code>      */
+name|int
+name|getReplicaId
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code RegionInfo}    *    *<pre>    **    * Protocol buffer version of HRegionInfo.    *</pre>    */
 specifier|public
@@ -21075,6 +21086,23 @@ operator|=
 name|input
 operator|.
 name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|56
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|replicaId_
+operator|=
+name|input
+operator|.
+name|readInt32
 argument_list|()
 expr_stmt|;
 break|break;
@@ -21676,6 +21704,47 @@ return|return
 name|split_
 return|;
 block|}
+comment|// optional int32 replica_id = 7 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICA_ID_FIELD_NUMBER
+init|=
+literal|7
+decl_stmt|;
+specifier|private
+name|int
+name|replicaId_
+decl_stmt|;
+comment|/**      *<code>optional int32 replica_id = 7 [default = 0];</code>      */
+specifier|public
+name|boolean
+name|hasReplicaId
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional int32 replica_id = 7 [default = 0];</code>      */
+specifier|public
+name|int
+name|getReplicaId
+parameter_list|()
+block|{
+return|return
+name|replicaId_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -21737,6 +21806,10 @@ expr_stmt|;
 name|split_
 operator|=
 literal|false
+expr_stmt|;
+name|replicaId_
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|private
@@ -21986,6 +22059,29 @@ name|split_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt32
+argument_list|(
+literal|7
+argument_list|,
+name|replicaId_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -22209,6 +22305,37 @@ argument_list|(
 literal|6
 argument_list|,
 name|split_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt32Size
+argument_list|(
+literal|7
+argument_list|,
+name|replicaId_
 argument_list|)
 expr_stmt|;
 block|}
@@ -22585,6 +22712,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasReplicaId
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasReplicaId
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasReplicaId
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getReplicaId
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getReplicaId
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -22831,6 +22993,34 @@ argument_list|(
 name|getSplit
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasReplicaId
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|REPLICA_ID_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getReplicaId
+argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -23789,6 +23979,19 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
+name|replicaId_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -24169,6 +24372,30 @@ name|split_
 operator|=
 name|split_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|replicaId_
+operator|=
+name|replicaId_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -24401,6 +24628,23 @@ argument_list|(
 name|other
 operator|.
 name|getSplit
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasReplicaId
+argument_list|()
+condition|)
+block|{
+name|setReplicaId
+argument_list|(
+name|other
+operator|.
+name|getReplicaId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -25791,6 +26035,89 @@ expr_stmt|;
 name|split_
 operator|=
 literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional int32 replica_id = 7 [default = 0];
+specifier|private
+name|int
+name|replicaId_
+decl_stmt|;
+comment|/**        *<code>optional int32 replica_id = 7 [default = 0];</code>        */
+specifier|public
+name|boolean
+name|hasReplicaId
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional int32 replica_id = 7 [default = 0];</code>        */
+specifier|public
+name|int
+name|getReplicaId
+parameter_list|()
+block|{
+return|return
+name|replicaId_
+return|;
+block|}
+comment|/**        *<code>optional int32 replica_id = 7 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|setReplicaId
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|replicaId_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional int32 replica_id = 7 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|clearReplicaId
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|replicaId_
+operator|=
+literal|0
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -89275,79 +89602,79 @@ literal|"\002(\014\022#\n\nattributes\030\002 \003(\0132\017.BytesBytesPair"
 operator|+
 literal|"\022&\n\rconfiguration\030\003 \003(\0132\017.NameStringPair"
 operator|+
-literal|"\"\203\001\n\nRegionInfo\022\021\n\tregion_id\030\001 \002(\004\022\036\n\nta"
+literal|"\"\232\001\n\nRegionInfo\022\021\n\tregion_id\030\001 \002(\004\022\036\n\nta"
 block|,
 literal|"ble_name\030\002 \002(\0132\n.TableName\022\021\n\tstart_key\030"
 operator|+
 literal|"\003 \001(\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022"
 operator|+
-literal|"\r\n\005split\030\006 \001(\010\"1\n\014FavoredNodes\022!\n\014favore"
+literal|"\r\n\005split\030\006 \001(\010\022\025\n\nreplica_id\030\007 \001(\005:\0010\"1\n"
 operator|+
-literal|"d_node\030\001 \003(\0132\013.ServerName\"\225\001\n\017RegionSpec"
+literal|"\014FavoredNodes\022!\n\014favored_node\030\001 \003(\0132\013.Se"
 operator|+
-literal|"ifier\0222\n\004type\030\001 \002(\0162$.RegionSpecifier.Re"
+literal|"rverName\"\225\001\n\017RegionSpecifier\0222\n\004type\030\001 \002"
 operator|+
-literal|"gionSpecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023Regi"
+literal|"(\0162$.RegionSpecifier.RegionSpecifierType"
 operator|+
-literal|"onSpecifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCO"
+literal|"\022\r\n\005value\030\002 \002(\014\"?\n\023RegionSpecifierType\022\017"
 operator|+
-literal|"DED_REGION_NAME\020\002\"%\n\tTimeRange\022\014\n\004from\030\001"
+literal|"\n\013REGION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME\020\002"
 operator|+
-literal|" \001(\004\022\n\n\002to\030\002 \001(\004\"A\n\nServerName\022\021\n\thost_n"
+literal|"\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004\""
 operator|+
-literal|"ame\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_code\030\003 "
+literal|"A\n\nServerName\022\021\n\thost_name\030\001 \002(\t\022\014\n\004port"
 block|,
-literal|"\001(\004\"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016Name"
+literal|"\030\002 \001(\r\022\022\n\nstart_code\030\003 \001(\004\"\033\n\013Coprocesso"
 operator|+
-literal|"StringPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\""
+literal|"r\022\014\n\004name\030\001 \002(\t\"-\n\016NameStringPair\022\014\n\004nam"
 operator|+
-literal|",\n\rNameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030"
+literal|"e\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNameBytesPair\022"
 operator|+
-literal|"\002 \001(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016"
+literal|"\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\"/\n\016BytesByt"
 operator|+
-literal|"\n\006second\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030"
+literal|"esPair\022\r\n\005first\030\001 \002(\014\022\016\n\006second\030\002 \002(\014\",\n"
 operator|+
-literal|"\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\275\001\n\023SnapshotDescrip"
+literal|"\rNameInt64Pair\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 "
 operator|+
-literal|"tion\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcre"
+literal|"\001(\003\"\275\001\n\023SnapshotDescription\022\014\n\004name\030\001 \002("
 operator|+
-literal|"ation_time\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\031.Snap"
+literal|"\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:"
 operator|+
-literal|"shotDescription.Type:\005FLUSH\022\017\n\007version\030\005"
+literal|"\0010\022.\n\004type\030\004 \001(\0162\031.SnapshotDescription.T"
 operator|+
-literal|" \001(\005\".\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n"
+literal|"ype:\005FLUSH\022\017\n\007version\030\005 \001(\005\".\n\004Type\022\014\n\010D"
 block|,
-literal|"\tSKIPFLUSH\020\002\"}\n\024ProcedureDescription\022\021\n\t"
+literal|"ISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n\tSKIPFLUSH\020\002\"}\n\024P"
 operator|+
-literal|"signature\030\001 \002(\t\022\020\n\010instance\030\002 \001(\t\022\030\n\rcre"
+literal|"rocedureDescription\022\021\n\tsignature\030\001 \002(\t\022\020"
 operator|+
-literal|"ation_time\030\003 \001(\003:\0010\022&\n\rconfiguration\030\004 \003"
+literal|"\n\010instance\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:"
 operator|+
-literal|"(\0132\017.NameStringPair\"\n\n\010EmptyMsg\"\033\n\007LongM"
+literal|"\0010\022&\n\rconfiguration\030\004 \003(\0132\017.NameStringPa"
 operator|+
-literal|"sg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndou"
+literal|"ir\"\n\n\010EmptyMsg\"\033\n\007LongMsg\022\020\n\010long_msg\030\001 "
 operator|+
-literal|"ble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg\022\026\n\016bigdec"
+literal|"\002(\003\"\037\n\tDoubleMsg\022\022\n\ndouble_msg\030\001 \002(\001\"\'\n\r"
 operator|+
-literal|"imal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_bits"
+literal|"BigDecimalMsg\022\026\n\016bigdecimal_msg\030\001 \002(\014\"5\n"
 operator|+
-literal|"\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\"K\n\023Namespa"
+literal|"\004UUID\022\026\n\016least_sig_bits\030\001 \002(\004\022\025\n\rmost_si"
 operator|+
-literal|"ceDescriptor\022\014\n\004name\030\001 \002(\014\022&\n\rconfigurat"
+literal|"g_bits\030\002 \002(\004\"K\n\023NamespaceDescriptor\022\014\n\004n"
 operator|+
-literal|"ion\030\002 \003(\0132\017.NameStringPair\"$\n\020RegionServ"
+literal|"ame\030\001 \002(\014\022&\n\rconfiguration\030\002 \003(\0132\017.NameS"
 block|,
-literal|"erInfo\022\020\n\010infoPort\030\001 \001(\005*r\n\013CompareType\022"
+literal|"tringPair\"$\n\020RegionServerInfo\022\020\n\010infoPor"
 operator|+
-literal|"\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022"
+literal|"t\030\001 \001(\005*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS"
 operator|+
-literal|"\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007"
+literal|"_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n"
 operator|+
-literal|"GREATER\020\005\022\t\n\005NO_OP\020\006B>\n*org.apache.hadoo"
+literal|"\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_O"
 operator|+
-literal|"p.hbase.protobuf.generatedB\013HBaseProtosH"
+literal|"P\020\006B>\n*org.apache.hadoop.hbase.protobuf."
 operator|+
-literal|"\001\240\001\001"
+literal|"generatedB\013HBaseProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -89582,6 +89909,8 @@ block|,
 literal|"Offline"
 block|,
 literal|"Split"
+block|,
+literal|"ReplicaId"
 block|, }
 argument_list|)
 expr_stmt|;

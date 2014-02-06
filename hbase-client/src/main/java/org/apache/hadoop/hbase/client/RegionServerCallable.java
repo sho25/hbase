@@ -303,6 +303,8 @@ name|row
 expr_stmt|;
 block|}
 comment|/**    * Prepare for connection to the server hosting region with row from tablename.  Does lookup    * to find region location and hosting server.    * @param reload Set this to true if connection should re-find the region    * @throws IOException e    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|prepare
@@ -557,9 +559,6 @@ argument_list|,
 name|t
 argument_list|,
 name|location
-operator|.
-name|getServerName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

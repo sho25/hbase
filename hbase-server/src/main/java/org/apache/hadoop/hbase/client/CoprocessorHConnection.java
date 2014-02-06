@@ -454,6 +454,8 @@ operator|=
 name|delegate
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|org
 operator|.
@@ -512,6 +514,8 @@ name|getRSRpcServices
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|abort
@@ -533,6 +537,8 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isAborted
@@ -545,6 +551,8 @@ name|isAborted
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -557,6 +565,8 @@ name|getConfiguration
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -576,6 +586,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -596,6 +608,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -615,6 +629,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -639,6 +655,8 @@ name|pool
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -664,6 +682,8 @@ name|pool
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableInterface
 name|getTable
@@ -688,6 +708,8 @@ name|pool
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Admin
 name|getAdmin
@@ -702,6 +724,8 @@ name|getAdmin
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -718,6 +742,8 @@ name|isMasterRunning
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -737,6 +763,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -757,6 +785,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableDisabled
@@ -776,6 +806,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableDisabled
@@ -796,6 +828,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -815,6 +849,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -835,6 +871,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -861,6 +899,8 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -888,6 +928,8 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -903,6 +945,8 @@ name|listTables
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 index|[]
@@ -918,6 +962,8 @@ name|getTableNames
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|TableName
 index|[]
@@ -933,6 +979,8 @@ name|listTableNames
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 name|getHTableDescriptor
@@ -952,6 +1000,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 name|getHTableDescriptor
@@ -972,6 +1022,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -997,6 +1049,8 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -1023,6 +1077,8 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clearRegionCache
@@ -1034,6 +1090,8 @@ name|clearRegionCache
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clearRegionCache
@@ -1050,6 +1108,8 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clearRegionCache
@@ -1067,6 +1127,8 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -1092,6 +1154,8 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -1118,12 +1182,18 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|updateCachedLocations
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|regionName
 parameter_list|,
 name|byte
 index|[]
@@ -1142,6 +1212,8 @@ name|updateCachedLocations
 argument_list|(
 name|tableName
 argument_list|,
+name|regionName
+argument_list|,
 name|rowkey
 argument_list|,
 name|exception
@@ -1150,6 +1222,8 @@ name|source
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|updateCachedLocations
@@ -1182,6 +1256,8 @@ name|source
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|updateCachedLocations
@@ -1215,6 +1291,8 @@ name|source
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -1235,6 +1313,8 @@ name|regionName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -1257,6 +1337,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -1280,6 +1362,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -1312,6 +1396,8 @@ name|offlined
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -1345,6 +1431,8 @@ name|offlined
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|org
 operator|.
@@ -1375,6 +1463,8 @@ name|getMaster
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|org
 operator|.
@@ -1410,6 +1500,8 @@ name|serverName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|org
 operator|.
@@ -1450,6 +1542,8 @@ name|getMaster
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1480,6 +1574,8 @@ name|reload
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1511,6 +1607,8 @@ name|reload
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|processBatch
@@ -1552,6 +1650,8 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|processBatch
@@ -1594,6 +1694,8 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 parameter_list|<
 name|R
@@ -1646,6 +1748,8 @@ name|callback
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 parameter_list|<
 name|R
@@ -1699,6 +1803,8 @@ name|callback
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setRegionCachePrefetch
@@ -1720,6 +1826,8 @@ name|enable
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setRegionCachePrefetch
@@ -1742,6 +1850,8 @@ name|enable
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|getRegionCachePrefetch
@@ -1759,6 +1869,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|getRegionCachePrefetch
@@ -1777,6 +1889,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getCurrentNrHRS
@@ -1791,6 +1905,8 @@ name|getCurrentNrHRS
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -1814,6 +1930,8 @@ name|tableNames
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -1837,6 +1955,8 @@ name|tableNames
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isClosed
@@ -1849,6 +1969,8 @@ name|isClosed
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clearCaches
@@ -1865,6 +1987,8 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -1878,6 +2002,8 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|deleteCachedRegionLocation
@@ -1894,6 +2020,8 @@ name|location
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|MasterKeepAliveConnection
 name|getKeepAliveMasterService
@@ -1908,6 +2036,8 @@ name|getKeepAliveMasterService
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isDeadServer

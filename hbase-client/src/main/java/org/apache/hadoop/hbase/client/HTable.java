@@ -307,20 +307,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -406,6 +392,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|RegionLocations
 import|;
 end_import
 
@@ -819,6 +819,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|Service
@@ -834,20 +848,6 @@ operator|.
 name|protobuf
 operator|.
 name|ServiceException
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
 import|;
 end_import
 
@@ -2174,6 +2174,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
+comment|// TODO: these are not in HTableInterface. Should we add them there or move these to HBaseAdmin?
 specifier|public
 name|Pair
 argument_list|<
@@ -2190,15 +2191,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|NavigableMap
+name|List
 argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
+name|RegionLocations
 argument_list|>
 name|regions
 init|=
-name|getRegionLocations
+name|listRegionLocations
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -2245,15 +2244,23 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
-name|region
+name|RegionLocations
+name|locations
 range|:
 name|regions
-operator|.
-name|keySet
-argument_list|()
 control|)
 block|{
+name|HRegionInfo
+name|region
+init|=
+name|locations
+operator|.
+name|getRegionLocation
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
 name|startKeyList
 operator|.
 name|add
@@ -2320,7 +2327,37 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|VisibleForTesting
+name|List
+argument_list|<
+name|RegionLocations
+argument_list|>
+name|listRegionLocations
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|MetaScanner
+operator|.
+name|listTableRegionLocations
+argument_list|(
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|connection
+argument_list|,
+name|getName
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API    */
+annotation|@
+name|Deprecated
 specifier|public
 name|NavigableMap
 argument_list|<
@@ -2353,7 +2390,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range, exclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range, exclusive    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API    */
+annotation|@
+name|Deprecated
 specifier|public
 name|List
 argument_list|<
@@ -2385,7 +2424,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range, exclusive    * @param reload true to reload information or false to use cached information    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding regions for an arbitrary range of keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range, exclusive    * @param reload true to reload information or false to use cached information    * @return A list of HRegionLocations corresponding to the regions that    * contain the specified range    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API    */
+annotation|@
+name|Deprecated
 specifier|public
 name|List
 argument_list|<
@@ -2426,7 +2467,9 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the corresponding start keys and regions for an arbitrary range of    * keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range    * @param includeEndKey true if endRow is inclusive, false if exclusive    * @return A pair of list of start keys and list of HRegionLocations that    *         contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding start keys and regions for an arbitrary range of    * keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range    * @param includeEndKey true if endRow is inclusive, false if exclusive    * @return A pair of list of start keys and list of HRegionLocations that    *         contain the specified range    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API    */
+annotation|@
+name|Deprecated
 specifier|private
 name|Pair
 argument_list|<
@@ -2473,7 +2516,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the corresponding start keys and regions for an arbitrary range of    * keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range    * @param includeEndKey true if endRow is inclusive, false if exclusive    * @param reload true to reload information or false to use cached information    * @return A pair of list of start keys and list of HRegionLocations that    *         contain the specified range    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get the corresponding start keys and regions for an arbitrary range of    * keys.    *<p>    * @param startKey Starting row in range, inclusive    * @param endKey Ending row in range    * @param includeEndKey true if endRow is inclusive, false if exclusive    * @param reload true to reload information or false to use cached information    * @return A pair of list of start keys and list of HRegionLocations that    *         contain the specified range    * @throws IOException if a remote or network exception occurs    * @deprecated This is no longer a public API    */
+annotation|@
+name|Deprecated
 specifier|private
 name|Pair
 argument_list|<
@@ -2750,6 +2795,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|call
@@ -3148,6 +3195,8 @@ name|getRow
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|call
@@ -3465,6 +3514,8 @@ block|}
 block|}
 comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use {@link #batch(List, Object[])} instead.    */
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|Object
@@ -3565,6 +3616,8 @@ expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    * @deprecated If any exception is thrown by one of the actions, there is no way to    * retrieve the partially executed results. Use    * {@link #batchCallback(List, Object[], org.apache.hadoop.hbase.client.coprocessor.Batch.Callback)}    * instead.    */
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 parameter_list|<
@@ -3659,6 +3712,8 @@ name|getRow
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -4224,6 +4279,8 @@ name|getRow
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|call
@@ -4438,6 +4495,8 @@ name|getRow
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|call
@@ -4656,6 +4715,8 @@ name|getRow
 argument_list|()
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|call
@@ -5036,6 +5097,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Long
 name|call
@@ -5245,6 +5308,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -5434,6 +5499,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -5629,6 +5696,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -5818,6 +5887,8 @@ argument_list|,
 name|row
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -6511,6 +6582,8 @@ name|writeBufferSize
 return|;
 block|}
 comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setWriteBufferSize
@@ -6737,6 +6810,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|CoprocessorRpcChannel
 name|coprocessorService
@@ -6857,6 +6932,8 @@ name|R
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|update
@@ -7037,6 +7114,8 @@ name|R
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|R
 name|call

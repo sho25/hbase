@@ -37,20 +37,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|util
@@ -60,18 +46,14 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  */
+comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  *<br>This interface has been marked InterfaceAudience.Public in 0.96 and 0.98, it is  * no longer the case.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 class|class
 name|HRegionLocation
@@ -346,6 +328,8 @@ return|return
 name|serverName
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo

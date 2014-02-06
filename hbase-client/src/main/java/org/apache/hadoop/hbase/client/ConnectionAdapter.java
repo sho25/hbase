@@ -1027,6 +1027,10 @@ name|tableName
 parameter_list|,
 name|byte
 index|[]
+name|regionName
+parameter_list|,
+name|byte
+index|[]
 name|rowkey
 parameter_list|,
 name|Object
@@ -1041,6 +1045,8 @@ operator|.
 name|updateCachedLocations
 argument_list|(
 name|tableName
+argument_list|,
+name|regionName
 argument_list|,
 name|rowkey
 argument_list|,

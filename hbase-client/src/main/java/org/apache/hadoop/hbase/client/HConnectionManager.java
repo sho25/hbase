@@ -375,6 +375,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Delete connection information for the instance specified by passed configuration.    * If there are no more references to the designated connection connection, this method will    * then close connection to the zookeeper ensemble and let go of all associated resources.    *    * @param conf configuration whose identity is used to find {@link HConnection} instance.    * @deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|void
@@ -393,6 +395,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Cleanup a known stale connection.    * This will then close connection to the zookeeper ensemble and let go of all resources.    *    * @param connection    * @deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|void
@@ -411,6 +415,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Delete information for all connections. Close or not the connection, depending on the    *  staleConnection boolean and the ref count. By default, you should use it with    *  staleConnection to true.    * @deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|void
