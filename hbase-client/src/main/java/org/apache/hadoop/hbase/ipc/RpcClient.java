@@ -5588,16 +5588,6 @@ operator|=
 name|e
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|ExceptionUtil
-operator|.
-name|isInterrupt
-argument_list|(
-name|e
-argument_list|)
-condition|)
-block|{          }
 else|else
 block|{
 comment|// Treat this as a fatal condition and close this connection
