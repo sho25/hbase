@@ -243,7 +243,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Add the pair to the container, grouped by the regionName    *    * @param regionName    * @param index the original index of the Action (request).    * @param result the result; will be empty for successful Put and Delete actions.    */
+comment|/**    * Add the pair to the container, grouped by the regionName    *    * @param regionName    * @param originalIndex the original index of the Action (request).    * @param resOrEx the result or error; will be empty for successful Put and Delete actions.    */
 specifier|public
 name|void
 name|add
