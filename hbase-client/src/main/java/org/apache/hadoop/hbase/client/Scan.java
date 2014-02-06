@@ -440,7 +440,13 @@ name|loadColumnFamiliesOnDemand
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Set it true for small scan to get better performance    *     * Small scan should use pread and big scan can use seek + read    *     * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *     * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *     * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *     * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    */
+specifier|private
+name|Consistency
+name|consistency
+init|=
+literal|null
+decl_stmt|;
+comment|/**    * Set it true for small scan to get better performance    *    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    */
 specifier|private
 name|boolean
 name|small
@@ -618,6 +624,13 @@ operator|=
 name|scan
 operator|.
 name|getLoadColumnFamiliesOnDemandValue
+argument_list|()
+expr_stmt|;
+name|consistency
+operator|=
+name|scan
+operator|.
+name|getConsistency
 argument_list|()
 expr_stmt|;
 name|TimeRange
@@ -878,6 +891,15 @@ operator|.
 name|getScan
 operator|=
 literal|true
+expr_stmt|;
+name|this
+operator|.
+name|consistency
+operator|=
+name|get
+operator|.
+name|getConsistency
+argument_list|()
 expr_stmt|;
 for|for
 control|(
@@ -1599,6 +1621,8 @@ name|tr
 return|;
 block|}
 comment|/**    * @return RowFilter    */
+annotation|@
+name|Override
 specifier|public
 name|Filter
 name|getFilter
@@ -1646,7 +1670,7 @@ return|return
 name|cacheBlocks
 return|;
 block|}
-comment|/**    * Set whether this scan is a reversed one    *<p>    * This is false by default which means forward(normal) scan.    *     * @param reversed if true, scan will be backward order    * @return this    */
+comment|/**    * Set whether this scan is a reversed one    *<p>    * This is false by default which means forward(normal) scan.    *    * @param reversed if true, scan will be backward order    * @return this    */
 specifier|public
 name|Scan
 name|setReversed
@@ -1725,6 +1749,32 @@ operator|.
 name|booleanValue
 argument_list|()
 return|;
+block|}
+comment|/**    * Returns the consistency level for this operation    * @return the consistency level    */
+specifier|public
+name|Consistency
+name|getConsistency
+parameter_list|()
+block|{
+return|return
+name|consistency
+return|;
+block|}
+comment|/**    * Sets the consistency level for this operation    * @param consistency the consistency level    */
+specifier|public
+name|void
+name|setConsistency
+parameter_list|(
+name|Consistency
+name|consistency
+parameter_list|)
+block|{
+name|this
+operator|.
+name|consistency
+operator|=
+name|consistency
+expr_stmt|;
 block|}
 comment|/**    * Compile the table and column family (i.e. schema) information    * into a String. Useful for parsing and aggregation by debugging,    * logging, and administration tools.    * @return Map    */
 annotation|@
@@ -2309,7 +2359,7 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/*    * Set the isolation level for this scan. If the    * isolation level is set to READ_UNCOMMITTED, then    * this scan will return data from committed and    * uncommitted transactions. If the isolation level     * is set to READ_COMMITTED, then this scan will return     * data from committed transactions only. If a isolation    * level is not explicitly set on a Scan, then it     * is assumed to be READ_COMMITTED.    * @param level IsolationLevel for this scan    */
+comment|/*    * Set the isolation level for this scan. If the    * isolation level is set to READ_UNCOMMITTED, then    * this scan will return data from committed and    * uncommitted transactions. If the isolation level    * is set to READ_COMMITTED, then this scan will return    * data from committed transactions only. If a isolation    * level is not explicitly set on a Scan, then it    * is assumed to be READ_COMMITTED.    * @param level IsolationLevel for this scan    */
 specifier|public
 name|void
 name|setIsolationLevel
@@ -2329,7 +2379,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * @return The isolation level of this scan.    * If no isolation level was set for this scan object,     * then it returns READ_COMMITTED.    * @return The IsolationLevel for this scan    */
+comment|/*    * @return The isolation level of this scan.    * If no isolation level was set for this scan object,    * then it returns READ_COMMITTED.    * @return The IsolationLevel for this scan    */
 specifier|public
 name|IsolationLevel
 name|getIsolationLevel
@@ -2361,7 +2411,7 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read    *     * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *     * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *     * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *     * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    *     * @param small    */
+comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    *    * @param small    */
 specifier|public
 name|void
 name|setSmall

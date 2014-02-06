@@ -48,6 +48,349 @@ name|ExtensionRegistry
 name|registry
 parameter_list|)
 block|{   }
+comment|/**    * Protobuf enum {@code Consistency}    *    *<pre>    **    * Consistency defines the expected consistency level for an operation.    *</pre>    */
+specifier|public
+enum|enum
+name|Consistency
+implements|implements
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ProtocolMessageEnum
+block|{
+comment|/**      *<code>STRONG = 0;</code>      */
+name|STRONG
+argument_list|(
+literal|0
+argument_list|,
+literal|0
+argument_list|)
+block|,
+comment|/**      *<code>TIMELINE = 1;</code>      */
+name|TIMELINE
+argument_list|(
+literal|1
+argument_list|,
+literal|1
+argument_list|)
+block|,     ;
+comment|/**      *<code>STRONG = 0;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STRONG_VALUE
+init|=
+literal|0
+decl_stmt|;
+comment|/**      *<code>TIMELINE = 1;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TIMELINE_VALUE
+init|=
+literal|1
+decl_stmt|;
+specifier|public
+specifier|final
+name|int
+name|getNumber
+parameter_list|()
+block|{
+return|return
+name|value
+return|;
+block|}
+specifier|public
+specifier|static
+name|Consistency
+name|valueOf
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+switch|switch
+condition|(
+name|value
+condition|)
+block|{
+case|case
+literal|0
+case|:
+return|return
+name|STRONG
+return|;
+case|case
+literal|1
+case|:
+return|return
+name|TIMELINE
+return|;
+default|default:
+return|return
+literal|null
+return|;
+block|}
+block|}
+specifier|public
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Consistency
+argument_list|>
+name|internalGetValueMap
+parameter_list|()
+block|{
+return|return
+name|internalValueMap
+return|;
+block|}
+specifier|private
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Consistency
+argument_list|>
+name|internalValueMap
+init|=
+operator|new
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|Consistency
+argument_list|>
+argument_list|()
+block|{
+specifier|public
+name|Consistency
+name|findValueByNumber
+parameter_list|(
+name|int
+name|number
+parameter_list|)
+block|{
+return|return
+name|Consistency
+operator|.
+name|valueOf
+argument_list|(
+name|number
+argument_list|)
+return|;
+block|}
+block|}
+decl_stmt|;
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|getValueDescriptor
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+operator|.
+name|getValues
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|index
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptorForType
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+return|;
+block|}
+specifier|public
+specifier|static
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptor
+parameter_list|()
+block|{
+return|return
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|getDescriptor
+argument_list|()
+operator|.
+name|getEnumTypes
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+specifier|final
+name|Consistency
+index|[]
+name|VALUES
+init|=
+name|values
+argument_list|()
+decl_stmt|;
+specifier|public
+specifier|static
+name|Consistency
+name|valueOf
+parameter_list|(
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|desc
+parameter_list|)
+block|{
+if|if
+condition|(
+name|desc
+operator|.
+name|getType
+argument_list|()
+operator|!=
+name|getDescriptor
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|java
+operator|.
+name|lang
+operator|.
+name|IllegalArgumentException
+argument_list|(
+literal|"EnumValueDescriptor is not for this type."
+argument_list|)
+throw|;
+block|}
+return|return
+name|VALUES
+index|[
+name|desc
+operator|.
+name|getIndex
+argument_list|()
+index|]
+return|;
+block|}
+specifier|private
+specifier|final
+name|int
+name|index
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|value
+decl_stmt|;
+specifier|private
+name|Consistency
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|int
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|index
+operator|=
+name|index
+expr_stmt|;
+name|this
+operator|.
+name|value
+operator|=
+name|value
+expr_stmt|;
+block|}
+comment|// @@protoc_insertion_point(enum_scope:Consistency)
+block|}
 specifier|public
 interface|interface
 name|AuthorizationsOrBuilder
@@ -9909,6 +10252,31 @@ name|boolean
 name|getClosestRowBefore
 parameter_list|()
 function_decl|;
+comment|// optional .Consistency consistency = 12 [default = STRONG];
+comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+name|boolean
+name|hasConsistency
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Get}    *    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly, or the one that immediately    * precedes it if closest_row_before is specified.    *</pre>    */
 specifier|public
@@ -10645,6 +11013,86 @@ operator|.
 name|readBool
 argument_list|()
 expr_stmt|;
+break|break;
+block|}
+case|case
+literal|96
+case|:
+block|{
+name|int
+name|rawValue
+init|=
+name|input
+operator|.
+name|readEnum
+argument_list|()
+decl_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|value
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|valueOf
+argument_list|(
+name|rawValue
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+name|unknownFields
+operator|.
+name|mergeVarintField
+argument_list|(
+literal|12
+argument_list|,
+name|rawValue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+name|consistency_
+operator|=
+name|value
+expr_stmt|;
+block|}
 break|break;
 block|}
 block|}
@@ -11811,6 +12259,75 @@ return|return
 name|closestRowBefore_
 return|;
 block|}
+comment|// optional .Consistency consistency = 12 [default = STRONG];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CONSISTENCY_FIELD_NUMBER
+init|=
+literal|12
+decl_stmt|;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|consistency_
+decl_stmt|;
+comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+specifier|public
+name|boolean
+name|hasConsistency
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional .Consistency consistency = 12 [default = STRONG];</code>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+block|{
+return|return
+name|consistency_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -11915,6 +12432,26 @@ expr_stmt|;
 name|closestRowBefore_
 operator|=
 literal|false
+expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
 expr_stmt|;
 block|}
 specifier|private
@@ -12365,6 +12902,32 @@ name|closestRowBefore_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeEnum
+argument_list|(
+literal|12
+argument_list|,
+name|consistency_
+operator|.
+name|getNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -12763,6 +13326,40 @@ argument_list|(
 literal|11
 argument_list|,
 name|closestRowBefore_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeEnumSize
+argument_list|(
+literal|12
+argument_list|,
+name|consistency_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -13274,6 +13871,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasConsistency
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasConsistency
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getConsistency
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getConsistency
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -13668,6 +14300,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getClosestRowBefore
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|CONSISTENCY_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashEnum
+argument_list|(
+name|getConsistency
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -14773,6 +15436,35 @@ operator|~
 literal|0x00000400
 operator|)
 expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000800
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -15369,6 +16061,30 @@ name|closestRowBefore_
 operator|=
 name|closestRowBefore_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000800
+operator|)
+operator|==
+literal|0x00000800
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|consistency_
+operator|=
+name|consistency_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -15930,6 +16646,23 @@ argument_list|(
 name|other
 operator|.
 name|getClosestRowBefore
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|setConsistency
+argument_list|(
+name|other
+operator|.
+name|getConsistency
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -20884,6 +21617,178 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional .Consistency consistency = 12 [default = STRONG];
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|consistency_
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
+decl_stmt|;
+comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+specifier|public
+name|boolean
+name|hasConsistency
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000800
+operator|)
+operator|==
+literal|0x00000800
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+block|{
+return|return
+name|consistency_
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+specifier|public
+name|Builder
+name|setConsistency
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00000800
+expr_stmt|;
+name|consistency_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 12 [default = STRONG];</code>        */
+specifier|public
+name|Builder
+name|clearConsistency
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000800
+operator|)
+expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:Get)
 block|}
 static|static
@@ -21040,6 +21945,17 @@ function_decl|;
 comment|/**      *<code>optional bool exists = 3;</code>      *      *<pre>      * used for Get to check existence only. Not set if existence_only was not set to true      *  in the query.      *</pre>      */
 name|boolean
 name|getExists
+parameter_list|()
+function_decl|;
+comment|// optional bool stale = 4 [default = false];
+comment|/**      *<code>optional bool stale = 4 [default = false];</code>      *      *<pre>      * Whether or not the results are coming from possibly stale data       *</pre>      */
+name|boolean
+name|hasStale
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool stale = 4 [default = false];</code>      *      *<pre>      * Whether or not the results are coming from possibly stale data       *</pre>      */
+name|boolean
+name|getStale
 parameter_list|()
 function_decl|;
 block|}
@@ -21403,6 +22319,23 @@ operator||=
 literal|0x00000002
 expr_stmt|;
 name|exists_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|32
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|stale_
 operator|=
 name|input
 operator|.
@@ -21970,6 +22903,47 @@ return|return
 name|exists_
 return|;
 block|}
+comment|// optional bool stale = 4 [default = false];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STALE_FIELD_NUMBER
+init|=
+literal|4
+decl_stmt|;
+specifier|private
+name|boolean
+name|stale_
+decl_stmt|;
+comment|/**      *<code>optional bool stale = 4 [default = false];</code>      *      *<pre>      * Whether or not the results are coming from possibly stale data       *</pre>      */
+specifier|public
+name|boolean
+name|hasStale
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool stale = 4 [default = false];</code>      *      *<pre>      * Whether or not the results are coming from possibly stale data       *</pre>      */
+specifier|public
+name|boolean
+name|getStale
+parameter_list|()
+block|{
+return|return
+name|stale_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -21991,6 +22965,10 @@ operator|=
 literal|0
 expr_stmt|;
 name|exists_
+operator|=
+literal|false
+expr_stmt|;
+name|stale_
 operator|=
 literal|false
 expr_stmt|;
@@ -22135,6 +23113,29 @@ name|exists_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|4
+argument_list|,
+name|stale_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -22275,6 +23276,37 @@ argument_list|(
 literal|3
 argument_list|,
 name|exists_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|4
+argument_list|,
+name|stale_
 argument_list|)
 expr_stmt|;
 block|}
@@ -22523,6 +23555,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasStale
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasStale
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getStale
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getStale
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -22673,6 +23740,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getExists
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|STALE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getStale
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -23568,6 +24666,19 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
+name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -23894,6 +25005,30 @@ name|exists_
 operator|=
 name|exists_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|stale_
+operator|=
+name|stale_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -24197,6 +25332,23 @@ argument_list|(
 name|other
 operator|.
 name|getExists
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|setStale
+argument_list|(
+name|other
+operator|.
+name|getStale
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -25840,6 +26992,89 @@ literal|0x00000004
 operator|)
 expr_stmt|;
 name|exists_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool stale = 4 [default = false];
+specifier|private
+name|boolean
+name|stale_
+decl_stmt|;
+comment|/**        *<code>optional bool stale = 4 [default = false];</code>        *        *<pre>        * Whether or not the results are coming from possibly stale data         *</pre>        */
+specifier|public
+name|boolean
+name|hasStale
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 4 [default = false];</code>        *        *<pre>        * Whether or not the results are coming from possibly stale data         *</pre>        */
+specifier|public
+name|boolean
+name|getStale
+parameter_list|()
+block|{
+return|return
+name|stale_
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 4 [default = false];</code>        *        *<pre>        * Whether or not the results are coming from possibly stale data         *</pre>        */
+specifier|public
+name|Builder
+name|setStale
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|stale_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 4 [default = false];</code>        *        *<pre>        * Whether or not the results are coming from possibly stale data         *</pre>        */
+specifier|public
+name|Builder
+name|clearStale
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
+name|stale_
 operator|=
 literal|false
 expr_stmt|;
@@ -70854,6 +72089,31 @@ name|boolean
 name|getReversed
 parameter_list|()
 function_decl|;
+comment|// optional .Consistency consistency = 16 [default = STRONG];
+comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+name|boolean
+name|hasConsistency
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
@@ -71658,6 +72918,86 @@ operator|.
 name|readBool
 argument_list|()
 expr_stmt|;
+break|break;
+block|}
+case|case
+literal|128
+case|:
+block|{
+name|int
+name|rawValue
+init|=
+name|input
+operator|.
+name|readEnum
+argument_list|()
+decl_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|value
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|valueOf
+argument_list|(
+name|rawValue
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+name|unknownFields
+operator|.
+name|mergeVarintField
+argument_list|(
+literal|16
+argument_list|,
+name|rawValue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|bitField0_
+operator||=
+literal|0x00002000
+expr_stmt|;
+name|consistency_
+operator|=
+name|value
+expr_stmt|;
+block|}
 break|break;
 block|}
 block|}
@@ -73000,6 +74340,75 @@ return|return
 name|reversed_
 return|;
 block|}
+comment|// optional .Consistency consistency = 16 [default = STRONG];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CONSISTENCY_FIELD_NUMBER
+init|=
+literal|16
+decl_stmt|;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|consistency_
+decl_stmt|;
+comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+specifier|public
+name|boolean
+name|hasConsistency
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00002000
+operator|)
+operator|==
+literal|0x00002000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional .Consistency consistency = 16 [default = STRONG];</code>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+block|{
+return|return
+name|consistency_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -73128,6 +74537,26 @@ expr_stmt|;
 name|reversed_
 operator|=
 literal|false
+expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
 expr_stmt|;
 block|}
 specifier|private
@@ -73655,6 +75084,32 @@ name|reversed_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00002000
+operator|)
+operator|==
+literal|0x00002000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeEnum
+argument_list|(
+literal|16
+argument_list|,
+name|consistency_
+operator|.
+name|getNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -74177,6 +75632,40 @@ argument_list|(
 literal|15
 argument_list|,
 name|reversed_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00002000
+operator|)
+operator|==
+literal|0x00002000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeEnumSize
+argument_list|(
+literal|16
+argument_list|,
+name|consistency_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -74829,6 +76318,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasConsistency
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasConsistency
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getConsistency
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getConsistency
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -75344,6 +76868,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getReversed
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|CONSISTENCY_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashEnum
+argument_list|(
+name|getConsistency
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -76509,6 +78064,35 @@ operator|~
 literal|0x00004000
 operator|)
 expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00008000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -77201,6 +78785,30 @@ name|reversed_
 operator|=
 name|reversed_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00002000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|consistency_
+operator|=
+name|consistency_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -77830,6 +79438,23 @@ argument_list|(
 name|other
 operator|.
 name|getReversed
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasConsistency
+argument_list|()
+condition|)
+block|{
+name|setConsistency
+argument_list|(
+name|other
+operator|.
+name|getConsistency
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -83142,6 +84767,178 @@ expr_stmt|;
 name|reversed_
 operator|=
 literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional .Consistency consistency = 16 [default = STRONG];
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|consistency_
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
+decl_stmt|;
+comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+specifier|public
+name|boolean
+name|hasConsistency
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00008000
+operator|)
+operator|==
+literal|0x00008000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|getConsistency
+parameter_list|()
+block|{
+return|return
+name|consistency_
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+specifier|public
+name|Builder
+name|setConsistency
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00008000
+expr_stmt|;
+name|consistency_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .Consistency consistency = 16 [default = STRONG];</code>        */
+specifier|public
+name|Builder
+name|clearConsistency
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00008000
+operator|)
+expr_stmt|;
+name|consistency_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Consistency
+operator|.
+name|STRONG
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -163732,7 +165529,7 @@ literal|"rizations\022\r\n\005label\030\001 \003(\t\"$\n\016CellVisibili"
 operator|+
 literal|"ty\022\022\n\nexpression\030\001 \002(\t\"+\n\006Column\022\016\n\006fami"
 operator|+
-literal|"ly\030\001 \002(\014\022\021\n\tqualifier\030\002 \003(\014\"\251\002\n\003Get\022\013\n\003r"
+literal|"ly\030\001 \002(\014\022\021\n\tqualifier\030\002 \003(\014\"\324\002\n\003Get\022\013\n\003r"
 operator|+
 literal|"ow\030\001 \002(\014\022\027\n\006column\030\002 \003(\0132\007.Column\022!\n\tatt"
 operator|+
@@ -163748,185 +165545,193 @@ literal|"\024\n\014store_offset\030\t \001(\r\022\035\n\016existence_only\030"
 operator|+
 literal|"\n \001(\010:\005false\022!\n\022closest_row_before\030\013 \001(\010"
 operator|+
-literal|":\005false\"L\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cell\022\035"
+literal|":\005false\022)\n\013consistency\030\014 \001(\0162\014.Consisten"
 operator|+
-literal|"\n\025associated_cell_count\030\002 \001(\005\022\016\n\006exists\030"
+literal|"cy:\006STRONG\"b\n\006Result\022\023\n\004cell\030\001 \003(\0132\005.Cel"
 operator|+
-literal|"\003 \001(\010\"A\n\nGetRequest\022 \n\006region\030\001 \002(\0132\020.Re"
+literal|"l\022\035\n\025associated_cell_count\030\002 \001(\005\022\016\n\006exis"
 operator|+
-literal|"gionSpecifier\022\021\n\003get\030\002 \002(\0132\004.Get\"&\n\013GetR"
+literal|"ts\030\003 \001(\010\022\024\n\005stale\030\004 \001(\010:\005false\"A\n\nGetReq"
 operator|+
-literal|"esponse\022\027\n\006result\030\001 \001(\0132\007.Result\"\200\001\n\tCon"
+literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\021"
 operator|+
-literal|"dition\022\013\n\003row\030\001 \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tq"
+literal|"\n\003get\030\002 \002(\0132\004.Get\"&\n\013GetResponse\022\027\n\006resu"
 operator|+
-literal|"ualifier\030\003 \002(\014\022\"\n\014compare_type\030\004 \002(\0162\014.C"
+literal|"lt\030\001 \001(\0132\007.Result\"\200\001\n\tCondition\022\013\n\003row\030\001"
 operator|+
-literal|"ompareType\022\037\n\ncomparator\030\005 \002(\0132\013.Compara"
+literal|" \002(\014\022\016\n\006family\030\002 \002(\014\022\021\n\tqualifier\030\003 \002(\014\022"
 block|,
-literal|"tor\"\265\006\n\rMutationProto\022\013\n\003row\030\001 \001(\014\0220\n\013mu"
+literal|"\"\n\014compare_type\030\004 \002(\0162\014.CompareType\022\037\n\nc"
 operator|+
-literal|"tate_type\030\002 \001(\0162\033.MutationProto.Mutation"
+literal|"omparator\030\005 \002(\0132\013.Comparator\"\265\006\n\rMutatio"
 operator|+
-literal|"Type\0220\n\014column_value\030\003 \003(\0132\032.MutationPro"
+literal|"nProto\022\013\n\003row\030\001 \001(\014\0220\n\013mutate_type\030\002 \001(\016"
 operator|+
-literal|"to.ColumnValue\022\021\n\ttimestamp\030\004 \001(\004\022!\n\tatt"
+literal|"2\033.MutationProto.MutationType\0220\n\014column_"
 operator|+
-literal|"ribute\030\005 \003(\0132\016.NameBytesPair\022:\n\ndurabili"
+literal|"value\030\003 \003(\0132\032.MutationProto.ColumnValue\022"
 operator|+
-literal|"ty\030\006 \001(\0162\031.MutationProto.Durability:\013USE"
+literal|"\021\n\ttimestamp\030\004 \001(\004\022!\n\tattribute\030\005 \003(\0132\016."
 operator|+
-literal|"_DEFAULT\022\036\n\ntime_range\030\007 \001(\0132\n.TimeRange"
+literal|"NameBytesPair\022:\n\ndurability\030\006 \001(\0162\031.Muta"
 operator|+
-literal|"\022\035\n\025associated_cell_count\030\010 \001(\005\022\r\n\005nonce"
+literal|"tionProto.Durability:\013USE_DEFAULT\022\036\n\ntim"
 operator|+
-literal|"\030\t \001(\004\032\347\001\n\013ColumnValue\022\016\n\006family\030\001 \002(\014\022B"
+literal|"e_range\030\007 \001(\0132\n.TimeRange\022\035\n\025associated_"
 operator|+
-literal|"\n\017qualifier_value\030\002 \003(\0132).MutationProto."
+literal|"cell_count\030\010 \001(\005\022\r\n\005nonce\030\t \001(\004\032\347\001\n\013Colu"
 block|,
-literal|"ColumnValue.QualifierValue\032\203\001\n\016Qualifier"
+literal|"mnValue\022\016\n\006family\030\001 \002(\014\022B\n\017qualifier_val"
 operator|+
-literal|"Value\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022"
+literal|"ue\030\002 \003(\0132).MutationProto.ColumnValue.Qua"
 operator|+
-literal|"\021\n\ttimestamp\030\003 \001(\004\022.\n\013delete_type\030\004 \001(\0162"
+literal|"lifierValue\032\203\001\n\016QualifierValue\022\021\n\tqualif"
 operator|+
-literal|"\031.MutationProto.DeleteType\022\014\n\004tags\030\005 \001(\014"
+literal|"ier\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\022\021\n\ttimestamp\030\003 "
 operator|+
-literal|"\"W\n\nDurability\022\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_"
+literal|"\001(\004\022.\n\013delete_type\030\004 \001(\0162\031.MutationProto"
 operator|+
-literal|"WAL\020\001\022\r\n\tASYNC_WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFS"
+literal|".DeleteType\022\014\n\004tags\030\005 \001(\014\"W\n\nDurability\022"
 operator|+
-literal|"YNC_WAL\020\004\">\n\014MutationType\022\n\n\006APPEND\020\000\022\r\n"
+literal|"\017\n\013USE_DEFAULT\020\000\022\014\n\010SKIP_WAL\020\001\022\r\n\tASYNC_"
 operator|+
-literal|"\tINCREMENT\020\001\022\007\n\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDel"
+literal|"WAL\020\002\022\014\n\010SYNC_WAL\020\003\022\r\n\tFSYNC_WAL\020\004\">\n\014Mu"
 operator|+
-literal|"eteType\022\026\n\022DELETE_ONE_VERSION\020\000\022\034\n\030DELET"
+literal|"tationType\022\n\n\006APPEND\020\000\022\r\n\tINCREMENT\020\001\022\007\n"
 operator|+
-literal|"E_MULTIPLE_VERSIONS\020\001\022\021\n\rDELETE_FAMILY\020\002"
+literal|"\003PUT\020\002\022\n\n\006DELETE\020\003\"p\n\nDeleteType\022\026\n\022DELE"
 block|,
-literal|"\022\031\n\025DELETE_FAMILY_VERSION\020\003\"\207\001\n\rMutateRe"
+literal|"TE_ONE_VERSION\020\000\022\034\n\030DELETE_MULTIPLE_VERS"
 operator|+
-literal|"quest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022"
+literal|"IONS\020\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE_FAMI"
 operator|+
-literal|" \n\010mutation\030\002 \002(\0132\016.MutationProto\022\035\n\tcon"
+literal|"LY_VERSION\020\003\"\207\001\n\rMutateRequest\022 \n\006region"
 operator|+
-literal|"dition\030\003 \001(\0132\n.Condition\022\023\n\013nonce_group\030"
+literal|"\030\001 \002(\0132\020.RegionSpecifier\022 \n\010mutation\030\002 \002"
 operator|+
-literal|"\004 \001(\004\"<\n\016MutateResponse\022\027\n\006result\030\001 \001(\0132"
+literal|"(\0132\016.MutationProto\022\035\n\tcondition\030\003 \001(\0132\n."
 operator|+
-literal|"\007.Result\022\021\n\tprocessed\030\002 \001(\010\"\375\002\n\004Scan\022\027\n\006"
+literal|"Condition\022\023\n\013nonce_group\030\004 \001(\004\"<\n\016Mutate"
 operator|+
-literal|"column\030\001 \003(\0132\007.Column\022!\n\tattribute\030\002 \003(\013"
+literal|"Response\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tpro"
 operator|+
-literal|"2\016.NameBytesPair\022\021\n\tstart_row\030\003 \001(\014\022\020\n\010s"
+literal|"cessed\030\002 \001(\010\"\250\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007."
 operator|+
-literal|"top_row\030\004 \001(\014\022\027\n\006filter\030\005 \001(\0132\007.Filter\022\036"
+literal|"Column\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPai"
 operator|+
-literal|"\n\ntime_range\030\006 \001(\0132\n.TimeRange\022\027\n\014max_ve"
+literal|"r\022\021\n\tstart_row\030\003 \001(\014\022\020\n\010stop_row\030\004 \001(\014\022\027"
 block|,
-literal|"rsions\030\007 \001(\r:\0011\022\032\n\014cache_blocks\030\010 \001(\010:\004t"
+literal|"\n\006filter\030\005 \001(\0132\007.Filter\022\036\n\ntime_range\030\006 "
 operator|+
-literal|"rue\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017max_result_si"
+literal|"\001(\0132\n.TimeRange\022\027\n\014max_versions\030\007 \001(\r:\0011"
 operator|+
-literal|"ze\030\n \001(\004\022\023\n\013store_limit\030\013 \001(\r\022\024\n\014store_o"
+literal|"\022\032\n\014cache_blocks\030\010 \001(\010:\004true\022\022\n\nbatch_si"
 operator|+
-literal|"ffset\030\014 \001(\r\022&\n\036load_column_families_on_d"
+literal|"ze\030\t \001(\r\022\027\n\017max_result_size\030\n \001(\004\022\023\n\013sto"
 operator|+
-literal|"emand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027\n\010reversed\030\017"
+literal|"re_limit\030\013 \001(\r\022\024\n\014store_offset\030\014 \001(\r\022&\n\036"
 operator|+
-literal|" \001(\010:\005false\"\236\001\n\013ScanRequest\022 \n\006region\030\001 "
+literal|"load_column_families_on_demand\030\r \001(\010\022\r\n\005"
 operator|+
-literal|"\001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\0132\005.Sc"
+literal|"small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005false\022)\n\013"
 operator|+
-literal|"an\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows"
+literal|"consistency\030\020 \001(\0162\014.Consistency:\006STRONG\""
 operator|+
-literal|"\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_ca"
+literal|"\236\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Region"
 operator|+
-literal|"ll_seq\030\006 \001(\004\"y\n\014ScanResponse\022\030\n\020cells_pe"
+literal|"Specifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanne"
 block|,
-literal|"r_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014mo"
+literal|"r_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rcl"
 operator|+
-literal|"re_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results"
+literal|"ose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004"
 operator|+
-literal|"\030\005 \003(\0132\007.Result\"\263\001\n\024BulkLoadHFileRequest"
+literal|"\"y\n\014ScanResponse\022\030\n\020cells_per_result\030\001 \003"
 operator|+
-literal|"\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\0225\n\013fa"
+literal|"(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003"
 operator|+
-literal|"mily_path\030\002 \003(\0132 .BulkLoadHFileRequest.F"
+literal|" \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Res"
 operator|+
-literal|"amilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n\nFam"
+literal|"ult\"\263\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001"
 operator|+
-literal|"ilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n"
+literal|" \002(\0132\020.RegionSpecifier\0225\n\013family_path\030\002 "
 operator|+
-literal|"\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002(\010\"a"
+literal|"\003(\0132 .BulkLoadHFileRequest.FamilyPath\022\026\n"
 operator|+
-literal|"\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n"
+literal|"\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006f"
 operator|+
-literal|"\014service_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t"
+literal|"amily\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFi"
 block|,
-literal|"\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorServiceR"
+literal|"leResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Coprocesso"
 operator|+
-literal|"esult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair\"d\n\031"
+literal|"rServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_nam"
 operator|+
-literal|"CoprocessorServiceRequest\022 \n\006region\030\001 \002("
+literal|"e\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030"
 operator|+
-literal|"\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027.Copr"
+literal|"\004 \002(\014\"9\n\030CoprocessorServiceResult\022\035\n\005val"
 operator|+
-literal|"ocessorServiceCall\"]\n\032CoprocessorService"
+literal|"ue\030\001 \001(\0132\016.NameBytesPair\"d\n\031CoprocessorS"
 operator|+
-literal|"Response\022 \n\006region\030\001 \002(\0132\020.RegionSpecifi"
+literal|"erviceRequest\022 \n\006region\030\001 \002(\0132\020.RegionSp"
 operator|+
-literal|"er\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"{\n\006Act"
+literal|"ecifier\022%\n\004call\030\002 \002(\0132\027.CoprocessorServi"
 operator|+
-literal|"ion\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001(\0132\016.M"
+literal|"ceCall\"]\n\032CoprocessorServiceResponse\022 \n\006"
 operator|+
-literal|"utationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014servi"
+literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030"
 operator|+
-literal|"ce_call\030\004 \001(\0132\027.CoprocessorServiceCall\"Y"
+literal|"\002 \002(\0132\016.NameBytesPair\"{\n\006Action\022\r\n\005index"
 block|,
-literal|"\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.RegionS"
+literal|"\030\001 \001(\r\022 \n\010mutation\030\002 \001(\0132\016.MutationProto"
 operator|+
-literal|"pecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\013"
+literal|"\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001("
 operator|+
-literal|"2\007.Action\"\221\001\n\021ResultOrException\022\r\n\005index"
+literal|"\0132\027.CoprocessorServiceCall\"Y\n\014RegionActi"
 operator|+
-literal|"\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\texcep"
+literal|"on\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006"
 operator|+
-literal|"tion\030\003 \001(\0132\016.NameBytesPair\0221\n\016service_re"
+literal|"atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"\221\001"
 operator|+
-literal|"sult\030\004 \001(\0132\031.CoprocessorServiceResult\"f\n"
+literal|"\n\021ResultOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006re"
 operator|+
-literal|"\022RegionActionResult\022-\n\021resultOrException"
+literal|"sult\030\002 \001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016"
 operator|+
-literal|"\030\001 \003(\0132\022.ResultOrException\022!\n\texception\030"
+literal|".NameBytesPair\0221\n\016service_result\030\004 \001(\0132\031"
 operator|+
-literal|"\002 \001(\0132\016.NameBytesPair\"G\n\014MultiRequest\022#\n"
+literal|".CoprocessorServiceResult\"f\n\022RegionActio"
 operator|+
-literal|"\014regionAction\030\001 \003(\0132\r.RegionAction\022\022\n\nno"
+literal|"nResult\022-\n\021resultOrException\030\001 \003(\0132\022.Res"
 block|,
-literal|"nceGroup\030\002 \001(\004\"@\n\rMultiResponse\022/\n\022regio"
+literal|"ultOrException\022!\n\texception\030\002 \001(\0132\016.Name"
 operator|+
-literal|"nActionResult\030\001 \003(\0132\023.RegionActionResult"
+literal|"BytesPair\"G\n\014MultiRequest\022#\n\014regionActio"
 operator|+
-literal|"2\261\002\n\rClientService\022 \n\003Get\022\013.GetRequest\032\014"
+literal|"n\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGroup\030\002 \001"
 operator|+
-literal|".GetResponse\022)\n\006Mutate\022\016.MutateRequest\032\017"
+literal|"(\004\"@\n\rMultiResponse\022/\n\022regionActionResul"
 operator|+
-literal|".MutateResponse\022#\n\004Scan\022\014.ScanRequest\032\r."
+literal|"t\030\001 \003(\0132\023.RegionActionResult*\'\n\013Consiste"
 operator|+
-literal|"ScanResponse\022>\n\rBulkLoadHFile\022\025.BulkLoad"
+literal|"ncy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\261\002\n\rClient"
 operator|+
-literal|"HFileRequest\032\026.BulkLoadHFileResponse\022F\n\013"
+literal|"Service\022 \n\003Get\022\013.GetRequest\032\014.GetRespons"
 operator|+
-literal|"ExecService\022\032.CoprocessorServiceRequest\032"
+literal|"e\022)\n\006Mutate\022\016.MutateRequest\032\017.MutateResp"
 operator|+
-literal|"\033.CoprocessorServiceResponse\022&\n\005Multi\022\r."
+literal|"onse\022#\n\004Scan\022\014.ScanRequest\032\r.ScanRespons"
 operator|+
-literal|"MultiRequest\032\016.MultiResponseBB\n*org.apac"
+literal|"e\022>\n\rBulkLoadHFile\022\025.BulkLoadHFileReques"
 block|,
-literal|"he.hadoop.hbase.protobuf.generatedB\014Clie"
+literal|"t\032\026.BulkLoadHFileResponse\022F\n\013ExecService"
 operator|+
-literal|"ntProtosH\001\210\001\001\240\001\001"
+literal|"\022\032.CoprocessorServiceRequest\032\033.Coprocess"
+operator|+
+literal|"orServiceResponse\022&\n\005Multi\022\r.MultiReques"
+operator|+
+literal|"t\032\016.MultiResponseBB\n*org.apache.hadoop.h"
+operator|+
+literal|"base.protobuf.generatedB\014ClientProtosH\001\210"
+operator|+
+literal|"\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -164161,6 +165966,8 @@ block|,
 literal|"ExistenceOnly"
 block|,
 literal|"ClosestRowBefore"
+block|,
+literal|"Consistency"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -164205,6 +166012,8 @@ block|,
 literal|"AssociatedCellCount"
 block|,
 literal|"Exists"
+block|,
+literal|"Stale"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -164635,6 +166444,8 @@ block|,
 literal|"Small"
 block|,
 literal|"Reversed"
+block|,
+literal|"Consistency"
 block|, }
 argument_list|)
 expr_stmt|;

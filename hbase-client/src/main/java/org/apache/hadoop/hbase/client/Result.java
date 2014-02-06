@@ -264,6 +264,12 @@ name|Boolean
 name|exists
 decl_stmt|;
 comment|// if the query was just to check existence.
+specifier|private
+name|boolean
+name|stale
+init|=
+literal|false
+decl_stmt|;
 comment|// We're not using java serialization.  Transient here is just a marker to say
 comment|// that this is where we cache row if we're ever asked for it.
 specifier|private
@@ -385,6 +391,8 @@ index|]
 argument_list|)
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -420,6 +428,8 @@ index|]
 argument_list|)
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -438,6 +448,35 @@ name|Boolean
 name|exists
 parameter_list|)
 block|{
+return|return
+name|create
+argument_list|(
+name|cells
+argument_list|,
+name|exists
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|Result
+name|create
+parameter_list|(
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|cells
+parameter_list|,
+name|Boolean
+name|exists
+parameter_list|,
+name|boolean
+name|stale
+parameter_list|)
+block|{
 if|if
 condition|(
 name|exists
@@ -452,6 +491,8 @@ argument_list|(
 literal|null
 argument_list|,
 name|exists
+argument_list|,
+name|stale
 argument_list|)
 return|;
 block|}
@@ -474,6 +515,8 @@ index|]
 argument_list|)
 argument_list|,
 literal|null
+argument_list|,
+name|stale
 argument_list|)
 return|;
 block|}
@@ -495,6 +538,55 @@ argument_list|(
 name|cells
 argument_list|,
 literal|null
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|Result
+name|create
+parameter_list|(
+name|Cell
+index|[]
+name|cells
+parameter_list|,
+name|Boolean
+name|exists
+parameter_list|,
+name|boolean
+name|stale
+parameter_list|)
+block|{
+if|if
+condition|(
+name|exists
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+operator|new
+name|Result
+argument_list|(
+literal|null
+argument_list|,
+name|exists
+argument_list|,
+name|stale
+argument_list|)
+return|;
+block|}
+return|return
+operator|new
+name|Result
+argument_list|(
+name|cells
+argument_list|,
+literal|null
+argument_list|,
+name|stale
 argument_list|)
 return|;
 block|}
@@ -508,6 +600,9 @@ name|cells
 parameter_list|,
 name|Boolean
 name|exists
+parameter_list|,
+name|boolean
+name|stale
 parameter_list|)
 block|{
 name|this
@@ -521,6 +616,12 @@ operator|.
 name|exists
 operator|=
 name|exists
+expr_stmt|;
+name|this
+operator|.
+name|stale
+operator|=
+name|stale
 expr_stmt|;
 block|}
 comment|/**    * Method for retrieving the row key that corresponds to    * the row from which this Result was created.    * @return row    */
@@ -589,7 +690,7 @@ return|return
 name|cells
 return|;
 block|}
-comment|/**    * Return an cells of a Result as an array of KeyValues     *     * WARNING do not use, expensive.  This does an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link #rawCells()}      * @return array of KeyValues, empty array if nothing in result.    */
+comment|/**    * Return an cells of a Result as an array of KeyValues    *    * WARNING do not use, expensive.  This does an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *    * @deprecated as of 0.96, use {@link #rawCells()}    * @return array of KeyValues, empty array if nothing in result.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -671,7 +772,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Return an cells of a Result as an array of KeyValues     *     * WARNING do not use, expensive.  This does  an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *     * @deprecated as of 0.96, use {@link #listCells()}      * @return all sorted List of KeyValues; can be null if no cells in the result    */
+comment|/**    * Return an cells of a Result as an array of KeyValues    *    * WARNING do not use, expensive.  This does  an arraycopy of the cell[]'s value.    *    * Added to ease transition from  0.94 -> 0.96.    *    * @deprecated as of 0.96, use {@link #listCells()}    * @return all sorted List of KeyValues; can be null if no cells in the result    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2251,6 +2352,8 @@ name|Long
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -3162,6 +3265,16 @@ name|exists
 operator|=
 name|exists
 expr_stmt|;
+block|}
+comment|/**    * Whether or not the results are coming from possibly stale data. Stale results    * might be returned if {@link Consistency} is not STRONG for the query.    * @return Whether or not the results are coming from possibly stale data.    */
+specifier|public
+name|boolean
+name|isStale
+parameter_list|()
+block|{
+return|return
+name|stale
+return|;
 block|}
 block|}
 end_class
