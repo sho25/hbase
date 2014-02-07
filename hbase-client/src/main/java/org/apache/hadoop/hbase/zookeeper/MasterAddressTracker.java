@@ -177,6 +177,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Manages the location of the current active Master for the RegionServer.  *<p>  * Listens for ZooKeeper events related to the master address. The node  *<code>/master</code> will contain the address of the current master.  * This listener is interested in  *<code>NodeDeleted</code> and<code>NodeCreated</code> events on  *<code>/master</code>.  *<p>  * Utilizes {@link ZooKeeperNodeTracker} for zk interactions.  *<p>  * You can get the current master via {@link #getMasterAddress()} or via  * {@link #getMasterAddress(ZooKeeperWatcher)} if you do not have a running  * instance of this Tracker in your context.  *<p>  * This class also includes utility for interacting with the master znode, for  * writing and reading the znode content.  */
 end_comment
@@ -293,7 +303,11 @@ block|{
 name|byte
 index|[]
 name|data
-init|=
+decl_stmt|;
+try|try
+block|{
+name|data
+operator|=
 name|ZKUtil
 operator|.
 name|getData
@@ -305,7 +319,20 @@ operator|.
 name|getMasterAddressZNode
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
+throw|;
+block|}
 if|if
 condition|(
 name|data

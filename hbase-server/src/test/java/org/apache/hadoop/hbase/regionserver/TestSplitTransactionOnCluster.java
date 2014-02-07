@@ -115,6 +115,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -8187,6 +8197,8 @@ name|waitUntilRegionServerDead
 parameter_list|()
 throws|throws
 name|InterruptedException
+throws|,
+name|InterruptedIOException
 block|{
 comment|// Wait until the master processes the RS shutdown
 for|for

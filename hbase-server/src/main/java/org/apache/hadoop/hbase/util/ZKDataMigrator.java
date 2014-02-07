@@ -910,6 +910,8 @@ name|zkw
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|List
 argument_list|<
@@ -1091,6 +1093,8 @@ name|zkw
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|String
 name|replicationZnodeName
@@ -1348,6 +1352,8 @@ throws|throws
 name|KeeperException
 throws|,
 name|NoNodeException
+throws|,
+name|InterruptedException
 block|{
 name|String
 name|rsPath
@@ -1553,6 +1559,8 @@ throws|throws
 name|KeeperException
 throws|,
 name|NoNodeException
+throws|,
+name|InterruptedException
 block|{
 for|for
 control|(

@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1715,6 +1725,8 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+try|try
+block|{
 name|this
 operator|.
 name|zkTable
@@ -1727,6 +1739,19 @@ operator|.
 name|watcher
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
+throw|;
+block|}
 comment|// This is the max attempts, not retries, so it should be at least 1.
 name|this
 operator|.

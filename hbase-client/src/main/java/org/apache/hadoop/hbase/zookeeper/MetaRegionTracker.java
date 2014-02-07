@@ -300,6 +300,24 @@ name|e
 argument_list|)
 throw|;
 block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 block|}
 comment|/**    * Gets the meta region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
 specifier|public

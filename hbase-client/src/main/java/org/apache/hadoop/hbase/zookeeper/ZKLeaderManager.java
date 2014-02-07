@@ -792,6 +792,34 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|watcher
+operator|.
+name|abort
+argument_list|(
+literal|"Unhandled zookeeper exception removing leader node"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|candidate
+operator|.
+name|stop
+argument_list|(
+literal|"Unhandled zookeeper exception removing leader node: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 specifier|public
 name|boolean

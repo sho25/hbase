@@ -3403,7 +3403,7 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 throws|,
-name|HBaseIOException
+name|IOException
 block|{
 name|MiniHBaseCluster
 name|cluster

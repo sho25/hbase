@@ -182,6 +182,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|ZooKeeperProtos
 operator|.
@@ -228,6 +230,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 return|return
 name|getTableState
@@ -262,6 +266,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|ZooKeeperProtos
 operator|.
@@ -319,6 +325,8 @@ name|zkw
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|Set
 argument_list|<
@@ -420,6 +428,8 @@ name|zkw
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|Set
 argument_list|<
@@ -570,6 +580,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|String
 name|znode

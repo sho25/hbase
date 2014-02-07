@@ -230,6 +230,8 @@ throws|,
 name|IOException
 throws|,
 name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 specifier|final
 name|TableName

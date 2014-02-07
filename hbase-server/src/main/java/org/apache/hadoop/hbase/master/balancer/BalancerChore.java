@@ -105,6 +105,16 @@ name|HMaster
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Chore that will call HMaster.balance{@link org.apache.hadoop.hbase.master.HMaster#balance()} when  * needed.  */
 end_comment
@@ -195,7 +205,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|HBaseIOException
+name|IOException
 name|e
 parameter_list|)
 block|{

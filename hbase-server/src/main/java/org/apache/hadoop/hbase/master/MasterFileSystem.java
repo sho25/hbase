@@ -2010,6 +2010,8 @@ name|failedServers
 parameter_list|)
 throws|throws
 name|KeeperException
+throws|,
+name|InterruptedIOException
 block|{
 name|this
 operator|.

@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -583,6 +593,18 @@ literal|"Enable/Disable failed"
 argument_list|,
 name|e
 argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
 throw|;
 block|}
 finally|finally
