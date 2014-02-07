@@ -778,6 +778,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"putAndReplicateRows"
+argument_list|)
+expr_stmt|;
 comment|// add rows to Master cluster,
 name|Put
 name|p
@@ -1144,6 +1151,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"mimicSyncUpAfterDelete"
+argument_list|)
+expr_stmt|;
 name|utility2
 operator|.
 name|shutdownMiniHBaseCluster
@@ -1540,6 +1554,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"mimicSyncUpAfterPut"
+argument_list|)
+expr_stmt|;
 name|utility1
 operator|.
 name|restartHBaseCluster
