@@ -4907,9 +4907,9 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|append
+name|qv
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|,
 name|KeyValue
@@ -5391,9 +5391,9 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|increment
+name|qv
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|,
 name|KeyValue
