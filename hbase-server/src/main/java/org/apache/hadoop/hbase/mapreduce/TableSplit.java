@@ -416,6 +416,11 @@ init|=
 literal|""
 decl_stmt|;
 comment|// stores the serialized form of the Scan
+specifier|private
+name|long
+name|length
+decl_stmt|;
+comment|// Contains estimation of region size in bytes
 comment|/** Default constructor. */
 specifier|public
 name|TableSplit
@@ -488,6 +493,45 @@ name|location
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates a new instance while assigning all variables.    * Length of region is set to 0    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
+specifier|public
+name|TableSplit
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|Scan
+name|scan
+parameter_list|,
+name|byte
+index|[]
+name|startRow
+parameter_list|,
+name|byte
+index|[]
+name|endRow
+parameter_list|,
+specifier|final
+name|String
+name|location
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|tableName
+argument_list|,
+name|scan
+argument_list|,
+name|startRow
+argument_list|,
+name|endRow
+argument_list|,
+name|location
+argument_list|,
+literal|0L
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Creates a new instance while assigning all variables.    *    * @param tableName  The name of the current table.    * @param scan The scan associated with this split.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
 specifier|public
 name|TableSplit
@@ -509,6 +553,9 @@ parameter_list|,
 specifier|final
 name|String
 name|location
+parameter_list|,
+name|long
+name|length
 parameter_list|)
 block|{
 name|this
@@ -572,6 +619,12 @@ operator|.
 name|regionLocation
 operator|=
 name|location
+expr_stmt|;
+name|this
+operator|.
+name|length
+operator|=
+name|length
 expr_stmt|;
 block|}
 comment|/**    * @deprecated Since 0.96.0; use {@link TableSplit#TableSplit(TableName, byte[], byte[], String)}    */
@@ -646,6 +699,45 @@ argument_list|,
 name|endRow
 argument_list|,
 name|location
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new instance without a scanner.    *    * @param tableName The name of the current table.    * @param startRow The start row of the split.    * @param endRow The end row of the split.    * @param location The location of the region.    * @param length Size of region in bytes    */
+specifier|public
+name|TableSplit
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|startRow
+parameter_list|,
+name|byte
+index|[]
+name|endRow
+parameter_list|,
+specifier|final
+name|String
+name|location
+parameter_list|,
+name|long
+name|length
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|tableName
+argument_list|,
+literal|null
+argument_list|,
+name|startRow
+argument_list|,
+name|endRow
+argument_list|,
+name|location
+argument_list|,
+name|length
 argument_list|)
 expr_stmt|;
 block|}
@@ -753,9 +845,8 @@ name|long
 name|getLength
 parameter_list|()
 block|{
-comment|// Not clear how to obtain this... seems to be used only for sorting splits
 return|return
-literal|0
+name|length
 return|;
 block|}
 comment|/**    * Reads the values of each field.    *    * @param in  The input to read from.    * @throws IOException When reading the input fails.    */
@@ -908,6 +999,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|length
+operator|=
+name|WritableUtils
+operator|.
+name|readVLong
+argument_list|(
+name|in
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Writes the field values to the output.    *    * @param out  The output to write to.    * @throws IOException When writing the values to the output fails.    */
 annotation|@
@@ -989,6 +1089,15 @@ name|toBytes
 argument_list|(
 name|scan
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|WritableUtils
+operator|.
+name|writeVLong
+argument_list|(
+name|out
+argument_list|,
+name|length
 argument_list|)
 expr_stmt|;
 block|}
