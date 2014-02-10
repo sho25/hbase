@@ -595,7 +595,7 @@ expr_stmt|;
 comment|// Override the connection's rpc client for timeout testing
 operator|(
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)

@@ -1723,7 +1723,7 @@ specifier|static
 class|class
 name|ScanOpenNextThenExceptionThenRecoverConnection
 extends|extends
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 block|{
@@ -1900,7 +1900,7 @@ specifier|static
 class|class
 name|RegionServerStoppedOnScannerOpenConnection
 extends|extends
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 block|{
@@ -2080,7 +2080,7 @@ specifier|static
 class|class
 name|RpcTimeoutConnection
 extends|extends
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 block|{
@@ -2213,7 +2213,7 @@ specifier|static
 class|class
 name|ManyServersManyRegionsConnection
 extends|extends
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 block|{

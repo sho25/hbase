@@ -870,7 +870,7 @@ block|}
 specifier|public
 name|MyAsyncProcess
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|hc
 parameter_list|,
 name|Configuration
@@ -892,7 +892,7 @@ block|}
 specifier|public
 name|MyAsyncProcess
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|hc
 parameter_list|,
 name|Configuration
@@ -948,7 +948,7 @@ block|}
 specifier|public
 name|MyAsyncProcess
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|hc
 parameter_list|,
 name|Configuration
@@ -1290,7 +1290,7 @@ specifier|static
 class|class
 name|MyConnectionImpl
 extends|extends
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 block|{
@@ -1500,7 +1500,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnection
+name|ClusterConnection
 name|hc
 init|=
 name|createHConnection
@@ -1577,7 +1577,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnection
+name|ClusterConnection
 name|hc
 init|=
 name|createHConnection
@@ -1726,7 +1726,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnection
+name|ClusterConnection
 name|hc
 init|=
 name|createHConnection
@@ -1866,7 +1866,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnection
+name|ClusterConnection
 name|hc
 init|=
 name|createHConnection
@@ -3144,20 +3144,20 @@ expr_stmt|;
 block|}
 specifier|private
 specifier|static
-name|HConnection
+name|ClusterConnection
 name|createHConnection
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HConnection
+name|ClusterConnection
 name|hc
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HConnection
+name|ClusterConnection
 operator|.
 name|class
 argument_list|)
@@ -4330,7 +4330,7 @@ name|configuration
 operator|.
 name|setBoolean
 argument_list|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|RETRIES_BY_SERVER_KEY
 argument_list|,

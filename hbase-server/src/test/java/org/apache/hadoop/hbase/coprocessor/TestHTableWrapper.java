@@ -498,7 +498,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests class {@link org.apache.hadoop.hbase.coprocessor.CoprocessorHost.Environment.HTableWrapper}  * by invoking its methods and briefly asserting the result is reasonable.  */
+comment|/**  * Tests class {@link org.apache.hadoop.hbase.client.HTableWrapper}  * by invoking its methods and briefly asserting the result is reasonable.  */
 end_comment
 
 begin_class

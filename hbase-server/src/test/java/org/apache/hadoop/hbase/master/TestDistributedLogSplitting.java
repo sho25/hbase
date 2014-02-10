@@ -701,7 +701,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionUtils
 import|;
 end_import
 
@@ -2562,7 +2562,7 @@ decl_stmt|;
 name|NonceGenerator
 name|oldNg
 init|=
-name|HConnectionManager
+name|ConnectionUtils
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
@@ -2809,7 +2809,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|HConnectionManager
+name|ConnectionUtils
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(

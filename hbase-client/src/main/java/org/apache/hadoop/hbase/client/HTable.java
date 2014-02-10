@@ -715,6 +715,20 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|Service
@@ -768,7 +782,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|protected
-name|HConnection
+name|ClusterConnection
 name|connection
 decl_stmt|;
 specifier|private
@@ -962,9 +976,9 @@ name|this
 operator|.
 name|connection
 operator|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
-name|getConnection
+name|getConnectionInternal
 argument_list|(
 name|conf
 argument_list|)
@@ -990,7 +1004,9 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table. Shares zookeeper connection and other resources with    * other HTable instances created with the same<code>connection</code> instance. Use this    * constructor when the HConnection instance is externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table. Shares zookeeper connection and other resources with    * other HTable instances created with the same<code>connection</code> instance. Use this    * constructor when the HConnection instance is externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @throws IOException if a remote or network exception occurs    * @deprecated Do not use.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 parameter_list|(
@@ -1025,6 +1041,9 @@ name|this
 operator|.
 name|connection
 operator|=
+operator|(
+name|ClusterConnection
+operator|)
 name|connection
 expr_stmt|;
 name|this
@@ -1208,9 +1227,9 @@ name|this
 operator|.
 name|connection
 operator|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
-name|getConnection
+name|getConnectionInternal
 argument_list|(
 name|conf
 argument_list|)
@@ -1251,7 +1270,9 @@ name|finishSetup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Use this constructor when the ExecutorService and HConnection instance are    * externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Use this constructor when the ExecutorService and HConnection instance are    * externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs.    * @deprecated Do not use, internal ctor.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 parameter_list|(
@@ -1286,7 +1307,9 @@ name|pool
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Use this constructor when the ExecutorService and HConnection instance are    * externally managed.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
+comment|/** @deprecated Do not use, internal ctor. */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTable
 parameter_list|(
@@ -1295,6 +1318,41 @@ name|tableName
 parameter_list|,
 specifier|final
 name|HConnection
+name|connection
+parameter_list|,
+specifier|final
+name|ExecutorService
+name|pool
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|tableName
+argument_list|,
+operator|(
+name|ClusterConnection
+operator|)
+name|connection
+argument_list|,
+name|pool
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>connection</code> instance.    * Visible only for HTableWrapper which is in different package.    * Should not be used by exernal code.    * @param tableName Name of the table.    * @param connection HConnection to be used.    * @param pool ExecutorService to be used.    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
+name|HTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|ClusterConnection
 name|connection
 parameter_list|,
 specifier|final
@@ -1886,6 +1944,8 @@ comment|/**    *<em>INTERNAL</em> Used by unit tests and tools to do low-level  
 comment|// TODO(tsuna): Remove this.  Unit tests shouldn't require public helpers.
 annotation|@
 name|Deprecated
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|HConnection
 name|getConnection

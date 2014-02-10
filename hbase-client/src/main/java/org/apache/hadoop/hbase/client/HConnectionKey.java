@@ -313,7 +313,7 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|LOG
 operator|.

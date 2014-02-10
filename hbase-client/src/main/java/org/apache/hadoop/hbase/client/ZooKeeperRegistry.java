@@ -222,7 +222,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// Needs an instance of hci to function.  Set after construct this instance.
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|hci
@@ -243,7 +243,7 @@ operator|!
 operator|(
 name|connection
 operator|instanceof
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -262,7 +262,7 @@ operator|.
 name|hci
 operator|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)

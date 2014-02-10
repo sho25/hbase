@@ -425,7 +425,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 import|;
@@ -2202,12 +2202,12 @@ name|oldHBaseInstances
 operator|.
 name|putAll
 argument_list|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -2263,14 +2263,14 @@ block|}
 finally|finally
 block|{
 comment|// Put original HConnections back
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -2383,13 +2383,13 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|conn
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -3140,7 +3140,7 @@ comment|// Check that we unserialized the exception as expected
 name|Throwable
 name|cause
 init|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|findException
 argument_list|(
@@ -3758,13 +3758,13 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|conn
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -4196,7 +4196,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Makes sure that there is no leaking of    * {@link HConnectionManager.HConnectionImplementation} in the {@link HConnectionManager}    * class.    */
+comment|/**    * Makes sure that there is no leaking of    * {@link ConnectionManager.HConnectionImplementation} in the {@link HConnectionManager}    * class.    */
 annotation|@
 name|Test
 specifier|public
@@ -4940,13 +4940,13 @@ argument_list|,
 name|FAM_NAM
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|conn
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -5727,13 +5727,13 @@ name|ANY_PAUSE
 operator|*
 literal|1000
 decl_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|ServerErrorTracker
 name|tracker
 init|=
 operator|new
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|ServerErrorTracker
 argument_list|(
@@ -6307,9 +6307,9 @@ try|try
 block|{
 name|c1
 operator|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
-name|getConnection
+name|getConnectionInternal
 argument_list|(
 name|config
 argument_list|)
@@ -6333,9 +6333,9 @@ init|=
 operator|new
 name|HTable
 argument_list|(
-name|TABLE_NAME4
+name|config
 argument_list|,
-name|c1
+name|TABLE_NAME4
 argument_list|,
 name|pool
 argument_list|)

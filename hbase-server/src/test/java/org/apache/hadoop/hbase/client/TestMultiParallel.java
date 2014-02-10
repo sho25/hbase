@@ -3471,7 +3471,7 @@ decl_stmt|;
 name|NonceGenerator
 name|oldCnm
 init|=
-name|HConnectionManager
+name|ConnectionUtils
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
@@ -3860,7 +3860,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(

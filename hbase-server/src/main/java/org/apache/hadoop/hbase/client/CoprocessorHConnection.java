@@ -496,7 +496,7 @@ specifier|public
 class|class
 name|CoprocessorHConnection
 implements|implements
-name|HConnection
+name|ClusterConnection
 block|{
 specifier|private
 specifier|static
@@ -505,7 +505,7 @@ name|NonceGenerator
 name|ng
 init|=
 operator|new
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|NoNonceGenerator
 argument_list|()
@@ -513,7 +513,7 @@ decl_stmt|;
 comment|/**    * Create an unmanaged {@link HConnection} based on the environment in which we are running the    * coprocessor. The {@link HConnection} must be externally cleaned up (we bypass the usual HTable    * cleanup mechanisms since we own everything).    * @param env environment hosting the {@link HConnection}    * @return an unmanaged {@link HConnection}.    * @throws IOException if we cannot create the basic connection    */
 specifier|public
 specifier|static
-name|HConnection
+name|ClusterConnection
 name|getConnectionForEnvironment
 parameter_list|(
 name|CoprocessorEnvironment
@@ -522,12 +522,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HConnection
+name|ClusterConnection
 name|connection
 init|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
-name|createConnection
+name|createConnectionInternal
 argument_list|(
 name|env
 operator|.
@@ -585,7 +585,7 @@ name|connection
 return|;
 block|}
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|delegate
 decl_stmt|;
 specifier|private
@@ -599,7 +599,7 @@ decl_stmt|;
 specifier|public
 name|CoprocessorHConnection
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|delegate
 parameter_list|,
 name|HRegionServer

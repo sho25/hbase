@@ -583,7 +583,7 @@ name|id
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|hConnection
 decl_stmt|;
 specifier|protected
@@ -885,7 +885,7 @@ block|}
 specifier|public
 name|AsyncProcess
 parameter_list|(
-name|HConnection
+name|ClusterConnection
 name|hc
 parameter_list|,
 name|Configuration
@@ -2568,7 +2568,7 @@ name|errors
 decl_stmt|;
 specifier|private
 specifier|final
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|ServerErrorTracker
 name|errorsByServer
@@ -5442,7 +5442,7 @@ block|}
 block|}
 comment|/**    * Creates the server error tracker to use inside process.    * Currently, to preserve the main assumption about current retries, and to work well with    * the retry-limit-based calculation, the calculation is local per Process object.    * We may benefit from connection-wide tracking of server errors.    * @return ServerErrorTracker to use, null if there is no ServerErrorTracker on this connection    */
 specifier|protected
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|ServerErrorTracker
 name|createServerErrorTracker
@@ -5450,7 +5450,7 @@ parameter_list|()
 block|{
 return|return
 operator|new
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|ServerErrorTracker
 argument_list|(

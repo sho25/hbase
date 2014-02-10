@@ -2058,13 +2058,13 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// Then a ZooKeeperKeepAliveConnection
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|connection1
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -2160,13 +2160,13 @@ argument_list|,
 literal|"6789"
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|connection2
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
@@ -2209,7 +2209,7 @@ comment|// Bypass the private access
 name|Method
 name|m
 init|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|.
@@ -2493,7 +2493,7 @@ literal|"Clearing cache should have 0 cached "
 argument_list|,
 literal|0
 argument_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|getCachedRegionCount
 argument_list|(
@@ -2532,7 +2532,7 @@ literal|"Number of cached region is incorrect "
 argument_list|,
 literal|1
 argument_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|getCachedRegionCount
 argument_list|(
@@ -2632,7 +2632,7 @@ literal|"Number of cached region is incorrect "
 argument_list|,
 literal|0
 argument_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|getCachedRegionCount
 argument_list|(
@@ -2691,7 +2691,7 @@ literal|"Number of cached region is incorrect "
 argument_list|,
 name|prefetchRegionNumber
 argument_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|getCachedRegionCount
 argument_list|(
@@ -2736,7 +2736,7 @@ literal|"Number of cached region is incorrect "
 argument_list|,
 name|prefetchRegionNumber
 argument_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|getCachedRegionCount
 argument_list|(

@@ -287,7 +287,7 @@ parameter_list|(
 name|Configuration
 name|configuration
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|,
 name|MetaScannerVisitor
@@ -367,7 +367,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param configuration HBase configuration.    * @param connection connection to use internally (null to use a new instance)    * @param visitor Visitor object. Closes the visitor before returning.    * @param tableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @param metaTableName Meta table to scan, root or meta.    * @throws IOException e    */
-specifier|public
 specifier|static
 name|void
 name|metaScan
@@ -375,7 +374,7 @@ parameter_list|(
 name|Configuration
 name|configuration
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|,
 specifier|final
@@ -1091,7 +1090,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|,
 specifier|final

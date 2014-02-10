@@ -835,6 +835,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ConnectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -852,22 +868,6 @@ operator|.
 name|client
 operator|.
 name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HConnectionManager
 import|;
 end_import
 
@@ -4476,9 +4476,9 @@ name|toString
 argument_list|()
 decl_stmt|;
 comment|// Set how many times to retry talking to another server over HConnection.
-name|HConnectionManager
+name|ConnectionUtils
 operator|.
-name|setServerSideHConnectionRetries
+name|setServerSideHConnectionRetriesConfig
 argument_list|(
 name|this
 operator|.

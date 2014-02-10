@@ -447,7 +447,7 @@ name|ignoreExpectedTime
 argument_list|)
 expr_stmt|;
 comment|// setup the mocks
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|mockConnection
@@ -456,7 +456,7 @@ name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|.
@@ -759,7 +759,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|mockConnection
@@ -768,7 +768,7 @@ name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|.

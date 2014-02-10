@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 import|;
@@ -188,7 +188,7 @@ comment|/*    * Not part of {@link HBaseTestingUtility} because this class is no
 comment|/**    * Get a Mocked {@link HConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link HConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
-name|HConnection
+name|ClusterConnection
 name|getMockedConnection
 parameter_list|(
 specifier|final
@@ -209,7 +209,7 @@ argument_list|)
 decl_stmt|;
 synchronized|synchronized
 init|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 init|)
@@ -217,7 +217,7 @@ block|{
 name|HConnectionImplementation
 name|connection
 init|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -259,7 +259,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -279,7 +279,7 @@ block|}
 comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link HConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling    * {@link HConnectionManager#deleteConnection(Configuration)} else it    * will stick around; this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocation is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link HConnection#getConfiguration()} is called, a 'location' when    * {@link HConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)} is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link HConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link HConnection#getClient(ServerName)} is called (Be sure to call    * {@link HConnectionManager#deleteConnection(Configuration)}    * when done with this mocked Connection.    * @throws IOException    */
 specifier|public
 specifier|static
-name|HConnection
+name|ClusterConnection
 name|getMockedConnectionAndDecorate
 parameter_list|(
 specifier|final
@@ -313,7 +313,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HConnection
+name|ClusterConnection
 name|c
 init|=
 name|HConnectionTestingUtility
@@ -571,7 +571,7 @@ argument_list|)
 decl_stmt|;
 synchronized|synchronized
 init|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 init|)
@@ -579,7 +579,7 @@ block|{
 name|HConnectionImplementation
 name|connection
 init|=
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -610,7 +610,7 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.
@@ -636,13 +636,13 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 init|)
 block|{
 return|return
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|CONNECTION_INSTANCES
 operator|.

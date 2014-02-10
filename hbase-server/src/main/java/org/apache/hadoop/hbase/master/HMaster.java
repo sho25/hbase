@@ -677,7 +677,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ConnectionUtils
 import|;
 end_import
 
@@ -4435,9 +4435,9 @@ name|toString
 argument_list|()
 decl_stmt|;
 comment|// Set how many times to retry talking to another server over HConnection.
-name|HConnectionManager
+name|ConnectionUtils
 operator|.
-name|setServerSideHConnectionRetries
+name|setServerSideHConnectionRetriesConfig
 argument_list|(
 name|this
 operator|.

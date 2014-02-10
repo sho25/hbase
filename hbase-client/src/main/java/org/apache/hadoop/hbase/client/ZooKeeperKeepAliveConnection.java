@@ -75,7 +75,7 @@ parameter_list|,
 name|String
 name|descriptor
 parameter_list|,
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|conn
@@ -111,7 +111,7 @@ condition|)
 block|{
 operator|(
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)

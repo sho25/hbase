@@ -2184,7 +2184,7 @@ decl_stmt|;
 comment|// We use the implementation class rather then the interface because we
 comment|//  need the package protected functions to get the connection to master
 specifier|private
-name|HConnection
+name|ClusterConnection
 name|connection
 decl_stmt|;
 specifier|private
@@ -2249,9 +2249,9 @@ comment|// Will not leak connections, as the new implementation of the construct
 comment|// does not throw exceptions anymore.
 name|this
 argument_list|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
-name|getConnection
+name|getConnectionInternal
 argument_list|(
 operator|new
 name|Configuration
@@ -2268,7 +2268,9 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**   * Constructor for externally managed HConnections.   * The connection to master will be created when required by admin functions.   *   * @param connection The HConnection instance to use   * @throws MasterNotRunningException, ZooKeeperConnectionException are not   *  thrown anymore but kept into the interface for backward api compatibility   */
+comment|/**    * Constructor for externally managed HConnections.    * The connection to master will be created when required by admin functions.    *    * @param connection The HConnection instance to use    * @throws MasterNotRunningException, ZooKeeperConnectionException are not    *  thrown anymore but kept into the interface for backward api compatibility    * @deprecated Do not use this internal ctor.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HBaseAdmin
 parameter_list|(
@@ -2279,6 +2281,21 @@ throws|throws
 name|MasterNotRunningException
 throws|,
 name|ZooKeeperConnectionException
+block|{
+name|this
+argument_list|(
+operator|(
+name|ClusterConnection
+operator|)
+name|connection
+argument_list|)
+expr_stmt|;
+block|}
+name|HBaseAdmin
+parameter_list|(
+name|ClusterConnection
+name|connection
+parameter_list|)
 block|{
 name|this
 operator|.
@@ -10172,13 +10189,13 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 name|connection
 init|=
 operator|(
-name|HConnectionManager
+name|ConnectionManager
 operator|.
 name|HConnectionImplementation
 operator|)
