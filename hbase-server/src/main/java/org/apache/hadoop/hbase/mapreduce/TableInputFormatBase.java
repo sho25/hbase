@@ -419,6 +419,20 @@ name|DNS
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link HTable}, an  * {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(HBaseConfiguration.create(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("cf1:columnA"),  *         Bytes.toBytes("cf2") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
 end_comment
@@ -558,10 +572,15 @@ name|info
 argument_list|(
 literal|"Input split length: "
 operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|tSplit
 operator|.
 name|getLength
 argument_list|()
+argument_list|)
 operator|+
 literal|" bytes."
 argument_list|)
