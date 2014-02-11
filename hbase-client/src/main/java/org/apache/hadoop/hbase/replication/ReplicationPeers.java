@@ -132,6 +132,22 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param clusterKey the concatenation of the slave cluster's:    *          hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent    * @param tableCFs the table and column-family list which will be replicated for this peer    */
+name|void
+name|addPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|String
+name|clusterKey
+parameter_list|,
+name|String
+name|tableCFs
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
 comment|/**    * Removes a remote slave cluster and stops the replication to it.    * @param peerId a short that identifies the cluster    */
 name|void
 name|removePeer
@@ -161,6 +177,48 @@ name|peerId
 parameter_list|)
 throws|throws
 name|ReplicationException
+function_decl|;
+comment|/**    * Get the table and column-family list string of the peer from ZK.    * @param peerId a short that identifies the cluster    */
+specifier|public
+name|String
+name|getPeerTableCFsConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Set the table and column-family list string of the peer to ZK.    * @param peerId a short that identifies the cluster    * @param tableCFs the table and column-family list which will be replicated for this peer    */
+specifier|public
+name|void
+name|setPeerTableCFsConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|String
+name|tableCFs
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Get the table and column-family-list map of the peer.    * @param peerId a short that identifies the cluster    * @return the table and column-family list which will be replicated for this peer    */
+specifier|public
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|getTableCFs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
 function_decl|;
 comment|/**    * Get the replication status for the specified connected remote slave cluster.    * The value might be read from cache, so it is recommended to    * use {@link #getStatusOfPeerFromBackingStore(String)}    * if reading the state after enabling or disabling it.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    */
 name|boolean
