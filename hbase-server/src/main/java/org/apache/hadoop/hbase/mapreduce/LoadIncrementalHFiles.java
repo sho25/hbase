@@ -1028,10 +1028,6 @@ specifier|private
 name|HBaseAdmin
 name|hbAdmin
 decl_stmt|;
-specifier|private
-name|Configuration
-name|cfg
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1085,11 +1081,30 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|this
+comment|// make a copy, just to be sure we're not overriding someone else's config
+name|setConf
+argument_list|(
+name|HBaseConfiguration
 operator|.
-name|cfg
-operator|=
-name|conf
+name|create
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// disable blockcache for tool invocation, see HBASE-10500
+name|getConf
+argument_list|()
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_KEY
+argument_list|,
+literal|0
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1473,7 +1488,8 @@ comment|// initialize thread pools
 name|int
 name|nrThreads
 init|=
-name|cfg
+name|getConf
+argument_list|()
 operator|.
 name|getInt
 argument_list|(
@@ -1765,7 +1781,8 @@ name|FileSystem
 operator|.
 name|get
 argument_list|(
-name|cfg
+name|getConf
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|//This condition is here for unit testing
@@ -1909,7 +1926,8 @@ block|}
 name|int
 name|maxRetries
 init|=
-name|cfg
+name|getConf
+argument_list|()
 operator|.
 name|getInt
 argument_list|(
@@ -2009,7 +2027,8 @@ name|userToken
 operator|.
 name|cancel
 argument_list|(
-name|cfg
+name|getConf
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3678,7 +3697,8 @@ name|FileSystem
 operator|.
 name|get
 argument_list|(
-name|cfg
+name|getConf
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for
@@ -5051,9 +5071,8 @@ init|=
 operator|new
 name|HTable
 argument_list|(
-name|this
-operator|.
-name|cfg
+name|getConf
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|)
@@ -5081,6 +5100,14 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 name|int
 name|ret
 init|=
@@ -5091,10 +5118,7 @@ argument_list|(
 operator|new
 name|LoadIncrementalHFiles
 argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|)
 argument_list|,
 name|args

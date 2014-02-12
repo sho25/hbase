@@ -1870,6 +1870,31 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// make a copy, just to be sure we're not overriding someone else's config
+name|setConf
+argument_list|(
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// disable blockcache for tool invocation, see HBASE-10500
+name|getConf
+argument_list|()
+operator|.
+name|setFloat
+argument_list|(
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_KEY
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|errors
 operator|=
 name|getErrorReporter
