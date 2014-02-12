@@ -587,9 +587,6 @@ literal|"h"
 argument_list|)
 condition|)
 block|{
-name|printUsage
-argument_list|()
-expr_stmt|;
 return|return
 literal|false
 return|;
