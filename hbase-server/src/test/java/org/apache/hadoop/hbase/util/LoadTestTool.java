@@ -2903,6 +2903,14 @@ return|return
 name|EXIT_FAILURE
 return|;
 block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
