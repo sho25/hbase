@@ -232,7 +232,35 @@ name|NumberFormatException
 name|nfe
 parameter_list|)
 block|{
-comment|// ignore
+comment|/* Differentiate NumberFormatException from an invalid value range reported below. */
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Number format exception when parsing "
+operator|+
+name|PREFIX_LENGTH_KEY
+operator|+
+literal|" for table "
+operator|+
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+operator|+
+literal|":"
+operator|+
+name|prefixLengthString
+operator|+
+literal|". "
+operator|+
+name|nfe
+argument_list|)
+expr_stmt|;
+return|return;
 block|}
 if|if
 condition|(

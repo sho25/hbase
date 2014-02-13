@@ -1895,14 +1895,30 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|UnknownScannerException
 name|e
 parameter_list|)
 block|{
 comment|// We used to catch this error, interpret, and rethrow. However, we
 comment|// have since decided that it's not nice for a scanner's close to
-comment|// throw exceptions. Chances are it was just an UnknownScanner
-comment|// exception due to lease time out.
+comment|// throw exceptions. Chances are it was just due to lease time out.
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|/* An exception other than UnknownScanner is unexpected. */
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"scanner failed to close. Exception follows: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|callable
 operator|=

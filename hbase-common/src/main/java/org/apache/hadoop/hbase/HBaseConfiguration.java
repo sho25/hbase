@@ -543,10 +543,36 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|LinkageError
 name|e
 parameter_list|)
-block|{     }
+block|{
+comment|// should we handle it more aggressively in addition to log the error?
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error thrown: "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ClassNotFoundException
+name|ce
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"ClassNotFound: ConfServlet"
+argument_list|)
+expr_stmt|;
+comment|// ignore
+block|}
 return|return
 name|isShowConf
 return|;

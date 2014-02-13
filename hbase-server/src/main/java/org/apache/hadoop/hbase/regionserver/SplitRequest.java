@@ -730,14 +730,29 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
-literal|"Could not release the table lock"
-argument_list|,
-name|ex
+literal|"Could not release the table lock (something is really wrong). "
+operator|+
+literal|"Aborting this server to avoid holding the lock forever."
 argument_list|)
 expr_stmt|;
-comment|//TODO: if we get here, and not abort RS, this lock will never be released
+name|this
+operator|.
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Abort; we got an error when releasing the table lock "
+operator|+
+literal|"on "
+operator|+
+name|parent
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}

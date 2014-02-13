@@ -825,9 +825,19 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|ignored
+name|e
 parameter_list|)
-block|{         }
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Not able to close the InputStream"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}

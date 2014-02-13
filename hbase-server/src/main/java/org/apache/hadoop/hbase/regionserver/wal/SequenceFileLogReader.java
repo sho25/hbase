@@ -1171,11 +1171,36 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|NoSuchFieldException
+name|nfe
+parameter_list|)
+block|{
+comment|/* reflection failure, keep going */
+block|}
+catch|catch
+parameter_list|(
+name|IllegalAccessException
+name|iae
+parameter_list|)
+block|{
+comment|/* reflection failure, keep going */
+block|}
+catch|catch
+parameter_list|(
 name|Exception
 name|e
 parameter_list|)
 block|{
-comment|/* reflection fail. keep going */
+comment|/* All other cases. Should we handle it more aggressively? */
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected exception when accessing the end field"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|String
 name|msg
@@ -1259,11 +1284,36 @@ return|;
 block|}
 catch|catch
 parameter_list|(
+name|NoSuchMethodException
+name|nfe
+parameter_list|)
+block|{
+comment|/* reflection failure, keep going */
+block|}
+catch|catch
+parameter_list|(
+name|IllegalAccessException
+name|iae
+parameter_list|)
+block|{
+comment|/* reflection failure, keep going */
+block|}
+catch|catch
+parameter_list|(
 name|Exception
 name|e
 parameter_list|)
 block|{
-comment|/* reflection fail. keep going */
+comment|/* All other cases. Should we handle it more aggressively? */
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected exception when accessing the end field"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|ioe
