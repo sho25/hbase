@@ -1603,6 +1603,15 @@ name|getStartKey
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|rll
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 name|RegionLocations
 name|updatedLocations
 init|=
