@@ -8501,6 +8501,11 @@ name|result
 operator|.
 name|getExists
 argument_list|()
+argument_list|,
+name|result
+operator|.
+name|isStale
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -8598,7 +8603,25 @@ parameter_list|(
 specifier|final
 name|boolean
 name|existence
+parameter_list|,
+name|boolean
+name|stale
 parameter_list|)
+block|{
+if|if
+condition|(
+name|stale
+condition|)
+block|{
+return|return
+name|existence
+condition|?
+name|EMPTY_RESULT_PB_EXISTS_TRUE_STALE
+else|:
+name|EMPTY_RESULT_PB_EXISTS_FALSE_STALE
+return|;
+block|}
+else|else
 block|{
 return|return
 name|existence
@@ -8607,6 +8630,7 @@ name|EMPTY_RESULT_PB_EXISTS_TRUE
 else|:
 name|EMPTY_RESULT_PB_EXISTS_FALSE
 return|;
+block|}
 block|}
 comment|/**    * Convert a client Result to a protocol buffer Result.    * The pb Result does not include the Cell data.  That is for transport otherwise.    *    * @param result the client Result to convert    * @return the converted protocol buffer Result    */
 specifier|public
@@ -8636,6 +8660,11 @@ argument_list|(
 name|result
 operator|.
 name|getExists
+argument_list|()
+argument_list|,
+name|result
+operator|.
+name|isStale
 argument_list|()
 argument_list|)
 return|;

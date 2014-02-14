@@ -9825,6 +9825,16 @@ operator|.
 name|toResult
 argument_list|(
 name|existence
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getReplicaId
+argument_list|()
+operator|!=
+literal|0
 argument_list|)
 decl_stmt|;
 name|builder

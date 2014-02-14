@@ -12159,7 +12159,7 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
-specifier|protected
+specifier|public
 name|HRegion
 name|getRegionByEncodedName
 parameter_list|(
