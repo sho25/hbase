@@ -5766,6 +5766,15 @@ argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
+name|balancer
+operator|.
+name|regionOnline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|sn
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Pass the assignment event to a worker for processing.    * Each worker is a single thread executor service.  The reason    * for just one thread is to make sure all events for a given    * region are processed in order.    *    * @param path    */
 specifier|private
@@ -12087,6 +12096,15 @@ argument_list|,
 name|regionLocation
 argument_list|)
 expr_stmt|;
+name|balancer
+operator|.
+name|regionOnline
+argument_list|(
+name|regionInfo
+argument_list|,
+name|regionLocation
+argument_list|)
+expr_stmt|;
 block|}
 comment|// need to enable the table if not disabled or disabling or enabling
 comment|// this will be used in rolling restarts
@@ -16186,6 +16204,13 @@ argument_list|)
 expr_stmt|;
 comment|// remove the region plan as well just in case.
 name|clearRegionPlan
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+name|balancer
+operator|.
+name|regionOffline
 argument_list|(
 name|regionInfo
 argument_list|)

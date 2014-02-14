@@ -292,6 +292,25 @@ parameter_list|()
 throws|throws
 name|HBaseIOException
 function_decl|;
+comment|/**    * Marks the region as online at balancer.    * @param regionInfo    * @param sn    */
+name|void
+name|regionOnline
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|)
+function_decl|;
+comment|/**    * Marks the region as offline at balancer.    * @param regionInfo    */
+name|void
+name|regionOffline
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

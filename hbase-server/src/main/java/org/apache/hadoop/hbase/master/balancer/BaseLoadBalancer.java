@@ -3227,6 +3227,29 @@ block|{   }
 annotation|@
 name|Override
 specifier|public
+name|void
+name|regionOnline
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|)
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|regionOffline
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|isStopped
 parameter_list|()
