@@ -5762,17 +5762,14 @@ condition|(
 name|allUserRegionsOffline
 condition|)
 block|{
-comment|// Set stopped if no requests since last time we went around the loop.
-comment|// The remaining meta regions will be closed on our way out.
+comment|// Set stopped if no more write requests tp meta tables
+comment|// since last time we went around the loop.  Any open
+comment|// meta regions will be closed on our way out.
 if|if
 condition|(
 name|oldRequestCount
 operator|==
-name|this
-operator|.
-name|requestCount
-operator|.
-name|get
+name|getWriteRequestCount
 argument_list|()
 condition|)
 block|{
@@ -5785,11 +5782,7 @@ break|break;
 block|}
 name|oldRequestCount
 operator|=
-name|this
-operator|.
-name|requestCount
-operator|.
-name|get
+name|getWriteRequestCount
 argument_list|()
 expr_stmt|;
 block|}
@@ -6554,6 +6547,52 @@ block|}
 block|}
 return|return
 name|allUserRegionsOffline
+return|;
+block|}
+comment|/**    * @return Current write count for all online regions.    */
+specifier|private
+name|long
+name|getWriteRequestCount
+parameter_list|()
+block|{
+name|int
+name|writeCount
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|String
+argument_list|,
+name|HRegion
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|onlineRegions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|writeCount
+operator|+=
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getWriteRequestsCount
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|writeCount
 return|;
 block|}
 name|void
