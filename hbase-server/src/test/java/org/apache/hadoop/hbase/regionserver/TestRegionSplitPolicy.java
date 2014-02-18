@@ -513,14 +513,14 @@ argument_list|(
 name|maxSplitSize
 argument_list|)
 expr_stmt|;
-comment|// Set flush size to 1/4.  IncreasingToUpperBoundRegionSplitPolicy
-comment|// grows by the square of the number of regions times flushsize each time.
+comment|// Set flush size to 1/8.  IncreasingToUpperBoundRegionSplitPolicy
+comment|// grows by the cube of the number of regions times flushsize each time.
 name|long
 name|flushSize
 init|=
 name|maxSplitSize
 operator|/
-literal|4
+literal|8
 decl_stmt|;
 name|conf
 operator|.
@@ -645,8 +645,6 @@ operator|.
 name|doReturn
 argument_list|(
 name|flushSize
-operator|/
-literal|2
 argument_list|)
 operator|.
 name|when
@@ -657,7 +655,7 @@ operator|.
 name|getSize
 argument_list|()
 expr_stmt|;
-comment|// Should not split since store is 1/2 flush size.
+comment|// Should not split since store is flush size.
 name|assertFalse
 argument_list|(
 name|policy
@@ -666,12 +664,14 @@ name|shouldSplit
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Set size of store to be> flush size and we should split
+comment|// Set size of store to be> 2*flush size and we should split
 name|Mockito
 operator|.
 name|doReturn
 argument_list|(
 name|flushSize
+operator|*
+literal|2
 operator|+
 literal|1
 argument_list|)
@@ -716,6 +716,8 @@ name|doReturn
 argument_list|(
 operator|(
 name|flushSize
+operator|*
+literal|2
 operator|*
 literal|2
 operator|*
