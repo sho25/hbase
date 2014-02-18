@@ -4386,7 +4386,7 @@ name|this
 operator|.
 name|memstoreSize
 operator|.
-name|getAndAdd
+name|addAndGet
 argument_list|(
 name|memStoreSize
 argument_list|)
