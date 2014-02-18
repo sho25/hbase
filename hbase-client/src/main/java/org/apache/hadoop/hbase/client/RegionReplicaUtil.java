@@ -59,7 +59,6 @@ class|class
 name|RegionReplicaUtil
 block|{
 comment|/**    * The default replicaId for the region    */
-specifier|private
 specifier|static
 specifier|final
 name|int
@@ -159,6 +158,21 @@ name|regionInfo
 argument_list|,
 name|DEFAULT_REPLICA_ID
 argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|boolean
+name|isDefaultReplica
+parameter_list|(
+name|int
+name|replicaId
+parameter_list|)
+block|{
+return|return
+name|DEFAULT_REPLICA_ID
+operator|==
+name|replicaId
 return|;
 block|}
 block|}

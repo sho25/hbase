@@ -495,7 +495,6 @@ name|MAX_REPLICA_ID
 init|=
 literal|0xFFFF
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|int
