@@ -1645,7 +1645,7 @@ operator|=
 operator|new
 name|SplitLogTask
 operator|.
-name|Unassigned
+name|Owned
 argument_list|(
 name|MANAGER
 argument_list|)
