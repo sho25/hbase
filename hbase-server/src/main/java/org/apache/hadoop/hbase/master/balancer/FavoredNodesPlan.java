@@ -41,6 +41,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentHashMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -106,22 +118,6 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|jboss
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|internal
-operator|.
-name|ConcurrentHashMap
 import|;
 end_import
 
