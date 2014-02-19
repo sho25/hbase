@@ -20164,6 +20164,13 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while sleeping"
+argument_list|)
+expr_stmt|;
 return|return
 name|this
 return|;
