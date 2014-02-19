@@ -1783,6 +1783,7 @@ init|=
 literal|1L
 decl_stmt|;
 block|}
+comment|/**      * Return starting position and length of row key from the specified line bytes.      * @param lineBytes      * @param length      * @return Pair of row key offset and length.      * @throws BadTsvLineException      */
 specifier|public
 name|Pair
 argument_list|<
@@ -1921,6 +1922,10 @@ argument_list|(
 name|startPos
 argument_list|,
 name|endPos
+operator|-
+name|startPos
+operator|+
+literal|1
 argument_list|)
 return|;
 block|}

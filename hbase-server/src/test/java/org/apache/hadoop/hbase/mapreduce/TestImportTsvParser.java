@@ -1878,7 +1878,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|5
+literal|6
 argument_list|,
 name|rowKeyOffsets
 operator|.
@@ -1980,7 +1980,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|11
+literal|6
 argument_list|,
 name|rowKeyOffsets
 operator|.
@@ -2084,7 +2084,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|16
+literal|6
 argument_list|,
 name|rowKeyOffsets
 operator|.
