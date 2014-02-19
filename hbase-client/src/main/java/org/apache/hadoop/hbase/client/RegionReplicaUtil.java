@@ -160,6 +160,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
+comment|/** @return true if this replicaId corresponds to default replica for the region */
 specifier|public
 specifier|static
 name|boolean
@@ -173,6 +174,25 @@ return|return
 name|DEFAULT_REPLICA_ID
 operator|==
 name|replicaId
+return|;
+block|}
+comment|/** @return true if this region is a default replica for the region */
+specifier|public
+specifier|static
+name|boolean
+name|isDefaultReplica
+parameter_list|(
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+return|return
+name|hri
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|DEFAULT_REPLICA_ID
 return|;
 block|}
 block|}

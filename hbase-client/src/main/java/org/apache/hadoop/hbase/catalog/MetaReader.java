@@ -1056,7 +1056,7 @@ argument_list|)
 return|;
 block|}
 comment|/** Returns the row key to use for this regionInfo */
-specifier|protected
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -2704,7 +2704,9 @@ name|REGIONINFO_QUALIFIER
 return|;
 block|}
 comment|/**    * Returns the column qualifier for server column for replicaId    * @param replicaId the replicaId of the region    * @return a byte[] for server column qualifier    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -2747,7 +2749,9 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns the column qualifier for server start code column for replicaId    * @param replicaId the replicaId of the region    * @return a byte[] for server start code column qualifier    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -2790,7 +2794,9 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns the column qualifier for seqNum column for replicaId    * @param replicaId the replicaId of the region    * @return a byte[] for seqNum column qualifier    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 name|byte
 index|[]

@@ -1218,6 +1218,14 @@ comment|/** The state column qualifier */
 specifier|public
 specifier|static
 specifier|final
+name|String
+name|STATE_QUALIFIER_STR
+init|=
+literal|"state"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|byte
 index|[]
 name|STATE_QUALIFIER
@@ -1226,10 +1234,18 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"state"
+name|STATE_QUALIFIER_STR
 argument_list|)
 decl_stmt|;
 comment|/**    * The serverName column qualifier. Its the server where the region is    * transitioning on, while column server is the server where the region is    * opened on. They are the same when the region is in state OPEN.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SERVERNAME_QUALIFIER_STR
+init|=
+literal|"sn"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1241,7 +1257,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"sn"
+name|SERVERNAME_QUALIFIER_STR
 argument_list|)
 decl_stmt|;
 comment|/** The lower-half split region column qualifier */
