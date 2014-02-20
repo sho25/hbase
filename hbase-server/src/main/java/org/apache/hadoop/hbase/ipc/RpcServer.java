@@ -3494,30 +3494,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|running
-condition|)
-block|{
-comment|// unexpected -- log it
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|": unexpectedly interrupted: "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
-name|e
-argument_list|)
+literal|"Interrupted while sleeping"
 argument_list|)
 expr_stmt|;
-block|}
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -4012,10 +3996,19 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
-name|ignored
+name|InterruptedException
+name|ex
 parameter_list|)
-block|{}
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Interrupted while sleeping"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 block|}
 catch|catch
@@ -5104,10 +5097,19 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
-name|ignored
+name|InterruptedException
+name|ex
 parameter_list|)
-block|{}
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Interrupted while sleeping"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 block|}
 catch|catch
