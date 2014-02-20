@@ -2074,6 +2074,13 @@ argument_list|(
 name|defaultReplica
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|replicas
+operator|!=
+literal|null
+condition|)
+block|{
 name|replicas
 operator|.
 name|remove
@@ -2096,6 +2103,7 @@ argument_list|(
 name|defaultReplica
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * A dead server's hlogs have been split so that all the regions    * used to be open on it can be safely assigned now. Mark them assignable.    */

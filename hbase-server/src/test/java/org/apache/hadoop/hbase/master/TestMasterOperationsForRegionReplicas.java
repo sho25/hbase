@@ -45,6 +45,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashSet
 import|;
 end_import
@@ -994,44 +1014,316 @@ comment|//      validateSingleRegionServerAssignment(ct, numRegions, numReplica)
 comment|//      for (int i = 1; i< numSlaves; i++) { //restore the cluster
 comment|//        TEST_UTIL.getMiniHBaseCluster().startRegionServer();
 comment|//      }
-comment|//TODO: HBASE-10361 patch should uncomment the test below
-comment|//      //check on alter table
-comment|//      admin.disableTable(table);
-comment|//      assert(admin.isTableDisabled(table));
-comment|//      //increase the replica
-comment|//      desc.setRegionReplication(numReplica + 1);
-comment|//      admin.modifyTable(table, desc);
-comment|//      admin.enableTable(table);
-comment|//      assert(admin.isTableEnabled(table));
-comment|//      List<HRegionInfo> regions = TEST_UTIL.getMiniHBaseCluster().getMaster()
-comment|//          .getAssignmentManager().getRegionStates().getRegionsOfTable(table);
-comment|//      assert(regions.size() == numRegions * (numReplica + 1));
-comment|//
-comment|//      //decrease the replica(earlier, table was modified to have a replica count of numReplica + 1)
-comment|//      admin.disableTable(table);
-comment|//      desc.setRegionReplication(numReplica);
-comment|//      admin.modifyTable(table, desc);
-comment|//      admin.enableTable(table);
-comment|//      assert(admin.isTableEnabled(table));
-comment|//      regions = TEST_UTIL.getMiniHBaseCluster().getMaster()
-comment|//          .getAssignmentManager().getRegionStates().getRegionsOfTable(table);
-comment|//      assert(regions.size() == numRegions * numReplica);
-comment|//      //also make sure the meta table has the replica locations removed
-comment|//      hris = MetaReader.getTableRegions(ct, table);
-comment|//      assert(hris.size() == numRegions * numReplica);
-comment|//      //just check that the number of default replica regions in the meta table are the same
-comment|//      //as the number of regions the table was created with, and the count of the
-comment|//      //replicas is numReplica for each region
-comment|//      Map<HRegionInfo, Integer> defaultReplicas = new HashMap<HRegionInfo, Integer>();
-comment|//      for (HRegionInfo hri : hris) {
-comment|//        Integer i;
-comment|//        HRegionInfo regionReplica0 = hri.getRegionInfoForReplica(0);
-comment|//        defaultReplicas.put(regionReplica0,
-comment|//            (i = defaultReplicas.get(regionReplica0)) == null ? 1 : i + 1);
-comment|//      }
-comment|//      assert(defaultReplicas.size() == numRegions);
-comment|//      Collection<Integer> counts = new HashSet<Integer>(defaultReplicas.values());
-comment|//      assert(counts.size() == 1&& counts.contains(new Integer(numReplica)));
+comment|//check on alter table
+name|admin
+operator|.
+name|disableTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|(
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|table
+argument_list|)
+operator|)
+assert|;
+comment|//increase the replica
+name|desc
+operator|.
+name|setRegionReplication
+argument_list|(
+name|numReplica
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|modifyTable
+argument_list|(
+name|table
+argument_list|,
+name|desc
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|enableTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|(
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|table
+argument_list|)
+operator|)
+assert|;
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+init|=
+name|TEST_UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
+name|table
+argument_list|)
+decl_stmt|;
+assert|assert
+operator|(
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|==
+name|numRegions
+operator|*
+operator|(
+name|numReplica
+operator|+
+literal|1
+operator|)
+operator|)
+assert|;
+comment|//decrease the replica(earlier, table was modified to have a replica count of numReplica + 1)
+name|admin
+operator|.
+name|disableTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+name|desc
+operator|.
+name|setRegionReplication
+argument_list|(
+name|numReplica
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|modifyTable
+argument_list|(
+name|table
+argument_list|,
+name|desc
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|enableTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|(
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|table
+argument_list|)
+operator|)
+assert|;
+name|regions
+operator|=
+name|TEST_UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|(
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|==
+name|numRegions
+operator|*
+name|numReplica
+operator|)
+assert|;
+comment|//also make sure the meta table has the replica locations removed
+name|hris
+operator|=
+name|MetaReader
+operator|.
+name|getTableRegions
+argument_list|(
+name|ct
+argument_list|,
+name|table
+argument_list|)
+expr_stmt|;
+assert|assert
+operator|(
+name|hris
+operator|.
+name|size
+argument_list|()
+operator|==
+name|numRegions
+operator|*
+name|numReplica
+operator|)
+assert|;
+comment|//just check that the number of default replica regions in the meta table are the same
+comment|//as the number of regions the table was created with, and the count of the
+comment|//replicas is numReplica for each region
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Integer
+argument_list|>
+name|defaultReplicas
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Integer
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|HRegionInfo
+name|hri
+range|:
+name|hris
+control|)
+block|{
+name|Integer
+name|i
+decl_stmt|;
+name|HRegionInfo
+name|regionReplica0
+init|=
+name|RegionReplicaUtil
+operator|.
+name|getRegionInfoForDefaultReplica
+argument_list|(
+name|hri
+argument_list|)
+decl_stmt|;
+name|defaultReplicas
+operator|.
+name|put
+argument_list|(
+name|regionReplica0
+argument_list|,
+operator|(
+name|i
+operator|=
+name|defaultReplicas
+operator|.
+name|get
+argument_list|(
+name|regionReplica0
+argument_list|)
+operator|)
+operator|==
+literal|null
+condition|?
+literal|1
+else|:
+name|i
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+assert|assert
+operator|(
+name|defaultReplicas
+operator|.
+name|size
+argument_list|()
+operator|==
+name|numRegions
+operator|)
+assert|;
+name|Collection
+argument_list|<
+name|Integer
+argument_list|>
+name|counts
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|Integer
+argument_list|>
+argument_list|(
+name|defaultReplicas
+operator|.
+name|values
+argument_list|()
+argument_list|)
+decl_stmt|;
+assert|assert
+operator|(
+name|counts
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+operator|&&
+name|counts
+operator|.
+name|contains
+argument_list|(
+operator|new
+name|Integer
+argument_list|(
+name|numReplica
+argument_list|)
+argument_list|)
+operator|)
+assert|;
 block|}
 finally|finally
 block|{
