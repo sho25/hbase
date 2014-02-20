@@ -465,6 +465,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ExceptionUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSUtils
 import|;
 end_import
@@ -1259,8 +1275,6 @@ operator|-
 literal|1
 condition|)
 block|{
-try|try
-block|{
 name|LOG
 operator|.
 name|info
@@ -1280,40 +1294,6 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Interrupted while waiting for "
-operator|+
-name|watcher
-operator|.
-name|splitLogZNode
-operator|+
-operator|(
-name|exitWorker
-condition|?
-literal|""
-else|:
-literal|" (ERROR: exitWorker is not set, "
-operator|+
-literal|"exiting anyway)"
-operator|)
-argument_list|)
-expr_stmt|;
-name|exitWorker
-operator|=
-literal|true
-expr_stmt|;
-break|break;
-block|}
-block|}
 block|}
 if|if
 condition|(
@@ -1332,6 +1312,34 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+if|if
+condition|(
+name|ExceptionUtil
+operator|.
+name|isInterrupt
+argument_list|(
+name|t
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SplitLogWorker interrupted. Exiting. "
+operator|+
+operator|(
+name|exitWorker
+condition|?
+literal|""
+else|:
+literal|" (ERROR: exitWorker is not set, exiting anyway)"
+operator|)
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 comment|// only a logical error can cause here. Printing it out
 comment|// to make debugging easier
 name|LOG
@@ -1343,6 +1351,7 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -1366,6 +1375,8 @@ specifier|private
 name|void
 name|taskLoop
 parameter_list|()
+throws|throws
+name|InterruptedException
 block|{
 while|while
 condition|(
@@ -1594,8 +1605,6 @@ operator|==
 name|taskReadySeq
 condition|)
 block|{
-try|try
-block|{
 name|taskReadyLock
 operator|.
 name|wait
@@ -1767,41 +1776,6 @@ break|break;
 block|}
 block|}
 block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"SplitLogWorker interrupted while waiting for task,"
-operator|+
-literal|" exiting: "
-operator|+
-name|e
-operator|.
-name|toString
-argument_list|()
-operator|+
-operator|(
-name|exitWorker
-condition|?
-literal|""
-else|:
-literal|" (ERROR: exitWorker is not set, exiting anyway)"
-operator|)
-argument_list|)
-expr_stmt|;
-name|exitWorker
-operator|=
-literal|true
-expr_stmt|;
-return|return;
 block|}
 block|}
 block|}
@@ -2986,6 +2960,8 @@ name|String
 argument_list|>
 name|getTaskList
 parameter_list|()
+throws|throws
+name|InterruptedException
 block|{
 name|List
 argument_list|<
@@ -3061,8 +3037,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-try|try
-block|{
 name|LOG
 operator|.
 name|debug
@@ -3089,31 +3063,6 @@ argument_list|(
 name|sleepTime
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e1
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Interrupted while trying to get task list ..."
-argument_list|,
-name|e1
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 return|return
 name|childrenPaths
