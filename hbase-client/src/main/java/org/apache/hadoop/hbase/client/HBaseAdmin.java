@@ -4201,7 +4201,15 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// continue
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|(
+literal|"Interrupted when waiting"
+operator|+
+literal|" for table to be deleted"
+argument_list|)
+throw|;
 block|}
 block|}
 if|if
@@ -11689,25 +11697,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
 argument_list|(
-literal|"Interrupted while waiting for snapshot "
-operator|+
-name|snapshot
-operator|+
-literal|" to complete"
+literal|"Interrupted"
 argument_list|)
-expr_stmt|;
-name|Thread
 operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 name|LOG
 operator|.
@@ -11754,7 +11758,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 if|if
 condition|(
 operator|!
@@ -12845,25 +12848,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
 argument_list|(
-literal|"Interrupted while waiting for procedure "
-operator|+
-name|signature
-operator|+
-literal|" to complete"
+literal|"Interrupted"
 argument_list|)
-expr_stmt|;
-name|Thread
 operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 name|LOG
 operator|.
@@ -13217,25 +13216,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
 argument_list|(
-literal|"Interrupted while waiting for snapshot "
-operator|+
-name|snapshot
-operator|+
-literal|" restore to complete"
+literal|"Interrupted"
 argument_list|)
-expr_stmt|;
-name|Thread
 operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 name|LOG
 operator|.

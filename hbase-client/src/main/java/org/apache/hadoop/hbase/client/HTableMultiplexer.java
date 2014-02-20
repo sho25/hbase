@@ -2159,8 +2159,23 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
-comment|// Ignore
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while sleeping"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 name|long
 name|start
 decl_stmt|,
@@ -2588,6 +2603,8 @@ operator|<
 name|frequency
 condition|)
 block|{
+try|try
+block|{
 name|Thread
 operator|.
 name|sleep
@@ -2597,6 +2614,29 @@ operator|-
 name|elapsed
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while sleeping"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
