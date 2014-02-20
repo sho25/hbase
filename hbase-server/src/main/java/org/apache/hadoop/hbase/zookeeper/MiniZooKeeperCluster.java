@@ -43,6 +43,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -1364,6 +1374,8 @@ parameter_list|,
 name|long
 name|timeout
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|long
 name|start
@@ -1466,7 +1478,19 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// ignore
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 return|return
@@ -1485,6 +1509,8 @@ parameter_list|,
 name|long
 name|timeout
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|long
 name|start
@@ -1662,7 +1688,19 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// ignore
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 return|return
