@@ -33,6 +33,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -3761,6 +3771,8 @@ return|return
 literal|true
 return|;
 comment|// directory is present
+try|try
+block|{
 name|sleepBeforeRetry
 argument_list|(
 literal|"Create Directory"
@@ -3770,6 +3782,27 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 do|while
@@ -3860,6 +3893,8 @@ literal|true
 return|;
 comment|// successful move
 comment|// dir is not there, retry after some time.
+try|try
+block|{
 name|sleepBeforeRetry
 argument_list|(
 literal|"Rename Directory"
@@ -3869,6 +3904,27 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 do|while
@@ -3948,6 +4004,8 @@ return|return
 literal|true
 return|;
 comment|// dir is there, retry deleting after some time.
+try|try
+block|{
 name|sleepBeforeRetry
 argument_list|(
 literal|"Delete Directory"
@@ -3957,6 +4015,27 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 do|while
@@ -3988,6 +4067,8 @@ parameter_list|,
 name|int
 name|sleepMultiplier
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 name|sleepBeforeRetry
 argument_list|(
@@ -4089,6 +4170,8 @@ return|return
 literal|true
 return|;
 comment|// directory is present
+try|try
+block|{
 name|sleepBeforeRetry
 argument_list|(
 literal|"Create Directory"
@@ -4102,6 +4185,27 @@ argument_list|,
 name|hdfsClientRetriesNumber
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|(
+name|InterruptedIOException
+operator|)
+operator|new
+name|InterruptedIOException
+argument_list|()
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 do|while
@@ -4140,6 +4244,8 @@ parameter_list|,
 name|int
 name|hdfsClientRetriesNumber
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 if|if
 condition|(
@@ -4174,7 +4280,7 @@ operator|+
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
-name|Threads
+name|Thread
 operator|.
 name|sleep
 argument_list|(

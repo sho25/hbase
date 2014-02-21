@@ -7040,6 +7040,8 @@ name|HRegionInfo
 argument_list|>
 name|regions
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 if|if
 condition|(
