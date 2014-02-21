@@ -281,9 +281,37 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.global.memstore.upperLimit"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"hbase.regionserver.global.memstore.upperLimit is deprecated by "
+operator|+
+literal|"hbase.regionserver.global.memstore.size"
+argument_list|)
+expr_stmt|;
+block|}
 name|float
-name|globalMemstoreLimit
+name|globalMemstoreSize
 init|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.regionserver.global.memstore.size"
+argument_list|,
 name|conf
 operator|.
 name|getFloat
@@ -291,6 +319,7 @@ argument_list|(
 literal|"hbase.regionserver.global.memstore.upperLimit"
 argument_list|,
 literal|0.4f
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
@@ -300,7 +329,7 @@ call|(
 name|int
 call|)
 argument_list|(
-name|globalMemstoreLimit
+name|globalMemstoreSize
 operator|*
 name|CONVERT_TO_PERCENTAGE
 argument_list|)
@@ -365,13 +394,13 @@ literal|"the threshold required for successful cluster operation. "
 operator|+
 literal|"The combined value cannot exceed 0.8. Please check "
 operator|+
-literal|"the settings for hbase.regionserver.global.memstore.upperLimit and "
+literal|"the settings for hbase.regionserver.global.memstore.size and "
 operator|+
 literal|"hfile.block.cache.size in your configuration. "
 operator|+
-literal|"hbase.regionserver.global.memstore.upperLimit is "
+literal|"hbase.regionserver.global.memstore.size is "
 operator|+
-name|globalMemstoreLimit
+name|globalMemstoreSize
 operator|+
 literal|" hfile.block.cache.size is "
 operator|+

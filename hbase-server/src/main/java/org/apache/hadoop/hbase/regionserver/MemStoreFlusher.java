@@ -814,7 +814,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Calculate global memstore size for configured percentage of<code>max</code>.    * @param max    * @param c    * @return Limit.    */
+comment|/**    * Retrieve global memstore configured size as percentage of total heap.    */
 specifier|static
 name|float
 name|getGlobalMemStorePercent
