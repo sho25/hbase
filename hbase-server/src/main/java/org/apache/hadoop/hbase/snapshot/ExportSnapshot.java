@@ -1336,7 +1336,7 @@ operator|.
 name|nextFloat
 argument_list|()
 operator|<
-literal|0.05
+literal|0.03
 condition|)
 block|{
 throw|throw
@@ -3717,6 +3717,11 @@ name|snapshotName
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|overwrite
+init|=
+literal|false
+decl_stmt|;
 name|String
 name|filesGroup
 init|=
@@ -3936,6 +3941,22 @@ name|cmd
 operator|.
 name|equals
 argument_list|(
+literal|"-overwrite"
+argument_list|)
+condition|)
+block|{
+name|overwrite
+operator|=
+literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
 literal|"-h"
 argument_list|)
 operator|||
@@ -4109,6 +4130,42 @@ name|outputSnapshotDir
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|overwrite
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|outputFs
+operator|.
+name|delete
+argument_list|(
+name|outputSnapshotDir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Unable to remove existing snapshot directory: "
+operator|+
+name|outputSnapshotDir
+argument_list|)
+expr_stmt|;
+return|return
+literal|1
+return|;
+block|}
+block|}
+else|else
+block|{
 name|System
 operator|.
 name|err
@@ -4128,9 +4185,13 @@ return|return
 literal|1
 return|;
 block|}
+block|}
 comment|// Check if the snapshot already in-progress
 if|if
 condition|(
+operator|!
+name|overwrite
+operator|&&
 name|outputFs
 operator|.
 name|exists
@@ -4221,7 +4282,7 @@ name|snapshotTmpDir
 argument_list|,
 literal|false
 argument_list|,
-literal|false
+name|overwrite
 argument_list|,
 name|conf
 argument_list|)
@@ -4483,6 +4544,15 @@ name|err
 operator|.
 name|println
 argument_list|(
+literal|"  -overwrite              Rewrite the snapshot manifest if already exists"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
 literal|"  -chuser USERNAME        Change the owner of the files "
 operator|+
 literal|"to the specified one."
@@ -4547,6 +4617,9 @@ literal|"  hbase "
 operator|+
 name|getClass
 argument_list|()
+operator|.
+name|getName
+argument_list|()
 operator|+
 literal|" \\"
 argument_list|)
@@ -4557,7 +4630,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"    -snapshot MySnapshot -copy-to hdfs:///srv2:8082/hbase \\"
+literal|"    -snapshot MySnapshot -copy-to hdfs://srv2:8082/hbase \\"
 argument_list|)
 expr_stmt|;
 name|System
