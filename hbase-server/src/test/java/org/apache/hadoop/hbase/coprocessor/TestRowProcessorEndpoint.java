@@ -1532,7 +1532,7 @@ expr_stmt|;
 name|int
 name|numThreads
 init|=
-literal|1000
+literal|100
 decl_stmt|;
 name|concurrentExec
 argument_list|(
@@ -1862,7 +1862,7 @@ expr_stmt|;
 name|int
 name|numThreads
 init|=
-literal|1000
+literal|100
 decl_stmt|;
 name|concurrentExec
 argument_list|(
