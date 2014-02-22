@@ -225,12 +225,27 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|shutdown
+try|try
+block|{
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// re-wrap into IOException
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 comment|/**    * Sets the configuration property to use a distributed cluster for the integration tests. Test drivers    * should use this to enforce cluster deployment.    */
