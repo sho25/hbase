@@ -1994,6 +1994,9 @@ argument_list|(
 name|len
 argument_list|)
 decl_stmt|;
+name|int
+name|lenRead
+init|=
 name|ioEngine
 operator|.
 name|read
@@ -2005,7 +2008,30 @@ operator|.
 name|offset
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+if|if
+condition|(
+name|lenRead
+operator|!=
+name|len
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Only "
+operator|+
+name|lenRead
+operator|+
+literal|" bytes read, "
+operator|+
+name|len
+operator|+
+literal|" expected"
+argument_list|)
+throw|;
+block|}
 name|Cacheable
 name|cachedBlock
 init|=

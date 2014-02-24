@@ -291,11 +291,11 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Transfers data from file to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the file where the first byte to be read    * @throws IOException    */
+comment|/**    * Transfers data from file to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the file where the first byte to be read    * @return number of bytes read    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|int
 name|read
 parameter_list|(
 name|ByteBuffer
@@ -307,6 +307,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
 name|fileChannel
 operator|.
 name|read
@@ -315,7 +316,7 @@ name|dstBuffer
 argument_list|,
 name|offset
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Transfers data from the given byte buffer to file    * @param srcBuffer the given byte buffer from which bytes are to be read    * @param offset The offset in the file where the first byte to be written    * @throws IOException    */
 annotation|@

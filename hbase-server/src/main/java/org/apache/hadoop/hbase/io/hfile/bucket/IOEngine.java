@@ -73,8 +73,8 @@ name|boolean
 name|isPersistent
 parameter_list|()
 function_decl|;
-comment|/**    * Transfers data from IOEngine to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the IO engine where the first byte to be read    * @throws IOException    */
-name|void
+comment|/**    * Transfers data from IOEngine to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the IO engine where the first byte to be read    * @return number of bytes read    * @throws IOException    */
+name|int
 name|read
 parameter_list|(
 name|ByteBuffer

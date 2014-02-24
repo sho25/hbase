@@ -126,11 +126,11 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Transfers data from the buffer array to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the ByteBufferArray of the first byte to be    *          read    * @throws IOException    */
+comment|/**    * Transfers data from the buffer array to the given byte buffer    * @param dstBuffer the given byte buffer into which bytes are to be written    * @param offset The offset in the ByteBufferArray of the first byte to be    *          read    * @return number of bytes read    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
-name|void
+name|int
 name|read
 parameter_list|(
 name|ByteBuffer
@@ -148,6 +148,7 @@ operator|.
 name|hasArray
 argument_list|()
 assert|;
+return|return
 name|bufferArray
 operator|.
 name|getMultiple
@@ -169,7 +170,7 @@ operator|.
 name|arrayOffset
 argument_list|()
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Transfers data from the given byte buffer to the buffer array    * @param srcBuffer the given byte buffer from which bytes are to be read    * @param offset The offset in the ByteBufferArray of the first byte to be    *          written    * @throws IOException    */
 annotation|@

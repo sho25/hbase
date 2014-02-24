@@ -375,9 +375,9 @@ operator|*
 name|to
 return|;
 block|}
-comment|/**    * Transfers bytes from this buffer array into the given destination array    * @param start start position in the ByteBufferArray    * @param len The maximum number of bytes to be written to the given array    * @param dstArray The array into which bytes are to be written    */
+comment|/**    * Transfers bytes from this buffer array into the given destination array    * @param start start position in the ByteBufferArray    * @param len The maximum number of bytes to be written to the given array    * @param dstArray The array into which bytes are to be written    * @return number of bytes read    */
 specifier|public
-name|void
+name|int
 name|getMultiple
 parameter_list|(
 name|long
@@ -391,6 +391,7 @@ index|[]
 name|dstArray
 parameter_list|)
 block|{
+return|return
 name|getMultiple
 argument_list|(
 name|start
@@ -401,11 +402,11 @@ name|dstArray
 argument_list|,
 literal|0
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Transfers bytes from this buffer array into the given destination array    * @param start start offset of this buffer array    * @param len The maximum number of bytes to be written to the given array    * @param dstArray The array into which bytes are to be written    * @param dstOffset The offset within the given array of the first byte to be    *          written    */
+comment|/**    * Transfers bytes from this buffer array into the given destination array    * @param start start offset of this buffer array    * @param len The maximum number of bytes to be written to the given array    * @param dstArray The array into which bytes are to be written    * @param dstOffset The offset within the given array of the first byte to be    *          written    * @return number of bytes read    */
 specifier|public
-name|void
+name|int
 name|getMultiple
 parameter_list|(
 name|long
@@ -469,6 +470,9 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+return|return
+name|len
+return|;
 block|}
 comment|/**    * Transfers bytes from the given source array into this buffer array    * @param start start offset of this buffer array    * @param len The maximum number of bytes to be read from the given array    * @param srcArray The array from which bytes are to be read    */
 specifier|public
