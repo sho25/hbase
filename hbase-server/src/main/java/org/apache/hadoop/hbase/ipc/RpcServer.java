@@ -4459,7 +4459,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 name|getName
 argument_list|()

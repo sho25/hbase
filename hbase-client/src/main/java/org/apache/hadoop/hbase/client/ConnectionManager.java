@@ -3460,6 +3460,8 @@ name|registry
 return|;
 block|}
 comment|/**      * For tests only.      * @param rpcClient Client we should use instead.      * @return Previous rpcClient      */
+annotation|@
+name|VisibleForTesting
 name|RpcClient
 name|setRpcClient
 parameter_list|(
@@ -3483,6 +3485,17 @@ name|rpcClient
 expr_stmt|;
 return|return
 name|oldRpcClient
+return|;
+block|}
+comment|/**      * For tests only.      */
+annotation|@
+name|VisibleForTesting
+name|RpcClient
+name|getRpcClient
+parameter_list|()
+block|{
+return|return
+name|rpcClient
 return|;
 block|}
 comment|/**      * An identifier that will remain the same for a given connection.      * @return      */
