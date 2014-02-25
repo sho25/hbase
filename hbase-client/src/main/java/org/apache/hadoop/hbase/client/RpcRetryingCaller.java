@@ -173,22 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|RpcClient
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -293,6 +277,11 @@ specifier|private
 name|int
 name|callTimeout
 decl_stmt|;
+comment|/**    * The remaining time, for the call to come. Takes into account the tries already done.    */
+specifier|private
+name|int
+name|remainingTime
+decl_stmt|;
 comment|/**    * When we started making calls.    */
 specifier|private
 name|long
@@ -381,9 +370,15 @@ name|void
 name|beforeCall
 parameter_list|()
 block|{
-name|int
-name|remaining
-init|=
+if|if
+condition|(
+name|callTimeout
+operator|>
+literal|0
+condition|)
+block|{
+name|remainingTime
+operator|=
 call|(
 name|int
 call|)
@@ -401,10 +396,10 @@ operator|.
 name|globalStartTime
 operator|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
-name|remaining
+name|remainingTime
 operator|<
 name|MIN_RPC_TIMEOUT
 condition|)
@@ -412,29 +407,19 @@ block|{
 comment|// If there is no time left, we're trying anyway. It's too late.
 comment|// 0 means no timeout, and it's not the intent here. So we secure both cases by
 comment|// resetting to the minimum.
-name|remaining
+name|remainingTime
 operator|=
 name|MIN_RPC_TIMEOUT
 expr_stmt|;
 block|}
-name|RpcClient
-operator|.
-name|setRpcTimeout
-argument_list|(
-name|remaining
-argument_list|)
+block|}
+else|else
+block|{
+name|remainingTime
+operator|=
+literal|0
 expr_stmt|;
 block|}
-specifier|private
-name|void
-name|afterCall
-parameter_list|()
-block|{
-name|RpcClient
-operator|.
-name|resetRpcTimeout
-argument_list|()
-expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -550,14 +535,9 @@ control|)
 block|{
 name|long
 name|expectedSleep
-init|=
-literal|0
 decl_stmt|;
 try|try
 block|{
-name|beforeCall
-argument_list|()
-expr_stmt|;
 name|callable
 operator|.
 name|prepare
@@ -568,11 +548,16 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// if called with false, check table status on ZK
+name|beforeCall
+argument_list|()
+expr_stmt|;
 return|return
 name|callable
 operator|.
 name|call
-argument_list|()
+argument_list|(
+name|remainingTime
+argument_list|)
 return|;
 block|}
 catch|catch
@@ -581,6 +566,13 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -665,13 +657,6 @@ operator|.
 name|add
 argument_list|(
 name|qt
-argument_list|)
-expr_stmt|;
-name|ExceptionUtil
-operator|.
-name|rethrowIfInterrupt
-argument_list|(
-name|t
 argument_list|)
 expr_stmt|;
 if|if
@@ -766,12 +751,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-finally|finally
-block|{
-name|afterCall
-argument_list|()
-expr_stmt|;
-block|}
 try|try
 block|{
 name|Thread
@@ -804,7 +783,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * @param expectedSleep    * @return Calculate how long a single call took    */
+comment|/**    * @return Calculate how long a single call took    */
 specifier|private
 name|long
 name|singleCallDuration
@@ -831,7 +810,7 @@ operator|+
 name|expectedSleep
 return|;
 block|}
-comment|/**    * Call the server once only.    * {@link RetryingCallable} has a strange shape so we can do retrys.  Use this invocation if you    * want to do a single call only (A call to {@link RetryingCallable#call()} will not likely    * succeed).    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Call the server once only.    * {@link RetryingCallable} has a strange shape so we can do retrys.  Use this invocation if you    * want to do a single call only (A call to {@link RetryingCallable#call(int)} will not likely    * succeed).    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 name|T
 name|callWithoutRetries
@@ -859,9 +838,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|beforeCall
-argument_list|()
-expr_stmt|;
 name|callable
 operator|.
 name|prepare
@@ -873,7 +849,9 @@ return|return
 name|callable
 operator|.
 name|call
-argument_list|()
+argument_list|(
+name|callTimeout
+argument_list|)
 return|;
 block|}
 catch|catch
@@ -922,12 +900,6 @@ name|t2
 argument_list|)
 throw|;
 block|}
-block|}
-finally|finally
-block|{
-name|afterCall
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Get the good or the remote exception if any, throws the DoNotRetryIOException.    * @param t the throwable to analyze    * @return the translated exception, if it's not a DoNotRetryIOException    * @throws DoNotRetryIOException - if we find it, we throw it instead of translating.    */

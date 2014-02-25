@@ -71,7 +71,10 @@ name|Override
 specifier|public
 name|T
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -79,7 +82,9 @@ return|return
 name|delegate
 operator|.
 name|call
-argument_list|()
+argument_list|(
+name|callTimeout
+argument_list|)
 return|;
 block|}
 annotation|@

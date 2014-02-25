@@ -1266,7 +1266,10 @@ name|Override
 specifier|public
 name|Void
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -1402,7 +1405,10 @@ name|Override
 specifier|public
 name|Void
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|Exception
 block|{

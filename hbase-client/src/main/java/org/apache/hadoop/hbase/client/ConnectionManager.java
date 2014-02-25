@@ -2762,17 +2762,6 @@ name|sn
 operator|.
 name|getPort
 argument_list|()
-argument_list|,
-operator|new
-name|SocketException
-argument_list|(
-name|sn
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|" is dead: closing its connection."
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -7512,8 +7501,6 @@ name|serverName
 argument_list|,
 name|user
 argument_list|,
-name|this
-operator|.
 name|rpcTimeout
 argument_list|)
 decl_stmt|;
@@ -7662,8 +7649,6 @@ name|sn
 argument_list|,
 name|user
 argument_list|,
-name|this
-operator|.
 name|rpcTimeout
 argument_list|)
 decl_stmt|;

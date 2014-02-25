@@ -403,8 +403,6 @@ argument_list|(
 name|entries
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|PayloadCarryingRpcController
 name|controller
 init|=
@@ -417,6 +415,8 @@ name|getSecond
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|replicateWALEntry

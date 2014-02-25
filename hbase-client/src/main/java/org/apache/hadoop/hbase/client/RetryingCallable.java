@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Callable<T> that will be retried.  If {@link #call()} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T>  */
+comment|/**  * A Callable<T> that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T>  */
 end_comment
 
 begin_interface
@@ -68,13 +68,8 @@ name|RetryingCallable
 parameter_list|<
 name|T
 parameter_list|>
-extends|extends
-name|Callable
-argument_list|<
-name|T
-argument_list|>
 block|{
-comment|/**    * Prepare by setting up any connections to servers, etc., ahead of {@link #call()} invocation.    * @param reload Set this to true if need to requery locations (usually set on second invocation    * to {@link #call()} or whatever    * @throws IOException e    */
+comment|/**    * Prepare by setting up any connections to servers, etc., ahead of {@link #call(int)} invocation.    * @param reload Set this to true if need to requery locations    * @throws IOException e    */
 name|void
 name|prepare
 parameter_list|(
@@ -85,7 +80,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called when {@link #call()} throws an exception and we are going to retry; take action to    * make it so we succeed on next call (clear caches, do relookup of locations, etc.).    * @param t    * @param retrying True if we are in retrying mode (we are not in retrying mode when max    * retries == 1; we ARE in retrying mode if retries> 1 even when we are the last attempt)    */
+comment|/**    * Called when {@link #call(int)} throws an exception and we are going to retry; take action to    * make it so we succeed on next call (clear caches, do relookup of locations, etc.).    * @param t    * @param retrying True if we are in retrying mode (we are not in retrying mode when max    * retries == 1; we ARE in retrying mode if retries> 1 even when we are the last attempt)    */
 name|void
 name|throwable
 parameter_list|(
@@ -96,6 +91,16 @@ parameter_list|,
 name|boolean
 name|retrying
 parameter_list|)
+function_decl|;
+comment|/**    * Computes a result, or throws an exception if unable to do so.    *    * @param callTimeout - the time available for this call. 0 for infinite.    * @return computed result    * @throws Exception if unable to compute a result    */
+name|T
+name|call
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
+throws|throws
+name|Exception
 function_decl|;
 comment|/**    * @return Some details from the implementation that we would like to add to a terminating    * exception; i.e. a fatal exception is being thrown ending retries and we might like to add    * more implementation-specific detail on to the exception being thrown.    */
 name|String

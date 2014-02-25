@@ -1164,7 +1164,10 @@ name|Override
 specifier|public
 name|ReplicateWALEntryResponse
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -1288,8 +1291,6 @@ argument_list|(
 name|entriesArray
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|PayloadCarryingRpcController
 name|controller
 init|=
@@ -1302,6 +1303,8 @@ name|getSecond
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|remoteSvr
 operator|.
 name|replay

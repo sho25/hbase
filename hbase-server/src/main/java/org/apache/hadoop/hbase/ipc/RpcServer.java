@@ -10674,15 +10674,9 @@ argument_list|(
 name|result
 argument_list|,
 name|controller
-operator|!=
-literal|null
-condition|?
-name|controller
 operator|.
 name|cellScanner
 argument_list|()
-else|:
-literal|null
 argument_list|)
 return|;
 block|}
@@ -11399,7 +11393,7 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * Helper for {@link #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)}    * and {@link #channelWrite(java.nio.channels.WritableByteChannel, java.nio.ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)    * @see #channelWrite(java.nio.channels.WritableByteChannel, java.nio.ByteBuffer)    */
+comment|/**    * Helper for {@link #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)}    * and {@link #channelWrite(GatheringByteChannel, BufferChain)}. Only    * one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)    * @see #channelWrite(GatheringByteChannel, BufferChain)    */
 specifier|private
 specifier|static
 name|int

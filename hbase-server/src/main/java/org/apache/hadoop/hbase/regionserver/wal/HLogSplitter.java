@@ -9793,7 +9793,7 @@ name|long
 name|nonce
 decl_stmt|;
 block|}
-comment|/**   * Tag original sequence number for each edit to be replayed   * @param entry   * @param cell   * @return   */
+comment|/**   * Tag original sequence number for each edit to be replayed   * @param entry   * @param cell   */
 specifier|private
 specifier|static
 name|Cell

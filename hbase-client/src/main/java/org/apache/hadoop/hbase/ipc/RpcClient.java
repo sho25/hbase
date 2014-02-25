@@ -973,16 +973,6 @@ name|java
 operator|.
 name|net
 operator|.
-name|SocketException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
 name|SocketTimeoutException
 import|;
 end_import
@@ -1149,6 +1139,11 @@ end_comment
 
 begin_class
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"SynchronizationOnLocalVariableOrMethodParameter"
+argument_list|)
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
@@ -1264,6 +1259,21 @@ name|SocketFactory
 name|socketFactory
 decl_stmt|;
 comment|// how to create sockets
+specifier|private
+specifier|final
+name|int
+name|connectTO
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|readTO
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|writeTO
+decl_stmt|;
 specifier|protected
 name|String
 name|clusterId
@@ -1286,18 +1296,53 @@ specifier|final
 specifier|private
 specifier|static
 name|String
-name|SOCKET_TIMEOUT
+name|SOCKET_TIMEOUT_CONNECT
 init|=
-literal|"ipc.socket.timeout"
+literal|"ipc.socket.timeout.connect"
 decl_stmt|;
 specifier|final
 specifier|static
 name|int
-name|DEFAULT_SOCKET_TIMEOUT
+name|DEFAULT_SOCKET_TIMEOUT_CONNECT
+init|=
+literal|10000
+decl_stmt|;
+comment|// 10 seconds
+comment|/**    * How long we wait when we wait for an answer. It's not the operation time, it's the time    *  we wait when we start to receive an answer, when the remote write starts to send the data.    */
+specifier|final
+specifier|private
+specifier|static
+name|String
+name|SOCKET_TIMEOUT_READ
+init|=
+literal|"ipc.socket.timeout.read"
+decl_stmt|;
+specifier|final
+specifier|static
+name|int
+name|DEFAULT_SOCKET_TIMEOUT_READ
 init|=
 literal|20000
 decl_stmt|;
 comment|// 20 seconds
+specifier|final
+specifier|private
+specifier|static
+name|String
+name|SOCKET_TIMEOUT_WRITE
+init|=
+literal|"ipc.socket.timeout.write"
+decl_stmt|;
+specifier|final
+specifier|static
+name|int
+name|DEFAULT_SOCKET_TIMEOUT_WRITE
+init|=
+literal|60000
+decl_stmt|;
+comment|// 60 seconds
+comment|// Used by the server, for compatibility with old clients.
+comment|// The client in 0.99+ does not ping the server.
 specifier|final
 specifier|static
 name|int
@@ -1306,7 +1351,6 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|// Used by the server, for compatibility with old clients.
 specifier|public
 specifier|final
 specifier|static
@@ -1354,41 +1398,6 @@ name|String
 name|ALLOWS_INTERRUPTS
 init|=
 literal|"hbase.ipc.client.allowsInterrupt"
-decl_stmt|;
-comment|// thread-specific RPC timeout, which may override that of what was passed in.
-comment|// This is used to change dynamically the timeout (for read only) when retrying: if
-comment|//  the time allowed for the operation is less than the usual socket timeout, then
-comment|//  we lower the timeout. This is subject to race conditions, and should be used with
-comment|//  extreme caution.
-specifier|private
-specifier|static
-name|ThreadLocal
-argument_list|<
-name|Integer
-argument_list|>
-name|rpcTimeout
-init|=
-operator|new
-name|ThreadLocal
-argument_list|<
-name|Integer
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|protected
-name|Integer
-name|initialValue
-parameter_list|()
-block|{
-return|return
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
-return|;
-block|}
-block|}
 decl_stmt|;
 comment|/**    * A class to manage a list of servers that failed recently.    */
 specifier|static
@@ -1648,26 +1657,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return the socket timeout    */
-specifier|static
-name|int
-name|getSocketTimeout
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-return|return
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|SOCKET_TIMEOUT
-argument_list|,
-name|DEFAULT_SOCKET_TIMEOUT
-argument_list|)
-return|;
-block|}
 comment|/** A call waiting for a value. */
 specifier|protected
 class|class
@@ -1711,6 +1700,11 @@ specifier|final
 name|MethodDescriptor
 name|md
 decl_stmt|;
+specifier|final
+name|int
+name|timeout
+decl_stmt|;
+comment|// timeout in millisecond for this call; 0 means infinite.
 specifier|protected
 name|Call
 parameter_list|(
@@ -1728,6 +1722,9 @@ parameter_list|,
 specifier|final
 name|Message
 name|responseDefaultType
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 name|this
@@ -1772,6 +1769,131 @@ operator|.
 name|getAndIncrement
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|timeout
+operator|=
+name|timeout
+expr_stmt|;
+block|}
+comment|/**      * Check if the call did timeout. Set an exception (includes a notify) if it's the case.      * @return true if the call is on timeout, false otherwise.      */
+specifier|public
+name|boolean
+name|checkTimeout
+parameter_list|()
+block|{
+if|if
+condition|(
+name|timeout
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+name|long
+name|waitTime
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|getStartTime
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|waitTime
+operator|>=
+name|timeout
+condition|)
+block|{
+name|IOException
+name|ie
+init|=
+operator|new
+name|CallTimeoutException
+argument_list|(
+literal|"Call id="
+operator|+
+name|id
+operator|+
+literal|", waitTime="
+operator|+
+name|waitTime
+operator|+
+literal|", operationTimeout="
+operator|+
+name|timeout
+operator|+
+literal|" expired."
+argument_list|)
+decl_stmt|;
+name|setException
+argument_list|(
+name|ie
+argument_list|)
+expr_stmt|;
+comment|// includes a notify
+return|return
+literal|true
+return|;
+block|}
+else|else
+block|{
+return|return
+literal|false
+return|;
+block|}
+block|}
+specifier|public
+name|int
+name|remainingTime
+parameter_list|()
+block|{
+if|if
+condition|(
+name|timeout
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+name|Integer
+operator|.
+name|MAX_VALUE
+return|;
+block|}
+name|int
+name|remaining
+init|=
+name|timeout
+operator|-
+call|(
+name|int
+call|)
+argument_list|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|getStartTime
+argument_list|()
+argument_list|)
+decl_stmt|;
+return|return
+name|remaining
+operator|>
+literal|0
+condition|?
+name|remaining
+else|:
+literal|0
+return|;
 block|}
 annotation|@
 name|Override
@@ -2052,6 +2174,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Thread that reads responses and notifies callers.  Each connection owns a    * socket connected to a remote address.  Calls are multiplexed through this    * socket: responses may be delivered out of order. */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"SynchronizeOnNonFinalField"
+argument_list|)
 specifier|protected
 class|class
 name|Connection
@@ -2298,20 +2425,12 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|cancel
+name|remove
 parameter_list|(
 name|CallFuture
 name|cts
 parameter_list|)
 block|{
-name|cts
-operator|.
-name|call
-operator|.
-name|done
-operator|=
-literal|true
-expr_stmt|;
 name|callsToWrite
 operator|.
 name|remove
@@ -2411,76 +2530,15 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|remoteId
+name|cts
 operator|.
-name|rpcTimeout
-operator|>
-literal|0
+name|call
+operator|.
+name|checkTimeout
+argument_list|()
 condition|)
 block|{
-name|long
-name|waitTime
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|cts
-operator|.
-name|call
-operator|.
-name|getStartTime
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|waitTime
-operator|>=
-name|remoteId
-operator|.
-name|rpcTimeout
-condition|)
-block|{
-name|IOException
-name|ie
-init|=
-operator|new
-name|CallTimeoutException
-argument_list|(
-literal|"Call id="
-operator|+
-name|cts
-operator|.
-name|call
-operator|.
-name|id
-operator|+
-literal|", waitTime="
-operator|+
-name|waitTime
-operator|+
-literal|", rpcTimetout="
-operator|+
-name|remoteId
-operator|.
-name|rpcTimeout
-operator|+
-literal|", expired before being sent to the server."
-argument_list|)
-decl_stmt|;
-name|cts
-operator|.
-name|call
-operator|.
-name|setException
-argument_list|(
-name|ie
-argument_list|)
-expr_stmt|;
-comment|// includes a notify
 continue|continue;
-block|}
 block|}
 try|try
 block|{
@@ -3336,7 +3394,6 @@ name|localAddr
 argument_list|)
 expr_stmt|;
 block|}
-comment|// connection time out is 20s
 name|NetUtils
 operator|.
 name|connect
@@ -3350,10 +3407,7 @@ operator|.
 name|getAddress
 argument_list|()
 argument_list|,
-name|getSocketTimeout
-argument_list|(
-name|conf
-argument_list|)
+name|connectTO
 argument_list|)
 expr_stmt|;
 name|this
@@ -3362,9 +3416,7 @@ name|socket
 operator|.
 name|setSoTimeout
 argument_list|(
-name|remoteId
-operator|.
-name|rpcTimeout
+name|readTO
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4447,9 +4499,7 @@ argument_list|(
 name|socket
 argument_list|)
 decl_stmt|;
-comment|// This creates a socket with a write timeout. This timeout cannot be changed,
-comment|//  RpcClient allows to change the timeout dynamically, but we can only
-comment|//  change the read timeout today.
+comment|// This creates a socket with a write timeout. This timeout cannot be changed.
 name|OutputStream
 name|outStream
 init|=
@@ -4459,9 +4509,7 @@ name|getOutputStream
 argument_list|(
 name|socket
 argument_list|,
-name|remoteId
-operator|.
-name|rpcTimeout
+name|writeTO
 argument_list|)
 decl_stmt|;
 comment|// Write out the preamble -- MAGIC, version, and auth to use.
@@ -5015,7 +5063,9 @@ argument_list|)
 expr_stmt|;
 block|}
 name|cleanupCalls
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -5088,7 +5138,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      * @param call      * @param priority      * @see #readResponse()      */
+comment|/**      * Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      * @see #readResponse()      */
 specifier|private
 name|void
 name|writeRequest
@@ -5747,12 +5797,6 @@ condition|(
 name|e
 operator|instanceof
 name|SocketTimeoutException
-operator|&&
-name|remoteId
-operator|.
-name|rpcTimeout
-operator|>
-literal|0
 condition|)
 block|{
 comment|// Clean up open calls but don't treat this as a fatal condition,
@@ -5773,9 +5817,7 @@ finally|finally
 block|{
 name|cleanupCalls
 argument_list|(
-name|remoteId
-operator|.
-name|rpcTimeout
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -5807,7 +5849,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**      * @param e      * @return RemoteException made from passed<code>e</code>      */
+comment|/**      * @param e exception to be wrapped      * @return RemoteException made from passed<code>e</code>      */
 specifier|private
 name|RemoteException
 name|createRemoteException
@@ -5966,36 +6008,16 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/* Cleanup all calls and mark them as done */
-specifier|protected
-name|void
-name|cleanupCalls
-parameter_list|()
-block|{
-name|cleanupCalls
-argument_list|(
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param rpcTimeout -1 for all calls,> 0 otherwise. 0 means no timeout and does nothing.      */
+comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param allCalls for all calls,      */
 specifier|protected
 specifier|synchronized
 name|void
 name|cleanupCalls
 parameter_list|(
-name|long
-name|rpcTimeout
+name|boolean
+name|allCalls
 parameter_list|)
 block|{
-if|if
-condition|(
-name|rpcTimeout
-operator|==
-literal|0
-condition|)
-return|return;
 name|Iterator
 argument_list|<
 name|Entry
@@ -6034,6 +6056,26 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|c
+operator|.
+name|done
+condition|)
+block|{
+comment|// To catch the calls without timeout that were cancelled.
+name|itor
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|allCalls
+condition|)
+block|{
 name|long
 name|waitTime
 init|=
@@ -6047,13 +6089,6 @@ operator|.
 name|getStartTime
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|rpcTimeout
-operator|<
-literal|0
-condition|)
-block|{
 name|IOException
 name|ie
 init|=
@@ -6087,39 +6122,12 @@ block|}
 elseif|else
 if|if
 condition|(
-name|waitTime
-operator|>=
-name|rpcTimeout
+name|c
+operator|.
+name|checkTimeout
+argument_list|()
 condition|)
 block|{
-name|IOException
-name|ie
-init|=
-operator|new
-name|CallTimeoutException
-argument_list|(
-literal|"Call id="
-operator|+
-name|c
-operator|.
-name|id
-operator|+
-literal|", waitTime="
-operator|+
-name|waitTime
-operator|+
-literal|", rpcTimeout="
-operator|+
-name|rpcTimeout
-argument_list|)
-decl_stmt|;
-name|c
-operator|.
-name|setException
-argument_list|(
-name|ie
-argument_list|)
-expr_stmt|;
 name|itor
 operator|.
 name|remove
@@ -6128,58 +6136,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// This relies on the insertion order to be the call id order. This is not
-comment|//  true under 'difficult' conditions (gc, ...).
-name|rpcTimeout
-operator|-=
-name|waitTime
-expr_stmt|;
+comment|// We expect the call to be ordered by timeout. It may not be the case, but stopping
+comment|//  at the first valid call allows to be sure that we still have something to do without
+comment|//  spending too much time by reading the full list.
 break|break;
-block|}
-block|}
-if|if
-condition|(
-operator|!
-name|shouldCloseConnection
-operator|.
-name|get
-argument_list|()
-operator|&&
-name|socket
-operator|!=
-literal|null
-operator|&&
-name|rpcTimeout
-operator|>
-literal|0
-condition|)
-block|{
-try|try
-block|{
-name|socket
-operator|.
-name|setSoTimeout
-argument_list|(
-operator|(
-name|int
-operator|)
-name|rpcTimeout
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|SocketException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Couldn't change timeout, which may result in longer than expected calls"
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}
@@ -6220,7 +6180,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Construct an IPC cluster client whose values are of the {@link Message} class.    * @param conf configuration    * @param clusterId    * @param factory socket factory    */
+comment|/**    * Construct an IPC cluster client whose values are of the {@link Message} class.    * @param conf configuration    * @param clusterId the cluster id    * @param factory socket factory    */
 name|RpcClient
 parameter_list|(
 name|Configuration
@@ -6245,7 +6205,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct an IPC cluster client whose values are of the {@link Message} class.    * @param conf configuration    * @param clusterId    * @param factory socket factory    * @param localAddr client socket bind address    */
+comment|/**    * Construct an IPC cluster client whose values are of the {@link Message} class.    * @param conf configuration    * @param clusterId the cluster id    * @param factory socket factory    * @param localAddr client socket bind address    */
 name|RpcClient
 parameter_list|(
 name|Configuration
@@ -6446,6 +6406,45 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|connectTO
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|SOCKET_TIMEOUT_CONNECT
+argument_list|,
+name|DEFAULT_SOCKET_TIMEOUT_CONNECT
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|readTO
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|SOCKET_TIMEOUT_READ
+argument_list|,
+name|DEFAULT_SOCKET_TIMEOUT_READ
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|writeTO
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|SOCKET_TIMEOUT_WRITE
+argument_list|,
+name|DEFAULT_SOCKET_TIMEOUT_WRITE
+argument_list|)
+expr_stmt|;
 comment|// login the server principal (if using secure Hadoop)
 if|if
 condition|(
@@ -6482,6 +6481,24 @@ operator|+
 name|this
 operator|.
 name|tcpNoDelay
+operator|+
+literal|", connectTO="
+operator|+
+name|this
+operator|.
+name|connectTO
+operator|+
+literal|", readTO="
+operator|+
+name|this
+operator|.
+name|readTO
+operator|+
+literal|", writeTO="
+operator|+
+name|this
+operator|.
+name|writeTO
 operator|+
 literal|", minIdleTimeBeforeClose="
 operator|+
@@ -6520,7 +6537,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Construct an IPC client for the cluster<code>clusterId</code> with the default SocketFactory    * @param conf configuration    * @param clusterId    */
+comment|/**    * Construct an IPC client for the cluster<code>clusterId</code> with the default SocketFactory    * @param conf configuration    * @param clusterId the cluster id    */
 specifier|public
 name|RpcClient
 parameter_list|(
@@ -6548,7 +6565,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct an IPC client for the cluster<code>clusterId</code> with the default SocketFactory    * @param conf configuration    * @param clusterId    * @param localAddr client socket bind address.    */
+comment|/**    * Construct an IPC client for the cluster<code>clusterId</code> with the default SocketFactory    * @param conf configuration    * @param clusterId the cluster id    * @param localAddr client socket bind address.    */
 specifier|public
 name|RpcClient
 parameter_list|(
@@ -6688,7 +6705,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @param conf    * @return The compressor to use on this client.    */
+comment|/**    * Encapsulate the ugly casting and RuntimeException conversion in private method.    * @param conf configuration    * @return The compressor to use on this client.    */
 specifier|private
 specifier|static
 name|CompressionCodec
@@ -6795,7 +6812,7 @@ name|ThreadLocal
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the pool size specified in the configuration, which is applicable only if    * the pool type is {@link PoolType#RoundRobin}.    *    * @param config    * @return the maximum pool size    */
+comment|/**    * Return the pool size specified in the configuration, which is applicable only if    * the pool type is {@link PoolType#RoundRobin}.    *    * @param config configuration    * @return the maximum pool size    */
 specifier|protected
 specifier|static
 name|int
@@ -6816,15 +6833,6 @@ name|HBASE_CLIENT_IPC_POOL_SIZE
 argument_list|,
 literal|1
 argument_list|)
-return|;
-block|}
-comment|/** Return the socket factory of this client    *    * @return this client's socket factory    */
-name|SocketFactory
-name|getSocketFactory
-parameter_list|()
-block|{
-return|return
-name|socketFactory
 return|;
 block|}
 comment|/** Stop all threads related to this client.  No further calls may be made    * using this client. */
@@ -6993,7 +7001,7 @@ name|NORMAL_QOS
 argument_list|)
 return|;
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param md    * @param param    * @param cells    * @param addr    * @param returnType    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @param rpcTimeout    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code> which is servicing the<code>protocol</code> protocol,    * with the<code>ticket</code> credentials, returning the value.    * Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    * @throws InterruptedException    * @throws IOException    */
 name|Pair
 argument_list|<
 name|Message
@@ -7021,7 +7029,7 @@ name|InetSocketAddress
 name|addr
 parameter_list|,
 name|int
-name|rpcTimeout
+name|callTimeout
 parameter_list|,
 name|int
 name|priority
@@ -7044,6 +7052,8 @@ argument_list|,
 name|cells
 argument_list|,
 name|returnType
+argument_list|,
+name|callTimeout
 argument_list|)
 decl_stmt|;
 name|Connection
@@ -7056,8 +7066,6 @@ argument_list|,
 name|call
 argument_list|,
 name|addr
-argument_list|,
-name|rpcTimeout
 argument_list|,
 name|this
 operator|.
@@ -7126,6 +7134,31 @@ operator|.
 name|done
 condition|)
 block|{
+if|if
+condition|(
+name|call
+operator|.
+name|checkTimeout
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|cts
+operator|!=
+literal|null
+condition|)
+name|connection
+operator|.
+name|callSender
+operator|.
+name|remove
+argument_list|(
+name|cts
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 try|try
 block|{
 synchronized|synchronized
@@ -7137,10 +7170,21 @@ name|call
 operator|.
 name|wait
 argument_list|(
+name|Math
+operator|.
+name|min
+argument_list|(
+name|call
+operator|.
+name|remainingTime
+argument_list|()
+argument_list|,
 literal|1000
 argument_list|)
+operator|+
+literal|1
+argument_list|)
 expr_stmt|;
-comment|// wait for the result. We will be notified by the reader.
 block|}
 block|}
 catch|catch
@@ -7149,32 +7193,30 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|call
+operator|.
+name|setException
+argument_list|(
+operator|new
+name|InterruptedIOException
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|cts
 operator|!=
 literal|null
 condition|)
-block|{
 name|connection
 operator|.
 name|callSender
 operator|.
-name|cancel
+name|remove
 argument_list|(
 name|cts
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|call
-operator|.
-name|done
-operator|=
-literal|true
-expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
@@ -7349,9 +7391,6 @@ name|hostname
 parameter_list|,
 name|int
 name|port
-parameter_list|,
-name|IOException
-name|ioe
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -7431,7 +7470,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    *  Get a connection from the pool, or create a new one and add it to the    * pool.  Connections to a given host/port are reused.    */
+comment|/**    *  Get a connection from the pool, or create a new one and add it to the    * pool. Connections to a given host/port are reused.    */
 specifier|protected
 name|Connection
 name|getConnection
@@ -7444,9 +7483,6 @@ name|call
 parameter_list|,
 name|InetSocketAddress
 name|addr
-parameter_list|,
-name|int
-name|rpcTimeout
 parameter_list|,
 specifier|final
 name|Codec
@@ -7494,8 +7530,6 @@ name|getName
 argument_list|()
 argument_list|,
 name|addr
-argument_list|,
-name|rpcTimeout
 argument_list|)
 decl_stmt|;
 synchronized|synchronized
@@ -7575,10 +7609,6 @@ specifier|final
 name|User
 name|ticket
 decl_stmt|;
-specifier|final
-name|int
-name|rpcTimeout
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -7601,9 +7631,6 @@ name|serviceName
 parameter_list|,
 name|InetSocketAddress
 name|address
-parameter_list|,
-name|int
-name|rpcTimeout
 parameter_list|)
 block|{
 name|this
@@ -7617,12 +7644,6 @@ operator|.
 name|ticket
 operator|=
 name|ticket
-expr_stmt|;
-name|this
-operator|.
-name|rpcTimeout
-operator|=
-name|rpcTimeout
 expr_stmt|;
 name|this
 operator|.
@@ -7683,12 +7704,6 @@ operator|+
 name|this
 operator|.
 name|ticket
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|rpcTimeout
 return|;
 block|}
 annotation|@
@@ -7751,12 +7766,6 @@ name|ticket
 operator|)
 operator|)
 operator|&&
-name|rpcTimeout
-operator|==
-name|id
-operator|.
-name|rpcTimeout
-operator|&&
 name|this
 operator|.
 name|serviceName
@@ -7813,66 +7822,11 @@ argument_list|()
 operator|)
 operator|)
 operator|)
-operator|^
-name|rpcTimeout
 decl_stmt|;
 return|return
 name|hashcode
 return|;
 block|}
-block|}
-specifier|public
-specifier|static
-name|void
-name|setRpcTimeout
-parameter_list|(
-name|int
-name|t
-parameter_list|)
-block|{
-name|rpcTimeout
-operator|.
-name|set
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Returns the lower of the thread-local RPC time from {@link #setRpcTimeout(int)} and the given    * default timeout.    */
-specifier|public
-specifier|static
-name|int
-name|getRpcTimeout
-parameter_list|(
-name|int
-name|defaultTimeout
-parameter_list|)
-block|{
-return|return
-name|Math
-operator|.
-name|min
-argument_list|(
-name|defaultTimeout
-argument_list|,
-name|rpcTimeout
-operator|.
-name|get
-argument_list|()
-argument_list|)
-return|;
-block|}
-specifier|public
-specifier|static
-name|void
-name|resetRpcTimeout
-parameter_list|()
-block|{
-name|rpcTimeout
-operator|.
-name|remove
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Make a blocking call. Throws exceptions if there are network problems or if the remote code    * threw an exception.    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *          {@link UserProvider#getCurrent()} makes a new instance of User each time so will be a    *          new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    */
 name|Message
@@ -7881,8 +7835,8 @@ parameter_list|(
 name|MethodDescriptor
 name|md
 parameter_list|,
-name|RpcController
-name|controller
+name|PayloadCarryingRpcController
+name|pcrc
 parameter_list|,
 name|Message
 name|param
@@ -7897,10 +7851,6 @@ parameter_list|,
 specifier|final
 name|InetSocketAddress
 name|isa
-parameter_list|,
-specifier|final
-name|int
-name|rpcTimeout
 parameter_list|)
 throws|throws
 name|ServiceException
@@ -7926,13 +7876,10 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 block|}
-name|PayloadCarryingRpcController
-name|pcrc
+name|int
+name|callTimeout
 init|=
-operator|(
-name|PayloadCarryingRpcController
-operator|)
-name|controller
+literal|0
 decl_stmt|;
 name|CellScanner
 name|cells
@@ -7946,6 +7893,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|callTimeout
+operator|=
+name|pcrc
+operator|.
+name|getCallTimeout
+argument_list|()
+expr_stmt|;
 name|cells
 operator|=
 name|pcrc
@@ -7988,7 +7942,7 @@ name|ticket
 argument_list|,
 name|isa
 argument_list|,
-name|rpcTimeout
+name|callTimeout
 argument_list|,
 name|pcrc
 operator|!=
@@ -8123,9 +8077,8 @@ specifier|final
 name|User
 name|ticket
 parameter_list|,
-specifier|final
 name|int
-name|rpcTimeout
+name|defaultOperationTimeout
 parameter_list|)
 block|{
 return|return
@@ -8138,7 +8091,7 @@ name|sn
 argument_list|,
 name|ticket
 argument_list|,
-name|rpcTimeout
+name|defaultOperationTimeout
 argument_list|)
 return|;
 block|}
@@ -8164,14 +8117,15 @@ name|rpcClient
 decl_stmt|;
 specifier|private
 specifier|final
-name|int
-name|rpcTimeout
-decl_stmt|;
-specifier|private
-specifier|final
 name|User
 name|ticket
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|defaultOperationTimeout
+decl_stmt|;
+comment|/**      * @param defaultOperationTimeout - the default timeout when no timeout is given      *                                   by the caller.      */
 specifier|protected
 name|BlockingRpcChannelImplementation
 parameter_list|(
@@ -8187,9 +8141,8 @@ specifier|final
 name|User
 name|ticket
 parameter_list|,
-specifier|final
 name|int
-name|rpcTimeout
+name|defaultOperationTimeout
 parameter_list|)
 block|{
 name|this
@@ -8216,22 +8169,17 @@ name|rpcClient
 operator|=
 name|rpcClient
 expr_stmt|;
-comment|// Set the rpc timeout to be the minimum of configured timeout and whatever the current
-comment|// thread local setting is.
 name|this
 operator|.
-name|rpcTimeout
+name|ticket
 operator|=
-name|getRpcTimeout
-argument_list|(
-name|rpcTimeout
-argument_list|)
+name|ticket
 expr_stmt|;
 name|this
 operator|.
-name|ticket
+name|defaultOperationTimeout
 operator|=
-name|ticket
+name|defaultOperationTimeout
 expr_stmt|;
 block|}
 annotation|@
@@ -8255,6 +8203,57 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+name|PayloadCarryingRpcController
+name|pcrc
+decl_stmt|;
+if|if
+condition|(
+name|controller
+operator|!=
+literal|null
+condition|)
+block|{
+name|pcrc
+operator|=
+operator|(
+name|PayloadCarryingRpcController
+operator|)
+name|controller
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|pcrc
+operator|.
+name|hasCallTimeout
+argument_list|()
+condition|)
+block|{
+name|pcrc
+operator|.
+name|setCallTimeout
+argument_list|(
+name|defaultOperationTimeout
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+name|pcrc
+operator|=
+operator|new
+name|PayloadCarryingRpcController
+argument_list|()
+expr_stmt|;
+name|pcrc
+operator|.
+name|setCallTimeout
+argument_list|(
+name|defaultOperationTimeout
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|this
 operator|.
@@ -8264,7 +8263,7 @@ name|callBlockingMethod
 argument_list|(
 name|md
 argument_list|,
-name|controller
+name|pcrc
 argument_list|,
 name|param
 argument_list|,
@@ -8277,10 +8276,6 @@ argument_list|,
 name|this
 operator|.
 name|isa
-argument_list|,
-name|this
-operator|.
-name|rpcTimeout
 argument_list|)
 return|;
 block|}

@@ -788,7 +788,8 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @see java.util.concurrent.Callable#call()    */
+annotation|@
+name|Override
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -798,7 +799,10 @@ specifier|public
 name|Result
 index|[]
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -883,8 +887,6 @@ operator|new
 name|PayloadCarryingRpcController
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 name|controller
 operator|.
 name|setPriority
@@ -893,6 +895,15 @@ name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|controller
+operator|.
+name|setCallTimeout
+argument_list|(
+name|callTimeout
+argument_list|)
+expr_stmt|;
+try|try
+block|{
 name|response
 operator|=
 name|getStub

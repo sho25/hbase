@@ -4053,7 +4053,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|rpcTimeout
+name|operationTimeout
 decl_stmt|;
 specifier|private
 specifier|final
@@ -4329,7 +4329,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|rpcTimeout
+name|operationTimeout
 operator|=
 name|conf
 operator|.
@@ -11190,9 +11190,7 @@ operator|.
 name|getCurrent
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|rpcTimeout
+name|operationTimeout
 argument_list|)
 decl_stmt|;
 name|intf

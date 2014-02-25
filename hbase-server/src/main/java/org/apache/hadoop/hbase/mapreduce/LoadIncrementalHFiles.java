@@ -3768,7 +3768,10 @@ name|Override
 specifier|public
 name|Boolean
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|callTimeout
+parameter_list|)
 throws|throws
 name|Exception
 block|{

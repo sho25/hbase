@@ -2364,7 +2364,7 @@ return|return
 name|FAILED_TO_OWN_TASK
 return|;
 block|}
-comment|/**    * This function calculates how many splitters it could create based on expected average tasks per    * RS and the hard limit upper bound(maxConcurrentTasks) set by configuration.<br>    * At any given time, a RS allows spawn MIN(Expected Tasks/RS, Hard Upper Bound)    * @param numTasks current total number of available tasks    * @return    */
+comment|/**    * This function calculates how many splitters it could create based on expected average tasks per    * RS and the hard limit upper bound(maxConcurrentTasks) set by configuration.<br>    * At any given time, a RS allows spawn MIN(Expected Tasks/RS, Hard Upper Bound)    * @param numTasks current total number of available tasks    */
 specifier|private
 name|int
 name|calculateAvailableSplitters
