@@ -993,6 +993,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DroppedSnapshotException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|FailedSanityCheckException
@@ -19831,6 +19845,31 @@ operator|.
 name|build
 argument_list|()
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|DroppedSnapshotException
+name|ex
+parameter_list|)
+block|{
+comment|// Cache flush can fail in a few places. If it fails in a critical
+comment|// section, we get a DroppedSnapshotException and a replay of hlog
+comment|// is required. Currently the only way to do this is a restart of
+comment|// the server.
+name|abort
+argument_list|(
+literal|"Replay of HLog required. Forcing server shutdown"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+name|ex
+argument_list|)
+throw|;
 block|}
 catch|catch
 parameter_list|(
