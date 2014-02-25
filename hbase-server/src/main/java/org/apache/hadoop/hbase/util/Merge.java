@@ -1263,7 +1263,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Adds a region's meta information from the passed<code>meta</code>    * region.    *    * @param metainfo hbase:meta HRegionInfo to be updated    * @param region HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|/*    * Parse given arguments including generic arguments and assign table name and regions names.    *    * @param args the arguments to parse    *    * @throws IOException    */
 specifier|private
 name|int
 name|parseArgs
