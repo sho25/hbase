@@ -180,7 +180,7 @@ name|startPoint
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * @param initVal The value we used initially and expected it'll be reset later    * @return WriteEntry instance.    */
+comment|/**    *    * @param initVal The value we used initially and expected it'll be reset later    * @return WriteEntry instance.    */
 name|WriteEntry
 name|beginMemstoreInsert
 parameter_list|()
@@ -456,6 +456,35 @@ block|}
 return|return
 literal|false
 return|;
+block|}
+comment|/**    * Advances the current read point to be given seqNum if it is smaller than    * that.    */
+name|void
+name|advanceMemstoreReadPointIfNeeded
+parameter_list|(
+name|long
+name|seqNum
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|writeQueue
+init|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|memstoreRead
+operator|<
+name|seqNum
+condition|)
+block|{
+name|memstoreRead
+operator|=
+name|seqNum
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Wait for all previous MVCC transactions complete    */
 specifier|public

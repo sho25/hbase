@@ -137,20 +137,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -180,6 +166,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -808,6 +808,13 @@ comment|/**    * @return Whether this store has too many store files.    */
 name|boolean
 name|hasTooManyStoreFiles
 parameter_list|()
+function_decl|;
+comment|/**    * Checks the underlying store files, and opens the files that  have not    * been opened, and removes the store file readers for store files no longer    * available. Mainly used by secondary region replicas to keep up to date with    * the primary region files.    * @throws IOException    */
+name|void
+name|refreshStoreFiles
+parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

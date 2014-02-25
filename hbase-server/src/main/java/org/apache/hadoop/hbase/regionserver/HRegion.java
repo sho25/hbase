@@ -1721,6 +1721,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ServerRegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Threads
 import|;
 end_import
@@ -1963,7 +1979,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *     *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
+comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *    *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -2442,6 +2458,14 @@ name|readOnly
 init|=
 literal|false
 decl_stmt|;
+comment|// whether the reads are enabled. This is different than readOnly, because readOnly is
+comment|// static in the lifetime of the region, while readsEnabled is dynamic
+specifier|volatile
+name|boolean
+name|readsEnabled
+init|=
+literal|true
+decl_stmt|;
 comment|/**      * Set flags that make this region read-only.      *      * @param onOff flip value for region r/o setting      */
 specifier|synchronized
 name|void
@@ -2485,6 +2509,20 @@ name|this
 operator|.
 name|flushRequested
 return|;
+block|}
+name|void
+name|setReadsEnabled
+parameter_list|(
+name|boolean
+name|readsEnabled
+parameter_list|)
+block|{
+name|this
+operator|.
+name|readsEnabled
+operator|=
+name|readsEnabled
+expr_stmt|;
 block|}
 specifier|static
 specifier|final
@@ -3634,12 +3672,12 @@ name|writestate
 operator|.
 name|setReadOnly
 argument_list|(
-name|this
-operator|.
-name|htableDescriptor
+name|ServerRegionReplicaUtil
 operator|.
 name|isReadOnly
-argument_list|()
+argument_list|(
+name|this
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -9495,6 +9533,8 @@ operator|=
 name|nonce
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Mutation
 name|getMutation
@@ -12816,6 +12856,50 @@ literal|"region is read only"
 argument_list|)
 throw|;
 block|}
+block|}
+specifier|protected
+name|void
+name|checkReadsEnabled
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|writestate
+operator|.
+name|readsEnabled
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"The region's reads are disabled. Cannot serve the request"
+argument_list|)
+throw|;
+block|}
+block|}
+specifier|public
+name|void
+name|setReadsEnabled
+parameter_list|(
+name|boolean
+name|readsEnabled
+parameter_list|)
+block|{
+name|this
+operator|.
+name|writestate
+operator|.
+name|setReadsEnabled
+argument_list|(
+name|readsEnabled
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
 specifier|private
@@ -25930,16 +26014,21 @@ name|op
 condition|)
 block|{
 case|case
-name|INCREMENT
-case|:
-case|case
-name|APPEND
-case|:
-case|case
 name|GET
 case|:
+comment|// read operations
 case|case
 name|SCAN
+case|:
+name|checkReadsEnabled
+argument_list|()
+expr_stmt|;
+case|case
+name|INCREMENT
+case|:
+comment|// write operations
+case|case
+name|APPEND
 case|:
 case|case
 name|SPLIT_REGION
@@ -27155,7 +27244,7 @@ operator|>=
 literal|0
 assert|;
 block|}
-comment|/**    * Do not change this sequence id. See {@link #sequenceId} comment.    * @return sequenceId     */
+comment|/**    * Do not change this sequence id. See {@link #sequenceId} comment.    * @return sequenceId    */
 annotation|@
 name|VisibleForTesting
 specifier|public

@@ -447,6 +447,22 @@ name|FSUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ServerRegionReplicaUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * View to an on-disk Region.  * Provides the set of methods necessary to interact with the on-disk region data.  */
 end_comment
@@ -515,6 +531,12 @@ specifier|private
 specifier|final
 name|HRegionInfo
 name|regionInfo
+decl_stmt|;
+comment|//regionInfo for interacting with FS (getting encodedName, etc)
+specifier|private
+specifier|final
+name|HRegionInfo
+name|regionInfoForFs
 decl_stmt|;
 specifier|private
 specifier|final
@@ -604,6 +626,17 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
+name|regionInfoForFs
+operator|=
+name|ServerRegionReplicaUtil
+operator|.
+name|getRegionInfoForFs
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|hdfsClientRetriesNumber
 operator|=
 name|conf
@@ -681,7 +714,7 @@ name|tableDir
 argument_list|,
 name|this
 operator|.
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getEncodedName
 argument_list|()
@@ -1108,6 +1141,8 @@ operator|new
 name|PathFilter
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|accept
@@ -1289,7 +1324,7 @@ name|fs
 argument_list|,
 name|conf
 argument_list|,
-name|regionInfo
+name|regionInfoForFs
 argument_list|,
 name|tableDir
 argument_list|,
@@ -1335,14 +1370,14 @@ name|familyName
 operator|+
 literal|" from FileSystem for region "
 operator|+
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|"("
 operator|+
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getEncodedName
 argument_list|()
@@ -1736,7 +1771,7 @@ name|fs
 argument_list|,
 name|this
 operator|.
-name|regionInfo
+name|regionInfoForFs
 argument_list|,
 name|this
 operator|.
@@ -1786,7 +1821,7 @@ name|fs
 argument_list|,
 name|this
 operator|.
-name|regionInfo
+name|regionInfoForFs
 argument_list|,
 name|this
 operator|.
@@ -2603,7 +2638,7 @@ comment|// then the directory above is the region name.
 name|String
 name|parentRegionName
 init|=
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getEncodedName
 argument_list|()
@@ -2890,7 +2925,7 @@ name|Reference
 operator|.
 name|createTopReference
 argument_list|(
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getStartKey
 argument_list|()
@@ -2903,7 +2938,7 @@ comment|// then the directory above is the region name.
 name|String
 name|mergingRegionName
 init|=
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getEncodedName
 argument_list|()
@@ -3223,7 +3258,7 @@ name|content
 init|=
 name|getRegionInfoFileContent
 argument_list|(
-name|regionInfo
+name|regionInfoForFs
 argument_list|)
 decl_stmt|;
 try|try
@@ -3317,7 +3352,7 @@ name|REGION_INFO_FILE
 operator|+
 literal|" file not found for region: "
 operator|+
-name|regionInfo
+name|regionInfoForFs
 operator|.
 name|getEncodedName
 argument_list|()
@@ -3357,7 +3392,7 @@ name|content
 init|=
 name|getRegionInfoFileContent
 argument_list|(
-name|regionInfo
+name|regionInfoForFs
 argument_list|)
 decl_stmt|;
 name|writeRegionInfoOnFilesystem
