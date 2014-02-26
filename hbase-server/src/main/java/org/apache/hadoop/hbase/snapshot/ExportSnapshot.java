@@ -449,7 +449,7 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|FsDelegationToken
+name|UserProvider
 import|;
 end_import
 
@@ -465,7 +465,9 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|UserProvider
+name|token
+operator|.
+name|FsDelegationToken
 import|;
 end_import
 

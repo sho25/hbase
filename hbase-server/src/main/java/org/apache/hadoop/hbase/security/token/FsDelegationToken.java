@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|security
+operator|.
+name|token
 package|;
 end_package
 
