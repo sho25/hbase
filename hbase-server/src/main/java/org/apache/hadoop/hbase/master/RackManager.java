@@ -202,6 +202,10 @@ name|switchMapping
 decl_stmt|;
 specifier|public
 name|RackManager
+parameter_list|()
+block|{   }
+specifier|public
+name|RackManager
 parameter_list|(
 name|Configuration
 name|conf

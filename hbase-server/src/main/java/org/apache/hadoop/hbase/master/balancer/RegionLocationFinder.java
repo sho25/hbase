@@ -718,6 +718,15 @@ operator|.
 name|services
 operator|!=
 literal|null
+operator|&&
+name|this
+operator|.
+name|services
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|!=
+literal|null
 condition|)
 block|{
 name|tableDescriptor

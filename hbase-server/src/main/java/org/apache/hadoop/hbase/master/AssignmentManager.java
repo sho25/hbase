@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -18609,7 +18619,7 @@ argument_list|>
 argument_list|>
 name|getSnapShotOfAssignment
 parameter_list|(
-name|List
+name|Collection
 argument_list|<
 name|HRegionInfo
 argument_list|>

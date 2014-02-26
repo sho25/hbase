@@ -221,6 +221,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionLocation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -236,6 +250,20 @@ operator|.
 name|hbase
 operator|.
 name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|RegionLocations
 import|;
 end_import
 
@@ -960,60 +988,412 @@ operator|)
 assert|;
 block|}
 block|}
-comment|// TODO: HBASE-10351 should uncomment the following tests (since the tests assume region placements are handled)
-comment|//      List<Result> metaRows = MetaReader.fullScan(ct);
-comment|//      int numRows = 0;
-comment|//      for (Result result : metaRows) {
-comment|//        RegionLocations locations = MetaReader.getRegionLocations(result);
-comment|//        HRegionInfo hri = locations.getRegionLocation().getRegionInfo();
-comment|//        if (!hri.getTable().equals(table)) continue;
-comment|//        numRows += 1;
-comment|//        HRegionLocation[] servers = locations.getRegionLocations();
-comment|//        // have two locations for the replicas of a region, and the locations should be different
-comment|//        assert(servers.length == 2);
-comment|//        assert(!servers[0].equals(servers[1]));
-comment|//      }
-comment|//      assert(numRows == numRegions);
-comment|//
-comment|//      // The same verification of the meta as above but with the SnapshotOfRegionAssignmentFromMeta
-comment|//      // class
-comment|//      validateFromSnapshotFromMeta(table, numRegions, numReplica, ct);
-comment|//
-comment|//      // Now kill the master, restart it and see if the assignments are kept
-comment|//      ServerName master = TEST_UTIL.getHBaseClusterInterface().getClusterStatus().getMaster();
-comment|//      TEST_UTIL.getHBaseClusterInterface().stopMaster(master);
-comment|//      TEST_UTIL.getHBaseClusterInterface().waitForMasterToStop(master, 30000);
-comment|//      TEST_UTIL.getHBaseClusterInterface().startMaster(master.getHostname());
-comment|//      TEST_UTIL.getHBaseClusterInterface().waitForActiveAndReadyMaster();
-comment|//      for (int i = 0; i< numRegions; i++) {
-comment|//        for (int j = 0; j< numReplica; j++) {
-comment|//          HRegionInfo replica = RegionReplicaUtil.getRegionInfoForReplica(hris.get(i), j);
-comment|//          RegionState state = TEST_UTIL.getHBaseCluster().getMaster().getAssignmentManager()
-comment|//              .getRegionStates().getRegionState(replica);
-comment|//          assert (state != null);
-comment|//        }
-comment|//      }
-comment|//      validateFromSnapshotFromMeta(table, numRegions, numReplica, ct);
-comment|//
-comment|//      // Now shut the whole cluster down, and verify the assignments are kept so that the
-comment|//      // availability constraints are met.
-comment|//      TEST_UTIL.getConfiguration().setBoolean("hbase.master.startup.retainassign", true);
-comment|//      TEST_UTIL.shutdownMiniHBaseCluster();
-comment|//      TEST_UTIL.startMiniHBaseCluster(1, numSlaves);
-comment|//      TEST_UTIL.waitTableEnabled(table.getName());
-comment|//      ct = new CatalogTracker(TEST_UTIL.getConfiguration());
-comment|//      validateFromSnapshotFromMeta(table, numRegions, numReplica, ct);
-comment|//
-comment|//      // Now shut the whole cluster down, and verify regions are assigned even if there is only
-comment|//      // one server running
-comment|//      TEST_UTIL.shutdownMiniHBaseCluster();
-comment|//      TEST_UTIL.startMiniHBaseCluster(1, 1);
-comment|//      TEST_UTIL.waitTableEnabled(table.getName());
-comment|//      ct = new CatalogTracker(TEST_UTIL.getConfiguration());
-comment|//      validateSingleRegionServerAssignment(ct, numRegions, numReplica);
-comment|//      for (int i = 1; i< numSlaves; i++) { //restore the cluster
-comment|//        TEST_UTIL.getMiniHBaseCluster().startRegionServer();
-comment|//      }
+name|List
+argument_list|<
+name|Result
+argument_list|>
+name|metaRows
+init|=
+name|MetaReader
+operator|.
+name|fullScan
+argument_list|(
+name|ct
+argument_list|)
+decl_stmt|;
+name|int
+name|numRows
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Result
+name|result
+range|:
+name|metaRows
+control|)
+block|{
+name|RegionLocations
+name|locations
+init|=
+name|MetaReader
+operator|.
+name|getRegionLocations
+argument_list|(
+name|result
+argument_list|)
+decl_stmt|;
+name|HRegionInfo
+name|hri
+init|=
+name|locations
+operator|.
+name|getRegionLocation
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|hri
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|table
+argument_list|)
+condition|)
+continue|continue;
+name|numRows
+operator|+=
+literal|1
+expr_stmt|;
+name|HRegionLocation
+index|[]
+name|servers
+init|=
+name|locations
+operator|.
+name|getRegionLocations
+argument_list|()
+decl_stmt|;
+comment|// have two locations for the replicas of a region, and the locations should be different
+assert|assert
+operator|(
+name|servers
+operator|.
+name|length
+operator|==
+literal|2
+operator|)
+assert|;
+assert|assert
+operator|(
+operator|!
+name|servers
+index|[
+literal|0
+index|]
+operator|.
+name|equals
+argument_list|(
+name|servers
+index|[
+literal|1
+index|]
+argument_list|)
+operator|)
+assert|;
+block|}
+assert|assert
+operator|(
+name|numRows
+operator|==
+name|numRegions
+operator|)
+assert|;
+comment|// The same verification of the meta as above but with the SnapshotOfRegionAssignmentFromMeta
+comment|// class
+name|validateFromSnapshotFromMeta
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|table
+argument_list|,
+name|numRegions
+argument_list|,
+name|numReplica
+argument_list|,
+name|ct
+argument_list|)
+expr_stmt|;
+comment|// Now kill the master, restart it and see if the assignments are kept
+name|ServerName
+name|master
+init|=
+name|TEST_UTIL
+operator|.
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|getClusterStatus
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+decl_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|stopMaster
+argument_list|(
+name|master
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|waitForMasterToStop
+argument_list|(
+name|master
+argument_list|,
+literal|30000
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|startMaster
+argument_list|(
+name|master
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|waitForActiveAndReadyMaster
+argument_list|()
+expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|numRegions
+condition|;
+name|i
+operator|++
+control|)
+block|{
+for|for
+control|(
+name|int
+name|j
+init|=
+literal|0
+init|;
+name|j
+operator|<
+name|numReplica
+condition|;
+name|j
+operator|++
+control|)
+block|{
+name|HRegionInfo
+name|replica
+init|=
+name|RegionReplicaUtil
+operator|.
+name|getRegionInfoForReplica
+argument_list|(
+name|hris
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+argument_list|,
+name|j
+argument_list|)
+decl_stmt|;
+name|RegionState
+name|state
+init|=
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionState
+argument_list|(
+name|replica
+argument_list|)
+decl_stmt|;
+assert|assert
+operator|(
+name|state
+operator|!=
+literal|null
+operator|)
+assert|;
+block|}
+block|}
+name|validateFromSnapshotFromMeta
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|table
+argument_list|,
+name|numRegions
+argument_list|,
+name|numReplica
+argument_list|,
+name|ct
+argument_list|)
+expr_stmt|;
+comment|// Now shut the whole cluster down, and verify the assignments are kept so that the
+comment|// availability constraints are met.
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.master.startup.retainassign"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|shutdownMiniHBaseCluster
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniHBaseCluster
+argument_list|(
+literal|1
+argument_list|,
+name|numSlaves
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableEnabled
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|ct
+operator|=
+operator|new
+name|CatalogTracker
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|validateFromSnapshotFromMeta
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|table
+argument_list|,
+name|numRegions
+argument_list|,
+name|numReplica
+argument_list|,
+name|ct
+argument_list|)
+expr_stmt|;
+comment|// Now shut the whole cluster down, and verify regions are assigned even if there is only
+comment|// one server running
+name|TEST_UTIL
+operator|.
+name|shutdownMiniHBaseCluster
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniHBaseCluster
+argument_list|(
+literal|1
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableEnabled
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|ct
+operator|=
+operator|new
+name|CatalogTracker
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|validateSingleRegionServerAssignment
+argument_list|(
+name|ct
+argument_list|,
+name|numRegions
+argument_list|,
+name|numReplica
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|1
+init|;
+name|i
+operator|<
+name|numSlaves
+condition|;
+name|i
+operator|++
+control|)
+block|{
+comment|//restore the cluster
+name|TEST_UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|startRegionServer
+argument_list|()
+expr_stmt|;
+block|}
 comment|//check on alter table
 name|admin
 operator|.
@@ -1830,6 +2210,9 @@ specifier|private
 name|void
 name|validateFromSnapshotFromMeta
 parameter_list|(
+name|HBaseTestingUtility
+name|util
+parameter_list|,
 name|TableName
 name|table
 parameter_list|,
@@ -1924,6 +2307,30 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|util
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 name|List
 argument_list|<
 name|HRegionInfo
@@ -2009,12 +2416,12 @@ comment|// the number of startkeys will be equal to the number of regions hosted
 comment|// (each server will be hosting one replica of a region)
 name|assertEquals
 argument_list|(
+name|numRegions
+argument_list|,
 name|setOfStartKeys
 operator|.
 name|size
 argument_list|()
-argument_list|,
-name|numRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -2062,20 +2469,20 @@ operator|.
 name|getRegionToRegionServerMap
 argument_list|()
 decl_stmt|;
-assert|assert
-operator|(
+name|assertEquals
+argument_list|(
 name|regionToServerMap
 operator|.
 name|size
 argument_list|()
-operator|==
+argument_list|,
 name|numRegions
 operator|*
 name|numReplica
 operator|+
 literal|1
-operator|)
-assert|;
+argument_list|)
+expr_stmt|;
 comment|//'1' for the namespace
 name|Map
 argument_list|<
@@ -2093,8 +2500,8 @@ operator|.
 name|getRegionServerToRegionMap
 argument_list|()
 decl_stmt|;
-assert|assert
-operator|(
+name|assertEquals
+argument_list|(
 name|serverToRegionMap
 operator|.
 name|keySet
@@ -2102,33 +2509,72 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|==
-literal|1
-operator|)
-assert|;
-assert|assert
-operator|(
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
+comment|// 1 rs + 1 master
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|entry
+range|:
 name|serverToRegionMap
 operator|.
-name|values
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|entry
+operator|.
+name|getKey
 argument_list|()
 operator|.
-name|iterator
+name|equals
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
 argument_list|()
 operator|.
-name|next
+name|getMaster
+argument_list|()
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
+name|assertEquals
+argument_list|(
+name|entry
+operator|.
+name|getValue
 argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|==
+argument_list|,
 name|numRegions
 operator|*
 name|numReplica
-operator|+
-literal|1
-operator|)
-assert|;
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class

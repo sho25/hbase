@@ -345,6 +345,13 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|super
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|globalFavoredNodesAssignmentPlan
 operator|=
 operator|new
