@@ -992,6 +992,8 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|smallScanCallable
+argument_list|,
+name|scannerTimeout
 argument_list|)
 expr_stmt|;
 name|this

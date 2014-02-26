@@ -1364,6 +1364,10 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|callable
+argument_list|,
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 comment|// Periodically do compaction to reduce the number of open file handles.
@@ -1496,6 +1500,10 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|callable
+argument_list|,
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}

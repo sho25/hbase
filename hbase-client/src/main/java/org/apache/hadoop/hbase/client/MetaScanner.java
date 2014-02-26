@@ -219,6 +219,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ExceptionUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * Scanner class that contains the<code>hbase:meta</code> table scanning logic.  * Provided visitors will be called for each row.  *  * Although public visibility, this is not a public-facing API and may evolve in  * minor releases.  *  *<p> Note that during concurrent region splits, the scanner might not see  * hbase:meta changes across rows (for parent and daughter entries) consistently.  * see HBASE-5986, and {@link DefaultMetaScannerVisitor} for details.</p>  */
 end_comment
@@ -846,6 +862,13 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -878,6 +901,13 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -910,6 +940,13 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug

@@ -1109,6 +1109,9 @@ argument_list|<
 name|MultiResponse
 argument_list|>
 name|callable
+parameter_list|,
+name|int
+name|callTimeout
 parameter_list|)
 throws|throws
 name|IOException

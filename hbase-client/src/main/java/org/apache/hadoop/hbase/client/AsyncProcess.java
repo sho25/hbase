@@ -177,20 +177,6 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
 name|AtomicInteger
 import|;
 end_import
@@ -389,22 +375,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|cloudera
 operator|.
 name|htrace
@@ -575,7 +545,6 @@ name|InterruptedIOException
 block|{}
 block|}
 decl_stmt|;
-comment|// TODO: many of the fields should be made private
 specifier|protected
 specifier|final
 name|long
@@ -692,6 +661,10 @@ decl_stmt|;
 specifier|protected
 name|int
 name|serverTrackerTimeout
+decl_stmt|;
+specifier|protected
+name|int
+name|operationTimeout
 decl_stmt|;
 comment|// End configuration settings.
 specifier|protected
@@ -981,6 +954,23 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|operationTimeout
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|this
@@ -1466,8 +1456,6 @@ argument_list|()
 decl_stmt|;
 name|HRegionLocation
 name|loc
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -1487,13 +1475,6 @@ name|IOException
 name|ex
 parameter_list|)
 block|{
-if|if
-condition|(
-name|locationErrors
-operator|==
-literal|null
-condition|)
-block|{
 name|locationErrors
 operator|=
 operator|new
@@ -1512,7 +1493,6 @@ name|Integer
 argument_list|>
 argument_list|()
 expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|error
@@ -3112,6 +3092,8 @@ operator|.
 name|callWithoutRetries
 argument_list|(
 name|callable
+argument_list|,
+name|operationTimeout
 argument_list|)
 expr_stmt|;
 block|}
@@ -5218,7 +5200,7 @@ name|hasErrors
 argument_list|()
 return|;
 block|}
-comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * Waits for all previous operations to finish, and returns errors and (optionally)    * failed operations themselves.    * @param failedRows an optional list into which the rows that failed since the last time    *        {@link #waitForAllPreviousOpsAndReset(List)} was called, or AP was created, are saved.    * @returns all the errors since the last time {@link #waitForAllPreviousOpsAndReset(List)}    *          was called, or AP was created.    */
+comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * Waits for all previous operations to finish, and returns errors and (optionally)    * failed operations themselves.    * @param failedRows an optional list into which the rows that failed since the last time    *        {@link #waitForAllPreviousOpsAndReset(List)} was called, or AP was created, are saved.    * @return all the errors since the last time {@link #waitForAllPreviousOpsAndReset(List)}    *          was called, or AP was created.    */
 specifier|public
 name|RetriesExhaustedWithDetailsException
 name|waitForAllPreviousOpsAndReset

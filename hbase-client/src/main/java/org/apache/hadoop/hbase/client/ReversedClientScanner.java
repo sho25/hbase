@@ -270,6 +270,8 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|callable
+argument_list|,
+name|scannerTimeout
 argument_list|)
 expr_stmt|;
 name|this
@@ -493,6 +495,8 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|callable
+argument_list|,
+name|scannerTimeout
 argument_list|)
 expr_stmt|;
 name|this
