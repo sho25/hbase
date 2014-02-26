@@ -68,13 +68,23 @@ name|getIsActiveMaster
 parameter_list|()
 function_decl|;
 comment|/**    * Get the live region servers    *    * @return Live region servers    */
-name|int
+name|String
 name|getRegionServers
 parameter_list|()
 function_decl|;
-comment|/**    * Get the dead region servers    *    * @return Dead region Servers    */
+comment|/**    * Get the number of live region servers    *    * @return number of Live region servers    */
 name|int
+name|getNumRegionServers
+parameter_list|()
+function_decl|;
+comment|/**    * Get the dead region servers    *    * @return Dead region Servers    */
+name|String
 name|getDeadRegionServers
+parameter_list|()
+function_decl|;
+comment|/**    * Get the number of dead region servers    *    * @return number of Dead region Servers    */
+name|int
+name|getNumDeadRegionServers
 parameter_list|()
 function_decl|;
 block|}

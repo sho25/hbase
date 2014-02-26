@@ -87,6 +87,16 @@ init|=
 literal|"averageLoad"
 decl_stmt|;
 name|String
+name|LIVE_REGION_SERVERS_NAME
+init|=
+literal|"liveRegionServers"
+decl_stmt|;
+name|String
+name|DEAD_REGION_SERVERS_NAME
+init|=
+literal|"deadRegionServers"
+decl_stmt|;
+name|String
 name|NUM_REGION_SERVERS_NAME
 init|=
 literal|"numRegionServers"
@@ -137,9 +147,19 @@ init|=
 literal|"AverageLoad"
 decl_stmt|;
 name|String
+name|LIVE_REGION_SERVERS_DESC
+init|=
+literal|"Names of live RegionServers"
+decl_stmt|;
+name|String
 name|NUMBER_OF_REGION_SERVERS_DESC
 init|=
 literal|"Number of RegionServers"
+decl_stmt|;
+name|String
+name|DEAD_REGION_SERVERS_DESC
+init|=
+literal|"Names of dead RegionServers"
 decl_stmt|;
 name|String
 name|NUMBER_OF_DEAD_REGION_SERVERS_DESC

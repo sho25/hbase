@@ -368,7 +368,7 @@ argument_list|()
 argument_list|,
 name|info
 operator|.
-name|getRegionServers
+name|getNumRegionServers
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -376,7 +376,7 @@ name|assertTrue
 argument_list|(
 name|info
 operator|.
-name|getRegionServers
+name|getNumRegionServers
 argument_list|()
 operator|==
 literal|4
@@ -491,7 +491,7 @@ name|assertTrue
 argument_list|(
 name|info
 operator|.
-name|getRegionServers
+name|getNumRegionServers
 argument_list|()
 operator|==
 literal|3
@@ -501,7 +501,7 @@ name|assertTrue
 argument_list|(
 name|info
 operator|.
-name|getDeadRegionServers
+name|getNumDeadRegionServers
 argument_list|()
 operator|==
 literal|1
