@@ -910,6 +910,18 @@ operator|.
 name|waitForMeta
 argument_list|()
 expr_stmt|;
+comment|// Skip getting user regions if the server is stopped.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
 name|hris
 operator|=
 name|MetaReader
@@ -928,6 +940,7 @@ operator|.
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
 break|break;
 block|}
 catch|catch

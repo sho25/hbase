@@ -753,7 +753,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Passing the CatalogTracker's connection configuration ensures this
+comment|// Passing the CatalogTracker's connection ensures this
 comment|// HTable instance uses the CatalogTracker's connection.
 name|org
 operator|.
@@ -790,15 +790,9 @@ return|return
 operator|new
 name|HTable
 argument_list|(
-name|catalogTracker
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|tableName
+argument_list|,
+name|c
 argument_list|)
 return|;
 block|}
