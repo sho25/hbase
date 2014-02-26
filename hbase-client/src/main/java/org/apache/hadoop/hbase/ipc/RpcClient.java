@@ -1298,7 +1298,7 @@ specifier|static
 name|String
 name|SOCKET_TIMEOUT_CONNECT
 init|=
-literal|"ipc.socket.timeout.connect"
+literal|"hbase.ipc.client.socket.timeout.connect"
 decl_stmt|;
 specifier|final
 specifier|static
@@ -1315,7 +1315,7 @@ specifier|static
 name|String
 name|SOCKET_TIMEOUT_READ
 init|=
-literal|"ipc.socket.timeout.read"
+literal|"hbase.ipc.client.socket.timeout.read"
 decl_stmt|;
 specifier|final
 specifier|static
@@ -1331,7 +1331,7 @@ specifier|static
 name|String
 name|SOCKET_TIMEOUT_WRITE
 init|=
-literal|"ipc.socket.timeout.write"
+literal|"hbase.ipc.client.socket.timeout.write"
 decl_stmt|;
 specifier|final
 specifier|static
