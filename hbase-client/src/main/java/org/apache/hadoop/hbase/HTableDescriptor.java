@@ -169,18 +169,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -468,6 +456,18 @@ operator|.
 name|io
 operator|.
 name|WritableComparable
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -2302,7 +2302,24 @@ name|getNameAsString
 argument_list|()
 return|;
 block|}
-comment|/**    * This get the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    *    * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
+comment|/**    * This sets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    * @param clazz the class name    */
+specifier|public
+name|void
+name|setRegionSplitPolicyClassName
+parameter_list|(
+name|String
+name|clazz
+parameter_list|)
+block|{
+name|setValue
+argument_list|(
+name|SPLIT_POLICY
+argument_list|,
+name|clazz
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * This gets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    *    * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
 specifier|public
 name|String
 name|getRegionSplitPolicyClassName

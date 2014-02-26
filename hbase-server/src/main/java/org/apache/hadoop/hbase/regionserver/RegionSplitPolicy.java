@@ -374,6 +374,7 @@ return|return
 name|policy
 return|;
 block|}
+specifier|public
 specifier|static
 name|Class
 argument_list|<
