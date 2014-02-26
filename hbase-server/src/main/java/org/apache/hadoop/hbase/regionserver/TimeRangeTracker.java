@@ -324,6 +324,7 @@ block|}
 block|}
 comment|/**    * If required, update the current TimestampRange to include timestamp    * @param timestamp the timestamp value to include    */
 specifier|private
+specifier|synchronized
 name|void
 name|includeTimestamp
 parameter_list|(
@@ -379,6 +380,7 @@ return|return;
 block|}
 comment|/**    * Check if the range has any overlap with TimeRange    * @param tr TimeRange    * @return True if there is overlap, false otherwise    */
 specifier|public
+specifier|synchronized
 name|boolean
 name|includesTimeRange
 parameter_list|(
@@ -411,6 +413,7 @@ return|;
 block|}
 comment|/**    * @return the minimumTimestamp    */
 specifier|public
+specifier|synchronized
 name|long
 name|getMinimumTimestamp
 parameter_list|()
@@ -421,6 +424,7 @@ return|;
 block|}
 comment|/**    * @return the maximumTimestamp    */
 specifier|public
+specifier|synchronized
 name|long
 name|getMaximumTimestamp
 parameter_list|()
