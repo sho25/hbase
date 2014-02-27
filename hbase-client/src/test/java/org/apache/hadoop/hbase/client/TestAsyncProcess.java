@@ -1095,7 +1095,9 @@ argument_list|<
 name|MultiResponse
 argument_list|>
 argument_list|(
-name|conf
+literal|100
+argument_list|,
+literal|10
 argument_list|)
 block|{
 annotation|@
