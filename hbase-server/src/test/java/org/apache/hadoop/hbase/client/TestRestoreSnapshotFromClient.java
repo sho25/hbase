@@ -798,6 +798,31 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
+name|admin
+operator|.
+name|disableTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// take a snapshot of the updated table
+name|admin
+operator|.
+name|snapshot
+argument_list|(
+name|snapshotName1
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// re-enable table
+name|admin
+operator|.
+name|enableTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|table
 operator|.
 name|close
@@ -858,6 +883,7 @@ argument_list|,
 name|snapshot1Rows
 argument_list|)
 expr_stmt|;
+comment|// Restore from snapshot-0
 name|admin
 operator|.
 name|disableTable
@@ -865,16 +891,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|snapshot
-argument_list|(
-name|snapshotName1
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
-comment|// Restore from snapshot-0
 name|admin
 operator|.
 name|restoreSnapshot
