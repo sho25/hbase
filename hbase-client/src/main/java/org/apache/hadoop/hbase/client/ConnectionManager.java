@@ -5070,6 +5070,34 @@ argument_list|(
 name|regionInfoRow
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|locations
+operator|==
+literal|null
+operator|||
+name|locations
+operator|.
+name|getRegionLocation
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"HRegionInfo was null in "
+operator|+
+name|tableName
+operator|+
+literal|", row="
+operator|+
+name|regionInfoRow
+argument_list|)
+throw|;
+block|}
 name|HRegionInfo
 name|regionInfo
 init|=
