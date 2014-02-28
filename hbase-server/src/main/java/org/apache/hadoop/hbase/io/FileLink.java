@@ -1276,6 +1276,12 @@ argument_list|,
 name|bufferSize
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|pos
+operator|!=
+literal|0
+condition|)
 name|in
 operator|.
 name|seek
