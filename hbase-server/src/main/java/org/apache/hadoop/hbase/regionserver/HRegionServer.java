@@ -10130,7 +10130,6 @@ name|compactionChecker
 operator|.
 name|isAlive
 argument_list|()
-operator|)
 operator|&&
 name|this
 operator|.
@@ -10138,6 +10137,7 @@ name|periodicFlusher
 operator|.
 name|isAlive
 argument_list|()
+operator|)
 condition|)
 block|{
 name|stop
