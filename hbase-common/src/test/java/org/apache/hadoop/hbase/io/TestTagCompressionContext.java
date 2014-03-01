@@ -272,6 +272,10 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 name|KeyValue
@@ -507,6 +511,10 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 name|KeyValue

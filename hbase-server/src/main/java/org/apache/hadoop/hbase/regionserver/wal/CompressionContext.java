@@ -292,6 +292,10 @@ operator|new
 name|TagCompressionContext
 argument_list|(
 name|dictType
+argument_list|,
+name|Short
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}

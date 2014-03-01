@@ -219,6 +219,9 @@ extends|extends
 name|Dictionary
 argument_list|>
 name|dictType
+parameter_list|,
+name|int
+name|dictCapacity
 parameter_list|)
 throws|throws
 name|SecurityException
@@ -255,9 +258,7 @@ name|tagDict
 operator|.
 name|init
 argument_list|(
-name|Short
-operator|.
-name|MAX_VALUE
+name|dictCapacity
 argument_list|)
 expr_stmt|;
 block|}
@@ -644,9 +645,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Uncompress tags from the input ByteBuffer and writes to the destination array.    * @param src Buffer where the compressed tags are available    * @param dest Destination array where to write the uncompressed tags    * @param offset Offset in destination where tags to be written    * @param length Length of all tag bytes    * @throws IOException    */
+comment|/**    * Uncompress tags from the input ByteBuffer and writes to the destination array.    * @param src Buffer where the compressed tags are available    * @param dest Destination array where to write the uncompressed tags    * @param offset Offset in destination where tags to be written    * @param length Length of all tag bytes    * @return bytes count read from source to uncompress all tags.    * @throws IOException    */
 specifier|public
-name|void
+name|int
 name|uncompressTags
 parameter_list|(
 name|ByteBuffer
@@ -665,6 +666,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|srcBeginPos
+init|=
+name|src
+operator|.
+name|position
+argument_list|()
+decl_stmt|;
 name|int
 name|endOffset
 init|=
@@ -840,6 +849,14 @@ name|tagLen
 expr_stmt|;
 block|}
 block|}
+return|return
+name|src
+operator|.
+name|position
+argument_list|()
+operator|-
+name|srcBeginPos
+return|;
 block|}
 comment|/**    * Uncompress tags from the InputStream and writes to the destination buffer.    * @param src Stream where the compressed tags are available    * @param dest Destination buffer where to write the uncompressed tags    * @param length Length of all tag bytes    * @throws IOException    */
 specifier|public

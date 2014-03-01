@@ -338,9 +338,40 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
+name|isIncludesTags
+argument_list|()
+operator|&&
+name|decodingCtx
+operator|.
+name|getHFileContext
+argument_list|()
+operator|.
 name|isCompressTags
 argument_list|()
 condition|)
+block|{
+if|if
+condition|(
+name|decodingCtx
+operator|.
+name|getTagCompressionContext
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// It will be overhead to create the TagCompressionContext again and again for every block
+comment|// decoding.
+name|decodingCtx
+operator|.
+name|getTagCompressionContext
+argument_list|()
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+else|else
 block|{
 try|try
 block|{
@@ -353,6 +384,10 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 name|decodingCtx
@@ -378,6 +413,7 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 return|return
@@ -429,6 +465,18 @@ name|tagsOffset
 init|=
 operator|-
 literal|1
+decl_stmt|;
+specifier|protected
+name|int
+name|tagsCompressedLength
+init|=
+literal|0
+decl_stmt|;
+specifier|protected
+name|boolean
+name|uncompressTags
+init|=
+literal|true
 decl_stmt|;
 comment|/** We need to store a copy of the key. */
 specifier|protected
@@ -482,6 +530,14 @@ name|valueOffset
 operator|=
 operator|-
 literal|1
+expr_stmt|;
+name|tagsCompressedLength
+operator|=
+literal|0
+expr_stmt|;
+name|uncompressTags
+operator|=
+literal|true
 expr_stmt|;
 block|}
 specifier|protected
@@ -873,6 +929,10 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}
@@ -1341,6 +1401,19 @@ operator|.
 name|rewind
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|tagCompressionContext
+operator|!=
+literal|null
+condition|)
+block|{
+name|tagCompressionContext
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 name|decodeFirst
 argument_list|()
 expr_stmt|;
@@ -1405,6 +1478,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|current
+operator|.
+name|uncompressTags
+condition|)
+block|{
 comment|// Tag compression is been used. uncompress it into tagsBuffer
 name|current
 operator|.
@@ -1413,6 +1493,10 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|current
+operator|.
+name|tagsCompressedLength
+operator|=
 name|tagCompressionContext
 operator|.
 name|uncompressTags
@@ -1446,6 +1530,28 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
+block|}
+else|else
+block|{
+name|ByteBufferUtils
+operator|.
+name|skip
+argument_list|(
+name|currentBuffer
+argument_list|,
+name|current
+operator|.
+name|tagsCompressedLength
+argument_list|)
+expr_stmt|;
+name|current
+operator|.
+name|uncompressTags
+operator|=
+literal|true
+expr_stmt|;
+comment|// Reset this.
 block|}
 name|current
 operator|.
@@ -1786,6 +1892,34 @@ name|current
 operator|.
 name|nextKvOffset
 argument_list|)
+expr_stmt|;
+comment|// Already decoded the tag bytes. We cache this tags into current state and also the total
+comment|// compressed length of the tags bytes. For the next time decodeNext() we don't need to decode
+comment|// the tags again. This might pollute the Data Dictionary what we use for the compression.
+comment|// When current.uncompressTags is false, we will just reuse the current.tagsBuffer and skip
+comment|// 'tagsCompressedLength' bytes of source stream.
+comment|// See in decodeTags()
+name|current
+operator|.
+name|tagsBuffer
+operator|=
+name|previous
+operator|.
+name|tagsBuffer
+expr_stmt|;
+name|current
+operator|.
+name|tagsCompressedLength
+operator|=
+name|previous
+operator|.
+name|tagsCompressedLength
+expr_stmt|;
+name|current
+operator|.
+name|uncompressTags
+operator|=
+literal|false
 expr_stmt|;
 name|previous
 operator|.
@@ -2311,9 +2445,40 @@ operator|.
 name|getHFileContext
 argument_list|()
 operator|.
+name|isIncludesTags
+argument_list|()
+operator|&&
+name|encodingCtx
+operator|.
+name|getHFileContext
+argument_list|()
+operator|.
 name|isCompressTags
 argument_list|()
 condition|)
+block|{
+if|if
+condition|(
+name|encodingCtx
+operator|.
+name|getTagCompressionContext
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// It will be overhead to create the TagCompressionContext again and again for every block
+comment|// encoding.
+name|encodingCtx
+operator|.
+name|getTagCompressionContext
+argument_list|()
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+else|else
 block|{
 try|try
 block|{
@@ -2326,6 +2491,10 @@ argument_list|(
 name|LRUDictionary
 operator|.
 name|class
+argument_list|,
+name|Byte
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 name|encodingCtx
@@ -2351,6 +2520,7 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 name|internalEncodeKeyValues

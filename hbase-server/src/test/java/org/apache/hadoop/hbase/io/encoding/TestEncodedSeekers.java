@@ -562,11 +562,6 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|boolean
-name|encodeOnDisk
-decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
 name|includeTags
 decl_stmt|;
 specifier|private
@@ -639,21 +634,6 @@ block|{
 for|for
 control|(
 name|boolean
-name|encodeOnDisk
-range|:
-operator|new
-name|boolean
-index|[]
-block|{
-literal|false
-block|,
-literal|true
-block|}
-control|)
-block|{
-for|for
-control|(
-name|boolean
 name|compressTags
 range|:
 operator|new
@@ -676,15 +656,12 @@ index|[]
 block|{
 name|encoding
 block|,
-name|encodeOnDisk
-block|,
 name|includeTags
 block|,
 name|compressTags
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -699,9 +676,6 @@ name|DataBlockEncoding
 name|encoding
 parameter_list|,
 name|boolean
-name|encodeOnDisk
-parameter_list|,
-name|boolean
 name|includeTags
 parameter_list|,
 name|boolean
@@ -713,12 +687,6 @@ operator|.
 name|encoding
 operator|=
 name|encoding
-expr_stmt|;
-name|this
-operator|.
-name|encodeOnDisk
-operator|=
-name|encodeOnDisk
 expr_stmt|;
 name|this
 operator|.
@@ -751,10 +719,6 @@ argument_list|(
 literal|"Testing encoded seekers for encoding : "
 operator|+
 name|encoding
-operator|+
-literal|", encodeOnDisk : "
-operator|+
-name|encodeOnDisk
 operator|+
 literal|", includeTags : "
 operator|+

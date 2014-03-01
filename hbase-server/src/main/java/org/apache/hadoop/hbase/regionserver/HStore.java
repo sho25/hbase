@@ -4627,29 +4627,6 @@ operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|family
-operator|.
-name|shouldCompressTags
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"HFile tag compression attribute ignored for '"
-operator|+
-name|family
-operator|.
-name|getNameAsString
-argument_list|()
-operator|+
-literal|"', see HBASE-10443."
-argument_list|)
-expr_stmt|;
-block|}
 name|HFileContext
 name|hFileContext
 init|=
@@ -4674,7 +4651,10 @@ argument_list|)
 operator|.
 name|withCompressTags
 argument_list|(
-literal|false
+name|family
+operator|.
+name|shouldCompressTags
+argument_list|()
 argument_list|)
 operator|.
 name|withChecksumType

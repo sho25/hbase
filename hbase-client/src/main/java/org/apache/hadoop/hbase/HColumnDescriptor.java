@@ -760,14 +760,14 @@ name|DEFAULT_EVICT_BLOCKS_ON_CLOSE
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Default compress tags along with any type of DataBlockEncoding.    * Disabled to false by default in 0.98.0    */
+comment|/**    * Default compress tags along with any type of DataBlockEncoding.    */
 specifier|public
 specifier|static
 specifier|final
 name|boolean
 name|DEFAULT_COMPRESS_TAGS
 init|=
-literal|false
+literal|true
 decl_stmt|;
 specifier|private
 specifier|final
