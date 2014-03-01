@@ -274,6 +274,8 @@ name|hasForwardedToken
 operator|=
 literal|false
 expr_stmt|;
+try|try
+block|{
 name|userToken
 operator|=
 name|fs
@@ -283,6 +285,24 @@ argument_list|(
 name|renewer
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// we need to handle NullPointerException in case HADOOP-10009 is missing
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed to get token for "
+operator|+
+name|renewer
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
