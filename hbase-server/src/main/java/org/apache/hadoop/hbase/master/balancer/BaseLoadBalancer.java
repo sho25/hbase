@@ -45,16 +45,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Comparator
 import|;
 end_import
@@ -117,6 +107,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Random
 import|;
 end_import
@@ -138,16 +138,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableMap
 import|;
 end_import
 
@@ -801,6 +791,45 @@ name|getKey
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|regionsPerServer
+index|[
+name|serverIndex
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// there is another server with the same hostAndPort in ClusterState.
+comment|// allocate the array for the total size
+name|regionsPerServer
+index|[
+name|serverIndex
+index|]
+operator|=
+operator|new
+name|int
+index|[
+name|entry
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|+
+name|regionsPerServer
+index|[
+name|serverIndex
+index|]
+operator|.
+name|length
+index|]
+expr_stmt|;
+block|}
+else|else
+block|{
 name|regionsPerServer
 index|[
 name|serverIndex
@@ -818,6 +847,7 @@ name|size
 argument_list|()
 index|]
 expr_stmt|;
+block|}
 name|serverIndicesSortedByRegionCount
 index|[
 name|serverIndex
@@ -1102,6 +1132,9 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+operator|.
+name|getHostAndPort
+argument_list|()
 argument_list|)
 operator|==
 literal|null
@@ -1119,6 +1152,9 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+operator|.
+name|getHostAndPort
+argument_list|()
 argument_list|)
 operator|)
 expr_stmt|;
@@ -2220,6 +2256,8 @@ operator|.
 name|config
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setClusterStatus
@@ -2230,6 +2268,8 @@ parameter_list|)
 block|{
 comment|// Not used except for the StocasticBalancer
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setMasterServices
@@ -2443,6 +2483,8 @@ literal|true
 return|;
 block|}
 comment|/**    * Generates a bulk assignment plan to be used on cluster startup using a    * simple round-robin assignment.    *<p>    * Takes a list of all the regions and all the servers in the cluster and    * returns a map of each server to the regions that it should be assigned.    *<p>    * Currently implemented as a round-robin assignment. Same invariant as load    * balancing, all servers holding floor(avg) or ceiling(avg).    *    * TODO: Use block locations from HDFS to place regions with their blocks    *    * @param regions all regions    * @param servers all servers    * @return map of server to the regions it should take, or null if no    *         assignment is possible (ie. no regions or no servers)    */
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
@@ -2669,6 +2711,8 @@ name|assignments
 return|;
 block|}
 comment|/**    * Generates an immediate assignment plan to be used by a new master for    * regions in transition that do not have an already known destination.    *    * Takes a list of regions that need immediate assignment and a list of all    * available servers. Returns a map of regions to the server they should be    * assigned to.    *    * This method will return quickly and does not do any intelligent balancing.    * The goal is to make a fast decision not the best decision possible.    *    * Currently this is random.    *    * @param regions    * @param servers    * @return map of regions to the server it should be assigned to    */
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
@@ -2741,6 +2785,8 @@ name|assignments
 return|;
 block|}
 comment|/**    * Used to assign a single region to a random server.    */
+annotation|@
+name|Override
 specifier|public
 name|ServerName
 name|randomAssignment
@@ -2801,6 +2847,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Generates a bulk assignment startup plan, attempting to reuse the existing    * assignment information from META, but adjusting for the specified list of    * available/online servers available for assignment.    *<p>    * Takes a map of all regions to their existing assignment from META. Also    * takes a list of online servers for regions to be assigned to. Attempts to    * retain all assignment, so in some instances initial assignment will not be    * completely balanced.    *<p>    * Any leftover regions without an existing server to be assigned to will be    * assigned randomly to available servers.    *    * @param regions regions and existing assignment from meta    * @param servers available servers    * @return map of servers and regions to be assigned to them    */
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<
