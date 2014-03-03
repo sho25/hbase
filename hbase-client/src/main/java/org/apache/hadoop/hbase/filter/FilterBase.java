@@ -182,25 +182,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that dont filter by key value can inherit this implementation that    * includes all Cells.    *    * @inheritDoc    */
-annotation|@
-name|Override
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-name|Cell
-name|ignored
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|ReturnCode
-operator|.
-name|INCLUDE
-return|;
-block|}
 comment|/**    * By default no transformation takes place    *    * @inheritDoc    */
 annotation|@
 name|Override
