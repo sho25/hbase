@@ -151,6 +151,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ExceptionUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * A reversed client scanner which support backward scanning  */
 end_comment
@@ -534,6 +550,13 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
@@ -681,7 +704,7 @@ return|;
 comment|// unlikely.
 block|}
 comment|/**    * Create the closest row before the specified row    * @param row    * @return a new byte array which is the closest front row of the specified one    */
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|createClosestRowBefore

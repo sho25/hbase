@@ -315,22 +315,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ExceptionUtil
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implements the scanner interface for the HBase client.  * If there are multiple regions in a table, this scanner will iterate  * through them all.  */
 end_comment

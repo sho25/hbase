@@ -295,7 +295,7 @@ literal|", row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 argument_list|)
