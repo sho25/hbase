@@ -452,6 +452,40 @@ argument_list|,
 name|qualifierName
 operator|.
 name|length
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+return|return
+name|qualifierName
+return|;
+block|}
+specifier|public
+specifier|static
+name|byte
+index|[]
+name|isLegalTableQualifierName
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|qualifierName
+parameter_list|,
+name|boolean
+name|isSnapshot
+parameter_list|)
+block|{
+name|isLegalTableQualifierName
+argument_list|(
+name|qualifierName
+argument_list|,
+literal|0
+argument_list|,
+name|qualifierName
+operator|.
+name|length
+argument_list|,
+name|isSnapshot
 argument_list|)
 expr_stmt|;
 return|return
@@ -476,6 +510,38 @@ name|int
 name|end
 parameter_list|)
 block|{
+name|isLegalTableQualifierName
+argument_list|(
+name|qualifierName
+argument_list|,
+name|start
+argument_list|,
+name|end
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|isLegalTableQualifierName
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|qualifierName
+parameter_list|,
+name|int
+name|start
+parameter_list|,
+name|int
+name|end
+parameter_list|,
+name|boolean
+name|isSnapshot
+parameter_list|)
+block|{
 if|if
 condition|(
 name|end
@@ -489,7 +555,13 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Table qualifier must not be empty"
+name|isSnapshot
+condition|?
+literal|"Snapshot"
+else|:
+literal|"Table"
+operator|+
+literal|" qualifier must not be empty"
 argument_list|)
 throw|;
 block|}
@@ -610,7 +682,17 @@ literal|"> at "
 operator|+
 name|i
 operator|+
-literal|". User-space table qualifiers can only contain "
+literal|". "
+operator|+
+operator|(
+name|isSnapshot
+condition|?
+literal|"snapshot"
+else|:
+literal|"User-space table"
+operator|)
+operator|+
+literal|" qualifiers can only contain "
 operator|+
 literal|"'alphanumeric characters': i.e. [a-zA-Z_0-9-.]: "
 operator|+
