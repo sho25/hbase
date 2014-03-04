@@ -5516,6 +5516,13 @@ init|(
 name|writestate
 init|)
 block|{
+name|boolean
+name|interrupted
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
 while|while
 condition|(
 name|writestate
@@ -5571,6 +5578,27 @@ name|iex
 parameter_list|)
 block|{
 comment|// essentially ignore and propagate the interrupt back up
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while waiting"
+argument_list|)
+expr_stmt|;
+name|interrupted
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|interrupted
+condition|)
+block|{
 name|Thread
 operator|.
 name|currentThread
