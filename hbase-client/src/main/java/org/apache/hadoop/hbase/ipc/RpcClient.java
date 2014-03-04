@@ -4380,14 +4380,26 @@ condition|(
 name|socket
 operator|!=
 literal|null
-operator|||
+condition|)
+block|{
+comment|// The connection is already available. Perfect.
+return|return;
+block|}
+if|if
+condition|(
 name|shouldCloseConnection
 operator|.
 name|get
 argument_list|()
 condition|)
 block|{
-return|return;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"This connection is closing"
+argument_list|)
+throw|;
 block|}
 if|if
 condition|(
@@ -4637,6 +4649,13 @@ name|Exception
 name|ex
 parameter_list|)
 block|{
+name|ExceptionUtil
+operator|.
+name|rethrowIfInterrupt
+argument_list|(
+name|ex
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|rand
@@ -4752,6 +4771,23 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|IOException
+name|e
+init|=
+name|ExceptionUtil
+operator|.
+name|asInterrupt
+argument_list|(
+name|t
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|e
+operator|==
+literal|null
+condition|)
+block|{
 name|failedServers
 operator|.
 name|addToFailedServers
@@ -4761,9 +4797,6 @@ operator|.
 name|address
 argument_list|)
 expr_stmt|;
-name|IOException
-name|e
-decl_stmt|;
 if|if
 condition|(
 name|t
@@ -4786,11 +4819,14 @@ operator|=
 operator|new
 name|IOException
 argument_list|(
-literal|"Could not set up IO Streams"
+literal|"Could not set up IO Streams to "
+operator|+
+name|server
 argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|markClosed
 argument_list|(
@@ -5312,6 +5348,9 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
+name|setupIOstreams
+argument_list|()
+expr_stmt|;
 comment|// Now we're going to write the call. We take the lock, then check that the connection
 comment|//  is still valid, and, if so we do the write to the socket. If the write fails, we don't
 comment|//  know where we stand, we have to close the connection.
@@ -7579,18 +7618,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//we don't invoke the method below inside "synchronized (connections)"
-comment|//block above. The reason for that is if the server happens to be slow,
-comment|//it will take longer to establish a connection and that will slow the
-comment|//entire system down.
-comment|//Moreover, if the connection is currently created, there will be many threads
-comment|// waiting here; as setupIOstreams is synchronized. If the connection fails with a
-comment|// timeout, they will all fail simultaneously. This is checked in setupIOstreams.
-name|connection
-operator|.
-name|setupIOstreams
-argument_list|()
-expr_stmt|;
 return|return
 name|connection
 return|;

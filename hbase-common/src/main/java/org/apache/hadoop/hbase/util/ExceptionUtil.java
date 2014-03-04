@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class handles the different interruption classes.  * It can be:  * - InterruptedException  * - InterruptedIOException (inherits IOException); used in IO  * - ClosedByInterruptException (inherits IOException)  * , - SocketTimeoutException inherits InterruptedIOException but is not a real  * interruption, so we have to distinguish the case. This pattern is unfortunately common.  */
+comment|/**  * This class handles the different interruption classes.  * It can be:  * - InterruptedException  * - InterruptedIOException (inherits IOException); used in IO  * - ClosedByInterruptException (inherits IOException)  * - SocketTimeoutException inherits InterruptedIOException but is not a real  * interruption, so we have to distinguish the case. This pattern is unfortunately common.  */
 end_comment
 
 begin_class
@@ -91,6 +91,10 @@ operator|(
 name|t
 operator|instanceof
 name|InterruptedIOException
+operator|||
+name|t
+operator|instanceof
+name|ClosedByInterruptException
 operator|)
 return|;
 block|}
@@ -160,6 +164,10 @@ condition|(
 name|t
 operator|instanceof
 name|InterruptedException
+operator|||
+name|t
+operator|instanceof
+name|ClosedByInterruptException
 condition|)
 block|{
 name|InterruptedIOException
