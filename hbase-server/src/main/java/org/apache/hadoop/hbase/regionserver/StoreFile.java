@@ -2620,7 +2620,8 @@ argument_list|()
 operator|.
 name|timeRangeTracker
 operator|.
-name|minimumTimestamp
+name|getMinimumTimestamp
+argument_list|()
 return|;
 block|}
 comment|/**    * Gets the approximate mid-point of this file that is optimal for use in splitting it.    * @param comparator Comparator used to compare KVs.    * @return The split point row, or null if splitting is not possible, or reader is null.    */
@@ -5987,7 +5988,8 @@ name|MAX_VALUE
 else|:
 name|timeRangeTracker
 operator|.
-name|maximumTimestamp
+name|getMaximumTimestamp
+argument_list|()
 return|;
 block|}
 block|}

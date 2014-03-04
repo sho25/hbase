@@ -434,6 +434,7 @@ name|maximumTimestamp
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|write
 parameter_list|(
@@ -460,6 +461,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|readFields
 parameter_list|(
@@ -492,6 +494,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|String
 name|toString
 parameter_list|()
