@@ -18699,7 +18699,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -sidelineCorruptHfiles  Quarantine corrupted HFiles.  implies -checkCorruptHfiles"
+literal|"   -sidelineCorruptHFiles  Quarantine corrupted HFiles.  implies -checkCorruptHFiles"
 argument_list|)
 expr_stmt|;
 name|out
