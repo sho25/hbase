@@ -5213,8 +5213,11 @@ decl_stmt|;
 name|balancerRan
 operator|=
 name|plans
+operator|.
+name|size
+argument_list|()
 operator|!=
-literal|null
+literal|0
 expr_stmt|;
 if|if
 condition|(

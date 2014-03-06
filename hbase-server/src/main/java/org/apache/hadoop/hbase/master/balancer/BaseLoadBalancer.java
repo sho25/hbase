@@ -828,6 +828,23 @@ name|numMovedMasterHostedRegions
 init|=
 literal|0
 decl_stmt|;
+name|int
+name|numMovedMetaRegions
+init|=
+literal|0
+decl_stmt|;
+comment|//num of moved regions that are META
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|clusterState
+decl_stmt|;
 specifier|protected
 specifier|final
 name|RackManager
@@ -1087,6 +1104,12 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|this
+operator|.
+name|clusterState
+operator|=
+name|clusterState
+expr_stmt|;
 comment|// Use servername and port as there can be dead servers in this list. We want everything with
 comment|// a matching hostname and port to have the same index.
 for|for
@@ -6260,10 +6283,28 @@ specifier|protected
 name|boolean
 name|needsBalance
 parameter_list|(
-name|ClusterLoadState
-name|cs
+name|Cluster
+name|c
 parameter_list|)
 block|{
+name|ClusterLoadState
+name|cs
+init|=
+operator|new
+name|ClusterLoadState
+argument_list|(
+name|masterServerName
+argument_list|,
+name|getBackupMasters
+argument_list|()
+argument_list|,
+name|backupMasterWeight
+argument_list|,
+name|c
+operator|.
+name|clusterState
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|cs
@@ -6301,7 +6342,16 @@ return|return
 literal|false
 return|;
 block|}
-comment|// TODO: check for co-located region replicas as well
+if|if
+condition|(
+name|areSomeRegionReplicasColocated
+argument_list|(
+name|c
+argument_list|)
+condition|)
+return|return
+literal|true
+return|;
 comment|// Check if we even need to do any load balancing
 comment|// HBASE-3681 check sloppiness first
 name|float
@@ -6457,6 +6507,19 @@ return|;
 block|}
 return|return
 literal|true
+return|;
+block|}
+comment|/**    * Subclasses should implement this to return true if the cluster has nodes that hosts    * multiple replicas for the same region, or, if there are multiple racks and the same    * rack hosts replicas of the same region    * @param c    * @return    */
+specifier|protected
+name|boolean
+name|areSomeRegionReplicasColocated
+parameter_list|(
+name|Cluster
+name|c
+parameter_list|)
+block|{
+return|return
+literal|false
 return|;
 block|}
 comment|/**    * Generates a bulk assignment plan to be used on cluster startup using a    * simple round-robin assignment.    *<p>    * Takes a list of all the regions and all the servers in the cluster and    * returns a map of each server to the regions that it should be assigned.    *<p>    * Currently implemented as a round-robin assignment. Same invariant as load    * balancing, all servers holding floor(avg) or ceiling(avg).    *    * TODO: Use block locations from HDFS to place regions with their blocks    *    * @param regions all regions    * @param servers all servers    * @return map of server to the regions it should take, or null if no    *         assignment is possible (ie. no regions or no servers)    */

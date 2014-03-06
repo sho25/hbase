@@ -368,7 +368,9 @@ name|numAdded
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Generate a global load balancing plan according to the specified map of    * server information to the most loaded regions of each server.    *    * The load balancing invariant is that all servers are within 1 region of the    * average number of regions per server.  If the average is an integer number,    * all servers will be balanced to the average.  Otherwise, all servers will    * have either floor(average) or ceiling(average) regions.    *    * HBASE-3609 Modeled regionsToMove using Guava's MinMaxPriorityQueue so that    *   we can fetch from both ends of the queue.     * At the beginning, we check whether there was empty region server     *   just discovered by Master. If so, we alternately choose new / old    *   regions from head / tail of regionsToMove, respectively. This alternation    *   avoids clustering young regions on the newly discovered region server.    *   Otherwise, we choose new regions from head of regionsToMove.    *       * Another improvement from HBASE-3609 is that we assign regions from    *   regionsToMove to underloaded servers in round-robin fashion.    *   Previously one underloaded server would be filled before we move onto    *   the next underloaded server, leading to clustering of young regions.    *       * Finally, we randomly shuffle underloaded servers so that they receive    *   offloaded regions relatively evenly across calls to balanceCluster().    *             * The algorithm is currently implemented as such:    *    *<ol>    *<li>Determine the two valid numbers of regions each server should have,    *<b>MIN</b>=floor(average) and<b>MAX</b>=ceiling(average).    *    *<li>Iterate down the most loaded servers, shedding regions from each so    *     each server hosts exactly<b>MAX</b> regions.  Stop once you reach a    *     server that already has&lt;=<b>MAX</b> regions.    *<p>    *     Order the regions to move from most recent to least.    *    *<li>Iterate down the least loaded servers, assigning regions so each server    *     has exactly</b>MIN</b> regions.  Stop once you reach a server that    *     already has&gt;=<b>MIN</b> regions.    *    *     Regions being assigned to underloaded servers are those that were shed    *     in the previous step.  It is possible that there were not enough    *     regions shed to fill each underloaded server to<b>MIN</b>.  If so we    *     end up with a number of regions required to do so,<b>neededRegions</b>.    *    *     It is also possible that we were able to fill each underloaded but ended    *     up with regions that were unassigned from overloaded servers but that    *     still do not have assignment.    *    *     If neither of these conditions hold (no regions needed to fill the    *     underloaded servers, no regions leftover from overloaded servers),    *     we are done and return.  Otherwise we handle these cases below.    *    *<li>If<b>neededRegions</b> is non-zero (still have underloaded servers),    *     we iterate the most loaded servers again, shedding a single server from    *     each (this brings them from having<b>MAX</b> regions to having    *<b>MIN</b> regions).    *    *<li>We now definitely have more regions that need assignment, either from    *     the previous step or from the original shedding from overloaded servers.    *     Iterate the least loaded servers filling each to<b>MIN</b>.    *    *<li>If we still have more regions that need assignment, again iterate the    *     least loaded servers, this time giving each one (filling them to    *</b>MAX</b>) until we run out.    *    *<li>All servers will now either host<b>MIN</b> or<b>MAX</b> regions.    *    *     In addition, any server hosting&gt;=<b>MAX</b> regions is guaranteed    *     to end up with<b>MAX</b> regions at the end of the balancing.  This    *     ensures the minimal number of regions possible are moved.    *</ol>    *    * TODO: We can at-most reassign the number of regions away from a particular    *       server to be how many they report as most loaded.    *       Should we just keep all assignment in memory?  Any objections?    *       Does this mean we need HeapSize on HMaster?  Or just careful monitor?    *       (current thinking is we will hold all assignments in memory)    *    * @param clusterMap Map of regionservers and their load/region information to    *                   a list of their most loaded regions    * @return a list of regions to be moved, including source and destination,    *         or null if cluster is already balanced    */
+comment|/**    * Generate a global load balancing plan according to the specified map of    * server information to the most loaded regions of each server.    *    * The load balancing invariant is that all servers are within 1 region of the    * average number of regions per server.  If the average is an integer number,    * all servers will be balanced to the average.  Otherwise, all servers will    * have either floor(average) or ceiling(average) regions.    *    * HBASE-3609 Modeled regionsToMove using Guava's MinMaxPriorityQueue so that    *   we can fetch from both ends of the queue.    * At the beginning, we check whether there was empty region server    *   just discovered by Master. If so, we alternately choose new / old    *   regions from head / tail of regionsToMove, respectively. This alternation    *   avoids clustering young regions on the newly discovered region server.    *   Otherwise, we choose new regions from head of regionsToMove.    *    * Another improvement from HBASE-3609 is that we assign regions from    *   regionsToMove to underloaded servers in round-robin fashion.    *   Previously one underloaded server would be filled before we move onto    *   the next underloaded server, leading to clustering of young regions.    *    * Finally, we randomly shuffle underloaded servers so that they receive    *   offloaded regions relatively evenly across calls to balanceCluster().    *    * The algorithm is currently implemented as such:    *    *<ol>    *<li>Determine the two valid numbers of regions each server should have,    *<b>MIN</b>=floor(average) and<b>MAX</b>=ceiling(average).    *    *<li>Iterate down the most loaded servers, shedding regions from each so    *     each server hosts exactly<b>MAX</b> regions.  Stop once you reach a    *     server that already has&lt;=<b>MAX</b> regions.    *<p>    *     Order the regions to move from most recent to least.    *    *<li>Iterate down the least loaded servers, assigning regions so each server    *     has exactly</b>MIN</b> regions.  Stop once you reach a server that    *     already has&gt;=<b>MIN</b> regions.    *    *     Regions being assigned to underloaded servers are those that were shed    *     in the previous step.  It is possible that there were not enough    *     regions shed to fill each underloaded server to<b>MIN</b>.  If so we    *     end up with a number of regions required to do so,<b>neededRegions</b>.    *    *     It is also possible that we were able to fill each underloaded but ended    *     up with regions that were unassigned from overloaded servers but that    *     still do not have assignment.    *    *     If neither of these conditions hold (no regions needed to fill the    *     underloaded servers, no regions leftover from overloaded servers),    *     we are done and return.  Otherwise we handle these cases below.    *    *<li>If<b>neededRegions</b> is non-zero (still have underloaded servers),    *     we iterate the most loaded servers again, shedding a single server from    *     each (this brings them from having<b>MAX</b> regions to having    *<b>MIN</b> regions).    *    *<li>We now definitely have more regions that need assignment, either from    *     the previous step or from the original shedding from overloaded servers.    *     Iterate the least loaded servers filling each to<b>MIN</b>.    *    *<li>If we still have more regions that need assignment, again iterate the    *     least loaded servers, this time giving each one (filling them to    *</b>MAX</b>) until we run out.    *    *<li>All servers will now either host<b>MIN</b> or<b>MAX</b> regions.    *    *     In addition, any server hosting&gt;=<b>MAX</b> regions is guaranteed    *     to end up with<b>MAX</b> regions at the end of the balancing.  This    *     ensures the minimal number of regions possible are moved.    *</ol>    *    * TODO: We can at-most reassign the number of regions away from a particular    *       server to be how many they report as most loaded.    *       Should we just keep all assignment in memory?  Any objections?    *       Does this mean we need HeapSize on HMaster?  Or just careful monitor?    *       (current thinking is we will hold all assignments in memory)    *    * @param clusterMap Map of regionservers and their load/region information to    *                   a list of their most loaded regions    * @return a list of regions to be moved, including source and destination,    *         or null if cluster is already balanced    */
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -452,6 +454,34 @@ argument_list|,
 name|clusterMap
 argument_list|)
 decl_stmt|;
+comment|// construct a Cluster object with clusterMap and rest of the
+comment|// argument as defaults
+name|Cluster
+name|c
+init|=
+operator|new
+name|Cluster
+argument_list|(
+name|masterServerName
+argument_list|,
+name|clusterMap
+argument_list|,
+literal|null
+argument_list|,
+name|this
+operator|.
+name|regionFinder
+argument_list|,
+name|getBackupMasters
+argument_list|()
+argument_list|,
+name|tablesOnMaster
+argument_list|,
+name|this
+operator|.
+name|rackManager
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -459,7 +489,7 @@ name|this
 operator|.
 name|needsBalance
 argument_list|(
-name|cs
+name|c
 argument_list|)
 condition|)
 return|return

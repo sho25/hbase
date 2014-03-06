@@ -700,6 +700,24 @@ expr_stmt|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
+comment|// On a balanced cluster, calling balance() should return false
+assert|assert
+operator|(
+name|UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|balance
+argument_list|()
+operator|==
+literal|false
+operator|)
+assert|;
+comment|// However if we add a server, then the balance() call should return true
 comment|// add a region server - total of 3
 name|LOG
 operator|.
@@ -722,6 +740,8 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+assert|assert
+operator|(
 name|UTIL
 operator|.
 name|getHBaseCluster
@@ -732,7 +752,10 @@ argument_list|()
 operator|.
 name|balance
 argument_list|()
-expr_stmt|;
+operator|==
+literal|true
+operator|)
+assert|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
@@ -823,6 +846,8 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+assert|assert
+operator|(
 name|UTIL
 operator|.
 name|getHBaseCluster
@@ -833,7 +858,10 @@ argument_list|()
 operator|.
 name|balance
 argument_list|()
-expr_stmt|;
+operator|==
+literal|true
+operator|)
+assert|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
@@ -876,6 +904,8 @@ name|startRegionServer
 argument_list|()
 expr_stmt|;
 block|}
+assert|assert
+operator|(
 name|UTIL
 operator|.
 name|getHBaseCluster
@@ -886,7 +916,10 @@ argument_list|()
 operator|.
 name|balance
 argument_list|()
-expr_stmt|;
+operator|==
+literal|true
+operator|)
+assert|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
