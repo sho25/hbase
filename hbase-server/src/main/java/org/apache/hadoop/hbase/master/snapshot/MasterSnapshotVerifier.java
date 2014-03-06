@@ -225,6 +225,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|MasterServices
@@ -684,6 +700,14 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
+comment|// Remove the non-default regions
+name|RegionReplicaUtil
+operator|.
+name|removeNonDefaultRegions
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
 name|Map
 argument_list|<
 name|String
