@@ -62,7 +62,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Make sure all compaction tests still pass with the preFlush and preCompact  * overridden to implement the default behavior  */
+comment|/**  * Make sure compaction tests still pass with the preFlush and preCompact  * overridden to implement the default behavior  */
 end_comment
 
 begin_class
