@@ -27,7 +27,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
 import|;
 end_import
 
@@ -496,7 +508,10 @@ literal|"jceks://"
 operator|+
 name|storeFile
 operator|.
-name|getAbsolutePath
+name|toURI
+argument_list|()
+operator|.
+name|getPath
 argument_list|()
 operator|+
 literal|"?password="
@@ -600,7 +615,10 @@ literal|"jceks://"
 operator|+
 name|storeFile
 operator|.
-name|getAbsolutePath
+name|toURI
+argument_list|()
+operator|.
+name|getPath
 argument_list|()
 operator|+
 literal|"?passwordFile="
