@@ -8974,6 +8974,23 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+comment|// probably the hbase hadoop version does not match the running hadoop version
+if|if
+condition|(
+name|t
+operator|instanceof
+name|LinkageError
+condition|)
+block|{
+name|t
+operator|=
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 comment|// If the method is not present on the server, do not retry.
 if|if
 condition|(
@@ -10702,6 +10719,19 @@ operator|.
 name|getCause
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|LinkageError
+condition|)
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 if|if
 condition|(
 name|e
