@@ -3375,9 +3375,14 @@ decl_stmt|;
 name|double
 name|min
 init|=
+operator|(
+operator|(
+name|double
+operator|)
 name|cluster
 operator|.
 name|numRegions
+operator|)
 operator|/
 name|cluster
 operator|.
