@@ -6578,7 +6578,7 @@ specifier|volatile
 name|int
 name|incarnation
 decl_stmt|;
-specifier|volatile
+specifier|final
 name|AtomicInteger
 name|unforcedResubmits
 init|=

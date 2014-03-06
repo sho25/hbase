@@ -1164,7 +1164,7 @@ block|}
 comment|// for test purpose
 specifier|public
 specifier|static
-specifier|volatile
+specifier|final
 name|AtomicLong
 name|dataBlockReadCnt
 init|=
