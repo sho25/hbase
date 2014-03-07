@@ -188,6 +188,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * The period (in milliseconds) for refreshing the store files for the secondary regions.    */
+specifier|public
 specifier|static
 specifier|final
 name|String

@@ -382,6 +382,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    *    * @param tableName table to get regions of    * @param row the row    * @param useCache Should we use the cache to retrieve the region information.    * @param retry do we retry    * @return region locations for this row.    * @throws IOException    */
+name|RegionLocations
+name|locateRegion
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|boolean
+name|useCache
+parameter_list|,
+name|boolean
+name|retry
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Returns a {@link MasterKeepAliveConnection} to the active master    */
 annotation|@
 name|Override

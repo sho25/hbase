@@ -6593,6 +6593,8 @@ operator|.
 name|PRIMARY_CALL_TIMEOUT_KEY
 argument_list|,
 name|replicaAfterMs
+operator|*
+literal|1000
 argument_list|)
 expr_stmt|;
 if|if

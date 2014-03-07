@@ -4689,7 +4689,9 @@ name|row
 argument_list|)
 return|;
 block|}
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|RegionLocations
 name|locateRegion
 parameter_list|(
