@@ -13336,7 +13336,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Scanner "
 operator|+
@@ -13344,7 +13344,9 @@ name|this
 operator|.
 name|scannerName
 operator|+
-literal|" lease expired"
+literal|" lease expired, but no related"
+operator|+
+literal|" scanner found, hence no chance to close that related scanner!"
 argument_list|)
 expr_stmt|;
 block|}

@@ -71,6 +71,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|HasThread
 import|;
 end_import
@@ -544,7 +560,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shuts down this lease instance when all outstanding leases expire.    * Like {@link #close()} but rather than violently end all leases, waits    * first on extant leases to finish.  Use this method if the lease holders    * could loose data, leak locks, etc.  Presumes client has shutdown    * allocation of new leases.    */
+comment|/**    * Shuts down this lease instance when all outstanding leases expire.    * Like {@link #close()} but rather than violently end all leases, waits    * first on extant leases to finish.  Use this method if the lease holders    * could lose data, leak locks, etc.  Presumes client has shutdown    * allocation of new leases.    */
 specifier|public
 name|void
 name|closeAfterLeasesExpire
@@ -605,7 +621,7 @@ literal|" closed leases"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Obtain a lease.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException    */
+comment|/**    * Create a lease and insert it to the map of leases.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException    */
 specifier|public
 name|void
 name|createLease
@@ -658,11 +674,6 @@ condition|)
 block|{
 return|return;
 block|}
-name|lease
-operator|.
-name|resetExpirationTime
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|leases
@@ -687,6 +698,11 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+name|lease
+operator|.
+name|resetExpirationTime
+argument_list|()
+expr_stmt|;
 name|leases
 operator|.
 name|put
@@ -712,6 +728,15 @@ parameter_list|)
 throws|throws
 name|LeaseException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|stopRequested
+condition|)
+block|{
+return|return;
+block|}
 name|Lease
 name|lease
 init|=
@@ -722,9 +747,6 @@ argument_list|(
 name|leaseName
 argument_list|)
 decl_stmt|;
-comment|// We need to check to see if the remove is successful as the poll in the run()
-comment|// method could have completed between the get and the remove which will result
-comment|// in a corrupt leaseQueue.
 if|if
 condition|(
 name|lease
@@ -768,7 +790,7 @@ name|leaseName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove named lease.    * Lease is removed from the list of leases and removed from the delay queue.    * Lease can be resinserted using {@link #addLease(Lease)}    *    * @param leaseName name of lease    * @throws org.apache.hadoop.hbase.regionserver.LeaseException    * @return Removed lease    */
+comment|/**    * Remove named lease.    * Lease is removed from the map of leases.    * Lease can be reinserted using {@link #addLease(Lease)}    *    * @param leaseName name of lease    * @throws org.apache.hadoop.hbase.regionserver.LeaseException    * @return Removed lease    */
 name|Lease
 name|removeLease
 parameter_list|(
@@ -812,7 +834,7 @@ return|return
 name|lease
 return|;
 block|}
-comment|/**    * Thrown if we are asked create a lease but lease on passed name already    * exists.    */
+comment|/**    * Thrown if we are asked to create a lease but lease on passed name already    * exists.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1036,7 +1058,7 @@ name|this
 operator|.
 name|expirationTime
 operator|-
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -1108,7 +1130,7 @@ name|this
 operator|.
 name|expirationTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
