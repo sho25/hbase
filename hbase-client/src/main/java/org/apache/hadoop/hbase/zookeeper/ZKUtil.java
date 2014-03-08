@@ -1966,7 +1966,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cluster key invalid, the format should be:"
+literal|"Cluster key passed "
+operator|+
+name|key
+operator|+
+literal|" is invalid, the format should be:"
 operator|+
 name|HConstants
 operator|.
