@@ -3652,6 +3652,9 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+comment|// current thread might be interrupted to terminate
+comment|// directly go back to while() for confirm this
+continue|continue;
 block|}
 comment|// reset throttler's cycle start tick when sleep for throttling occurs
 name|this
@@ -3949,6 +3952,16 @@ name|sleepMultiplier
 operator|++
 expr_stmt|;
 block|}
+comment|// current thread might be interrupted to terminate
+comment|// directly go back to while() for confirm this
+if|if
+condition|(
+name|isInterrupted
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
 block|}
 block|}
 else|else
@@ -3976,6 +3989,16 @@ operator|.
 name|socketTimeoutMultiplier
 argument_list|)
 expr_stmt|;
+comment|// current thread might be interrupted to terminate
+comment|// directly go back to while() for confirm this
+if|if
+condition|(
+name|isInterrupted
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
 block|}
 elseif|else
 if|if
@@ -4359,6 +4382,11 @@ name|running
 operator|=
 literal|false
 expr_stmt|;
+name|this
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 name|Threads
 operator|.
 name|shutdown
@@ -4368,6 +4396,10 @@ argument_list|,
 name|this
 operator|.
 name|sleepForRetries
+operator|*
+name|this
+operator|.
+name|maxRetriesMultiplier
 argument_list|)
 expr_stmt|;
 block|}
@@ -4421,6 +4453,10 @@ operator|&&
 name|this
 operator|.
 name|running
+operator|&&
+operator|!
+name|isInterrupted
+argument_list|()
 return|;
 block|}
 comment|/**    * Comparator used to compare logs together based on their start time    */
