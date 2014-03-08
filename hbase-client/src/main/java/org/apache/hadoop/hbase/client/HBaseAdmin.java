@@ -7842,7 +7842,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Special method, only used by hbck.    */
+comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region.    *     * This is a special method that should be used by experts or hbck.    *     * @param regionName    *          Region to offline.    * @throws IOException    */
 specifier|public
 name|void
 name|offline
