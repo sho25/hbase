@@ -413,7 +413,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|FSHDFSUtils
 import|;
 end_import
 
@@ -429,7 +429,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Threads
+name|FSUtils
 import|;
 end_import
 
@@ -1694,17 +1694,15 @@ comment|// TODO deal with viewFS
 if|if
 condition|(
 operator|!
-name|srcFs
+name|FSHDFSUtils
 operator|.
-name|getUri
-argument_list|()
-operator|.
-name|equals
+name|isSameHdfs
 argument_list|(
+name|conf
+argument_list|,
+name|srcFs
+argument_list|,
 name|desFs
-operator|.
-name|getUri
-argument_list|()
 argument_list|)
 condition|)
 block|{
