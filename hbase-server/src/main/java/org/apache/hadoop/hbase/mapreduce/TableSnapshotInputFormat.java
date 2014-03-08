@@ -1402,6 +1402,14 @@ operator|.
 name|READ_UNCOMMITTED
 argument_list|)
 expr_stmt|;
+comment|// disable caching of data blocks
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|scanner
 operator|=
 operator|new

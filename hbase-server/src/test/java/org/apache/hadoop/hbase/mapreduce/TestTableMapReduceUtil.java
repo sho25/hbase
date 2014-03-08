@@ -183,6 +183,7 @@ specifier|public
 class|class
 name|TestTableMapReduceUtil
 block|{
+comment|/*    * initTableSnapshotMapperJob is tested in {@link TestTableSnapshotInputFormat} because    * the method depends on an online cluster.    */
 annotation|@
 name|Test
 specifier|public
