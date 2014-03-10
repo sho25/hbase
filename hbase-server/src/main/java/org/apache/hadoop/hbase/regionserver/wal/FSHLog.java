@@ -2113,6 +2113,18 @@ name|BlockingWaitStrategy
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Advance the ring buffer sequence so that it starts from 1 instead of 0,
+comment|// because SyncFuture.NOT_DONE = 0.
+name|this
+operator|.
+name|disruptor
+operator|.
+name|getRingBuffer
+argument_list|()
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|ringBufferEventHandler
