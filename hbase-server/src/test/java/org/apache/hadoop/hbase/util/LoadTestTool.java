@@ -291,22 +291,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|compress
@@ -1060,6 +1044,16 @@ name|int
 name|numTables
 init|=
 literal|1
+decl_stmt|;
+specifier|private
+name|String
+name|superUser
+decl_stmt|;
+specifier|private
+name|String
+name|userNames
+init|=
+literal|"user1, user2, user3, user4"
 decl_stmt|;
 comment|// TODO: refactor LoadTestToolImpl somewhere to make the usage from tests less bad,
 comment|//       console tool itself should only be used from console.
@@ -2672,6 +2666,10 @@ literal|0
 index|]
 argument_list|)
 expr_stmt|;
+name|String
+name|args
+index|[]
+decl_stmt|;
 if|if
 condition|(
 name|dataGen
@@ -2686,6 +2684,35 @@ argument_list|(
 literal|"ACL is on"
 argument_list|)
 expr_stmt|;
+name|superUser
+operator|=
+name|clazzAndArgs
+index|[
+literal|1
+index|]
+expr_stmt|;
+name|userNames
+operator|=
+name|clazzAndArgs
+index|[
+literal|2
+index|]
+expr_stmt|;
+name|args
+operator|=
+name|Arrays
+operator|.
+name|copyOfRange
+argument_list|(
+name|clazzAndArgs
+argument_list|,
+literal|1
+argument_list|,
+name|clazzAndArgs
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
 name|userOwner
 operator|=
 name|User
@@ -2694,7 +2721,7 @@ name|createUserForTesting
 argument_list|(
 name|conf
 argument_list|,
-literal|"owner"
+name|superUser
 argument_list|,
 operator|new
 name|String
@@ -2704,10 +2731,10 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-name|String
-index|[]
+else|else
+block|{
 name|args
-init|=
+operator|=
 name|clazzAndArgs
 operator|.
 name|length
@@ -2732,7 +2759,8 @@ name|clazzAndArgs
 operator|.
 name|length
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|dataGen
 operator|.
 name|initialize
@@ -2966,6 +2994,8 @@ argument_list|,
 name|updatePercent
 argument_list|,
 name|userOwner
+argument_list|,
+name|userNames
 argument_list|)
 expr_stmt|;
 block|}
@@ -3025,6 +3055,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|verifyPercent
+argument_list|,
+name|userNames
 argument_list|)
 expr_stmt|;
 block|}

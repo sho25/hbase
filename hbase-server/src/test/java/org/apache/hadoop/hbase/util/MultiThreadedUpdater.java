@@ -1217,7 +1217,7 @@ operator|.
 name|getArgs
 argument_list|()
 index|[
-literal|1
+literal|2
 index|]
 argument_list|)
 decl_stmt|;

@@ -245,7 +245,7 @@ name|args
 operator|.
 name|length
 operator|!=
-literal|2
+literal|3
 condition|)
 block|{
 throw|throw
@@ -254,9 +254,9 @@ name|IllegalArgumentException
 argument_list|(
 literal|"LoadTestDataGeneratorWithACL can have "
 operator|+
-literal|"1st arguement which would be the user list and the 2nd argument "
+literal|"1st arguement which would be super user, the 2nd argument "
 operator|+
-literal|"should be the factor representing "
+literal|"would be the user list and the 3rd argument should be the factor representing "
 operator|+
 literal|"the row keys for which only write ACLs will be added."
 argument_list|)
@@ -267,7 +267,7 @@ name|temp
 init|=
 name|args
 index|[
-literal|0
+literal|1
 index|]
 decl_stmt|;
 comment|// This will be comma separated list of expressions.
@@ -292,7 +292,7 @@ name|parseInt
 argument_list|(
 name|args
 index|[
-literal|1
+literal|2
 index|]
 argument_list|)
 expr_stmt|;

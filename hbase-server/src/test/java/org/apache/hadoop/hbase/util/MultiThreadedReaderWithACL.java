@@ -299,6 +299,9 @@ name|tableName
 parameter_list|,
 name|double
 name|verifyPercent
+parameter_list|,
+name|String
+name|userNames
 parameter_list|)
 block|{
 name|super
@@ -312,15 +315,11 @@ argument_list|,
 name|verifyPercent
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|userNames
 operator|=
-name|dataGenerator
-operator|.
-name|getArgs
-argument_list|()
-index|[
-literal|0
-index|]
+name|userNames
 operator|.
 name|split
 argument_list|(
@@ -554,7 +553,7 @@ operator|.
 name|getArgs
 argument_list|()
 index|[
-literal|1
+literal|2
 index|]
 argument_list|)
 decl_stmt|;
