@@ -186,7 +186,7 @@ literal|"Timestamp cannot be negative. minStamp:"
 operator|+
 name|minStamp
 operator|+
-literal|", maxStamp"
+literal|", maxStamp:"
 operator|+
 name|maxStamp
 argument_list|)
