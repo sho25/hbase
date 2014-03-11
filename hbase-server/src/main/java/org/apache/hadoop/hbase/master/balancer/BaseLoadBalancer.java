@@ -6944,6 +6944,11 @@ range|:
 name|unassignedRegions
 control|)
 block|{
+name|boolean
+name|assigned
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -7069,9 +7074,18 @@ operator|%
 name|numServers
 expr_stmt|;
 comment|//remain from next server
+name|assigned
+operator|=
+literal|true
+expr_stmt|;
 break|break;
 block|}
-else|else
+block|}
+if|if
+condition|(
+operator|!
+name|assigned
+condition|)
 block|{
 name|lastFewRegions
 operator|.
@@ -7080,7 +7094,6 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// just sprinkle the rest of the regions on random regionservers. The balanceCluster will
