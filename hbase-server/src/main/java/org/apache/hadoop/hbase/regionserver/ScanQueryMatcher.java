@@ -633,6 +633,19 @@ operator|)
 expr_stmt|;
 comment|// We can share the ExplicitColumnTracker, diff is we reset
 comment|// between rows, not between storefiles.
+name|byte
+index|[]
+name|attr
+init|=
+name|scan
+operator|.
+name|getAttribute
+argument_list|(
+name|Scan
+operator|.
+name|HINT_LOOKAHEAD
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|columns
@@ -650,6 +663,19 @@ argument_list|,
 name|maxVersions
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|attr
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|Bytes
+operator|.
+name|toInt
+argument_list|(
+name|attr
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

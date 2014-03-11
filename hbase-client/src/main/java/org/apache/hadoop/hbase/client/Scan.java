@@ -281,6 +281,15 @@ name|ISOLATION_LEVEL
 init|=
 literal|"_isolationlevel_"
 decl_stmt|;
+comment|/**    * EXPERT ONLY.    * An integer (not long) indicating to the scanner logic how many times we attempt to retrieve the    * next KV before we schedule a reseek.    * The right value depends on the size of the average KV. A reseek is more efficient when    * it can skip 5-10 KVs or 512B-1KB, or when the next KV is likely found in another HFile block.    * Setting this only has any effect when columns were added with    * {@link #addColumn(byte[], byte[])}    *<pre>{@code    * Scan s = new Scan(...);    * s.addColumn(...);    * s.setAttribute(Scan.HINT_LOOKAHEAD, Bytes.toBytes(2));    * }</pre>    * Default is 0 (always reseek).    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HINT_LOOKAHEAD
+init|=
+literal|"_look_ahead_"
+decl_stmt|;
 specifier|private
 name|byte
 index|[]
