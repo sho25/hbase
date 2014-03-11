@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -121,6 +133,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -140,15 +162,7 @@ argument_list|)
 specifier|public
 class|class
 name|TestExplicitColumnTracker
-extends|extends
-name|HBaseTestCase
 block|{
-specifier|private
-name|boolean
-name|PRINT
-init|=
-literal|false
-decl_stmt|;
 specifier|private
 specifier|final
 name|byte
@@ -382,39 +396,10 @@ name|i
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|PRINT
-condition|)
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Expected "
-operator|+
-name|expected
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-operator|+
-literal|", actual "
-operator|+
-name|result
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 block|}
-block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_SingleVersion
@@ -422,21 +407,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|PRINT
-condition|)
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"SingleVersion"
-argument_list|)
-expr_stmt|;
-block|}
 comment|//Create tracker
 name|TreeSet
 argument_list|<
@@ -617,6 +587,8 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_MultiVersion
@@ -624,21 +596,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|PRINT
-condition|)
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"\nMultiVersion"
-argument_list|)
-expr_stmt|;
-block|}
 comment|//Create tracker
 name|TreeSet
 argument_list|<
@@ -1001,6 +958,8 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGet_MultiVersionWithLookAhead
@@ -1008,21 +967,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|PRINT
-condition|)
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"\nMultiVersion"
-argument_list|)
-expr_stmt|;
-block|}
 comment|//Create tracker
 name|TreeSet
 argument_list|<
@@ -1386,6 +1330,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * hbase-2259    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testStackOverflow
@@ -1589,6 +1535,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Regression test for HBASE-2545    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testInfiniteLoop
