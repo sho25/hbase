@@ -6022,21 +6022,6 @@ literal|true
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|": marking at should close, reason ="
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|LOG
