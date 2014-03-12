@@ -253,6 +253,12 @@ literal|"filter"
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|hrs
+operator|!=
+literal|null
+condition|)
 name|tmpl
 operator|.
 name|render
