@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -141,7 +141,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -177,9 +177,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
+name|ColumnAggregationWithNullResponseProtos
 operator|.
-name|ColumnAggregationService
+name|ColumnAggregationServiceNullResponse
 import|;
 end_import
 
@@ -199,7 +199,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
+name|ColumnAggregationWithNullResponseProtos
 operator|.
 name|SumRequest
 import|;
@@ -221,7 +221,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
+name|ColumnAggregationWithNullResponseProtos
 operator|.
 name|SumResponse
 import|;
@@ -240,6 +240,22 @@ operator|.
 name|protobuf
 operator|.
 name|ResponseConverter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
 import|;
 end_import
 
@@ -312,15 +328,15 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The aggregation implementation at a region.  */
+comment|/**  * Test coprocessor endpoint that always returns {@code null} for requests to the last region  * in the table.  This allows tests to provide assurance of correct {@code null} handling for  * response values.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ColumnAggregationEndpoint
+name|ColumnAggregationEndpointNullResponse
 extends|extends
-name|ColumnAggregationService
+name|ColumnAggregationServiceNullResponse
 implements|implements
 name|Coprocessor
 implements|,
@@ -335,7 +351,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ColumnAggregationEndpoint
+name|ColumnAggregationEndpointNullResponse
 operator|.
 name|class
 argument_list|)
@@ -508,14 +524,46 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|scanner
-operator|=
+name|HRegion
+name|region
+init|=
 name|this
 operator|.
 name|env
 operator|.
 name|getRegion
 argument_list|()
+decl_stmt|;
+comment|// for the last region in the table, return null to test null handling
+if|if
+condition|(
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|region
+operator|.
+name|getEndKey
+argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_END_ROW
+argument_list|)
+condition|)
+block|{
+name|done
+operator|.
+name|run
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|scanner
+operator|=
+name|region
 operator|.
 name|getScanner
 argument_list|(
@@ -682,15 +730,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Returning result "
-operator|+
-name|sumResult
-argument_list|)
-expr_stmt|;
 name|done
 operator|.
 name|run
@@ -707,6 +746,30 @@ argument_list|)
 operator|.
 name|build
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Returning sum "
+operator|+
+name|sumResult
+operator|+
+literal|" for region "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|env
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

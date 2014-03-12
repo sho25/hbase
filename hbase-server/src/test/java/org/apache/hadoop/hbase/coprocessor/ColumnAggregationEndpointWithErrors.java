@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -141,7 +141,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 import|;
 end_import
 
@@ -177,9 +191,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
-operator|.
-name|ColumnAggregationService
+name|ColumnAggregationWithErrorsProtos
 import|;
 end_import
 
@@ -199,7 +211,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
+name|ColumnAggregationWithErrorsProtos
 operator|.
 name|SumRequest
 import|;
@@ -221,7 +233,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ColumnAggregationProtos
+name|ColumnAggregationWithErrorsProtos
 operator|.
 name|SumResponse
 import|;
@@ -240,6 +252,22 @@ operator|.
 name|protobuf
 operator|.
 name|ResponseConverter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
 import|;
 end_import
 
@@ -312,15 +340,17 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The aggregation implementation at a region.  */
+comment|/**  * Test coprocessor endpoint that always throws a {@link DoNotRetryIOException} for requests on  * the last region in the table.  This allows tests to ensure correct error handling of  * coprocessor endpoints throwing exceptions.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ColumnAggregationEndpoint
+name|ColumnAggregationEndpointWithErrors
 extends|extends
-name|ColumnAggregationService
+name|ColumnAggregationWithErrorsProtos
+operator|.
+name|ColumnAggregationServiceWithErrors
 implements|implements
 name|Coprocessor
 implements|,
@@ -335,7 +365,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ColumnAggregationEndpoint
+name|ColumnAggregationEndpointWithErrors
 operator|.
 name|class
 argument_list|)
@@ -508,14 +538,45 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|scanner
-operator|=
+name|HRegion
+name|region
+init|=
 name|this
 operator|.
 name|env
 operator|.
 name|getRegion
 argument_list|()
+decl_stmt|;
+comment|// throw an exception for requests to the last region in the table, to test error handling
+if|if
+condition|(
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|region
+operator|.
+name|getEndKey
+argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_END_ROW
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"An expected exception"
+argument_list|)
+throw|;
+block|}
+name|scanner
+operator|=
+name|region
 operator|.
 name|getScanner
 argument_list|(
@@ -682,15 +743,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Returning result "
-operator|+
-name|sumResult
-argument_list|)
-expr_stmt|;
 name|done
 operator|.
 name|run
