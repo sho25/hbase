@@ -4916,9 +4916,6 @@ init|=
 name|getBalancerCutoffTime
 argument_list|()
 decl_stmt|;
-name|boolean
-name|balancerRan
-decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -5210,15 +5207,6 @@ name|totalRegPlanExecTime
 init|=
 literal|0
 decl_stmt|;
-name|balancerRan
-operator|=
-name|plans
-operator|.
-name|size
-argument_list|()
-operator|!=
-literal|0
-expr_stmt|;
 if|if
 condition|(
 name|plans
@@ -5375,8 +5363,10 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|// If LoadBalancer did not generate any plans, it means the cluster is already balanced.
+comment|// Return true indicating a success.
 return|return
-name|balancerRan
+literal|true
 return|;
 block|}
 comment|/**    * @return Client info for use as prefix on an audit log string; who did an action    */
