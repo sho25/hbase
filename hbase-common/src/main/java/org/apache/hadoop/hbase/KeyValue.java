@@ -11517,12 +11517,31 @@ block|{
 if|if
 condition|(
 name|length
+operator|<=
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|length
 operator|==
 literal|0
 condition|)
 return|return
 literal|null
 return|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed read "
+operator|+
+name|length
+operator|+
+literal|" bytes, stream corrupt?"
+argument_list|)
+throw|;
+block|}
 comment|// This is how the old Writables.readFrom used to deserialize.  Didn't even vint.
 name|byte
 index|[]
