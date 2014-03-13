@@ -375,14 +375,8 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
+name|handleException
 argument_list|(
-literal|"Caught throwable while processing event "
-operator|+
-name|eventType
-argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
@@ -573,6 +567,27 @@ operator|.
 name|toString
 argument_list|()
 return|;
+block|}
+comment|/**    * Event exception handler, may be overridden    * @param t Throwable object    */
+specifier|protected
+name|void
+name|handleException
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Caught throwable while processing event "
+operator|+
+name|eventType
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
