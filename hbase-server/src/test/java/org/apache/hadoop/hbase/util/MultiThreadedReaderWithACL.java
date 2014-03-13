@@ -681,7 +681,7 @@ name|verifyResultsAndUpdateMetrics
 argument_list|(
 name|verify
 argument_list|,
-name|rowKey
+name|get
 argument_list|,
 name|end
 operator|-
