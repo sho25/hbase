@@ -14302,6 +14302,10 @@ name|void
 name|stop
 parameter_list|()
 block|{
+name|shutdown
+argument_list|()
+expr_stmt|;
+comment|// Stop executor service, etc
 if|if
 condition|(
 name|tomActivated
