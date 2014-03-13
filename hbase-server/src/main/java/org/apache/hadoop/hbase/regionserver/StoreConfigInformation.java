@@ -63,6 +63,8 @@ interface|interface
 name|StoreConfigInformation
 block|{
 comment|/**    * @return Gets the Memstore flush size for the region that this store works with.    */
+comment|// TODO: Why is this in here?  It should be in Store and it should return the Store flush size,
+comment|// not the Regions.  St.Ack
 name|long
 name|getMemstoreFlushSize
 parameter_list|()

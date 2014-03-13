@@ -181,7 +181,7 @@ operator|.
 name|setup
 argument_list|()
 expr_stmt|;
-name|conf
+name|CONF
 operator|.
 name|set
 argument_list|(
@@ -241,7 +241,7 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
-name|conf
+name|CONF
 argument_list|,
 name|family
 argument_list|)

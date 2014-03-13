@@ -2183,12 +2183,29 @@ name|long
 name|getMemstoreFlushSize
 parameter_list|()
 block|{
+comment|// TODO: Why is this in here?  The flushsize of the region rather than the store?  St.Ack
 return|return
 name|this
 operator|.
 name|region
 operator|.
 name|memstoreFlushSize
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getFlushableSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memstore
+operator|.
+name|getFlushableSize
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -4220,7 +4237,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed flushing store file, retring num="
+literal|"Failed flushing store file, retrying num="
 operator|+
 name|i
 argument_list|,

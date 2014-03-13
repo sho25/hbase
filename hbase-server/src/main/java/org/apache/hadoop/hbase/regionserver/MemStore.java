@@ -423,6 +423,11 @@ specifier|final
 name|AtomicLong
 name|size
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|long
+name|snapshotSize
+decl_stmt|;
 comment|// Used to track when to flush
 specifier|volatile
 name|long
@@ -535,6 +540,12 @@ name|AtomicLong
 argument_list|(
 name|DEEP_OVERHEAD
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|snapshotSize
+operator|=
+literal|0
 expr_stmt|;
 if|if
 condition|(
@@ -672,6 +683,13 @@ condition|)
 block|{
 name|this
 operator|.
+name|snapshotSize
+operator|=
+name|keySize
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|snapshot
 operator|=
 name|this
@@ -765,6 +783,26 @@ operator|.
 name|snapshot
 return|;
 block|}
+comment|/**    * On flush, how much memory we will clear.    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return size of data that is going to be flushed    */
+name|long
+name|getFlushableSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|snapshotSize
+operator|>
+literal|0
+condition|?
+name|this
+operator|.
+name|snapshotSize
+else|:
+name|keySize
+argument_list|()
+return|;
+block|}
 comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param ss The snapshot to clean out.    * @throws UnexpectedException    * @see #snapshot()    */
 name|void
 name|clearSnapshot
@@ -841,6 +879,12 @@ name|TimeRangeTracker
 argument_list|()
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|snapshotSize
+operator|=
+literal|0
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3707,9 +3751,13 @@ operator|.
 name|REFERENCE
 operator|)
 operator|+
+operator|(
+literal|2
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
+operator|)
 argument_list|)
 decl_stmt|;
 specifier|public

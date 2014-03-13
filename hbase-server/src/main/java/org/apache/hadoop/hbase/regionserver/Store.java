@@ -676,6 +676,11 @@ name|long
 name|getMemStoreSize
 parameter_list|()
 function_decl|;
+comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
+name|long
+name|getFlushableSize
+parameter_list|()
+function_decl|;
 name|HColumnDescriptor
 name|getFamily
 parameter_list|()
