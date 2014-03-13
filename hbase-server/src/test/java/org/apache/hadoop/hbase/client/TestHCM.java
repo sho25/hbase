@@ -1896,6 +1896,11 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|hci
 operator|.
 name|getClient
@@ -2088,6 +2093,14 @@ operator|.
 name|getMessage
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2541,7 +2554,7 @@ name|TEST_UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|20000
+literal|40000
 argument_list|,
 operator|new
 name|Waiter
@@ -2572,6 +2585,11 @@ return|;
 block|}
 block|}
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|Assert
 operator|.
@@ -2877,6 +2895,11 @@ name|info
 argument_list|(
 literal|"we're done - time will change back"
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|EnvironmentEdgeManager
 operator|.
@@ -4782,6 +4805,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|HTable
+name|table0
+init|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -4790,7 +4816,7 @@ name|TABLE_NAME1
 argument_list|,
 name|FAM_NAM
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|HConnection
 name|conn
 init|=
@@ -4899,6 +4925,11 @@ operator|.
 name|isShutdown
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|table0
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Test that stale cache updates don't override newer cached values.    */
@@ -5278,6 +5309,11 @@ operator|.
 name|getPort
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Make sure that {@link Configuration} instances that are essentially the    * same map to the same {@link HConnection} instance.    */
