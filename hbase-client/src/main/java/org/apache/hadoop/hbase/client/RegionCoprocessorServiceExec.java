@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents a coprocessor service method execution against a single region.  While coprocessor  * service calls are performed against a region, this class implements {@link Row} in order to  * make use of the {@link AsyncProcess} framework for batching multi-region calls per region server.  *  *<p><b>Note:</b> This class should not be instantiated directly.  Use either  * {@link HTable#batchCoprocessorService(MethodDescriptor, Message, byte[], byte[],  * Message, Batch.Callback)}  * or {@link HTable#batchCoprocessorService(MethodDescriptor, Message, byte[], byte[], Message)}  * instead.</p>  */
+comment|/**  * Represents a coprocessor service method execution against a single region.  While coprocessor  * service calls are performed against a region, this class implements {@link Row} in order to  * make use of the {@link AsyncProcess} framework for batching multi-region calls per region server.  *  *<p><b>Note:</b> This class should not be instantiated directly.  Use   * HTable#batchCoprocessorService instead.</p>  */
 end_comment
 
 begin_class
