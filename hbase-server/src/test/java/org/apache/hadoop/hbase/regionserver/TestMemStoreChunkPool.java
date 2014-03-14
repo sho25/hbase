@@ -251,7 +251,7 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-name|MemStore
+name|DefaultMemStore
 operator|.
 name|USEMSLAB_KEY
 argument_list|,
@@ -612,11 +612,11 @@ argument_list|(
 literal|"testval"
 argument_list|)
 decl_stmt|;
-name|MemStore
+name|DefaultMemStore
 name|memstore
 init|=
 operator|new
-name|MemStore
+name|DefaultMemStore
 argument_list|()
 decl_stmt|;
 comment|// Setting up memstore
@@ -672,17 +672,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Creating a snapshot
-name|memstore
-operator|.
-name|snapshot
-argument_list|()
-expr_stmt|;
-name|KeyValueSkipListSet
+name|MemStoreSnapshot
 name|snapshot
 init|=
 name|memstore
 operator|.
-name|getSnapshot
+name|snapshot
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -761,6 +756,9 @@ operator|.
 name|clearSnapshot
 argument_list|(
 name|snapshot
+operator|.
+name|getId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|int
@@ -898,11 +896,11 @@ argument_list|(
 literal|"testval"
 argument_list|)
 decl_stmt|;
-name|MemStore
+name|DefaultMemStore
 name|memstore
 init|=
 operator|new
-name|MemStore
+name|DefaultMemStore
 argument_list|()
 decl_stmt|;
 comment|// Setting up memstore
@@ -958,17 +956,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Creating a snapshot
-name|memstore
-operator|.
-name|snapshot
-argument_list|()
-expr_stmt|;
-name|KeyValueSkipListSet
+name|MemStoreSnapshot
 name|snapshot
 init|=
 name|memstore
 operator|.
-name|getSnapshot
+name|snapshot
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -1063,6 +1056,9 @@ operator|.
 name|clearSnapshot
 argument_list|(
 name|snapshot
+operator|.
+name|getId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1107,16 +1103,11 @@ name|clearChunks
 argument_list|()
 expr_stmt|;
 comment|// Creating another snapshot
-name|memstore
-operator|.
-name|snapshot
-argument_list|()
-expr_stmt|;
 name|snapshot
 operator|=
 name|memstore
 operator|.
-name|getSnapshot
+name|snapshot
 argument_list|()
 expr_stmt|;
 comment|// Adding more value
@@ -1186,6 +1177,9 @@ operator|.
 name|clearSnapshot
 argument_list|(
 name|snapshot
+operator|.
+name|getId
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue

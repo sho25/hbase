@@ -115,16 +115,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -992,7 +982,7 @@ name|MemStore
 name|memstore
 init|=
 operator|new
-name|MemStore
+name|DefaultMemStore
 argument_list|()
 decl_stmt|;
 name|writeMemstore
@@ -1218,7 +1208,7 @@ name|MemStore
 name|memstore
 init|=
 operator|new
-name|MemStore
+name|DefaultMemStore
 argument_list|()
 decl_stmt|;
 name|writeMemstoreAndStoreFiles
@@ -1826,7 +1816,7 @@ name|MemStore
 name|memstore
 init|=
 operator|new
-name|MemStore
+name|DefaultMemStore
 argument_list|()
 decl_stmt|;
 name|writeMemstoreAndStoreFiles
@@ -4423,13 +4413,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Random
-name|rand
-init|=
-operator|new
-name|Random
-argument_list|()
-decl_stmt|;
 try|try
 block|{
 for|for

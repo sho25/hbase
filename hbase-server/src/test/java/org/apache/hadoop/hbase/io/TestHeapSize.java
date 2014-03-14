@@ -349,6 +349,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|DefaultMemStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegion
 import|;
 end_import
@@ -382,22 +398,6 @@ operator|.
 name|regionserver
 operator|.
 name|KeyValueSkipListSet
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MemStore
 import|;
 end_import
 
@@ -1650,16 +1650,16 @@ name|actual
 argument_list|)
 expr_stmt|;
 block|}
-comment|// MemStore Overhead
+comment|// DefaultMemStore Overhead
 name|cl
 operator|=
-name|MemStore
+name|DefaultMemStore
 operator|.
 name|class
 expr_stmt|;
 name|actual
 operator|=
-name|MemStore
+name|DefaultMemStore
 operator|.
 name|FIXED_OVERHEAD
 expr_stmt|;
@@ -1698,10 +1698,10 @@ name|actual
 argument_list|)
 expr_stmt|;
 block|}
-comment|// MemStore Deep Overhead
+comment|// DefaultMemStore Deep Overhead
 name|actual
 operator|=
-name|MemStore
+name|DefaultMemStore
 operator|.
 name|DEEP_OVERHEAD
 expr_stmt|;
