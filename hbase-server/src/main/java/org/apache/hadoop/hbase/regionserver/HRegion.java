@@ -1667,6 +1667,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Counter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|EnvironmentEdgeManager
 import|;
 end_import
@@ -1760,18 +1776,6 @@ operator|.
 name|util
 operator|.
 name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|cliffc
-operator|.
-name|high_scale_lib
-operator|.
-name|Counter
 import|;
 end_import
 
@@ -24045,9 +24049,9 @@ argument_list|)
 decl_stmt|;
 comment|// woefully out of date - currently missing:
 comment|// 1 x HashMap - coprocessorServiceHandlers
-comment|// 6 org.cliffc.high_scale_lib.Counter - numMutationsWithoutWAL, dataInMemoryWithoutWAL,
+comment|// 6 x Counter - numMutationsWithoutWAL, dataInMemoryWithoutWAL,
 comment|//   checkAndMutateChecksPassed, checkAndMutateChecksFailed, readRequestsCount,
-comment|//   writeRequestsCount, updatesBlockedMs
+comment|//   writeRequestsCount
 comment|// 1 x HRegion$WriteState - writestate
 comment|// 1 x RegionCoprocessorHost - coprocessorHost
 comment|// 1 x RegionSplitPolicy - splitPolicy

@@ -679,18 +679,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|cliffc
-operator|.
-name|high_scale_lib
-operator|.
-name|Counter
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -1472,21 +1460,6 @@ argument_list|(
 literal|"hbase.bucketcache.size"
 argument_list|,
 literal|0f
-argument_list|)
-expr_stmt|;
-comment|// We would need even more libraries that hbase-server depends on
-name|TableMapReduceUtil
-operator|.
-name|addDependencyJars
-argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|Counter
-operator|.
-name|class
 argument_list|)
 expr_stmt|;
 block|}

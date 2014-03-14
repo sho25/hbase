@@ -2289,27 +2289,6 @@ argument_list|(
 name|job
 argument_list|)
 expr_stmt|;
-comment|// This job instantiates HRegions, which requires the Counter class from the high_scale library
-name|TableMapReduceUtil
-operator|.
-name|addDependencyJars
-argument_list|(
-name|job
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|org
-operator|.
-name|cliffc
-operator|.
-name|high_scale_lib
-operator|.
-name|Counter
-operator|.
-name|class
-argument_list|)
-expr_stmt|;
 name|Path
 name|stagingDir
 init|=
