@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory for creating HTable instances.  *  * @since 0.21.0  */
+comment|/**  * Factory for creating HTable instances.  *  * @deprecated as of 0.98.1. See {@link HConnectionManager#createConnection(Configuration)}.  */
 end_comment
 
 begin_class
@@ -82,6 +82,8 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Stable
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|HTableFactory
