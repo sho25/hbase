@@ -409,20 +409,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|cloudera
@@ -442,6 +428,20 @@ operator|.
 name|htrace
 operator|.
 name|TraceScope
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
 import|;
 end_import
 
@@ -2019,7 +2019,7 @@ argument_list|(
 literal|"Waited "
 operator|+
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2565,7 +2565,7 @@ block|}
 name|long
 name|start
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2700,7 +2700,7 @@ block|}
 name|long
 name|took
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3087,7 +3087,7 @@ name|this
 operator|.
 name|createTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3113,7 +3113,7 @@ parameter_list|)
 block|{
 return|return
 operator|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3138,7 +3138,7 @@ operator|.
 name|requeueCount
 return|;
 block|}
-comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds System.currentTimeMillis()      * to whatever you pass.      * @return This.      */
+comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTimeMillis()      * to whatever you pass.      * @return This.      */
 specifier|public
 name|FlushRegionEntry
 name|requeue
@@ -3152,7 +3152,7 @@ name|this
 operator|.
 name|whenToExpire
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3187,7 +3187,7 @@ name|this
 operator|.
 name|whenToExpire
 operator|-
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
