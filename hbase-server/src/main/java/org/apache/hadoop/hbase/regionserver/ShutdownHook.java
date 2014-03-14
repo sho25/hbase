@@ -815,6 +815,11 @@ literal|"Client finalizer is null, can't suppress!"
 argument_list|)
 throw|;
 block|}
+synchronized|synchronized
+init|(
+name|fsShutdownHooks
+init|)
+block|{
 if|if
 condition|(
 operator|!
@@ -844,11 +849,6 @@ name|hdfsClientFinalizer
 argument_list|)
 throw|;
 block|}
-synchronized|synchronized
-init|(
-name|fsShutdownHooks
-init|)
-block|{
 name|Integer
 name|refs
 init|=
