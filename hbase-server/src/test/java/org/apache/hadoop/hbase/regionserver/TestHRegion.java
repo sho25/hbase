@@ -22306,6 +22306,8 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+try|try
+block|{
 name|HRegion
 operator|.
 name|closeHRegion
@@ -22315,6 +22317,18 @@ operator|.
 name|region
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DroppedSnapshotException
+name|dse
+parameter_list|)
+block|{
+comment|// We could get this on way out because we interrupt the background flusher and it could
+comment|// fail anywhere causing a DSE over in the background flusher... only it is not properly
+comment|// dealt with so could still be memory hanging out when we get to here -- memory we can't
+comment|// flush because the accounting is 'off' since original DSE.
+block|}
 name|this
 operator|.
 name|region
