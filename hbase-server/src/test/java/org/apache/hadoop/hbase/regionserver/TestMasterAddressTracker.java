@@ -213,7 +213,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestMasterAddressManager
+name|TestMasterAddressTracker
 block|{
 specifier|private
 specifier|static
@@ -225,7 +225,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestMasterAddressManager
+name|TestMasterAddressTracker
 operator|.
 name|class
 argument_list|)
@@ -277,7 +277,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testMasterAddressManagerFromZK
+name|testMasterAddressTrackerFromZK
 parameter_list|()
 throws|throws
 name|Exception
@@ -293,7 +293,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|"testMasterAddressManagerFromZK"
+literal|"testMasterAddressTrackerFromZK"
 argument_list|,
 literal|null
 argument_list|)
@@ -311,7 +311,7 @@ argument_list|)
 expr_stmt|;
 comment|// Should not have a master yet
 name|MasterAddressTracker
-name|addressManager
+name|addressTracker
 init|=
 operator|new
 name|MasterAddressTracker
@@ -321,14 +321,14 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|addressManager
+name|addressTracker
 operator|.
 name|start
 argument_list|()
 expr_stmt|;
 name|assertFalse
 argument_list|(
-name|addressManager
+name|addressTracker
 operator|.
 name|hasMaster
 argument_list|()
@@ -338,7 +338,7 @@ name|zk
 operator|.
 name|registerListener
 argument_list|(
-name|addressManager
+name|addressTracker
 argument_list|)
 expr_stmt|;
 comment|// Use a listener to capture when the node is actually created
@@ -434,7 +434,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|addressManager
+name|addressTracker
 operator|.
 name|hasMaster
 argument_list|()
@@ -443,7 +443,7 @@ expr_stmt|;
 name|ServerName
 name|pulledAddress
 init|=
-name|addressManager
+name|addressTracker
 operator|.
 name|getMasterAddress
 argument_list|()

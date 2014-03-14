@@ -589,7 +589,7 @@ argument_list|(
 name|rs
 argument_list|)
 operator|.
-name|getMasterAddressManager
+name|getMasterAddressTracker
 argument_list|()
 expr_stmt|;
 name|MetricsRegionServer

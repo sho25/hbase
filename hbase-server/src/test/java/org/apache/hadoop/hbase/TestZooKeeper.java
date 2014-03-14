@@ -2348,7 +2348,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|"testMasterAddressManagerFromZK"
+literal|"testCreateSilentIsReallySilent"
 argument_list|,
 literal|null
 argument_list|)

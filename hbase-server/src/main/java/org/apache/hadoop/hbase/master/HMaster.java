@@ -4028,10 +4028,10 @@ specifier|private
 name|LoadBalancerTracker
 name|loadBalancerTracker
 decl_stmt|;
-comment|// master address manager and watcher
+comment|// master address tracker
 specifier|private
 name|MasterAddressTracker
-name|masterAddressManager
+name|masterAddressTracker
 decl_stmt|;
 comment|// RPC server for the HMaster
 specifier|private
@@ -5187,7 +5187,7 @@ try|try
 block|{
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 operator|=
 operator|new
 name|MasterAddressTracker
@@ -5200,7 +5200,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 operator|.
 name|start
 argument_list|()
@@ -7459,13 +7459,13 @@ return|;
 block|}
 specifier|public
 name|MasterAddressTracker
-name|getMasterAddressManager
+name|getMasterAddressTracker
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 return|;
 block|}
 comment|/*    * Start up all services. If any of these threads gets an unhandled exception    * then they just die with a logged message.  This should be fine because    * in general, we do not expect the master to get such unhandled exceptions    *  as OOMEs; it should be lightly loaded. See what HRegionServer does if    *  need to install an unexpected exception handler.    */

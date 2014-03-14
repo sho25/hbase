@@ -583,7 +583,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|TestMasterAddressManager
+name|TestMasterAddressTracker
 operator|.
 name|NodeCreationListener
 import|;

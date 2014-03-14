@@ -4068,10 +4068,10 @@ specifier|private
 name|ZooKeeperWatcher
 name|zooKeeper
 decl_stmt|;
-comment|// master address manager and watcher
+comment|// master address tracker
 specifier|private
 name|MasterAddressTracker
-name|masterAddressManager
+name|masterAddressTracker
 decl_stmt|;
 comment|// Cluster Status Tracker
 specifier|private
@@ -5124,12 +5124,12 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Create the master address manager, register with zk, and start it.  Then
+comment|// Create the master address tracker, register with zk, and start it.  Then
 comment|// block until a master is available.  No point in starting up if no master
 comment|// running.
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 operator|=
 operator|new
 name|MasterAddressTracker
@@ -5143,7 +5143,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 operator|.
 name|start
 argument_list|()
@@ -5152,7 +5152,7 @@ name|blockAndCheckIfStopped
 argument_list|(
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 argument_list|)
 expr_stmt|;
 comment|// Wait on cluster being up.  Master will set this flag up in zookeeper
@@ -9449,13 +9449,13 @@ block|}
 comment|/**    * @return Master address tracker instance.    */
 specifier|public
 name|MasterAddressTracker
-name|getMasterAddressManager
+name|getMasterAddressTracker
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 return|;
 block|}
 comment|/*    * Start maintenance Threads, Server, Worker and lease checker threads.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
@@ -11141,7 +11141,7 @@ name|sn
 operator|=
 name|this
 operator|.
-name|masterAddressManager
+name|masterAddressTracker
 operator|.
 name|getMasterAddress
 argument_list|(
