@@ -1041,14 +1041,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 name|String
-name|trackingURL
-init|=
-name|job
-operator|.
-name|getHistoryUrl
-argument_list|()
-decl_stmt|;
-name|String
 name|trackingURL2
 init|=
 name|job
