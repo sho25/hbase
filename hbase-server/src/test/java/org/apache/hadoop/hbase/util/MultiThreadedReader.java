@@ -922,7 +922,7 @@ if|if
 condition|(
 name|numKeys
 operator|>
-literal|1
+literal|0
 condition|)
 block|{
 comment|//meaning there is some key to read
