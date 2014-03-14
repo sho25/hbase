@@ -4742,7 +4742,7 @@ name|assertTrue
 argument_list|(
 name|state
 operator|.
-name|isFailedClose
+name|isOffline
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4756,56 +4756,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|state
-operator|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|state
-operator|.
-name|isFailedClose
-argument_list|()
-argument_list|)
-expr_stmt|;
-synchronized|synchronized
-init|(
-name|regionStates
-init|)
-block|{
-comment|// Enable SSH so that log can be split
-name|master
-operator|.
-name|enableSSH
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// We hold regionStates now, so logSplit
-comment|// won't be known to AM yet.
-name|am
-operator|.
-name|unassign
-argument_list|(
-name|hri
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|state
-operator|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
 name|assertTrue
 argument_list|(
 name|state
@@ -4814,7 +4764,14 @@ name|isOffline
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
+comment|// Enable SSH so that log can be split
+name|master
+operator|.
+name|enableSSH
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// let's check if it's assigned after it's out of transition.
 comment|// no need to assign it manually, SSH should do it
 name|am
