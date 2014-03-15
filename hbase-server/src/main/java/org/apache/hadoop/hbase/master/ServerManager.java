@@ -2723,6 +2723,8 @@ name|RequestConverter
 operator|.
 name|buildOpenRegionRequest
 argument_list|(
+name|server
+argument_list|,
 name|region
 argument_list|,
 name|versionOfOfflineNode
@@ -2964,6 +2966,8 @@ operator|.
 name|closeRegion
 argument_list|(
 name|admin
+argument_list|,
+name|server
 argument_list|,
 name|region
 operator|.

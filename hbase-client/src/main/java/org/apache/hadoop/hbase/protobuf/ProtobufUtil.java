@@ -4579,7 +4579,7 @@ return|return
 name|delete
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Mutate to an Append    * @param cellScanner    * @param proto the protocol buffer Mutate to convert    * @return the converted client Append    * @throws IOException     */
+comment|/**    * Convert a protocol buffer Mutate to an Append    * @param cellScanner    * @param proto the protocol buffer Mutate to convert    * @return the converted client Append    * @throws IOException    */
 specifier|public
 specifier|static
 name|Append
@@ -9850,6 +9850,10 @@ name|BlockingInterface
 name|admin
 parameter_list|,
 specifier|final
+name|ServerName
+name|server
+parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|regionName
@@ -9868,6 +9872,8 @@ name|RequestConverter
 operator|.
 name|buildCloseRegionRequest
 argument_list|(
+name|server
+argument_list|,
 name|regionName
 argument_list|,
 name|transitionInZK
@@ -9912,6 +9918,10 @@ name|BlockingInterface
 name|admin
 parameter_list|,
 specifier|final
+name|ServerName
+name|server
+parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|regionName
@@ -9938,6 +9948,8 @@ name|RequestConverter
 operator|.
 name|buildCloseRegionRequest
 argument_list|(
+name|server
+argument_list|,
 name|regionName
 argument_list|,
 name|versionOfClosingNode
@@ -9996,6 +10008,9 @@ operator|.
 name|BlockingInterface
 name|admin
 parameter_list|,
+name|ServerName
+name|server
+parameter_list|,
 specifier|final
 name|HRegionInfo
 name|region
@@ -10010,6 +10025,8 @@ name|RequestConverter
 operator|.
 name|buildOpenRegionRequest
 argument_list|(
+name|server
+argument_list|,
 name|region
 argument_list|,
 operator|-
@@ -14593,7 +14610,7 @@ return|return
 name|tableNames
 return|;
 block|}
-comment|/**    * Convert a protocol buffer CellVisibility to a client CellVisibility    *     * @param proto    * @return the converted client CellVisibility    */
+comment|/**    * Convert a protocol buffer CellVisibility to a client CellVisibility    *    * @param proto    * @return the converted client CellVisibility    */
 specifier|public
 specifier|static
 name|CellVisibility
@@ -14625,7 +14642,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a protocol buffer CellVisibility bytes to a client CellVisibility    *     * @param protoBytes    * @return the converted client CellVisibility    * @throws DeserializationException    */
+comment|/**    * Convert a protocol buffer CellVisibility bytes to a client CellVisibility    *    * @param protoBytes    * @return the converted client CellVisibility    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|CellVisibility
@@ -14704,7 +14721,7 @@ name|proto
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a protocol buffer CellVisibility based on a client CellVisibility.    *     * @param cellVisibility    * @return a protocol buffer CellVisibility    */
+comment|/**    * Create a protocol buffer CellVisibility based on a client CellVisibility.    *    * @param cellVisibility    * @return a protocol buffer CellVisibility    */
 specifier|public
 specifier|static
 name|ClientProtos
@@ -14747,7 +14764,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Authorizations to a client Authorizations    *     * @param proto    * @return the converted client Authorizations    */
+comment|/**    * Convert a protocol buffer Authorizations to a client Authorizations    *    * @param proto    * @return the converted client Authorizations    */
 specifier|public
 specifier|static
 name|Authorizations
@@ -14779,7 +14796,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert a protocol buffer Authorizations bytes to a client Authorizations    *     * @param protoBytes    * @return the converted client Authorizations    * @throws DeserializationException    */
+comment|/**    * Convert a protocol buffer Authorizations bytes to a client Authorizations    *    * @param protoBytes    * @return the converted client Authorizations    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|Authorizations
@@ -14858,7 +14875,7 @@ name|proto
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a protocol buffer Authorizations based on a client Authorizations.    *     * @param authorizations    * @return a protocol buffer Authorizations    */
+comment|/**    * Create a protocol buffer Authorizations based on a client Authorizations.    *    * @param authorizations    * @return a protocol buffer Authorizations    */
 specifier|public
 specifier|static
 name|ClientProtos
