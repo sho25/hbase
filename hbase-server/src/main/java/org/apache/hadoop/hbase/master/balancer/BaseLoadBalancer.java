@@ -2385,14 +2385,14 @@ operator|!
 operator|(
 name|cs
 operator|.
-name|getMinLoad
+name|getMaxLoad
 argument_list|()
 operator|>
 name|ceiling
 operator|||
 name|cs
 operator|.
-name|getMaxLoad
+name|getMinLoad
 argument_list|()
 operator|<
 name|floor

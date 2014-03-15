@@ -338,7 +338,7 @@ name|numServers
 return|;
 block|}
 name|int
-name|getMinLoad
+name|getMaxLoad
 parameter_list|()
 block|{
 return|return
@@ -353,7 +353,7 @@ argument_list|()
 return|;
 block|}
 name|int
-name|getMaxLoad
+name|getMinLoad
 parameter_list|()
 block|{
 return|return
