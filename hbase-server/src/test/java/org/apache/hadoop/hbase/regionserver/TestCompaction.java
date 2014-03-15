@@ -1152,8 +1152,6 @@ name|toString
 argument_list|(
 name|COLUMN_FAMILY
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|loader
@@ -1617,8 +1615,6 @@ argument_list|(
 name|loader
 argument_list|,
 name|family
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|loader

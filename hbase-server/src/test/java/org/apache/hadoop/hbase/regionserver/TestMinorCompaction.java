@@ -915,8 +915,6 @@ argument_list|,
 name|thirdRowBytes
 argument_list|,
 name|i
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|HBaseTestCase
@@ -944,8 +942,6 @@ argument_list|,
 name|thirdRowBytes
 argument_list|,
 name|i
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|HBaseTestCase
@@ -973,8 +969,6 @@ argument_list|,
 name|thirdRowBytes
 argument_list|,
 name|i
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|HBaseTestCase
@@ -1002,8 +996,6 @@ argument_list|,
 name|thirdRowBytes
 argument_list|,
 name|i
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|r

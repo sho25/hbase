@@ -2803,6 +2803,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|CATALOG_FAMILY
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Get region pre-split.
@@ -3273,6 +3275,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|CATALOG_FAMILY
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Get region pre-split.
@@ -4658,6 +4662,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|CATALOG_FAMILY
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Get region pre-split.
@@ -5171,6 +5177,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|CATALOG_FAMILY
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Get region pre-split.

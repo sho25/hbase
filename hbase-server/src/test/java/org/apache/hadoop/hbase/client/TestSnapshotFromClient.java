@@ -1013,6 +1013,8 @@ argument_list|(
 name|table
 argument_list|,
 name|TEST_FAM
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// get the name of all the regionservers hosting the snapshotted table

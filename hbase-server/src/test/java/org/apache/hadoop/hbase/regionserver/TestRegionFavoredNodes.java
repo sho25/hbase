@@ -946,6 +946,8 @@ argument_list|(
 name|table
 argument_list|,
 name|COLUMN_FAMILY
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

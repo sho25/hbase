@@ -3928,6 +3928,8 @@ argument_list|(
 name|t
 argument_list|,
 name|FAMILY
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|assertRowCount
