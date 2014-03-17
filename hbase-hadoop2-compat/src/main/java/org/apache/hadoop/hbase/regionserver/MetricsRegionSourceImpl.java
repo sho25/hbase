@@ -305,7 +305,7 @@ argument_list|()
 expr_stmt|;
 name|regionNamePrefix
 operator|=
-literal|"namespace_"
+literal|"Namespace_"
 operator|+
 name|regionWrapper
 operator|.
