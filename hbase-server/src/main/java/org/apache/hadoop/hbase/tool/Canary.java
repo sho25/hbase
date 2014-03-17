@@ -3918,12 +3918,6 @@ operator|+
 name|rsName
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|errorCode
-operator|=
-name|INIT_ERROR_EXIT_CODE
-expr_stmt|;
 block|}
 block|}
 else|else
@@ -3963,12 +3957,6 @@ literal|"No RegionServerInfo found, regionServerName:"
 operator|+
 name|rsName
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|errorCode
-operator|=
-name|INIT_ERROR_EXIT_CODE
 expr_stmt|;
 block|}
 block|}
