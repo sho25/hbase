@@ -603,13 +603,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// get the status of the snapshots directory
+comment|// get the status of the snapshots directory and<snapshot dir>/.tmp
 name|FileStatus
-name|status
+name|dirStatus
+decl_stmt|,
+name|tempStatus
 decl_stmt|;
 try|try
 block|{
-name|status
+name|dirStatus
 operator|=
 name|fs
 operator|.
@@ -651,17 +653,62 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+try|try
+block|{
+name|Path
+name|snapshotTmpDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|snapshotDir
+argument_list|,
+name|SnapshotDescriptionUtils
+operator|.
+name|SNAPSHOT_TMP_DIR_NAME
+argument_list|)
+decl_stmt|;
+name|tempStatus
+operator|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|snapshotTmpDir
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|e
+parameter_list|)
+block|{
+name|tempStatus
+operator|=
+name|dirStatus
+expr_stmt|;
+block|}
 comment|// if the snapshot directory wasn't modified since we last check, we are done
 if|if
 condition|(
-name|status
+name|dirStatus
+operator|.
+name|getModificationTime
+argument_list|()
+operator|<=
+name|lastModifiedTime
+operator|&&
+name|tempStatus
 operator|.
 name|getModificationTime
 argument_list|()
 operator|<=
 name|lastModifiedTime
 condition|)
+block|{
 return|return;
+block|}
 comment|// directory was modified, so we need to reload our cache
 comment|// there could be a slight race here where we miss the cache, check the directory modification
 comment|// time, then someone updates the directory, causing us to not scan the directory again.
@@ -671,10 +718,20 @@ name|this
 operator|.
 name|lastModifiedTime
 operator|=
-name|status
+name|Math
+operator|.
+name|min
+argument_list|(
+name|dirStatus
 operator|.
 name|getModificationTime
 argument_list|()
+argument_list|,
+name|tempStatus
+operator|.
+name|getModificationTime
+argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// 2.clear the cache
 name|this
