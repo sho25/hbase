@@ -1578,6 +1578,9 @@ case|:
 case|case
 name|SaslAuthenticated
 case|:
+case|case
+name|AuthFailed
+case|:
 break|break;
 default|default:
 throw|throw
