@@ -7752,10 +7752,8 @@ name|scope
 init|=
 name|truck
 operator|.
-name|getSpanPayload
+name|hasSpanPayload
 argument_list|()
-operator|!=
-literal|null
 condition|?
 name|Trace
 operator|.
@@ -7763,7 +7761,7 @@ name|continueSpan
 argument_list|(
 name|truck
 operator|.
-name|getSpanPayload
+name|unloadSpanPayload
 argument_list|()
 argument_list|)
 else|:
@@ -7775,10 +7773,8 @@ if|if
 condition|(
 name|truck
 operator|.
-name|getSyncFuturePayload
+name|hasSyncFuturePayload
 argument_list|()
-operator|!=
-literal|null
 condition|)
 block|{
 name|this
@@ -7793,7 +7789,7 @@ index|]
 operator|=
 name|truck
 operator|.
-name|getSyncFuturePayload
+name|unloadSyncFuturePayload
 argument_list|()
 expr_stmt|;
 comment|// Force flush of syncs if we are carrying a full complement of syncFutures.
@@ -7819,10 +7815,8 @@ if|if
 condition|(
 name|truck
 operator|.
-name|getFSWALEntryPayload
+name|hasFSWALEntryPayload
 argument_list|()
-operator|!=
-literal|null
 condition|)
 block|{
 try|try
@@ -7831,7 +7825,7 @@ name|append
 argument_list|(
 name|truck
 operator|.
-name|getFSWALEntryPayload
+name|unloadFSWALEntryPayload
 argument_list|()
 argument_list|)
 expr_stmt|;

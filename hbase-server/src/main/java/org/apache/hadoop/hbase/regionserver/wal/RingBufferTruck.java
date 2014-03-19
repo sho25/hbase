@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A 'truck' to carry a payload across the {@link FSHLog} ring buffer from Handler to WAL.  * Has EITHER a {@link FSWALEntry} for making an append OR it has a {@link SyncFuture} to  * represent a 'sync' invocation. Immutable but instances get recycled on the ringbuffer.  */
+comment|/**  * A 'truck' to carry a payload across the {@link FSHLog} ring buffer from Handler to WAL.  * Has EITHER a {@link FSWALEntry} for making an append OR it has a {@link SyncFuture} to  * represent a 'sync' invocation. Truck instances are reused by the disruptor when it gets  * around to it so their payload references must be discarded on consumption to release them  * to GC.  */
 end_comment
 
 begin_class
@@ -83,6 +83,7 @@ specifier|private
 name|Span
 name|span
 decl_stmt|;
+comment|/**    * Load the truck with a {@link FSWALEntry} and associated {@link Span}.    */
 name|void
 name|loadPayload
 parameter_list|(
@@ -114,6 +115,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/**    * Load the truck with a {@link SyncFuture}.    */
 name|void
 name|loadPayload
 parameter_list|(
@@ -141,34 +143,109 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-name|FSWALEntry
-name|getFSWALEntryPayload
+comment|/**    * return {@code true} when this truck is carrying a {@link FSWALEntry},    * {@code false} otherwise.    */
+name|boolean
+name|hasFSWALEntryPayload
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
 name|entry
+operator|!=
+literal|null
 return|;
 block|}
-name|SyncFuture
-name|getSyncFuturePayload
+comment|/**    * return {@code true} when this truck is carrying a {@link SyncFuture},    * {@code false} otherwise.    */
+name|boolean
+name|hasSyncFuturePayload
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
 name|syncFuture
+operator|!=
+literal|null
 return|;
 block|}
-name|Span
-name|getSpanPayload
+comment|/**    * return {@code true} when this truck is carrying a {@link Span},    * {@code false} otherwise.    */
+name|boolean
+name|hasSpanPayload
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
 name|span
+operator|!=
+literal|null
+return|;
+block|}
+comment|/**    * Unload the truck of its {@link FSWALEntry} payload. The internal refernce is released.    */
+name|FSWALEntry
+name|unloadFSWALEntryPayload
+parameter_list|()
+block|{
+name|FSWALEntry
+name|ret
+init|=
+name|this
+operator|.
+name|entry
+decl_stmt|;
+name|this
+operator|.
+name|entry
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|ret
+return|;
+block|}
+comment|/**    * Unload the truck of its {@link SyncFuture} payload. The internal refernce is released.    */
+name|SyncFuture
+name|unloadSyncFuturePayload
+parameter_list|()
+block|{
+name|SyncFuture
+name|ret
+init|=
+name|this
+operator|.
+name|syncFuture
+decl_stmt|;
+name|this
+operator|.
+name|syncFuture
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|ret
+return|;
+block|}
+comment|/**    * Unload the truck of its {@link Span} payload. The internal refernce is released.    */
+name|Span
+name|unloadSpanPayload
+parameter_list|()
+block|{
+name|Span
+name|ret
+init|=
+name|this
+operator|.
+name|span
+decl_stmt|;
+name|this
+operator|.
+name|span
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|ret
 return|;
 block|}
 comment|/**    * Factory for making a bunch of these.  Needed by the ringbuffer/disruptor.    */
