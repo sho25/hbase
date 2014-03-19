@@ -2189,11 +2189,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
-operator|-
-literal|1
+literal|100
 argument_list|)
 expr_stmt|;
 comment|// retry a lot
