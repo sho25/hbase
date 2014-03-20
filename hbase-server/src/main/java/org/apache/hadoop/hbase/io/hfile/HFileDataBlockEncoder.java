@@ -186,6 +186,15 @@ name|DataBlockEncoding
 name|getDataBlockEncoding
 parameter_list|()
 function_decl|;
+comment|/**    * @return the effective in-cache data block encoding, taking into account    *         whether we are doing a compaction.    */
+specifier|public
+name|DataBlockEncoding
+name|getEffectiveEncodingInCache
+parameter_list|(
+name|boolean
+name|isCompaction
+parameter_list|)
+function_decl|;
 comment|/**    * Create an encoder specific encoding context object for writing. And the    * encoding context should also perform compression if compressionAlgorithm is    * valid.    *    * @param headerBytes header bytes    * @param fileContext HFile meta data    * @return a new {@link HFileBlockEncodingContext} object    */
 name|HFileBlockEncodingContext
 name|newDataBlockEncodingContext

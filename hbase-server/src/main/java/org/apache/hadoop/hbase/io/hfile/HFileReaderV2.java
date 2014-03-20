@@ -1031,6 +1031,199 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
+specifier|private
+name|HFileBlock
+name|getCachedBlock
+parameter_list|(
+name|BlockCacheKey
+name|cacheKey
+parameter_list|,
+name|boolean
+name|cacheBlock
+parameter_list|,
+name|boolean
+name|useLock
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|BlockType
+name|expectedBlockType
+parameter_list|,
+name|DataBlockEncoding
+name|expectedDataBlockEncoding
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Check cache for block. If found return.
+if|if
+condition|(
+name|cacheConf
+operator|.
+name|isBlockCacheEnabled
+argument_list|()
+condition|)
+block|{
+name|BlockCache
+name|cache
+init|=
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
+decl_stmt|;
+name|HFileBlock
+name|cachedBlock
+init|=
+operator|(
+name|HFileBlock
+operator|)
+name|cache
+operator|.
+name|getBlock
+argument_list|(
+name|cacheKey
+argument_list|,
+name|cacheBlock
+argument_list|,
+name|useLock
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|cachedBlock
+operator|!=
+literal|null
+condition|)
+block|{
+name|validateBlockType
+argument_list|(
+name|cachedBlock
+argument_list|,
+name|expectedBlockType
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|expectedDataBlockEncoding
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+name|cachedBlock
+return|;
+block|}
+name|DataBlockEncoding
+name|actualDataBlockEncoding
+init|=
+name|cachedBlock
+operator|.
+name|getDataBlockEncoding
+argument_list|()
+decl_stmt|;
+comment|// Block types other than data blocks always have
+comment|// DataBlockEncoding.NONE. To avoid false negative cache misses, only
+comment|// perform this check if cached block is a data block.
+if|if
+condition|(
+name|cachedBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|isData
+argument_list|()
+operator|&&
+operator|!
+name|actualDataBlockEncoding
+operator|.
+name|equals
+argument_list|(
+name|expectedDataBlockEncoding
+argument_list|)
+condition|)
+block|{
+comment|// This mismatch may happen if a ScannerV2, which is used for say a
+comment|// compaction, tries to read an encoded block from the block cache.
+comment|// The reverse might happen when an EncodedScannerV2 tries to read
+comment|// un-encoded blocks which were cached earlier.
+comment|//
+comment|// Because returning a data block with an implicit BlockType mismatch
+comment|// will cause the requesting scanner to throw a disk read should be
+comment|// forced here. This will potentially cause a significant number of
+comment|// cache misses, so update so we should keep track of this as it might
+comment|// justify the work on a CompoundScannerV2.
+if|if
+condition|(
+operator|!
+name|expectedDataBlockEncoding
+operator|.
+name|equals
+argument_list|(
+name|DataBlockEncoding
+operator|.
+name|NONE
+argument_list|)
+operator|&&
+operator|!
+name|actualDataBlockEncoding
+operator|.
+name|equals
+argument_list|(
+name|DataBlockEncoding
+operator|.
+name|NONE
+argument_list|)
+condition|)
+block|{
+comment|// If the block is encoded but the encoding does not match the
+comment|// expected encoding it is likely the encoding was changed but the
+comment|// block was not yet evicted. Evictions on file close happen async
+comment|// so blocks with the old encoding still linger in cache for some
+comment|// period of time. This event should be rare as it only happens on
+comment|// schema definition change.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Evicting cached block with key "
+operator|+
+name|cacheKey
+operator|+
+literal|" because of a data block encoding mismatch"
+operator|+
+literal|"; expected: "
+operator|+
+name|expectedDataBlockEncoding
+operator|+
+literal|", actual: "
+operator|+
+name|actualDataBlockEncoding
+argument_list|)
+expr_stmt|;
+name|cache
+operator|.
+name|evictBlock
+argument_list|(
+name|cacheKey
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|null
+return|;
+block|}
+return|return
+name|cachedBlock
+return|;
+block|}
+block|}
+return|return
+literal|null
+return|;
+block|}
 comment|/**    * @param metaBlockName    * @param cacheBlock Add block to cache, if found    * @return block wrapped in a ByteBuffer, with header skipped    * @throws IOException    */
 annotation|@
 name|Override
@@ -1165,14 +1358,6 @@ argument_list|(
 name|name
 argument_list|,
 name|metaBlockOffset
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
-argument_list|,
-name|BlockType
-operator|.
-name|META
 argument_list|)
 decl_stmt|;
 name|cacheBlock
@@ -1193,21 +1378,21 @@ block|{
 name|HFileBlock
 name|cachedBlock
 init|=
-operator|(
-name|HFileBlock
-operator|)
-name|cacheConf
-operator|.
-name|getBlockCache
-argument_list|()
-operator|.
-name|getBlock
+name|getCachedBlock
 argument_list|(
 name|cacheKey
 argument_list|,
 name|cacheBlock
 argument_list|,
 literal|false
+argument_list|,
+literal|false
+argument_list|,
+name|BlockType
+operator|.
+name|META
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if
@@ -1297,7 +1482,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Read in a file block.    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is    *          better doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @param expectedBlockType the block type we are expecting to read with this    *          read operation, or null to read whatever block type is available    *          and avoid checking (that might reduce caching efficiency of    *          encoded data blocks)    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
+comment|/**    * Read in a file block of the given {@link BlockType} and    * {@link DataBlockEncoding}.    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is    *          better doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @param expectedBlockType the block type we are expecting to read with this    *          read operation, or null to read whatever block type is available    *          and avoid checking (that might reduce caching efficiency of    *          encoded data blocks)    * @param expectedDataBlockEncoding the data block encoding the caller is    *          expecting data blocks to be in, or null to not perform this    *          check and return the block irrespective of the encoding. This    *          check only applies to data blocks and can be set to null when    *          the caller is expecting to read a non-data block and has set    *          expectedBlockType accordingly.    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -1323,6 +1508,9 @@ name|isCompaction
 parameter_list|,
 name|BlockType
 name|expectedBlockType
+parameter_list|,
+name|DataBlockEncoding
+name|expectedDataBlockEncoding
 parameter_list|)
 throws|throws
 name|IOException
@@ -1387,13 +1575,6 @@ argument_list|(
 name|name
 argument_list|,
 name|dataBlockOffset
-argument_list|,
-name|dataBlockEncoder
-operator|.
-name|getDataBlockEncoding
-argument_list|()
-argument_list|,
-name|expectedBlockType
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -1454,21 +1635,19 @@ comment|// is the second time through the loop and it should not be counted as a
 name|HFileBlock
 name|cachedBlock
 init|=
-operator|(
-name|HFileBlock
-operator|)
-name|cacheConf
-operator|.
-name|getBlockCache
-argument_list|()
-operator|.
-name|getBlock
+name|getCachedBlock
 argument_list|(
 name|cacheKey
 argument_list|,
 name|cacheBlock
 argument_list|,
 name|useLock
+argument_list|,
+name|isCompaction
+argument_list|,
+name|expectedBlockType
+argument_list|,
+name|expectedDataBlockEncoding
 argument_list|)
 decl_stmt|;
 if|if
@@ -1769,17 +1948,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|actualBlockType
-operator|==
-name|BlockType
-operator|.
-name|ENCODED_DATA
-operator|&&
 name|expectedBlockType
-operator|==
-name|BlockType
 operator|.
-name|DATA
+name|isData
+argument_list|()
+operator|&&
+name|actualBlockType
+operator|.
+name|isData
+argument_list|()
 condition|)
 block|{
 comment|// We consider DATA to match ENCODED_DATA for the purpose of this
@@ -1934,6 +2111,23 @@ name|closeStreams
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
+name|DataBlockEncoding
+name|getEffectiveEncodingInCache
+parameter_list|(
+name|boolean
+name|isCompaction
+parameter_list|)
+block|{
+return|return
+name|dataBlockEncoder
+operator|.
+name|getEffectiveEncodingInCache
+argument_list|(
+name|isCompaction
+argument_list|)
+return|;
+block|}
 comment|/** For testing */
 annotation|@
 name|Override
@@ -2048,6 +2242,9 @@ argument_list|,
 name|pread
 argument_list|,
 name|isCompaction
+argument_list|,
+name|getEffectiveDataBlockEncoding
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -2356,6 +2553,18 @@ argument_list|,
 name|pread
 argument_list|,
 name|isCompaction
+argument_list|,
+operator|(
+operator|(
+name|HFileReaderV2
+operator|)
+name|reader
+operator|)
+operator|.
+name|getEffectiveEncodingInCache
+argument_list|(
+name|isCompaction
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -2460,6 +2669,9 @@ argument_list|,
 name|BlockType
 operator|.
 name|DATA
+argument_list|,
+name|getEffectiveDataBlockEncoding
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// TODO shortcut: seek forward in this block to the last key of the
@@ -2594,6 +2806,9 @@ argument_list|,
 name|isCompaction
 argument_list|,
 literal|null
+argument_list|,
+name|getEffectiveDataBlockEncoding
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2611,6 +2826,25 @@ condition|)
 do|;
 return|return
 name|curBlock
+return|;
+block|}
+specifier|public
+name|DataBlockEncoding
+name|getEffectiveDataBlockEncoding
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|HFileReaderV2
+operator|)
+name|reader
+operator|)
+operator|.
+name|getEffectiveEncodingInCache
+argument_list|(
+name|isCompaction
+argument_list|)
 return|;
 block|}
 comment|/**      * Compare the given key against the current key      * @param comparator      * @param key      * @param offset      * @param length      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
@@ -3187,6 +3421,9 @@ argument_list|,
 name|BlockType
 operator|.
 name|DATA
+argument_list|,
+name|getEffectiveDataBlockEncoding
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -4522,6 +4759,9 @@ argument_list|,
 name|BlockType
 operator|.
 name|DATA
+argument_list|,
+name|getEffectiveDataBlockEncoding
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

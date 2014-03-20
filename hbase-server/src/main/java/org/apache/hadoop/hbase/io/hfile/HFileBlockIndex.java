@@ -648,7 +648,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Return the data block which contains this key. This function will only      * be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same      *          block      * @return reader a basic way to load blocks      * @throws IOException      */
+comment|/**      * Return the data block which contains this key. This function will only      * be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding      * @return reader a basic way to load blocks      * @throws IOException      */
 specifier|public
 name|HFileBlock
 name|seekToDataBlock
@@ -675,6 +675,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|DataBlockEncoding
+name|expectedDataBlockEncoding
 parameter_list|)
 throws|throws
 name|IOException
@@ -697,6 +700,8 @@ argument_list|,
 name|pread
 argument_list|,
 name|isCompaction
+argument_list|,
+name|expectedDataBlockEncoding
 argument_list|)
 decl_stmt|;
 if|if
@@ -720,7 +725,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan info      * such as nextIndexedKey.      * This function will only be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same      *          block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @return the BlockWithScanInfo which contains the DataBlock with other scan info      *         such as nextIndexedKey.      * @throws IOException      */
+comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan info      * such as nextIndexedKey.      * This function will only be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same      *          block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other scan info      *         such as nextIndexedKey.      * @throws IOException      */
 specifier|public
 name|BlockWithScanInfo
 name|loadDataBlockWithScanInfo
@@ -747,6 +752,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|DataBlockEncoding
+name|expectedDataBlockEncoding
 parameter_list|)
 throws|throws
 name|IOException
@@ -955,6 +963,8 @@ argument_list|,
 name|isCompaction
 argument_list|,
 name|expectedBlockType
+argument_list|,
+name|expectedDataBlockEncoding
 argument_list|)
 expr_stmt|;
 block|}
@@ -1242,6 +1252,8 @@ argument_list|,
 name|BlockType
 operator|.
 name|LEAF_INDEX
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|ByteBuffer
@@ -3265,15 +3277,6 @@ argument_list|(
 name|nameForCaching
 argument_list|,
 name|beginOffset
-argument_list|,
-name|DataBlockEncoding
-operator|.
-name|NONE
-argument_list|,
-name|blockForCaching
-operator|.
-name|getBlockType
-argument_list|()
 argument_list|)
 argument_list|,
 name|blockForCaching

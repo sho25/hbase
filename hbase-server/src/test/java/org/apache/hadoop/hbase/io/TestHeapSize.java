@@ -1977,27 +1977,19 @@ name|actual
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Block cache key overhead
+comment|// Block cache key overhead. Only tests fixed overhead as estimating heap
+comment|// size of strings is hard.
 name|cl
 operator|=
 name|BlockCacheKey
 operator|.
 name|class
 expr_stmt|;
-comment|// Passing zero length file name, because estimateBase does not handle
-comment|// deep overhead.
 name|actual
 operator|=
-operator|new
 name|BlockCacheKey
-argument_list|(
-literal|""
-argument_list|,
-literal|0
-argument_list|)
 operator|.
-name|heapSize
-argument_list|()
+name|FIXED_OVERHEAD
 expr_stmt|;
 name|expected
 operator|=

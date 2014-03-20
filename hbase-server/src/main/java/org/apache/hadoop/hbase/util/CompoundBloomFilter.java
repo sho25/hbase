@@ -434,6 +434,8 @@ argument_list|,
 name|BlockType
 operator|.
 name|BLOOM_CHUNK
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

@@ -1869,6 +1869,7 @@ specifier|public
 interface|interface
 name|CachingBlockReader
 block|{
+comment|/**      * Read in a file block.      * @param offset offset to read.      * @param onDiskBlockSize size of the block      * @param cacheBlock      * @param pread      * @param isCompaction is this block being read as part of a compaction      * @param expectedBlockType the block type we are expecting to read with this read operation, or      *          null to read whatever block type is available and avoid checking (that might reduce      *          caching efficiency of encoded data blocks)      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting data blocks to be in, or null to not perform this      *          check and return the block irrespective of the encoding. This      *          check only applies to data blocks and can be set to null when      *          the caller is expecting to read a non-data block and has set      *          expectedBlockType accordingly.      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
 name|HFileBlock
 name|readBlock
 parameter_list|(
@@ -1891,6 +1892,9 @@ name|isCompaction
 parameter_list|,
 name|BlockType
 name|expectedBlockType
+parameter_list|,
+name|DataBlockEncoding
+name|expectedDataBlockEncoding
 parameter_list|)
 throws|throws
 name|IOException

@@ -1560,6 +1560,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|null
+argument_list|,
+name|encodingInCache
 argument_list|)
 decl_stmt|;
 name|BlockCacheKey
@@ -1574,13 +1576,6 @@ name|getName
 argument_list|()
 argument_list|,
 name|offset
-argument_list|,
-name|encodingInCache
-argument_list|,
-name|block
-operator|.
-name|getBlockType
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|boolean

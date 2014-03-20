@@ -105,7 +105,7 @@ name|Cacheable
 name|buf
 parameter_list|)
 function_decl|;
-comment|/**    * Fetch block from cache.    * @param cacheKey Block to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return Block or null if block is not in 2 cache.    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType)    */
+comment|/**    * Fetch block from cache.    * @param cacheKey Block to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return Block or null if block is not in 2 cache.    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType, DataBlockEncoding)    */
 name|Cacheable
 name|getBlock
 parameter_list|(

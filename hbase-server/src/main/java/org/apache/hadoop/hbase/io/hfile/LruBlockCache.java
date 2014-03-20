@@ -1507,7 +1507,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NEVER be called on an already cached block.  If    * that is done, it is assumed that you are reinserting the same exact    * block due to a race condition and will update the buffer but not modify    * the size of the cache.    * @param cacheKey block's cache key    * @param buf block buffer    */
+comment|/**    * Cache the block with the specified name and buffer.    *<p>    * @param cacheKey block's cache key    * @param buf block buffer    */
 specifier|public
 name|void
 name|cacheBlock
@@ -1569,7 +1569,7 @@ name|heapsize
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return buffer of specified cache key, or null if not in cache    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType)    */
+comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return buffer of specified cache key, or null if not in cache    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType, DataBlockEncoding)    */
 annotation|@
 name|Override
 specifier|public
@@ -4016,19 +4016,27 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|BlockCacheKey
-name|cacheKey
+name|CachedBlock
+name|block
 range|:
 name|map
 operator|.
-name|keySet
+name|values
 argument_list|()
 control|)
 block|{
 name|DataBlockEncoding
 name|encoding
 init|=
-name|cacheKey
+operator|(
+operator|(
+name|HFileBlock
+operator|)
+name|block
+operator|.
+name|getBuffer
+argument_list|()
+operator|)
 operator|.
 name|getDataBlockEncoding
 argument_list|()

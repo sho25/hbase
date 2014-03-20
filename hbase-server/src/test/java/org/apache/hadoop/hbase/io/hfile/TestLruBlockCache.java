@@ -577,6 +577,47 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Re-add same blocks and ensure nothing has changed
+name|long
+name|expectedBlockCount
+init|=
+name|cache
+operator|.
+name|getBlockCount
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|CachedItem
+name|block
+range|:
+name|blocks
+control|)
+block|{
+name|cache
+operator|.
+name|cacheBlock
+argument_list|(
+name|block
+operator|.
+name|cacheKey
+argument_list|,
+name|block
+argument_list|)
+expr_stmt|;
+block|}
+name|assertEquals
+argument_list|(
+literal|"Cache should ignore cache requests for blocks already in cache"
+argument_list|,
+name|expectedBlockCount
+argument_list|,
+name|cache
+operator|.
+name|getBlockCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Verify correctly calculated cache heap size
 name|assertEquals
 argument_list|(
