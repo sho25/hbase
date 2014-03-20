@@ -781,6 +781,8 @@ specifier|static
 name|Configuration
 name|conf
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|Configuration
 name|getConf
@@ -793,6 +795,8 @@ name|getConfiguration
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setConf
@@ -979,6 +983,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run
@@ -1312,7 +1318,7 @@ name|Path
 argument_list|(
 name|util
 operator|.
-name|getDataTestDir
+name|getDataTestDirOnTestFS
 argument_list|(
 name|table
 argument_list|)
@@ -1514,7 +1520,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run an ImportTsv job and perform basic validation on the results. Returns    * the ImportTsv<code>Tool</code> instance so that other tests can inspect it    * for further validation as necessary. This method is static to insure    * non-reliance on instance's util/conf facilities.    *     * @param args    *          Any arguments to pass BEFORE inputFile path is appended.    * @return The Tool instance used to run the test.    */
+comment|/**    * Run an ImportTsv job and perform basic validation on the results. Returns    * the ImportTsv<code>Tool</code> instance so that other tests can inspect it    * for further validation as necessary. This method is static to insure    * non-reliance on instance's util/conf facilities.    *    * @param args    *          Any arguments to pass BEFORE inputFile path is appended.    * @return The Tool instance used to run the test.    */
 specifier|protected
 specifier|static
 name|Tool
