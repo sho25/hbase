@@ -1895,8 +1895,6 @@ argument_list|,
 comment|// Guava
 name|org
 operator|.
-name|cloudera
-operator|.
 name|htrace
 operator|.
 name|Trace

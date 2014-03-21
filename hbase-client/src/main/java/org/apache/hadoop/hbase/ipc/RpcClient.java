@@ -797,8 +797,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|cloudera
-operator|.
 name|htrace
 operator|.
 name|Span
@@ -809,8 +807,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|cloudera
-operator|.
 name|htrace
 operator|.
 name|Trace
@@ -820,8 +816,6 @@ end_import
 begin_import
 import|import
 name|org
-operator|.
-name|cloudera
 operator|.
 name|htrace
 operator|.

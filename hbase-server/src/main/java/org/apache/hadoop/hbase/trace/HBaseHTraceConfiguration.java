@@ -35,8 +35,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|cloudera
-operator|.
 name|htrace
 operator|.
 name|HTraceConfiguration

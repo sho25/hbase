@@ -2878,8 +2878,6 @@ name|class
 argument_list|,
 name|org
 operator|.
-name|cloudera
-operator|.
 name|htrace
 operator|.
 name|Trace
