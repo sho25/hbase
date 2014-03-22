@@ -383,12 +383,13 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
+comment|// no need to add current back to the heap if it is the only scanner left
 if|if
 condition|(
 name|topScanner
-operator|==
+operator|!=
 literal|null
-operator|||
+operator|&&
 name|this
 operator|.
 name|comparator
