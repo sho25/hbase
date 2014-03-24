@@ -1130,7 +1130,7 @@ operator|=
 operator|(
 literal|0xff
 operator|&
-name|a
+name|b
 operator|.
 name|getTypeByte
 argument_list|()
@@ -1139,7 +1139,7 @@ operator|-
 operator|(
 literal|0xff
 operator|&
-name|b
+name|a
 operator|.
 name|getTypeByte
 argument_list|()
