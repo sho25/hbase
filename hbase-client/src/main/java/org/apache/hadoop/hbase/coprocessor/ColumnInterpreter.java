@@ -144,8 +144,9 @@ extends|extends
 name|Message
 parameter_list|>
 block|{
-comment|/**    * TODO: when removing {@link #getValue(byte[], byte[], KeyValue)}, this method should be made abstract    *     * @param colFamily    * @param colQualifier    * @param c    * @return value of type T    * @throws IOException    */
+comment|/**    *     * @param colFamily    * @param colQualifier    * @param c    * @return value of type T    * @throws IOException    */
 specifier|public
+specifier|abstract
 name|T
 name|getValue
 parameter_list|(
@@ -162,54 +163,7 @@ name|c
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-comment|// call the deprecated method for compatiblity.
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
-return|return
-name|getValue
-argument_list|(
-name|colFamily
-argument_list|,
-name|colQualifier
-argument_list|,
-name|kv
-argument_list|)
-return|;
-block|}
-comment|/**    * This method used to be abstract, and is preserved for compatibility and easy of conversion    * from 0.94->0.96.    *    * Please override {@link #getValue(byte[], byte[], Cell)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|T
-name|getValue
-parameter_list|(
-name|byte
-index|[]
-name|colFamily
-parameter_list|,
-name|byte
-index|[]
-name|colQualifier
-parameter_list|,
-name|KeyValue
-name|kv
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-literal|null
-return|;
-block|}
+function_decl|;
 comment|/**    * @param l1    * @param l2    * @return sum or non null value among (if either of them is null); otherwise    * returns a null.    */
 specifier|public
 specifier|abstract
