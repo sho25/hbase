@@ -141,11 +141,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|util
 operator|.
-name|MemStoreLAB
-operator|.
-name|Allocation
+name|ByteRange
 import|;
 end_import
 
@@ -260,7 +258,7 @@ name|MemStoreLAB
 name|mslab
 init|=
 operator|new
-name|MemStoreLAB
+name|HeapMemStoreLAB
 argument_list|()
 decl_stmt|;
 name|int
@@ -302,7 +300,7 @@ argument_list|(
 literal|1000
 argument_list|)
 decl_stmt|;
-name|Allocation
+name|ByteRange
 name|alloc
 init|=
 name|mslab
@@ -316,7 +314,7 @@ if|if
 condition|(
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|!=
 name|lastBuffer
@@ -330,7 +328,7 @@ name|lastBuffer
 operator|=
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 expr_stmt|;
 block|}
@@ -346,11 +344,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Allocation "
-operator|+
-name|alloc
-operator|+
-literal|" overruns buffer"
+literal|"Allocation overruns buffer"
 argument_list|,
 name|alloc
 operator|.
@@ -361,7 +355,7 @@ name|size
 operator|<=
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|.
 name|length
@@ -384,10 +378,10 @@ name|MemStoreLAB
 name|mslab
 init|=
 operator|new
-name|MemStoreLAB
+name|HeapMemStoreLAB
 argument_list|()
 decl_stmt|;
-name|Allocation
+name|ByteRange
 name|alloc
 init|=
 name|mslab
@@ -452,7 +446,7 @@ name|MemStoreLAB
 name|mslab
 init|=
 operator|new
-name|MemStoreLAB
+name|HeapMemStoreLAB
 argument_list|()
 decl_stmt|;
 name|List
@@ -541,7 +535,7 @@ argument_list|(
 literal|1000
 argument_list|)
 decl_stmt|;
-name|Allocation
+name|ByteRange
 name|alloc
 init|=
 name|mslab
@@ -689,7 +683,7 @@ name|rec
 operator|.
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -715,7 +709,7 @@ name|rec
 operator|.
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 argument_list|,
 name|mapForThisByteArray
@@ -812,11 +806,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Allocation "
-operator|+
-name|alloc
-operator|+
-literal|" overruns buffer"
+literal|"Allocation overruns buffer"
 argument_list|,
 name|alloc
 operator|.
@@ -833,7 +823,7 @@ name|alloc
 operator|.
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|.
 name|length
@@ -860,7 +850,7 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|Allocation
+name|ByteRange
 name|alloc
 decl_stmt|;
 specifier|private
@@ -871,7 +861,7 @@ decl_stmt|;
 specifier|public
 name|AllocRecord
 parameter_list|(
-name|Allocation
+name|ByteRange
 name|alloc
 parameter_list|,
 name|int
@@ -908,14 +898,14 @@ if|if
 condition|(
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|!=
 name|e
 operator|.
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 condition|)
 block|{
@@ -954,9 +944,12 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"AllocRecord(alloc="
+literal|"AllocRecord(offset="
 operator|+
 name|alloc
+operator|.
+name|getOffset
+argument_list|()
 operator|+
 literal|", size="
 operator|+

@@ -123,11 +123,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|util
 operator|.
-name|MemStoreLAB
-operator|.
-name|Allocation
+name|ByteRange
 import|;
 end_import
 
@@ -348,11 +346,9 @@ name|MemStoreLAB
 name|mslab
 init|=
 operator|new
-name|MemStoreLAB
+name|HeapMemStoreLAB
 argument_list|(
 name|conf
-argument_list|,
-name|chunkPool
 argument_list|)
 decl_stmt|;
 name|int
@@ -392,7 +388,7 @@ argument_list|(
 literal|1000
 argument_list|)
 decl_stmt|;
-name|Allocation
+name|ByteRange
 name|alloc
 init|=
 name|mslab
@@ -406,7 +402,7 @@ if|if
 condition|(
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|!=
 name|lastBuffer
@@ -420,7 +416,7 @@ name|lastBuffer
 operator|=
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 expr_stmt|;
 block|}
@@ -436,11 +432,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Allocation "
-operator|+
-name|alloc
-operator|+
-literal|" overruns buffer"
+literal|"Allocation overruns buffer"
 argument_list|,
 name|alloc
 operator|.
@@ -451,7 +443,7 @@ name|size
 operator|<=
 name|alloc
 operator|.
-name|getData
+name|getBytes
 argument_list|()
 operator|.
 name|length
@@ -487,11 +479,9 @@ comment|// reconstruct mslab
 name|mslab
 operator|=
 operator|new
-name|MemStoreLAB
+name|HeapMemStoreLAB
 argument_list|(
 name|conf
-argument_list|,
-name|chunkPool
 argument_list|)
 expr_stmt|;
 comment|// chunk should be got from the pool, so we can reuse it.

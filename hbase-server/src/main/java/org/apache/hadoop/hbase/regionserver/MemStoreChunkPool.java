@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MemStoreLAB
+name|HeapMemStoreLAB
 operator|.
 name|Chunk
 import|;
@@ -208,7 +208,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A pool of {@link MemStoreLAB$Chunk} instances.  *   * MemStoreChunkPool caches a number of retired chunks for reusing, it could  * decrease allocating bytes when writing, thereby optimizing the garbage  * collection on JVM.  *   * The pool instance is globally unique and could be obtained through  * {@link MemStoreChunkPool#getPool(Configuration)}  *   * {@link MemStoreChunkPool#getChunk()} is called when MemStoreLAB allocating  * bytes, and {@link MemStoreChunkPool#putbackChunks(BlockingQueue)} is called  * when MemStore clearing snapshot for flush  */
+comment|/**  * A pool of {@link HeapMemStoreLAB$Chunk} instances.  *   * MemStoreChunkPool caches a number of retired chunks for reusing, it could  * decrease allocating bytes when writing, thereby optimizing the garbage  * collection on JVM.  *   * The pool instance is globally unique and could be obtained through  * {@link MemStoreChunkPool#getPool(Configuration)}  *   * {@link MemStoreChunkPool#getChunk()} is called when MemStoreLAB allocating  * bytes, and {@link MemStoreChunkPool#putbackChunks(BlockingQueue)} is called  * when MemStore clearing snapshot for flush  */
 end_comment
 
 begin_class
@@ -749,7 +749,6 @@ expr_stmt|;
 block|}
 comment|/**    * @param conf    * @return the global MemStoreChunkPool instance    */
 specifier|static
-specifier|synchronized
 name|MemStoreChunkPool
 name|getPool
 parameter_list|(
@@ -772,6 +771,22 @@ name|chunkPoolDisabled
 condition|)
 return|return
 literal|null
+return|;
+synchronized|synchronized
+init|(
+name|MemStoreChunkPool
+operator|.
+name|class
+init|)
+block|{
+if|if
+condition|(
+name|globalInstance
+operator|!=
+literal|null
+condition|)
+return|return
+name|globalInstance
 return|;
 name|float
 name|poolSizePercentage
@@ -855,11 +870,11 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-name|MemStoreLAB
+name|HeapMemStoreLAB
 operator|.
 name|CHUNK_SIZE_KEY
 argument_list|,
-name|MemStoreLAB
+name|HeapMemStoreLAB
 operator|.
 name|CHUNK_SIZE_DEFAULT
 argument_list|)
@@ -962,6 +977,7 @@ expr_stmt|;
 return|return
 name|globalInstance
 return|;
+block|}
 block|}
 block|}
 end_class
