@@ -1917,6 +1917,13 @@ name|C
 block|}
 argument_list|)
 expr_stmt|;
+name|util
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|verifyMethodResult
 argument_list|(
 name|SimpleRegionObserver
