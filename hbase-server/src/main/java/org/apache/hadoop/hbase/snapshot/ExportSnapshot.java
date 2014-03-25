@@ -3484,6 +3484,10 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
+name|Path
+name|inputFolderPath
+parameter_list|,
+specifier|final
 name|List
 argument_list|<
 name|Pair
@@ -3503,14 +3507,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|Path
-name|inputFolderPath
-init|=
-name|getInputFolderPath
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -3929,6 +3925,15 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+comment|// Create MR Input
+name|Path
+name|inputFolderPath
+init|=
+name|getInputFolderPath
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|Path
@@ -3937,6 +3942,8 @@ range|:
 name|createInputFiles
 argument_list|(
 name|conf
+argument_list|,
+name|inputFolderPath
 argument_list|,
 name|snapshotFiles
 argument_list|,
@@ -4050,7 +4057,120 @@ operator|.
 name|releaseDelegationToken
 argument_list|()
 expr_stmt|;
+comment|// Remove MR Input
+try|try
+block|{
+name|inputFolderPath
+operator|.
+name|getFileSystem
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|delete
+argument_list|(
+name|inputFolderPath
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to remove MR input folder: "
+operator|+
+name|inputFolderPath
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+specifier|private
+name|void
+name|verifySnapshot
+parameter_list|(
+specifier|final
+name|Configuration
+name|baseConf
+parameter_list|,
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|Path
+name|snapshotDir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Update the conf with the current root dir, since may be a different cluster
+name|Configuration
+name|conf
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|baseConf
+argument_list|)
+decl_stmt|;
+name|FSUtils
+operator|.
+name|setRootDir
+argument_list|(
+name|conf
+argument_list|,
+name|rootDir
+argument_list|)
+expr_stmt|;
+name|FSUtils
+operator|.
+name|setFsDefault
+argument_list|(
+name|conf
+argument_list|,
+name|snapshotDir
+argument_list|)
+expr_stmt|;
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|SnapshotDescriptionUtils
+operator|.
+name|readSnapshotInfo
+argument_list|(
+name|fs
+argument_list|,
+name|snapshotDir
+argument_list|)
+decl_stmt|;
+name|SnapshotReferenceUtil
+operator|.
+name|verifySnapshot
+argument_list|(
+name|conf
+argument_list|,
+name|fs
+argument_list|,
+name|snapshotDir
+argument_list|,
+name|snapshotDesc
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Execute the export snapshot by copying the snapshot metadata, hfiles and hlogs.    * @return 0 on success, and != 0 upon failure.    */
 annotation|@
@@ -4620,7 +4740,7 @@ literal|"consider removing "
 operator|+
 name|snapshotTmpDir
 operator|+
-literal|" before retrying export"
+literal|" by using the -overwrite option"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4629,6 +4749,13 @@ return|;
 block|}
 block|}
 comment|// Step 0 - Extract snapshot files to copy
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loading Snapshot hfile list"
+argument_list|)
+expr_stmt|;
 specifier|final
 name|List
 argument_list|<
@@ -4702,6 +4829,13 @@ comment|// The snapshot references must be copied before the hfiles otherwise th
 comment|// will remove them because they are unreferenced.
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Copy Snapshot Manifest"
+argument_list|)
+expr_stmt|;
 name|FileUtil
 operator|.
 name|copy
@@ -4739,6 +4873,8 @@ operator|+
 literal|" to="
 operator|+
 name|snapshotTmpDir
+argument_list|,
+name|e
 argument_list|)
 throw|;
 block|}
@@ -4792,6 +4928,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Step 3 - Rename fs2:/.snapshot/.tmp/<snapshot> fs2:/.snapshot/<snapshot>
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finalize the Snapshot Export"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -4819,6 +4962,34 @@ name|outputSnapshotDir
 argument_list|)
 throw|;
 block|}
+comment|// Step 4 - Verify snapshot validity
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Verify snapshot validity"
+argument_list|)
+expr_stmt|;
+name|verifySnapshot
+argument_list|(
+name|conf
+argument_list|,
+name|outputFs
+argument_list|,
+name|outputRoot
+argument_list|,
+name|outputSnapshotDir
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Export Completed: "
+operator|+
+name|snapshotName
+argument_list|)
+expr_stmt|;
 return|return
 literal|0
 return|;
