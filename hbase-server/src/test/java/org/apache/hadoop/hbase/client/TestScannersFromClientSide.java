@@ -3495,6 +3495,9 @@ operator|.
 name|closeRegion
 argument_list|(
 name|rs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|,
 name|rs
 operator|.
@@ -3627,6 +3630,9 @@ operator|.
 name|openRegion
 argument_list|(
 name|rs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|,
 name|rs
 operator|.

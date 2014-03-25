@@ -3248,7 +3248,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getCoprocessors
+name|getMasterCoprocessors
 argument_list|()
 argument_list|)
 decl_stmt|;

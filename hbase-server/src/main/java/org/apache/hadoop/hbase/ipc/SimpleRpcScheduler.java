@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A scheduler that maintains isolated handler pools for general, high-priority and replication  * requests.  */
+comment|/**  * A scheduler that maintains isolated handler pools for general,  * high-priority, and replication requests.  */
 end_comment
 
 begin_class

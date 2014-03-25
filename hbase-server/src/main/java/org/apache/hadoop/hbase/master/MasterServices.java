@@ -61,20 +61,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -146,6 +132,20 @@ operator|.
 name|hbase
 operator|.
 name|TableDescriptors
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -247,7 +247,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link MasterCoprocessorHost}    */
 name|MasterCoprocessorHost
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 parameter_list|()
 function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */

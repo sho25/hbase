@@ -34138,8 +34138,8 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
-assert|assert
-operator|(
+name|assertTrue
+argument_list|(
 name|newAdmin
 operator|.
 name|getClusterStatus
@@ -34149,8 +34149,10 @@ name|getServersSize
 argument_list|()
 operator|==
 name|SLAVES
-operator|)
-assert|;
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test

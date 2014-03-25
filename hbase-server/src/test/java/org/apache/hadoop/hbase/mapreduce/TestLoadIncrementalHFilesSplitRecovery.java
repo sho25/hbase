@@ -1328,6 +1328,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|hrs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 control|)
 block|{
@@ -1360,6 +1363,9 @@ operator|.
 name|split
 argument_list|(
 name|hrs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|,
 name|hri
 argument_list|,
@@ -1394,6 +1400,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|hrs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 control|)
 block|{
@@ -1952,6 +1961,11 @@ literal|"doBulkLoad should have thrown an exception"
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|HConnection
 name|getMockedConnection

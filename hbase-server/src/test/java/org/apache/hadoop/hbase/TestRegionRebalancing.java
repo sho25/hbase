@@ -909,6 +909,7 @@ name|total
 init|=
 literal|0
 decl_stmt|;
+comment|// Regions on master are ignored since not counted for balancing
 for|for
 control|(
 name|HRegionServer
@@ -925,6 +926,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -1118,6 +1122,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -1169,6 +1176,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 control|)
 block|{
@@ -1356,8 +1366,6 @@ operator|.
 name|KEYS
 operator|.
 name|length
-operator|+
-literal|1
 decl_stmt|;
 while|while
 condition|(

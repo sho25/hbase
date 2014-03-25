@@ -718,7 +718,7 @@ specifier|public
 name|MasterService
 operator|.
 name|BlockingInterface
-name|getMaster
+name|getMasterAdminService
 parameter_list|()
 throws|throws
 name|IOException
@@ -912,7 +912,7 @@ condition|)
 block|{
 try|try
 block|{
-name|getMaster
+name|getMasterAdminService
 argument_list|()
 expr_stmt|;
 return|return

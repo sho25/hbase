@@ -4044,6 +4044,9 @@ name|t
 operator|.
 name|getRegionServer
 argument_list|()
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 control|)
 block|{

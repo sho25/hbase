@@ -647,7 +647,7 @@ name|zk
 init|=
 name|regionServer
 operator|.
-name|getZooKeeperWatcher
+name|getZooKeeper
 argument_list|()
 decl_stmt|;
 if|if
@@ -681,7 +681,7 @@ name|coprocessors
 init|=
 name|regionServer
 operator|.
-name|getCoprocessors
+name|getRegionServerCoprocessors
 argument_list|()
 decl_stmt|;
 if|if
@@ -790,6 +790,8 @@ parameter_list|()
 block|{
 return|return
 name|regionServer
+operator|.
+name|rpcServices
 operator|.
 name|requestCount
 operator|.

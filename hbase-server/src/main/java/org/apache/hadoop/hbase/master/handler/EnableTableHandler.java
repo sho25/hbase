@@ -61,18 +61,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -432,16 +420,6 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|htrace
-operator|.
-name|Trace
 import|;
 end_import
 
@@ -871,7 +849,7 @@ operator|.
 name|server
 operator|)
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 if|if

@@ -43,12 +43,28 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|PriorityFunction
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcScheduler
 import|;
 end_import
 
 begin_comment
-comment|/**  * A factory class that constructs an {@link org.apache.hadoop.hbase.ipc.RpcScheduler} for  * a region server.  */
+comment|/**  * A factory class that constructs an {@link org.apache.hadoop.hbase.ipc.RpcScheduler}.  */
 end_comment
 
 begin_interface
@@ -56,15 +72,15 @@ specifier|public
 interface|interface
 name|RpcSchedulerFactory
 block|{
-comment|/**    * Constructs a {@link org.apache.hadoop.hbase.ipc.RpcScheduler}.    *    * Please note that this method is called in constructor of {@link HRegionServer}, so some    * fields may not be ready for access. The reason that {@code HRegionServer} is passed as    * parameter here is that an RPC scheduler may need to access data structure inside    * {@code HRegionServer} (see example in {@link SimpleRpcSchedulerFactory}).    */
+comment|/**    * Constructs a {@link org.apache.hadoop.hbase.ipc.RpcScheduler}.    */
 name|RpcScheduler
 name|create
 parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|RegionServerServices
-name|server
+name|PriorityFunction
+name|priority
 parameter_list|)
 function_decl|;
 block|}

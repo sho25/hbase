@@ -194,14 +194,6 @@ name|void
 name|start
 parameter_list|()
 function_decl|;
-name|void
-name|openServer
-parameter_list|()
-function_decl|;
-name|void
-name|startThreads
-parameter_list|()
-function_decl|;
 name|boolean
 name|isStarted
 parameter_list|()

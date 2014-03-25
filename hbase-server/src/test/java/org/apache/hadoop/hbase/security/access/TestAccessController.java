@@ -1795,7 +1795,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 name|cpHost
@@ -1864,7 +1864,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getCoprocessorHost
+name|getRegionServerCoprocessorHost
 argument_list|()
 decl_stmt|;
 name|RSCP_ENV

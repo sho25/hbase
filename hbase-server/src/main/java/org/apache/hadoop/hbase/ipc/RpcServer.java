@@ -27,7 +27,7 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|CommonConfigurationKeys
+name|CommonConfigurationKeysPublic
 operator|.
 name|HADOOP_SECURITY_AUTHORIZATION
 import|;
@@ -1380,10 +1380,6 @@ import|;
 end_import
 
 begin_comment
-comment|// Uses Writables doing sasl
-end_comment
-
-begin_comment
 comment|/**  * An RPC server that hosts protobuf described Services.  *  * An RpcServer instance has a Listener that hosts the socket.  Listener has fixed number  * of Readers in an ExecutorPool, 10 by default.  The Listener does an accept and then  * round robin a Reader is chosen to do the read.  The reader is registered on Selector.  Read does  * total read off the channel and the parse from which it makes a Call.  The call is wrapped in a  * CallRunner and passed to the scheduler to be run.  Reader goes back to see if more to be done  * and loops till done.  *  *<p>Scheduler can be variously implemented but default simple scheduler has handlers to which it  * has given the queues into which calls (i.e. CallRunner instances) are inserted.  Handlers run  * taking from the queue.  They run the CallRunner#run method on each item gotten from queue  * and keep taking while the server is up.  *  * CallRunner#run executes the call.  When done, asks the included Call to put itself on new  * queue for {@link Responder} to pull from and return result to client.  *  * @see RpcClient  */
 end_comment
 
@@ -1769,8 +1765,8 @@ name|warnResponseSize
 decl_stmt|;
 specifier|private
 specifier|final
-name|Object
-name|serverInstance
+name|Server
+name|server
 decl_stmt|;
 specifier|private
 specifier|final
@@ -2029,6 +2025,11 @@ argument_list|()
 return|;
 block|}
 comment|/*      * Short string representation without param info because param itself could be huge depends on      * the payload of a command      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 name|String
 name|toShortString
 parameter_list|()
@@ -9578,13 +9579,13 @@ name|service
 return|;
 block|}
 block|}
-comment|/**    * Constructs a server listening on the named port and address.    * @param serverInstance hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param isa Where to listen    * @param conf    * @throws IOException    */
+comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param isa Where to listen    * @param conf    * @throws IOException    */
 specifier|public
 name|RpcServer
 parameter_list|(
 specifier|final
 name|Server
-name|serverInstance
+name|server
 parameter_list|,
 specifier|final
 name|String
@@ -9612,9 +9613,9 @@ name|IOException
 block|{
 name|this
 operator|.
-name|serverInstance
+name|server
 operator|=
-name|serverInstance
+name|server
 expr_stmt|;
 name|this
 operator|.
@@ -10048,36 +10049,6 @@ operator|=
 name|size
 expr_stmt|;
 block|}
-comment|/** Starts the service.  Must be called before any calls will be handled. */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|start
-parameter_list|()
-block|{
-name|startThreads
-argument_list|()
-expr_stmt|;
-name|openServer
-argument_list|()
-expr_stmt|;
-block|}
-comment|/**    * Open a previously started server.    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|openServer
-parameter_list|()
-block|{
-name|this
-operator|.
-name|started
-operator|=
-literal|true
-expr_stmt|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -10091,15 +10062,20 @@ operator|.
 name|started
 return|;
 block|}
-comment|/**    * Starts the service threads but does not allow requests to be responded yet.    * Client will get {@link ServerNotRunningYetException} instead.    */
+comment|/** Starts the service.  Must be called before any calls will be handled. */
 annotation|@
 name|Override
 specifier|public
 specifier|synchronized
 name|void
-name|startThreads
+name|start
 parameter_list|()
 block|{
+if|if
+condition|(
+name|started
+condition|)
+return|return;
 name|AuthenticationTokenSecretManager
 name|mgr
 init|=
@@ -10156,6 +10132,10 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|started
+operator|=
+literal|true
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -10198,57 +10178,13 @@ literal|null
 return|;
 if|if
 condition|(
-name|serverInstance
+name|server
 operator|==
 literal|null
 condition|)
 return|return
 literal|null
 return|;
-if|if
-condition|(
-operator|!
-operator|(
-name|serverInstance
-operator|instanceof
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
-operator|)
-condition|)
-return|return
-literal|null
-return|;
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
-name|server
-init|=
-operator|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
-operator|)
-name|serverInstance
-decl_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -10873,13 +10809,13 @@ name|put
 argument_list|(
 literal|"class"
 argument_list|,
-name|serverInstance
+name|server
 operator|==
 literal|null
 condition|?
 literal|""
 else|:
-name|serverInstance
+name|server
 operator|.
 name|getClass
 argument_list|()
@@ -10905,7 +10841,7 @@ name|length
 operator|==
 literal|2
 operator|&&
-name|serverInstance
+name|server
 operator|instanceof
 name|HRegionServer
 operator|&&
@@ -11012,7 +10948,7 @@ name|length
 operator|==
 literal|1
 operator|&&
-name|serverInstance
+name|server
 operator|instanceof
 name|HRegionServer
 operator|&&
@@ -11242,11 +11178,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Authorize the incoming client connection.    *    * @param user client user    * @param connection incoming connection    * @param addr InetAddress of incoming connection    * @throws org.apache.hadoop.security.authorize.AuthorizationException when the client isn't authorized to talk the protocol    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"static-access"
-argument_list|)
 specifier|public
 name|void
 name|authorize

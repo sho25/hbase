@@ -227,7 +227,7 @@ argument_list|,
 name|put
 argument_list|)
 decl_stmt|;
-name|super
+name|rpcServices
 operator|.
 name|mutate
 argument_list|(

@@ -1020,10 +1020,6 @@ name|master
 decl_stmt|;
 comment|// Needed by TableEventHandlers
 specifier|private
-name|MetricsMaster
-name|metricsMaster
-decl_stmt|;
-specifier|private
 name|ProcedureCoordinator
 name|coordinator
 decl_stmt|;
@@ -1118,12 +1114,6 @@ operator|.
 name|master
 operator|=
 name|master
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 name|this
 operator|.
@@ -1492,7 +1482,7 @@ name|cpHost
 init|=
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 if|if
@@ -2653,7 +2643,7 @@ name|cpHost
 init|=
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 if|if
@@ -3140,7 +3130,7 @@ name|cpHost
 init|=
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 comment|// check if the snapshot exists
@@ -4622,12 +4612,6 @@ operator|.
 name|master
 operator|=
 name|master
-expr_stmt|;
-name|this
-operator|.
-name|metricsMaster
-operator|=
-name|metricsMaster
 expr_stmt|;
 name|this
 operator|.

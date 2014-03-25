@@ -57,6 +57,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|PriorityFunction
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|RpcScheduler
 import|;
 end_import
@@ -78,7 +94,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Constructs a {@link SimpleRpcScheduler}. for the region server. */
+comment|/** Constructs a {@link SimpleRpcScheduler}. */
 end_comment
 
 begin_class
@@ -96,8 +112,8 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|RegionServerServices
-name|server
+name|PriorityFunction
+name|priority
 parameter_list|)
 block|{
 name|int
@@ -150,7 +166,7 @@ operator|.
 name|DEFAULT_REGION_SERVER_REPLICATION_HANDLER_COUNT
 argument_list|)
 argument_list|,
-name|server
+name|priority
 argument_list|,
 name|HConstants
 operator|.

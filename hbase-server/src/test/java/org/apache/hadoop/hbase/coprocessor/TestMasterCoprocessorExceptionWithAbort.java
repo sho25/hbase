@@ -830,7 +830,7 @@ name|host
 init|=
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 name|BuggyMasterObserver

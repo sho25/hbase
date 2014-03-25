@@ -400,7 +400,7 @@ argument_list|)
 expr_stmt|;
 name|regionServer
 operator|.
-name|getCoprocessorHost
+name|getRegionServerCoprocessorHost
 argument_list|()
 operator|.
 name|loadSystemCoprocessors
@@ -582,11 +582,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|boolean
-name|threwIOE
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 specifier|final
@@ -633,19 +628,6 @@ operator|.
 name|flushCommits
 argument_list|()
 expr_stmt|;
-comment|// We may need two puts to reliably get an exception
-name|table
-operator|.
-name|put
-argument_list|(
-name|put
-argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|flushCommits
-argument_list|()
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -653,20 +635,9 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|threwIOE
-operator|=
-literal|true
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|assertTrue
-argument_list|(
-literal|"The regionserver should have thrown an exception"
-argument_list|,
-name|threwIOE
-argument_list|)
-expr_stmt|;
+comment|// The region server is going to be aborted.
+comment|// We may get an exception if we retry,
+comment|// which is not guaranteed.
 block|}
 comment|// Wait 10 seconds for the regionserver to abort: expected result is that
 comment|// it will abort.

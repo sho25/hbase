@@ -150,7 +150,7 @@ name|zk
 init|=
 name|master
 operator|.
-name|getZooKeeperWatcher
+name|getZooKeeper
 argument_list|()
 decl_stmt|;
 if|if
@@ -182,7 +182,7 @@ block|{
 return|return
 name|master
 operator|.
-name|getCoprocessors
+name|getMasterCoprocessors
 argument_list|()
 return|;
 block|}

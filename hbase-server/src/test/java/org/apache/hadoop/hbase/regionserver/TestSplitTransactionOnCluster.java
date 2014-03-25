@@ -775,7 +775,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionStates
+name|RegionState
+operator|.
+name|State
 import|;
 end_import
 
@@ -791,9 +793,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionState
-operator|.
-name|State
+name|RegionStates
 import|;
 end_import
 
@@ -828,24 +828,6 @@ operator|.
 name|compactions
 operator|.
 name|CompactionContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionRequest
 import|;
 end_import
 
@@ -2293,6 +2275,11 @@ block|}
 block|}
 annotation|@
 name|Test
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|testSplitFailedCompactionAndSplit
@@ -2833,6 +2820,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -3305,6 +3295,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -3411,6 +3404,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -3617,6 +3613,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -3652,6 +3651,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -7752,6 +7754,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -7791,6 +7796,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 operator|.
 name|size
@@ -7836,20 +7844,19 @@ decl_stmt|;
 name|assertTrue
 argument_list|(
 name|metaServerIndex
-operator|!=
+operator|==
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// meta is on master now
 name|HRegionServer
 name|metaRegionServer
 init|=
 name|cluster
 operator|.
-name|getRegionServer
-argument_list|(
-name|metaServerIndex
-argument_list|)
+name|getMaster
+argument_list|()
 decl_stmt|;
 name|int
 name|tableRegionIndex
@@ -8175,6 +8182,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|hrs
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for

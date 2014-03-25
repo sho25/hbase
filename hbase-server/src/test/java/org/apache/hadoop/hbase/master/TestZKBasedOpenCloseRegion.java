@@ -805,6 +805,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|regionServer
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1022,6 +1025,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|hr0
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1108,6 +1114,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|hr1
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1250,6 +1259,9 @@ operator|.
 name|getOnlineRegions
 argument_list|(
 name|regionServer
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1481,6 +1493,9 @@ operator|.
 name|openRegion
 argument_list|(
 name|regionServer
+operator|.
+name|getRSRpcServices
+argument_list|()
 argument_list|,
 name|regionServer
 operator|.

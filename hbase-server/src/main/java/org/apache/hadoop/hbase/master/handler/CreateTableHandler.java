@@ -957,7 +957,7 @@ operator|.
 name|server
 operator|)
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
 if|if

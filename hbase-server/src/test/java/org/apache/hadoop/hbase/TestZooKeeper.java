@@ -807,7 +807,7 @@ name|TEST_UTIL
 operator|.
 name|startMiniHBaseCluster
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 literal|2
 argument_list|)
@@ -824,6 +824,17 @@ name|Exception
 block|{
 try|try
 block|{
+comment|// Some regionserver could fail to delete its znode.
+comment|// So shutdown could hang. Let's kill them all instead.
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|killAll
+argument_list|()
+expr_stmt|;
+comment|// Still need to clean things up
 name|TEST_UTIL
 operator|.
 name|shutdownMiniHBaseCluster
@@ -1307,7 +1318,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|120000
 argument_list|)
 specifier|public
 name|void
@@ -1323,22 +1334,11 @@ argument_list|(
 literal|"Starting testRegionServerSessionExpired"
 argument_list|)
 expr_stmt|;
-name|int
-name|metaIndex
-init|=
-name|TEST_UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getServerWithMeta
-argument_list|()
-decl_stmt|;
 name|TEST_UTIL
 operator|.
 name|expireRegionServerSession
 argument_list|(
-name|metaIndex
+literal|0
 argument_list|)
 expr_stmt|;
 name|testSanity
@@ -1347,9 +1347,13 @@ literal|"testRegionServerSessionExpired"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// @Test Disabled because seems to make no sense expiring master session
-comment|// and then trying to create table (down in testSanity); on master side
-comment|// it will fail because the master's session has expired -- St.Ack 07/24/2012
+annotation|@
+name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMasterSessionExpired
@@ -1381,7 +1385,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1426,7 +1430,7 @@ name|SessionExpiredException
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|m
 operator|.
@@ -1434,6 +1438,7 @@ name|isStopped
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Master doesn't recover any more
 name|testSanity
 argument_list|(
 literal|"testMasterZKSessionRecoveryFailure"
@@ -2699,6 +2704,11 @@ block|}
 comment|/**    * Tests that the master does not call retainAssignment after recovery from expired zookeeper    * session. Without the HBASE-6046 fix master always tries to assign all the user regions by    * calling retainAssignment.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRegionAssignmentAfterMasterRecoveryDueToZKExpiry
@@ -2739,7 +2749,7 @@ name|zkw
 init|=
 name|m
 operator|.
-name|getZooKeeperWatcher
+name|getZooKeeper
 argument_list|()
 decl_stmt|;
 name|int
@@ -2906,7 +2916,7 @@ argument_list|)
 expr_stmt|;
 name|m
 operator|.
-name|getZooKeeperWatcher
+name|getZooKeeper
 argument_list|()
 operator|.
 name|close
@@ -2931,7 +2941,7 @@ name|SessionExpiredException
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|m
 operator|.
@@ -2939,6 +2949,7 @@ name|isStopped
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Master doesn't recover any more
 comment|// The recovered master should not call retainAssignment, as it is not a
 comment|// clean startup.
 name|assertFalse
@@ -2956,7 +2967,7 @@ name|cluster
 operator|.
 name|waitForActiveAndReadyMaster
 argument_list|(
-literal|10000
+literal|120000
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2985,7 +2996,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|240000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -3230,7 +3241,7 @@ expr_stmt|;
 block|}
 name|m
 operator|.
-name|getZooKeeperWatcher
+name|getZooKeeper
 argument_list|()
 operator|.
 name|close
@@ -3249,7 +3260,7 @@ name|SessionExpiredException
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|m
 operator|.
@@ -3257,6 +3268,7 @@ name|isStopped
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Master doesn't recover any more
 name|cluster
 operator|.
 name|getRegionServer

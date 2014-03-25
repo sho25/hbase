@@ -544,34 +544,6 @@ literal|null
 argument_list|,
 name|conf
 argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException    */
-specifier|public
-name|CatalogTracker
-parameter_list|(
-specifier|final
-name|ZooKeeperWatcher
-name|zk
-parameter_list|,
-specifier|final
-name|Configuration
-name|conf
-parameter_list|,
-name|Abortable
-name|abortable
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|zk
-argument_list|,
-name|conf
-argument_list|,
 name|HConnectionManager
 operator|.
 name|getConnection
@@ -579,10 +551,11 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-name|abortable
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException    */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -624,6 +597,15 @@ operator|=
 name|this
 operator|.
 name|connection
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|abortable
+operator|=
+name|abortable
 expr_stmt|;
 block|}
 name|Abortable
@@ -1073,6 +1055,11 @@ block|}
 block|}
 block|}
 comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|AdminService
 operator|.

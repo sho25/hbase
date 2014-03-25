@@ -294,7 +294,7 @@ specifier|abstract
 name|MasterService
 operator|.
 name|BlockingInterface
-name|getMaster
+name|getMasterAdminService
 parameter_list|()
 throws|throws
 name|IOException

@@ -1514,8 +1514,6 @@ argument_list|(
 name|server
 argument_list|,
 name|this
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|this
@@ -1606,7 +1604,7 @@ annotation|@
 name|Override
 specifier|public
 name|MasterCoprocessorHost
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 parameter_list|()
 block|{
 return|return

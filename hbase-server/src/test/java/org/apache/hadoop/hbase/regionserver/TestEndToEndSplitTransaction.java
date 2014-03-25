@@ -1277,6 +1277,9 @@ argument_list|)
 decl_stmt|;
 name|server
 operator|.
+name|getRSRpcServices
+argument_list|()
+operator|.
 name|get
 argument_list|(
 literal|null
@@ -1307,6 +1310,9 @@ decl_stmt|;
 try|try
 block|{
 name|server
+operator|.
+name|getRSRpcServices
+argument_list|()
 operator|.
 name|scan
 argument_list|(

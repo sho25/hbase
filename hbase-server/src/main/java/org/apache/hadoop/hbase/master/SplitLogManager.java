@@ -405,20 +405,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -1083,7 +1069,7 @@ name|failedDeletions
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName,    *   boolean masterRecovery, TaskFinisher tf)}    * with masterRecovery = false, and tf = null.  Used in unit tests.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    */
+comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    */
 specifier|public
 name|SplitLogManager
 parameter_list|(
@@ -1115,50 +1101,6 @@ argument_list|,
 name|master
 argument_list|,
 name|serverName
-argument_list|,
-literal|false
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Wrapper around {@link #SplitLogManager(ZooKeeperWatcher zkw, Configuration conf,    *   Stoppable stopper, MasterServices master, ServerName serverName,    *   boolean masterRecovery, TaskFinisher tf)}    * that provides a task finisher for copying recovered edits to their final destination.    * The task finisher has to be robust because it can be arbitrarily restarted or called    * multiple times.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    * @param masterRecovery an indication if the master is in recovery    */
-specifier|public
-name|SplitLogManager
-parameter_list|(
-name|ZooKeeperWatcher
-name|zkw
-parameter_list|,
-specifier|final
-name|Configuration
-name|conf
-parameter_list|,
-name|Stoppable
-name|stopper
-parameter_list|,
-name|MasterServices
-name|master
-parameter_list|,
-name|ServerName
-name|serverName
-parameter_list|,
-name|boolean
-name|masterRecovery
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|zkw
-argument_list|,
-name|conf
-argument_list|,
-name|stopper
-argument_list|,
-name|master
-argument_list|,
-name|serverName
-argument_list|,
-name|masterRecovery
 argument_list|,
 operator|new
 name|TaskFinisher
@@ -1222,7 +1164,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block waiting for them    * to be done.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    * @param masterRecovery an indication if the master is in recovery    * @param tf task finisher    */
+comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block waiting for them    * to be done.    *    * @param zkw the ZK watcher    * @param conf the HBase configuration    * @param stopper the stoppable in case anything is wrong    * @param master the master services    * @param serverName the master server name    * @param tf task finisher    */
 specifier|public
 name|SplitLogManager
 parameter_list|(
@@ -1240,9 +1182,6 @@ name|master
 parameter_list|,
 name|ServerName
 name|serverName
-parameter_list|,
-name|boolean
-name|masterRecovery
 parameter_list|,
 name|TaskFinisher
 name|tf
@@ -1400,12 +1339,6 @@ argument_list|>
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|masterRecovery
-condition|)
-block|{
 name|Threads
 operator|.
 name|setDaemonThreadRunning
@@ -1420,7 +1353,6 @@ operator|+
 literal|".splitLogManagerTimeoutMonitor"
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Watcher can be null during tests with Mock'd servers.
 if|if
 condition|(

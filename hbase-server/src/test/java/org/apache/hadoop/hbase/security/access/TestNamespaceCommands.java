@@ -558,7 +558,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getCoprocessorHost
+name|getRegionServerCoprocessorHost
 argument_list|()
 operator|.
 name|findCoprocessor

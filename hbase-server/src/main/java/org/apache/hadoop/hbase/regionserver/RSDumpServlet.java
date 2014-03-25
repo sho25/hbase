@@ -236,29 +236,6 @@ literal|null
 operator|:
 literal|"No RS in context!"
 assert|;
-name|Configuration
-name|hrsconf
-init|=
-operator|(
-name|Configuration
-operator|)
-name|getServletContext
-argument_list|()
-operator|.
-name|getAttribute
-argument_list|(
-name|HRegionServer
-operator|.
-name|REGIONSERVER_CONF
-argument_list|)
-decl_stmt|;
-assert|assert
-name|hrsconf
-operator|!=
-literal|null
-operator|:
-literal|"No RS conf in context"
-assert|;
 name|response
 operator|.
 name|setContentType
@@ -316,7 +293,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Master status for "
+literal|"RegionServer status for "
 operator|+
 name|hrs
 operator|.
@@ -508,7 +485,7 @@ if|if
 condition|(
 name|isShowQueueDump
 argument_list|(
-name|hrsconf
+name|conf
 argument_list|)
 condition|)
 block|{
@@ -526,26 +503,8 @@ name|flush
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
-name|boolean
-name|isShowQueueDump
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-return|return
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.regionserver.servlet.show.queuedump"
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
-specifier|private
+specifier|public
+specifier|static
 name|void
 name|dumpQueue
 parameter_list|(

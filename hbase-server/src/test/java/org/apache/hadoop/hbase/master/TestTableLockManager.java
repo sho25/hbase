@@ -809,7 +809,7 @@ argument_list|()
 decl_stmt|;
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 operator|.
 name|load
@@ -1058,7 +1058,7 @@ argument_list|()
 decl_stmt|;
 name|master
 operator|.
-name|getCoprocessorHost
+name|getMasterCoprocessorHost
 argument_list|()
 operator|.
 name|load

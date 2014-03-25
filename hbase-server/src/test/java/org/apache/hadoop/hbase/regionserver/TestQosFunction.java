@@ -166,14 +166,14 @@ name|void
 name|testPriority
 parameter_list|()
 block|{
-name|HRegionServer
-name|hrs
+name|RSRpcServices
+name|rpcServices
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HRegionServer
+name|RSRpcServices
 operator|.
 name|class
 argument_list|)
@@ -184,7 +184,7 @@ init|=
 operator|new
 name|AnnotationReadingPriorityFunction
 argument_list|(
-name|hrs
+name|rpcServices
 argument_list|)
 decl_stmt|;
 comment|// Set method name in pb style with the method name capitalized.

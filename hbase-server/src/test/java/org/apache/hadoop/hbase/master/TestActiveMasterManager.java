@@ -565,6 +565,8 @@ name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
+literal|100
+argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
@@ -619,6 +621,8 @@ name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
+literal|100
+argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
@@ -785,6 +789,8 @@ name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
+literal|100
+argument_list|,
 name|Mockito
 operator|.
 name|mock
@@ -1150,6 +1156,8 @@ name|manager
 operator|.
 name|blockUntilBecomingActiveMaster
 argument_list|(
+literal|100
+argument_list|,
 name|Mockito
 operator|.
 name|mock

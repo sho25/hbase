@@ -766,9 +766,6 @@ name|master
 parameter_list|,
 name|MasterServices
 name|services
-parameter_list|,
-name|boolean
-name|masterRecovery
 parameter_list|)
 throws|throws
 name|IOException
@@ -920,8 +917,6 @@ name|master
 operator|.
 name|getServerName
 argument_list|()
-argument_list|,
-name|masterRecovery
 argument_list|)
 expr_stmt|;
 block|}
