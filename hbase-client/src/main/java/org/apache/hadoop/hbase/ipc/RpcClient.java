@@ -1787,7 +1787,7 @@ block|}
 comment|/**      * Check if the call did timeout. Set an exception (includes a notify) if it's the case.      * @return true if the call is on timeout, false otherwise.      */
 specifier|public
 name|boolean
-name|checkTimeout
+name|checkAndSetTimeout
 parameter_list|()
 block|{
 if|if
@@ -2123,12 +2123,15 @@ specifier|static
 class|class
 name|CallFuture
 block|{
+specifier|final
 name|Call
 name|call
 decl_stmt|;
+specifier|final
 name|int
 name|priority
 decl_stmt|;
+specifier|final
 name|Span
 name|span
 decl_stmt|;
@@ -2542,7 +2545,7 @@ name|cts
 operator|.
 name|call
 operator|.
-name|checkTimeout
+name|checkAndSetTimeout
 argument_list|()
 condition|)
 block|{
@@ -5526,20 +5529,28 @@ name|get
 argument_list|()
 condition|)
 return|return;
-name|int
-name|totalSize
+name|Call
+name|call
+init|=
+literal|null
+decl_stmt|;
+name|boolean
+name|expectedCall
+init|=
+literal|false
 decl_stmt|;
 try|try
 block|{
 comment|// See HBaseServer.Call.setResponse for where we write out the response.
 comment|// Total size of the response.  Unused.  But have to read it in anyways.
+name|int
 name|totalSize
-operator|=
+init|=
 name|in
 operator|.
 name|readInt
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// Read the header
 name|ResponseHeader
 name|responseHeader
@@ -5591,19 +5602,18 @@ literal|" bytes"
 argument_list|)
 expr_stmt|;
 block|}
-name|Call
 name|call
-init|=
+operator|=
 name|calls
 operator|.
 name|remove
 argument_list|(
 name|id
 argument_list|)
-decl_stmt|;
-name|boolean
+expr_stmt|;
+comment|// call.done have to be set before leaving this method
 name|expectedCall
-init|=
+operator|=
 operator|(
 name|call
 operator|!=
@@ -5614,7 +5624,7 @@ name|call
 operator|.
 name|done
 operator|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -5694,6 +5704,17 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|expectedCall
+condition|)
+name|call
+operator|.
+name|setException
+argument_list|(
+name|re
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|isFatalConnectionException
 argument_list|(
 name|exceptionResponse
@@ -5701,20 +5722,6 @@ argument_list|)
 condition|)
 block|{
 name|markClosed
-argument_list|(
-name|re
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|expectedCall
-condition|)
-name|call
-operator|.
-name|setException
 argument_list|(
 name|re
 argument_list|)
@@ -5728,7 +5735,7 @@ name|value
 init|=
 literal|null
 decl_stmt|;
-comment|// Call may be null because it may have timedout and been cleaned up on this side already
+comment|// Call may be null because it may have timeout and been cleaned up on this side already
 if|if
 condition|(
 name|expectedCall
@@ -5859,6 +5866,17 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|expectedCall
+condition|)
+name|call
+operator|.
+name|setException
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|e
 operator|instanceof
 name|SocketTimeoutException
@@ -5885,6 +5903,40 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|expectedCall
+operator|&&
+operator|!
+name|call
+operator|.
+name|done
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Coding error: code should be true for callId="
+operator|+
+name|call
+operator|.
+name|id
+operator|+
+literal|", server="
+operator|+
+name|getRemoteAddress
+argument_list|()
+operator|+
+literal|", shouldCloseConnection="
+operator|+
+name|shouldCloseConnection
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**      * @param e      * @return True if the exception is a fatal connection exception.      */
@@ -6058,7 +6110,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param allCalls for all calls,      */
+comment|/**      * Cleanup the calls older than a given timeout, in milli seconds.      * @param allCalls true for all calls, false for only the calls in timeout      */
 specifier|protected
 specifier|synchronized
 name|void
@@ -6145,7 +6197,12 @@ init|=
 operator|new
 name|IOException
 argument_list|(
-literal|"Call id="
+literal|"Connection to "
+operator|+
+name|getRemoteAddress
+argument_list|()
+operator|+
+literal|" is closing. Call id="
 operator|+
 name|c
 operator|.
@@ -6174,7 +6231,7 @@ if|if
 condition|(
 name|c
 operator|.
-name|checkTimeout
+name|checkAndSetTimeout
 argument_list|()
 condition|)
 block|{
@@ -7188,7 +7245,7 @@ if|if
 condition|(
 name|call
 operator|.
-name|checkTimeout
+name|checkAndSetTimeout
 argument_list|()
 condition|)
 block|{
@@ -7208,6 +7265,34 @@ name|cts
 argument_list|)
 expr_stmt|;
 break|break;
+block|}
+if|if
+condition|(
+name|connection
+operator|.
+name|shouldCloseConnection
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Call id="
+operator|+
+name|call
+operator|.
+name|id
+operator|+
+literal|" on server "
+operator|+
+name|addr
+operator|+
+literal|" aborted: connection is closing"
+argument_list|)
+throw|;
 block|}
 try|try
 block|{
