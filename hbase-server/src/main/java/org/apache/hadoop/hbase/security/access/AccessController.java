@@ -3185,14 +3185,6 @@ argument_list|(
 name|timestamp
 argument_list|)
 expr_stmt|;
-name|get
-operator|.
-name|setMaxResultsPerColumnFamily
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-comment|// Hold down memory use on wide rows
 if|if
 condition|(
 name|allVersions
@@ -3478,6 +3470,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+comment|// scan with limit as 1 to hold down memory use on wide rows
 name|more
 operator|=
 name|scanner
@@ -3485,6 +3478,8 @@ operator|.
 name|next
 argument_list|(
 name|cells
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 for|for
