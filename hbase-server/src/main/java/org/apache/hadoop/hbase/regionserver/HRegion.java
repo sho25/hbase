@@ -13604,8 +13604,15 @@ continue|continue;
 block|}
 try|try
 block|{
+comment|// replay the edits. Replay can return -1 if everything is skipped, only update if seqId is greater
 name|seqid
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|seqid
+argument_list|,
 name|replayRecoveredEdits
 argument_list|(
 name|edits
@@ -13613,6 +13620,7 @@ argument_list|,
 name|maxSeqIdInStores
 argument_list|,
 name|reporter
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -14230,6 +14238,13 @@ name|getLogSeqNum
 argument_list|()
 expr_stmt|;
 block|}
+name|currentEditSeqId
+operator|=
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+expr_stmt|;
 name|boolean
 name|flush
 init|=
@@ -14396,13 +14411,6 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-name|currentEditSeqId
-operator|=
-name|key
-operator|.
-name|getLogSeqNum
-argument_list|()
-expr_stmt|;
 comment|// Once we are over the limit, restoreEdit will keep returning true to
 comment|// flush -- but don't flush until we've played all the kvs that make up
 comment|// the WALEdit.
