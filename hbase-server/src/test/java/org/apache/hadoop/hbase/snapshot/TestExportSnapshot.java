@@ -2149,6 +2149,23 @@ name|retry
 argument_list|)
 expr_stmt|;
 comment|// Export Snapshot
+name|Path
+name|sourceDir
+init|=
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getRootDir
+argument_list|()
+decl_stmt|;
 name|int
 name|res
 init|=
@@ -2170,6 +2187,13 @@ name|toString
 argument_list|(
 name|snapshotName
 argument_list|)
+block|,
+literal|"-copy-from"
+block|,
+name|sourceDir
+operator|.
+name|toString
+argument_list|()
 block|,
 literal|"-copy-to"
 block|,
