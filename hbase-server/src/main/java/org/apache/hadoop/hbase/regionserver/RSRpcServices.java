@@ -3528,6 +3528,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionServer
 operator|.
 name|metricsRegionServer
@@ -3542,6 +3551,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|r
 return|;
@@ -3697,6 +3707,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionServer
 operator|.
 name|metricsRegionServer
@@ -3711,6 +3730,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|r
 return|;
@@ -4652,6 +4672,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|long
 name|after
 init|=
@@ -4693,6 +4722,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Execute a list of Put/Delete mutations. The function returns OperationStatus instead of    * constructing MultiResponse to save a possible loop if caller doesn't need MultiResponse.    * @param region    * @param mutations    * @return an array of OperationStatus which internally contains the OperationStatusCode and the    *         exceptionMessage if any    * @throws IOException    */
@@ -4841,6 +4871,15 @@ return|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|long
 name|after
 init|=
@@ -4882,6 +4921,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -8432,6 +8472,15 @@ throw|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionServer
 operator|.
 name|metricsRegionServer
@@ -8446,6 +8495,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Replicate WAL entries on the region server.    *    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
@@ -9687,6 +9737,15 @@ throw|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|regionServer
+operator|.
+name|metricsRegionServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionServer
 operator|.
 name|metricsRegionServer
@@ -9701,6 +9760,7 @@ operator|-
 name|before
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Execute multiple actions on a table: get, mutate, and/or execCoprocessor    *    * @param rpcc the RPC controller    * @param request the multi request    * @throws ServiceException    */
