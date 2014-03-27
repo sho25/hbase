@@ -397,11 +397,11 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|debug
+name|info
 argument_list|(
 name|sn
 operator|+
-literal|" HConnection server-to-server retries="
+literal|" server-side HConnection retries="
 operator|+
 name|retries
 argument_list|)

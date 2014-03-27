@@ -826,7 +826,7 @@ return|return;
 block|}
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Node "
 operator|+
@@ -2197,9 +2197,7 @@ literal|"Node "
 operator|+
 name|path
 operator|+
-literal|" already exists and this is not a "
-operator|+
-literal|"retry"
+literal|" already exists"
 argument_list|)
 expr_stmt|;
 throw|throw

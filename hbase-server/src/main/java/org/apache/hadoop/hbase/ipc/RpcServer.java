@@ -5630,7 +5630,7 @@ operator|.
 name|toShortString
 argument_list|()
 operator|+
-literal|": output error"
+literal|": output error -- closing"
 argument_list|)
 expr_stmt|;
 name|done

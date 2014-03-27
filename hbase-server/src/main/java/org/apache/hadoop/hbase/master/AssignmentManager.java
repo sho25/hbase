@@ -6432,7 +6432,7 @@ return|;
 block|}
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Assigning "
 operator|+
@@ -6811,7 +6811,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|destination
 operator|.
@@ -6825,6 +6825,10 @@ operator|+
 literal|" of total="
 operator|+
 name|total
+operator|+
+literal|"; oldCounter="
+operator|+
+name|oldCounter
 argument_list|)
 expr_stmt|;
 name|oldCounter

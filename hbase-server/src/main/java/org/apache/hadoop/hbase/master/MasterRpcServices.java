@@ -2567,7 +2567,7 @@ name|addConfig
 argument_list|(
 name|resp
 argument_list|,
-literal|"fs.default.name"
+literal|"fs.defaultFS"
 argument_list|)
 return|;
 block|}

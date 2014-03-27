@@ -2636,7 +2636,7 @@ finally|finally
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Finishing writing output logs and closing down."
 argument_list|)
@@ -3150,7 +3150,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Archived processed log "
 operator|+
@@ -5190,7 +5190,7 @@ name|IOException
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Waiting for split writer threads to finish"
 argument_list|)
@@ -5928,7 +5928,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Rename "
 operator|+
@@ -6594,7 +6594,7 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Creating writer path="
 operator|+

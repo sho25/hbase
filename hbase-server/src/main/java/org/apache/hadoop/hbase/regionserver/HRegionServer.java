@@ -5607,7 +5607,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Config from master: "
 operator|+
@@ -8254,7 +8254,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Post open deploy tasks for region="
+literal|"Post open deploy tasks for "
 operator|+
 name|r
 operator|.
@@ -8392,7 +8392,7 @@ expr_stmt|;
 block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Finished post open deploy task for "
 operator|+
