@@ -5878,7 +5878,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|1
+literal|3
 argument_list|)
 expr_stmt|;
 name|conf
