@@ -274,6 +274,8 @@ argument_list|,
 name|Result
 argument_list|>
 block|{
+specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG

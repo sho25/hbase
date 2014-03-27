@@ -195,6 +195,7 @@ implements|implements
 name|StringCallback
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -424,6 +425,7 @@ implements|implements
 name|StatCallback
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG

@@ -293,6 +293,7 @@ init|=
 literal|"hbase.mapred.outputtable"
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG

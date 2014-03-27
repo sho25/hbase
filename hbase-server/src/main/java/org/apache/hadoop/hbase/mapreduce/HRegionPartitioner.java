@@ -219,6 +219,7 @@ implements|implements
 name|Configurable
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -227,7 +228,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TableInputFormat
+name|HRegionPartitioner
 operator|.
 name|class
 argument_list|)

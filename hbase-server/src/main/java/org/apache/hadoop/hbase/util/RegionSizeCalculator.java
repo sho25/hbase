@@ -297,6 +297,7 @@ class|class
 name|RegionSizeCalculator
 block|{
 specifier|private
+specifier|static
 specifier|final
 name|Log
 name|LOG
