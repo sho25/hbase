@@ -467,16 +467,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -1203,11 +1193,6 @@ name|FIRST_BATCH_COUNT
 decl_stmt|;
 comment|/**    * Test that puts up a regionserver, starts a compaction on a loaded region but holds the    * compaction until after we have killed the server and the region has come up on    * a new regionserver altogether.  This fakes the double assignment case where region in one    * location changes the files out from underneath a region being served elsewhere.    */
 annotation|@
-name|Ignore
-argument_list|(
-literal|"See HBASE-10298"
-argument_list|)
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -1225,11 +1210,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test that puts up a regionserver, starts a compaction on a loaded region but holds the    * compaction completion until after we have killed the server and the region has come up on    * a new regionserver altogether.  This fakes the double assignment case where region in one    * location changes the files out from underneath a region being served elsewhere.    */
-annotation|@
-name|Ignore
-argument_list|(
-literal|"See HBASE-10298"
-argument_list|)
 annotation|@
 name|Test
 specifier|public
