@@ -191,6 +191,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|RegionStates
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -242,6 +258,22 @@ operator|.
 name|util
 operator|.
 name|JVMClusterUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -700,7 +732,7 @@ expr_stmt|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
-comment|// On a balanced cluster, calling balance() should return false
+comment|// On a balanced cluster, calling balance() should return true
 assert|assert
 operator|(
 name|UTIL
@@ -714,10 +746,10 @@ operator|.
 name|balance
 argument_list|()
 operator|==
-literal|false
+literal|true
 operator|)
 assert|;
-comment|// However if we add a server, then the balance() call should return true
+comment|// if we add a server, then the balance() call should return true
 comment|// add a region server - total of 3
 name|LOG
 operator|.
@@ -1441,6 +1473,43 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{}
+block|}
+name|RegionStates
+name|regionStates
+init|=
+name|UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|regionStates
+operator|.
+name|getRegionsInTransition
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
