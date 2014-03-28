@@ -177,10 +177,6 @@ name|ServiceException
 import|;
 end_import
 
-begin_comment
-comment|/**  * RpcServer Interface.  * Start calls {@link #openServer()} and then {@link #startThreads()}.  Prefer {@link #start()}  * and {@link #stop()}.  Only use {@link #openServer()} and {@link #startThreads()} if in a  * situation where you could start getting requests though the server not up and fully  * initiaalized.  */
-end_comment
-
 begin_interface
 annotation|@
 name|InterfaceAudience

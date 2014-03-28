@@ -5395,7 +5395,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Get list of TableDescriptors for requested tables.    * @param controller Unused (set to null).    * @param req GetTableDescriptorsRequest that contains:    * - tableNames: requested tables, or if empty, all are requested    * @return GetTableDescriptorsResponse    * @throws ServiceException    */
+comment|/**    * Get list of TableDescriptors for requested tables.    * @param c Unused (set to null).    * @param req GetTableDescriptorsRequest that contains:    * - tableNames: requested tables, or if empty, all are requested    * @return GetTableDescriptorsResponse    * @throws ServiceException    */
 annotation|@
 name|Override
 specifier|public
