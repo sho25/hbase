@@ -3865,14 +3865,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegionLocation
-name|firstMetaServer
-init|=
-name|getFirstMetaServerForTable
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
 name|boolean
 name|tableExists
 init|=
@@ -3928,6 +3920,11 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|int
+name|failures
+init|=
+literal|0
+decl_stmt|;
 comment|// Wait until all regions deleted
 for|for
 control|(
@@ -3954,6 +3951,14 @@ control|)
 block|{
 try|try
 block|{
+name|HRegionLocation
+name|firstMetaServer
+init|=
+name|getFirstMetaServerForTable
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
 name|Scan
 name|scan
 init|=
@@ -4183,9 +4188,12 @@ name|IOException
 name|ex
 parameter_list|)
 block|{
+name|failures
+operator|++
+expr_stmt|;
 if|if
 condition|(
-name|tries
+name|failures
 operator|==
 name|numRetries
 operator|-

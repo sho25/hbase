@@ -11728,7 +11728,11 @@ literal|"Region "
 operator|+
 name|regionNameStr
 operator|+
-literal|" is opening"
+literal|" is opening on "
+operator|+
+name|this
+operator|.
+name|serverName
 argument_list|)
 throw|;
 block|}
@@ -11740,7 +11744,11 @@ literal|"Region "
 operator|+
 name|regionNameStr
 operator|+
-literal|" is not online"
+literal|" is not online on "
+operator|+
+name|this
+operator|.
+name|serverName
 argument_list|)
 throw|;
 block|}
