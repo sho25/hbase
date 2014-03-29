@@ -711,7 +711,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Failed to look for classes in "
 operator|+
@@ -785,7 +785,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Failed to get next entry from "
 operator|+
@@ -954,7 +954,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Ignoring duplicate class "
 operator|+
@@ -1031,7 +1031,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Failed to find "
 operator|+
@@ -1067,7 +1067,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Failed to get files from "
 operator|+
@@ -1184,7 +1184,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Ignoring duplicate class "
 operator|+
