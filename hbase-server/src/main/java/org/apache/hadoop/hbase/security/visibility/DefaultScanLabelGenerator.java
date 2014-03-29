@@ -232,7 +232,7 @@ name|userName
 init|=
 name|user
 operator|.
-name|getName
+name|getShortName
 argument_list|()
 decl_stmt|;
 name|List
