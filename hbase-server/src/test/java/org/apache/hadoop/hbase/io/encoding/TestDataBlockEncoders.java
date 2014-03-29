@@ -2327,6 +2327,11 @@ name|seeker
 operator|.
 name|seekToKeyInBlock
 argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|keyValue
 operator|.
 name|getBuffer
@@ -2341,6 +2346,7 @@ name|keyValue
 operator|.
 name|getKeyLength
 argument_list|()
+argument_list|)
 argument_list|,
 name|seekBefore
 argument_list|)

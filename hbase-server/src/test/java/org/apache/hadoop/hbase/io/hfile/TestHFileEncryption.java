@@ -27,7 +27,43 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -1316,7 +1352,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|60000
+literal|6000000
 argument_list|)
 specifier|public
 name|void
@@ -1729,9 +1765,6 @@ operator|.
 name|seekTo
 argument_list|(
 name|kv
-operator|.
-name|getKey
-argument_list|()
 argument_list|)
 argument_list|,
 literal|0

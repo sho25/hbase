@@ -155,7 +155,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|BloomType
 import|;
 end_import
 
@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|BloomType
+name|StoreFile
 import|;
 end_import
 

@@ -223,6 +223,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -254,6 +268,20 @@ operator|.
 name|KeyValue
 operator|.
 name|KVComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -648,21 +676,14 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Return the data block which contains this key. This function will only      * be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding      * @return reader a basic way to load blocks      * @throws IOException      */
+comment|/**      * Return the data block which contains this key. This function will only      * be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param currentBlock the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding      * @return reader a basic way to load blocks      * @throws IOException      */
 specifier|public
 name|HFileBlock
 name|seekToDataBlock
 parameter_list|(
 specifier|final
-name|byte
-index|[]
+name|Cell
 name|key
-parameter_list|,
-name|int
-name|keyOffset
-parameter_list|,
-name|int
-name|keyLength
 parameter_list|,
 name|HFileBlock
 name|currentBlock
@@ -688,10 +709,6 @@ init|=
 name|loadDataBlockWithScanInfo
 argument_list|(
 name|key
-argument_list|,
-name|keyOffset
-argument_list|,
-name|keyLength
 argument_list|,
 name|currentBlock
 argument_list|,
@@ -725,21 +742,13 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan info      * such as nextIndexedKey.      * This function will only be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param currentBlock the current block, to avoid re-reading the same      *          block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other scan info      *         such as nextIndexedKey.      * @throws IOException      */
+comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan      * info such as nextIndexedKey. This function will only be called when the      * HFile version is larger than 1.      *       * @param key      *          the key we are looking for      * @param currentBlock      *          the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other      *         scan info such as nextIndexedKey.      * @throws IOException      */
 specifier|public
 name|BlockWithScanInfo
 name|loadDataBlockWithScanInfo
 parameter_list|(
-specifier|final
-name|byte
-index|[]
+name|Cell
 name|key
-parameter_list|,
-name|int
-name|keyOffset
-parameter_list|,
-name|int
-name|keyLength
 parameter_list|,
 name|HFileBlock
 name|currentBlock
@@ -765,10 +774,6 @@ init|=
 name|rootBlockContainingKey
 argument_list|(
 name|key
-argument_list|,
-name|keyOffset
-argument_list|,
-name|keyLength
 argument_list|)
 decl_stmt|;
 if|if
@@ -1045,10 +1050,6 @@ name|buffer
 argument_list|,
 name|key
 argument_list|,
-name|keyOffset
-argument_list|,
-name|keyLength
-argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
@@ -1060,6 +1061,18 @@ operator|-
 literal|1
 condition|)
 block|{
+comment|// This has to be changed
+comment|// For now change this to key value
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|key
+argument_list|)
+decl_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -1070,11 +1083,20 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|key
+name|kv
+operator|.
+name|getKey
+argument_list|()
 argument_list|,
-name|keyOffset
+name|kv
+operator|.
+name|getKeyOffset
+argument_list|()
 argument_list|,
-name|keyLength
+name|kv
+operator|.
+name|getKeyLength
+argument_list|()
 argument_list|)
 operator|+
 literal|" is before the"
@@ -1521,6 +1543,80 @@ operator|-
 literal|1
 return|;
 block|}
+comment|/**      * Finds the root-level index block containing the given key.      *      * @param key      *          Key to find      */
+specifier|public
+name|int
+name|rootBlockContainingKey
+parameter_list|(
+specifier|final
+name|Cell
+name|key
+parameter_list|)
+block|{
+name|int
+name|pos
+init|=
+name|Bytes
+operator|.
+name|binarySearch
+argument_list|(
+name|blockKeys
+argument_list|,
+name|key
+argument_list|,
+name|comparator
+argument_list|)
+decl_stmt|;
+comment|// pos is between -(blockKeys.length + 1) to blockKeys.length - 1, see
+comment|// binarySearch's javadoc.
+if|if
+condition|(
+name|pos
+operator|>=
+literal|0
+condition|)
+block|{
+comment|// This means this is an exact match with an element of blockKeys.
+assert|assert
+name|pos
+operator|<
+name|blockKeys
+operator|.
+name|length
+assert|;
+return|return
+name|pos
+return|;
+block|}
+comment|// Otherwise, pos = -(i + 1), where blockKeys[i - 1]< key< blockKeys[i],
+comment|// and i is in [0, blockKeys.length]. We are returning j = i - 1 such that
+comment|// blockKeys[j]<= key< blockKeys[j + 1]. In particular, j = -1 if
+comment|// key< blockKeys[0], meaning the file does not contain the given key.
+name|int
+name|i
+init|=
+operator|-
+name|pos
+operator|-
+literal|1
+decl_stmt|;
+assert|assert
+literal|0
+operator|<=
+name|i
+operator|&&
+name|i
+operator|<=
+name|blockKeys
+operator|.
+name|length
+assert|;
+return|return
+name|i
+operator|-
+literal|1
+return|;
+block|}
 comment|/**      * Adds a new entry in the root block index. Only used when reading.      *      * @param key Last key in the block      * @param offset file offset where the block is stored      * @param dataSize the uncompressed data size      */
 specifier|private
 name|void
@@ -1708,20 +1804,13 @@ name|to
 argument_list|)
 return|;
 block|}
-comment|/**      * Performs a binary search over a non-root level index block. Utilizes the      * secondary index, which records the offsets of (offset, onDiskSize,      * firstKey) tuples of all entries.      *      * @param key the key we are searching for offsets to individual entries in      *          the blockIndex buffer      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @param nonRootIndex the non-root index block buffer, starting with the      *          secondary index. The position is ignored.      * @return the index i in [0, numEntries - 1] such that keys[i]<= key<      *         keys[i + 1], if keys is the array of all keys being searched, or      *         -1 otherwise      * @throws IOException      */
+comment|/**      * Performs a binary search over a non-root level index block. Utilizes the      * secondary index, which records the offsets of (offset, onDiskSize,      * firstKey) tuples of all entries.      *       * @param key      *          the key we are searching for offsets to individual entries in      *          the blockIndex buffer      * @param nonRootIndex      *          the non-root index block buffer, starting with the secondary      *          index. The position is ignored.      * @return the index i in [0, numEntries - 1] such that keys[i]<= key<      *         keys[i + 1], if keys is the array of all keys being searched, or      *         -1 otherwise      * @throws IOException      */
 specifier|static
 name|int
 name|binarySearchNonRootIndex
 parameter_list|(
-name|byte
-index|[]
+name|Cell
 name|key
-parameter_list|,
-name|int
-name|keyOffset
-parameter_list|,
-name|int
-name|keyLength
 parameter_list|,
 name|ByteBuffer
 name|nonRootIndex
@@ -1775,6 +1864,17 @@ decl_stmt|;
 comment|// If we imagine that keys[-1] = -Infinity and
 comment|// keys[numEntries] = Infinity, then we are maintaining an invariant that
 comment|// keys[low - 1]< key< keys[high + 1] while narrowing down the range.
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+name|nonRootIndexKV
+init|=
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 name|low
@@ -1851,19 +1951,10 @@ name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
 comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
-name|int
-name|cmp
-init|=
-name|comparator
+name|nonRootIndexKV
 operator|.
-name|compareFlatKey
+name|setKey
 argument_list|(
-name|key
-argument_list|,
-name|keyOffset
-argument_list|,
-name|keyLength
-argument_list|,
 name|nonRootIndex
 operator|.
 name|array
@@ -1877,6 +1968,18 @@ operator|+
 name|midKeyOffset
 argument_list|,
 name|midLength
+argument_list|)
+expr_stmt|;
+name|int
+name|cmp
+init|=
+name|comparator
+operator|.
+name|compareOnlyKeyPortion
+argument_list|(
+name|key
+argument_list|,
+name|nonRootIndexKV
 argument_list|)
 decl_stmt|;
 comment|// key lives above the midpoint
@@ -1990,7 +2093,7 @@ return|return
 name|i
 return|;
 block|}
-comment|/**      * Search for one key using the secondary index in a non-root block. In case      * of success, positions the provided buffer at the entry of interest, where      * the file offset and the on-disk-size can be read.      *      * @param nonRootBlock a non-root block without header. Initial position      *          does not matter.      * @param key the byte array containing the key      * @param keyOffset the offset of the key in its byte array      * @param keyLength the length of the key      * @return the index position where the given key was found,      *         otherwise return -1 in the case the given key is before the first key.      *      */
+comment|/**      * Search for one key using the secondary index in a non-root block. In case      * of success, positions the provided buffer at the entry of interest, where      * the file offset and the on-disk-size can be read.      *      * @param nonRootBlock      *          a non-root block without header. Initial position does not      *          matter.      * @param key      *          the byte array containing the key      * @return the index position where the given key was found, otherwise      *         return -1 in the case the given key is before the first key.      *      */
 specifier|static
 name|int
 name|locateNonRootIndexEntry
@@ -1998,15 +2101,8 @@ parameter_list|(
 name|ByteBuffer
 name|nonRootBlock
 parameter_list|,
-name|byte
-index|[]
+name|Cell
 name|key
-parameter_list|,
-name|int
-name|keyOffset
-parameter_list|,
-name|int
-name|keyLength
 parameter_list|,
 name|KVComparator
 name|comparator
@@ -2018,10 +2114,6 @@ init|=
 name|binarySearchNonRootIndex
 argument_list|(
 name|key
-argument_list|,
-name|keyOffset
-argument_list|,
-name|keyLength
 argument_list|,
 name|nonRootBlock
 argument_list|,

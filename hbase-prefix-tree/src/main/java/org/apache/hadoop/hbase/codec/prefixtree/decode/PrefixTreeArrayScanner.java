@@ -205,22 +205,6 @@ name|ColumnNodeType
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * Extends PtCell and manipulates its protected fields.  Could alternatively contain a PtCell and  * call get/set methods.  *  * This is an "Array" scanner to distinguish from a future "ByteBuffer" scanner.  This  * implementation requires that the bytes be in a normal java byte[] for performance.  The  * alternative ByteBuffer implementation would allow for accessing data in an off-heap ByteBuffer  * without copying the whole buffer on-heap.  */
 end_comment
@@ -1624,6 +1608,8 @@ argument_list|(
 name|this
 argument_list|,
 name|key
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}

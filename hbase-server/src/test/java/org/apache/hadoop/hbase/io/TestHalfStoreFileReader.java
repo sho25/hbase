@@ -179,24 +179,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|encoding
-operator|.
-name|DataBlockEncoding
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|hfile
 operator|.
 name|CacheConfig
@@ -718,9 +700,6 @@ operator|.
 name|reseekTo
 argument_list|(
 name|reseekKv
-operator|.
-name|getKey
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -755,9 +734,6 @@ name|getLastOnCol
 argument_list|(
 name|curr
 argument_list|)
-operator|.
-name|getKey
-argument_list|()
 argument_list|)
 decl_stmt|;
 comment|//System.out.println("Last reseek: " + ret);
@@ -1354,9 +1330,6 @@ operator|.
 name|seekBefore
 argument_list|(
 name|seekBefore
-operator|.
-name|getKey
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

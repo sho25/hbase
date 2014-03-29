@@ -820,6 +820,11 @@ name|seeker
 operator|.
 name|seekToKeyInBlock
 argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|seekKey
 operator|.
 name|getBuffer
@@ -834,6 +839,7 @@ name|seekKey
 operator|.
 name|getKeyLength
 argument_list|()
+argument_list|)
 argument_list|,
 literal|true
 argument_list|)
@@ -871,6 +877,11 @@ name|seeker
 operator|.
 name|seekToKeyInBlock
 argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|seekKey
 operator|.
 name|getBuffer
@@ -885,6 +896,7 @@ name|seekKey
 operator|.
 name|getKeyLength
 argument_list|()
+argument_list|)
 argument_list|,
 literal|true
 argument_list|)
@@ -940,6 +952,11 @@ name|seeker
 operator|.
 name|seekToKeyInBlock
 argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|seekKey
 operator|.
 name|getBuffer
@@ -954,6 +971,7 @@ name|seekKey
 operator|.
 name|getKeyLength
 argument_list|()
+argument_list|)
 argument_list|,
 literal|true
 argument_list|)
@@ -1619,6 +1637,11 @@ name|encodeSeeker
 operator|.
 name|seekToKeyInBlock
 argument_list|(
+operator|new
+name|KeyValue
+operator|.
+name|KeyOnlyKeyValue
+argument_list|(
 name|firstOnRow
 operator|.
 name|getBuffer
@@ -1633,6 +1656,7 @@ name|firstOnRow
 operator|.
 name|getKeyLength
 argument_list|()
+argument_list|)
 argument_list|,
 literal|false
 argument_list|)

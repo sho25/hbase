@@ -1322,7 +1322,12 @@ name|scanner
 operator|.
 name|seekTo
 argument_list|(
+name|KeyValue
+operator|.
+name|createKeyValueFromKey
+argument_list|(
 name|k
+argument_list|)
 argument_list|)
 operator|>=
 literal|0
