@@ -203,7 +203,7 @@ name|assigned
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new permission for the given table, restricted to the given    * column family and qualifer, allowing the assigned actions to be performed.    * @param table the table    * @param family the family, can be null if a global permission on the table    * @param assigned the list of allowed actions    */
+comment|/**    * Creates a new permission for the given table, restricted to the given    * column family and qualifier, allowing the assigned actions to be performed.    * @param table the table    * @param family the family, can be null if a global permission on the table    * @param assigned the list of allowed actions    */
 specifier|public
 name|TablePermission
 parameter_list|(
@@ -291,7 +291,7 @@ operator|=
 name|qualifier
 expr_stmt|;
 block|}
-comment|/**    * Creates a new permission for the given namespace or table, restricted to the given    * column family and qualifer, allowing the assigned actions to be performed.    * @param namespace    * @param table the table    * @param family the family, can be null if a global permission on the table    * @param assigned the list of allowed actions    */
+comment|/**    * Creates a new permission for the given namespace or table, restricted to the given    * column family and qualifier, allowing the assigned actions to be performed.    * @param namespace    * @param table the table    * @param family the family, can be null if a global permission on the table    * @param assigned the list of allowed actions    */
 specifier|public
 name|TablePermission
 parameter_list|(

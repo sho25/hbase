@@ -4852,7 +4852,7 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Missing required field: qualifer value"
+literal|"Missing required field: qualifier value"
 argument_list|)
 throw|;
 block|}
@@ -5336,7 +5336,7 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Missing required field: qualifer value"
+literal|"Missing required field: qualifier value"
 argument_list|)
 throw|;
 block|}

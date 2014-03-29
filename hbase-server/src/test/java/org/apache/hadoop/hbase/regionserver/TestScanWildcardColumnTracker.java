@@ -176,7 +176,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer1"
+literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -188,7 +188,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer2"
+literal|"qualifier2"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -200,7 +200,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer3"
+literal|"qualifier3"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -212,7 +212,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer4"
+literal|"qualifier4"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -423,7 +423,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer1"
+literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -435,7 +435,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer1"
+literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -447,7 +447,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer1"
+literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -459,7 +459,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer2"
+literal|"qualifier2"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -674,7 +674,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer2"
+literal|"qualifier2"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -686,7 +686,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"qualifer1"
+literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
