@@ -856,6 +856,11 @@ return|return
 name|plans
 return|;
 block|}
+name|filterExcludedServers
+argument_list|(
+name|clusterState
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!

@@ -400,6 +400,11 @@ return|return
 name|regionsToReturn
 return|;
 block|}
+name|filterExcludedServers
+argument_list|(
+name|clusterMap
+argument_list|)
+expr_stmt|;
 name|boolean
 name|emptyRegionServerPresent
 init|=

@@ -1075,7 +1075,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionservers"
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 argument_list|,
 name|LocalHMaster
