@@ -2317,9 +2317,7 @@ name|random
 operator|.
 name|nextInt
 argument_list|(
-name|servers
-operator|.
-name|length
+name|SLAVES
 argument_list|)
 expr_stmt|;
 name|serverToKill
