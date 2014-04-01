@@ -25265,24 +25265,13 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-specifier|final
-name|int
-name|DEFAULT_BLOCK_SIZE
-init|=
-literal|1024
-decl_stmt|;
-name|htu
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setLong
-argument_list|(
-literal|"dfs.block.size"
-argument_list|,
-name|DEFAULT_BLOCK_SIZE
-argument_list|)
-expr_stmt|;
+comment|// Why do we set the block size in this test?  If we set it smaller than the kvs, then we'll
+comment|// break up the file in to more pieces that can be distributed across the three nodes and we
+comment|// won't be able to have the condition this test asserts; that at least one node has
+comment|// a copy of all replicas -- if small block size, then blocks are spread evenly across the
+comment|// the three nodes.  hfilev3 with tags seems to put us over the block size.  St.Ack.
+comment|// final int DEFAULT_BLOCK_SIZE = 1024;
+comment|// htu.getConfiguration().setLong("dfs.block.size", DEFAULT_BLOCK_SIZE);
 name|htu
 operator|.
 name|getConfiguration
@@ -25481,7 +25470,7 @@ operator|.
 name|getHDFSBlocksDistribution
 argument_list|()
 decl_stmt|;
-comment|// given the default replication factor is 2 and we have 2 HFiles,
+comment|// Given the default replication factor is 2 and we have 2 HFiles,
 comment|// we will have total of 4 replica of blocks on 3 datanodes; thus there
 comment|// must be at least one host that have replica for 2 HFiles. That host's
 comment|// weight will be equal to the unique block weight.
@@ -25493,6 +25482,67 @@ operator|.
 name|getUniqueBlocksTotalWeight
 argument_list|()
 decl_stmt|;
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|String
+name|host
+range|:
+name|blocksDistribution1
+operator|.
+name|getTopHosts
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|sb
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|host
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|blocksDistribution1
+operator|.
+name|getWeight
+argument_list|(
+name|host
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|String
 name|topHost
 init|=
@@ -25516,8 +25566,39 @@ argument_list|(
 name|topHost
 argument_list|)
 decl_stmt|;
+name|String
+name|msg
+init|=
+literal|"uniqueBlocksWeight="
+operator|+
+name|uniqueBlocksWeight1
+operator|+
+literal|", topHostWeight="
+operator|+
+name|topHostWeight
+operator|+
+literal|", topHost="
+operator|+
+name|topHost
+operator|+
+literal|"; "
+operator|+
+name|sb
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
+name|msg
+argument_list|,
 name|uniqueBlocksWeight1
 operator|==
 name|topHostWeight

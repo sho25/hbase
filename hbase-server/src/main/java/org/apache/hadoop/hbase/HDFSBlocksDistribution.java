@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure to describe the distribution of HDFS blocks amount hosts.  *  * Adding erroneous data will be ignored silently.  */
+comment|/**  * Data structure to describe the distribution of HDFS blocks among hosts.  *  * Adding erroneous data will be ignored silently.  */
 end_comment
 
 begin_class
