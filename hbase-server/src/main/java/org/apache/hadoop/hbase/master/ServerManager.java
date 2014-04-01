@@ -2034,19 +2034,53 @@ return|return
 name|averageLoad
 return|;
 block|}
-comment|/** @return the count of active regionservers */
+comment|/**    * Get the count of active regionservers that are not backup    * masters. This count may not be accurate depending on timing.    * @return the count of active regionservers    */
+specifier|private
 name|int
 name|countOfRegionServers
 parameter_list|()
 block|{
 comment|// Presumes onlineServers is a concurrent map
-return|return
+name|int
+name|count
+init|=
 name|this
 operator|.
 name|onlineServers
 operator|.
 name|size
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|balancer
+operator|!=
+literal|null
+condition|)
+block|{
+name|count
+operator|-=
+name|balancer
+operator|.
+name|getExcludedServers
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|count
+operator|<
+literal|0
+condition|)
+name|count
+operator|=
+literal|0
+expr_stmt|;
+block|}
+return|return
+name|count
 return|;
 block|}
 comment|/**    * @return Read-only map of servers to serverinfo    */
@@ -3807,7 +3841,7 @@ name|getInt
 argument_list|(
 name|WAIT_ON_REGIONSERVERS_MINTOSTART
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 decl_stmt|;
 if|if

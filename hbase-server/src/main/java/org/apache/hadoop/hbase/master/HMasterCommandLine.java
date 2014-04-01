@@ -905,6 +905,17 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MINTOSTART
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 specifier|final
 name|MiniZooKeeperCluster
 name|zooKeeperCluster

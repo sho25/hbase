@@ -3025,6 +3025,10 @@ comment|// Wait for regionserver to finish initialization.
 while|while
 condition|(
 operator|!
+name|isStopped
+argument_list|()
+operator|&&
+operator|!
 name|isOnline
 argument_list|()
 condition|)
@@ -3070,6 +3074,14 @@ operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
+comment|// Check if master is shutting down because of some issue
+comment|// in initializing the regionserver or the balancer.
+if|if
+condition|(
+name|isStopped
+argument_list|()
+condition|)
+return|return;
 comment|// Make sure meta assigned before proceeding.
 name|status
 operator|.

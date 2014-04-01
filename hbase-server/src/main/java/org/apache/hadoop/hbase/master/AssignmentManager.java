@@ -619,24 +619,6 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcClient
-operator|.
-name|FailedServerException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
 name|ServerNotRunningYetException
 import|;
 end_import
@@ -10322,9 +10304,9 @@ name|randomPlan
 operator|+
 literal|"; "
 operator|+
-name|serverManager
+name|destServers
 operator|.
-name|countOfRegionServers
+name|size
 argument_list|()
 operator|+
 literal|" (online="
@@ -10337,16 +10319,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|", available="
-operator|+
-name|destServers
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|") available servers"
-operator|+
-literal|", forceNewPlan="
+literal|") available servers, forceNewPlan="
 operator|+
 name|forceNewPlan
 argument_list|)
