@@ -210,11 +210,12 @@ name|int
 name|length
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|()
-throw|;
+return|return
+name|compareTo
+argument_list|(
+name|value
+argument_list|)
+return|;
 block|}
 comment|/**    * @return The comparator serialized using pb    */
 specifier|public
