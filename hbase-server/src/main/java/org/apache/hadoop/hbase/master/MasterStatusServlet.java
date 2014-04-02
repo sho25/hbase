@@ -416,12 +416,11 @@ condition|)
 block|{
 if|if
 condition|(
+operator|!
 name|master
 operator|.
-name|getServerManager
+name|isInitialized
 argument_list|()
-operator|==
-literal|null
 condition|)
 block|{
 name|response
