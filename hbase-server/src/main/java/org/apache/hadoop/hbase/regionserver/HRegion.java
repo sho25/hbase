@@ -16121,7 +16121,7 @@ name|stopRow
 decl_stmt|;
 specifier|private
 specifier|final
-name|Filter
+name|FilterWrapper
 name|filter
 decl_stmt|;
 specifier|private
@@ -17431,6 +17431,17 @@ argument_list|()
 decl_stmt|;
 comment|// We have the part of the row necessary for filtering (all of it, usually).
 comment|// First filter with the filterRow(List).
+name|FilterWrapper
+operator|.
+name|FilterRowRetCode
+name|ret
+init|=
+name|FilterWrapper
+operator|.
+name|FilterRowRetCode
+operator|.
+name|NOT_CALLED
+decl_stmt|;
 if|if
 condition|(
 name|filter
@@ -17443,9 +17454,11 @@ name|hasFilterRow
 argument_list|()
 condition|)
 block|{
+name|ret
+operator|=
 name|filter
 operator|.
-name|filterRowCells
+name|filterRowCellsWithRet
 argument_list|(
 name|results
 argument_list|)
@@ -17453,7 +17466,17 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+operator|(
 name|isEmptyRow
+operator|||
+name|ret
+operator|==
+name|FilterWrapper
+operator|.
+name|FilterRowRetCode
+operator|.
+name|EXCLUDE
+operator|)
 operator|||
 name|filterRow
 argument_list|()

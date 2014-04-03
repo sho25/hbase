@@ -169,20 +169,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-operator|.
-name|UnimplementedException
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -632,6 +618,37 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|filterRowCellsWithRet
+argument_list|(
+name|kvs
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+enum|enum
+name|FilterRowRetCode
+block|{
+name|NOT_CALLED
+block|,
+name|INCLUDE
+block|,
+comment|// corresponds to filter.filterRow() returning false
+name|EXCLUDE
+comment|// corresponds to filter.filterRow() returning true
+block|}
+specifier|public
+name|FilterRowRetCode
+name|filterRowCellsWithRet
+parameter_list|(
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|kvs
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|//To fix HBASE-6429,
 comment|//Filter with filterRow() returning true is incompatible with scan with limit
 comment|//1. hasFilterRow() returns true, if either filterRow() or filterRow(kvs) is implemented.
@@ -653,7 +670,10 @@ name|kvs
 operator|.
 name|isEmpty
 argument_list|()
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 name|this
 operator|.
 name|filter
@@ -667,7 +687,23 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+return|return
+name|FilterRowRetCode
+operator|.
+name|EXCLUDE
+return|;
 block|}
+return|return
+name|FilterRowRetCode
+operator|.
+name|INCLUDE
+return|;
+block|}
+return|return
+name|FilterRowRetCode
+operator|.
+name|NOT_CALLED
+return|;
 block|}
 comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * This is for transition from 0.94 -> 0.96    */
 annotation|@
