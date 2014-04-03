@@ -3443,9 +3443,9 @@ block|{
 comment|// remove all children under /home/recovering-regions
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Garbage collecting all recovering regions."
+literal|"Garbage collecting all recovering region znodes"
 argument_list|)
 expr_stmt|;
 name|ZKUtil

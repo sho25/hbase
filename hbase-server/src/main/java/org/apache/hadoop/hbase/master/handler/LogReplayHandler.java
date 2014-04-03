@@ -447,7 +447,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished processing of shutdown of "
+literal|"Finished processing shutdown of "
 operator|+
 name|serverName
 argument_list|)

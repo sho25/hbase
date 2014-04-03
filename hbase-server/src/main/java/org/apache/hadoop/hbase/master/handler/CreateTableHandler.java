@@ -786,7 +786,9 @@ comment|// the process() function.
 comment|// Use enabling state to tell if there is already a request for the same
 comment|// table in progress. This will introduce a new zookeeper call. Given
 comment|// createTable isn't a frequent operation, that should be ok.
-comment|//TODO: now that we have table locks, re-evaluate above
+comment|// TODO: now that we have table locks, re-evaluate above -- table locks are not enough.
+comment|// We could have cleared the hbase.rootdir and not zk.  How can we detect this case?
+comment|// Having to clean zk AND hdfs is awkward.
 try|try
 block|{
 if|if
