@@ -1009,7 +1009,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 literal|"Cannot resolve the host name for "
 operator|+
