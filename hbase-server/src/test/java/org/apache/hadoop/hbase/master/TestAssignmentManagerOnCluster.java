@@ -1113,7 +1113,7 @@ name|setInt
 argument_list|(
 literal|"hbase.assignment.maximum.attempts"
 argument_list|,
-literal|40
+literal|20
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -4803,7 +4803,7 @@ name|assertTrue
 argument_list|(
 name|state
 operator|.
-name|isOffline
+name|isFailedClose
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4821,7 +4821,7 @@ name|assertTrue
 argument_list|(
 name|state
 operator|.
-name|isOffline
+name|isFailedClose
 argument_list|()
 argument_list|)
 expr_stmt|;
