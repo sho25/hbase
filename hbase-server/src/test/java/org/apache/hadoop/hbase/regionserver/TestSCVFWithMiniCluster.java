@@ -107,20 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -401,7 +387,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
+name|AfterClass
 import|;
 end_import
 
@@ -411,7 +397,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|BeforeClass
 import|;
 end_import
 
@@ -517,10 +503,12 @@ literal|"bar"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 name|HTable
 name|htable
 decl_stmt|;
 specifier|private
+specifier|static
 name|Filter
 name|scanFilter
 decl_stmt|;
@@ -531,8 +519,9 @@ init|=
 literal|1
 decl_stmt|;
 annotation|@
-name|Before
+name|BeforeClass
 specifier|public
+specifier|static
 name|void
 name|setUp
 parameter_list|()
@@ -925,8 +914,9 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|After
+name|AfterClass
 specifier|public
+specifier|static
 name|void
 name|tearDown
 parameter_list|()
