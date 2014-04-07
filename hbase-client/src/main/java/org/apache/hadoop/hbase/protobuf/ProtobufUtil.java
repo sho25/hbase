@@ -9365,7 +9365,9 @@ throw|;
 block|}
 block|}
 comment|// Start helpers for Client
-comment|/**    * A helper to get a row of the closet one before using client protocol.    *    * @param client    * @param regionName    * @param row    * @param family    * @return the row or the closestRowBefore if it doesn't exist    * @throws IOException    */
+comment|/**    * A helper to get a row of the closet one before using client protocol.    *    * @param client    * @param regionName    * @param row    * @param family    * @return the row or the closestRowBefore if it doesn't exist    * @throws IOException    * @deprecated since 0.99 - use reversed scanner instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Result

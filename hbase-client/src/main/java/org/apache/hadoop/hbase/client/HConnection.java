@@ -243,26 +243,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|coprocessor
-operator|.
-name|Batch
-operator|.
-name|Callback
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|generated
@@ -1093,7 +1073,9 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances within this    * connection. By default, the cache prefetch is enabled.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch.    */
+comment|/**    * @deprecated does nothing since since 0.99    **/
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setRegionCachePrefetch
@@ -1107,6 +1089,7 @@ name|boolean
 name|enable
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated does nothing since 0.99    **/
 annotation|@
 name|Deprecated
 specifier|public
@@ -1123,7 +1106,9 @@ name|boolean
 name|enable
 parameter_list|)
 function_decl|;
-comment|/**    * Check whether region cache prefetch is enabled or not.    * @param tableName name of table to check    * @return true if table's region cache prefetch is enabled. Otherwise    * it is disabled.    */
+comment|/**    * @deprecated always return false since 0.99    **/
+annotation|@
+name|Deprecated
 name|boolean
 name|getRegionCachePrefetch
 parameter_list|(
@@ -1132,6 +1117,7 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated always return false since 0.99    **/
 annotation|@
 name|Deprecated
 name|boolean

@@ -165,10 +165,6 @@ name|HBASE_RPC_TIMEOUT_KEY
 block|,
 name|HConstants
 operator|.
-name|HBASE_CLIENT_PREFETCH_LIMIT
-block|,
-name|HConstants
-operator|.
 name|HBASE_META_SCANNER_CACHING
 block|,
 name|HConstants

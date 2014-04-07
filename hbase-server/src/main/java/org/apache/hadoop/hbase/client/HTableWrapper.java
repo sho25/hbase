@@ -760,6 +760,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 name|Result
 name|getRowOrBefore

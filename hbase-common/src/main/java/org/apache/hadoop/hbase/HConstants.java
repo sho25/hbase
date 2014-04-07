@@ -1700,22 +1700,6 @@ name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
 literal|31
 decl_stmt|;
-comment|/**    * Parameter name for client prefetch limit, used as the maximum number of regions    * info that will be prefetched.    */
-specifier|public
-specifier|static
-name|String
-name|HBASE_CLIENT_PREFETCH_LIMIT
-init|=
-literal|"hbase.client.prefetch.limit"
-decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_CLIENT_PREFETCH_LIMIT}.    */
-specifier|public
-specifier|static
-name|int
-name|DEFAULT_HBASE_CLIENT_PREFETCH_LIMIT
-init|=
-literal|10
-decl_stmt|;
 comment|/**    * Parameter name to set the default scanner caching for all clients.    */
 specifier|public
 specifier|static
