@@ -798,6 +798,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Create a rowkey compatible with    * {@link #createHFile(FileSystem, Path, byte[], byte[], byte[], int)}.    */
+specifier|public
 specifier|static
 name|byte
 index|[]
