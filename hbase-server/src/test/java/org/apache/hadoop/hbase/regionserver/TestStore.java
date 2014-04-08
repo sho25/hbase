@@ -7090,6 +7090,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRefreshStoreFiles
@@ -7338,6 +7340,8 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testRefreshStoreFilesNotChanged

@@ -3615,19 +3615,6 @@ operator|.
 name|checkRegionInfoOnFilesystem
 argument_list|()
 expr_stmt|;
-comment|// Remove temporary data left over from old regions
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"Cleaning up temporary data from old regions"
-argument_list|)
-expr_stmt|;
-name|fs
-operator|.
-name|cleanupTempDir
-argument_list|()
-expr_stmt|;
 comment|// Initialize all the HStores
 name|status
 operator|.
@@ -3646,26 +3633,6 @@ argument_list|,
 name|status
 argument_list|)
 decl_stmt|;
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"Cleaning up detritus from prior splits"
-argument_list|)
-expr_stmt|;
-comment|// Get rid of any splits or merges that were lost in-progress.  Clean out
-comment|// these directories here on open.  We may be opening a region that was
-comment|// being split but we crashed in the middle of it all.
-name|fs
-operator|.
-name|cleanupAnySplitDetritus
-argument_list|()
-expr_stmt|;
-name|fs
-operator|.
-name|cleanupMergesDir
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|writestate
@@ -3696,6 +3663,59 @@ name|compacting
 operator|=
 literal|0
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|writestate
+operator|.
+name|writesEnabled
+condition|)
+block|{
+comment|// Remove temporary data left over from old regions
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cleaning up temporary data from old regions"
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|cleanupTempDir
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|writestate
+operator|.
+name|writesEnabled
+condition|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cleaning up detritus from prior splits"
+argument_list|)
+expr_stmt|;
+comment|// Get rid of any splits or merges that were lost in-progress.  Clean out
+comment|// these directories here on open.  We may be opening a region that was
+comment|// being split but we crashed in the middle of it all.
+name|fs
+operator|.
+name|cleanupAnySplitDetritus
+argument_list|()
+expr_stmt|;
+name|fs
+operator|.
+name|cleanupMergesDir
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Initialize split policy
 name|this
 operator|.
@@ -4182,6 +4202,16 @@ block|}
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|ServerRegionReplicaUtil
+operator|.
+name|shouldReplayRecoveredEdits
+argument_list|(
+name|this
+argument_list|)
+condition|)
+block|{
 comment|// Recover any edits if available.
 name|maxSeqId
 operator|=
@@ -4208,6 +4238,7 @@ name|status
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|maxSeqId
 operator|=
 name|Math
