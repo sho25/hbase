@@ -913,15 +913,7 @@ name|Exception
 name|parseEx
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received parse exception:"
-operator|+
-name|parseEx
-argument_list|)
-expr_stmt|;
+comment|// Ignore. This is used with tableName passed as regionName.
 block|}
 name|Get
 name|get

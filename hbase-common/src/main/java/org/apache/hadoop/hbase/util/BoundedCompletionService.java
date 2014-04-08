@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A completion service, close to the one available in the JDK 1.7  * However, this ones keeps the list of the future, and allows to cancel them all.  * This means as well that it can be used for a small set of tasks only.  */
+comment|/**  * A completion service, close to the one available in the JDK 1.7  * However, this ones keeps the list of the future, and allows to cancel them all.  * This means as well that it can be used for a small set of tasks only.  *<br>Implementation is not Thread safe.  */
 end_comment
 
 begin_class
@@ -147,9 +147,9 @@ argument_list|<
 name|V
 argument_list|>
 argument_list|>
-name|sent
+name|tasks
 decl_stmt|;
-comment|// alls the call we sent
+comment|// alls the tasks
 specifier|private
 specifier|final
 name|BlockingQueue
@@ -161,7 +161,7 @@ argument_list|>
 argument_list|>
 name|completed
 decl_stmt|;
-comment|// all the results we got so far.
+comment|// all the tasks that are completed
 class|class
 name|QueueingFuture
 extends|extends
@@ -186,6 +186,8 @@ name|callable
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|done
@@ -220,7 +222,7 @@ name|executor
 expr_stmt|;
 name|this
 operator|.
-name|sent
+name|tasks
 operator|=
 operator|new
 name|ArrayList
@@ -281,7 +283,7 @@ argument_list|(
 name|newFuture
 argument_list|)
 expr_stmt|;
-name|sent
+name|tasks
 operator|.
 name|add
 argument_list|(
@@ -352,7 +354,7 @@ name|V
 argument_list|>
 name|future
 range|:
-name|sent
+name|tasks
 control|)
 block|{
 name|future

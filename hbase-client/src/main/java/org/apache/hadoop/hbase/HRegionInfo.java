@@ -2112,13 +2112,22 @@ operator|==
 operator|-
 literal|1
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid regionName format"
+literal|"Invalid regionName format: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
 argument_list|)
 throw|;
+block|}
 name|byte
 index|[]
 name|tableName
@@ -2306,13 +2315,22 @@ operator|==
 operator|-
 literal|1
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid regionName format"
+literal|"Invalid regionName format: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
 argument_list|)
 throw|;
+block|}
 name|byte
 index|[]
 name|startKey

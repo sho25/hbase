@@ -2475,7 +2475,10 @@ name|Override
 specifier|public
 name|Void
 name|call
-parameter_list|()
+parameter_list|(
+name|int
+name|timeout
+parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -2573,6 +2576,8 @@ operator|.
 name|callWithRetries
 argument_list|(
 name|callable
+argument_list|,
+literal|10000
 argument_list|)
 expr_stmt|;
 comment|// verify we can read them from the primary

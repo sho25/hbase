@@ -449,6 +449,13 @@ argument_list|(
 name|i
 argument_list|)
 decl_stmt|;
+name|Threads
+operator|.
+name|setLoggingUncaughtExceptionHandler
+argument_list|(
+name|writer
+argument_list|)
+expr_stmt|;
 name|writers
 operator|.
 name|add
@@ -514,6 +521,8 @@ name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

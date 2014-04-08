@@ -304,6 +304,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
+name|HRegionLocation
+name|relocateRegion
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|int
+name|replicaId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Update the location cache. This is used internally by HBase, in most cases it should not be    *  used by the client application.    * @param tableName the table name    * @param regionName the region name    * @param rowkey the row    * @param exception the exception if any. Can be null.    * @param source the previous location    */
 annotation|@
 name|Override
@@ -398,6 +417,29 @@ name|useCache
 parameter_list|,
 name|boolean
 name|retry
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**   *   * @param tableName table to get regions of   * @param row the row   * @param useCache Should we use the cache to retrieve the region information.   * @param retry do we retry   * @param replicaId the replicaId for the region   * @return region locations for this row.   * @throws IOException   */
+name|RegionLocations
+name|locateRegion
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|boolean
+name|useCache
+parameter_list|,
+name|boolean
+name|retry
+parameter_list|,
+name|int
+name|replicaId
 parameter_list|)
 throws|throws
 name|IOException

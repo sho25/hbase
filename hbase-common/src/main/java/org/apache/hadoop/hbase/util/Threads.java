@@ -157,6 +157,20 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thread Utility  */
 end_comment
@@ -196,6 +210,49 @@ name|AtomicInteger
 argument_list|(
 literal|1
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+name|UncaughtExceptionHandler
+name|LOGGING_EXCEPTION_HANDLER
+init|=
+operator|new
+name|UncaughtExceptionHandler
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|uncaughtException
+parameter_list|(
+name|Thread
+name|t
+parameter_list|,
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Thread:"
+operator|+
+name|t
+operator|+
+literal|" exited with Exception:"
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 decl_stmt|;
 comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to run    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
@@ -582,7 +639,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new CachedThreadPool with a bounded number as the maximum     * thread size in the pool.    *     * @param maxCachedThread the maximum thread could be created in the pool    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @param threadFactory the factory to use when creating new threads    * @return threadPoolExecutor the cachedThreadPool with a bounded number     * as the maximum thread size in the pool.     */
+comment|/**    * Create a new CachedThreadPool with a bounded number as the maximum    * thread size in the pool.    *    * @param maxCachedThread the maximum thread could be created in the pool    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @param threadFactory the factory to use when creating new threads    * @return threadPoolExecutor the cachedThreadPool with a bounded number    * as the maximum thread size in the pool.    */
 specifier|public
 specifier|static
 name|ThreadPoolExecutor
@@ -838,6 +895,16 @@ name|handler
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|t
+operator|.
+name|setUncaughtExceptionHandler
+argument_list|(
+name|LOGGING_EXCEPTION_HANDLER
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -883,6 +950,24 @@ return|;
 block|}
 block|}
 return|;
+block|}
+comment|/** Sets an UncaughtExceptionHandler for the thread which logs the    * Exception stack if the thread dies.    */
+specifier|public
+specifier|static
+name|void
+name|setLoggingUncaughtExceptionHandler
+parameter_list|(
+name|Thread
+name|t
+parameter_list|)
+block|{
+name|t
+operator|.
+name|setUncaughtExceptionHandler
+argument_list|(
+name|LOGGING_EXCEPTION_HANDLER
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
