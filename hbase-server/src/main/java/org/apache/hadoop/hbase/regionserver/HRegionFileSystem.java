@@ -3173,6 +3173,13 @@ name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
+operator|+
+literal|" on table "
+operator|+
+name|regionInfo
+operator|.
+name|getTable
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

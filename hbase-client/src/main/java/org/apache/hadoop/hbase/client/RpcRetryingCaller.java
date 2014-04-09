@@ -913,6 +913,31 @@ return|return
 name|t
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"RpcRetryingCaller{"
+operator|+
+literal|"globalStartTime="
+operator|+
+name|globalStartTime
+operator|+
+literal|", pause="
+operator|+
+name|pause
+operator|+
+literal|", retries="
+operator|+
+name|retries
+operator|+
+literal|'}'
+return|;
+block|}
 block|}
 end_class
 

@@ -1603,6 +1603,35 @@ operator|.
 name|connection
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"CatalogTracker{"
+operator|+
+literal|"connection="
+operator|+
+name|connection
+operator|+
+literal|", zookeeper="
+operator|+
+name|zookeeper
+operator|+
+literal|", metaRegionTracker="
+operator|+
+name|metaRegionTracker
+operator|+
+literal|", stopped="
+operator|+
+name|stopped
+operator|+
+literal|'}'
+return|;
+block|}
 block|}
 end_class
 
