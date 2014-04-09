@@ -69,9 +69,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|RawComparator
+name|KeyValueUtil
 import|;
 end_import
 
@@ -218,7 +218,7 @@ comment|// (most recent) timestamp is used.
 name|KeyValue
 name|kv
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

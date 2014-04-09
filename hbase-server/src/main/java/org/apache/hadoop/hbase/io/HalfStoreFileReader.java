@@ -637,7 +637,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
-name|KeyValue
+name|Cell
 name|getKeyValue
 parameter_list|()
 block|{

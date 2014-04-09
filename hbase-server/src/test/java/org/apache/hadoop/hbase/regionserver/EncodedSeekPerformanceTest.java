@@ -95,6 +95,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -124,6 +138,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -288,7 +316,7 @@ block|}
 specifier|private
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|prepareListOfTestSeeks
 parameter_list|(
@@ -300,14 +328,14 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|allKeyValues
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -356,7 +384,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|current
 decl_stmt|;
 name|scanner
@@ -403,14 +431,14 @@ expr_stmt|;
 comment|// pick seeks by random
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|seeks
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -429,7 +457,7 @@ operator|++
 name|i
 control|)
 block|{
-name|KeyValue
+name|Cell
 name|keyValue
 init|=
 name|allKeyValues
@@ -474,7 +502,7 @@ name|blockEncoding
 parameter_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|seeks
 parameter_list|)
@@ -539,7 +567,7 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|current
 decl_stmt|;
 name|scanner
@@ -568,7 +596,12 @@ block|{
 comment|// just iterate it!
 if|if
 condition|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|current
+argument_list|)
 operator|.
 name|getLength
 argument_list|()
@@ -588,7 +621,12 @@ throw|;
 block|}
 name|totalSize
 operator|+=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|current
+argument_list|)
 operator|.
 name|getLength
 argument_list|()
@@ -613,7 +651,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|keyValue
 range|:
 name|seeks
@@ -626,7 +664,7 @@ argument_list|(
 name|keyValue
 argument_list|)
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|toVerify
 init|=
 name|scanner
@@ -661,12 +699,22 @@ literal|"Orig key: %s\n"
 operator|+
 literal|"Ret key:  %s"
 argument_list|,
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|keyValue
+argument_list|)
 operator|.
 name|getKeyString
 argument_list|()
 argument_list|,
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|toVerify
+argument_list|)
 operator|.
 name|getKeyString
 argument_list|()
@@ -816,7 +864,7 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|seeks
 init|=

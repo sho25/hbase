@@ -96,20 +96,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 operator|.
 name|KVComparator
 import|;
@@ -283,7 +269,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
-name|KeyValue
+name|Cell
 name|peek
 parameter_list|()
 block|{
@@ -310,7 +296,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
-name|KeyValue
+name|Cell
 name|next
 parameter_list|()
 throws|throws
@@ -329,7 +315,7 @@ return|return
 literal|null
 return|;
 block|}
-name|KeyValue
+name|Cell
 name|kvReturn
 init|=
 name|this
@@ -339,7 +325,7 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|kvNext
 init|=
 name|this
@@ -483,7 +469,7 @@ argument_list|,
 name|limit
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|pee
 init|=
 name|this
@@ -691,10 +677,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|KeyValue
+name|Cell
 name|left
 parameter_list|,
-name|KeyValue
+name|Cell
 name|right
 parameter_list|)
 block|{
@@ -782,14 +768,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    *<p>    * This function (and {@link #reseek(KeyValue)}) does not do multi-column    * Bloom filter and lazy-seek optimizations. To enable those, call    * {@link #requestSeek(KeyValue, boolean, boolean)}.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    * @throws IOException    */
+comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    *<p>    * This function (and {@link #reseek(Cell)}) does not do multi-column    * Bloom filter and lazy-seek optimizations. To enable those, call    * {@link #requestSeek(Cell, boolean, boolean)}.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
 name|boolean
 name|seek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -811,14 +797,14 @@ argument_list|)
 return|;
 comment|// Not using Bloom filters
 block|}
-comment|/**    * This function is identical to the {@link #seek(KeyValue)} function except    * that scanner.seek(seekKey) is changed to scanner.reseek(seekKey).    */
+comment|/**    * This function is identical to the {@link #seek(Cell)} function except    * that scanner.seek(seekKey) is changed to scanner.reseek(seekKey).    */
 annotation|@
 name|Override
 specifier|public
 name|boolean
 name|reseek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -847,7 +833,7 @@ specifier|public
 name|boolean
 name|requestSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|,
 name|boolean
@@ -880,7 +866,7 @@ parameter_list|(
 name|boolean
 name|isLazy
 parameter_list|,
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|,
 name|boolean
@@ -949,7 +935,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|topKey
 init|=
 name|scanner
@@ -1127,7 +1113,7 @@ operator|.
 name|enforceSeek
 argument_list|()
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|curKV
 init|=
 name|kvScanner
@@ -1164,7 +1150,7 @@ return|;
 block|}
 comment|// Compare the current scanner to the next scanner. We try to avoid
 comment|// putting the current one back into the heap if possible.
-name|KeyValue
+name|Cell
 name|nextKV
 init|=
 name|nextEarliestScanner

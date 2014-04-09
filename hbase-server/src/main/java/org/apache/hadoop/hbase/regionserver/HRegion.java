@@ -1129,22 +1129,6 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|Filter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
 name|FilterWrapper
 import|;
 end_import
@@ -14265,10 +14249,12 @@ comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
 if|if
 condition|(
-name|kv
+name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
+name|kv
+argument_list|,
 name|WALEdit
 operator|.
 name|METAFAMILY
@@ -14332,10 +14318,12 @@ operator|==
 literal|null
 operator|||
 operator|!
-name|kv
+name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
+name|kv
+argument_list|,
 name|store
 operator|.
 name|getFamily
@@ -16098,7 +16086,7 @@ literal|null
 decl_stmt|;
 comment|/**      * If the joined heap data gathering is interrupted due to scan limits, this will      * contain the row for which we are populating the values.*/
 specifier|protected
-name|KeyValue
+name|Cell
 name|joinedContinuationRow
 init|=
 literal|null
@@ -16902,7 +16890,7 @@ name|joinedContinuationRow
 operator|!=
 literal|null
 assert|;
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|populateResult
@@ -16958,7 +16946,7 @@ expr_stmt|;
 block|}
 comment|/**      * Fetches records with currentRow into results list, until next row or limit (if not -1).      * @param results      * @param heap KeyValueHeap to fetch data from.It must be positioned on correct row before call.      * @param limit Max amount of KVs to place in result list, -1 means no limit.      * @param currentRow Byte array with key we are fetching.      * @param offset offset for currentRow      * @param length length for currentRow      * @return KV_LIMIT if limit reached, next KeyValue otherwise.      */
 specifier|private
-name|KeyValue
+name|Cell
 name|populateResult
 parameter_list|(
 name|List
@@ -16986,7 +16974,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|KeyValue
+name|Cell
 name|nextKv
 decl_stmt|;
 do|do
@@ -17037,10 +17025,12 @@ name|nextKv
 operator|!=
 literal|null
 operator|&&
-name|nextKv
+name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
+name|nextKv
+argument_list|,
 name|currentRow
 argument_list|,
 name|offset
@@ -17193,7 +17183,7 @@ throw|;
 block|}
 block|}
 comment|// Let's see what we have in the storeHeap.
-name|KeyValue
+name|Cell
 name|current
 init|=
 name|this
@@ -17340,7 +17330,7 @@ argument_list|()
 expr_stmt|;
 continue|continue;
 block|}
-name|KeyValue
+name|Cell
 name|nextKv
 init|=
 name|populateResult
@@ -17532,7 +17522,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|nextJoinedKv
 init|=
 name|joinedHeap
@@ -17549,10 +17539,12 @@ name|nextJoinedKv
 operator|!=
 literal|null
 operator|&&
-name|nextJoinedKv
+name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
+name|nextJoinedKv
+argument_list|,
 name|currentRow
 argument_list|,
 name|offset
@@ -17568,7 +17560,7 @@ name|joinedHeap
 operator|.
 name|requestSeek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -17591,13 +17583,15 @@ argument_list|()
 operator|!=
 literal|null
 operator|&&
+name|CellUtil
+operator|.
+name|matchingRow
+argument_list|(
 name|joinedHeap
 operator|.
 name|peek
 argument_list|()
-operator|.
-name|matchingRow
-argument_list|(
+argument_list|,
 name|currentRow
 argument_list|,
 name|offset
@@ -17783,7 +17777,7 @@ literal|null
 operator|:
 literal|"Trying to go to next row during joinedHeap read."
 assert|;
-name|KeyValue
+name|Cell
 name|next
 decl_stmt|;
 while|while
@@ -17801,10 +17795,12 @@ operator|)
 operator|!=
 literal|null
 operator|&&
-name|next
+name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
+name|next
+argument_list|,
 name|currentRow
 argument_list|,
 name|offset
@@ -18011,7 +18007,7 @@ block|{
 name|KeyValue
 name|kv
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

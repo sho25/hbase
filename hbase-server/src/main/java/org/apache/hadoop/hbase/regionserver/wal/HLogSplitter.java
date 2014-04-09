@@ -7644,10 +7644,12 @@ comment|// Details at https://issues.apache.org/jira/browse/HBASE-2231?focusedCo
 comment|// page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-13647143
 if|if
 condition|(
-name|kv
+name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
+name|kv
+argument_list|,
 name|WALEdit
 operator|.
 name|METAFAMILY

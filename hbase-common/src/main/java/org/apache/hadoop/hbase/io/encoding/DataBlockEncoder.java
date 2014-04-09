@@ -88,20 +88,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 operator|.
 name|KVComparator
 import|;
@@ -234,7 +220,7 @@ name|getKeyValueBuffer
 parameter_list|()
 function_decl|;
 comment|/**      * @return the KeyValue object at the current position. Includes memstore      *         timestamp.      */
-name|KeyValue
+name|Cell
 name|getKeyValue
 parameter_list|()
 function_decl|;

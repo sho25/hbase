@@ -471,7 +471,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|prevKV
 init|=
 literal|null
@@ -502,7 +502,7 @@ name|LAZY_SEEK_ENABLED_BY_DEFAULT
 decl_stmt|;
 comment|// if heap == null and lastTop != null, you need to reseek given the key below
 specifier|protected
-name|KeyValue
+name|Cell
 name|lastTop
 init|=
 literal|null
@@ -1508,7 +1508,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|,
 name|boolean
@@ -1780,7 +1780,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
+name|Cell
 name|peek
 parameter_list|()
 block|{
@@ -1930,7 +1930,7 @@ specifier|public
 name|boolean
 name|seek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws
@@ -2021,7 +2021,7 @@ return|return
 literal|false
 return|;
 block|}
-name|KeyValue
+name|Cell
 name|peeked
 init|=
 name|this
@@ -2127,7 +2127,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-name|KeyValue
+name|Cell
 name|kv
 decl_stmt|;
 comment|// Only do a sanity-check if store and comparator are available.
@@ -2202,7 +2202,12 @@ name|matcher
 operator|.
 name|match
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 decl_stmt|;
 switch|switch
@@ -2281,7 +2286,12 @@ name|matcher
 operator|.
 name|moreRowsMayExistAfter
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -2338,7 +2348,12 @@ name|matcher
 operator|.
 name|moreRowsMayExistAfter
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -2370,7 +2385,12 @@ name|matcher
 operator|.
 name|getKeyForNextColumn
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2430,7 +2450,12 @@ name|matcher
 operator|.
 name|moreRowsMayExistAfter
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -2453,7 +2478,12 @@ name|matcher
 operator|.
 name|getKeyForNextColumn
 argument_list|(
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2762,7 +2792,7 @@ specifier|protected
 name|void
 name|resetScannerStack
 parameter_list|(
-name|KeyValue
+name|Cell
 name|lastTopKey
 parameter_list|)
 throws|throws
@@ -2819,7 +2849,7 @@ expr_stmt|;
 comment|// Reset the state of the Query Matcher and set to top row.
 comment|// Only reset and call setRow if the row changes; avoids confusing the
 comment|// query matcher if scanning intra-row.
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|heap
@@ -2928,10 +2958,10 @@ specifier|protected
 name|void
 name|checkScanOrder
 parameter_list|(
-name|KeyValue
+name|Cell
 name|prevKV
 parameter_list|,
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|KeyValue
@@ -2982,7 +3012,7 @@ specifier|protected
 name|boolean
 name|seekToNextRow
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws
@@ -2991,9 +3021,9 @@ block|{
 return|return
 name|reseek
 argument_list|(
-name|matcher
+name|KeyValueUtil
 operator|.
-name|getKeyForNextRow
+name|createLastOnRow
 argument_list|(
 name|kv
 argument_list|)
@@ -3024,7 +3054,7 @@ specifier|public
 name|boolean
 name|reseek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws
@@ -3107,7 +3137,7 @@ argument_list|>
 name|scanners
 parameter_list|,
 specifier|final
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws

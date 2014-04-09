@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -145,22 +145,6 @@ name|KeyValueScanner
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MultiVersionConsistencyControl
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handler to seek storefiles in parallel.  */
 end_comment
@@ -196,7 +180,7 @@ name|KeyValueScanner
 name|scanner
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|keyValue
 decl_stmt|;
 specifier|private
@@ -219,7 +203,7 @@ parameter_list|(
 name|KeyValueScanner
 name|scanner
 parameter_list|,
-name|KeyValue
+name|Cell
 name|keyValue
 parameter_list|,
 name|long

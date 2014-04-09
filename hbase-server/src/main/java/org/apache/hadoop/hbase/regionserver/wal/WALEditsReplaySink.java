@@ -163,6 +163,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -1402,10 +1416,12 @@ block|{
 comment|// filtering HLog meta entries
 if|if
 condition|(
-name|kv
+name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
+name|kv
+argument_list|,
 name|WALEdit
 operator|.
 name|METAFAMILY

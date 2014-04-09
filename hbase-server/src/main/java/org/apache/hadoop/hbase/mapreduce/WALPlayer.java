@@ -147,7 +147,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|CellUtil
 import|;
 end_import
 
@@ -176,6 +176,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -820,10 +834,12 @@ name|getType
 argument_list|()
 operator|||
 operator|!
-name|lastKV
+name|CellUtil
 operator|.
 name|matchingRow
 argument_list|(
+name|lastKV
+argument_list|,
 name|kv
 argument_list|)
 condition|)

@@ -199,7 +199,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -802,7 +830,7 @@ comment|// Seek before the first keyvalue;
 name|KeyValue
 name|seekKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstDeleteFamilyOnRow
 argument_list|(
@@ -857,7 +885,7 @@ expr_stmt|;
 comment|// Seek before the middle keyvalue;
 name|seekKey
 operator|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstDeleteFamilyOnRow
 argument_list|(
@@ -934,7 +962,7 @@ expr_stmt|;
 comment|// Seek before the last keyvalue;
 name|seekKey
 operator|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstDeleteFamilyOnRow
 argument_list|(
@@ -1151,14 +1179,14 @@ argument_list|(
 name|readBuffer
 argument_list|)
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|previousKV
 init|=
 literal|null
 decl_stmt|;
 do|do
 block|{
-name|KeyValue
+name|Cell
 name|currentKV
 init|=
 name|seeker
@@ -1621,7 +1649,7 @@ expr_stmt|;
 name|KeyValue
 name|firstOnRow
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

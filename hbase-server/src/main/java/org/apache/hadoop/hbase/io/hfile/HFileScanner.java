@@ -239,7 +239,7 @@ name|getValue
 parameter_list|()
 function_decl|;
 comment|/**    * @return Instance of {@link KeyValue}.    */
-name|KeyValue
+name|Cell
 name|getKeyValue
 parameter_list|()
 function_decl|;

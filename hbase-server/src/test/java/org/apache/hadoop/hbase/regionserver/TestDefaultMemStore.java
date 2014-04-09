@@ -289,6 +289,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MediumTests
 import|;
 end_import
@@ -1404,7 +1418,7 @@ name|scanner
 operator|.
 name|seek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1461,7 +1475,7 @@ name|scanner
 operator|.
 name|seek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1488,7 +1502,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|next
 init|=
 name|scanner
@@ -2770,7 +2784,7 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|ret
 init|=
 name|s
@@ -6666,7 +6680,7 @@ name|s
 operator|.
 name|seek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

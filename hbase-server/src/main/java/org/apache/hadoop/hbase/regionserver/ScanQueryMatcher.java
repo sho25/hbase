@@ -103,6 +103,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Scan
@@ -444,7 +458,7 @@ name|this
 operator|.
 name|startKey
 operator|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstDeleteFamilyOnRow
 argument_list|(
@@ -2015,7 +2029,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(
@@ -2069,7 +2083,7 @@ block|}
 else|else
 block|{
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2130,7 +2144,7 @@ name|kv
 parameter_list|)
 block|{
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(

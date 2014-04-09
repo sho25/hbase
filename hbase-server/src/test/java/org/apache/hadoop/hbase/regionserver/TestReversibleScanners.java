@@ -263,6 +263,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MediumTests
 import|;
 end_import
@@ -1423,7 +1437,7 @@ name|kvHeap
 operator|.
 name|seekToPreviousRow
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -3350,7 +3364,7 @@ name|kvHeap
 operator|.
 name|seekToPreviousRow
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -3652,7 +3666,7 @@ block|{
 name|KeyValue
 name|startKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -3768,7 +3782,7 @@ name|scanner
 operator|.
 name|backwardSeek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(
@@ -3809,7 +3823,7 @@ name|scanner
 operator|.
 name|backwardSeek
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(
@@ -3844,7 +3858,7 @@ name|scanner
 operator|.
 name|seekToPreviousRow
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -4007,7 +4021,7 @@ decl_stmt|;
 name|KeyValue
 name|seekKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(
@@ -4084,7 +4098,7 @@ name|scanner
 operator|.
 name|seekToPreviousRow
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

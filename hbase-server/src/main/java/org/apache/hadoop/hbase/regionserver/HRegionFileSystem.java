@@ -33,7 +33,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|InterruptedIOException
+name|IOException
 import|;
 end_import
 
@@ -43,7 +43,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|InterruptedIOException
 import|;
 end_import
 
@@ -334,6 +334,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -2238,7 +2252,7 @@ comment|//check if larger than last key.
 name|KeyValue
 name|splitKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2317,7 +2331,7 @@ comment|//check if smaller than first key
 name|KeyValue
 name|splitKey
 init|=
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(

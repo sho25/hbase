@@ -75,7 +75,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellUtil
 import|;
 end_import
 
@@ -146,7 +160,7 @@ specifier|public
 name|boolean
 name|seek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -166,7 +180,7 @@ specifier|public
 name|boolean
 name|reseek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -186,7 +200,7 @@ specifier|public
 name|boolean
 name|requestSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|,
 name|boolean
@@ -212,7 +226,7 @@ specifier|public
 name|boolean
 name|seekToPreviousRow
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -257,7 +271,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|topKey
 init|=
 name|scanner
@@ -366,7 +380,7 @@ specifier|public
 name|boolean
 name|backwardSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|seekKey
 parameter_list|)
 throws|throws
@@ -411,7 +425,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|KeyValue
+name|Cell
 name|topKey
 init|=
 name|scanner
@@ -422,12 +436,9 @@ decl_stmt|;
 if|if
 condition|(
 operator|(
-name|comparator
+name|CellUtil
 operator|.
-name|getComparator
-argument_list|()
-operator|.
-name|matchingRows
+name|matchingRow
 argument_list|(
 name|seekKey
 argument_list|,
@@ -517,7 +528,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|KeyValue
+name|Cell
 name|next
 parameter_list|()
 throws|throws
@@ -536,7 +547,7 @@ return|return
 literal|null
 return|;
 block|}
-name|KeyValue
+name|Cell
 name|kvReturn
 init|=
 name|this
@@ -546,7 +557,7 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|Cell
 name|kvNext
 init|=
 name|this
@@ -757,10 +768,10 @@ specifier|public
 name|int
 name|compareRows
 parameter_list|(
-name|KeyValue
+name|Cell
 name|left
 parameter_list|,
-name|KeyValue
+name|Cell
 name|right
 parameter_list|)
 block|{

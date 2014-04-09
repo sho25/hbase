@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -94,13 +94,13 @@ specifier|public
 interface|interface
 name|KeyValueScanner
 block|{
-comment|/**    * Look at the next KeyValue in this scanner, but do not iterate scanner.    * @return the next KeyValue    */
-name|KeyValue
+comment|/**    * Look at the next Cell in this scanner, but do not iterate scanner.    * @return the next Cell    */
+name|Cell
 name|peek
 parameter_list|()
 function_decl|;
-comment|/**    * Return the next KeyValue in this scanner, iterating the scanner    * @return the next KeyValue    */
-name|KeyValue
+comment|/**    * Return the next Cell in this scanner, iterating the scanner    * @return the next Cell    */
+name|Cell
 name|next
 parameter_list|()
 throws|throws
@@ -110,7 +110,7 @@ comment|/**    * Seek the scanner at or after the specified KeyValue.    * @para
 name|boolean
 name|seek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws
@@ -120,7 +120,7 @@ comment|/**    * Reseek the scanner at or after the specified KeyValue.    * Thi
 name|boolean
 name|reseek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws
@@ -159,7 +159,7 @@ comment|/**    * Similar to {@link #seek} (or {@link #reseek} if forward is true
 name|boolean
 name|requestSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|boolean
@@ -189,23 +189,23 @@ name|isFileScanner
 parameter_list|()
 function_decl|;
 comment|// Support for "Reversed Scanner"
-comment|/**    * Seek the scanner at or before the row of specified KeyValue, it firstly    * tries to seek the scanner at or after the specified KeyValue, return if    * peek KeyValue of scanner has the same row with specified KeyValue,    * otherwise seek the scanner at the first KeyValue of the row which is the    * previous row of specified KeyValue    *     * @param key seek KeyValue    * @return true if the scanner is at the valid KeyValue, false if such    *         KeyValue does not exist    *     */
+comment|/**    * Seek the scanner at or before the row of specified Cell, it firstly    * tries to seek the scanner at or after the specified Cell, return if    * peek KeyValue of scanner has the same row with specified Cell,    * otherwise seek the scanner at the first Cell of the row which is the    * previous row of specified KeyValue    *     * @param key seek KeyValue    * @return true if the scanner is at the valid KeyValue, false if such    *         KeyValue does not exist    *     */
 specifier|public
 name|boolean
 name|backwardSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Seek the scanner at the first KeyValue of the row which is the previous row    * of specified key    * @param key seek value    * @return true if the scanner at the first valid KeyValue of previous row,    *         false if not existing such KeyValue    */
+comment|/**    * Seek the scanner at the first Cell of the row which is the previous row    * of specified key    * @param key seek value    * @return true if the scanner at the first valid Cell of previous row,    *         false if not existing such Cell    */
 specifier|public
 name|boolean
 name|seekToPreviousRow
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws

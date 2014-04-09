@@ -19,25 +19,31 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
+name|ArrayList
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|protobuf
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|InvalidProtocolBufferException
+name|util
+operator|.
+name|List
 import|;
 end_import
 
@@ -199,31 +205,25 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|ArrayList
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|util
+name|google
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|protobuf
 operator|.
-name|util
-operator|.
-name|List
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -558,7 +558,7 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

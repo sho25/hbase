@@ -135,6 +135,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -150,6 +164,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -672,7 +700,7 @@ operator|.
 name|seekTo
 argument_list|()
 expr_stmt|;
-name|KeyValue
+name|Cell
 name|curr
 decl_stmt|;
 do|do
@@ -1034,7 +1062,7 @@ name|beforeMidKey
 argument_list|)
 expr_stmt|;
 comment|// Seek on the splitKey, should be in top, not in bottom
-name|KeyValue
+name|Cell
 name|foundKeyValue
 init|=
 name|doTestOfSeekBefore
@@ -1265,7 +1293,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|KeyValue
+name|Cell
 name|doTestOfSeekBefore
 parameter_list|(
 name|Path
@@ -1343,12 +1371,12 @@ specifier|private
 name|KeyValue
 name|getLastOnCol
 parameter_list|(
-name|KeyValue
+name|Cell
 name|curr
 parameter_list|)
 block|{
 return|return
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createLastOnRow
 argument_list|(

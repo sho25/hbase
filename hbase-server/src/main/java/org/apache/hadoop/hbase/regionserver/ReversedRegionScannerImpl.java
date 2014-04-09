@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|KeyValueUtil
 import|;
 end_import
 
@@ -324,7 +324,7 @@ name|storeHeap
 operator|.
 name|seekToPreviousRow
 argument_list|(
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

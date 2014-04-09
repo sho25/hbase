@@ -3532,7 +3532,7 @@ operator|++
 name|i
 control|)
 block|{
-name|KeyValue
+name|Cell
 name|kv
 init|=
 name|scanner
@@ -3581,6 +3581,16 @@ operator|==
 literal|null
 condition|)
 break|break;
+name|KeyValue
+name|keyv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|kv
+argument_list|)
+decl_stmt|;
 name|String
 name|keyHashStr
 init|=
@@ -3588,7 +3598,7 @@ name|MD5Hash
 operator|.
 name|getMD5AsHex
 argument_list|(
-name|kv
+name|keyv
 operator|.
 name|getKey
 argument_list|()
@@ -3605,7 +3615,7 @@ name|totalBytes
 operator|.
 name|addAndGet
 argument_list|(
-name|kv
+name|keyv
 operator|.
 name|getLength
 argument_list|()

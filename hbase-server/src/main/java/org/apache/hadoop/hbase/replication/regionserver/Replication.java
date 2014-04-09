@@ -20,6 +20,54 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_MASTER_LOGCLEANER_PLUGINS
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -102,22 +150,6 @@ operator|.
 name|concurrent
 operator|.
 name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ThreadFactoryBuilder
 import|;
 end_import
 
@@ -229,6 +261,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -321,7 +367,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|ReplicationSourceService
+name|ReplicationSinkService
 import|;
 end_import
 
@@ -337,7 +383,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|ReplicationSinkService
+name|ReplicationSourceService
 import|;
 end_import
 
@@ -373,7 +419,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALEdit
+name|WALActionsListener
 import|;
 end_import
 
@@ -391,7 +437,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALActionsListener
+name|WALEdit
 import|;
 end_import
 
@@ -538,50 +584,18 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
+import|import
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|common
 operator|.
-name|hbase
+name|util
 operator|.
-name|HConstants
+name|concurrent
 operator|.
-name|HBASE_MASTER_LOGCLEANER_PLUGINS
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_KEY
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|REPLICATION_SCOPE_LOCAL
+name|ThreadFactoryBuilder
 import|;
 end_import
 
@@ -1362,10 +1376,12 @@ expr_stmt|;
 comment|// This is expected and the KV should not be replicated
 if|if
 condition|(
-name|kv
+name|CellUtil
 operator|.
 name|matchingFamily
 argument_list|(
+name|kv
+argument_list|,
 name|WALEdit
 operator|.
 name|METAFAMILY

@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -117,7 +117,7 @@ specifier|public
 name|boolean
 name|requestSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|boolean
@@ -178,7 +178,7 @@ parameter_list|(
 name|KeyValueScanner
 name|scanner
 parameter_list|,
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|,
 name|boolean

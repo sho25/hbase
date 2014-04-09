@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Cell
 import|;
 end_import
 
@@ -91,7 +91,7 @@ specifier|public
 name|boolean
 name|backwardSeek
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws
@@ -113,7 +113,7 @@ specifier|public
 name|boolean
 name|seekToPreviousRow
 parameter_list|(
-name|KeyValue
+name|Cell
 name|key
 parameter_list|)
 throws|throws

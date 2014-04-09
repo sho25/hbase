@@ -1534,10 +1534,12 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|original
+name|CellUtil
 operator|.
 name|matchingColumn
 argument_list|(
+name|original
+argument_list|,
 name|kv
 operator|.
 name|getFamily

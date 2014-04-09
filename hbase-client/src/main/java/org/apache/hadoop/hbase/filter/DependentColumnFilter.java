@@ -79,18 +79,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -128,6 +116,20 @@ operator|.
 name|hbase
 operator|.
 name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellUtil
 import|;
 end_import
 
@@ -236,6 +238,18 @@ operator|.
 name|base
 operator|.
 name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -497,10 +511,12 @@ comment|// Check if the column and qualifier match
 if|if
 condition|(
 operator|!
-name|v
+name|CellUtil
 operator|.
 name|matchingColumn
 argument_list|(
+name|v
+argument_list|,
 name|this
 operator|.
 name|columnFamily

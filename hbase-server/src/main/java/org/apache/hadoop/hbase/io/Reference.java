@@ -69,18 +69,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -145,7 +133,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|KeyValueUtil
 import|;
 end_import
 
@@ -196,6 +184,18 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -303,7 +303,7 @@ literal|null
 condition|?
 literal|null
 else|:
-name|KeyValue
+name|KeyValueUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
