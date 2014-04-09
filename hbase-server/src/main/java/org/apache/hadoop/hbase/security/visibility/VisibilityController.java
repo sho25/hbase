@@ -227,18 +227,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1530,6 +1518,18 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -6291,6 +6291,8 @@ parameter_list|,
 name|Authorizations
 name|authorizations
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Map
 argument_list|<
@@ -6398,6 +6400,43 @@ argument_list|,
 name|cfVsMaxVersions
 argument_list|)
 return|;
+block|}
+for|for
+control|(
+name|String
+name|label
+range|:
+name|authorizations
+operator|.
+name|getLabels
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|VisibilityLabelsValidator
+operator|.
+name|isValidLabel
+argument_list|(
+name|label
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid authorization label : "
+operator|+
+name|label
+operator|+
+literal|". Authorizations cannot contain '(', ')' ,'&' ,'|', '!'"
+operator|+
+literal|" and cannot be empty"
+argument_list|)
+throw|;
+block|}
 block|}
 name|Filter
 name|visibilityLabelFilter

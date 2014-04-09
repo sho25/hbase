@@ -143,18 +143,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -777,6 +765,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|visibility
+operator|.
+name|VisibilityLabelsValidator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Base64
@@ -808,6 +814,18 @@ operator|.
 name|protobuf
 operator|.
 name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -3326,6 +3344,33 @@ range|:
 name|labels
 control|)
 block|{
+if|if
+condition|(
+operator|!
+name|VisibilityLabelsValidator
+operator|.
+name|isValidLabel
+argument_list|(
+name|label
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid authorization label : "
+operator|+
+name|label
+operator|+
+literal|". Authorizations cannot contain '(', ')' ,'&' ,'|', '!'"
+operator|+
+literal|" "
+operator|+
+literal|"and cannot be empty"
+argument_list|)
+throw|;
+block|}
 name|model
 operator|.
 name|addLabel
