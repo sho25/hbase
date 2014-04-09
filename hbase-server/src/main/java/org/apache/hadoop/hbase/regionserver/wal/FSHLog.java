@@ -8906,7 +8906,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
+name|IOException
 name|t
 parameter_list|)
 block|{

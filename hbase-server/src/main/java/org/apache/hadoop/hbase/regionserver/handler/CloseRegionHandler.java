@@ -710,11 +710,41 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
-name|t
+name|KeeperException
+name|ke
 parameter_list|)
 block|{
-comment|// A throwable here indicates that we couldn't successfully flush the
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Unrecoverable exception while checking state with zk "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", still finishing close"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|ke
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+comment|// An IOException here indicates that we couldn't successfully flush the
 comment|// memstore before closing. So, we need to abort the server and allow
 comment|// the master to split our logs in order to recover the data.
 name|server
@@ -730,14 +760,14 @@ argument_list|()
 operator|+
 literal|", still finishing close"
 argument_list|,
-name|t
+name|ioe
 argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-name|t
+name|ioe
 argument_list|)
 throw|;
 block|}
