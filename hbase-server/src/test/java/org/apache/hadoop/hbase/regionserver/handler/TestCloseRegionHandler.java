@@ -658,7 +658,7 @@ operator|.
 name|thenThrow
 argument_list|(
 operator|new
-name|RuntimeException
+name|IOException
 argument_list|(
 literal|"Mocked failed close!"
 argument_list|)
