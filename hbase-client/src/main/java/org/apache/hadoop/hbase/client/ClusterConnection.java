@@ -551,20 +551,6 @@ name|AsyncProcess
 name|getAsyncProcess
 parameter_list|()
 function_decl|;
-comment|/**    * @return All locations for a particular region.    */
-name|RegionLocations
-name|locateRegionAll
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|,
-name|byte
-index|[]
-name|row
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 block|}
 end_interface
 
