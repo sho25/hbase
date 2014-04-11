@@ -447,8 +447,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|SecureTestUtil
-operator|.
 name|enableSecurity
 argument_list|(
 name|conf
@@ -589,8 +587,6 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|SecureTestUtil
-operator|.
 name|grantOnNamespace
 argument_list|(
 name|UTIL
@@ -666,8 +662,6 @@ decl_stmt|;
 try|try
 block|{
 comment|// Grant and check state in ACL table
-name|SecureTestUtil
-operator|.
 name|grantOnNamespace
 argument_list|(
 name|UTIL
@@ -854,8 +848,6 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|// Revoke and check state in ACL table
-name|SecureTestUtil
-operator|.
 name|revokeFromNamespace
 argument_list|(
 name|UTIL
