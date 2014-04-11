@@ -1991,9 +1991,6 @@ name|numServers
 init|=
 literal|0
 decl_stmt|;
-name|double
-name|averageLoad
-decl_stmt|;
 for|for
 control|(
 name|ServerLoad
@@ -2018,8 +2015,13 @@ name|getNumberOfRegions
 argument_list|()
 expr_stmt|;
 block|}
-name|averageLoad
-operator|=
+return|return
+name|numServers
+operator|==
+literal|0
+condition|?
+literal|0
+else|:
 operator|(
 name|double
 operator|)
@@ -2029,9 +2031,6 @@ operator|(
 name|double
 operator|)
 name|numServers
-expr_stmt|;
-return|return
-name|averageLoad
 return|;
 block|}
 comment|/**    * Get the count of active regionservers that are not backup    * masters. This count may not be accurate depending on timing.    * @return the count of active regionservers    */
