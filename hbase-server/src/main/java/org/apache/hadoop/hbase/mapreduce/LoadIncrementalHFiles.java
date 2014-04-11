@@ -943,6 +943,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSHDFSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -1116,6 +1132,12 @@ specifier|private
 name|boolean
 name|assignSeqIds
 decl_stmt|;
+comment|// Source filesystem
+specifier|private
+name|FileSystem
+name|fs
+decl_stmt|;
+comment|// Source delegation token
 specifier|private
 name|FsDelegationToken
 name|fsDelegationToken
@@ -1323,9 +1345,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|FileSystem
 name|fs
-init|=
+operator|=
 name|hfofDir
 operator|.
 name|getFileSystem
@@ -1333,7 +1354,7 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -1896,7 +1917,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|//If using secure bulk load
+comment|//If using secure bulk load, get source delegation token, and
 comment|//prepare staging directory and token
 if|if
 condition|(
@@ -1906,17 +1927,7 @@ name|isHBaseSecurityEnabled
 argument_list|()
 condition|)
 block|{
-name|FileSystem
-name|fs
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|)
-decl_stmt|;
+comment|// fs is the source filesystem
 name|fsDelegationToken
 operator|.
 name|acquireDelegationToken
@@ -3290,18 +3301,6 @@ name|item
 operator|.
 name|hfilePath
 decl_stmt|;
-specifier|final
-name|FileSystem
-name|fs
-init|=
-name|hfilePath
-operator|.
-name|getFileSystem
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|HFile
 operator|.
 name|Reader
@@ -4079,7 +4078,7 @@ name|success
 condition|)
 block|{
 name|FileSystem
-name|fs
+name|targetFs
 init|=
 name|FileSystem
 operator|.
@@ -4089,6 +4088,24 @@ name|getConf
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Check to see if the source and target filesystems are the same
+comment|// If they are the same filesystem, we will try move the files back
+comment|// because previously we moved them to the staging directory.
+if|if
+condition|(
+name|FSHDFSUtils
+operator|.
+name|isSameHdfs
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|,
+name|fs
+argument_list|,
+name|targetFs
+argument_list|)
+condition|)
+block|{
 for|for
 control|(
 name|Pair
@@ -4147,7 +4164,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|fs
+name|targetFs
 operator|.
 name|rename
 argument_list|(
@@ -4174,7 +4191,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|fs
+name|targetFs
 operator|.
 name|exists
 argument_list|(
@@ -4218,6 +4235,7 @@ argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
