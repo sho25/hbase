@@ -540,9 +540,9 @@ name|deleteFamily
 argument_list|(
 name|family
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|LATEST_TIMESTAMP
+name|ts
 argument_list|)
 expr_stmt|;
 return|return
@@ -772,9 +772,9 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|LATEST_TIMESTAMP
+name|ts
 argument_list|)
 expr_stmt|;
 return|return
@@ -910,9 +910,9 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|LATEST_TIMESTAMP
+name|ts
 argument_list|)
 expr_stmt|;
 return|return
