@@ -1891,7 +1891,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Found perms for user "
+literal|"Perms for user "
 operator|+
 name|user
 operator|.
