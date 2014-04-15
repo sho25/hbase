@@ -2860,16 +2860,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|catalogTracker
-operator|=
-name|createCatalogTracker
-argument_list|()
-expr_stmt|;
-name|catalogTracker
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 block|}
 name|rpcServices
 operator|.
@@ -3267,6 +3257,10 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Now we have the cluster ID, start catalog tracker
+name|startCatalogTracker
+argument_list|()
+expr_stmt|;
 comment|// watch for snapshots and other procedures
 try|try
 block|{
@@ -3577,6 +3571,36 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * Create and start the catalog tracker if not already done.    */
+specifier|protected
+specifier|synchronized
+name|void
+name|startCatalogTracker
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+if|if
+condition|(
+name|catalogTracker
+operator|==
+literal|null
+condition|)
+block|{
+name|catalogTracker
+operator|=
+name|createCatalogTracker
+argument_list|()
+expr_stmt|;
+name|catalogTracker
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed.    */
 annotation|@

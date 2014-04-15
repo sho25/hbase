@@ -2808,6 +2808,10 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+comment|// Now we have the cluster ID, start catalog tracker
+name|startCatalogTracker
+argument_list|()
+expr_stmt|;
 comment|// Invalidate all write locks held previously
 name|this
 operator|.
