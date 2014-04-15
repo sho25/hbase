@@ -792,7 +792,7 @@ name|headerBuilder
 operator|.
 name|setMethodName
 argument_list|(
-literal|"scan"
+literal|"Scan"
 argument_list|)
 expr_stmt|;
 name|RequestHeader

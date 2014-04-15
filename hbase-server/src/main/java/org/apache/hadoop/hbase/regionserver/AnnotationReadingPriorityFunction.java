@@ -1196,7 +1196,7 @@ if|if
 condition|(
 name|methodName
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 literal|"scan"
 argument_list|)
