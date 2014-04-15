@@ -1382,6 +1382,22 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
+name|long
+name|sz
+init|=
+name|heapSizeChange
+argument_list|(
+name|kv
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|snapshotSize
+operator|-=
+name|sz
+expr_stmt|;
 block|}
 comment|// If the key is in the memstore, delete it. Update this.size.
 name|found
