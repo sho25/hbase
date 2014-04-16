@@ -2794,6 +2794,8 @@ name|byte
 index|[]
 name|storesLastKey
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -9696,12 +9698,11 @@ argument_list|(
 literal|"Trying to fix unassigned region..."
 argument_list|)
 expr_stmt|;
-name|closeRegion
+name|undeployRegions
 argument_list|(
 name|hbi
 argument_list|)
 expr_stmt|;
-comment|// Close region will cause RS to abort.
 block|}
 if|if
 condition|(
@@ -11859,7 +11860,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Plugged hold by creating new empty region: "
+literal|"Plugged hole by creating new empty region: "
 operator|+
 name|newRegion
 operator|+
@@ -11872,7 +11873,7 @@ name|fixes
 operator|++
 expr_stmt|;
 block|}
-comment|/**        * This takes set of overlapping regions and merges them into a single        * region.  This covers cases like degenerate regions, shared start key,        * general overlaps, duplicate ranges, and partial overlapping regions.        *        * Cases:        * - Clean regions that overlap        * - Only .oldlogs regions (can't find start/stop range, or figure out)        *         * This is basically threadsafe, except for the fixer increment in mergeOverlaps.        */
+comment|/**        * This takes set of overlapping regions and merges them into a single        * region.  This covers cases like degenerate regions, shared start key,        * general overlaps, duplicate ranges, and partial overlapping regions.        *        * Cases:        * - Clean regions that overlap        * - Only .oldlogs regions (can't find start/stop range, or figure out)        *        * This is basically threadsafe, except for the fixer increment in mergeOverlaps.        */
 annotation|@
 name|Override
 specifier|public
