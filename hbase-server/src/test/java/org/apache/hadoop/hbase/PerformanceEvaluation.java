@@ -285,24 +285,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|math
-operator|.
-name|stat
-operator|.
-name|descriptive
-operator|.
-name|DescriptiveStatistics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -1059,16 +1041,6 @@ operator|*
 literal|1024
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|TestOptions
-name|DEFAULT_OPTS
-init|=
-operator|new
-name|TestOptions
-argument_list|()
-decl_stmt|;
 specifier|protected
 name|Map
 argument_list|<
@@ -1600,10 +1572,6 @@ comment|// Evaluation task
 name|long
 name|elapsedTime
 init|=
-name|this
-operator|.
-name|pe
-operator|.
 name|runOneClient
 argument_list|(
 name|this
@@ -2343,27 +2311,15 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|long
+name|timing
+range|:
 name|timings
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|total
 operator|+=
-name|timings
-index|[
-name|i
-index|]
+name|timing
 expr_stmt|;
 block|}
 name|LOG
@@ -3135,6 +3091,14 @@ name|writeToWAL
 expr_stmt|;
 name|this
 operator|.
+name|autoFlush
+operator|=
+name|that
+operator|.
+name|autoFlush
+expr_stmt|;
+name|this
+operator|.
 name|useTags
 operator|=
 name|that
@@ -3258,6 +3222,12 @@ name|boolean
 name|writeToWAL
 init|=
 literal|true
+decl_stmt|;
+specifier|public
+name|boolean
+name|autoFlush
+init|=
+literal|false
 decl_stmt|;
 specifier|public
 name|boolean
@@ -3584,7 +3554,9 @@ name|table
 operator|.
 name|setAutoFlush
 argument_list|(
-literal|false
+name|opts
+operator|.
+name|autoFlush
 argument_list|,
 literal|true
 argument_list|)
@@ -3764,7 +3736,7 @@ name|startTime
 init|=
 name|System
 operator|.
-name|currentTimeMillis
+name|nanoTime
 argument_list|()
 decl_stmt|;
 name|testRow
@@ -3776,12 +3748,16 @@ name|latency
 operator|.
 name|update
 argument_list|(
+operator|(
 name|System
 operator|.
-name|currentTimeMillis
+name|nanoTime
 argument_list|()
 operator|-
 name|startTime
+operator|)
+operator|/
+literal|100000
 argument_list|)
 expr_stmt|;
 if|if
@@ -3853,7 +3829,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" Min    = "
+literal|" Min      = "
 operator|+
 name|latency
 operator|.
@@ -3867,7 +3843,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" Avg    = "
+literal|" Avg      = "
 operator|+
 name|latency
 operator|.
@@ -3881,7 +3857,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" StdDev = "
+literal|" StdDev   = "
 operator|+
 name|latency
 operator|.
@@ -3895,7 +3871,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" 50th   = "
+literal|" 50th     = "
 operator|+
 name|latency
 operator|.
@@ -3912,7 +3888,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" 95th   = "
+literal|" 95th     = "
 operator|+
 name|latency
 operator|.
@@ -3929,7 +3905,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" 99th   = "
+literal|" 99th     = "
 operator|+
 name|latency
 operator|.
@@ -3946,7 +3922,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" 99.9th = "
+literal|" 99.9th   = "
 operator|+
 name|latency
 operator|.
@@ -3963,7 +3939,45 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" Max    = "
+literal|" 99.99th  = "
+operator|+
+name|latency
+operator|.
+name|getSnapshot
+argument_list|()
+operator|.
+name|getValue
+argument_list|(
+literal|0.9999
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|testName
+operator|+
+literal|" 99.9999th= "
+operator|+
+name|latency
+operator|.
+name|getSnapshot
+argument_list|()
+operator|.
+name|getValue
+argument_list|(
+literal|0.99999
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|testName
+operator|+
+literal|" Max      = "
 operator|+
 name|latency
 operator|.
@@ -4239,23 +4253,15 @@ name|count
 init|=
 literal|0
 decl_stmt|;
-for|for
-control|(
-name|Result
-name|rr
-init|;
-operator|(
-name|rr
-operator|=
+while|while
+condition|(
 name|s
 operator|.
 name|next
 argument_list|()
-operator|)
 operator|!=
 literal|null
-condition|;
-control|)
+condition|)
 block|{
 name|count
 operator|++
@@ -4628,11 +4634,6 @@ argument_list|<
 name|Get
 argument_list|>
 name|gets
-decl_stmt|;
-name|int
-name|idx
-init|=
-literal|0
 decl_stmt|;
 name|RandomReadTest
 parameter_list|(
@@ -5903,8 +5904,6 @@ index|]
 decl_stmt|;
 name|int
 name|i
-init|=
-literal|0
 decl_stmt|;
 for|for
 control|(
@@ -6150,8 +6149,6 @@ argument_list|)
 expr_stmt|;
 name|long
 name|totalElapsedTime
-init|=
-literal|0
 decl_stmt|;
 specifier|final
 name|Test
@@ -6577,6 +6574,15 @@ name|err
 operator|.
 name|println
 argument_list|(
+literal|" autoFlush       Set autoFlush on htable. Default: False"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
 literal|" presplit        Create presplit table. Recommended for accurate perf "
 operator|+
 literal|"analysis (see guide).  Default: disabled"
@@ -6623,9 +6629,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" latency         Set to report operation latencies. "
-operator|+
-literal|"Currently only supported by randomRead test. Default: False"
+literal|" latency         Set to report operation latencies. Default: False"
 argument_list|)
 expr_stmt|;
 name|System
@@ -7235,6 +7239,43 @@ operator|.
 name|substring
 argument_list|(
 name|writeToWAL
+operator|.
+name|length
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+specifier|final
+name|String
+name|autoFlush
+init|=
+literal|"--autoFlush="
+decl_stmt|;
+if|if
+condition|(
+name|cmd
+operator|.
+name|startsWith
+argument_list|(
+name|autoFlush
+argument_list|)
+condition|)
+block|{
+name|opts
+operator|.
+name|autoFlush
+operator|=
+name|Boolean
+operator|.
+name|parseBoolean
+argument_list|(
+name|cmd
+operator|.
+name|substring
+argument_list|(
+name|autoFlush
 operator|.
 name|length
 argument_list|()
