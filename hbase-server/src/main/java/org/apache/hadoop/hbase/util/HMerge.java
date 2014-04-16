@@ -630,6 +630,8 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -648,6 +650,15 @@ argument_list|(
 name|tableName
 argument_list|)
 throw|;
+block|}
+block|}
+finally|finally
+block|{
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 operator|new
 name|OnlineMerger
