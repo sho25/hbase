@@ -1377,17 +1377,6 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
-comment|// This will be null when the file is empty in which we can not
-comment|// seekBefore to any key
-if|if
-condition|(
-name|fk
-operator|==
-literal|null
-condition|)
-return|return
-literal|false
-return|;
 if|if
 condition|(
 name|getComparator
