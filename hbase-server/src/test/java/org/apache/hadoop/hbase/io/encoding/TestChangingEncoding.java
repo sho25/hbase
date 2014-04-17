@@ -918,6 +918,13 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
+name|table
+operator|.
+name|setAutoFlushTo
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -1001,6 +1008,11 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 name|table
 operator|.
 name|close
