@@ -5125,7 +5125,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a given key-range of the    * HRegion (TODO). Any edits that do not have a matching COMPLETE_CACHEFLUSH message can be    * discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies. Each time the HLog    * starts, it must create a new log. This means that other systems should process the log    * appropriately upon each startup (and prior to initializing HLog).    *    * Synchronized prevents appends during the completion of a cache flush or for the duration of a    * log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterIds that have consumed the change (for replication)    * @param now    * @param htd    * @param doSync shall we sync?    * @param inMemstore    * @param sequenceId of the region.    * @param nonceGroup    * @param nonce    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a given key-range of the    * HRegion (TODO). Any edits that do not have a matching COMPLETE_CACHEFLUSH message can be    * discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies. Each time the HLog    * starts, it must create a new log. This means that other systems should process the log    * appropriately upon each startup (and prior to initializing HLog).    *    * Synchronized prevents appends during the completion of a cache flush or for the duration of a    * log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterIds that have consumed the change (for replication)    * @param now    * @param htd    * @param doSync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId of the region.    * @param nonceGroup    * @param nonce    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
 end_comment
 
 begin_function
@@ -5323,18 +5323,15 @@ name|sequence
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Sync if we have been asked to -- only tests do this -- or if it is a meta table edit (these
-comment|// are precious). When we sync, we will sync to the current point, the txid of the last edit
-comment|// added.  Since we are single writer, the next txid should be the just next one in sequence;
-comment|// do not explicitly specify it (sequence id/txid is an implementation internal detail.
+comment|// doSync is set in tests.  Usually we arrive in here via appendNoSync w/ the sync called after
+comment|// all edits on a handler have been added.
+comment|//
+comment|// When we sync, we will sync to the current point, the txid of the last edit added.
+comment|// Since we are single writer, the next txid should be the just next one in sequence;
+comment|// do not explicitly specify it. Sequence id/txid is an implementation internal detail.
 if|if
 condition|(
 name|doSync
-operator|||
-name|info
-operator|.
-name|isMetaRegion
-argument_list|()
 condition|)
 name|publishSyncThenBlockOnCompletion
 argument_list|()
