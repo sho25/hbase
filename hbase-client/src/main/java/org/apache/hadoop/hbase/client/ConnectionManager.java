@@ -2242,15 +2242,6 @@ comment|// package protected for the tests
 name|ClusterStatusListener
 name|clusterStatusListener
 decl_stmt|;
-specifier|private
-specifier|final
-name|Object
-name|userRegionLock
-init|=
-operator|new
-name|Object
-argument_list|()
-decl_stmt|;
 comment|// We have a single lock for master& zk to prevent deadlocks. Having
 comment|//  one lock for ZK and one lock for master is not possible:
 comment|//  When creating a connection to master, we need a connection to ZK to get
