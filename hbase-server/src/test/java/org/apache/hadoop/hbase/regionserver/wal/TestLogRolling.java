@@ -1178,6 +1178,9 @@ throws|,
 name|InterruptedException
 block|{
 comment|// When the hbase:meta table can be opened, the region servers are running
+name|HTable
+name|ht
+init|=
 operator|new
 name|HTable
 argument_list|(
@@ -1190,6 +1193,11 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+decl_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1382,6 +1390,11 @@ block|{
 name|newLog
 operator|.
 name|closeAndDelete
+argument_list|()
+expr_stmt|;
+name|fs
+operator|.
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -2590,6 +2603,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// When the hbase:meta table can be opened, the region servers are running
+name|HTable
+name|ht
+init|=
 operator|new
 name|HTable
 argument_list|(
@@ -2602,6 +2618,11 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+decl_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -3528,6 +3549,9 @@ throws|throws
 name|Exception
 block|{
 comment|// When the hbase:meta table can be opened, the region servers are running
+name|HTable
+name|ht
+init|=
 operator|new
 name|HTable
 argument_list|(
@@ -3540,6 +3564,11 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+decl_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|String
 name|tableName
