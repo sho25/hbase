@@ -1088,6 +1088,26 @@ name|getPath
 argument_list|()
 return|;
 block|}
+comment|/**    * @return Returns the qualified path of this StoreFile    */
+specifier|public
+name|Path
+name|getQualifiedPath
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|fileInfo
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|makeQualified
+argument_list|(
+name|fs
+argument_list|)
+return|;
+block|}
 comment|/**    * @return True if this is a StoreFile Reference; call after {@link #open()}    * else may get wrong answer.    */
 specifier|public
 name|boolean
