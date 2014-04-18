@@ -405,6 +405,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Retrieve an Admin implementation to administer an HBase cluster.    * The returned Admin is not guaranteed to be thread-safe.  A new instance should be created for    * each using thread.  This is a lightweight operation.  Pooling or caching of the returned    * Admin is not recommended.  Note that HConnection needs to be unmanaged    * (created with {@link HConnectionManager#createConnection(Configuration)}).    *    * @return an Admin instance for cluster administration    */
+name|Admin
+name|getAdmin
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/** @return - true if the master server is running    * @deprecated internal method, do not use thru HConnection */
 annotation|@
 name|Deprecated

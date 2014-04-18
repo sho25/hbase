@@ -2162,9 +2162,7 @@ specifier|public
 class|class
 name|HBaseAdmin
 implements|implements
-name|Abortable
-implements|,
-name|Closeable
+name|Admin
 block|{
 specifier|private
 specifier|static
