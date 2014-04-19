@@ -4146,6 +4146,12 @@ condition|(
 name|this
 operator|.
 name|hbaseCluster
+operator|==
+literal|null
+operator|||
+name|this
+operator|.
+name|hbaseCluster
 operator|instanceof
 name|MiniHBaseCluster
 condition|)
