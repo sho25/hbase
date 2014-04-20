@@ -843,7 +843,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** Full access permissions (starting point for a umask) */
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -1691,10 +1691,7 @@ name|backingFs
 argument_list|,
 name|path
 argument_list|,
-name|FsPermission
-operator|.
-name|getDefault
-argument_list|()
+name|perm
 argument_list|,
 literal|true
 argument_list|,
@@ -1997,7 +1994,7 @@ condition|)
 return|return
 name|FsPermission
 operator|.
-name|getDefault
+name|getFileDefault
 argument_list|()
 return|;
 comment|// appy the umask
@@ -2046,7 +2043,7 @@ expr_stmt|;
 return|return
 name|FsPermission
 operator|.
-name|getDefault
+name|getFileDefault
 argument_list|()
 return|;
 block|}
@@ -2054,7 +2051,7 @@ block|}
 return|return
 name|FsPermission
 operator|.
-name|getDefault
+name|getFileDefault
 argument_list|()
 return|;
 block|}

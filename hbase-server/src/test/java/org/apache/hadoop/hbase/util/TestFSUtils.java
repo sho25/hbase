@@ -1512,17 +1512,6 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|ENABLE_DATA_FILE_UMASK
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -1533,9 +1522,9 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// first check that we don't crash if we don't have perms set
+comment|// default fs permission
 name|FsPermission
-name|defaultPerms
+name|defaultFsPerm
 init|=
 name|FSUtils
 operator|.
@@ -1550,14 +1539,60 @@ operator|.
 name|DATA_FILE_UMASK_KEY
 argument_list|)
 decl_stmt|;
+comment|// 'hbase.data.umask.enable' is false. We will get default fs permission.
 name|assertEquals
 argument_list|(
 name|FsPermission
 operator|.
-name|getDefault
+name|getFileDefault
 argument_list|()
 argument_list|,
-name|defaultPerms
+name|defaultFsPerm
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|ENABLE_DATA_FILE_UMASK
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+comment|// first check that we don't crash if we don't have perms set
+name|FsPermission
+name|defaultStartPerm
+init|=
+name|FSUtils
+operator|.
+name|getFilePermissions
+argument_list|(
+name|fs
+argument_list|,
+name|conf
+argument_list|,
+name|HConstants
+operator|.
+name|DATA_FILE_UMASK_KEY
+argument_list|)
+decl_stmt|;
+comment|// default 'hbase.data.umask'is 000, and this umask will be used when
+comment|// 'hbase.data.umask.enable' is true.
+comment|// Therefore we will not get the real fs default in this case.
+comment|// Instead we will get the starting point FULL_RWX_PERMISSIONS
+name|assertEquals
+argument_list|(
+operator|new
+name|FsPermission
+argument_list|(
+name|FSUtils
+operator|.
+name|FULL_RWX_PERMISSIONS
+argument_list|)
+argument_list|,
+name|defaultStartPerm
 argument_list|)
 expr_stmt|;
 name|conf
