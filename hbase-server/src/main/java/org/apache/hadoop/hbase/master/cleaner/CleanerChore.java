@@ -665,7 +665,7 @@ if|if
 condition|(
 name|child
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

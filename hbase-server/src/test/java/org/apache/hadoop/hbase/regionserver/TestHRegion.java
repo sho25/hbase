@@ -26418,6 +26418,8 @@ operator|.
 name|delete
 argument_list|(
 name|regionInfoFile
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertFalse

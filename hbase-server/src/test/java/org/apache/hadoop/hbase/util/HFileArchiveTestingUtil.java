@@ -874,7 +874,7 @@ argument_list|()
 argument_list|,
 name|f
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 argument_list|,
 name|f

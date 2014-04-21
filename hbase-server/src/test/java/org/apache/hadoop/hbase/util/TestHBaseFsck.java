@@ -10339,7 +10339,7 @@ condition|(
 operator|!
 name|hfs
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

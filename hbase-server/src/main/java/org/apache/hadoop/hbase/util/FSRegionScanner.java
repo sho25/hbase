@@ -370,7 +370,7 @@ condition|(
 operator|!
 name|cfStatus
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

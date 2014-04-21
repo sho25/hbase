@@ -702,6 +702,8 @@ operator|.
 name|delete
 argument_list|(
 name|originalPath
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 if|if
@@ -718,6 +720,8 @@ operator|.
 name|delete
 argument_list|(
 name|archivedPath
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -943,6 +947,8 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|skipBuffer
@@ -987,6 +993,8 @@ name|get
 argument_list|(
 literal|1
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|skipBuffer
@@ -1031,6 +1039,8 @@ name|get
 argument_list|(
 literal|2
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|skipBuffer

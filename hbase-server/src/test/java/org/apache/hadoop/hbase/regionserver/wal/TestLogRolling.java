@@ -1975,7 +1975,12 @@ argument_list|,
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 operator|==
 literal|2
 argument_list|)
@@ -1989,7 +1994,12 @@ operator|+
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -2239,7 +2249,12 @@ operator|+
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 argument_list|,
 name|dfsCluster
 operator|.
@@ -2252,7 +2267,12 @@ operator|>=
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 operator|+
 literal|1
 argument_list|)
@@ -2335,7 +2355,12 @@ operator|==
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// kill a datanode in the pipeline to force a log roll on the next sync()
@@ -2534,7 +2559,12 @@ operator|==
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -2572,7 +2602,12 @@ argument_list|,
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 operator|>
 literal|1
 argument_list|)
@@ -2586,7 +2621,12 @@ operator|+
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// When the hbase:meta table can be opened, the region servers are running

@@ -2062,7 +2062,7 @@ if|if
 condition|(
 name|file
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

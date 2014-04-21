@@ -722,7 +722,7 @@ index|[
 name|i
 index|]
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 operator|==
 literal|true
@@ -774,7 +774,7 @@ index|[
 name|j
 index|]
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 operator|==
 literal|true
@@ -941,7 +941,7 @@ index|[
 name|i
 index|]
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 operator|==
 literal|true
@@ -988,7 +988,7 @@ index|[
 name|j
 index|]
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 operator|==
 literal|true

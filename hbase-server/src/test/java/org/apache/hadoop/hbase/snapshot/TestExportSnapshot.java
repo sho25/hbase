@@ -1888,7 +1888,7 @@ name|assertTrue
 argument_list|(
 name|fileStatus
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2625,7 +2625,7 @@ if|if
 condition|(
 name|fstat
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

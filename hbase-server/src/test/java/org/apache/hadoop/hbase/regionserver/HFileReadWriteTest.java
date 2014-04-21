@@ -1919,7 +1919,7 @@ argument_list|(
 name|path
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{
@@ -1960,7 +1960,7 @@ argument_list|(
 name|outputDir
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 operator|)
 condition|)

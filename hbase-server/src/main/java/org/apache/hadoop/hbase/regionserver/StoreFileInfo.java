@@ -1582,7 +1582,7 @@ if|if
 condition|(
 name|fileStatus
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 return|return

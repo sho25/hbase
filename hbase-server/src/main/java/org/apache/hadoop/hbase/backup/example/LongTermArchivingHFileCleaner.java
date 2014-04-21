@@ -245,7 +245,7 @@ if|if
 condition|(
 name|fStat
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 return|return

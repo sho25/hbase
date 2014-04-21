@@ -1334,7 +1334,9 @@ return|return
 name|fs
 operator|.
 name|getDefaultBlockSize
-argument_list|()
+argument_list|(
+name|path
+argument_list|)
 return|;
 block|}
 else|else
@@ -1501,7 +1503,9 @@ return|return
 name|fs
 operator|.
 name|getDefaultReplication
-argument_list|()
+argument_list|(
+name|path
+argument_list|)
 return|;
 block|}
 else|else
@@ -5771,7 +5775,7 @@ argument_list|(
 name|p
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 expr_stmt|;
 block|}
@@ -6365,7 +6369,7 @@ argument_list|(
 name|rd
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 return|;
 block|}
@@ -6566,7 +6570,7 @@ argument_list|(
 name|rd
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 return|;
 block|}
@@ -6774,7 +6778,7 @@ argument_list|(
 name|rd
 argument_list|)
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 return|;
 block|}
@@ -7626,7 +7630,7 @@ if|if
 condition|(
 name|file
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{
@@ -8198,7 +8202,7 @@ condition|(
 operator|!
 name|regionStatus
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
 block|{

@@ -1094,7 +1094,9 @@ operator|)
 name|outputFs
 operator|.
 name|getDefaultBlockSize
-argument_list|()
+argument_list|(
+name|outputRoot
+argument_list|)
 argument_list|,
 name|BUFFER_SIZE
 argument_list|)

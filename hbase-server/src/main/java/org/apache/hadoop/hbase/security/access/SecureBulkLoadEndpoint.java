@@ -2388,7 +2388,7 @@ init|=
 operator|!
 name|status
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 decl_stmt|;
 try|try

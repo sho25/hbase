@@ -8933,6 +8933,8 @@ operator|.
 name|delete
 argument_list|(
 name|tableDir
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// flush cache of regions
