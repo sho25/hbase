@@ -388,7 +388,7 @@ specifier|protected
 name|boolean
 name|seekAsDirection
 parameter_list|(
-name|KeyValue
+name|Cell
 name|kv
 parameter_list|)
 throws|throws
