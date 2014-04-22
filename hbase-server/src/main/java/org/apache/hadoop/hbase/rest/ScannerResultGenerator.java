@@ -596,14 +596,6 @@ name|filter
 argument_list|)
 expr_stmt|;
 block|}
-comment|// always disable block caching on the cluster when scanning
-name|scan
-operator|.
-name|setCacheBlocks
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|caching
