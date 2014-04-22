@@ -3457,6 +3457,13 @@ argument_list|,
 name|baseNode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|nodes
+operator|!=
+literal|null
+condition|)
+block|{
 name|List
 argument_list|<
 name|NodeAndData
@@ -3470,13 +3477,6 @@ name|NodeAndData
 argument_list|>
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|nodes
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|String
@@ -3524,9 +3524,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 return|return
 name|newNodes
+return|;
+block|}
+return|return
+literal|null
 return|;
 block|}
 comment|/**    * Update the data of an existing node with the expected version to have the    * specified data.    *    * Throws an exception if there is a version mismatch or some other problem.    *    * Sets no watches under any conditions.    *    * @param zkw zk reference    * @param znode    * @param data    * @param expectedVersion    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.BadVersionException if version mismatch    * @deprecated Unused    */
