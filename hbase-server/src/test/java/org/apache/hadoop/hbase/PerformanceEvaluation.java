@@ -3757,7 +3757,7 @@ operator|-
 name|startTime
 operator|)
 operator|/
-literal|100000
+literal|1000
 argument_list|)
 expr_stmt|;
 if|if
@@ -3813,7 +3813,7 @@ name|setStatus
 argument_list|(
 name|testName
 operator|+
-literal|" latency log (ms), on "
+literal|" latency log (microseconds), on "
 operator|+
 name|latency
 operator|.
