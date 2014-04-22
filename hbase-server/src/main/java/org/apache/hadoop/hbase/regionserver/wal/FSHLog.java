@@ -6655,7 +6655,6 @@ end_function
 begin_function
 annotation|@
 name|Override
-comment|// txid is unused.  txid is an implementation detail.  It should not leak outside of WAL.
 specifier|public
 name|void
 name|sync
@@ -6666,6 +6665,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|highestSyncedSequence
+operator|.
+name|get
+argument_list|()
+operator|>=
+name|txid
+condition|)
+block|{
+comment|// Already sync'd.
+return|return;
+block|}
 name|publishSyncThenBlockOnCompletion
 argument_list|()
 expr_stmt|;
