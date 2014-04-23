@@ -2634,6 +2634,15 @@ name|REPLICATION_CODEC_CONF_KEY
 init|=
 literal|"hbase.replication.rpc.codec"
 decl_stmt|;
+comment|/** Config for pluggable consensus provider */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CONSENSUS_PROVIDER_CLASS
+init|=
+literal|"hbase.consensus.provider.class"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

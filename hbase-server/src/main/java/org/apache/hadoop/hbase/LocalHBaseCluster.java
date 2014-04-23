@@ -161,6 +161,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|consensus
+operator|.
+name|ConsensusProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|consensus
+operator|.
+name|ConsensusProviderFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -399,6 +431,9 @@ name|HRegionServer
 argument_list|>
 name|regionServerClass
 decl_stmt|;
+name|ConsensusProvider
+name|consensusProvider
+decl_stmt|;
 comment|/**    * Constructor.    * @param conf    * @throws IOException    */
 specifier|public
 name|LocalHBaseCluster
@@ -626,6 +661,15 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
+name|consensusProvider
+operator|=
+name|ConsensusProviderFactory
+operator|.
+name|getConsensusProvider
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 comment|// Always have masters and regionservers come up on port '0' so we don't
 comment|// clash over default ports.
 name|conf
@@ -821,6 +865,8 @@ name|createRegionServerThread
 argument_list|(
 name|config
 argument_list|,
+name|consensusProvider
+argument_list|,
 name|this
 operator|.
 name|regionServerClass
@@ -955,6 +1001,8 @@ operator|.
 name|createMasterThread
 argument_list|(
 name|c
+argument_list|,
+name|consensusProvider
 argument_list|,
 operator|(
 name|Class
