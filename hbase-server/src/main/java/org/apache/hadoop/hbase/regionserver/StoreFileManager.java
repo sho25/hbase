@@ -255,6 +255,23 @@ name|int
 name|getStoreCompactionPriority
 parameter_list|()
 function_decl|;
+comment|/**    * @param maxTs Maximum expired timestamp.    * @param filesCompacting Files that are currently compacting.    * @return The files which don't have any necessary data according to TTL and other criteria.    */
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|getUnneededFiles
+parameter_list|(
+name|long
+name|maxTs
+parameter_list|,
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|filesCompacting
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

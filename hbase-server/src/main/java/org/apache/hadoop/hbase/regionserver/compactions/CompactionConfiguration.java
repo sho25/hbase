@@ -201,9 +201,6 @@ decl_stmt|;
 name|long
 name|throttlePoint
 decl_stmt|;
-name|boolean
-name|shouldDeleteExpired
-decl_stmt|;
 name|long
 name|majorCompactionPeriod
 decl_stmt|;
@@ -341,17 +338,6 @@ name|getMemstoreFlushSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|shouldDeleteExpired
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.store.delete.expired.storefile"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|majorCompactionPeriod
 operator|=
 name|conf
@@ -407,7 +393,7 @@ name|format
 argument_list|(
 literal|"size [%d, %d); files [%d, %d); ratio %f; off-peak ratio %f; throttle point %d;"
 operator|+
-literal|"%s delete expired; major period %d, major jitter %f"
+literal|" major period %d, major jitter %f"
 argument_list|,
 name|minCompactSize
 argument_list|,
@@ -422,12 +408,6 @@ argument_list|,
 name|offPeekCompactionRatio
 argument_list|,
 name|throttlePoint
-argument_list|,
-name|shouldDeleteExpired
-condition|?
-literal|""
-else|:
-literal|" don't"
 argument_list|,
 name|majorCompactionPeriod
 argument_list|,
@@ -514,15 +494,6 @@ parameter_list|()
 block|{
 return|return
 name|majorCompactionJitter
-return|;
-block|}
-comment|/**    * @return Whether expired files should be deleted ASAP using compactions    */
-name|boolean
-name|shouldDeleteExpired
-parameter_list|()
-block|{
-return|return
-name|shouldDeleteExpired
 return|;
 block|}
 block|}
