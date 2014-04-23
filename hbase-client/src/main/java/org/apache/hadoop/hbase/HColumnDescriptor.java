@@ -631,7 +631,17 @@ specifier|final
 name|int
 name|DEFAULT_VERSIONS
 init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.column.max.version"
+argument_list|,
 literal|1
+argument_list|)
 decl_stmt|;
 comment|/**    * Default is not to keep a minimum of versions.    */
 specifier|public
