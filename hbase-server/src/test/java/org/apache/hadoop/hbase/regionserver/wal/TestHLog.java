@@ -4871,6 +4871,13 @@ end_function
 begin_function
 annotation|@
 name|Test
+argument_list|(
+name|expected
+operator|=
+name|IOException
+operator|.
+name|class
+argument_list|)
 specifier|public
 name|void
 name|testFailedToCreateHLogIfParentRenamed
@@ -4973,8 +4980,6 @@ argument_list|,
 name|newPath
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|HLogFactory
 operator|.
 name|createWALWriter
@@ -4991,15 +4996,6 @@ argument_list|(
 literal|"It should fail to create the new WAL"
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-comment|// expected, good.
-block|}
 block|}
 end_function
 
