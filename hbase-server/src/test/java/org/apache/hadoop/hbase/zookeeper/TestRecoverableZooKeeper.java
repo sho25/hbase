@@ -366,7 +366,7 @@ block|{
 name|String
 name|znode
 init|=
-literal|"/hbase/region-in-transition/9af7cfc9b15910a0b3d714bf40a3248f"
+literal|"/hbase/splitWAL/9af7cfc9b15910a0b3d714bf40a3248f"
 decl_stmt|;
 name|Configuration
 name|conf

@@ -1187,6 +1187,36 @@ argument_list|(
 literal|"seqnumDuringOpen"
 argument_list|)
 decl_stmt|;
+comment|/** The state column qualifier */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|STATE_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"state"
+argument_list|)
+decl_stmt|;
+comment|/**    * The serverName column qualifier. Its the server where the region is    * transitioning on, while column server is the server where the region is    * opened on. They are the same when the region is in state OPEN.    */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|SERVERNAME_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"sn"
+argument_list|)
+decl_stmt|;
 comment|/** The lower-half split region column qualifier */
 specifier|public
 specifier|static

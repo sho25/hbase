@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A callable object that invokes the corresponding action that needs to be  * taken for assignment of a region in transition.   * Implementing as future callable we are able to act on the timeout  * asynchronously.  */
+comment|/**  * A callable object that invokes the corresponding action that needs to be  * taken for unassignment of a region in transition. Implementing as future  * callable we are able to act on the timeout asynchronously.  */
 end_comment
 
 begin_class
@@ -68,7 +68,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|AssignCallable
+name|UnAssignCallable
 implements|implements
 name|Callable
 argument_list|<
@@ -83,21 +83,14 @@ specifier|private
 name|HRegionInfo
 name|hri
 decl_stmt|;
-specifier|private
-name|boolean
-name|newPlan
-decl_stmt|;
 specifier|public
-name|AssignCallable
+name|UnAssignCallable
 parameter_list|(
 name|AssignmentManager
 name|assignmentManager
 parameter_list|,
 name|HRegionInfo
 name|hri
-parameter_list|,
-name|boolean
-name|newPlan
 parameter_list|)
 block|{
 name|this
@@ -105,12 +98,6 @@ operator|.
 name|assignmentManager
 operator|=
 name|assignmentManager
-expr_stmt|;
-name|this
-operator|.
-name|newPlan
-operator|=
-name|newPlan
 expr_stmt|;
 name|this
 operator|.
@@ -130,13 +117,11 @@ name|Exception
 block|{
 name|assignmentManager
 operator|.
-name|assign
+name|unassign
 argument_list|(
 name|hri
 argument_list|,
 literal|true
-argument_list|,
-name|newPlan
 argument_list|)
 expr_stmt|;
 return|return

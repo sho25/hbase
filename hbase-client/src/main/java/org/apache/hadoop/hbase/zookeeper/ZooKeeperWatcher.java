@@ -637,6 +637,18 @@ argument_list|,
 name|baseZNode
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.assignment.usezk"
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
 name|ZKUtil
 operator|.
 name|createAndFailSilent
@@ -646,6 +658,7 @@ argument_list|,
 name|assignmentZNode
 argument_list|)
 expr_stmt|;
+block|}
 name|ZKUtil
 operator|.
 name|createAndFailSilent

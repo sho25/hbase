@@ -4152,6 +4152,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns a {@link ServerName} from catalog table {@link Result}.    * @param r Result to pull from    * @return A ServerName instance or null if necessary fields not found or empty.    */
+comment|// TODO: ServerName should be a better place for this method?
 specifier|public
 specifier|static
 name|ServerName

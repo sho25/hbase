@@ -985,7 +985,7 @@ argument_list|>
 name|requeuedDeadServers
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|ServerName
 argument_list|,
@@ -4460,6 +4460,17 @@ operator|.
 name|queuedDeadServers
 argument_list|)
 return|;
+block|}
+comment|/**    * During startup, if we figure it is not a failover, i.e. there is    * no more HLog files to split, we won't try to recover these dead servers.    * So we just remove them from the queue. Use caution in calling this.    */
+name|void
+name|removeRequeuedDeadServers
+parameter_list|()
+block|{
+name|requeuedDeadServers
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * @return A copy of the internal map of requeuedDeadServers servers and their corresponding    *         splitlog need flag.    */
 name|Map

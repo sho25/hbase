@@ -591,6 +591,15 @@ name|c
 operator|.
 name|setBoolean
 argument_list|(
+literal|"hbase.assignment.usezk"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setBoolean
+argument_list|(
 literal|"dfs.support.append"
 argument_list|,
 literal|true

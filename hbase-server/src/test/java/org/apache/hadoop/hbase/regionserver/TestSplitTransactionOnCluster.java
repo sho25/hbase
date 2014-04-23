@@ -247,6 +247,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CoordinatedStateManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Coprocessor
 import|;
 end_import
@@ -632,20 +646,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CoordinatedStateManager
 import|;
 end_import
 
@@ -1269,6 +1269,12 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|static
+name|boolean
+name|useZKForAssignment
+init|=
+literal|true
+decl_stmt|;
+specifier|static
 specifier|final
 name|HBaseTestingUtility
 name|TESTING_UTIL
@@ -1277,12 +1283,9 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-annotation|@
-name|BeforeClass
-specifier|public
 specifier|static
 name|void
-name|before
+name|setupOnce
 parameter_list|()
 throws|throws
 name|Exception
@@ -1299,12 +1302,53 @@ argument_list|,
 literal|60000
 argument_list|)
 expr_stmt|;
+name|useZKForAssignment
+operator|=
+name|TESTING_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.assignment.usezk"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|TESTING_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
 name|NB_SERVERS
 argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|BeforeClass
+specifier|public
+specifier|static
+name|void
+name|before
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+comment|// Use ZK for region assignment
+name|TESTING_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.assignment.usezk"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|setupOnce
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1523,6 +1567,15 @@ argument_list|(
 literal|"testShouldFailSplitIfZNodeDoesNotExistDueToPrevRollBack"
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|useZKForAssignment
+condition|)
+block|{
+comment|// This test doesn't apply if not using ZK for assignment
+return|return;
+block|}
 try|try
 block|{
 comment|// Create table then get the single region for our new table.
@@ -2350,6 +2403,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -2921,18 +2979,6 @@ argument_list|,
 name|regionCount
 argument_list|)
 expr_stmt|;
-comment|// Get daughters
-name|List
-argument_list|<
-name|HRegion
-argument_list|>
-name|daughters
-init|=
-name|checkAndGetDaughters
-argument_list|(
-name|tableName
-argument_list|)
-decl_stmt|;
 comment|// Assert the ephemeral node is up in zk.
 name|String
 name|path
@@ -2962,6 +3008,26 @@ name|stats
 init|=
 literal|null
 decl_stmt|;
+name|List
+argument_list|<
+name|HRegion
+argument_list|>
+name|daughters
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|useZKForAssignment
+condition|)
+block|{
+name|daughters
+operator|=
+name|checkAndGetDaughters
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 comment|// Wait till the znode moved to SPLIT
 for|for
 control|(
@@ -3080,6 +3146,7 @@ argument_list|(
 name|tableRegionIndex
 argument_list|)
 expr_stmt|;
+block|}
 name|waitUntilRegionServerDead
 argument_list|()
 expr_stmt|;
@@ -3087,13 +3154,14 @@ name|awaitDaughters
 argument_list|(
 name|tableName
 argument_list|,
-name|daughters
-operator|.
-name|size
-argument_list|()
+literal|2
 argument_list|)
 expr_stmt|;
-comment|// Assert daughters are online.
+if|if
+condition|(
+name|useZKForAssignment
+condition|)
+block|{
 name|regions
 operator|=
 name|cluster
@@ -3191,6 +3259,7 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -3310,6 +3379,20 @@ argument_list|,
 name|hri
 argument_list|)
 decl_stmt|;
+name|RegionStates
+name|regionStates
+init|=
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+decl_stmt|;
 comment|// Turn off balancer so it doesn't cut in and mess up our placements.
 name|this
 operator|.
@@ -3400,6 +3483,11 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|useZKForAssignment
+condition|)
+block|{
 name|ZKAssign
 operator|.
 name|createNodeClosing
@@ -3414,6 +3502,23 @@ argument_list|,
 name|fakedServer
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|regionStates
+operator|.
+name|updateRegionState
+argument_list|(
+name|hri
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSING
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Now try splitting.... should fail.  And each should successfully
 comment|// rollback.
 name|this
@@ -3494,6 +3599,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|useZKForAssignment
+condition|)
+block|{
 comment|// Now clear the zknode
 name|ZKAssign
 operator|.
@@ -3509,6 +3619,22 @@ argument_list|,
 name|fakedServer
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|regionStates
+operator|.
+name|regionOnline
+argument_list|(
+name|hri
+argument_list|,
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Now try splitting and it should work.
 name|split
 argument_list|(
@@ -4647,6 +4773,15 @@ argument_list|(
 literal|"testMasterRestartWhenSplittingIsPartial"
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|useZKForAssignment
+condition|)
+block|{
+comment|// This test doesn't apply if not using ZK for assignment
+return|return;
+block|}
 comment|// Create table then get the single region for our new table.
 name|HTable
 name|t
@@ -5547,6 +5682,11 @@ block|}
 comment|/**    *    * While transitioning node from RS_ZK_REGION_SPLITTING to    * RS_ZK_REGION_SPLITTING during region split,if zookeper went down split always    * fails for the region. HBASE-6088 fixes this scenario.    * This test case is to test the znode is deleted(if created) or not in roll back.    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testSplitBeforeSettingSplittingInZK
@@ -6085,6 +6225,11 @@ block|}
 comment|/**    * If a table has regions that have no store files in a region, they should split successfully    * into two regions with no store files.    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|60000
+argument_list|)
 specifier|public
 name|void
 name|testSplitRegionWithNoStoreFiles
@@ -7922,6 +8067,8 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|int
@@ -7987,6 +8134,31 @@ operator|<=
 name|regionCount
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|RegionServerStoppedException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|useZKForAssignment
+condition|)
+block|{
+comment|// If not using ZK for assignment, the exception may be expected.
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+block|}
 block|}
 comment|/**    * Ensure single table region is not on same server as the single hbase:meta table    * region.    * @param admin    * @param hri    * @return Index of the server hosting the single table region    * @throws UnknownRegionException    * @throws MasterNotRunningException    * @throws org.apache.hadoop.hbase.ZooKeeperConnectionException    * @throws InterruptedException    */
 specifier|private
