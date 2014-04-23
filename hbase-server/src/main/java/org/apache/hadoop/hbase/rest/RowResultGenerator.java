@@ -260,6 +260,10 @@ parameter_list|,
 specifier|final
 name|Filter
 name|filter
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheBlocks
 parameter_list|)
 throws|throws
 name|IllegalArgumentException
@@ -423,6 +427,13 @@ name|filter
 argument_list|)
 expr_stmt|;
 block|}
+name|get
+operator|.
+name|setCacheBlocks
+argument_list|(
+name|cacheBlocks
+argument_list|)
+expr_stmt|;
 name|Result
 name|result
 init|=

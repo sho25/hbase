@@ -205,12 +205,12 @@ name|getFilterBytes
 parameter_list|()
 function_decl|;
 comment|// optional int32 caching = 9;
-comment|/**      *<code>optional int32 caching = 9;</code>      */
+comment|/**      *<code>optional int32 caching = 9;</code>      *      *<pre>      * specifies REST scanner caching      *</pre>      */
 name|boolean
 name|hasCaching
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional int32 caching = 9;</code>      */
+comment|/**      *<code>optional int32 caching = 9;</code>      *      *<pre>      * specifies REST scanner caching      *</pre>      */
 name|int
 name|getCaching
 parameter_list|()
@@ -262,6 +262,17 @@ parameter_list|(
 name|int
 name|index
 parameter_list|)
+function_decl|;
+comment|// optional bool cacheBlocks = 11;
+comment|/**      *<code>optional bool cacheBlocks = 11;</code>      *      *<pre>      * server side block caching hint      *</pre>      */
+name|boolean
+name|hasCacheBlocks
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool cacheBlocks = 11;</code>      *      *<pre>      * server side block caching hint      *</pre>      */
+name|boolean
+name|getCacheBlocks
+parameter_list|()
 function_decl|;
 block|}
 comment|/**    * Protobuf type {@code org.apache.hadoop.hbase.rest.protobuf.generated.Scanner}    */
@@ -750,6 +761,23 @@ operator|.
 name|readBytes
 argument_list|()
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|88
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+name|cacheBlocks_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -1673,7 +1701,7 @@ specifier|private
 name|int
 name|caching_
 decl_stmt|;
-comment|/**      *<code>optional int32 caching = 9;</code>      */
+comment|/**      *<code>optional int32 caching = 9;</code>      *      *<pre>      * specifies REST scanner caching      *</pre>      */
 specifier|public
 name|boolean
 name|hasCaching
@@ -1691,7 +1719,7 @@ literal|0x00000080
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional int32 caching = 9;</code>      */
+comment|/**      *<code>optional int32 caching = 9;</code>      *      *<pre>      * specifies REST scanner caching      *</pre>      */
 specifier|public
 name|int
 name|getCaching
@@ -1800,6 +1828,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional bool cacheBlocks = 11;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CACHEBLOCKS_FIELD_NUMBER
+init|=
+literal|11
+decl_stmt|;
+specifier|private
+name|boolean
+name|cacheBlocks_
+decl_stmt|;
+comment|/**      *<code>optional bool cacheBlocks = 11;</code>      *      *<pre>      * server side block caching hint      *</pre>      */
+specifier|public
+name|boolean
+name|hasCacheBlocks
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool cacheBlocks = 11;</code>      *      *<pre>      * server side block caching hint      *</pre>      */
+specifier|public
+name|boolean
+name|getCacheBlocks
+parameter_list|()
+block|{
+return|return
+name|cacheBlocks_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -1875,6 +1944,10 @@ operator|.
 name|LazyStringArrayList
 operator|.
 name|EMPTY
+expr_stmt|;
+name|cacheBlocks_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -2186,6 +2259,29 @@ name|getByteString
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|11
+argument_list|,
+name|cacheBlocks_
 argument_list|)
 expr_stmt|;
 block|}
@@ -2596,6 +2692,37 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000100
+operator|)
+operator|==
+literal|0x00000100
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|11
+argument_list|,
+name|cacheBlocks_
+argument_list|)
 expr_stmt|;
 block|}
 name|size
@@ -3646,6 +3773,19 @@ operator|~
 literal|0x00000200
 operator|)
 expr_stmt|;
+name|cacheBlocks_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -4155,6 +4295,30 @@ name|labels_
 operator|=
 name|labels_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000100
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|cacheBlocks_
+operator|=
+name|cacheBlocks_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -4544,6 +4708,23 @@ expr_stmt|;
 block|}
 name|onChanged
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasCacheBlocks
+argument_list|()
+condition|)
+block|{
+name|setCacheBlocks
+argument_list|(
+name|other
+operator|.
+name|getCacheBlocks
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -5908,7 +6089,7 @@ specifier|private
 name|int
 name|caching_
 decl_stmt|;
-comment|/**        *<code>optional int32 caching = 9;</code>        */
+comment|/**        *<code>optional int32 caching = 9;</code>        *        *<pre>        * specifies REST scanner caching        *</pre>        */
 specifier|public
 name|boolean
 name|hasCaching
@@ -5926,7 +6107,7 @@ literal|0x00000100
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional int32 caching = 9;</code>        */
+comment|/**        *<code>optional int32 caching = 9;</code>        *        *<pre>        * specifies REST scanner caching        *</pre>        */
 specifier|public
 name|int
 name|getCaching
@@ -5936,7 +6117,7 @@ return|return
 name|caching_
 return|;
 block|}
-comment|/**        *<code>optional int32 caching = 9;</code>        */
+comment|/**        *<code>optional int32 caching = 9;</code>        *        *<pre>        * specifies REST scanner caching        *</pre>        */
 specifier|public
 name|Builder
 name|setCaching
@@ -5960,7 +6141,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional int32 caching = 9;</code>        */
+comment|/**        *<code>optional int32 caching = 9;</code>        *        *<pre>        * specifies REST scanner caching        *</pre>        */
 specifier|public
 name|Builder
 name|clearCaching
@@ -6344,6 +6525,89 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional bool cacheBlocks = 11;
+specifier|private
+name|boolean
+name|cacheBlocks_
+decl_stmt|;
+comment|/**        *<code>optional bool cacheBlocks = 11;</code>        *        *<pre>        * server side block caching hint        *</pre>        */
+specifier|public
+name|boolean
+name|hasCacheBlocks
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool cacheBlocks = 11;</code>        *        *<pre>        * server side block caching hint        *</pre>        */
+specifier|public
+name|boolean
+name|getCacheBlocks
+parameter_list|()
+block|{
+return|return
+name|cacheBlocks_
+return|;
+block|}
+comment|/**        *<code>optional bool cacheBlocks = 11;</code>        *        *<pre>        * server side block caching hint        *</pre>        */
+specifier|public
+name|Builder
+name|setCacheBlocks
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000400
+expr_stmt|;
+name|cacheBlocks_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool cacheBlocks = 11;</code>        *        *<pre>        * server side block caching hint        *</pre>        */
+specifier|public
+name|Builder
+name|clearCacheBlocks
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
+name|cacheBlocks_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:org.apache.hadoop.hbase.rest.protobuf.generated.Scanner)
 block|}
 static|static
@@ -6434,7 +6698,7 @@ init|=
 block|{
 literal|"\n\024ScannerMessage.proto\022/org.apache.hadoo"
 operator|+
-literal|"p.hbase.rest.protobuf.generated\"\265\001\n\007Scan"
+literal|"p.hbase.rest.protobuf.generated\"\312\001\n\007Scan"
 operator|+
 literal|"ner\022\020\n\010startRow\030\001 \001(\014\022\016\n\006endRow\030\002 \001(\014\022\017\n"
 operator|+
@@ -6444,7 +6708,7 @@ literal|"me\030\005 \001(\003\022\017\n\007endTime\030\006 \001(\003\022\023\n\0
 operator|+
 literal|"\030\007 \001(\005\022\016\n\006filter\030\010 \001(\t\022\017\n\007caching\030\t \001(\005\022"
 operator|+
-literal|"\016\n\006labels\030\n \003(\t"
+literal|"\016\n\006labels\030\n \003(\t\022\023\n\013cacheBlocks\030\013 \001(\010"
 block|}
 decl_stmt|;
 name|com
@@ -6555,6 +6819,8 @@ block|,
 literal|"Caching"
 block|,
 literal|"Labels"
+block|,
+literal|"CacheBlocks"
 block|, }
 argument_list|)
 expr_stmt|;

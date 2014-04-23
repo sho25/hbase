@@ -359,6 +359,10 @@ parameter_list|,
 specifier|final
 name|Filter
 name|filter
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheBlocks
 parameter_list|)
 throws|throws
 name|IllegalArgumentException
@@ -375,6 +379,8 @@ name|filter
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+name|cacheBlocks
 argument_list|)
 expr_stmt|;
 block|}
@@ -396,6 +402,10 @@ parameter_list|,
 specifier|final
 name|int
 name|caching
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheBlocks
 parameter_list|)
 throws|throws
 name|IllegalArgumentException
@@ -611,6 +621,13 @@ name|caching
 argument_list|)
 expr_stmt|;
 block|}
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+name|cacheBlocks
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|rowspec

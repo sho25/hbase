@@ -184,6 +184,14 @@ name|BATCH
 init|=
 literal|100
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|CACHE_BLOCKS
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|TestScannerModel
 parameter_list|()
@@ -201,30 +209,35 @@ name|AS_XML
 operator|=
 literal|"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
 operator|+
-literal|"<Scanner batch=\"100\" caching=\"1000\" endRow=\"enp5eng=\" endTime=\"1245393318192\" "
+literal|"<Scanner batch=\"100\" cacheBlocks=\"false\" caching=\"1000\" endRow=\"enp5eng=\" "
 operator|+
-literal|"maxVersions=\"2147483647\" startRow=\"YWJyYWNhZGFicmE=\" startTime=\"1245219839331\">"
+literal|"endTime=\"1245393318192\" maxVersions=\"2147483647\" startRow=\"YWJyYWNhZGFicmE=\" "
+operator|+
+literal|"startTime=\"1245219839331\">"
 operator|+
 literal|"<column>Y29sdW1uMQ==</column><column>Y29sdW1uMjpmb28=</column>"
 operator|+
-literal|"<label>private</label><label>public</label></Scanner>"
+literal|"<label>private</label><label>public</label>"
+operator|+
+literal|"</Scanner>"
 expr_stmt|;
 name|AS_JSON
 operator|=
-literal|"{\"batch\":100,\"caching\":1000,\"endRow\":\"enp5eng=\",\"endTime\":1245393318192,"
+literal|"{\"batch\":100,\"caching\":1000,\"cacheBlocks\":false,\"endRow\":\"enp5eng=\","
 operator|+
-literal|"\"maxVersions\":2147483647,\"startRow\":\"YWJyYWNhZGFicmE=\",\"startTime\":1245219839331,"
+literal|"\"endTime\":1245393318192,\"maxVersions\":2147483647,\"startRow\":\"YWJyYWNhZGFicmE=\","
 operator|+
-literal|"\"column\":[\"Y29sdW1uMQ==\",\"Y29sdW1uMjpmb28=\"],"
+literal|"\"startTime\":1245219839331,\"column\":[\"Y29sdW1uMQ==\",\"Y29sdW1uMjpmb28=\"],"
 operator|+
-literal|"\"labels\":[\"private\",\"public\"]}"
+literal|"\"labels\":[\"private\",\"public\"]"
+operator|+
+literal|"}"
 expr_stmt|;
-comment|// TODO
 name|AS_PB
 operator|=
 literal|"CgthYnJhY2FkYWJyYRIFenp5engaB2NvbHVtbjEaC2NvbHVtbjI6Zm9vIGQo47qL554kMLDi57mf"
 operator|+
-literal|"JDj/////B0joBw=="
+literal|"JDj/////B0joB1IHcHJpdmF0ZVIGcHVibGljWAA="
 expr_stmt|;
 block|}
 specifier|protected
@@ -307,6 +320,13 @@ operator|.
 name|addLabel
 argument_list|(
 name|PUBLIC
+argument_list|)
+expr_stmt|;
+name|model
+operator|.
+name|setCacheBlocks
+argument_list|(
+name|CACHE_BLOCKS
 argument_list|)
 expr_stmt|;
 return|return
@@ -456,6 +476,16 @@ name|getCaching
 argument_list|()
 argument_list|,
 name|CACHING
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|model
+operator|.
+name|getCacheBlocks
+argument_list|()
+argument_list|,
+name|CACHE_BLOCKS
 argument_list|)
 expr_stmt|;
 name|boolean

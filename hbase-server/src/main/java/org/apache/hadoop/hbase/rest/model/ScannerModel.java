@@ -1017,6 +1017,12 @@ name|String
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
+name|boolean
+name|cacheBlocks
+init|=
+literal|true
+decl_stmt|;
 annotation|@
 name|XmlRootElement
 specifier|static
@@ -3728,6 +3734,18 @@ return|return
 name|caching
 return|;
 block|}
+comment|/**    * @return true if HFile blocks should be cached on the servers for this scan, false otherwise    */
+annotation|@
+name|XmlAttribute
+specifier|public
+name|boolean
+name|getCacheBlocks
+parameter_list|()
+block|{
+return|return
+name|cacheBlocks
+return|;
+block|}
 comment|/**    * @return the lower bound on timestamps of items of interest    */
 annotation|@
 name|XmlAttribute
@@ -3860,6 +3878,22 @@ operator|.
 name|caching
 operator|=
 name|caching
+expr_stmt|;
+block|}
+comment|/**    * @param value true if HFile blocks should be cached on the servers for this scan, false otherwise    */
+specifier|public
+name|void
+name|setCacheBlocks
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|value
 expr_stmt|;
 block|}
 comment|/**    * @param maxVersions maximum number of versions to return    */
@@ -4126,6 +4160,13 @@ name|label
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setCacheBlocks
+argument_list|(
+name|cacheBlocks
+argument_list|)
+expr_stmt|;
 return|return
 name|builder
 operator|.
@@ -4355,6 +4396,24 @@ name|label
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|builder
+operator|.
+name|hasCacheBlocks
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|builder
+operator|.
+name|getCacheBlocks
+argument_list|()
+expr_stmt|;
 block|}
 return|return
 name|this

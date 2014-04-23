@@ -130,6 +130,10 @@ parameter_list|,
 specifier|final
 name|Filter
 name|filter
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheBlocks
 parameter_list|)
 throws|throws
 name|IOException
@@ -151,6 +155,8 @@ argument_list|,
 name|rowspec
 argument_list|,
 name|filter
+argument_list|,
+name|cacheBlocks
 argument_list|)
 return|;
 block|}
@@ -165,6 +171,8 @@ argument_list|,
 name|rowspec
 argument_list|,
 name|filter
+argument_list|,
+name|cacheBlocks
 argument_list|)
 return|;
 block|}
