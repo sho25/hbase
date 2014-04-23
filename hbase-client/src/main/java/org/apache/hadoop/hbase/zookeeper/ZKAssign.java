@@ -1585,11 +1585,11 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Retransitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENING state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node rewritten as OPENING is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (someone else already transitioned the node)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server transition happens on    * @param updateZNode write the znode. If false, we only check.    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Confirm an existing unassigned node for the specified region which is    * currently in the OPENING state to be still in the OPENING state on    * the specified server.    *    *<p>If for some reason the check fails, the method returns -1. Otherwise,    * the version of the node (same as the expected version) is returned.    *    *<p>This method can fail and return -1 for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, the server name or the version of the    * doesn't match)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when initiating an    * open of a region after receiving an OPEN RPC from the Master.    *    * @param zkw zk reference    * @param region region to be transitioned to opening    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
-name|retransitionNodeOpening
+name|confirmNodeOpening
 parameter_list|(
 name|ZooKeeperWatcher
 name|zkw
@@ -1602,9 +1602,6 @@ name|serverName
 parameter_list|,
 name|int
 name|expectedVersion
-parameter_list|,
-name|boolean
-name|updateZNode
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -1827,157 +1824,9 @@ operator|-
 literal|1
 return|;
 block|}
-comment|// We don't have to write the new state: the check is complete.
-if|if
-condition|(
-operator|!
-name|updateZNode
-condition|)
-block|{
 return|return
 name|expectedVersion
 return|;
-block|}
-comment|// Write new data, ensuring data has not changed since we last read it
-try|try
-block|{
-name|rt
-operator|=
-name|RegionTransition
-operator|.
-name|createRegionTransition
-argument_list|(
-name|EventType
-operator|.
-name|RS_ZK_REGION_OPENING
-argument_list|,
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
-name|serverName
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|ZKUtil
-operator|.
-name|setData
-argument_list|(
-name|zkw
-argument_list|,
-name|node
-argument_list|,
-name|rt
-operator|.
-name|toByteArray
-argument_list|()
-argument_list|,
-name|stat
-operator|.
-name|getVersion
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|zkw
-operator|.
-name|prefix
-argument_list|(
-literal|"Attempt to retransition the opening state of the "
-operator|+
-literal|"unassigned node for "
-operator|+
-name|encoded
-operator|+
-literal|" failed, "
-operator|+
-literal|"the node existed and was in the expected state but then when "
-operator|+
-literal|"setting data we got a version mismatch"
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-operator|-
-literal|1
-return|;
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|zkw
-operator|.
-name|prefix
-argument_list|(
-literal|"Retransition opening state of node "
-operator|+
-name|encoded
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|stat
-operator|.
-name|getVersion
-argument_list|()
-operator|+
-literal|1
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-operator|.
-name|NoNodeException
-name|nne
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|zkw
-operator|.
-name|prefix
-argument_list|(
-literal|"Attempt to retransition the opening state of the "
-operator|+
-literal|"unassigned node for "
-operator|+
-name|encoded
-operator|+
-literal|" failed, "
-operator|+
-literal|"the node existed and was in the expected state but then when "
-operator|+
-literal|"setting data it no longer existed"
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-operator|-
-literal|1
-return|;
-block|}
 block|}
 comment|/**    * Transitions an existing unassigned node for the specified region which is    * currently in the OPENING state to be in the OPENED state.    *    *<p>Does not transition nodes from other states.  If for some reason the    * node could not be transitioned, the method returns -1.  If the transition    * is successful, the version of the node after transition is returned.    *    *<p>This method can fail and return false for three different reasons:    *<ul><li>Unassigned node for this region does not exist</li>    *<li>Unassigned node for this region is not in OPENING state</li>    *<li>After verifying OPENING state, update fails because of wrong version    * (this should never actually happen since an RS only does this transition    * following a transition to OPENING.  if two RS are conflicting, one would    * fail the original transition to OPENING and not this transition)</li>    *</ul>    *    *<p>Does not set any watches.    *    *<p>This method should only be used by a RegionServer when completing the    * open of a region.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server transition happens on    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public

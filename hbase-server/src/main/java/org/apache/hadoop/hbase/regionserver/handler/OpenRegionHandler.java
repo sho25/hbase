@@ -169,22 +169,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|AssignmentManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -327,14 +311,6 @@ specifier|private
 specifier|final
 name|HTableDescriptor
 name|htd
-decl_stmt|;
-specifier|private
-name|boolean
-name|tomActivated
-decl_stmt|;
-specifier|private
-name|int
-name|assignmentTimeout
 decl_stmt|;
 comment|// We get version of our znode at start of open process and monitor it across
 comment|// the total open. We'll fail the open if someone hijacks our znode; we can
@@ -489,46 +465,6 @@ operator|.
 name|versionOfOfflineNode
 operator|=
 name|versionOfOfflineNode
-expr_stmt|;
-name|tomActivated
-operator|=
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getBoolean
-argument_list|(
-name|AssignmentManager
-operator|.
-name|ASSIGNMENT_TIMEOUT_MANAGEMENT
-argument_list|,
-name|AssignmentManager
-operator|.
-name|DEFAULT_ASSIGNMENT_TIMEOUT_MANAGEMENT
-argument_list|)
-expr_stmt|;
-name|assignmentTimeout
-operator|=
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-name|AssignmentManager
-operator|.
-name|ASSIGNMENT_TIMEOUT
-argument_list|,
-name|AssignmentManager
-operator|.
-name|DEFAULT_ASSIGNMENT_TIMEOUT_DEFAULT
-argument_list|)
 expr_stmt|;
 block|}
 specifier|public
@@ -1047,15 +983,11 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// Total timeout for meta edit.  If we fail adding the edit then close out
-comment|// the region and let it be assigned elsewhere.
-name|long
-name|timeout
-init|=
-name|assignmentTimeout
-operator|*
-literal|10
-decl_stmt|;
+comment|// Post open deploy task:
+comment|//   meta => update meta location in ZK
+comment|//   other region => update meta
+comment|// It could fail if ZK/meta is not available and
+comment|// the update runs out of retries.
 name|long
 name|now
 init|=
@@ -1063,29 +995,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
-name|long
-name|endTime
-init|=
-name|now
-operator|+
-name|timeout
-decl_stmt|;
-comment|// Let our period at which we update OPENING state to be be 1/3rd of the
-comment|// regions-in-transition timeout period.
-name|long
-name|period
-init|=
-name|Math
-operator|.
-name|max
-argument_list|(
-literal|1
-argument_list|,
-name|assignmentTimeout
-operator|/
-literal|3
-argument_list|)
 decl_stmt|;
 name|long
 name|lastUpdate
@@ -1126,11 +1035,8 @@ operator|.
 name|isStopping
 argument_list|()
 operator|&&
-operator|(
-name|endTime
-operator|>
-name|now
-operator|)
+name|isRegionStillOpening
+argument_list|()
 condition|)
 block|{
 name|long
@@ -1144,9 +1050,10 @@ if|if
 condition|(
 name|elapsed
 operator|>
-name|period
+literal|120000
 condition|)
 block|{
+comment|// 2 minutes, no need to tickleOpening too often
 comment|// Only tickle OPENING if postOpenDeployTasks is taking some time.
 name|lastUpdate
 operator|=
@@ -1167,11 +1074,13 @@ init|)
 block|{
 try|try
 block|{
+comment|// Wait for 10 seconds, so that server shutdown
+comment|// won't take too long if this thread happens to run.
 name|signaller
 operator|.
 name|wait
 argument_list|(
-name|period
+literal|10000
 argument_list|)
 expr_stmt|;
 block|}
@@ -1300,7 +1209,7 @@ extends|extends
 name|Thread
 block|{
 specifier|private
-name|Exception
+name|Throwable
 name|exception
 init|=
 literal|null
@@ -1443,7 +1352,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|Throwable
 name|e
 parameter_list|)
 block|{
@@ -1500,7 +1409,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * @return Null or the run exception; call this method after thread is done.      */
-name|Exception
+name|Throwable
 name|getException
 parameter_list|()
 block|{
@@ -2375,7 +2284,7 @@ name|version
 operator|=
 name|ZKAssign
 operator|.
-name|retransitionNodeOpening
+name|confirmNodeOpening
 argument_list|(
 name|server
 operator|.
@@ -2396,8 +2305,6 @@ argument_list|,
 name|this
 operator|.
 name|version
-argument_list|,
-name|tomActivated
 argument_list|)
 expr_stmt|;
 block|}

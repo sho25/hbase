@@ -2929,13 +2929,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|startTimeOutMonitor
-argument_list|()
-expr_stmt|;
 comment|// get a list for previously failed RS which need log splitting work
 comment|// we recover hbase:meta region servers inside master initialization and
 comment|// handle other failed servers in SSH in order to start up master node ASAP

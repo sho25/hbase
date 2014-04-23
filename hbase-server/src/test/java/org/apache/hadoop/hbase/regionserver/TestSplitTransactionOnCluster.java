@@ -1237,20 +1237,6 @@ argument_list|,
 literal|60000
 argument_list|)
 expr_stmt|;
-comment|// Needed because some tests have splits happening on RS that are killed
-comment|// We don't want to wait 3min for the master to figure it out
-name|TESTING_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.assignment.timeoutmonitor.timeout"
-argument_list|,
-literal|4000
-argument_list|)
-expr_stmt|;
 name|TESTING_UTIL
 operator|.
 name|startMiniCluster
