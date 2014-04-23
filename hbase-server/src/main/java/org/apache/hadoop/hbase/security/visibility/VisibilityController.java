@@ -1672,8 +1672,11 @@ name|RegionCoprocessorEnvironment
 name|regionEnv
 decl_stmt|;
 specifier|private
+name|List
+argument_list|<
 name|ScanLabelGenerator
-name|scanLabelGenerator
+argument_list|>
+name|scanLabelGenerators
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -1976,11 +1979,11 @@ name|RegionCoprocessorEnvironment
 condition|)
 block|{
 comment|// ScanLabelGenerator to be instantiated only with Region Observer.
-name|scanLabelGenerator
+name|scanLabelGenerators
 operator|=
 name|VisibilityUtils
 operator|.
-name|getScanLabelGenerator
+name|getScanLabelGenerators
 argument_list|(
 name|this
 operator|.
@@ -6353,9 +6356,8 @@ literal|null
 condition|)
 block|{
 comment|// No Authorizations present for this scan/Get!
-comment|// In case of "labels" table and user tables, create an empty auth set. In other system tables
-comment|// just scan with out visibility check and filtering. Checking visibility labels for META and
-comment|// NAMESPACE table is not needed.
+comment|// In case of system tables other than "labels" just scan with out visibility check and
+comment|// filtering. Checking visibility labels for META and NAMESPACE table is not needed.
 name|TableName
 name|table
 init|=
@@ -6387,20 +6389,9 @@ return|return
 literal|null
 return|;
 block|}
-return|return
-operator|new
-name|VisibilityLabelFilter
-argument_list|(
-operator|new
-name|BitSet
-argument_list|(
-literal|0
-argument_list|)
-argument_list|,
-name|cfVsMaxVersions
-argument_list|)
-return|;
 block|}
+else|else
+block|{
 for|for
 control|(
 name|String
@@ -6438,6 +6429,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
 name|Filter
 name|visibilityLabelFilter
 init|=
@@ -6447,7 +6439,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|scanLabelGenerator
+name|scanLabelGenerators
 operator|!=
 literal|null
 condition|)
@@ -6460,12 +6452,21 @@ name|labels
 init|=
 literal|null
 decl_stmt|;
-try|try
-block|{
-name|labels
-operator|=
+for|for
+control|(
+name|ScanLabelGenerator
+name|scanLabelGenerator
+range|:
 name|this
 operator|.
+name|scanLabelGenerators
+control|)
+block|{
+try|try
+block|{
+comment|// null authorizations to be handled inside SLG impl.
+name|labels
+operator|=
 name|scanLabelGenerator
 operator|.
 name|getLabels
@@ -6474,6 +6475,31 @@ name|getActiveUser
 argument_list|()
 argument_list|,
 name|authorizations
+argument_list|)
+expr_stmt|;
+name|labels
+operator|=
+operator|(
+name|labels
+operator|==
+literal|null
+operator|)
+condition|?
+operator|new
+name|ArrayList
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+else|:
+name|labels
+expr_stmt|;
+name|authorizations
+operator|=
+operator|new
+name|Authorizations
+argument_list|(
+name|labels
 argument_list|)
 expr_stmt|;
 block|}
@@ -6490,6 +6516,14 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|t
+argument_list|)
+throw|;
+block|}
 block|}
 name|int
 name|labelsCount
