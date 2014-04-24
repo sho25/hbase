@@ -1546,6 +1546,13 @@ argument_list|(
 name|job
 argument_list|)
 expr_stmt|;
+name|TableMapReduceUtil
+operator|.
+name|initCredentials
+argument_list|(
+name|job
+argument_list|)
+expr_stmt|;
 comment|// No reducers.
 name|job
 operator|.
