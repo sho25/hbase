@@ -57,8 +57,18 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|htrace
+operator|.
+name|Span
+import|;
+end_import
+
 begin_comment
-comment|/**  * A Future on a filesystem sync call.  It given to a client or 'Handler' for it to wait on till  * the sync completes.  *  *<p>Handlers coming in call append, append, append, and then do a flush/sync of  * the edits they have appended the WAL before returning. Since sync takes a while to  * complete, we give the Handlers back this sync future to wait on until the  * actual HDFS sync completes. Meantime this sync future goes across the ringbuffer and into a  * sync runner thread; when it completes, it finishes up the future, the handler get or failed  * check completes and the Handler can then progress.  *<p>  * This is just a partial implementation of Future; we just implement get and  * failure.  Unimplemented methods throw {@link UnsupportedOperationException}.  *<p>  * There is not a one-to-one correlation between dfs sync invocations and  * instances of this class. A single dfs sync call may complete and mark many  * SyncFutures as done; i.e. we batch up sync calls rather than do a dfs sync  * call every time a Handler asks for it.  *<p>  * SyncFutures are immutable but recycled. Call {@link #reset(long)} before use even if it  * the first time, start the sync, then park the 'hitched' thread on a call to  * {@link #get()}  */
+comment|/**  * A Future on a filesystem sync call.  It given to a client or 'Handler' for it to wait on till  * the sync completes.  *  *<p>Handlers coming in call append, append, append, and then do a flush/sync of  * the edits they have appended the WAL before returning. Since sync takes a while to  * complete, we give the Handlers back this sync future to wait on until the  * actual HDFS sync completes. Meantime this sync future goes across the ringbuffer and into a  * sync runner thread; when it completes, it finishes up the future, the handler get or failed  * check completes and the Handler can then progress.  *<p>  * This is just a partial implementation of Future; we just implement get and  * failure.  Unimplemented methods throw {@link UnsupportedOperationException}.  *<p>  * There is not a one-to-one correlation between dfs sync invocations and  * instances of this class. A single dfs sync call may complete and mark many  * SyncFutures as done; i.e. we batch up sync calls rather than do a dfs sync  * call every time a Handler asks for it.  *<p>  * SyncFutures are immutable but recycled. Call {@link #reset(long, Span)} before use even  * if it the first time, start the sync, then park the 'hitched' thread on a call to  * {@link #get()}  */
 end_comment
 
 begin_class
@@ -82,7 +92,7 @@ specifier|private
 name|long
 name|ringBufferSequence
 decl_stmt|;
-comment|/**    * The sequence that was set in here when we were marked done. Should be equal    * or> ringBufferSequence.  Put this data member into the NOT_DONE state while this    * class is in use.  But for the first position on construction, let it be -1 so we can    * immediately call {@link #reset(long)} below and it will work.    */
+comment|/**    * The sequence that was set in here when we were marked done. Should be equal    * or> ringBufferSequence.  Put this data member into the NOT_DONE state while this    * class is in use.  But for the first position on construction, let it be -1 so we can    * immediately call {@link #reset(long, Span)} below and it will work.    */
 specifier|private
 name|long
 name|doneSequence
@@ -101,7 +111,12 @@ specifier|private
 name|Thread
 name|t
 decl_stmt|;
-comment|/**    * Call this method to clear old usage and get it ready for new deploy. Call    * this method even if it is being used for the first time.    *     * @param sequence    * @return this    */
+comment|/**    * Optionally carry a disconnected scope to the SyncRunner.    */
+specifier|private
+name|Span
+name|span
+decl_stmt|;
+comment|/**    * Call this method to clear old usage and get it ready for new deploy. Call    * this method even if it is being used for the first time.    *    * @param sequence sequenceId from this Future's position in the RingBuffer    * @return this    */
 specifier|synchronized
 name|SyncFuture
 name|reset
@@ -109,6 +124,28 @@ parameter_list|(
 specifier|final
 name|long
 name|sequence
+parameter_list|)
+block|{
+return|return
+name|reset
+argument_list|(
+name|sequence
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/**    * Call this method to clear old usage and get it ready for new deploy. Call    * this method even if it is being used for the first time.    *    * @param sequence sequenceId from this Future's position in the RingBuffer    * @param span curren span, detached from caller. Don't forget to attach it when    *             resuming after a call to {@link #get()}.    * @return this    */
+specifier|synchronized
+name|SyncFuture
+name|reset
+parameter_list|(
+specifier|final
+name|long
+name|sequence
+parameter_list|,
+name|Span
+name|span
 parameter_list|)
 block|{
 if|if
@@ -170,6 +207,12 @@ name|ringBufferSequence
 operator|=
 name|sequence
 expr_stmt|;
+name|this
+operator|.
+name|span
+operator|=
+name|span
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -205,6 +248,34 @@ name|this
 operator|.
 name|ringBufferSequence
 return|;
+block|}
+comment|/**    * Retrieve the {@code span} instance from this Future. EventHandler calls    * this method to continue the span. Thread waiting on this Future musn't call    * this method until AFTER calling {@link #get()} and the future has been    * released back to the originating thread.    */
+specifier|synchronized
+name|Span
+name|getSpan
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|span
+return|;
+block|}
+comment|/**    * Used to re-attach a {@code span} to the Future. Called by the EventHandler    * after a it has completed processing and detached the span from its scope.    */
+specifier|synchronized
+name|void
+name|setSpan
+parameter_list|(
+name|Span
+name|span
+parameter_list|)
+block|{
+name|this
+operator|.
+name|span
+operator|=
+name|span
+expr_stmt|;
 block|}
 comment|/**    * @param sequence Sync sequence at which this future 'completed'.    * @param t Can be null.  Set if we are 'completing' on error (and this 't' is the error).    * @return True if we successfully marked this outstanding future as completed/done.    * Returns false if this future is already 'done' when this method called.    */
 specifier|synchronized

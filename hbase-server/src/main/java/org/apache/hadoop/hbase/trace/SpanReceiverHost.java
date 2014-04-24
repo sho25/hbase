@@ -93,20 +93,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|htrace
 operator|.
 name|SpanReceiver
@@ -175,7 +161,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 enum|enum
-name|SingleTonholder
+name|SingletonHolder
 block|{
 name|INSTANCE
 block|;
@@ -203,7 +189,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -213,7 +199,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -222,7 +208,7 @@ return|;
 block|}
 synchronized|synchronized
 init|(
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -231,7 +217,7 @@ init|)
 block|{
 if|if
 condition|(
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -241,7 +227,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -262,7 +248,7 @@ operator|.
 name|loadSpanReceivers
 argument_list|()
 expr_stmt|;
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
@@ -271,7 +257,7 @@ operator|=
 name|host
 expr_stmt|;
 return|return
-name|SingleTonholder
+name|SingletonHolder
 operator|.
 name|INSTANCE
 operator|.
