@@ -1225,12 +1225,12 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
+name|count
+argument_list|,
 name|results
 operator|.
 name|size
 argument_list|()
-argument_list|,
-name|count
 argument_list|)
 expr_stmt|;
 block|}
