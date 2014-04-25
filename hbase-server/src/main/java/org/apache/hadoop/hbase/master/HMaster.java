@@ -8682,6 +8682,10 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|conf
+parameter_list|,
+specifier|final
+name|ConsensusProvider
+name|cp
 parameter_list|)
 block|{
 try|try
@@ -8701,6 +8705,10 @@ argument_list|(
 name|Configuration
 operator|.
 name|class
+argument_list|,
+name|ConsensusProvider
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 return|return
@@ -8709,6 +8717,8 @@ operator|.
 name|newInstance
 argument_list|(
 name|conf
+argument_list|,
+name|cp
 argument_list|)
 return|;
 block|}
