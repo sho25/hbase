@@ -3142,7 +3142,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns an HRegionLocationList extracted from the result.    * @return an HRegionLocationList containing all locations for the region range    */
+comment|/**    * Returns an HRegionLocationList extracted from the result.    * @return an HRegionLocationList containing all locations for the region range or null if    *  we can't deserialize the result.    */
 specifier|public
 specifier|static
 name|RegionLocations
