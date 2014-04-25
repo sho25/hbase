@@ -31,6 +31,20 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * This interface is used for the tracking and enforcement of Deletes  * during the course of a Get or Scan operation.  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile  */
 end_comment
@@ -44,43 +58,20 @@ specifier|public
 interface|interface
 name|DeleteTracker
 block|{
-comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @param type delete type as byte    */
+comment|/**    * Add the specified cell to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param Cell cell    */
 name|void
 name|add
 parameter_list|(
-name|byte
-index|[]
-name|buffer
-parameter_list|,
-name|int
-name|qualifierOffset
-parameter_list|,
-name|int
-name|qualifierLength
-parameter_list|,
-name|long
-name|timestamp
-parameter_list|,
-name|byte
-name|type
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
+comment|/**    * Check if the specified cell buffer has been deleted by a previously    * seen delete.    * @param Cell cell to check if deleted    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
 name|DeleteResult
 name|isDeleted
 parameter_list|(
-name|byte
-index|[]
-name|buffer
-parameter_list|,
-name|int
-name|qualifierOffset
-parameter_list|,
-name|int
-name|qualifierLength
-parameter_list|,
-name|long
-name|timestamp
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
 comment|/**    * @return true if there are no current delete, false otherwise    */
