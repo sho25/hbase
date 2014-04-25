@@ -16775,9 +16775,10 @@ name|isFilterDoneInternal
 argument_list|()
 condition|)
 block|{
-return|return
+name|returnResult
+operator|=
 literal|false
-return|;
+expr_stmt|;
 block|}
 if|if
 condition|(
