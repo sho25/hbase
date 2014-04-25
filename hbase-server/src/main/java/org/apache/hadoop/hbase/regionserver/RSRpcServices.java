@@ -6490,6 +6490,9 @@ name|region
 operator|.
 name|flushcache
 argument_list|()
+operator|.
+name|isCompactionNeeded
+argument_list|()
 decl_stmt|;
 if|if
 condition|(

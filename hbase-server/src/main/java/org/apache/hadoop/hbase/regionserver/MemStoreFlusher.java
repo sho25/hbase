@@ -2258,6 +2258,9 @@ name|region
 operator|.
 name|flushcache
 argument_list|()
+operator|.
+name|isCompactionNeeded
+argument_list|()
 decl_stmt|;
 comment|// We just want to check the size
 name|boolean

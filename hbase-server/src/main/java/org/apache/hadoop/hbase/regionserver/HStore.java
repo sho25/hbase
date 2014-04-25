@@ -2411,10 +2411,7 @@ block|}
 comment|/**    * @return The maximum sequence id in all store files. Used for log replay.    */
 name|long
 name|getMaxSequenceId
-parameter_list|(
-name|boolean
-name|includeBulkFiles
-parameter_list|)
+parameter_list|()
 block|{
 return|return
 name|StoreFile
@@ -2425,8 +2422,6 @@ name|this
 operator|.
 name|getStorefiles
 argument_list|()
-argument_list|,
-name|includeBulkFiles
 argument_list|)
 return|;
 block|}

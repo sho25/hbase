@@ -1262,7 +1262,7 @@ return|return
 name|max
 return|;
 block|}
-comment|/**    * Return the highest sequence ID found across all storefiles in    * the given list. Store files that were created by a mapreduce    * bulk load are ignored, as they do not correspond to any edit    * log items.    * @param sfs    * @param includeBulkLoadedFiles    * @return 0 if no non-bulk-load files are provided or, this is Store that    * does not yet have any store files.    */
+comment|/**    * Return the highest sequence ID found across all storefiles in    * the given list.    * @param sfs    * @return 0 if no non-bulk-load files are provided or, this is Store that    * does not yet have any store files.    */
 specifier|public
 specifier|static
 name|long
@@ -1273,9 +1273,6 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|sfs
-parameter_list|,
-name|boolean
-name|includeBulkLoadedFiles
 parameter_list|)
 block|{
 name|long
@@ -1291,17 +1288,6 @@ range|:
 name|sfs
 control|)
 block|{
-if|if
-condition|(
-name|includeBulkLoadedFiles
-operator|||
-operator|!
-name|sf
-operator|.
-name|isBulkLoadResult
-argument_list|()
-condition|)
-block|{
 name|max
 operator|=
 name|Math
@@ -1316,7 +1302,6 @@ name|getMaxSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|max
