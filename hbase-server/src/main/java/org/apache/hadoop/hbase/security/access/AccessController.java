@@ -7411,6 +7411,10 @@ argument_list|,
 name|Action
 operator|.
 name|ADMIN
+argument_list|,
+name|Action
+operator|.
+name|CREATE
 argument_list|)
 expr_stmt|;
 block|}
@@ -7538,6 +7542,10 @@ argument_list|,
 name|Action
 operator|.
 name|ADMIN
+argument_list|,
+name|Action
+operator|.
+name|CREATE
 argument_list|)
 expr_stmt|;
 return|return
@@ -9337,11 +9345,9 @@ argument_list|()
 argument_list|,
 literal|null
 argument_list|,
-name|Permission
-operator|.
 name|Action
 operator|.
-name|WRITE
+name|CREATE
 argument_list|)
 expr_stmt|;
 block|}
