@@ -335,9 +335,6 @@ specifier|private
 name|RackManager
 name|rackManager
 decl_stmt|;
-name|Configuration
-name|conf
-decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -364,11 +361,12 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|this
+name|super
 operator|.
+name|setConf
+argument_list|(
 name|conf
-operator|=
-name|conf
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@

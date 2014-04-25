@@ -1642,6 +1642,10 @@ operator|.
 name|RegionCountSkewCostFunction
 argument_list|(
 name|conf
+argument_list|,
+literal|1
+argument_list|,
+literal|1
 argument_list|)
 decl_stmt|;
 for|for

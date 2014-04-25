@@ -1041,6 +1041,9 @@ else|:
 literal|null
 expr_stmt|;
 comment|// Put this in constructor so we don't cast it every time
+comment|//
+comment|// We need to check if a newly added server is a backup master
+comment|// only if we are configured not to assign any region to it.
 name|checkingBackupMaster
 operator|=
 operator|(
@@ -1048,16 +1051,6 @@ name|master
 operator|instanceof
 name|HMaster
 operator|)
-operator|&&
-operator|!
-name|c
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.balancer.use-backupmaster"
-argument_list|,
-literal|true
-argument_list|)
 operator|&&
 operator|(
 operator|(
@@ -1069,6 +1062,23 @@ operator|.
 name|balancer
 operator|instanceof
 name|BaseLoadBalancer
+operator|&&
+operator|(
+name|c
+operator|.
+name|getInt
+argument_list|(
+name|BaseLoadBalancer
+operator|.
+name|BACKUP_MASTER_WEIGHT_KEY
+argument_list|,
+name|BaseLoadBalancer
+operator|.
+name|DEFAULT_BACKUP_MASTER_WEIGHT
+argument_list|)
+operator|<
+literal|1
+operator|)
 expr_stmt|;
 if|if
 condition|(
