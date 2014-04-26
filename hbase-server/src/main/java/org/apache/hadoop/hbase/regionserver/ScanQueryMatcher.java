@@ -371,6 +371,12 @@ name|hasNullColumn
 init|=
 literal|true
 decl_stmt|;
+specifier|private
+name|RegionCoprocessorHost
+name|regionCoprocessorHost
+init|=
+literal|null
+decl_stmt|;
 comment|// By default, when hbase.hstore.time.to.purge.deletes is 0ms, a delete
 comment|// marker is always removed during a major compaction. If set to non-zero
 comment|// value then major compaction will try to keep a delete marker around for
@@ -403,7 +409,7 @@ specifier|final
 name|boolean
 name|isReversed
 decl_stmt|;
-comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    */
+comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -431,7 +437,12 @@ name|earliestPutTs
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|RegionCoprocessorHost
+name|regionCoprocessorHost
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -453,10 +464,15 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|regionCoprocessorHost
+operator|=
+name|regionCoprocessorHost
+expr_stmt|;
+name|this
+operator|.
 name|deletes
 operator|=
-operator|new
-name|ScanDeleteTracker
+name|instantiateDeleteTracker
 argument_list|()
 expr_stmt|;
 name|this
@@ -717,7 +733,42 @@ name|isReversed
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    */
+specifier|private
+name|DeleteTracker
+name|instantiateDeleteTracker
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|DeleteTracker
+name|tracker
+init|=
+operator|new
+name|ScanDeleteTracker
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|regionCoprocessorHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|tracker
+operator|=
+name|regionCoprocessorHost
+operator|.
+name|postInstantiateDeleteTracker
+argument_list|(
+name|tracker
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|tracker
+return|;
+block|}
+comment|/**    * Construct a QueryMatcher for a scan that drop deletes from a limited range of rows.    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    * @param dropDeletesFromRow The inclusive left bound of the range; can be EMPTY_START_ROW.    * @param dropDeletesToRow The exclusive right bound of the range; can be EMPTY_END_ROW.    * @param regionCoprocessorHost     * @throws IOException     */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -750,7 +801,12 @@ parameter_list|,
 name|byte
 index|[]
 name|dropDeletesToRow
+parameter_list|,
+name|RegionCoprocessorHost
+name|regionCoprocessorHost
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 argument_list|(
@@ -769,6 +825,8 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|regionCoprocessorHost
 argument_list|)
 expr_stmt|;
 name|Preconditions
@@ -820,6 +878,8 @@ parameter_list|,
 name|long
 name|oldestUnexpiredTS
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 argument_list|(
@@ -843,6 +903,8 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

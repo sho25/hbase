@@ -18,6 +18,46 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|SKIP
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -54,26 +94,6 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|ScanQueryMatcher
-operator|.
-name|MatchCode
-operator|.
-name|*
 import|;
 end_import
 
@@ -2558,6 +2578,8 @@ argument_list|,
 name|from
 argument_list|,
 name|to
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|List

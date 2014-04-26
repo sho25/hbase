@@ -843,6 +843,11 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|store
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -1136,6 +1141,11 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|store
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1161,6 +1171,11 @@ argument_list|,
 name|dropDeletesFromRow
 argument_list|,
 name|dropDeletesToRow
+argument_list|,
+name|store
+operator|.
+name|getCoprocessorHost
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1389,6 +1404,8 @@ argument_list|,
 name|earliestPutTs
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// In unit tests, the store could be null
