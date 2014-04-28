@@ -58,7 +58,7 @@ specifier|public
 interface|interface
 name|DeleteTracker
 block|{
-comment|/**    * Add the specified cell to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param Cell cell    */
+comment|/**    * Add the specified cell to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param cell - the delete cell    */
 name|void
 name|add
 parameter_list|(
@@ -66,7 +66,7 @@ name|Cell
 name|cell
 parameter_list|)
 function_decl|;
-comment|/**    * Check if the specified cell buffer has been deleted by a previously    * seen delete.    * @param Cell cell to check if deleted    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
+comment|/**    * Check if the specified cell buffer has been deleted by a previously    * seen delete.    * @param cell - current cell to check if deleted by a previously deleted cell    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
 name|DeleteResult
 name|isDeleted
 parameter_list|(

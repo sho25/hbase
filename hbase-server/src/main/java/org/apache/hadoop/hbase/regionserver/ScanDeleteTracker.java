@@ -176,7 +176,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @param type delete type as byte    */
+comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param cell - the delete cell    */
 annotation|@
 name|Override
 specifier|public
@@ -342,7 +342,7 @@ expr_stmt|;
 block|}
 comment|// missing else is never called.
 block|}
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param Cell cell    * @return deleteResult    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult    */
 annotation|@
 name|Override
 specifier|public
