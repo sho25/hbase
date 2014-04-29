@@ -2173,7 +2173,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"io.sort.mb"
+literal|"mapreduce.task.io.sort.mb"
 argument_list|,
 literal|20
 argument_list|)

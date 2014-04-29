@@ -1884,7 +1884,7 @@ operator|=
 name|hbaseCluster
 expr_stmt|;
 block|}
-comment|/**    * Home our data in a dir under {@link #DEFAULT_BASE_TEST_DIRECTORY}.    * Give it a random name so can have many concurrent tests running if    * we need to.  It needs to amend the {@link #TEST_DIRECTORY_KEY}    * System property, as it's what minidfscluster bases    * it data dir on.  Moding a System property is not the way to do concurrent    * instances -- another instance could grab the temporary    * value unintentionally -- but not anything can do about it at moment;    * single instance only is how the minidfscluster works.    *    * We also create the underlying directory for    *  hadoop.log.dir, mapred.local.dir and hadoop.tmp.dir, and set the values    *  in the conf, and as a system property for hadoop.tmp.dir    *    * @return The calculated data test build directory, if newly-created.    */
+comment|/**    * Home our data in a dir under {@link #DEFAULT_BASE_TEST_DIRECTORY}.    * Give it a random name so can have many concurrent tests running if    * we need to.  It needs to amend the {@link #TEST_DIRECTORY_KEY}    * System property, as it's what minidfscluster bases    * it data dir on.  Moding a System property is not the way to do concurrent    * instances -- another instance could grab the temporary    * value unintentionally -- but not anything can do about it at moment;    * single instance only is how the minidfscluster works.    *    * We also create the underlying directory for    *  hadoop.log.dir, mapreduce.cluster.local.dir and hadoop.tmp.dir, and set the values    *  in the conf, and as a system property for hadoop.tmp.dir    *    * @return The calculated data test build directory, if newly-created.    */
 annotation|@
 name|Override
 specifier|protected
@@ -1934,7 +1934,7 @@ expr_stmt|;
 comment|// Read and modified in org.apache.hadoop.mapred.MiniMRCluster
 name|createSubDir
 argument_list|(
-literal|"mapred.local.dir"
+literal|"mapreduce.cluster.local.dir"
 argument_list|,
 name|testPath
 argument_list|,
@@ -2911,14 +2911,14 @@ name|createDirAndSetProperty
 argument_list|(
 literal|"mapred_local"
 argument_list|,
-literal|"mapred.local.dir"
+literal|"mapreduce.cluster.local.dir"
 argument_list|)
 expr_stmt|;
 name|createDirAndSetProperty
 argument_list|(
 literal|"mapred_temp"
 argument_list|,
-literal|"mapred.temp.dir"
+literal|"mapreduce.cluster.temp.dir"
 argument_list|)
 expr_stmt|;
 name|enableShortCircuit
@@ -2957,7 +2957,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.system.dir"
+literal|"mapreduce.jobtracker.system.dir"
 argument_list|,
 operator|new
 name|Path
@@ -2993,7 +2993,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.working.dir"
+literal|"mapreduce.job.working.dir"
 argument_list|,
 operator|new
 name|Path
@@ -9985,13 +9985,13 @@ name|jobConf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.local.dir"
+literal|"mapreduce.cluster.local.dir"
 argument_list|,
 name|conf
 operator|.
 name|get
 argument_list|(
-literal|"mapred.local.dir"
+literal|"mapreduce.cluster.local.dir"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -10010,13 +10010,13 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.job.tracker"
+literal|"mapreduce.jobtracker.address"
 argument_list|,
 name|jobConf
 operator|.
 name|get
 argument_list|(
-literal|"mapred.job.tracker"
+literal|"mapreduce.jobtracker.address"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -10162,7 +10162,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.job.tracker"
+literal|"mapreduce.jobtracker.address"
 argument_list|,
 literal|"local"
 argument_list|)

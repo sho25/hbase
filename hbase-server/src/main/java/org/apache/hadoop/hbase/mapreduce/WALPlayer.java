@@ -1769,9 +1769,9 @@ name|println
 argument_list|(
 literal|"For performance also consider the following options:\n"
 operator|+
-literal|"  -Dmapred.map.tasks.speculative.execution=false\n"
+literal|"  -Dmapreduce.map.speculative=false\n"
 operator|+
-literal|"  -Dmapred.reduce.tasks.speculative.execution=false"
+literal|"  -Dmapreduce.reduce.speculative=false"
 argument_list|)
 expr_stmt|;
 block|}

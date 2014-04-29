@@ -220,7 +220,7 @@ name|c
 operator|.
 name|setInt
 argument_list|(
-literal|"heartbeat.recheck.interval"
+literal|"dfs.namenode.heartbeat.recheck-interval"
 argument_list|,
 literal|5000
 argument_list|)
@@ -238,7 +238,7 @@ name|c
 operator|.
 name|setInt
 argument_list|(
-literal|"dfs.socket.timeout"
+literal|"dfs.client.socket-timeout"
 argument_list|,
 literal|5000
 argument_list|)

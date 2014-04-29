@@ -2808,7 +2808,7 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-literal|"mapred.map.tasks.speculative.execution"
+literal|"mapreduce.map.speculative"
 argument_list|,
 literal|false
 argument_list|)
@@ -3855,7 +3855,7 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-literal|"mapred.map.tasks.speculative.execution"
+literal|"mapreduce.map.speculative"
 argument_list|,
 literal|false
 argument_list|)

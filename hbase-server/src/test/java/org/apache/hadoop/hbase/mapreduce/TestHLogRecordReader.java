@@ -1095,7 +1095,7 @@ name|jobConf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.input.dir"
+literal|"mapreduce.input.fileinputformat.inputdir"
 argument_list|,
 name|logDir
 operator|.
@@ -1457,7 +1457,7 @@ name|jobConf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.input.dir"
+literal|"mapreduce.input.fileinputformat.inputdir"
 argument_list|,
 name|logDir
 operator|.

@@ -25586,7 +25586,7 @@ comment|// won't be able to have the condition this test asserts; that at least 
 comment|// a copy of all replicas -- if small block size, then blocks are spread evenly across the
 comment|// the three nodes.  hfilev3 with tags seems to put us over the block size.  St.Ack.
 comment|// final int DEFAULT_BLOCK_SIZE = 1024;
-comment|// htu.getConfiguration().setLong("dfs.block.size", DEFAULT_BLOCK_SIZE);
+comment|// htu.getConfiguration().setLong("dfs.blocksize", DEFAULT_BLOCK_SIZE);
 name|htu
 operator|.
 name|getConfiguration

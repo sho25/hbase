@@ -4357,19 +4357,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// for hadoop 0.21+
-name|c
-operator|.
-name|set
-argument_list|(
-literal|"fs.default.name"
-argument_list|,
-name|root
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// for hadoop 0.20
 block|}
 end_function
 

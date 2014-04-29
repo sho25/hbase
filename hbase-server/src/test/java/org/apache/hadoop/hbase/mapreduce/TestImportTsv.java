@@ -1562,7 +1562,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"min.num.spills.for.combine"
+literal|"mapreduce.map.combine.minspills"
 argument_list|,
 literal|1
 argument_list|)

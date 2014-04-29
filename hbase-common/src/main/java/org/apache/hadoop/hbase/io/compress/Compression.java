@@ -1173,7 +1173,7 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hadoop.native.lib"
+literal|"io.native.lib.available"
 argument_list|,
 literal|true
 argument_list|)

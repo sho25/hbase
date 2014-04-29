@@ -681,7 +681,7 @@ argument_list|()
 operator|.
 name|setLong
 argument_list|(
-literal|"dfs.block.size"
+literal|"dfs.blocksize"
 argument_list|,
 name|DEFAULT_BLOCK_SIZE
 argument_list|)

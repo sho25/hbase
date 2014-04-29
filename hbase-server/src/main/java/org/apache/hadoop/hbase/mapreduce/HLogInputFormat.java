@@ -1096,7 +1096,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"mapred.input.dir"
+literal|"mapreduce.input.fileinputformat.inputdir"
 argument_list|)
 argument_list|)
 decl_stmt|;

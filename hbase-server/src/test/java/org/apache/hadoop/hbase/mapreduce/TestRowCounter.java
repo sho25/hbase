@@ -1120,7 +1120,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-literal|"-Dmapred.map.tasks.speculative.execution=false"
+literal|"-Dmapreduce.map.speculative=false"
 argument_list|)
 argument_list|)
 expr_stmt|;

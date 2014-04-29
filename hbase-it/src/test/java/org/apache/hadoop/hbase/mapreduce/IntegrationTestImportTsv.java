@@ -1578,7 +1578,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.job.classpath.archives"
+literal|"mapreduce.job.classpath.archives"
 argument_list|,
 name|context
 operator|.
@@ -1587,7 +1587,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|"mapred.job.classpath.archives"
+literal|"mapreduce.job.classpath.archives"
 argument_list|,
 literal|""
 argument_list|)

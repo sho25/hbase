@@ -1233,7 +1233,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"mapred.task.id"
+literal|"mapreduce.task.attempt.id"
 argument_list|)
 decl_stmt|;
 name|Matcher

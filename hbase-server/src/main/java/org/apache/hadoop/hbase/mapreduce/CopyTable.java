@@ -948,7 +948,7 @@ literal|"For performance consider the following general options:\n"
 operator|+
 literal|"-Dhbase.client.scanner.caching=100\n"
 operator|+
-literal|"-Dmapred.map.tasks.speculative.execution=false"
+literal|"-Dmapreduce.map.speculative=false"
 argument_list|)
 expr_stmt|;
 block|}

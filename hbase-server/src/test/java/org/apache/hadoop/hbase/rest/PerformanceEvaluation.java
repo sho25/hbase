@@ -7757,7 +7757,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -Dmapred.output.compress=true"
+literal|"   -Dmapreduce.output.fileoutputformat.compress=true"
 argument_list|)
 expr_stmt|;
 name|System

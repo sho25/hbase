@@ -1021,7 +1021,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -D mapred.output.compress=true"
+literal|"   -D mapreduce.output.fileoutputformat.compress=true"
 argument_list|)
 expr_stmt|;
 name|System
@@ -1030,7 +1030,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -D mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec"
+literal|"   -D mapreduce.output.fileoutputformat.compress.codec=org.apache.hadoop.io.compress.GzipCodec"
 argument_list|)
 expr_stmt|;
 name|System
@@ -1039,7 +1039,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -D mapred.output.compression.type=BLOCK"
+literal|"   -D mapreduce.output.fileoutputformat.compress.type=BLOCK"
 argument_list|)
 expr_stmt|;
 name|System
@@ -1098,9 +1098,9 @@ literal|"For performance consider the following properties:\n"
 operator|+
 literal|"   -Dhbase.client.scanner.caching=100\n"
 operator|+
-literal|"   -Dmapred.map.tasks.speculative.execution=false\n"
+literal|"   -Dmapreduce.map.speculative=false\n"
 operator|+
-literal|"   -Dmapred.reduce.tasks.speculative.execution=false"
+literal|"   -Dmapreduce.reduce.speculative=false"
 argument_list|)
 expr_stmt|;
 name|System

@@ -5755,7 +5755,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"mapred.task.id"
+literal|"mapreduce.task.attempt.id"
 argument_list|)
 operator|==
 literal|null
@@ -5767,7 +5767,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"mapred.task.id"
+literal|"mapreduce.task.attempt.id"
 argument_list|,
 literal|"hb_rs_"
 operator|+

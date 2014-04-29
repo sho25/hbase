@@ -709,7 +709,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"dfs.block.size"
+literal|"dfs.blocksize"
 argument_list|,
 literal|1024
 argument_list|)

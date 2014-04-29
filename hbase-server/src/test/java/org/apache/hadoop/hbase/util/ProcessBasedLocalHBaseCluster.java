@@ -2143,15 +2143,6 @@ name|confMap
 operator|.
 name|put
 argument_list|(
-literal|"fs.default.name"
-argument_list|,
-name|fsURL
-argument_list|)
-expr_stmt|;
-name|confMap
-operator|.
-name|put
-argument_list|(
 literal|"fs.defaultFS"
 argument_list|,
 name|fsURL

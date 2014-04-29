@@ -588,7 +588,7 @@ specifier|static
 name|String
 name|JOB_NAME_CONF_KEY
 init|=
-literal|"mapred.job.name"
+literal|"mapreduce.job.name"
 decl_stmt|;
 comment|// TODO: the rest of these configs are used exclusively by TsvImporterMapper.
 comment|// Move them out of the tool and let the mapper handle its own validation.
@@ -2717,9 +2717,9 @@ literal|"=jobName - use the specified mapreduce job name for the import\n"
 operator|+
 literal|"For performance consider the following options:\n"
 operator|+
-literal|"  -Dmapred.map.tasks.speculative.execution=false\n"
+literal|"  -Dmapreduce.map.speculative=false\n"
 operator|+
-literal|"  -Dmapred.reduce.tasks.speculative.execution=false"
+literal|"  -Dmapreduce.reduce.speculative=false"
 decl_stmt|;
 name|System
 operator|.

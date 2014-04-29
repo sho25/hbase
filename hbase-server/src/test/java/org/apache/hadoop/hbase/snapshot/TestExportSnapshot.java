@@ -652,16 +652,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"mapreduce.map.max.attempts"
-argument_list|,
-literal|10
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"mapred.map.max.attempts"
+literal|"mapreduce.map.maxattempts"
 argument_list|,
 literal|10
 argument_list|)
