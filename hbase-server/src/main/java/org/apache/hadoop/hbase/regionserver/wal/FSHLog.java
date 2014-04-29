@@ -4141,6 +4141,8 @@ throw|;
 block|}
 finally|finally
 block|{
+try|try
+block|{
 comment|// Let the writer thread go regardless, whether error or not.
 if|if
 condition|(
@@ -4167,11 +4169,15 @@ name|syncFuture
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
 name|scope
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 name|newPath
