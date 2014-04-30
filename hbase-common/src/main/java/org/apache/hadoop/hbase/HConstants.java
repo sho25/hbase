@@ -946,6 +946,28 @@ literal|1024
 operator|*
 literal|1024L
 decl_stmt|;
+comment|/**    * Max size of single row for Get's or Scan's without in-row scanning flag set.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TABLE_MAX_ROWSIZE_KEY
+init|=
+literal|"hbase.table.max.rowsize"
+decl_stmt|;
+comment|/**    * Default max row size (1 Gb).    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|TABLE_MAX_ROWSIZE_DEFAULT
+init|=
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|1024L
+decl_stmt|;
 comment|/**    * The max number of threads used for opening and closing stores or store    * files in parallel    */
 specifier|public
 specifier|static
