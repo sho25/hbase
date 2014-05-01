@@ -60,6 +60,42 @@ specifier|public
 interface|interface
 name|AccessControlConstants
 block|{
+comment|/**    * Configuration option that toggles whether EXEC permission checking is    * performed during coprocessor endpoint invocations.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|EXEC_PERMISSION_CHECKS_KEY
+init|=
+literal|"hbase.security.exec.permission.checks"
+decl_stmt|;
+comment|/** Default setting for hbase.security.exec.permission.checks; false */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_EXEC_PERMISSION_CHECKS
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Configuration or CF schema option for early termination of access checks    * if table or CF permissions grant access. Pre-0.98 compatible behavior    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CF_ATTRIBUTE_EARLY_OUT
+init|=
+literal|"hbase.security.access.early_out"
+decl_stmt|;
+comment|/** Default setting for hbase.security.access.early_out */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_ATTRIBUTE_EARLY_OUT
+init|=
+literal|true
+decl_stmt|;
 comment|// Operation attributes for cell level security
 comment|/** Cell level ACL */
 specifier|public

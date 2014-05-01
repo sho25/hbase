@@ -739,26 +739,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.master.hfilecleaner.plugins"
-argument_list|,
-literal|"org.apache.hadoop.hbase.master.cleaner.HFileLinkCleaner,"
-operator|+
-literal|"org.apache.hadoop.hbase.master.snapshot.SnapshotHFileCleaner"
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.master.logcleaner.plugins"
-argument_list|,
-literal|"org.apache.hadoop.hbase.master.snapshot.SnapshotLogCleaner"
-argument_list|)
-expr_stmt|;
 comment|// Enable security
 name|enableSecurity
 argument_list|(
@@ -771,16 +751,16 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// Enable EXEC permission checking
+comment|// We expect 0.98 cell ACL semantics
 name|conf
 operator|.
 name|setBoolean
 argument_list|(
-name|AccessController
+name|AccessControlConstants
 operator|.
-name|EXEC_PERMISSION_CHECKS_KEY
+name|CF_ATTRIBUTE_EARLY_OUT
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

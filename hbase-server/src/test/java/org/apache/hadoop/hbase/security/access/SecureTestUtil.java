@@ -303,6 +303,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -683,7 +701,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hfile.format.version"
+name|HFile
+operator|.
+name|FORMAT_VERSION_KEY
 argument_list|,
 literal|3
 argument_list|)
@@ -769,8 +789,35 @@ literal|"AccessController is missing from a system coprocessor list"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HFile
+operator|.
+name|FORMAT_VERSION_KEY
+argument_list|,
+literal|2
+argument_list|)
+operator|<
+name|HFile
+operator|.
+name|MIN_FORMAT_VERSION_WITH_TAGS
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Post 0.96 security features require HFile version>= 3"
+argument_list|)
+throw|;
+block|}
 block|}
 specifier|public
+specifier|static
 name|void
 name|checkTablePerms
 parameter_list|(
@@ -864,6 +911,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+specifier|static
 name|void
 name|checkTablePerms
 parameter_list|(
@@ -996,6 +1044,7 @@ name|Object
 argument_list|>
 block|{ }
 specifier|public
+specifier|static
 name|void
 name|verifyAllowed
 parameter_list|(
@@ -1109,6 +1158,7 @@ end_class
 
 begin_function
 specifier|public
+specifier|static
 name|void
 name|verifyAllowed
 parameter_list|(
@@ -1143,6 +1193,7 @@ end_function
 
 begin_function
 specifier|public
+specifier|static
 name|void
 name|verifyAllowed
 parameter_list|(
@@ -1261,11 +1312,108 @@ end_catch
 
 begin_function
 unit|}    public
+specifier|static
+name|void
+name|verifyDeniedWithException
+parameter_list|(
+name|User
+name|user
+parameter_list|,
+name|AccessTestAction
+modifier|...
+name|actions
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|verifyDenied
+argument_list|(
+name|user
+argument_list|,
+literal|true
+argument_list|,
+name|actions
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
+specifier|public
+specifier|static
+name|void
+name|verifyDeniedWithException
+parameter_list|(
+name|AccessTestAction
+name|action
+parameter_list|,
+name|User
+modifier|...
+name|users
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+for|for
+control|(
+name|User
+name|user
+range|:
+name|users
+control|)
+block|{
+name|verifyDenied
+argument_list|(
+name|user
+argument_list|,
+literal|true
+argument_list|,
+name|action
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+end_function
+
+begin_function
+specifier|public
+specifier|static
 name|void
 name|verifyDenied
 parameter_list|(
 name|User
 name|user
+parameter_list|,
+name|AccessTestAction
+modifier|...
+name|actions
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|verifyDenied
+argument_list|(
+name|user
+argument_list|,
+literal|false
+argument_list|,
+name|actions
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
+specifier|public
+specifier|static
+name|void
+name|verifyDenied
+parameter_list|(
+name|User
+name|user
+parameter_list|,
+name|boolean
+name|requireException
 parameter_list|,
 name|AccessTestAction
 modifier|...
@@ -1294,6 +1442,24 @@ argument_list|(
 name|action
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|requireException
+condition|)
+block|{
+name|fail
+argument_list|(
+literal|"Expected exception was not thrown for user '"
+operator|+
+name|user
+operator|.
+name|getShortName
+argument_list|()
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|obj
@@ -1337,7 +1503,7 @@ condition|)
 block|{
 name|fail
 argument_list|(
-literal|"Expected no results for user '"
+literal|"Unexpected results for user '"
 operator|+
 name|user
 operator|.
@@ -1450,7 +1616,7 @@ condition|)
 block|{
 name|fail
 argument_list|(
-literal|"Not receiving AccessDeniedException for user '"
+literal|"Expected exception was not thrown for user '"
 operator|+
 name|user
 operator|.
@@ -1535,7 +1701,7 @@ block|}
 block|}
 name|fail
 argument_list|(
-literal|"Not receiving AccessDeniedException for user '"
+literal|"Expected exception was not thrown for user '"
 operator|+
 name|user
 operator|.
@@ -1551,6 +1717,7 @@ end_function
 
 begin_function
 unit|}    public
+specifier|static
 name|void
 name|verifyDenied
 parameter_list|(

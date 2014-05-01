@@ -1646,7 +1646,7 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-name|AccessController
+name|AccessControlConstants
 operator|.
 name|EXEC_PERMISSION_CHECKS_KEY
 argument_list|,
