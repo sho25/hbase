@@ -535,6 +535,9 @@ operator|+
 literal|"' locally acquired"
 argument_list|)
 expr_stmt|;
+name|rethrowException
+argument_list|()
+expr_stmt|;
 comment|// vote yes to coordinator about being prepared
 name|rpcs
 operator|.
@@ -594,6 +597,9 @@ name|barrierName
 operator|+
 literal|"' locally completed"
 argument_list|)
+expr_stmt|;
+name|rethrowException
+argument_list|()
 expr_stmt|;
 comment|// Ack that the member has executed and released local barrier
 name|rpcs

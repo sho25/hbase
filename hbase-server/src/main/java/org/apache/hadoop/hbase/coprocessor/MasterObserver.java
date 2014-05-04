@@ -1481,6 +1481,42 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException    */
+name|void
+name|preTableFlush
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called after the table memstore is flushed to disk.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @throws IOException    */
+name|void
+name|postTableFlush
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

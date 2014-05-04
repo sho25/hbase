@@ -1181,6 +1181,31 @@ literal|" completed"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Check if the entire procedure has globally completed, or has been aborted.    * @throws ForeignException    */
+specifier|public
+name|boolean
+name|isCompleted
+parameter_list|()
+throws|throws
+name|ForeignException
+block|{
+comment|// Rethrow exception if any
+name|monitor
+operator|.
+name|rethrowException
+argument_list|()
+expr_stmt|;
+return|return
+operator|(
+name|completedLatch
+operator|.
+name|getCount
+argument_list|()
+operator|==
+literal|0
+operator|)
+return|;
+block|}
 comment|/**    * A callback that handles incoming ForeignExceptions.    */
 annotation|@
 name|Override

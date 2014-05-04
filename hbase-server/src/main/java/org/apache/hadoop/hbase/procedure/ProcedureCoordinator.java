@@ -567,16 +567,15 @@ literal|null
 condition|)
 block|{
 comment|// procedures are always eventually completed on both successful and failed execution
+try|try
+block|{
 if|if
 condition|(
+operator|!
 name|oldProc
 operator|.
-name|completedLatch
-operator|.
-name|getCount
+name|isCompleted
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 name|LOG
@@ -594,6 +593,8 @@ return|return
 literal|false
 return|;
 block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -612,6 +613,33 @@ argument_list|(
 name|procName
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|ForeignException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" was in running list but has exception.  Accepting new attempt."
+argument_list|)
+expr_stmt|;
+name|procedures
+operator|.
+name|remove
+argument_list|(
+name|procName
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|// kick off the procedure's execution in a separate thread
@@ -871,7 +899,7 @@ name|expectedMembers
 argument_list|)
 return|;
 block|}
-comment|/**    * Kick off the named procedure    * @param procName name of the procedure to start    * @param procArgs arguments for the procedure    * @param expectedMembers expected members to start    * @return handle to the running procedure, if it was started correctly,<tt>null</tt> otherwise    * @throws RejectedExecutionException if there are no more available threads to run the procedure    */
+comment|/**    * Kick off the named procedure    * Currently only one procedure with the same type and name is allowed to run at a time.    * @param procName name of the procedure to start    * @param procArgs arguments for the procedure    * @param expectedMembers expected members to start    * @return handle to the running procedure, if it was started correctly,    *<tt>null</tt> otherwise.    *         Null could be due to submitting a procedure multiple times    *         (or one with the same name), or runtime exception.    *         Check the procedure's monitor that holds a reference to the exception    *         that caused the failure.    */
 specifier|public
 name|Procedure
 name|startProcedure
@@ -892,8 +920,6 @@ name|String
 argument_list|>
 name|expectedMembers
 parameter_list|)
-throws|throws
-name|RejectedExecutionException
 block|{
 name|Procedure
 name|proc
