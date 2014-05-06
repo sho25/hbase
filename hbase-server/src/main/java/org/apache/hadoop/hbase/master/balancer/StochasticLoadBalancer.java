@@ -896,6 +896,8 @@ name|regionFinder
 argument_list|,
 name|getBackupMasters
 argument_list|()
+argument_list|,
+name|tablesOnMaster
 argument_list|)
 decl_stmt|;
 name|double
