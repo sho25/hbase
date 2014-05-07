@@ -2024,6 +2024,17 @@ name|toString
 argument_list|()
 return|;
 block|}
+specifier|protected
+name|RequestHeader
+name|getHeader
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|header
+return|;
+block|}
 comment|/*      * Short string representation without param info because param itself could be huge depends on      * the payload of a command      */
 annotation|@
 name|SuppressWarnings

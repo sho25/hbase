@@ -58,9 +58,20 @@ specifier|public
 interface|interface
 name|PriorityFunction
 block|{
-comment|/**    * @param header    * @param param    * @return Priority of this request.    */
+comment|/**    * Returns the 'priority type' of the specified request.    * The returned value is mainly used to select the dispatch queue.    * @param header    * @param param    * @return Priority of this request.    */
 name|int
 name|getPriority
+parameter_list|(
+name|RequestHeader
+name|header
+parameter_list|,
+name|Message
+name|param
+parameter_list|)
+function_decl|;
+comment|/**    * Returns the deadline of the specified request.    * The returned value is used to sort the dispatch queue.    * @param header    * @param param    * @return Deadline of this request. 0 now, otherwise msec of 'delay'    */
+name|long
+name|getDeadline
 parameter_list|(
 name|RequestHeader
 name|header
