@@ -8915,10 +8915,6 @@ argument_list|,
 name|Action
 operator|.
 name|READ
-argument_list|,
-name|Action
-operator|.
-name|WRITE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -9184,10 +9180,6 @@ argument_list|,
 name|Action
 operator|.
 name|READ
-argument_list|,
-name|Action
-operator|.
-name|WRITE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -9705,7 +9697,7 @@ name|checkCoveringPermission
 argument_list|(
 name|OpType
 operator|.
-name|APPEND
+name|INCREMENT
 argument_list|,
 name|env
 argument_list|,
