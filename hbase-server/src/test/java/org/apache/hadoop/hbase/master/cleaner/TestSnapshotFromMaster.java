@@ -107,6 +107,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -512,6 +522,22 @@ operator|.
 name|snapshot
 operator|.
 name|SnapshotDescriptionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|snapshot
+operator|.
+name|SnapshotReferenceUtil
 import|;
 end_import
 
@@ -2134,14 +2160,21 @@ argument_list|,
 name|rootDir
 argument_list|)
 decl_stmt|;
-name|Path
-index|[]
+name|Set
+argument_list|<
+name|String
+argument_list|>
 name|snapshotHFiles
 init|=
-name|SnapshotTestingUtils
+name|SnapshotReferenceUtil
 operator|.
-name|listHFiles
+name|getHFileNames
 argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|fs
 argument_list|,
 name|snapshotTable
@@ -2157,8 +2190,8 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|Path
-name|file
+name|String
+name|fileName
 range|:
 name|snapshotHFiles
 control|)
@@ -2167,7 +2200,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|file
+name|fileName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2192,8 +2225,8 @@ decl_stmt|;
 comment|// and make sure that there is a proper subset
 for|for
 control|(
-name|Path
-name|file
+name|String
+name|fileName
 range|:
 name|snapshotHFiles
 control|)
@@ -2206,16 +2239,13 @@ name|files
 operator|+
 literal|" is missing snapshot file:"
 operator|+
-name|file
+name|fileName
 argument_list|,
 name|files
 operator|.
 name|contains
 argument_list|(
-name|file
-operator|.
-name|getName
-argument_list|()
+name|fileName
 argument_list|)
 argument_list|)
 expr_stmt|;

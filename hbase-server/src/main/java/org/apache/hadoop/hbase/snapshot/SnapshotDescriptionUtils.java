@@ -39,18 +39,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -225,6 +213,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|snapshot
+operator|.
+name|SnapshotManifestV2
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -310,7 +314,9 @@ specifier|final
 name|int
 name|SNAPSHOT_LAYOUT_VERSION
 init|=
-literal|0
+name|SnapshotManifestV2
+operator|.
+name|DESCRIPTOR_VERSION
 decl_stmt|;
 comment|// snapshot directory constants
 comment|/**    * The file contains the snapshot basic information and it is under the directory of a snapshot.    */

@@ -1063,6 +1063,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @return the StoreFile object associated to this StoreFile.    *         null if the StoreFile is not a reference.    */
+specifier|public
 name|StoreFileInfo
 name|getFileInfo
 parameter_list|()

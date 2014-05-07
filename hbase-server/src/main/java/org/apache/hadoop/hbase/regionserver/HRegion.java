@@ -1569,6 +1569,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|snapshot
+operator|.
+name|SnapshotManifest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -12223,8 +12239,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// This should be "fast" since we don't rewrite store files but instead
-comment|// back up the store files by creating a reference
 name|Path
 name|rootDir
 init|=
@@ -12232,12 +12246,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|this
-operator|.
-name|rsServices
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 name|Path
@@ -12252,275 +12261,32 @@ argument_list|,
 name|rootDir
 argument_list|)
 decl_stmt|;
-comment|// 1. dump region meta info into the snapshot directory
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Storing region-info for snapshot."
-argument_list|)
-expr_stmt|;
-name|HRegionFileSystem
-name|snapshotRegionFs
+name|SnapshotManifest
+name|manifest
 init|=
-name|HRegionFileSystem
+name|SnapshotManifest
 operator|.
-name|createRegionOnFileSystem
+name|create
 argument_list|(
 name|conf
 argument_list|,
-name|this
-operator|.
-name|fs
-operator|.
-name|getFileSystem
+name|getFilesystem
 argument_list|()
 argument_list|,
 name|snapshotDir
 argument_list|,
-name|getRegionInfo
-argument_list|()
-argument_list|)
-decl_stmt|;
-comment|// 2. iterate through all the stores in the region
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Creating references for hfiles"
-argument_list|)
-expr_stmt|;
-comment|// This ensures that we have an atomic view of the directory as long as we have< ls limit
-comment|// (batch size of the files in a directory) on the namenode. Otherwise, we get back the files in
-comment|// batches and may miss files being added/deleted. This could be more robust (iteratively
-comment|// checking to see if we have all the files until we are sure), but the limit is currently 1000
-comment|// files/batch, far more than the number of store files under a single column family.
-for|for
-control|(
-name|Store
-name|store
-range|:
-name|stores
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-comment|// 2.1. build the snapshot reference directory for the store
-name|Path
-name|dstStoreDir
-init|=
-name|snapshotRegionFs
-operator|.
-name|getStoreDir
-argument_list|(
-name|store
-operator|.
-name|getFamily
-argument_list|()
-operator|.
-name|getNameAsString
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|storeFiles
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-argument_list|(
-name|store
-operator|.
-name|getStorefiles
-argument_list|()
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Adding snapshot references for "
-operator|+
-name|storeFiles
-operator|+
-literal|" hfiles"
-argument_list|)
-expr_stmt|;
-block|}
-comment|// 2.2. iterate through all the store's files and create "references".
-name|int
-name|sz
-init|=
-name|storeFiles
-operator|.
-name|size
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|sz
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-name|exnSnare
-operator|!=
-literal|null
-condition|)
-block|{
-name|exnSnare
-operator|.
-name|rethrowException
-argument_list|()
-expr_stmt|;
-block|}
-name|StoreFile
-name|storeFile
-init|=
-name|storeFiles
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-decl_stmt|;
-name|Path
-name|file
-init|=
-name|storeFile
-operator|.
-name|getPath
-argument_list|()
-decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Creating reference for file ("
-operator|+
-operator|(
-name|i
-operator|+
-literal|1
-operator|)
-operator|+
-literal|"/"
-operator|+
-name|sz
-operator|+
-literal|") : "
-operator|+
-name|file
-argument_list|)
-expr_stmt|;
-name|Path
-name|referenceFile
-init|=
-operator|new
-name|Path
-argument_list|(
-name|dstStoreDir
+name|desc
 argument_list|,
-name|file
-operator|.
-name|getName
-argument_list|()
+name|exnSnare
 argument_list|)
 decl_stmt|;
-name|boolean
-name|success
-init|=
-literal|true
-decl_stmt|;
-if|if
-condition|(
-name|storeFile
+name|manifest
 operator|.
-name|isReference
-argument_list|()
-condition|)
-block|{
-comment|// write the Reference object to the snapshot
-name|storeFile
-operator|.
-name|getFileInfo
-argument_list|()
-operator|.
-name|getReference
-argument_list|()
-operator|.
-name|write
+name|addRegion
 argument_list|(
-name|fs
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
-name|referenceFile
+name|this
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// create "reference" to this store file.  It is intentionally an empty file -- all
-comment|// necessary information is captured by its fs location and filename.  This allows us to
-comment|// only figure out what needs to be done via a single nn operation (instead of having to
-comment|// open and read the files as well).
-name|success
-operator|=
-name|fs
-operator|.
-name|getFileSystem
-argument_list|()
-operator|.
-name|createNewFile
-argument_list|(
-name|referenceFile
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|success
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed to create reference file:"
-operator|+
-name|referenceFile
-argument_list|)
-throw|;
-block|}
-block|}
-block|}
 block|}
 comment|/**    * Replaces any KV timestamps set to {@link HConstants#LATEST_TIMESTAMP} with the    * provided current timestamp.    */
 name|void
@@ -25460,7 +25226,7 @@ operator|=
 name|coprocessorHost
 expr_stmt|;
 block|}
-comment|/**    * This method needs to be called before any public call that reads or    * modifies data. It has to be called just before a try.    * #closeRegionOperation needs to be called in the try's finally block    * Acquires a read lock and checks if the region is closing or closed.    * @throws IOException     */
+comment|/**    * This method needs to be called before any public call that reads or    * modifies data. It has to be called just before a try.    * #closeRegionOperation needs to be called in the try's finally block    * Acquires a read lock and checks if the region is closing or closed.    * @throws IOException    */
 specifier|public
 name|void
 name|startRegionOperation
@@ -25476,7 +25242,7 @@ name|ANY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param op The operation is about to be taken on the region    * @throws IOException     */
+comment|/**    * @param op The operation is about to be taken on the region    * @throws IOException    */
 specifier|protected
 name|void
 name|startRegionOperation
@@ -25698,7 +25464,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of #startRegionOperation    * @throws IOException     */
+comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of #startRegionOperation    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegionOperation

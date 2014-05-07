@@ -320,6 +320,7 @@ specifier|public
 name|void
 name|setConf
 parameter_list|(
+specifier|final
 name|Configuration
 name|conf
 parameter_list|)
@@ -406,6 +407,8 @@ name|SnapshotReferenceUtil
 operator|.
 name|getHFileNames
 argument_list|(
+name|conf
+argument_list|,
 name|fs
 argument_list|,
 name|snapshotDir

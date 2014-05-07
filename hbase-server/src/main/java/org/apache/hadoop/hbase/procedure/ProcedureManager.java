@@ -45,24 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|snapshot
-operator|.
-name|RegionServerSnapshotManager
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience

@@ -657,6 +657,7 @@ name|coprocessorHost
 expr_stmt|;
 block|}
 comment|/*    * @return the Reference object associated to this StoreFileInfo.    *         null if the StoreFile is not a reference.    */
+specifier|public
 name|Reference
 name|getReference
 parameter_list|()

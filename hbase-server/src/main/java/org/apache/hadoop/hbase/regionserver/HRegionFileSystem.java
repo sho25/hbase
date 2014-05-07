@@ -725,6 +725,7 @@ comment|// =====================================================================
 comment|//  Store/StoreFile Helpers
 comment|// ===========================================================================
 comment|/**    * Returns the directory path of the specified family    * @param familyName Column Family Name    * @return {@link Path} to the directory of the specified family    */
+specifier|public
 name|Path
 name|getStoreDir
 parameter_list|(
@@ -822,6 +823,29 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+specifier|public
+name|Collection
+argument_list|<
+name|StoreFileInfo
+argument_list|>
+name|getStoreFiles
+parameter_list|(
+specifier|final
+name|String
+name|familyName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getStoreFiles
+argument_list|(
+name|familyName
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
 comment|/**    * Returns the store files available for the family.    * This methods performs the filtering based on the valid store files.    * @param familyName Column Family Name    * @return a set of {@link StoreFileInfo} for the specified family.    */
 specifier|public
 name|Collection
@@ -833,6 +857,10 @@ parameter_list|(
 specifier|final
 name|String
 name|familyName
+parameter_list|,
+specifier|final
+name|boolean
+name|validate
 parameter_list|)
 throws|throws
 name|IOException
@@ -866,9 +894,20 @@ name|files
 operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"No StoreFiles for: "
+operator|+
+name|familyDir
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
+block|}
 name|ArrayList
 argument_list|<
 name|StoreFileInfo
@@ -896,6 +935,8 @@ control|)
 block|{
 if|if
 condition|(
+name|validate
+operator|&&
 operator|!
 name|StoreFileInfo
 operator|.
@@ -904,7 +945,21 @@ argument_list|(
 name|status
 argument_list|)
 condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Invalid StoreFile: "
+operator|+
+name|status
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
 continue|continue;
+block|}
 name|storeFiles
 operator|.
 name|add
@@ -2887,7 +2942,7 @@ name|p
 argument_list|)
 return|;
 block|}
-comment|/**    * Commit a merged region, moving it from the merges temporary directory to    * the proper location in the filesystem.    * @param mergedRegionInfo merged region {@link HRegionInfo}    * @throws IOException     */
+comment|/**    * Commit a merged region, moving it from the merges temporary directory to    * the proper location in the filesystem.    * @param mergedRegionInfo merged region {@link HRegionInfo}    * @throws IOException    */
 name|void
 name|commitMergedRegion
 parameter_list|(

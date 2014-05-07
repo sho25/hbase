@@ -665,7 +665,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No regions under directory:"
+literal|"No recoveredEdits regions under directory:"
 operator|+
 name|tableDir
 argument_list|)

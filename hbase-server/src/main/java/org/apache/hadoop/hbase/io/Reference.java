@@ -667,6 +667,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+specifier|public
 name|FSProtos
 operator|.
 name|Reference
@@ -734,6 +735,7 @@ name|build
 argument_list|()
 return|;
 block|}
+specifier|public
 specifier|static
 name|Reference
 name|convert
