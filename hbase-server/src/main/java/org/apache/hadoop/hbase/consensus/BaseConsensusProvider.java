@@ -41,48 +41,77 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ConsensusProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
 
 begin_comment
-comment|/**  * Implementations of this interface will keep and return to clients   * implementations of classes providing API to execute  * coordinated operations.  *  * For each coarse-grained area of operations there will be a separate  * interface with implementation, providing API for relevant operations  * requiring coordination.  *  * Property hbase.consensus.provider.class in hbase-site.xml controls  * which provider to use.  */
+comment|/**  * Base class for {@link org.apache.hadoop.hbase.ConsensusProvider} implementations.  * Defines methods to retrieve consensus objects for relevant areas. ConsensusProvider  * reference returned from Server interface has to be casted to this type to  * access those methods.  */
 end_comment
 
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-interface|interface
+specifier|abstract
+class|class
+name|BaseConsensusProvider
+implements|implements
 name|ConsensusProvider
 block|{
-comment|/**    * Initialize consensus service.    * @param server server instance to run within.    */
+annotation|@
+name|Override
+specifier|public
 name|void
 name|initialize
 parameter_list|(
 name|Server
 name|server
 parameter_list|)
-function_decl|;
-comment|/**    * Starts consensus service.    */
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|start
 parameter_list|()
-function_decl|;
-comment|/**    * Stop consensus provider.    */
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|void
 name|stop
 parameter_list|()
-function_decl|;
-comment|/**    * @return instance of Server consensus runs within    */
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|Server
 name|getServer
 parameter_list|()
-function_decl|;
+block|{
+return|return
+literal|null
+return|;
 block|}
-end_interface
+block|}
+end_class
 
 end_unit
 

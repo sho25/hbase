@@ -719,8 +719,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|consensus
-operator|.
 name|ConsensusProvider
 import|;
 end_import
@@ -734,8 +732,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|consensus
 operator|.
 name|ConsensusProviderFactory
 import|;
@@ -10381,6 +10377,8 @@ return|return
 name|zooKeeper
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ConsensusProvider
 name|getConsensusProvider

@@ -112,6 +112,11 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
+comment|/**    * Get ConsensusProvider instance for this server.    */
+name|ConsensusProvider
+name|getConsensusProvider
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

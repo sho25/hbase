@@ -159,8 +159,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|consensus
-operator|.
 name|ConsensusProvider
 import|;
 end_import
@@ -174,8 +172,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|consensus
 operator|.
 name|ConsensusProviderFactory
 import|;

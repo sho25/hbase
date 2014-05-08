@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|consensus
 package|;
 end_package
 
@@ -55,7 +53,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|consensus
+operator|.
+name|ZkConsensusProvider
 import|;
 end_import
 
@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Creates instance of {@link org.apache.hadoop.hbase.consensus.ConsensusProvider}  * based on configuration.  */
+comment|/**  * Creates instance of {@link ConsensusProvider}  * based on configuration.  */
 end_comment
 
 begin_class
@@ -86,7 +86,7 @@ specifier|public
 class|class
 name|ConsensusProviderFactory
 block|{
-comment|/**    * Creates consensus provider from the given configuration.    * @param conf Configuration    * @return A {@link org.apache.hadoop.hbase.consensus.ConsensusProvider}    */
+comment|/**    * Creates consensus provider from the given configuration.    * @param conf Configuration    * @return A {@link ConsensusProvider}    */
 specifier|public
 specifier|static
 name|ConsensusProvider

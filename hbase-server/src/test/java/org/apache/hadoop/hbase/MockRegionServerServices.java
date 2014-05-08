@@ -731,6 +731,17 @@ return|return
 name|zkw
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|ConsensusProvider
+name|getConsensusProvider
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 specifier|public
 name|RegionServerAccounting
 name|getRegionServerAccounting
