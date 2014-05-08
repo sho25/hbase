@@ -2021,6 +2021,21 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|truncateTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|boolean
+name|preserveSplits
+parameter_list|)
+throws|throws
+name|IOException
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
 name|modifyTable
 parameter_list|(
 name|TableName

@@ -157,6 +157,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -206,6 +220,22 @@ operator|.
 name|executor
 operator|.
 name|EventType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
 import|;
 end_import
 
@@ -361,6 +391,12 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|protected
+name|HTableDescriptor
+name|hTableDescriptor
+init|=
+literal|null
+decl_stmt|;
 specifier|public
 name|DeleteTableHandler
 parameter_list|(
@@ -399,16 +435,17 @@ throws|throws
 name|IOException
 block|{
 comment|// The next call fails if no such table.
+name|hTableDescriptor
+operator|=
 name|getTableDescriptor
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|protected
 name|void
-name|handleTableOperation
+name|waitRegionInTransition
 parameter_list|(
+specifier|final
 name|List
 argument_list|<
 name|HRegionInfo
@@ -420,39 +457,6 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
-name|MasterCoprocessorHost
-name|cpHost
-init|=
-operator|(
-operator|(
-name|HMaster
-operator|)
-name|this
-operator|.
-name|server
-operator|)
-operator|.
-name|getMasterCoprocessorHost
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|cpHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|cpHost
-operator|.
-name|preDeleteTableHandler
-argument_list|(
-name|this
-operator|.
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-comment|// 1. Wait because of region in transition
 name|AssignmentManager
 name|am
 init|=
@@ -636,7 +640,188 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// 2. Remove regions from META
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|handleTableOperation
+parameter_list|(
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|KeeperException
+block|{
+name|MasterCoprocessorHost
+name|cpHost
+init|=
+operator|(
+operator|(
+name|HMaster
+operator|)
+name|this
+operator|.
+name|server
+operator|)
+operator|.
+name|getMasterCoprocessorHost
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|preDeleteTableHandler
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+comment|// 1. Wait because of region in transition
+name|waitRegionInTransition
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// 2. Remove table from .META. and HDFS
+name|removeTableData
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// 3. Update table descriptor cache
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing '"
+operator|+
+name|tableName
+operator|+
+literal|"' descriptor."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|.
+name|remove
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+name|AssignmentManager
+name|am
+init|=
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getAssignmentManager
+argument_list|()
+decl_stmt|;
+comment|// 4. Clean up regions of the table in RegionStates.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing '"
+operator|+
+name|tableName
+operator|+
+literal|"' from region states."
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|tableDeleted
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// 5. If entry for this table in zk, and up in AssignmentManager, remove it.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Marking '"
+operator|+
+name|tableName
+operator|+
+literal|"' as deleted."
+argument_list|)
+expr_stmt|;
+name|am
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|setDeletedTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|cpHost
+operator|.
+name|postDeleteTableHandler
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Removes the table from .META. and archives the HDFS files.    */
+specifier|protected
+name|void
+name|removeTableData
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|KeeperException
+block|{
+comment|// 1. Remove regions from META
 name|LOG
 operator|.
 name|debug
@@ -658,7 +843,11 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
-comment|// 3. Move the table in /hbase/.tmp
+comment|// -----------------------------------------------------------------------
+comment|// NOTE: At this point we still have data on disk, but nothing in .META.
+comment|//       if the rename below fails, hbck will report an inconsistency.
+comment|// -----------------------------------------------------------------------
+comment|// 2. Move the table in /hbase/.tmp
 name|MasterFileSystem
 name|mfs
 init|=
@@ -679,9 +868,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-try|try
-block|{
-comment|// 4. Delete regions from FS (temp directory)
+comment|// 3. Archive regions from FS (temp directory)
 name|FileSystem
 name|fs
 init|=
@@ -725,8 +912,9 @@ argument_list|()
 argument_list|,
 name|tempTableDir
 argument_list|,
-operator|new
-name|Path
+name|HRegion
+operator|.
+name|getRegionDir
 argument_list|(
 name|tempTableDir
 argument_list|,
@@ -738,7 +926,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 5. Delete table from FS (temp directory)
+comment|// 4. Delete table directory from FS (temp directory)
 if|if
 condition|(
 operator|!
@@ -773,92 +961,6 @@ operator|+
 literal|"' archived!"
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-comment|// 6. Update table descriptor cache
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Removing '"
-operator|+
-name|tableName
-operator|+
-literal|"' descriptor."
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|remove
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-comment|// 7. Clean up regions of the table in RegionStates.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Removing '"
-operator|+
-name|tableName
-operator|+
-literal|"' from region states."
-argument_list|)
-expr_stmt|;
-name|states
-operator|.
-name|tableDeleted
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-comment|// 8. If entry for this table in zk, and up in AssignmentManager, remove it.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Marking '"
-operator|+
-name|tableName
-operator|+
-literal|"' as deleted."
-argument_list|)
-expr_stmt|;
-name|am
-operator|.
-name|getZKTable
-argument_list|()
-operator|.
-name|setDeletedTable
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|cpHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|cpHost
-operator|.
-name|postDeleteTableHandler
-argument_list|(
-name|this
-operator|.
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Override

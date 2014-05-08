@@ -292,6 +292,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Truncate a table    * @param tableName The table name    * @param preserveSplits True if the splits should be preserved    * @throws IOException    */
+specifier|public
+name|void
+name|truncateTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+name|boolean
+name|preserveSplits
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Modify the descriptor of an existing table    * @param tableName The table name    * @param descriptor The updated table descriptor    * @throws IOException    */
 name|void
 name|modifyTable
