@@ -858,6 +858,14 @@ name|CONF_BANDWIDTH_MB
 init|=
 literal|"snapshot.export.map.bandwidth.mb"
 decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|String
+name|CONF_SKIP_TMP
+init|=
+literal|"snapshot.export.skip.tmp"
+decl_stmt|;
 specifier|static
 specifier|final
 name|String
@@ -4892,6 +4900,18 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|boolean
+name|skipTmp
+init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CONF_SKIP_TMP
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
 name|Path
 name|snapshotDir
 init|=
@@ -4927,6 +4947,15 @@ name|snapshotName
 argument_list|,
 name|outputRoot
 argument_list|)
+decl_stmt|;
+name|Path
+name|initialOutputSnapshotDir
+init|=
+name|skipTmp
+condition|?
+name|outputSnapshotDir
+else|:
+name|snapshotTmpDir
 decl_stmt|;
 comment|// Check if the snapshot already exists
 if|if
@@ -4995,6 +5024,12 @@ literal|1
 return|;
 block|}
 block|}
+if|if
+condition|(
+operator|!
+name|skipTmp
+condition|)
+block|{
 comment|// Check if the snapshot already in-progress
 if|if
 condition|(
@@ -5084,6 +5119,7 @@ expr_stmt|;
 return|return
 literal|1
 return|;
+block|}
 block|}
 block|}
 comment|// Step 0 - Extract snapshot files to copy
@@ -5184,7 +5220,7 @@ name|snapshotDir
 argument_list|,
 name|outputFs
 argument_list|,
-name|snapshotTmpDir
+name|initialOutputSnapshotDir
 argument_list|,
 literal|false
 argument_list|,
@@ -5210,7 +5246,7 @@ name|snapshotDir
 operator|+
 literal|" to="
 operator|+
-name|snapshotTmpDir
+name|initialOutputSnapshotDir
 argument_list|,
 name|e
 argument_list|)
@@ -5263,7 +5299,6 @@ name|bandwidthMB
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Step 3 - Rename fs2:/.snapshot/.tmp/<snapshot> fs2:/.snapshot/<snapshot>
 name|LOG
 operator|.
 name|info
@@ -5271,6 +5306,13 @@ argument_list|(
 literal|"Finalize the Snapshot Export"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|skipTmp
+condition|)
+block|{
+comment|// Step 3 - Rename fs2:/.snapshot/.tmp/<snapshot> fs2:/.snapshot/<snapshot>
 if|if
 condition|(
 operator|!
@@ -5297,6 +5339,7 @@ operator|+
 name|outputSnapshotDir
 argument_list|)
 throw|;
+block|}
 block|}
 comment|// Step 4 - Verify snapshot validity
 name|LOG
@@ -5345,6 +5388,12 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|skipTmp
+condition|)
+block|{
 name|outputFs
 operator|.
 name|delete
@@ -5354,6 +5403,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 name|outputFs
 operator|.
 name|delete
