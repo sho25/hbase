@@ -4395,6 +4395,11 @@ throws|throws
 name|IOException
 block|{
 name|boolean
+name|verifyTarget
+init|=
+literal|true
+decl_stmt|;
+name|boolean
 name|verifyChecksum
 init|=
 literal|true
@@ -4590,6 +4595,22 @@ argument_list|)
 condition|)
 block|{
 name|verifyChecksum
+operator|=
+literal|false
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-no-target-verify"
+argument_list|)
+condition|)
+block|{
+name|verifyTarget
 operator|=
 literal|false
 expr_stmt|;
@@ -5341,12 +5362,17 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Step 4 - Verify snapshot validity
+comment|// Step 4 - Verify snapshot integrity
+if|if
+condition|(
+name|verifyTarget
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Verify snapshot validity"
+literal|"Verify snapshot integrity"
 argument_list|)
 expr_stmt|;
 name|verifySnapshot
@@ -5360,6 +5386,7 @@ argument_list|,
 name|outputSnapshotDir
 argument_list|)
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -5490,7 +5517,18 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  -no-checksum-verify     Do not verify checksum."
+literal|"  -no-checksum-verify     Do not verify checksum, use name+length only."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  -no-target-verify       Do not verify the integrity of the \\"
+operator|+
+literal|"exported snapshot."
 argument_list|)
 expr_stmt|;
 name|System
