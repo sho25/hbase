@@ -4409,6 +4409,11 @@ name|snapshotName
 init|=
 literal|null
 decl_stmt|;
+name|String
+name|targetName
+init|=
+literal|null
+decl_stmt|;
 name|boolean
 name|overwrite
 init|=
@@ -4491,6 +4496,26 @@ argument_list|)
 condition|)
 block|{
 name|snapshotName
+operator|=
+name|args
+index|[
+operator|++
+name|i
+index|]
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-target"
+argument_list|)
+condition|)
+block|{
+name|targetName
 operator|=
 name|args
 index|[
@@ -4840,6 +4865,18 @@ name|printUsageAndExit
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|targetName
+operator|==
+literal|null
+condition|)
+block|{
+name|targetName
+operator|=
+name|snapshotName
+expr_stmt|;
+block|}
 name|Path
 name|inputRoot
 init|=
@@ -4952,7 +4989,7 @@ name|SnapshotDescriptionUtils
 operator|.
 name|getWorkingSnapshotDir
 argument_list|(
-name|snapshotName
+name|targetName
 argument_list|,
 name|outputRoot
 argument_list|)
@@ -4964,7 +5001,7 @@ name|SnapshotDescriptionUtils
 operator|.
 name|getCompletedSnapshotDir
 argument_list|(
-name|snapshotName
+name|targetName
 argument_list|,
 name|outputRoot
 argument_list|)
@@ -5033,7 +5070,7 @@ name|println
 argument_list|(
 literal|"The snapshot '"
 operator|+
-name|snapshotName
+name|targetName
 operator|+
 literal|"' already exists in the destination: "
 operator|+
@@ -5106,7 +5143,7 @@ name|println
 argument_list|(
 literal|"A snapshot with the same name '"
 operator|+
-name|snapshotName
+name|targetName
 operator|+
 literal|"' may be in-progress"
 argument_list|)
@@ -5273,6 +5310,53 @@ name|e
 argument_list|)
 throw|;
 block|}
+comment|// Write a new .snapshotinfo if the target name is different from the source name
+if|if
+condition|(
+operator|!
+name|targetName
+operator|.
+name|equals
+argument_list|(
+name|snapshotName
+argument_list|)
+condition|)
+block|{
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|SnapshotDescriptionUtils
+operator|.
+name|readSnapshotInfo
+argument_list|(
+name|inputFs
+argument_list|,
+name|snapshotDir
+argument_list|)
+operator|.
+name|toBuilder
+argument_list|()
+operator|.
+name|setName
+argument_list|(
+name|targetName
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
+name|SnapshotDescriptionUtils
+operator|.
+name|writeSnapshotInfo
+argument_list|(
+name|snapshotDesc
+argument_list|,
+name|snapshotTmpDir
+argument_list|,
+name|outputFs
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Step 2 - Start MR Job to copy files
 comment|// The snapshot references must be copied before the files otherwise the files gets removed
 comment|// by the HFileArchiver, since they have no references.
@@ -5393,7 +5477,7 @@ name|info
 argument_list|(
 literal|"Export Completed: "
 operator|+
-name|snapshotName
+name|targetName
 argument_list|)
 expr_stmt|;
 return|return
