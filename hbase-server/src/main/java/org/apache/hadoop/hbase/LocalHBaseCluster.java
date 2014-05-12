@@ -399,9 +399,6 @@ name|HRegionServer
 argument_list|>
 name|regionServerClass
 decl_stmt|;
-name|ConsensusProvider
-name|consensusProvider
-decl_stmt|;
 comment|/**    * Constructor.    * @param conf    * @throws IOException    */
 specifier|public
 name|LocalHBaseCluster
@@ -629,15 +626,6 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-name|consensusProvider
-operator|=
-name|ConsensusProviderFactory
-operator|.
-name|getConsensusProvider
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 comment|// Always have masters and regionservers come up on port '0' so we don't
 comment|// clash over default ports.
 name|conf
@@ -822,6 +810,19 @@ block|{
 comment|// Create each regionserver with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of HConnectionManager.
+comment|// Also, create separate ConsensusProvider instance per Server.
+comment|// This is special case when we have to have more than 1 ConsensusProvider
+comment|// within 1 process.
+name|ConsensusProvider
+name|cp
+init|=
+name|ConsensusProviderFactory
+operator|.
+name|getConsensusProvider
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -833,7 +834,7 @@ name|createRegionServerThread
 argument_list|(
 name|config
 argument_list|,
-name|consensusProvider
+name|cp
 argument_list|,
 name|this
 operator|.
@@ -959,6 +960,19 @@ block|{
 comment|// Create each master with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of HConnectionManager.
+comment|// Also, create separate ConsensusProvider instance per Server.
+comment|// This is special case when we have to have more than 1 ConsensusProvider
+comment|// within 1 process.
+name|ConsensusProvider
+name|cp
+init|=
+name|ConsensusProviderFactory
+operator|.
+name|getConsensusProvider
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 name|JVMClusterUtil
 operator|.
 name|MasterThread
@@ -970,7 +984,7 @@ name|createMasterThread
 argument_list|(
 name|c
 argument_list|,
-name|consensusProvider
+name|cp
 argument_list|,
 operator|(
 name|Class
