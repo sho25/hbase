@@ -256,6 +256,10 @@ operator|+
 literal|", count="
 operator|+
 name|bufferCount
+operator|+
+literal|", direct="
+operator|+
+name|directByteBuffer
 argument_list|)
 expr_stmt|;
 name|buffers

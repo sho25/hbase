@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * IO engine that stores data on the memory using an array of ByteBuffers  * {@link ByteBufferArray}  */
+comment|/**  * IO engine that stores data in memory using an array of ByteBuffers  * {@link ByteBufferArray}  */
 end_comment
 
 begin_class
@@ -224,7 +224,9 @@ specifier|public
 name|void
 name|sync
 parameter_list|()
-block|{    }
+block|{
+comment|// Nothing to do.
+block|}
 comment|/**    * No operation for the shutdown in the memory IO engine    */
 annotation|@
 name|Override
@@ -232,7 +234,9 @@ specifier|public
 name|void
 name|shutdown
 parameter_list|()
-block|{    }
+block|{
+comment|// Nothing to do.
+block|}
 block|}
 end_class
 

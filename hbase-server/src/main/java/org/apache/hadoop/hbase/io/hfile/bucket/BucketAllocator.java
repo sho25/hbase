@@ -148,7 +148,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used to allocate a block with specified size and free the block  * when evicting. It manages an array of buckets, each bucket is associated with  * a size and caches elements up to this size. For completely empty bucket, this  * size could be re-specified dynamically.  *   * This class is not thread safe.  */
+comment|/**  * This class is used to allocate a block with specified size and free the block  * when evicting. It manages an array of buckets, each bucket is associated with  * a size and caches elements up to this size. For a completely empty bucket, this  * size could be re-specified dynamically.  *   * This class is not thread safe.  */
 end_comment
 
 begin_class

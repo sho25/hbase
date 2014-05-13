@@ -616,7 +616,7 @@ decl_stmt|;
 comment|/** Concurrent map (the cache) */
 specifier|private
 specifier|final
-name|ConcurrentHashMap
+name|Map
 argument_list|<
 name|BlockCacheKey
 argument_list|,
@@ -749,7 +749,8 @@ specifier|private
 name|boolean
 name|forceInMemory
 decl_stmt|;
-comment|/** Where to send victims (blocks evicted from the cache) */
+comment|/** Where to send victims (blocks evicted/missing from the cache) */
+comment|// TODO: Fix it so this is not explicit reference to a particular BlockCache implementation.
 specifier|private
 name|BucketCache
 name|victimHandler

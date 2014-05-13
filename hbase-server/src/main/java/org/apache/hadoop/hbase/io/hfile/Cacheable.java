@@ -74,12 +74,12 @@ name|Cacheable
 extends|extends
 name|HeapSize
 block|{
-comment|/**    * Returns the length of the ByteBuffer required to serialized the object. If the    * object cannot be serialized, it should also return 0.    *    * @return int length in bytes of the serialized form.    */
+comment|/**    * Returns the length of the ByteBuffer required to serialized the object. If the    * object cannot be serialized, it should return 0.    *    * @return int length in bytes of the serialized form or 0 if the object cannot be cached.    */
 name|int
 name|getSerializedLength
 parameter_list|()
 function_decl|;
-comment|/**    * Serializes its data into destination.    */
+comment|/**    * Serializes its data into destination.    * @param destination Where to serialize to    */
 name|void
 name|serialize
 parameter_list|(

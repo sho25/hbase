@@ -278,6 +278,20 @@ throw|throw
 name|ioex
 throw|;
 block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|raf
+operator|!=
+literal|null
+condition|)
+name|raf
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * File IO engine is always able to support persistent storage for the cache    * @return true    */
 annotation|@

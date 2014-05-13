@@ -187,6 +187,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|slab
+operator|.
+name|SlabCache
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|DirectMemoryUtils
@@ -284,6 +304,7 @@ init|=
 literal|"hbase.rs.evictblocksonclose"
 decl_stmt|;
 comment|/**    * Configuration keys for Bucket cache    */
+comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path    * to the file that will host the file-based cache.  See BucketCache#getIOEngineFromName() for    * list of supported ioengine options.    *     *<p>Set this option and a non-zero {@link BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
 specifier|public
 specifier|static
 specifier|final
@@ -292,6 +313,7 @@ name|BUCKET_CACHE_IOENGINE_KEY
 init|=
 literal|"hbase.bucketcache.ioengine"
 decl_stmt|;
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    *     *<p>The resultant size is further divided if {@link BUCKET_CACHE_COMBINED_KEY} is set (It is    * set by default. When false, bucket cache serves as an "L2" cache to the "L1"    * {@link LruBlockCache}).  The percentage is set in    * with {@link BUCKET_CACHE_COMBINED_PERCENTAGE_KEY} float.    */
 specifier|public
 specifier|static
 specifier|final
@@ -300,6 +322,7 @@ name|BUCKET_CACHE_SIZE_KEY
 init|=
 literal|"hbase.bucketcache.size"
 decl_stmt|;
+comment|/**    * If the chosen ioengine can persist its state across restarts, the path to the file to    * persist to.    */
 specifier|public
 specifier|static
 specifier|final
@@ -308,6 +331,7 @@ name|BUCKET_CACHE_PERSISTENT_PATH_KEY
 init|=
 literal|"hbase.bucketcache.persistent.path"
 decl_stmt|;
+comment|/**    * If the bucket cache is used in league with the lru on-heap block cache (meta blocks such    * as indices and blooms are kept in the lru blockcache and the data blocks in the    * bucket cache).    */
 specifier|public
 specifier|static
 specifier|final
@@ -316,6 +340,7 @@ name|BUCKET_CACHE_COMBINED_KEY
 init|=
 literal|"hbase.bucketcache.combinedcache.enabled"
 decl_stmt|;
+comment|/**    * A float which designates how much of the overall cache to give to bucket cache    * and how much to on-heap lru cache when {@link BUCKET_CACHE_COMBINED_KEY} is set.    */
 specifier|public
 specifier|static
 specifier|final
@@ -372,6 +397,15 @@ name|float
 name|DEFAULT_BUCKET_CACHE_COMBINED_PERCENTAGE
 init|=
 literal|0.9f
+decl_stmt|;
+comment|/**    * Setting this float to a non-null value turns on {@link DoubleBlockCache}    * which makes use of the {@link LruBlockCache} and {@link SlabCache}.    *     * The float value of between 0 and 1 will be multiplied against the setting for    *<code>-XX:MaxDirectMemorySize</code> to figure what size of the offheap allocation to give    * over to slab cache.    *     * Slab cache has been little used and is likely to be deprecated in the near future.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SLAB_CACHE_OFFHEAP_PERCENTAGE_KEY
+init|=
+literal|"hbase.offheapcache.percentage"
 decl_stmt|;
 comment|// Defaults
 specifier|public
@@ -1427,6 +1461,10 @@ name|humanReadableInt
 argument_list|(
 name|lruCacheSize
 argument_list|)
+operator|+
+literal|", blockSize="
+operator|+
+name|blockSize
 argument_list|)
 expr_stmt|;
 name|LruBlockCache

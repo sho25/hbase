@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A class implementing IOEngine interface could support data services for  * {@link BucketCache}.  */
+comment|/**  * A class implementing IOEngine interface supports data services for  * {@link BucketCache}.  */
 end_comment
 
 begin_interface

@@ -529,22 +529,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ConcurrentIndex
@@ -644,7 +628,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free block, and use  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine whether a given element hit. It could uses memory  * {@link ByteBufferIOEngine} or file {@link FileIOEngine}to store/read the  * block data.  *   * Eviction is using similar algorithm as  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *   * BucketCache could be used as mainly a block cache(see  * {@link CombinedBlockCache}), combined with LruBlockCache to decrease CMS and  * fragment by GC.  *   * Also could be used as a secondary cache(e.g. using Fusionio to store block)  * to enlarge cache space by  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
+comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *   *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *   *<p>BucketCache can be used as mainly a block cache (see  * {@link CombinedBlockCache}), combined with LruBlockCache to decrease CMS GC and  * heap fragmentation.  *   *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
 end_comment
 
 begin_class
@@ -754,7 +738,7 @@ name|ioEngine
 decl_stmt|;
 comment|// Store the block in this map before writing it to cache
 specifier|private
-name|ConcurrentHashMap
+name|Map
 argument_list|<
 name|BlockCacheKey
 argument_list|,
@@ -764,7 +748,7 @@ name|ramCache
 decl_stmt|;
 comment|// In this map, store the block's meta data like offset, length
 specifier|private
-name|ConcurrentHashMap
+name|Map
 argument_list|<
 name|BlockCacheKey
 argument_list|,
@@ -1490,7 +1474,39 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started bucket cache"
+literal|"Started bucket cache; ioengine="
+operator|+
+name|ioEngineName
+operator|+
+literal|", capacity="
+operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
+name|capacity
+argument_list|)
+operator|+
+literal|", blockSize="
+operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
+name|blockSize
+argument_list|)
+operator|+
+literal|", writerThreadNum="
+operator|+
+name|writerThreadNum
+operator|+
+literal|", writerQLen="
+operator|+
+name|writerQLen
+operator|+
+literal|", persistencePath="
+operator|+
+name|persistencePath
 argument_list|)
 expr_stmt|;
 block|}
@@ -2380,7 +2396,9 @@ return|return
 literal|true
 return|;
 block|}
-comment|/*    * Statistics thread.  Periodically prints the cache statistics to the log.    */
+comment|/*    * Statistics thread.  Periodically output cache statistics to the log.    */
+comment|// TODO: Fix.  We run a thread to log at DEBUG.  If no DEBUG level, we still run the thread!
+comment|// A thread just to log is OTT.  FIX.
 specifier|private
 specifier|static
 class|class
@@ -2708,28 +2726,6 @@ name|getTotalSize
 argument_list|()
 operator|*
 name|DEFAULT_ACCEPT_FACTOR
-argument_list|)
-return|;
-block|}
-specifier|private
-name|long
-name|minSize
-parameter_list|()
-block|{
-return|return
-operator|(
-name|long
-operator|)
-name|Math
-operator|.
-name|floor
-argument_list|(
-name|bucketAllocator
-operator|.
-name|getTotalSize
-argument_list|()
-operator|*
-name|DEFAULT_MIN_FACTOR
 argument_list|)
 return|;
 block|}
