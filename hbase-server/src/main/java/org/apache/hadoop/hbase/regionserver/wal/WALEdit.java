@@ -325,19 +325,6 @@ specifier|static
 specifier|final
 name|byte
 index|[]
-name|COMPLETE_CACHE_FLUSH
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"HBASE::CACHEFLUSH"
-argument_list|)
-decl_stmt|;
-specifier|static
-specifier|final
-name|byte
-index|[]
 name|COMPACTION
 init|=
 name|Bytes
@@ -376,6 +363,16 @@ argument_list|>
 argument_list|(
 literal|1
 argument_list|)
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|WALEdit
+name|EMPTY_WALEDIT
+init|=
+operator|new
+name|WALEdit
+argument_list|()
 decl_stmt|;
 comment|// Only here for legacy writable deserialization
 annotation|@

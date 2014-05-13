@@ -27,6 +27,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|CountDownLatch
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicLong
@@ -76,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * It is a subclass of {@link HLog.Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  */
+comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * A subclass of {@link HLog.Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See {@link #setRegionSequenceId(long)} and  * {@link #getRegionSequenceId()}.  */
 end_comment
 
 begin_class
@@ -122,6 +134,20 @@ specifier|final
 specifier|transient
 name|HRegionInfo
 name|hri
+decl_stmt|;
+comment|// Latch that is set on creation and then is undone on the other side of the ring buffer by the
+comment|// consumer thread just after it sets the region edit/sequence id in here.
+specifier|private
+specifier|final
+specifier|transient
+name|CountDownLatch
+name|latch
+init|=
+operator|new
+name|CountDownLatch
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|FSWALEntry
 parameter_list|(
@@ -213,16 +239,6 @@ argument_list|()
 return|;
 block|}
 empty_stmt|;
-name|AtomicLong
-name|getRegionSequenceIdReference
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|regionSequenceIdReference
-return|;
-block|}
 name|boolean
 name|isInMemstore
 parameter_list|()
@@ -262,6 +278,63 @@ return|return
 name|this
 operator|.
 name|sequence
+return|;
+block|}
+comment|/**    * Stamp this edit with a region edit/sequence id.    * Call when safe to do so: i.e. the context is such that the increment on the passed in    * {@link #regionSequenceIdReference} is guaranteed aligned w/ how appends are going into the    * WAL.  This method works with {@link #getRegionSequenceId()}.  It will block waiting on this    * method if on initialization our edit/sequence id is {@link HLogKey#NO_SEQ_NO}.    * @return The region edit/sequence id we set for this edit.    * @see #getRegionSequenceId()    */
+name|long
+name|stampRegionSequenceId
+parameter_list|()
+block|{
+name|long
+name|regionSequenceId
+init|=
+name|this
+operator|.
+name|regionSequenceIdReference
+operator|.
+name|incrementAndGet
+argument_list|()
+decl_stmt|;
+name|getKey
+argument_list|()
+operator|.
+name|setLogSeqNum
+argument_list|(
+name|regionSequenceId
+argument_list|)
+expr_stmt|;
+comment|// On creation, a latch was set.  Count it down when sequence id is set.  This will free
+comment|// up anyone blocked on {@link #getRegionSequenceId()}
+name|this
+operator|.
+name|latch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+return|return
+name|regionSequenceId
+return|;
+block|}
+name|long
+name|getRegionSequenceId
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+name|this
+operator|.
+name|latch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
+return|return
+name|getKey
+argument_list|()
+operator|.
+name|getLogSeqNum
+argument_list|()
 return|;
 block|}
 block|}

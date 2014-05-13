@@ -824,7 +824,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link HLog} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one HLog/WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation, so external  * callers do not have to be concerned with log rolling.  *  *<p>As data is flushed from the MemStore to other (better) on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  A bunch of work in the  * below is done keeping account of these region sequence ids -- what is flushed out to hfiles,  * and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has an edit in  *<code>F</code>.  *  *<p>To read an HLog, call {@link HLogFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  */
+comment|/**  * Implementation of {@link HLog} to go against {@link FileSystem}; i.e. keep WALs in HDFS.  * Only one HLog/WAL is ever being written at a time.  When a WAL hits a configured maximum size,  * it is rolled.  This is done internal to the implementation.  *  *<p>As data is flushed from the MemStore to other on-disk structures (files sorted by  * key, hfiles), a WAL becomes obsolete. We can let go of all the log edits/entries for a given  * HRegion-sequence id.  A bunch of work in the below is done keeping account of these region  * sequence ids -- what is flushed out to hfiles, and what is yet in WAL and in memory only.  *  *<p>It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *  *<p>To read an HLog, call {@link HLogFactory#createReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  */
 end_comment
 
 begin_class
@@ -846,24 +846,29 @@ comment|// minimize synchronizations and volatile writes when multiple contendin
 comment|// here appending and syncing on a single WAL.  The Disruptor is configured to handle multiple
 comment|// producers but it has one consumer only (the producers in HBase are IPC Handlers calling append
 comment|// and then sync).  The single consumer/writer pulls the appends and syncs off the ring buffer.
-comment|// The appends are added to the WAL immediately without pause or batching (there may be a slight
-comment|// benefit batching appends but it complicates the implementation -- the gain is not worth
-comment|// the added complication).  When a producer calls sync, it is given back a future. The producer
-comment|// 'blocks' on the future so it does not return until the sync completes.  The future is passed
-comment|// over the ring buffer from the producer to the consumer thread where it does its best to batch
-comment|// up the producer syncs so one WAL sync actually spans multiple producer sync invocations.  How
-comment|// well the batching works depends on the write rate; i.e. we tend to batch more in times of
+comment|// When a handler calls sync, it is given back a future. The producer 'blocks' on the future so
+comment|// it does not return until the sync completes.  The future is passed over the ring buffer from
+comment|// the producer/handler to the consumer thread where it does its best to batch up the producer
+comment|// syncs so one WAL sync actually spans multiple producer sync invocations.  How well the
+comment|// batching works depends on the write rate; i.e. we tend to batch more in times of
 comment|// high writes/syncs.
 comment|//
-comment|//<p>The consumer thread pass the syncs off to muliple syncing threads in a round robin fashion
+comment|// Calls to append now also wait until the append has been done on the consumer side of the
+comment|// disruptor.  We used to not wait but it makes the implemenation easier to grok if we have
+comment|// the region edit/sequence id after the append returns.
+comment|//
+comment|// TODO: Handlers need to coordinate appending AND syncing.  Can we have the threads contend
+comment|// once only?  Probably hard given syncs take way longer than an append.
+comment|//
+comment|// The consumer threads pass the syncs off to multiple syncing threads in a round robin fashion
 comment|// to ensure we keep up back-to-back FS sync calls (FS sync calls are the long poll writing the
 comment|// WAL).  The consumer thread passes the futures to the sync threads for it to complete
 comment|// the futures when done.
 comment|//
-comment|//<p>The 'sequence' in the below is the sequence of the append/sync on the ringbuffer.  It
+comment|// The 'sequence' in the below is the sequence of the append/sync on the ringbuffer.  It
 comment|// acts as a sort-of transaction id.  It is always incrementing.
 comment|//
-comment|//<p>The RingBufferEventHandler class hosts the ring buffer consuming code.  The threads that
+comment|// The RingBufferEventHandler class hosts the ring buffer consuming code.  The threads that
 comment|// do the actual FS sync are implementations of SyncRunner.  SafePointZigZagLatch is a
 comment|// synchronization class used to halt the consumer at a safe point --  just after all outstanding
 comment|// syncs and appends have completed -- so the log roller can swap the WAL out under it.
@@ -881,7 +886,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Disruptor is a fancy ring buffer.  This disruptor/ring buffer is used to take edits and sync    * calls from the Handlers and passes them to the append and sync executors with minimal    * contention.    */
+comment|/**    * The nexus at which all incoming handlers meet.  Does appends and sync with an ordering.    * Appends and syncs are each put on the ring which means handlers need to    * smash up against the ring twice (can we make it once only? ... maybe not since time to append    * is so different from time to sync and sometimes we don't want to sync or we want to async    * the sync).  The ring is where we make sure of our ordering and it is also where we do    * batching up of handler sync calls.    */
 specifier|private
 specifier|final
 name|Disruptor
@@ -890,7 +895,7 @@ name|RingBufferTruck
 argument_list|>
 name|disruptor
 decl_stmt|;
-comment|/**    * An executorservice that runs the AppendEventHandler append executor.    */
+comment|/**    * An executorservice that runs the disrutpor AppendEventHandler append executor.    */
 specifier|private
 specifier|final
 name|ExecutorService
@@ -902,7 +907,7 @@ specifier|final
 name|RingBufferEventHandler
 name|ringBufferEventHandler
 decl_stmt|;
-comment|/**    * Map of {@link SyncFuture}s keyed by Handler objects.  Used so we reuse SyncFutures.    */
+comment|/**    * Map of {@link SyncFuture}s keyed by Handler objects.  Used so we reuse SyncFutures.    * TODO: Reus FSWALEntry's rather than create them anew each time as we do SyncFutures here.    * TODO: Add a FSWalEntry and SyncFuture as thread locals on handlers rather than have them    * get them from this Map?    */
 specifier|private
 specifier|final
 name|Map
@@ -938,7 +943,7 @@ specifier|final
 name|String
 name|logFilePrefix
 decl_stmt|;
-comment|/**    * The highest known outstanding unsync'd WALEdit sequence number where sequence number is the    * ring buffer sequence.    */
+comment|/**    * The highest known outstanding unsync'd WALEdit sequence number where sequence number is the    * ring buffer sequence.  Maintained by the ring buffer consumer.    */
 specifier|private
 specifier|volatile
 name|long
@@ -947,7 +952,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Updated to the ring buffer sequence of the last successful sync call.  This can be less than    * {@link #highestUnsyncedSequence} for case where we have an append where a sync has not yet    * come in for it.    */
+comment|/**    * Updated to the ring buffer sequence of the last successful sync call.  This can be less than    * {@link #highestUnsyncedSequence} for case where we have an append where a sync has not yet    * come in for it.  Maintained by the syncing threads.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -1156,7 +1161,7 @@ decl_stmt|;
 comment|// Region sequence id accounting across flushes and for knowing when we can GC a WAL.  These
 comment|// sequence id numbers are by region and unrelated to the ring buffer sequence number accounting
 comment|// done above in failedSequence, highest sequence, etc.
-comment|/**    * This lock ties all operations on oldestFlushingRegionSequenceIds and    * oldestFlushedRegionSequenceIds Maps with the exception of append's putIfAbsent call into    * oldestUnflushedSeqNums. We use these Maps to find out the low bound seqNum, or to find regions    * with old seqNums to force flush; we are interested in old stuff not the new additions    * (TODO: IS THIS SAFE?  CHECK!).    */
+comment|/**    * This lock ties all operations on oldestFlushingRegionSequenceIds and    * oldestFlushedRegionSequenceIds Maps with the exception of append's putIfAbsent call into    * oldestUnflushedSeqNums. We use these Maps to find out the low bound regions sequence id, or    * to find regions  with old sequence ids to force flush; we are interested in old stuff not the    * new additions (TODO: IS THIS SAFE?  CHECK!).    */
 specifier|private
 specifier|final
 name|Object
@@ -1166,7 +1171,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * Map of encoded region names to their OLDEST -- i.e. their first, the longest-lived --    * sequence id in memstore. Note that this sequenceid is the region sequence id.  This is not    * related to the id we use above for {@link #highestSyncedSequence} and    * {@link #highestUnsyncedSequence} which is the sequence from the disruptor ring buffer, an    * internal detail.    */
+comment|/**    * Map of encoded region names to their OLDEST -- i.e. their first, the longest-lived --    * sequence id in memstore. Note that this sequence id is the region sequence id.  This is not    * related to the id we use above for {@link #highestSyncedSequence} and    * {@link #highestUnsyncedSequence} which is the sequence from the disruptor ring buffer.    */
 specifier|private
 specifier|final
 name|ConcurrentSkipListMap
@@ -1308,7 +1313,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|/**    * Map of wal log file to the latest sequence nums of all regions it has entries of.    * The map is sorted by the log file creation timestamp (contained in the log file name).    */
+comment|/**    * Map of wal log file to the latest sequence ids of all regions it has entries of.    * The map is sorted by the log file creation timestamp (contained in the log file name).    */
 specifier|private
 name|NavigableMap
 argument_list|<
@@ -1341,7 +1346,7 @@ argument_list|(
 name|LOG_NAME_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/**    * Exception handler to pass the disruptor ringbuffer.  Same as native implemenation only it    * logs using our logger instead of java native logger.    */
+comment|/**    * Exception handler to pass the disruptor ringbuffer.  Same as native implementation only it    * logs using our logger instead of java native logger.    */
 specifier|static
 class|class
 name|RingBufferExceptionHandler
@@ -1485,113 +1490,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logDir dir where hlogs are stored    * @param oldLogDir dir where hlogs are archived    * @param conf configuration to use    * @throws IOException    */
-specifier|public
-name|FSHLog
-parameter_list|(
-specifier|final
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
-name|Path
-name|root
-parameter_list|,
-specifier|final
-name|String
-name|logDir
-parameter_list|,
-specifier|final
-name|String
-name|oldLogDir
-parameter_list|,
-specifier|final
-name|Configuration
-name|conf
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|fs
-argument_list|,
-name|root
-argument_list|,
-name|logDir
-argument_list|,
-name|oldLogDir
-argument_list|,
-name|conf
-argument_list|,
-literal|null
-argument_list|,
-literal|true
-argument_list|,
-literal|null
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param root path for stored and archived hlogs    * @param logDir dir where hlogs are stored    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
-specifier|public
-name|FSHLog
-parameter_list|(
-specifier|final
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
-name|Path
-name|root
-parameter_list|,
-specifier|final
-name|String
-name|logDir
-parameter_list|,
-specifier|final
-name|Configuration
-name|conf
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|WALActionsListener
-argument_list|>
-name|listeners
-parameter_list|,
-specifier|final
-name|String
-name|prefix
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|fs
-argument_list|,
-name|root
-argument_list|,
-name|logDir
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_OLDLOGDIR_NAME
-argument_list|,
-name|conf
-argument_list|,
-name|listeners
-argument_list|,
-literal|true
-argument_list|,
-name|prefix
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param rootDir path to where logs and oldlogs    * @param logDir dir where hlogs are stored    * @param oldLogDir dir where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @param forMeta if this hlog is meant for meta updates    * @throws IOException    */
 specifier|public
 name|FSHLog
@@ -1682,7 +1580,7 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-comment|// Register listeners.
+comment|// Register listeners.  TODO: Should this exist anymore?  We have CPs?
 if|if
 condition|(
 name|listeners
@@ -1706,7 +1604,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Get size to roll log at. Roll at 95% of HDFS block size so we avoid crossing HDFS blocks
-comment|// (it costs x'ing bocks)
+comment|// (it costs a little x'ing bocks)
 name|long
 name|blocksize
 init|=
@@ -2014,7 +1912,8 @@ comment|// rollWriter sets this.hdfs_out if it can.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-comment|// handle the reflection necessary to call getNumCurrentReplicas()
+comment|// handle the reflection necessary to call getNumCurrentReplicas(). TODO: Replace with
+comment|// HdfsDataOutputStream#getCurrentBlockReplication() and go without reflection.
 name|this
 operator|.
 name|getNumCurrentReplicas
@@ -2223,6 +2122,8 @@ name|FSDataOutputStream
 name|os
 parameter_list|)
 block|{
+comment|// TODO: Remove all this and use the now publically available
+comment|// HdfsDataOutputStream#getCurrentBlockReplication()
 name|Method
 name|m
 init|=
@@ -4048,7 +3949,7 @@ literal|", filesize="
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|oldFileLen
 argument_list|)
@@ -5020,63 +4921,6 @@ block|}
 block|}
 end_function
 
-begin_comment
-comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterIds that have consumed the change    * @return New log key.    */
-end_comment
-
-begin_function
-specifier|protected
-name|HLogKey
-name|makeKey
-parameter_list|(
-name|byte
-index|[]
-name|encodedRegionName
-parameter_list|,
-name|TableName
-name|tableName
-parameter_list|,
-name|long
-name|seqnum
-parameter_list|,
-name|long
-name|now
-parameter_list|,
-name|List
-argument_list|<
-name|UUID
-argument_list|>
-name|clusterIds
-parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
-parameter_list|)
-block|{
-return|return
-operator|new
-name|HLogKey
-argument_list|(
-name|encodedRegionName
-argument_list|,
-name|tableName
-argument_list|,
-name|seqnum
-argument_list|,
-name|now
-argument_list|,
-name|clusterIds
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
-argument_list|)
-return|;
-block|}
-end_function
-
 begin_function
 annotation|@
 name|Override
@@ -5108,38 +4952,37 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|append
+name|HLogKey
+name|logKey
+init|=
+operator|new
+name|HLogKey
 argument_list|(
 name|info
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-name|edits
-argument_list|,
-operator|new
-name|ArrayList
-argument_list|<
-name|UUID
-argument_list|>
-argument_list|()
-argument_list|,
 name|now
-argument_list|,
+argument_list|)
+decl_stmt|;
+name|append
+argument_list|(
 name|htd
 argument_list|,
-literal|true
+name|info
 argument_list|,
-literal|true
+name|logKey
+argument_list|,
+name|edits
 argument_list|,
 name|sequenceId
 argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
+literal|true
 argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -5152,6 +4995,7 @@ specifier|public
 name|long
 name|appendNoSync
 parameter_list|(
+specifier|final
 name|HRegionInfo
 name|info
 parameter_list|,
@@ -5178,7 +5022,7 @@ name|AtomicLong
 name|sequenceId
 parameter_list|,
 name|boolean
-name|isInMemstore
+name|inMemstore
 parameter_list|,
 name|long
 name|nonceGroup
@@ -5189,80 +5033,156 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|append
+name|HLogKey
+name|logKey
+init|=
+operator|new
+name|HLogKey
 argument_list|(
 name|info
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-name|edits
-argument_list|,
-name|clusterIds
-argument_list|,
 name|now
 argument_list|,
-name|htd
-argument_list|,
-literal|false
-argument_list|,
-name|isInMemstore
-argument_list|,
-name|sequenceId
+name|clusterIds
 argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|)
+decl_stmt|;
+return|return
+name|append
+argument_list|(
+name|htd
+argument_list|,
+name|info
+argument_list|,
+name|logKey
+argument_list|,
+name|edits
+argument_list|,
+name|sequenceId
+argument_list|,
+literal|false
+argument_list|,
+name|inMemstore
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|long
+name|appendNoSync
+parameter_list|(
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|HLogKey
+name|key
+parameter_list|,
+specifier|final
+name|WALEdit
+name|edits
+parameter_list|,
+specifier|final
+name|AtomicLong
+name|sequenceId
+parameter_list|,
+specifier|final
+name|boolean
+name|inMemstore
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|append
+argument_list|(
+name|htd
+argument_list|,
+name|info
+argument_list|,
+name|key
+argument_list|,
+name|edits
+argument_list|,
+name|sequenceId
+argument_list|,
+literal|false
+argument_list|,
+name|inMemstore
 argument_list|)
 return|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a given key-range of the    * HRegion (TODO). Any edits that do not have a matching COMPLETE_CACHEFLUSH message can be    * discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies. Each time the HLog    * starts, it must create a new log. This means that other systems should process the log    * appropriately upon each startup (and prior to initializing HLog).    *    * Synchronized prevents appends during the completion of a cache flush or for the duration of a    * log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterIds that have consumed the change (for replication)    * @param now    * @param htd    * @param doSync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId of the region.    * @param nonceGroup    * @param nonce    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    * @param key    * @param edits    * @param htd This comes in here just so it is available on a pre append for replications.  Get    * rid of it.  It is kinda crazy this comes in here when we have tablename and regioninfo.    * Replication gets its scope from the HTD.    * @param hri region info    * @param sync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId The region sequence id reference.    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
 end_comment
 
 begin_function
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"Will never be null"
+argument_list|)
 specifier|private
 name|long
 name|append
 parameter_list|(
-name|HRegionInfo
-name|info
+name|HTableDescriptor
+name|htd
 parameter_list|,
-name|TableName
-name|tableName
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|,
+specifier|final
+name|HLogKey
+name|key
 parameter_list|,
 name|WALEdit
 name|edits
 parameter_list|,
-name|List
-argument_list|<
-name|UUID
-argument_list|>
-name|clusterIds
-parameter_list|,
-specifier|final
-name|long
-name|now
-parameter_list|,
-name|HTableDescriptor
-name|htd
-parameter_list|,
-name|boolean
-name|doSync
-parameter_list|,
-name|boolean
-name|inMemstore
-parameter_list|,
 name|AtomicLong
 name|sequenceId
 parameter_list|,
-name|long
-name|nonceGroup
+name|boolean
+name|sync
 parameter_list|,
-name|long
-name|nonce
+name|boolean
+name|inMemstore
 parameter_list|)
 throws|throws
 name|IOException
@@ -5273,11 +5193,6 @@ operator|!
 name|this
 operator|.
 name|enabled
-operator|||
-name|edits
-operator|.
-name|isEmpty
-argument_list|()
 condition|)
 return|return
 name|this
@@ -5297,6 +5212,8 @@ argument_list|(
 literal|"Cannot append; log is closed"
 argument_list|)
 throw|;
+comment|// Make a trace scope for the append.  It is closed on other side of the ring buffer by the
+comment|// single consuming thread.  Don't have to worry about it.
 name|TraceScope
 name|scope
 init|=
@@ -5307,36 +5224,14 @@ argument_list|(
 literal|"FSHLog.append"
 argument_list|)
 decl_stmt|;
-comment|// Make a key but do not set the WALEdit by region sequence id now -- set it to -1 for now --
-comment|// and then later just before we write it out to the DFS stream, then set the sequence id;
-comment|// late-binding.
-name|HLogKey
-name|logKey
-init|=
-name|makeKey
-argument_list|(
-name|info
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|,
-name|tableName
-argument_list|,
-operator|-
-literal|1
-argument_list|,
-name|now
-argument_list|,
-name|clusterIds
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
-argument_list|)
-decl_stmt|;
 comment|// This is crazy how much it takes to make an edit.  Do we need all this stuff!!!!????  We need
-comment|// all the stuff to make a key and then below to append the edit, we need to carry htd, info,
+comment|// all this to make a key and then below to append the edit, we need to carry htd, info,
 comment|// etc. all over the ring buffer.
+name|FSWALEntry
+name|entry
+init|=
+literal|null
+decl_stmt|;
 name|long
 name|sequence
 init|=
@@ -5367,15 +5262,17 @@ argument_list|(
 name|sequence
 argument_list|)
 decl_stmt|;
-name|FSWALEntry
+comment|// Construction of FSWALEntry sets a latch.  The latch is thrown just after we stamp the
+comment|// edit with its edit/sequence id.  The below entry.getRegionSequenceId will wait on the
+comment|// latch to be thrown.  TODO: reuse FSWALEntry as we do SyncFuture rather create per append.
 name|entry
-init|=
+operator|=
 operator|new
 name|FSWALEntry
 argument_list|(
 name|sequence
 argument_list|,
-name|logKey
+name|key
 argument_list|,
 name|edits
 argument_list|,
@@ -5385,9 +5282,9 @@ name|inMemstore
 argument_list|,
 name|htd
 argument_list|,
-name|info
+name|hri
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|truck
 operator|.
 name|loadPayload
@@ -5415,19 +5312,42 @@ argument_list|(
 name|sequence
 argument_list|)
 expr_stmt|;
+comment|// Now wait until the region edit/sequence id is available.  The 'entry' has an internal
+comment|// latch that is thrown when the region edit/sequence id is set.  Calling
+comment|// entry.getRegionSequenceId will cause us block until the latch is thrown.  The return is
+comment|// the region edit/sequence id, not the ring buffer txid.
+try|try
+block|{
+name|entry
+operator|.
+name|getRegionSequenceId
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+name|convertInterruptedExceptionToIOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|// doSync is set in tests.  Usually we arrive in here via appendNoSync w/ the sync called after
 comment|// all edits on a handler have been added.
-comment|//
-comment|// When we sync, we will sync to the current point, the txid of the last edit added.
-comment|// Since we are single writer, the next txid should be the just next one in sequence;
-comment|// do not explicitly specify it. Sequence id/txid is an implementation internal detail.
 if|if
 condition|(
-name|doSync
+name|sync
 condition|)
 name|sync
-argument_list|()
+argument_list|(
+name|sequence
+argument_list|)
 expr_stmt|;
 return|return
 name|sequence
@@ -6468,6 +6388,51 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted"
+argument_list|,
+name|ie
+argument_list|)
+expr_stmt|;
+throw|throw
+name|convertInterruptedExceptionToIOException
+argument_list|(
+name|ie
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|ExecutionException
+name|e
+parameter_list|)
+block|{
+throw|throw
+name|ensureIOException
+argument_list|(
+name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
+throw|;
+block|}
+block|}
+end_function
+
+begin_function
+specifier|private
+name|IOException
+name|convertInterruptedExceptionToIOException
+parameter_list|(
+specifier|final
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
 name|Thread
 operator|.
 name|currentThread
@@ -6490,26 +6455,9 @@ argument_list|(
 name|ie
 argument_list|)
 expr_stmt|;
-throw|throw
+return|return
 name|ioe
-throw|;
-block|}
-catch|catch
-parameter_list|(
-name|ExecutionException
-name|e
-parameter_list|)
-block|{
-throw|throw
-name|ensureIOException
-argument_list|(
-name|e
-operator|.
-name|getCause
-argument_list|()
-argument_list|)
-throw|;
-block|}
+return|;
 block|}
 end_function
 
@@ -8342,7 +8290,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"UNEXPECTED!!!"
+literal|"UNEXPECTED!!! syncFutures.length="
+operator|+
+name|this
+operator|.
+name|syncFutures
+operator|.
+name|length
 argument_list|,
 name|t
 argument_list|)
@@ -8486,7 +8440,10 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|// TODO: WORK ON MAKING THIS APPEND FASTER. OING WAY TOO MUCH WORK WITH CPs, PBing, etc.
+comment|// TODO: WORK ON MAKING THIS APPEND FASTER. DOING WAY TOO MUCH WORK WITH CPs, PBing, etc.
+name|atHeadOfRingBufferEventHandlerAppend
+argument_list|()
+expr_stmt|;
 name|long
 name|start
 init|=
@@ -8507,33 +8464,24 @@ operator|.
 name|getEncodedRegionName
 argument_list|()
 decl_stmt|;
+name|long
+name|regionSequenceId
+init|=
+name|HLog
+operator|.
+name|NO_SEQUENCE_ID
+decl_stmt|;
 try|try
 block|{
 comment|// We are about to append this edit; update the region-scoped sequence number.  Do it
 comment|// here inside this single appending/writing thread.  Events are ordered on the ringbuffer
 comment|// so region sequenceids will also be in order.
-name|long
 name|regionSequenceId
-init|=
+operator|=
 name|entry
 operator|.
-name|getRegionSequenceIdReference
+name|stampRegionSequenceId
 argument_list|()
-operator|.
-name|incrementAndGet
-argument_list|()
-decl_stmt|;
-comment|// Set the region-scoped sequence number back up into the key ("late-binding" --
-comment|// setting before append).
-name|entry
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|setLogSeqNum
-argument_list|(
-name|regionSequenceId
-argument_list|)
 expr_stmt|;
 comment|// Coprocessor hook.
 if|if
@@ -8624,6 +8572,21 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// If empty, there is nothing to append.  Maybe empty when we are looking for a region
+comment|// sequence id only, a region edit/sequence id that is not associated with an actual edit.
+comment|// It has to go through all the rigmarole to be sure we have the right ordering.
+if|if
+condition|(
+operator|!
+name|entry
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|writer
 operator|.
 name|append
@@ -8682,6 +8645,7 @@ argument_list|,
 name|lRegionSequenceId
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|coprocessorHost
 operator|.
@@ -8791,6 +8755,21 @@ expr_stmt|;
 block|}
 block|}
 end_class
+
+begin_comment
+comment|/**    * Exposed for testing only.  Use to tricks like halt the ring buffer appending.    */
+end_comment
+
+begin_function
+annotation|@
+name|VisibleForTesting
+name|void
+name|atHeadOfRingBufferEventHandlerAppend
+parameter_list|()
+block|{
+comment|// Noop
+block|}
+end_function
 
 begin_function
 specifier|private

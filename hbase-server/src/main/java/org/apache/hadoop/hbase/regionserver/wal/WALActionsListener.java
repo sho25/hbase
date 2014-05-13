@@ -174,7 +174,7 @@ name|WALEdit
 name|logEdit
 parameter_list|)
 function_decl|;
-comment|/**    *    * @param htd    * @param logKey    * @param logEdit    */
+comment|/**    *    * @param htd    * @param logKey    * @param logEdit    * TODO: Retire this in favor of {@link #visitLogEntryBeforeWrite(HRegionInfo, HLogKey, WALEdit)}    * It only exists to get scope when replicating.  Scope should be in the HLogKey and not need    * us passing in a<code>htd</code>.    */
 name|void
 name|visitLogEntryBeforeWrite
 parameter_list|(

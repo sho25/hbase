@@ -79,6 +79,9 @@ name|Private
 class|class
 name|SyncFuture
 block|{
+comment|// Implementation notes: I tried using a cyclicbarrier in here for handler and sync threads
+comment|// to coordinate on but it did not give any obvious advantage and some issues with order in which
+comment|// events happen.
 specifier|private
 specifier|static
 specifier|final

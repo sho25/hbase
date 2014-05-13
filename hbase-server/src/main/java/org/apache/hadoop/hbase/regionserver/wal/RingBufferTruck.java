@@ -167,19 +167,6 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * return {@code true} when this truck is carrying a {@link Span},    * {@code false} otherwise.    */
-name|boolean
-name|hasSpanPayload
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|span
-operator|!=
-literal|null
-return|;
-block|}
 comment|/**    * Unload the truck of its {@link FSWALEntry} payload. The internal refernce is released.    */
 name|FSWALEntry
 name|unloadFSWALEntryPayload
@@ -224,7 +211,7 @@ return|return
 name|ret
 return|;
 block|}
-comment|/**    * Unload the truck of its {@link Span} payload. The internal refernce is released.    */
+comment|/**    * Unload the truck of its {@link Span} payload. The internal reference is released.    */
 name|Span
 name|unloadSpanPayload
 parameter_list|()

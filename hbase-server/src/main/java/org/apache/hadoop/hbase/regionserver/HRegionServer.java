@@ -6432,7 +6432,7 @@ name|setCompleteSequenceId
 argument_list|(
 name|r
 operator|.
-name|completeSequenceId
+name|lastFlushSeqId
 argument_list|)
 expr_stmt|;
 return|return

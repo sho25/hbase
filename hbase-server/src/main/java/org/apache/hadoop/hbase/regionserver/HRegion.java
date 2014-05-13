@@ -205,16 +205,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|Callable
@@ -1964,15 +1954,16 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+comment|/**    * The sequence id of the last flush on this region.  Used doing some rough calculations on    * whether time to flush or not.    */
 specifier|protected
 specifier|volatile
 name|long
-name|completeSequenceId
+name|lastFlushSeqId
 init|=
 operator|-
 literal|1L
 decl_stmt|;
-comment|/**    * Region level sequence Id. It is used for appending WALEdits in HLog. Its default value is -1,    * as a marker that the region hasn't opened yet. Once it is opened, it is set to    * {@link #openSeqNum}.    */
+comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is {@link HLog.NO_SEQUENCE_ID}. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *     *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -2516,7 +2507,7 @@ name|SIZEOF_BOOLEAN
 argument_list|)
 decl_stmt|;
 block|}
-comment|/**    * Objects from this class are created when flushing to describe all the different states that    * that method ends up in. The Result enum describes those states. The sequence id should only    * be specified if the flush was successful, and the failure message should only be speficied    * if it didn't flush.    */
+comment|/**    * Objects from this class are created when flushing to describe all the different states that    * that method ends up in. The Result enum describes those states. The sequence id should only    * be specified if the flush was successful, and the failure message should only be specified    * if it didn't flush.    */
 specifier|public
 specifier|static
 class|class
@@ -3783,7 +3774,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|completeSequenceId
+name|lastFlushSeqId
 operator|=
 name|nextSeqid
 expr_stmt|;
@@ -7252,11 +7243,12 @@ name|boolean
 name|shouldFlush
 parameter_list|()
 block|{
+comment|// This is a rough measure.
 if|if
 condition|(
 name|this
 operator|.
-name|completeSequenceId
+name|lastFlushSeqId
 operator|+
 name|this
 operator|.
@@ -7349,7 +7341,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    * @param status    *    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to write those updates in the    * memstore out to disk, while being able to process reads/writes as much as possible during the    * flush operation.    *<p>This method may block for some time.  Every time you call it, we up the regions    * sequence id even if we don't flush; i.e. the returned region id will be at least one larger    * than the last edit applied to this region. The returned id does not refer to an actual edit.    * The returned id can be used for say installing a bulk loaded file just ahead of the last hfile    * that was the result of this flush, etc.    * @param status    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
@@ -7374,7 +7366,7 @@ name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status    * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out flush file.    * @param status    * @return object describing the flush's state    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
@@ -7427,8 +7419,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-comment|// Clear flush flag.
-comment|// If nothing to flush, return and avoid logging start/stop flush.
+comment|// If nothing to flush, return, but we need to safely update the region sequence id
 if|if
 condition|(
 name|this
@@ -7441,7 +7432,62 @@ operator|<=
 literal|0
 condition|)
 block|{
+comment|// Take an update lock because am about to change the sequence id and we want the sequence id
+comment|// to be at the border of the empty memstore.
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// Presume that if there are still no edits in the memstore, then there are no edits for
+comment|// this region out in the WAL/HLog subsystem so no need to do any trickery clearing out
+comment|// edits in the WAL system. Up the sequence number so the resulting flush id is for
+comment|// sure just beyond the last appended region edit (useful as a marker when bulk loading,
+comment|// etc.)
+comment|// wal can be null replaying edits.
 return|return
+name|wal
+operator|!=
+literal|null
+condition|?
+operator|new
+name|FlushResult
+argument_list|(
+name|FlushResult
+operator|.
+name|Result
+operator|.
+name|CANNOT_FLUSH_MEMSTORE_EMPTY
+argument_list|,
+name|getNextSequenceId
+argument_list|(
+name|wal
+argument_list|,
+name|startTime
+argument_list|)
+argument_list|,
+literal|"Nothing to flush"
+argument_list|)
+else|:
 operator|new
 name|FlushResult
 argument_list|(
@@ -7454,6 +7500,21 @@ argument_list|,
 literal|"Nothing to flush"
 argument_list|)
 return|;
+block|}
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -7475,7 +7536,7 @@ literal|", current region memstore size "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|this
 operator|.
@@ -7501,13 +7562,10 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Stop updates while we snapshot the memstore of all stores. We only have
-comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
-comment|// goes into the HLog after we've flushed all these snapshots also goes
-comment|// into the info file that sits beside the flushed files.
-comment|// We also set the memstore size to zero here before we allow updates
-comment|// again so its value will represent the size of the updates received
-comment|// during the flush
+comment|// Stop updates while we snapshot the memstore of all of these regions' stores. We only have
+comment|// to do this for a moment.  It is quick. We also set the memstore size to zero here before we
+comment|// allow updates again so its value will represent the size of the updates received
+comment|// during flush
 name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
@@ -7515,9 +7573,8 @@ name|w
 init|=
 literal|null
 decl_stmt|;
-comment|// We have to take a write lock during snapshot, or else a write could
-comment|// end up in both snapshot and memstore (makes it difficult to do atomic
-comment|// rows then)
+comment|// We have to take an update lock during snapshot, or else a write could end up in both snapshot
+comment|// and memstore (makes it difficult to do atomic rows then)
 name|status
 operator|.
 name|setStatus
@@ -7545,7 +7602,13 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Preparing to flush by snapshotting stores"
+literal|"Preparing to flush by snapshotting stores in "
+operator|+
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|List
@@ -7589,7 +7652,6 @@ argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-comment|// check if it is not closing.
 if|if
 condition|(
 name|wal
@@ -7614,6 +7676,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// This should never happen.
 name|String
 name|msg
 init|=
@@ -7650,14 +7713,17 @@ name|msg
 argument_list|)
 return|;
 block|}
+comment|// Get a sequence id that we can use to denote the flush.  It will be one beyond the last
+comment|// edit that made it into the hfile (the below does not add an edit, it just asks the
+comment|// WAL system to return next sequence edit).
 name|flushSeqId
 operator|=
-name|this
-operator|.
-name|sequenceId
-operator|.
-name|incrementAndGet
-argument_list|()
+name|getNextSequenceId
+argument_list|(
+name|wal
+argument_list|,
+name|startTime
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -7699,7 +7765,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// prepare flush (take a snapshot)
+comment|// Prepare flush (take a snapshot)
 for|for
 control|(
 name|StoreFlushContext
@@ -7772,13 +7838,11 @@ operator|!
 name|shouldSyncLog
 argument_list|()
 condition|)
-block|{
 name|wal
 operator|.
 name|sync
 argument_list|()
 expr_stmt|;
-block|}
 comment|// wait for all in-progress transactions to commit to HLog before
 comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
@@ -8002,8 +8066,10 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
-comment|// Update the last flushed sequence id for region
-name|completeSequenceId
+comment|// Update the last flushed sequence id for region. TODO: This is dup'd inside the WAL/FSHlog.
+name|this
+operator|.
+name|lastFlushSeqId
 operator|=
 name|flushSeqId
 expr_stmt|;
@@ -8046,7 +8112,7 @@ literal|"Finished memstore flush of ~"
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|totalFlushableSize
 argument_list|)
@@ -8059,7 +8125,7 @@ literal|", currentsize="
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|memstoresize
 argument_list|)
@@ -8152,6 +8218,73 @@ name|FLUSHED_NO_COMPACTION_NEEDED
 argument_list|,
 name|flushSeqId
 argument_list|)
+return|;
+block|}
+comment|/**    * Method to safely get the next sequence number.    * @param wal    * @param now    * @return Next sequence number unassociated with any actual edit.    * @throws IOException    */
+specifier|private
+name|long
+name|getNextSequenceId
+parameter_list|(
+specifier|final
+name|HLog
+name|wal
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// Call append but with an empty WALEdit.  The returned seqeunce id will not be associated
+comment|// with any edit and we can be sure it went in after all outstanding appends.
+name|wal
+operator|.
+name|appendNoSync
+argument_list|(
+name|getTableDesc
+argument_list|()
+argument_list|,
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|key
+argument_list|,
+name|WALEdit
+operator|.
+name|EMPTY_WALEDIT
+argument_list|,
+name|this
+operator|.
+name|sequenceId
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+return|return
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -11023,6 +11156,39 @@ argument_list|)
 throw|;
 block|}
 comment|// txid should always increase, so having the one from the last call is ok.
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|now
+argument_list|,
+name|m
+operator|.
+name|getClusterIds
+argument_list|()
+argument_list|,
+name|currentNonceGroup
+argument_list|,
+name|currentNonce
+argument_list|)
+decl_stmt|;
 name|txid
 operator|=
 name|this
@@ -11033,34 +11199,21 @@ name|appendNoSync
 argument_list|(
 name|this
 operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|htableDescriptor
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|walEdit
-argument_list|,
-name|m
-operator|.
-name|getClusterIds
-argument_list|()
-argument_list|,
-name|now
-argument_list|,
 name|htableDescriptor
 argument_list|,
 name|this
 operator|.
-name|sequenceId
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|key
+argument_list|,
+name|walEdit
+argument_list|,
+name|getSequenceId
+argument_list|()
 argument_list|,
 literal|true
-argument_list|,
-name|currentNonceGroup
-argument_list|,
-name|currentNonce
 argument_list|)
 expr_stmt|;
 name|hasWalAppends
@@ -11157,6 +11310,39 @@ operator|>
 literal|0
 condition|)
 block|{
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|now
+argument_list|,
+name|mutation
+operator|.
+name|getClusterIds
+argument_list|()
+argument_list|,
+name|currentNonceGroup
+argument_list|,
+name|currentNonce
+argument_list|)
+decl_stmt|;
 name|txid
 operator|=
 name|this
@@ -11167,38 +11353,21 @@ name|appendNoSync
 argument_list|(
 name|this
 operator|.
+name|htableDescriptor
+argument_list|,
+name|this
+operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|getTableName
-argument_list|()
+name|key
 argument_list|,
 name|walEdit
 argument_list|,
-name|mutation
-operator|.
-name|getClusterIds
+name|getSequenceId
 argument_list|()
 argument_list|,
-name|now
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-argument_list|,
-name|this
-operator|.
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-name|currentNonceGroup
-argument_list|,
-name|currentNonce
 argument_list|)
 expr_stmt|;
 name|hasWalAppends
@@ -15778,7 +15947,9 @@ literal|1
 decl_stmt|;
 comment|// We need to assign a sequential ID that's in between two memstores in order to preserve
 comment|// the guarantee that all the edits lower than the highest sequential ID from all the
-comment|// HFiles are flushed on disk. See HBASE-10958.
+comment|// HFiles are flushed on disk. See HBASE-10958.  The sequence id returned when we flush is
+comment|// guaranteed to be one beyond the file made when we flushed (or if nothing to flush, it is
+comment|// a sequence id that we can be sure is beyond the last hfile written).
 if|if
 condition|(
 name|assignSeqId
@@ -15823,12 +15994,9 @@ condition|)
 block|{
 name|seqId
 operator|=
-name|this
+name|fs
 operator|.
-name|sequenceId
-operator|.
-name|incrementAndGet
-argument_list|()
+name|flushSequenceId
 expr_stmt|;
 block|}
 else|else
@@ -21133,6 +21301,39 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|now
+argument_list|,
+name|processor
+operator|.
+name|getClusterIds
+argument_list|()
+argument_list|,
+name|nonceGroup
+argument_list|,
+name|nonce
+argument_list|)
+decl_stmt|;
 name|txid
 operator|=
 name|this
@@ -21143,38 +21344,21 @@ name|appendNoSync
 argument_list|(
 name|this
 operator|.
+name|htableDescriptor
+argument_list|,
+name|this
+operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|getTableName
-argument_list|()
+name|key
 argument_list|,
 name|walEdit
 argument_list|,
-name|processor
-operator|.
-name|getClusterIds
+name|getSequenceId
 argument_list|()
 argument_list|,
-name|now
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-argument_list|,
-name|this
-operator|.
-name|sequenceId
-argument_list|,
 literal|true
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 expr_stmt|;
 block|}
@@ -22523,6 +22707,30 @@ block|{
 comment|// Using default cluster id, as this can only happen in the orginating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|nonceGroup
+argument_list|,
+name|nonce
+argument_list|)
+decl_stmt|;
 name|txid
 operator|=
 name|this
@@ -22533,43 +22741,20 @@ name|appendNoSync
 argument_list|(
 name|this
 operator|.
+name|htableDescriptor
+argument_list|,
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|getTableName
-argument_list|()
+name|key
 argument_list|,
 name|walEdits
-argument_list|,
-operator|new
-name|ArrayList
-argument_list|<
-name|UUID
-argument_list|>
-argument_list|()
-argument_list|,
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
 argument_list|,
 name|this
 operator|.
 name|sequenceId
 argument_list|,
 literal|true
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 expr_stmt|;
 block|}
@@ -23724,6 +23909,32 @@ block|{
 comment|// Using default cluster id, as this can only happen in the orginating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+argument_list|,
+name|nonceGroup
+argument_list|,
+name|nonce
+argument_list|)
+decl_stmt|;
 name|txid
 operator|=
 name|this
@@ -23734,43 +23945,21 @@ name|appendNoSync
 argument_list|(
 name|this
 operator|.
+name|htableDescriptor
+argument_list|,
+name|this
+operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|getTableName
-argument_list|()
+name|key
 argument_list|,
 name|walEdits
 argument_list|,
-operator|new
-name|ArrayList
-argument_list|<
-name|UUID
-argument_list|>
+name|getSequenceId
 argument_list|()
-argument_list|,
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-argument_list|,
-name|this
-operator|.
-name|sequenceId
 argument_list|,
 literal|true
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 expr_stmt|;
 block|}
@@ -26484,7 +26673,9 @@ operator|>=
 literal|0
 assert|;
 block|}
-comment|/**    * @return sequenceId.    */
+comment|/**    * Do not change this sequence id. See {@link #sequenceId} comment.    * @return sequenceId     */
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|AtomicLong
 name|getSequenceId
