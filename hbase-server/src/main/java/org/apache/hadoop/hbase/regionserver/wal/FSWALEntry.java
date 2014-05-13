@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * A subclass of {@link HLog.Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See {@link #setRegionSequenceId(long)} and  * {@link #getRegionSequenceId()}.  */
+comment|/**  * A WAL Entry for {@link FSHLog} implementation.  Immutable.  * A subclass of {@link HLog.Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See {@link #stampRegionSequenceId()}.  */
 end_comment
 
 begin_class
@@ -280,7 +280,7 @@ operator|.
 name|sequence
 return|;
 block|}
-comment|/**    * Stamp this edit with a region edit/sequence id.    * Call when safe to do so: i.e. the context is such that the increment on the passed in    * {@link #regionSequenceIdReference} is guaranteed aligned w/ how appends are going into the    * WAL.  This method works with {@link #getRegionSequenceId()}.  It will block waiting on this    * method if on initialization our edit/sequence id is {@link HLogKey#NO_SEQ_NO}.    * @return The region edit/sequence id we set for this edit.    * @see #getRegionSequenceId()    */
+comment|/**    * Stamp this edit with a region edit/sequence id.    * Call when safe to do so: i.e. the context is such that the increment on the passed in    * {@link #regionSequenceIdReference} is guaranteed aligned w/ how appends are going into the    * WAL.  This method works with {@link #getRegionSequenceId()}.  It will block waiting on this    * method to be called.    * @return The region edit/sequence id we set for this edit.    * @see #getRegionSequenceId()    */
 name|long
 name|stampRegionSequenceId
 parameter_list|()
