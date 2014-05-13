@@ -170,6 +170,16 @@ name|NUM_OPEN_CONNECTIONS_DESC
 init|=
 literal|"Number of open connections."
 decl_stmt|;
+name|String
+name|NUM_ACTIVE_HANDLER_NAME
+init|=
+literal|"numActiveHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_HANDLER_DESC
+init|=
+literal|"Number of active rpc handlers."
+decl_stmt|;
 name|void
 name|authorizationSuccess
 parameter_list|()

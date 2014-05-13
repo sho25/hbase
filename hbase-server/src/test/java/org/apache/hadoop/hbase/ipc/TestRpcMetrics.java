@@ -316,6 +316,17 @@ argument_list|,
 name|serverSource
 argument_list|)
 expr_stmt|;
+name|HELPER
+operator|.
+name|assertGauge
+argument_list|(
+literal|"numActiveHandler"
+argument_list|,
+literal|106
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Test to make sure that all the actively called method on MetricsHBaseServer work.    */
 annotation|@

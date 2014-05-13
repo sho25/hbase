@@ -87,7 +87,7 @@ name|getActiveRpcHandlerCount
 parameter_list|()
 block|{
 return|return
-literal|100
+literal|106
 return|;
 block|}
 block|}

@@ -1061,7 +1061,10 @@ name|getActiveRpcHandlerCount
 parameter_list|()
 block|{
 return|return
-literal|0
+name|activeHandlerCount
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 specifier|private
