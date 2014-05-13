@@ -42,6 +42,10 @@ name|int
 name|getNumOpenConnections
 parameter_list|()
 function_decl|;
+name|int
+name|getActiveRpcHandlerCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

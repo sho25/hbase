@@ -319,6 +319,20 @@ return|return
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getActiveRpcHandlerCount
+parameter_list|()
+block|{
+return|return
+name|executor
+operator|.
+name|getActiveCount
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

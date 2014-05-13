@@ -136,6 +136,11 @@ name|int
 name|getReplicationQueueLength
 parameter_list|()
 function_decl|;
+comment|/** Retrieves the number of active handler. */
+name|int
+name|getActiveRpcHandlerCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

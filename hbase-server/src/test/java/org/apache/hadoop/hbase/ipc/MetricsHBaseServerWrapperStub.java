@@ -79,6 +79,17 @@ return|return
 literal|105
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getActiveRpcHandlerCount
+parameter_list|()
+block|{
+return|return
+literal|100
+return|;
+block|}
 block|}
 end_class
 
