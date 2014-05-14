@@ -3846,6 +3846,12 @@ argument_list|(
 name|this
 operator|.
 name|currentNbOperations
+argument_list|,
+name|this
+operator|.
+name|currentSize
+operator|/
+literal|1024
 argument_list|)
 expr_stmt|;
 name|this
