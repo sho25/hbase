@@ -7046,6 +7046,17 @@ name|err
 operator|.
 name|println
 argument_list|(
+literal|" multiGet        If>0, when doing RandomRead, perform multiple gets "
+operator|+
+literal|"instead of single gets. Default: 0"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
 literal|" compress        Compression type to use (GZ, LZO, ...). Default: 'NONE'"
 argument_list|)
 expr_stmt|;
