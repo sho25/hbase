@@ -301,7 +301,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -547,6 +547,8 @@ parameter_list|,
 name|double
 name|updatePercent
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -811,7 +813,7 @@ name|Thread
 block|{
 specifier|protected
 specifier|final
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 specifier|public
@@ -843,22 +845,23 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
-name|HTable
+name|HTableInterface
 name|createTable
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 return|return
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1828,7 +1831,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Mutation
@@ -1860,7 +1863,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Mutation
@@ -2207,7 +2210,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Mutation
@@ -2239,7 +2242,7 @@ specifier|public
 name|void
 name|mutate
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Mutation

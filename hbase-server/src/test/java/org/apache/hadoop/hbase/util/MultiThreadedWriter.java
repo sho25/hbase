@@ -199,7 +199,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -325,6 +325,8 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -473,7 +475,7 @@ name|Thread
 block|{
 specifier|private
 specifier|final
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 specifier|public
@@ -505,18 +507,17 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
-name|HTable
+name|HTableInterface
 name|createTable
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 return|return
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 return|;
@@ -827,7 +828,7 @@ specifier|public
 name|void
 name|insert
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Put

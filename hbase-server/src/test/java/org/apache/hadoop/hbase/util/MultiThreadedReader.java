@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -390,6 +390,8 @@ parameter_list|,
 name|double
 name|verifyPercent
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -622,7 +624,7 @@ name|readerId
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 comment|/** The "current" key being read. Increases from startKey to endKey. */
@@ -682,18 +684,17 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
-name|HTable
+name|HTableInterface
 name|createTable
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 return|return
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 return|;
@@ -1641,7 +1642,7 @@ name|Result
 index|[]
 name|results
 parameter_list|,
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|boolean
@@ -1716,7 +1717,7 @@ parameter_list|,
 name|Result
 name|result
 parameter_list|,
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|boolean
@@ -1764,7 +1765,7 @@ parameter_list|,
 name|Result
 name|result
 parameter_list|,
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|boolean
@@ -1799,14 +1800,18 @@ block|{
 name|HRegionLocation
 name|hloc
 init|=
-name|table
+name|connection
 operator|.
 name|getRegionLocation
 argument_list|(
+name|tableName
+argument_list|,
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|String
@@ -1830,12 +1835,9 @@ literal|"Key = "
 operator|+
 name|rowKey
 operator|+
-literal|", RegionServer: "
+literal|", Region location: "
 operator|+
 name|hloc
-operator|.
-name|getHostname
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

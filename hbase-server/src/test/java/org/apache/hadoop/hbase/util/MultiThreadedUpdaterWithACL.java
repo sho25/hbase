@@ -193,7 +193,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -383,7 +383,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HTable
+name|HTableInterface
 argument_list|>
 name|userVsTable
 init|=
@@ -392,7 +392,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HTable
+name|HTableInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -440,6 +440,8 @@ parameter_list|,
 name|String
 name|userNames
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -522,7 +524,7 @@ extends|extends
 name|HBaseUpdaterThread
 block|{
 specifier|private
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 specifier|private
@@ -551,7 +553,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|HTable
+name|HTableInterface
 name|createTable
 parameter_list|()
 throws|throws
@@ -585,7 +587,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HTable
+name|HTableInterface
 name|table
 range|:
 name|userVsTable
@@ -694,7 +696,7 @@ name|res
 init|=
 literal|null
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|localTable
 init|=
 literal|null
@@ -732,11 +734,10 @@ condition|)
 block|{
 name|localTable
 operator|=
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -1013,7 +1014,7 @@ name|void
 name|mutate
 parameter_list|(
 specifier|final
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|Mutation
@@ -1165,7 +1166,7 @@ name|Object
 argument_list|>
 block|{
 specifier|private
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 specifier|private
@@ -1340,11 +1341,10 @@ condition|)
 block|{
 name|table
 operator|=
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;

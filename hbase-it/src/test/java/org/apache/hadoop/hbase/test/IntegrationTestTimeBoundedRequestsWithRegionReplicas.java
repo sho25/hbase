@@ -305,7 +305,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -1335,6 +1335,8 @@ parameter_list|,
 name|double
 name|verifyPercent
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -1782,7 +1784,7 @@ name|Result
 index|[]
 name|results
 parameter_list|,
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|boolean

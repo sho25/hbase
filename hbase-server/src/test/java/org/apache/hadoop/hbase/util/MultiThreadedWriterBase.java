@@ -201,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -329,6 +329,8 @@ parameter_list|,
 name|String
 name|actionLetter
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -414,7 +416,7 @@ specifier|protected
 name|String
 name|getRegionDebugInfoSafe
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|,
 name|byte
@@ -435,10 +437,12 @@ try|try
 block|{
 name|cached
 operator|=
-name|table
+name|connection
 operator|.
 name|getRegionLocation
 argument_list|(
+name|tableName
+argument_list|,
 name|rowKey
 argument_list|,
 literal|false
@@ -446,10 +450,12 @@ argument_list|)
 expr_stmt|;
 name|real
 operator|=
-name|table
+name|connection
 operator|.
 name|getRegionLocation
 argument_list|(
+name|tableName
+argument_list|,
 name|rowKey
 argument_list|,
 literal|true

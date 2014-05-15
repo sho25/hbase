@@ -141,7 +141,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -249,7 +249,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HTable
+name|HTableInterface
 argument_list|>
 name|userVsTable
 init|=
@@ -258,7 +258,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HTable
+name|HTableInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -303,6 +303,8 @@ parameter_list|,
 name|String
 name|userNames
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -396,7 +398,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|HTable
+name|HTableInterface
 name|createTable
 parameter_list|()
 throws|throws
@@ -415,7 +417,7 @@ parameter_list|()
 block|{
 for|for
 control|(
-name|HTable
+name|HTableInterface
 name|table
 range|:
 name|userVsTable
@@ -522,7 +524,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTable
+name|HTableInterface
 name|localTable
 init|=
 literal|null
@@ -588,11 +590,10 @@ condition|)
 block|{
 name|localTable
 operator|=
-operator|new
-name|HTable
+name|connection
+operator|.
+name|getTable
 argument_list|(
-name|conf
-argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;

@@ -701,6 +701,8 @@ parameter_list|,
 name|double
 name|verifyPercent
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|MultiThreadedReader
 name|reader
@@ -734,6 +736,8 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|MultiThreadedWriter
 name|writer
