@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link LruBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger bucketCache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean) reads  * first from the smaller lruCache before looking for the block in the bucketCache.  * Metrics are the combined size and hits and misses of both caches.  *   */
+comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link LruBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger bucketCache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean)}, boolean, boolean) reads  * first from the smaller lruCache before looking for the block in the bucketCache.  Blocks evicted  * from lruCache are put into the bucket cache.   * Metrics are the combined size and hits and misses of both caches.  *   */
 end_comment
 
 begin_class

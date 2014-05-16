@@ -364,7 +364,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * SlabCache is composed of multiple SingleSizeCaches. It uses a TreeMap in  * order to determine where a given element fits. Redirects gets and puts to the  * correct SingleSizeCache.  *  **/
+comment|/**  * SlabCache is composed of multiple SingleSizeCaches. It uses a TreeMap in  * order to determine where a given element fits. Redirects gets and puts to the  * correct SingleSizeCache.  *   *<p>It is configured with a call to {@link #addSlab(int, int)}  *  **/
 end_comment
 
 begin_class
@@ -492,6 +492,22 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+comment|/**    * Key used reading from configuration list of the percentage of our total space we allocate to    * the slabs.  Defaults: "0.80", "0.20".    * @see #SLAB_CACHE_SIZES_KEY Must have corresponding number of elements.    */
+specifier|static
+specifier|final
+name|String
+name|SLAB_CACHE_PROPORTIONS_KEY
+init|=
+literal|"hbase.offheapcache.slab.proportions"
+decl_stmt|;
+comment|/**    * Configuration key for list of the blocksize of the slabs in bytes. (E.g. the slab holds    * blocks of this size).  Defaults: avgBlockSize * 11 / 10, avgBlockSize * 21 / 10    * @see #SLAB_CACHE_PROPORTIONS_KEY    */
+specifier|static
+specifier|final
+name|String
+name|SLAB_CACHE_SIZES_KEY
+init|=
+literal|"hbase.offheapcache.slab.sizes"
+decl_stmt|;
 comment|/**    * Default constructor, creates an empty SlabCache.    *    * @param size Total size allocated to the SlabCache. (Bytes)    * @param avgBlockSize Average size of a block being cached.    **/
 specifier|public
 name|SlabCache
@@ -601,7 +617,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-literal|"hbase.offheapcache.slab.proportions"
+name|SLAB_CACHE_PROPORTIONS_KEY
 argument_list|,
 literal|"0.80"
 argument_list|,
@@ -616,7 +632,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-literal|"hbase.offheapcache.slab.sizes"
+name|SLAB_CACHE_SIZES_KEY
 argument_list|,
 name|Long
 operator|.
@@ -963,7 +979,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Creating a slab of blockSize "
+literal|"Creating slab of blockSize "
 operator|+
 name|blockSize
 operator|+
@@ -975,7 +991,7 @@ literal|" blocks, "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|blockSize
 operator|*
@@ -1478,7 +1494,7 @@ name|getEvictedCount
 argument_list|()
 return|;
 block|}
-comment|/*    * Statistics thread. Periodically prints the cache statistics to the log.    */
+comment|/*    * Statistics thread. Periodically prints the cache statistics to the log.    * TODO: Fix.  Just emit to metrics.  Don't run a thread just to do a log.    */
 specifier|static
 class|class
 name|StatisticsThread

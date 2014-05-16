@@ -227,6 +227,20 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Stores all of the cache objects and configuration for a single HFile.  */
 end_comment
@@ -304,7 +318,7 @@ init|=
 literal|"hbase.rs.evictblocksonclose"
 decl_stmt|;
 comment|/**    * Configuration keys for Bucket cache    */
-comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path    * to the file that will host the file-based cache.  See BucketCache#getIOEngineFromName() for    * list of supported ioengine options.    *     *<p>Set this option and a non-zero {@link BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
+comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path    * to the file that will host the file-based cache.  See BucketCache#getIOEngineFromName() for    * list of supported ioengine options.    *     *<p>Set this option and a non-zero {@link #BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
 specifier|public
 specifier|static
 specifier|final
@@ -313,7 +327,7 @@ name|BUCKET_CACHE_IOENGINE_KEY
 init|=
 literal|"hbase.bucketcache.ioengine"
 decl_stmt|;
-comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    *     *<p>The resultant size is further divided if {@link BUCKET_CACHE_COMBINED_KEY} is set (It is    * set by default. When false, bucket cache serves as an "L2" cache to the "L1"    * {@link LruBlockCache}).  The percentage is set in    * with {@link BUCKET_CACHE_COMBINED_PERCENTAGE_KEY} float.    */
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    *     *<p>The resultant size is further divided if {@link #BUCKET_CACHE_COMBINED_KEY} is set (It is    * set by default. When false, bucket cache serves as an "L2" cache to the "L1"    * {@link LruBlockCache}).  The percentage is set in    * with {@link #BUCKET_CACHE_COMBINED_PERCENTAGE_KEY} float.    */
 specifier|public
 specifier|static
 specifier|final
@@ -340,7 +354,7 @@ name|BUCKET_CACHE_COMBINED_KEY
 init|=
 literal|"hbase.bucketcache.combinedcache.enabled"
 decl_stmt|;
-comment|/**    * A float which designates how much of the overall cache to give to bucket cache    * and how much to on-heap lru cache when {@link BUCKET_CACHE_COMBINED_KEY} is set.    */
+comment|/**    * A float which designates how much of the overall cache to give to bucket cache    * and how much to on-heap lru cache when {@link #BUCKET_CACHE_COMBINED_KEY} is set.    */
 specifier|public
 specifier|static
 specifier|final
@@ -762,6 +776,13 @@ name|cacheCompressed
 operator|=
 name|cacheCompressed
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Constructs a cache configuration copied from the specified configuration.    * @param cacheConf    */
 specifier|public
@@ -1022,57 +1043,50 @@ literal|"CacheConfig:disabled"
 return|;
 block|}
 return|return
-literal|"CacheConfig:enabled "
+literal|"blockCache="
 operator|+
-literal|"[cacheDataOnRead="
+name|getBlockCache
+argument_list|()
+operator|+
+literal|", cacheDataOnRead="
 operator|+
 name|shouldCacheDataOnRead
 argument_list|()
 operator|+
-literal|"] "
-operator|+
-literal|"[cacheDataOnWrite="
+literal|", cacheDataOnWrite="
 operator|+
 name|shouldCacheDataOnWrite
 argument_list|()
 operator|+
-literal|"] "
-operator|+
-literal|"[cacheIndexesOnWrite="
+literal|", cacheIndexesOnWrite="
 operator|+
 name|shouldCacheIndexesOnWrite
 argument_list|()
 operator|+
-literal|"] "
-operator|+
-literal|"[cacheBloomsOnWrite="
+literal|", cacheBloomsOnWrite="
 operator|+
 name|shouldCacheBloomsOnWrite
 argument_list|()
 operator|+
-literal|"] "
-operator|+
-literal|"[cacheEvictOnClose="
+literal|", cacheEvictOnClose="
 operator|+
 name|shouldEvictOnClose
 argument_list|()
 operator|+
-literal|"] "
-operator|+
-literal|"[cacheCompressed="
+literal|", cacheCompressed="
 operator|+
 name|shouldCacheCompressed
 argument_list|()
-operator|+
-literal|"]"
 return|;
 block|}
 comment|// Static block cache reference and methods
 comment|/**    * Static reference to the block cache, or null if no caching should be used    * at all.    */
-specifier|private
+comment|// Clear this if in tests you'd make more than one block cache instance.
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|BlockCache
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 decl_stmt|;
 comment|/** Boolean whether we have disabled the block cache entirely. */
 specifier|private
@@ -1095,12 +1109,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|!=
 literal|null
 condition|)
 return|return
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 return|;
 if|if
 condition|(
@@ -1201,7 +1215,7 @@ name|DEFAULT_BLOCKSIZE
 argument_list|)
 decl_stmt|;
 name|long
-name|offHeapCacheSize
+name|slabCacheOffHeapCacheSize
 init|=
 call|(
 name|long
@@ -1211,7 +1225,7 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
-literal|"hbase.offheapcache.percentage"
+name|SLAB_CACHE_OFFHEAP_PERCENTAGE_KEY
 argument_list|,
 operator|(
 name|float
@@ -1227,7 +1241,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|offHeapCacheSize
+name|slabCacheOffHeapCacheSize
 operator|<=
 literal|0
 condition|)
@@ -1453,18 +1467,23 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Allocating LruBlockCache with maximum size "
+literal|"Allocating LruBlockCache size="
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|lruCacheSize
 argument_list|)
 operator|+
 literal|", blockSize="
 operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|blockSize
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|LruBlockCache
@@ -1494,7 +1513,7 @@ operator|&&
 name|combinedWithLru
 condition|)
 block|{
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 operator|new
 name|CombinedBlockCache
@@ -1507,7 +1526,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 name|lruCache
 expr_stmt|;
@@ -1515,14 +1534,14 @@ block|}
 block|}
 else|else
 block|{
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 operator|new
 name|DoubleBlockCache
 argument_list|(
 name|lruCacheSize
 argument_list|,
-name|offHeapCacheSize
+name|slabCacheOffHeapCacheSize
 argument_list|,
 name|blockSize
 argument_list|,
@@ -1533,7 +1552,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|globalBlockCache
+name|GLOBAL_BLOCK_CACHE_INSTANCE
 return|;
 block|}
 block|}

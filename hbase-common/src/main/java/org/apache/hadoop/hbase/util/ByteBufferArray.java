@@ -244,7 +244,7 @@ argument_list|(
 name|capacity
 argument_list|)
 operator|+
-literal|" , sizePerBuffer="
+literal|", sizePerBuffer="
 operator|+
 name|StringUtils
 operator|.

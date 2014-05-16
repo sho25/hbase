@@ -222,21 +222,19 @@ literal|"Creating on-heap cache of size "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|onHeapSize
 argument_list|)
 operator|+
-literal|"bytes with an average block size of "
+literal|" with an average block size of "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|onHeapBlockSize
 argument_list|)
-operator|+
-literal|" bytes."
 argument_list|)
 expr_stmt|;
 name|onHeapCache
@@ -259,21 +257,19 @@ literal|"Creating off-heap cache of size "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|offHeapSize
 argument_list|)
 operator|+
-literal|"bytes with an average block size of "
+literal|"with an average block size of "
 operator|+
 name|StringUtils
 operator|.
-name|humanReadableInt
+name|byteDesc
 argument_list|(
 name|offHeapBlockSize
 argument_list|)
-operator|+
-literal|" bytes."
 argument_list|)
 expr_stmt|;
 name|offHeapCache
