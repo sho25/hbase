@@ -1635,7 +1635,7 @@ expr_stmt|;
 block|}
 name|table
 operator|.
-name|close
+name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}

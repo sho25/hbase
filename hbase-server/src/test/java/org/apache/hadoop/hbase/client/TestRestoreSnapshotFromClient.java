@@ -1221,11 +1221,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 comment|// Take a snapshot
 name|admin
 operator|.
@@ -1358,11 +1353,6 @@ operator|.
 name|size
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 comment|// Restore back the snapshot (with the cf)
 name|admin

@@ -204,7 +204,9 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-comment|// NOTE: DO NOT make this class public. It was made package-private on purpose.
+comment|// NOTE: Although this class is public, this class is meant to be used directly from internal
+comment|// classes and unit tests only.
+specifier|public
 interface|interface
 name|ClusterConnection
 extends|extends

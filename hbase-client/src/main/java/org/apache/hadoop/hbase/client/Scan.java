@@ -444,7 +444,9 @@ specifier|private
 name|Consistency
 name|consistency
 init|=
-literal|null
+name|Consistency
+operator|.
+name|STRONG
 decl_stmt|;
 comment|/**    * Set it true for small scan to get better performance    *    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    */
 specifier|private

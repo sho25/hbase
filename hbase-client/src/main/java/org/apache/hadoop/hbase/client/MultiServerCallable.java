@@ -407,7 +407,7 @@ decl_stmt|;
 name|MultiServerCallable
 parameter_list|(
 specifier|final
-name|HConnection
+name|ClusterConnection
 name|connection
 parameter_list|,
 specifier|final

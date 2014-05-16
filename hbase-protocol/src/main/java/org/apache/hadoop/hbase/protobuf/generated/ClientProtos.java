@@ -91156,6 +91156,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional bool stale = 6;
+comment|/**      *<code>optional bool stale = 6;</code>      */
+name|boolean
+name|hasStale
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool stale = 6;</code>      */
+name|boolean
+name|getStale
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code ScanResponse}    *    *<pre>    **    * The scan response. If there are no more results, more_results will    * be false.  If it is not specified, it means there are more.    *</pre>    */
 specifier|public
@@ -91686,6 +91697,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|48
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|stale_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -92392,6 +92420,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional bool stale = 6;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STALE_FIELD_NUMBER
+init|=
+literal|6
+decl_stmt|;
+specifier|private
+name|boolean
+name|stale_
+decl_stmt|;
+comment|/**      *<code>optional bool stale = 6;</code>      */
+specifier|public
+name|boolean
+name|hasStale
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool stale = 6;</code>      */
+specifier|public
+name|boolean
+name|getStale
+parameter_list|()
+block|{
+return|return
+name|stale_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -92430,6 +92499,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|stale_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -92625,6 +92698,29 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|6
+argument_list|,
+name|stale_
 argument_list|)
 expr_stmt|;
 block|}
@@ -92859,6 +92955,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|6
+argument_list|,
+name|stale_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93157,6 +93284,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasStale
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasStale
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getStale
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getStale
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -93373,6 +93535,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|STALE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getStale
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -94299,6 +94492,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -94691,6 +94897,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|stale_
+operator|=
+name|stale_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -95068,6 +95298,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasStale
+argument_list|()
+condition|)
+block|{
+name|setStale
+argument_list|(
+name|other
+operator|.
+name|getStale
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -97060,6 +97307,89 @@ expr_stmt|;
 block|}
 return|return
 name|resultsBuilder_
+return|;
+block|}
+comment|// optional bool stale = 6;
+specifier|private
+name|boolean
+name|stale_
+decl_stmt|;
+comment|/**        *<code>optional bool stale = 6;</code>        */
+specifier|public
+name|boolean
+name|hasStale
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 6;</code>        */
+specifier|public
+name|boolean
+name|getStale
+parameter_list|()
+block|{
+return|return
+name|stale_
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 6;</code>        */
+specifier|public
+name|Builder
+name|setStale
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+name|stale_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool stale = 6;</code>        */
+specifier|public
+name|Builder
+name|clearStale
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
+name|stale_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:ScanResponse)
@@ -165645,93 +165975,93 @@ literal|"r_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\
 operator|+
 literal|"ose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004"
 operator|+
-literal|"\"y\n\014ScanResponse\022\030\n\020cells_per_result\030\001 \003"
+literal|"\"\210\001\n\014ScanResponse\022\030\n\020cells_per_result\030\001 "
 operator|+
-literal|"(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003"
+literal|"\003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030"
 operator|+
-literal|" \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Res"
+literal|"\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Re"
 operator|+
-literal|"ult\"\263\001\n\024BulkLoadHFileRequest\022 \n\006region\030\001"
+literal|"sult\022\r\n\005stale\030\006 \001(\010\"\263\001\n\024BulkLoadHFileReq"
 operator|+
-literal|" \002(\0132\020.RegionSpecifier\0225\n\013family_path\030\002 "
+literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\0225"
 operator|+
-literal|"\003(\0132 .BulkLoadHFileRequest.FamilyPath\022\026\n"
+literal|"\n\013family_path\030\002 \003(\0132 .BulkLoadHFileReque"
 operator|+
-literal|"\016assign_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006f"
+literal|"st.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n"
 operator|+
-literal|"amily\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFi"
+literal|"\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002("
 block|,
-literal|"leResponse\022\016\n\006loaded\030\001 \002(\010\"a\n\026Coprocesso"
+literal|"\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002"
 operator|+
-literal|"rServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_nam"
+literal|"(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002("
 operator|+
-literal|"e\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030"
+literal|"\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name\030\003"
 operator|+
-literal|"\004 \002(\014\"9\n\030CoprocessorServiceResult\022\035\n\005val"
+literal|" \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorServ"
 operator|+
-literal|"ue\030\001 \001(\0132\016.NameBytesPair\"d\n\031CoprocessorS"
+literal|"iceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair"
 operator|+
-literal|"erviceRequest\022 \n\006region\030\001 \002(\0132\020.RegionSp"
+literal|"\"d\n\031CoprocessorServiceRequest\022 \n\006region\030"
 operator|+
-literal|"ecifier\022%\n\004call\030\002 \002(\0132\027.CoprocessorServi"
+literal|"\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027."
 operator|+
-literal|"ceCall\"]\n\032CoprocessorServiceResponse\022 \n\006"
+literal|"CoprocessorServiceCall\"]\n\032CoprocessorSer"
 operator|+
-literal|"region\030\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030"
+literal|"viceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
 operator|+
-literal|"\002 \002(\0132\016.NameBytesPair\"{\n\006Action\022\r\n\005index"
+literal|"cifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"{\n"
 block|,
-literal|"\030\001 \001(\r\022 \n\010mutation\030\002 \001(\0132\016.MutationProto"
+literal|"\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001(\013"
 operator|+
-literal|"\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001("
+literal|"2\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014s"
 operator|+
-literal|"\0132\027.CoprocessorServiceCall\"Y\n\014RegionActi"
+literal|"ervice_call\030\004 \001(\0132\027.CoprocessorServiceCa"
 operator|+
-literal|"on\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006"
+literal|"ll\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.Reg"
 operator|+
-literal|"atomic\030\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"\221\001"
+literal|"ionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003"
 operator|+
-literal|"\n\021ResultOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006re"
+literal|" \003(\0132\007.Action\"\221\001\n\021ResultOrException\022\r\n\005i"
 operator|+
-literal|"sult\030\002 \001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016"
+literal|"ndex\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\te"
 operator|+
-literal|".NameBytesPair\0221\n\016service_result\030\004 \001(\0132\031"
+literal|"xception\030\003 \001(\0132\016.NameBytesPair\0221\n\016servic"
 operator|+
-literal|".CoprocessorServiceResult\"f\n\022RegionActio"
+literal|"e_result\030\004 \001(\0132\031.CoprocessorServiceResul"
 operator|+
-literal|"nResult\022-\n\021resultOrException\030\001 \003(\0132\022.Res"
+literal|"t\"f\n\022RegionActionResult\022-\n\021resultOrExcep"
 block|,
-literal|"ultOrException\022!\n\texception\030\002 \001(\0132\016.Name"
+literal|"tion\030\001 \003(\0132\022.ResultOrException\022!\n\texcept"
 operator|+
-literal|"BytesPair\"G\n\014MultiRequest\022#\n\014regionActio"
+literal|"ion\030\002 \001(\0132\016.NameBytesPair\"G\n\014MultiReques"
 operator|+
-literal|"n\030\001 \003(\0132\r.RegionAction\022\022\n\nnonceGroup\030\002 \001"
+literal|"t\022#\n\014regionAction\030\001 \003(\0132\r.RegionAction\022\022"
 operator|+
-literal|"(\004\"@\n\rMultiResponse\022/\n\022regionActionResul"
+literal|"\n\nnonceGroup\030\002 \001(\004\"@\n\rMultiResponse\022/\n\022r"
 operator|+
-literal|"t\030\001 \003(\0132\023.RegionActionResult*\'\n\013Consiste"
+literal|"egionActionResult\030\001 \003(\0132\023.RegionActionRe"
 operator|+
-literal|"ncy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\261\002\n\rClient"
+literal|"sult*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMEL"
 operator|+
-literal|"Service\022 \n\003Get\022\013.GetRequest\032\014.GetRespons"
+literal|"INE\020\0012\261\002\n\rClientService\022 \n\003Get\022\013.GetRequ"
 operator|+
-literal|"e\022)\n\006Mutate\022\016.MutateRequest\032\017.MutateResp"
+literal|"est\032\014.GetResponse\022)\n\006Mutate\022\016.MutateRequ"
 operator|+
-literal|"onse\022#\n\004Scan\022\014.ScanRequest\032\r.ScanRespons"
+literal|"est\032\017.MutateResponse\022#\n\004Scan\022\014.ScanReque"
 operator|+
-literal|"e\022>\n\rBulkLoadHFile\022\025.BulkLoadHFileReques"
+literal|"st\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.Bul"
 block|,
-literal|"t\032\026.BulkLoadHFileResponse\022F\n\013ExecService"
+literal|"kLoadHFileRequest\032\026.BulkLoadHFileRespons"
 operator|+
-literal|"\022\032.CoprocessorServiceRequest\032\033.Coprocess"
+literal|"e\022F\n\013ExecService\022\032.CoprocessorServiceReq"
 operator|+
-literal|"orServiceResponse\022&\n\005Multi\022\r.MultiReques"
+literal|"uest\032\033.CoprocessorServiceResponse\022&\n\005Mul"
 operator|+
-literal|"t\032\016.MultiResponseBB\n*org.apache.hadoop.h"
+literal|"ti\022\r.MultiRequest\032\016.MultiResponseBB\n*org"
 operator|+
-literal|"base.protobuf.generatedB\014ClientProtosH\001\210"
+literal|".apache.hadoop.hbase.protobuf.generatedB"
 operator|+
-literal|"\001\001\240\001\001"
+literal|"\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -166544,6 +166874,8 @@ block|,
 literal|"Ttl"
 block|,
 literal|"Results"
+block|,
+literal|"Stale"
 block|, }
 argument_list|)
 expr_stmt|;

@@ -647,6 +647,15 @@ argument_list|(
 literal|false
 argument_list|,
 name|id
+argument_list|,
+name|cConnection
+argument_list|,
+name|tableName
+argument_list|,
+name|get
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|location
@@ -933,6 +942,15 @@ argument_list|,
 name|RegionReplicaUtil
 operator|.
 name|DEFAULT_REPLICA_ID
+argument_list|,
+name|cConnection
+argument_list|,
+name|tableName
+argument_list|,
+name|get
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|BoundedCompletionService
@@ -1228,6 +1246,11 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+argument_list|,
+name|retries
+argument_list|,
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// just rethrow the first exception for now.
@@ -1238,12 +1261,18 @@ return|;
 comment|// unreachable
 block|}
 comment|/**    * Extract the real exception from the ExecutionException, and throws what makes more    * sense.    */
-specifier|private
+specifier|static
 name|void
 name|throwEnrichedException
 parameter_list|(
 name|ExecutionException
 name|e
+parameter_list|,
+name|int
+name|retries
+parameter_list|,
+name|String
+name|str
 parameter_list|)
 throws|throws
 name|RetriesExhaustedException
@@ -1309,8 +1338,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 argument_list|,
-name|toString
-argument_list|()
+name|str
 argument_list|)
 decl_stmt|;
 name|List
@@ -1420,7 +1448,7 @@ operator|+
 literal|1
 return|;
 block|}
-specifier|private
+specifier|static
 name|RegionLocations
 name|getRegionLocations
 parameter_list|(
@@ -1429,6 +1457,16 @@ name|useCache
 parameter_list|,
 name|int
 name|replicaId
+parameter_list|,
+name|ClusterConnection
+name|cConnection
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|row
 parameter_list|)
 throws|throws
 name|RetriesExhaustedException
@@ -1450,10 +1488,7 @@ name|locateRegion
 argument_list|(
 name|tableName
 argument_list|,
-name|get
-operator|.
-name|getRow
-argument_list|()
+name|row
 argument_list|,
 name|useCache
 argument_list|,

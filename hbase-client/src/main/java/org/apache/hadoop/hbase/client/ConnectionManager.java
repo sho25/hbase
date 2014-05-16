@@ -6736,16 +6736,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|HConnection
-name|connection
-init|=
-name|ConnectionManager
-operator|.
-name|getConnectionInternal
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|int
 name|localNumRetries
 init|=
@@ -6880,7 +6870,7 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
-name|connection
+name|this
 argument_list|)
 expr_stmt|;
 name|regionInfoRow
