@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|rmi
-operator|.
-name|UnexpectedException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -101,7 +91,7 @@ name|MemStoreSnapshot
 name|snapshot
 parameter_list|()
 function_decl|;
-comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @see #snapshot()    */
+comment|/**    * Clears the current snapshot of the Memstore.    * @param id    * @throws UnexpectedStateException    * @see #snapshot()    */
 name|void
 name|clearSnapshot
 parameter_list|(
@@ -109,7 +99,7 @@ name|long
 name|id
 parameter_list|)
 throws|throws
-name|UnexpectedException
+name|UnexpectedStateException
 function_decl|;
 comment|/**    * On flush, how much memory we will clear.    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return size of data that is going to be flushed    */
 name|long

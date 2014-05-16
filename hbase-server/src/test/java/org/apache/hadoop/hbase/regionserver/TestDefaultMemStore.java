@@ -55,16 +55,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|rmi
-operator|.
-name|UnexpectedException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -6355,7 +6345,7 @@ name|DefaultMemStore
 name|hmc
 parameter_list|)
 throws|throws
-name|UnexpectedException
+name|UnexpectedStateException
 block|{
 comment|// Save off old state.
 name|int

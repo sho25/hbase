@@ -45,16 +45,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|rmi
-operator|.
-name|UnexpectedException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -899,7 +889,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @throws UnexpectedException    * @see #snapshot()    */
+comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @throws UnexpectedStateException    * @see #snapshot()    */
 annotation|@
 name|Override
 specifier|public
@@ -910,7 +900,7 @@ name|long
 name|id
 parameter_list|)
 throws|throws
-name|UnexpectedException
+name|UnexpectedStateException
 block|{
 name|MemStoreLAB
 name|tmpAllocator
@@ -928,7 +918,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|UnexpectedException
+name|UnexpectedStateException
 argument_list|(
 literal|"Current snapshot id is "
 operator|+

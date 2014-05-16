@@ -45,16 +45,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|rmi
-operator|.
-name|UnexpectedException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -512,7 +502,7 @@ name|void
 name|testPuttingBackChunksAfterFlushing
 parameter_list|()
 throws|throws
-name|UnexpectedException
+name|UnexpectedStateException
 block|{
 name|byte
 index|[]
@@ -774,7 +764,7 @@ name|void
 name|testPuttingBackChunksWithOpeningScanner
 parameter_list|()
 throws|throws
-name|UnexpectedException
+name|UnexpectedStateException
 block|{
 name|byte
 index|[]
