@@ -815,6 +815,10 @@ argument_list|,
 name|cause
 argument_list|)
 expr_stmt|;
+name|complete
+operator|=
+literal|true
+expr_stmt|;
 if|if
 condition|(
 name|cause
