@@ -1464,6 +1464,37 @@ literal|24
 operator|*
 literal|3600
 decl_stmt|;
+comment|/**    * Seconds in a day, hour and minute    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DAY_IN_SECONDS
+init|=
+literal|24
+operator|*
+literal|60
+operator|*
+literal|60
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HOUR_IN_SECONDS
+init|=
+literal|60
+operator|*
+literal|60
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MINUTE_IN_SECONDS
+init|=
+literal|60
+decl_stmt|;
 comment|//TODO: although the following are referenced widely to format strings for
 comment|//      the shell. They really aren't a part of the public API. It would be
 comment|//      nice if we could put them somewhere where they did not need to be
