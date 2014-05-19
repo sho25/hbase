@@ -699,9 +699,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|tools
+name|hbase
 operator|.
-name|util
+name|io
+operator|.
+name|hadoopbackport
 operator|.
 name|ThrottledInputStream
 import|;
