@@ -269,6 +269,33 @@ name|numPeriodsInWindow
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"hitCount="
+operator|+
+name|this
+operator|.
+name|hitCount
+operator|+
+literal|", hitCachingCount="
+operator|+
+name|this
+operator|.
+name|hitCachingCount
+operator|+
+literal|", missCount="
+operator|+
+name|this
+operator|.
+name|missCount
+return|;
+block|}
 specifier|public
 name|void
 name|miss

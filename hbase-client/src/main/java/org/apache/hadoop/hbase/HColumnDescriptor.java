@@ -476,6 +476,7 @@ name|DATA_BLOCK_ENCODING
 init|=
 literal|"DATA_BLOCK_ENCODING"
 decl_stmt|;
+comment|/**    * Key for the BLOCKCACHE attribute.    * A more exact name would be CACHE_DATA_ON_READ because this flag sets whether or not we    * cache DATA blocks.  We always cache INDEX and BLOOM blocks; caching these blocks cannot be    * disabled.    */
 specifier|public
 specifier|static
 specifier|final
@@ -2912,7 +2913,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if MapFile blocks should be cached.    */
+comment|/**    * @return True if hfile DATA type blocks should be cached (You cannot disable caching of INDEX    * and BLOOM type blocks).    */
 specifier|public
 name|boolean
 name|isBlockCacheEnabled
@@ -2947,7 +2948,7 @@ return|return
 name|DEFAULT_BLOCKCACHE
 return|;
 block|}
-comment|/**    * @param blockCacheEnabled True if MapFile blocks should be cached.    * @return this (for chained invocation)    */
+comment|/**    * @param blockCacheEnabled True if hfile DATA type blocks should be cached (We always cache    * INDEX and BLOOM blocks; you cannot turn this off).    * @return this (for chained invocation)    */
 specifier|public
 name|HColumnDescriptor
 name|setBlockCacheEnabled
