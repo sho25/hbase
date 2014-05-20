@@ -6065,9 +6065,7 @@ name|Call
 argument_list|(
 name|AUTHROIZATION_FAILED_CALLID
 argument_list|,
-name|this
-operator|.
-name|service
+literal|null
 argument_list|,
 literal|null
 argument_list|,

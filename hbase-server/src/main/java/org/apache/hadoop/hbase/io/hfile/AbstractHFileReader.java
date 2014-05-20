@@ -220,6 +220,23 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -236,11 +253,13 @@ specifier|protected
 name|FSDataInputStream
 name|istream
 decl_stmt|;
+comment|// UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD
 comment|/** The file system stream of the underlying {@link HFile} that    * does not do checksum verification in the file system */
 specifier|protected
 name|FSDataInputStream
 name|istreamNoFsChecksum
 decl_stmt|;
+comment|// UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD
 comment|/** Data block index reader keeping the root data index in memory */
 specifier|protected
 name|HFileBlockIndex
@@ -347,6 +366,23 @@ specifier|protected
 name|Configuration
 name|conf
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"
+argument_list|)
 specifier|protected
 name|AbstractHFileReader
 parameter_list|(
@@ -421,6 +457,7 @@ name|hfs
 operator|=
 name|hfs
 expr_stmt|;
+comment|// URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD
 name|this
 operator|.
 name|conf

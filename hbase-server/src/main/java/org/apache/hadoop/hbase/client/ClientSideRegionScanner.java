@@ -399,10 +399,6 @@ comment|// pass -1 as limit so that we see the whole row.
 if|if
 condition|(
 name|values
-operator|==
-literal|null
-operator|||
-name|values
 operator|.
 name|isEmpty
 argument_list|()

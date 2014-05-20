@@ -808,6 +808,27 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"SF_SWITCH_FALLTHROUGH"
+argument_list|,
+name|justification
+operator|=
+literal|"Intentional"
+argument_list|)
 specifier|public
 name|ReturnCode
 name|filterKeyValue
@@ -903,6 +924,7 @@ name|ReturnCode
 operator|.
 name|INCLUDE_AND_NEXT_COL
 expr_stmt|;
+comment|// FindBugs SF_SWITCH_FALLTHROUGH
 case|case
 name|INCLUDE
 case|:

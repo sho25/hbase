@@ -264,16 +264,7 @@ name|DeserializationException
 block|{
 try|try
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-name|ComparatorProtos
-operator|.
-name|NullComparator
-name|proto
-init|=
+comment|// Just parse.  Don't use what we parse since on end we are returning new NullComparator.
 name|ComparatorProtos
 operator|.
 name|NullComparator
@@ -282,7 +273,7 @@ name|parseFrom
 argument_list|(
 name|pbBytes
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

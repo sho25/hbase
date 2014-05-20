@@ -2365,6 +2365,7 @@ init|=
 literal|0l
 decl_stmt|;
 specifier|public
+specifier|synchronized
 name|Pair
 argument_list|<
 name|S
@@ -2943,6 +2944,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|public
+specifier|synchronized
 name|Pair
 argument_list|<
 name|List
@@ -3767,6 +3769,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|public
+specifier|synchronized
 name|Pair
 argument_list|<
 name|NavigableMap
