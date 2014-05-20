@@ -437,10 +437,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|index
-operator|>
-literal|0
-operator|&&
+operator|++
 name|index
 operator|%
 literal|100
