@@ -650,6 +650,8 @@ specifier|final
 name|StoreFileInfo
 name|storeFile
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|SnapshotRegionManifest
 operator|.
@@ -706,8 +708,10 @@ name|setFileSize
 argument_list|(
 name|storeFile
 operator|.
-name|getFileStatus
-argument_list|()
+name|getReferencedFileStatus
+argument_list|(
+name|fs
+argument_list|)
 operator|.
 name|getLen
 argument_list|()

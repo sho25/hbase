@@ -575,7 +575,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Check that the table descriptor for the snapshot is a valid table descriptor    * @param snapshotDir snapshot directory to check    */
+comment|/**    * Check that the table descriptor for the snapshot is a valid table descriptor    * @param manifest snapshot manifest to inspect    */
 specifier|private
 name|void
 name|verifyTableInfo
@@ -652,7 +652,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Check that all the regions in the snapshot are valid, and accounted for.    * @param snapshotDir snapshot directory to check    * @throws IOException if we can't reach hbase:meta or read the files from the FS    */
+comment|/**    * Check that all the regions in the snapshot are valid, and accounted for.    * @param manifest snapshot manifest to inspect    * @throws IOException if we can't reach hbase:meta or read the files from the FS    */
 specifier|private
 name|void
 name|verifyRegions
@@ -786,6 +786,7 @@ name|errorMsg
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Verify HRegionInfo
 for|for
 control|(
 name|HRegionInfo
@@ -842,15 +843,8 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-name|verifyRegion
+name|verifyRegionInfo
 argument_list|(
-name|fs
-argument_list|,
-name|manifest
-operator|.
-name|getSnapshotDir
-argument_list|()
-argument_list|,
 name|region
 argument_list|,
 name|regionManifest
@@ -874,20 +868,27 @@ name|errorMsg
 argument_list|)
 throw|;
 block|}
+comment|// Verify Snapshot HFiles
+name|SnapshotReferenceUtil
+operator|.
+name|verifySnapshot
+argument_list|(
+name|services
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|fs
+argument_list|,
+name|manifest
+argument_list|)
+expr_stmt|;
 block|}
-comment|/**    * Verify that the region (regioninfo, hfiles) are valid    * @param fs the FileSystem instance    * @param snapshotDir snapshot directory to check    * @param region the region to check    */
+comment|/**    * Verify that the regionInfo is valid    * @param region the region to check    * @param manifest snapshot manifest to inspect    */
 specifier|private
 name|void
-name|verifyRegion
+name|verifyRegionInfo
 parameter_list|(
-specifier|final
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
-name|Path
-name|snapshotDir
-parameter_list|,
 specifier|final
 name|HRegionInfo
 name|region
@@ -944,68 +945,6 @@ name|snapshot
 argument_list|)
 throw|;
 block|}
-comment|// make sure we have all the expected store files
-name|SnapshotReferenceUtil
-operator|.
-name|visitRegionStoreFiles
-argument_list|(
-name|manifest
-argument_list|,
-operator|new
-name|SnapshotReferenceUtil
-operator|.
-name|StoreFileVisitor
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|storeFile
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|regionInfo
-parameter_list|,
-specifier|final
-name|String
-name|family
-parameter_list|,
-specifier|final
-name|SnapshotRegionManifest
-operator|.
-name|StoreFile
-name|storeFile
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|SnapshotReferenceUtil
-operator|.
-name|verifyStoreFile
-argument_list|(
-name|services
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|fs
-argument_list|,
-name|snapshotDir
-argument_list|,
-name|snapshot
-argument_list|,
-name|region
-argument_list|,
-name|family
-argument_list|,
-name|storeFile
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class

@@ -2201,6 +2201,7 @@ name|name
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|ThreadPoolExecutor
 name|createExecutor
@@ -2223,7 +2224,7 @@ name|getInt
 argument_list|(
 literal|"hbase.snapshot.thread.pool.max"
 argument_list|,
-literal|4
+literal|8
 argument_list|)
 decl_stmt|;
 return|return
