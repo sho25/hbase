@@ -2891,15 +2891,13 @@ name|ZooKeeper
 operator|.
 name|class
 argument_list|,
-name|org
-operator|.
-name|jboss
+name|io
 operator|.
 name|netty
 operator|.
 name|channel
 operator|.
-name|ChannelFactory
+name|Channel
 operator|.
 name|class
 argument_list|,
