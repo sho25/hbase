@@ -705,34 +705,6 @@ operator|.
 name|NOT_CALLED
 return|;
 block|}
-comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * This is for transition from 0.94 -> 0.96    */
-annotation|@
-name|Override
-annotation|@
-name|Deprecated
-specifier|public
-name|void
-name|filterRow
-parameter_list|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|kvs
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// This is only used internally, marked InterfaceAudience.private, and not used anywhere.
-comment|// We can get away with not implementing this.
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"filterRow(List<KeyValue>) should never be called"
-argument_list|)
-throw|;
-block|}
 annotation|@
 name|Override
 specifier|public

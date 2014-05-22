@@ -256,24 +256,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * WARNING: please to not override this method.  Instead override {@link #filterRowCells(List)}.    * This is for transition from 0.94 -> 0.96    **/
-annotation|@
-name|Deprecated
-specifier|abstract
-specifier|public
-name|void
-name|filterRow
-parameter_list|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|kvs
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Primarily used to check for conflicts with scans(such as scans that do not read a full row at a    * time).    *     * @return True if this filter actively uses filterRow(List) or filterRow().    */
+comment|/**    * Primarily used to check for conflicts with scans(such as scans that do not read a full row at a    * time).    *     * @return True if this filter actively uses filterRowCells(List) or filterRow().    */
 specifier|abstract
 specifier|public
 name|boolean
