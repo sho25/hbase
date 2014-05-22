@@ -197,7 +197,7 @@ name|getBlockCacheEvictedCount
 parameter_list|()
 function_decl|;
 comment|/**    * Get the percent of all requests that hit the block cache.    */
-name|int
+name|double
 name|getBlockCacheHitPercent
 parameter_list|()
 function_decl|;
