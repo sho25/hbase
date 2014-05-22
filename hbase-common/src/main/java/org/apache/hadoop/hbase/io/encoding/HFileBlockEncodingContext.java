@@ -31,16 +31,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|OutputStream
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -102,36 +92,10 @@ specifier|public
 interface|interface
 name|HFileBlockEncodingContext
 block|{
-comment|/**    * @return OutputStream to which encoded data is written    */
-name|OutputStream
-name|getOutputStreamForEncoder
-parameter_list|()
-function_decl|;
-comment|/**    * @return encoded and compressed bytes with header which are ready to write    *         out to disk    */
-name|byte
-index|[]
-name|getOnDiskBytesWithHeader
-parameter_list|()
-function_decl|;
-comment|/**    * @return encoded but not heavily compressed bytes with header which can be    *         cached in block cache    */
-name|byte
-index|[]
-name|getUncompressedBytesWithHeader
-parameter_list|()
-function_decl|;
 comment|/**    * @return the block type after encoding    */
 name|BlockType
 name|getBlockType
 parameter_list|()
-function_decl|;
-comment|/**    * sets the dummy header bytes    */
-name|void
-name|setDummyHeader
-parameter_list|(
-name|byte
-index|[]
-name|headerBytes
-parameter_list|)
 function_decl|;
 comment|/**    * @return the {@link DataBlockEncoding} encoding used    */
 name|DataBlockEncoding
@@ -157,6 +121,31 @@ comment|/**    * @return HFile context information    */
 name|HFileContext
 name|getHFileContext
 parameter_list|()
+function_decl|;
+comment|/**    * Sets the encoding state.    * @param state    */
+name|void
+name|setEncodingState
+parameter_list|(
+name|EncodingState
+name|state
+parameter_list|)
+function_decl|;
+comment|/**    * @return the encoding state    */
+name|EncodingState
+name|getEncodingState
+parameter_list|()
+function_decl|;
+comment|/**    * @param uncompressedBytesWithHeader encoded bytes with header    * @return Bytes with header which are ready to write out to disk. This is compressed and    *         encrypted bytes applying the set compression algorithm and encryption.    */
+name|byte
+index|[]
+name|compressAndEncrypt
+parameter_list|(
+name|byte
+index|[]
+name|uncompressedBytesWithHeader
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

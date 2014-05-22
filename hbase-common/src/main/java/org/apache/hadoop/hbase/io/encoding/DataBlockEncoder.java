@@ -35,6 +35,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|DataOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -88,6 +98,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 operator|.
 name|KVComparator
 import|;
@@ -112,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  *  * After encoding, it also optionally compresses the encoded data if a  * compression algorithm is specified in HFileBlockEncodingContext argument of  * {@link #encodeKeyValues(ByteBuffer, HFileBlockEncodingContext)}.  */
+comment|/**  * Encoding of KeyValue. It aims to be fast and efficient using assumptions:  *<ul>  *<li>the KeyValues are stored sorted by key</li>  *<li>we know the structure of KeyValue</li>  *<li>the values are always iterated forward from beginning of block</li>  *<li>knowledge of Key Value format</li>  *</ul>  * It is designed to work fast enough to be feasible as in memory compression.  */
 end_comment
 
 begin_interface
@@ -124,15 +148,48 @@ specifier|public
 interface|interface
 name|DataBlockEncoder
 block|{
-comment|/**    * Encodes KeyValues. It will first encode key value pairs, and then    * optionally do the compression for the encoded data.    *    * @param in    *          Source of KeyValue for compression.    * @param encodingCtx    *          the encoding context which will contain encoded uncompressed bytes    *          as well as compressed encoded bytes if compression is enabled, and    *          also it will reuse resources across multiple calls.    * @throws IOException    *           If there is an error writing to output stream.    */
+comment|/**    * Starts encoding for a block of KeyValues. Call    * {@link #endBlockEncoding(HFileBlockEncodingContext, DataOutputStream, byte[])} to finish    * encoding of a block.    * @param encodingCtx    * @param out    * @throws IOException    */
 name|void
-name|encodeKeyValues
+name|startBlockEncoding
 parameter_list|(
-name|ByteBuffer
-name|in
+name|HFileBlockEncodingContext
+name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Encodes a KeyValue.    * @param kv    * @param encodingCtx    * @param out    * @return unencoded kv size written    * @throws IOException    */
+name|int
+name|encode
+parameter_list|(
+name|KeyValue
+name|kv
 parameter_list|,
 name|HFileBlockEncodingContext
 name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Ends encoding for a block of KeyValues. Gives a chance for the encoder to do the finishing    * stuff for the encoded block. It must be called at the end of block encoding.    * @param encodingCtx    * @param out    * @param uncompressedBytesWithHeader    * @throws IOException    */
+name|void
+name|endBlockEncoding
+parameter_list|(
+name|HFileBlockEncodingContext
+name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|,
+name|byte
+index|[]
+name|uncompressedBytesWithHeader
 parameter_list|)
 throws|throws
 name|IOException

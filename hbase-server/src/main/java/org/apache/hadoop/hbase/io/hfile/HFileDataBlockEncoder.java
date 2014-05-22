@@ -25,7 +25,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|DataOutputStream
 import|;
 end_import
 
@@ -33,9 +33,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
+name|io
 operator|.
-name|ByteBuffer
+name|IOException
 import|;
 end_import
 
@@ -50,6 +50,20 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 import|;
 end_import
 
@@ -148,15 +162,48 @@ argument_list|(
 literal|"DATA_BLOCK_ENCODING"
 argument_list|)
 decl_stmt|;
-comment|/**    * Should be called before an encoded or unencoded data block is written to    * disk.    * @param in KeyValues next to each other    * @param encodingResult the encoded result    * @param blockType block type    * @throws IOException    */
+comment|/**    * Starts encoding for a block of KeyValues. Call    * {@link #endBlockEncoding(HFileBlockEncodingContext, DataOutputStream, byte[], BlockType)}    * to finish encoding of a block.    * @param encodingCtx    * @param out    * @throws IOException    */
 name|void
-name|beforeWriteToDisk
+name|startBlockEncoding
 parameter_list|(
-name|ByteBuffer
-name|in
+name|HFileBlockEncodingContext
+name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Encodes a KeyValue.    * @param kv    * @param encodingCtx    * @param out    * @return unencoded kv size    * @throws IOException    */
+name|int
+name|encode
+parameter_list|(
+name|KeyValue
+name|kv
 parameter_list|,
 name|HFileBlockEncodingContext
-name|encodingResult
+name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Ends encoding for a block of KeyValues. Gives a chance for the encoder to do the finishing    * stuff for the encoded block. It must be called at the end of block encoding.    * @param encodingCtx    * @param out    * @param uncompressedBytesWithHeader    * @param blockType    * @throws IOException    */
+name|void
+name|endBlockEncoding
+parameter_list|(
+name|HFileBlockEncodingContext
+name|encodingCtx
+parameter_list|,
+name|DataOutputStream
+name|out
+parameter_list|,
+name|byte
+index|[]
+name|uncompressedBytesWithHeader
 parameter_list|,
 name|BlockType
 name|blockType
