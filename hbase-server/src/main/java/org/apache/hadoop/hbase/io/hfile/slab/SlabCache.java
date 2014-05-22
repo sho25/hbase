@@ -1150,6 +1150,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 name|SingleSizeCache
@@ -1197,6 +1200,8 @@ argument_list|,
 name|caching
 argument_list|,
 literal|false
+argument_list|,
+name|updateCacheMetrics
 argument_list|)
 decl_stmt|;
 if|if
@@ -1206,6 +1211,10 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|hit
@@ -1221,6 +1230,10 @@ operator|!
 name|repeat
 condition|)
 block|{
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|miss

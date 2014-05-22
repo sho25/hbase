@@ -421,6 +421,15 @@ name|SLAB_CACHE_OFFHEAP_PERCENTAGE_KEY
 init|=
 literal|"hbase.offheapcache.percentage"
 decl_stmt|;
+comment|/**    * Configuration key to prefetch all blocks of a given file into the block cache    * when the file is opened.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|PREFETCH_BLOCKS_ON_OPEN_KEY
+init|=
+literal|"hbase.rs.prefetchblocksonopen"
+decl_stmt|;
 comment|// Defaults
 specifier|public
 specifier|static
@@ -478,6 +487,14 @@ name|DEFAULT_COMPRESSED_CACHE
 init|=
 literal|false
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_PREFETCH_ON_OPEN
+init|=
+literal|false
+decl_stmt|;
 comment|/** Local reference to the block cache, null if completely disabled */
 specifier|private
 specifier|final
@@ -522,6 +539,12 @@ specifier|private
 specifier|final
 name|boolean
 name|cacheCompressed
+decl_stmt|;
+comment|/** Whether data blocks should be prefetched into the cache */
+specifier|private
+specifier|final
+name|boolean
+name|prefetchOnOpen
 decl_stmt|;
 comment|/**    * Create a cache configuration using the specified configuration object and    * family descriptor.    * @param conf hbase configuration    * @param family column family configuration    */
 specifier|public
@@ -619,6 +642,20 @@ name|CACHE_DATA_BLOCKS_COMPRESSED_KEY
 argument_list|,
 name|DEFAULT_COMPRESSED_CACHE
 argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|PREFETCH_BLOCKS_ON_OPEN_KEY
+argument_list|,
+name|DEFAULT_PREFETCH_ON_OPEN
+argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldPrefetchBlocksOnOpen
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -689,10 +726,19 @@ name|CACHE_DATA_BLOCKS_COMPRESSED_KEY
 argument_list|,
 name|DEFAULT_COMPRESSED_CACHE
 argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|PREFETCH_BLOCKS_ON_OPEN_KEY
+argument_list|,
+name|DEFAULT_PREFETCH_ON_OPEN
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheCompressed whether to store blocks as compressed in the cache    */
+comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheCompressed whether to store blocks as compressed in the cache    * @param prefetchOnOpen whether to prefetch blocks upon open    */
 name|CacheConfig
 parameter_list|(
 specifier|final
@@ -726,6 +772,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|cacheCompressed
+parameter_list|,
+specifier|final
+name|boolean
+name|prefetchOnOpen
 parameter_list|)
 block|{
 name|this
@@ -775,6 +825,12 @@ operator|.
 name|cacheCompressed
 operator|=
 name|cacheCompressed
+expr_stmt|;
+name|this
+operator|.
+name|prefetchOnOpen
+operator|=
+name|prefetchOnOpen
 expr_stmt|;
 name|LOG
 operator|.
@@ -825,6 +881,10 @@ argument_list|,
 name|cacheConf
 operator|.
 name|cacheCompressed
+argument_list|,
+name|cacheConf
+operator|.
+name|prefetchOnOpen
 argument_list|)
 expr_stmt|;
 block|}
@@ -896,6 +956,24 @@ operator|==
 name|BlockCategory
 operator|.
 name|BLOOM
+operator|||
+operator|(
+name|prefetchOnOpen
+operator|&&
+operator|(
+name|category
+operator|!=
+name|BlockCategory
+operator|.
+name|META
+operator|&&
+name|category
+operator|!=
+name|BlockCategory
+operator|.
+name|UNKNOWN
+operator|)
+operator|)
 operator|)
 decl_stmt|;
 return|return
@@ -1024,6 +1102,21 @@ operator|.
 name|cacheCompressed
 return|;
 block|}
+comment|/**    * @return true if blocks should be prefetched into the cache on open, false if not    */
+specifier|public
+name|boolean
+name|shouldPrefetchOnOpen
+parameter_list|()
+block|{
+return|return
+name|isBlockCacheEnabled
+argument_list|()
+operator|&&
+name|this
+operator|.
+name|prefetchOnOpen
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1076,6 +1169,11 @@ operator|+
 literal|", cacheCompressed="
 operator|+
 name|shouldCacheCompressed
+argument_list|()
+operator|+
+literal|", prefetchOnOpen="
+operator|+
+name|shouldPrefetchOnOpen
 argument_list|()
 return|;
 block|}

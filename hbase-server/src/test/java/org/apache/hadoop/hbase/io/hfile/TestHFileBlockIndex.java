@@ -1015,6 +1015,9 @@ parameter_list|,
 name|boolean
 name|isCompaction
 parameter_list|,
+name|boolean
+name|updateCacheMetrics
+parameter_list|,
 name|BlockType
 name|expectedBlockType
 parameter_list|,

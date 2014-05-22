@@ -1865,7 +1865,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the buffer of the block with the specified key.    * @param key block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    * @return buffer of specified cache key, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified key.    * @param key block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    * @param updateCacheMetrics Whether we should update cache metrics or not    * @return buffer of specified cache key, or null if not in cache    */
 annotation|@
 name|Override
 specifier|public
@@ -1880,6 +1880,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 if|if
@@ -1907,6 +1910,10 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|cacheStats
 operator|.
 name|hit
@@ -2075,6 +2082,11 @@ argument_list|()
 operator|-
 name|start
 decl_stmt|;
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
+block|{
 name|cacheStats
 operator|.
 name|hit
@@ -2089,6 +2101,7 @@ argument_list|(
 name|timeTaken
 argument_list|)
 expr_stmt|;
+block|}
 name|bucketEntry
 operator|.
 name|access
@@ -2165,6 +2178,8 @@ if|if
 condition|(
 operator|!
 name|repeat
+operator|&&
+name|updateCacheMetrics
 condition|)
 name|cacheStats
 operator|.

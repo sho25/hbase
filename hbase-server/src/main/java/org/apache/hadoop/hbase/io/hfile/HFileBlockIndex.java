@@ -967,6 +967,8 @@ name|pread
 argument_list|,
 name|isCompaction
 argument_list|,
+literal|true
+argument_list|,
 name|expectedBlockType
 argument_list|,
 name|expectedDataBlockEncoding
@@ -1270,6 +1272,8 @@ argument_list|,
 literal|true
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|,
 name|BlockType
 operator|.

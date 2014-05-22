@@ -2002,6 +2002,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 return|return

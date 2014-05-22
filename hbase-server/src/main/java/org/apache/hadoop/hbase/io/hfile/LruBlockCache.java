@@ -1570,7 +1570,7 @@ name|heapsize
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @return buffer of specified cache key, or null if not in cache    * @see HFileReaderV2#readBlock(long, long, boolean, boolean, boolean, BlockType, DataBlockEncoding)    */
+comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @param updateCacheMetrics Whether to update cache metrics or not    * @return buffer of specified cache key, or null if not in cache    */
 annotation|@
 name|Override
 specifier|public
@@ -1585,6 +1585,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 name|CachedBlock
@@ -1608,6 +1611,8 @@ if|if
 condition|(
 operator|!
 name|repeat
+operator|&&
+name|updateCacheMetrics
 condition|)
 name|stats
 operator|.
@@ -1622,6 +1627,7 @@ name|victimHandler
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|victimHandler
 operator|.
@@ -1632,12 +1638,19 @@ argument_list|,
 name|caching
 argument_list|,
 name|repeat
+argument_list|,
+name|updateCacheMetrics
 argument_list|)
 return|;
+block|}
 return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|hit

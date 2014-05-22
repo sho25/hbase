@@ -1890,6 +1890,10 @@ specifier|final
 name|boolean
 name|isCompaction
 parameter_list|,
+specifier|final
+name|boolean
+name|updateCacheMetrics
+parameter_list|,
 name|BlockType
 name|expectedBlockType
 parameter_list|,

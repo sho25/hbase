@@ -381,6 +381,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 name|Cacheable
@@ -400,12 +403,18 @@ argument_list|,
 name|caching
 argument_list|,
 name|repeat
+argument_list|,
+name|updateCacheMetrics
 argument_list|)
 operator|)
 operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|hit
@@ -432,6 +441,8 @@ argument_list|,
 name|caching
 argument_list|,
 name|repeat
+argument_list|,
+name|updateCacheMetrics
 argument_list|)
 operator|)
 operator|!=
@@ -453,6 +464,10 @@ name|cachedBlock
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|hit
@@ -468,6 +483,8 @@ if|if
 condition|(
 operator|!
 name|repeat
+operator|&&
+name|updateCacheMetrics
 condition|)
 name|stats
 operator|.

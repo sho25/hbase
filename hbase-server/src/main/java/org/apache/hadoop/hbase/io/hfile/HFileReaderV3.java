@@ -383,6 +383,7 @@ comment|/**    * Opens a HFile. You must load the index before you can use it by
 specifier|public
 name|HFileReaderV3
 parameter_list|(
+specifier|final
 name|Path
 name|path
 parameter_list|,

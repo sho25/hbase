@@ -809,6 +809,9 @@ name|caching
 parameter_list|,
 name|boolean
 name|repeat
+parameter_list|,
+name|boolean
+name|updateCacheMetrics
 parameter_list|)
 block|{
 name|CacheablePair
@@ -832,6 +835,8 @@ if|if
 condition|(
 operator|!
 name|repeat
+operator|&&
+name|updateCacheMetrics
 condition|)
 name|stats
 operator|.
@@ -844,6 +849,10 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+name|updateCacheMetrics
+condition|)
 name|stats
 operator|.
 name|hit
