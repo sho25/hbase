@@ -517,7 +517,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProvider
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -1408,8 +1408,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ConsensusProvider
-name|getConsensusProvider
+name|CoordinatedStateManager
+name|getCoordinatedStateManager
 parameter_list|()
 block|{
 return|return
@@ -1661,8 +1661,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ConsensusProvider
-name|getConsensusProvider
+name|CoordinatedStateManager
+name|getCoordinatedStateManager
 parameter_list|()
 block|{
 return|return

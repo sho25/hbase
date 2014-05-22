@@ -2692,9 +2692,9 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|HBASE_CONSENSUS_PROVIDER_CLASS
+name|HBASE_COORDINATED_STATE_MANAGER_CLASS
 init|=
-literal|"hbase.consensus.provider.class"
+literal|"hbase.coordinated.state.manager.class"
 decl_stmt|;
 specifier|private
 name|HConstants

@@ -147,7 +147,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProvider
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -317,7 +317,7 @@ specifier|final
 name|Configuration
 name|c
 parameter_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|,
 specifier|final
@@ -357,7 +357,7 @@ name|Configuration
 operator|.
 name|class
 argument_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 operator|.
 name|class
 argument_list|)
@@ -543,7 +543,7 @@ specifier|final
 name|Configuration
 name|c
 parameter_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|,
 specifier|final
@@ -577,7 +577,7 @@ name|Configuration
 operator|.
 name|class
 argument_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 operator|.
 name|class
 argument_list|)

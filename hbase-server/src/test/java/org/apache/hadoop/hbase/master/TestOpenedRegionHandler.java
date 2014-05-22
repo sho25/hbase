@@ -287,7 +287,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTable
+name|ZKTableStateManager
 import|;
 end_import
 
@@ -869,14 +869,14 @@ name|when
 argument_list|(
 name|am
 operator|.
-name|getZKTable
+name|getTableStateManager
 argument_list|()
 argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
 operator|new
-name|ZKTable
+name|ZKTableStateManager
 argument_list|(
 name|zkw
 argument_list|)

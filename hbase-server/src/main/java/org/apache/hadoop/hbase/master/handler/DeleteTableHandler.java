@@ -129,6 +129,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CoordinatedStateException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -353,18 +367,6 @@ name|State
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -455,7 +457,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|KeeperException
+name|CoordinatedStateException
 block|{
 name|AssignmentManager
 name|am
@@ -656,7 +658,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|KeeperException
+name|CoordinatedStateException
 block|{
 name|MasterCoprocessorHost
 name|cpHost
@@ -777,7 +779,7 @@ argument_list|)
 expr_stmt|;
 name|am
 operator|.
-name|getZKTable
+name|getTableStateManager
 argument_list|()
 operator|.
 name|setDeletedTable
@@ -819,7 +821,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|KeeperException
+name|CoordinatedStateException
 block|{
 comment|// 1. Remove regions from META
 name|LOG

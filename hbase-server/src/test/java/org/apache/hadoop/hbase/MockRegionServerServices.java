@@ -734,8 +734,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ConsensusProvider
-name|getConsensusProvider
+name|CoordinatedStateManager
+name|getCoordinatedStateManager
 parameter_list|()
 block|{
 return|return

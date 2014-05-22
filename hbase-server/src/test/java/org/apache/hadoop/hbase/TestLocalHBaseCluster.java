@@ -266,7 +266,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|)
 throws|throws
@@ -313,7 +313,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|)
 throws|throws

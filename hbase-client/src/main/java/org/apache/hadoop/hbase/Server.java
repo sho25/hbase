@@ -112,9 +112,9 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
-comment|/**    * Get ConsensusProvider instance for this server.    */
-name|ConsensusProvider
-name|getConsensusProvider
+comment|/**    * Get CoordinatedStateManager instance for this server.    */
+name|CoordinatedStateManager
+name|getCoordinatedStateManager
 parameter_list|()
 function_decl|;
 block|}

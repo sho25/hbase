@@ -5602,6 +5602,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 block|{
 specifier|protected
@@ -6370,6 +6372,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertFalse
@@ -6584,6 +6588,8 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -8422,6 +8428,8 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,

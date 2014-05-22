@@ -315,6 +315,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CoordinatedStateException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -651,7 +665,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProvider
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -1174,6 +1188,24 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ZooKeeperProtos
 import|;
 end_import
 
@@ -1909,8 +1941,8 @@ specifier|final
 name|Configuration
 name|conf
 parameter_list|,
-name|ConsensusProvider
-name|consensusProvider
+name|CoordinatedStateManager
+name|csm
 parameter_list|)
 throws|throws
 name|IOException
@@ -1923,7 +1955,7 @@ name|super
 argument_list|(
 name|conf
 argument_list|,
-name|consensusProvider
+name|csm
 argument_list|)
 expr_stmt|;
 name|this
@@ -2546,7 +2578,7 @@ return|return
 name|metricsMaster
 return|;
 block|}
-comment|/**    * Initialize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Initialize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    * @throws CoordinatedStateException    */
 name|void
 name|initializeZKBasedSystemTrackers
 parameter_list|()
@@ -2556,6 +2588,8 @@ throws|,
 name|InterruptedException
 throws|,
 name|KeeperException
+throws|,
+name|CoordinatedStateException
 block|{
 name|this
 operator|.
@@ -2792,7 +2826,7 @@ name|metricsMaster
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, etc</li>    *<li>Start necessary service threads - balancer, catalog janior,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of meta/namespace regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
+comment|/**    * Finish initialization of HMaster after becoming the primary master.    *    *<ol>    *<li>Initialize master components - file system manager, server manager,    *     assignment manager, region server tracker, etc</li>    *<li>Start necessary service threads - balancer, catalog janior,    *     executor services, etc</li>    *<li>Set cluster as UP in ZooKeeper</li>    *<li>Wait for RegionServers to check-in</li>    *<li>Split logs and perform data recovery, if necessary</li>    *<li>Ensure assignment of meta/namespace regions<li>    *<li>Handle either fresh cluster start or master failover</li>    *</ol>    *    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    * @throws CoordinatedStateException    */
 specifier|private
 name|void
 name|finishActiveMasterInitialization
@@ -2806,6 +2840,8 @@ throws|,
 name|InterruptedException
 throws|,
 name|KeeperException
+throws|,
+name|CoordinatedStateException
 block|{
 name|isActiveMaster
 operator|=
@@ -3961,12 +3997,20 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|getZKTable
+name|getTableStateManager
 argument_list|()
 operator|.
-name|isEnabledTable
+name|isTableState
 argument_list|(
 name|metaTableName
+argument_list|,
+name|ZooKeeperProtos
+operator|.
+name|Table
+operator|.
+name|State
+operator|.
+name|ENABLED
 argument_list|)
 condition|)
 block|{
@@ -7700,12 +7744,20 @@ operator|!
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|getZKTable
+name|getTableStateManager
 argument_list|()
 operator|.
-name|isDisabledTable
+name|isTableState
 argument_list|(
 name|tableName
+argument_list|,
+name|ZooKeeperProtos
+operator|.
+name|Table
+operator|.
+name|State
+operator|.
+name|DISABLED
 argument_list|)
 condition|)
 block|{
@@ -8815,7 +8867,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|)
 block|{
@@ -8837,7 +8889,7 @@ name|Configuration
 operator|.
 name|class
 argument_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 operator|.
 name|class
 argument_list|)
