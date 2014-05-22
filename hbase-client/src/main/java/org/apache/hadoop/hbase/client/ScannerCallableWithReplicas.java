@@ -671,8 +671,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// allocate a boundedcompletion pool of some multiple of number of replicas.
-comment|// We want accommodate the "scan" RPC call and the "close" RPC call (we schedule "close"
-comment|// RPCs for unneeded replica scans using the same pool)
+comment|// We want to accomodate some RPCs for redundant replica scans (but are still in progress)
 name|BoundedCompletionService
 argument_list|<
 name|Pair
@@ -826,7 +825,7 @@ argument_list|()
 argument_list|,
 name|done
 argument_list|,
-name|cs
+name|pool
 argument_list|)
 expr_stmt|;
 block|}
@@ -1002,7 +1001,7 @@ argument_list|()
 argument_list|,
 name|done
 argument_list|,
-name|cs
+name|pool
 argument_list|)
 expr_stmt|;
 block|}
@@ -1158,17 +1157,8 @@ parameter_list|,
 name|AtomicBoolean
 name|done
 parameter_list|,
-name|BoundedCompletionService
-argument_list|<
-name|Pair
-argument_list|<
-name|Result
-index|[]
-argument_list|,
-name|ScannerCallable
-argument_list|>
-argument_list|>
-name|cs
+name|ExecutorService
+name|pool
 parameter_list|)
 block|{
 if|if
@@ -1311,7 +1301,7 @@ argument_list|(
 name|s
 argument_list|)
 decl_stmt|;
-name|cs
+name|pool
 operator|.
 name|submit
 argument_list|(

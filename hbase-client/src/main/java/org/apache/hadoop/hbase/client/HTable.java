@@ -941,7 +941,7 @@ specifier|private
 name|ExecutorService
 name|pool
 decl_stmt|;
-comment|// For Multi
+comment|// For Multi& Scan
 specifier|private
 name|boolean
 name|closed
