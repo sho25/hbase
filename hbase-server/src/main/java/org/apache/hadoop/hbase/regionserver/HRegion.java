@@ -1963,7 +1963,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is {@link HLog.NO_SEQUENCE_ID}. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *     *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
+comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *     *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -2704,30 +2704,6 @@ decl_stmt|;
 specifier|private
 name|RegionServerAccounting
 name|rsAccounting
-decl_stmt|;
-specifier|private
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
-name|recentFlushes
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
-argument_list|()
 decl_stmt|;
 specifier|private
 name|long
@@ -4486,7 +4462,7 @@ return|return
 name|memstoreSize
 return|;
 block|}
-comment|/**    * Increase the size of mem store in this region and the size of global mem    * store    * @param memStoreSize    * @return the size of memstore in this region    */
+comment|/**    * Increase the size of mem store in this region and the size of global mem    * store    * @return the size of memstore in this region    */
 specifier|public
 name|long
 name|addAndGetGlobalMemstoreSize
@@ -4615,7 +4591,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Reset recovering state of current region    * @param newState    */
+comment|/**    * Reset recovering state of current region    */
 specifier|public
 name|void
 name|setRecovering
@@ -5436,9 +5412,7 @@ control|)
 block|{
 assert|assert
 name|abort
-condition|?
-literal|true
-else|:
+operator|||
 name|store
 operator|.
 name|getFlushableSize
@@ -7341,7 +7315,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to write those updates in the    * memstore out to disk, while being able to process reads/writes as much as possible during the    * flush operation.    *<p>This method may block for some time.  Every time you call it, we up the regions    * sequence id even if we don't flush; i.e. the returned region id will be at least one larger    * than the last edit applied to this region. The returned id does not refer to an actual edit.    * The returned id can be used for say installing a bulk loaded file just ahead of the last hfile    * that was the result of this flush, etc.    * @param status    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to write those updates in the    * memstore out to disk, while being able to process reads/writes as much as possible during the    * flush operation.    *<p>This method may block for some time.  Every time you call it, we up the regions    * sequence id even if we don't flush; i.e. the returned region id will be at least one larger    * than the last edit applied to this region. The returned id does not refer to an actual edit.    * The returned id can be used for say installing a bulk loaded file just ahead of the last hfile    * that was the result of this flush, etc.    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
@@ -7366,7 +7340,7 @@ name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out flush file.    * @param status    * @return object describing the flush's state    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out flush file.    * @return object describing the flush's state    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
@@ -7406,7 +7380,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Aborting flush because server is abortted..."
+literal|"Aborting flush because server is aborted..."
 argument_list|)
 throw|;
 block|}
@@ -7801,7 +7775,7 @@ literal|"Finished memstore snapshotting "
 operator|+
 name|this
 operator|+
-literal|", syncing WAL and waiting on mvcc, flushsize="
+literal|", syncing WAL and waiting on mvcc, flushSize="
 operator|+
 name|totalFlushableSize
 decl_stmt|;
@@ -8176,28 +8150,6 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|recentFlushes
-operator|.
-name|add
-argument_list|(
-operator|new
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
-argument_list|(
-name|time
-operator|/
-literal|1000
-argument_list|,
-name|totalFlushableSize
-argument_list|)
-argument_list|)
-expr_stmt|;
 return|return
 operator|new
 name|FlushResult
@@ -8220,7 +8172,7 @@ name|flushSeqId
 argument_list|)
 return|;
 block|}
-comment|/**    * Method to safely get the next sequence number.    * @param wal    * @param now    * @return Next sequence number unassociated with any actual edit.    * @throws IOException    */
+comment|/**    * Method to safely get the next sequence number.    * @return Next sequence number unassociated with any actual edit.    * @throws IOException    */
 specifier|private
 name|long
 name|getNextSequenceId
@@ -8255,7 +8207,7 @@ name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Call append but with an empty WALEdit.  The returned seqeunce id will not be associated
+comment|// Call append but with an empty WALEdit.  The returned sequence id will not be associated
 comment|// with any edit and we can be sure it went in after all outstanding appends.
 name|wal
 operator|.
@@ -8313,7 +8265,7 @@ name|CATALOG_FAMILY
 argument_list|)
 return|;
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family column family to find on    * @return map of values    * @throws IOException read exceptions    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately precedes it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family column family to find on    * @return map of values    * @throws IOException read exceptions    */
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -8426,10 +8378,12 @@ init|=
 operator|new
 name|Get
 argument_list|(
-name|key
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|key
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|get
@@ -8859,7 +8813,7 @@ argument_list|(
 literal|"ForUnitTestsOnly"
 argument_list|)
 decl_stmt|;
-comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param durability    * @throws IOException    */
+comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @throws IOException    */
 name|void
 name|delete
 parameter_list|(
@@ -8910,7 +8864,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @param familyMap    * @param byteNow    * @throws IOException    */
+comment|/**    * Setup correct timestamps in the KVs in Delete object.    * Caller should have the row and region locks.    * @throws IOException    */
 name|void
 name|prepareDeleteTimestamps
 parameter_list|(
@@ -9035,10 +8989,12 @@ name|byte
 index|[]
 name|qual
 init|=
-name|kv
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|cloneQualifier
+argument_list|(
+name|kv
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -9108,10 +9064,12 @@ init|=
 operator|new
 name|Get
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|getRow
-argument_list|()
+name|cloneRow
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|get
@@ -9246,7 +9204,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * @param put    * @throws IOException    */
+comment|/**    * @throws IOException    */
 specifier|public
 name|void
 name|put
@@ -11861,7 +11819,7 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndMutate you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator    * @param w    * @param writeToWAL    * @throws IOException    * @return true if the new put was executed, false otherwise    */
+comment|/**    *    * @throws IOException    * @return true if the new put was executed, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndMutate
@@ -12247,9 +12205,6 @@ comment|// All edits for the given row (across all column families) must
 comment|// happen atomically.
 name|doBatchMutate
 argument_list|(
-operator|(
-name|Mutation
-operator|)
 name|w
 argument_list|)
 expr_stmt|;
@@ -12394,7 +12349,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Complete taking the snapshot on the region. Writes the region info and adds references to the    * working snapshot directory.    *    * TODO for api consistency, consider adding another version with no {@link ForeignExceptionSnare}    * arg.  (In the future other cancellable HRegion methods could eventually add a    * {@link ForeignExceptionSnare}, or we could do something fancier).    *    * @param desc snasphot description object    * @param exnSnare ForeignExceptionSnare that captures external exeptions in case we need to    *   bail out.  This is allowed to be null and will just be ignored in that case.    * @throws IOException if there is an external or internal error causing the snapshot to fail    */
+comment|/**    * Complete taking the snapshot on the region. Writes the region info and adds references to the    * working snapshot directory.    *    * TODO for api consistency, consider adding another version with no {@link ForeignExceptionSnare}    * arg.  (In the future other cancellable HRegion methods could eventually add a    * {@link ForeignExceptionSnare}, or we could do something fancier).    *    * @param desc snapshot description object    * @param exnSnare ForeignExceptionSnare that captures external exceptions in case we need to    *   bail out.  This is allowed to be null and will just be ignored in that case.    * @throws IOException if there is an external or internal error causing the snapshot to fail    */
 specifier|public
 name|void
 name|addRegionToSnapshot
@@ -12649,7 +12604,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param family    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
+comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -12898,7 +12853,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put/Delete has updated memstore but subequently fails to update    * the wal. This method is then invoked to rollback the memstore.    */
+comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put/Delete has updated memstore but subsequently fails to update    * the wal. This method is then invoked to rollback the memstore.    */
 specifier|private
 name|void
 name|rollbackMemstore
@@ -13031,7 +12986,7 @@ argument_list|()
 decl_stmt|;
 comment|// Remove those keys from the memstore that matches our
 comment|// key's (row, cf, cq, timestamp, memstoreTS). The interesting part is
-comment|// that even the memstoreTS has to match for keys that will be rolleded-back.
+comment|// that even the memstoreTS has to match for keys that will be rolled-back.
 name|Store
 name|store
 init|=
@@ -13493,7 +13448,7 @@ operator|.
 name|memstoreFlushSize
 return|;
 block|}
-comment|/**    * Read the edits log put under this region by wal log splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any log message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such log messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * HLog sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/hlog sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver log with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param regiondir    * @param maxSeqIdInStores Any edit found in split editlogs needs to be in excess of    * the maxSeqId for the store to be applied, else its skipped.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
+comment|/**    * Read the edits log put under this region by wal log splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any log message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such log messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * HLog sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/hlog sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver log with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param maxSeqIdInStores Any edit found in split editlogs needs to be in excess of    * the maxSeqId for the store to be applied, else its skipped.    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
 specifier|protected
 name|long
 name|replayRecoveredEditsIfAny
@@ -14480,16 +14435,9 @@ condition|)
 block|{
 name|store
 operator|=
-name|this
-operator|.
-name|stores
-operator|.
-name|get
+name|getStore
 argument_list|(
 name|kv
-operator|.
-name|getFamily
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -14618,7 +14566,7 @@ name|msg
 operator|=
 literal|"Encountered EOF. Most likely due to Master failure during "
 operator|+
-literal|"log spliting, so we have this data in another edit.  "
+literal|"log splitting, so we have this data in another edit.  "
 operator|+
 literal|"Continuing, but renaming "
 operator|+
@@ -14751,11 +14699,11 @@ literal|", skipped "
 operator|+
 name|skippedEdits
 operator|+
-literal|", firstSequenceidInLog="
+literal|", firstSequenceIdInLog="
 operator|+
 name|firstSeqIdInLog
 operator|+
-literal|", maxSequenceidInLog="
+literal|", maxSequenceIdInLog="
 operator|+
 name|currentEditSeqId
 operator|+
@@ -14803,7 +14751,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction    */
+comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    */
 name|void
 name|completeCompactionMarker
 parameter_list|(
@@ -15032,6 +14980,83 @@ name|get
 argument_list|(
 name|column
 argument_list|)
+return|;
+block|}
+comment|/**    * Return HStore instance. Does not do any copy: as the number of store is limited, we    *  iterate on the list.    */
+specifier|private
+name|Store
+name|getStore
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Store
+argument_list|>
+name|famStore
+range|:
+name|stores
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|cell
+operator|.
+name|getFamilyArray
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyOffset
+argument_list|()
+argument_list|,
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+argument_list|,
+name|famStore
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+literal|0
+argument_list|,
+name|famStore
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|length
+argument_list|)
+condition|)
+block|{
+return|return
+name|famStore
+operator|.
+name|getValue
+argument_list|()
+return|;
+block|}
+block|}
+return|return
+literal|null
 return|;
 block|}
 specifier|public
@@ -15421,7 +15446,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Acqures a lock on the given row.    * The same thread may acquire multiple locks on the same row.    * @return the acquired row lock    * @throws IOException if the lock could not be acquired after waiting    */
+comment|/**    * Acquires a lock on the given row.    * The same thread may acquire multiple locks on the same row.    * @return the acquired row lock    * @throws IOException if the lock could not be acquired after waiting    */
 specifier|public
 name|RowLock
 name|getRowLock
@@ -15605,7 +15630,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
 name|boolean
 name|bulkLoadHFiles
@@ -15656,8 +15681,8 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-comment|// There possibly was a split that happend between when the split keys
-comment|// were gathered and before the HReiogn's write lock was taken.  We need
+comment|// There possibly was a split that happened between when the split keys
+comment|// were gathered and before the HRegion's write lock was taken.  We need
 comment|// to validate the HFile region before attempting to bulk load all of them
 name|List
 argument_list|<
@@ -16686,27 +16711,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-name|RegionScannerImpl
-parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
-name|HRegion
-name|region
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|scan
-argument_list|,
-literal|null
-argument_list|,
-name|region
-argument_list|)
-expr_stmt|;
-block|}
 specifier|protected
 name|void
 name|initializeKVHeap
@@ -17156,7 +17160,7 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Fetches records with currentRow into results list, until next row or limit (if not -1).      * @param results      * @param heap KeyValueHeap to fetch data from.It must be positioned on correct row before call.      * @param limit Max amount of KVs to place in result list, -1 means no limit.      * @param currentRow Byte array with key we are fetching.      * @param offset offset for currentRow      * @param length length for currentRow      * @return KV_LIMIT if limit reached, next KeyValue otherwise.      */
+comment|/**      * Fetches records with currentRow into results list, until next row or limit (if not -1).      * @param heap KeyValueHeap to fetch data from.It must be positioned on correct row before call.      * @param limit Max amount of KVs to place in result list, -1 means no limit.      * @param currentRow Byte array with key we are fetching.      * @param offset offset for currentRow      * @param length length for currentRow      * @return KV_LIMIT if limit reached, next KeyValue otherwise.      */
 specifier|private
 name|Cell
 name|populateResult
@@ -18154,7 +18158,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|// no need to sychronize here.
+comment|// no need to synchronize here.
 name|scannerReadPoints
 operator|.
 name|remove
@@ -18282,7 +18286,7 @@ return|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
 specifier|static
 name|HRegion
 name|newHRegion
@@ -18426,7 +18430,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.<b>When done with a region created using this method, you will    * need to explicitly close the {@link HLog} it created too; it will not be    * done for you.  Not closing the log will leave at least a daemon thread    * running.</b>  Call {@link #closeHRegion(HRegion)} and it will do    * necessary cleanup for you.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.<b>When done with a region created using this method, you will    * need to explicitly close the {@link HLog} it created too; it will not be    * done for you.  Not closing the log will leave at least a daemon thread    * running.</b>  Call {@link #closeHRegion(HRegion)} and it will do    * necessary cleanup for you.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -18466,7 +18470,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * This will do the necessary cleanup a call to    * {@link #createHRegion(HRegionInfo, Path, Configuration, HTableDescriptor)}    * requires.  This method will close the region and then close its    * associated {@link HLog} file.  You use it if you call the other createHRegion,    * the one that takes an {@link HLog} instance but don't be surprised by the    * call to the {@link HLog#closeAndDelete()} on the {@link HLog} the    * HRegion was carrying.    * @param r    * @throws IOException    */
+comment|/**    * This will do the necessary cleanup a call to    * {@link #createHRegion(HRegionInfo, Path, Configuration, HTableDescriptor)}    * requires.  This method will close the region and then close its    * associated {@link HLog} file.  You use it if you call the other createHRegion,    * the one that takes an {@link HLog} instance but don't be surprised by the    * call to the {@link HLog#closeAndDelete()} on the {@link HLog} the    * HRegion was carrying.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -18510,7 +18514,7 @@ name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -18562,7 +18566,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -18635,7 +18639,7 @@ name|ignoreHLog
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param tableDir table directory    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param tableDir table directory    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -18807,7 +18811,9 @@ argument_list|(
 name|region
 operator|.
 name|initialize
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -18860,7 +18866,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -19412,7 +19418,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open HRegion.    * Calls initialize and sets sequenceid.    * @param reporter    * @return Returns<code>this</code>    * @throws IOException    */
+comment|/**    * Open HRegion.    * Calls initialize and sets sequenceId.    * @return Returns<code>this</code>    * @throws IOException    */
 specifier|protected
 name|HRegion
 name|openHRegion
@@ -19580,7 +19586,7 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Create a merged region given a temp directory with the region data.    * @param mergedRegionInfo    * @param region_b another merging region    * @return merged hregion    * @throws IOException    */
+comment|/**    * Create a merged region given a temp directory with the region data.    * @param region_b another merging region    * @return merged HRegion    * @throws IOException    */
 name|HRegion
 name|createMergedRegionFromMerges
 parameter_list|(
@@ -19957,7 +19963,7 @@ operator|)
 operator|)
 return|;
 block|}
-comment|/**    * Merge two HRegions.  The regions must be adjacent and must not overlap.    *    * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
+comment|/**    * Merge two HRegions.  The regions must be adjacent and must not overlap.    *    * @return new merged HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20374,7 +20380,7 @@ literal|" and "
 operator|+
 name|b
 operator|+
-literal|", and succssfully rolled back"
+literal|", and successfully rolled back"
 argument_list|)
 throw|;
 block|}
@@ -20743,13 +20749,6 @@ name|totalSize
 init|=
 literal|0l
 decl_stmt|;
-if|if
-condition|(
-name|results
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|Cell
@@ -20770,7 +20769,6 @@ operator|.
 name|getLength
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 name|this
 operator|.
@@ -21090,8 +21088,6 @@ literal|null
 decl_stmt|;
 name|boolean
 name|locked
-init|=
-literal|false
 decl_stmt|;
 name|boolean
 name|walSyncSuccessful
@@ -21103,8 +21099,6 @@ argument_list|<
 name|RowLock
 argument_list|>
 name|acquiredRowLocks
-init|=
-literal|null
 decl_stmt|;
 name|long
 name|addedSize
@@ -21257,28 +21251,36 @@ name|getWriteNumber
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|byte
-index|[]
-name|family
+name|Store
+name|store
 init|=
+name|getStore
+argument_list|(
 name|kv
-operator|.
-name|getFamily
-argument_list|()
+argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|store
+operator|==
+literal|null
+condition|)
+block|{
 name|checkFamily
 argument_list|(
-name|family
+name|CellUtil
+operator|.
+name|cloneFamily
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// unreachable
+block|}
 name|addedSize
 operator|+=
-name|stores
-operator|.
-name|get
-argument_list|(
-name|family
-argument_list|)
+name|store
 operator|.
 name|add
 argument_list|(
@@ -21444,6 +21446,10 @@ argument_list|()
 operator|+
 literal|" memstore keyvalues for row(s):"
 operator|+
+name|StringUtils
+operator|.
+name|byteToHexString
+argument_list|(
 name|processor
 operator|.
 name|getRowsToLock
@@ -21454,6 +21460,7 @@ argument_list|()
 operator|.
 name|next
 argument_list|()
+argument_list|)
 operator|+
 literal|"..."
 argument_list|)
@@ -21466,14 +21473,9 @@ range|:
 name|mutations
 control|)
 block|{
-name|stores
-operator|.
-name|get
+name|getStore
 argument_list|(
 name|kv
-operator|.
-name|getFamily
-argument_list|()
 argument_list|)
 operator|.
 name|rollback
@@ -21498,10 +21500,6 @@ argument_list|(
 name|writeEntry
 argument_list|)
 expr_stmt|;
-name|writeEntry
-operator|=
-literal|null
-expr_stmt|;
 block|}
 if|if
 condition|(
@@ -21517,10 +21515,6 @@ argument_list|()
 operator|.
 name|unlock
 argument_list|()
-expr_stmt|;
-name|locked
-operator|=
-literal|false
 expr_stmt|;
 block|}
 comment|// release locks if some were acquired but another timed out
@@ -21898,7 +21892,7 @@ return|;
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    * Perform one or more append operations on a row.    *    * @param append    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more append operations on a row.    *    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append
@@ -22192,16 +22186,6 @@ name|getValue
 argument_list|()
 control|)
 block|{
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 name|get
 operator|.
 name|addColumn
@@ -22211,10 +22195,12 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-name|kv
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|cloneQualifier
+argument_list|(
+name|cell
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -22643,9 +22629,6 @@ name|append
 argument_list|,
 name|oldKv
 argument_list|,
-operator|(
-name|Cell
-operator|)
 name|newKV
 argument_list|)
 argument_list|)
@@ -22704,7 +22687,7 @@ condition|(
 name|writeToWAL
 condition|)
 block|{
-comment|// Using default cluster id, as this can only happen in the orginating
+comment|// Using default cluster id, as this can only happen in the originating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
 name|HLogKey
@@ -23022,7 +23005,7 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    * Perform one or more increment operations on a row.    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|increment
@@ -23322,16 +23305,6 @@ name|getValue
 argument_list|()
 control|)
 block|{
-name|KeyValue
-name|kv
-init|=
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cell
-argument_list|)
-decl_stmt|;
 name|get
 operator|.
 name|addColumn
@@ -23341,10 +23314,12 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-name|kv
+name|CellUtil
 operator|.
-name|getQualifier
-argument_list|()
+name|cloneQualifier
+argument_list|(
+name|cell
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -23808,9 +23783,6 @@ name|increment
 argument_list|,
 name|c
 argument_list|,
-operator|(
-name|Cell
-operator|)
 name|newKV
 argument_list|)
 argument_list|)
@@ -23906,7 +23878,7 @@ condition|(
 name|writeToWAL
 condition|)
 block|{
-comment|// Using default cluster id, as this can only happen in the orginating
+comment|// Using default cluster id, as this can only happen in the originating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
 name|HLogKey
@@ -24280,7 +24252,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|41
+literal|40
 operator|*
 name|ClassSize
 operator|.
@@ -24380,11 +24352,6 @@ name|REENTRANT_LOCK
 operator|)
 operator|+
 comment|// lock, updatesLock
-name|ClassSize
-operator|.
-name|ARRAYLIST
-operator|+
-comment|// recentFlushes
 name|MultiVersionConsistencyControl
 operator|.
 name|FIXED_SIZE
@@ -24479,7 +24446,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Usage: HRegion CATLALOG_TABLE_DIR [major_compact]"
+literal|"Usage: HRegion CATALOG_TABLE_DIR [major_compact]"
 argument_list|)
 expr_stmt|;
 name|System
@@ -24619,7 +24586,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Executes a single protocol buffer coprocessor endpoint {@link Service} method using    * the registered protocol handlers.  {@link Service} implementations must be registered via the    * {@link HRegion#registerService(com.google.protobuf.Service)}    * method before they are available.    *    * @param controller an {@code RpcContoller} implementation to pass to the invoked service    * @param call a {@code CoprocessorServiceCall} instance identifying the service, method,    *     and parameters for the method invocation    * @return a protocol buffer {@code Message} instance containing the method's result    * @throws IOException if no registered service handler is found or an error    *     occurs during the invocation    * @see org.apache.hadoop.hbase.regionserver.HRegion#registerService(com.google.protobuf.Service)    */
+comment|/**    * Executes a single protocol buffer coprocessor endpoint {@link Service} method using    * the registered protocol handlers.  {@link Service} implementations must be registered via the    * {@link HRegion#registerService(com.google.protobuf.Service)}    * method before they are available.    *    * @param controller an {@code RpcController} implementation to pass to the invoked service    * @param call a {@code CoprocessorServiceCall} instance identifying the service, method,    *     and parameters for the method invocation    * @return a protocol buffer {@code Message} instance containing the method's result    * @throws IOException if no registered service handler is found or an error    *     occurs during the invocation    * @see org.apache.hadoop.hbase.regionserver.HRegion#registerService(com.google.protobuf.Service)    */
 specifier|public
 name|Message
 name|execService
@@ -24885,7 +24852,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/*    * Process table.    * Do major compaction or list content.    * @param fs    * @param p    * @param log    * @param c    * @param majorCompact    * @throws IOException    */
+comment|/*    * Process table.    * Do major compaction or list content.    * @throws IOException    */
 specifier|private
 specifier|static
 name|void
@@ -24916,8 +24883,6 @@ name|IOException
 block|{
 name|HRegion
 name|region
-init|=
-literal|null
 decl_stmt|;
 comment|// Currently expects tables have one region only.
 if|if
@@ -24983,7 +24948,9 @@ block|{
 name|region
 operator|.
 name|initialize
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -25124,7 +25091,7 @@ index|[]
 name|sp
 parameter_list|)
 block|{
-comment|// NOTE : this HRegion will go away after the forced split is successfull
+comment|// NOTE : this HRegion will go away after the forced split is successful
 comment|//        therefore, no reason to clear this value
 name|this
 operator|.
@@ -25352,40 +25319,6 @@ expr_stmt|;
 block|}
 return|return
 name|count
-return|;
-block|}
-comment|/**    * Checks every store to see if one has too many    * store files    * @return true if any store has too many store files    */
-specifier|public
-name|boolean
-name|needsCompaction
-parameter_list|()
-block|{
-for|for
-control|(
-name|Store
-name|store
-range|:
-name|stores
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|store
-operator|.
-name|needsCompaction
-argument_list|()
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-block|}
-return|return
-literal|false
 return|;
 block|}
 comment|/** @return the coprocessor host */
@@ -25669,7 +25602,7 @@ name|ANY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of {@link #startRegionOperation(Operation)}    * @param operation    * @throws IOException    */
+comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of {@link #startRegionOperation(Operation)}    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegionOperation
@@ -26305,7 +26238,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|/**    * Facility for dumping and compacting catalog tables.    * Only does catalog tables since these are only tables we for sure know    * schema on.  For usage run:    *<pre>    *   ./bin/hbase org.apache.hadoop.hbase.regionserver.HRegion    *</pre>    * @param args    * @throws IOException    */
+comment|/**    * Facility for dumping and compacting catalog tables.    * Only does catalog tables since these are only tables we for sure know    * schema on.  For usage run:    *<pre>    *   ./bin/hbase org.apache.hadoop.hbase.regionserver.HRegion    *</pre>    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -26966,42 +26899,6 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Lock the updates' readLock first, so that we could safely append logs in coprocessors.    * @throws RegionTooBusyException    * @throws InterruptedIOException    */
-specifier|public
-name|void
-name|updatesLock
-parameter_list|()
-throws|throws
-name|RegionTooBusyException
-throws|,
-name|InterruptedIOException
-block|{
-name|lock
-argument_list|(
-name|updatesLock
-operator|.
-name|readLock
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Unlock the updates' readLock after appending logs in coprocessors.    * @throws InterruptedIOException    */
-specifier|public
-name|void
-name|updatesUnlock
-parameter_list|()
-throws|throws
-name|InterruptedIOException
-block|{
-name|updatesLock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 end_class
