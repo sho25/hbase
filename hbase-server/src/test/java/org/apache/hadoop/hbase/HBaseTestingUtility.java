@@ -1353,9 +1353,18 @@ name|zkCluster
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * The default number of regions per regionserver when creating a pre-split    * table.    */
-specifier|private
+specifier|public
 specifier|static
+specifier|final
+name|String
+name|REGIONS_PER_SERVER_KEY
+init|=
+literal|"hbase.test.regions-per-server"
+decl_stmt|;
+comment|/**    * The default number of regions per regionserver when creating a pre-split    * table.    */
+specifier|public
+specifier|static
+specifier|final
 name|int
 name|DEFAULT_REGIONS_PER_SERVER
 init|=
@@ -14505,11 +14514,23 @@ literal|"No live regionservers"
 argument_list|)
 throw|;
 block|}
+name|int
+name|regionsPerServer
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|REGIONS_PER_SERVER_KEY
+argument_list|,
+name|DEFAULT_REGIONS_PER_SERVER
+argument_list|)
+decl_stmt|;
 name|totalNumberOfRegions
 operator|=
 name|numberOfServers
 operator|*
-name|DEFAULT_REGIONS_PER_SERVER
+name|regionsPerServer
 expr_stmt|;
 name|LOG
 operator|.
@@ -14529,7 +14550,7 @@ literal|" regions "
 operator|+
 literal|"(default regions per server: "
 operator|+
-name|DEFAULT_REGIONS_PER_SERVER
+name|regionsPerServer
 operator|+
 literal|")"
 argument_list|)

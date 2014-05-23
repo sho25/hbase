@@ -379,7 +379,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|double
 name|getBlockCacheHitPercent
 parameter_list|()
 block|{

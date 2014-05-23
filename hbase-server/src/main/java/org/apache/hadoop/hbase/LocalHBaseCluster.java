@@ -195,22 +195,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -810,15 +794,15 @@ block|{
 comment|// Create each regionserver with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of HConnectionManager.
-comment|// Also, create separate ConsensusProvider instance per Server.
-comment|// This is special case when we have to have more than 1 ConsensusProvider
+comment|// Also, create separate CoordinatedStateManager instance per Server.
+comment|// This is special case when we have to have more than 1 CoordinatedStateManager
 comment|// within 1 process.
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 init|=
-name|ConsensusProviderFactory
+name|CoordinatedStateManagerFactory
 operator|.
-name|getConsensusProvider
+name|getCoordinatedStateManager
 argument_list|(
 name|conf
 argument_list|)
@@ -960,15 +944,15 @@ block|{
 comment|// Create each master with its own Configuration instance so each has
 comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of HConnectionManager.
-comment|// Also, create separate ConsensusProvider instance per Server.
-comment|// This is special case when we have to have more than 1 ConsensusProvider
+comment|// Also, create separate CoordinatedStateManager instance per Server.
+comment|// This is special case when we have to have more than 1 CoordinatedStateManager
 comment|// within 1 process.
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 init|=
-name|ConsensusProviderFactory
+name|CoordinatedStateManagerFactory
 operator|.
-name|getConsensusProvider
+name|getCoordinatedStateManager
 argument_list|(
 name|conf
 argument_list|)

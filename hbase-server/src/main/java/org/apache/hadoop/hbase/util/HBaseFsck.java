@@ -1217,7 +1217,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 import|;
 end_import
 
@@ -7153,7 +7153,7 @@ control|(
 name|TableName
 name|tableName
 range|:
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 operator|.
 name|getDisabledOrDisablingTables
 argument_list|(

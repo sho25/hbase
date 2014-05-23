@@ -940,7 +940,7 @@ name|unassignedTimeout
 decl_stmt|;
 specifier|private
 name|long
-name|lastNodeCreateTime
+name|lastTaskCreateTime
 init|=
 name|Long
 operator|.
@@ -1526,7 +1526,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException     */
+comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException    */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -2118,7 +2118,7 @@ return|return
 name|totalSize
 return|;
 block|}
-comment|/**    * Add a task entry to splitlog znode if it is not already there.    *     * @param taskname the path of the log to be split    * @param batch the batch this task belongs to    * @return true if a new entry is created, false if it is already there.    */
+comment|/**    * Add a task entry to splitlog znode if it is not already there.    *    * @param taskname the path of the log to be split    * @param batch the batch this task belongs to    * @return true if a new entry is created, false if it is already there.    */
 name|boolean
 name|enqueueSplitTask
 parameter_list|(
@@ -2150,6 +2150,13 @@ argument_list|,
 name|taskname
 argument_list|)
 decl_stmt|;
+name|lastTaskCreateTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 name|Task
 name|oldtask
 init|=
@@ -3765,13 +3772,6 @@ name|String
 name|path
 parameter_list|)
 block|{
-name|lastNodeCreateTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -5105,7 +5105,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|/**    * signal the workers that a task was resubmitted by creating the    * RESCAN node.    * @throws KeeperException     */
+comment|/**    * signal the workers that a task was resubmitted by creating the    * RESCAN node.    * @throws KeeperException    */
 specifier|private
 name|void
 name|createRescanNode
@@ -5121,6 +5121,13 @@ comment|// of RESCAN nodes. But there is also a chance that a SplitLogWorker
 comment|// might miss the watch-trigger that creation of RESCAN node provides.
 comment|// Since the TimeoutMonitor will keep resubmitting UNASSIGNED tasks
 comment|// therefore this behavior is safe.
+name|lastTaskCreateTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 name|SplitLogTask
 name|slt
 init|=
@@ -5187,13 +5194,6 @@ name|String
 name|path
 parameter_list|)
 block|{
-name|lastNodeCreateTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
 name|SplitLogCounters
 operator|.
 name|tot_mgr_rescan
@@ -7094,7 +7094,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|lastNodeCreateTime
+name|lastTaskCreateTime
 operator|)
 operator|>
 name|unassignedTimeout
@@ -7655,9 +7655,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-comment|// The task znode has been deleted. Must be some pending delete
-comment|// that deleted the task. Assume success because a task-znode is
-comment|// is only deleted after TaskFinisher is successful.
 name|LOG
 operator|.
 name|warn
@@ -7666,39 +7663,12 @@ literal|"task znode "
 operator|+
 name|path
 operator|+
-literal|" vanished."
+literal|" vanished or not created yet."
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|getDataSetWatchSuccess
-argument_list|(
-name|path
-argument_list|,
-literal|null
-argument_list|,
-name|Integer
-operator|.
-name|MIN_VALUE
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|DeserializationException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Deserialization problem"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
+comment|// ignore since we should not end up in a case where there is in-memory task,
+comment|// but no znode. The only case is between the time task is created in-memory
+comment|// and the znode is created. See HBASE-11217.
 return|return;
 block|}
 name|Long

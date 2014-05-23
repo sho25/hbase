@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|consensus
 package|;
 end_package
 
@@ -31,87 +29,53 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ConsensusProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
-import|;
-end_import
-
 begin_comment
-comment|/**  * Base class for {@link org.apache.hadoop.hbase.ConsensusProvider} implementations.  * Defines methods to retrieve consensus objects for relevant areas. ConsensusProvider  * reference returned from Server interface has to be casted to this type to  * access those methods.  */
+comment|/**  * Implementations of this interface will keep and return to clients   * implementations of classes providing API to execute  * coordinated operations. This interface is client-side, so it does NOT  * include methods to retrieve the particular interface implementations.  *  * For each coarse-grained area of operations there will be a separate  * interface with implementation, providing API for relevant operations  * requiring coordination.  *  * Property hbase.coordinated.state.manager.class in hbase-site.xml controls  * which provider to use.  */
 end_comment
 
-begin_class
+begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|abstract
-class|class
-name|BaseConsensusProvider
-implements|implements
-name|ConsensusProvider
+interface|interface
+name|CoordinatedStateManager
 block|{
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Initialize coordinated state management service.    * @param server server instance to run within.    */
 name|void
 name|initialize
 parameter_list|(
 name|Server
 name|server
 parameter_list|)
-block|{   }
-annotation|@
-name|Override
-specifier|public
+function_decl|;
+comment|/**    * Starts service.    */
 name|void
 name|start
 parameter_list|()
-block|{   }
-annotation|@
-name|Override
-specifier|public
+function_decl|;
+comment|/**    * Stops service.    */
 name|void
 name|stop
 parameter_list|()
-block|{   }
-annotation|@
-name|Override
-specifier|public
+function_decl|;
+comment|/**    * @return instance of Server coordinated state manager runs within    */
 name|Server
 name|getServer
 parameter_list|()
-block|{
-return|return
-literal|null
-return|;
+function_decl|;
+comment|/**    * Returns implementation of TableStateManager.    * @throws InterruptedException if operation is interrupted    * @throws CoordinatedStateException if error happens in underlying coordination mechanism    */
+name|TableStateManager
+name|getTableStateManager
+parameter_list|()
+throws|throws
+name|InterruptedException
+throws|,
+name|CoordinatedStateException
+function_decl|;
 block|}
-block|}
-end_class
+end_interface
 
 end_unit
 

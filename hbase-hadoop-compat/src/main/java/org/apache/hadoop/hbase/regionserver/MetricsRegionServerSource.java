@@ -417,7 +417,7 @@ decl_stmt|;
 name|String
 name|BLOCK_CACHE_HIT_PERCENT
 init|=
-literal|"blockCountHitPercent"
+literal|"blockCacheCountHitPercent"
 decl_stmt|;
 name|String
 name|BLOCK_CACHE_HIT_PERCENT_DESC

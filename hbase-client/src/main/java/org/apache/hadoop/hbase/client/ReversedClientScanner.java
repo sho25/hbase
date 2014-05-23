@@ -610,6 +610,10 @@ operator|.
 name|scanMetrics
 argument_list|,
 name|locateStartRow
+argument_list|,
+name|this
+operator|.
+name|rpcControllerFactory
 argument_list|)
 decl_stmt|;
 name|s

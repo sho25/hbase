@@ -165,7 +165,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 import|;
 end_import
 
@@ -558,7 +558,7 @@ name|enabled
 condition|)
 block|{
 return|return
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 operator|.
 name|isEnabledTable
 argument_list|(
@@ -569,7 +569,7 @@ argument_list|)
 return|;
 block|}
 return|return
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 operator|.
 name|isDisabledTable
 argument_list|(

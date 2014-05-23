@@ -179,7 +179,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProvider
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -1006,7 +1006,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 parameter_list|)
 throws|throws

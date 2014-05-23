@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Non-instantiable class that provides helper functions for  * clients other than AssignmentManager for reading the  * state of a table in ZK.  *  *<p>Does not cache state like {@link ZKTable}, actually reads from ZK each call.  */
+comment|/**  * Non-instantiable class that provides helper functions to learn  * about HBase table state for code running on client side (hence, not having  * access to consensus context).  *  * Doesn't cache any table state, just goes directly to ZooKeeper.  * TODO: decouple this class from ZooKeeper.  */
 end_comment
 
 begin_class
@@ -160,13 +160,13 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 block|{
 specifier|private
-name|ZKTableReadOnly
+name|ZKTableStateClientSideReader
 parameter_list|()
 block|{}
-comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager    * @param zkw ZooKeeperWatcher instance to use    * @param tableName table we're checking    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -214,7 +214,7 @@ name|state
 argument_list|)
 return|;
 block|}
-comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#ENABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#ENABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager    * @param zkw ZooKeeperWatcher instance to use    * @param tableName table we're checking    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -250,7 +250,7 @@ operator|.
 name|ENABLED
 return|;
 block|}
-comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLING}    * of {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager.    * @param zkw    * @param tableName    * @return True if table is enabled.    * @throws KeeperException    */
+comment|/**    * Go to zookeeper and see if state of table is {@code ZooKeeperProtos.Table.State#DISABLING}    * of {@code ZooKeeperProtos.Table.State#DISABLED}.    * This method does not use cache.    * This method is for clients other than AssignmentManager.    * @param zkw ZooKeeperWatcher instance to use    * @param tableName table we're checking    * @return True if table is enabled.    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|boolean
@@ -561,7 +561,7 @@ name|expectedState
 argument_list|)
 return|;
 block|}
-comment|/**    * @param zkw    * @param tableName    * @return Null or {@link ZooKeeperProtos.Table.State} found in znode.    * @throws KeeperException    */
+comment|/**    * @param zkw ZooKeeperWatcher instance to use    * @param tableName table we're checking    * @return Null or {@link ZooKeeperProtos.Table.State} found in znode.    * @throws KeeperException    */
 specifier|static
 name|ZooKeeperProtos
 operator|.

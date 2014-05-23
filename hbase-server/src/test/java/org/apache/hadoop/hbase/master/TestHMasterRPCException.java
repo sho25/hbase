@@ -87,7 +87,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProvider
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -101,7 +101,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ConsensusProviderFactory
+name|CoordinatedStateManagerFactory
 import|;
 end_import
 
@@ -291,12 +291,12 @@ argument_list|,
 literal|"0"
 argument_list|)
 expr_stmt|;
-name|ConsensusProvider
+name|CoordinatedStateManager
 name|cp
 init|=
-name|ConsensusProviderFactory
+name|CoordinatedStateManagerFactory
 operator|.
-name|getConsensusProvider
+name|getCoordinatedStateManager
 argument_list|(
 name|conf
 argument_list|)

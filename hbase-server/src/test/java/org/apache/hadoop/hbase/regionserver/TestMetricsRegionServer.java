@@ -543,7 +543,7 @@ name|HELPER
 operator|.
 name|assertGauge
 argument_list|(
-literal|"blockCountHitPercent"
+literal|"blockCacheCountHitPercent"
 argument_list|,
 literal|98
 argument_list|,

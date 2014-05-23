@@ -55,7 +55,7 @@ name|hbase
 operator|.
 name|consensus
 operator|.
-name|ZkConsensusProvider
+name|ZkCoordinatedStateManager
 import|;
 end_import
 
@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Creates instance of {@link ConsensusProvider}  * based on configuration.  */
+comment|/**  * Creates instance of {@link CoordinatedStateManager}  * based on configuration.  */
 end_comment
 
 begin_class
@@ -84,13 +84,13 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ConsensusProviderFactory
+name|CoordinatedStateManagerFactory
 block|{
-comment|/**    * Creates consensus provider from the given configuration.    * @param conf Configuration    * @return A {@link ConsensusProvider}    */
+comment|/**    * Creates consensus provider from the given configuration.    * @param conf Configuration    * @return Implementation of  {@link CoordinatedStateManager}    */
 specifier|public
 specifier|static
-name|ConsensusProvider
-name|getConsensusProvider
+name|CoordinatedStateManager
+name|getCoordinatedStateManager
 parameter_list|(
 name|Configuration
 name|conf
@@ -100,9 +100,9 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|ConsensusProvider
+name|CoordinatedStateManager
 argument_list|>
-name|consensusKlass
+name|coordinatedStateMgrKlass
 init|=
 name|conf
 operator|.
@@ -110,13 +110,13 @@ name|getClass
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_CONSENSUS_PROVIDER_CLASS
+name|HBASE_COORDINATED_STATE_MANAGER_CLASS
 argument_list|,
-name|ZkConsensusProvider
+name|ZkCoordinatedStateManager
 operator|.
 name|class
 argument_list|,
-name|ConsensusProvider
+name|CoordinatedStateManager
 operator|.
 name|class
 argument_list|)
@@ -126,7 +126,7 @@ name|ReflectionUtils
 operator|.
 name|newInstance
 argument_list|(
-name|consensusKlass
+name|coordinatedStateMgrKlass
 argument_list|,
 name|conf
 argument_list|)
