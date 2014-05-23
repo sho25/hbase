@@ -779,6 +779,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|jboss
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|internal
+operator|.
+name|DetectionUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|AfterClass
@@ -1010,6 +1026,18 @@ operator|new
 name|Random
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+name|boolean
+name|isJavaOk
+init|=
+name|DetectionUtil
+operator|.
+name|javaVersion
+argument_list|()
+operator|>
+literal|6
+decl_stmt|;
 comment|/** * This copro sleeps 20 second. The first call it fails. The second time, it works. */
 specifier|public
 specifier|static
@@ -1097,6 +1125,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+name|isJavaOk
+condition|)
+block|{
 name|TEST_UTIL
 operator|.
 name|getConfiguration
@@ -1111,6 +1144,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
@@ -1583,6 +1617,21 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+operator|!
+name|isJavaOk
+condition|)
+block|{
+comment|// This test requires jdk 1.7+
+throw|throw
+operator|new
+name|RegionServerStoppedException
+argument_list|(
+literal|"as expected by the test..."
+argument_list|)
+throw|;
+block|}
 name|TableName
 name|tn
 init|=
@@ -2983,6 +3032,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+operator|!
+name|isJavaOk
+condition|)
+block|{
+comment|// This test requires jdk 1.7+
+return|return;
+block|}
 name|String
 name|tableName
 init|=
