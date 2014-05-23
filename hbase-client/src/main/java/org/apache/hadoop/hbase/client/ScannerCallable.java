@@ -277,6 +277,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|RpcControllerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -396,6 +412,18 @@ operator|.
 name|net
 operator|.
 name|DNS
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
 import|;
 end_import
 
@@ -569,7 +597,11 @@ name|nextCallSeq
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable    * won't collect metrics    */
+specifier|private
+name|RpcControllerFactory
+name|rpcFactory
+decl_stmt|;
+comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating {@link RpcController}    */
 specifier|public
 name|ScannerCallable
 parameter_list|(
@@ -584,6 +616,9 @@ name|scan
 parameter_list|,
 name|ScanMetrics
 name|scanMetrics
+parameter_list|,
+name|RpcControllerFactory
+name|rpcControllerFactory
 parameter_list|)
 block|{
 name|super
@@ -640,6 +675,12 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|rpcFactory
+operator|=
+name|rpcControllerFactory
+expr_stmt|;
 block|}
 comment|/**    * @deprecated Use {@link #ScannerCallable(HConnection, TableName, Scan, ScanMetrics)}    */
 annotation|@
@@ -676,6 +717,16 @@ argument_list|,
 name|scan
 argument_list|,
 name|scanMetrics
+argument_list|,
+name|RpcControllerFactory
+operator|.
+name|instantiate
+argument_list|(
+name|connection
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -883,8 +934,9 @@ decl_stmt|;
 name|PayloadCarryingRpcController
 name|controller
 init|=
-operator|new
-name|PayloadCarryingRpcController
+name|rpcFactory
+operator|.
+name|newController
 argument_list|()
 decl_stmt|;
 name|controller

@@ -473,6 +473,10 @@ argument_list|,
 name|localStartKey
 argument_list|,
 name|cacheNum
+argument_list|,
+name|this
+operator|.
+name|rpcControllerFactory
 argument_list|)
 expr_stmt|;
 if|if
