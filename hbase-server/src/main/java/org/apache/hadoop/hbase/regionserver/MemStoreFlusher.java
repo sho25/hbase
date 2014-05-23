@@ -764,7 +764,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hstore.flusher.count"
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 decl_stmt|;
 name|this
