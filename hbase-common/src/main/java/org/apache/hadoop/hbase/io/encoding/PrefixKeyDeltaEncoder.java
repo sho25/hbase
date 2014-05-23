@@ -736,6 +736,11 @@ operator|.
 name|array
 argument_list|()
 argument_list|,
+name|block
+operator|.
+name|arrayOffset
+argument_list|()
+operator|+
 name|pos
 argument_list|,
 name|keyLength
