@@ -876,9 +876,9 @@ condition|)
 block|{
 if|if
 condition|(
-name|LoadTestTool
+name|User
 operator|.
-name|isSecure
+name|isHBaseSecurityEnabled
 argument_list|(
 name|conf
 argument_list|)

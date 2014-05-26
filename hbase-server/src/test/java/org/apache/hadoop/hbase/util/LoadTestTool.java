@@ -2830,12 +2830,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ACL is on"
+literal|"Using LoadTestDataGeneratorWithACL"
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isSecure
+name|User
+operator|.
+name|isHBaseSecurityEnabled
 argument_list|(
 name|conf
 argument_list|)
@@ -2845,7 +2847,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Security is on."
+literal|"Security is enabled"
 argument_list|)
 expr_stmt|;
 name|authnFileName
@@ -3067,6 +3069,13 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|User
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|(
+name|conf
+argument_list|)
+operator|&&
 name|userOwner
 operator|!=
 literal|null
@@ -3076,7 +3085,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Granting permission for the user "
+literal|"Granting permissions for user "
 operator|+
 name|userOwner
 operator|.
@@ -3198,6 +3207,16 @@ name|user
 init|=
 literal|null
 decl_stmt|;
+if|if
+condition|(
+name|User
+operator|.
+name|isHBaseSecurityEnabled
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
 for|for
 control|(
 name|String
@@ -3205,14 +3224,6 @@ name|userStr
 range|:
 name|users
 control|)
-block|{
-if|if
-condition|(
-name|isSecure
-argument_list|(
-name|conf
-argument_list|)
-condition|)
 block|{
 name|user
 operator|=
@@ -3228,32 +3239,11 @@ name|userStr
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|user
-operator|=
-name|User
-operator|.
-name|createUserForTesting
-argument_list|(
-name|conf
-argument_list|,
-name|userStr
-argument_list|,
-operator|new
-name|String
-index|[
-literal|0
-index|]
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Granting permission for the user "
+literal|"Granting READ permission for the user "
 operator|+
 name|user
 operator|.
@@ -3312,7 +3302,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Error in granting permission for the user "
+literal|"Error in granting READ permission for the user "
 operator|+
 name|user
 operator|.
@@ -3325,6 +3315,36 @@ expr_stmt|;
 return|return
 name|EXIT_FAILURE
 return|;
+block|}
+block|}
+block|}
+else|else
+block|{
+for|for
+control|(
+name|String
+name|userStr
+range|:
+name|users
+control|)
+block|{
+name|user
+operator|=
+name|User
+operator|.
+name|createUserForTesting
+argument_list|(
+name|conf
+argument_list|,
+name|userStr
+argument_list|,
+operator|new
+name|String
+index|[
+literal|0
+index|]
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -4801,31 +4821,6 @@ argument_list|)
 decl_stmt|;
 return|return
 name|ugi
-return|;
-block|}
-specifier|public
-specifier|static
-name|boolean
-name|isSecure
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-return|return
-operator|(
-literal|"kerberos"
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.security.authentication"
-argument_list|)
-argument_list|)
-operator|)
 return|;
 block|}
 block|}
