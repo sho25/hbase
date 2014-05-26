@@ -7761,6 +7761,12 @@ block|{
 break|break;
 block|}
 block|}
+comment|// invoke coprocessor stop method
+name|shutdown
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 specifier|public
@@ -7886,6 +7892,12 @@ block|{
 break|break;
 block|}
 block|}
+comment|// invoke coprocessor stop method
+name|shutdown
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 specifier|public

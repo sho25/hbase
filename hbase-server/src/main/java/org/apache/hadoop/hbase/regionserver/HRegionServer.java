@@ -8326,6 +8326,14 @@ name|String
 name|msg
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|stopped
+condition|)
+block|{
 try|try
 block|{
 if|if
@@ -8384,6 +8392,7 @@ argument_list|,
 name|exp
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|public
