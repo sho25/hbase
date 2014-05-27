@@ -1609,7 +1609,7 @@ name|this
 argument_list|,
 name|key
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 return|;
 block|}
