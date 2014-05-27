@@ -635,7 +635,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use    *             {@link #ClientScanner(Configuration, Scan, TableName, HConnection, RpcRetryingCallerFactory, RpcControllerFactory)    *             instead.    */
+comment|/**    * @deprecated Use    *             {@link #ClientScanner(Configuration, Scan, TableName, HConnection,    *             RpcRetryingCallerFactory, RpcControllerFactory)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -682,7 +682,7 @@ operator|=
 name|rpcControllerFactory
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link #ScannerCallable(HConnection, TableName, Scan, ScanMetrics)}    */
+comment|/**    * @deprecated Use {@link #ScannerCallable(HConnection, TableName, Scan, ScanMetrics,    *                 RpcControllerFactory)}    */
 annotation|@
 name|Deprecated
 specifier|public

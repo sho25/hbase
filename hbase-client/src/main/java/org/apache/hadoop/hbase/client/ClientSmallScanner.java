@@ -470,7 +470,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use    *             {@link #ClientSmallScanner(Configuration, Scan, TableName, HConnection, RpcRetryingCallerFactory, RpcControllerFactory)    *             instead    */
+comment|/**    * @deprecated use    *             {@link #ClientSmallScanner(Configuration, Scan, TableName, HConnection,    *             RpcRetryingCallerFactory, RpcControllerFactory)} instead    */
 specifier|public
 name|ClientSmallScanner
 parameter_list|(
