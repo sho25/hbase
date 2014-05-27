@@ -6438,9 +6438,6 @@ argument_list|)
 operator|.
 name|setReadRequestsCount
 argument_list|(
-operator|(
-name|int
-operator|)
 name|r
 operator|.
 name|readRequestsCount
@@ -6451,9 +6448,6 @@ argument_list|)
 operator|.
 name|setWriteRequestsCount
 argument_list|(
-operator|(
-name|int
-operator|)
 name|r
 operator|.
 name|writeRequestsCount
