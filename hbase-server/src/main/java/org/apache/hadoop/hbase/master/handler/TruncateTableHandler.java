@@ -452,7 +452,7 @@ argument_list|(
 name|regions
 argument_list|)
 expr_stmt|;
-comment|// 2. Remove table from .META. and HDFS
+comment|// 2. Remove table from hbase:meta and HDFS
 name|removeTableData
 argument_list|(
 name|regions

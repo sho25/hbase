@@ -700,7 +700,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|// 2. Remove table from .META. and HDFS
+comment|// 2. Remove table from hbase:meta and HDFS
 name|removeTableData
 argument_list|(
 name|regions
@@ -806,7 +806,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Removes the table from .META. and archives the HDFS files.    */
+comment|/**    * Removes the table from hbase:meta and archives the HDFS files.    */
 specifier|protected
 name|void
 name|removeTableData
@@ -846,7 +846,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 comment|// -----------------------------------------------------------------------
-comment|// NOTE: At this point we still have data on disk, but nothing in .META.
+comment|// NOTE: At this point we still have data on disk, but nothing in hbase:meta
 comment|//       if the rename below fails, hbck will report an inconsistency.
 comment|// -----------------------------------------------------------------------
 comment|// 2. Move the table in /hbase/.tmp
