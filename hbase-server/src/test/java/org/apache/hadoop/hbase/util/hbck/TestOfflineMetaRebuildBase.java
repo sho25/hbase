@@ -364,12 +364,21 @@ operator|.
 name|startMiniZKCluster
 argument_list|()
 expr_stmt|;
-comment|// tables seem enabled by default
 name|TEST_UTIL
 operator|.
 name|restartHBaseCluster
 argument_list|(
 literal|3
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|enableTable
+argument_list|(
+name|table
 argument_list|)
 expr_stmt|;
 name|ZooKeeperWatcher

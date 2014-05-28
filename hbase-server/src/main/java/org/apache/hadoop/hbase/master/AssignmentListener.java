@@ -95,7 +95,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * The region was closed on the region server.    * @param regionInfo The closed region.    * @param serverName The remote servers name.    */
+comment|/**    * The region was closed on the region server.    * @param regionInfo The closed region.    */
 name|void
 name|regionClosed
 parameter_list|(

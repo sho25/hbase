@@ -543,10 +543,6 @@ block|,
 name|ERROR_CODE
 operator|.
 name|NOT_IN_META_OR_DEPLOYED
-block|,
-name|ERROR_CODE
-operator|.
-name|HOLE_IN_REGION_CHAIN
 block|}
 argument_list|)
 expr_stmt|;
