@@ -602,7 +602,8 @@ comment|/**    * do a flush snapshot of every region on this rs from the target 
 annotation|@
 name|Override
 specifier|public
-name|void
+name|byte
+index|[]
 name|insideBarrier
 parameter_list|()
 throws|throws
@@ -611,6 +612,13 @@ block|{
 name|flushSnapshot
 argument_list|()
 expr_stmt|;
+return|return
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+return|;
 block|}
 comment|/**    * Cancel threads if they haven't finished.    */
 annotation|@

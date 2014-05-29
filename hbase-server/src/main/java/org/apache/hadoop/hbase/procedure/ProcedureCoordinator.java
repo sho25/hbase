@@ -1019,7 +1019,7 @@ name|member
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Notification that the procedure had another member finished executing its in-barrier subproc    * via {@link Subprocedure#insideBarrier()}.    * @param procName name of the subprocedure that finished    * @param member name of the member that executed and released its barrier    */
+comment|/**    * Notification that the procedure had another member finished executing its in-barrier subproc    * via {@link Subprocedure#insideBarrier()}.    * @param procName name of the subprocedure that finished    * @param member name of the member that executed and released its barrier    * @param dataFromMember the data that the member returned along with the notification    */
 name|void
 name|memberFinishedBarrier
 parameter_list|(
@@ -1029,6 +1029,10 @@ parameter_list|,
 specifier|final
 name|String
 name|member
+parameter_list|,
+name|byte
+index|[]
+name|dataFromMember
 parameter_list|)
 block|{
 name|Procedure
@@ -1070,6 +1074,8 @@ operator|.
 name|barrierReleasedByMember
 argument_list|(
 name|member
+argument_list|,
+name|dataFromMember
 argument_list|)
 expr_stmt|;
 block|}

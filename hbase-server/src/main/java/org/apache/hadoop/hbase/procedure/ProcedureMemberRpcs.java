@@ -137,12 +137,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Notify the coordinator that the specified {@link Subprocedure} has completed the work that    * needed to be done under the global barrier.    *    * @param sub the specified {@link Subprocedure}    * @throws IOException if we can't reach the coordinator    */
+comment|/**    * Notify the coordinator that the specified {@link Subprocedure} has completed the work that    * needed to be done under the global barrier.    *    * @param sub the specified {@link Subprocedure}    * @param data the data the member returns to the coordinator along with the notification    * @throws IOException if we can't reach the coordinator    */
 name|void
 name|sendMemberCompleted
 parameter_list|(
 name|Subprocedure
 name|sub
+parameter_list|,
+name|byte
+index|[]
+name|data
 parameter_list|)
 throws|throws
 name|IOException

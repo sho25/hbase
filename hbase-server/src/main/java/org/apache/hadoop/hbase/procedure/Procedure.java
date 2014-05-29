@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -337,6 +347,17 @@ argument_list|>
 name|inBarrierMembers
 decl_stmt|;
 specifier|private
+specifier|final
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|dataFromFinishedMembers
+decl_stmt|;
+specifier|private
 name|ProcedureCoordinator
 name|coord
 decl_stmt|;
@@ -404,6 +425,20 @@ operator|.
 name|size
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|dataFromFinishedMembers
+operator|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1068,13 +1103,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Call back triggered by a individual member upon successful local in-barrier execution and    * release    * @param member    */
+comment|/**    * Call back triggered by a individual member upon successful local in-barrier execution and    * release    * @param member    * @param dataFromMember    */
 specifier|public
 name|void
 name|barrierReleasedByMember
 parameter_list|(
 name|String
 name|member
+parameter_list|,
+name|byte
+index|[]
+name|dataFromMember
 parameter_list|)
 block|{
 name|boolean
@@ -1156,10 +1195,25 @@ literal|"', but we weren't waiting on it to release!"
 argument_list|)
 expr_stmt|;
 block|}
+name|dataFromFinishedMembers
+operator|.
+name|put
+argument_list|(
+name|member
+argument_list|,
+name|dataFromMember
+argument_list|)
+expr_stmt|;
 block|}
-comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @throws ForeignException    * @throws InterruptedException    */
+comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @return data returned from procedure members upon successfully completing subprocedure.    * @throws ForeignException    * @throws InterruptedException    */
 specifier|public
-name|void
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|byte
+index|[]
+argument_list|>
 name|waitForCompleted
 parameter_list|()
 throws|throws
@@ -1180,6 +1234,9 @@ operator|+
 literal|" completed"
 argument_list|)
 expr_stmt|;
+return|return
+name|dataFromFinishedMembers
+return|;
 block|}
 comment|/**    * Check if the entire procedure has globally completed, or has been aborted.    * @throws ForeignException    */
 specifier|public

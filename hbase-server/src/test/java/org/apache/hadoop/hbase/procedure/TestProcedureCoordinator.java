@@ -1566,6 +1566,12 @@ name|cohort
 index|[
 literal|0
 index|]
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 comment|// but "two" takes a while
@@ -1615,6 +1621,12 @@ operator|.
 name|cohort
 index|[
 literal|2
+index|]
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
 index|]
 argument_list|)
 expr_stmt|;
@@ -1668,6 +1680,12 @@ name|cohort
 index|[
 literal|1
 index|]
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 name|ref
@@ -1681,6 +1699,12 @@ operator|.
 name|cohort
 index|[
 literal|3
+index|]
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
 index|]
 argument_list|)
 expr_stmt|;
@@ -2244,6 +2268,12 @@ argument_list|(
 name|opName
 argument_list|,
 name|member
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 block|}
