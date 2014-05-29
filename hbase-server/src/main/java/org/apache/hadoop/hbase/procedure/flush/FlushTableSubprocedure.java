@@ -526,21 +526,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|byte
-index|[]
+name|void
 name|insideBarrier
 parameter_list|()
 throws|throws
 name|ForeignException
 block|{
 comment|// No-Op
-return|return
-operator|new
-name|byte
-index|[
-literal|0
-index|]
-return|;
 block|}
 comment|/**    * Cancel threads if they haven't finished.    */
 annotation|@

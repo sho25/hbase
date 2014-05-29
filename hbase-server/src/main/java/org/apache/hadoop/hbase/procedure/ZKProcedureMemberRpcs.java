@@ -1210,7 +1210,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This acts as the ack for a completed procedure    */
+comment|/**    * This acts as the ack for a completed snapshot    */
 annotation|@
 name|Override
 specifier|public
@@ -1219,10 +1219,6 @@ name|sendMemberCompleted
 parameter_list|(
 name|Subprocedure
 name|sub
-parameter_list|,
-name|byte
-index|[]
-name|data
 parameter_list|)
 throws|throws
 name|IOException
@@ -1267,23 +1263,6 @@ argument_list|,
 name|memberName
 argument_list|)
 decl_stmt|;
-comment|// ProtobufUtil.prependPBMagic does not take care of null
-if|if
-condition|(
-name|data
-operator|==
-literal|null
-condition|)
-block|{
-name|data
-operator|=
-operator|new
-name|byte
-index|[
-literal|0
-index|]
-expr_stmt|;
-block|}
 try|try
 block|{
 name|ZKUtil
@@ -1296,13 +1275,6 @@ name|getWatcher
 argument_list|()
 argument_list|,
 name|joinPath
-argument_list|,
-name|ProtobufUtil
-operator|.
-name|prependPBMagic
-argument_list|(
-name|data
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

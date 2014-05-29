@@ -859,11 +859,6 @@ name|eq
 argument_list|(
 name|spy
 argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|order
@@ -1048,11 +1043,6 @@ argument_list|(
 name|eq
 argument_list|(
 name|spySub
-argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1255,11 +1245,6 @@ argument_list|(
 name|eq
 argument_list|(
 name|spySub
-argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1486,11 +1471,6 @@ name|eq
 argument_list|(
 name|spySub
 argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// error recovery path exercised
@@ -1683,11 +1663,6 @@ name|eq
 argument_list|(
 name|spySub
 argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// error recovery path exercised
@@ -1822,11 +1797,6 @@ name|Subprocedure
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// run the operation
@@ -1916,11 +1886,6 @@ argument_list|(
 name|eq
 argument_list|(
 name|spySub
-argument_list|)
-argument_list|,
-name|eq
-argument_list|(
-name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
