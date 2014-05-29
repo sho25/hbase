@@ -584,9 +584,13 @@ operator|+
 literal|"' received 'reached' from coordinator."
 argument_list|)
 expr_stmt|;
+name|byte
+index|[]
+name|dataToCoordinator
+init|=
 name|insideBarrier
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -607,6 +611,8 @@ operator|.
 name|sendMemberCompleted
 argument_list|(
 name|this
+argument_list|,
+name|dataToCoordinator
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -775,10 +781,11 @@ parameter_list|()
 throws|throws
 name|ForeignException
 function_decl|;
-comment|/**    * The implementation of this method should act with the assumption that the barrier condition    * has been satisfied.  Continuing the previous example, a condition could be that all RS's    * globally have been quiesced, and procedures that require this precondition could be    * implemented here.    *    * Users should override this method.  If quiescense is not required, this can be a no-op    *    * @throws ForeignException    */
+comment|/**    * The implementation of this method should act with the assumption that the barrier condition    * has been satisfied.  Continuing the previous example, a condition could be that all RS's    * globally have been quiesced, and procedures that require this precondition could be    * implemented here.    * The implementation should also collect the result of the subprocedure as data to be returned    * to the coordinator upon successful completion.    * Users should override this method.    * @return the data the subprocedure wants to return to coordinator side.    * @throws ForeignException    */
 specifier|abstract
 specifier|public
-name|void
+name|byte
+index|[]
 name|insideBarrier
 parameter_list|()
 throws|throws
@@ -974,12 +981,21 @@ block|{}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|byte
+index|[]
 name|insideBarrier
 parameter_list|()
 throws|throws
 name|ForeignException
-block|{}
+block|{
+return|return
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

@@ -33,6 +33,18 @@ begin_import
 import|import static
 name|org
 operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|mockito
 operator|.
 name|Mockito
@@ -434,6 +446,21 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|byte
+index|[]
+name|memberData
+init|=
+operator|new
+name|String
+argument_list|(
+literal|"data from member"
+argument_list|)
+operator|.
+name|getBytes
+argument_list|()
+decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -695,6 +722,8 @@ operator|.
 name|sendMemberCompleted
 argument_list|(
 name|sub
+argument_list|,
+name|memberData
 argument_list|)
 expr_stmt|;
 name|committed
@@ -1175,6 +1204,21 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|dataFromMembers
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|// mock out coordinator so we can keep track of zk progress
 name|ProcedureCoordinator
 name|coordinator
@@ -1186,6 +1230,8 @@ argument_list|,
 name|prepared
 argument_list|,
 name|committed
+argument_list|,
+name|dataFromMembers
 argument_list|)
 decl_stmt|;
 name|ProcedureMember
@@ -1364,6 +1410,8 @@ operator|.
 name|sendMemberCompleted
 argument_list|(
 name|sub
+argument_list|,
+name|memberData
 argument_list|)
 expr_stmt|;
 block|}
@@ -1402,8 +1450,49 @@ name|Mockito
 operator|.
 name|anyString
 argument_list|()
+argument_list|,
+name|Mockito
+operator|.
+name|eq
+argument_list|(
+name|memberData
+argument_list|)
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Incorrect number of members returnd data"
+argument_list|,
+name|expected
+operator|.
+name|size
+argument_list|()
+argument_list|,
+name|dataFromMembers
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|byte
+index|[]
+name|result
+range|:
+name|dataFromMembers
+control|)
+block|{
+name|assertArrayEquals
+argument_list|(
+literal|"Incorrect data from member"
+argument_list|,
+name|memberData
+argument_list|,
+name|result
+argument_list|)
+expr_stmt|;
+block|}
 name|controller
 operator|.
 name|resetMembers
@@ -1552,6 +1641,21 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|dataFromMembers
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|// mock out coordinator so we can keep track of zk progress
 name|ProcedureCoordinator
 name|coordinator
@@ -1563,6 +1667,8 @@ argument_list|,
 name|prepared
 argument_list|,
 name|committed
+argument_list|,
+name|dataFromMembers
 argument_list|)
 decl_stmt|;
 name|ProcedureMember
@@ -1775,6 +1881,8 @@ operator|.
 name|sendMemberCompleted
 argument_list|(
 name|sub
+argument_list|,
+name|memberData
 argument_list|)
 expr_stmt|;
 block|}
@@ -1813,6 +1921,13 @@ name|Mockito
 operator|.
 name|anyString
 argument_list|()
+argument_list|,
+name|Mockito
+operator|.
+name|eq
+argument_list|(
+name|memberData
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|controller
@@ -1859,7 +1974,7 @@ name|expected
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return a mock {@link ProcedureCoordinator} that just counts down the    *         prepared and committed latch for called to the respective method    */
+comment|/**    * @param dataFromMembers    * @return a mock {@link ProcedureCoordinator} that just counts down the    *         prepared and committed latch for called to the respective method    */
 specifier|private
 name|ProcedureCoordinator
 name|setupMockCoordinator
@@ -1874,6 +1989,14 @@ parameter_list|,
 specifier|final
 name|CountDownLatch
 name|committed
+parameter_list|,
+specifier|final
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|dataFromMembers
 parameter_list|)
 block|{
 name|ProcedureCoordinator
@@ -1975,6 +2098,13 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
+name|dataFromMembers
+operator|.
+name|add
+argument_list|(
+name|memberData
+argument_list|)
+expr_stmt|;
 name|committed
 operator|.
 name|countDown
@@ -2005,6 +2135,13 @@ name|Mockito
 operator|.
 name|anyString
 argument_list|()
+argument_list|,
+name|Mockito
+operator|.
+name|eq
+argument_list|(
+name|memberData
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -2215,6 +2352,8 @@ argument_list|(
 name|operationName
 argument_list|,
 name|node
+argument_list|,
+name|memberData
 argument_list|)
 expr_stmt|;
 block|}

@@ -581,6 +581,12 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 comment|// coordinator: wait for procedure to be completed
@@ -862,6 +868,12 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 name|procspy
@@ -874,6 +886,12 @@ name|get
 argument_list|(
 literal|1
 argument_list|)
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 comment|// coordinator wait for procedure to be completed
