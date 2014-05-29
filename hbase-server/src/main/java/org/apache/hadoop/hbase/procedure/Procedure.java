@@ -1205,15 +1205,9 @@ name|dataFromMember
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @return data returned from procedure members upon successfully completing subprocedure.    * @throws ForeignException    * @throws InterruptedException    */
+comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @throws ForeignException    * @throws InterruptedException    */
 specifier|public
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+name|void
 name|waitForCompleted
 parameter_list|()
 throws|throws
@@ -1233,6 +1227,26 @@ name|procName
 operator|+
 literal|" completed"
 argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Waits until the entire procedure has globally completed, or has been aborted.  If an    * exception is thrown the procedure may or not have run cleanup to trigger the completion latch    * yet.    * @return data returned from procedure members upon successfully completing subprocedure.    * @throws ForeignException    * @throws InterruptedException    */
+specifier|public
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|waitForCompletedWithRet
+parameter_list|()
+throws|throws
+name|ForeignException
+throws|,
+name|InterruptedException
+block|{
+name|waitForCompleted
+argument_list|()
 expr_stmt|;
 return|return
 name|dataFromFinishedMembers
