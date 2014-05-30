@@ -639,9 +639,7 @@ name|?
 argument_list|>
 name|externalCodec
 init|=
-name|ClassLoader
-operator|.
-name|getSystemClassLoader
+name|getClassLoaderForCodec
 argument_list|()
 operator|.
 name|loadClass
@@ -962,9 +960,7 @@ name|?
 argument_list|>
 name|externalCodec
 init|=
-name|ClassLoader
-operator|.
-name|getSystemClassLoader
+name|getClassLoaderForCodec
 argument_list|()
 operator|.
 name|loadClass
