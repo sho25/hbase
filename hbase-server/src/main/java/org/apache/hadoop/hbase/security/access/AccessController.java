@@ -447,6 +447,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|catalog
+operator|.
+name|MetaReader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Append
@@ -1517,6 +1533,14 @@ specifier|private
 specifier|volatile
 name|boolean
 name|initialized
+init|=
+literal|false
+decl_stmt|;
+comment|// This boolean having relevance only in the Master.
+specifier|private
+specifier|volatile
+name|boolean
+name|aclTabAvailable
 init|=
 literal|false
 decl_stmt|;
@@ -5188,10 +5212,46 @@ name|regions
 parameter_list|)
 throws|throws
 name|IOException
+block|{}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postCreateTableHandler
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|HRegionInfo
+index|[]
+name|regions
+parameter_list|)
+throws|throws
+name|IOException
 block|{
+comment|// When AC is used, it should be configured as the 1st CP.
+comment|// In Master, the table operations like create, are handled by a Thread pool but the max size
+comment|// for this pool is 1. So if multiple CPs create tables on startup, these creations will happen
+comment|// sequentially only.
+comment|// Related code in HMaster#startServiceThreads
+comment|// {code}
+comment|//   // We depend on there being only one instance of this executor running
+comment|//   // at a time. To do concurrency, would need fencing of enable/disable of
+comment|//   // tables.
+comment|//   this.service.startExecutorService(ExecutorType.MASTER_TABLE_OPERATIONS, 1);
+comment|// {code}
+comment|// In future if we change this pool to have more threads, then there is a chance for thread,
+comment|// creating acl table, getting delayed and by that time another table creation got over and
+comment|// this hook is getting called. In such a case, we will need a wait logic here which will
+comment|// wait till the acl table is created.
 if|if
 condition|(
-operator|!
 name|AccessControlLists
 operator|.
 name|isAclTable
@@ -5199,6 +5259,69 @@ argument_list|(
 name|desc
 argument_list|)
 condition|)
+block|{
+name|this
+operator|.
+name|aclTabAvailable
+operator|=
+literal|true
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+operator|!
+operator|(
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+operator|.
+name|equals
+argument_list|(
+name|desc
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+operator|)
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|aclTabAvailable
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Not adding owner permission for table "
+operator|+
+name|desc
+operator|.
+name|getTableName
+argument_list|()
+operator|+
+literal|". "
+operator|+
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+operator|+
+literal|" is not yet created. "
+operator|+
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|" should be configured as the first Coprocessor"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|String
 name|owner
@@ -5266,28 +5389,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|postCreateTableHandler
-parameter_list|(
-name|ObserverContext
-argument_list|<
-name|MasterCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|,
-name|HTableDescriptor
-name|desc
-parameter_list|,
-name|HRegionInfo
-index|[]
-name|regions
-parameter_list|)
-throws|throws
-name|IOException
-block|{}
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -6607,6 +6709,30 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|MetaReader
+operator|.
+name|tableExists
+argument_list|(
+name|ctx
+operator|.
+name|getEnvironment
+argument_list|()
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getCatalogTracker
+argument_list|()
+argument_list|,
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+argument_list|)
+condition|)
+block|{
 comment|// initialize the ACL storage table
 name|AccessControlLists
 operator|.
@@ -6621,6 +6747,14 @@ name|getMasterServices
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|aclTabAvailable
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

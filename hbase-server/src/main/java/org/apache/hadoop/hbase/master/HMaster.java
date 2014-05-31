@@ -4273,6 +4273,8 @@ expr_stmt|;
 comment|// We depend on there being only one instance of this executor running
 comment|// at a time.  To do concurrency, would need fencing of enable/disable of
 comment|// tables.
+comment|// Any time changing this maxThreads to> 1, pls see the comment at
+comment|// AccessController#postCreateTableHandler
 name|this
 operator|.
 name|service
