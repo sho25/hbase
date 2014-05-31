@@ -7818,9 +7818,15 @@ block|{
 continue|continue;
 block|}
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|count
+operator|>
+literal|0
+condition|)
 block|{
-comment|// More to read still; go around again.
+comment|// We got some data and there is more to read still; go around again.
 if|if
 condition|(
 name|LOG
