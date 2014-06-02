@@ -1187,7 +1187,8 @@ name|BlockCache
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 decl_stmt|;
 comment|/** Boolean whether we have disabled the block cache entirely. */
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|boolean
 name|blockCacheDisabled
@@ -1240,8 +1241,8 @@ decl_stmt|;
 if|if
 condition|(
 name|cachePercentage
-operator|==
-literal|0L
+operator|<=
+literal|0.0001f
 condition|)
 block|{
 name|blockCacheDisabled
