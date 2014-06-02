@@ -285,6 +285,12 @@ specifier|final
 name|SnapshotSubprocedurePool
 name|taskManager
 decl_stmt|;
+specifier|private
+name|boolean
+name|snapshotSkipFlush
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|FlushSnapshotSubprocedure
 parameter_list|(
@@ -335,6 +341,27 @@ name|snapshot
 operator|=
 name|snapshot
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|snapshot
+operator|.
+name|getType
+argument_list|()
+operator|==
+name|SnapshotDescription
+operator|.
+name|Type
+operator|.
+name|SKIPFLUSH
+condition|)
+block|{
+name|snapshotSkipFlush
+operator|=
+literal|true
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|regions
@@ -404,6 +431,22 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|snapshotSkipFlush
+condition|)
+block|{
+comment|/*          * This is to take an online-snapshot without force a coordinated flush to prevent pause          * The snapshot type is defined inside the snapshot description. FlushSnapshotSubprocedure          * should be renamed to distributedSnapshotSubprocedure, and the flush() behavior can be          * turned on/off based on the flush type.          * To minimized the code change, class name is not changed.          */
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"take snapshot without flush memstore first"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -423,6 +466,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
+block|}
 name|region
 operator|.
 name|addRegionToSnapshot
@@ -432,6 +476,28 @@ argument_list|,
 name|monitor
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|snapshotSkipFlush
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"... SkipFlush Snapshotting region "
+operator|+
+name|region
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" completed."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -446,6 +512,7 @@ operator|+
 literal|" completed."
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{

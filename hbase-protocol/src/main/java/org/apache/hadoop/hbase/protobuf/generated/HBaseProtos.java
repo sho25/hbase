@@ -57628,6 +57628,14 @@ literal|1
 argument_list|,
 literal|1
 argument_list|)
+block|,
+comment|/**        *<code>SKIPFLUSH = 2;</code>        */
+name|SKIPFLUSH
+argument_list|(
+literal|2
+argument_list|,
+literal|2
+argument_list|)
 block|,       ;
 comment|/**        *<code>DISABLED = 0;</code>        */
 specifier|public
@@ -57646,6 +57654,15 @@ name|int
 name|FLUSH_VALUE
 init|=
 literal|1
+decl_stmt|;
+comment|/**        *<code>SKIPFLUSH = 2;</code>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SKIPFLUSH_VALUE
+init|=
+literal|2
 decl_stmt|;
 specifier|public
 specifier|final
@@ -57682,6 +57699,12 @@ literal|1
 case|:
 return|return
 name|FLUSH
+return|;
+case|case
+literal|2
+case|:
+return|return
+name|SKIPFLUSH
 return|;
 default|default:
 return|return
@@ -89284,7 +89307,7 @@ literal|"\002 \001(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\01
 operator|+
 literal|"\n\006second\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030"
 operator|+
-literal|"\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\256\001\n\023SnapshotDescrip"
+literal|"\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\275\001\n\023SnapshotDescrip"
 operator|+
 literal|"tion\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcre"
 operator|+
@@ -89292,37 +89315,39 @@ literal|"ation_time\030\003 \001(\003:\0010\022.\n\004type\030\004 \001(\0162\03
 operator|+
 literal|"shotDescription.Type:\005FLUSH\022\017\n\007version\030\005"
 operator|+
-literal|" \001(\005\"\037\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\"}\n"
+literal|" \001(\005\".\n\004Type\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n"
 block|,
-literal|"\024ProcedureDescription\022\021\n\tsignature\030\001 \002(\t"
+literal|"\tSKIPFLUSH\020\002\"}\n\024ProcedureDescription\022\021\n\t"
 operator|+
-literal|"\022\020\n\010instance\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001("
+literal|"signature\030\001 \002(\t\022\020\n\010instance\030\002 \001(\t\022\030\n\rcre"
 operator|+
-literal|"\003:\0010\022&\n\rconfiguration\030\004 \003(\0132\017.NameString"
+literal|"ation_time\030\003 \001(\003:\0010\022&\n\rconfiguration\030\004 \003"
 operator|+
-literal|"Pair\"\n\n\010EmptyMsg\"\033\n\007LongMsg\022\020\n\010long_msg\030"
+literal|"(\0132\017.NameStringPair\"\n\n\010EmptyMsg\"\033\n\007LongM"
 operator|+
-literal|"\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndouble_msg\030\001 \002(\001\"\'"
+literal|"sg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndou"
 operator|+
-literal|"\n\rBigDecimalMsg\022\026\n\016bigdecimal_msg\030\001 \002(\014\""
+literal|"ble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg\022\026\n\016bigdec"
 operator|+
-literal|"5\n\004UUID\022\026\n\016least_sig_bits\030\001 \002(\004\022\025\n\rmost_"
+literal|"imal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_bits"
 operator|+
-literal|"sig_bits\030\002 \002(\004\"K\n\023NamespaceDescriptor\022\014\n"
+literal|"\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\"K\n\023Namespa"
 operator|+
-literal|"\004name\030\001 \002(\014\022&\n\rconfiguration\030\002 \003(\0132\017.Nam"
+literal|"ceDescriptor\022\014\n\004name\030\001 \002(\014\022&\n\rconfigurat"
 operator|+
-literal|"eStringPair\"$\n\020RegionServerInfo\022\020\n\010infoP"
+literal|"ion\030\002 \003(\0132\017.NameStringPair\"$\n\020RegionServ"
 block|,
-literal|"ort\030\001 \001(\005*r\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLE"
+literal|"erInfo\022\020\n\010infoPort\030\001 \001(\005*r\n\013CompareType\022"
 operator|+
-literal|"SS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022"
+literal|"\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020\002\022"
 operator|+
-literal|"\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO"
+literal|"\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013\n\007"
 operator|+
-literal|"_OP\020\006B>\n*org.apache.hadoop.hbase.protobu"
+literal|"GREATER\020\005\022\t\n\005NO_OP\020\006B>\n*org.apache.hadoo"
 operator|+
-literal|"f.generatedB\013HBaseProtosH\001\240\001\001"
+literal|"p.hbase.protobuf.generatedB\013HBaseProtosH"
+operator|+
+literal|"\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
