@@ -483,7 +483,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|consensus
+name|coordination
 operator|.
 name|ZkCoordinatedStateManager
 import|;
