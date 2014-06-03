@@ -2101,8 +2101,6 @@ name|editsSkipped
 init|=
 literal|0
 decl_stmt|;
-try|try
-block|{
 name|status
 operator|=
 name|TaskMonitor
@@ -2122,6 +2120,8 @@ operator|+
 literal|"into a temporary staging area."
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|long
 name|logLength
 init|=
@@ -2251,13 +2251,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|status
-operator|.
-name|markComplete
-argument_list|(
-literal|"Was nothing to split in log file"
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -2741,11 +2734,19 @@ argument_list|(
 literal|"Finishing writing output logs and closing down."
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|outputSinkStarted
 condition|)
 block|{
+comment|// Set progress_failed to true as the immediate following statement will reset its value
+comment|// when finishWritingAndClose() throws exception, progress_failed has the right value
+name|progress_failed
+operator|=
+literal|true
+expr_stmt|;
 name|progress_failed
 operator|=
 name|outputSink
@@ -2756,6 +2757,9 @@ operator|==
 literal|null
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
 name|String
 name|msg
 init|=
@@ -2796,6 +2800,7 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 operator|!
