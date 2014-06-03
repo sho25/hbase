@@ -917,6 +917,12 @@ specifier|final
 name|long
 name|blockSize
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+index|[]
+name|bucketSizes
+decl_stmt|;
 comment|/** Duration of IO errors tolerated before we disable cache, 1 min as default */
 specifier|private
 specifier|final
@@ -1082,6 +1088,10 @@ name|int
 name|blockSize
 parameter_list|,
 name|int
+index|[]
+name|bucketSizes
+parameter_list|,
+name|int
 name|writerThreadNum
 parameter_list|,
 name|int
@@ -1102,6 +1112,8 @@ argument_list|,
 name|capacity
 argument_list|,
 name|blockSize
+argument_list|,
+name|bucketSizes
 argument_list|,
 name|writerThreadNum
 argument_list|,
@@ -1124,6 +1136,10 @@ name|capacity
 parameter_list|,
 name|int
 name|blockSize
+parameter_list|,
+name|int
+index|[]
+name|bucketSizes
 parameter_list|,
 name|int
 name|writerThreadNum
@@ -1218,6 +1234,12 @@ name|blockSize
 expr_stmt|;
 name|this
 operator|.
+name|bucketSizes
+operator|=
+name|bucketSizes
+expr_stmt|;
+name|this
+operator|.
 name|ioErrorsTolerationDuration
 operator|=
 name|ioErrorsTolerationDuration
@@ -1228,6 +1250,8 @@ operator|new
 name|BucketAllocator
 argument_list|(
 name|capacity
+argument_list|,
+name|bucketSizes
 argument_list|)
 expr_stmt|;
 for|for
@@ -4541,10 +4565,10 @@ name|BucketAllocator
 argument_list|(
 name|cacheCapacity
 argument_list|,
+name|bucketSizes
+argument_list|,
 name|backingMap
 argument_list|,
-name|this
-operator|.
 name|realCacheSize
 argument_list|)
 decl_stmt|;
