@@ -410,7 +410,9 @@ specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
+operator|new
 name|HBaseTestingUtility
+argument_list|()
 operator|.
 name|createLocalHTU
 argument_list|()
@@ -859,12 +861,6 @@ literal|"aaz"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|CacheConfig
-operator|.
-name|blockCacheDisabled
-operator|=
-literal|false
-expr_stmt|;
 name|CacheConfig
 name|cacheConf
 init|=

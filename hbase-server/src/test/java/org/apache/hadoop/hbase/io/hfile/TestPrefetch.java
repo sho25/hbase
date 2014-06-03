@@ -325,12 +325,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|CacheConfig
-operator|.
-name|blockCacheDisabled
-operator|=
-literal|false
-expr_stmt|;
 name|cacheConf
 operator|=
 operator|new
