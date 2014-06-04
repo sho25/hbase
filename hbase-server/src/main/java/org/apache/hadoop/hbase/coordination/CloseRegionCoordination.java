@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateException
+name|HRegionInfo
 import|;
 end_import
 
@@ -55,7 +55,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
+name|ServerName
 import|;
 end_import
 
@@ -69,7 +69,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
 import|;
 end_import
 
@@ -83,89 +87,72 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableStateManager
+name|regionserver
+operator|.
+name|HRegion
 import|;
 end_import
 
 begin_comment
-comment|/**  * Base class for {@link org.apache.hadoop.hbase.CoordinatedStateManager} implementations.  * Defines methods to retrieve coordination objects for relevant areas. CoordinatedStateManager  * reference returned from Server interface has to be casted to this type to  * access those methods.  */
+comment|/**  * Coordinated operations for close region handlers.  */
 end_comment
 
-begin_class
+begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|abstract
-class|class
-name|BaseCoordinatedStateManager
-implements|implements
-name|CoordinatedStateManager
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|initialize
-parameter_list|(
-name|Server
-name|server
-parameter_list|)
-block|{   }
-annotation|@
-name|Override
-specifier|public
-name|void
-name|start
-parameter_list|()
-block|{   }
-annotation|@
-name|Override
-specifier|public
-name|void
-name|stop
-parameter_list|()
-block|{   }
-annotation|@
-name|Override
-specifier|public
-name|Server
-name|getServer
-parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-specifier|abstract
-name|TableStateManager
-name|getTableStateManager
-parameter_list|()
-throws|throws
-name|InterruptedException
-throws|,
-name|CoordinatedStateException
-function_decl|;
-comment|/**    * Method to retrieve coordination for split transaction.    */
-specifier|abstract
-specifier|public
-name|SplitTransactionCoordination
-name|getSplitTransactionCoordination
-parameter_list|()
-function_decl|;
-comment|/**    * Method to retrieve coordination for closing region operations.    */
-specifier|public
-specifier|abstract
+interface|interface
 name|CloseRegionCoordination
-name|getCloseRegionCoordination
+block|{
+comment|/**    * Called before actual region closing to check that we can do close operation    * on this region.    * @param regionInfo region being closed    * @param crd details about closing operation    * @return true if caller shall proceed and close, false if need to abort closing.    */
+name|boolean
+name|checkClosingState
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|CloseRegionDetails
+name|crd
+parameter_list|)
+function_decl|;
+comment|/**    * Called after region is closed to notify all interesting parties / "register"    * region as finally closed.    * @param region region being closed    * @param sn ServerName on which task runs    * @param crd details about closing operation    */
+name|void
+name|setClosedState
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|,
+name|CloseRegionDetails
+name|crd
+parameter_list|)
+function_decl|;
+comment|/**    * Construct CloseRegionDetails instance from CloseRegionRequest.    * @return instance of CloseRegionDetails    */
+name|CloseRegionDetails
+name|parseFromProtoRequest
+parameter_list|(
+name|AdminProtos
+operator|.
+name|CloseRegionRequest
+name|request
+parameter_list|)
+function_decl|;
+comment|/**    * Get details object with params for case when we're closing on    * regionserver side internally (not because of RPC call from master),    * so we don't parse details from protobuf request.    */
+name|CloseRegionDetails
+name|getDetaultDetails
 parameter_list|()
 function_decl|;
+comment|/**    * Marker interface for region closing tasks. Used to carry implementation details in    * encapsulated way through Handlers to the consensus API.    */
+specifier|static
+interface|interface
+name|CloseRegionDetails
+block|{   }
 block|}
-end_class
+end_interface
 
 end_unit
 
