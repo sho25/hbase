@@ -179,6 +179,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CopyOnWriteArrayList
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -545,12 +557,14 @@ name|UUID
 name|clusterId
 parameter_list|)
 block|{
+comment|//CopyOnWriteArrayList is thread-safe.
+comment|//Generally, reading is more than modifying.
 name|this
 operator|.
 name|sources
 operator|=
 operator|new
-name|ArrayList
+name|CopyOnWriteArrayList
 argument_list|<
 name|ReplicationSourceInterface
 argument_list|>
@@ -601,7 +615,7 @@ operator|.
 name|oldsources
 operator|=
 operator|new
-name|ArrayList
+name|CopyOnWriteArrayList
 argument_list|<
 name|ReplicationSourceInterface
 argument_list|>
