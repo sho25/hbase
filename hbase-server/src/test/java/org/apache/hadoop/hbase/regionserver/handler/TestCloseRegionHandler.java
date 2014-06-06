@@ -217,6 +217,22 @@ name|hbase
 operator|.
 name|coordination
 operator|.
+name|OpenRegionCoordination
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coordination
+operator|.
 name|ZkCoordinatedStateManager
 import|;
 end_import
@@ -834,7 +850,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**       * Test if close region can handle ZK closing node version mismatch       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws DeserializationException        */
+comment|/**       * Test if close region can handle ZK closing node version mismatch       * @throws IOException       * @throws NodeExistsException       * @throws KeeperException      * @throws DeserializationException       */
 annotation|@
 name|Test
 specifier|public
@@ -880,6 +896,25 @@ name|hri
 init|=
 name|TEST_HRI
 decl_stmt|;
+name|ZkCoordinatedStateManager
+name|coordinationProvider
+init|=
+operator|new
+name|ZkCoordinatedStateManager
+argument_list|()
+decl_stmt|;
+name|coordinationProvider
+operator|.
+name|initialize
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+name|coordinationProvider
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// open a region first so that it can be closed later
 name|OpenRegion
 argument_list|(
@@ -890,6 +925,11 @@ argument_list|,
 name|htd
 argument_list|,
 name|hri
+argument_list|,
+name|coordinationProvider
+operator|.
+name|getOpenRegionCoordination
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// close the region
@@ -917,25 +957,6 @@ decl_stmt|;
 comment|// The CloseRegionHandler will validate the expected version
 comment|// Given it is set to invalid versionOfClosingNode+1,
 comment|// CloseRegionHandler should be M_ZK_REGION_CLOSING
-name|ZkCoordinatedStateManager
-name|consensusProvider
-init|=
-operator|new
-name|ZkCoordinatedStateManager
-argument_list|()
-decl_stmt|;
-name|consensusProvider
-operator|.
-name|initialize
-argument_list|(
-name|server
-argument_list|)
-expr_stmt|;
-name|consensusProvider
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 name|ZkCloseRegionCoordination
 operator|.
 name|ZkCloseRegionDetails
@@ -977,7 +998,7 @@ name|hri
 argument_list|,
 literal|false
 argument_list|,
-name|consensusProvider
+name|coordinationProvider
 operator|.
 name|getCloseRegionCoordination
 argument_list|()
@@ -1075,6 +1096,25 @@ name|hri
 init|=
 name|TEST_HRI
 decl_stmt|;
+name|ZkCoordinatedStateManager
+name|coordinationProvider
+init|=
+operator|new
+name|ZkCoordinatedStateManager
+argument_list|()
+decl_stmt|;
+name|coordinationProvider
+operator|.
+name|initialize
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+name|coordinationProvider
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// open a region first so that it can be closed later
 name|OpenRegion
 argument_list|(
@@ -1085,6 +1125,11 @@ argument_list|,
 name|htd
 argument_list|,
 name|hri
+argument_list|,
+name|coordinationProvider
+operator|.
+name|getOpenRegionCoordination
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// close the region
@@ -1112,25 +1157,6 @@ decl_stmt|;
 comment|// The CloseRegionHandler will validate the expected version
 comment|// Given it is set to correct versionOfClosingNode,
 comment|// CloseRegionHandlerit should be RS_ZK_REGION_CLOSED
-name|ZkCoordinatedStateManager
-name|consensusProvider
-init|=
-operator|new
-name|ZkCoordinatedStateManager
-argument_list|()
-decl_stmt|;
-name|consensusProvider
-operator|.
-name|initialize
-argument_list|(
-name|server
-argument_list|)
-expr_stmt|;
-name|consensusProvider
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 name|ZkCloseRegionCoordination
 operator|.
 name|ZkCloseRegionDetails
@@ -1170,7 +1196,7 @@ name|hri
 argument_list|,
 literal|false
 argument_list|,
-name|consensusProvider
+name|coordinationProvider
 operator|.
 name|getCloseRegionCoordination
 argument_list|()
@@ -1238,6 +1264,9 @@ name|htd
 parameter_list|,
 name|HRegionInfo
 name|hri
+parameter_list|,
+name|OpenRegionCoordination
+name|coordination
 parameter_list|)
 throws|throws
 name|IOException
@@ -1266,6 +1295,16 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|OpenRegionCoordination
+operator|.
+name|OpenRegionDetails
+name|ord
+init|=
+name|coordination
+operator|.
+name|getDetailsForNonCoordinatedOpening
+argument_list|()
+decl_stmt|;
 name|OpenRegionHandler
 name|openHandler
 init|=
@@ -1279,6 +1318,10 @@ argument_list|,
 name|hri
 argument_list|,
 name|htd
+argument_list|,
+name|coordination
+argument_list|,
+name|ord
 argument_list|)
 decl_stmt|;
 name|rss

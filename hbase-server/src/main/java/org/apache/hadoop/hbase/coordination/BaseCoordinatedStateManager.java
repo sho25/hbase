@@ -164,6 +164,13 @@ name|CloseRegionCoordination
 name|getCloseRegionCoordination
 parameter_list|()
 function_decl|;
+comment|/**    * Method to retrieve coordination for opening region operations.    */
+specifier|public
+specifier|abstract
+name|OpenRegionCoordination
+name|getOpenRegionCoordination
+parameter_list|()
+function_decl|;
 block|}
 end_class
 
