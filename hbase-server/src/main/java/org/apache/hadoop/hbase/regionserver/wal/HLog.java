@@ -203,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -218,6 +232,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 import|;
 end_import
 
@@ -762,7 +790,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor,    *   AtomicLong, boolean, long, long)}    * except it causes a sync on the log    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param sequenceId    * @throws IOException    * @deprecated For tests only and even then, should use    * {@link #appendNoSync(HTableDescriptor, HRegionInfo, HLogKey, WALEdit, AtomicLong, boolean)}    * and {@link #sync()} instead.    */
+comment|/**    * Same as {@link #appendNoSync(HRegionInfo, TableName, WALEdit, List, long, HTableDescriptor,    *   AtomicLong, boolean, long, long)}    * except it causes a sync on the log    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @param sequenceId    * @throws IOException    * @deprecated For tests only and even then, should use    * {@link #appendNoSync(HTableDescriptor, HRegionInfo, HLogKey, WALEdit, AtomicLong, boolean,     * List)} and {@link #sync()} instead.    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -817,7 +845,7 @@ name|int
 name|handlerSyncs
 parameter_list|)
 function_decl|;
-comment|/**    * Append a set of edits to the WAL. WAL edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The WAL is not flushed/sync'd after this transaction completes BUT on return    * this edit must have its region edit/sequence id assigned else it messes up our unification    * of mvcc and sequenceid.    * @param info    * @param tableName    * @param edits    * @param clusterIds    * @param now    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param isInMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param nonceGroup    * @param nonce    * @return Returns a 'transaction id'.  Do not use. This is an internal implementation detail and    * cannot be respected in all implementations; i.e. the append/sync machine may or may not be    * able to sync an explicit edit only (the current default implementation syncs up to the time    * of the sync call syncing whatever is behind the sync).    * @throws IOException    * @deprecated Use {@link #appendNoSync(HTableDescriptor, HRegionInfo, HLogKey, WALEdit, AtomicLong, boolean)}    * instead because you can get back the region edit/sequenceid; it is set into the passed in    *<code>key</code>.    */
+comment|/**    * Append a set of edits to the WAL. WAL edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id. The WAL is not flushed/sync'd after this transaction completes BUT on return    * this edit must have its region edit/sequence id assigned else it messes up our unification    * of mvcc and sequenceid.    * @param info    * @param tableName    * @param edits    * @param clusterIds    * @param now    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param isInMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param nonceGroup    * @param nonce    * @return Returns a 'transaction id'.  Do not use. This is an internal implementation detail and    * cannot be respected in all implementations; i.e. the append/sync machine may or may not be    * able to sync an explicit edit only (the current default implementation syncs up to the time    * of the sync call syncing whatever is behind the sync).    * @throws IOException    * @deprecated Use {@link #appendNoSync(HTableDescriptor, HRegionInfo, HLogKey, WALEdit, AtomicLong, boolean, List)}    * instead because you can get back the region edit/sequenceid; it is set into the passed in    *<code>key</code>.    */
 name|long
 name|appendNoSync
 parameter_list|(
@@ -858,7 +886,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction    * completes BUT on return this edit must have its region edit/sequence id assigned    * else it messes up our unification of mvcc and sequenceid.  On return<code>key</code> will    * have the region edit/sequence id filled in.    * @param info    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    * sequence id that is after all currently appended edits.    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param inMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    * in it.    * @throws IOException    */
+comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction    * completes BUT on return this edit must have its region edit/sequence id assigned    * else it messes up our unification of mvcc and sequenceid.  On return<code>key</code> will    * have the region edit/sequence id filled in.    * @param info    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    * sequence id that is after all currently appended edits.    * @param htd    * @param sequenceId A reference to the atomic long the<code>info</code> region is using as    * source of its incrementing edits sequence id.  Inside in this call we will increment it and    * attach the sequence to the edit we apply the WAL.    * @param inMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @param memstoreKVs list of KVs added into memstore    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    * in it.    * @throws IOException    */
 name|long
 name|appendNoSync
 parameter_list|(
@@ -879,6 +907,12 @@ name|sequenceId
 parameter_list|,
 name|boolean
 name|inMemstore
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|memstoreKVs
 parameter_list|)
 throws|throws
 name|IOException

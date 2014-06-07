@@ -577,33 +577,6 @@ argument_list|(
 name|c
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|kv
-operator|.
-name|getMvccVersion
-argument_list|()
-operator|<=
-name|smallestReadPoint
-condition|)
-block|{
-comment|// let us not change the original KV. It could be in the memstore
-comment|// changing its memstoreTS could affect other threads/scanners.
-name|kv
-operator|=
-name|kv
-operator|.
-name|shallowCopy
-argument_list|()
-expr_stmt|;
-name|kv
-operator|.
-name|setMvccVersion
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-block|}
 name|sink
 operator|.
 name|append

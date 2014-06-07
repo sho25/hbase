@@ -63,6 +63,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -146,6 +156,30 @@ operator|.
 name|util
 operator|.
 name|UUID
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CountDownLatch
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|HBaseZeroCopyByteString
 import|;
 end_import
 
@@ -321,6 +355,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|SequenceNumber
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -397,18 +447,6 @@ name|ByteString
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
 begin_comment
 comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  */
 end_comment
@@ -434,6 +472,8 @@ name|WritableComparable
 argument_list|<
 name|HLogKey
 argument_list|>
+implements|,
+name|SequenceNumber
 block|{
 specifier|public
 specifier|static
@@ -615,6 +655,16 @@ decl_stmt|;
 specifier|private
 name|long
 name|logSeqNum
+decl_stmt|;
+specifier|private
+name|CountDownLatch
+name|seqNumAssignedLatch
+init|=
+operator|new
+name|CountDownLatch
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 comment|// Time at which this edit was written.
 specifier|private
@@ -947,7 +997,7 @@ name|nonce
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename    * @param nonceGroup    * @param nonce    */
+comment|/**    * Create the log key for writing to somewhere.    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename    * @param logSeqNum    * @param nonceGroup    * @param nonce    */
 specifier|public
 name|HLogKey
 parameter_list|(
@@ -959,6 +1009,9 @@ parameter_list|,
 specifier|final
 name|TableName
 name|tablename
+parameter_list|,
+name|long
+name|logSeqNum
 parameter_list|,
 name|long
 name|nonceGroup
@@ -973,9 +1026,7 @@ name|encodedRegionName
 argument_list|,
 name|tablename
 argument_list|,
-name|HLog
-operator|.
-name|NO_SEQUENCE_ID
+name|logSeqNum
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
@@ -1115,7 +1166,7 @@ operator|.
 name|logSeqNum
 return|;
 block|}
-comment|/**    * Allow that the log sequence id to be set post-construction.    * @param sequence    */
+comment|/**    * Allow that the log sequence id to be set post-construction and release all waiters on assigned    * sequence number.    * @param sequence    */
 name|void
 name|setLogSeqNum
 parameter_list|(
@@ -1130,6 +1181,68 @@ name|logSeqNum
 operator|=
 name|sequence
 expr_stmt|;
+name|this
+operator|.
+name|seqNumAssignedLatch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Wait for sequence number is assigned& return the assigned value    * @return long the new assigned sequence number    * @throws InterruptedException    */
+specifier|public
+name|long
+name|getSequenceNumber
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|seqNumAssignedLatch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Thread interrupted waiting for next log sequence number"
+argument_list|)
+expr_stmt|;
+name|InterruptedIOException
+name|iie
+init|=
+operator|new
+name|InterruptedIOException
+argument_list|()
+decl_stmt|;
+name|iie
+operator|.
+name|initCause
+argument_list|(
+name|ie
+argument_list|)
+expr_stmt|;
+throw|throw
+name|iie
+throw|;
+block|}
+return|return
+name|this
+operator|.
+name|logSeqNum
+return|;
 block|}
 comment|/**    * @return the write time    */
 specifier|public

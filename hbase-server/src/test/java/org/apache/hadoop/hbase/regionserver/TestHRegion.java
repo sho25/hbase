@@ -28560,7 +28560,7 @@ name|SKIP_WAL
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28581,7 +28581,7 @@ name|SKIP_WAL
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28602,7 +28602,7 @@ name|SKIP_WAL
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28623,7 +28623,7 @@ name|SKIP_WAL
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28644,7 +28644,7 @@ name|SKIP_WAL
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28665,7 +28665,7 @@ name|USE_DEFAULT
 argument_list|,
 literal|0
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|false
 argument_list|,
@@ -28673,6 +28673,11 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|void
 name|durabilityTest
@@ -28939,6 +28944,15 @@ name|Mockito
 operator|.
 name|anyBoolean
 argument_list|()
+argument_list|,
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
+name|any
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// verify sync called or not
@@ -29036,20 +29050,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|verify
-argument_list|(
-name|log
-argument_list|,
-name|never
-argument_list|()
-argument_list|)
-operator|.
-name|sync
-argument_list|(
-name|anyLong
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|//verify(log, never()).sync(anyLong());
 name|verify
 argument_list|(
 name|log

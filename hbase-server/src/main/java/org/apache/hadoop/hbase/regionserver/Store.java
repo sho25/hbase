@@ -343,6 +343,22 @@ name|CompactionRequest
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface for objects that hold a column family in a Region. Its a memstore and a set of zero or  * more StoreFiles, which stretch backwards over time.  */
 end_comment
@@ -478,8 +494,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Adds a value to the memstore    * @param kv    * @return memstore size delta    */
-name|long
+comment|/**    * Adds a value to the memstore    * @param kv    * @return memstore size delta& newly added KV which maybe different than the passed in KV    */
+name|Pair
+argument_list|<
+name|Long
+argument_list|,
+name|Cell
+argument_list|>
 name|add
 parameter_list|(
 name|KeyValue

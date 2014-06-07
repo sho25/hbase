@@ -179,6 +179,13 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|AtomicLong
+name|startPoint
+init|=
+operator|new
+name|AtomicLong
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -195,8 +202,13 @@ name|e
 init|=
 name|mvcc
 operator|.
-name|beginMemstoreInsert
+name|beginMemstoreInsertWithSeqNum
+argument_list|(
+name|startPoint
+operator|.
+name|incrementAndGet
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// System.out.println("Begin write: " + e.getWriteNumber());
 comment|// 10 usec - 500usec (including 0)

@@ -4921,6 +4921,63 @@ block|}
 block|}
 end_function
 
+begin_comment
+comment|/**    * @param now    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tableName    * @param clusterIds that have consumed the change    * @return New log key.    */
+end_comment
+
+begin_function
+specifier|protected
+name|HLogKey
+name|makeKey
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|long
+name|seqnum
+parameter_list|,
+name|long
+name|now
+parameter_list|,
+name|List
+argument_list|<
+name|UUID
+argument_list|>
+name|clusterIds
+parameter_list|,
+name|long
+name|nonceGroup
+parameter_list|,
+name|long
+name|nonce
+parameter_list|)
+block|{
+return|return
+operator|new
+name|HLogKey
+argument_list|(
+name|encodedRegionName
+argument_list|,
+name|tableName
+argument_list|,
+name|seqnum
+argument_list|,
+name|now
+argument_list|,
+name|clusterIds
+argument_list|,
+name|nonceGroup
+argument_list|,
+name|nonce
+argument_list|)
+return|;
+block|}
+end_function
+
 begin_function
 annotation|@
 name|Override
@@ -4983,6 +5040,8 @@ argument_list|,
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -5071,6 +5130,8 @@ argument_list|,
 literal|false
 argument_list|,
 name|inMemstore
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -5106,6 +5167,13 @@ parameter_list|,
 specifier|final
 name|boolean
 name|inMemstore
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|memstoreKVs
 parameter_list|)
 throws|throws
 name|IOException
@@ -5126,13 +5194,15 @@ argument_list|,
 literal|false
 argument_list|,
 name|inMemstore
+argument_list|,
+name|memstoreKVs
 argument_list|)
 return|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    * @param key    * @param edits    * @param htd This comes in here just so it is available on a pre append for replications.  Get    * rid of it.  It is kinda crazy this comes in here when we have tablename and regioninfo.    * Replication gets its scope from the HTD.    * @param hri region info    * @param sync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId The region sequence id reference.    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded) regionName, rowname, and    * log-sequence-id.    * @param key    * @param edits    * @param htd This comes in here just so it is available on a pre append for replications.  Get    * rid of it.  It is kinda crazy this comes in here when we have tablename and regioninfo.    * Replication gets its scope from the HTD.    * @param hri region info    * @param sync shall we sync after we call the append?    * @param inMemstore    * @param sequenceId The region sequence id reference.    * @param memstoreKVs    * @return txid of this transaction or if nothing to do, the last txid    * @throws IOException    */
 end_comment
 
 begin_function
@@ -5183,6 +5253,12 @@ name|sync
 parameter_list|,
 name|boolean
 name|inMemstore
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|memstoreKVs
 parameter_list|)
 throws|throws
 name|IOException
@@ -5283,6 +5359,8 @@ argument_list|,
 name|htd
 argument_list|,
 name|hri
+argument_list|,
+name|memstoreKVs
 argument_list|)
 expr_stmt|;
 name|truck
@@ -5312,31 +5390,6 @@ argument_list|(
 name|sequence
 argument_list|)
 expr_stmt|;
-comment|// Now wait until the region edit/sequence id is available.  The 'entry' has an internal
-comment|// latch that is thrown when the region edit/sequence id is set.  Calling
-comment|// entry.getRegionSequenceId will cause us block until the latch is thrown.  The return is
-comment|// the region edit/sequence id, not the ring buffer txid.
-try|try
-block|{
-name|entry
-operator|.
-name|getRegionSequenceId
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-name|convertInterruptedExceptionToIOException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 comment|// doSync is set in tests.  Usually we arrive in here via appendNoSync w/ the sync called after
 comment|// all edits on a handler have been added.
@@ -8483,6 +8536,22 @@ operator|.
 name|stampRegionSequenceId
 argument_list|()
 expr_stmt|;
+comment|// Edits are empty, there is nothing to append.  Maybe empty when we are looking for a
+comment|// region sequence id only, a region edit/sequence id that is not associated with an actual
+comment|// edit. It has to go through all the rigmarole to be sure we have the right ordering.
+if|if
+condition|(
+name|entry
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 comment|// Coprocessor hook.
 if|if
 condition|(
@@ -8572,21 +8641,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// If empty, there is nothing to append.  Maybe empty when we are looking for a region
-comment|// sequence id only, a region edit/sequence id that is not associated with an actual edit.
-comment|// It has to go through all the rigmarole to be sure we have the right ordering.
-if|if
-condition|(
-operator|!
-name|entry
-operator|.
-name|getEdit
-argument_list|()
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
 name|writer
 operator|.
 name|append
@@ -8645,7 +8699,6 @@ argument_list|,
 name|lRegionSequenceId
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|coprocessorHost
 operator|.
