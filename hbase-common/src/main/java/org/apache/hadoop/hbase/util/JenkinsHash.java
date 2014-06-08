@@ -902,6 +902,8 @@ operator|new
 name|JenkinsHash
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|int
@@ -940,6 +942,15 @@ name|length
 argument_list|,
 name|value
 argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|in
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 name|System
