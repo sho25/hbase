@@ -1170,11 +1170,12 @@ name|execute
 argument_list|()
 expr_stmt|;
 return|return
-operator|new
-name|byte
-index|[
-literal|0
-index|]
+name|SimpleMasterProcedureManager
+operator|.
+name|SIMPLE_DATA
+operator|.
+name|getBytes
+argument_list|()
 return|;
 block|}
 comment|/**      * Cancel threads if they haven't finished.      */

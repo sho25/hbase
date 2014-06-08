@@ -1782,9 +1782,31 @@ name|RestoreSnapshotException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    */
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
 name|void
 name|execProcedure
+parameter_list|(
+name|String
+name|signature
+parameter_list|,
+name|String
+name|instance
+parameter_list|,
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|props
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
+name|byte
+index|[]
+name|execProcedureWithRet
 parameter_list|(
 name|String
 name|signature

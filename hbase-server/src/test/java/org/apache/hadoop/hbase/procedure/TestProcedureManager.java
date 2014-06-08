@@ -134,6 +134,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -302,9 +314,13 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 decl_stmt|;
+name|byte
+index|[]
+name|result
+init|=
 name|admin
 operator|.
-name|execProcedure
+name|execProcedureWithRet
 argument_list|(
 name|SimpleMasterProcedureManager
 operator|.
@@ -320,6 +336,20 @@ argument_list|,
 name|String
 argument_list|>
 argument_list|()
+argument_list|)
+decl_stmt|;
+name|assertArrayEquals
+argument_list|(
+literal|"Incorrect return data from execProcedure"
+argument_list|,
+name|SimpleMasterProcedureManager
+operator|.
+name|SIMPLE_DATA
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|result
 argument_list|)
 expr_stmt|;
 block|}

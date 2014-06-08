@@ -244,7 +244,6 @@ name|UnsupportedOperationException
 function_decl|;
 comment|/**    * Execute a distributed procedure on cluster    *    * @param desc Procedure description    * @throws IOException    */
 specifier|public
-specifier|abstract
 name|void
 name|execProcedure
 parameter_list|(
@@ -253,7 +252,23 @@ name|desc
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{    }
+comment|/**    * Execute a distributed procedure on cluster with return data.    *    * @param desc Procedure description    * @return data returned from the procedure execution, null if no data    * @throws IOException    */
+specifier|public
+name|byte
+index|[]
+name|execProcedureWithRet
+parameter_list|(
+name|ProcedureDescription
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+literal|null
+return|;
+block|}
 comment|/**    * Check if the procedure is finished successfully    *    * @param desc Procedure description    * @return true if the specified procedure is finished successfully    * @throws IOException    */
 specifier|public
 specifier|abstract
