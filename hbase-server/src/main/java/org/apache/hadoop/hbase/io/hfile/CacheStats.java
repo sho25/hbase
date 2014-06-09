@@ -279,21 +279,33 @@ block|{
 return|return
 literal|"hitCount="
 operator|+
-name|this
-operator|.
-name|hitCount
+name|getHitCount
+argument_list|()
 operator|+
 literal|", hitCachingCount="
 operator|+
-name|this
-operator|.
-name|hitCachingCount
+name|getHitCachingCount
+argument_list|()
 operator|+
 literal|", missCount="
 operator|+
-name|this
-operator|.
-name|missCount
+name|getMissCount
+argument_list|()
+operator|+
+literal|", missCachingCount="
+operator|+
+name|getMissCachingCount
+argument_list|()
+operator|+
+literal|", evictionCount="
+operator|+
+name|getEvictionCount
+argument_list|()
+operator|+
+literal|", evictedBlockCount="
+operator|+
+name|getEvictedCount
+argument_list|()
 return|;
 block|}
 specifier|public

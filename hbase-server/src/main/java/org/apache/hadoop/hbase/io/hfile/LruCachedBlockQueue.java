@@ -74,14 +74,14 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 implements|implements
 name|HeapSize
 block|{
 specifier|private
 name|MinMaxPriorityQueue
 argument_list|<
-name|CachedBlock
+name|LruCachedBlock
 argument_list|>
 name|queue
 decl_stmt|;
@@ -95,7 +95,7 @@ name|maxSize
 decl_stmt|;
 comment|/**    * @param maxSize the target size of elements in the queue    * @param blockSize expected average size of blocks    */
 specifier|public
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 parameter_list|(
 name|long
 name|maxSize
@@ -153,7 +153,7 @@ specifier|public
 name|void
 name|add
 parameter_list|(
-name|CachedBlock
+name|LruCachedBlock
 name|cb
 parameter_list|)
 block|{
@@ -181,7 +181,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|CachedBlock
+name|LruCachedBlock
 name|head
 init|=
 name|queue
@@ -250,7 +250,7 @@ block|}
 block|}
 comment|/**    * @return The next element in this queue, or {@code null} if the queue is    * empty.    */
 specifier|public
-name|CachedBlock
+name|LruCachedBlock
 name|poll
 parameter_list|()
 block|{
@@ -263,7 +263,7 @@ return|;
 block|}
 comment|/**    * @return The last element in this queue, or {@code null} if the queue is    * empty.    */
 specifier|public
-name|CachedBlock
+name|LruCachedBlock
 name|pollLast
 parameter_list|()
 block|{

@@ -299,6 +299,9 @@ while|while
 condition|(
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 operator|==
@@ -387,6 +390,9 @@ name|long
 name|evictionCount
 init|=
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictionCount
 argument_list|()
@@ -688,6 +694,9 @@ literal|0
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -806,6 +815,9 @@ argument_list|(
 literal|1
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictionCount
 argument_list|()
@@ -1074,6 +1086,9 @@ name|assertEquals
 argument_list|(
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|,
@@ -1084,6 +1099,9 @@ comment|// We expect two entries evicted
 name|assertEquals
 argument_list|(
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -1504,6 +1522,9 @@ literal|0
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1544,6 +1565,9 @@ literal|1
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1553,6 +1577,9 @@ argument_list|(
 literal|1
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -1626,6 +1653,9 @@ literal|2
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1635,6 +1665,9 @@ argument_list|(
 literal|2
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -1691,6 +1724,9 @@ literal|3
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1700,6 +1736,9 @@ argument_list|(
 literal|3
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -1769,6 +1808,9 @@ literal|4
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1778,6 +1820,9 @@ argument_list|(
 literal|6
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -1897,6 +1942,9 @@ literal|5
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -1906,6 +1954,9 @@ argument_list|(
 literal|9
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2008,6 +2059,9 @@ literal|6
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2017,6 +2071,9 @@ argument_list|(
 literal|12
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2342,6 +2399,9 @@ literal|0
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2384,6 +2444,9 @@ literal|1
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2393,6 +2456,9 @@ argument_list|(
 literal|1
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2449,6 +2515,9 @@ literal|2
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2458,6 +2527,9 @@ argument_list|(
 literal|2
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2571,6 +2643,9 @@ literal|6
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2580,6 +2655,9 @@ argument_list|(
 literal|6
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2744,6 +2822,9 @@ literal|9
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2753,6 +2834,9 @@ argument_list|(
 literal|9
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2856,6 +2940,9 @@ literal|10
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2865,6 +2952,9 @@ argument_list|(
 literal|10
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -2921,6 +3011,9 @@ literal|11
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -2930,6 +3023,9 @@ argument_list|(
 literal|11
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -3140,6 +3236,9 @@ literal|1
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -3150,6 +3249,9 @@ argument_list|(
 literal|4
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -3293,6 +3395,9 @@ literal|4
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -3302,6 +3407,9 @@ argument_list|(
 literal|16
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -3314,7 +3422,7 @@ literal|7
 argument_list|,
 name|cache
 operator|.
-name|size
+name|getBlockCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3533,6 +3641,9 @@ literal|0
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -3559,6 +3670,9 @@ literal|1
 argument_list|,
 name|cache
 operator|.
+name|getStats
+argument_list|()
+operator|.
 name|getEvictionCount
 argument_list|()
 argument_list|)
@@ -3569,6 +3683,9 @@ argument_list|(
 literal|15
 argument_list|,
 name|cache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -4498,7 +4615,7 @@ argument_list|)
 decl_stmt|;
 name|negateBlockSize
 operator|+=
-name|CachedBlock
+name|LruCachedBlock
 operator|.
 name|PER_BLOCK_OVERHEAD
 expr_stmt|;
@@ -4600,7 +4717,7 @@ name|numEntries
 decl_stmt|;
 name|negateBlockSize
 operator|+=
-name|CachedBlock
+name|LruCachedBlock
 operator|.
 name|PER_BLOCK_OVERHEAD
 expr_stmt|;
@@ -4694,7 +4811,7 @@ name|cacheBlockHeapSize
 parameter_list|()
 block|{
 return|return
-name|CachedBlock
+name|LruCachedBlock
 operator|.
 name|PER_BLOCK_OVERHEAD
 operator|+

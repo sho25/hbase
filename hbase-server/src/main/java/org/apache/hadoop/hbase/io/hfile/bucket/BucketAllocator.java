@@ -175,6 +175,20 @@ name|BucketEntry
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|codehaus
+operator|.
+name|jackson
+operator|.
+name|annotate
+operator|.
+name|JsonIgnoreProperties
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is used to allocate a block with specified size and free the block  * when evicting. It manages an array of buckets, each bucket is associated with  * a size and caches elements up to this size. For a completely empty bucket, this  * size could be re-specified dynamically.  *   * This class is not thread safe.  */
 end_comment
@@ -184,6 +198,17 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|JsonIgnoreProperties
+argument_list|(
+block|{
+literal|"indexStatistics"
+block|,
+literal|"freeSize"
+block|,
+literal|"usedSize"
+block|}
+argument_list|)
 specifier|public
 specifier|final
 class|class
@@ -203,8 +228,17 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|JsonIgnoreProperties
+argument_list|(
+block|{
+literal|"completelyFree"
+block|,
+literal|"uninstantiated"
+block|}
+argument_list|)
+specifier|public
 specifier|final
-specifier|private
 specifier|static
 class|class
 name|Bucket
@@ -364,7 +398,7 @@ return|;
 block|}
 specifier|public
 name|int
-name|itemAllocationSize
+name|getItemAllocationSize
 parameter_list|()
 block|{
 return|return
@@ -413,7 +447,7 @@ return|;
 block|}
 specifier|public
 name|int
-name|freeBytes
+name|getFreeBytes
 parameter_list|()
 block|{
 return|return
@@ -424,7 +458,7 @@ return|;
 block|}
 specifier|public
 name|int
-name|usedBytes
+name|getUsedBytes
 parameter_list|()
 block|{
 return|return
@@ -435,7 +469,7 @@ return|;
 block|}
 specifier|public
 name|long
-name|baseOffset
+name|getBaseOffset
 parameter_list|()
 block|{
 return|return
@@ -1963,7 +1997,7 @@ index|[
 name|bucketNo
 index|]
 operator|.
-name|itemAllocationSize
+name|getItemAllocationSize
 argument_list|()
 expr_stmt|;
 name|bucketSizeInfos
@@ -1980,7 +2014,7 @@ block|}
 block|}
 specifier|public
 name|String
-name|getInfo
+name|toString
 parameter_list|()
 block|{
 name|StringBuilder
@@ -2017,11 +2051,24 @@ index|[
 name|i
 index|]
 decl_stmt|;
+if|if
+condition|(
+name|i
+operator|>
+literal|0
+condition|)
 name|sb
 operator|.
 name|append
 argument_list|(
-literal|"    Bucket "
+literal|", "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"bucket."
 argument_list|)
 operator|.
 name|append
@@ -2031,14 +2078,14 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|": "
+literal|": size="
 argument_list|)
 operator|.
 name|append
 argument_list|(
 name|b
 operator|.
-name|itemAllocationSize
+name|getItemAllocationSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2046,7 +2093,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" freeCount="
+literal|", freeCount="
 argument_list|)
 operator|.
 name|append
@@ -2059,7 +2106,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" used="
+literal|", used="
 argument_list|)
 operator|.
 name|append
@@ -2068,13 +2115,6 @@ name|b
 operator|.
 name|usedCount
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
-literal|'\n'
 argument_list|)
 expr_stmt|;
 block|}
@@ -2301,13 +2341,13 @@ name|usedSize
 operator|-=
 name|targetBucket
 operator|.
-name|itemAllocationSize
+name|getItemAllocationSize
 argument_list|()
 expr_stmt|;
 return|return
 name|targetBucket
 operator|.
-name|itemAllocationSize
+name|getItemAllocationSize
 argument_list|()
 return|;
 block|}
@@ -2399,7 +2439,7 @@ decl_stmt|;
 return|return
 name|targetBucket
 operator|.
-name|itemAllocationSize
+name|getItemAllocationSize
 argument_list|()
 return|;
 block|}
@@ -2566,6 +2606,18 @@ operator|+
 name|used
 expr_stmt|;
 block|}
+block|}
+specifier|public
+name|Bucket
+index|[]
+name|getBuckets
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|buckets
+return|;
 block|}
 specifier|public
 name|void

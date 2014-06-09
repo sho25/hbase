@@ -218,11 +218,11 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 name|queue
 init|=
 operator|new
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 argument_list|(
 literal|10000
 argument_list|,
@@ -525,11 +525,11 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 name|queue
 init|=
 operator|new
-name|CachedBlockQueue
+name|LruCachedBlockQueue
 argument_list|(
 literal|10000
 argument_list|,
@@ -744,7 +744,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|CachedBlock
+name|LruCachedBlock
 block|{
 specifier|public
 name|CachedBlock

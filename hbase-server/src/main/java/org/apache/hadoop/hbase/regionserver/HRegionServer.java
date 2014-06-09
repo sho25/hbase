@@ -13355,6 +13355,18 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * @return The cache config instance used by the regionserver.    */
+specifier|public
+name|CacheConfig
+name|getCacheConfig
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|cacheConfig
+return|;
+block|}
 block|}
 end_class
 

@@ -23,19 +23,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
-name|List
+name|Iterator
 import|;
 end_import
 
@@ -53,20 +43,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
 begin_comment
 comment|/**  * Block cache interface. Anything that implements the {@link Cacheable}  * interface can be put in the cache.  */
 end_comment
@@ -79,6 +55,11 @@ name|Private
 specifier|public
 interface|interface
 name|BlockCache
+extends|extends
+name|Iterable
+argument_list|<
+name|CachedBlock
+argument_list|>
 block|{
 comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    */
 name|void
@@ -163,28 +144,24 @@ name|long
 name|getCurrentSize
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the number of blocks that have been evicted.    * @return number of evicted blocks    */
-name|long
-name|getEvictedCount
-parameter_list|()
-function_decl|;
 comment|/**    * Returns the number of blocks currently cached in the block cache.    * @return number of blocks in the cache    */
 name|long
 name|getBlockCount
 parameter_list|()
 function_decl|;
-comment|/**    * Performs a BlockCache summary and returns a List of BlockCacheColumnFamilySummary objects.    * This method could be fairly heavyweight in that it evaluates the entire HBase file-system    * against what is in the RegionServer BlockCache.    *<br><br>    * The contract of this interface is to return the List in sorted order by Table name, then    * ColumnFamily.    *    * @param conf HBaseConfiguration    * @return List of BlockCacheColumnFamilySummary    * @throws IOException exception    */
-name|List
+comment|/**    * @return Iterator over the blocks in the cache.    */
+name|Iterator
 argument_list|<
-name|BlockCacheColumnFamilySummary
+name|CachedBlock
 argument_list|>
-name|getBlockCacheColumnFamilySummaries
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-throws|throws
-name|IOException
+name|iterator
+parameter_list|()
+function_decl|;
+comment|/**    * @return The list of sub blockcaches that make up this one; returns null if no sub caches.    */
+name|BlockCache
+index|[]
+name|getBlockCaches
+parameter_list|()
 function_decl|;
 block|}
 end_interface

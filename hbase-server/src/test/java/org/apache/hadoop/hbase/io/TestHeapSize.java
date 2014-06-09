@@ -315,7 +315,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|CachedBlock
+name|LruCachedBlock
 import|;
 end_import
 
@@ -1557,13 +1557,13 @@ comment|// We really need "deep" sizing but ClassSize does not do this.
 comment|// Perhaps we should do all these more in this style....
 name|cl
 operator|=
-name|CachedBlock
+name|LruCachedBlock
 operator|.
 name|class
 expr_stmt|;
 name|actual
 operator|=
-name|CachedBlock
+name|LruCachedBlock
 operator|.
 name|PER_BLOCK_OVERHEAD
 expr_stmt|;

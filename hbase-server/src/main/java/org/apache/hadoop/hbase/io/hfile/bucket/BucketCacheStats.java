@@ -137,6 +137,30 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|super
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", ioHitsPerSecond="
+operator|+
+name|getIOHitsPerSecond
+argument_list|()
+operator|+
+literal|", ioTimePerHit="
+operator|+
+name|getIOTimePerHit
+argument_list|()
+return|;
+block|}
 specifier|public
 name|void
 name|ioHit
@@ -187,6 +211,12 @@ operator|=
 name|now
 expr_stmt|;
 return|return
+name|took
+operator|==
+literal|0
+condition|?
+literal|0
+else|:
 name|ioHitCount
 operator|.
 name|get
