@@ -180,7 +180,7 @@ name|startPoint
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * @param initVal The value we used initially and expected it'll be reset later    * @return    */
+comment|/**    *     * @param initVal The value we used initially and expected it'll be reset later    * @return WriteEntry instance.    */
 name|WriteEntry
 name|beginMemstoreInsert
 parameter_list|()

@@ -27424,7 +27424,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Append a faked WALEdit in order to get a long sequence number and log syncer will just ignore    * the WALEdit append later.    * @param wal    * @param cells list of KeyValues inserted into memstore. Those KeyValues are passed in order to    *        be updated with right mvcc values(their log sequence nu    * @return    * @throws IOException    */
+comment|/**    * Append a faked WALEdit in order to get a long sequence number and log syncer will just ignore    * the WALEdit append later.    * @param wal    * @param cells list of KeyValues inserted into memstore. Those KeyValues are passed in order to    *        be updated with right mvcc values(their log sequence nu    * @return Return the key used appending with no sync and no append.    * @throws IOException    */
 specifier|private
 name|HLogKey
 name|appendNoSyncNoAppend

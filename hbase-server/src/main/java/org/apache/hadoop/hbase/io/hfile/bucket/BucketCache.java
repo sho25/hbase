@@ -764,7 +764,7 @@ specifier|final
 name|int
 name|statThreadPeriod
 init|=
-literal|3
+literal|5
 operator|*
 literal|60
 decl_stmt|;
@@ -1108,7 +1108,7 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"BucketCache Statistics #%d"
+literal|"BucketCacheStatsExecutor"
 argument_list|)
 operator|.
 name|setDaemon
@@ -1523,6 +1523,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Run the statistics thread periodically to print the cache statistics log
+comment|// TODO: Add means of turning this off.  Bit obnoxious running thread just to make a log
+comment|// every five minutes.
 name|this
 operator|.
 name|scheduleThreadPool
@@ -2502,8 +2504,6 @@ literal|true
 return|;
 block|}
 comment|/*    * Statistics thread.  Periodically output cache statistics to the log.    */
-comment|// TODO: Fix.  We run a thread to log at DEBUG.  If no DEBUG level, we still run the thread!
-comment|// A thread just to log is OTT.  FIX.
 specifier|private
 specifier|static
 class|class
@@ -2511,6 +2511,8 @@ name|StatisticsThread
 extends|extends
 name|Thread
 block|{
+specifier|private
+specifier|final
 name|BucketCache
 name|bucketCache
 decl_stmt|;
@@ -2523,7 +2525,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"BucketCache.StatisticsThread"
+literal|"BucketCacheStatsThread"
 argument_list|)
 expr_stmt|;
 name|setDaemon
@@ -2557,16 +2559,6 @@ name|void
 name|logStats
 parameter_list|()
 block|{
-if|if
-condition|(
-operator|!
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-return|return;
-comment|// Log size
 name|long
 name|totalSize
 init|=
@@ -2593,31 +2585,21 @@ decl_stmt|;
 name|long
 name|cacheSize
 init|=
-name|this
-operator|.
-name|realCacheSize
-operator|.
-name|get
+name|getRealCacheSize
 argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"BucketCache Stats: "
-operator|+
 literal|"failedBlockAdditions="
 operator|+
-name|this
-operator|.
-name|failedBlockAdditions
-operator|.
-name|get
+name|getFailedBlockAdditions
 argument_list|()
 operator|+
 literal|", "
 operator|+
-literal|"total="
+literal|"totalSize="
 operator|+
 name|StringUtils
 operator|.
@@ -2628,7 +2610,7 @@ argument_list|)
 operator|+
 literal|", "
 operator|+
-literal|"free="
+literal|"freeSize="
 operator|+
 name|StringUtils
 operator|.
@@ -2811,6 +2793,34 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+block|}
+specifier|public
+name|long
+name|getFailedBlockAdditions
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|failedBlockAdditions
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
+specifier|public
+name|long
+name|getRealCacheSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|realCacheSize
+operator|.
+name|get
+argument_list|()
+return|;
 block|}
 specifier|private
 name|long

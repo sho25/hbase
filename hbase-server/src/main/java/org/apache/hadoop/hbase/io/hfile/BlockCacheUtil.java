@@ -829,7 +829,7 @@ return|return
 name|cbsbf
 return|;
 block|}
-comment|/**    * Use one of these to keep a running account of cached blocks by file.  Throw it away when done.    * This is different than metrics in that it is stats on current state of a cache.    * @see getLoadedCachedBlocksByFile    */
+comment|/**    * Use one of these to keep a running account of cached blocks by file.  Throw it away when done.    * This is different than metrics in that it is stats on current state of a cache.    * See getLoadedCachedBlocksByFile    */
 annotation|@
 name|JsonIgnoreProperties
 argument_list|(

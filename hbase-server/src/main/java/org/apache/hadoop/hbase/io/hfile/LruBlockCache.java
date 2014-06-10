@@ -609,7 +609,7 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"LruStats #%d"
+literal|"LruBlockCacheStatsExecutor"
 argument_list|)
 operator|.
 name|setDaemon
@@ -1155,6 +1155,8 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// TODO: Add means of turning this off.  Bit obnoxious running thread just to make a log
+comment|// every five minutes.
 name|this
 operator|.
 name|scheduleThreadPool
@@ -2946,6 +2948,8 @@ name|StatisticsThread
 extends|extends
 name|Thread
 block|{
+specifier|private
+specifier|final
 name|LruBlockCache
 name|lru
 decl_stmt|;
@@ -2958,7 +2962,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"LruBlockCache.StatisticsThread"
+literal|"LruBlockCacheStats"
 argument_list|)
 expr_stmt|;
 name|setDaemon
@@ -2992,15 +2996,6 @@ name|void
 name|logStats
 parameter_list|()
 block|{
-if|if
-condition|(
-operator|!
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-return|return;
 comment|// Log size
 name|long
 name|totalSize
@@ -3019,9 +3014,9 @@ name|LruBlockCache
 operator|.
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Total="
+literal|"totalSize="
 operator|+
 name|StringUtils
 operator|.
@@ -3032,7 +3027,7 @@ argument_list|)
 operator|+
 literal|", "
 operator|+
-literal|"free="
+literal|"freeSize="
 operator|+
 name|StringUtils
 operator|.
@@ -3053,13 +3048,6 @@ name|this
 operator|.
 name|maxSize
 argument_list|)
-operator|+
-literal|", "
-operator|+
-literal|"blocks="
-operator|+
-name|size
-argument_list|()
 operator|+
 literal|", "
 operator|+
@@ -3241,7 +3229,8 @@ operator|.
 name|OBJECT
 argument_list|)
 decl_stmt|;
-comment|// HeapSize implementation
+annotation|@
+name|Override
 specifier|public
 name|long
 name|heapSize
