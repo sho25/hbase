@@ -653,24 +653,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLogSplitter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -4202,9 +4184,11 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
+operator|(
 operator|!
 name|selfCheckedIn
-operator|&&
+operator|||
+operator|(
 name|count
 operator|<
 name|maxToStart
@@ -4223,6 +4207,8 @@ operator|||
 name|count
 operator|<
 name|minToStart
+operator|)
+operator|)
 operator|)
 condition|)
 block|{
@@ -4275,7 +4261,11 @@ literal|" ms, interval of "
 operator|+
 name|interval
 operator|+
-literal|" ms."
+literal|" ms,"
+operator|+
+literal|" selfCheckedIn "
+operator|+
+name|selfCheckedIn
 decl_stmt|;
 name|LOG
 operator|.
@@ -4386,7 +4376,11 @@ argument_list|()
 condition|?
 literal|"stopped."
 else|:
-literal|"running."
+literal|"running,"
+operator|+
+literal|" selfCheckedIn "
+operator|+
+name|selfCheckedIn
 operator|)
 argument_list|)
 expr_stmt|;

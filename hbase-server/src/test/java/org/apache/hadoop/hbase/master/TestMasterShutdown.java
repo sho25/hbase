@@ -492,6 +492,17 @@ argument_list|,
 literal|200
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|ServerManager
+operator|.
+name|WAIT_ON_REGIONSERVERS_MINTOSTART
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// Start the cluster
 specifier|final
 name|HBaseTestingUtility

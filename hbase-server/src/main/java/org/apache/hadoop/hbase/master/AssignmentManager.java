@@ -3012,6 +3012,16 @@ name|disabledOrDisablingOrEnabling
 init|=
 literal|null
 decl_stmt|;
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|allRegions
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -3050,6 +3060,8 @@ name|ENABLING
 argument_list|)
 expr_stmt|;
 comment|// Clean re/start, mark all user regions closed before reassignment
+name|allRegions
+operator|=
 name|regionStates
 operator|.
 name|closeAllUserRegions
@@ -3140,7 +3152,7 @@ argument_list|)
 expr_stmt|;
 name|assignAllUserRegions
 argument_list|(
-name|disabledOrDisablingOrEnabling
+name|allRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -12200,30 +12212,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Assigns all user regions, if any exist.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Assigns all user regions, if any exist.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    */
 specifier|private
 name|void
 name|assignAllUserRegions
 parameter_list|(
-name|Set
-argument_list|<
-name|TableName
-argument_list|>
-name|disabledOrDisablingOrEnabling
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-throws|,
-name|KeeperException
-throws|,
-name|CoordinatedStateException
-block|{
-comment|// Skip assignment for regions of tables in DISABLING state because during clean cluster startup
-comment|// no RS is alive and regions map also doesn't have any information about the regions.
-comment|// See HBASE-6281.
-comment|// Scan hbase:meta for all user regions, skipping any disabled tables
 name|Map
 argument_list|<
 name|HRegionInfo
@@ -12231,32 +12224,12 @@ argument_list|,
 name|ServerName
 argument_list|>
 name|allRegions
-decl_stmt|;
-name|SnapshotOfRegionAssignmentFromMeta
-name|snapshotOfRegionAssignment
-init|=
-operator|new
-name|SnapshotOfRegionAssignmentFromMeta
-argument_list|(
-name|catalogTracker
-argument_list|,
-name|disabledOrDisablingOrEnabling
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
-name|snapshotOfRegionAssignment
-operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
-name|allRegions
-operator|=
-name|snapshotOfRegionAssignment
-operator|.
-name|getRegionToRegionServerMap
-argument_list|()
-expr_stmt|;
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
 if|if
 condition|(
 name|allRegions
@@ -12268,9 +12241,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
-block|{
 return|return;
-block|}
 comment|// Determine what type of assignment to do on startup
 name|boolean
 name|retainAssignment
