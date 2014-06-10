@@ -300,7 +300,7 @@ name|getInt
 argument_list|(
 name|CompactionConfiguration
 operator|.
-name|MIN_KEY
+name|HBASE_HSTORE_COMPACTION_MIN_KEY
 argument_list|,
 operator|-
 literal|1
@@ -342,7 +342,7 @@ name|getInt
 argument_list|(
 name|CompactionConfiguration
 operator|.
-name|MAX_KEY
+name|HBASE_HSTORE_COMPACTION_MAX_KEY
 argument_list|,
 literal|10
 argument_list|)
