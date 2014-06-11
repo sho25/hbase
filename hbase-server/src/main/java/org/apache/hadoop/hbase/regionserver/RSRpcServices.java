@@ -6083,7 +6083,7 @@ literal|"Close "
 operator|+
 name|encodedRegionName
 operator|+
-literal|", on "
+literal|", moving to "
 operator|+
 name|sn
 argument_list|)

@@ -12521,16 +12521,6 @@ operator|+
 literal|" to "
 operator|+
 name|destination
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|":"
-operator|+
-name|destination
-operator|.
-name|getPort
-argument_list|()
 operator|+
 literal|" as of "
 operator|+
