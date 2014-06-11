@@ -5793,7 +5793,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|// TEST_UTIL.getHBaseAdmin().flush(tableName.getNameAsString());
 name|Scan
 name|s
 init|=
