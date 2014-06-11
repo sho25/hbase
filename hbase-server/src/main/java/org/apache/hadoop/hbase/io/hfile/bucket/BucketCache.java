@@ -1592,6 +1592,18 @@ name|bucketAllocator
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|String
+name|getIoEngine
+parameter_list|()
+block|{
+return|return
+name|ioEngine
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 comment|/**    * Get the IOEngine from the IO engine name    * @param ioEngineName    * @param capacity    * @return the IOEngine    * @throws IOException    */
 specifier|private
 name|IOEngine
