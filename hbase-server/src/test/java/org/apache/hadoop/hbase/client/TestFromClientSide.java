@@ -36957,6 +36957,10 @@ init|=
 operator|new
 name|Increment
 argument_list|(
+operator|(
+name|byte
+index|[]
+operator|)
 literal|null
 argument_list|)
 decl_stmt|;
