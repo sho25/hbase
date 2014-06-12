@@ -4353,7 +4353,12 @@ name|setFsDefault
 argument_list|(
 name|conf
 argument_list|,
-name|snapshotDir
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|SnapshotDescription
