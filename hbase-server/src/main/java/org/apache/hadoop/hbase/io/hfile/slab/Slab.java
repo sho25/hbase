@@ -144,7 +144,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Slab is a class which is designed to allocate blocks of a certain size.  * Constructor creates a number of DirectByteBuffers and slices them into the  * requisite size, then puts them all in a buffer.  **/
+comment|/**  * Slab is a class which is designed to allocate blocks of a certain size.  * Constructor creates a number of DirectByteBuffers and slices them into the  * requisite size, then puts them all in a buffer.  *  * @deprecated As of 1.0, replaced by {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache}.  */
 end_comment
 
 begin_class
@@ -152,6 +152,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 class|class
 name|Slab
 implements|implements

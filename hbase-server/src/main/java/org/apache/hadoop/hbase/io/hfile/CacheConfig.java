@@ -1725,6 +1725,13 @@ block|}
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"SlabCache is deprecated. Consider BucketCache as a replacement."
+argument_list|)
+expr_stmt|;
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 operator|new

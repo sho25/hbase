@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for objects that want to know when actions occur in a SingleSizeCache.  * */
+comment|/**  * Interface for objects that want to know when actions occur in a SingleSizeCache.  *  * @deprecated As of 1.0, replaced by {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache}.  */
 end_comment
 
 begin_interface
@@ -62,6 +62,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 interface|interface
 name|SlabItemActionWatcher
 block|{

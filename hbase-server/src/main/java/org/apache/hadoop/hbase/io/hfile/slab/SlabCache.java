@@ -428,7 +428,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * SlabCache is composed of multiple SingleSizeCaches. It uses a TreeMap in  * order to determine where a given element fits. Redirects gets and puts to the  * correct SingleSizeCache.  *   *<p>It is configured with a call to {@link #addSlab(int, int)}  *  **/
+comment|/**  * SlabCache is composed of multiple SingleSizeCaches. It uses a TreeMap in  * order to determine where a given element fits. Redirects gets and puts to the  * correct SingleSizeCache.  *   *<p>It is configured with a call to {@link #addSlab(int, int)}  *  * @deprecated As of 1.0, replaced by {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache}.  */
 end_comment
 
 begin_class
@@ -436,6 +436,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|SlabCache

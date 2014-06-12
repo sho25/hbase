@@ -322,7 +322,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * SingleSizeCache is a slab allocated cache that caches elements up to a single  * size. It uses a slab allocator (Slab.java) to divide a direct bytebuffer,  * into evenly sized blocks. Any cached data will take up exactly 1 block. An  * exception will be thrown if the cached data cannot fit into the blockSize of  * this SingleSizeCache.  *  * Eviction and LRUness is taken care of by Guava's MapMaker, which creates a  * ConcurrentLinkedHashMap.  *  **/
+comment|/**  * SingleSizeCache is a slab allocated cache that caches elements up to a single  * size. It uses a slab allocator (Slab.java) to divide a direct bytebuffer,  * into evenly sized blocks. Any cached data will take up exactly 1 block. An  * exception will be thrown if the cached data cannot fit into the blockSize of  * this SingleSizeCache.  *  * Eviction and LRUness is taken care of by Guava's MapMaker, which creates a  * ConcurrentLinkedHashMap.  *  * @deprecated As of 1.0, replaced by {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache}.  **/
 end_comment
 
 begin_class
@@ -330,6 +330,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|SingleSizeCache

@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * DoubleBlockCache is an abstraction layer that combines two caches, the  * smaller onHeapCache and the larger offHeapCache. CacheBlock attempts to cache  * the block in both caches, while readblock reads first from the faster on heap  * cache before looking for the block in the off heap cache. Metrics are the  * combined size and hits and misses of both caches.  *  **/
+comment|/**  * DoubleBlockCache is an abstraction layer that combines two caches, the  * smaller onHeapCache and the larger offHeapCache. CacheBlock attempts to cache  * the block in both caches, while readblock reads first from the faster on heap  * cache before looking for the block in the off heap cache. Metrics are the  * combined size and hits and misses of both caches.  *  * @deprecated As of 1.0, replaced by {@link org.apache.hadoop.hbase.io.hfile.bucket.BucketCache}.  */
 end_comment
 
 begin_class
@@ -144,6 +144,8 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|DoubleBlockCache
