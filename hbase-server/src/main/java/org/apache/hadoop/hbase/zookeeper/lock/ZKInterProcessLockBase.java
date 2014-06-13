@@ -1107,7 +1107,7 @@ name|suffix
 operator|.
 name|startsWith
 argument_list|(
-name|WRITE_LOCK_CHILD_NODE_PREFIX
+name|READ_LOCK_CHILD_NODE_PREFIX
 argument_list|)
 return|;
 block|}
