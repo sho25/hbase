@@ -7307,6 +7307,17 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|// wait and reset the re-try count, server might be just busy.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+name|i
+operator|--
+expr_stmt|;
 continue|continue;
 block|}
 throw|throw
@@ -9298,23 +9309,17 @@ name|needNewPlan
 operator|=
 literal|false
 expr_stmt|;
+name|i
+operator|--
+expr_stmt|;
+comment|// we want to retry as many times as needed as long as the RS is not dead.
 name|LOG
 operator|.
 name|warn
 argument_list|(
 name|assignMsg
 operator|+
-literal|", trying to assign to the same region server "
-operator|+
-literal|"try="
-operator|+
-name|i
-operator|+
-literal|" of "
-operator|+
-name|this
-operator|.
-name|maximumAttempts
+literal|", trying to assign to the same region server due "
 argument_list|,
 name|t
 argument_list|)
