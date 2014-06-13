@@ -3220,6 +3220,11 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|cluster
+operator|.
+name|startRegionServer
+argument_list|()
+expr_stmt|;
 name|t
 operator|.
 name|close

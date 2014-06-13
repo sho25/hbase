@@ -7886,10 +7886,6 @@ block|{
 comment|// check if the region to be opened is marked in recovering state in ZK
 if|if
 condition|(
-name|regionServer
-operator|.
-name|distributedLogReplay
-operator|&&
 name|SplitLogManager
 operator|.
 name|isRegionMarkedRecoveringInZK
@@ -7906,6 +7902,21 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// check if current region open is for distributedLogReplay. This check is to support
+comment|// rolling restart/upgrade where we want to Master/RS see same configuration
+if|if
+condition|(
+name|regionOpenInfo
+operator|.
+name|hasOpenForDistributedLogReplay
+argument_list|()
+operator|&&
+name|regionOpenInfo
+operator|.
+name|getOpenForDistributedLogReplay
+argument_list|()
+condition|)
+block|{
 name|regionServer
 operator|.
 name|recoveringRegions
@@ -7920,6 +7931,47 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// remove stale recovery region from ZK when we open region not for recovering which
+comment|// could happen when turn distributedLogReplay off from on.
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|tmpRegions
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|tmpRegions
+operator|.
+name|add
+argument_list|(
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|SplitLogManager
+operator|.
+name|deleteRecoveringRegionZNodes
+argument_list|(
+name|regionServer
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|tmpRegions
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// If there is no action in progress, we can submit a specific handler.
 comment|// Need to pass the expected version in the constructor.

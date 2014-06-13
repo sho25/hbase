@@ -55,6 +55,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|configuration
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|classification
@@ -4398,7 +4412,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer OpenRegionRequest to open a list of regions   *   * @param regionOpenInfos info of a list of regions to open   * @return a protocol buffer OpenRegionRequest   */
+comment|/**   * Create a protocol buffer OpenRegionRequest to open a list of regions   *   * @param regionOpenInfos info of a list of regions to open   * @param openForReplay   * @return a protocol buffer OpenRegionRequest   */
 specifier|public
 specifier|static
 name|OpenRegionRequest
@@ -4420,6 +4434,9 @@ argument_list|>
 argument_list|>
 argument_list|>
 name|regionOpenInfos
+parameter_list|,
+name|Boolean
+name|openForReplay
 parameter_list|)
 block|{
 name|OpenRegionRequest
@@ -4490,6 +4507,8 @@ name|regionOpenInfo
 operator|.
 name|getThird
 argument_list|()
+argument_list|,
+name|openForReplay
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4501,7 +4520,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer OpenRegionRequest for a given region   *   * @param server the serverName for the RPC   * @param region the region to open   * @param versionOfOfflineNode that needs to be present in the offline node   * @param favoredNodes   * @return a protocol buffer OpenRegionRequest   */
+comment|/**   * Create a protocol buffer OpenRegionRequest for a given region   *   * @param server the serverName for the RPC   * @param region the region to open   * @param versionOfOfflineNode that needs to be present in the offline node   * @param favoredNodes   * @param openForReplay   * @return a protocol buffer OpenRegionRequest   */
 specifier|public
 specifier|static
 name|OpenRegionRequest
@@ -4523,6 +4542,9 @@ argument_list|<
 name|ServerName
 argument_list|>
 name|favoredNodes
+parameter_list|,
+name|Boolean
+name|openForReplay
 parameter_list|)
 block|{
 name|OpenRegionRequest
@@ -4546,6 +4568,8 @@ argument_list|,
 name|versionOfOfflineNode
 argument_list|,
 name|favoredNodes
+argument_list|,
+name|openForReplay
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -7500,6 +7524,9 @@ argument_list|<
 name|ServerName
 argument_list|>
 name|favoredNodes
+parameter_list|,
+name|Boolean
+name|openForReplay
 parameter_list|)
 block|{
 name|RegionOpenInfo
@@ -7567,6 +7594,21 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|openForReplay
+operator|!=
+literal|null
+condition|)
+block|{
+name|builder
+operator|.
+name|setOpenForDistributedLogReplay
+argument_list|(
+name|openForReplay
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|builder

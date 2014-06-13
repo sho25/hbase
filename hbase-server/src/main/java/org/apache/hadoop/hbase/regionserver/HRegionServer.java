@@ -2379,12 +2379,6 @@ specifier|private
 name|RegionServerProcedureManagerHost
 name|rspmHost
 decl_stmt|;
-comment|// configuration setting on if replay WAL edits directly to another RS
-specifier|protected
-specifier|final
-name|boolean
-name|distributedLogReplay
-decl_stmt|;
 comment|// Table level lock manager for locking for region operations
 specifier|protected
 name|TableLockManager
@@ -2675,19 +2669,6 @@ name|getPort
 argument_list|()
 argument_list|,
 name|startcode
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|distributedLogReplay
-operator|=
-name|HLogSplitter
-operator|.
-name|isDistributedLogReplay
-argument_list|(
-name|this
-operator|.
-name|conf
 argument_list|)
 expr_stmt|;
 comment|// login the zookeeper client principal (if using security)
@@ -3419,13 +3400,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// register watcher for recovering regions
-if|if
-condition|(
-name|this
-operator|.
-name|distributedLogReplay
-condition|)
-block|{
 name|this
 operator|.
 name|recoveringRegionWatcher
@@ -3440,7 +3414,6 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Utilty method to wait indefinitely on a znode availability while checking    * if the region server is shut down    * @param tracker znode tracker to use    * @throws IOException any IO exception, plus if the RS is stopped    * @throws InterruptedException    */
 specifier|private

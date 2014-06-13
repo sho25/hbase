@@ -23426,6 +23426,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional bool openForDistributedLogReplay = 4;
+comment|/**        *<code>optional bool openForDistributedLogReplay = 4;</code>        *        *<pre>        * open region for distributedLogReplay        *</pre>        */
+name|boolean
+name|hasOpenForDistributedLogReplay
+parameter_list|()
+function_decl|;
+comment|/**        *<code>optional bool openForDistributedLogReplay = 4;</code>        *        *<pre>        * open region for distributedLogReplay        *</pre>        */
+name|boolean
+name|getOpenForDistributedLogReplay
+parameter_list|()
+function_decl|;
 block|}
 comment|/**      * Protobuf type {@code OpenRegionRequest.RegionOpenInfo}      */
 specifier|public
@@ -23876,6 +23887,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|32
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|openForDistributedLogReplay_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -24494,6 +24522,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional bool openForDistributedLogReplay = 4;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|OPENFORDISTRIBUTEDLOGREPLAY_FIELD_NUMBER
+init|=
+literal|4
+decl_stmt|;
+specifier|private
+name|boolean
+name|openForDistributedLogReplay_
+decl_stmt|;
+comment|/**        *<code>optional bool openForDistributedLogReplay = 4;</code>        *        *<pre>        * open region for distributedLogReplay        *</pre>        */
+specifier|public
+name|boolean
+name|hasOpenForDistributedLogReplay
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool openForDistributedLogReplay = 4;</code>        *        *<pre>        * open region for distributedLogReplay        *</pre>        */
+specifier|public
+name|boolean
+name|getOpenForDistributedLogReplay
+parameter_list|()
+block|{
+return|return
+name|openForDistributedLogReplay_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -24534,6 +24603,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|openForDistributedLogReplay_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -24746,6 +24819,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|4
+argument_list|,
+name|openForDistributedLogReplay_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -24886,6 +24982,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|4
+argument_list|,
+name|openForDistributedLogReplay_
 argument_list|)
 expr_stmt|;
 block|}
@@ -25141,6 +25268,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasOpenForDistributedLogReplay
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasOpenForDistributedLogReplay
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasOpenForDistributedLogReplay
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getOpenForDistributedLogReplay
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getOpenForDistributedLogReplay
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -25293,6 +25455,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasOpenForDistributedLogReplay
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|OPENFORDISTRIBUTEDLOGREPLAY_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getOpenForDistributedLogReplay
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -26250,6 +26443,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|openForDistributedLogReplay_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -26610,6 +26816,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|openForDistributedLogReplay_
+operator|=
+name|openForDistributedLogReplay_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -26924,6 +27154,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasOpenForDistributedLogReplay
+argument_list|()
+condition|)
+block|{
+name|setOpenForDistributedLogReplay
+argument_list|(
+name|other
+operator|.
+name|getOpenForDistributedLogReplay
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -29254,6 +29501,89 @@ expr_stmt|;
 block|}
 return|return
 name|favoredNodesBuilder_
+return|;
+block|}
+comment|// optional bool openForDistributedLogReplay = 4;
+specifier|private
+name|boolean
+name|openForDistributedLogReplay_
+decl_stmt|;
+comment|/**          *<code>optional bool openForDistributedLogReplay = 4;</code>          *          *<pre>          * open region for distributedLogReplay          *</pre>          */
+specifier|public
+name|boolean
+name|hasOpenForDistributedLogReplay
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000008
+operator|)
+operator|==
+literal|0x00000008
+operator|)
+return|;
+block|}
+comment|/**          *<code>optional bool openForDistributedLogReplay = 4;</code>          *          *<pre>          * open region for distributedLogReplay          *</pre>          */
+specifier|public
+name|boolean
+name|getOpenForDistributedLogReplay
+parameter_list|()
+block|{
+return|return
+name|openForDistributedLogReplay_
+return|;
+block|}
+comment|/**          *<code>optional bool openForDistributedLogReplay = 4;</code>          *          *<pre>          * open region for distributedLogReplay          *</pre>          */
+specifier|public
+name|Builder
+name|setOpenForDistributedLogReplay
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000008
+expr_stmt|;
+name|openForDistributedLogReplay_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**          *<code>optional bool openForDistributedLogReplay = 4;</code>          *          *<pre>          * open region for distributedLogReplay          *</pre>          */
+specifier|public
+name|Builder
+name|clearOpenForDistributedLogReplay
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000008
+operator|)
+expr_stmt|;
+name|openForDistributedLogReplay_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:OpenRegionRequest.RegionOpenInfo)
@@ -127204,147 +127534,149 @@ literal|"nlineRegionRequest\";\n\027GetOnlineRegionRes"
 operator|+
 literal|"ponse\022 \n\013region_info\030\001 \003(\0132\013.RegionInfo\""
 operator|+
-literal|"\326\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
+literal|"\374\001\n\021OpenRegionRequest\0224\n\topen_info\030\001 \003(\013"
 operator|+
 literal|"2!.OpenRegionRequest.RegionOpenInfo\022\027\n\017s"
 operator|+
-literal|"erverStartCode\030\002 \001(\004\032r\n\016RegionOpenInfo\022\033"
+literal|"erverStartCode\030\002 \001(\004\032\227\001\n\016RegionOpenInfo\022"
 operator|+
-literal|"\n\006region\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_o"
+literal|"\033\n\006region\030\001 \002(\0132\013.RegionInfo\022\037\n\027version_"
 operator|+
-literal|"f_offline_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003 "
+literal|"of_offline_node\030\002 \001(\r\022\"\n\rfavored_nodes\030\003"
 operator|+
-literal|"\003(\0132\013.ServerName\"\235\001\n\022OpenRegionResponse\022"
+literal|" \003(\0132\013.ServerName\022#\n\033openForDistributedL"
 block|,
-literal|"=\n\ropening_state\030\001 \003(\0162&.OpenRegionRespo"
+literal|"ogReplay\030\004 \001(\010\"\235\001\n\022OpenRegionResponse\022=\n"
 operator|+
-literal|"nse.RegionOpeningState\"H\n\022RegionOpeningS"
+literal|"\ropening_state\030\001 \003(\0162&.OpenRegionRespons"
 operator|+
-literal|"tate\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016"
+literal|"e.RegionOpeningState\"H\n\022RegionOpeningSta"
 operator|+
-literal|"FAILED_OPENING\020\002\"\271\001\n\022CloseRegionRequest\022"
+literal|"te\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FA"
 operator|+
-literal|" \n\006region\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027ver"
+literal|"ILED_OPENING\020\002\"\271\001\n\022CloseRegionRequest\022 \n"
 operator|+
-literal|"sion_of_closing_node\030\002 \001(\r\022\036\n\020transition"
+literal|"\006region\030\001 \002(\0132\020.RegionSpecifier\022\037\n\027versi"
 operator|+
-literal|"_in_ZK\030\003 \001(\010:\004true\022\'\n\022destination_server"
+literal|"on_of_closing_node\030\002 \001(\r\022\036\n\020transition_i"
 operator|+
-literal|"\030\004 \001(\0132\013.ServerName\022\027\n\017serverStartCode\030\005"
+literal|"n_ZK\030\003 \001(\010:\004true\022\'\n\022destination_server\030\004"
 operator|+
-literal|" \001(\004\"%\n\023CloseRegionResponse\022\016\n\006closed\030\001 "
+literal|" \001(\0132\013.ServerName\022\027\n\017serverStartCode\030\005 \001"
 operator|+
-literal|"\002(\010\"P\n\022FlushRegionRequest\022 \n\006region\030\001 \002("
+literal|"(\004\"%\n\023CloseRegionResponse\022\016\n\006closed\030\001 \002("
 block|,
-literal|"\0132\020.RegionSpecifier\022\030\n\020if_older_than_ts\030"
+literal|"\010\"P\n\022FlushRegionRequest\022 \n\006region\030\001 \002(\0132"
 operator|+
-literal|"\002 \001(\004\"?\n\023FlushRegionResponse\022\027\n\017last_flu"
+literal|"\020.RegionSpecifier\022\030\n\020if_older_than_ts\030\002 "
 operator|+
-literal|"sh_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitR"
+literal|"\001(\004\"?\n\023FlushRegionResponse\022\027\n\017last_flush"
 operator|+
-literal|"egionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
+literal|"_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\"K\n\022SplitReg"
 operator|+
-literal|"cifier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023SplitRegi"
+literal|"ionRequest\022 \n\006region\030\001 \002(\0132\020.RegionSpeci"
 operator|+
-literal|"onResponse\"W\n\024CompactRegionRequest\022 \n\006re"
+literal|"fier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023SplitRegion"
 operator|+
-literal|"gion\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005major\030\002 "
+literal|"Response\"W\n\024CompactRegionRequest\022 \n\006regi"
 operator|+
-literal|"\001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRegionResp"
+literal|"on\030\001 \002(\0132\020.RegionSpecifier\022\r\n\005major\030\002 \001("
 operator|+
-literal|"onse\"\262\001\n\031UpdateFavoredNodesRequest\022@\n\013up"
+literal|"\010\022\016\n\006family\030\003 \001(\014\"\027\n\025CompactRegionRespon"
 operator|+
-literal|"date_info\030\001 \003(\0132+.UpdateFavoredNodesRequ"
+literal|"se\"\262\001\n\031UpdateFavoredNodesRequest\022@\n\013upda"
 block|,
-literal|"est.RegionUpdateInfo\032S\n\020RegionUpdateInfo"
+literal|"te_info\030\001 \003(\0132+.UpdateFavoredNodesReques"
 operator|+
-literal|"\022\033\n\006region\030\001 \002(\0132\013.RegionInfo\022\"\n\rfavored"
+literal|"t.RegionUpdateInfo\032S\n\020RegionUpdateInfo\022\033"
 operator|+
-literal|"_nodes\030\002 \003(\0132\013.ServerName\".\n\032UpdateFavor"
+literal|"\n\006region\030\001 \002(\0132\013.RegionInfo\022\"\n\rfavored_n"
 operator|+
-literal|"edNodesResponse\022\020\n\010response\030\001 \001(\r\"v\n\023Mer"
+literal|"odes\030\002 \003(\0132\013.ServerName\".\n\032UpdateFavored"
 operator|+
-literal|"geRegionsRequest\022\"\n\010region_a\030\001 \002(\0132\020.Reg"
+literal|"NodesResponse\022\020\n\010response\030\001 \001(\r\"v\n\023Merge"
 operator|+
-literal|"ionSpecifier\022\"\n\010region_b\030\002 \002(\0132\020.RegionS"
+literal|"RegionsRequest\022\"\n\010region_a\030\001 \002(\0132\020.Regio"
 operator|+
-literal|"pecifier\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024Mer"
+literal|"nSpecifier\022\"\n\010region_b\030\002 \002(\0132\020.RegionSpe"
 operator|+
-literal|"geRegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002"
+literal|"cifier\022\027\n\010forcible\030\003 \001(\010:\005false\"\026\n\024Merge"
 operator|+
-literal|"(\0132\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025"
+literal|"RegionsResponse\"X\n\010WALEntry\022\024\n\003key\030\001 \002(\013"
 operator|+
-literal|"associated_cell_count\030\003 \001(\005\"4\n\030Replicate"
+literal|"2\007.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025as"
 block|,
-literal|"WALEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEntr"
+literal|"sociated_cell_count\030\003 \001(\005\"4\n\030ReplicateWA"
 operator|+
-literal|"y\"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollWA"
+literal|"LEntryRequest\022\030\n\005entry\030\001 \003(\0132\t.WALEntry\""
 operator|+
-literal|"LWriterRequest\"0\n\025RollWALWriterResponse\022"
+literal|"\033\n\031ReplicateWALEntryResponse\"\026\n\024RollWALW"
 operator|+
-literal|"\027\n\017region_to_flush\030\001 \003(\014\"#\n\021StopServerRe"
+literal|"riterRequest\"0\n\025RollWALWriterResponse\022\027\n"
 operator|+
-literal|"quest\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRespo"
+literal|"\017region_to_flush\030\001 \003(\014\"#\n\021StopServerRequ"
 operator|+
-literal|"nse\"\026\n\024GetServerInfoRequest\"B\n\nServerInf"
+literal|"est\022\016\n\006reason\030\001 \002(\t\"\024\n\022StopServerRespons"
 operator|+
-literal|"o\022 \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\nw"
+literal|"e\"\026\n\024GetServerInfoRequest\"B\n\nServerInfo\022"
 operator|+
-literal|"ebui_port\030\002 \001(\r\"9\n\025GetServerInfoResponse"
+literal|" \n\013server_name\030\001 \002(\0132\013.ServerName\022\022\n\nweb"
 operator|+
-literal|"\022 \n\013server_info\030\001 \002(\0132\013.ServerInfo2\306\007\n\014A"
+literal|"ui_port\030\002 \001(\r\"9\n\025GetServerInfoResponse\022 "
 operator|+
-literal|"dminService\022>\n\rGetRegionInfo\022\025.GetRegion"
+literal|"\n\013server_info\030\001 \002(\0132\013.ServerInfo2\306\007\n\014Adm"
 block|,
-literal|"InfoRequest\032\026.GetRegionInfoResponse\022;\n\014G"
+literal|"inService\022>\n\rGetRegionInfo\022\025.GetRegionIn"
 operator|+
-literal|"etStoreFile\022\024.GetStoreFileRequest\032\025.GetS"
+literal|"foRequest\032\026.GetRegionInfoResponse\022;\n\014Get"
 operator|+
-literal|"toreFileResponse\022D\n\017GetOnlineRegion\022\027.Ge"
+literal|"StoreFile\022\024.GetStoreFileRequest\032\025.GetSto"
 operator|+
-literal|"tOnlineRegionRequest\032\030.GetOnlineRegionRe"
+literal|"reFileResponse\022D\n\017GetOnlineRegion\022\027.GetO"
 operator|+
-literal|"sponse\0225\n\nOpenRegion\022\022.OpenRegionRequest"
+literal|"nlineRegionRequest\032\030.GetOnlineRegionResp"
 operator|+
-literal|"\032\023.OpenRegionResponse\0228\n\013CloseRegion\022\023.C"
+literal|"onse\0225\n\nOpenRegion\022\022.OpenRegionRequest\032\023"
 operator|+
-literal|"loseRegionRequest\032\024.CloseRegionResponse\022"
+literal|".OpenRegionResponse\0228\n\013CloseRegion\022\023.Clo"
 operator|+
-literal|"8\n\013FlushRegion\022\023.FlushRegionRequest\032\024.Fl"
+literal|"seRegionRequest\032\024.CloseRegionResponse\0228\n"
 operator|+
-literal|"ushRegionResponse\0228\n\013SplitRegion\022\023.Split"
+literal|"\013FlushRegion\022\023.FlushRegionRequest\032\024.Flus"
 operator|+
-literal|"RegionRequest\032\024.SplitRegionResponse\022>\n\rC"
+literal|"hRegionResponse\0228\n\013SplitRegion\022\023.SplitRe"
 block|,
-literal|"ompactRegion\022\025.CompactRegionRequest\032\026.Co"
+literal|"gionRequest\032\024.SplitRegionResponse\022>\n\rCom"
 operator|+
-literal|"mpactRegionResponse\022;\n\014MergeRegions\022\024.Me"
+literal|"pactRegion\022\025.CompactRegionRequest\032\026.Comp"
 operator|+
-literal|"rgeRegionsRequest\032\025.MergeRegionsResponse"
+literal|"actRegionResponse\022;\n\014MergeRegions\022\024.Merg"
 operator|+
-literal|"\022J\n\021ReplicateWALEntry\022\031.ReplicateWALEntr"
+literal|"eRegionsRequest\032\025.MergeRegionsResponse\022J"
 operator|+
-literal|"yRequest\032\032.ReplicateWALEntryResponse\022?\n\006"
+literal|"\n\021ReplicateWALEntry\022\031.ReplicateWALEntryR"
 operator|+
-literal|"Replay\022\031.ReplicateWALEntryRequest\032\032.Repl"
+literal|"equest\032\032.ReplicateWALEntryResponse\022?\n\006Re"
 operator|+
-literal|"icateWALEntryResponse\022>\n\rRollWALWriter\022\025"
+literal|"play\022\031.ReplicateWALEntryRequest\032\032.Replic"
 operator|+
-literal|".RollWALWriterRequest\032\026.RollWALWriterRes"
+literal|"ateWALEntryResponse\022>\n\rRollWALWriter\022\025.R"
 operator|+
-literal|"ponse\022>\n\rGetServerInfo\022\025.GetServerInfoRe"
+literal|"ollWALWriterRequest\032\026.RollWALWriterRespo"
 operator|+
-literal|"quest\032\026.GetServerInfoResponse\0225\n\nStopSer"
+literal|"nse\022>\n\rGetServerInfo\022\025.GetServerInfoRequ"
 block|,
-literal|"ver\022\022.StopServerRequest\032\023.StopServerResp"
+literal|"est\032\026.GetServerInfoResponse\0225\n\nStopServe"
 operator|+
-literal|"onse\022M\n\022UpdateFavoredNodes\022\032.UpdateFavor"
+literal|"r\022\022.StopServerRequest\032\023.StopServerRespon"
 operator|+
-literal|"edNodesRequest\032\033.UpdateFavoredNodesRespo"
+literal|"se\022M\n\022UpdateFavoredNodes\022\032.UpdateFavored"
 operator|+
-literal|"nseBA\n*org.apache.hadoop.hbase.protobuf."
+literal|"NodesRequest\032\033.UpdateFavoredNodesRespons"
 operator|+
-literal|"generatedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"eBA\n*org.apache.hadoop.hbase.protobuf.ge"
+operator|+
+literal|"neratedB\013AdminProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -127728,6 +128060,8 @@ block|,
 literal|"VersionOfOfflineNode"
 block|,
 literal|"FavoredNodes"
+block|,
+literal|"OpenForDistributedLogReplay"
 block|, }
 argument_list|)
 expr_stmt|;

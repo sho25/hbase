@@ -583,7 +583,7 @@ specifier|final
 name|int
 name|slaves
 init|=
-literal|3
+literal|5
 decl_stmt|;
 comment|// also used for testing HTable pool size
 annotation|@
