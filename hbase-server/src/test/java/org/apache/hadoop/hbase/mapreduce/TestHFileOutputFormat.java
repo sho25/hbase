@@ -2530,7 +2530,7 @@ name|random
 argument_list|,
 name|PerformanceEvaluation
 operator|.
-name|VALUE_LENGTH
+name|DEFAULT_VALUE_LENGTH
 argument_list|)
 expr_stmt|;
 block|}
