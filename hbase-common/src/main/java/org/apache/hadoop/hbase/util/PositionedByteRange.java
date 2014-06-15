@@ -108,6 +108,30 @@ name|byte
 name|get
 parameter_list|()
 function_decl|;
+comment|/**    * Retrieve the next short value from this range.    */
+specifier|public
+name|short
+name|getShort
+parameter_list|()
+function_decl|;
+comment|/**    * Retrieve the next int value from this range.    */
+specifier|public
+name|int
+name|getInt
+parameter_list|()
+function_decl|;
+comment|/**    * Retrieve the next long value from this range.    */
+specifier|public
+name|long
+name|getLong
+parameter_list|()
+function_decl|;
+comment|/**    * Retrieve the next long value, which is stored as VLong, from this range    * @return the long value which is stored as VLong    */
+specifier|public
+name|long
+name|getVLong
+parameter_list|()
+function_decl|;
 comment|/**    * Fill {@code dst} with bytes from the range, starting from {@code position}.    * This range's {@code position} is incremented by the length of {@code dst},    * the number of bytes copied.    * @param dst the destination of the copy.    * @return this.    */
 specifier|public
 name|PositionedByteRange
@@ -140,6 +164,42 @@ name|PositionedByteRange
 name|put
 parameter_list|(
 name|byte
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store short {@code val} at the next position in this range.    * @param val the new value.    * @return this.    */
+specifier|public
+name|PositionedByteRange
+name|putShort
+parameter_list|(
+name|short
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store int {@code val} at the next position in this range.    * @param val the new value.    * @return this.    */
+specifier|public
+name|PositionedByteRange
+name|putInt
+parameter_list|(
+name|int
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store long {@code val} at the next position in this range.    * @param val the new value.    * @return this.    */
+specifier|public
+name|PositionedByteRange
+name|putLong
+parameter_list|(
+name|long
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store the long {@code val} at the next position as a VLong    * @param val the value to store    * @return number of bytes written    */
+specifier|public
+name|int
+name|putVLong
+parameter_list|(
+name|long
 name|val
 parameter_list|)
 function_decl|;
@@ -279,6 +339,45 @@ name|int
 name|index
 parameter_list|,
 name|byte
+name|val
+parameter_list|)
+function_decl|;
+annotation|@
+name|Override
+specifier|public
+name|PositionedByteRange
+name|putShort
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|short
+name|val
+parameter_list|)
+function_decl|;
+annotation|@
+name|Override
+specifier|public
+name|PositionedByteRange
+name|putInt
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|int
+name|val
+parameter_list|)
+function_decl|;
+annotation|@
+name|Override
+specifier|public
+name|PositionedByteRange
+name|putLong
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|long
 name|val
 parameter_list|)
 function_decl|;

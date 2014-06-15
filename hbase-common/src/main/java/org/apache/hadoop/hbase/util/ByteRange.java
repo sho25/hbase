@@ -160,6 +160,42 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|/**    * Retrieve the short value at {@code index}    * @param index zero-based index into this range    * @return the short value at {@code index}    */
+specifier|public
+name|short
+name|getShort
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+function_decl|;
+comment|/**    * Retrieve the int value at {@code index}    * @param index zero-based index into this range    * @return the int value at {@code index}    */
+specifier|public
+name|int
+name|getInt
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+function_decl|;
+comment|/**    * Retrieve the long value at {@code index}    * @param index zero-based index into this range    * @return the long value at {@code index}    */
+specifier|public
+name|long
+name|getLong
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+function_decl|;
+comment|/**    * Retrieve the long value at {@code index} which is stored as VLong    * @param index zero-based index into this range    * @return the long value at {@code index} which is stored as VLong    */
+specifier|public
+name|long
+name|getVLong
+parameter_list|(
+name|int
+name|index
+parameter_list|)
+function_decl|;
 comment|/**    * Fill {@code dst} with bytes from the range, starting from {@code index}.    * @param index zero-based index into this range.    * @param dst the destination of the copy.    * @return this.    */
 specifier|public
 name|ByteRange
@@ -201,6 +237,54 @@ name|int
 name|index
 parameter_list|,
 name|byte
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store the short value at {@code index}    * @param index the index in the range where {@code val} is stored    * @param val the value to store    * @return this    */
+specifier|public
+name|ByteRange
+name|putShort
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|short
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store the int value at {@code index}    * @param index the index in the range where {@code val} is stored    * @param val the value to store    * @return this    */
+specifier|public
+name|ByteRange
+name|putInt
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|int
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store the long value at {@code index}    * @param index the index in the range where {@code val} is stored    * @param val the value to store    * @return this    */
+specifier|public
+name|ByteRange
+name|putLong
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|long
+name|val
+parameter_list|)
+function_decl|;
+comment|/**    * Store the long value at {@code index} as a VLong    * @param index the index in the range where {@code val} is stored    * @param val the value to store    * @return number of bytes written    */
+specifier|public
+name|int
+name|putVLong
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|long
 name|val
 parameter_list|)
 function_decl|;
