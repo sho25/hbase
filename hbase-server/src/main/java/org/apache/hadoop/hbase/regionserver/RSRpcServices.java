@@ -7906,11 +7906,12 @@ comment|// check if current region open is for distributedLogReplay. This check 
 comment|// rolling restart/upgrade where we want to Master/RS see same configuration
 if|if
 condition|(
+operator|!
 name|regionOpenInfo
 operator|.
 name|hasOpenForDistributedLogReplay
 argument_list|()
-operator|&&
+operator|||
 name|regionOpenInfo
 operator|.
 name|getOpenForDistributedLogReplay
