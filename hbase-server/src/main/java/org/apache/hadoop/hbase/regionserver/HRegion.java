@@ -8756,13 +8756,6 @@ operator|.
 name|DELETE
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|writeRequestsCount
-operator|.
-name|increment
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 name|delete
@@ -9295,13 +9288,6 @@ name|Operation
 operator|.
 name|PUT
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|writeRequestsCount
-operator|.
-name|increment
-argument_list|()
 expr_stmt|;
 try|try
 block|{
