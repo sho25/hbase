@@ -2979,7 +2979,6 @@ argument_list|,
 name|regionCount
 argument_list|)
 expr_stmt|;
-comment|// Assert the ephemeral node is up in zk.
 name|String
 name|path
 init|=
@@ -3138,7 +3137,7 @@ name|RS_ZK_REGION_SPLIT
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Now crash the server
+comment|// Now crash the server, for ZK-less assignment, the server is auto aborted
 name|cluster
 operator|.
 name|abortRegionServer
@@ -8591,7 +8590,7 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|==
+operator|>
 name|NB_SERVERS
 operator|&&
 name|i
@@ -8634,7 +8633,7 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|==
+operator|>
 name|NB_SERVERS
 argument_list|)
 expr_stmt|;

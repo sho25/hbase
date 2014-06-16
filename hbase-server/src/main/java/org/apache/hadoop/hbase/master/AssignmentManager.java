@@ -2447,23 +2447,17 @@ comment|// method is being played by a single thread on startup.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
 comment|// Scan hbase:meta to build list of existing regions, servers, and assignment
-comment|// Returns servers who have not checked in (assumed dead) and their regions
-name|Map
+comment|// Returns servers who have not checked in (assumed dead) that some regions
+comment|// were assigned to (according to the meta)
+name|Set
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 name|deadServers
-decl_stmt|;
-name|deadServers
-operator|=
+init|=
 name|rebuildUserRegions
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// This method will assign all user regions if a clean server startup or
 comment|// it will reconstruct master state and cleanup any leftovers from
 comment|// previous master process.
@@ -2526,14 +2520,9 @@ name|boolean
 name|processDeadServersAndRegionsInTransition
 parameter_list|(
 specifier|final
-name|Map
+name|Set
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 name|deadServers
 parameter_list|)
@@ -12410,15 +12399,10 @@ name|isRegionsInTransition
 argument_list|()
 return|;
 block|}
-comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
-name|Map
+comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a set of servers that are not found to be online that hosted    * some regions.    * @return set of servers not online that hosted some regions per meta    * @throws IOException    */
+name|Set
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 name|rebuildUserRegions
 parameter_list|()
@@ -12522,27 +12506,17 @@ operator|.
 name|keySet
 argument_list|()
 decl_stmt|;
-comment|// Map of offline servers and their regions to be returned
-name|Map
+comment|// Set of offline servers to be returned
+name|Set
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 name|offlineServers
 init|=
 operator|new
-name|TreeMap
+name|HashSet
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -12583,6 +12557,16 @@ name|result
 argument_list|)
 decl_stmt|;
 name|ServerName
+name|lastHost
+init|=
+name|HRegionInfo
+operator|.
+name|getServerName
+argument_list|(
+name|result
+argument_list|)
+decl_stmt|;
+name|ServerName
 name|regionLocation
 init|=
 name|RegionStateStore
@@ -12601,6 +12585,8 @@ argument_list|,
 name|state
 argument_list|,
 name|regionLocation
+argument_list|,
+name|lastHost
 argument_list|)
 expr_stmt|;
 if|if
@@ -12641,47 +12627,18 @@ argument_list|)
 condition|)
 block|{
 comment|// Region is located on a server that isn't online
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|offlineRegions
-init|=
 name|offlineServers
 operator|.
-name|get
+name|add
 argument_list|(
 name|regionLocation
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
-name|offlineRegions
-operator|==
-literal|null
+name|useZKForAssignment
 condition|)
 block|{
-name|offlineRegions
-operator|=
-operator|new
-name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
-name|offlineServers
-operator|.
-name|put
-argument_list|(
-name|regionLocation
-argument_list|,
-name|offlineRegions
-argument_list|)
-expr_stmt|;
-block|}
 name|regionStates
 operator|.
 name|regionOffline
@@ -12689,13 +12646,7 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-name|offlineRegions
-operator|.
-name|add
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -13001,14 +12952,9 @@ specifier|private
 name|void
 name|processDeadServersAndRecoverLostRegions
 parameter_list|(
-name|Map
+name|Set
 argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
 argument_list|>
 name|deadServers
 parameter_list|)
@@ -13022,50 +12968,22 @@ condition|(
 name|deadServers
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|deadServers
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
 for|for
 control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
 name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-name|server
+name|serverName
 range|:
 name|deadServers
-operator|.
-name|entrySet
-argument_list|()
 control|)
 block|{
-name|ServerName
-name|serverName
-init|=
-name|server
-operator|.
-name|getKey
-argument_list|()
-decl_stmt|;
-comment|// We need to keep such info even if the server is known dead
-name|regionStates
-operator|.
-name|setLastRegionServerOfRegions
-argument_list|(
-name|serverName
-argument_list|,
-name|server
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -15987,7 +15905,7 @@ condition|)
 block|{
 try|try
 block|{
-name|regionStateStore
+name|regionStates
 operator|.
 name|splitRegion
 argument_list|(
@@ -16344,7 +16262,7 @@ condition|)
 block|{
 try|try
 block|{
-name|regionStateStore
+name|regionStates
 operator|.
 name|mergeRegions
 argument_list|(
