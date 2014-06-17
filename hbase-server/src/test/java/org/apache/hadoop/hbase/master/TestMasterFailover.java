@@ -417,6 +417,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|coordination
+operator|.
+name|BaseCoordinatedStateManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
@@ -2173,12 +2189,21 @@ block|}
 comment|/*      * ZK = MERGING      */
 comment|// Regions of table of merging regions
 comment|// Cause: Master was down while merging was going on
-name|RegionMergeTransaction
+operator|(
+operator|(
+name|BaseCoordinatedStateManager
+operator|)
+name|hrs
 operator|.
-name|createNodeMerging
+name|getCoordinatedStateManager
+argument_list|()
+operator|)
+operator|.
+name|getRegionMergeCoordination
+argument_list|()
+operator|.
+name|startRegionMergeTransaction
 argument_list|(
-name|zkw
-argument_list|,
 name|newRegion
 argument_list|,
 name|mergingServer

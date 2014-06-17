@@ -171,6 +171,13 @@ name|OpenRegionCoordination
 name|getOpenRegionCoordination
 parameter_list|()
 function_decl|;
+comment|/**    * Method to retrieve coordination for region merge transaction    */
+specifier|public
+specifier|abstract
+name|RegionMergeCoordination
+name|getRegionMergeCoordination
+parameter_list|()
+function_decl|;
 block|}
 end_class
 
