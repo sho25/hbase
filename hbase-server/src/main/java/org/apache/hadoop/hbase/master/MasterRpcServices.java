@@ -2321,7 +2321,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 import|;
 end_import
 
@@ -2381,7 +2381,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 import|;
 end_import
 
@@ -2401,7 +2401,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 import|;
 end_import
 
@@ -8071,13 +8071,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ReportRegionTransitionResponse
-name|reportRegionTransition
+name|ReportRegionStateTransitionResponse
+name|reportRegionStateTransition
 parameter_list|(
 name|RpcController
-name|controller
+name|c
 parameter_list|,
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|req
 parameter_list|)
 throws|throws
@@ -8090,7 +8090,7 @@ operator|.
 name|checkServiceStarted
 argument_list|()
 expr_stmt|;
-name|RegionTransition
+name|RegionStateTransition
 name|rt
 init|=
 name|req
@@ -8176,12 +8176,12 @@ argument_list|,
 name|rt
 argument_list|)
 decl_stmt|;
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|Builder
 name|rrtr
 init|=
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|newBuilder
 argument_list|()

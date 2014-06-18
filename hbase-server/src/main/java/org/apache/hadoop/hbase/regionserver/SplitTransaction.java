@@ -371,7 +371,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 import|;
@@ -1314,7 +1314,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -1452,7 +1452,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -2015,7 +2015,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -3472,7 +3472,7 @@ operator|&&
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.

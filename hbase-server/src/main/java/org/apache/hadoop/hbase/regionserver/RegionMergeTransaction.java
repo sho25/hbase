@@ -315,15 +315,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|coordination
 operator|.
-name|generated
+name|RegionMergeCoordination
 operator|.
-name|RegionServerStatusProtos
-operator|.
-name|RegionTransition
-operator|.
-name|TransitionCode
+name|RegionMergeDetails
 import|;
 end_import
 
@@ -337,11 +333,15 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coordination
+name|protobuf
 operator|.
-name|RegionMergeCoordination
+name|generated
 operator|.
-name|RegionMergeDetails
+name|RegionServerStatusProtos
+operator|.
+name|RegionStateTransition
+operator|.
+name|TransitionCode
 import|;
 end_import
 
@@ -1522,7 +1522,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -1759,11 +1759,6 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|Put
 name|addLocation
@@ -1992,7 +1987,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -2874,7 +2869,7 @@ condition|(
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -3258,7 +3253,7 @@ operator|&&
 operator|!
 name|services
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.

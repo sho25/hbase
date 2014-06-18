@@ -1173,7 +1173,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 import|;
@@ -3053,7 +3053,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|TransitionCode
 name|code
@@ -3071,7 +3071,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|TransitionCode
 name|code

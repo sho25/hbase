@@ -549,22 +549,6 @@ name|hbase
 operator|.
 name|coordination
 operator|.
-name|RegionMergeCoordination
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coordination
-operator|.
 name|BaseCoordinatedStateManager
 import|;
 end_import
@@ -582,6 +566,22 @@ operator|.
 name|coordination
 operator|.
 name|OpenRegionCoordination
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coordination
+operator|.
+name|RegionMergeCoordination
 import|;
 end_import
 
@@ -890,6 +890,8 @@ operator|.
 name|generated
 operator|.
 name|RegionServerStatusProtos
+operator|.
+name|RegionStateTransition
 import|;
 end_import
 
@@ -909,7 +911,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 import|;
@@ -18075,9 +18077,7 @@ name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
-name|RegionServerStatusProtos
-operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|transition
 parameter_list|)
 block|{

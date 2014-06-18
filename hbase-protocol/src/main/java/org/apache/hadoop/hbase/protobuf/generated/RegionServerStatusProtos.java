@@ -26220,7 +26220,7 @@ comment|// @@protoc_insertion_point(class_scope:GetLastFlushedSequenceIdResponse
 block|}
 specifier|public
 interface|interface
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 extends|extends
 name|com
 operator|.
@@ -26230,13 +26230,13 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|// required .RegionTransition.TransitionCode transition_code = 1;
-comment|/**      *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>      */
+comment|// required .RegionStateTransition.TransitionCode transition_code = 1;
+comment|/**      *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>      */
 name|boolean
 name|hasTransitionCode
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>      */
+comment|/**      *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -26251,7 +26251,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|getTransitionCode
@@ -26373,12 +26373,12 @@ name|getOpenSeqNum
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code RegionTransition}    */
+comment|/**    * Protobuf type {@code RegionStateTransition}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|RegionTransition
+name|RegionStateTransition
 extends|extends
 name|com
 operator|.
@@ -26388,11 +26388,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 block|{
-comment|// Use RegionTransition.newBuilder() to construct.
+comment|// Use RegionStateTransition.newBuilder() to construct.
 specifier|private
-name|RegionTransition
+name|RegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -26425,7 +26425,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RegionTransition
+name|RegionStateTransition
 parameter_list|(
 name|boolean
 name|noInit
@@ -26450,12 +26450,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|RegionTransition
+name|RegionStateTransition
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|RegionTransition
+name|RegionStateTransition
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -26464,7 +26464,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|RegionTransition
+name|RegionStateTransition
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -26508,7 +26508,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|RegionTransition
+name|RegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -26651,7 +26651,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|value
@@ -26670,7 +26670,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 operator|.
@@ -26937,7 +26937,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 return|;
 block|}
 specifier|protected
@@ -26968,7 +26968,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_RegionTransition_fieldAccessorTable
+name|internal_static_RegionStateTransition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -26986,7 +26986,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|class
 argument_list|,
@@ -27004,7 +27004,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 operator|.
@@ -27022,7 +27022,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|PARSER
 init|=
@@ -27035,12 +27035,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|RegionTransition
+name|RegionStateTransition
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -27072,7 +27072,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|RegionTransition
+name|RegionStateTransition
 argument_list|(
 name|input
 argument_list|,
@@ -27097,7 +27097,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -27106,7 +27106,7 @@ return|return
 name|PARSER
 return|;
 block|}
-comment|/**      * Protobuf enum {@code RegionTransition.TransitionCode}      */
+comment|/**      * Protobuf enum {@code RegionStateTransition.TransitionCode}      */
 specifier|public
 enum|enum
 name|TransitionCode
@@ -27549,7 +27549,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|getDescriptor
 argument_list|()
@@ -27656,13 +27656,13 @@ operator|=
 name|value
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(enum_scope:RegionTransition.TransitionCode)
+comment|// @@protoc_insertion_point(enum_scope:RegionStateTransition.TransitionCode)
 block|}
 specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionTransition.TransitionCode transition_code = 1;
+comment|// required .RegionStateTransition.TransitionCode transition_code = 1;
 specifier|public
 specifier|static
 specifier|final
@@ -27686,12 +27686,12 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|transitionCode_
 decl_stmt|;
-comment|/**      *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>      */
+comment|/**      *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>      */
 specifier|public
 name|boolean
 name|hasTransitionCode
@@ -27709,7 +27709,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>      */
+comment|/**      *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -27725,7 +27725,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|getTransitionCode
@@ -27972,7 +27972,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 operator|.
@@ -28437,7 +28437,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|)
 condition|)
 block|{
@@ -28464,7 +28464,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|other
 init|=
 operator|(
@@ -28482,7 +28482,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|)
 name|obj
 decl_stmt|;
@@ -28775,7 +28775,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|com
@@ -28821,7 +28821,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|com
@@ -28878,7 +28878,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|byte
@@ -28919,7 +28919,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|byte
@@ -28971,7 +28971,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|java
@@ -29013,7 +29013,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|java
@@ -29066,7 +29066,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -29108,7 +29108,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -29161,7 +29161,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|com
@@ -29205,7 +29205,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parseFrom
 parameter_list|(
 name|com
@@ -29286,7 +29286,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|prototype
 parameter_list|)
 block|{
@@ -29347,7 +29347,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code RegionTransition}      */
+comment|/**      * Protobuf type {@code RegionStateTransition}      */
 specifier|public
 specifier|static
 specifier|final
@@ -29381,7 +29381,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -29413,7 +29413,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 return|;
 block|}
 specifier|protected
@@ -29444,7 +29444,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_RegionTransition_fieldAccessorTable
+name|internal_static_RegionStateTransition_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -29462,7 +29462,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|class
 argument_list|,
@@ -29480,7 +29480,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 operator|.
@@ -29488,7 +29488,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionTransition.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.RegionStateTransition.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -29582,7 +29582,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 operator|.
@@ -29694,7 +29694,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 return|;
 block|}
 specifier|public
@@ -29712,7 +29712,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -29731,7 +29731,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -29752,7 +29752,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|build
 parameter_list|()
 block|{
@@ -29770,7 +29770,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|result
 init|=
 name|buildPartial
@@ -29811,7 +29811,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|buildPartial
 parameter_list|()
 block|{
@@ -29829,7 +29829,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|result
 init|=
 operator|new
@@ -29847,7 +29847,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|(
 name|this
 argument_list|)
@@ -30017,7 +30017,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 condition|)
 block|{
 return|return
@@ -30038,7 +30038,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|)
 name|other
 argument_list|)
@@ -30076,7 +30076,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|other
 parameter_list|)
 block|{
@@ -30098,7 +30098,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -30390,7 +30390,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|parsedMessage
 init|=
 literal|null
@@ -30438,7 +30438,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|)
 name|e
 operator|.
@@ -30473,7 +30473,7 @@ specifier|private
 name|int
 name|bitField0_
 decl_stmt|;
-comment|// required .RegionTransition.TransitionCode transition_code = 1;
+comment|// required .RegionStateTransition.TransitionCode transition_code = 1;
 specifier|private
 name|org
 operator|.
@@ -30489,7 +30489,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|transitionCode_
@@ -30508,13 +30508,13 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 operator|.
 name|OPENED
 decl_stmt|;
-comment|/**        *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>        */
+comment|/**        *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>        */
 specifier|public
 name|boolean
 name|hasTransitionCode
@@ -30532,7 +30532,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>        */
+comment|/**        *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -30548,7 +30548,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|getTransitionCode
@@ -30558,7 +30558,7 @@ return|return
 name|transitionCode_
 return|;
 block|}
-comment|/**        *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>        */
+comment|/**        *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>        */
 specifier|public
 name|Builder
 name|setTransitionCode
@@ -30577,7 +30577,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 name|value
@@ -30611,7 +30611,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required .RegionTransition.TransitionCode transition_code = 1;</code>        */
+comment|/**        *<code>required .RegionStateTransition.TransitionCode transition_code = 1;</code>        */
 specifier|public
 name|Builder
 name|clearTransitionCode
@@ -30642,7 +30642,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 operator|.
@@ -32071,14 +32071,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:RegionTransition)
+comment|// @@protoc_insertion_point(builder_scope:RegionStateTransition)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|RegionTransition
+name|RegionStateTransition
 argument_list|(
 literal|true
 argument_list|)
@@ -32089,11 +32089,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:RegionTransition)
+comment|// @@protoc_insertion_point(class_scope:RegionStateTransition)
 block|}
 specifier|public
 interface|interface
-name|ReportRegionTransitionRequestOrBuilder
+name|ReportRegionStateTransitionRequestOrBuilder
 extends|extends
 name|com
 operator|.
@@ -32147,8 +32147,8 @@ name|ServerNameOrBuilder
 name|getServerOrBuilder
 parameter_list|()
 function_decl|;
-comment|// repeated .RegionTransition transition = 2;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|// repeated .RegionStateTransition transition = 2;
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -32169,12 +32169,12 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|getTransitionList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -32189,19 +32189,19 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|getTransition
 parameter_list|(
 name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 name|int
 name|getTransitionCount
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 name|java
 operator|.
 name|util
@@ -32224,12 +32224,12 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 name|getTransitionOrBuilderList
 parameter_list|()
 function_decl|;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 name|org
 operator|.
 name|apache
@@ -32244,7 +32244,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 name|getTransitionOrBuilder
 parameter_list|(
 name|int
@@ -32252,12 +32252,12 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReportRegionTransitionRequest}    */
+comment|/**    * Protobuf type {@code ReportRegionStateTransitionRequest}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 extends|extends
 name|com
 operator|.
@@ -32267,11 +32267,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|ReportRegionTransitionRequestOrBuilder
+name|ReportRegionStateTransitionRequestOrBuilder
 block|{
-comment|// Use ReportRegionTransitionRequest.newBuilder() to construct.
+comment|// Use ReportRegionStateTransitionRequest.newBuilder() to construct.
 specifier|private
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 parameter_list|(
 name|com
 operator|.
@@ -32304,7 +32304,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 parameter_list|(
 name|boolean
 name|noInit
@@ -32329,12 +32329,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -32343,7 +32343,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -32387,7 +32387,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 parameter_list|(
 name|com
 operator|.
@@ -32646,7 +32646,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -32677,7 +32677,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|PARSER
 argument_list|,
@@ -32816,7 +32816,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -32847,7 +32847,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionRequest_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -32865,7 +32865,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|class
 argument_list|,
@@ -32883,7 +32883,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|Builder
 operator|.
@@ -32901,7 +32901,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|>
 name|PARSER
 init|=
@@ -32914,12 +32914,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -32951,7 +32951,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|(
 name|input
 argument_list|,
@@ -32976,7 +32976,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -33082,7 +33082,7 @@ return|return
 name|server_
 return|;
 block|}
-comment|// repeated .RegionTransition transition = 2;
+comment|// repeated .RegionStateTransition transition = 2;
 specifier|public
 specifier|static
 specifier|final
@@ -33112,11 +33112,11 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|transition_
 decl_stmt|;
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -33138,7 +33138,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|getTransitionList
 parameter_list|()
@@ -33147,7 +33147,7 @@ return|return
 name|transition_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -33171,7 +33171,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 name|getTransitionOrBuilderList
 parameter_list|()
@@ -33180,7 +33180,7 @@ return|return
 name|transition_
 return|;
 block|}
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 specifier|public
 name|int
 name|getTransitionCount
@@ -33193,7 +33193,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -33209,7 +33209,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|getTransition
 parameter_list|(
 name|int
@@ -33225,7 +33225,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**      *<code>repeated .RegionTransition transition = 2;</code>      */
+comment|/**      *<code>repeated .RegionStateTransition transition = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -33241,7 +33241,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 name|getTransitionOrBuilder
 parameter_list|(
 name|int
@@ -33696,7 +33696,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 condition|)
 block|{
@@ -33723,7 +33723,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|other
 init|=
 operator|(
@@ -33741,7 +33741,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 name|obj
 decl_stmt|;
@@ -33969,7 +33969,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -34015,7 +34015,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -34072,7 +34072,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -34113,7 +34113,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|byte
@@ -34165,7 +34165,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -34207,7 +34207,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|java
@@ -34260,7 +34260,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -34302,7 +34302,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -34355,7 +34355,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -34399,7 +34399,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parseFrom
 parameter_list|(
 name|com
@@ -34480,7 +34480,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|prototype
 parameter_list|)
 block|{
@@ -34541,7 +34541,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReportRegionTransitionRequest}      */
+comment|/**      * Protobuf type {@code ReportRegionStateTransitionRequest}      */
 specifier|public
 specifier|static
 specifier|final
@@ -34575,7 +34575,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequestOrBuilder
+name|ReportRegionStateTransitionRequestOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -34607,7 +34607,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 return|;
 block|}
 specifier|protected
@@ -34638,7 +34638,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionRequest_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionRequest_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -34656,7 +34656,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|class
 argument_list|,
@@ -34674,7 +34674,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|Builder
 operator|.
@@ -34682,7 +34682,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionTransitionRequest.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionRequest.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -34893,7 +34893,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 return|;
 block|}
 specifier|public
@@ -34911,7 +34911,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -34930,7 +34930,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -34951,7 +34951,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|build
 parameter_list|()
 block|{
@@ -34969,7 +34969,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|result
 init|=
 name|buildPartial
@@ -35010,7 +35010,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|buildPartial
 parameter_list|()
 block|{
@@ -35028,7 +35028,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|result
 init|=
 operator|new
@@ -35046,7 +35046,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|(
 name|this
 argument_list|)
@@ -35212,7 +35212,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 condition|)
 block|{
 return|return
@@ -35233,7 +35233,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 name|other
 argument_list|)
@@ -35271,7 +35271,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|other
 parameter_list|)
 block|{
@@ -35293,7 +35293,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -35582,7 +35582,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|parsedMessage
 init|=
 literal|null
@@ -35630,7 +35630,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 name|e
 operator|.
@@ -36368,7 +36368,7 @@ return|return
 name|serverBuilder_
 return|;
 block|}
-comment|// repeated .RegionTransition transition = 2;
+comment|// repeated .RegionStateTransition transition = 2;
 specifier|private
 name|java
 operator|.
@@ -36390,7 +36390,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|transition_
 init|=
@@ -36445,7 +36445,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 argument_list|(
 name|transition_
@@ -36480,7 +36480,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|,
 name|org
 operator|.
@@ -36496,7 +36496,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 argument_list|,
@@ -36514,11 +36514,11 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 name|transitionBuilder_
 decl_stmt|;
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -36540,7 +36540,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|getTransitionList
 parameter_list|()
@@ -36575,7 +36575,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|int
 name|getTransitionCount
@@ -36605,7 +36605,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -36621,7 +36621,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|getTransition
 parameter_list|(
 name|int
@@ -36656,7 +36656,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|setTransition
@@ -36678,7 +36678,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|value
 parameter_list|)
 block|{
@@ -36734,7 +36734,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|setTransition
@@ -36756,7 +36756,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|builderForValue
@@ -36807,7 +36807,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|addTransition
@@ -36826,7 +36826,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|value
 parameter_list|)
 block|{
@@ -36878,7 +36878,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|addTransition
@@ -36900,7 +36900,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 name|value
 parameter_list|)
 block|{
@@ -36956,7 +36956,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|addTransition
@@ -36975,7 +36975,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|builderForValue
@@ -37022,7 +37022,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|addTransition
@@ -37044,7 +37044,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|builderForValue
@@ -37095,7 +37095,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|addAllTransition
@@ -37122,7 +37122,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|>
 name|values
 parameter_list|)
@@ -37164,7 +37164,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|clearTransition
@@ -37213,7 +37213,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|Builder
 name|removeTransition
@@ -37257,7 +37257,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37273,7 +37273,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|getTransitionBuilder
@@ -37292,7 +37292,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37308,7 +37308,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 name|getTransitionOrBuilder
 parameter_list|(
 name|int
@@ -37343,7 +37343,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -37367,7 +37367,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 name|getTransitionOrBuilderList
 parameter_list|()
@@ -37402,7 +37402,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37418,7 +37418,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|addTransitionBuilder
@@ -37444,14 +37444,14 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|getDefaultInstance
 argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|org
 operator|.
@@ -37467,7 +37467,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|addTransitionBuilder
@@ -37498,14 +37498,14 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|getDefaultInstance
 argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**        *<code>repeated .RegionTransition transition = 2;</code>        */
+comment|/**        *<code>repeated .RegionStateTransition transition = 2;</code>        */
 specifier|public
 name|java
 operator|.
@@ -37527,7 +37527,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 argument_list|>
@@ -37565,7 +37565,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|,
 name|org
 operator|.
@@ -37581,7 +37581,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 argument_list|,
@@ -37599,7 +37599,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 name|getTransitionFieldBuilder
 parameter_list|()
@@ -37636,7 +37636,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 argument_list|,
 name|org
 operator|.
@@ -37652,7 +37652,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 argument_list|,
@@ -37670,7 +37670,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransitionOrBuilder
+name|RegionStateTransitionOrBuilder
 argument_list|>
 argument_list|(
 name|transition_
@@ -37701,14 +37701,14 @@ return|return
 name|transitionBuilder_
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReportRegionTransitionRequest)
+comment|// @@protoc_insertion_point(builder_scope:ReportRegionStateTransitionRequest)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 argument_list|(
 literal|true
 argument_list|)
@@ -37719,11 +37719,11 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReportRegionTransitionRequest)
+comment|// @@protoc_insertion_point(class_scope:ReportRegionStateTransitionRequest)
 block|}
 specifier|public
 interface|interface
-name|ReportRegionTransitionResponseOrBuilder
+name|ReportRegionStateTransitionResponseOrBuilder
 extends|extends
 name|com
 operator|.
@@ -37760,12 +37760,12 @@ name|getErrorMessageBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Protobuf type {@code ReportRegionTransitionResponse}    */
+comment|/**    * Protobuf type {@code ReportRegionStateTransitionResponse}    */
 specifier|public
 specifier|static
 specifier|final
 class|class
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 extends|extends
 name|com
 operator|.
@@ -37775,11 +37775,11 @@ name|protobuf
 operator|.
 name|GeneratedMessage
 implements|implements
-name|ReportRegionTransitionResponseOrBuilder
+name|ReportRegionStateTransitionResponseOrBuilder
 block|{
-comment|// Use ReportRegionTransitionResponse.newBuilder() to construct.
+comment|// Use ReportRegionStateTransitionResponse.newBuilder() to construct.
 specifier|private
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 parameter_list|(
 name|com
 operator|.
@@ -37812,7 +37812,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 parameter_list|(
 name|boolean
 name|noInit
@@ -37837,12 +37837,12 @@ block|}
 specifier|private
 specifier|static
 specifier|final
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|defaultInstance
 decl_stmt|;
 specifier|public
 specifier|static
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|getDefaultInstance
 parameter_list|()
 block|{
@@ -37851,7 +37851,7 @@ name|defaultInstance
 return|;
 block|}
 specifier|public
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -37895,7 +37895,7 @@ name|unknownFields
 return|;
 block|}
 specifier|private
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 parameter_list|(
 name|com
 operator|.
@@ -38131,7 +38131,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -38162,7 +38162,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionResponse_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -38180,7 +38180,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|class
 argument_list|,
@@ -38198,7 +38198,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|Builder
 operator|.
@@ -38216,7 +38216,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|PARSER
 init|=
@@ -38229,12 +38229,12 @@ name|protobuf
 operator|.
 name|AbstractParser
 argument_list|<
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 argument_list|()
 block|{
 specifier|public
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parsePartialFrom
 parameter_list|(
 name|com
@@ -38266,7 +38266,7 @@ name|InvalidProtocolBufferException
 block|{
 return|return
 operator|new
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|(
 name|input
 argument_list|,
@@ -38291,7 +38291,7 @@ name|protobuf
 operator|.
 name|Parser
 argument_list|<
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|getParserForType
 parameter_list|()
@@ -38786,7 +38786,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|)
 condition|)
 block|{
@@ -38813,7 +38813,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|other
 init|=
 operator|(
@@ -38831,7 +38831,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|)
 name|obj
 decl_stmt|;
@@ -39011,7 +39011,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -39057,7 +39057,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -39114,7 +39114,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -39155,7 +39155,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|byte
@@ -39207,7 +39207,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -39249,7 +39249,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|java
@@ -39302,7 +39302,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -39344,7 +39344,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseDelimitedFrom
 parameter_list|(
 name|java
@@ -39397,7 +39397,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -39441,7 +39441,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parseFrom
 parameter_list|(
 name|com
@@ -39522,7 +39522,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|prototype
 parameter_list|)
 block|{
@@ -39583,7 +39583,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      * Protobuf type {@code ReportRegionTransitionResponse}      */
+comment|/**      * Protobuf type {@code ReportRegionStateTransitionResponse}      */
 specifier|public
 specifier|static
 specifier|final
@@ -39617,7 +39617,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponseOrBuilder
+name|ReportRegionStateTransitionResponseOrBuilder
 block|{
 specifier|public
 specifier|static
@@ -39649,7 +39649,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 return|;
 block|}
 specifier|protected
@@ -39680,7 +39680,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionResponse_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionResponse_fieldAccessorTable
 operator|.
 name|ensureFieldAccessorsInitialized
 argument_list|(
@@ -39698,7 +39698,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|class
 argument_list|,
@@ -39716,7 +39716,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|Builder
 operator|.
@@ -39724,7 +39724,7 @@ name|class
 argument_list|)
 return|;
 block|}
-comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionTransitionResponse.newBuilder()
+comment|// Construct using org.apache.hadoop.hbase.protobuf.generated.RegionServerStatusProtos.ReportRegionStateTransitionResponse.newBuilder()
 specifier|private
 name|Builder
 parameter_list|()
@@ -39859,7 +39859,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 return|;
 block|}
 specifier|public
@@ -39877,7 +39877,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|getDefaultInstanceForType
 parameter_list|()
 block|{
@@ -39896,7 +39896,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -39917,7 +39917,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|build
 parameter_list|()
 block|{
@@ -39935,7 +39935,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|result
 init|=
 name|buildPartial
@@ -39976,7 +39976,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|buildPartial
 parameter_list|()
 block|{
@@ -39994,7 +39994,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|result
 init|=
 operator|new
@@ -40012,7 +40012,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|(
 name|this
 argument_list|)
@@ -40096,7 +40096,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 condition|)
 block|{
 return|return
@@ -40117,7 +40117,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|)
 name|other
 argument_list|)
@@ -40155,7 +40155,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|other
 parameter_list|)
 block|{
@@ -40177,7 +40177,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -40274,7 +40274,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|parsedMessage
 init|=
 literal|null
@@ -40322,7 +40322,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|)
 name|e
 operator|.
@@ -40659,14 +40659,14 @@ return|return
 name|this
 return|;
 block|}
-comment|// @@protoc_insertion_point(builder_scope:ReportRegionTransitionResponse)
+comment|// @@protoc_insertion_point(builder_scope:ReportRegionStateTransitionResponse)
 block|}
 static|static
 block|{
 name|defaultInstance
 operator|=
 operator|new
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|(
 literal|true
 argument_list|)
@@ -40677,7 +40677,7 @@ name|initFields
 argument_list|()
 expr_stmt|;
 block|}
-comment|// @@protoc_insertion_point(class_scope:ReportRegionTransitionResponse)
+comment|// @@protoc_insertion_point(class_scope:ReportRegionStateTransitionResponse)
 block|}
 comment|/**    * Protobuf service {@code RegionServerStatusService}    */
 specifier|public
@@ -40938,11 +40938,11 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**        *<code>rpc ReportRegionTransition(.ReportRegionTransitionRequest) returns (.ReportRegionTransitionResponse);</code>        *        *<pre>        **        * Called by a region server to report the progress of a region        * transition. If the request fails, the transition should        * be aborted.        *</pre>        */
+comment|/**        *<code>rpc ReportRegionStateTransition(.ReportRegionStateTransitionRequest) returns (.ReportRegionStateTransitionResponse);</code>        *        *<pre>        **        * Called by a region server to report the progress of a region        * transition. If the request fails, the transition should        * be aborted.        *</pre>        */
 specifier|public
 specifier|abstract
 name|void
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -40967,7 +40967,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|,
 name|com
@@ -40992,7 +40992,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -41327,7 +41327,7 @@ operator|.
 name|Override
 specifier|public
 name|void
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -41352,7 +41352,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|,
 name|com
@@ -41377,14 +41377,14 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|done
 parameter_list|)
 block|{
 name|impl
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|controller
 argument_list|,
@@ -41651,7 +41651,7 @@ case|:
 return|return
 name|impl
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|controller
 argument_list|,
@@ -41670,7 +41670,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 name|request
 argument_list|)
@@ -41855,7 +41855,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -42040,7 +42040,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -42298,11 +42298,11 @@ argument_list|>
 name|done
 parameter_list|)
 function_decl|;
-comment|/**      *<code>rpc ReportRegionTransition(.ReportRegionTransitionRequest) returns (.ReportRegionTransitionResponse);</code>      *      *<pre>      **      * Called by a region server to report the progress of a region      * transition. If the request fails, the transition should      * be aborted.      *</pre>      */
+comment|/**      *<code>rpc ReportRegionStateTransition(.ReportRegionStateTransitionRequest) returns (.ReportRegionStateTransitionResponse);</code>      *      *<pre>      **      * Called by a region server to report the progress of a region      * transition. If the request fails, the transition should      * be aborted.      *</pre>      */
 specifier|public
 specifier|abstract
 name|void
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -42327,7 +42327,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|,
 name|com
@@ -42352,7 +42352,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -42749,7 +42749,7 @@ literal|4
 case|:
 name|this
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|controller
 argument_list|,
@@ -42768,7 +42768,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|)
 name|request
 argument_list|,
@@ -42795,7 +42795,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|>
 name|specializeCallback
 argument_list|(
@@ -42984,7 +42984,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -43169,7 +43169,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -43871,7 +43871,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -43896,7 +43896,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|,
 name|com
@@ -43921,7 +43921,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 argument_list|>
 name|done
 parameter_list|)
@@ -43959,7 +43959,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -43990,7 +43990,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|class
 argument_list|,
@@ -44008,7 +44008,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -44271,8 +44271,8 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
-name|reportRegionTransition
+name|ReportRegionStateTransitionResponse
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -44297,7 +44297,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|)
 throws|throws
@@ -44808,8 +44808,8 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
-name|reportRegionTransition
+name|ReportRegionStateTransitionResponse
+name|reportRegionStateTransition
 parameter_list|(
 name|com
 operator|.
@@ -44834,7 +44834,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 parameter_list|)
 throws|throws
@@ -44862,7 +44862,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|)
 name|channel
 operator|.
@@ -44897,7 +44897,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
@@ -45126,7 +45126,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -45139,7 +45139,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_RegionTransition_fieldAccessorTable
+name|internal_static_RegionStateTransition_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -45152,7 +45152,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -45165,7 +45165,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReportRegionTransitionRequest_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionRequest_fieldAccessorTable
 decl_stmt|;
 specifier|private
 specifier|static
@@ -45178,7 +45178,7 @@ operator|.
 name|Descriptors
 operator|.
 name|Descriptor
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 decl_stmt|;
 specifier|private
 specifier|static
@@ -45191,7 +45191,7 @@ operator|.
 name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
-name|internal_static_ReportRegionTransitionResponse_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionResponse_fieldAccessorTable
 decl_stmt|;
 specifier|public
 specifier|static
@@ -45263,58 +45263,60 @@ literal|"eIdRequest\022\023\n\013region_name\030\001 \002(\014\"D\n GetLa"
 operator|+
 literal|"stFlushedSequenceIdResponse\022 \n\030last_flus"
 operator|+
-literal|"hed_sequence_id\030\001 \002(\004\"\310\002\n\020RegionTransiti"
+literal|"hed_sequence_id\030\001 \002(\004\"\322\002\n\025RegionStateTra"
 operator|+
-literal|"on\0229\n\017transition_code\030\001 \002(\0162 .RegionTran"
+literal|"nsition\022>\n\017transition_code\030\001 \002(\0162%.Regio"
 operator|+
-literal|"sition.TransitionCode\022 \n\013region_info\030\002 \003"
+literal|"nStateTransition.TransitionCode\022 \n\013regio"
 operator|+
-literal|"(\0132\013.RegionInfo\022\024\n\014open_seq_num\030\003 \001(\004\"\300\001"
+literal|"n_info\030\002 \003(\0132\013.RegionInfo\022\024\n\014open_seq_nu"
 operator|+
-literal|"\n\016TransitionCode\022\n\n\006OPENED\020\000\022\017\n\013FAILED_O"
+literal|"m\030\003 \001(\004\"\300\001\n\016TransitionCode\022\n\n\006OPENED\020\000\022\017"
 operator|+
-literal|"PEN\020\001\022\n\n\006CLOSED\020\002\022\022\n\016READY_TO_SPLIT\020\003\022\022\n"
+literal|"\n\013FAILED_OPEN\020\001\022\n\n\006CLOSED\020\002\022\022\n\016READY_TO_"
 block|,
-literal|"\016READY_TO_MERGE\020\004\022\016\n\nSPLIT_PONR\020\005\022\016\n\nMER"
+literal|"SPLIT\020\003\022\022\n\016READY_TO_MERGE\020\004\022\016\n\nSPLIT_PON"
 operator|+
-literal|"GE_PONR\020\006\022\t\n\005SPLIT\020\007\022\n\n\006MERGED\020\010\022\022\n\016SPLI"
+literal|"R\020\005\022\016\n\nMERGE_PONR\020\006\022\t\n\005SPLIT\020\007\022\n\n\006MERGED"
 operator|+
-literal|"T_REVERTED\020\t\022\022\n\016MERGE_REVERTED\020\n\"c\n\035Repo"
+literal|"\020\010\022\022\n\016SPLIT_REVERTED\020\t\022\022\n\016MERGE_REVERTED"
 operator|+
-literal|"rtRegionTransitionRequest\022\033\n\006server\030\001 \002("
+literal|"\020\n\"m\n\"ReportRegionStateTransitionRequest"
 operator|+
-literal|"\0132\013.ServerName\022%\n\ntransition\030\002 \003(\0132\021.Reg"
+literal|"\022\033\n\006server\030\001 \002(\0132\013.ServerName\022*\n\ntransit"
 operator|+
-literal|"ionTransition\"7\n\036ReportRegionTransitionR"
+literal|"ion\030\002 \003(\0132\026.RegionStateTransition\"<\n#Rep"
 operator|+
-literal|"esponse\022\025\n\rerror_message\030\001 \001(\t2\307\003\n\031Regio"
+literal|"ortRegionStateTransitionResponse\022\025\n\rerro"
 operator|+
-literal|"nServerStatusService\022P\n\023RegionServerStar"
+literal|"r_message\030\001 \001(\t2\326\003\n\031RegionServerStatusSe"
 operator|+
-literal|"tup\022\033.RegionServerStartupRequest\032\034.Regio"
+literal|"rvice\022P\n\023RegionServerStartup\022\033.RegionSer"
 operator|+
-literal|"nServerStartupResponse\022M\n\022RegionServerRe"
+literal|"verStartupRequest\032\034.RegionServerStartupR"
 block|,
-literal|"port\022\032.RegionServerReportRequest\032\033.Regio"
+literal|"esponse\022M\n\022RegionServerReport\022\032.RegionSe"
 operator|+
-literal|"nServerReportResponse\022M\n\022ReportRSFatalEr"
+literal|"rverReportRequest\032\033.RegionServerReportRe"
 operator|+
-literal|"ror\022\032.ReportRSFatalErrorRequest\032\033.Report"
+literal|"sponse\022M\n\022ReportRSFatalError\022\032.ReportRSF"
 operator|+
-literal|"RSFatalErrorResponse\022_\n\030GetLastFlushedSe"
+literal|"atalErrorRequest\032\033.ReportRSFatalErrorRes"
 operator|+
-literal|"quenceId\022 .GetLastFlushedSequenceIdReque"
+literal|"ponse\022_\n\030GetLastFlushedSequenceId\022 .GetL"
 operator|+
-literal|"st\032!.GetLastFlushedSequenceIdResponse\022Y\n"
+literal|"astFlushedSequenceIdRequest\032!.GetLastFlu"
 operator|+
-literal|"\026ReportRegionTransition\022\036.ReportRegionTr"
+literal|"shedSequenceIdResponse\022h\n\033ReportRegionSt"
 operator|+
-literal|"ansitionRequest\032\037.ReportRegionTransition"
+literal|"ateTransition\022#.ReportRegionStateTransit"
+operator|+
+literal|"ionRequest\032$.ReportRegionStateTransition"
 operator|+
 literal|"ResponseBN\n*org.apache.hadoop.hbase.prot"
-operator|+
-literal|"obuf.generatedB\030RegionServerStatusProtos"
 block|,
+literal|"obuf.generatedB\030RegionServerStatusProtos"
+operator|+
 literal|"H\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
@@ -45695,7 +45697,7 @@ literal|"LastFlushedSequenceId"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -45708,7 +45710,7 @@ argument_list|(
 literal|8
 argument_list|)
 expr_stmt|;
-name|internal_static_RegionTransition_fieldAccessorTable
+name|internal_static_RegionStateTransition_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -45721,7 +45723,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_RegionTransition_descriptor
+name|internal_static_RegionStateTransition_descriptor
 argument_list|,
 operator|new
 name|java
@@ -45739,7 +45741,7 @@ literal|"OpenSeqNum"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -45752,7 +45754,7 @@ argument_list|(
 literal|9
 argument_list|)
 expr_stmt|;
-name|internal_static_ReportRegionTransitionRequest_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionRequest_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -45765,7 +45767,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReportRegionTransitionRequest_descriptor
+name|internal_static_ReportRegionStateTransitionRequest_descriptor
 argument_list|,
 operator|new
 name|java
@@ -45781,7 +45783,7 @@ literal|"Transition"
 block|, }
 argument_list|)
 expr_stmt|;
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 operator|=
 name|getDescriptor
 argument_list|()
@@ -45794,7 +45796,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-name|internal_static_ReportRegionTransitionResponse_fieldAccessorTable
+name|internal_static_ReportRegionStateTransitionResponse_fieldAccessorTable
 operator|=
 operator|new
 name|com
@@ -45807,7 +45809,7 @@ name|GeneratedMessage
 operator|.
 name|FieldAccessorTable
 argument_list|(
-name|internal_static_ReportRegionTransitionResponse_descriptor
+name|internal_static_ReportRegionStateTransitionResponse_descriptor
 argument_list|,
 operator|new
 name|java

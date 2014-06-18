@@ -1299,7 +1299,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 import|;
 end_import
 
@@ -1319,7 +1319,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 import|;
@@ -1361,7 +1361,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 import|;
 end_import
 
@@ -1381,7 +1381,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 import|;
 end_import
 
@@ -8669,7 +8669,7 @@ operator|!
 name|useZKForAssignment
 operator|&&
 operator|!
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -8714,7 +8714,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|TransitionCode
 name|code
@@ -8725,7 +8725,7 @@ name|hris
 parameter_list|)
 block|{
 return|return
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|code
 argument_list|,
@@ -8741,7 +8741,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|reportRegionTransition
+name|reportRegionStateTransition
 parameter_list|(
 name|TransitionCode
 name|code
@@ -8754,12 +8754,12 @@ modifier|...
 name|hris
 parameter_list|)
 block|{
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|Builder
 name|builder
 init|=
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 operator|.
 name|newBuilder
 argument_list|()
@@ -8776,7 +8776,7 @@ name|serverName
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|Builder
 name|transition
@@ -8835,7 +8835,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|ReportRegionTransitionRequest
+name|ReportRegionStateTransitionRequest
 name|request
 init|=
 name|builder
@@ -8870,12 +8870,12 @@ argument_list|()
 expr_stmt|;
 continue|continue;
 block|}
-name|ReportRegionTransitionResponse
+name|ReportRegionStateTransitionResponse
 name|response
 init|=
 name|rss
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 literal|null
 argument_list|,

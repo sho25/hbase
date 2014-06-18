@@ -191,7 +191,7 @@ name|generated
 operator|.
 name|RegionServerStatusProtos
 operator|.
-name|RegionTransition
+name|RegionStateTransition
 operator|.
 name|TransitionCode
 import|;
@@ -926,7 +926,7 @@ condition|)
 block|{
 name|rsServices
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
@@ -961,7 +961,7 @@ condition|)
 block|{
 name|rsServices
 operator|.
-name|reportRegionTransition
+name|reportRegionStateTransition
 argument_list|(
 name|TransitionCode
 operator|.
