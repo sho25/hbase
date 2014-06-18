@@ -85,7 +85,7 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|User
+name|UserProvider
 import|;
 end_import
 
@@ -246,13 +246,12 @@ name|getInstance
 argument_list|(
 name|conf
 argument_list|,
-name|User
+name|UserProvider
 operator|.
-name|getCurrent
-argument_list|()
-operator|.
-name|getUGI
-argument_list|()
+name|instantiate
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// set up the Jersey servlet container for Jetty
