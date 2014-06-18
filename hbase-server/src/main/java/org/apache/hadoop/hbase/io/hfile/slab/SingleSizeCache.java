@@ -1423,6 +1423,10 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|this

@@ -205,6 +205,10 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|boolean
@@ -225,6 +229,8 @@ decl_stmt|;
 if|if
 condition|(
 name|isMetaBlock
+operator|||
+name|cacheDataInL1
 condition|)
 block|{
 name|lruCache
@@ -236,6 +242,8 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
+argument_list|,
+name|cacheDataInL1
 argument_list|)
 expr_stmt|;
 block|}
@@ -250,6 +258,8 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
+argument_list|,
+name|cacheDataInL1
 argument_list|)
 expr_stmt|;
 block|}
@@ -272,6 +282,8 @@ argument_list|(
 name|cacheKey
 argument_list|,
 name|buf
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)

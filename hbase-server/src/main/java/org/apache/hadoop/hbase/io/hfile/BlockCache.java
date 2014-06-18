@@ -61,7 +61,7 @@ argument_list|<
 name|CachedBlock
 argument_list|>
 block|{
-comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    */
+comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    * @param cacheDataInL1 If multi-tier block cache deploy -- i.e. has an L1 and L2 tier -- then    * if this flag is true, cache data blocks up in the L1 tier (meta blocks are probably being    * cached in L1 already).    */
 name|void
 name|cacheBlock
 parameter_list|(
@@ -73,6 +73,9 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 function_decl|;
 comment|/**    * Add block to cache (defaults to not in-memory).    * @param cacheKey The block's cache key.    * @param buf The object to cache.    */

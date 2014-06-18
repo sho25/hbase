@@ -578,6 +578,9 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 if|if
@@ -615,6 +618,8 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
+argument_list|,
+name|cacheDataInL1
 argument_list|)
 expr_stmt|;
 block|}

@@ -857,6 +857,13 @@ name|HConstants
 operator|.
 name|REPLICATION_SCOPE_LOCAL
 argument_list|)
+operator|.
+comment|// Set cache data blocks in L1 if more than one cache tier deployed; e.g. this will
+comment|// be the case if we are using CombinedBlockCache (Bucket Cache).
+name|setCacheDataInL1
+argument_list|(
+literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

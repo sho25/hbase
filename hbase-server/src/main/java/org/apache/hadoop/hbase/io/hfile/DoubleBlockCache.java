@@ -304,6 +304,10 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|onHeapCache
@@ -315,6 +319,8 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
+argument_list|,
+name|cacheDataInL1
 argument_list|)
 expr_stmt|;
 name|offHeapCache

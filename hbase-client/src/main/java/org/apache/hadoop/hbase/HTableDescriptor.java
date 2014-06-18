@@ -5338,6 +5338,13 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
+comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
+comment|// e.g. if using CombinedBlockCache (BucketCache).
+operator|.
+name|setCacheDataInL1
+argument_list|(
+literal|true
+argument_list|)
 block|}
 argument_list|)
 decl_stmt|;
@@ -5460,6 +5467,13 @@ argument_list|(
 name|HConstants
 operator|.
 name|REPLICATION_SCOPE_LOCAL
+argument_list|)
+comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
+comment|// e.g. if using CombinedBlockCache (BucketCache).
+operator|.
+name|setCacheDataInL1
+argument_list|(
+literal|true
 argument_list|)
 block|}
 argument_list|)

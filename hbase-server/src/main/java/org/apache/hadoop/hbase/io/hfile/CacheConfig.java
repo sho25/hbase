@@ -555,6 +555,11 @@ specifier|final
 name|boolean
 name|prefetchOnOpen
 decl_stmt|;
+comment|/**    * If true and if more than one tier in this cache deploy -- e.g. CombinedBlockCache has an L1    * and an L2 tier -- then cache data blocks up in the L1 tier (The meta blocks are likely being    * cached up in L1 already.  At least this is the case if CombinedBlockCache).    */
+specifier|private
+name|boolean
+name|cacheDataInL1
+decl_stmt|;
 comment|/**    * Create a cache configuration using the specified configuration object and    * family descriptor.    * @param conf hbase configuration    * @param family column family configuration    */
 specifier|public
 name|CacheConfig
@@ -665,6 +670,24 @@ name|family
 operator|.
 name|shouldPrefetchBlocksOnOpen
 argument_list|()
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|CACHE_DATA_IN_L1
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_CACHE_DATA_IN_L1
+argument_list|)
+operator|||
+name|family
+operator|.
+name|shouldCacheDataInL1
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -744,10 +767,23 @@ name|PREFETCH_BLOCKS_ON_OPEN_KEY
 argument_list|,
 name|DEFAULT_PREFETCH_ON_OPEN
 argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|CACHE_DATA_IN_L1
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_CACHE_DATA_IN_L1
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheCompressed whether to store blocks as compressed in the cache    * @param prefetchOnOpen whether to prefetch blocks upon open    */
+comment|/**    * Create a block cache configuration with the specified cache and    * configuration parameters.    * @param blockCache reference to block cache, null if completely disabled    * @param cacheDataOnRead whether DATA blocks should be cached on read (we always cache INDEX    * blocks and BLOOM blocks; this cannot be disabled).    * @param inMemory whether blocks should be flagged as in-memory    * @param cacheDataOnWrite whether data blocks should be cached on write    * @param cacheIndexesOnWrite whether index blocks should be cached on write    * @param cacheBloomsOnWrite whether blooms should be cached on write    * @param evictOnClose whether blocks should be evicted when HFile is closed    * @param cacheCompressed whether to store blocks as compressed in the cache    * @param prefetchOnOpen whether to prefetch blocks upon open    * @param cacheDataInL1 If more than one cache tier deployed, if true, cache this column families    * data blocks up in the L1 tier.    */
 name|CacheConfig
 parameter_list|(
 specifier|final
@@ -785,6 +821,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|prefetchOnOpen
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|this
@@ -840,6 +880,12 @@ operator|.
 name|prefetchOnOpen
 operator|=
 name|prefetchOnOpen
+expr_stmt|;
+name|this
+operator|.
+name|cacheDataInL1
+operator|=
+name|cacheDataInL1
 expr_stmt|;
 name|LOG
 operator|.
@@ -894,6 +940,10 @@ argument_list|,
 name|cacheConf
 operator|.
 name|prefetchOnOpen
+argument_list|,
+name|cacheConf
+operator|.
+name|cacheDataInL1
 argument_list|)
 expr_stmt|;
 block|}
@@ -1004,6 +1054,21 @@ operator|.
 name|inMemory
 return|;
 block|}
+comment|/**    * @return True if cache data blocks in L1 tier (if more than one tier in block cache deploy).    */
+specifier|public
+name|boolean
+name|isCacheDataInL1
+parameter_list|()
+block|{
+return|return
+name|isBlockCacheEnabled
+argument_list|()
+operator|&&
+name|this
+operator|.
+name|cacheDataInL1
+return|;
+block|}
 comment|/**    * @return true if data blocks should be written to the cache when an HFile is    *         written, false if not    */
 specifier|public
 name|boolean
@@ -1020,6 +1085,8 @@ name|cacheDataOnWrite
 return|;
 block|}
 comment|/**    * Only used for testing.    * @param cacheDataOnWrite whether data blocks should be written to the cache    *                         when an HFile is written    */
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|void
 name|setCacheDataOnWrite
@@ -1033,6 +1100,24 @@ operator|.
 name|cacheDataOnWrite
 operator|=
 name|cacheDataOnWrite
+expr_stmt|;
+block|}
+comment|/**    * Only used for testing.    * @param cacheDataInL1 Whether to cache data blocks up in l1 (if a multi-tier cache    * implementation).    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setCacheDataInL1
+parameter_list|(
+name|boolean
+name|cacheDataInL1
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cacheDataInL1
+operator|=
+name|cacheDataInL1
 expr_stmt|;
 block|}
 comment|/**    * @return true if index blocks should be written to the cache when an HFile    *         is written, false if not    */

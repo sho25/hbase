@@ -1709,10 +1709,12 @@ argument_list|,
 name|buf
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cache the block with the specified name and buffer.    * @param cacheKey block's cache key    * @param cachedItem block buffer    * @param inMemory if block is in-memory    */
+comment|/**    * Cache the block with the specified name and buffer.    * @param cacheKey block's cache key    * @param cachedItem block buffer    * @param inMemory if block is in-memory    * @param cacheDataInL1    */
 annotation|@
 name|Override
 specifier|public
@@ -1727,6 +1729,10 @@ name|cachedItem
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|cacheBlockWithWait
