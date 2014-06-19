@@ -224,6 +224,16 @@ init|=
 literal|"hbase.rest.scan.fetchsize"
 decl_stmt|;
 name|String
+name|SCAN_FILTER
+init|=
+literal|"filter"
+decl_stmt|;
+name|String
+name|CUSTOM_FILTERS
+init|=
+literal|"hbase.rest.custom.filters"
+decl_stmt|;
+name|String
 name|ROW_KEYS_PARAM_NAME
 init|=
 literal|"row"
