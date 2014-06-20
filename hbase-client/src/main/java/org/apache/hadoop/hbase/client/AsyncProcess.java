@@ -683,7 +683,7 @@ name|serverTrackerTimeout
 decl_stmt|;
 specifier|protected
 name|int
-name|operationTimeout
+name|timeout
 decl_stmt|;
 comment|// End configuration settings.
 specifier|protected
@@ -980,7 +980,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|operationTimeout
+name|timeout
 operator|=
 name|conf
 operator|.
@@ -988,11 +988,11 @@ name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_CLIENT_OPERATION_TIMEOUT
+name|HBASE_RPC_TIMEOUT_KEY
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
+name|DEFAULT_HBASE_RPC_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|this
@@ -3110,7 +3110,7 @@ name|callWithoutRetries
 argument_list|(
 name|callable
 argument_list|,
-name|operationTimeout
+name|timeout
 argument_list|)
 expr_stmt|;
 block|}
