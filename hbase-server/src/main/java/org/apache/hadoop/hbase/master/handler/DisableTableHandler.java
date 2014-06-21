@@ -1137,7 +1137,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Disabled table is done="
+literal|"Disabled table, "
+operator|+
+name|this
+operator|.
+name|tableName
+operator|+
+literal|", is done="
 operator|+
 name|done
 argument_list|)

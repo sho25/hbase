@@ -1177,6 +1177,46 @@ block|{
 name|releaseTableLock
 argument_list|()
 expr_stmt|;
+name|String
+name|msg
+init|=
+name|exception
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|exception
+operator|.
+name|getMessage
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table, "
+operator|+
+name|this
+operator|.
+name|hTableDescriptor
+operator|.
+name|getTableName
+argument_list|()
+operator|+
+literal|", creation "
+operator|+
+name|msg
+operator|==
+literal|null
+condition|?
+literal|"successful"
+else|:
+literal|"failed. "
+operator|+
+name|msg
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|exception
