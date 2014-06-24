@@ -4249,6 +4249,8 @@ condition|)
 return|return
 literal|null
 return|;
+try|try
+block|{
 return|return
 name|ServerName
 operator|.
@@ -4277,6 +4279,32 @@ argument_list|()
 argument_list|)
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Ignoring invalid region for server "
+operator|+
+name|hostAndPort
+operator|+
+literal|"; cell="
+operator|+
+name|cell
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 block|}
 comment|/**    * The latest seqnum that the server writing to meta observed when opening the region.    * E.g. the seqNum when the result of {@link #getServerName(Result)} was written.    * @param r Result to pull the seqNum from    * @return SeqNum, or HConstants.NO_SEQNUM if there's no value written.    */
 specifier|public
