@@ -3143,6 +3143,11 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// Wait for regionserver to finish initialization.
+synchronized|synchronized
+init|(
+name|online
+init|)
+block|{
 while|while
 condition|(
 operator|!
@@ -3153,11 +3158,6 @@ operator|!
 name|isOnline
 argument_list|()
 condition|)
-block|{
-synchronized|synchronized
-init|(
-name|online
-init|)
 block|{
 name|online
 operator|.

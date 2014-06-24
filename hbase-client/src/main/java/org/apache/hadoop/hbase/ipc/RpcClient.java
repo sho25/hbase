@@ -7336,6 +7336,13 @@ init|(
 name|call
 init|)
 block|{
+if|if
+condition|(
+name|call
+operator|.
+name|done
+condition|)
+break|break;
 name|call
 operator|.
 name|wait

@@ -462,6 +462,14 @@ init|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+operator|!
+name|rollLog
+operator|.
+name|get
+argument_list|()
+condition|)
 name|rollLog
 operator|.
 name|wait

@@ -1163,6 +1163,14 @@ try|try
 block|{
 comment|// Wait for 10 seconds, so that server shutdown
 comment|// won't take too long if this thread happens to run.
+if|if
+condition|(
+operator|!
+name|signaller
+operator|.
+name|get
+argument_list|()
+condition|)
 name|signaller
 operator|.
 name|wait
