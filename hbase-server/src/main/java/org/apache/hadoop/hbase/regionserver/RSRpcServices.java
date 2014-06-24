@@ -4474,16 +4474,6 @@ operator|=
 name|mutation
 expr_stmt|;
 block|}
-name|requestCount
-operator|.
-name|add
-argument_list|(
-name|mutations
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
