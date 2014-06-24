@@ -21079,6 +21079,8 @@ name|WALEdit
 argument_list|()
 decl_stmt|;
 comment|// 1. Run pre-process hook
+try|try
+block|{
 name|processor
 operator|.
 name|preProcess
@@ -21088,6 +21090,20 @@ argument_list|,
 name|walEdit
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|closeRegionOperation
+argument_list|()
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
 comment|// Short circuit the read only case
 if|if
 condition|(

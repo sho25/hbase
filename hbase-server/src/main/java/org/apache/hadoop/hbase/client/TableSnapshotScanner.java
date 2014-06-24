@@ -819,6 +819,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+try|try
+block|{
 name|result
 operator|=
 name|currentRegionScanner
@@ -837,7 +839,15 @@ return|return
 name|result
 return|;
 block|}
-else|else
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|result
+operator|==
+literal|null
+condition|)
 block|{
 name|currentRegionScanner
 operator|.
@@ -848,6 +858,7 @@ name|currentRegionScanner
 operator|=
 literal|null
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
