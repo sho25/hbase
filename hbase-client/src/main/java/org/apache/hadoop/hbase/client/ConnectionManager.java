@@ -6597,6 +6597,11 @@ init|)
 block|{
 comment|// Check the cache again for a hit in case some other thread made the
 comment|// same query while we were waiting on the lock.
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
 name|locations
 operator|=
 name|getCachedLocation
@@ -6616,6 +6621,7 @@ block|{
 return|return
 name|locations
 return|;
+block|}
 block|}
 comment|// Look up from zookeeper
 name|locations
