@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -321,7 +321,7 @@ comment|// delete markers should never be passed to an
 comment|// *Explicit*ColumnTracker
 assert|assert
 operator|!
-name|KeyValue
+name|CellUtil
 operator|.
 name|isDelete
 argument_list|(
@@ -540,7 +540,7 @@ name|IOException
 block|{
 assert|assert
 operator|!
-name|KeyValue
+name|CellUtil
 operator|.
 name|isDelete
 argument_list|(

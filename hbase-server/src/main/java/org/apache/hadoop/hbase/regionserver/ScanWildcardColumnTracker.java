@@ -51,7 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|CellUtil
 import|;
 end_import
 
@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|HConstants
 import|;
 end_import
 
@@ -474,7 +474,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|KeyValue
+name|CellUtil
 operator|.
 name|isDelete
 argument_list|(

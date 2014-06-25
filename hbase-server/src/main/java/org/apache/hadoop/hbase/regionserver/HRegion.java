@@ -8965,10 +8965,12 @@ operator|.
 name|isLatestTimestamp
 argument_list|()
 operator|&&
-name|kv
+name|CellUtil
 operator|.
 name|isDeleteType
-argument_list|()
+argument_list|(
+name|kv
+argument_list|)
 condition|)
 block|{
 name|byte
