@@ -5265,6 +5265,15 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
+name|FSUtils
+operator|.
+name|setRootDir
+argument_list|(
+name|conf
+argument_list|,
+name|inputRoot
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if
