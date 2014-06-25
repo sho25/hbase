@@ -984,7 +984,9 @@ name|Logger
 operator|.
 name|getLogger
 argument_list|(
-literal|"org.apache.hadoop.ipc.RpcServer"
+name|RpcServer
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 name|log
