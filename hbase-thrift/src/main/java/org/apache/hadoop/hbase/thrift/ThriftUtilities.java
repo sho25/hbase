@@ -505,6 +505,16 @@ argument_list|(
 name|in
 operator|.
 name|timeToLive
+operator|>
+literal|0
+condition|?
+name|in
+operator|.
+name|timeToLive
+else|:
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|)
 operator|.
 name|setBloomFilterType

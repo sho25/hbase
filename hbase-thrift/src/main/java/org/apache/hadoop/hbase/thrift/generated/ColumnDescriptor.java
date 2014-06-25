@@ -1886,8 +1886,7 @@ name|this
 operator|.
 name|timeToLive
 operator|=
-operator|-
-literal|1
+literal|2147483647
 expr_stmt|;
 block|}
 specifier|public
@@ -2195,8 +2194,7 @@ name|this
 operator|.
 name|timeToLive
 operator|=
-operator|-
-literal|1
+literal|2147483647
 expr_stmt|;
 block|}
 specifier|public
