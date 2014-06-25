@@ -959,6 +959,13 @@ name|THRIFT_QOP_KEY
 init|=
 literal|"hbase.thrift.security.qop"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|BACKLOG_CONF_KEY
+init|=
+literal|"hbase.regionserver.thrift.backlog"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1911,6 +1918,9 @@ name|workerThreads
 parameter_list|,
 name|InetSocketAddress
 name|inetSocketAddress
+parameter_list|,
+name|int
+name|backlog
 parameter_list|)
 throws|throws
 name|TTransportException
@@ -1921,7 +1931,21 @@ init|=
 operator|new
 name|TServerSocket
 argument_list|(
+operator|new
+name|TServerSocket
+operator|.
+name|ServerSocketTransportArgs
+argument_list|()
+operator|.
+name|bindAddr
+argument_list|(
 name|inetSocketAddress
+argument_list|)
+operator|.
+name|backlog
+argument_list|(
+name|backlog
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|log
@@ -2331,6 +2355,19 @@ name|e
 argument_list|)
 throw|;
 block|}
+comment|// Thrift's implementation uses '0' as a placeholder for 'use the default.'
+name|int
+name|backlog
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|BACKLOG_CONF_KEY
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// Local hostname and user name,
 comment|// used only if QOP is configured.
 name|String
@@ -3062,6 +3099,8 @@ argument_list|,
 name|workerThreads
 argument_list|,
 name|inetSocketAddress
+argument_list|,
+name|backlog
 argument_list|)
 expr_stmt|;
 block|}
