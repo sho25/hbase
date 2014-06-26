@@ -923,7 +923,7 @@ name|PositionedByteRange
 name|buf
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -1155,7 +1155,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -1400,7 +1400,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -1645,7 +1645,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -1892,7 +1892,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -2139,7 +2139,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -2427,7 +2427,7 @@ name|PositionedByteRange
 name|pbri
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|I_LENGTHS
 index|[
@@ -2439,7 +2439,7 @@ name|PositionedByteRange
 name|pbrr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|I_LENGTHS
 index|[
@@ -2561,7 +2561,7 @@ name|PositionedByteRange
 name|pbrbd
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|I_LENGTHS
 index|[
@@ -2719,7 +2719,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -2948,7 +2948,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -3202,7 +3202,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -3431,7 +3431,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -3685,7 +3685,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -3914,7 +3914,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -4168,7 +4168,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -4397,7 +4397,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -4651,7 +4651,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -4890,7 +4890,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -5154,7 +5154,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -5393,7 +5393,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -5656,7 +5656,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -5898,7 +5898,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -6093,7 +6093,7 @@ name|PositionedByteRange
 name|buff
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|3
 argument_list|)
@@ -6701,7 +6701,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -6919,7 +6919,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -7342,7 +7342,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -7560,7 +7560,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|()
 decl_stmt|;
 for|for
@@ -7818,7 +7818,7 @@ name|PositionedByteRange
 name|buf
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|a
 argument_list|,
@@ -7931,7 +7931,7 @@ name|PositionedByteRange
 name|buf
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|val
 operator|.
@@ -8174,7 +8174,7 @@ name|PositionedByteRange
 name|buff
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|30
 argument_list|)

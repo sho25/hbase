@@ -75,7 +75,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestSimpleByteRange
+name|TestSimpleMutableByteRange
 block|{
 annotation|@
 name|Test
@@ -88,7 +88,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|SimpleByteRange
+name|SimpleMutableByteRange
 operator|.
 name|isEmpty
 argument_list|(
@@ -100,14 +100,14 @@ name|ByteRange
 name|r
 init|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 decl_stmt|;
 name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|SimpleByteRange
+name|SimpleMutableByteRange
 operator|.
 name|isEmpty
 argument_list|(
@@ -206,7 +206,7 @@ operator|.
 name|compareTo
 argument_list|(
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 operator|new
 name|byte
@@ -245,7 +245,7 @@ name|ByteRange
 name|r
 init|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 operator|new
 name|byte
@@ -263,7 +263,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|SimpleByteRange
+name|SimpleMutableByteRange
 operator|.
 name|isEmpty
 argument_list|(
@@ -515,7 +515,7 @@ name|ByteRange
 name|r
 init|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 literal|100
 argument_list|)

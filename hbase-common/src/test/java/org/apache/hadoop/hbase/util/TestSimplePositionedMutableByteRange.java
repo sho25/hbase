@@ -85,7 +85,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestPositionedByteRange
+name|TestSimplePositionedMutableByteRange
 block|{
 annotation|@
 name|Test
@@ -98,7 +98,7 @@ name|PositionedByteRange
 name|r
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 operator|new
 name|byte
@@ -471,7 +471,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|100
 argument_list|)
@@ -678,7 +678,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|100
 argument_list|)

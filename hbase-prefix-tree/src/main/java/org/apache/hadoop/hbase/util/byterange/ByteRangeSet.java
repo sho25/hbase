@@ -123,7 +123,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -414,7 +414,7 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 argument_list|)
 expr_stmt|;

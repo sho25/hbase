@@ -115,7 +115,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 import|;
 end_import
 
@@ -194,7 +194,7 @@ name|PositionedByteRange
 name|buf
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|4
 argument_list|)
@@ -287,7 +287,7 @@ name|PositionedByteRange
 name|buf1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|7
 argument_list|)
@@ -530,7 +530,7 @@ name|PositionedByteRange
 name|buf2
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 literal|7
 argument_list|)

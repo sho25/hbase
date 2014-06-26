@@ -335,7 +335,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -698,7 +698,7 @@ operator|.
 name|rowRange
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 name|this
@@ -706,7 +706,7 @@ operator|.
 name|familyRange
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 name|this
@@ -714,7 +714,7 @@ operator|.
 name|qualifierRange
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 name|this
@@ -1013,7 +1013,7 @@ operator|.
 name|tagsRange
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 name|this
@@ -2217,7 +2217,7 @@ parameter_list|()
 block|{
 return|return
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|values
 argument_list|,

@@ -105,7 +105,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 import|;
 end_import
 
@@ -665,7 +665,7 @@ operator|.
 name|decode
 argument_list|(
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|b
 argument_list|)

@@ -4757,7 +4757,7 @@ name|PositionedByteRange
 name|ret
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|blobVarDecodedLength
 argument_list|(
@@ -7949,7 +7949,7 @@ name|PositionedByteRange
 name|b
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|buff
 operator|.

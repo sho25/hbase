@@ -209,7 +209,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -292,7 +292,7 @@ operator|.
 name|curFamily
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 name|this
@@ -300,7 +300,7 @@ operator|.
 name|curQualifier
 operator|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 expr_stmt|;
 block|}

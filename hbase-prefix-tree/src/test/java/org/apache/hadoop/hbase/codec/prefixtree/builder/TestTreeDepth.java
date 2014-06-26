@@ -79,7 +79,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -406,11 +406,11 @@ range|:
 name|inputs
 control|)
 block|{
-name|SimpleByteRange
+name|SimpleMutableByteRange
 name|b
 init|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|Bytes
 operator|.

@@ -139,7 +139,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -418,7 +418,7 @@ comment|// We succeeded - this is the common case - small alloc
 comment|// from a big buffer
 return|return
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|c
 operator|.

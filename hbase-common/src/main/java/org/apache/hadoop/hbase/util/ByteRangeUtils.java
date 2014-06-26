@@ -366,7 +366,7 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|array
 argument_list|)

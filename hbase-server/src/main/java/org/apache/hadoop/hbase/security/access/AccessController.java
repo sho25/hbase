@@ -1267,7 +1267,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -4164,7 +4164,7 @@ operator|.
 name|put
 argument_list|(
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|entry
 operator|.
@@ -4223,7 +4223,7 @@ name|ByteRange
 name|curFam
 init|=
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -8054,7 +8054,7 @@ operator|.
 name|put
 argument_list|(
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|hcd
 operator|.

@@ -515,7 +515,7 @@ name|PositionedByteRange
 name|pbr
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|totalSize
 argument_list|)
@@ -540,7 +540,7 @@ name|PositionedByteRange
 name|pbr1
 init|=
 operator|new
-name|SimplePositionedByteRange
+name|SimplePositionedMutableByteRange
 argument_list|(
 name|pbr
 operator|.

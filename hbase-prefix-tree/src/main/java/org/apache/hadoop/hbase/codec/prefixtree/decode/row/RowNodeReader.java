@@ -83,7 +83,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SimpleByteRange
+name|SimpleMutableByteRange
 import|;
 end_import
 
@@ -1060,7 +1060,7 @@ block|{
 comment|// TODO pass in reusable ByteRange
 return|return
 operator|new
-name|SimpleByteRange
+name|SimpleMutableByteRange
 argument_list|(
 name|block
 argument_list|,

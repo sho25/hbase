@@ -229,6 +229,21 @@ name|int
 name|length
 parameter_list|)
 function_decl|;
+comment|/**    * Limits the byte range upto a specified value. Limit cannot be greater than    * capacity    *    * @param limit    * @return PositionedByteRange    */
+specifier|public
+name|PositionedByteRange
+name|setLimit
+parameter_list|(
+name|int
+name|limit
+parameter_list|)
+function_decl|;
+comment|/**    * Return the current limit    *    * @return limit    */
+specifier|public
+name|int
+name|getLimit
+parameter_list|()
+function_decl|;
 comment|// override parent interface declarations to return this interface.
 annotation|@
 name|Override
