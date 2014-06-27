@@ -761,6 +761,32 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|htable
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error closing table"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return ImmutableBytesWritable    *    * @see org.apache.hadoop.mapred.RecordReader#createKey()    */
 specifier|public
