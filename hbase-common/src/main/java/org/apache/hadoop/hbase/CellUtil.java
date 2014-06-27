@@ -453,6 +453,7 @@ return|return
 name|output
 return|;
 block|}
+comment|/**    * Returns tag value in a new byte array. If server-side, use    * {@link Tag#getBuffer()} with appropriate {@link Tag#getTagOffset()} and    * {@link Tag#getTagLength()} instead to save on allocations.    * @param cell    * @return tag value in a new byte array.    */
 specifier|public
 specifier|static
 name|byte

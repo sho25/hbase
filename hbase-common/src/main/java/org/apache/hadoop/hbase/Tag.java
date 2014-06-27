@@ -433,6 +433,7 @@ operator|+
 name|INFRASTRUCTURE_SIZE
 return|;
 block|}
+comment|/**    * Returns tag value in a new byte array.    * Primarily for use client-side. If server-side, use    * {@link #getBuffer()} with appropriate {@link #getTagOffset()} and {@link #getTagLength()}    * instead to save on allocations.    * @return tag value in a new byte array.    */
 specifier|public
 name|byte
 index|[]
