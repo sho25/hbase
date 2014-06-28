@@ -1366,17 +1366,9 @@ operator|<
 name|existingValue
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"RegionServer "
 operator|+
@@ -1408,7 +1400,6 @@ operator|+
 literal|" Ignoring."
 argument_list|)
 expr_stmt|;
-block|}
 continue|continue;
 comment|// Don't let smaller sequence ids override greater
 comment|// sequence ids.

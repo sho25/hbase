@@ -3806,12 +3806,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|lastFlushSeqId
-operator|=
-name|nextSeqid
-expr_stmt|;
 if|if
 condition|(
 name|coprocessorHost
@@ -7303,6 +7297,13 @@ condition|(
 name|this
 operator|.
 name|lastFlushSeqId
+operator|>
+literal|0
+operator|&&
+operator|(
+name|this
+operator|.
+name|lastFlushSeqId
 operator|+
 name|this
 operator|.
@@ -7314,6 +7315,7 @@ name|sequenceId
 operator|.
 name|get
 argument_list|()
+operator|)
 condition|)
 block|{
 return|return
