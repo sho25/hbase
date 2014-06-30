@@ -1771,6 +1771,10 @@ argument_list|(
 name|lruCacheSize
 argument_list|,
 name|blockSize
+argument_list|,
+literal|true
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|lruCache
