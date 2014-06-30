@@ -531,13 +531,6 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|get
-operator|.
-name|setACLStrategy
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|Result
 name|result
 init|=
