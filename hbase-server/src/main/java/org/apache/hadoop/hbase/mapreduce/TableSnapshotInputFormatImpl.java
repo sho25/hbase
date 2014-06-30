@@ -506,13 +506,14 @@ name|SNAPSHOT_NAME_KEY
 init|=
 literal|"hbase.TableSnapshotInputFormat.snapshot.name"
 decl_stmt|;
+comment|// key for specifying the root dir of the restored snapshot
 specifier|private
 specifier|static
 specifier|final
 name|String
-name|TABLE_DIR_KEY
+name|RESTORE_DIR_KEY
 init|=
-literal|"hbase.TableSnapshotInputFormat.table.dir"
+literal|"hbase.TableSnapshotInputFormat.restore.dir"
 decl_stmt|;
 comment|/** See {@link #getBestLocations(Configuration, HDFSBlocksDistribution)} */
 specifier|private
@@ -982,7 +983,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|TABLE_DIR_KEY
+name|RESTORE_DIR_KEY
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1518,8 +1519,9 @@ literal|"Unable to create scan"
 argument_list|)
 throw|;
 block|}
+comment|// the temp dir where the snapshot is restored
 name|Path
-name|tableDir
+name|restoreDir
 init|=
 operator|new
 name|Path
@@ -1528,8 +1530,23 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|TABLE_DIR_KEY
+name|RESTORE_DIR_KEY
 argument_list|)
+argument_list|)
+decl_stmt|;
+name|Path
+name|tableDir
+init|=
+name|FSUtils
+operator|.
+name|getTableDir
+argument_list|(
+name|restoreDir
+argument_list|,
+name|htd
+operator|.
+name|getTableName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|List
@@ -1936,7 +1953,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|TABLE_DIR_KEY
+name|RESTORE_DIR_KEY
 argument_list|,
 name|restoreDir
 operator|.
