@@ -1731,6 +1731,12 @@ operator|.
 name|makeMap
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|superUsers
+decl_stmt|;
 static|static
 block|{
 name|ByteArrayOutputStream
@@ -1991,6 +1997,13 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|superUsers
+operator|=
+name|getSystemAndSuperUsers
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -4008,20 +4021,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Set auth for "system" label for all super users.
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|superUsers
-init|=
-name|getSystemAndSuperUsers
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|String
 name|superUser
 range|:
+name|this
+operator|.
 name|superUsers
 control|)
 block|{
@@ -5367,6 +5373,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Bypass this check when the operation is done by a system/super user.
+comment|// This is done because, while Replication, the Cells coming to the peer cluster with reserved
+comment|// typed tags and this is fine and should get added to the peer cluster table
+if|if
+condition|(
+name|isSystemOrSuperUser
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 if|if
 condition|(
 name|cell
@@ -6879,15 +6898,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|superUsers
-init|=
-name|getSystemAndSuperUsers
-argument_list|()
-decl_stmt|;
 name|User
 name|activeUser
 init|=
@@ -6895,6 +6905,8 @@ name|getActiveUser
 argument_list|()
 decl_stmt|;
 return|return
+name|this
+operator|.
 name|superUsers
 operator|.
 name|contains
