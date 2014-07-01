@@ -1593,9 +1593,9 @@ name|applyCompactionPolicy
 argument_list|(
 name|sfs
 argument_list|,
-name|isOffpeak
-argument_list|,
 literal|false
+argument_list|,
+name|isOffpeak
 argument_list|,
 name|minFilesLocal
 argument_list|,
