@@ -334,7 +334,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Same as {@link #getRack(ServerName)} except that a list is passed    * @param servers    * @return    */
+comment|/**    * Same as {@link #getRack(ServerName)} except that a list is passed    * @param servers    * @return list of racks for the given list of servers    */
 end_comment
 
 begin_function

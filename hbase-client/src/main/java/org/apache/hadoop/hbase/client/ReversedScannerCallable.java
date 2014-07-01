@@ -336,7 +336,7 @@ operator|=
 name|locateStartRow
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use    *             {@link #ReversedScannerCallable(HConnection, TableName, Scan, ScanMetrics, byte[], RpcControllerFactory)}    */
+comment|/**    * @deprecated use    *             {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan, ScanMetrics, byte[], RpcControllerFactory )}    */
 annotation|@
 name|Deprecated
 specifier|public
