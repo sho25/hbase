@@ -1753,29 +1753,27 @@ condition|)
 return|return
 name|result
 return|;
-comment|// Compare end keys.
+comment|// Compare end keys, but flip the operands so parent comes first
 name|result
 operator|=
 name|rowEndKeyComparator
 operator|.
 name|compare
 argument_list|(
-name|left
+name|right
 operator|.
 name|getEndKey
 argument_list|()
 argument_list|,
-name|right
+name|left
 operator|.
 name|getEndKey
 argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
 name|result
 return|;
-comment|// Flip the result so parent comes first.
 block|}
 block|}
 comment|/**    * If daughters no longer hold reference to the parents, delete the parent.    * @param parent HRegionInfo of split offlined parent    * @param rowContent Content of<code>parent</code> row in    *<code>metaRegionName</code>    * @return True if we removed<code>parent</code> from meta table and from    * the filesystem.    * @throws IOException    */

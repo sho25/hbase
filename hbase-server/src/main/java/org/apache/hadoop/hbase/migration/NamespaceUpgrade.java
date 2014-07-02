@@ -3240,12 +3240,11 @@ name|right
 parameter_list|)
 block|{
 return|return
-operator|-
-name|left
+name|right
 operator|.
 name|compareTo
 argument_list|(
-name|right
+name|left
 argument_list|)
 return|;
 block|}
