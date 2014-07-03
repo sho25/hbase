@@ -197,9 +197,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -841,7 +839,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(

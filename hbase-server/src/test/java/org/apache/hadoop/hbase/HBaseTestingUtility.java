@@ -431,22 +431,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Delete
@@ -9211,7 +9195,7 @@ name|j
 index|]
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -9503,7 +9487,7 @@ name|j
 index|]
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -9547,7 +9531,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Redo using MetaReader class
+comment|// TODO: Redo using MetaTableAccessor class
 name|HTable
 name|t
 init|=
@@ -9665,7 +9649,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Redo using MetaReader.
+comment|// TODO: Redo using MetaTableAccessor.
 name|HTable
 name|t
 init|=

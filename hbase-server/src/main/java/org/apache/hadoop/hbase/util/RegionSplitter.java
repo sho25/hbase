@@ -449,9 +449,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1469,7 +1467,7 @@ condition|)
 block|{
 name|onlineRegions
 operator|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(

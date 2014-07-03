@@ -267,9 +267,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -711,7 +709,7 @@ name|HRegionInfo
 argument_list|>
 name|hris
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
@@ -719,7 +717,14 @@ name|this
 operator|.
 name|server
 operator|.
-name|getCatalogTracker
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|server
+operator|.
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|tableName

@@ -215,9 +215,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -831,7 +829,7 @@ argument_list|(
 literal|"Deleting regions from META"
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|deleteRegions
 argument_list|(
@@ -839,7 +837,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|regions

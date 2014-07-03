@@ -291,9 +291,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -2696,7 +2694,7 @@ name|meta
 operator|.
 name|put
 argument_list|(
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(
@@ -2708,7 +2706,7 @@ name|meta
 operator|.
 name|delete
 argument_list|(
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makeDeleteFromRegionInfo
 argument_list|(

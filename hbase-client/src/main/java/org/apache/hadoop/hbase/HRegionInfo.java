@@ -4997,7 +4997,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in hbase:meta).    * @throws IOException    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * Extract a HRegionInfo and ServerName from catalog table {@link Result}.    * @param r Result to pull from    * @return A pair of the {@link HRegionInfo} and the {@link ServerName}    * (or null for server address if no address set in hbase:meta).    * @throws IOException    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5050,7 +5050,7 @@ name|sn
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5073,7 +5073,7 @@ name|REGIONINFO_QUALIFIER
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the daughter regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * Returns the daughter regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5127,7 +5127,7 @@ name|splitB
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the merge regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * Returns the merge regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5181,7 +5181,7 @@ name|mergeB
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the HRegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier -- either    * {@link HConstants#SPLITA_QUALIFIER}, {@link HConstants#SPLITB_QUALIFIER} or    * {@link HConstants#REGIONINFO_QUALIFIER}.    * @return An HRegionInfo instance or null.    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * Returns the HRegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier -- either    * {@link HConstants#SPLITA_QUALIFIER}, {@link HConstants#SPLITB_QUALIFIER} or    * {@link HConstants#REGIONINFO_QUALIFIER}.    * @return An HRegionInfo instance or null.    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5241,7 +5241,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5397,7 +5397,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * The latest seqnum that the server writing to meta observed when opening the region.    * E.g. the seqNum when the result of {@link #getServerName(Result)} was written.    * @param r Result to pull the seqNum from    * @return SeqNum, or HConstants.NO_SEQNUM if there's no value written.    * @deprecated use MetaReader methods for interacting with meta layouts    */
+comment|/**    * The latest seqnum that the server writing to meta observed when opening the region.    * E.g. the seqNum when the result of {@link #getServerName(Result)} was written.    * @param r Result to pull the seqNum from    * @return SeqNum, or HConstants.NO_SEQNUM if there's no value written.    * @deprecated use MetaTableAccessor methods for interacting with meta layouts    */
 annotation|@
 name|Deprecated
 specifier|public

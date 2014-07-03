@@ -1296,7 +1296,7 @@ name|tickleOpening
 operator|)
 return|;
 block|}
-comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(    * HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker)}    * .    */
+comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(HRegion)    */
 specifier|static
 class|class
 name|PostOpenDeployTasksThread
@@ -1409,13 +1409,6 @@ argument_list|(
 name|this
 operator|.
 name|region
-argument_list|,
-name|this
-operator|.
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

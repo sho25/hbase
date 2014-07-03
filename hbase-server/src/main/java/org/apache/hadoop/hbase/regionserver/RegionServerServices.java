@@ -101,22 +101,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|executor
 operator|.
 name|ExecutorService
@@ -259,17 +243,13 @@ name|TableLockManager
 name|getTableLockManager
 parameter_list|()
 function_decl|;
-comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @param ct Instance of {@link CatalogTracker}    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @throws KeeperException    * @throws IOException    */
 name|void
 name|postOpenDeployTasks
 parameter_list|(
 specifier|final
 name|HRegion
 name|r
-parameter_list|,
-specifier|final
-name|CatalogTracker
-name|ct
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -332,11 +312,6 @@ function_decl|;
 comment|/**    * @return hbase executor service    */
 name|ExecutorService
 name|getExecutorService
-parameter_list|()
-function_decl|;
-comment|/**    * @return The RegionServer's CatalogTracker    */
-name|CatalogTracker
-name|getCatalogTracker
 parameter_list|()
 function_decl|;
 comment|/**    * @return set of recovering regions on the hosting region server    */

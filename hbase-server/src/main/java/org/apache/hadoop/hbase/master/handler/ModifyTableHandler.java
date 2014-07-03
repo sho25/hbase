@@ -181,25 +181,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -685,7 +667,7 @@ decl_stmt|;
 name|Scan
 name|scan
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getScanForTableName
 argument_list|(
@@ -756,7 +738,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|removeRegionReplicasFromMeta
 argument_list|(
@@ -770,7 +752,7 @@ name|newReplicaCount
 argument_list|,
 name|masterServices
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|)
 expr_stmt|;

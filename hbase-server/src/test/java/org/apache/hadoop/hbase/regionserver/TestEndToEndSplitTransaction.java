@@ -1105,11 +1105,6 @@ name|regions
 operator|.
 name|getSecond
 argument_list|()
-argument_list|,
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Add to online regions
@@ -1162,11 +1157,6 @@ argument_list|(
 name|regions
 operator|.
 name|getFirst
-argument_list|()
-argument_list|,
-name|server
-operator|.
-name|getCatalogTracker
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2011,7 +2001,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checks regions using MetaScanner, MetaReader and HTable methods    */
+comment|/**    * Checks regions using MetaScanner, MetaTableAccessor and HTable methods    */
 specifier|static
 class|class
 name|RegionChecker

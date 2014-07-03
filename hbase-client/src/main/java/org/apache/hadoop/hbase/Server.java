@@ -53,9 +53,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|CatalogTracker
+name|HConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|MetaTableLocator
 import|;
 end_import
 
@@ -102,9 +118,14 @@ name|ZooKeeperWatcher
 name|getZooKeeper
 parameter_list|()
 function_decl|;
-comment|/**    * @return Master's instance of {@link CatalogTracker}    */
-name|CatalogTracker
-name|getCatalogTracker
+comment|/**    * Returns reference to wrapped short-circuit (i.e. local, bypassing RPC layer entirely)    * HConnection to this server, which may be used for miscellaneous needs.    *    * Important note: this method returns reference to connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    *    * See {@link org.apache.hadoop.hbase.client.ConnectionUtils#createShortCircuitHConnection}    * for details on short-circuit connections.    */
+name|HConnection
+name|getShortCircuitConnection
+parameter_list|()
+function_decl|;
+comment|/**    * Returns instance of {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}    * running inside this server. This MetaServerLocator is started and stopped by server, clients    * shouldn't manage it's lifecycle.    * @return instance of {@link MetaTableLocator} associated with this server.    */
+name|MetaTableLocator
+name|getMetaTableLocator
 parameter_list|()
 function_decl|;
 comment|/**    * @return The unique server name for this server.    */

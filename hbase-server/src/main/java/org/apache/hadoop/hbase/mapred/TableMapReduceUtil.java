@@ -107,9 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1012,7 +1010,7 @@ expr_stmt|;
 name|int
 name|regions
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(
@@ -1333,7 +1331,7 @@ block|{
 name|int
 name|regions
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(
@@ -1382,7 +1380,7 @@ block|{
 name|int
 name|regions
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(
@@ -1432,7 +1430,7 @@ name|job
 operator|.
 name|setNumReduceTasks
 argument_list|(
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(
@@ -1467,7 +1465,7 @@ name|job
 operator|.
 name|setNumMapTasks
 argument_list|(
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionCount
 argument_list|(

@@ -673,9 +673,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1217,7 +1215,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MetaRegionTracker
+name|MetaTableLocator
 import|;
 end_import
 
@@ -5993,7 +5991,7 @@ comment|// hi.metaEntry;
 name|Put
 name|p
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(
@@ -7827,7 +7825,9 @@ try|try
 block|{
 name|sn
 operator|=
-name|MetaRegionTracker
+operator|new
+name|MetaTableLocator
+argument_list|()
 operator|.
 name|getMetaRegionLocation
 argument_list|(
@@ -8374,7 +8374,7 @@ expr_stmt|;
 name|Put
 name|p
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(

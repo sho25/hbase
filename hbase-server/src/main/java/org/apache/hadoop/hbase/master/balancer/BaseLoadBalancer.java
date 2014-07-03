@@ -6509,7 +6509,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Subclasses should implement this to return true if the cluster has nodes that hosts    * multiple replicas for the same region, or, if there are multiple racks and the same    * rack hosts replicas of the same region    * @param c    * @return whether region replicas are currently co-located    */
+comment|/**    * Subclasses should implement this to return true if the cluster has nodes that hosts    * multiple replicas for the same region, or, if there are multiple racks and the same    * rack hosts replicas of the same region    * @param c Cluster information    * @return whether region replicas are currently co-located    */
 specifier|protected
 name|boolean
 name|areSomeRegionReplicasColocated

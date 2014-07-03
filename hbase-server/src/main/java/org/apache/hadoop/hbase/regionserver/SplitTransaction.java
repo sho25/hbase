@@ -269,9 +269,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -285,9 +283,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|MetaEditor
+name|HConnection
 import|;
 end_import
 
@@ -1221,13 +1219,13 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|splitRegion
 argument_list|(
 name|server
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|parent
@@ -1264,7 +1262,7 @@ name|offlineParentInMetaAndputMetaEntries
 argument_list|(
 name|server
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|parent
@@ -2001,11 +1999,6 @@ operator|.
 name|postOpenDeployTasks
 argument_list|(
 name|b
-argument_list|,
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2066,11 +2059,6 @@ operator|.
 name|postOpenDeployTasks
 argument_list|(
 name|a
-argument_list|,
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2330,8 +2318,8 @@ specifier|private
 name|void
 name|offlineParentInMetaAndputMetaEntries
 parameter_list|(
-name|CatalogTracker
-name|catalogTracker
+name|HConnection
+name|hConnection
 parameter_list|,
 name|HRegionInfo
 name|parent
@@ -2389,14 +2377,14 @@ comment|//Put for parent
 name|Put
 name|putParent
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|copyOfParent
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addDaughtersToPut
 argument_list|(
@@ -2418,7 +2406,7 @@ comment|//Puts for daughters
 name|Put
 name|putA
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(
@@ -2428,7 +2416,7 @@ decl_stmt|;
 name|Put
 name|putB
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(
@@ -2468,11 +2456,11 @@ argument_list|(
 name|putB
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|mutateMetaTable
 argument_list|(
-name|catalogTracker
+name|hConnection
 argument_list|,
 name|mutations
 argument_list|)

@@ -239,9 +239,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -687,7 +685,7 @@ decl_stmt|;
 name|Put
 name|put
 init|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(

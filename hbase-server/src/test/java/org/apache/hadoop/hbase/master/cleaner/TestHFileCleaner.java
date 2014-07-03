@@ -243,9 +243,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|CatalogTracker
+name|HConnection
 import|;
 end_import
 
@@ -278,6 +278,22 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|MetaTableLocator
 import|;
 end_import
 
@@ -1341,8 +1357,19 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CatalogTracker
-name|getCatalogTracker
+name|HConnection
+name|getShortCircuitConnection
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MetaTableLocator
+name|getMetaTableLocator
 parameter_list|()
 block|{
 return|return

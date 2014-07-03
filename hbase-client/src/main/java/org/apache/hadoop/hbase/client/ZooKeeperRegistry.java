@@ -147,7 +147,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MetaRegionTracker
+name|MetaTableLocator
 import|;
 end_import
 
@@ -325,7 +325,9 @@ block|}
 name|ServerName
 name|servername
 init|=
-name|MetaRegionTracker
+operator|new
+name|MetaTableLocator
+argument_list|()
 operator|.
 name|blockUntilAvailable
 argument_list|(

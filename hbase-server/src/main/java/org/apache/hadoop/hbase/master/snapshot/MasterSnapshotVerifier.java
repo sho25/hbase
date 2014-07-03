@@ -209,9 +209,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|MetaReader
+name|RegionReplicaUtil
 import|;
 end_import
 
@@ -225,9 +225,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|RegionReplicaUtil
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -686,7 +684,7 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getTableRegions
 argument_list|(
@@ -694,7 +692,14 @@ name|this
 operator|.
 name|services
 operator|.
-name|getCatalogTracker
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|services
+operator|.
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|tableName

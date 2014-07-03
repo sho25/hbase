@@ -323,9 +323,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -3286,13 +3284,13 @@ expr_stmt|;
 comment|// Execute the restore/clone operation
 if|if
 condition|(
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
 name|master
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|tableName

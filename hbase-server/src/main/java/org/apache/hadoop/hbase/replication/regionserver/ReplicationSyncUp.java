@@ -183,9 +183,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -199,7 +197,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
+name|client
+operator|.
+name|HConnection
 import|;
 end_import
 
@@ -216,6 +216,22 @@ operator|.
 name|util
 operator|.
 name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|MetaTableLocator
 import|;
 end_import
 
@@ -695,8 +711,19 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CatalogTracker
-name|getCatalogTracker
+name|HConnection
+name|getShortCircuitConnection
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MetaTableLocator
+name|getMetaTableLocator
 parameter_list|()
 block|{
 return|return

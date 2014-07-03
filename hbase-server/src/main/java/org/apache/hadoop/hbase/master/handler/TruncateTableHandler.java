@@ -175,9 +175,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -732,13 +730,13 @@ argument_list|)
 throw|;
 block|}
 comment|// 4. Add regions to META
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionsToMeta
 argument_list|(
 name|masterServices
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|regionInfos

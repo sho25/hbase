@@ -667,25 +667,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1763,7 +1745,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MetaRegionTracker
+name|MetaTableLocator
 import|;
 end_import
 
@@ -2074,10 +2056,15 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
-comment|// catalog tracker
+comment|/*    * Short-circuit (ie. bypassing RPC layer) HConnection to this Server    * to be used internally for miscellaneous needs. Initialized at the server startup    * and closed when server shuts down. Clients must never close it explicitly.    */
 specifier|protected
-name|CatalogTracker
-name|catalogTracker
+name|HConnection
+name|shortCircuitConnection
+decl_stmt|;
+comment|/*    * Long-living meta table locator, which is created when the server is started and stopped    * when server shuts down. References to this locator shall be used to perform according    * operations in EventHandlers. Primary reason for this decision is to make it mockable    * for tests.    */
+specifier|protected
+name|MetaTableLocator
+name|metaTableLocator
 decl_stmt|;
 comment|// Watch if a region is out of recovering state from ZooKeeper
 annotation|@
@@ -3168,17 +3155,15 @@ name|void
 name|doMetrics
 parameter_list|()
 block|{   }
-comment|/**    * Create CatalogTracker.    * In its own method so can intercept and mock it over in tests.    * @throws IOException    */
+comment|/**    * Create wrapped short-circuit connection to this server.    * In its own method so can intercept and mock it over in tests.    * @throws IOException    */
 specifier|protected
-name|CatalogTracker
-name|createCatalogTracker
+name|HConnection
+name|createShortCircuitConnection
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HConnection
-name|conn
-init|=
+return|return
 name|ConnectionUtils
 operator|.
 name|createShortCircuitHConnection
@@ -3195,19 +3180,6 @@ argument_list|,
 name|rpcServices
 argument_list|,
 name|rpcServices
-argument_list|)
-decl_stmt|;
-return|return
-operator|new
-name|CatalogTracker
-argument_list|(
-name|zooKeeper
-argument_list|,
-name|conf
-argument_list|,
-name|conn
-argument_list|,
-name|this
 argument_list|)
 return|;
 block|}
@@ -3332,7 +3304,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Bring up connection to zk ensemble and then wait until a master for this    * cluster and then after that, wait until cluster 'up' flag has been set.    * This is the order in which master does things.    * Finally put up a catalog tracker.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Bring up connection to zk ensemble and then wait until a master for this    * cluster and then after that, wait until cluster 'up' flag has been set.    * This is the order in which master does things.    * Finally open long-living server short-circuit connection.    * @throws IOException    * @throws InterruptedException    */
 specifier|private
 name|void
 name|initializeZooKeeper
@@ -3439,8 +3411,15 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Now we have the cluster ID, start catalog tracker
-name|startCatalogTracker
+name|shortCircuitConnection
+operator|=
+name|createShortCircuitConnection
+argument_list|()
+expr_stmt|;
+name|metaTableLocator
+operator|=
+operator|new
+name|MetaTableLocator
 argument_list|()
 expr_stmt|;
 comment|// watch for snapshots and other procedures
@@ -3781,36 +3760,6 @@ name|this
 argument_list|,
 name|this
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|/**    * Create and start the catalog tracker if not already done.    */
-specifier|protected
-specifier|synchronized
-name|void
-name|startCatalogTracker
-parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-block|{
-if|if
-condition|(
-name|catalogTracker
-operator|==
-literal|null
-condition|)
-block|{
-name|catalogTracker
-operator|=
-name|createCatalogTracker
-argument_list|()
-expr_stmt|;
-name|catalogTracker
-operator|.
-name|start
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -4506,23 +4455,56 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Interrupt catalog tracker here in case any regions being opened out in
-comment|// handlers are stuck waiting on meta.
-if|if
-condition|(
-name|this
-operator|.
-name|catalogTracker
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|catalogTracker
+comment|// so callers waiting for meta without timeout can stop
+name|metaTableLocator
 operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|shortCircuitConnection
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|shortCircuitConnection
+operator|.
+name|isClosed
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|shortCircuitConnection
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// Although the {@link Closeable} interface throws an {@link
+comment|// IOException}, in reality, the implementation would never do that.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Attempt to close server's short circuit HConnection failed."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Closing the compactSplit thread before closing meta regions
 if|if
 condition|(
@@ -8471,14 +8453,27 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CatalogTracker
-name|getCatalogTracker
+name|HConnection
+name|getShortCircuitConnection
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|catalogTracker
+name|shortCircuitConnection
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|MetaTableLocator
+name|getMetaTableLocator
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metaTableLocator
 return|;
 block|}
 annotation|@
@@ -8593,10 +8588,6 @@ parameter_list|(
 specifier|final
 name|HRegion
 name|r
-parameter_list|,
-specifier|final
-name|CatalogTracker
-name|ct
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -8716,7 +8707,7 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|MetaRegionTracker
+name|MetaTableLocator
 operator|.
 name|setMetaLocation
 argument_list|(
@@ -8733,11 +8724,11 @@ condition|(
 name|useZKForAssignment
 condition|)
 block|{
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|ct
+name|shortCircuitConnection
 argument_list|,
 name|r
 operator|.

@@ -183,9 +183,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -199,9 +197,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|MetaEditor
+name|HConnection
 import|;
 end_import
 
@@ -698,12 +696,12 @@ operator|.
 name|getMasterFileSystem
 argument_list|()
 decl_stmt|;
-name|CatalogTracker
-name|catalogTracker
+name|HConnection
+name|conn
 init|=
 name|masterServices
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 decl_stmt|;
 name|FileSystem
@@ -884,11 +882,11 @@ name|getRegionsToRemove
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|deleteRegions
 argument_list|(
-name|catalogTracker
+name|conn
 argument_list|,
 name|hrisToRemove
 argument_list|)
@@ -921,11 +919,11 @@ name|getRegionsToAdd
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionsToMeta
 argument_list|(
-name|catalogTracker
+name|conn
 argument_list|,
 name|hris
 argument_list|)
@@ -938,11 +936,11 @@ name|hasRegionsToRestore
 argument_list|()
 condition|)
 block|{
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|overwriteRegions
 argument_list|(
-name|catalogTracker
+name|conn
 argument_list|,
 name|metaChanges
 operator|.
@@ -955,7 +953,12 @@ name|metaChanges
 operator|.
 name|updateMetaParentRegions
 argument_list|(
-name|catalogTracker
+name|this
+operator|.
+name|server
+operator|.
+name|getShortCircuitConnection
+argument_list|()
 argument_list|,
 name|hris
 argument_list|)

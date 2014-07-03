@@ -517,9 +517,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -2048,13 +2046,13 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
 name|master
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|LABELS_TABLE_NAME

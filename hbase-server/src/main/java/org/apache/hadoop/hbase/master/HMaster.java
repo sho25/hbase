@@ -581,9 +581,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|MetaMigrationConvertingToPB
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|MetaReader
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1470,6 +1482,22 @@ operator|.
 name|zookeeper
 operator|.
 name|MasterAddressTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|MetaTableLocator
 import|;
 end_import
 
@@ -2656,10 +2684,6 @@ name|serverManager
 argument_list|,
 name|this
 operator|.
-name|catalogTracker
-argument_list|,
-name|this
-operator|.
 name|balancer
 argument_list|,
 name|this
@@ -2932,8 +2956,15 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Now we have the cluster ID, start catalog tracker
-name|startCatalogTracker
+name|metaTableLocator
+operator|=
+operator|new
+name|MetaTableLocator
+argument_list|()
+expr_stmt|;
+name|shortCircuitConnection
+operator|=
+name|createShortCircuitConnection
 argument_list|()
 expr_stmt|;
 comment|// Invalidate all write locks held previously
@@ -3083,12 +3114,15 @@ comment|// log splitting for hbase:meta server
 name|ServerName
 name|oldMetaServerLocation
 init|=
+name|metaTableLocator
+operator|.
+name|getMetaRegionLocation
+argument_list|(
 name|this
 operator|.
-name|catalogTracker
-operator|.
-name|getMetaLocation
+name|getZooKeeper
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -3258,16 +3292,6 @@ block|}
 comment|// Update meta with new PB serialization if required. i.e migrate all HRI to PB serialization
 comment|// in meta. This must happen before we assign all user regions or else the assignment will
 comment|// fail.
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
 name|MetaMigrationConvertingToPB
 operator|.
 name|updateMetaIfNecessary
@@ -3628,24 +3652,35 @@ decl_stmt|;
 name|boolean
 name|metaRegionLocation
 init|=
-name|this
-operator|.
-name|catalogTracker
+name|metaTableLocator
 operator|.
 name|verifyMetaRegionLocation
 argument_list|(
+name|this
+operator|.
+name|getShortCircuitConnection
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
 name|timeout
 argument_list|)
 decl_stmt|;
 name|ServerName
 name|currentMetaServer
 init|=
+name|metaTableLocator
+operator|.
+name|getMetaRegionLocation
+argument_list|(
 name|this
 operator|.
-name|catalogTracker
-operator|.
-name|getMetaLocation
+name|getZooKeeper
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -3833,10 +3868,15 @@ name|rit
 operator|+
 literal|", location="
 operator|+
-name|catalogTracker
+name|metaTableLocator
 operator|.
-name|getMetaLocation
+name|getMetaRegionLocation
+argument_list|(
+name|this
+operator|.
+name|getZooKeeper
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|status
@@ -4000,12 +4040,15 @@ condition|(
 name|waitForMeta
 condition|)
 block|{
+name|metaTableLocator
+operator|.
+name|waitMetaRegionLocation
+argument_list|(
 name|this
 operator|.
-name|catalogTracker
-operator|.
-name|waitForMeta
+name|getZooKeeper
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Above check waits for general meta availability but this does not
 comment|// guarantee that the transition has completed
@@ -7364,8 +7407,6 @@ name|this
 argument_list|,
 name|tableName
 argument_list|,
-name|catalogTracker
-argument_list|,
 name|assignmentManager
 argument_list|,
 name|tableLockManager
@@ -7448,8 +7489,6 @@ argument_list|(
 name|this
 argument_list|,
 name|tableName
-argument_list|,
-name|catalogTracker
 argument_list|,
 name|assignmentManager
 argument_list|,
@@ -7770,11 +7809,11 @@ block|}
 if|if
 condition|(
 operator|!
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|tableExists
 argument_list|(
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|tableName

@@ -237,9 +237,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1098,13 +1096,13 @@ argument_list|,
 name|metaEntries
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|mutateMetaTable
 argument_list|(
 name|rs
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|metaEntries

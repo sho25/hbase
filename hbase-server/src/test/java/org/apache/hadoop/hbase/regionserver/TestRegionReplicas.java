@@ -223,9 +223,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|TestMetaReaderEditor
+name|TestMetaTableAccessor
 import|;
 end_import
 
@@ -1222,7 +1220,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|TestMetaReaderEditor
+name|TestMetaTableAccessor
 operator|.
 name|assertMetaLocation
 argument_list|(

@@ -135,9 +135,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -833,19 +831,16 @@ argument_list|(
 literal|"************ TEST3686A"
 argument_list|)
 expr_stmt|;
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|fullScanMetaAndPrint
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseCluster
+name|getHBaseAdmin
 argument_list|()
 operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getCatalogTracker
+name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;

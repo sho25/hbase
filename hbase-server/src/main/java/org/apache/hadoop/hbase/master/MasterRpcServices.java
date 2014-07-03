@@ -269,9 +269,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -7217,13 +7215,13 @@ name|ServerName
 argument_list|>
 name|pair
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegion
 argument_list|(
 name|master
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|regionName
@@ -7893,13 +7891,13 @@ name|ServerName
 argument_list|>
 name|pair
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegion
 argument_list|(
 name|master
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|regionName

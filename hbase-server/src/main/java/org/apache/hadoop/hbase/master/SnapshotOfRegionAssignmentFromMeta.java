@@ -243,9 +243,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -259,27 +257,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|Visitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnection
 import|;
 end_import
 
@@ -367,8 +363,9 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-name|CatalogTracker
-name|tracker
+specifier|final
+name|HConnection
+name|hConnection
 decl_stmt|;
 comment|/** the table name to region map */
 specifier|private
@@ -442,13 +439,13 @@ decl_stmt|;
 specifier|public
 name|SnapshotOfRegionAssignmentFromMeta
 parameter_list|(
-name|CatalogTracker
-name|tracker
+name|HConnection
+name|hConnection
 parameter_list|)
 block|{
 name|this
 argument_list|(
-name|tracker
+name|hConnection
 argument_list|,
 operator|new
 name|HashSet
@@ -464,8 +461,8 @@ block|}
 specifier|public
 name|SnapshotOfRegionAssignmentFromMeta
 parameter_list|(
-name|CatalogTracker
-name|tracker
+name|HConnection
+name|hConnection
 parameter_list|,
 name|Set
 argument_list|<
@@ -479,9 +476,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|tracker
+name|hConnection
 operator|=
-name|tracker
+name|hConnection
 expr_stmt|;
 name|tableToRegionMap
 operator|=
@@ -569,7 +566,7 @@ operator|+
 literal|"snappshot"
 argument_list|)
 expr_stmt|;
-comment|// TODO: at some point this code could live in the MetaReader
+comment|// TODO: at some point this code could live in the MetaTableAccessor
 name|Visitor
 name|v
 init|=
@@ -608,7 +605,7 @@ return|;
 name|RegionLocations
 name|rl
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionLocations
 argument_list|(
@@ -849,11 +846,11 @@ block|}
 block|}
 decl_stmt|;
 comment|// Scan hbase:meta to pick up user regions
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|fullScan
 argument_list|(
-name|tracker
+name|hConnection
 argument_list|,
 name|v
 argument_list|)

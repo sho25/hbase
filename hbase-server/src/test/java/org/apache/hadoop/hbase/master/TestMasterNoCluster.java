@@ -335,24 +335,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
 name|MetaMockingUtil
 import|;
 end_import
@@ -501,7 +483,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MetaRegionTracker
+name|MetaTableLocator
 import|;
 end_import
 
@@ -1048,7 +1030,7 @@ argument_list|)
 decl_stmt|;
 comment|// Put some data into the servers.  Make it look like sn0 has the metaH
 comment|// Put data into sn2 so it looks like it has a few regions for a table named 't'.
-name|MetaRegionTracker
+name|MetaTableLocator
 operator|.
 name|setMetaLocation
 argument_list|(
@@ -1376,20 +1358,17 @@ return|;
 block|}
 annotation|@
 name|Override
-specifier|protected
-name|CatalogTracker
-name|createCatalogTracker
+specifier|public
+name|HConnection
+name|getShortCircuitConnection
 parameter_list|()
-throws|throws
-name|IOException
 block|{
-comment|// Insert a mock for the connection used by the CatalogTracker.  Any
-comment|// regionserver should do.  Use TESTUTIL.getConfiguration rather than
+comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
 comment|// the conf from the master; the conf will already have an HConnection
 comment|// associate so the below mocking of a connection will fail.
-name|HConnection
-name|connection
-init|=
+try|try
+block|{
+return|return
 name|HConnectionTestingUtility
 operator|.
 name|getMockedConnectionAndDecorate
@@ -1412,22 +1391,18 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
-decl_stmt|;
-return|return
-operator|new
-name|CatalogTracker
-argument_list|(
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|connection
-argument_list|,
-name|this
-argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -1821,20 +1796,17 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
-name|CatalogTracker
-name|createCatalogTracker
+specifier|public
+name|HConnection
+name|getShortCircuitConnection
 parameter_list|()
-throws|throws
-name|IOException
 block|{
-comment|// Insert a mock for the connection used by the CatalogTracker.  Any
-comment|// regionserver should do.  Use TESTUTIL.getConfiguration rather than
+comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
 comment|// the conf from the master; the conf will already have an HConnection
 comment|// associate so the below mocking of a connection will fail.
-name|HConnection
-name|connection
-init|=
+try|try
+block|{
+return|return
 name|HConnectionTestingUtility
 operator|.
 name|getMockedConnectionAndDecorate
@@ -1857,22 +1829,18 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
-decl_stmt|;
-return|return
-operator|new
-name|CatalogTracker
-argument_list|(
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|connection
-argument_list|,
-name|this
-argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 annotation|@
 name|Override

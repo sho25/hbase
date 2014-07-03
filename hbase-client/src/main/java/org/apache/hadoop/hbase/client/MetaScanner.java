@@ -185,6 +185,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RegionLocations
 import|;
 end_import
@@ -241,22 +255,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -288,7 +286,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-comment|//TODO: merge this to MetaReader, get rid of it.
+comment|//TODO: merge this to MetaTableAccessor, get rid of it.
 specifier|public
 class|class
 name|MetaScanner
@@ -997,7 +995,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    * @deprecated Use {@link MetaReader#getRegionLocations(Result)}    */
+comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    * @deprecated Use {@link org.apache.hadoop.hbase.MetaTableAccessor#getRegionLocations(Result)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1089,7 +1087,7 @@ block|}
 name|RegionLocations
 name|locations
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionLocations
 argument_list|(
@@ -1239,7 +1237,7 @@ block|{
 name|RegionLocations
 name|locations
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionLocations
 argument_list|(
@@ -1380,7 +1378,7 @@ block|{
 name|RegionLocations
 name|locations
 init|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getRegionLocations
 argument_list|(

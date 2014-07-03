@@ -377,9 +377,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -1030,7 +1028,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -1319,7 +1317,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -2537,7 +2535,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -2821,7 +2819,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -3093,7 +3091,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -3349,7 +3347,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -3999,7 +3997,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -4324,7 +4322,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -4767,7 +4765,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
@@ -5188,7 +5186,7 @@ literal|"Z"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(

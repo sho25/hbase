@@ -33,16 +33,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|InputStream
 import|;
 end_import
@@ -339,9 +329,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -355,9 +343,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|MetaEditor
+name|HConnection
 import|;
 end_import
 
@@ -542,22 +530,6 @@ operator|.
 name|regionserver
 operator|.
 name|StoreFileInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|snapshot
-operator|.
-name|SnapshotManifest
 import|;
 end_import
 
@@ -1375,7 +1347,7 @@ operator|>
 literal|0
 return|;
 block|}
-comment|/**      * Returns the list of new regions added during the on-disk restore.      * The caller is responsible to add the regions to META.      * e.g MetaEditor.addRegionsToMeta(...)      * @return the list of regions to add to META      */
+comment|/**      * Returns the list of new regions added during the on-disk restore.      * The caller is responsible to add the regions to META.      * e.g MetaTableAccessor.addRegionsToMeta(...)      * @return the list of regions to add to META      */
 specifier|public
 name|List
 argument_list|<
@@ -1451,7 +1423,7 @@ operator|>
 literal|0
 return|;
 block|}
-comment|/**      * Returns the list of regions removed during the on-disk restore.      * The caller is responsible to remove the regions from META.      * e.g. MetaEditor.deleteRegions(...)      * @return the list of regions to remove from META      */
+comment|/**      * Returns the list of regions removed during the on-disk restore.      * The caller is responsible to remove the regions from META.      * e.g. MetaTableAccessor.deleteRegions(...)      * @return the list of regions to remove from META      */
 specifier|public
 name|List
 argument_list|<
@@ -1570,9 +1542,8 @@ specifier|public
 name|void
 name|updateMetaParentRegions
 parameter_list|(
-specifier|final
-name|CatalogTracker
-name|catalogTracker
+name|HConnection
+name|hConnection
 parameter_list|,
 specifier|final
 name|List
@@ -1754,11 +1725,11 @@ operator|+
 name|daughters
 argument_list|)
 expr_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
-name|catalogTracker
+name|hConnection
 argument_list|,
 name|regionInfo
 argument_list|,

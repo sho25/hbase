@@ -191,25 +191,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|catalog
-operator|.
-name|MetaReader
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -823,7 +805,7 @@ return|return;
 block|}
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
-comment|// into the MetaReader operations themselves.
+comment|// into the MetaTableAccessor operations themselves.
 comment|// TODO: Is the reading of hbase:meta necessary when the Master has state of
 comment|// cluster in its head?  It should be possible to do without reading hbase:meta
 comment|// in all but one case. On split, the RS updates the hbase:meta
@@ -857,15 +839,18 @@ condition|)
 block|{
 try|try
 block|{
-name|this
-operator|.
 name|server
 operator|.
-name|getCatalogTracker
+name|getMetaTableLocator
 argument_list|()
 operator|.
-name|waitForMeta
+name|waitMetaRegionLocation
+argument_list|(
+name|server
+operator|.
+name|getZooKeeper
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Skip getting user regions if the server is stopped.
 if|if
@@ -894,7 +879,7 @@ condition|)
 block|{
 name|hris
 operator|=
-name|MetaReader
+name|MetaTableAccessor
 operator|.
 name|getServerUserRegions
 argument_list|(
@@ -902,7 +887,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|,
 name|this
@@ -1312,11 +1297,6 @@ argument_list|(
 name|hri
 argument_list|,
 name|am
-argument_list|,
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -1846,7 +1826,7 @@ name|ex
 argument_list|)
 throw|;
 block|}
-comment|/**    * Process a dead region from a dead RS. Checks if the region is disabled or    * disabling or if the region has a partially completed split.    * @param hri    * @param assignmentManager    * @param catalogTracker    * @return Returns true if specified region should be assigned, false if not.    * @throws IOException    */
+comment|/**    * Process a dead region from a dead RS. Checks if the region is disabled or    * disabling or if the region has a partially completed split.    * @param hri    * @param assignmentManager    * @return Returns true if specified region should be assigned, false if not.    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -1857,9 +1837,6 @@ name|hri
 parameter_list|,
 name|AssignmentManager
 name|assignmentManager
-parameter_list|,
-name|CatalogTracker
-name|catalogTracker
 parameter_list|)
 throws|throws
 name|IOException

@@ -135,9 +135,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaEditor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -387,7 +385,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|MetaRegionTracker
+name|MetaTableLocator
 import|;
 end_import
 
@@ -841,6 +839,13 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
+name|MetaTableLocator
+name|mtl
+init|=
+operator|new
+name|MetaTableLocator
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 literal|true
@@ -849,7 +854,7 @@ block|{
 name|ServerName
 name|sn
 init|=
-name|MetaRegionTracker
+name|mtl
 operator|.
 name|getMetaRegionLocation
 argument_list|(
@@ -1754,14 +1759,15 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
 name|getRS
 argument_list|()
 operator|.
-name|catalogTracker
+name|getShortCircuitConnection
+argument_list|()
 argument_list|,
 name|hri
 argument_list|,

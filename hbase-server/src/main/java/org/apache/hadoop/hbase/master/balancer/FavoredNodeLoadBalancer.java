@@ -422,7 +422,7 @@ name|super
 operator|.
 name|services
 operator|.
-name|getCatalogTracker
+name|getShortCircuitConnection
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -233,9 +233,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -249,9 +247,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
+name|client
 operator|.
-name|MetaEditor
+name|HConnection
 import|;
 end_import
 
@@ -596,7 +594,7 @@ name|Random
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Update meta table with favored nodes info    * @param regionToFavoredNodes    * @param catalogTracker    * @throws IOException    */
+comment|/**    * Update meta table with favored nodes info    * @param regionToFavoredNodes map of HRegionInfo's to their favored nodes    * @param hConnection HConnection to be used    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -613,8 +611,8 @@ argument_list|>
 argument_list|>
 name|regionToFavoredNodes
 parameter_list|,
-name|CatalogTracker
-name|catalogTracker
+name|HConnection
+name|hConnection
 parameter_list|)
 throws|throws
 name|IOException
@@ -685,11 +683,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|putsToMetaTable
 argument_list|(
-name|catalogTracker
+name|hConnection
 argument_list|,
 name|puts
 argument_list|)
@@ -886,7 +884,7 @@ condition|)
 block|{
 name|put
 operator|=
-name|MetaEditor
+name|MetaTableAccessor
 operator|.
 name|makePutFromRegionInfo
 argument_list|(

@@ -209,22 +209,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|coprocessor
@@ -294,7 +278,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link CatalogTracker}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
+comment|/**  * A cluster connection.  Knows how to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move.  You need one  * of these to talk to your HBase cluster. {@link HConnectionManager} manages instances of this  * class.  See it for how to get one of these.  *  *<p>This is NOT a connection to a particular server but to ALL servers in the cluster.  Individual  * connections are managed at a lower level.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, and {@link org.apache.hadoop.hbase.zookeeper.MetaTableLocator}.  * HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  {@link HConnectionManager} does the  * sharing for you if you go by it getting connections.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup discussion.  *  * @see HConnectionManager  */
 end_comment
 
 begin_interface
