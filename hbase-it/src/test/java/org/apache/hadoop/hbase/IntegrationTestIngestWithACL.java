@@ -346,6 +346,15 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.security.access.early_out"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 comment|// conf.set("hbase.superuser", "admin");
 name|super
 operator|.
