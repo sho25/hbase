@@ -99,6 +99,12 @@ name|int
 name|getIvLength
 parameter_list|()
 function_decl|;
+comment|/**    * Get the cipher's internal block size    * @return the cipher's internal block size    */
+specifier|public
+name|int
+name|getBlockSize
+parameter_list|()
+function_decl|;
 comment|/**    * Get the initialization vector    */
 specifier|public
 name|byte

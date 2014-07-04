@@ -323,6 +323,14 @@ specifier|public
 specifier|static
 specifier|final
 name|int
+name|BLOCK_SIZE
+init|=
+literal|16
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
 name|IV_LENGTH
 init|=
 literal|16
