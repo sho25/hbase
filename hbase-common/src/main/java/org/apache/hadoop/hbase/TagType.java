@@ -91,6 +91,17 @@ name|byte
 operator|)
 literal|3
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|VISIBILITY_EXP_SERIALIZATION_TAG_TYPE
+init|=
+operator|(
+name|byte
+operator|)
+literal|4
+decl_stmt|;
 block|}
 end_class
 

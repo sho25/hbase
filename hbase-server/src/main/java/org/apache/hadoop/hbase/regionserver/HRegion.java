@@ -20820,7 +20820,7 @@ argument_list|)
 return|;
 block|}
 comment|/*    * Do a get based on the get parameter.    * @param withCoprocessor invoke coprocessor or not. We don't want to    * always invoke cp for this private method.    */
-specifier|private
+specifier|public
 name|List
 argument_list|<
 name|Cell

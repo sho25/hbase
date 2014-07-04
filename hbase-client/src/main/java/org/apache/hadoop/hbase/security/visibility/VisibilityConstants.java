@@ -143,6 +143,30 @@ index|[
 literal|1
 index|]
 decl_stmt|;
+comment|/**    * Visibility serialization version format. It indicates the visibility labels    * are sorted based on ordinal    **/
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|VISIBILITY_SERIALIZATION_VERSION
+init|=
+literal|1
+decl_stmt|;
+comment|/** Byte representation of the visibility_serialization_version **/
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|SORTED_ORDINAL_SERIALIZATION_FORMAT
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|VISIBILITY_SERIALIZATION_VERSION
+argument_list|)
+decl_stmt|;
 block|}
 end_class
 
