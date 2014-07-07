@@ -330,6 +330,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+operator|!
+name|this
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isReplay
+argument_list|()
+operator|&&
 name|memstoreKVs
 operator|!=
 literal|null
@@ -353,7 +362,7 @@ control|)
 block|{
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|regionSequenceId
 argument_list|)

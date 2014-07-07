@@ -13725,7 +13725,7 @@ block|}
 end_function
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 parameter_list|<
 name|T

@@ -1042,6 +1042,24 @@ name|CLUSTER_ID_DEFAULT
 init|=
 literal|"default-cluster"
 decl_stmt|;
+comment|/** Parameter name for # days to keep MVCC values during a major compaction */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|KEEP_SEQID_PERIOD
+init|=
+literal|"hbase.hstore.compaction.keep.seqId.period"
+decl_stmt|;
+comment|/** At least to keep MVCC values in hfiles for 5 days */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MIN_KEEP_SEQID_PERIOD
+init|=
+literal|5
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.

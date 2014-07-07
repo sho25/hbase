@@ -528,6 +528,18 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|long
+name|getSequenceId
+parameter_list|()
+block|{
+comment|// unused
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|byte
 index|[]
 name|getValueArray

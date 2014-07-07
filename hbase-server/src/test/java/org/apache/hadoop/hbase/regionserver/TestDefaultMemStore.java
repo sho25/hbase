@@ -1694,7 +1694,7 @@ argument_list|)
 decl_stmt|;
 name|kv1
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -1808,7 +1808,7 @@ argument_list|)
 decl_stmt|;
 name|kv2
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2010,7 +2010,7 @@ argument_list|)
 decl_stmt|;
 name|kv11
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2042,7 +2042,7 @@ argument_list|)
 decl_stmt|;
 name|kv12
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2131,7 +2131,7 @@ argument_list|)
 decl_stmt|;
 name|kv21
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2163,7 +2163,7 @@ argument_list|)
 decl_stmt|;
 name|kv22
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2364,7 +2364,7 @@ argument_list|)
 decl_stmt|;
 name|kv11
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2396,7 +2396,7 @@ argument_list|)
 decl_stmt|;
 name|kv12
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2494,7 +2494,7 @@ argument_list|)
 decl_stmt|;
 name|kvDel
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -2810,7 +2810,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|w
 operator|.
@@ -5684,21 +5684,21 @@ argument_list|)
 decl_stmt|;
 name|kv1
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
 name|kv2
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
 name|kv3
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|1
 argument_list|)
@@ -5775,7 +5775,7 @@ argument_list|)
 decl_stmt|;
 name|kv4
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|1
 argument_list|)
@@ -5991,7 +5991,7 @@ argument_list|)
 decl_stmt|;
 name|kv1
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|100
 argument_list|)

@@ -3299,7 +3299,7 @@ condition|)
 block|{
 name|ret
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|currMemstoreTS
 argument_list|)

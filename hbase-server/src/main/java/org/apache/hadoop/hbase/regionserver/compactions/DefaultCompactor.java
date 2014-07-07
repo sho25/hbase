@@ -312,6 +312,11 @@ name|Path
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|boolean
+name|cleanSeqId
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|InternalScanner
@@ -403,6 +408,33 @@ return|;
 block|}
 comment|// Create the writer even if no kv(Empty store file is also ok),
 comment|// because we need record the max seq id for the store file, see HBASE-6059
+if|if
+condition|(
+name|fd
+operator|.
+name|minSeqIdToKeep
+operator|>
+literal|0
+condition|)
+block|{
+name|smallestReadPoint
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|fd
+operator|.
+name|minSeqIdToKeep
+argument_list|,
+name|smallestReadPoint
+argument_list|)
+expr_stmt|;
+name|cleanSeqId
+operator|=
+literal|true
+expr_stmt|;
+block|}
 name|writer
 operator|=
 name|store
@@ -442,6 +474,8 @@ argument_list|,
 name|writer
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|cleanSeqId
 argument_list|)
 decl_stmt|;
 if|if

@@ -409,7 +409,7 @@ argument_list|)
 decl_stmt|;
 name|kvCell
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|cell
 operator|.
@@ -1100,7 +1100,7 @@ argument_list|)
 decl_stmt|;
 name|keyValue
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|mvccVersion
 argument_list|)

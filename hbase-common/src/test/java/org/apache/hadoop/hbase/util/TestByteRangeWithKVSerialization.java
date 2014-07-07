@@ -347,7 +347,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|mvcc
 argument_list|)
@@ -487,7 +487,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|i
 argument_list|)

@@ -1328,7 +1328,7 @@ argument_list|)
 decl_stmt|;
 name|newKv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|kv
 operator|.

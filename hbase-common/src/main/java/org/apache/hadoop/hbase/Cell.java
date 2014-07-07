@@ -124,9 +124,16 @@ name|getTypeByte
 parameter_list|()
 function_decl|;
 comment|//6) MvccVersion
-comment|/**    * Internal use only. A region-specific sequence ID given to each operation. It always exists for    * cells in the memstore but is not retained forever. It may survive several flushes, but    * generally becomes irrelevant after the cell's row is no longer involved in any operations that    * require strict consistency.    * @return mvccVersion (always>= 0 if exists), or 0 if it no longer exists    */
+comment|/**    * @deprecated as of 1.0, use {@link Cell#getSequenceId()}    *     * Internal use only. A region-specific sequence ID given to each operation. It always exists for    * cells in the memstore but is not retained forever. It may survive several flushes, but    * generally becomes irrelevant after the cell's row is no longer involved in any operations that    * require strict consistency.    * @return mvccVersion (always>= 0 if exists), or 0 if it no longer exists    */
+annotation|@
+name|Deprecated
 name|long
 name|getMvccVersion
+parameter_list|()
+function_decl|;
+comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always> 0 if exists), or 0 if it no longer exists    */
+name|long
+name|getSequenceId
 parameter_list|()
 function_decl|;
 comment|//7) Value

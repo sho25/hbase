@@ -971,35 +971,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|// For the optimisation in HBASE-4346, we set the KV's memstoreTS to
-comment|// 0, if it is older than all the scanners' read points. It is possible
-comment|// that a newer KV's memstoreTS was reset to 0. But, there is an
-comment|// older KV which was not reset to 0 (because it was
-comment|// not old enough during flush). Make sure that we set it correctly now,
-comment|// so that the comparision order does not change.
-if|if
-condition|(
-name|cur
-operator|.
-name|getMvccVersion
-argument_list|()
-operator|<=
-name|readPt
-condition|)
-block|{
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|cur
-argument_list|)
-operator|.
-name|setMvccVersion
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 literal|true
 return|;

@@ -7906,7 +7906,7 @@ decl_stmt|;
 comment|// Preserve mvcc data
 name|rewriteKv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|newKv
 operator|.

@@ -446,6 +446,11 @@ operator|.
 name|Algorithm
 name|compactionCompression
 decl_stmt|;
+comment|/** specify how many days to keep MVCC values during major compaction **/
+specifier|protected
+name|int
+name|keepSeqIdPeriod
+decl_stmt|;
 comment|//TODO: depending on Store is not good but, realistically, all compactors currently do.
 name|Compactor
 parameter_list|(
@@ -520,6 +525,34 @@ operator|.
 name|getCompactionCompression
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|keepSeqIdPeriod
+operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|KEEP_SEQID_PERIOD
+argument_list|,
+name|HConstants
+operator|.
+name|MIN_KEEP_SEQID_PERIOD
+argument_list|)
+argument_list|,
+name|HConstants
+operator|.
+name|MIN_KEEP_SEQID_PERIOD
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * TODO: Replace this with CellOutputStream when StoreFile.Writer uses cells.    */
 specifier|public
@@ -590,8 +623,15 @@ name|maxTagsLength
 init|=
 literal|0
 decl_stmt|;
+comment|/** Min SeqId to keep during a major compaction **/
+specifier|public
+name|long
+name|minSeqIdToKeep
+init|=
+literal|0
+decl_stmt|;
 block|}
-comment|/**    * Extracts some details about the files to compact that are commonly needed by compactors.    * @param filesToCompact Files.    * @param calculatePutTs Whether earliest put TS is needed.    * @return The result.    */
+comment|/**    * Extracts some details about the files to compact that are commonly needed by compactors.    * @param filesToCompact Files.    * @param allFiles Whether all files are included for compaction    * @return The result.    */
 specifier|protected
 name|FileDetails
 name|getFileDetails
@@ -603,7 +643,7 @@ argument_list|>
 name|filesToCompact
 parameter_list|,
 name|boolean
-name|calculatePutTs
+name|allFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -615,6 +655,28 @@ operator|new
 name|FileDetails
 argument_list|()
 decl_stmt|;
+name|long
+name|oldestHFileTimeStampToKeepMVCC
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+operator|(
+literal|1000L
+operator|*
+literal|60
+operator|*
+literal|60
+operator|*
+literal|24
+operator|*
+name|this
+operator|.
+name|keepSeqIdPeriod
+operator|)
+decl_stmt|;
 for|for
 control|(
 name|StoreFile
@@ -623,6 +685,45 @@ range|:
 name|filesToCompact
 control|)
 block|{
+if|if
+condition|(
+name|allFiles
+operator|&&
+operator|(
+name|file
+operator|.
+name|getModificationTimeStamp
+argument_list|()
+operator|<
+name|oldestHFileTimeStampToKeepMVCC
+operator|)
+condition|)
+block|{
+comment|// when isAllFiles is true, all files are compacted so we can calculate the smallest
+comment|// MVCC value to keep
+if|if
+condition|(
+name|fd
+operator|.
+name|minSeqIdToKeep
+operator|<
+name|file
+operator|.
+name|getMaxMemstoreTS
+argument_list|()
+condition|)
+block|{
+name|fd
+operator|.
+name|minSeqIdToKeep
+operator|=
+name|file
+operator|.
+name|getMaxMemstoreTS
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 name|long
 name|seqNum
 init|=
@@ -818,7 +919,7 @@ literal|0
 decl_stmt|;
 if|if
 condition|(
-name|calculatePutTs
+name|allFiles
 condition|)
 block|{
 name|tmp
@@ -937,7 +1038,7 @@ operator|+
 name|seqNum
 operator|+
 operator|(
-name|calculatePutTs
+name|allFiles
 condition|?
 literal|", earliestPutTs="
 operator|+
@@ -1107,7 +1208,7 @@ name|request
 argument_list|)
 return|;
 block|}
-comment|/**    * Performs the compaction.    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @return Whether compaction ended; false if it was interrupted for some reason.    */
+comment|/**    * Performs the compaction.    * @param scanner Where to read from.    * @param writer Where to write to.    * @param smallestReadPoint Smallest read point.    * @param cleanSeqId When true, remove seqId(used to be mvcc) value which is<= smallestReadPoint    * @return Whether compaction ended; false if it was interrupted for some reason.    */
 specifier|protected
 name|boolean
 name|performCompaction
@@ -1120,6 +1221,9 @@ name|writer
 parameter_list|,
 name|long
 name|smallestReadPoint
+parameter_list|,
+name|boolean
+name|cleanSeqId
 parameter_list|)
 throws|throws
 name|IOException
@@ -1190,9 +1294,11 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|cleanSeqId
+operator|&&
 name|kv
 operator|.
-name|getMvccVersion
+name|getSequenceId
 argument_list|()
 operator|<=
 name|smallestReadPoint
@@ -1200,7 +1306,7 @@ condition|)
 block|{
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|0
 argument_list|)

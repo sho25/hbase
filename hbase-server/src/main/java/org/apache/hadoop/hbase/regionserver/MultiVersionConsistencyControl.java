@@ -648,6 +648,7 @@ name|long
 name|writeNumber
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|boolean
 name|completed
 init|=

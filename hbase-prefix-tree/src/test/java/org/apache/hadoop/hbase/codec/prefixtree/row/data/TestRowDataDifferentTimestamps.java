@@ -226,7 +226,7 @@ argument_list|)
 decl_stmt|;
 name|kv0
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|123456789L
 argument_list|)
@@ -257,7 +257,7 @@ argument_list|)
 decl_stmt|;
 name|kv1
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|3L
 argument_list|)
@@ -288,7 +288,7 @@ argument_list|)
 decl_stmt|;
 name|kv2
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|65537L
 argument_list|)
@@ -325,7 +325,7 @@ argument_list|)
 decl_stmt|;
 name|kv3
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|1L
 argument_list|)
@@ -381,7 +381,7 @@ argument_list|)
 decl_stmt|;
 name|kv5
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 literal|0L
 argument_list|)

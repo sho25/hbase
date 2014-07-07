@@ -911,32 +911,46 @@ name|getMvccVersion
 parameter_list|()
 block|{
 return|return
-name|mvcc
+name|this
+operator|.
+name|getSequenceId
+argument_list|()
+return|;
+block|}
+comment|/**    * used to achieve atomic operations in the memstore.    */
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSequenceId
+parameter_list|()
+block|{
+return|return
+name|seqId
 return|;
 block|}
 specifier|public
 name|void
-name|setMvccVersion
+name|setSequenceId
 parameter_list|(
 name|long
-name|mvccVersion
+name|seqId
 parameter_list|)
 block|{
 name|this
 operator|.
-name|mvcc
+name|seqId
 operator|=
-name|mvccVersion
+name|seqId
 expr_stmt|;
 block|}
 comment|// multi-version concurrency control version.  default value is 0, aka do not care.
 specifier|private
 name|long
-name|mvcc
+name|seqId
 init|=
 literal|0
 decl_stmt|;
-comment|// this value is not part of a serialized KeyValue (not in HFiles)
 comment|/** Dragon time over, return to normal business */
 comment|/** Writable Constructor -- DO NOT USE */
 specifier|public
@@ -4834,9 +4848,9 @@ comment|// update-in-place methods (eg increment) will end up creating
 comment|// new entries
 name|ret
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
-name|mvcc
+name|seqId
 argument_list|)
 expr_stmt|;
 return|return
@@ -4870,11 +4884,11 @@ argument_list|)
 decl_stmt|;
 name|shallowCopy
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|this
 operator|.
-name|mvcc
+name|seqId
 argument_list|)
 expr_stmt|;
 return|return
@@ -4934,9 +4948,9 @@ operator|+
 name|getValueLength
 argument_list|()
 operator|+
-literal|"/mvcc="
+literal|"/seqid="
 operator|+
-name|mvcc
+name|seqId
 return|;
 block|}
 comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String, empty string if k is null.     */

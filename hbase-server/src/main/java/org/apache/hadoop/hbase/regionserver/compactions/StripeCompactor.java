@@ -699,6 +699,11 @@ name|scanner
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|cleanSeqId
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 comment|// Get scanner to use.
@@ -803,6 +808,33 @@ argument_list|()
 return|;
 block|}
 comment|// Create the writer factory for compactions.
+if|if
+condition|(
+name|fd
+operator|.
+name|minSeqIdToKeep
+operator|>
+literal|0
+condition|)
+block|{
+name|smallestReadPoint
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|fd
+operator|.
+name|minSeqIdToKeep
+argument_list|,
+name|smallestReadPoint
+argument_list|)
+expr_stmt|;
+name|cleanSeqId
+operator|=
+literal|true
+expr_stmt|;
+block|}
 specifier|final
 name|boolean
 name|needMvcc
@@ -913,6 +945,8 @@ argument_list|,
 name|mw
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|cleanSeqId
 argument_list|)
 expr_stmt|;
 if|if

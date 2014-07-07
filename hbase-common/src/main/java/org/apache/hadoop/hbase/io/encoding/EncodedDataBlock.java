@@ -675,7 +675,7 @@ argument_list|)
 decl_stmt|;
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|mvccVersion
 argument_list|)
@@ -1137,7 +1137,7 @@ argument_list|)
 expr_stmt|;
 name|kv
 operator|.
-name|setMvccVersion
+name|setSequenceId
 argument_list|(
 name|memstoreTS
 argument_list|)
