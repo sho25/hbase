@@ -260,7 +260,7 @@ return|return
 name|INSTANCE
 return|;
 block|}
-comment|/**    * @param conf Existing configuration to use in rest servlet    * @param realUser the login user    * @return the RESTServlet singleton instance    * @throws IOException    */
+comment|/**    * @param conf Existing configuration to use in rest servlet    * @param userProvider the login user provider    * @return the RESTServlet singleton instance    * @throws IOException    */
 specifier|public
 specifier|synchronized
 specifier|static
