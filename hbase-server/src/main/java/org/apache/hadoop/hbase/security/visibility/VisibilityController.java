@@ -1611,13 +1611,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|protobuf
+name|hadoop
 operator|.
-name|HBaseZeroCopyByteString
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -9091,7 +9095,7 @@ name|response
 operator|.
 name|addAuth
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(

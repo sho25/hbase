@@ -37,18 +37,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -85,13 +73,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|protobuf
+name|hadoop
 operator|.
-name|HBaseZeroCopyByteString
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -859,7 +851,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -884,7 +876,7 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1179,7 +1171,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1204,7 +1196,7 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1881,7 +1873,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1906,7 +1898,7 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(

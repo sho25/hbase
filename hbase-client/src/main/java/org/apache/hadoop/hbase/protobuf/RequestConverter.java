@@ -39,13 +39,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|protobuf
+name|hadoop
 operator|.
-name|HBaseZeroCopyByteString
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -1689,7 +1693,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1715,7 +1719,7 @@ name|getBuilder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1907,7 +1911,7 @@ name|mutateBuilder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1950,7 +1954,7 @@ name|columnBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1972,7 +1976,7 @@ name|valueBuilder
 operator|.
 name|setValue
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -1989,7 +1993,7 @@ name|valueBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3337,7 +3341,7 @@ name|familyPathBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3683,7 +3687,7 @@ argument_list|()
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -4332,7 +4336,7 @@ name|builder
 operator|.
 name|addFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5047,7 +5051,7 @@ name|builder
 operator|.
 name|setSplitPoint
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5214,7 +5218,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5346,7 +5350,7 @@ name|regionBuilder
 operator|.
 name|setValue
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5414,7 +5418,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5426,7 +5430,7 @@ name|builder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5438,7 +5442,7 @@ name|builder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -5570,7 +5574,7 @@ name|builder
 operator|.
 name|setColumnName
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -6164,7 +6168,7 @@ name|builder
 operator|.
 name|addSplitKeys
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -6559,7 +6563,7 @@ argument_list|()
 operator|.
 name|setRegionName
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -6811,7 +6815,7 @@ name|permissionBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -6831,7 +6835,7 @@ name|permissionBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -7274,7 +7278,7 @@ name|permissionBuilder
 operator|.
 name|setFamily
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -7294,7 +7298,7 @@ name|permissionBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(

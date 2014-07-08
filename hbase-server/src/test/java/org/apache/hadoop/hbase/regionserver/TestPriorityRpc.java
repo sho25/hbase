@@ -59,6 +59,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configuration
@@ -343,18 +359,6 @@ name|ByteString
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tests that verify certain RPCs get a higher QoS.  */
 end_comment
@@ -513,7 +517,7 @@ expr_stmt|;
 name|ByteString
 name|name
 init|=
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -561,7 +565,7 @@ name|getBuilder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(

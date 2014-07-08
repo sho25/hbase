@@ -163,13 +163,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|protobuf
+name|hadoop
 operator|.
-name|HBaseZeroCopyByteString
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -2566,7 +2570,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -2940,7 +2944,7 @@ name|builder
 operator|.
 name|setPerson
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -2952,7 +2956,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3566,7 +3570,7 @@ name|builder
 operator|.
 name|setRow1
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3578,7 +3582,7 @@ name|builder
 operator|.
 name|setRow2
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3800,7 +3804,7 @@ name|builder
 operator|.
 name|setRow
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(

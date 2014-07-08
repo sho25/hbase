@@ -177,13 +177,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|protobuf
+name|hadoop
 operator|.
-name|HBaseZeroCopyByteString
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteStringer
 import|;
 end_import
 
@@ -3192,7 +3196,7 @@ decl_stmt|;
 name|ByteString
 name|row
 init|=
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3599,7 +3603,7 @@ specifier|static
 name|ByteString
 name|CATALOG_FAMILY_BYTESTRING
 init|=
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3614,7 +3618,7 @@ specifier|static
 name|ByteString
 name|REGIONINFO_QUALIFIER_BYTESTRING
 init|=
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3629,7 +3633,7 @@ specifier|static
 name|ByteString
 name|SERVER_QUALIFIER_BYTESTRING
 init|=
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3731,7 +3735,7 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3832,7 +3836,7 @@ name|cellBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
@@ -3847,7 +3851,7 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
