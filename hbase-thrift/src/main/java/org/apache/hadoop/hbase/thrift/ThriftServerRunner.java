@@ -2262,7 +2262,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid hbase.thrift.security.qop: "
+literal|"Invalid "
+operator|+
+name|THRIFT_QOP_KEY
+operator|+
+literal|": "
 operator|+
 name|qop
 operator|+

@@ -597,6 +597,19 @@ name|user
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Get the current thread local effective user    */
+specifier|public
+name|String
+name|getEffectiveUser
+parameter_list|()
+block|{
+return|return
+name|effectiveUserNames
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|/**    * Caller doesn't close the admin afterwards.    * We need to manage it and close it properly.    */
 annotation|@
 name|SuppressWarnings
@@ -632,9 +645,7 @@ name|locker
 operator|.
 name|acquireLock
 argument_list|(
-name|effectiveUserNames
-operator|.
-name|get
+name|getEffectiveUser
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -716,9 +727,7 @@ block|{
 name|String
 name|userName
 init|=
-name|effectiveUserNames
-operator|.
-name|get
+name|getEffectiveUser
 argument_list|()
 decl_stmt|;
 name|ConnectionInfo
