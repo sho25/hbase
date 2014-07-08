@@ -4261,6 +4261,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|movedRegionsCleaner
+operator|!=
+literal|null
+condition|)
+block|{
 name|movedRegionsCleaner
 operator|.
 name|stop
@@ -4268,6 +4275,7 @@ argument_list|(
 literal|"Region Server stopping"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Send interrupts to wake up threads if sleeping so they notice shutdown.
 comment|// TODO: Should we check they are alive? If OOME could have exited already
 if|if
@@ -4382,6 +4390,13 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Stop the snapshot and other procedure handlers, forcefully killing all running tasks
+if|if
+condition|(
+name|rspmHost
+operator|!=
+literal|null
+condition|)
+block|{
 name|rspmHost
 operator|.
 name|stop
@@ -4395,6 +4410,7 @@ operator|.
 name|killed
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -4620,6 +4636,15 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|rpcClient
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|rpcClient
@@ -4627,6 +4652,16 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|leases
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|leases
@@ -4634,6 +4669,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -4661,6 +4697,15 @@ name|stopServiceThreads
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|rpcServices
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|rpcServices
@@ -4668,6 +4713,7 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
 try|try
 block|{
 name|deleteMyEphemeralNode
@@ -4697,6 +4743,15 @@ operator|.
 name|deleteMyEphemeralNodeOnDisk
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|zooKeeper
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|zooKeeper
@@ -4704,6 +4759,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -9333,6 +9389,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|compactionChecker
+operator|!=
+literal|null
+condition|)
+block|{
 name|Threads
 operator|.
 name|shutdown
@@ -9345,6 +9410,16 @@ name|getThread
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|periodicFlusher
+operator|!=
+literal|null
+condition|)
+block|{
 name|Threads
 operator|.
 name|shutdown
@@ -9357,6 +9432,16 @@ name|getThread
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|cacheFlusher
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|cacheFlusher
@@ -9364,6 +9449,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
