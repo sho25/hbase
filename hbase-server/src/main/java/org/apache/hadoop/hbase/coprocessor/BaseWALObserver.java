@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,16 @@ operator|.
 name|coprocessor
 package|;
 end_package
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
 
 begin_import
 import|import
@@ -55,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Coprocessor
+name|CoprocessorEnvironment
 import|;
 end_import
 
@@ -123,21 +133,11 @@ name|WALEdit
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
-comment|/**  * It's provided to have a way for coprocessors to observe, rewrite,  * or skip WALEdits as they are being written to the WAL.  *  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} provides  * hooks for adding logic for WALEdits in the region context during reconstruction,  *  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.wal.HLog}.  */
+comment|/**  * An abstract class that implements WALObserver.  * By extending it, you can create your own WAL observer without  * overriding all abstract methods of WALObserver.  */
 end_comment
 
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -152,13 +152,38 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
-interface|interface
+class|class
+name|BaseWALObserver
+implements|implements
 name|WALObserver
-extends|extends
-name|Coprocessor
 block|{
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @return true if default behavior should be bypassed, false otherwise    * @throws IOException    */
-comment|// TODO: return value is not used
+annotation|@
+name|Override
+specifier|public
+name|void
+name|start
+parameter_list|(
+name|CoprocessorEnvironment
+name|e
+parameter_list|)
+throws|throws
+name|IOException
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|CoprocessorEnvironment
+name|e
+parameter_list|)
+throws|throws
+name|IOException
+block|{ }
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|preWALWrite
 parameter_list|(
@@ -179,8 +204,14 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+block|{
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|void
 name|postWALWrite
 parameter_list|(
@@ -201,9 +232,9 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{ }
 block|}
-end_interface
+end_class
 
 end_unit
 
