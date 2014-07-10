@@ -944,11 +944,19 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"For performance consider the following general options:\n"
+literal|"For performance consider the following general option:\n"
 operator|+
-literal|"-Dhbase.client.scanner.caching=100\n"
+literal|"  It is recommended that you set the following to>=100. A higher value uses more memory but\n"
 operator|+
-literal|"-Dmapreduce.map.speculative=false"
+literal|"  decreases the round trip time to the server and may increase performance.\n"
+operator|+
+literal|"    -Dhbase.client.scanner.caching=100\n"
+operator|+
+literal|"  The following should always be set to false, to prevent writing data twice, which may produce \n"
+operator|+
+literal|"  inaccurate results.\n"
+operator|+
+literal|"    -Dmapreduce.map.speculative=false"
 argument_list|)
 expr_stmt|;
 block|}
