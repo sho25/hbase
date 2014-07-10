@@ -1254,6 +1254,8 @@ name|WALEdit
 operator|.
 name|createCompaction
 argument_list|(
+name|info
+argument_list|,
 name|c
 argument_list|)
 argument_list|,
