@@ -81,7 +81,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|client
+operator|.
+name|Durability
 import|;
 end_import
 
@@ -97,7 +99,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Durability
+name|Mutation
 import|;
 end_import
 
@@ -181,7 +183,7 @@ name|region
 parameter_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|Mutation
 argument_list|>
 name|mutations
 parameter_list|,
@@ -204,7 +206,30 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The hook to be executed after process().    *    * @param region the HRegion    * @param walEdit the output WAL edits to apply to write ahead log    */
+comment|/**    * The hook to be executed after the process() but before applying the Mutations to region. Also    * by the time this hook is been called, mvcc transaction is started.    * @param region    * @param walEdit the output WAL edits to apply to write ahead log    * @throws IOException    */
+name|void
+name|preBatchMutate
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|WALEdit
+name|walEdit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * The hook to be executed after the process() and applying the Mutations to region. The    * difference of this one with {@link #postProcess(HRegion, WALEdit, boolean)} is this hook will    * be executed before the mvcc transaction completion.    * @param region    * @throws IOException    */
+name|void
+name|postBatchMutate
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * The hook to be executed after process() and applying the Mutations to region.    *    * @param region the HRegion    * @param walEdit the output WAL edits to apply to write ahead log    * @param success true if batch operation is successful otherwise false.    */
 name|void
 name|postProcess
 parameter_list|(
@@ -213,6 +238,9 @@ name|region
 parameter_list|,
 name|WALEdit
 name|walEdit
+parameter_list|,
+name|boolean
+name|success
 parameter_list|)
 throws|throws
 name|IOException

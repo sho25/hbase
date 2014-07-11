@@ -148,6 +148,33 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|preBatchMutate
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|WALEdit
+name|walEdit
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postBatchMutate
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
 name|postProcess
 parameter_list|(
 name|HRegion
@@ -155,6 +182,9 @@ name|region
 parameter_list|,
 name|WALEdit
 name|walEdit
+parameter_list|,
+name|boolean
+name|success
 parameter_list|)
 throws|throws
 name|IOException

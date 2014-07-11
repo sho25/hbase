@@ -685,6 +685,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HDFSBlocksDistribution
 import|;
 end_import
@@ -21394,6 +21408,8 @@ argument_list|(
 name|this
 argument_list|,
 name|walEdit
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -21443,14 +21459,14 @@ literal|0
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|Mutation
 argument_list|>
 name|mutations
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|Mutation
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -21547,6 +21563,7 @@ name|locked
 operator|=
 literal|true
 expr_stmt|;
+comment|// Get a mvcc write number
 name|mvccNum
 operator|=
 name|MultiVersionConsistencyControl
@@ -21594,7 +21611,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// 5. Get a mvcc write number
+comment|// 5. Start mvcc transaction
 name|writeEntry
 operator|=
 name|mvcc
@@ -21604,15 +21621,55 @@ argument_list|(
 name|mvccNum
 argument_list|)
 expr_stmt|;
-comment|// 6. Apply to memstore
+comment|// 6. Call the preBatchMutate hook
+name|processor
+operator|.
+name|preBatchMutate
+argument_list|(
+name|this
+argument_list|,
+name|walEdit
+argument_list|)
+expr_stmt|;
+comment|// 7. Apply to memstore
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Mutation
+name|m
 range|:
 name|mutations
 control|)
 block|{
+for|for
+control|(
+name|CellScanner
+name|cellScanner
+init|=
+name|m
+operator|.
+name|cellScanner
+argument_list|()
+init|;
+name|cellScanner
+operator|.
+name|advance
+argument_list|()
+condition|;
+control|)
+block|{
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|cellScanner
+operator|.
+name|current
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|kv
 operator|.
 name|setSequenceId
@@ -21685,12 +21742,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|long
 name|txid
 init|=
 literal|0
 decl_stmt|;
-comment|// 7. Append no sync
+comment|// 8. Append no sync
 if|if
 condition|(
 operator|!
@@ -21789,7 +21847,7 @@ name|memstoreCells
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 8. Release region lock
+comment|// 9. Release region lock
 if|if
 condition|(
 name|locked
@@ -21810,13 +21868,13 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|// 9. Release row lock(s)
+comment|// 10. Release row lock(s)
 name|releaseRowLocks
 argument_list|(
 name|acquiredRowLocks
 argument_list|)
 expr_stmt|;
-comment|// 10. Sync edit log
+comment|// 11. Sync edit log
 if|if
 condition|(
 name|txid
@@ -21841,6 +21899,14 @@ block|}
 name|walSyncSuccessful
 operator|=
 literal|true
+expr_stmt|;
+comment|// 12. call postBatchMutate hook
+name|processor
+operator|.
+name|postBatchMutate
+argument_list|(
+name|this
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -21892,12 +21958,42 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Mutation
+name|m
 range|:
 name|mutations
 control|)
 block|{
+for|for
+control|(
+name|CellScanner
+name|cellScanner
+init|=
+name|m
+operator|.
+name|cellScanner
+argument_list|()
+init|;
+name|cellScanner
+operator|.
+name|advance
+argument_list|()
+condition|;
+control|)
+block|{
+name|KeyValue
+name|kv
+init|=
+name|KeyValueUtil
+operator|.
+name|ensureKeyValue
+argument_list|(
+name|cellScanner
+operator|.
+name|current
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|getStore
 argument_list|(
 name|kv
@@ -21910,7 +22006,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// 11. Roll mvcc forward
+block|}
+comment|// 13. Roll mvcc forward
 if|if
 condition|(
 name|writeEntry
@@ -21951,7 +22048,7 @@ name|acquiredRowLocks
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 12. Run post-process hook
+comment|// 14. Run post-process hook
 name|processor
 operator|.
 name|postProcess
@@ -21959,6 +22056,8 @@ argument_list|(
 name|this
 argument_list|,
 name|walEdit
+argument_list|,
+name|walSyncSuccessful
 argument_list|)
 expr_stmt|;
 block|}
@@ -22026,7 +22125,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Mutation
 argument_list|>
 name|mutations
 parameter_list|,
