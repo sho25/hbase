@@ -1663,34 +1663,21 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// evict remaining tasks and futures from taskPool.
+name|futures
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 while|while
 condition|(
-operator|!
-name|futures
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-comment|// block to remove cancelled futures;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Removing cancelled elements from taskPool"
-argument_list|)
-expr_stmt|;
-name|futures
-operator|.
-name|remove
-argument_list|(
 name|taskPool
 operator|.
-name|take
+name|poll
 argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
+operator|!=
+literal|null
+condition|)
+block|{}
 name|stop
 argument_list|()
 expr_stmt|;
