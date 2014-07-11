@@ -11313,6 +11313,10 @@ block|}
 name|int
 name|rows
 init|=
+name|closeScanner
+condition|?
+literal|0
+else|:
 literal|1
 decl_stmt|;
 if|if
