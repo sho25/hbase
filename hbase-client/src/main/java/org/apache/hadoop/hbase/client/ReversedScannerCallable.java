@@ -810,10 +810,18 @@ argument_list|)
 operator|+
 literal|" returns incorrect region "
 operator|+
+operator|(
+name|regionLocation
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
 name|regionLocation
 operator|.
 name|getRegionInfo
 argument_list|()
+operator|)
 argument_list|)
 throw|;
 block|}
