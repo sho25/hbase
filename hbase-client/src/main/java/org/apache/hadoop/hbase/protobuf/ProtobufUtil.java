@@ -1975,18 +1975,6 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|HBaseZeroCopyByteString
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
 name|InvalidProtocolBufferException
 import|;
 end_import
@@ -14669,7 +14657,7 @@ name|builder
 operator|.
 name|setRegionName
 argument_list|(
-name|HBaseZeroCopyByteString
+name|ByteStringer
 operator|.
 name|wrap
 argument_list|(
