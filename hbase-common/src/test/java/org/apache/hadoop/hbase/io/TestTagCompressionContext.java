@@ -286,7 +286,7 @@ argument_list|(
 literal|2
 argument_list|)
 decl_stmt|;
-name|short
+name|int
 name|tagsLength1
 init|=
 name|kv1
@@ -333,7 +333,7 @@ argument_list|(
 literal|3
 argument_list|)
 decl_stmt|;
-name|short
+name|int
 name|tagsLength2
 init|=
 name|kv2
@@ -525,7 +525,7 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-name|short
+name|int
 name|tagsLength1
 init|=
 name|kv1
@@ -560,7 +560,7 @@ argument_list|(
 literal|3
 argument_list|)
 decl_stmt|;
-name|short
+name|int
 name|tagsLength2
 init|=
 name|kv2

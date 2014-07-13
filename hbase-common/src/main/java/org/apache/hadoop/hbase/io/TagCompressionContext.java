@@ -288,7 +288,7 @@ parameter_list|,
 name|int
 name|offset
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|)
 throws|throws
@@ -318,16 +318,20 @@ operator|<
 name|endOffset
 condition|)
 block|{
-name|short
+name|int
 name|tagLen
 init|=
 name|Bytes
 operator|.
-name|toShort
+name|readAsInt
 argument_list|(
 name|in
 argument_list|,
 name|pos
+argument_list|,
+name|Tag
+operator|.
+name|TAG_LENGTH_SIZE
 argument_list|)
 decl_stmt|;
 name|pos
@@ -364,7 +368,7 @@ parameter_list|,
 name|ByteBuffer
 name|in
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|)
 throws|throws
@@ -457,7 +461,7 @@ parameter_list|,
 name|int
 name|offset
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|)
 throws|throws
@@ -497,13 +501,9 @@ operator|.
 name|NOT_IN_DICTIONARY
 condition|)
 block|{
-comment|// We are writing short as tagLen. So can downcast this without any risk.
-name|short
+name|int
 name|tagLen
 init|=
-operator|(
-name|short
-operator|)
 name|StreamUtils
 operator|.
 name|readRawVarint32
@@ -515,7 +515,7 @@ name|offset
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|dest
 argument_list|,
@@ -605,15 +605,12 @@ name|offset
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|dest
 argument_list|,
 name|offset
 argument_list|,
-operator|(
-name|short
-operator|)
 name|entry
 operator|.
 name|length
@@ -696,7 +693,7 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-name|short
+name|int
 name|tagLen
 decl_stmt|;
 if|if
@@ -708,12 +705,8 @@ operator|.
 name|NOT_IN_DICTIONARY
 condition|)
 block|{
-comment|// We are writing short as tagLen. So can downcast this without any risk.
 name|tagLen
 operator|=
-operator|(
-name|short
-operator|)
 name|StreamUtils
 operator|.
 name|readRawVarint32
@@ -725,7 +718,7 @@ name|offset
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|dest
 argument_list|,
@@ -808,9 +801,6 @@ throw|;
 block|}
 name|tagLen
 operator|=
-operator|(
-name|short
-operator|)
 name|entry
 operator|.
 name|length
@@ -819,7 +809,7 @@ name|offset
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|dest
 argument_list|,
@@ -869,7 +859,7 @@ parameter_list|,
 name|ByteBuffer
 name|dest
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|)
 throws|throws
@@ -949,7 +939,7 @@ parameter_list|,
 name|int
 name|offset
 parameter_list|,
-name|short
+name|int
 name|length
 parameter_list|,
 name|OutputStream

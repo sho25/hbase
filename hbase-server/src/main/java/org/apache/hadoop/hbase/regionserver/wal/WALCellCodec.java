@@ -921,7 +921,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// To support tags
-name|short
+name|int
 name|tagsLength
 init|=
 name|kv
@@ -1272,12 +1272,9 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
-name|short
+name|int
 name|tagsLength
 init|=
-operator|(
-name|short
-operator|)
 name|StreamUtils
 operator|.
 name|readRawVarint32
@@ -1532,7 +1529,7 @@ name|pos
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|backingArray
 argument_list|,

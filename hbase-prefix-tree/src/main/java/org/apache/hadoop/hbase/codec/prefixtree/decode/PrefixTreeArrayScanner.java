@@ -1802,9 +1802,6 @@ argument_list|()
 expr_stmt|;
 name|tagsLength
 operator|=
-operator|(
-name|short
-operator|)
 name|tagsReader
 operator|.
 name|getColumnLength

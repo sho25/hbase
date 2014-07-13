@@ -306,7 +306,7 @@ name|isIncludesTags
 argument_list|()
 condition|)
 block|{
-name|short
+name|int
 name|tagsLength
 init|=
 name|kv

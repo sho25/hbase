@@ -1108,7 +1108,7 @@ name|toShort
 argument_list|(
 name|tag
 operator|.
-name|getValue
+name|getBuffer
 argument_list|()
 argument_list|)
 decl_stmt|;

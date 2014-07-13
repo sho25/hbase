@@ -268,7 +268,7 @@ name|int
 name|tagsOffset
 decl_stmt|;
 specifier|protected
-name|short
+name|int
 name|tagsLength
 decl_stmt|;
 comment|/********************** Cell methods ******************/
@@ -677,7 +677,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|short
+name|int
 name|getTagsLength
 parameter_list|()
 block|{

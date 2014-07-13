@@ -595,7 +595,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|short
+name|int
 name|getTagsLength
 parameter_list|()
 block|{

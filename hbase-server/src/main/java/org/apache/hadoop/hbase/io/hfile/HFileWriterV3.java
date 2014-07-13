@@ -518,7 +518,7 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-name|short
+name|int
 name|tagsLength
 init|=
 name|kv
@@ -718,15 +718,12 @@ name|pos
 operator|=
 name|Bytes
 operator|.
-name|putShort
+name|putAsShort
 argument_list|(
 name|b
 argument_list|,
 name|pos
 argument_list|,
-operator|(
-name|short
-operator|)
 name|tag
 operator|.
 name|length
