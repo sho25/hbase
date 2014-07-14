@@ -160,12 +160,12 @@ name|byte
 index|[]
 name|SORTED_ORDINAL_SERIALIZATION_FORMAT
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
+operator|new
+name|byte
+index|[]
+block|{
 name|VISIBILITY_SERIALIZATION_VERSION
-argument_list|)
+block|}
 decl_stmt|;
 block|}
 end_class
