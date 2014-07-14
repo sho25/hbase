@@ -7766,6 +7766,15 @@ operator|!=
 name|VisibilityUtils
 operator|.
 name|VISIBILITY_TAG_TYPE
+operator|&&
+name|tag
+operator|.
+name|getType
+argument_list|()
+operator|!=
+name|VisibilityUtils
+operator|.
+name|VISIBILITY_EXP_SERIALIZATION_TAG_TYPE
 condition|)
 block|{
 name|tags
