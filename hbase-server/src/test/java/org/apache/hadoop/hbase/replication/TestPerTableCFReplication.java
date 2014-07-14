@@ -1250,7 +1250,7 @@ decl_stmt|;
 comment|// 1. null or empty string, result should be null
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1266,7 +1266,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1282,7 +1282,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1299,7 +1299,7 @@ expr_stmt|;
 comment|// 2. single table: "tab1" / "tab2:cf1" / "tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1354,7 +1354,7 @@ expr_stmt|;
 comment|// null cf-list,
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1430,7 +1430,7 @@ expr_stmt|;
 comment|// the only cf is "cf1"
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1521,7 +1521,7 @@ comment|// contains "cf3"
 comment|// 3. multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1665,7 +1665,7 @@ comment|// 4. contiguous or additional ";"(table delimiter) or ","(cf delimiter)
 comment|// still use the example of multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1809,7 +1809,7 @@ comment|// 5. invalid format "tab1:tt:cf1 ; tab2::cf1 ; tab3:cf1,cf3"
 comment|//    "tab1:tt:cf1" and "tab2::cf1" are invalid and will be ignored totally
 name|tabCFsMap
 operator|=
-name|ReplicationPeer
+name|ReplicationPeerZKImpl
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(

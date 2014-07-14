@@ -19,26 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -59,9 +39,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -75,12 +55,16 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
 import|;
 end_import
 
 begin_comment
-comment|/**  * ReplicationPeer manages enabled / disabled state for the peer.  */
+comment|/**  * A Filter for WAL entries before being sent over to replication. Multiple  * filters might be chained together using {@link ChainWALEntryFilter}.  */
 end_comment
 
 begin_interface
@@ -95,60 +79,20 @@ name|REPLICATION
 argument_list|)
 specifier|public
 interface|interface
-name|ReplicationPeer
+name|WALEntryFilter
 block|{
-comment|/**    * State of the peer, whether it is enabled or not    */
-annotation|@
-name|InterfaceAudience
+comment|/**    * Applies the filter, possibly returning a different HLog.Entry instance.    * If null is returned, the entry will be skipped.    * @param entry WAL Entry to filter    * @return a (possibly modified) HLog.Entry to use. Returning null or an entry with    * no cells will cause the entry to be skipped for replication.    */
+specifier|public
+name|HLog
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
+name|Entry
+name|filter
+parameter_list|(
+name|HLog
 operator|.
-name|REPLICATION
-argument_list|)
-enum|enum
-name|PeerState
-block|{
-name|ENABLED
-block|,
-name|DISABLED
-block|}
-comment|/**    * Get the identifier of this peer    * @return string representation of the id    */
-name|String
-name|getId
-parameter_list|()
-function_decl|;
-comment|/**    * Get the peer config object    * @return the ReplicationPeerConfig for this peer    */
-specifier|public
-name|ReplicationPeerConfig
-name|getPeerConfig
-parameter_list|()
-function_decl|;
-comment|/**    * Returns the state of the peer    * @return the enabled state    */
-name|PeerState
-name|getPeerState
-parameter_list|()
-function_decl|;
-comment|/**    * Get the configuration object required to communicate with this peer    * @return configuration object    */
-specifier|public
-name|Configuration
-name|getConfiguration
-parameter_list|()
-function_decl|;
-comment|/**    * Get replicable (table, cf-list) map of this peer    * @return the replicable (table, cf-list) map    */
-specifier|public
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
-name|getTableCFs
-parameter_list|()
+name|Entry
+name|entry
+parameter_list|)
 function_decl|;
 block|}
 end_interface

@@ -239,6 +239,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -467,7 +481,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|REPLICATION
+argument_list|)
 specifier|public
 class|class
 name|HLogKey
@@ -1229,6 +1248,8 @@ name|origLogSeqNum
 return|;
 block|}
 comment|/**    * Wait for sequence number is assigned& return the assigned value    * @return long the new assigned sequence number    * @throws InterruptedException    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getSequenceNumber
@@ -1726,6 +1747,8 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo

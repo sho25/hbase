@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -95,7 +85,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -119,28 +111,15 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param clusterKey the concatenation of the slave cluster's:    *          hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent    */
+comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @param tableCFs the table and column-family list which will be replicated for this peer or null    * for all table and column families    */
 name|void
 name|addPeer
 parameter_list|(
 name|String
 name|peerId
 parameter_list|,
-name|String
-name|clusterKey
-parameter_list|)
-throws|throws
-name|ReplicationException
-function_decl|;
-comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param clusterKey the concatenation of the slave cluster's:    *          hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent    * @param tableCFs the table and column-family list which will be replicated for this peer    */
-name|void
-name|addPeer
-parameter_list|(
-name|String
-name|peerId
-parameter_list|,
-name|String
-name|clusterKey
+name|ReplicationPeerConfig
+name|peerConfig
 parameter_list|,
 name|String
 name|tableCFs
@@ -157,6 +136,22 @@ name|peerId
 parameter_list|)
 throws|throws
 name|ReplicationException
+function_decl|;
+name|boolean
+name|peerAdded
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+name|void
+name|peerRemoved
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
 function_decl|;
 comment|/**    * Restart the replication to the specified remote slave cluster.    * @param peerId a short that identifies the cluster    */
 name|void
@@ -220,9 +215,26 @@ name|String
 name|peerId
 parameter_list|)
 function_decl|;
+comment|/**    * Returns the ReplicationPeer    * @param peerId id for the peer    * @return ReplicationPeer object    */
+name|ReplicationPeer
+name|getPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+function_decl|;
+comment|/**    * Returns the set of peerIds defined    * @return a Set of Strings for peerIds    */
+specifier|public
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getPeerIds
+parameter_list|()
+function_decl|;
 comment|/**    * Get the replication status for the specified connected remote slave cluster.    * The value might be read from cache, so it is recommended to    * use {@link #getStatusOfPeerFromBackingStore(String)}    * if reading the state after enabling or disabling it.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    */
 name|boolean
-name|getStatusOfConnectedPeer
+name|getStatusOfPeer
 parameter_list|(
 name|String
 name|peerId
@@ -238,22 +250,14 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Get a set of all connected remote slave clusters.    * @return set of peer ids    */
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|getConnectedPeers
-parameter_list|()
-function_decl|;
-comment|/**    * List the cluster keys of all remote slave clusters (whether they are enabled/disabled or    * connected/disconnected).    * @return A map of peer ids to peer cluster keys    */
+comment|/**    * List the cluster replication configs of all remote slave clusters (whether they are    * enabled/disabled or connected/disconnected).    * @return A map of peer ids to peer cluster keys    */
 name|Map
 argument_list|<
 name|String
 argument_list|,
-name|String
+name|ReplicationPeerConfig
 argument_list|>
-name|getAllPeerClusterKeys
+name|getAllPeerConfigs
 parameter_list|()
 function_decl|;
 comment|/**    * List the peer ids of all remote slave clusters (whether they are enabled/disabled or    * connected/disconnected).    * @return A list of peer ids    */
@@ -264,9 +268,9 @@ argument_list|>
 name|getAllPeerIds
 parameter_list|()
 function_decl|;
-comment|/**    * Attempt to connect to a new remote slave cluster.    * @param peerId a short that identifies the cluster    * @return true if a new connection was made, false if no new connection was made.    */
-name|boolean
-name|connectToPeer
+comment|/**    * Returns the configured ReplicationPeerConfig for this peerId    * @param peerId a short name that identifies the cluster    * @return ReplicationPeerConfig for the peer    */
+name|ReplicationPeerConfig
+name|getReplicationPeerConfig
 parameter_list|(
 name|String
 name|peerId
@@ -274,43 +278,13 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Disconnect from a remote slave cluster.    * @param peerId a short that identifies the cluster    */
-name|void
-name|disconnectFromPeer
-parameter_list|(
-name|String
-name|peerId
-parameter_list|)
-function_decl|;
-comment|/**    * Returns all region servers from given connected remote slave cluster.    * @param peerId a short that identifies the cluster    * @return addresses of all region servers in the peer cluster. Returns an empty list if the peer    *         cluster is unavailable or there are no region servers in the cluster.    */
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|getRegionServersOfConnectedPeer
-parameter_list|(
-name|String
-name|peerId
-parameter_list|)
-function_decl|;
-comment|/**    * Get the timestamp of the last change in composition of a given peer cluster.    * @param peerId identifier of the peer cluster for which the timestamp is requested    * @return the timestamp (in milliseconds) of the last change to the composition of    *         the peer cluster    */
-name|long
-name|getTimestampOfLastChangeToPeer
-parameter_list|(
-name|String
-name|peerId
-parameter_list|)
-function_decl|;
-comment|/**    * Returns the UUID of the provided peer id.    * @param peerId the peer's ID that will be converted into a UUID    * @return a UUID or null if the peer cluster does not exist or is not connected.    */
-name|UUID
-name|getPeerUUID
-parameter_list|(
-name|String
-name|peerId
-parameter_list|)
-function_decl|;
 comment|/**    * Returns the configuration needed to talk to the remote slave cluster.    * @param peerId a short that identifies the cluster    * @return the configuration for the peer cluster, null if it was unable to get the configuration    */
+name|Pair
+argument_list|<
+name|ReplicationPeerConfig
+argument_list|,
 name|Configuration
+argument_list|>
 name|getPeerConf
 parameter_list|(
 name|String

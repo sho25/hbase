@@ -173,7 +173,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationPeers
+name|HBaseReplicationEndpoint
 import|;
 end_import
 
@@ -257,8 +257,8 @@ name|peerClusterId
 decl_stmt|;
 specifier|private
 specifier|final
-name|ReplicationPeers
-name|replicationPeers
+name|HBaseReplicationEndpoint
+name|endpoint
 decl_stmt|;
 comment|// Count of "bad replication sink" reports per peer sink
 specifier|private
@@ -307,7 +307,7 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
-comment|/**    * Instantiate for a single replication peer cluster.    * @param conn connection to the peer cluster    * @param peerClusterId identifier of the peer cluster    * @param replicationPeers manages peer clusters being replicated to    * @param conf HBase configuration, used for determining replication source ratio and bad peer    *          threshold    */
+comment|/**    * Instantiate for a single replication peer cluster.    * @param conn connection to the peer cluster    * @param peerClusterId identifier of the peer cluster    * @param endpoint replication endpoint for inter cluster replication    * @param conf HBase configuration, used for determining replication source ratio and bad peer    *          threshold    */
 specifier|public
 name|ReplicationSinkManager
 parameter_list|(
@@ -317,8 +317,8 @@ parameter_list|,
 name|String
 name|peerClusterId
 parameter_list|,
-name|ReplicationPeers
-name|replicationPeers
+name|HBaseReplicationEndpoint
+name|endpoint
 parameter_list|,
 name|Configuration
 name|conf
@@ -338,9 +338,9 @@ name|peerClusterId
 expr_stmt|;
 name|this
 operator|.
-name|replicationPeers
+name|endpoint
 operator|=
-name|replicationPeers
+name|endpoint
 expr_stmt|;
 name|this
 operator|.
@@ -396,12 +396,10 @@ name|IOException
 block|{
 if|if
 condition|(
-name|replicationPeers
+name|endpoint
 operator|.
-name|getTimestampOfLastChangeToPeer
-argument_list|(
-name|peerClusterId
-argument_list|)
+name|getLastRegionServerUpdate
+argument_list|()
 operator|>
 name|this
 operator|.
@@ -557,12 +555,10 @@ name|ServerName
 argument_list|>
 name|slaveAddresses
 init|=
-name|replicationPeers
+name|endpoint
 operator|.
-name|getRegionServersOfConnectedPeer
-argument_list|(
-name|peerClusterId
-argument_list|)
+name|getRegionServers
+argument_list|()
 decl_stmt|;
 name|Collections
 operator|.
