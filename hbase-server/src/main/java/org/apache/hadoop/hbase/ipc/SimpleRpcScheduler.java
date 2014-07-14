@@ -168,7 +168,7 @@ name|Evolving
 specifier|public
 class|class
 name|SimpleRpcScheduler
-implements|implements
+extends|extends
 name|RpcScheduler
 block|{
 specifier|public

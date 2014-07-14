@@ -115,7 +115,7 @@ begin_class
 specifier|public
 class|class
 name|FifoRpcScheduler
-implements|implements
+extends|extends
 name|RpcScheduler
 block|{
 specifier|private

@@ -48,7 +48,7 @@ operator|.
 name|Private
 class|class
 name|RpcSchedulerContext
-implements|implements
+extends|extends
 name|RpcScheduler
 operator|.
 name|Context

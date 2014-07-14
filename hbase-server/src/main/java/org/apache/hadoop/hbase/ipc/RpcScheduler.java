@@ -83,7 +83,7 @@ begin_comment
 comment|/**  * An interface for RPC request scheduling algorithm.  */
 end_comment
 
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -104,19 +104,26 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
-interface|interface
+specifier|abstract
+class|class
 name|RpcScheduler
 block|{
 comment|/** Exposes runtime information of a {@code RpcServer} that a {@code RpcScheduler} may need. */
-interface|interface
+specifier|static
+specifier|abstract
+class|class
 name|Context
 block|{
+specifier|public
+specifier|abstract
 name|InetSocketAddress
 name|getListenerAddress
 parameter_list|()
 function_decl|;
 block|}
 comment|/**    * Does some quick initialization. Heavy tasks (e.g. starting threads) should be    * done in {@link #start()}. This method is called before {@code start}.    *    * @param context provides methods to retrieve runtime information from    */
+specifier|public
+specifier|abstract
 name|void
 name|init
 parameter_list|(
@@ -125,16 +132,22 @@ name|context
 parameter_list|)
 function_decl|;
 comment|/**    * Prepares for request serving. An implementation may start some handler threads here.    */
+specifier|public
+specifier|abstract
 name|void
 name|start
 parameter_list|()
 function_decl|;
 comment|/** Stops serving new requests. */
+specifier|public
+specifier|abstract
 name|void
 name|stop
 parameter_list|()
 function_decl|;
 comment|/**    * Dispatches an RPC request asynchronously. An implementation is free to choose to process the    * request immediately or delay it for later processing.    *    * @param task the request to be dispatched    */
+specifier|public
+specifier|abstract
 name|void
 name|dispatch
 parameter_list|(
@@ -147,27 +160,35 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/** Retrieves length of the general queue for metrics. */
+specifier|public
+specifier|abstract
 name|int
 name|getGeneralQueueLength
 parameter_list|()
 function_decl|;
 comment|/** Retrieves length of the priority queue for metrics. */
+specifier|public
+specifier|abstract
 name|int
 name|getPriorityQueueLength
 parameter_list|()
 function_decl|;
 comment|/** Retrieves length of the replication queue for metrics. */
+specifier|public
+specifier|abstract
 name|int
 name|getReplicationQueueLength
 parameter_list|()
 function_decl|;
 comment|/** Retrieves the number of active handler. */
+specifier|public
+specifier|abstract
 name|int
 name|getActiveRpcHandlerCount
 parameter_list|()
 function_decl|;
 block|}
-end_interface
+end_class
 
 end_unit
 
