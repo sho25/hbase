@@ -94,6 +94,19 @@ operator|.
 name|expression
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|expression
+return|;
+block|}
 block|}
 end_class
 
