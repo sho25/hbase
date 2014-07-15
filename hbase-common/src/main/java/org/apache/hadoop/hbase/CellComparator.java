@@ -2095,6 +2095,37 @@ return|return
 literal|0
 return|;
 block|}
+comment|/**    * Counter part for the KeyValue.RowOnlyComparator    */
+specifier|public
+specifier|static
+class|class
+name|RowComparator
+extends|extends
+name|CellComparator
+block|{
+annotation|@
+name|Override
+specifier|public
+name|int
+name|compare
+parameter_list|(
+name|Cell
+name|a
+parameter_list|,
+name|Cell
+name|b
+parameter_list|)
+block|{
+return|return
+name|compareRows
+argument_list|(
+name|a
+argument_list|,
+name|b
+argument_list|)
+return|;
+block|}
+block|}
 block|}
 end_class
 

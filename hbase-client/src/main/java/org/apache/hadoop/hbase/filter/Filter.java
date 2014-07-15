@@ -295,7 +295,7 @@ name|getNextCellHint
 parameter_list|(
 specifier|final
 name|Cell
-name|currentKV
+name|currentCell
 parameter_list|)
 throws|throws
 name|IOException

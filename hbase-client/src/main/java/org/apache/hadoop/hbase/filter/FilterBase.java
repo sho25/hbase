@@ -69,20 +69,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -295,23 +281,13 @@ name|Cell
 name|getNextCellHint
 parameter_list|(
 name|Cell
-name|currentKV
+name|currentCell
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Old filters based off of this class will override KeyValue getNextKeyHint(KeyValue).
-comment|// Thus to maintain compatibility we need to call the old version.
 return|return
-name|getNextKeyHint
-argument_list|(
-name|KeyValueUtil
-operator|.
-name|ensureKeyValue
-argument_list|(
-name|currentKV
-argument_list|)
-argument_list|)
+literal|null
 return|;
 block|}
 comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * @inheritDoc    */

@@ -133,24 +133,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
-operator|.
-name|Filter
-operator|.
-name|ReturnCode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|protobuf
 operator|.
 name|generated
@@ -243,6 +225,8 @@ parameter_list|)
 block|{
 comment|// TODO Move to KeyValueUtil
 comment|// TODO make matching Column a cell method or CellUtil method.
+comment|// Even if we want to make use of KeyValue.KeyOnlyKeyValue we need to convert
+comment|// the cell to KV so that we can make use of kv.getKey() to form the key part
 name|KeyValue
 name|v
 init|=

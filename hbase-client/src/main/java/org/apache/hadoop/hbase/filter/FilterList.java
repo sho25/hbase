@@ -109,6 +109,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -268,14 +282,14 @@ decl_stmt|;
 comment|/** Reference Cell used by {@link #transformCell(Cell)} for validation purpose. */
 specifier|private
 name|Cell
-name|referenceKV
+name|referenceCell
 init|=
 literal|null
 decl_stmt|;
 comment|/**    * When filtering a given Cell in {@link #filterKeyValue(Cell)},    * this stores the transformed Cell to be returned by {@link #transformCell(Cell)}.    *    * Individual filters transformation are applied only when the filter includes the Cell.    * Transformations are composed in the order specified by {@link #filters}.    */
 specifier|private
 name|Cell
-name|transformedKV
+name|transformedCell
 init|=
 literal|null
 decl_stmt|;
@@ -733,21 +747,44 @@ name|Cell
 name|transformCell
 parameter_list|(
 name|Cell
-name|v
+name|c
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|transform
-argument_list|(
-name|KeyValueUtil
+if|if
+condition|(
+operator|!
+name|CellComparator
 operator|.
-name|ensureKeyValue
+name|equals
 argument_list|(
-name|v
+name|c
+argument_list|,
+name|referenceCell
 argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Reference Cell: "
+operator|+
+name|this
+operator|.
+name|referenceCell
+operator|+
+literal|" does not match: "
+operator|+
+name|c
 argument_list|)
+throw|;
+block|}
+return|return
+name|this
+operator|.
+name|transformedCell
 return|;
 block|}
 comment|/**    * WARNING: please to not override this method.  Instead override {@link #transformCell(Cell)}.    *    * When removing this, its body should be placed in transformCell.    *    * This is for transition from 0.94 -> 0.96    */
@@ -775,7 +812,7 @@ name|equals
 argument_list|(
 name|this
 operator|.
-name|referenceKV
+name|referenceCell
 argument_list|)
 condition|)
 block|{
@@ -787,7 +824,7 @@ literal|"Reference Cell: "
 operator|+
 name|this
 operator|.
-name|referenceKV
+name|referenceCell
 operator|+
 literal|" does not match: "
 operator|+
@@ -802,7 +839,7 @@ name|ensureKeyValue
 argument_list|(
 name|this
 operator|.
-name|transformedKV
+name|transformedCell
 argument_list|)
 return|;
 block|}
@@ -834,22 +871,22 @@ name|ReturnCode
 name|filterKeyValue
 parameter_list|(
 name|Cell
-name|v
+name|c
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|this
 operator|.
-name|referenceKV
+name|referenceCell
 operator|=
-name|v
+name|c
 expr_stmt|;
 comment|// Accumulates successive transformation of every filter that includes the Cell:
 name|Cell
 name|transformed
 init|=
-name|v
+name|c
 decl_stmt|;
 name|ReturnCode
 name|rc
@@ -906,7 +943,7 @@ name|filter
 operator|.
 name|filterKeyValue
 argument_list|(
-name|v
+name|c
 argument_list|)
 decl_stmt|;
 switch|switch
@@ -980,7 +1017,7 @@ name|filter
 operator|.
 name|filterKeyValue
 argument_list|(
-name|v
+name|c
 argument_list|)
 condition|)
 block|{
@@ -1063,7 +1100,7 @@ block|}
 comment|// Save the transformed Cell for transform():
 name|this
 operator|.
-name|transformedKV
+name|transformedCell
 operator|=
 name|transformed
 expr_stmt|;
@@ -1525,7 +1562,7 @@ name|Cell
 name|getNextCellHint
 parameter_list|(
 name|Cell
-name|currentKV
+name|currentCell
 parameter_list|)
 throws|throws
 name|IOException
@@ -1550,7 +1587,7 @@ name|seekHintFilter
 operator|.
 name|getNextCellHint
 argument_list|(
-name|currentKV
+name|currentCell
 argument_list|)
 expr_stmt|;
 return|return
@@ -1573,7 +1610,7 @@ name|filter
 operator|.
 name|getNextCellHint
 argument_list|(
-name|currentKV
+name|currentCell
 argument_list|)
 decl_stmt|;
 if|if

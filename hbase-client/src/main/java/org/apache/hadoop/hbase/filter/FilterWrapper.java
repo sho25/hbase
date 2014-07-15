@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -58,20 +48,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -452,7 +428,7 @@ name|Cell
 name|getNextCellHint
 parameter_list|(
 name|Cell
-name|currentKV
+name|currentCell
 parameter_list|)
 throws|throws
 name|IOException
@@ -468,7 +444,7 @@ name|KeyValueUtil
 operator|.
 name|ensureKeyValue
 argument_list|(
-name|currentKV
+name|currentCell
 argument_list|)
 argument_list|)
 return|;
