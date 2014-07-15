@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -38,6 +48,20 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|Path
 import|;
 end_import
 
@@ -93,6 +117,14 @@ name|status
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * Returns the newly committed files from the flush. Called only if commit returns true    * @return a list of Paths for new files    */
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|getCommittedFiles
+parameter_list|()
 function_decl|;
 block|}
 end_interface
