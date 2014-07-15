@@ -1952,7 +1952,7 @@ name|this
 operator|.
 name|slowSyncNs
 operator|=
-literal|1000
+literal|1000000
 operator|*
 name|conf
 operator|.
@@ -6704,7 +6704,7 @@ name|append
 argument_list|(
 name|timeInNanos
 operator|/
-literal|1000
+literal|1000000
 argument_list|)
 operator|.
 name|append
