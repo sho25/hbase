@@ -1682,7 +1682,7 @@ name|waitMetaRegionLocation
 argument_list|(
 name|watcher
 argument_list|,
-literal|100
+literal|10000
 argument_list|)
 operator|==
 literal|null
