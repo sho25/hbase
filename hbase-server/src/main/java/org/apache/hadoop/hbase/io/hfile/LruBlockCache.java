@@ -3687,7 +3687,6 @@ block|}
 return|;
 block|}
 comment|// Simple calculators of sizes given factors and maxSize
-specifier|private
 name|long
 name|acceptableSize
 parameter_list|()
@@ -3946,10 +3945,21 @@ name|void
 name|clearCache
 parameter_list|()
 block|{
+name|this
+operator|.
 name|map
 operator|.
 name|clear
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|elements
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Used in testing. May be very inefficient.    * @return the set of cached file names    */
@@ -4201,6 +4211,16 @@ name|victimHandler
 operator|=
 name|handler
 expr_stmt|;
+block|}
+name|BucketCache
+name|getVictimHandler
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|victimHandler
+return|;
 block|}
 annotation|@
 name|Override
