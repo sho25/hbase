@@ -575,22 +575,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RegionReplicaUtil
 import|;
 end_import
@@ -2063,6 +2047,8 @@ operator|new
 name|RegionStates
 argument_list|(
 name|server
+argument_list|,
+name|tableStateManager
 argument_list|,
 name|serverManager
 argument_list|,
@@ -5599,6 +5585,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Handle a ZK unassigned node transition triggered by HBCK repair tool.    *<p>    * This is handled in a separate code path because it breaks the normal rules.    * @param rt    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|void
 name|handleHBCK
@@ -9143,6 +9134,11 @@ return|return
 name|state
 return|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|private
 name|boolean
 name|wasRegionOnDeadServerByMeta
