@@ -1529,6 +1529,16 @@ name|State
 operator|.
 name|DISABLING
 argument_list|)
+operator|||
+name|am
+operator|.
+name|getReplicasToClose
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|hri
+argument_list|)
 condition|)
 block|{
 comment|// If the table was partially disabled and the RS went down, we should clear the RIT

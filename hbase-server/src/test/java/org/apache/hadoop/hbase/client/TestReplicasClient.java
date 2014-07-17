@@ -752,6 +752,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|AtomicReference
@@ -958,7 +959,8 @@ block|{
 name|CountDownLatch
 name|latch
 init|=
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -1075,6 +1077,19 @@ literal|"We're not the primary replicas."
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|public
+specifier|static
+name|AtomicReference
+argument_list|<
+name|CountDownLatch
+argument_list|>
+name|getCdl
+parameter_list|()
+block|{
+return|return
+name|cdl
+return|;
 block|}
 block|}
 annotation|@
@@ -1897,7 +1912,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -2219,7 +2235,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -2275,7 +2292,8 @@ finally|finally
 block|{
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -2813,7 +2831,8 @@ expr_stmt|;
 comment|// But if we ask for stale we will get it
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -2879,7 +2898,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -2949,7 +2969,8 @@ expr_stmt|;
 comment|// exists works on stale but don't see the put
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -3017,7 +3038,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -3063,7 +3085,8 @@ expr_stmt|;
 comment|// get works and is not stale
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -3122,7 +3145,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -3140,7 +3164,8 @@ expr_stmt|;
 comment|// exists works on stale and we see the put after the flush
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|set
 argument_list|(
@@ -3206,7 +3231,8 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -3226,7 +3252,8 @@ finally|finally
 block|{
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -3636,7 +3663,8 @@ finally|finally
 block|{
 name|SlowMeCopro
 operator|.
-name|cdl
+name|getCdl
+argument_list|()
 operator|.
 name|get
 argument_list|()

@@ -455,6 +455,16 @@ name|State
 operator|.
 name|DISABLING
 argument_list|)
+operator|||
+name|assignmentManager
+operator|.
+name|getReplicasToClose
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|regionInfo
+argument_list|)
 condition|)
 block|{
 name|assignmentManager
