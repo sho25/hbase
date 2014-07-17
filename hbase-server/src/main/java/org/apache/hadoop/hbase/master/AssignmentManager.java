@@ -6924,15 +6924,6 @@ name|M_ZK_REGION_OFFLINE
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Removing region from replicasToClose "
-operator|+
-name|regionInfo
-argument_list|)
-expr_stmt|;
 name|replicasToClose
 operator|.
 name|remove
