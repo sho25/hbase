@@ -99,18 +99,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Future
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|RejectedExecutionException
 import|;
 end_import
@@ -544,11 +532,6 @@ name|getName
 argument_list|()
 decl_stmt|;
 comment|// make sure we aren't already running a procedure of that name
-synchronized|synchronized
-init|(
-name|procedures
-init|)
-block|{
 name|Procedure
 name|oldProc
 init|=
@@ -606,13 +589,34 @@ operator|+
 literal|" was in running list but was completed.  Accepting new attempt."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|procedures
 operator|.
 name|remove
 argument_list|(
 name|procName
+argument_list|,
+name|oldProc
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" has been resubmitted by another thread. Rejecting this request."
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 block|}
 block|}
 catch|catch
@@ -632,45 +636,55 @@ operator|+
 literal|" was in running list but has exception.  Accepting new attempt."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|procedures
 operator|.
 name|remove
 argument_list|(
 name|procName
+argument_list|,
+name|oldProc
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Procedure "
+operator|+
+name|procName
+operator|+
+literal|" has been resubmitted by another thread. Rejecting this request."
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 block|}
 block|}
 comment|// kick off the procedure's execution in a separate thread
-name|Future
-argument_list|<
-name|Void
-argument_list|>
-name|f
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
-synchronized|synchronized
-init|(
-name|procedures
-init|)
-block|{
+if|if
+condition|(
 name|this
 operator|.
 name|procedures
 operator|.
-name|put
+name|putIfAbsent
 argument_list|(
 name|procName
 argument_list|,
 name|proc
 argument_list|)
-expr_stmt|;
-name|f
-operator|=
+operator|==
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|pool
@@ -680,10 +694,27 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Another thread has submitted procedure '"
+operator|+
+name|procName
+operator|+
+literal|"'. Ignoring this attempt."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -699,9 +730,7 @@ literal|"Procedure "
 operator|+
 name|procName
 operator|+
-literal|" rejected by execution pool.  Propagating error and "
-operator|+
-literal|"cancelling operation."
+literal|" rejected by execution pool.  Propagating error."
 argument_list|,
 name|e
 argument_list|)
@@ -714,6 +743,8 @@ operator|.
 name|remove
 argument_list|(
 name|procName
+argument_list|,
+name|proc
 argument_list|)
 expr_stmt|;
 comment|// the thread pool is full and we can't run the procedure
@@ -730,22 +761,6 @@ name|e
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// cancel procedure proactively
-if|if
-condition|(
-name|f
-operator|!=
-literal|null
-condition|)
-block|{
-name|f
-operator|.
-name|cancel
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 return|return
 literal|false
@@ -824,11 +839,6 @@ name|reason
 parameter_list|)
 block|{
 comment|// if we know about the Procedure, notify it
-synchronized|synchronized
-init|(
-name|procedures
-init|)
-block|{
 name|Procedure
 name|proc
 init|=
@@ -855,7 +865,6 @@ argument_list|(
 name|reason
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Exposed for hooking with unit tests.    * @param procName    * @param procArgs    * @param expectedMembers    * @return the newly created procedure    */
 name|Procedure
