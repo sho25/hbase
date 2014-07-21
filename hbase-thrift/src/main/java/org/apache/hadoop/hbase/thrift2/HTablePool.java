@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|thrift2
 package|;
 end_package
 
@@ -134,6 +134,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|*
 import|;
 end_import
 
@@ -324,7 +340,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A simple pool of HTable instances.  *  * Each HTablePool acts as a pool for all tables. To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  *    * This method is not needed anymore, clients should call    * HTableInterface.close() rather than returning the tables to the pool    *  * Once you are done with it, close your instance of {@link HTableInterface}  * by calling {@link HTableInterface#close()} rather than returning the tables  * to the pool with (deprecated) {@link #putTable(HTableInterface)}.  *  *<p>  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table. Otherwise the default  * is {@link Integer#MAX_VALUE}.  *  *<p>  * Pool will manage its own connections to the cluster. See  * {@link HConnectionManager}.  * @deprecated as of 0.98.1. See {@link HConnection#getTable(String)}.  */
+comment|/**  * A simple pool of HTable instances.  *  * Each HTablePool acts as a pool for all tables. To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  *  * This method is not needed anymore, clients should call  * HTableInterface.close() rather than returning the tables to the pool  *  * Once you are done with it, close your instance of  * {@link org.apache.hadoop.hbase.client.HTableInterface}  * by calling {@link org.apache.hadoop.hbase.client.HTableInterface#close()} rather than returning  * the tablesto the pool with (deprecated)  * {@link #putTable(org.apache.hadoop.hbase.client.HTableInterface)}.  *  *<p>  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table. Otherwise the default  * is {@link Integer#MAX_VALUE}.  *  *<p>  * Pool will manage its own connections to the cluster. See  * {@link org.apache.hadoop.hbase.client.HConnectionManager}.  * Was @deprecated made @InterfaceAudience.private as of 0.98.1.  * See {@link org.apache.hadoop.hbase.client.HConnection#getTable(String)},  * Moved to thrift2 module for 2.0  */
 end_comment
 
 begin_class
@@ -332,8 +348,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|Deprecated
 specifier|public
 class|class
 name|HTablePool
