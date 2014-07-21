@@ -383,8 +383,7 @@ argument_list|,
 name|Result
 argument_list|>
 block|{
-annotation|@
-name|VisibleForTesting
+specifier|public
 specifier|static
 class|class
 name|TableSnapshotRegionSplit

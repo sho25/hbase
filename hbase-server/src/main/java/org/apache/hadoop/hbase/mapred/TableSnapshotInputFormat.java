@@ -269,6 +269,7 @@ argument_list|,
 name|Result
 argument_list|>
 block|{
+specifier|public
 specifier|static
 class|class
 name|TableSnapshotRegionSplit
