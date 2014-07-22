@@ -5500,6 +5500,9 @@ name|writeException
 operator|=
 name|e
 expr_stmt|;
+name|interrupt
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|// We added a call, and may be started the connection close. In both cases, we
