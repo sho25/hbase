@@ -387,13 +387,8 @@ decl_stmt|;
 if|if
 condition|(
 name|namespaceDelimIndex
-operator|==
+operator|<
 literal|0
-operator|||
-name|namespaceDelimIndex
-operator|==
-operator|-
-literal|1
 condition|)
 block|{
 name|isLegalTableQualifierName
@@ -818,6 +813,43 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|offset
+operator|==
+name|length
+condition|)
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Illegal character<"
+operator|+
+name|namespaceName
+index|[
+name|offset
+index|]
+operator|+
+literal|"> at "
+operator|+
+name|offset
+operator|+
+literal|". Namespaces can only contain "
+operator|+
+literal|"'alphanumeric characters': i.e. [a-zA-Z_0-9]: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|namespaceName
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|)
+argument_list|)
+throw|;
 block|}
 specifier|public
 name|byte
