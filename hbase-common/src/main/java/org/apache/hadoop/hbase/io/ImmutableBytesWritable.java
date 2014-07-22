@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the seqeunce and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'. When creating a new instance of this class,  * the underlying byte [] is not copied, just referenced.  The backing  * buffer is accessed when we go to serialize.  */
+comment|/**  * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the sequence and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'. When creating a new instance of this class,  * the underlying byte [] is not copied, just referenced.  The backing  * buffer is accessed when we go to serialize.  */
 end_comment
 
 begin_class
@@ -246,7 +246,7 @@ argument_list|()
 argument_list|,
 name|ibw
 operator|.
-name|getSize
+name|getLength
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -381,7 +381,9 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @return the number of valid bytes in the buffer    */
+comment|/**    * @return the number of valid bytes in the buffer    * @deprecated use {@link #getLength()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getSize
@@ -413,8 +415,6 @@ name|length
 return|;
 block|}
 comment|/**    * @return the number of valid bytes in the buffer    */
-comment|//Should probably deprecate getSize() so that we keep the same calls for all
-comment|//byte []
 specifier|public
 name|int
 name|getLength

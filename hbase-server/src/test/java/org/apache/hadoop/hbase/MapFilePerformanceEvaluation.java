@@ -1224,7 +1224,7 @@ name|ROW_LENGTH
 argument_list|,
 name|value
 operator|.
-name|getSize
+name|getLength
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1324,7 +1324,7 @@ name|assertValueSize
 argument_list|(
 name|r
 operator|.
-name|getSize
+name|getLength
 argument_list|()
 argument_list|,
 name|ROW_LENGTH
@@ -1503,7 +1503,7 @@ name|this
 operator|.
 name|value
 operator|.
-name|getSize
+name|getLength
 argument_list|()
 argument_list|,
 name|ROW_LENGTH
@@ -1611,7 +1611,7 @@ name|assertValueSize
 argument_list|(
 name|r
 operator|.
-name|getSize
+name|getLength
 argument_list|()
 argument_list|,
 name|ROW_LENGTH
