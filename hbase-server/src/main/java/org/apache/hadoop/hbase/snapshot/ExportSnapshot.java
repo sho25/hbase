@@ -869,7 +869,6 @@ name|InterfaceStability
 operator|.
 name|Evolving
 specifier|public
-specifier|final
 class|class
 name|ExportSnapshot
 extends|extends
