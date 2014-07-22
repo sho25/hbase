@@ -1237,7 +1237,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"ipc.client.connect.max.retries"
+literal|"hbase.ipc.client.connect.max.retries"
 argument_list|,
 literal|1
 argument_list|)
@@ -1261,7 +1261,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"ipc.client.connection.maxidletime"
+literal|"hbase.ipc.client.connection.maxidletime"
 argument_list|,
 literal|500
 argument_list|)

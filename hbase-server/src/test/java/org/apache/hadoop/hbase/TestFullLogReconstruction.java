@@ -248,7 +248,7 @@ name|c
 operator|.
 name|setInt
 argument_list|(
-literal|"ipc.client.connect.max.retries"
+literal|"hbase.ipc.client.connect.max.retries"
 argument_list|,
 literal|1
 argument_list|)

@@ -516,7 +516,7 @@ specifier|final
 name|String
 name|SCAN_VTIME_WEIGHT_CONF_KEY
 init|=
-literal|"ipc.server.scan.vtime.weight"
+literal|"hbase.ipc.server.scan.vtime.weight"
 decl_stmt|;
 specifier|private
 specifier|final

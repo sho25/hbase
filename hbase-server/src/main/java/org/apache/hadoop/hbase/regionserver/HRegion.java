@@ -3262,7 +3262,7 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"ipc.client.call.purge.timeout"
+literal|"hbase.ipc.client.call.purge.timeout"
 argument_list|,
 literal|2
 operator|*

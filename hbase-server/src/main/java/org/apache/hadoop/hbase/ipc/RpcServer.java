@@ -3202,7 +3202,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.listen.queue.size"
+literal|"hbase.ipc.server.listen.queue.size"
 argument_list|,
 literal|128
 argument_list|)
@@ -8730,7 +8730,7 @@ operator|new
 name|CallQueueTooBigException
 argument_list|()
 argument_list|,
-literal|"Call queue is full, is ipc.server.max.callqueue.size too small?"
+literal|"Call queue is full, is hbase.ipc.server.max.callqueue.size too small?"
 argument_list|)
 expr_stmt|;
 name|responder
@@ -9596,7 +9596,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.max.callqueue.size"
+literal|"hbase.ipc.server.max.callqueue.size"
 argument_list|,
 name|DEFAULT_MAX_CALLQUEUE_SIZE
 argument_list|)
@@ -9609,7 +9609,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.read.threadpool.size"
+literal|"hbase.ipc.server.read.threadpool.size"
 argument_list|,
 literal|10
 argument_list|)
@@ -9624,7 +9624,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.client.connection.maxidletime"
+literal|"hbase.ipc.client.connection.maxidletime"
 argument_list|,
 literal|1000
 argument_list|)
@@ -9637,7 +9637,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.client.kill.max"
+literal|"hbase.ipc.client.kill.max"
 argument_list|,
 literal|10
 argument_list|)
@@ -9650,7 +9650,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.client.idlethreshold"
+literal|"hbase.ipc.client.idlethreshold"
 argument_list|,
 literal|4000
 argument_list|)
@@ -9663,7 +9663,7 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"ipc.client.call.purge.timeout"
+literal|"hbase.ipc.client.call.purge.timeout"
 argument_list|,
 literal|2
 operator|*
@@ -9743,7 +9743,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"ipc.server.tcpnodelay"
+literal|"hbase.ipc.server.tcpnodelay"
 argument_list|,
 literal|true
 argument_list|)
@@ -9756,7 +9756,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"ipc.server.tcpkeepalive"
+literal|"hbase.ipc.server.tcpkeepalive"
 argument_list|,
 literal|true
 argument_list|)

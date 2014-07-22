@@ -192,7 +192,7 @@ specifier|final
 name|String
 name|CALL_QUEUE_READ_SHARE_CONF_KEY
 init|=
-literal|"ipc.server.callqueue.read.share"
+literal|"hbase.ipc.server.callqueue.read.share"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -200,7 +200,7 @@ specifier|final
 name|String
 name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 init|=
-literal|"ipc.server.callqueue.handler.factor"
+literal|"hbase.ipc.server.callqueue.handler.factor"
 decl_stmt|;
 comment|/** If set to 'deadline', uses a priority queue and deprioritize long-running scans */
 specifier|public
@@ -209,7 +209,7 @@ specifier|final
 name|String
 name|CALL_QUEUE_TYPE_CONF_KEY
 init|=
-literal|"ipc.server.callqueue.type"
+literal|"hbase.ipc.server.callqueue.type"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -234,7 +234,7 @@ specifier|final
 name|String
 name|QUEUE_MAX_CALL_DELAY_CONF_KEY
 init|=
-literal|"ipc.server.queue.max.call.delay"
+literal|"hbase.ipc.server.queue.max.call.delay"
 decl_stmt|;
 comment|/**    * Comparator used by the "normal callQueue" if DEADLINE_CALL_QUEUE_CONF_KEY is set to true.    * It uses the calculated "deadline" e.g. to deprioritize long-running job    *    * If multiple requests have the same deadline BoundedPriorityBlockingQueue will order them in    * FIFO (first-in-first-out) manner.    */
 specifier|private
@@ -466,7 +466,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.max.callqueue.length"
+literal|"hbase.ipc.server.max.callqueue.length"
 argument_list|,
 name|handlerCount
 operator|*

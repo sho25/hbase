@@ -156,7 +156,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.server.max.callqueue.length"
+literal|"hbase.ipc.server.max.callqueue.length"
 argument_list|,
 name|handlerCount
 operator|*
