@@ -2561,7 +2561,7 @@ block|{
 comment|// Not use ZK for assignment any more, remove the ZNode
 name|ZKUtil
 operator|.
-name|deleteNodeFailSilent
+name|deleteNodeRecursively
 argument_list|(
 name|watcher
 argument_list|,
@@ -3720,6 +3720,16 @@ name|isRegionInTransition
 argument_list|(
 name|encodedName
 argument_list|)
+operator|&&
+operator|(
+name|regionInfo
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
+operator|!
+name|useZKForAssignment
+operator|)
 condition|)
 block|{
 name|LOG
