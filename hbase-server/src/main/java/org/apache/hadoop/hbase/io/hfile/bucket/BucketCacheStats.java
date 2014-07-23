@@ -137,6 +137,15 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|BucketCacheStats
+parameter_list|()
+block|{
+name|super
+argument_list|(
+literal|"BucketCache"
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public

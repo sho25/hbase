@@ -3923,6 +3923,8 @@ init|=
 operator|new
 name|CacheStats
 argument_list|(
+literal|"test"
+argument_list|,
 literal|3
 argument_list|)
 decl_stmt|;

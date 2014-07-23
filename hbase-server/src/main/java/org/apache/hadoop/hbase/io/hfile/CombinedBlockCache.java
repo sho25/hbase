@@ -535,6 +535,11 @@ name|CacheStats
 name|fcStats
 parameter_list|)
 block|{
+name|super
+argument_list|(
+literal|"CombinedBlockCache"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|lruCacheStats

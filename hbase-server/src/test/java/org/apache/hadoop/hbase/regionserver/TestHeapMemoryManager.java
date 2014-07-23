@@ -1962,7 +1962,9 @@ name|stats
 init|=
 operator|new
 name|CacheStats
-argument_list|()
+argument_list|(
+literal|"test"
+argument_list|)
 decl_stmt|;
 name|long
 name|maxSize
@@ -2051,7 +2053,9 @@ block|{
 name|stats
 operator|.
 name|evicted
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 expr_stmt|;
 return|return
 literal|false
@@ -2070,7 +2074,9 @@ block|{
 name|stats
 operator|.
 name|evicted
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 expr_stmt|;
 comment|// Just assuming only one block for file here.
 return|return

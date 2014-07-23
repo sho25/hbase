@@ -291,7 +291,7 @@ name|BUCKET_CACHE_IOENGINE_KEY
 init|=
 literal|"hbase.bucketcache.ioengine"
 decl_stmt|;
-comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    *     *<p>The resultant size is further divided if {@link #BUCKET_CACHE_COMBINED_KEY} is set (It is    * set by default. When false, bucket cache serves as an "L2" cache to the "L1"    * {@link LruBlockCache}).  The percentage is set in    * with {@link #BUCKET_CACHE_COMBINED_PERCENTAGE_KEY} float.    */
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    */
 specifier|public
 specifier|static
 specifier|final

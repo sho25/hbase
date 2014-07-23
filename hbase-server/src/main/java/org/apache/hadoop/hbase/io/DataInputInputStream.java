@@ -62,7 +62,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An InputStream that wraps a DataInput.  * @see DataOutputOutputStream  */
+comment|/**  * An InputStream that wraps a DataInput.  */
 end_comment
 
 begin_class
