@@ -175,7 +175,17 @@ name|iie
 init|=
 operator|new
 name|InterruptedIOException
+argument_list|(
+literal|"Origin: "
+operator|+
+name|t
+operator|.
+name|getClass
 argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+argument_list|)
 decl_stmt|;
 name|iie
 operator|.

@@ -91,6 +91,18 @@ name|google
 operator|.
 name|protobuf
 operator|.
+name|RpcCallback
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|RpcController
 import|;
 end_import
@@ -1189,7 +1201,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-literal|"org.apache.hadoop.ipc.RpcClient"
+name|RpcClient
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -1233,7 +1247,7 @@ specifier|final
 name|int
 name|minIdleTimeBeforeClose
 decl_stmt|;
-comment|// if the connection is iddle for more than this
+comment|// if the connection is idle for more than this
 comment|// time (in ms), it will be closed at any moment.
 specifier|final
 specifier|protected
@@ -1421,9 +1435,9 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|ALLOWS_INTERRUPTS
+name|SPECIFIC_WRITE_THREAD
 init|=
-literal|"hbase.ipc.client.allowsInterrupt"
+literal|"hbase.ipc.client.specificThreadForWriting"
 decl_stmt|;
 comment|/**    * A class to manage a list of servers that failed recently.    */
 specifier|static
@@ -2368,13 +2382,36 @@ argument_list|,
 name|span
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
 name|callsToWrite
 operator|.
-name|add
+name|offer
 argument_list|(
 name|cts
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Can't add the call "
+operator|+
+name|call
+operator|.
+name|id
+operator|+
+literal|" to the write queue. callsToWrite.size()="
+operator|+
+name|callsToWrite
+operator|.
+name|size
+argument_list|()
+argument_list|)
+throw|;
+block|}
 name|checkIsOpen
 argument_list|()
 expr_stmt|;
@@ -2467,6 +2504,8 @@ argument_list|(
 name|cts
 argument_list|)
 expr_stmt|;
+comment|// By removing the call from the expected call list, we make the list smaller, but
+comment|//  it means as well that we don't know how many calls we cancelled.
 name|calls
 operator|.
 name|remove
@@ -2477,6 +2516,13 @@ name|call
 operator|.
 name|id
 argument_list|)
+expr_stmt|;
+name|cts
+operator|.
+name|call
+operator|.
+name|callComplete
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**        * Reads the call from the queue, write them on the socket.        */
@@ -3213,7 +3259,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-name|ALLOWS_INTERRUPTS
+name|SPECIFIC_WRITE_THREAD
 argument_list|,
 literal|false
 argument_list|)
@@ -3739,7 +3785,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,      * or the client is marked as not running.      *      * Return true if it is time to read a response; false otherwise.      */
+comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,      * or the client is marked as not running.      *      * @return true if it is time to read a response; false otherwise.      */
 specifier|protected
 specifier|synchronized
 name|boolean
@@ -3855,6 +3901,16 @@ return|return
 literal|true
 return|;
 block|}
+if|if
+condition|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|>=
+name|waitUntil
+condition|)
+block|{
 comment|// Connection is idle.
 comment|// We expect the number of calls to be zero here, but actually someone can
 comment|//  adds a call at the any moment, as there is no synchronization between this task
@@ -3875,6 +3931,12 @@ literal|" pending request(s)"
 argument_list|)
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// We can get here if we received a notification that there is some work to do but
+comment|//  the work was cancelled. As we're not idle we continue to wait.
 return|return
 literal|false
 return|;
@@ -3938,6 +4000,33 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|InterruptedException
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": interrupted while waiting for call responses"
+argument_list|)
+expr_stmt|;
+name|markClosed
+argument_list|(
+name|ExceptionUtil
+operator|.
+name|asInterrupt
+argument_list|(
+name|t
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|Throwable
 name|t
 parameter_list|)
@@ -3949,7 +4038,7 @@ argument_list|(
 name|getName
 argument_list|()
 operator|+
-literal|": unexpected exception receiving call responses"
+literal|": unexpected throwable while waiting for call responses"
 argument_list|,
 name|t
 argument_list|)
@@ -3959,7 +4048,7 @@ argument_list|(
 operator|new
 name|IOException
 argument_list|(
-literal|"Unexpected exception receiving call responses"
+literal|"Unexpected throwable while waiting call responses"
 argument_list|,
 name|t
 argument_list|)
@@ -3976,6 +4065,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3991,6 +4081,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 specifier|synchronized
@@ -5691,6 +5782,14 @@ name|totalSize
 operator|-
 name|readSoFar
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -5706,6 +5805,7 @@ operator|+
 literal|" bytes"
 argument_list|)
 expr_stmt|;
+block|}
 name|IOUtils
 operator|.
 name|skipFully
@@ -5941,43 +6041,9 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|expectedCall
-operator|&&
-operator|!
-name|call
-operator|.
-name|done
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Coding error: code should be true for callId="
-operator|+
-name|call
-operator|.
-name|id
-operator|+
-literal|", server="
-operator|+
-name|getRemoteAddress
-argument_list|()
-operator|+
-literal|", shouldCloseConnection="
-operator|+
-name|shouldCloseConnection
-operator|.
-name|get
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**      * @param e      * @return True if the exception is a fatal connection exception.      */
+comment|/**      * @return True if the exception is a fatal connection exception.      */
 specifier|private
 name|boolean
 name|isFatalConnectionException
@@ -6121,7 +6187,7 @@ argument_list|(
 name|getName
 argument_list|()
 operator|+
-literal|": marking at should close, reason ="
+literal|": marking at should close, reason: "
 operator|+
 name|e
 operator|.
@@ -7097,6 +7163,9 @@ name|CellScanner
 argument_list|>
 name|call
 parameter_list|(
+name|PayloadCarryingRpcController
+name|pcrc
+parameter_list|,
 name|MethodDescriptor
 name|md
 parameter_list|,
@@ -7126,6 +7195,8 @@ block|{
 return|return
 name|call
 argument_list|(
+name|pcrc
+argument_list|,
 name|md
 argument_list|,
 name|param
@@ -7155,6 +7226,9 @@ name|CellScanner
 argument_list|>
 name|call
 parameter_list|(
+name|PayloadCarryingRpcController
+name|pcrc
+parameter_list|,
 name|MethodDescriptor
 name|md
 parameter_list|,
@@ -7184,6 +7258,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+specifier|final
 name|Call
 name|call
 init|=
@@ -7201,6 +7276,7 @@ argument_list|,
 name|callTimeout
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Connection
 name|connection
 init|=
@@ -7221,10 +7297,9 @@ operator|.
 name|compressor
 argument_list|)
 decl_stmt|;
+specifier|final
 name|CallFuture
 name|cts
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -7253,9 +7328,93 @@ name|currentSpan
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|pcrc
+operator|!=
+literal|null
+condition|)
+block|{
+name|pcrc
+operator|.
+name|notifyOnCancel
+argument_list|(
+operator|new
+name|RpcCallback
+argument_list|<
+name|Object
+argument_list|>
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|(
+name|Object
+name|parameter
+parameter_list|)
+block|{
+name|connection
+operator|.
+name|callSender
+operator|.
+name|remove
+argument_list|(
+name|cts
+argument_list|)
+expr_stmt|;
+name|call
+operator|.
+name|callComplete
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|pcrc
+operator|.
+name|isCanceled
+argument_list|()
+condition|)
+block|{
+comment|// To finish if the call was cancelled before we set the notification (race condition)
+name|call
+operator|.
+name|callComplete
+argument_list|()
+expr_stmt|;
+return|return
+operator|new
+name|Pair
+argument_list|<
+name|Message
+argument_list|,
+name|CellScanner
+argument_list|>
+argument_list|(
+name|call
+operator|.
+name|response
+argument_list|,
+name|call
+operator|.
+name|cells
+argument_list|)
+return|;
+block|}
+block|}
 block|}
 else|else
 block|{
+name|cts
+operator|=
+literal|null
+expr_stmt|;
 name|connection
 operator|.
 name|tracedWriteRequest
@@ -8098,6 +8257,8 @@ name|val
 operator|=
 name|call
 argument_list|(
+name|pcrc
+argument_list|,
 name|md
 argument_list|,
 name|param

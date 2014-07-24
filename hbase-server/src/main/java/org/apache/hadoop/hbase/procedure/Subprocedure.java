@@ -468,7 +468,7 @@ name|rethrowException
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Execute the Subprocedure {@link #acquireBarrier()} and {@link #insideBarrier()} methods    * while keeping some state for other threads to access.    *    * This would normally be executed by the ProcedureMemeber when a acquire message comes from the    * coordinator.  Rpcs are used to spend message back to the coordinator after different phases    * are executed.  Any exceptions caught during the execution (except for InterrupedException) get    * converted and propagated to coordinator via {@link ProcedureMemberRpcs#sendMemberAborted(    * Subprocedure, ForeignException)}.    */
+comment|/**    * Execute the Subprocedure {@link #acquireBarrier()} and {@link #insideBarrier()} methods    * while keeping some state for other threads to access.    *    * This would normally be executed by the ProcedureMemeber when a acquire message comes from the    * coordinator.  Rpcs are used to spend message back to the coordinator after different phases    * are executed.  Any exceptions caught during the execution (except for InterruptedException) get    * converted and propagated to coordinator via {@link ProcedureMemberRpcs#sendMemberAborted(    * Subprocedure, ForeignException)}.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

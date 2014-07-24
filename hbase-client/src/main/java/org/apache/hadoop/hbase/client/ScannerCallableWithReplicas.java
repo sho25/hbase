@@ -1131,9 +1131,6 @@ literal|0
 argument_list|)
 argument_list|,
 name|retries
-argument_list|,
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// just rethrow the first exception for now.

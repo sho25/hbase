@@ -905,7 +905,7 @@ name|setBoolean
 argument_list|(
 name|RpcClient
 operator|.
-name|ALLOWS_INTERRUPTS
+name|SPECIFIC_WRITE_THREAD
 argument_list|,
 literal|true
 argument_list|)
