@@ -1371,9 +1371,17 @@ return|;
 block|}
 if|if
 condition|(
+operator|(
+name|endTime
+operator|!=
+literal|0
+operator|)
+operator|&&
+operator|(
 name|startTime
 operator|>
 name|endTime
+operator|)
 condition|)
 block|{
 name|printUsage
