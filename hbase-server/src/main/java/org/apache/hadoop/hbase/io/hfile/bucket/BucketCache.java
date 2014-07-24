@@ -3852,6 +3852,8 @@ condition|)
 block|{
 try|try
 block|{
+try|try
+block|{
 comment|// Blocks
 name|entries
 operator|.
@@ -3906,6 +3908,23 @@ argument_list|(
 name|entries
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"WriterThread encountered error"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
