@@ -740,14 +740,6 @@ operator|==
 literal|0
 condition|)
 return|return;
-name|long
-name|startTimeNs
-init|=
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-decl_stmt|;
 comment|// Update the first data block offset for scanning.
 if|if
 condition|(
@@ -818,18 +810,6 @@ name|fsBlockWriter
 operator|.
 name|getUncompressedSizeWithHeader
 argument_list|()
-expr_stmt|;
-name|HFile
-operator|.
-name|offerWriteLatency
-argument_list|(
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-operator|-
-name|startTimeNs
-argument_list|)
 expr_stmt|;
 if|if
 condition|(

@@ -1548,14 +1548,6 @@ argument_list|(
 name|block
 argument_list|)
 decl_stmt|;
-name|long
-name|startTimeNs
-init|=
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-decl_stmt|;
 comment|// Per meta key from any given file, synchronize reads for said block. This
 comment|// is OK to do for meta blocks because the meta block index is always
 comment|// single-level.
@@ -1663,26 +1655,6 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-specifier|final
-name|long
-name|delta
-init|=
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-operator|-
-name|startTimeNs
-decl_stmt|;
-name|HFile
-operator|.
-name|offerReadLatency
-argument_list|(
-name|delta
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// Cache the block
 if|if
 condition|(
@@ -2016,14 +1988,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Load block from filesystem.
-name|long
-name|startTimeNs
-init|=
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-decl_stmt|;
 name|HFileBlock
 name|hfileBlock
 init|=
@@ -2046,26 +2010,6 @@ argument_list|(
 name|hfileBlock
 argument_list|,
 name|expectedBlockType
-argument_list|)
-expr_stmt|;
-specifier|final
-name|long
-name|delta
-init|=
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-operator|-
-name|startTimeNs
-decl_stmt|;
-name|HFile
-operator|.
-name|offerReadLatency
-argument_list|(
-name|delta
-argument_list|,
-name|pread
 argument_list|)
 expr_stmt|;
 comment|// Cache the block if necessary
