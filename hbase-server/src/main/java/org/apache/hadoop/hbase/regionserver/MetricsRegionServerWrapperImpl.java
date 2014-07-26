@@ -1723,11 +1723,7 @@ name|lastRan
 operator|=
 name|currentTime
 operator|-
-operator|(
 name|period
-operator|*
-literal|1000
-operator|)
 expr_stmt|;
 block|}
 comment|//If we've time traveled keep the last requests per second.
