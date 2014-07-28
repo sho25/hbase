@@ -189,6 +189,16 @@ name|javax
 operator|.
 name|management
 operator|.
+name|RuntimeMBeanException
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|management
+operator|.
 name|RuntimeErrorException
 import|;
 end_import
@@ -970,6 +980,64 @@ name|prs
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|RuntimeMBeanException
+name|e
+parameter_list|)
+block|{
+comment|// UnsupportedOperationExceptions happen in the normal course of business,
+comment|// so no need to log them as errors all the time.
+if|if
+condition|(
+name|e
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|UnsupportedOperationException
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"getting attribute "
+operator|+
+name|oname
+operator|+
+literal|" of "
+operator|+
+name|oname
+operator|+
+literal|" threw an exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"getting attribute "
+operator|+
+name|oname
+operator|+
+literal|" of "
+operator|+
+name|oname
+operator|+
+literal|" threw an exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+return|return;
 block|}
 catch|catch
 parameter_list|(
