@@ -219,7 +219,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SmallTests
+name|LargeTests
 import|;
 end_import
 
@@ -307,11 +307,27 @@ begin_comment
 comment|/**  * Tests that {@link CacheConfig} does as expected.  */
 end_comment
 
+begin_comment
+comment|// This test is marked as a large test though it runs in a short amount of time
+end_comment
+
+begin_comment
+comment|// (seconds).  It is large because it depends on being able to reset the global
+end_comment
+
+begin_comment
+comment|// blockcache instance which is in a global variable.  Experience has it that
+end_comment
+
+begin_comment
+comment|// tests clash on the global variable if this test is run as small sized test.
+end_comment
+
 begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|LargeTests
 operator|.
 name|class
 argument_list|)
