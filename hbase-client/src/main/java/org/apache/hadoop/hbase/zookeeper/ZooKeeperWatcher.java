@@ -645,7 +645,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.assignment.usezk"
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 condition|)
 block|{
