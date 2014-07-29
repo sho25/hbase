@@ -3667,7 +3667,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Cleans up current writer closing it and then puts in place the passed in    *<code>nextWriter</code>    *     * @param oldPath    * @param newPath    * @param nextWriter    * @param nextHdfsOut    * @return<code>newPath</code>    * @throws IOException    */
+comment|/**    * Cleans up current writer closing it and then puts in place the passed in    *<code>nextWriter</code>.    *    * In the case of creating a new WAL, oldPath will be null.    *    * In the case of rolling over from one file to the next, none of the params will be null.    *    * In the case of closing out this FSHLog with no further use newPath, nextWriter, and    * nextHdfsOut will be null.    *    * @param oldPath may be null    * @param newPath may be null    * @param nextWriter may be null    * @param nextHdfsOut may be null    * @return the passed in<code>newPath</code>    * @throws IOException if there is a problem flushing or closing the underlying FS    */
 end_comment
 
 begin_function
@@ -3932,6 +3932,25 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+specifier|final
+name|String
+name|newPathString
+init|=
+operator|(
+literal|null
+operator|==
+name|newPath
+condition|?
+literal|null
+else|:
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
+name|newPath
+argument_list|)
+operator|)
+decl_stmt|;
 if|if
 condition|(
 name|oldPath
@@ -4018,12 +4037,7 @@ argument_list|)
 operator|+
 literal|"; new WAL "
 operator|+
-name|FSUtils
-operator|.
-name|getPath
-argument_list|(
-name|newPath
-argument_list|)
+name|newPathString
 argument_list|)
 expr_stmt|;
 block|}
@@ -4035,12 +4049,7 @@ name|info
 argument_list|(
 literal|"New WAL "
 operator|+
-name|FSUtils
-operator|.
-name|getPath
-argument_list|(
-name|newPath
-argument_list|)
+name|newPathString
 argument_list|)
 expr_stmt|;
 block|}
