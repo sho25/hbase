@@ -150,34 +150,6 @@ name|InterruptedException
 throws|,
 name|CoordinatedStateException
 function_decl|;
-comment|/**    * Method to retrieve coordination for split transaction.    */
-specifier|abstract
-specifier|public
-name|SplitTransactionCoordination
-name|getSplitTransactionCoordination
-parameter_list|()
-function_decl|;
-comment|/**    * Method to retrieve coordination for closing region operations.    */
-specifier|public
-specifier|abstract
-name|CloseRegionCoordination
-name|getCloseRegionCoordination
-parameter_list|()
-function_decl|;
-comment|/**    * Method to retrieve coordination for opening region operations.    */
-specifier|public
-specifier|abstract
-name|OpenRegionCoordination
-name|getOpenRegionCoordination
-parameter_list|()
-function_decl|;
-comment|/**    * Method to retrieve coordination for region merge transaction    */
-specifier|public
-specifier|abstract
-name|RegionMergeCoordination
-name|getRegionMergeCoordination
-parameter_list|()
-function_decl|;
 block|}
 end_class
 

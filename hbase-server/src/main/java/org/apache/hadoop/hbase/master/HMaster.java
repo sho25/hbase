@@ -1983,7 +1983,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize the local HRegionServer    *<li>Start the ActiveMasterManager.    *</ol>    *<p>    * Remaining steps of initialization occur in    * {@link #finishActiveMasterInitialization(MonitoredTask)} after    * the master becomes the active one.    *    * @throws InterruptedException    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize the local HRegionServer    *<li>Start the ActiveMasterManager.    *</ol>    *<p>    * Remaining steps of initialization occur in    * {@link #finishActiveMasterInitialization(MonitoredTask)} after    * the master becomes the active one.    *    * @throws KeeperException    * @throws IOException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -1998,8 +1998,6 @@ throws|throws
 name|IOException
 throws|,
 name|KeeperException
-throws|,
-name|InterruptedException
 block|{
 name|super
 argument_list|(
@@ -2697,13 +2695,6 @@ argument_list|,
 name|this
 operator|.
 name|tableLockManager
-argument_list|)
-expr_stmt|;
-name|zooKeeper
-operator|.
-name|registerListenerFirst
-argument_list|(
-name|assignmentManager
 argument_list|)
 expr_stmt|;
 name|this
@@ -3636,20 +3627,6 @@ name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
 name|boolean
-name|rit
-init|=
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|processRegionInTransitionAndBlockUntilAssigned
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|)
-decl_stmt|;
-name|boolean
 name|metaRegionLocation
 init|=
 name|metaTableLocator
@@ -3690,16 +3667,6 @@ condition|)
 block|{
 comment|// Meta location is not verified. It should be in transition, or offline.
 comment|// We will wait for it to be assigned in enableSSHandWaitForMeta below.
-name|assigned
-operator|++
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|rit
-condition|)
-block|{
-comment|// Assign meta since not already in transition
 if|if
 condition|(
 name|currentMetaServer
@@ -3759,7 +3726,9 @@ operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
-block|}
+name|assigned
+operator|++
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -3861,10 +3830,6 @@ argument_list|(
 literal|"hbase:meta assigned="
 operator|+
 name|assigned
-operator|+
-literal|", rit="
-operator|+
-name|rit
 operator|+
 literal|", location="
 operator|+
@@ -8795,8 +8760,6 @@ operator|.
 name|assign
 argument_list|(
 name|hri
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

@@ -107,22 +107,6 @@ name|RegionServerServices
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coordination
-operator|.
-name|OpenRegionCoordination
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles opening of a meta region on a region server.  *<p>  * This is executed after receiving an OPEN RPC from the master for meta.  */
 end_comment
@@ -155,14 +139,6 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
-parameter_list|,
-name|OpenRegionCoordination
-name|coordination
-parameter_list|,
-name|OpenRegionCoordination
-operator|.
-name|OpenRegionDetails
-name|ord
 parameter_list|)
 block|{
 name|super
@@ -178,10 +154,6 @@ argument_list|,
 name|EventType
 operator|.
 name|M_RS_OPEN_META
-argument_list|,
-name|coordination
-argument_list|,
-name|ord
 argument_list|)
 expr_stmt|;
 block|}

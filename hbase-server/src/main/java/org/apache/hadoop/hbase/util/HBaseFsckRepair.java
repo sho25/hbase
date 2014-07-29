@@ -692,6 +692,11 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Contacts a region server and waits up to hbase.hbck.close.timeout ms    * (default 120s) to close the region.  This bypasses the active hmaster.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -745,8 +750,6 @@ name|region
 operator|.
 name|getRegionName
 argument_list|()
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}

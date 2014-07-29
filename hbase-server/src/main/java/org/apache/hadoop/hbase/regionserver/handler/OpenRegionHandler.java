@@ -137,22 +137,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coordination
-operator|.
-name|OpenRegionCoordination
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|executor
 operator|.
 name|EventHandler
@@ -261,22 +245,6 @@ name|CancelableProgressable
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ConfigUtil
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles opening of a region on a region server.  *<p>  * This is executed after receiving an OPEN RPC from the master or client.  */
 end_comment
@@ -322,21 +290,6 @@ specifier|final
 name|HTableDescriptor
 name|htd
 decl_stmt|;
-specifier|private
-name|OpenRegionCoordination
-name|coordination
-decl_stmt|;
-specifier|private
-name|OpenRegionCoordination
-operator|.
-name|OpenRegionDetails
-name|ord
-decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
-name|useZKForAssignment
-decl_stmt|;
 specifier|public
 name|OpenRegionHandler
 parameter_list|(
@@ -353,14 +306,6 @@ name|regionInfo
 parameter_list|,
 name|HTableDescriptor
 name|htd
-parameter_list|,
-name|OpenRegionCoordination
-name|coordination
-parameter_list|,
-name|OpenRegionCoordination
-operator|.
-name|OpenRegionDetails
-name|ord
 parameter_list|)
 block|{
 name|this
@@ -376,10 +321,6 @@ argument_list|,
 name|EventType
 operator|.
 name|M_RS_OPEN_REGION
-argument_list|,
-name|coordination
-argument_list|,
-name|ord
 argument_list|)
 expr_stmt|;
 block|}
@@ -404,14 +345,6 @@ name|htd
 parameter_list|,
 name|EventType
 name|eventType
-parameter_list|,
-name|OpenRegionCoordination
-name|coordination
-parameter_list|,
-name|OpenRegionCoordination
-operator|.
-name|OpenRegionDetails
-name|ord
 parameter_list|)
 block|{
 name|super
@@ -439,30 +372,6 @@ name|htd
 operator|=
 name|htd
 expr_stmt|;
-name|this
-operator|.
-name|coordination
-operator|=
-name|coordination
-expr_stmt|;
-name|this
-operator|.
-name|ord
-operator|=
-name|ord
-expr_stmt|;
-name|useZKForAssignment
-operator|=
-name|ConfigUtil
-operator|.
-name|useZKForAssignment
-argument_list|(
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 specifier|public
 name|HRegionInfo
@@ -484,11 +393,6 @@ name|IOException
 block|{
 name|boolean
 name|openSuccessful
-init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|transitionedToOpening
 init|=
 literal|false
 decl_stmt|;
@@ -536,10 +440,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
-comment|// 3 different difficult situations can occur
+comment|// 2 different difficult situations can occur
 comment|// 1) The opening was cancelled. This is an expected situation
-comment|// 2) The region was hijacked, we no longer have the znode
-comment|// 3) The region is now marked as online while we're suppose to open. This would be a bug.
+comment|// 2) The region is now marked as online while we're suppose to open. This would be a bug.
 comment|// Check that this region is not already online
 if|if
 condition|(
@@ -570,9 +473,8 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// Check that we're still supposed to open the region and transition.
+comment|// Check that we're still supposed to open the region.
 comment|// If fails, just return.  Someone stole the region from under us.
-comment|// Calling transitionFromOfflineToOpening initializes this.version.
 if|if
 condition|(
 operator|!
@@ -593,37 +495,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-if|if
-condition|(
-name|useZKForAssignment
-operator|&&
-operator|!
-name|coordination
-operator|.
-name|transitionFromOfflineToOpening
-argument_list|(
-name|regionInfo
-argument_list|,
-name|ord
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Region was hijacked? Opening cancelled for encodedName="
-operator|+
-name|encodedName
-argument_list|)
-expr_stmt|;
-comment|// This is a desperate attempt: the znode is unlikely to be ours. But we can't do more.
-return|return;
-block|}
-name|transitionedToOpening
-operator|=
-literal|true
-expr_stmt|;
 comment|// Open region.  After a successful open, failures in subsequent
 comment|// processing needs to do a close as part of cleanup.
 name|region
@@ -640,47 +511,13 @@ condition|)
 block|{
 return|return;
 block|}
-name|boolean
-name|failed
-init|=
-literal|true
-decl_stmt|;
 if|if
 condition|(
 operator|!
-name|useZKForAssignment
-operator|||
-name|coordination
-operator|.
-name|tickleOpening
-argument_list|(
-name|ord
-argument_list|,
-name|regionInfo
-argument_list|,
-name|rsServices
-argument_list|,
-literal|"post_region_open"
-argument_list|)
-condition|)
-block|{
-if|if
-condition|(
 name|updateMeta
 argument_list|(
 name|region
 argument_list|)
-condition|)
-block|{
-name|failed
-operator|=
-literal|false
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|failed
 operator|||
 name|this
 operator|.
@@ -704,36 +541,10 @@ condition|(
 operator|!
 name|isRegionStillOpening
 argument_list|()
-operator|||
-operator|(
-name|useZKForAssignment
-operator|&&
-operator|!
-name|coordination
-operator|.
-name|transitionToOpened
-argument_list|(
-name|region
-argument_list|,
-name|ord
-argument_list|)
-operator|)
 condition|)
 block|{
-comment|// If we fail to transition to opened, it's because of one of two cases:
-comment|//    (a) we lost our ZK lease
-comment|// OR (b) someone else opened the region before us
-comment|// OR (c) someone cancelled the open
-comment|// In all cases, we try to transition to failed_open to be safe.
 return|return;
 block|}
-comment|// We have a znode in the opened state now. We can't really delete it as the master job.
-comment|// Transitioning to failed open would create a race condition if the master has already
-comment|// acted the transition to opened.
-comment|// Cancelling the open is dangerous, because we would have a state where the master thinks
-comment|// the region is opened while the region is actually closed. It is a dangerous state
-comment|// to be in. For this reason, from now on, we're not going back. There is a message in the
-comment|// finally close to let the admin knows where we stand.
 comment|// Successful region open, and add it to OnlineRegions
 name|this
 operator|.
@@ -780,10 +591,6 @@ block|{
 name|doCleanUpOnFailedOpen
 argument_list|(
 name|region
-argument_list|,
-name|transitionedToOpening
-argument_list|,
-name|ord
 argument_list|)
 expr_stmt|;
 block|}
@@ -812,9 +619,7 @@ comment|// Let's check if we have met a race condition on open cancellation....
 comment|// A better solution would be to not have any race condition.
 comment|// this.rsServices.getRegionsInTransitionInRS().remove(
 comment|//  this.regionInfo.getEncodedNameAsBytes(), Boolean.TRUE);
-comment|// would help, but we would still have a consistency issue to manage with
-comment|// 1) this.rsServices.addToOnlineRegions(region);
-comment|// 2) the ZK state.
+comment|// would help.
 if|if
 condition|(
 name|openSuccessful
@@ -883,22 +688,9 @@ name|doCleanUpOnFailedOpen
 parameter_list|(
 name|HRegion
 name|region
-parameter_list|,
-name|boolean
-name|transitionedToOpening
-parameter_list|,
-name|OpenRegionCoordination
-operator|.
-name|OpenRegionDetails
-name|ord
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-if|if
-condition|(
-name|transitionedToOpening
-condition|)
 block|{
 try|try
 block|{
@@ -918,12 +710,6 @@ block|}
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-operator|!
-name|useZKForAssignment
-condition|)
-block|{
 name|rsServices
 operator|.
 name|reportRegionStateTransition
@@ -933,59 +719,6 @@ operator|.
 name|FAILED_OPEN
 argument_list|,
 name|regionInfo
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Even if cleanupFailed open fails we need to do this transition
-comment|// See HBASE-7698
-name|coordination
-operator|.
-name|tryTransitionFromOpeningToFailedOpen
-argument_list|(
-name|regionInfo
-argument_list|,
-name|ord
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-block|}
-elseif|else
-if|if
-condition|(
-operator|!
-name|useZKForAssignment
-condition|)
-block|{
-name|rsServices
-operator|.
-name|reportRegionStateTransition
-argument_list|(
-name|TransitionCode
-operator|.
-name|FAILED_OPEN
-argument_list|,
-name|regionInfo
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// If still transition to OPENING is not done, we need to transition znode
-comment|// to FAILED_OPEN
-name|coordination
-operator|.
-name|tryTransitionFromOfflineToFailedOpen
-argument_list|(
-name|this
-operator|.
-name|rsServices
-argument_list|,
-name|regionInfo
-argument_list|,
-name|ord
 argument_list|)
 expr_stmt|;
 block|}
@@ -1059,8 +792,6 @@ expr_stmt|;
 comment|// Post open deploy task:
 comment|//   meta => update meta location in ZK
 comment|//   other region => update meta
-comment|// It could fail if ZK/meta is not available and
-comment|// the update runs out of retries.
 name|long
 name|now
 init|=
@@ -1132,27 +863,6 @@ name|lastUpdate
 operator|=
 name|now
 expr_stmt|;
-if|if
-condition|(
-name|useZKForAssignment
-condition|)
-block|{
-name|tickleOpening
-operator|=
-name|coordination
-operator|.
-name|tickleOpening
-argument_list|(
-name|ord
-argument_list|,
-name|regionInfo
-argument_list|,
-name|rsServices
-argument_list|,
-literal|"post_open_deploy"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 synchronized|synchronized
 init|(
@@ -1567,27 +1277,6 @@ name|boolean
 name|progress
 parameter_list|()
 block|{
-if|if
-condition|(
-name|useZKForAssignment
-condition|)
-block|{
-comment|// if tickle failed, we need to cancel opening region.
-return|return
-name|coordination
-operator|.
-name|tickleOpening
-argument_list|(
-name|ord
-argument_list|,
-name|regionInfo
-argument_list|,
-name|rsServices
-argument_list|,
-literal|"open_region_progress"
-argument_list|)
-return|;
-block|}
 if|if
 condition|(
 operator|!

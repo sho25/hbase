@@ -1458,7 +1458,7 @@ name|setLong
 argument_list|(
 literal|"hbase.hregion.memstore.flush.size"
 argument_list|,
-literal|200000
+literal|100000
 argument_list|)
 expr_stmt|;
 name|c

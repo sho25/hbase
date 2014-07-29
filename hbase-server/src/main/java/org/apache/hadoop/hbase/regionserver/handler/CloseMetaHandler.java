@@ -93,24 +93,8 @@ name|RegionServerServices
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coordination
-operator|.
-name|CloseRegionCoordination
-import|;
-end_import
-
 begin_comment
-comment|/**  * Handles closing of the root region on a region server.  */
+comment|/**  * Handles closing of the meta region on a region server.  */
 end_comment
 
 begin_class
@@ -143,14 +127,6 @@ parameter_list|,
 specifier|final
 name|boolean
 name|abort
-parameter_list|,
-name|CloseRegionCoordination
-name|closeRegionCoordination
-parameter_list|,
-name|CloseRegionCoordination
-operator|.
-name|CloseRegionDetails
-name|crd
 parameter_list|)
 block|{
 name|super
@@ -163,13 +139,11 @@ name|regionInfo
 argument_list|,
 name|abort
 argument_list|,
-name|closeRegionCoordination
-argument_list|,
-name|crd
-argument_list|,
 name|EventType
 operator|.
 name|M_RS_CLOSE_META
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

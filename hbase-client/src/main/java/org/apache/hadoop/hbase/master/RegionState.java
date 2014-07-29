@@ -29,20 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -116,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * State of a Region while undergoing transitions.  * Region state cannot be modified except the stamp field.  * So it is almost immutable.  */
+comment|/**  * State of a Region while undergoing transitions.  * This class is immutable.  */
 end_comment
 
 begin_class
@@ -189,44 +175,26 @@ comment|// new region to be created when RS merges two
 comment|// daughter regions but hasn't be created yet, or
 comment|// master doesn't know it's already created
 block|}
-comment|// Many threads can update the state at the stamp at the same time
 specifier|private
 specifier|final
-name|AtomicLong
+name|long
 name|stamp
 decl_stmt|;
 specifier|private
+specifier|final
 name|HRegionInfo
 name|hri
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|ServerName
 name|serverName
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|State
 name|state
 decl_stmt|;
-specifier|public
-name|RegionState
-parameter_list|()
-block|{
-name|this
-operator|.
-name|stamp
-operator|=
-operator|new
-name|AtomicLong
-argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 specifier|public
 name|RegionState
 parameter_list|(
@@ -312,31 +280,13 @@ name|this
 operator|.
 name|stamp
 operator|=
-operator|new
-name|AtomicLong
-argument_list|(
 name|stamp
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
 name|serverName
 operator|=
 name|serverName
-expr_stmt|;
-block|}
-specifier|public
-name|void
-name|updateTimestampToNow
-parameter_list|()
-block|{
-name|setTimestamp
-argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 specifier|public
@@ -355,9 +305,6 @@ parameter_list|()
 block|{
 return|return
 name|stamp
-operator|.
-name|get
-argument_list|()
 return|;
 block|}
 specifier|public
@@ -895,14 +842,6 @@ name|toDescriptiveString
 parameter_list|()
 block|{
 name|long
-name|lstamp
-init|=
-name|stamp
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-name|long
 name|relTime
 init|=
 name|System
@@ -910,7 +849,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|lstamp
+name|stamp
 decl_stmt|;
 return|return
 name|hri
@@ -927,7 +866,7 @@ operator|+
 operator|new
 name|Date
 argument_list|(
-name|lstamp
+name|stamp
 argument_list|)
 operator|+
 literal|" ("
@@ -1443,23 +1382,6 @@ argument_list|,
 literal|null
 argument_list|)
 return|;
-block|}
-specifier|protected
-name|void
-name|setTimestamp
-parameter_list|(
-specifier|final
-name|long
-name|timestamp
-parameter_list|)
-block|{
-name|stamp
-operator|.
-name|set
-argument_list|(
-name|timestamp
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Check if two states are the same, except timestamp    */
 annotation|@

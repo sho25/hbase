@@ -134,8 +134,6 @@ name|assign
 argument_list|(
 name|hri
 argument_list|,
-literal|true
-argument_list|,
 name|newPlan
 argument_list|)
 expr_stmt|;

@@ -8019,6 +8019,11 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|MutationProto
@@ -10408,7 +10413,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to close a region given a region name    * using admin protocol.    *    * @param admin    * @param regionName    * @param transitionInZK    * @throws IOException    */
+comment|/**    * A helper to close a region given a region name    * using admin protocol.    *    * @param admin    * @param regionName    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -10428,10 +10433,6 @@ specifier|final
 name|byte
 index|[]
 name|regionName
-parameter_list|,
-specifier|final
-name|boolean
-name|transitionInZK
 parameter_list|)
 throws|throws
 name|IOException
@@ -10446,8 +10447,6 @@ argument_list|(
 name|server
 argument_list|,
 name|regionName
-argument_list|,
-name|transitionInZK
 argument_list|)
 decl_stmt|;
 try|try
@@ -10476,7 +10475,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper to close a region given a region name    * using admin protocol.    *    * @param admin    * @param regionName    * @param versionOfClosingNode    * @return true if the region is closed    * @throws IOException    */
+comment|/**    * A helper to close a region given a region name    * using admin protocol.    *    * @param admin    * @param regionName    * @return true if the region is closed    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean
@@ -10498,16 +10497,8 @@ index|[]
 name|regionName
 parameter_list|,
 specifier|final
-name|int
-name|versionOfClosingNode
-parameter_list|,
-specifier|final
 name|ServerName
 name|destinationServer
-parameter_list|,
-specifier|final
-name|boolean
-name|transitionInZK
 parameter_list|)
 throws|throws
 name|IOException
@@ -10523,11 +10514,7 @@ name|server
 argument_list|,
 name|regionName
 argument_list|,
-name|versionOfClosingNode
-argument_list|,
 name|destinationServer
-argument_list|,
-name|transitionInZK
 argument_list|)
 decl_stmt|;
 try|try
@@ -10599,9 +10586,6 @@ argument_list|(
 name|server
 argument_list|,
 name|region
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 literal|null
 argument_list|,
@@ -14628,6 +14612,11 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|CompactionDescriptor

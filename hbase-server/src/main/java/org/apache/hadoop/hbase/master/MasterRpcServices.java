@@ -3676,8 +3676,6 @@ argument_list|(
 name|regionInfo
 argument_list|,
 literal|true
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 if|if
@@ -7135,6 +7133,11 @@ block|}
 comment|/**    * Offline specified region from master's in-memory state. It will not attempt to    * reassign the region as in unassign.    *    * This is a special method that should be used by experts or hbck.    *    */
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|OfflineRegionResponse
 name|offlineRegion
@@ -7791,6 +7794,11 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|UnassignRegionResponse
 name|unassignRegion

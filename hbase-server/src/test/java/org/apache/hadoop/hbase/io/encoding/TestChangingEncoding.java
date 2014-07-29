@@ -393,22 +393,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKAssign
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|junit
 operator|.
 name|After
@@ -1285,14 +1269,11 @@ comment|// This is a unit test, not integration test. So let's
 comment|// wait for regions out of transition. Otherwise, for online
 comment|// encoding change, verification phase may be flaky because
 comment|// regions could be still in transition.
-name|ZKAssign
-operator|.
-name|blockUntilNoRIT
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getZooKeeperWatcher
-argument_list|()
+name|waitUntilNoRegionsInTransition
+argument_list|(
+name|TIMEOUT_MS
 argument_list|)
 expr_stmt|;
 block|}

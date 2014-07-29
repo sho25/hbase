@@ -671,7 +671,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Triple
+name|Pair
 import|;
 end_import
 
@@ -941,7 +941,7 @@ specifier|private
 name|BaseLoadBalancer
 name|balancer
 decl_stmt|;
-comment|/**    * Set of region servers which are dead but not processed immediately. If one    * server died before master enables ServerShutdownHandler, the server will be    * added to this set and will be processed through calling    * {@link ServerManager#processQueuedDeadServers()} by master.    *<p>    * A dead server is a server instance known to be dead, not listed in the /hbase/rs    * znode any more. It may have not been submitted to ServerShutdownHandler yet    * because the handler is not enabled.    *<p>    * A dead server, which has been submitted to ServerShutdownHandler while the    * handler is not enabled, is queued up.    *<p>    * So this is a set of region servers known to be dead but not submitted to    * ServerShutdownHander for processing yet.    */
+comment|/**    * Set of region servers which are dead but not processed immediately. If one    * server died before master enables ServerShutdownHandler, the server will be    * added to this set and will be processed through calling    * {@link ServerManager#processQueuedDeadServers()} by master.    *<p>    * A dead server is a server instance known to be dead, not listed in the /hbase/rs    * znode any more. It may have not been submitted to ServerShutdownHandler yet    * because the handler is not enabled.    *<p>    * A dead server, which has been submitted to ServerShutdownHandler while the    * handler is not enabled, is queued up.    *<p>    * So this is a set of region servers known to be dead but not submitted to    * ServerShutdownHandler for processing yet.    */
 specifier|private
 name|Set
 argument_list|<
@@ -1492,7 +1492,7 @@ name|sl
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check is a server of same host and port already exists,    * if not, or the existed one got a smaller start code, record it.    *    * @param sn the server to check and record    * @param sl the server load on the server    * @return true if the server is recorded, otherwise, false    */
+comment|/**    * Check is a server of same host and port already exists,    * if not, or the existed one got a smaller start code, record it.    *    * @param serverName the server to check and record    * @param sl the server load on the server    * @return true if the server is recorded, otherwise, false    */
 name|boolean
 name|checkAndRecordNewServer
 parameter_list|(
@@ -3224,7 +3224,7 @@ argument_list|)
 return|;
 block|}
 comment|// RPC methods to region servers
-comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param versionOfOfflineNode that needs to be present in the offline node    * when RS tries to change the state from OFFLINE to other states.    * @param favoredNodes    */
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param favoredNodes    */
 specifier|public
 name|RegionOpeningState
 name|sendRegionOpen
@@ -3235,9 +3235,6 @@ name|server
 parameter_list|,
 name|HRegionInfo
 name|region
-parameter_list|,
-name|int
-name|versionOfOfflineNode
 parameter_list|,
 name|List
 argument_list|<
@@ -3295,8 +3292,6 @@ argument_list|(
 name|server
 argument_list|,
 name|region
-argument_list|,
-name|versionOfOfflineNode
 argument_list|,
 name|favoredNodes
 argument_list|,
@@ -3369,11 +3364,9 @@ name|server
 parameter_list|,
 name|List
 argument_list|<
-name|Triple
+name|Pair
 argument_list|<
 name|HRegionInfo
-argument_list|,
-name|Integer
 argument_list|,
 name|List
 argument_list|<
@@ -3486,7 +3479,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @param versionOfClosingNode    *   the version of znode to compare when RS transitions the znode from    *   CLOSING state.    * @param dest - if the region is moved to another server, the destination server. null otherwise.    * @return true if server acknowledged close, false if not    * @throws IOException    */
+comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @param dest - if the region is moved to another server, the destination server. null otherwise.    * @throws IOException    */
 specifier|public
 name|boolean
 name|sendRegionClose
@@ -3497,14 +3490,8 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|int
-name|versionOfClosingNode
-parameter_list|,
 name|ServerName
 name|dest
-parameter_list|,
-name|boolean
-name|transitionInZK
 parameter_list|)
 throws|throws
 name|IOException
@@ -3575,11 +3562,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|versionOfClosingNode
-argument_list|,
 name|dest
-argument_list|,
-name|transitionInZK
 argument_list|)
 return|;
 block|}
@@ -3592,9 +3575,6 @@ name|server
 parameter_list|,
 name|HRegionInfo
 name|region
-parameter_list|,
-name|int
-name|versionOfClosingNode
 parameter_list|)
 throws|throws
 name|IOException
@@ -3606,11 +3586,7 @@ name|server
 argument_list|,
 name|region
 argument_list|,
-name|versionOfClosingNode
-argument_list|,
 literal|null
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
