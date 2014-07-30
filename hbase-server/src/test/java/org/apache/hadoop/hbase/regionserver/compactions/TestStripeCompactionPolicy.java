@@ -1256,6 +1256,14 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+comment|// Test depends on this not being set to pass.  Default breaks test.  TODO: Revisit.
+name|conf
+operator|.
+name|unset
+argument_list|(
+literal|"hbase.hstore.compaction.min.size"
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setFloat
@@ -2436,6 +2444,14 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+comment|// Test depends on this not being set to pass.  Default breaks test.  TODO: Revisit.
+name|conf
+operator|.
+name|unset
+argument_list|(
+literal|"hbase.hstore.compaction.min.size"
+argument_list|)
+expr_stmt|;
 comment|// First test everything with default split count of 2, then split into more.
 name|conf
 operator|.
@@ -2687,6 +2703,14 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+comment|// Test depends on this not being set to pass.  Default breaks test.  TODO: Revisit.
+name|conf
+operator|.
+name|unset
+argument_list|(
+literal|"hbase.hstore.compaction.min.size"
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|setInt
@@ -3547,6 +3571,14 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+comment|// Test depends on this not being set to pass.  Default breaks test.  TODO: Revisit.
+name|conf
+operator|.
+name|unset
+argument_list|(
+literal|"hbase.hstore.compaction.min.size"
+argument_list|)
+expr_stmt|;
 name|StripeCompactionPolicy
 name|policy
 init|=

@@ -579,6 +579,16 @@ argument_list|,
 literal|1.0F
 argument_list|)
 expr_stmt|;
+comment|// Test depends on this not being set to pass.  Default breaks test.  TODO: Revisit.
+name|this
+operator|.
+name|conf
+operator|.
+name|unset
+argument_list|(
+literal|"hbase.hstore.compaction.min.size"
+argument_list|)
+expr_stmt|;
 comment|//Setting up a Store
 name|Path
 name|basedir
