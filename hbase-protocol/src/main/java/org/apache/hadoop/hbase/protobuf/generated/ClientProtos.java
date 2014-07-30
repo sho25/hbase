@@ -72114,6 +72114,17 @@ name|Consistency
 name|getConsistency
 parameter_list|()
 function_decl|;
+comment|// optional uint32 caching = 17;
+comment|/**      *<code>optional uint32 caching = 17;</code>      */
+name|boolean
+name|hasCaching
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint32 caching = 17;</code>      */
+name|int
+name|getCaching
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
@@ -72998,6 +73009,23 @@ operator|=
 name|value
 expr_stmt|;
 block|}
+break|break;
+block|}
+case|case
+literal|136
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00004000
+expr_stmt|;
+name|caching_
+operator|=
+name|input
+operator|.
+name|readUInt32
+argument_list|()
+expr_stmt|;
 break|break;
 block|}
 block|}
@@ -74409,6 +74437,47 @@ return|return
 name|consistency_
 return|;
 block|}
+comment|// optional uint32 caching = 17;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CACHING_FIELD_NUMBER
+init|=
+literal|17
+decl_stmt|;
+specifier|private
+name|int
+name|caching_
+decl_stmt|;
+comment|/**      *<code>optional uint32 caching = 17;</code>      */
+specifier|public
+name|boolean
+name|hasCaching
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00004000
+operator|)
+operator|==
+literal|0x00004000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint32 caching = 17;</code>      */
+specifier|public
+name|int
+name|getCaching
+parameter_list|()
+block|{
+return|return
+name|caching_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -74557,6 +74626,10 @@ operator|.
 name|Consistency
 operator|.
 name|STRONG
+expr_stmt|;
+name|caching_
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|private
@@ -75107,6 +75180,29 @@ name|consistency_
 operator|.
 name|getNumber
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00004000
+operator|)
+operator|==
+literal|0x00004000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt32
+argument_list|(
+literal|17
+argument_list|,
+name|caching_
 argument_list|)
 expr_stmt|;
 block|}
@@ -75666,6 +75762,37 @@ name|consistency_
 operator|.
 name|getNumber
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00004000
+operator|)
+operator|==
+literal|0x00004000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt32Size
+argument_list|(
+literal|17
+argument_list|,
+name|caching_
 argument_list|)
 expr_stmt|;
 block|}
@@ -76353,6 +76480,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasCaching
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasCaching
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasCaching
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getCaching
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getCaching
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -76901,6 +77063,34 @@ argument_list|(
 name|getConsistency
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasCaching
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|CACHING_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getCaching
+argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -78093,6 +78283,19 @@ operator|~
 literal|0x00008000
 operator|)
 expr_stmt|;
+name|caching_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00010000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -78809,6 +79012,30 @@ name|consistency_
 operator|=
 name|consistency_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00004000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|caching_
+operator|=
+name|caching_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -79455,6 +79682,23 @@ argument_list|(
 name|other
 operator|.
 name|getConsistency
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasCaching
+argument_list|()
+condition|)
+block|{
+name|setCaching
+argument_list|(
+name|other
+operator|.
+name|getCaching
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -84939,6 +85183,89 @@ operator|.
 name|Consistency
 operator|.
 name|STRONG
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint32 caching = 17;
+specifier|private
+name|int
+name|caching_
+decl_stmt|;
+comment|/**        *<code>optional uint32 caching = 17;</code>        */
+specifier|public
+name|boolean
+name|hasCaching
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint32 caching = 17;</code>        */
+specifier|public
+name|int
+name|getCaching
+parameter_list|()
+block|{
+return|return
+name|caching_
+return|;
+block|}
+comment|/**        *<code>optional uint32 caching = 17;</code>        */
+specifier|public
+name|Builder
+name|setCaching
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+name|caching_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint32 caching = 17;</code>        */
+specifier|public
+name|Builder
+name|clearCaching
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00010000
+operator|)
+expr_stmt|;
+name|caching_
+operator|=
+literal|0
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -165945,7 +166272,7 @@ literal|"Condition\022\023\n\013nonce_group\030\004 \001(\004\"<\n\016Mutate"
 operator|+
 literal|"Response\022\027\n\006result\030\001 \001(\0132\007.Result\022\021\n\tpro"
 operator|+
-literal|"cessed\030\002 \001(\010\"\250\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007."
+literal|"cessed\030\002 \001(\010\"\271\003\n\004Scan\022\027\n\006column\030\001 \003(\0132\007."
 operator|+
 literal|"Column\022!\n\tattribute\030\002 \003(\0132\016.NameBytesPai"
 operator|+
@@ -165965,103 +166292,103 @@ literal|"load_column_families_on_demand\030\r \001(\010\022\r\n\005"
 operator|+
 literal|"small\030\016 \001(\010\022\027\n\010reversed\030\017 \001(\010:\005false\022)\n\013"
 operator|+
-literal|"consistency\030\020 \001(\0162\014.Consistency:\006STRONG\""
+literal|"consistency\030\020 \001(\0162\014.Consistency:\006STRONG\022"
 operator|+
-literal|"\236\001\n\013ScanRequest\022 \n\006region\030\001 \001(\0132\020.Region"
+literal|"\017\n\007caching\030\021 \001(\r\"\236\001\n\013ScanRequest\022 \n\006regi"
 operator|+
-literal|"Specifier\022\023\n\004scan\030\002 \001(\0132\005.Scan\022\022\n\nscanne"
+literal|"on\030\001 \001(\0132\020.RegionSpecifier\022\023\n\004scan\030\002 \001(\013"
 block|,
-literal|"r_id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rcl"
+literal|"2\005.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of"
 operator|+
-literal|"ose_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004"
+literal|"_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rne"
 operator|+
-literal|"\"\210\001\n\014ScanResponse\022\030\n\020cells_per_result\030\001 "
+literal|"xt_call_seq\030\006 \001(\004\"\210\001\n\014ScanResponse\022\030\n\020ce"
 operator|+
-literal|"\003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030"
+literal|"lls_per_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004"
 operator|+
-literal|"\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007results\030\005 \003(\0132\007.Re"
+literal|"\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022\030\n\007r"
 operator|+
-literal|"sult\022\r\n\005stale\030\006 \001(\010\"\263\001\n\024BulkLoadHFileReq"
+literal|"esults\030\005 \003(\0132\007.Result\022\r\n\005stale\030\006 \001(\010\"\263\001\n"
 operator|+
-literal|"uest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier\0225"
+literal|"\024BulkLoadHFileRequest\022 \n\006region\030\001 \002(\0132\020."
 operator|+
-literal|"\n\013family_path\030\002 \003(\0132 .BulkLoadHFileReque"
+literal|"RegionSpecifier\0225\n\013family_path\030\002 \003(\0132 .B"
 operator|+
-literal|"st.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\032*\n"
+literal|"ulkLoadHFileRequest.FamilyPath\022\026\n\016assign"
 operator|+
-literal|"\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002("
+literal|"_seq_num\030\003 \001(\010\032*\n\nFamilyPath\022\016\n\006family\030\001"
 block|,
-literal|"\t\"\'\n\025BulkLoadHFileResponse\022\016\n\006loaded\030\001 \002"
+literal|" \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileRespo"
 operator|+
-literal|"(\010\"a\n\026CoprocessorServiceCall\022\013\n\003row\030\001 \002("
+literal|"nse\022\016\n\006loaded\030\001 \002(\010\"a\n\026CoprocessorServic"
 operator|+
-literal|"\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013method_name\030\003"
+literal|"eCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t"
 operator|+
-literal|" \002(\t\022\017\n\007request\030\004 \002(\014\"9\n\030CoprocessorServ"
+literal|"\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"9"
 operator|+
-literal|"iceResult\022\035\n\005value\030\001 \001(\0132\016.NameBytesPair"
+literal|"\n\030CoprocessorServiceResult\022\035\n\005value\030\001 \001("
 operator|+
-literal|"\"d\n\031CoprocessorServiceRequest\022 \n\006region\030"
+literal|"\0132\016.NameBytesPair\"d\n\031CoprocessorServiceR"
 operator|+
-literal|"\001 \002(\0132\020.RegionSpecifier\022%\n\004call\030\002 \002(\0132\027."
+literal|"equest\022 \n\006region\030\001 \002(\0132\020.RegionSpecifier"
 operator|+
-literal|"CoprocessorServiceCall\"]\n\032CoprocessorSer"
+literal|"\022%\n\004call\030\002 \002(\0132\027.CoprocessorServiceCall\""
 operator|+
-literal|"viceResponse\022 \n\006region\030\001 \002(\0132\020.RegionSpe"
+literal|"]\n\032CoprocessorServiceResponse\022 \n\006region\030"
 operator|+
-literal|"cifier\022\035\n\005value\030\002 \002(\0132\016.NameBytesPair\"{\n"
+literal|"\001 \002(\0132\020.RegionSpecifier\022\035\n\005value\030\002 \002(\0132\016"
 block|,
-literal|"\006Action\022\r\n\005index\030\001 \001(\r\022 \n\010mutation\030\002 \001(\013"
+literal|".NameBytesPair\"{\n\006Action\022\r\n\005index\030\001 \001(\r\022"
 operator|+
-literal|"2\016.MutationProto\022\021\n\003get\030\003 \001(\0132\004.Get\022-\n\014s"
+literal|" \n\010mutation\030\002 \001(\0132\016.MutationProto\022\021\n\003get"
 operator|+
-literal|"ervice_call\030\004 \001(\0132\027.CoprocessorServiceCa"
+literal|"\030\003 \001(\0132\004.Get\022-\n\014service_call\030\004 \001(\0132\027.Cop"
 operator|+
-literal|"ll\"Y\n\014RegionAction\022 \n\006region\030\001 \002(\0132\020.Reg"
+literal|"rocessorServiceCall\"Y\n\014RegionAction\022 \n\006r"
 operator|+
-literal|"ionSpecifier\022\016\n\006atomic\030\002 \001(\010\022\027\n\006action\030\003"
+literal|"egion\030\001 \002(\0132\020.RegionSpecifier\022\016\n\006atomic\030"
 operator|+
-literal|" \003(\0132\007.Action\"\221\001\n\021ResultOrException\022\r\n\005i"
+literal|"\002 \001(\010\022\027\n\006action\030\003 \003(\0132\007.Action\"\221\001\n\021Resul"
 operator|+
-literal|"ndex\030\001 \001(\r\022\027\n\006result\030\002 \001(\0132\007.Result\022!\n\te"
+literal|"tOrException\022\r\n\005index\030\001 \001(\r\022\027\n\006result\030\002 "
 operator|+
-literal|"xception\030\003 \001(\0132\016.NameBytesPair\0221\n\016servic"
+literal|"\001(\0132\007.Result\022!\n\texception\030\003 \001(\0132\016.NameBy"
 operator|+
-literal|"e_result\030\004 \001(\0132\031.CoprocessorServiceResul"
+literal|"tesPair\0221\n\016service_result\030\004 \001(\0132\031.Coproc"
 operator|+
-literal|"t\"f\n\022RegionActionResult\022-\n\021resultOrExcep"
+literal|"essorServiceResult\"f\n\022RegionActionResult"
 block|,
-literal|"tion\030\001 \003(\0132\022.ResultOrException\022!\n\texcept"
+literal|"\022-\n\021resultOrException\030\001 \003(\0132\022.ResultOrEx"
 operator|+
-literal|"ion\030\002 \001(\0132\016.NameBytesPair\"G\n\014MultiReques"
+literal|"ception\022!\n\texception\030\002 \001(\0132\016.NameBytesPa"
 operator|+
-literal|"t\022#\n\014regionAction\030\001 \003(\0132\r.RegionAction\022\022"
+literal|"ir\"G\n\014MultiRequest\022#\n\014regionAction\030\001 \003(\013"
 operator|+
-literal|"\n\nnonceGroup\030\002 \001(\004\"@\n\rMultiResponse\022/\n\022r"
+literal|"2\r.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\"@\n\rM"
 operator|+
-literal|"egionActionResult\030\001 \003(\0132\023.RegionActionRe"
+literal|"ultiResponse\022/\n\022regionActionResult\030\001 \003(\013"
 operator|+
-literal|"sult*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMEL"
+literal|"2\023.RegionActionResult*\'\n\013Consistency\022\n\n\006"
 operator|+
-literal|"INE\020\0012\261\002\n\rClientService\022 \n\003Get\022\013.GetRequ"
+literal|"STRONG\020\000\022\014\n\010TIMELINE\020\0012\261\002\n\rClientService"
 operator|+
-literal|"est\032\014.GetResponse\022)\n\006Mutate\022\016.MutateRequ"
+literal|"\022 \n\003Get\022\013.GetRequest\032\014.GetResponse\022)\n\006Mu"
 operator|+
-literal|"est\032\017.MutateResponse\022#\n\004Scan\022\014.ScanReque"
+literal|"tate\022\016.MutateRequest\032\017.MutateResponse\022#\n"
 operator|+
-literal|"st\032\r.ScanResponse\022>\n\rBulkLoadHFile\022\025.Bul"
+literal|"\004Scan\022\014.ScanRequest\032\r.ScanResponse\022>\n\rBu"
 block|,
-literal|"kLoadHFileRequest\032\026.BulkLoadHFileRespons"
+literal|"lkLoadHFile\022\025.BulkLoadHFileRequest\032\026.Bul"
 operator|+
-literal|"e\022F\n\013ExecService\022\032.CoprocessorServiceReq"
+literal|"kLoadHFileResponse\022F\n\013ExecService\022\032.Copr"
 operator|+
-literal|"uest\032\033.CoprocessorServiceResponse\022&\n\005Mul"
+literal|"ocessorServiceRequest\032\033.CoprocessorServi"
 operator|+
-literal|"ti\022\r.MultiRequest\032\016.MultiResponseBB\n*org"
+literal|"ceResponse\022&\n\005Multi\022\r.MultiRequest\032\016.Mul"
 operator|+
-literal|".apache.hadoop.hbase.protobuf.generatedB"
+literal|"tiResponseBB\n*org.apache.hadoop.hbase.pr"
 operator|+
-literal|"\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"otobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -166776,6 +167103,8 @@ block|,
 literal|"Reversed"
 block|,
 literal|"Consistency"
+block|,
+literal|"Caching"
 block|, }
 argument_list|)
 expr_stmt|;
