@@ -824,6 +824,15 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.assignment.usezk"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|FsShell
 name|shell
 init|=
