@@ -193,6 +193,9 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|setupNamespace
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_class
