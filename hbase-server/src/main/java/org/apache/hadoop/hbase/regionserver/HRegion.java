@@ -22004,6 +22004,15 @@ name|acquiredRowLocks
 operator|.
 name|size
 argument_list|()
+operator|==
+literal|0
+condition|?
+literal|1
+else|:
+name|acquiredRowLocks
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|locked
