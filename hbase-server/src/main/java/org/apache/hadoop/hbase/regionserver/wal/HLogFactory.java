@@ -1008,6 +1008,16 @@ name|Writer
 argument_list|>
 name|logWriterClass
 decl_stmt|;
+specifier|static
+name|void
+name|resetLogWriterClass
+parameter_list|()
+block|{
+name|logWriterClass
+operator|=
+literal|null
+expr_stmt|;
+block|}
 comment|/**      * Create a writer for the WAL.      * @return A WAL writer.  Close when done with it.      * @throws IOException      */
 specifier|public
 specifier|static
