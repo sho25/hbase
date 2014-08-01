@@ -71,6 +71,16 @@ name|NUM_FILES_COMPACTED_DESC
 init|=
 literal|"Number of files that were input for finished, successful or aborted, compactions"
 decl_stmt|;
+name|String
+name|COPROCESSOR_EXECUTION_STATISTICS
+init|=
+literal|"coprocessorExecutionStatistics"
+decl_stmt|;
+name|String
+name|COPROCESSOR_EXECUTION_STATISTICS_DESC
+init|=
+literal|"Statistics for coprocessor execution times"
+decl_stmt|;
 comment|/**    * Close the region's metrics as this region is closing.    */
 name|void
 name|close

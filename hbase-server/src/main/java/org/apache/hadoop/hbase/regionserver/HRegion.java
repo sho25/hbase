@@ -4709,6 +4709,7 @@ name|get
 argument_list|()
 return|;
 block|}
+specifier|public
 name|MetricsRegion
 name|getMetrics
 parameter_list|()
