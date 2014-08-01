@@ -167,6 +167,14 @@ block|{
 name|VISIBILITY_SERIALIZATION_VERSION
 block|}
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CHECK_AUTHS_FOR_MUTATION
+init|=
+literal|"hbase.security.visibility.mutations.checkauths"
+decl_stmt|;
 block|}
 end_class
 
