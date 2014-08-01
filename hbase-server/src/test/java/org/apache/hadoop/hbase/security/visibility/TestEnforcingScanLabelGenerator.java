@@ -47,7 +47,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -153,7 +165,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Get
 import|;
 end_import
 
@@ -169,7 +181,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
+name|HTable
 import|;
 end_import
 
@@ -469,41 +481,11 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|conf
+name|VisibilityTestUtil
 operator|.
-name|setInt
+name|enableVisiblityLabels
 argument_list|(
-literal|"hfile.format.version"
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
 name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.coprocessor.master.classes"
-argument_list|,
-name|VisibilityController
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.coprocessor.region.classes"
-argument_list|,
-name|VisibilityController
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|String
