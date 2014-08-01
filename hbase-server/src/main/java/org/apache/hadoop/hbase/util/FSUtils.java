@@ -3106,6 +3106,27 @@ operator|.
 name|VERSION_FILE_NAME
 argument_list|)
 decl_stmt|;
+name|Path
+name|tempVersionFile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|rootdir
+argument_list|,
+name|HConstants
+operator|.
+name|HBASE_TEMP_DIRECTORY
+operator|+
+name|Path
+operator|.
+name|SEPARATOR
+operator|+
+name|HConstants
+operator|.
+name|VERSION_FILE_NAME
+argument_list|)
+decl_stmt|;
 while|while
 condition|(
 literal|true
@@ -3113,6 +3134,7 @@ condition|)
 block|{
 try|try
 block|{
+comment|// Write the version to a temporary file
 name|FSDataOutputStream
 name|s
 init|=
@@ -3120,9 +3142,11 @@ name|fs
 operator|.
 name|create
 argument_list|(
-name|versionFile
+name|tempVersionFile
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|s
 operator|.
 name|write
@@ -3138,6 +3162,63 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|s
+operator|=
+literal|null
+expr_stmt|;
+comment|// Move the temp version file to its normal location. Returns false
+comment|// if the rename failed. Throw an IOE in that case.
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|tempVersionFile
+argument_list|,
+name|versionFile
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to move temp version file to "
+operator|+
+name|versionFile
+argument_list|)
+throw|;
+block|}
+block|}
+finally|finally
+block|{
+comment|// Cleaning up the temporary if the rename failed would be trying
+comment|// too hard. We'll unconditionally create it again the next time
+comment|// through anyway, files are overwritten by default by create().
+comment|// Attempt to close the stream on the way out if it is still open.
+try|try
+block|{
+if|if
+condition|(
+name|s
+operator|!=
+literal|null
+condition|)
+name|s
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ignore
+parameter_list|)
+block|{ }
+block|}
 name|LOG
 operator|.
 name|debug
