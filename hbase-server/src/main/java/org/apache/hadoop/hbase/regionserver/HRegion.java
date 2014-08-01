@@ -26422,8 +26422,8 @@ index|[]
 name|sp
 parameter_list|)
 block|{
-comment|// NOTE : this HRegion will go away after the forced split is successful
-comment|//        therefore, no reason to clear this value
+comment|// This HRegion will go away after the forced split is successful
+comment|// But if a forced split fails, we need to clear forced split.
 name|this
 operator|.
 name|splitRequest
@@ -26446,7 +26446,7 @@ expr_stmt|;
 block|}
 block|}
 name|void
-name|clearSplit_TESTS_ONLY
+name|clearSplit
 parameter_list|()
 block|{
 name|this
@@ -26454,6 +26454,12 @@ operator|.
 name|splitRequest
 operator|=
 literal|false
+expr_stmt|;
+name|this
+operator|.
+name|explicitSplitPoint
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|/**    * Give the region a chance to prepare before it is split.    */

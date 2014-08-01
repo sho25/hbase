@@ -1306,6 +1306,20 @@ operator|+
 literal|" not splittable because midkey=null"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|r
+operator|.
+name|shouldForceSplit
+argument_list|()
+condition|)
+block|{
+name|r
+operator|.
+name|clearSplit
+argument_list|()
+expr_stmt|;
+block|}
 return|return;
 block|}
 try|try

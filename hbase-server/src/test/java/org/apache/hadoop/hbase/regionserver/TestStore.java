@@ -6526,7 +6526,7 @@ operator|.
 name|getHRegion
 argument_list|()
 operator|.
-name|clearSplit_TESTS_ONLY
+name|clearSplit
 argument_list|()
 expr_stmt|;
 block|}
