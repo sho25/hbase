@@ -3884,7 +3884,7 @@ block|{
 try|try
 block|{
 name|Path
-name|filePath
+name|idFile
 init|=
 operator|new
 name|Path
@@ -3896,6 +3896,28 @@ operator|.
 name|CLUSTER_ID_FILE_NAME
 argument_list|)
 decl_stmt|;
+name|Path
+name|tempIdFile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|rootdir
+argument_list|,
+name|HConstants
+operator|.
+name|HBASE_TEMP_DIRECTORY
+operator|+
+name|Path
+operator|.
+name|SEPARATOR
+operator|+
+name|HConstants
+operator|.
+name|CLUSTER_ID_FILE_NAME
+argument_list|)
+decl_stmt|;
+comment|// Write the id file to a temporary location
 name|FSDataOutputStream
 name|s
 init|=
@@ -3903,7 +3925,7 @@ name|fs
 operator|.
 name|create
 argument_list|(
-name|filePath
+name|tempIdFile
 argument_list|)
 decl_stmt|;
 try|try
@@ -3918,14 +3940,64 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
 name|s
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|s
+operator|=
+literal|null
+expr_stmt|;
+comment|// Move the temporary file to its normal location. Throw an IOE if
+comment|// the rename failed
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|tempIdFile
+argument_list|,
+name|idFile
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to move temp version file to "
+operator|+
+name|idFile
+argument_list|)
+throw|;
+block|}
+block|}
+finally|finally
+block|{
+comment|// Attempt to close the stream if still open on the way out
+try|try
+block|{
+if|if
+condition|(
+name|s
+operator|!=
+literal|null
+condition|)
+name|s
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ignore
+parameter_list|)
+block|{ }
 block|}
 if|if
 condition|(
@@ -3941,7 +4013,7 @@ name|debug
 argument_list|(
 literal|"Created cluster ID file at "
 operator|+
-name|filePath
+name|idFile
 operator|.
 name|toString
 argument_list|()
