@@ -477,6 +477,20 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|lang
+operator|.
+name|RandomStringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -1565,42 +1579,6 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLog
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
 name|HLogKey
 import|;
 end_import
@@ -1619,7 +1597,23 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogSplitter
+name|MetricsWAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
 import|;
 end_import
 
@@ -1637,7 +1631,71 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogSplitter
+name|WALActionsListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALSplitter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALSplitter
 operator|.
 name|MutationReplay
 import|;
@@ -1657,7 +1715,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLogUtil
+name|WALUtil
 import|;
 end_import
 
@@ -2157,7 +2215,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL/HLog    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *    *<p>Control of this sequence is handed off to the WAL/HLog implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
+comment|/**    * Region scoped edit sequence Id. Edits to this region are GUARANTEED to appear in the WAL    * file in this sequence id's order; i.e. edit #2 will be in the WAL after edit #1.    * Its default value is -1L. This default is used as a marker to indicate    * that the region hasn't opened yet. Once it is opened, it is set to the derived    * {@link #openSeqNum}, the largest sequence id of all hfiles opened under this Region.    *    *<p>Control of this sequence is handed off to the WAL implementation.  It is responsible    * for tagging edits with the correct sequence id since it is responsible for getting the    * edits into the WAL files. It controls updating the sequence id value.  DO NOT UPDATE IT    * OUTSIDE OF THE WAL.  The value you get will not be what you think it is.    */
 specifier|private
 specifier|final
 name|AtomicLong
@@ -2361,8 +2419,8 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HLog
-name|log
+name|WAL
+name|wal
 decl_stmt|;
 specifier|private
 specifier|final
@@ -2499,7 +2557,7 @@ argument_list|)
 decl_stmt|;
 comment|//
 comment|// Context: During replay we want to ensure that we do not lose any data. So, we
-comment|// have to be conservative in how we replay logs. For each store, we calculate
+comment|// have to be conservative in how we replay wals. For each store, we calculate
 comment|// the maxSeqId up to which the store was flushed. And, skip the edits which
 comment|// are equal to or lower than maxSeqId for each store.
 comment|// The following map is populated when opening the region
@@ -3015,7 +3073,7 @@ specifier|final
 name|Durability
 name|durability
 decl_stmt|;
-comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
+comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3026,8 +3084,8 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HLog
-name|log
+name|WAL
+name|wal
 parameter_list|,
 specifier|final
 name|FileSystem
@@ -3064,7 +3122,7 @@ argument_list|,
 name|regionInfo
 argument_list|)
 argument_list|,
-name|log
+name|wal
 argument_list|,
 name|confParam
 argument_list|,
@@ -3074,7 +3132,7 @@ name|rsServices
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param fs is the filesystem.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param confParam is global configuration settings.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
+comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param fs is the filesystem.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param confParam is global configuration settings.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -3083,8 +3141,8 @@ name|HRegionFileSystem
 name|fs
 parameter_list|,
 specifier|final
-name|HLog
-name|log
+name|WAL
+name|wal
 parameter_list|,
 specifier|final
 name|Configuration
@@ -3143,9 +3201,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|log
+name|wal
 operator|=
-name|log
+name|wal
 expr_stmt|;
 name|this
 operator|.
@@ -3932,7 +3990,7 @@ operator|.
 name|currentTime
 argument_list|()
 expr_stmt|;
-comment|// Use maximum of log sequenceid or that which was found in stores
+comment|// Use maximum of wal sequenceid or that which was found in stores
 comment|// (particularly if no recovered edits, seqid will be -1).
 name|long
 name|nextSeqid
@@ -3953,7 +4011,7 @@ comment|// is opened before recovery completes. So we add a safety bumper to avo
 comment|// overlaps used sequence numbers
 name|nextSeqid
 operator|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|writeRegionOpenSequenceIdFile
 argument_list|(
@@ -4476,8 +4534,8 @@ specifier|private
 name|void
 name|writeRegionOpenMarker
 parameter_list|(
-name|HLog
-name|log
+name|WAL
+name|wal
 parameter_list|,
 name|long
 name|openSeqId
@@ -4617,11 +4675,11 @@ argument_list|,
 name|storeFiles
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeRegionEventMarker
 argument_list|(
-name|log
+name|wal
 argument_list|,
 name|getTableDesc
 argument_list|()
@@ -4640,8 +4698,8 @@ specifier|private
 name|void
 name|writeRegionCloseMarker
 parameter_list|(
-name|HLog
-name|log
+name|WAL
+name|wal
 parameter_list|)
 throws|throws
 name|IOException
@@ -4782,11 +4840,11 @@ argument_list|,
 name|storeFiles
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeRegionEventMarker
 argument_list|(
-name|log
+name|wal
 argument_list|,
 name|getTableDesc
 argument_list|()
@@ -5240,7 +5298,7 @@ operator|!
 name|isRecovering
 condition|)
 block|{
-comment|// Call only when log replay is over.
+comment|// Call only when wal replay is over.
 name|coprocessorHost
 operator|.
 name|postLogReplay
@@ -6281,7 +6339,7 @@ condition|(
 operator|!
 name|abort
 operator|&&
-name|log
+name|wal
 operator|!=
 literal|null
 operator|&&
@@ -6293,7 +6351,7 @@ condition|)
 block|{
 name|writeRegionCloseMarker
 argument_list|(
-name|log
+name|wal
 argument_list|)
 expr_stmt|;
 block|}
@@ -6841,16 +6899,16 @@ operator|.
 name|htableDescriptor
 return|;
 block|}
-comment|/** @return HLog in use for this region */
+comment|/** @return WAL in use for this region */
 specifier|public
-name|HLog
-name|getLog
+name|WAL
+name|getWAL
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|log
+name|wal
 return|;
 block|}
 comment|/**    * A split takes the config from the parent region& passes it to the daughter    * region's constructor. If 'conf' was passed, you would end up using the HTD    * of the parent region in addition to the new daughter HTD. Pass 'baseConf'    * to the daughter regions to avoid this tricky dedupe problem.    * @return Configuration object    */
@@ -7503,7 +7561,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted.    */
 specifier|public
 name|FlushResult
 name|flushcache
@@ -7970,7 +8028,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to write those updates in the    * memstore out to disk, while being able to process reads/writes as much as possible during the    * flush operation.    *<p>This method may block for some time.  Every time you call it, we up the regions    * sequence id even if we don't flush; i.e. the returned region id will be at least one larger    * than the last edit applied to this region. The returned id does not refer to an actual edit.    * The returned id can be used for say installing a bulk loaded file just ahead of the last hfile    * that was the result of this flush, etc.    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the memstore. Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the wal. We need to write those updates in the    * memstore out to disk, while being able to process reads/writes as much as possible during the    * flush operation.    *<p>This method may block for some time.  Every time you call it, we up the regions    * sequence id even if we don't flush; i.e. the returned region id will be at least one larger    * than the last edit applied to this region. The returned id does not refer to an actual edit.    * The returned id can be used for say installing a bulk loaded file just ahead of the last hfile    * that was the result of this flush, etc.    * @return object describing the flush's state    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
@@ -7986,7 +8044,7 @@ name|internalFlushcache
 argument_list|(
 name|this
 operator|.
-name|log
+name|wal
 argument_list|,
 operator|-
 literal|1
@@ -7995,13 +8053,13 @@ name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out flush file.    * @return object describing the flush's state    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
+comment|/**    * @param wal Null if we're NOT to go via wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out flush file.    * @return object describing the flush's state    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
 specifier|protected
 name|FlushResult
 name|internalFlushcache
 parameter_list|(
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -8095,7 +8153,7 @@ literal|0
 condition|)
 block|{
 comment|// Presume that if there are still no edits in the memstore, then there are no edits for
-comment|// this region out in the WAL/HLog subsystem so no need to do any trickery clearing out
+comment|// this region out in the WAL subsystem so no need to do any trickery clearing out
 comment|// edits in the WAL system. Up the sequence number so the resulting flush id is for
 comment|// sure just beyond the last appended region edit (useful as a marker when bulk loading,
 comment|// etc.)
@@ -8519,7 +8577,7 @@ argument_list|)
 decl_stmt|;
 name|trxId
 operator|=
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeFlushMarker
 argument_list|(
@@ -8599,7 +8657,7 @@ argument_list|,
 name|committedFiles
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeFlushMarker
 argument_list|(
@@ -8736,7 +8794,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unexpected exception while log.sync(), ignoring. Exception: "
+literal|"Unexpected exception while wal.sync(), ignoring. Exception: "
 operator|+
 name|StringUtils
 operator|.
@@ -8748,7 +8806,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// wait for all in-progress transactions to commit to HLog before
+comment|// wait for all in-progress transactions to commit to WAL before
 comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
 comment|// We have to block before we start the flush, otherwise keys that
@@ -8820,8 +8878,8 @@ expr_stmt|;
 block|}
 block|}
 comment|// Any failure from here on out will be catastrophic requiring server
-comment|// restart so hlog content can be replayed and put back into the memstore.
-comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
+comment|// restart so wal content can be replayed and put back into the memstore.
+comment|// Otherwise, the snapshot content while backed up in the wal, it will not
 comment|// be part of the current running servers state.
 name|boolean
 name|compactionRequested
@@ -8959,7 +9017,7 @@ argument_list|,
 name|committedFiles
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeFlushMarker
 argument_list|(
@@ -8988,7 +9046,7 @@ name|t
 parameter_list|)
 block|{
 comment|// An exception here means that the snapshot was not persisted.
-comment|// The hlog needs to be replayed so its content is restored to memstore.
+comment|// The wal needs to be replayed so its content is restored to memstore.
 comment|// Currently, only a server restart will do this.
 comment|// We used to only catch IOEs but its possible that we'd get other
 comment|// exceptions -- e.g. HBASE-659 was about an NPE -- so now we catch
@@ -9021,7 +9079,7 @@ argument_list|,
 name|committedFiles
 argument_list|)
 decl_stmt|;
-name|HLogUtil
+name|WALUtil
 operator|.
 name|writeFlushMarker
 argument_list|(
@@ -9290,18 +9348,18 @@ name|long
 name|getNextSequenceId
 parameter_list|(
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|this
 operator|.
-name|appendNoSyncNoAppend
+name|appendEmptyEdit
 argument_list|(
 name|wal
 argument_list|,
@@ -10688,8 +10746,6 @@ name|ReplayBatch
 extends|extends
 name|BatchOperationInProgress
 argument_list|<
-name|HLogSplitter
-operator|.
 name|MutationReplay
 argument_list|>
 block|{
@@ -10900,8 +10956,6 @@ name|OperationStatus
 index|[]
 name|batchReplay
 parameter_list|(
-name|HLogSplitter
-operator|.
 name|MutationReplay
 index|[]
 name|mutations
@@ -11483,7 +11537,7 @@ name|noOfDeletes
 init|=
 literal|0
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|walKey
 init|=
 literal|null
@@ -12134,7 +12188,7 @@ block|}
 comment|// ------------------------------------
 comment|// STEP 3. Write back to memstore
 comment|// Write to memstore. It is ok to write to memstore
-comment|// first without updating the HLog because we do not roll
+comment|// first without updating the WAL because we do not roll
 comment|// forward the memstore MVCC. The MVCC will be moved up when
 comment|// the complete operation is done. These changes are not yet
 comment|// visible to scanners till we update the MVCC. The MVCC is
@@ -12374,6 +12428,7 @@ argument_list|)
 throw|;
 block|}
 comment|// txid should always increase, so having the one from the last call is ok.
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
 name|walKey
 operator|=
 operator|new
@@ -12410,9 +12465,9 @@ name|txid
 operator|=
 name|this
 operator|.
-name|log
+name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|this
 operator|.
@@ -12529,6 +12584,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
 name|walKey
 operator|=
 operator|new
@@ -12549,7 +12605,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|HLog
+name|WALKey
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -12585,9 +12641,9 @@ name|txid
 operator|=
 name|this
 operator|.
-name|log
+name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|this
 operator|.
@@ -12623,11 +12679,11 @@ name|walKey
 operator|=
 name|this
 operator|.
-name|appendNoSyncNoAppend
+name|appendEmptyEdit
 argument_list|(
 name|this
 operator|.
-name|log
+name|wal
 argument_list|,
 name|memstoreCells
 argument_list|)
@@ -14412,7 +14468,7 @@ name|readsEnabled
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
+comment|/**    * Add updates first to the wal and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -15017,7 +15073,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * This does not write to the HLog itself.    * @param familyMap map of family->edits    * @param walEdit the destination entry to append into    */
+comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * This does not write to the WAL itself.    * @param familyMap map of family->edits    * @param walEdit the destination entry to append into    */
 specifier|private
 name|void
 name|addFamilyMapToWALEdit
@@ -15190,7 +15246,7 @@ operator|.
 name|memstoreFlushSize
 return|;
 block|}
-comment|/**    * Read the edits log put under this region by wal log splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any log message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such log messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * HLog sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/hlog sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver log with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param maxSeqIdInStores Any edit found in split editlogs needs to be in excess of    * the maxSeqId for the store to be applied, else its skipped.    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
+comment|/**    * Read the edits put under this region by wal splitting process.  Put    * the recovered edits back up into this region.    *    *<p>We can ignore any wal message that has a sequence ID that's equal to or    * lower than minSeqId.  (Because we know such messages are already    * reflected in the HFiles.)    *    *<p>While this is running we are putting pressure on memory yet we are    * outside of our usual accounting because we are not yet an onlined region    * (this stuff is being run as part of Region initialization).  This means    * that if we're up against global memory limits, we'll not be flagged to flush    * because we are not online. We can't be flushed by usual mechanisms anyways;    * we're not yet online so our relative sequenceids are not yet aligned with    * WAL sequenceids -- not till we come up online, post processing of split    * edits.    *    *<p>But to help relieve memory pressure, at least manage our own heap size    * flushing if are in excess of per-region limits.  Flushing, though, we have    * to be careful and avoid using the regionserver/wal sequenceid.  Its running    * on a different line to whats going on in here in this region context so if we    * crashed replaying these edits, but in the midst had a flush that used the    * regionserver wal with a sequenceid in excess of whats going on in here    * in this region and with its split editlogs, then we could miss edits the    * next time we go to recover. So, we have to flush inline, using seqids that    * make sense in a this single region context only -- until we online.    *    * @param maxSeqIdInStores Any edit found in split editlogs needs to be in excess of    * the maxSeqId for the store to be applied, else its skipped.    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws UnsupportedEncodingException    * @throws IOException    */
 specifier|protected
 name|long
 name|replayRecoveredEditsIfAny
@@ -15277,7 +15333,7 @@ name|Path
 argument_list|>
 name|files
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -15420,7 +15476,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Maximum sequenceid for this log is "
+literal|"Maximum sequenceid for this wal is "
 operator|+
 name|maxSeqId
 operator|+
@@ -15527,7 +15583,7 @@ block|{
 name|Path
 name|p
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(
@@ -15655,7 +15711,7 @@ return|return
 name|seqid
 return|;
 block|}
-comment|/*    * @param edits File of recovered edits.    * @param maxSeqIdInStores Maximum sequenceid found in each store.  Edits in log    * must be larger than this to be replayed for each store.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws IOException    */
+comment|/*    * @param edits File of recovered edits.    * @param maxSeqIdInStores Maximum sequenceid found in each store.  Edits in wal    * must be larger than this to be replayed for each store.    * @param reporter    * @return the sequence id of the last edit added to this region out of the    * recovered edits log or<code>minSeqId</code> if nothing added from editlogs.    * @throws IOException    */
 specifier|private
 name|long
 name|replayRecoveredEdits
@@ -15721,10 +15777,10 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Opening logs"
+literal|"Opening recovered edits"
 argument_list|)
 expr_stmt|;
-name|HLog
+name|WAL
 operator|.
 name|Reader
 name|reader
@@ -15735,7 +15791,7 @@ try|try
 block|{
 name|reader
 operator|=
-name|HLogFactory
+name|WALFactory
 operator|.
 name|createReader
 argument_list|(
@@ -15779,7 +15835,7 @@ name|intervalEdits
 init|=
 literal|0
 decl_stmt|;
-name|HLog
+name|WAL
 operator|.
 name|Entry
 name|entry
@@ -15866,7 +15922,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HLogKey
+name|WALKey
 name|key
 init|=
 name|entry
@@ -16049,7 +16105,7 @@ name|val
 argument_list|)
 condition|)
 block|{
-comment|// if bypass this log entry, ignore it ...
+comment|// if bypass this wal entry, ignore it ...
 continue|continue;
 block|}
 block|}
@@ -16328,7 +16384,7 @@ block|{
 name|Path
 name|p
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(
@@ -16341,7 +16397,7 @@ name|msg
 operator|=
 literal|"Encountered EOF. Most likely due to Master failure during "
 operator|+
-literal|"log splitting, so we have this data in another edit.  "
+literal|"wal splitting, so we have this data in another edit.  "
 operator|+
 literal|"Continuing, but renaming "
 operator|+
@@ -16389,7 +16445,7 @@ block|{
 name|Path
 name|p
 init|=
-name|HLogUtil
+name|WALSplitter
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(
@@ -20025,7 +20081,7 @@ return|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
 specifier|static
 name|HRegion
 name|newHRegion
@@ -20033,8 +20089,8 @@ parameter_list|(
 name|Path
 name|tableDir
 parameter_list|,
-name|HLog
-name|log
+name|WAL
+name|wal
 parameter_list|,
 name|FileSystem
 name|fs
@@ -20105,7 +20161,7 @@ name|Path
 operator|.
 name|class
 argument_list|,
-name|HLog
+name|WAL
 operator|.
 name|class
 argument_list|,
@@ -20137,7 +20193,7 @@ name|newInstance
 argument_list|(
 name|tableDir
 argument_list|,
-name|log
+name|wal
 argument_list|,
 name|fs
 argument_list|,
@@ -20169,7 +20225,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.<b>When done with a region created using this method, you will    * need to explicitly close the {@link HLog} it created too; it will not be    * done for you.  Not closing the log will leave at least a daemon thread    * running.</b>  Call {@link #closeHRegion(HRegion)} and it will do    * necessary cleanup for you.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link WAL} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getWAL()} to get    * access.<b>When done with a region created using this method, you will    * need to explicitly close the {@link WAL} it created too; it will not be    * done for you.  Not closing the wal will leave at least a daemon thread    * running.</b>  Call {@link #closeHRegion(HRegion)} and it will do    * necessary cleanup for you.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20209,7 +20265,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * This will do the necessary cleanup a call to    * {@link #createHRegion(HRegionInfo, Path, Configuration, HTableDescriptor)}    * requires.  This method will close the region and then close its    * associated {@link HLog} file.  You use it if you call the other createHRegion,    * the one that takes an {@link HLog} instance but don't be surprised by the    * call to the {@link HLog#closeAndDelete()} on the {@link HLog} the    * HRegion was carrying.    * @throws IOException    */
+comment|/**    * This will do the necessary cleanup a call to    * {@link #createHRegion(HRegionInfo, Path, Configuration, HTableDescriptor)}    * requires.  This method will close the region and then close its    * associated {@link WAL} file.  You can still use it if you call the other createHRegion,    * the one that takes an {@link WAL} instance but don't be surprised by the    * call to the {@link WAL#close()} on the {@link WAL} the    * HRegion was carrying.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -20238,7 +20294,7 @@ if|if
 condition|(
 name|r
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 operator|==
 literal|null
@@ -20246,14 +20302,14 @@ condition|)
 return|return;
 name|r
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 operator|.
-name|closeAndDelete
+name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link WAL} for the created region needs to be closed explicitly.    * Use {@link HRegion#getWAL()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param wal shared WAL    * @param initialize - true to initialize the region    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20276,8 +20332,8 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|,
 specifier|final
 name|boolean
@@ -20297,7 +20353,7 @@ name|conf
 argument_list|,
 name|hTableDescriptor
 argument_list|,
-name|hlog
+name|wal
 argument_list|,
 name|initialize
 argument_list|,
@@ -20305,7 +20361,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link WAL} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getWAL()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param wal shared WAL    * @param initialize - true to initialize the region    * @param ignoreWAL - true to skip generate new wal if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20328,8 +20384,8 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|,
 specifier|final
 name|boolean
@@ -20337,7 +20393,7 @@ name|initialize
 parameter_list|,
 specifier|final
 name|boolean
-name|ignoreHLog
+name|ignoreWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -20370,15 +20426,15 @@ name|conf
 argument_list|,
 name|hTableDescriptor
 argument_list|,
-name|hlog
+name|wal
 argument_list|,
 name|initialize
 argument_list|,
-name|ignoreHLog
+name|ignoreWAL
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param tableDir table directory    * @param hlog shared HLog    * @param initialize - true to initialize the region    * @param ignoreHLog - true to skip generate new hlog if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link WAL} for the created region needs to be closed    * explicitly, if it is not null.    * Use {@link HRegion#getWAL()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param tableDir table directory    * @param wal shared WAL    * @param initialize - true to initialize the region    * @param ignoreWAL - true to skip generate new wal if it is null, mostly for createTable    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20405,8 +20461,8 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|,
 specifier|final
 name|boolean
@@ -20414,7 +20470,7 @@ name|initialize
 parameter_list|,
 specifier|final
 name|boolean
-name|ignoreHLog
+name|ignoreWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -20463,9 +20519,6 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|HRegionFileSystem
-name|rfs
-init|=
-name|HRegionFileSystem
 operator|.
 name|createRegionOnFileSystem
 argument_list|(
@@ -20477,40 +20530,60 @@ name|tableDir
 argument_list|,
 name|info
 argument_list|)
-decl_stmt|;
-name|HLog
-name|effectiveHLog
+expr_stmt|;
+name|WAL
+name|effectiveWAL
 init|=
-name|hlog
+name|wal
 decl_stmt|;
 if|if
 condition|(
-name|hlog
+name|wal
 operator|==
 literal|null
 operator|&&
 operator|!
-name|ignoreHLog
+name|ignoreWAL
 condition|)
 block|{
-name|effectiveHLog
+comment|// TODO HBASE-11983 There'll be no roller for this wal?
+name|effectiveWAL
 operator|=
-name|HLogFactory
-operator|.
-name|createHLog
+operator|(
+operator|new
+name|WALFactory
 argument_list|(
-name|fs
-argument_list|,
-name|rfs
-operator|.
-name|getRegionDir
-argument_list|()
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_LOGDIR_NAME
-argument_list|,
 name|conf
+argument_list|,
+name|Collections
+operator|.
+expr|<
+name|WALActionsListener
+operator|>
+name|singletonList
+argument_list|(
+operator|new
+name|MetricsWAL
+argument_list|()
+argument_list|)
+argument_list|,
+literal|"hregion-"
+operator|+
+name|RandomStringUtils
+operator|.
+name|random
+argument_list|(
+literal|8
+argument_list|)
+argument_list|)
+operator|)
+operator|.
+name|getWAL
+argument_list|(
+name|info
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -20523,7 +20596,7 @@ name|newHRegion
 argument_list|(
 name|tableDir
 argument_list|,
-name|effectiveHLog
+name|effectiveWAL
 argument_list|,
 name|fs
 argument_list|,
@@ -20541,7 +20614,7 @@ condition|(
 name|initialize
 condition|)
 block|{
-comment|// If initializing, set the sequenceId. It is also required by HLogPerformanceEvaluation when
+comment|// If initializing, set the sequenceId. It is also required by WALPerformanceEvaluation when
 comment|// verifying the WALEdits.
 name|region
 operator|.
@@ -20582,8 +20655,8 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|HLog
-name|hlog
+name|WAL
+name|wal
 parameter_list|)
 throws|throws
 name|IOException
@@ -20599,13 +20672,13 @@ name|conf
 argument_list|,
 name|hTableDescriptor
 argument_list|,
-name|hlog
+name|wal
 argument_list|,
 literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20620,7 +20693,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -20647,7 +20720,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param info Info for region to be opened    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20662,7 +20735,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -20704,7 +20777,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20722,7 +20795,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -20751,7 +20824,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf The Configuration object to use.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20770,7 +20843,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -20846,7 +20919,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20873,7 +20946,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|)
 throws|throws
@@ -20900,7 +20973,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -20927,7 +21000,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -20979,7 +21052,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -21010,7 +21083,7 @@ name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 specifier|final
@@ -21123,7 +21196,7 @@ argument_list|()
 argument_list|,
 name|other
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 argument_list|,
 name|regionFs
@@ -21190,7 +21263,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|log
+name|wal
 operator|!=
 literal|null
 operator|&&
@@ -21202,7 +21275,7 @@ condition|)
 block|{
 name|writeRegionOpenMarker
 argument_list|(
-name|log
+name|wal
 argument_list|,
 name|openSeqNum
 argument_list|)
@@ -21290,7 +21363,7 @@ argument_list|()
 argument_list|,
 name|this
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 argument_list|,
 name|fs
@@ -21376,7 +21449,7 @@ argument_list|()
 argument_list|,
 name|this
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 argument_list|,
 name|fs
@@ -22937,7 +23010,7 @@ name|mvccNum
 init|=
 literal|0
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|walKey
 init|=
 literal|null
@@ -23196,6 +23269,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
 name|walKey
 operator|=
 operator|new
@@ -23216,7 +23290,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|HLog
+name|WALKey
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -23236,9 +23310,9 @@ name|txid
 operator|=
 name|this
 operator|.
-name|log
+name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|this
 operator|.
@@ -23269,17 +23343,17 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// since we use log sequence Id as mvcc, for SKIP_WAL changes we need a "faked" WALEdit
+comment|// since we use wal sequence Id as mvcc, for SKIP_WAL changes we need a "faked" WALEdit
 comment|// to get a sequence id assigned which is done by FSWALEntry#stampRegionSequenceId
 name|walKey
 operator|=
 name|this
 operator|.
-name|appendNoSyncNoAppend
+name|appendEmptyEdit
 argument_list|(
 name|this
 operator|.
-name|log
+name|wal
 argument_list|,
 name|memstoreCells
 argument_list|)
@@ -23996,7 +24070,7 @@ name|w
 init|=
 literal|null
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|walKey
 init|=
 literal|null
@@ -24691,7 +24765,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//store the kvs to the temporary memstore before writing HLog
+comment|//store the kvs to the temporary memstore before writing WAL
 name|tempMemstore
 operator|.
 name|put
@@ -24844,6 +24918,7 @@ block|{
 comment|// Using default cluster id, as this can only happen in the originating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
 name|walKey
 operator|=
 operator|new
@@ -24862,7 +24937,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|HLog
+name|WALKey
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -24875,9 +24950,9 @@ name|txid
 operator|=
 name|this
 operator|.
-name|log
+name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|this
 operator|.
@@ -24923,11 +24998,11 @@ name|walKey
 operator|=
 name|this
 operator|.
-name|appendNoSyncNoAppend
+name|appendEmptyEdit
 argument_list|(
 name|this
 operator|.
-name|log
+name|wal
 argument_list|,
 name|memstoreCells
 argument_list|)
@@ -25270,7 +25345,7 @@ name|w
 init|=
 literal|null
 decl_stmt|;
-name|HLogKey
+name|WALKey
 name|walKey
 init|=
 literal|null
@@ -26036,7 +26111,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|//store the kvs to the temporary memstore before writing HLog
+comment|//store the kvs to the temporary memstore before writing WAL
 if|if
 condition|(
 operator|!
@@ -26228,6 +26303,7 @@ block|{
 comment|// Using default cluster id, as this can only happen in the originating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
 name|walKey
 operator|=
 operator|new
@@ -26248,7 +26324,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|HLog
+name|WALKey
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -26261,9 +26337,9 @@ name|txid
 operator|=
 name|this
 operator|.
-name|log
+name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|this
 operator|.
@@ -26311,11 +26387,11 @@ name|walKey
 operator|=
 name|this
 operator|.
-name|appendNoSyncNoAppend
+name|appendEmptyEdit
 argument_list|(
 name|this
 operator|.
-name|log
+name|wal
 argument_list|,
 name|memstoreCells
 argument_list|)
@@ -27144,8 +27220,8 @@ name|Path
 name|p
 parameter_list|,
 specifier|final
-name|HLog
-name|log
+name|WALFactory
+name|walFactory
 parameter_list|,
 specifier|final
 name|Configuration
@@ -27188,6 +27264,22 @@ name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
+specifier|final
+name|WAL
+name|wal
+init|=
+name|walFactory
+operator|.
+name|getMetaWAL
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|region
 operator|=
 name|HRegion
@@ -27196,7 +27288,7 @@ name|newHRegion
 argument_list|(
 name|p
 argument_list|,
-name|log
+name|wal
 argument_list|,
 name|fs
 argument_list|,
@@ -28391,7 +28483,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|log
+name|wal
 operator|.
 name|sync
 argument_list|(
@@ -28412,13 +28504,13 @@ case|:
 comment|// do what table defaults to
 if|if
 condition|(
-name|shouldSyncLog
+name|shouldSyncWAL
 argument_list|()
 condition|)
 block|{
 name|this
 operator|.
-name|log
+name|wal
 operator|.
 name|sync
 argument_list|(
@@ -28446,7 +28538,7 @@ case|:
 comment|// sync the WAL edit (SYNC and FSYNC treated the same for now)
 name|this
 operator|.
-name|log
+name|wal
 operator|.
 name|sync
 argument_list|(
@@ -28457,10 +28549,10 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Check whether we should sync the log from the table's durability settings    */
+comment|/**    * Check whether we should sync the wal from the table's durability settings    */
 specifier|private
 name|boolean
-name|shouldSyncLog
+name|shouldSyncWAL
 parameter_list|()
 block|{
 return|return
@@ -28690,7 +28782,7 @@ specifier|final
 name|String
 name|logname
 init|=
-literal|"hlog"
+literal|"wal"
 operator|+
 name|FSUtils
 operator|.
@@ -28705,20 +28797,36 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 specifier|final
-name|HLog
-name|log
+name|Configuration
+name|walConf
 init|=
-name|HLogFactory
-operator|.
-name|createHLog
+operator|new
+name|Configuration
 argument_list|(
-name|fs
+name|c
+argument_list|)
+decl_stmt|;
+name|FSUtils
+operator|.
+name|setRootDir
+argument_list|(
+name|walConf
 argument_list|,
 name|logdir
+argument_list|)
+expr_stmt|;
+specifier|final
+name|WALFactory
+name|wals
+init|=
+operator|new
+name|WALFactory
+argument_list|(
+name|walConf
+argument_list|,
+literal|null
 argument_list|,
 name|logname
-argument_list|,
-name|c
 argument_list|)
 decl_stmt|;
 try|try
@@ -28729,7 +28837,7 @@ name|fs
 argument_list|,
 name|tableDir
 argument_list|,
-name|log
+name|wals
 argument_list|,
 name|c
 argument_list|,
@@ -28739,7 +28847,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|log
+name|wals
 operator|.
 name|close
 argument_list|()
@@ -29266,13 +29374,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Append a faked WALEdit in order to get a long sequence number and log syncer will just ignore    * the WALEdit append later.    * @param wal    * @param cells list of Cells inserted into memstore. Those Cells are passed in order to    *        be updated with right mvcc values(their log sequence number)    * @return Return the key used appending with no sync and no append.    * @throws IOException    */
+comment|/**    * Append a faked WALEdit in order to get a long sequence number and wal syncer will just ignore    * the WALEdit append later.    * @param wal    * @param cells list of Cells inserted into memstore. Those Cells are passed in order to    *        be updated with right mvcc values(their wal sequence number)    * @return Return the key used appending with no sync and no append.    * @throws IOException    */
 specifier|private
-name|HLogKey
-name|appendNoSyncNoAppend
+name|WALKey
+name|appendEmptyEdit
 parameter_list|(
 specifier|final
-name|HLog
+name|WAL
 name|wal
 parameter_list|,
 name|List
@@ -29284,7 +29392,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HLogKey
+comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
+name|WALKey
 name|key
 init|=
 operator|new
@@ -29302,7 +29411,7 @@ operator|.
 name|getTable
 argument_list|()
 argument_list|,
-name|HLog
+name|WALKey
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -29323,7 +29432,7 @@ comment|// Call append but with an empty WALEdit.  The returned seqeunce id will
 comment|// with any edit and we can be sure it went in after all outstanding appends.
 name|wal
 operator|.
-name|appendNoSync
+name|append
 argument_list|(
 name|getTableDesc
 argument_list|()
@@ -29362,14 +29471,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|log
+name|wal
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|log
+name|wal
 operator|.
 name|sync
 argument_list|()
