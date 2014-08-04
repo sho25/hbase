@@ -181,7 +181,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Append
+name|Admin
 import|;
 end_import
 
@@ -197,7 +197,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Append
 import|;
 end_import
 
@@ -819,7 +819,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
