@@ -70,7 +70,6 @@ specifier|public
 class|class
 name|VisibilityLabelsValidator
 block|{
-comment|// We follow Accumulo parity for valid visibility labels.
 specifier|private
 specifier|static
 specifier|final
