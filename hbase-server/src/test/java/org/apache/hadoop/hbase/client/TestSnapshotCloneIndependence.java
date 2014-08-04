@@ -912,7 +912,7 @@ operator|.
 name|getRootDir
 argument_list|()
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1029,13 +1029,12 @@ name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
-name|byte
-index|[]
+name|TableName
 name|cloneTableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"test-clone-"
 operator|+
@@ -1331,7 +1330,7 @@ name|getRootDir
 argument_list|()
 decl_stmt|;
 comment|// Create a table
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1448,13 +1447,12 @@ name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
-name|byte
-index|[]
+name|TableName
 name|cloneTableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"test-clone-"
 operator|+
@@ -1631,7 +1629,7 @@ name|getRootDir
 argument_list|()
 decl_stmt|;
 comment|// Create a table
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1724,13 +1722,12 @@ name|localTableName
 argument_list|)
 expr_stmt|;
 block|}
-name|byte
-index|[]
+name|TableName
 name|cloneTableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"test-clone-"
 operator|+

@@ -305,6 +305,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -1583,7 +1599,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Mess it up by blowing up meta.
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

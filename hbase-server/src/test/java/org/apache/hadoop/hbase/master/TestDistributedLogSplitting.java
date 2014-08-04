@@ -5392,9 +5392,9 @@ argument_list|()
 operator|.
 name|disableTable
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"disableTable"
 argument_list|)
@@ -9152,13 +9152,12 @@ throws|throws
 name|Exception
 block|{
 comment|// Create a table with regions
-name|byte
-index|[]
+name|TableName
 name|table
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tname
 argument_list|)
@@ -10948,9 +10947,9 @@ argument_list|()
 operator|.
 name|getTableRegions
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tableName
 argument_list|)

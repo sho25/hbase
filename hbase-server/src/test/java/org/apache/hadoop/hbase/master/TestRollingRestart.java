@@ -215,6 +215,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
@@ -498,13 +512,12 @@ name|getMaster
 argument_list|()
 decl_stmt|;
 comment|// Create a table with regions
-name|byte
-index|[]
+name|TableName
 name|table
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"tableRestart"
 argument_list|)

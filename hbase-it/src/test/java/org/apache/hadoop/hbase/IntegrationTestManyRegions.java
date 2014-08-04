@@ -89,6 +89,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -242,10 +258,15 @@ decl_stmt|;
 specifier|protected
 specifier|static
 specifier|final
-name|String
+name|TableName
 name|TABLE_NAME
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|CLASS_NAME
+argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -427,7 +448,7 @@ argument_list|(
 literal|"Cluster initialized"
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|util
@@ -521,7 +542,7 @@ argument_list|(
 literal|"Cleaning up after test."
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|util
@@ -696,7 +717,7 @@ name|doneSignal
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|private
@@ -713,7 +734,7 @@ name|CountDownLatch
 name|doneSignal
 parameter_list|,
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|)
 block|{
@@ -759,12 +780,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|TABLE_NAME
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc

@@ -433,6 +433,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -498,6 +514,22 @@ operator|.
 name|client
 operator|.
 name|HConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionManager
 import|;
 end_import
 
@@ -6088,7 +6120,7 @@ specifier|static
 name|void
 name|modifyTableSync
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|HTableDescriptor
@@ -6258,7 +6290,7 @@ specifier|static
 name|void
 name|setReplicas
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|TableName
@@ -9340,7 +9372,7 @@ name|clearRegionCache
 argument_list|()
 expr_stmt|;
 comment|// assign all the new regions IF table is enabled.
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|getHBaseAdmin
@@ -9354,7 +9386,7 @@ name|isTableEnabled
 argument_list|(
 name|table
 operator|.
-name|getTableName
+name|getName
 argument_list|()
 argument_list|)
 condition|)
@@ -11258,13 +11290,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns a HBaseAdmin instance.    * This instance is shared between HBaseTestingUtility instance users.    * Closing it has no effect, it will be closed automatically when the    * cluster shutdowns    *    * @return The HBaseAdmin instance.    * @throws IOException    */
+comment|/**    * Returns a Admin instance.    * This instance is shared between HBaseTestingUtility instance users.    * Closing it has no effect, it will be closed automatically when the    * cluster shutdowns    *    * @return An Admin instance.    * @throws IOException    */
 end_comment
 
 begin_function
 specifier|public
 specifier|synchronized
-name|HBaseAdmin
+name|Admin
 name|getHBaseAdmin
 parameter_list|()
 throws|throws
@@ -11931,7 +11963,7 @@ specifier|public
 name|void
 name|waitTableAvailable
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -11994,7 +12026,7 @@ specifier|public
 name|void
 name|waitTableAvailable
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -12024,7 +12056,12 @@ name|admin
 operator|.
 name|isTableAvailable
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|table
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -12096,7 +12133,7 @@ specifier|public
 name|void
 name|waitTableEnabled
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -12159,7 +12196,7 @@ specifier|public
 name|void
 name|waitTableEnabled
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -12174,6 +12211,16 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
+name|TableName
+name|tableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|table
+argument_list|)
+decl_stmt|;
 name|long
 name|startWait
 init|=
@@ -12208,7 +12255,7 @@ name|admin
 operator|.
 name|isTableEnabled
 argument_list|(
-name|table
+name|tableName
 argument_list|)
 condition|)
 block|{
@@ -12254,12 +12301,7 @@ name|sniff
 argument_list|(
 name|admin
 argument_list|,
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|table
-argument_list|)
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
@@ -14969,14 +15011,23 @@ name|totalNumberOfRegions
 init|=
 literal|0
 decl_stmt|;
-name|HBaseAdmin
-name|admin
+name|HConnection
+name|unmanagedConnection
 init|=
-operator|new
-name|HBaseAdmin
+name|HConnectionManager
+operator|.
+name|createConnection
 argument_list|(
 name|conf
 argument_list|)
+decl_stmt|;
+name|Admin
+name|admin
+init|=
+name|unmanagedConnection
+operator|.
+name|getAdmin
+argument_list|()
 decl_stmt|;
 try|try
 block|{
@@ -15114,6 +15165,11 @@ block|}
 finally|finally
 block|{
 name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|unmanagedConnection
 operator|.
 name|close
 argument_list|()

@@ -575,7 +575,7 @@ name|FAMILIES
 argument_list|)
 expr_stmt|;
 block|}
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|util

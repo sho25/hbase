@@ -321,6 +321,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -4044,13 +4060,12 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|byte
-index|[]
+name|TableName
 name|TEST_CLONE
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"observed_clone"
 argument_list|)
@@ -4374,7 +4389,7 @@ name|TEST_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -5214,7 +5229,7 @@ name|TEST_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -5484,7 +5499,7 @@ name|resetStates
 argument_list|()
 expr_stmt|;
 comment|// create a table
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -5699,7 +5714,7 @@ specifier|private
 name|void
 name|modifyTableSync
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|TableName

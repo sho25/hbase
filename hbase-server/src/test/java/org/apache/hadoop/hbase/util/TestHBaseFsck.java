@@ -581,6 +581,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -2187,7 +2203,7 @@ specifier|private
 name|void
 name|undeployRegion
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|ServerName
@@ -3337,7 +3353,7 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -3916,7 +3932,7 @@ argument_list|>
 name|getDeployedHRIs
 parameter_list|(
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|)
 throws|throws
@@ -4251,7 +4267,7 @@ comment|// Yikes! The assignment manager can't tell between diff between two
 comment|// different regions with the same start/endkeys since it doesn't
 comment|// differentiate on ts/regionId!  We actually need to recheck
 comment|// deployments!
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -5198,7 +5214,7 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -8412,7 +8428,7 @@ name|getRegionInfo
 argument_list|()
 decl_stmt|;
 comment|// do a regular split
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -8702,7 +8718,7 @@ name|getRegionInfo
 argument_list|()
 decl_stmt|;
 comment|// do a regular split
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -10944,7 +10960,7 @@ name|missing
 argument_list|)
 expr_stmt|;
 comment|// its been fixed, verify that we can enable
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -12868,19 +12884,49 @@ operator|+
 name|hsa
 argument_list|)
 expr_stmt|;
-name|undeployRegion
-argument_list|(
-operator|new
-name|HBaseAdmin
+name|HConnection
+name|unmanagedConnection
+init|=
+name|HConnectionManager
+operator|.
+name|createConnection
 argument_list|(
 name|conf
 argument_list|)
+decl_stmt|;
+name|Admin
+name|admin
+init|=
+name|unmanagedConnection
+operator|.
+name|getAdmin
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|undeployRegion
+argument_list|(
+name|admin
 argument_list|,
 name|hsa
 argument_list|,
 name|hri
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|unmanagedConnection
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -13362,7 +13408,7 @@ name|region2
 argument_list|)
 expr_stmt|;
 comment|// do a region merge
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

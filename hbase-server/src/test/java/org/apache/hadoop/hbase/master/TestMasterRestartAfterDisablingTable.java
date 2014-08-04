@@ -451,13 +451,12 @@ name|getMaster
 argument_list|()
 decl_stmt|;
 comment|// Create a table with regions
-name|byte
-index|[]
+name|TableName
 name|table
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"tableRestart"
 argument_list|)

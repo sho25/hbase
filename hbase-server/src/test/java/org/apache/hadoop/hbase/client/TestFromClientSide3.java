@@ -2684,7 +2684,7 @@ throws|throws
 name|Exception
 block|{
 comment|//Create a table and put in 1 row
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

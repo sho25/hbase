@@ -211,6 +211,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -961,7 +977,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Create the test table (owner added to the _acl_ table)
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

@@ -43972,7 +43972,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -44031,7 +44031,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

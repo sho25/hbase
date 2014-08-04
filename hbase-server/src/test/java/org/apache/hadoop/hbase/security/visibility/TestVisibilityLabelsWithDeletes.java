@@ -251,6 +251,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -3749,7 +3765,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -4354,7 +4370,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -4963,7 +4979,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -5375,7 +5391,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -6797,7 +6813,7 @@ block|{
 name|HTable
 name|table
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -7223,7 +7239,7 @@ block|{
 name|HTable
 name|table
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -7564,7 +7580,7 @@ block|{
 name|HTable
 name|table
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -11350,7 +11366,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -11757,7 +11773,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL
@@ -22956,7 +22972,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|hBaseAdmin
 init|=
 name|TEST_UTIL

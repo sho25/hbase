@@ -155,6 +155,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -385,13 +401,12 @@ expr_stmt|;
 try|try
 block|{
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|TABLENAME
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 literal|"testDataCorrectnessReplayingRecoveredEdits"
 argument_list|)
@@ -431,12 +446,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc
@@ -450,7 +460,7 @@ name|FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hbaseAdmin
 init|=
 name|TEST_UTIL
@@ -482,12 +492,7 @@ name|info
 argument_list|(
 literal|"Loading r1 to v1 into "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|HTable
@@ -679,12 +684,7 @@ name|info
 argument_list|(
 literal|"Loading r2 to v2 into "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify
@@ -785,12 +785,7 @@ name|info
 argument_list|(
 literal|"Loading r3 to v3 into "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify
@@ -895,12 +890,7 @@ name|info
 argument_list|(
 literal|"Loading r4 to v4 into "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|TABLENAME
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify

@@ -694,8 +694,13 @@ argument_list|()
 operator|.
 name|tableExists
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|getTablename
 argument_list|()
+argument_list|)
 argument_list|)
 condition|)
 block|{

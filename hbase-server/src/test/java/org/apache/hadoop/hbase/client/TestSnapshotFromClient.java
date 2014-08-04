@@ -757,7 +757,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -819,7 +819,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1018,7 +1018,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1336,7 +1336,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL
@@ -1371,9 +1371,9 @@ name|admin
 operator|.
 name|getTableDescriptor
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
@@ -1427,7 +1427,12 @@ name|snapshot
 argument_list|(
 literal|"fail"
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail
@@ -1471,7 +1476,7 @@ throws|throws
 name|Exception
 block|{
 comment|// test with an empty table with one region
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|UTIL

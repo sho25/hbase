@@ -375,6 +375,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -860,7 +876,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -891,7 +907,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1111,7 +1127,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1195,7 +1211,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1494,7 +1510,7 @@ block|{
 name|prepareMiniCluster
 argument_list|()
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL
@@ -1958,7 +1974,7 @@ literal|"testTableReadLock"
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|TEST_UTIL

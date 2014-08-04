@@ -471,7 +471,7 @@ name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 annotation|@

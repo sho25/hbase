@@ -595,7 +595,7 @@ init|=
 literal|8
 decl_stmt|;
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|private
@@ -1106,13 +1106,12 @@ operator|+
 name|originalTableName
 decl_stmt|;
 specifier|final
-name|byte
-index|[]
+name|TableName
 name|clonedTableName
 init|=
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|clonedTableNameAsString
 argument_list|)

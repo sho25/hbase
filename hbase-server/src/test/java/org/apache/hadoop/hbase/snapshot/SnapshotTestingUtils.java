@@ -327,6 +327,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Durability
 import|;
 end_import
@@ -748,7 +764,7 @@ specifier|static
 name|void
 name|assertNoSnapshots
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|)
 throws|throws
@@ -779,7 +795,7 @@ name|SnapshotDescription
 argument_list|>
 name|assertExistsMatchingSnapshot
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|String
@@ -885,7 +901,7 @@ specifier|static
 name|void
 name|assertOneSnapshotThatMatches
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|SnapshotDescription
@@ -924,7 +940,7 @@ name|SnapshotDescription
 argument_list|>
 name|assertOneSnapshotThatMatches
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|String
@@ -1008,7 +1024,7 @@ name|SnapshotDescription
 argument_list|>
 name|assertOneSnapshotThatMatches
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -1056,7 +1072,7 @@ parameter_list|,
 name|Path
 name|rootDir
 parameter_list|,
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|FileSystem
@@ -1118,7 +1134,7 @@ parameter_list|,
 name|Path
 name|rootDir
 parameter_list|,
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|FileSystem
@@ -1190,7 +1206,7 @@ parameter_list|,
 name|Path
 name|rootDir
 parameter_list|,
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|FileSystem
@@ -1581,7 +1597,7 @@ specifier|static
 name|void
 name|snapshot
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 specifier|final
@@ -1629,7 +1645,12 @@ name|snapshot
 argument_list|(
 name|snapshotName
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|,
 name|type
 argument_list|)
@@ -1666,7 +1687,7 @@ specifier|static
 name|void
 name|cleanupSnapshot
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|byte
@@ -1696,7 +1717,7 @@ specifier|static
 name|void
 name|cleanupSnapshot
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|String
@@ -2016,7 +2037,7 @@ specifier|static
 name|void
 name|createSnapshotAndValidate
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|TableName
@@ -2096,7 +2117,7 @@ specifier|static
 name|void
 name|createSnapshotAndValidate
 parameter_list|(
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|TableName
@@ -4285,7 +4306,7 @@ name|void
 name|deleteAllSnapshots
 parameter_list|(
 specifier|final
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|)
 throws|throws
@@ -4443,7 +4464,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|HBaseAdmin
+name|Admin
 name|admin
 parameter_list|,
 name|int

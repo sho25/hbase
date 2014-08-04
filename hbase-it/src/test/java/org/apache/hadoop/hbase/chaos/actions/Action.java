@@ -227,6 +227,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -924,7 +940,7 @@ operator|+
 literal|" different servers"
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|this
@@ -990,7 +1006,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|this
