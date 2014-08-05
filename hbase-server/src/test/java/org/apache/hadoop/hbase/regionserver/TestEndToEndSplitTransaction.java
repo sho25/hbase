@@ -367,22 +367,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HConnection
 import|;
 end_import
@@ -566,6 +550,24 @@ operator|.
 name|ClientProtos
 operator|.
 name|ScanRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RegionServerStatusProtos
 import|;
 end_import
 
@@ -1113,6 +1115,13 @@ expr_stmt|;
 comment|// 3. finish phase II
 comment|// note that this replicates some code from SplitTransaction
 comment|// 2nd daughter first
+if|if
+condition|(
+name|split
+operator|.
+name|useZKForAssignment
+condition|)
+block|{
 name|server
 operator|.
 name|postOpenDeployTasks
@@ -1123,6 +1132,44 @@ name|getSecond
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|server
+operator|.
+name|reportRegionStateTransition
+argument_list|(
+name|RegionServerStatusProtos
+operator|.
+name|RegionStateTransition
+operator|.
+name|TransitionCode
+operator|.
+name|SPLIT
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|regions
+operator|.
+name|getFirst
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|regions
+operator|.
+name|getSecond
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Add to online regions
 name|server
 operator|.
@@ -1166,6 +1213,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// first daughter second
+if|if
+condition|(
+name|split
+operator|.
+name|useZKForAssignment
+condition|)
+block|{
 name|server
 operator|.
 name|postOpenDeployTasks
@@ -1176,6 +1230,7 @@ name|getFirst
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Add to online regions
 name|server
 operator|.
