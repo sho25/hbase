@@ -4491,6 +4491,9 @@ name|HBaseFsckRepair
 operator|.
 name|fixUnassigned
 argument_list|(
+operator|(
+name|HBaseAdmin
+operator|)
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -4503,6 +4506,9 @@ name|HBaseFsckRepair
 operator|.
 name|waitUntilAssigned
 argument_list|(
+operator|(
+name|HBaseAdmin
+operator|)
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
