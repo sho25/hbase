@@ -4391,7 +4391,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Encountered unrecoverable error from region server"
+literal|"Encountered unrecoverable error from region server, additional details: "
+operator|+
+name|svrCallable
+operator|.
+name|getExceptionMessageAdditionalDetail
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
