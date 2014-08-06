@@ -1482,6 +1482,15 @@ name|c
 operator|.
 name|setInt
 argument_list|(
+literal|"hbase.hstore.compaction.min"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|c
+operator|.
+name|setInt
+argument_list|(
 literal|"hbase.hstore.compactionThreshold"
 argument_list|,
 literal|1000
