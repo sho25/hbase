@@ -3738,6 +3738,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed freeing space"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 finally|finally
 block|{
 name|cacheStats

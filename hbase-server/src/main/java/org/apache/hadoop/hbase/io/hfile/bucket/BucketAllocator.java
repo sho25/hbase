@@ -27,7 +27,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|LinkedList
 import|;
 end_import
 
@@ -797,7 +797,7 @@ block|{
 name|bucketList
 operator|=
 operator|new
-name|ArrayList
+name|LinkedList
 argument_list|<
 name|Bucket
 argument_list|>
@@ -806,7 +806,7 @@ expr_stmt|;
 name|freeBuckets
 operator|=
 operator|new
-name|ArrayList
+name|LinkedList
 argument_list|<
 name|Bucket
 argument_list|>
@@ -815,7 +815,7 @@ expr_stmt|;
 name|completelyFreeBuckets
 operator|=
 operator|new
-name|ArrayList
+name|LinkedList
 argument_list|<
 name|Bucket
 argument_list|>
@@ -829,6 +829,7 @@ name|sizeIndex
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|instantiateBucket
 parameter_list|(
@@ -1076,6 +1077,7 @@ name|b
 return|;
 block|}
 specifier|private
+specifier|synchronized
 name|void
 name|removeBucket
 parameter_list|(
@@ -1182,6 +1184,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|IndexStatistics
 name|statistics
 parameter_list|()
