@@ -830,7 +830,7 @@ name|IOException
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Listing beans for "
 operator|+
@@ -999,23 +999,32 @@ operator|instanceof
 name|UnsupportedOperationException
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"getting attribute "
+literal|"Getting attribute "
 operator|+
-name|oname
+name|prs
 operator|+
 literal|" of "
 operator|+
 name|oname
 operator|+
-literal|" threw an exception"
-argument_list|,
+literal|" threw "
+operator|+
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -1023,9 +1032,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"getting attribute "
+literal|"Getting attribute "
 operator|+
-name|oname
+name|prs
 operator|+
 literal|" of "
 operator|+
@@ -1481,11 +1490,19 @@ operator|instanceof
 name|UnsupportedOperationException
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"getting attribute "
+literal|"Getting attribute "
 operator|+
 name|attName
 operator|+
@@ -1493,11 +1510,12 @@ literal|" of "
 operator|+
 name|oname
 operator|+
-literal|" threw an exception"
-argument_list|,
+literal|" threw "
+operator|+
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
