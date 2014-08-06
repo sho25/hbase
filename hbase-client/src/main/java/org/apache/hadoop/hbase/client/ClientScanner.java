@@ -1875,6 +1875,12 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// The region has moved. We need to open a brand new scanner at
+comment|// the new location.
+comment|// Reset the startRow to the row we've seen last so that the new
+comment|// scanner starts at the correct row. Otherwise we may see previously
+comment|// returned rows again.
+comment|// (ScannerCallable by now has "relocated" the correct region)
 name|this
 operator|.
 name|scan
