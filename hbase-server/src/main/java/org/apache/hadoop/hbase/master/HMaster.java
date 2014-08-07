@@ -581,20 +581,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaMigrationConvertingToPB
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -3280,16 +3266,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Update meta with new PB serialization if required. i.e migrate all HRI to PB serialization
-comment|// in meta. This must happen before we assign all user regions or else the assignment will
-comment|// fail.
-name|MetaMigrationConvertingToPB
-operator|.
-name|updateMetaIfNecessary
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 comment|// Fix up assignment manager status
 name|status
 operator|.
