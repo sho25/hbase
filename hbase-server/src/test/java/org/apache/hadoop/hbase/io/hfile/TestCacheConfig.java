@@ -1040,7 +1040,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
@@ -1064,7 +1064,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
@@ -1139,7 +1139,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
@@ -1178,7 +1178,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_SIZE_KEY
 argument_list|,
@@ -1340,7 +1340,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
@@ -1416,7 +1416,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_SIZE_KEY
 argument_list|,
@@ -1693,7 +1693,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
@@ -1706,7 +1706,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_SIZE_KEY
 argument_list|,

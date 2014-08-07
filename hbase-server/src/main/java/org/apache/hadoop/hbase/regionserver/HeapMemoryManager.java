@@ -221,6 +221,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|util
+operator|.
+name|HeapMemorySizeUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Threads
@@ -539,11 +557,13 @@ parameter_list|)
 block|{
 name|globalMemStorePercent
 operator|=
-name|MemStoreFlusher
+name|HeapMemorySizeUtil
 operator|.
 name|getGlobalMemStorePercent
 argument_list|(
 name|conf
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|blockCachePercent
@@ -559,83 +579,13 @@ operator|.
 name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
 argument_list|)
 expr_stmt|;
-name|int
-name|gml
-init|=
-call|(
-name|int
-call|)
-argument_list|(
-name|globalMemStorePercent
-operator|*
-name|CONVERT_TO_PERCENTAGE
-argument_list|)
-decl_stmt|;
-name|int
-name|bcul
-init|=
-call|(
-name|int
-call|)
-argument_list|(
-name|blockCachePercent
-operator|*
-name|CONVERT_TO_PERCENTAGE
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|CONVERT_TO_PERCENTAGE
-operator|-
-operator|(
-name|gml
-operator|+
-name|bcul
-operator|)
-operator|<
-name|CLUSTER_MINIMUM_MEMORY_THRESHOLD
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Current heap configuration for MemStore and BlockCache exceeds "
-operator|+
-literal|"the threshold required for successful cluster operation. "
-operator|+
-literal|"The combined value cannot exceed 0.8. Please check "
-operator|+
-literal|"the settings for "
-operator|+
-name|MemStoreFlusher
+name|HeapMemorySizeUtil
 operator|.
-name|MEMSTORE_SIZE_KEY
-operator|+
-literal|" and "
-operator|+
-name|HFILE_BLOCK_CACHE_SIZE_KEY
-operator|+
-literal|" in your configuration. "
-operator|+
-name|MemStoreFlusher
-operator|.
-name|MEMSTORE_SIZE_KEY
-operator|+
-literal|" is "
-operator|+
-name|globalMemStorePercent
-operator|+
-literal|" and "
-operator|+
-name|HFILE_BLOCK_CACHE_SIZE_KEY
-operator|+
-literal|" is "
-operator|+
-name|blockCachePercent
+name|checkForClusterFreeMemoryLimit
+argument_list|(
+name|conf
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 comment|// Initialize max and min range for memstore heap space
 name|globalMemStorePercentMinRange
 operator|=
@@ -680,7 +630,7 @@ name|globalMemStorePercent
 operator|+
 literal|", same value as "
 operator|+
-name|MemStoreFlusher
+name|HeapMemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+
@@ -722,7 +672,7 @@ name|globalMemStorePercent
 operator|+
 literal|", same value as "
 operator|+
-name|MemStoreFlusher
+name|HeapMemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+
@@ -876,8 +826,9 @@ return|return
 literal|false
 return|;
 block|}
+name|int
 name|gml
-operator|=
+init|=
 call|(
 name|int
 call|)
@@ -886,9 +837,10 @@ name|globalMemStorePercentMaxRange
 operator|*
 name|CONVERT_TO_PERCENTAGE
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|int
 name|bcul
-operator|=
+init|=
 call|(
 name|int
 call|)
@@ -897,7 +849,7 @@ name|blockCachePercentMinRange
 operator|*
 name|CONVERT_TO_PERCENTAGE
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|CONVERT_TO_PERCENTAGE
@@ -1509,7 +1461,7 @@ literal|"the threshold required for successful cluster operation. "
 operator|+
 literal|"The combined value cannot exceed 0.8. "
 operator|+
-name|MemStoreFlusher
+name|HeapMemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+

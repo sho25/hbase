@@ -2787,6 +2787,29 @@ name|HBASE_COORDINATED_STATE_MANAGER_CLASS
 init|=
 literal|"hbase.coordinated.state.manager.class"
 decl_stmt|;
+comment|/**    * Configuration keys for Bucket cache    */
+comment|// TODO moving these bucket cache implementation specific configs to this level is violation of
+comment|// encapsulation. But as these has to be referred from hbase-common and bucket cache
+comment|// sits in hbase-server, there were no other go! Can we move the cache implementation to
+comment|// hbase-common?
+comment|/**    * Current ioengine options in include: heap, offheap and file:PATH (where PATH is the path    * to the file that will host the file-based cache.  See BucketCache#getIOEngineFromName() for    * list of supported ioengine options.    *<p>Set this option and a non-zero {@link #BUCKET_CACHE_SIZE_KEY} to enable bucket cache.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BUCKET_CACHE_IOENGINE_KEY
+init|=
+literal|"hbase.bucketcache.ioengine"
+decl_stmt|;
+comment|/**    * When using bucket cache, this is a float that EITHER represents a percentage of total heap    * memory size to give to the cache (if< 1.0) OR, it is the capacity in megabytes of the cache.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BUCKET_CACHE_SIZE_KEY
+init|=
+literal|"hbase.bucketcache.size"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

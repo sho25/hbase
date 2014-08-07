@@ -1386,7 +1386,7 @@ name|conf
 operator|.
 name|setFloat
 argument_list|(
-name|CacheConfig
+name|HConstants
 operator|.
 name|BUCKET_CACHE_SIZE_KEY
 argument_list|,
