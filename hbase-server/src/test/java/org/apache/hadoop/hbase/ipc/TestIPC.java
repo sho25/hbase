@@ -1274,7 +1274,7 @@ argument_list|,
 operator|new
 name|InetSocketAddress
 argument_list|(
-literal|"0.0.0.0"
+literal|"localhost"
 argument_list|,
 literal|0
 argument_list|)

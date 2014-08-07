@@ -2719,6 +2719,21 @@ operator|==
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|hashCode
+parameter_list|()
+block|{
+comment|// Nothing distingushing about each instance unless I pass in a 'name' or something
+return|return
+name|super
+operator|.
+name|hashCode
+argument_list|()
+return|;
+block|}
 block|}
 comment|/**    * Get the maximum size of this cache.    * @return max size in bytes    */
 specifier|public
@@ -2896,7 +2911,12 @@ block|{
 name|this
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+literal|1000
+operator|*
+literal|10
+comment|/*Don't wait for ever*/
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2930,6 +2950,27 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NN_NAKED_NOTIFY"
+argument_list|,
+name|justification
+operator|=
+literal|"This is what we want"
+argument_list|)
 specifier|public
 name|void
 name|evict
@@ -2945,7 +2986,6 @@ operator|.
 name|notifyAll
 argument_list|()
 expr_stmt|;
-comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
 specifier|synchronized
@@ -3637,6 +3677,20 @@ operator|.
 name|getCachedTime
 argument_list|()
 argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|hashCode
+parameter_list|()
+block|{
+return|return
+name|b
+operator|.
+name|hashCode
+argument_list|()
 return|;
 block|}
 annotation|@

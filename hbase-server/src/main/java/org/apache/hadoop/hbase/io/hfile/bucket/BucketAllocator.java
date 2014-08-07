@@ -167,6 +167,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|CacheConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|bucket
 operator|.
 name|BucketCache
@@ -2205,6 +2223,14 @@ argument_list|(
 literal|"Allocation too big size="
 operator|+
 name|blockSize
+operator|+
+literal|"; adjust BucketCache sizes "
+operator|+
+name|CacheConfig
+operator|.
+name|BUCKET_CACHE_BUCKETS_KEY
+operator|+
+literal|" to accomodate if size seems reasonable and you want it cached."
 argument_list|)
 throw|;
 block|}

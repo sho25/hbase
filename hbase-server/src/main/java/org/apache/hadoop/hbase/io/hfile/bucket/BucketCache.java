@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software    * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software   * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -655,6 +655,20 @@ name|google
 operator|.
 name|common
 operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
 name|collect
 operator|.
 name|ImmutableList
@@ -678,7 +692,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *   *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *   *<p>BucketCache can be used as mainly a block cache (see  * {@link CombinedBlockCache}), combined with LruBlockCache to decrease CMS GC and  * heap fragmentation.  *   *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
+comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * {@link BucketCache#ramCache} and {@link BucketCache#backingMap} in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link CombinedBlockCache}), combined with LruBlockCache to decrease CMS GC and  * heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
 end_comment
 
 begin_class
@@ -787,7 +801,8 @@ name|IOEngine
 name|ioEngine
 decl_stmt|;
 comment|// Store the block in this map before writing it to cache
-specifier|private
+annotation|@
+name|VisibleForTesting
 name|Map
 argument_list|<
 name|BlockCacheKey
@@ -812,7 +827,9 @@ specifier|volatile
 name|boolean
 name|cacheEnabled
 decl_stmt|;
-specifier|private
+comment|/**    * A list of writer queues.  We have a queue per {@link WriterThread} we have running.    * In other words, the work adding blocks to the BucketCache is divided up amongst the    * running WriterThreads.  Its done by taking hash of the cache key modulo queue count.    * WriterThread when it runs takes whatever has been recently added and 'drains' the entries    * to the BucketCache.  It then updates the ramCache and backingMap accordingly.    */
+annotation|@
+name|VisibleForTesting
 name|ArrayList
 argument_list|<
 name|BlockingQueue
@@ -832,6 +849,8 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
 name|WriterThread
 name|writerThreads
 index|[]
@@ -1000,7 +1019,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * A "sparse lock" implementation allowing to lock on a particular block    * identified by offset. The purpose of this is to avoid freeing the block    * which is being read.    *     * TODO:We could extend the IdLock to IdReadWriteLock for better.    */
+comment|/**    * A "sparse lock" implementation allowing to lock on a particular block    * identified by offset. The purpose of this is to avoid freeing the block    * which is being read.    *    * TODO:We could extend the IdLock to IdReadWriteLock for better.    */
 specifier|private
 name|IdLock
 name|offsetLock
@@ -1518,6 +1537,16 @@ index|[
 name|i
 index|]
 operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|writerThreads
+index|[
+name|i
+index|]
+operator|.
 name|start
 argument_list|()
 expr_stmt|;
@@ -1591,6 +1620,18 @@ operator|.
 name|bucketAllocator
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|boolean
+name|isCacheEnabled
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|cacheEnabled
+return|;
 block|}
 specifier|public
 name|long
@@ -2970,11 +3011,15 @@ name|DEFAULT_MIN_FACTOR
 argument_list|)
 return|;
 block|}
-comment|/**    * Free the space if the used size reaches acceptableSize() or one size block    * couldn't be allocated. When freeing the space, we use the LRU algorithm and    * ensure there must be some blocks evicted    */
+comment|/**    * Free the space if the used size reaches acceptableSize() or one size block    * couldn't be allocated. When freeing the space, we use the LRU algorithm and    * ensure there must be some blocks evicted    * @param why Why we are being called    */
 specifier|private
 name|void
 name|freeSpace
-parameter_list|()
+parameter_list|(
+specifier|final
+name|String
+name|why
+parameter_list|)
 block|{
 comment|// Ensure only one freeSpace progress at a time
 if|if
@@ -2997,13 +3042,20 @@ name|bytesToFreeWithoutExtra
 init|=
 literal|0
 decl_stmt|;
-comment|/*        * Calculate free byte for each bucketSizeinfo        */
+comment|// Calculate free byte for each bucketSizeinfo
 name|StringBuffer
 name|msgBuffer
 init|=
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|?
 operator|new
 name|StringBuffer
 argument_list|()
+else|:
+literal|null
 decl_stmt|;
 name|BucketAllocator
 operator|.
@@ -3133,6 +3185,13 @@ index|[
 name|i
 index|]
 expr_stmt|;
+if|if
+condition|(
+name|msgBuffer
+operator|!=
+literal|null
+condition|)
+block|{
 name|msgBuffer
 operator|.
 name|append
@@ -3164,6 +3223,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|msgBuffer
+operator|!=
+literal|null
+condition|)
+block|{
 name|msgBuffer
 operator|.
 name|append
@@ -3180,6 +3247,7 @@ operator|+
 literal|", "
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|bytesToFreeWithoutExtra
@@ -3205,11 +3273,27 @@ operator|.
 name|getTotalSize
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+operator|&&
+name|msgBuffer
+operator|!=
+literal|null
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Bucket cache free space started; Attempting to  "
+literal|"Free started because \""
+operator|+
+name|why
+operator|+
+literal|"\"; "
 operator|+
 name|msgBuffer
 operator|.
@@ -3225,7 +3309,7 @@ argument_list|(
 name|currentSize
 argument_list|)
 operator|+
-literal|",actual cacheSize="
+literal|", actual cacheSize="
 operator|+
 name|StringUtils
 operator|.
@@ -3237,7 +3321,7 @@ name|get
 argument_list|()
 argument_list|)
 operator|+
-literal|",total="
+literal|", total="
 operator|+
 name|StringUtils
 operator|.
@@ -3247,6 +3331,7 @@ name|totalSize
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|long
 name|bytesToFreeWithExtra
 init|=
@@ -3676,6 +3761,14 @@ operator|.
 name|totalSize
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3738,6 +3831,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 catch|catch
 parameter_list|(
 name|Throwable
@@ -3773,22 +3867,28 @@ expr_stmt|;
 block|}
 block|}
 comment|// This handles flushing the RAM cache to IOEngine.
-specifier|private
+annotation|@
+name|VisibleForTesting
 class|class
 name|WriterThread
 extends|extends
 name|HasThread
 block|{
+specifier|private
+specifier|final
 name|BlockingQueue
 argument_list|<
 name|RAMQueueEntry
 argument_list|>
 name|inputQueue
 decl_stmt|;
+specifier|private
 specifier|final
 name|int
 name|threadNO
 decl_stmt|;
+specifier|private
+specifier|volatile
 name|boolean
 name|writerEnabled
 init|=
@@ -3821,13 +3921,10 @@ name|threadNO
 operator|=
 name|threadNO
 expr_stmt|;
-name|setDaemon
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 block|}
 comment|// Used for test
+annotation|@
+name|VisibleForTesting
 name|void
 name|disableWriter
 parameter_list|()
@@ -3872,19 +3969,11 @@ try|try
 block|{
 comment|// Blocks
 name|entries
-operator|.
-name|add
+operator|=
+name|getRAMQueueEntries
 argument_list|(
 name|inputQueue
-operator|.
-name|take
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|inputQueue
-operator|.
-name|drainTo
-argument_list|(
+argument_list|,
 name|entries
 argument_list|)
 expr_stmt|;
@@ -3974,11 +4063,13 @@ name|cacheEnabled
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Flush the entries in ramCache to IOEngine and add bucket entry to      * backingMap      * @param entries      * @throws InterruptedException      */
-specifier|private
+comment|/**      * Flush the entries in ramCache to IOEngine and add bucket entry to backingMap.      * Process all that are passed in even if failure being sure to remove from ramCache else we'll      * never undo the references and we'll OOME.      * @param entries Presumes list passed in here will be processed by this invocation only. No      * interference expected.      * @throws InterruptedException      */
+annotation|@
+name|VisibleForTesting
 name|void
 name|doDrain
 parameter_list|(
+specifier|final
 name|List
 argument_list|<
 name|RAMQueueEntry
@@ -3988,6 +4079,29 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
+if|if
+condition|(
+name|entries
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+return|return;
+comment|// This method is a little hard to follow. We run through the passed in entries and for each
+comment|// successful add, we add a non-null BucketEntry to the below bucketEntries.  Later we must
+comment|// do cleanup making sure we've cleared ramCache of all entries regardless of whether we
+comment|// successfully added the item to the bucketcache; if we don't do the cleanup, we'll OOME by
+comment|// filling ramCache.  We do the clean up by again running through the passed in entries
+comment|// doing extra work when we find a non-null bucketEntries corresponding entry.
+specifier|final
+name|int
+name|size
+init|=
+name|entries
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|BucketEntry
 index|[]
 name|bucketEntries
@@ -3995,67 +4109,44 @@ init|=
 operator|new
 name|BucketEntry
 index|[
-name|entries
-operator|.
 name|size
-argument_list|()
 index|]
 decl_stmt|;
-name|RAMQueueEntry
-index|[]
-name|ramEntries
-init|=
-operator|new
-name|RAMQueueEntry
-index|[
-name|entries
-operator|.
-name|size
-argument_list|()
-index|]
-decl_stmt|;
+comment|// Index updated inside loop if success or if we can't succeed. We retry if cache is full
+comment|// when we go to add an entry by going around the loop again without upping the index.
 name|int
-name|done
+name|index
 init|=
 literal|0
 decl_stmt|;
 while|while
 condition|(
-name|entries
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-operator|&&
 name|cacheEnabled
+operator|&&
+name|index
+operator|<
+name|size
 condition|)
 block|{
-comment|// Keep going in case we throw...
 name|RAMQueueEntry
-name|ramEntry
+name|re
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|ramEntry
+name|re
 operator|=
 name|entries
 operator|.
-name|remove
+name|get
 argument_list|(
-name|entries
-operator|.
-name|size
-argument_list|()
-operator|-
-literal|1
+name|index
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|ramEntry
+name|re
 operator|==
 literal|null
 condition|)
@@ -4064,15 +4155,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Couldn't get the entry from RAM queue, who steals it?"
+literal|"Couldn't get entry or changed on us; who else is messing with it?"
 argument_list|)
+expr_stmt|;
+name|index
+operator|++
 expr_stmt|;
 continue|continue;
 block|}
 name|BucketEntry
 name|bucketEntry
 init|=
-name|ramEntry
+name|re
 operator|.
 name|writeToCache
 argument_list|(
@@ -4085,17 +4179,10 @@ argument_list|,
 name|realCacheSize
 argument_list|)
 decl_stmt|;
-name|ramEntries
-index|[
-name|done
-index|]
-operator|=
-name|ramEntry
-expr_stmt|;
+comment|// Successfully added.  Up index and add bucketEntry. Clear io exceptions.
 name|bucketEntries
 index|[
-name|done
-operator|++
+name|index
 index|]
 operator|=
 name|bucketEntry
@@ -4113,6 +4200,9 @@ operator|-
 literal|1
 expr_stmt|;
 block|}
+name|index
+operator|++
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -4124,23 +4214,36 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed allocating for block "
+literal|"Failed allocation for "
 operator|+
 operator|(
-name|ramEntry
+name|re
 operator|==
 literal|null
 condition|?
 literal|""
 else|:
-name|ramEntry
+name|re
 operator|.
 name|getKey
 argument_list|()
 operator|)
-argument_list|,
+operator|+
+literal|"; "
+operator|+
 name|fle
 argument_list|)
+expr_stmt|;
+comment|// Presume can't add. Too big? Move index on. Entry will be cleared from ramCache below.
+name|bucketEntries
+index|[
+name|index
+index|]
+operator|=
+literal|null
+expr_stmt|;
+name|index
+operator|++
 expr_stmt|;
 block|}
 catch|catch
@@ -4149,6 +4252,7 @@ name|CacheFullException
 name|cfe
 parameter_list|)
 block|{
+comment|// Cache full when we tried to add. Try freeing space and then retrying (don't up index)
 if|if
 condition|(
 operator|!
@@ -4156,7 +4260,9 @@ name|freeInProgress
 condition|)
 block|{
 name|freeSpace
-argument_list|()
+argument_list|(
+literal|"Full!"
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -4176,6 +4282,7 @@ name|IOException
 name|ioex
 parameter_list|)
 block|{
+comment|// Hopefully transient. Retry. checkIOErrorIsTolerated disables cache if problem.
 name|LOG
 operator|.
 name|error
@@ -4190,8 +4297,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// Make sure that the data pages we have written are on the media before
-comment|// we update the map.
+comment|// Make sure data pages are written are on media before we update maps.
 try|try
 block|{
 name|ioEngine
@@ -4210,7 +4316,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Faild syncing IO engine"
+literal|"Failed syncing IO engine"
 argument_list|,
 name|ioex
 argument_list|)
@@ -4228,7 +4334,10 @@ literal|0
 init|;
 name|i
 operator|<
-name|done
+name|entries
+operator|.
+name|size
+argument_list|()
 condition|;
 operator|++
 name|i
@@ -4257,13 +4366,18 @@ name|offset
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-name|done
+name|bucketEntries
+index|[
+name|i
+index|]
 operator|=
-literal|0
+literal|null
 expr_stmt|;
 block|}
+block|}
+block|}
+comment|// Now add to backingMap if successfully added to bucket cache.  Remove from ramCache if
+comment|// success or error.
 for|for
 control|(
 name|int
@@ -4273,12 +4387,26 @@ literal|0
 init|;
 name|i
 operator|<
-name|done
+name|size
 condition|;
 operator|++
 name|i
 control|)
 block|{
+name|BlockCacheKey
+name|key
+init|=
+name|entries
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
+comment|// Only add if non-null entry.
 if|if
 condition|(
 name|bucketEntries
@@ -4293,13 +4421,7 @@ name|backingMap
 operator|.
 name|put
 argument_list|(
-name|ramEntries
-index|[
-name|i
-index|]
-operator|.
-name|getKey
-argument_list|()
+name|key
 argument_list|,
 name|bucketEntries
 index|[
@@ -4308,6 +4430,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Always remove from ramCache even if we failed adding it to the block cache above.
 name|RAMQueueEntry
 name|ramCacheEntry
 init|=
@@ -4315,13 +4438,7 @@ name|ramCache
 operator|.
 name|remove
 argument_list|(
-name|ramEntries
-index|[
-name|i
-index|]
-operator|.
-name|getKey
-argument_list|()
+name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -4338,10 +4455,12 @@ argument_list|(
 operator|-
 literal|1
 operator|*
-name|ramEntries
-index|[
+name|entries
+operator|.
+name|get
+argument_list|(
 name|i
-index|]
+argument_list|)
 operator|.
 name|getData
 argument_list|()
@@ -4352,22 +4471,92 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
+name|long
+name|used
+init|=
 name|bucketAllocator
 operator|.
 name|getUsedSize
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|used
 operator|>
 name|acceptableSize
 argument_list|()
 condition|)
 block|{
 name|freeSpace
+argument_list|(
+literal|"Used="
+operator|+
+name|used
+operator|+
+literal|"> acceptable="
+operator|+
+name|acceptableSize
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
+return|return;
 block|}
+block|}
+comment|/**    * Blocks until elements available in<code>q</code> then tries to grab as many as possible    * before returning.    * @param recepticle Where to stash the elements taken from queue. We clear before we use it    * just in case.    * @param q The queue to take from.    * @return<code>receptical laden with elements taken from the queue or empty if none found.    */
+annotation|@
+name|VisibleForTesting
+specifier|static
+name|List
+argument_list|<
+name|RAMQueueEntry
+argument_list|>
+name|getRAMQueueEntries
+parameter_list|(
+specifier|final
+name|BlockingQueue
+argument_list|<
+name|RAMQueueEntry
+argument_list|>
+name|q
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|RAMQueueEntry
+argument_list|>
+name|receptical
+parameter_list|)
+throws|throws
+name|InterruptedException
+block|{
+comment|// Clear sets all entries to null and sets size to 0. We retain allocations. Presume it
+comment|// ok even if list grew to accommodate thousands.
+name|receptical
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|receptical
+operator|.
+name|add
+argument_list|(
+name|q
+operator|.
+name|take
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|q
+operator|.
+name|drainTo
+argument_list|(
+name|receptical
+argument_list|)
+expr_stmt|;
+return|return
+name|receptical
+return|;
 block|}
 specifier|private
 name|void
@@ -5875,7 +6064,8 @@ return|;
 block|}
 block|}
 comment|/**    * Block Entry stored in the memory with key,data and so on    */
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 class|class
 name|RAMQueueEntry
@@ -6558,6 +6748,23 @@ operator|.
 name|getCachedTime
 argument_list|()
 argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|hashCode
+parameter_list|()
+block|{
+return|return
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|hashCode
+argument_list|()
 return|;
 block|}
 annotation|@

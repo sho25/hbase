@@ -413,7 +413,7 @@ specifier|static
 name|String
 name|ADDRESS
 init|=
-literal|"0.0.0.0"
+literal|"localhost"
 decl_stmt|;
 specifier|public
 specifier|static

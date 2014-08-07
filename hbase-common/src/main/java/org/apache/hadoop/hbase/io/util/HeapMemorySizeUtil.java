@@ -318,7 +318,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Retrieve global memstore configured size as percentage of total heap.    * @param conf    * @param logInvalid    */
+comment|/**    * Retrieve global memstore configured size as percentage of total heap.    * @param c    * @param logInvalid    */
 specifier|public
 specifier|static
 name|float
@@ -389,7 +389,7 @@ return|return
 name|limit
 return|;
 block|}
-comment|/**    * Retrieve configured size for global memstore lower water mark as percentage of total heap.    * @param conf    * @param globalMemStorePercent    */
+comment|/**    * Retrieve configured size for global memstore lower water mark as percentage of total heap.    * @param c    * @param globalMemStorePercent    */
 specifier|public
 specifier|static
 name|float
