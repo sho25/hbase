@@ -3526,8 +3526,10 @@ name|isClusterUp
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
+name|clusterStatusTracker
+operator|!=
+literal|null
+operator|&&
 name|clusterStatusTracker
 operator|.
 name|isClusterUp

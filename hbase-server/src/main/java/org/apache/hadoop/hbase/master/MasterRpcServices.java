@@ -6226,7 +6226,7 @@ try|try
 block|{
 name|master
 operator|.
-name|checkInitialized
+name|checkServiceStarted
 argument_list|()
 expr_stmt|;
 return|return

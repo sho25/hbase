@@ -2893,30 +2893,6 @@ condition|)
 block|{
 return|return;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|serverManager
-operator|.
-name|isClusterShutdown
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Cluster shutdown is set; skipping assign of "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 name|String
 name|encodedName
 init|=
@@ -9703,17 +9679,7 @@ name|void
 name|stop
 parameter_list|()
 block|{
-name|shutdown
-argument_list|()
-expr_stmt|;
-comment|// Stop executor service, etc
-block|}
-comment|/**    * Shutdown the threadpool executor service    */
-specifier|public
-name|void
-name|shutdown
-parameter_list|()
-block|{
+comment|// Shutdown the threadpool executor service
 name|threadPoolExecutorService
 operator|.
 name|shutdownNow
