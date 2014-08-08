@@ -7653,17 +7653,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Started memstore flush for "
 operator|+
@@ -7698,7 +7690,6 @@ name|myseqid
 operator|)
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Stop updates while we snapshot the memstore of all of these regions' stores. We only have
 comment|// to do this for a moment.  It is quick. We also set the memstore size to zero here before we
 comment|// allow updates again so its value will represent the size of the updates received
