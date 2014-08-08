@@ -2411,6 +2411,11 @@ name|State
 operator|.
 name|SPLIT
 operator|||
+name|hri
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
 name|tableStateManager
 operator|.
 name|isTableState
