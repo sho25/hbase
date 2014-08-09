@@ -645,21 +645,6 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|rpcServer
-operator|.
-name|addCallSize
-argument_list|(
-name|call
-operator|.
-name|getSize
-argument_list|()
-operator|*
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
 comment|// Set the response for undelayed calls and delayed calls with
 comment|// undelayed responses.
 if|if
@@ -865,6 +850,25 @@ name|stringifyException
 argument_list|(
 name|e
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// regardless if succesful or not we need to reset the callQueueSize
+name|this
+operator|.
+name|rpcServer
+operator|.
+name|addCallSize
+argument_list|(
+name|call
+operator|.
+name|getSize
+argument_list|()
+operator|*
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
