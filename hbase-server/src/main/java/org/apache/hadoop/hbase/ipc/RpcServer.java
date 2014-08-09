@@ -35,6 +35,20 @@ end_import
 
 begin_import
 import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|internal
+operator|.
+name|ConcurrentSet
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -489,20 +503,6 @@ end_import
 
 begin_import
 import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|internal
-operator|.
-name|ConcurrentSet
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -927,6 +927,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|AccessDeniedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|AuthMethod
 import|;
 end_import
@@ -1195,20 +1211,6 @@ name|hadoop
 operator|.
 name|security
 operator|.
-name|AccessControlException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
 name|UserGroupInformation
 import|;
 end_import
@@ -1361,16 +1363,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|codehaus
 operator|.
 name|jackson
@@ -1378,6 +1370,16 @@ operator|.
 name|map
 operator|.
 name|ObjectMapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|htrace
+operator|.
+name|TraceInfo
 import|;
 end_import
 
@@ -6372,7 +6374,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Can't retrieve username from tokenIdentifier."
 argument_list|)
@@ -6509,7 +6511,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Server is not configured to do DIGEST authentication."
 argument_list|)
@@ -6606,7 +6608,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Kerberos principal name does NOT have the expected "
 operator|+
@@ -6684,7 +6686,7 @@ literal|null
 condition|)
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Unable to find SASL server implementation for "
 operator|+
@@ -7382,11 +7384,11 @@ operator|.
 name|SIMPLE
 condition|)
 block|{
-name|AccessControlException
+name|AccessDeniedException
 name|ae
 init|=
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Authentication is required"
 argument_list|)
@@ -8104,7 +8106,7 @@ block|{
 comment|// Not allowed to doAs if token authentication is used
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Authenticated user ("
 operator|+
@@ -8526,7 +8528,7 @@ comment|// Throw FatalConnectionException wrapping ACE so client does right thin
 comment|// down the connection instead of trying to read non-existent retun.
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Connection from "
 operator|+
@@ -9217,7 +9219,11 @@ name|authFailedResponse
 argument_list|,
 name|authFailedCall
 argument_list|,
+operator|new
+name|AccessDeniedException
+argument_list|(
 name|ae
+argument_list|)
 argument_list|,
 name|ae
 operator|.

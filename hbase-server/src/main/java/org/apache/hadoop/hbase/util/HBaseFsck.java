@@ -1273,9 +1273,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|IOUtils
+name|security
+operator|.
+name|AccessDeniedException
 import|;
 end_import
 
@@ -1287,9 +1289,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|security
+name|io
 operator|.
-name|AccessControlException
+name|IOUtils
 import|;
 end_import
 
@@ -8161,7 +8163,7 @@ parameter_list|()
 throws|throws
 name|IOException
 throws|,
-name|AccessControlException
+name|AccessDeniedException
 block|{
 if|if
 condition|(
@@ -8252,7 +8254,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|AccessControlException
+name|AccessDeniedException
 name|ace
 parameter_list|)
 block|{
@@ -8260,7 +8262,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Got AccessControlException when preCheckPermission "
+literal|"Got AccessDeniedException when preCheckPermission "
 argument_list|,
 name|ace
 argument_list|)
@@ -8296,11 +8298,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 throw|throw
-operator|new
-name|AccessControlException
-argument_list|(
 name|ace
-argument_list|)
 throw|;
 block|}
 block|}
@@ -20822,7 +20820,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|AccessControlException
+name|AccessDeniedException
 name|ace
 parameter_list|)
 block|{

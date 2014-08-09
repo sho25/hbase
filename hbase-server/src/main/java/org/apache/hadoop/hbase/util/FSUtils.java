@@ -605,6 +605,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|AccessDeniedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -714,20 +730,6 @@ operator|.
 name|ipc
 operator|.
 name|RemoteException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
-name|AccessControlException
 import|;
 end_import
 
@@ -7510,7 +7512,7 @@ name|FsAction
 name|action
 parameter_list|)
 throws|throws
-name|AccessControlException
+name|AccessDeniedException
 block|{
 if|if
 condition|(
@@ -7604,7 +7606,7 @@ return|return;
 block|}
 throw|throw
 operator|new
-name|AccessControlException
+name|AccessDeniedException
 argument_list|(
 literal|"Permission denied:"
 operator|+
