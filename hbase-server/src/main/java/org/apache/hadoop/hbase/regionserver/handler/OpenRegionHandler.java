@@ -792,24 +792,6 @@ expr_stmt|;
 comment|// Post open deploy task:
 comment|//   meta => update meta location in ZK
 comment|//   other region => update meta
-name|long
-name|now
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
-name|long
-name|lastUpdate
-init|=
-name|now
-decl_stmt|;
-name|boolean
-name|tickleOpening
-init|=
-literal|true
-decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -843,27 +825,6 @@ name|isRegionStillOpening
 argument_list|()
 condition|)
 block|{
-name|long
-name|elapsed
-init|=
-name|now
-operator|-
-name|lastUpdate
-decl_stmt|;
-if|if
-condition|(
-name|elapsed
-operator|>
-literal|120000
-condition|)
-block|{
-comment|// 2 minutes, no need to tickleOpening too often
-comment|// Only tickle OPENING if postOpenDeployTasks is taking some time.
-name|lastUpdate
-operator|=
-name|now
-expr_stmt|;
-block|}
 synchronized|synchronized
 init|(
 name|signaller
@@ -898,13 +859,6 @@ block|{
 comment|// Go to the loop check.
 block|}
 block|}
-name|now
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
 block|}
 comment|// Is thread still alive?  We may have left above loop because server is
 comment|// stopping or we timed out the edit.  Is so, interrupt it.
@@ -983,10 +937,8 @@ expr_stmt|;
 block|}
 block|}
 comment|// Was there an exception opening the region?  This should trigger on
-comment|// InterruptedException too.  If so, we failed.  Even if tickle opening fails
-comment|// then it is a failure.
+comment|// InterruptedException too.  If so, we failed.
 return|return
-operator|(
 operator|(
 operator|!
 name|Thread
@@ -1000,9 +952,6 @@ name|getException
 argument_list|()
 operator|==
 literal|null
-operator|)
-operator|&&
-name|tickleOpening
 operator|)
 return|;
 block|}
@@ -1124,40 +1073,13 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|server
-operator|.
-name|abort
-argument_list|(
-literal|"Exception running postOpenDeployTasks; region="
-operator|+
-name|this
-operator|.
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
 name|Throwable
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Exception running postOpenDeployTasks; region="
 operator|+
 name|this
@@ -1169,16 +1091,52 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|this
 operator|.
 name|exception
 operator|=
 name|e
 expr_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|IOException
+operator|&&
+name|isRegionStillOpening
+argument_list|(
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|services
+argument_list|)
+condition|)
+block|{
+name|server
+operator|.
+name|abort
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// We're done.  Set flag then wake up anyone waiting on thread to complete.
 name|this
@@ -1412,9 +1370,16 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
+specifier|static
 name|boolean
 name|isRegionStillOpening
-parameter_list|()
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|RegionServerServices
+name|rsServices
+parameter_list|)
 block|{
 name|byte
 index|[]
@@ -1449,6 +1414,20 @@ name|action
 argument_list|)
 return|;
 comment|// true means opening for RIT
+block|}
+specifier|private
+name|boolean
+name|isRegionStillOpening
+parameter_list|()
+block|{
+return|return
+name|isRegionStillOpening
+argument_list|(
+name|regionInfo
+argument_list|,
+name|rsServices
+argument_list|)
+return|;
 block|}
 block|}
 end_class
