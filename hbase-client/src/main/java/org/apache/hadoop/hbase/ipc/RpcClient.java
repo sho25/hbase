@@ -5617,32 +5617,6 @@ condition|)
 throw|throw
 name|writeException
 throw|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|": wrote request header "
-operator|+
-name|TextFormat
-operator|.
-name|shortDebugString
-argument_list|(
-name|header
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/* Receive a response.      * Because only one receiver, so no synchronization on in.      */
 specifier|protected
@@ -5699,38 +5673,6 @@ operator|.
 name|getCallId
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|": got response header "
-operator|+
-name|TextFormat
-operator|.
-name|shortDebugString
-argument_list|(
-name|responseHeader
-argument_list|)
-operator|+
-literal|", totalSize: "
-operator|+
-name|totalSize
-operator|+
-literal|" bytes"
-argument_list|)
-expr_stmt|;
-block|}
 name|call
 operator|=
 name|calls
@@ -5782,30 +5724,6 @@ name|totalSize
 operator|-
 name|readSoFar
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Unknown callId: "
-operator|+
-name|id
-operator|+
-literal|", skipping over this response of "
-operator|+
-name|whatIsLeftToRead
-operator|+
-literal|" bytes"
-argument_list|)
-expr_stmt|;
-block|}
 name|IOUtils
 operator|.
 name|skipFully
