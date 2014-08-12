@@ -5185,6 +5185,11 @@ else|else
 block|{
 name|maxWaitTime
 operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
 name|this
 operator|.
 name|server
