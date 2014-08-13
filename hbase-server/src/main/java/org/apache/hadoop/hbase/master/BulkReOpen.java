@@ -533,8 +533,6 @@ operator|.
 name|unassign
 argument_list|(
 name|region
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 while|while

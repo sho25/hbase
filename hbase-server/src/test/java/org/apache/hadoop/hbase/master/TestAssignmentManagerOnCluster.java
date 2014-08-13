@@ -2824,8 +2824,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// region is closing now, will be re-assigned automatically.
@@ -3106,8 +3104,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// region may still be assigned now since it's closing,
@@ -4183,7 +4179,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 comment|// Now region should pending_close or closing
-comment|// Unassign it again forcefully so that we can trigger already
+comment|// Unassign it again so that we can trigger already
 comment|// in transition exception. This test is to make sure this scenario
 comment|// is handled properly.
 name|am
@@ -4204,38 +4200,25 @@ argument_list|)
 expr_stmt|;
 name|am
 operator|.
-name|unassign
-argument_list|(
-name|hri
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|RegionState
-name|state
-init|=
-name|am
-operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionState
+name|updateRegionState
 argument_list|(
 name|hri
-argument_list|)
-decl_stmt|;
-name|assertEquals
-argument_list|(
+argument_list|,
 name|RegionState
 operator|.
 name|State
 operator|.
 name|FAILED_CLOSE
-argument_list|,
-name|state
+argument_list|)
+expr_stmt|;
+name|am
 operator|.
-name|getState
-argument_list|()
+name|unassign
+argument_list|(
+name|hri
 argument_list|)
 expr_stmt|;
 comment|// Let region closing move ahead. The region should be closed
@@ -5073,8 +5056,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -5379,8 +5360,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -5707,8 +5686,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 comment|// The region should be moved to offline since the server is dead
@@ -6159,8 +6136,6 @@ operator|.
 name|unassign
 argument_list|(
 name|hri
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 comment|// The region should be moved to offline since the server is dead

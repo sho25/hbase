@@ -1310,10 +1310,17 @@ condition|)
 block|{
 if|if
 condition|(
+operator|(
 name|rit
 operator|.
 name|isPendingCloseOrClosing
 argument_list|()
+operator|||
+name|rit
+operator|.
+name|isOffline
+argument_list|()
+operator|)
 operator|&&
 name|am
 operator|.
