@@ -382,14 +382,6 @@ name|DEFAULT_BUCKET_CACHE_WRITER_QUEUE
 init|=
 literal|64
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|float
-name|DEFAULT_BUCKET_CACHE_COMBINED_PERCENTAGE
-init|=
-literal|0.9f
-decl_stmt|;
 comment|/**    * Configuration key to prefetch all blocks of a given file into the block cache    * when the file is opened.    */
 specifier|public
 specifier|static

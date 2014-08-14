@@ -741,27 +741,6 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|"Snapshot job should not use SlabCache."
-argument_list|,
-literal|0
-argument_list|,
-name|job
-operator|.
-name|getFloat
-argument_list|(
-literal|"hbase.offheapcache.percentage"
-argument_list|,
-operator|-
-literal|1
-argument_list|)
-argument_list|,
-literal|0.01
-argument_list|)
-expr_stmt|;
-name|Assert
-operator|.
-name|assertEquals
-argument_list|(
 literal|"Snapshot job should not use BucketCache."
 argument_list|,
 literal|0
