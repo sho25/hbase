@@ -788,6 +788,36 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
+comment|/**    * @return The number of cells flushed to disk    */
+name|long
+name|getFlushedCellsCount
+parameter_list|()
+function_decl|;
+comment|/**    * @return The total size of data flushed to disk, in bytes    */
+name|long
+name|getFlushedCellsSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return The number of cells processed during minor compactions    */
+name|long
+name|getCompactedCellsCount
+parameter_list|()
+function_decl|;
+comment|/**    * @return The total amount of data processed during minor compactions, in bytes    */
+name|long
+name|getCompactedCellsSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return The number of cells processed during major compactions    */
+name|long
+name|getMajorCompactedCellsCount
+parameter_list|()
+function_decl|;
+comment|/**    * @return The total amount of data processed during major compactions, in bytes    */
+name|long
+name|getMajorCompactedCellsSize
+parameter_list|()
+function_decl|;
 comment|/*    * @param o Observer who wants to know about changes in set of Readers    */
 name|void
 name|addChangedReaderObserver

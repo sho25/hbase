@@ -58,6 +58,13 @@ name|currentCompactedKVs
 init|=
 literal|0
 decl_stmt|;
+comment|/** the total size of data processed by the currently running compaction, in bytes */
+specifier|public
+name|long
+name|totalCompactedSize
+init|=
+literal|0
+decl_stmt|;
 comment|/** Constructor    * @param totalCompactingKVs the total Key/Value pairs to be compacted    */
 specifier|public
 name|CompactionProgress
@@ -119,6 +126,61 @@ name|this
 operator|.
 name|currentCompactedKVs
 expr_stmt|;
+block|}
+comment|/**    * @return the total compacting key values in currently running compaction    */
+specifier|public
+name|long
+name|getTotalCompactingKvs
+parameter_list|()
+block|{
+return|return
+name|totalCompactingKVs
+return|;
+block|}
+comment|/**    * @return the completed count of key values in currently running compaction    */
+specifier|public
+name|long
+name|getCurrentCompactedKvs
+parameter_list|()
+block|{
+return|return
+name|currentCompactedKVs
+return|;
+block|}
+comment|/**    * @return the total data size processed by the currently running compaction, in bytes    */
+specifier|public
+name|long
+name|getTotalCompactedSize
+parameter_list|()
+block|{
+return|return
+name|totalCompactedSize
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"%d/%d (%.2f%%)"
+argument_list|,
+name|currentCompactedKVs
+argument_list|,
+name|totalCompactingKVs
+argument_list|,
+literal|100
+operator|*
+name|getProgressPct
+argument_list|()
+argument_list|)
+return|;
 block|}
 block|}
 end_class

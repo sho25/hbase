@@ -569,6 +569,66 @@ name|SLOW_APPEND_DESC
 init|=
 literal|"The number of Appends that took over 1000ms to complete"
 decl_stmt|;
+name|String
+name|FLUSHED_CELLS
+init|=
+literal|"flushedCellsCount"
+decl_stmt|;
+name|String
+name|FLUSHED_CELLS_DESC
+init|=
+literal|"The number of cells flushed to disk"
+decl_stmt|;
+name|String
+name|FLUSHED_CELLS_SIZE
+init|=
+literal|"flushedCellsSize"
+decl_stmt|;
+name|String
+name|FLUSHED_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of data flushed to disk, in bytes"
+decl_stmt|;
+name|String
+name|COMPACTED_CELLS
+init|=
+literal|"compactedCellsCount"
+decl_stmt|;
+name|String
+name|COMPACTED_CELLS_DESC
+init|=
+literal|"The number of cells processed during minor compactions"
+decl_stmt|;
+name|String
+name|COMPACTED_CELLS_SIZE
+init|=
+literal|"compactedCellsSize"
+decl_stmt|;
+name|String
+name|COMPACTED_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of data processed during minor compactions, in bytes"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_CELLS
+init|=
+literal|"majorCompactedCellsCount"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_CELLS_DESC
+init|=
+literal|"The number of cells processed during major compactions"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_CELLS_SIZE
+init|=
+literal|"majorCompactedCellsSize"
+decl_stmt|;
+name|String
+name|MAJOR_COMPACTED_CELLS_SIZE_DESC
+init|=
+literal|"The total amount of data processed during major compactions, in bytes"
+decl_stmt|;
 block|}
 end_interface
 
