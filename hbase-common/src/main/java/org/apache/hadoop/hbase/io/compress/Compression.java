@@ -830,11 +830,6 @@ name|downStreamBufferSize
 argument_list|)
 return|;
 block|}
-comment|// else {
-comment|// Make sure we bypass FSInputChecker buffer.
-comment|// return new BufferedInputStream(downStream, 1024);
-comment|// }
-comment|// }
 return|return
 name|downStream
 return|;
@@ -1127,7 +1122,7 @@ specifier|final
 name|String
 name|compressName
 decl_stmt|;
-comment|// data input buffer size to absorb small reads from application.
+comment|/** data input buffer size to absorb small reads from application. */
 specifier|private
 specifier|static
 specifier|final
@@ -1138,7 +1133,7 @@ literal|1
 operator|*
 literal|1024
 decl_stmt|;
-comment|// data output buffer size to absorb small writes from application.
+comment|/** data output buffer size to absorb small writes from application. */
 specifier|private
 specifier|static
 specifier|final
@@ -1425,6 +1420,24 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Retrieved compressor "
+operator|+
+name|compressor
+operator|+
+literal|" from pool."
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|compressor
 operator|!=
 literal|null
@@ -1438,8 +1451,7 @@ name|finished
 argument_list|()
 condition|)
 block|{
-comment|// Somebody returns the compressor to CodecPool but is still using
-comment|// it.
+comment|// Somebody returns the compressor to CodecPool but is still using it.
 name|LOG
 operator|.
 name|warn
@@ -1447,8 +1459,6 @@ argument_list|(
 literal|"Compressor obtained from CodecPool is already finished()"
 argument_list|)
 expr_stmt|;
-comment|// throw new AssertionError(
-comment|// "Compressor obtained from CodecPool is already finished()");
 block|}
 name|compressor
 operator|.
@@ -1479,6 +1489,24 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Returning compressor "
+operator|+
+name|compressor
+operator|+
+literal|" to pool."
+argument_list|)
+expr_stmt|;
 name|CodecPool
 operator|.
 name|returnCompressor
@@ -1520,6 +1548,24 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Retrieved decompressor "
+operator|+
+name|decompressor
+operator|+
+literal|" from pool."
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|decompressor
 operator|!=
 literal|null
@@ -1533,8 +1579,7 @@ name|finished
 argument_list|()
 condition|)
 block|{
-comment|// Somebody returns the decompressor to CodecPool but is still using
-comment|// it.
+comment|// Somebody returns the decompressor to CodecPool but is still using it.
 name|LOG
 operator|.
 name|warn
@@ -1542,8 +1587,6 @@ argument_list|(
 literal|"Deompressor obtained from CodecPool is already finished()"
 argument_list|)
 expr_stmt|;
-comment|// throw new AssertionError(
-comment|// "Decompressor obtained from CodecPool is already finished()");
 block|}
 name|decompressor
 operator|.
@@ -1574,6 +1617,24 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Returning decompressor "
+operator|+
+name|decompressor
+operator|+
+literal|" to pool."
+argument_list|)
+expr_stmt|;
 name|CodecPool
 operator|.
 name|returnDecompressor
@@ -1596,6 +1657,22 @@ name|class
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Ending decompressor "
+operator|+
+name|decompressor
+argument_list|)
+expr_stmt|;
 name|decompressor
 operator|.
 name|end
