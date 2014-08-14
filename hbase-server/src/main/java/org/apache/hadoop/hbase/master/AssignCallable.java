@@ -83,10 +83,6 @@ specifier|private
 name|HRegionInfo
 name|hri
 decl_stmt|;
-specifier|private
-name|boolean
-name|newPlan
-decl_stmt|;
 specifier|public
 name|AssignCallable
 parameter_list|(
@@ -95,9 +91,6 @@ name|assignmentManager
 parameter_list|,
 name|HRegionInfo
 name|hri
-parameter_list|,
-name|boolean
-name|newPlan
 parameter_list|)
 block|{
 name|this
@@ -105,12 +98,6 @@ operator|.
 name|assignmentManager
 operator|=
 name|assignmentManager
-expr_stmt|;
-name|this
-operator|.
-name|newPlan
-operator|=
-name|newPlan
 expr_stmt|;
 name|this
 operator|.
@@ -133,8 +120,6 @@ operator|.
 name|assign
 argument_list|(
 name|hri
-argument_list|,
-name|newPlan
 argument_list|)
 expr_stmt|;
 return|return

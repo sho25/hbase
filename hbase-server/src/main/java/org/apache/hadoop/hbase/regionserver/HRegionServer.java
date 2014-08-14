@@ -11867,7 +11867,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online    * @throws RegionAlreadyInTransitionException if the region is already closing    */
+comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online    */
 specifier|protected
 name|boolean
 name|closeRegion
@@ -11885,8 +11885,6 @@ name|sn
 parameter_list|)
 throws|throws
 name|NotServingRegionException
-throws|,
-name|RegionAlreadyInTransitionException
 block|{
 comment|//Check for permissions to close.
 name|HRegion
@@ -12101,26 +12099,12 @@ literal|"Received CLOSE for the region: "
 operator|+
 name|encodedName
 operator|+
-literal|" ,which we are already trying to CLOSE, but not completed yet"
+literal|", which we are already trying to CLOSE, but not completed yet"
 argument_list|)
 expr_stmt|;
-comment|// The master will retry till the region is closed. We need to do this since
-comment|// the region could fail to close somehow. If we mark the region closed in master
-comment|// while it is not, there could be data loss.
-comment|// If the region stuck in closing for a while, and master runs out of retries,
-comment|// master will move the region to failed_to_close. Later on, if the region
-comment|// is indeed closed, master can properly re-assign it.
-throw|throw
-operator|new
-name|RegionAlreadyInTransitionException
-argument_list|(
-literal|"The region "
-operator|+
-name|encodedName
-operator|+
-literal|" was already closing. New CLOSE request is ignored."
-argument_list|)
-throw|;
+return|return
+literal|true
+return|;
 block|}
 if|if
 condition|(

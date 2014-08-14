@@ -3262,9 +3262,9 @@ operator|==
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
+throw|throw
+operator|new
+name|IOException
 argument_list|(
 literal|"Attempting to send OPEN RPC to server "
 operator|+
@@ -3275,12 +3275,7 @@ argument_list|()
 operator|+
 literal|" failed because no RPC connection found to this server"
 argument_list|)
-expr_stmt|;
-return|return
-name|RegionOpeningState
-operator|.
-name|FAILED_OPENING
-return|;
+throw|;
 block|}
 name|OpenRegionRequest
 name|request
@@ -3396,9 +3391,9 @@ operator|==
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
+throw|throw
+operator|new
+name|IOException
 argument_list|(
 literal|"Attempting to send OPEN RPC to server "
 operator|+
@@ -3409,10 +3404,7 @@ argument_list|()
 operator|+
 literal|" failed because no RPC connection found to this server"
 argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
+throw|;
 block|}
 name|OpenRegionRequest
 name|request

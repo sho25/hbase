@@ -1313,7 +1313,12 @@ condition|(
 operator|(
 name|rit
 operator|.
-name|isPendingCloseOrClosing
+name|isClosing
+argument_list|()
+operator|||
+name|rit
+operator|.
+name|isFailedClose
 argument_list|()
 operator|||
 name|rit

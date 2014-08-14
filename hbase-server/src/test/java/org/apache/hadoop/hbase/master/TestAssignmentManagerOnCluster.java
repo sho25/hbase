@@ -1469,16 +1469,6 @@ argument_list|)
 expr_stmt|;
 comment|// Region is assigned now. Let's assign it again.
 comment|// Master should not abort, and region should be assigned.
-name|RegionState
-name|oldState
-init|=
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|hri
-argument_list|)
-decl_stmt|;
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -1517,16 +1507,6 @@ argument_list|(
 name|newState
 operator|.
 name|isOpened
-argument_list|()
-operator|&&
-name|newState
-operator|.
-name|getStamp
-argument_list|()
-operator|!=
-name|oldState
-operator|.
-name|getStamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1742,7 +1722,7 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-comment|// Created faked dead server
+comment|// Created faked dead server that is still online in master
 name|deadServer
 operator|=
 name|ServerName
@@ -2773,7 +2753,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This test should not be flaky. If it is flaky, it means something    * wrong with AssignmentManager which should be reported and fixed    *    * This tests forcefully assign a region while it's closing and re-assigned.    */
+comment|/**    * This tests assign a region while it's closing.    */
 annotation|@
 name|Test
 argument_list|(
@@ -2783,7 +2763,7 @@ literal|60000
 argument_list|)
 specifier|public
 name|void
-name|testForceAssignWhileClosing
+name|testAssignWhileClosing
 parameter_list|()
 throws|throws
 name|Exception
@@ -2791,7 +2771,7 @@ block|{
 name|String
 name|table
 init|=
-literal|"testForceAssignWhileClosing"
+literal|"testAssignWhileClosing"
 decl_stmt|;
 try|try
 block|{
@@ -4363,49 +4343,6 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
-comment|// Now region should pending_close or closing
-comment|// Unassign it again so that we can trigger already
-comment|// in transition exception. This test is to make sure this scenario
-comment|// is handled properly.
-name|am
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setLong
-argument_list|(
-name|AssignmentManager
-operator|.
-name|ALREADY_IN_TRANSITION_WAITTIME
-argument_list|,
-literal|1000
-argument_list|)
-expr_stmt|;
-name|am
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|updateRegionState
-argument_list|(
-name|hri
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|FAILED_CLOSE
-argument_list|)
-expr_stmt|;
-name|am
-operator|.
-name|unassign
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
 comment|// Let region closing move ahead. The region should be closed
 comment|// properly and re-assigned automatically
 name|MyRegionObserver
@@ -4711,7 +4648,7 @@ name|assertTrue
 argument_list|(
 name|state
 operator|.
-name|isPendingOpenOrOpening
+name|isOpening
 argument_list|()
 operator|&&
 name|oldServerName
@@ -5239,6 +5176,15 @@ comment|// You can't unassign a dead region before SSH either
 name|am
 operator|.
 name|unassign
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+name|state
+operator|=
+name|regionStates
+operator|.
+name|getRegionState
 argument_list|(
 name|hri
 argument_list|)

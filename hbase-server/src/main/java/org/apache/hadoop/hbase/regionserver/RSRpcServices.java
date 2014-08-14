@@ -421,20 +421,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|NotServingRegionException
 import|;
 end_import
@@ -7508,11 +7494,6 @@ comment|/**    * Open asynchronously a region or a set of regions on the region 
 annotation|@
 name|Override
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
-annotation|@
 name|QosPriority
 argument_list|(
 name|priority
@@ -7864,6 +7845,23 @@ name|htd
 decl_stmt|;
 try|try
 block|{
+name|String
+name|encodedName
+init|=
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+decl_stmt|;
+name|byte
+index|[]
+name|encodedNameBytes
+init|=
+name|region
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+decl_stmt|;
 specifier|final
 name|HRegion
 name|onlineRegion
@@ -7872,10 +7870,7 @@ name|regionServer
 operator|.
 name|getFromOnlineRegions
 argument_list|(
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 argument_list|)
 decl_stmt|;
 if|if
@@ -7885,165 +7880,33 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|//Check if the region can actually be opened.
-if|if
-condition|(
-name|onlineRegion
-operator|.
-name|getCoprocessorHost
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
-name|onlineRegion
-operator|.
-name|getCoprocessorHost
-argument_list|()
-operator|.
-name|preOpen
-argument_list|()
-expr_stmt|;
-block|}
-comment|// See HBASE-5094. Cross check with hbase:meta if still this RS is owning
-comment|// the region.
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-name|p
+comment|// The region is already online. This should not happen any more.
+name|String
+name|error
 init|=
-name|MetaTableAccessor
-operator|.
-name|getRegion
-argument_list|(
-name|regionServer
-operator|.
-name|getShortCircuitConnection
-argument_list|()
-argument_list|,
+literal|"Received OPEN for the region:"
+operator|+
 name|region
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
+operator|+
+literal|", which is already online"
 decl_stmt|;
-if|if
-condition|(
 name|regionServer
 operator|.
-name|serverName
-operator|.
-name|equals
+name|abort
 argument_list|(
-name|p
-operator|.
-name|getSecond
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|Boolean
-name|closing
-init|=
-name|regionServer
-operator|.
-name|regionsInTransitionInRS
-operator|.
-name|get
-argument_list|(
-name|region
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|)
-decl_stmt|;
-comment|// Map regionsInTransitionInRSOnly has an entry for a region only if the region
-comment|// is in transition on this RS, so here closing can be null. If not null, it can
-comment|// be true or false. True means the region is opening on this RS; while false
-comment|// means the region is closing. Only return ALREADY_OPENED if not closing (i.e.
-comment|// not in transition any more, or still transition to open.
-if|if
-condition|(
-operator|!
-name|Boolean
-operator|.
-name|FALSE
-operator|.
-name|equals
-argument_list|(
-name|closing
-argument_list|)
-operator|&&
-name|regionServer
-operator|.
-name|getFromOnlineRegions
-argument_list|(
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Attempted open of "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|" but already online on this server"
+name|error
 argument_list|)
 expr_stmt|;
-name|builder
-operator|.
-name|addOpeningState
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-name|RegionOpeningState
-operator|.
-name|ALREADY_OPENED
+name|error
 argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"The region "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|" is online on this server"
-operator|+
-literal|" but hbase:meta does not have this server - continue opening."
-argument_list|)
-expr_stmt|;
-name|regionServer
-operator|.
-name|removeFromOnlineRegions
-argument_list|(
-name|onlineRegion
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
+throw|;
 block|}
 name|LOG
 operator|.
@@ -8113,10 +7976,7 @@ name|regionsInTransitionInRS
 operator|.
 name|putIfAbsent
 argument_list|(
-name|region
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
+name|encodedNameBytes
 argument_list|,
 name|Boolean
 operator|.
@@ -8135,11 +7995,22 @@ name|previous
 argument_list|)
 condition|)
 block|{
-comment|// There is a close in progress. This should not happen any more.
-throw|throw
-operator|new
-name|RegionAlreadyInTransitionException
+if|if
+condition|(
+name|regionServer
+operator|.
+name|getFromOnlineRegions
 argument_list|(
+name|encodedName
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// There is a close in progress. This should not happen any more.
+name|String
+name|error
+init|=
 literal|"Received OPEN for the region:"
 operator|+
 name|region
@@ -8147,9 +8018,36 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" , which we are already trying to CLOSE "
+literal|", which we are already trying to CLOSE"
+decl_stmt|;
+name|regionServer
+operator|.
+name|abort
+argument_list|(
+name|error
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|error
 argument_list|)
 throw|;
+block|}
+name|regionServer
+operator|.
+name|regionsInTransitionInRS
+operator|.
+name|put
+argument_list|(
+name|encodedNameBytes
+argument_list|,
+name|Boolean
+operator|.
+name|TRUE
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(
@@ -8175,7 +8073,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" , which we are already trying to OPEN"
+literal|", which we are already trying to OPEN"
 operator|+
 literal|" - ignoring this new request for this region."
 argument_list|)
@@ -8198,6 +8096,12 @@ condition|(
 name|previous
 operator|==
 literal|null
+operator|||
+operator|!
+name|previous
+operator|.
+name|booleanValue
+argument_list|()
 condition|)
 block|{
 comment|// check if the region to be opened is marked in recovering state in ZK
