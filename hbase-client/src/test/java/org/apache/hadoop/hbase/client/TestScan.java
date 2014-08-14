@@ -920,6 +920,19 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+try|try
+block|{
+name|scan
+operator|.
+name|setAuthorizations
+argument_list|(
+operator|new
+name|Authorizations
+argument_list|(
+literal|"\u002b|\u0029"
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|scan
 operator|.
 name|setAuthorizations
@@ -941,8 +954,6 @@ literal|"_a"
 argument_list|)
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -954,20 +965,6 @@ literal|"A|B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for A|B."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -979,20 +976,6 @@ literal|"A&B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for A&B."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1004,20 +987,6 @@ literal|"!B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for !B."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1031,20 +1000,6 @@ literal|"(A)"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for (A)."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1058,20 +1013,6 @@ literal|"{A"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for {A."
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1083,20 +1024,6 @@ literal|" "
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have failed for empty"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1108,21 +1035,6 @@ literal|":B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|fail
-argument_list|(
-literal|"Should not have failed for :B"
-argument_list|)
-expr_stmt|;
-block|}
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1134,21 +1046,6 @@ literal|"-B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|fail
-argument_list|(
-literal|"Should not have failed for -B"
-argument_list|)
-expr_stmt|;
-block|}
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1160,21 +1057,6 @@ literal|".B"
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|fail
-argument_list|(
-literal|"Should not have failed for .B"
-argument_list|)
-expr_stmt|;
-block|}
-try|try
-block|{
 name|scan
 operator|.
 name|setAuthorizations
@@ -1195,7 +1077,7 @@ parameter_list|)
 block|{
 name|fail
 argument_list|(
-literal|"Should not have failed for /B"
+literal|"should not throw exception"
 argument_list|)
 expr_stmt|;
 block|}
