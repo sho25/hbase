@@ -2772,6 +2772,13 @@ operator|+
 name|splitCount
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+literal|0
+operator|<
+name|splitCount
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2796,6 +2803,7 @@ name|splitCount
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|splitOut
 operator|.
 name|close
