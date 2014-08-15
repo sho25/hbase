@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -697,11 +707,6 @@ name|master
 expr_stmt|;
 block|}
 comment|/**    * @return an unmodifiable the region assignment map    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 specifier|synchronized
 name|Map
@@ -714,18 +719,12 @@ name|getRegionAssignments
 parameter_list|()
 block|{
 return|return
-operator|(
-name|Map
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-operator|)
-name|regionAssignments
+name|Collections
 operator|.
-name|clone
-argument_list|()
+name|unmodifiableMap
+argument_list|(
+name|regionAssignments
+argument_list|)
 return|;
 block|}
 comment|/**    * Return the replicas (including default) for the regions grouped by ServerName    * @param regions    * @return a pair containing the groupings as a map    */
