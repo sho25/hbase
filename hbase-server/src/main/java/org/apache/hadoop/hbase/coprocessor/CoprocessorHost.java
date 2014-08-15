@@ -2277,7 +2277,12 @@ literal|"The coprocessor "
 operator|+
 name|coprocessorName
 operator|+
-literal|" threw an unexpected exception"
+literal|" threw "
+operator|+
+name|e
+operator|.
+name|toString
+argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
