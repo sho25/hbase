@@ -3339,7 +3339,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-literal|false
+name|newValue
 return|;
 block|}
 annotation|@
