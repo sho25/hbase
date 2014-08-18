@@ -368,6 +368,12 @@ specifier|final
 name|Cacheable
 name|cacheable
 decl_stmt|;
+specifier|private
+name|int
+name|deserializedIdentifier
+init|=
+literal|0
+decl_stmt|;
 name|Deserializer
 parameter_list|(
 specifier|final
@@ -375,6 +381,15 @@ name|Cacheable
 name|c
 parameter_list|)
 block|{
+name|deserializedIdentifier
+operator|=
+name|CacheableDeserializerIdManager
+operator|.
+name|registerDeserializer
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|cacheable
@@ -390,7 +405,7 @@ name|getDeserialiserIdentifier
 parameter_list|()
 block|{
 return|return
-literal|0
+name|deserializedIdentifier
 return|;
 block|}
 annotation|@
@@ -548,6 +563,8 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
