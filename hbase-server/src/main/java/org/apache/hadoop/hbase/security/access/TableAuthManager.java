@@ -1912,10 +1912,25 @@ name|cell
 operator|+
 literal|": "
 operator|+
+operator|(
 name|perms
+operator|!=
+literal|null
+condition|?
+name|perms
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|perms
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|Permission
@@ -1937,6 +1952,7 @@ block|{
 return|return
 literal|true
 return|;
+block|}
 block|}
 block|}
 block|}

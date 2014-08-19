@@ -494,6 +494,22 @@ operator|.
 name|SKIP
 return|;
 block|}
+name|boolean
+name|visibilityTagPresent
+init|=
+literal|false
+decl_stmt|;
+comment|// Save an object allocation where we can
+if|if
+condition|(
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|Iterator
 argument_list|<
 name|Tag
@@ -519,11 +535,6 @@ operator|.
 name|getTagsLength
 argument_list|()
 argument_list|)
-decl_stmt|;
-name|boolean
-name|visibilityTagPresent
-init|=
-literal|false
 decl_stmt|;
 while|while
 condition|(
@@ -691,6 +702,7 @@ name|ReturnCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 block|}
 block|}
 block|}

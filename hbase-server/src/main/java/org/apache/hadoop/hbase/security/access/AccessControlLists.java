@@ -3739,6 +3739,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Save an object allocation where we can
+if|if
+condition|(
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|List
 argument_list|<
 name|Permission

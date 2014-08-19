@@ -4661,6 +4661,7 @@ name|getValue
 argument_list|()
 control|)
 block|{
+comment|// Prepend the supplied perms in a new ACL tag to an update list of tags for the cell
 name|List
 argument_list|<
 name|Tag
@@ -4682,6 +4683,16 @@ name|perms
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|cell
+operator|.
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|Iterator
 argument_list|<
 name|Tag
@@ -4726,6 +4737,7 @@ name|next
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Ensure KeyValue so we can do a scatter gather copy. This is only a win if the
 comment|// incoming cell type is actually KeyValue.
@@ -10450,6 +10462,17 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Save an object allocation where we can
+if|if
+condition|(
+name|oldCell
+operator|.
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 name|Iterator
 argument_list|<
 name|Tag
@@ -10504,6 +10527,7 @@ operator|.
 name|ACL_TAG_TYPE
 condition|)
 block|{
+comment|// Not an ACL tag, just carry it through
 if|if
 condition|(
 name|LOG
@@ -10546,6 +10570,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Merge the perms from the older ACL into the current permission set
 name|ListMultimap
 argument_list|<
 name|String
@@ -10594,6 +10619,7 @@ argument_list|(
 name|kvPerms
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
