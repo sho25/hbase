@@ -869,6 +869,8 @@ class|class
 name|HTable
 implements|implements
 name|HTableInterface
+implements|,
+name|RegionLocator
 block|{
 specifier|private
 specifier|static
@@ -2059,7 +2061,9 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return The location of the given row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return The location of the given row.    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link RegionLocator#getRegionLocation(byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -2089,7 +2093,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served. Does not reload the cache.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -2115,7 +2121,9 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @param reload true to reload information or false to use cached information    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -2262,7 +2270,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the starting row key for every region in the currently open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Array of region starting row keys    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2280,7 +2290,9 @@ name|getFirst
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the ending row key for every region in the currently open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Array of region ending row keys    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2298,8 +2310,9 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
-comment|// TODO: these are not in HTableInterface. Should we add them there or move these to HBaseAdmin?
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|Pair
 argument_list|<
@@ -2495,7 +2508,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Odd that this returns a Map of HRI to SN whereas getRegionLocation, singular, returns an HRegionLocation.
+comment|// TODO: Odd that this returns a Map of HRI to SN whereas getRegionLocator, singular, returns an HRegionLocation.
 return|return
 name|MetaScanner
 operator|.

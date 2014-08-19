@@ -42176,7 +42176,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-comment|/**    * Tests the non cached version of getRegionLocation by moving a region.    */
+comment|/**    * Tests the non cached version of getRegionLocator by moving a region.    */
 specifier|public
 name|void
 name|testNonCachedGetRegionLocation
