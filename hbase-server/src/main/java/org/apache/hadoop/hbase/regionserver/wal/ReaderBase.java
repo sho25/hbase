@@ -346,11 +346,14 @@ operator|.
 name|DEFAULT_WAL_TRAILER_WARN_SIZE
 argument_list|)
 expr_stmt|;
+name|String
+name|cellCodecClsName
+init|=
 name|initReader
 argument_list|(
 name|stream
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|boolean
 name|compression
 init|=
@@ -420,7 +423,9 @@ throw|;
 block|}
 block|}
 name|initAfterCompression
-argument_list|()
+argument_list|(
+name|cellCodecClsName
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -647,10 +652,10 @@ name|pos
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initializes the log reader with a particular stream (may be null).    * Reader assumes ownership of the stream if not null and may use it. Called once.    */
+comment|/**    * Initializes the log reader with a particular stream (may be null).    * Reader assumes ownership of the stream if not null and may use it. Called once.    * @return the class name of cell Codec, null if such information is not available    */
 specifier|protected
 specifier|abstract
-name|void
+name|String
 name|initReader
 parameter_list|(
 name|FSDataInputStream
@@ -659,12 +664,15 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Initializes the compression after the shared stuff has been initialized. Called once.    */
+comment|/**    * Initializes the compression after the shared stuff has been initialized. Called once.    * @param cellCodecClsName class name of cell Codec    */
 specifier|protected
 specifier|abstract
 name|void
 name|initAfterCompression
-parameter_list|()
+parameter_list|(
+name|String
+name|cellCodecClsName
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

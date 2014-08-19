@@ -795,7 +795,7 @@ begin_function
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|String
 name|initReader
 parameter_list|(
 name|FSDataInputStream
@@ -821,6 +821,9 @@ block|}
 name|reset
 argument_list|()
 expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 end_function
 
@@ -830,7 +833,10 @@ name|Override
 specifier|protected
 name|void
 name|initAfterCompression
-parameter_list|()
+parameter_list|(
+name|String
+name|cellCodecClsName
+parameter_list|)
 throws|throws
 name|IOException
 block|{
