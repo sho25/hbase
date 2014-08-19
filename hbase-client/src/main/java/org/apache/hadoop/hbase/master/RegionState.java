@@ -915,10 +915,9 @@ name|rs
 decl_stmt|;
 switch|switch
 condition|(
-name|regionState
+name|this
 operator|.
-name|getState
-argument_list|()
+name|state
 condition|)
 block|{
 case|case
