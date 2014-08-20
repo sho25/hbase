@@ -56,6 +56,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|when
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1334,7 +1346,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    *     * @throws Exception    */
+comment|/**    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -2601,6 +2613,8 @@ operator|new
 name|PrivilegedExceptionAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -3081,6 +3095,8 @@ operator|new
 name|PrivilegedExceptionAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -3645,6 +3661,8 @@ operator|new
 name|PrivilegedExceptionAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -4408,6 +4426,28 @@ argument_list|)
 operator|.
 name|isAborted
 argument_list|()
+expr_stmt|;
+name|when
+argument_list|(
+name|rsServices
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+name|ServerName
+operator|.
+name|valueOf
+argument_list|(
+literal|"foo"
+argument_list|,
+literal|10
+argument_list|,
+literal|10
+argument_list|)
+argument_list|)
 expr_stmt|;
 name|Configuration
 name|customConf
@@ -5289,6 +5329,8 @@ operator|new
 name|PrivilegedExceptionAction
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -5368,6 +5410,8 @@ argument_list|,
 literal|null
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|FlushResult
 name|internalFlushcache
