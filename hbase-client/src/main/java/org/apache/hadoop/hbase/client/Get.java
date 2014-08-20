@@ -350,12 +350,6 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-specifier|private
-name|Consistency
-name|consistency
-init|=
-literal|null
-decl_stmt|;
 comment|/**    * Create a Get operation for the specified row.    *<p>    * If no further operations are done, this will get the latest version of    * all columns in all families of the specified row.    * @param row row key    */
 specifier|public
 name|Get
@@ -1019,32 +1013,6 @@ name|this
 operator|.
 name|familyMap
 return|;
-block|}
-comment|/**    * Returns the consistency level for this operation    * @return the consistency level    */
-specifier|public
-name|Consistency
-name|getConsistency
-parameter_list|()
-block|{
-return|return
-name|consistency
-return|;
-block|}
-comment|/**    * Sets the consistency level for this operation    * @param consistency the consistency level    */
-specifier|public
-name|void
-name|setConsistency
-parameter_list|(
-name|Consistency
-name|consistency
-parameter_list|)
-block|{
-name|this
-operator|.
-name|consistency
-operator|=
-name|consistency
-expr_stmt|;
 block|}
 comment|/**    * Compile the table and column family (i.e. schema) information    * into a String. Useful for parsing and aggregation by debugging,    * logging, and administration tools.    * @return Map    */
 annotation|@

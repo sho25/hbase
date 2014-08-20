@@ -440,14 +440,6 @@ name|loadColumnFamiliesOnDemand
 init|=
 literal|null
 decl_stmt|;
-specifier|private
-name|Consistency
-name|consistency
-init|=
-name|Consistency
-operator|.
-name|STRONG
-decl_stmt|;
 comment|/**    * Set it true for small scan to get better performance    *    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    */
 specifier|private
 name|boolean
@@ -1751,32 +1743,6 @@ operator|.
 name|booleanValue
 argument_list|()
 return|;
-block|}
-comment|/**    * Returns the consistency level for this operation    * @return the consistency level    */
-specifier|public
-name|Consistency
-name|getConsistency
-parameter_list|()
-block|{
-return|return
-name|consistency
-return|;
-block|}
-comment|/**    * Sets the consistency level for this operation    * @param consistency the consistency level    */
-specifier|public
-name|void
-name|setConsistency
-parameter_list|(
-name|Consistency
-name|consistency
-parameter_list|)
-block|{
-name|this
-operator|.
-name|consistency
-operator|=
-name|consistency
-expr_stmt|;
 block|}
 comment|/**    * Compile the table and column family (i.e. schema) information    * into a String. Useful for parsing and aggregation by debugging,    * logging, and administration tools.    * @return Map    */
 annotation|@
