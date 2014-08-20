@@ -3563,7 +3563,20 @@ argument_list|()
 operator|+
 literal|" threw unknown exception:"
 operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
 name|ex
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

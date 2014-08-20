@@ -483,6 +483,22 @@ name|ModifyRegionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ServerRegionReplicaUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handler to create a table.  */
 end_comment
@@ -1170,20 +1186,6 @@ block|{
 name|releaseTableLock
 argument_list|()
 expr_stmt|;
-name|String
-name|msg
-init|=
-name|exception
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|exception
-operator|.
-name|getMessage
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1199,7 +1201,8 @@ argument_list|()
 operator|+
 literal|", creation "
 operator|+
-name|msg
+operator|(
+name|exception
 operator|==
 literal|null
 condition|?
@@ -1207,7 +1210,8 @@ literal|"successful"
 else|:
 literal|"failed. "
 operator|+
-name|msg
+name|exception
+operator|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -1381,7 +1385,26 @@ argument_list|,
 name|regionInfos
 argument_list|)
 expr_stmt|;
-comment|// 6. Trigger immediate assignment of the regions in round-robin fashion
+comment|// 6. Setup replication for region replicas if needed
+if|if
+condition|(
+name|hTableDescriptor
+operator|.
+name|getRegionReplication
+argument_list|()
+operator|>
+literal|1
+condition|)
+block|{
+name|ServerRegionReplicaUtil
+operator|.
+name|setupRegionReplicaReplication
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+comment|// 7. Trigger immediate assignment of the regions in round-robin fashion
 name|ModifyRegionUtils
 operator|.
 name|assignRegions
@@ -1392,7 +1415,7 @@ name|regionInfos
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 6. Set table enabled flag up in zk.
+comment|// 8. Set table enabled flag up in zk.
 try|try
 block|{
 name|assignmentManager

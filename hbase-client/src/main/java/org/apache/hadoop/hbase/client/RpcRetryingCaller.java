@@ -223,6 +223,7 @@ parameter_list|<
 name|T
 parameter_list|>
 block|{
+specifier|public
 specifier|static
 specifier|final
 name|Log
