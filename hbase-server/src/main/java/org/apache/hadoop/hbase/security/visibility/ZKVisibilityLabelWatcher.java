@@ -208,8 +208,8 @@ init|=
 literal|"visibility/user_auths"
 decl_stmt|;
 specifier|private
-name|VisibilityLabelsManager
-name|labelsManager
+name|VisibilityLabelsCache
+name|labelsCache
 decl_stmt|;
 specifier|private
 name|String
@@ -225,8 +225,8 @@ parameter_list|(
 name|ZooKeeperWatcher
 name|watcher
 parameter_list|,
-name|VisibilityLabelsManager
-name|labelsManager
+name|VisibilityLabelsCache
+name|labelsCache
 parameter_list|,
 name|Configuration
 name|conf
@@ -239,9 +239,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|labelsManager
+name|labelsCache
 operator|=
-name|labelsManager
+name|labelsCache
 expr_stmt|;
 name|String
 name|labelZnodeParent
@@ -404,7 +404,7 @@ try|try
 block|{
 name|this
 operator|.
-name|labelsManager
+name|labelsCache
 operator|.
 name|refreshLabelsCache
 argument_list|(
@@ -444,7 +444,7 @@ try|try
 block|{
 name|this
 operator|.
-name|labelsManager
+name|labelsCache
 operator|.
 name|refreshUserAuthsCache
 argument_list|(

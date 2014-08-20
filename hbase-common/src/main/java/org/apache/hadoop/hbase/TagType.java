@@ -95,7 +95,7 @@ specifier|public
 specifier|static
 specifier|final
 name|byte
-name|VISIBILITY_EXP_SERIALIZATION_TAG_TYPE
+name|VISIBILITY_EXP_SERIALIZATION_FORMAT_TAG_TYPE
 init|=
 operator|(
 name|byte

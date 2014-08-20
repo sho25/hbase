@@ -45,6 +45,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -290,7 +300,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 block|{
 specifier|private
 specifier|static
@@ -302,10 +312,18 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|NON_EXIST_LABEL_ORDINAL
+init|=
+literal|0
 decl_stmt|;
 specifier|private
 specifier|static
@@ -316,18 +334,28 @@ name|String
 argument_list|>
 name|EMPTY_LIST
 init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|String
-argument_list|>
-argument_list|(
-literal|0
-argument_list|)
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|VisibilityLabelsManager
+specifier|final
+name|Set
+argument_list|<
+name|Integer
+argument_list|>
+name|EMPTY_SET
+init|=
+name|Collections
+operator|.
+name|emptySet
+argument_list|()
+decl_stmt|;
+specifier|private
+specifier|static
+name|VisibilityLabelsCache
 name|instance
 decl_stmt|;
 specifier|private
@@ -394,6 +422,7 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * This covers the members labels, ordinalVsLabels and userAuths    */
 specifier|private
 name|ReentrantReadWriteLock
 name|lock
@@ -403,7 +432,7 @@ name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
 specifier|private
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 parameter_list|(
 name|ZooKeeperWatcher
 name|watcher
@@ -458,11 +487,12 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Creates the singleton instance, if not yet present, and returns the same.    * @param watcher    * @param conf    * @return Singleton instance of VisibilityLabelsCache    * @throws IOException    */
 specifier|public
 specifier|synchronized
 specifier|static
-name|VisibilityLabelsManager
-name|get
+name|VisibilityLabelsCache
+name|createAndGet
 parameter_list|(
 name|ZooKeeperWatcher
 name|watcher
@@ -473,17 +503,32 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// VisibilityLabelService#init() for different regions (in same RS) passes same instance of
+comment|// watcher as all get the instance from RS.
+comment|// watcher != instance.zkVisibilityWatcher.getWatcher() - This check is needed only in UTs with
+comment|// RS restart. It will be same JVM in which RS restarts and instance will be not null. But the
+comment|// watcher associated with existing instance will be stale as the restarted RS will have new
+comment|// watcher with it.
 if|if
 condition|(
 name|instance
 operator|==
 literal|null
+operator|||
+name|watcher
+operator|!=
+name|instance
+operator|.
+name|zkVisibilityWatcher
+operator|.
+name|getWatcher
+argument_list|()
 condition|)
 block|{
 name|instance
 operator|=
 operator|new
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 argument_list|(
 name|watcher
 argument_list|,
@@ -495,12 +540,30 @@ return|return
 name|instance
 return|;
 block|}
+comment|/**    * @return Singleton instance of VisibilityLabelsCache    * @throws IllegalStateException    *           when this is called before calling    *           {@link #createAndGet(ZooKeeperWatcher, Configuration)}    */
 specifier|public
 specifier|static
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 name|get
 parameter_list|()
 block|{
+comment|// By the time this method is called, the singleton instance of VisibilityLabelsCache should
+comment|// have been created.
+if|if
+condition|(
+name|instance
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"VisibilityLabelsCache not yet instantiated"
+argument_list|)
+throw|;
+block|}
 return|return
 name|instance
 return|;
@@ -562,6 +625,16 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|labels
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|ordinalVsLabels
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|VisibilityLabel
@@ -680,6 +753,13 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|this
+operator|.
+name|userAuths
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|UserAuthorizations
@@ -744,7 +824,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param label    * @return The ordinal for the label. The ordinal starts from 1. Returns 0 when the passed a non    *         existing label.    */
+comment|/**    * @param label Not null label string    * @return The ordinal for the label. The ordinal starts from 1. Returns 0 when passed a non    *         existing label.    */
 specifier|public
 name|int
 name|getLabelOrdinal
@@ -809,9 +889,10 @@ return|;
 block|}
 comment|// 0 denotes not available
 return|return
-literal|0
+name|NON_EXIST_LABEL_ORDINAL
 return|;
 block|}
+comment|/**    * @param ordinal The ordinal of label which we are looking for.    * @return The label having the given ordinal. Returns<code>null</code> when no label exist in    *         the system with given ordinal    */
 specifier|public
 name|String
 name|getLabel
@@ -863,6 +944,18 @@ name|int
 name|getLabelsCount
 parameter_list|()
 block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 return|return
 name|this
 operator|.
@@ -872,7 +965,20 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * @param user    * @return The labels that the given user is authorized for.    */
+finally|finally
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 specifier|public
 name|List
 argument_list|<
@@ -978,7 +1084,7 @@ return|return
 name|auths
 return|;
 block|}
-comment|/**    * Returns the list of ordinals of authentications associated with the user    *    * @param user    * @return the list of ordinals    */
+comment|/**    * Returns the list of ordinals of authentications associated with the user    *    * @param user Not null value.    * @return the list of ordinals    */
 specifier|public
 name|Set
 argument_list|<
@@ -1002,13 +1108,29 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-return|return
+name|Set
+argument_list|<
+name|Integer
+argument_list|>
+name|auths
+init|=
 name|userAuths
 operator|.
 name|get
 argument_list|(
 name|user
 argument_list|)
+decl_stmt|;
+return|return
+operator|(
+name|auths
+operator|==
+literal|null
+operator|)
+condition|?
+name|EMPTY_SET
+else|:
+name|auths
 return|;
 block|}
 finally|finally
@@ -1025,7 +1147,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Writes the labels data to zookeeper node.    * @param data    * @param labelsOrUserAuths true for writing labels and false for user auths.    */
 specifier|public
 name|void
 name|writeToZookeeper

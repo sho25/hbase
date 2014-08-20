@@ -209,6 +209,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TagType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 operator|.
 name|Type
@@ -684,7 +698,7 @@ name|add
 argument_list|(
 name|VisibilityUtils
 operator|.
-name|VIS_SERIALIZATION_TAG
+name|SORTED_ORDINAL_SERIALIZATION_FORMAT_TAG
 argument_list|)
 expr_stmt|;
 if|if
@@ -716,7 +730,7 @@ argument_list|(
 operator|new
 name|Tag
 argument_list|(
-name|VisibilityUtils
+name|TagType
 operator|.
 name|VISIBILITY_TAG_TYPE
 argument_list|,
@@ -787,7 +801,7 @@ argument_list|(
 operator|new
 name|Tag
 argument_list|(
-name|VisibilityUtils
+name|TagType
 operator|.
 name|VISIBILITY_TAG_TYPE
 argument_list|,
@@ -833,7 +847,7 @@ argument_list|(
 operator|new
 name|Tag
 argument_list|(
-name|VisibilityUtils
+name|TagType
 operator|.
 name|VISIBILITY_TAG_TYPE
 argument_list|,

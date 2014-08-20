@@ -148,7 +148,7 @@ specifier|public
 specifier|static
 specifier|final
 name|byte
-name|VISIBILITY_SERIALIZATION_VERSION
+name|SORTED_ORDINAL_SERIALIZATION_FORMAT
 init|=
 literal|1
 decl_stmt|;
@@ -158,13 +158,13 @@ specifier|static
 specifier|final
 name|byte
 index|[]
-name|SORTED_ORDINAL_SERIALIZATION_FORMAT
+name|SORTED_ORDINAL_SERIALIZATION_FORMAT_TAG_VAL
 init|=
 operator|new
 name|byte
 index|[]
 block|{
-name|VISIBILITY_SERIALIZATION_VERSION
+name|SORTED_ORDINAL_SERIALIZATION_FORMAT
 block|}
 decl_stmt|;
 specifier|public

@@ -31,20 +31,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Base class for internal listeners of ZooKeeper events.  *  * The {@link ZooKeeperWatcher} for a process will execute the appropriate  * methods of implementations of this class.  In order to receive events from  * the watcher, every listener must register itself via {@link ZooKeeperWatcher#registerListener}.  *  * Subclasses need only override those methods in which they are interested.  *  * Note that the watcher will be blocked when invoking methods in listeners so  * they must not be long-running.  */
 end_comment
@@ -122,6 +108,18 @@ name|path
 parameter_list|)
 block|{
 comment|// no-op
+block|}
+comment|/**    * @return The watcher associated with this listener    */
+specifier|public
+name|ZooKeeperWatcher
+name|getWatcher
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|watcher
+return|;
 block|}
 block|}
 end_class

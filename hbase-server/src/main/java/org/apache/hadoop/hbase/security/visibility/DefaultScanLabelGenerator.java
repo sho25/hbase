@@ -146,8 +146,8 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|VisibilityLabelsManager
-name|labelsManager
+name|VisibilityLabelsCache
+name|labelsCache
 decl_stmt|;
 specifier|public
 name|DefaultScanLabelGenerator
@@ -155,9 +155,9 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|labelsManager
+name|labelsCache
 operator|=
-name|VisibilityLabelsManager
+name|VisibilityLabelsCache
 operator|.
 name|get
 argument_list|()
@@ -243,7 +243,7 @@ name|auths
 init|=
 name|this
 operator|.
-name|labelsManager
+name|labelsCache
 operator|.
 name|getAuths
 argument_list|(
