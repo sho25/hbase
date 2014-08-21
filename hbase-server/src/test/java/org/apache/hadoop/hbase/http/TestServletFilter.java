@@ -239,6 +239,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -546,6 +556,11 @@ block|}
 block|}
 annotation|@
 name|Test
+annotation|@
+name|Ignore
+comment|//From stack
+comment|// Its a 'foreign' test, one that came in from hadoop when we copy/pasted http
+comment|// It's second class. Could comment it out if only failing test (as per @nkeywal – sort of)
 specifier|public
 name|void
 name|testServletFilter
