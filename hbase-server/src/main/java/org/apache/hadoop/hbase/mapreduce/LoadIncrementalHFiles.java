@@ -1165,6 +1165,10 @@ specifier|private
 name|UserProvider
 name|userProvider
 decl_stmt|;
+specifier|private
+name|LoadIncrementalHFiles
+parameter_list|()
+block|{}
 specifier|public
 name|LoadIncrementalHFiles
 parameter_list|(
@@ -1179,6 +1183,24 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|initialize
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|initialize
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+if|if
+condition|(
+name|hbAdmin
+operator|==
+literal|null
+condition|)
+block|{
 comment|// make a copy, just to be sure we're not overriding someone else's config
 name|setConf
 argument_list|(
@@ -1191,9 +1213,14 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// disable blockcache for tool invocation, see HBASE-10500
+name|Configuration
+name|conf
+init|=
 name|getConf
 argument_list|()
+decl_stmt|;
+comment|// disable blockcache for tool invocation, see HBASE-10500
+name|conf
 operator|.
 name|setFloat
 argument_list|(
@@ -1259,6 +1286,7 @@ argument_list|,
 literal|32
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
@@ -5498,6 +5526,9 @@ operator|-
 literal|1
 return|;
 block|}
+name|initialize
+argument_list|()
+expr_stmt|;
 name|String
 name|dirPath
 init|=
@@ -5602,11 +5633,11 @@ name|ToolRunner
 operator|.
 name|run
 argument_list|(
+name|conf
+argument_list|,
 operator|new
 name|LoadIncrementalHFiles
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 argument_list|,
 name|args
 argument_list|)
