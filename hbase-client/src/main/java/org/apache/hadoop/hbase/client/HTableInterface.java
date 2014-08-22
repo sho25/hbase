@@ -774,11 +774,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the    * table region containing the specified row.  The row given does not actually have    * to exist.  Whichever region would contain the row based on start and end keys will    * be used.  Note that the {@code row} parameter is also not passed to the    * coprocessor handler registered for this protocol, unless the {@code row}    * is separately passed as an argument in the service request.  The parameter    * here is only used to locate the region used to handle the call.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myTable.coprocessorService(rowkey);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param row The row key used to identify the remote region location    * @return A CoprocessorRpcChannel instance    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-comment|// TODO add coproc audience level
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|(
@@ -788,18 +783,13 @@ name|row
 parameter_list|)
 function_decl|;
 comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive),    * and invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call}    * method with each {@link Service}    * instance.    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    *                 selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row.    *               If {@code null}, selection will continue through the last table region.    * @param callable this instance's    *                 {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call}    *                 method will be invoked once per table region, using the {@link Service}    *                 instance connected to that region.    * @param<T> the {@link Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * @return a map of result values keyed by region name    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-comment|// TODO add coproc audience level
-argument_list|<
+parameter_list|<
 name|T
 extends|extends
 name|Service
-argument_list|,
+parameter_list|,
 name|R
-argument_list|>
+parameter_list|>
 name|Map
 argument_list|<
 name|byte
@@ -841,18 +831,13 @@ throws|,
 name|Throwable
 function_decl|;
 comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive),    * and invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call}    * method with each {@link Service} instance.    *    *<p>    * The given    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[], byte[], Object)}    * method will be called with the return value from each region's    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} invocation.    *</p>    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    *                 selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row.    *               If {@code null}, selection will continue through the last table region.    * @param callable this instance's    *                 {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    *                 will be invoked once per table region, using the {@link Service} instance    *                 connected to that region.    * @param callback    * @param<T> the {@link Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-comment|// TODO add coproc audience level
-argument_list|<
+parameter_list|<
 name|T
 extends|extends
 name|Service
-argument_list|,
+parameter_list|,
 name|R
-argument_list|>
+parameter_list|>
 name|void
 name|coprocessorService
 parameter_list|(
@@ -943,15 +928,11 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *     * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param<R>    *          the response type for the coprocessor Service method    * @throws ServiceException    * @throws Throwable    * @return a map of result values keyed by region name    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-argument_list|<
+parameter_list|<
 name|R
 extends|extends
 name|Message
-argument_list|>
+parameter_list|>
 name|Map
 argument_list|<
 name|byte
@@ -986,15 +967,11 @@ throws|,
 name|Throwable
 function_decl|;
 comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *     *<p>    * The given    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[],byte[],Object)}    * method will be called with the return value from each region's invocation.    *</p>    *     * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param callback    *          callback to invoke with the response for each region    * @param<R>    *          the response type for the coprocessor Service method    * @throws ServiceException    * @throws Throwable    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-argument_list|<
+parameter_list|<
 name|R
 extends|extends
 name|Message
-argument_list|>
+parameter_list|>
 name|void
 name|batchCoprocessorService
 parameter_list|(

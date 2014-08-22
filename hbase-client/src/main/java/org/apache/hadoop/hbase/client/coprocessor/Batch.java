@@ -21,11 +21,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -39,7 +43,17 @@ name|hadoop
 operator|.
 name|classification
 operator|.
-name|InterfaceAudience
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
 import|;
 end_import
 
@@ -51,13 +65,17 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Stable
 specifier|public
 specifier|abstract
 class|class
 name|Batch
 block|{
-comment|/**    * Defines a unit of work to be executed.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementations {@link Batch.Call#call(Object)} method will be invoked    * with a proxy to the    * {@link org.apache.hadoop.hbase.coprocessor.CoprocessorService}    * sub-type instance.    *</p>    * @see org.apache.hadoop.hbase.client.coprocessor    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    * @param<T> the instance type to be passed to    * {@link Batch.Call#call(Object)}    * @param<R> the return type from {@link Batch.Call#call(Object)}    */
+comment|/**    * Defines a unit of work to be executed.    *    *<p>    * When used with    * {@link org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)}    * the implementations {@link Batch.Call#call(Object)} method will be invoked    * with a proxy to each region's coprocessor {@link com.google.protobuf.Service} implementation.    *</p>    * @see org.apache.hadoop.hbase.client.coprocessor    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(byte[])    * @see org.apache.hadoop.hbase.client.HTable#coprocessorService(Class, byte[], byte[], org.apache.hadoop.hbase.client.coprocessor.Batch.Call)    * @param<T> the instance type to be passed to    * {@link Batch.Call#call(Object)}    * @param<R> the return type from {@link Batch.Call#call(Object)}    */
 specifier|public
 interface|interface
 name|Call
