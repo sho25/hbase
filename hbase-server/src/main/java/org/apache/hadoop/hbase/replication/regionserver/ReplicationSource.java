@@ -2025,6 +2025,20 @@ name|sleepMultiplier
 operator|=
 literal|1
 expr_stmt|;
+comment|// if there was nothing to ship and it's not an error
+comment|// set "ageOfLastShippedOp" to<now> to indicate that we're current
+name|this
+operator|.
+name|metrics
+operator|.
+name|setAgeOfLastShippedOp
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(
