@@ -249,16 +249,11 @@ name|jvmMetricsSource
 operator|=
 name|JvmMetrics
 operator|.
-name|create
+name|initSingleton
 argument_list|(
 name|name
 argument_list|,
 literal|""
-argument_list|,
-name|DefaultMetricsSystem
-operator|.
-name|instance
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
