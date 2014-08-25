@@ -618,7 +618,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -645,7 +645,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -691,7 +691,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"default"
+literal|"B.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -714,7 +714,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"default"
+literal|"B.default"
 argument_list|,
 name|handlerCount
 argument_list|,

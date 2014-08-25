@@ -855,7 +855,7 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// regardless if succesful or not we need to reset the callQueueSize
+comment|// regardless if successful or not we need to reset the callQueueSize
 name|this
 operator|.
 name|rpcServer

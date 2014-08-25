@@ -1192,6 +1192,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
 if|if
 condition|(
 name|this
@@ -1247,10 +1252,7 @@ name|cellScanner
 operator|=
 literal|null
 expr_stmt|;
-return|return
-name|advance
-argument_list|()
-return|;
+block|}
 block|}
 block|}
 return|;
@@ -1562,6 +1564,11 @@ name|boolean
 name|advance
 parameter_list|()
 block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
 if|if
 condition|(
 name|this
@@ -1639,10 +1646,7 @@ name|currentIterator
 operator|=
 literal|null
 expr_stmt|;
-return|return
-name|advance
-argument_list|()
-return|;
+block|}
 block|}
 block|}
 return|;
