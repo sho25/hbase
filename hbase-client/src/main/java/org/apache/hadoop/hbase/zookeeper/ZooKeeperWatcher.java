@@ -1131,6 +1131,8 @@ parameter_list|()
 throws|throws
 name|IOException
 throws|,
+name|KeeperException
+throws|,
 name|InterruptedException
 block|{
 name|recoverableZooKeeper
@@ -1571,6 +1573,8 @@ parameter_list|(
 name|String
 name|path
 parameter_list|)
+throws|throws
+name|KeeperException
 block|{
 name|this
 operator|.
