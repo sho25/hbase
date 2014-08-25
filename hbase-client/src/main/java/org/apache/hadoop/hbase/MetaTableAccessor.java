@@ -353,6 +353,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -5868,6 +5884,16 @@ name|int
 name|replicaId
 parameter_list|)
 block|{
+comment|// using regionserver's local time as the timestamp of Put.
+comment|// See: HBASE-11536
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|p
 operator|.
 name|addImmutable
@@ -5880,6 +5906,8 @@ name|getServerColumn
 argument_list|(
 name|replicaId
 argument_list|)
+argument_list|,
+name|now
 argument_list|,
 name|Bytes
 operator|.
@@ -5905,6 +5933,8 @@ argument_list|(
 name|replicaId
 argument_list|)
 argument_list|,
+name|now
+argument_list|,
 name|Bytes
 operator|.
 name|toBytes
@@ -5928,6 +5958,8 @@ name|getSeqNumColumn
 argument_list|(
 name|replicaId
 argument_list|)
+argument_list|,
+name|now
 argument_list|,
 name|Bytes
 operator|.
