@@ -581,6 +581,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -682,20 +696,6 @@ operator|.
 name|HConstants
 operator|.
 name|OperationStatusCode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CellScanner
 import|;
 end_import
 
@@ -1445,7 +1445,9 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|RegionEventDescriptor
+name|FlushDescriptor
+operator|.
+name|FlushAction
 import|;
 end_import
 
@@ -1465,9 +1467,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|FlushDescriptor
-operator|.
-name|FlushAction
+name|RegionEventDescriptor
 import|;
 end_import
 
@@ -7950,6 +7950,13 @@ condition|)
 block|{
 comment|// Take an update lock because am about to change the sequence id and we want the sequence id
 comment|// to be at the border of the empty memstore.
+name|MultiVersionConsistencyControl
+operator|.
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 name|this
 operator|.
 name|updatesLock
@@ -7980,11 +7987,33 @@ comment|// edits in the WAL system. Up the sequence number so the resulting flus
 comment|// sure just beyond the last appended region edit (useful as a marker when bulk loading,
 comment|// etc.)
 comment|// wal can be null replaying edits.
-return|return
+try|try
+block|{
+if|if
+condition|(
 name|wal
 operator|!=
 literal|null
-condition|?
+condition|)
+block|{
+name|w
+operator|=
+name|mvcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+expr_stmt|;
+name|long
+name|flushSeqId
+init|=
+name|getNextSequenceId
+argument_list|(
+name|wal
+argument_list|)
+decl_stmt|;
+name|FlushResult
+name|flushResult
+init|=
 operator|new
 name|FlushResult
 argument_list|(
@@ -7994,14 +8023,36 @@ name|Result
 operator|.
 name|CANNOT_FLUSH_MEMSTORE_EMPTY
 argument_list|,
-name|getNextSequenceId
-argument_list|(
-name|wal
-argument_list|)
+name|flushSeqId
 argument_list|,
 literal|"Nothing to flush"
 argument_list|)
-else|:
+decl_stmt|;
+name|w
+operator|.
+name|setWriteNumber
+argument_list|(
+name|flushSeqId
+argument_list|)
+expr_stmt|;
+name|mvcc
+operator|.
+name|waitForPreviousTransactionsComplete
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+name|w
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|flushResult
+return|;
+block|}
+else|else
+block|{
+return|return
 operator|new
 name|FlushResult
 argument_list|(
@@ -8028,6 +8079,26 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+block|{
+name|mvcc
+operator|.
+name|advanceMemstore
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 name|LOG
@@ -8575,6 +8646,13 @@ comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
 comment|// We have to block before we start the flush, otherwise keys that
 comment|// were removed via a rollbackMemstore could be written to Hfiles.
+name|w
+operator|.
+name|setWriteNumber
+argument_list|(
+name|flushSeqId
+argument_list|)
+expr_stmt|;
 name|mvcc
 operator|.
 name|waitForPreviousTransactionsComplete

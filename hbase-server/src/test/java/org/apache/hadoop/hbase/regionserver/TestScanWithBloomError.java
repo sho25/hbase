@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -446,18 +470,6 @@ operator|.
 name|Parameterized
 operator|.
 name|Parameters
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
 import|;
 end_import
 
@@ -972,7 +984,7 @@ name|p1
 init|=
 name|s1
 operator|.
-name|getReaderForTesting
+name|getReader
 argument_list|()
 operator|.
 name|getHFileReader
@@ -986,7 +998,7 @@ name|p2
 init|=
 name|s2
 operator|.
-name|getReaderForTesting
+name|getReader
 argument_list|()
 operator|.
 name|getHFileReader
@@ -1079,7 +1091,7 @@ name|lastStoreFileReader
 operator|=
 name|sfScanner
 operator|.
-name|getReaderForTesting
+name|getReader
 argument_list|()
 expr_stmt|;
 operator|new
