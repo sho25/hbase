@@ -658,6 +658,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * Retrieve an instance of ServerName.    * Callers should use the equals method to compare returned instances, though we may return    * a shared immutable object as an internal optimization.    */
 specifier|public
 specifier|static
 name|ServerName
@@ -688,6 +689,7 @@ name|startcode
 argument_list|)
 return|;
 block|}
+comment|/**    * Retrieve an instance of ServerName.    * Callers should use the equals method to compare returned instances, though we may return    * a shared immutable object as an internal optimization.    */
 specifier|public
 specifier|static
 name|ServerName
@@ -706,6 +708,7 @@ name|serverName
 argument_list|)
 return|;
 block|}
+comment|/**    * Retrieve an instance of ServerName.    * Callers should use the equals method to compare returned instances, though we may return    * a shared immutable object as an internal optimization.    */
 specifier|public
 specifier|static
 name|ServerName
