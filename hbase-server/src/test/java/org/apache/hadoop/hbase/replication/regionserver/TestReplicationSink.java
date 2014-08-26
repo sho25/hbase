@@ -749,7 +749,7 @@ name|table1
 operator|=
 name|TEST_UTIL
 operator|.
-name|truncateTable
+name|deleteTableData
 argument_list|(
 name|TABLE_NAME1
 argument_list|)
@@ -758,7 +758,7 @@ name|table2
 operator|=
 name|TEST_UTIL
 operator|.
-name|truncateTable
+name|deleteTableData
 argument_list|(
 name|TABLE_NAME2
 argument_list|)

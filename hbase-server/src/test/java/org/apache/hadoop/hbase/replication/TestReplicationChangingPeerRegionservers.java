@@ -383,13 +383,13 @@ expr_stmt|;
 block|}
 name|utility1
 operator|.
-name|truncateTable
+name|deleteTableData
 argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
 comment|// truncating the table will send one Delete per row to the slave cluster
-comment|// in an async fashion, which is why we cannot just call truncateTable on
+comment|// in an async fashion, which is why we cannot just call deleteTableData on
 comment|// utility2 since late writes could make it to the slave in some way.
 comment|// Instead, we truncate the first table and wait for all the Deletes to
 comment|// make it to the slave.
