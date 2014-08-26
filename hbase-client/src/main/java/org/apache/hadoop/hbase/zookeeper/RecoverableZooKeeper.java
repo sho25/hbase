@@ -650,7 +650,7 @@ name|SecureRandom
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Try to create a Zookeeper connection. Turns any exception encountered into a    * {@link KeeperException.OperationTimeoutException} so it can retried.    * @return The created Zookeeper connection object    * @throws KeeperException    */
+comment|/**    * Try to create a Zookeeper connection. Turns any exception encountered into a    * KeeperException.OperationTimeoutException so it can retried.    * @return The created Zookeeper connection object    * @throws KeeperException    */
 specifier|protected
 name|ZooKeeper
 name|checkZk
@@ -686,8 +686,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
-name|uhe
+name|IOException
+name|ex
 parameter_list|)
 block|{
 name|LOG
@@ -696,7 +696,7 @@ name|warn
 argument_list|(
 literal|"Unable to create ZooKeeper Connection"
 argument_list|,
-name|uhe
+name|ex
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -753,6 +753,11 @@ name|zk
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+comment|// reset the Zookeeper connection
+name|zk
+operator|=
+literal|null
 expr_stmt|;
 block|}
 name|checkZk
